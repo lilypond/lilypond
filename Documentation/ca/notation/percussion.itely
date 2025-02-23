@@ -13,12 +13,9 @@
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
 
+@need 1500
 @node Percussion
 @section Percussió
-
-@menu
-* Common notation for percussion::
-@end menu
 
 
 @node Common notation for percussion
@@ -27,16 +24,6 @@
 La notació rítmica es fa servir principalment per a la percussió i
 la bateria, però també es pot utilitzar per mostrar els valors
 rítmics d'una melodia.
-
-@menu
-* References for percussion::
-* Basic percussion notation::
-* Drum rolls::
-* Pitched percussion::
-* Percussion staves::
-* Custom percussion staves::
-* Ghost notes::
-@end menu
 
 
 @node References for percussion

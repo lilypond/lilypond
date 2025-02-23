@@ -33,13 +33,6 @@ Aquest capítol explica com crear boniques partitures que
 continguin notació musical comú, com a continuació al material que
 està al @ref{Tutorial}.
 
-@menu
-* Single staff notation::
-* Multiple notes at once::
-* Songs::
-* Final touches::
-@end menu
-
 
 @node Single staff notation
 @section Notació en un sol pentagrama
@@ -47,24 +40,11 @@ està al @ref{Tutorial}.
 Aquesta secció presenta la notació comú que s'utilitza per a
 música a una veu sobre un pentagrama únic.
 
-@menu
-* Bar lines and bar checks::
-* Pitches and key signatures::
-* Ties and slurs::
-* Articulation and dynamics::
-* Adding text::
-* Automatic and manual beams::
-* Advanced rhythmic commands::
-@end menu
 
-
+@need 1500
 @node Bar lines and bar checks
 @subsection Línies divisòries i comprovacions de compàs
 
-@menu
-* Bar lines::
-* Bar checks::
-@end menu
 
 @node Bar lines
 @unnumberedsubsubsec Línies divisòries
@@ -120,12 +100,6 @@ Referència de la notació:
 
 @node Pitches and key signatures
 @subsection Alteracions accidentals i armadures
-
-@menu
-* Accidentals::
-* Key signatures::
-* Warning key signatures and pitches::
-@end menu
 
 @warning{Freqüentment els nous usuaris es confonen amb les
 alteracions accidentals: us preguem que llegeixi l'advertiment que
@@ -279,6 +253,8 @@ Referència de la notació:
 @rnotationnamed{Automatic accidentals, Alteracions accidentals automàtiques},
 @rnotationnamed{Key signature, Armadura de la tonalitat}.
 
+
+@need 1500
 @node Ties and slurs
 @subsection Lligadures d'unió i d'expressió
 
@@ -291,12 +267,6 @@ Referència de la notació:
 @funindex ( ... )
 @funindex \( ... \)
 
-@menu
-* Ties::
-* Slurs::
-* Phrasing slurs::
-* Warnings slurs vs ties::
-@end menu
 
 @node Ties
 @unnumberedsubsubsec Lligadures d'unió
@@ -377,11 +347,6 @@ Referència de la notació:
 @node Articulation and dynamics
 @subsection Articulacions i matisos dinàmics
 
-@menu
-* Articulations::
-* Fingerings::
-* Dynamics::
-@end menu
 
 @node Articulations
 @unnumberedsubsubsec Articulacions
@@ -563,14 +528,11 @@ Referència de la notació:
 @rnotationnamed{Automatic beams, Barres automàtiques},
 @rnotationnamed{Manual beams, Barres manuals}.
 
+
+@need 1500
 @node Advanced rhythmic commands
 @subsection Instruccions rítmiques avançades
 
-@menu
-* Partial measure::
-* Tuplets::
-* Grace notes::
-@end menu
 
 @node Partial measure
 @unnumberedsubsubsec Compàs parcial
@@ -671,14 +633,6 @@ més d'una veu en un moment determinat dins d'una peça musical. La
 paraula @qq{polifonia} al LilyPond es refereix al fet de tenir més
 d'una veu al mateix pentagrama.
 
-@menu
-* Music expressions explained::
-* Multiple staves::
-* Staff groups::
-* Combining notes into chords::
-* Single staff polyphony::
-@end menu
-
 
 @node Music expressions explained
 @subsection Explicació de les expressions musicals
@@ -687,12 +641,6 @@ d'una veu al mateix pentagrama.
 @cindex expressió musical
 @cindex composta, expressió musical
 @cindex musical, expressió, composta
-
-@menu
-* Analogy mathematical expressions::
-* Simultaneous music expressions multiple staves::
-* Simultaneous music expressions single staff::
-@end menu
 
 Als fitxers d'entrada del LilyPond,  la música es representa
 mitjançant @emph{expressions musicals}.  Una sola nota és una
@@ -1014,12 +962,6 @@ Referència de la notació:
 En aquesta secció presentem com elaborar música vocal i fulls
 senzilles de cançó.
 
-@menu
-* Setting simple songs::
-* Aligning lyrics to a melody::
-* Lyrics to multiple staves::
-@end menu
-
 
 @node Setting simple songs
 @subsection Elaborar cançons senzilles
@@ -1306,13 +1248,6 @@ Referència de la notació:
 Aquest és l'últim apartat del tutorial; mostra la forma de donar
 els retocs finals a peces senzilles, i ofereix una introducció a
 la resta del manual.
-
-@menu
-* Organizing pieces with variables::
-* Adding titles::
-* Absolute note names::
-* After the tutorial::
-@end menu
 
 
 @node Organizing pieces with variables

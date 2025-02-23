@@ -26,30 +26,12 @@ que són exclusius dels instruments de corda amb trasts.
 @cindex tabulatura de banjo
 @cindex banjo, tabulatura de
 
-@menu
-* Common notation for fretted strings::
-* Guitar::
-* Banjo::
-* Lute::
-@end menu
-
 
 @node Common notation for fretted strings
 @subsection Notació comuna per a cordes amb trasts
 
 Aquesta secció s'ocupa de la notació comuna exclusiva dels
 instruments de corda amb trasts.
-
-@menu
-* References for fretted strings::
-* String number indications::
-* Default tablatures::
-* Custom tablatures::
-* Fret diagram markups::
-* Predefined fret diagrams::
-* Automatic fret diagrams::
-* Right-hand fingerings::
-@end menu
 
 
 @node References for fretted strings
@@ -1794,12 +1776,6 @@ recomana per a document que no tinguin notació musical.  Una
 alternativa millor és un processador de text, editor de text o,
 per usuaris amb experiència, un gravador com ara GuitarTeX.
 
-@menu
-* Indicating position and barring::
-* Indicating harmonics and dampened notes::
-* Indicating power chords::
-@end menu
-
 
 @node Indicating position and barring
 @unnumberedsubsubsec Indicació de la posició i la celleta
@@ -1990,12 +1966,9 @@ Fragments de codi:
 @rlsr{Fretted strings}.
 
 
+@need 1500
 @node Banjo
 @subsection Banjo
-
-@menu
-* Banjo tablatures::
-@end menu
 
 
 @node Banjo tablatures
@@ -2060,12 +2033,10 @@ Fragments de codi:
 @rlsr{Fretted strings}.
 
 
+@need 1500
 @node Lute
 @subsection Laud
 
-@menu
-* Lute tablatures::
-@end menu
 
 @node Lute tablatures
 @unnumberedsubsubsec Tabulatures de laud

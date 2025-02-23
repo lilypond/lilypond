@@ -23,12 +23,6 @@ algunes convencions europees tradicionals de nomenclatura
 d'acords.  També es poden imprimir els noms dels acords.  A més a
 més es pot imprimir notació de baix xifrat.
 
-@menu
-* Chord mode::
-* Displaying chords::
-* Figured bass::
-@end menu
-
 
 @node Chord mode
 @subsection Mode d'acords
@@ -38,12 +32,6 @@ més es pot imprimir notació de baix xifrat.
 Per introduir acords s'utilitza el mode d'acords.  S'usa un
 indicador de l'estructura de l'acord enlloc de l'alçada de les
 seves notes.
-
-@menu
-* Chord mode overview::
-* Common chords::
-* Extended and altered chords::
-@end menu
 
 
 @node Chord mode overview
@@ -403,11 +391,6 @@ s'interpreta en últim lloc.
 
 Els acords es poden imprimir pel seu nom, a més de la impressió
 estàndard com a notes sobre un pentagrama.
-
-@menu
-* Printing chord names::
-* Customizing chord names::
-@end menu
 
 
 @node Printing chord names
@@ -798,12 +781,6 @@ myChords = \relative c' {
 {snippets/figured-bass-headword.ly}
 
 Es pot imprimir notació de baix xifrat.
-
-@menu
-* Introduction to figured bass::
-* Entering figured bass::
-* Displaying figured bass::
-@end menu
 
 
 @node Introduction to figured bass

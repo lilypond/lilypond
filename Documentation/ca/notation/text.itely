@@ -26,11 +26,6 @@ d'altres secciones específiques:
 @ref{Vocal music},
 @ref{Titles and headers}.
 
-@menu
-* Writing text::
-* Formatting text::
-* Fonts::
-@end menu
 
 @node Writing text
 @subsection Escriptura del text
@@ -44,13 +39,6 @@ partitura.
 els caràcters directament al fitxer del LilyPond.  El fitxer s'ha
 de desar com a UTF-8.  Per veure més informació, consulteu
 @ref{Text encoding}.}
-
-@menu
-* Text scripts::
-* Text spanners::
-* Text marks::
-* Separate text::
-@end menu
 
 
 @node Text scripts
@@ -404,14 +392,6 @@ Referència de funcionament intern:
 Aquesta secció presenta els formats bàsics i avançats de text,
 usant la sintaxi específica del modo de @code{\markup}.
 
-@menu
-* Text markup introduction::
-* Selecting font and font size::
-* Text alignment::
-* Graphic notation inside markup::
-* Music notation inside markup::
-* Multi-page markup::
-@end menu
 
 @node Text markup introduction
 @unnumberedsubsubsec Introducció al marcatge de text
@@ -1366,12 +1346,6 @@ Referència de funcionament intern:
 
 Aquesta secció presenta la forma en la qual es gestionen els
 tipus de lletra, i com es poden canviar a les partitures.
-
-@menu
-* Fonts explained::
-* Single entry fonts::
-* Entire document fonts::
-@end menu
 
 
 @node Fonts explained

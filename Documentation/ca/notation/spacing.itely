@@ -61,30 +61,12 @@ ajustaments de disposició de la partitura, com el nombre de
 sistemes a utilitzar, o la separació entre grups de pentagrama,
 etc. Vegeu @ref{Page layout}.
 
-@menu
-* Page layout::
-* Score layout::
-* Breaks::
-* Vertical spacing::
-* Horizontal spacing::
-* Fitting music onto fewer pages::
-@end menu
-
 
 @node Page layout
 @section Disposició de la pàgina
 
 Aquesta secció estudia les opcions de disposició de la pàgina per
 al bloc @code{\paper}.
-
-@menu
-* The paper block::
-* Paper size and automatic scaling::
-* Fixed vertical spacing paper variables::
-* Flexible vertical spacing paper variables::
-* Horizontal spacing paper variables::
-* Other paper variables::
-@end menu
 
 
 @node The paper block
@@ -199,6 +181,7 @@ Fitxers instal·lats:
 @file{ly/paper-defaults-init.ly}.
 
 
+@need 1500
 @node Paper size and automatic scaling
 @subsection Mida del paper i escalat automàtic
 
@@ -206,11 +189,6 @@ Fitxers instal·lats:
 @cindex mida de la pàgina
 
 @funindex \paper
-
-@menu
-* Setting paper size::
-* Automatic scaling to paper size::
-@end menu
 
 
 @node Setting paper size
@@ -445,10 +423,6 @@ s'escriuen normalment dins d'un bloc @code{\score} o
 @code{\layout}, i no dins del bloc @code{\paper}.  Vegeu
 @ref{Flexible vertical spacing within systems}.
 
-@menu
-* Structure of flexible vertical spacing alists::
-* List of flexible vertical spacing paper variables::
-@end menu
 
 @node Structure of flexible vertical spacing alists
 @unnumberedsubsubsec Estructura de les listes-A d'espaiat vertical flexible
@@ -644,12 +618,6 @@ Fragments de codi:
 automàticament a la mida del paper, cosa que pot causar un
 comportament diferent a l'esperat. Vegeu
 @ref{Automatic scaling to paper size}.}
-
-@menu
-* paper variables for widths and margins::
-* paper variables for two-sided mode::
-* paper variables for shifts and indents::
-@end menu
 
 
 @node paper variables for widths and margins
@@ -891,15 +859,9 @@ Fragments de codi:
 @rlsr{Spacing}.
 
 
+@need 1500
 @node Other paper variables
 @subsection Altres variables de @code{\paper}
-
-@menu
-* paper variables for line breaking::
-* paper variables for page breaking::
-* paper variables for page numbering::
-* Miscellaneous paper variables::
-@end menu
 
 
 @node paper variables for line breaking
@@ -1175,11 +1137,6 @@ línia.
 
 Aquesta secció presenta les opcions de disposició de la partitura
 per al bloc @code{\layout}.
-
-@menu
-* The layout block::
-* Setting the staff size::
-@end menu
 
 
 @node The layout block
@@ -1479,13 +1436,9 @@ Fragments de codi:
 @code{layout-set-staff-size} no canvia la distància entres les línies del pentagrama.
 
 
+@need 1500
 @node Breaks
 @section Salts
-
-@menu
-* Line breaking::
-* Page breaking::
-@end menu
 
 
 @node Line breaking
@@ -1663,16 +1616,6 @@ música.
 
 Aquesta secció descriu els diferents mètodes per crear salts de
 pàgina, i com modificar-los.
-
-@menu
-* Manual page breaking::
-* Optimal page breaking::
-* Minimal page breaking::
-* One-page page breakingp::
-* One-line page breaking::
-* One-line-auto-height page breaking::
-* Optimal page turning::
-@end menu
 
 
 @node Manual page breaking
@@ -2003,12 +1946,6 @@ d'espai disponible (és a dir, la mida del paper i els marges), la
 separació entre els sistemes, i la separació entre els pentagrames
 dins d'un sistema.
 
-@menu
-* Flexible vertical spacing within systems::
-* Explicit staff and system positioning::
-* Vertical collision avoidance::
-@end menu
-
 
 @node Flexible vertical spacing within systems
 @subsection Espaiat vertical flexible dins dels sistemes
@@ -2050,13 +1987,6 @@ no són pautes dins dels sistemes individuals.  L'espaiat vertical
 entre diferents sistemes, partitures, marcatges i marges es
 controla mitjançant variables de @code{\paper} que s'estudien a
 @ref{Flexible vertical spacing paper variables}.
-
-@menu
-* Within-system spacing properties::
-* Spacing of ungrouped staves::
-* Spacing of grouped staves::
-* Spacing of non-staff lines::
-@end menu
 
 
 @node Within-system spacing properties
@@ -2948,19 +2878,12 @@ Fragments de codi:
 @rlsr{Spacing}.
 
 
+@need 1500
 @node Horizontal spacing
 @section Espaiat horitzontal
 
 @cindex horitzontal, espaiat
 @cindex espaiat horitzontal
-
-@menu
-* Horizontal spacing overview::
-* New spacing section::
-* Changing horizontal spacing::
-* Line width::
-* Proportional notation::
-@end menu
 
 
 @node Horizontal spacing overview
@@ -3655,11 +3578,6 @@ En investigar els problemes de disposició, una eina de valor
 incalculable és @code{annotate-spacing}.  Aquesta ordre imprimeix
 els valors d'un cert nombre de variables d'espaiat; per veure els
 detalls consulteu la secció següent, @ref{Displaying spacing}.
-
-@menu
-* Displaying spacing::
-* Changing spacing::
-@end menu
 
 
 @node Displaying spacing

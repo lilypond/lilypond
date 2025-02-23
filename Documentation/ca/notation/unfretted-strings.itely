@@ -27,9 +27,6 @@ Aquesta secció aporta informació i referències que resulten útils
 si s'escriu música per a instruments de cords sense trasts,
 principalment instruments de corda orquestrals.
 
-@menu
-* Common notation for unfretted strings::
-@end menu
 
 @node Common notation for unfretted strings
 @subsection Notació comuna per a cordes sense trasts
@@ -39,12 +36,6 @@ sense trasts.  La notació de la música es realitza en un sol
 pentagrama, i se sol usar una sola veu.  Poden caldre dues veus
 per a alguns passatges a dobles cordes o en divisi.
 
-@menu
-* References for unfretted strings::
-* Bowing indications::
-* Harmonics::
-* Snap (Bartok) pizzicato::
-@end menu
 
 @node References for unfretted strings
 @unnumberedsubsubsec Referències per a cordes sense trasts

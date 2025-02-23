@@ -27,14 +27,6 @@ ja no és compatible amb els fitxers d'entrada antics.  Per posar
 remei a això es pot utilitzar el programa @command{convert-ly} per
 actualitzar fitxers a versions més noves del LilyPond.
 
-@menu
-* Why does the syntax change?::
-* Invoking convert-ly::
-* Command line options for convert-ly::
-* Problems running convert-ly::
-* Manual conversions::
-@end menu
-
 
 @node Why does the syntax change?
 @section Perquè canvia la sintaxi?

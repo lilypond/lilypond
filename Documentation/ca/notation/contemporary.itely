@@ -24,27 +24,12 @@ expansió paral·leles de la notació musical.  L'objectiu d'aquesta
 secció es proporcionar referències i informació rellevant per al
 treball amb aquestes noves tècniques de notació.
 
-@menu
-* Pitch and harmony in contemporary music::
-* Contemporary approaches to rhythm::
-* Graphical notation::
-* Contemporary scoring techniques::
-* New instrumental techniques::
-* Further reading and scores of interest::
-@end menu
-
 
 @node Pitch and harmony in contemporary music
 @subsection Alçada i harmonia en la música contemporània
 
 Aquesta secció destaca els problemes de la notació de les
 tonalitats i l'harmonia en la música contemporània.
-
-@menu
-* References for pitch and harmony in contemporary music::
-* Microtonal notation::
-* Contemporary key signatures and harmony::
-@end menu
 
 
 @node References for pitch and harmony in contemporary music
@@ -86,15 +71,6 @@ notations (arrows, slash-flats), etc.
 
 Aquesta secció tracta dels problemes de la notació de les
 duracions a la música contemporània.
-
-@menu
-* References for contemporary approaches to rhythm::
-* Tuplets in contemporary music::
-* Contemporary time signatures::
-* Extended polymetric notation::
-* Beams in contemporary music::
-* Bar lines in contemporary music::
-@end menu
 
 
 @node References for contemporary approaches to rhythm
@@ -187,11 +163,6 @@ estan sols entre els pentagrames) s'estudien a
 
 Aquesta secció suggereix llibres, exemples musicals i altres
 recursos d'utilitat a l'estudi de la notació musical contemporània.
-
-@menu
-* Books and articles on contemporary musical notation::
-* Scores and musical examples::
-@end menu
 
 
 @node Books and articles on contemporary musical notation

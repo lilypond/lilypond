@@ -22,34 +22,12 @@ Aquesta secció explica com gravar música vocal, i com assegurar-se
 que la lletra s'alinea amb les notes de la seva melodia
 corresponent.
 
-@menu
-* Common notation for vocal music::
-* Techniques specific to lyrics::
-* Stanzas::
-* Songs::
-* Choral::
-* Opera and stage musicals::
-* Chants psalms and hymns::
-* Ancient vocal music::
-@end menu
-
 
 @node Common notation for vocal music
 @subsection Notació comuna per a música vocal
 
 Aquesta secció s'ocupa de les qüestions comunes a la major part
 dels tipus de música vocal.
-
-@menu
-* References for vocal music::
-* Entering lyrics::
-* Aligning lyrics to a melody::
-* Automatic syllable durations::
-* Manual syllable durations::
-* Multiple syllables to one note::
-* Multiple notes to one syllable::
-* Extenders and hyphens::
-@end menu
 
 
 @node References for vocal music
@@ -899,20 +877,11 @@ Referència de funcionament intern:
 @rinternals{LyricHyphen}.
 
 
+@need 1500
 @node Techniques specific to lyrics
 @subsection Tècniques específiques per a les lletres
 
 @c TODO this whole section is to be reorganised
-
-@menu
-* Working with lyrics and variables::
-* Placing lyrics vertically::
-* Placing syllables horizontally::
-* Lyrics and repeats::
-* Divisi lyrics::
-* Polyphony with shared lyrics::
-@end menu
-
 
 
 @node Working with lyrics and variables
@@ -1795,17 +1764,10 @@ words = \lyricmode { la __ la __ }
 >>
 @end lilypond
 
+
+@need 1500
 @node Stanzas
 @subsection Versos
-
-@menu
-* Adding stanza numbers::
-* Adding dynamics marks to stanzas::
-* Adding singers' names to stanzas::
-* Stanzas with different rhythms::
-* Printing stanzas at the end::
-* Printing stanzas at the end in multiple columns::
-@end menu
 
 
 @node Adding stanza numbers
@@ -2203,13 +2165,10 @@ Referència de funcionament intern:
 @rinternals{StanzaNumber}.
 
 
+@need 1500
 @node Songs
 @subsection Cançons
 
-@menu
-* References for songs::
-* Lead sheets::
-@end menu
 
 @node References for songs
 @unnumberedsubsubsec Referències per a cançons
@@ -2306,11 +2265,6 @@ Aquesta secció tracta els temes de notació més directament
 relacionats amb la música coral.  Això inclou els himnes, les
 cançons per parts, els oratoris, etc.
 
-@menu
-* References for choral::
-* Score layouts for choral::
-* Divided voices::
-@end menu
 
 @node References for choral
 @unnumberedsubsubsec Referències per a música coral
@@ -2549,13 +2503,6 @@ habituals de l'òpera i els musicals.  Després apareixen seccions
 que tracten de les tècniques peculiars de la gravació musical de
 les partitures d'òpera i de musicals.
 
-@menu
-* References for opera and stage musicals::
-* Character names::
-* Musical cues::
-* Spoken music::
-* Dialogue over music::
-@end menu
 
 @node References for opera and stage musicals
 @unnumberedsubsubsec Referències per a òpera i musicals
@@ -2960,12 +2907,6 @@ Tot i que els formats poden diferir d'una església a una altra,
 els problemes de gravat que sorgeixen són força semblants, i
 s'estudien a aquesta secció.
 
-@menu
-* References for chants and psalms::
-* Setting a chant::
-* Pointing a psalm::
-* Partial measures in hymn tunes::
-@end menu
 
 @node References for chants and psalms
 @unnumberedsubsubsec Referències per a càntics i salms

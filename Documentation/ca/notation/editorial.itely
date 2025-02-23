@@ -21,11 +21,6 @@
 Aquesta secció tracta de les diverses maneres de modificar
 l'aspecte de les notes i d'aplicar èmfasi analític o educatiu.
 
-@menu
-* Inside the staff::
-* Outside the staff::
-@end menu
-
 
 @node Inside the staff
 @subsection Dins del pentagrama
@@ -33,14 +28,6 @@ l'aspecte de les notes i d'aplicar èmfasi analític o educatiu.
 Aquesta secció tracta sobre com aplicar èmfasi als elements
 situats dins del pentagrama.
 
-@menu
-* Selecting notation font size::
-* Fingering instructions::
-* Hidden notes::
-* Coloring objects::
-* Parentheses::
-* Stems::
-@end menu
 
 @node Selecting notation font size
 @unnumberedsubsubsec Selecció del la mida del tipus de lletra per a la notació
@@ -710,11 +697,6 @@ Referència de funcionament intern:
 Aquest secció tracta sobre com emfatitzar element que estan dins
 del pentagrama, des de fora del pentagrama.
 
-@menu
-* Balloon help::
-* Grid lines::
-* Analysis brackets::
-@end menu
 
 @node Balloon help
 @unnumberedsubsubsec Globus d'ajuda

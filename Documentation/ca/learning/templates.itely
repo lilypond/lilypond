@@ -21,16 +21,6 @@ Aquesta secció del manual conté plantilles amb la partitura del
 LilyPond ja preparada.  Sols heu d'escriure les notes, llençar el
 LilyPond i gaudir d'unes belles partitures impreses!
 
-@menu
-* Built-in templates::
-* Single staff templates::
-* Piano templates::
-* String quartet templates::
-* Vocal ensembles templates::
-* Orchestral templates::
-* Ancient notation templates::
-* Other templates::
-@end menu
 
 @node Built-in templates
 @appendixsec Plantilles incorporades
@@ -52,10 +42,6 @@ Les expressions musicals necessàries s'introdueixen definint
 valors per a variables específiques.  Aquestes definicions han
 d'anar abans del fitxer inclòs amb l'ordre @code{\include}.
 
-@menu
-* SATB template::
-* SSAATTBB template::
-@end menu
 
 @node SATB template
 @appendixsubsec Plantilla coral SATB
@@ -353,15 +339,11 @@ diferents en temps diferents.
 No són possibles arranjament de musica coral a 8 part més
 complexos, amb aquesta senzilla plantilla incorporada.
 
+
+@need 1500
 @node Single staff templates
 @appendixsec Plantilles de pentagrama únic
 
-@menu
-* Notes only::
-* Notes and lyrics::
-* Notes and chords::
-* Notes lyrics and chords::
-@end menu
 
 @node Notes only
 @appendixsubsec Sols notes
@@ -388,14 +370,10 @@ complexos, amb aquesta senzilla plantilla incorporada.
 {snippets/single-staff-template-with-notes,-lyrics,-and-chords.ly}
 
 
+@need 1500
 @node Piano templates
 @appendixsec Plantilles de piano
 
-@menu
-* Solo piano::
-* Piano and melody with lyrics::
-* Piano centered lyrics::
-@end menu
 
 @node Solo piano
 @appendixsubsec Piano sol
@@ -416,13 +394,10 @@ complexos, amb aquesta senzilla plantilla incorporada.
 {snippets/piano-template-with-centered-lyrics.ly}
 
 
+@need 1500
 @node String quartet templates
 @appendixsec Plantilles de quartet de corda
 
-@menu
-* String quartet::
-* String quartet parts::
-@end menu
 
 @node String quartet
 @appendixsubsec Quartet de corda simple
@@ -437,18 +412,10 @@ complexos, amb aquesta senzilla plantilla incorporada.
 {snippets/string-quartet-template-with-separate-parts.ly}
 
 
+@need 1500
 @node Vocal ensembles templates
 @appendixsec Plantilles de conjunts vocals
 
-@menu
-* SATB vocal score::
-* SATB vocal score and automatic piano reduction::
-* SATB with aligned contexts::
-* SATB on four staves::
-* Solo verse and two-part refrain::
-* Hymn tunes::
-* Psalms::
-@end menu
 
 @node SATB vocal score
 @appendixsubsec Partitura vocal SATB
@@ -493,12 +460,10 @@ complexos, amb aquesta senzilla plantilla incorporada.
 {snippets/anglican-psalm-template.ly}
 
 
+@need 1500
 @node Orchestral templates
 @appendixsec Plantilles orquestrals
 
-@menu
-* Orchestra choir and piano::
-@end menu
 
 @node Orchestra choir and piano
 @appendixsubsec Orquestra, cor i piano
@@ -507,13 +472,10 @@ complexos, amb aquesta senzilla plantilla incorporada.
 {snippets/orchestra,-choir-and-piano-template.ly}
 
 
+@need 1500
 @node Ancient notation templates
 @appendixsec Plantilles per a notació antiga
 
-@menu
-* Transcription of mensural music::
-* Gregorian transcription template::
-@end menu
 
 @node Transcription of mensural music
 @appendixsubsec Transcripció dfe música mensural
@@ -528,12 +490,10 @@ complexos, amb aquesta senzilla plantilla incorporada.
 {snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 
+@need 1500
 @node Other templates
 @appendixsec Altres plantilles
 
-@menu
-* Jazz combo::
-@end menu
 
 @node Jazz combo
 @appendixsubsec Combo de jazz

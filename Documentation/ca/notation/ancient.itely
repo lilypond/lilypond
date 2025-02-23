@@ -24,16 +24,6 @@
 @cindex Petrucci
 @cindex mensural
 
-
-@menu
-* Overview of the supported styles::
-* Ancient notation - common features::
-* Typesetting mensural music::
-* Typesetting Gregorian chant::
-* Typesetting Kievan square notation::
-* Working with ancient music - scenarios and solutions::
-@end menu
-
 Entre les formes en les quals té suport la notació antiga es troba
 la possibilitat de gravar notació mensural, cant gregorià i cant
 kievà en notació quadrada.  Es pot accedir a aquestes
@@ -170,14 +160,9 @@ Glossari musical:
 @rglos{flag}.
 
 
+@need 1500
 @node Ancient notation - common features
 @subsection Notació antiga -- funcionalitats comunes
-
-@menu
-* Pre-defined contexts::
-* Ligatures::
-* Custodes::
-@end menu
 
 
 @node Pre-defined contexts
@@ -349,20 +334,10 @@ Fragments de codi:
 Referència de funcionament intern:
 @rinternals{Custos}.
 
+
+@need 1500
 @node Typesetting mensural music
 @subsection Gravat de música mensural
-
-@menu
-* Mensural contexts::
-* Mensural clefs::
-* Mensural time signatures::
-* Mensural note heads::
-* Mensural flags::
-* Mensural rests::
-* Mensural accidentals and key signatures::
-* Annotational accidentals (musica ficta)::
-* White mensural ligatures::
-@end menu
 
 
 @node Mensural contexts
@@ -1021,16 +996,6 @@ prèvies.
 
 @node Typesetting Gregorian chant
 @subsection Gravat del cant gregorià
-
-@menu
-* Gregorian chant contexts::
-* Gregorian clefs::
-* Gregorian accidentals and key signatures::
-* Divisiones::
-* Gregorian articulation signs::
-* Augmentum dots (morae)::
-* Gregorian square neume ligatures::
-@end menu
 
 En gravar una peça de notació de cant gregorià, el gravador
 @code{Vaticana_ligature_engraver} tria automàticament el cap
@@ -2417,17 +2382,11 @@ en comptes d'una funció musical unària, de forma que
 @code{\augmentum} es pogués barrejar amb els prefixos de cap en un
 ordre arbitrari.
 
+
+@need 1500
 @node Typesetting Kievan square notation
 @subsection Gravat del cant kievà en notació quadrada
 
-@menu
-* Kievan contexts::
-* Kievan clefs::
-* Kievan notes::
-* Kievan accidentals::
-* Kievan bar line::
-* Kievan melismata::
-@end menu
 
 @node Kievan contexts
 @unnumberedsubsubsec Contextos del cant kievà
@@ -2657,13 +2616,6 @@ L'espaiat horitzontal de les lligadures és mediocre.
 
 @node Working with ancient music - scenarios and solutions
 @subsection Treball amb música antiga -- escenaris i solucions
-
-@menu
-* Incipits::
-* Mensurstriche layout::
-* Transcribing Gregorian chant::
-* Ancient and modern from one source::
-@end menu
 
 El treball amb música antiga implica amb freqüència tasques
 addicionals que difereixen considerablement de la notació moderna

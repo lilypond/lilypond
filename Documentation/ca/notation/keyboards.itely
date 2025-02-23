@@ -26,27 +26,12 @@ nomenclatura, en aquesta secció s'anomenen abreujadament
 @qq{teclats} a tot aquest grup d'instruments de diversos
 pentagrames, tot i que alguns no tenen teclat.
 
-@menu
-* Common notation for keyboards::
-* Piano::
-* Accordion::
-* Harp::
-@end menu
-
 
 @node Common notation for keyboards
 @subsection Notació comuna per a instruments de teclat
 
 Aquesta secció tracta aspectes de notació que poden aparèixer a
 gairebé tots els instruments de teclat.
-
-@menu
-* References for keyboards::
-* Changing staff manually::
-* Changing staff automatically::
-* Staff-change lines::
-* Cross-staff stems::
-@end menu
 
 
 @node References for keyboards
@@ -478,10 +463,6 @@ Referencia de funcionament intern:
 Aquesta secció tracta d'aspectes de la notació directament
 relacionats amb el piano.
 
-@menu
-* Piano pedals::
-@end menu
-
 
 @node Piano pedals
 @unnumberedsubsubsec Pedals de piano
@@ -590,10 +571,6 @@ Referència de funcionament intern:
 
 Aquesta secció s'ocupa de la notació que és exclusiva de l'acordió.
 
-@menu
-* Discant symbols::
-@end menu
-
 
 @node Discant symbols
 @unnumberedsubsubsec Símbols de Discant
@@ -626,11 +603,6 @@ Fragments de codi:
 @subsection Arpa
 
 Aquesta secció tracta sobre temes de notació específics de l'arpa.
-
-@menu
-* References for harps::
-* Harp pedals::
-@end menu
 
 
 @node References for harps

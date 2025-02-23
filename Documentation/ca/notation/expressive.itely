@@ -21,12 +21,6 @@
 Aquesta secció relaciona diverses marques d'expressió que es poden
 crear a una partitura.
 
-@menu
-* Expressive marks attached to notes::
-* Expressive marks as curves::
-* Expressive marks as lines::
-@end menu
-
 
 @node Expressive marks attached to notes
 @subsection Expressions annexades a les notes
@@ -34,12 +28,6 @@ crear a una partitura.
 Aquesta secció explica com crear marques expressives que estan
 aplicades a notes: articulacions, ornaments i matisos. També es
 tracten els mètodes per crear les marques dinàmiques.
-
-@menu
-* Articulations and ornamentations::
-* Dynamics::
-* New dynamic marks::
-@end menu
 
 
 @node Articulations and ornamentations
@@ -672,13 +660,6 @@ Aquesta secció explica com crear diverses marques expressives amb
 forma corba: lligagures d'expressió i de fraseig, respiracions,
 caigudes i elevacions de to.
 
-@menu
-* Slurs::
-* Phrasing slurs::
-* Breath marks::
-* Falls and doits::
-@end menu
-
 
 @node Slurs
 @unnumberedsubsubsec Lligadures d'expressió
@@ -1102,12 +1083,6 @@ Fragments de codi
 
 Aquesta secció explica com crear diverses marques d'expressió  que
 segueixen un camí lineal: glissandi, arpegis i refilets.
-
-@menu
-* Glissando::
-* Arpeggio::
-* Trills::
-@end menu
 
 
 @node Glissando

@@ -22,23 +22,11 @@ La paraula @q{polifonia} en música fa referència a tenir més d'una
 veu en una peça qualsevol de música.  Al LilyPond la polifonia fa
 referència a tenir més d'una veu al mateix pentagrama.
 
-@menu
-* Single voice::
-* Multiple voices::
-@end menu
-
 
 @node Single voice
 @subsection Una veu única
 
 Aquesta secció tracta de les notes simultànies dins de la mateixa veu.
-
-@menu
-* Chorded notes::
-* Chord repetition::
-* Simultaneous expressions::
-* Clusters::
-@end menu
 
 
 @node Chorded notes
@@ -403,14 +391,6 @@ Els clústers no produeixen cap sortida MIDI.
 
 Aquesta secció tracta de les notes simultànies en diverses veus o
 diversos pentagrames.
-
-@menu
-* Single-staff polyphony::
-* Voice styles::
-* Collision resolution::
-* Automatic part combining::
-* Writing music in parallel::
-@end menu
 
 
 @node Single-staff polyphony

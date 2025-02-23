@@ -23,25 +23,12 @@ Aquesta secció explica com infliur sobre l'aparença dels
 pentagrames, com imprimir partitures amb més d'un pentagrama i com
 afegir indicacions de temps i notes guia als pentagrames.
 
-@menu
-* Displaying staves::
-* Modifying single staves::
-* Writing parts::
-@end menu
-
 
 @node Displaying staves
 @subsection Visualització dels pentagrames
 
 Aquesta secció descriu els diferents mètodes de creació de
 pentagrames i grups de pentagrames.
-
-@menu
-* Instantiating new staves::
-* Grouping staves::
-* Nested staff groups::
-* Separating systems::
-@end menu
 
 
 @node Instantiating new staves
@@ -393,12 +380,6 @@ Aquesta secció explica com canviar els atributs específics d'un
 pentagrama: per exemple, canviar el nombre de línies o la mida de
 la pauta.  També es descriuen els mètodes per començar i acabar
 els pentagrames, i establir seccions d'ossia.
-
-@menu
-* Staff symbol::
-* Ossia staves::
-* Hiding staves::
-@end menu
 
 
 @node Staff symbol
@@ -862,12 +843,6 @@ advertiments associats amb @code{\RemoveEmptyStaves}, consulteu
 Aquesta secció explica com inserir indicacions de temps i noms
 d'instruments a una partitura.  També es descriuen mètodes per
 citar altres veus i donar format a les notes guia.
-
-@menu
-* Instrument names::
-* Quoting other voices::
-* Formatting cue notes::
-@end menu
 
 
 @node Instrument names

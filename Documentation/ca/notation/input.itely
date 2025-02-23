@@ -20,15 +20,6 @@ Aquesta secció tracta de temes relacionats amb l'entrada i la
 sortida generals del LilyPond, en comptes de tractar sobre la
 notació específica.
 
-@menu
-* Input structure::
-* Titles and headers::
-* Working with input files::
-* Controlling output::
-* Creating MIDI output::
-* Extracting musical information::
-@end menu
-
 
 @node Input structure
 @section Estructura del codi d'entrada
@@ -36,14 +27,6 @@ notació específica.
 El format principal d'entrada per al Lilypond són fitxers de
 text.  Per convenció, el nom d'aquests fitxers acaba en
 @file{.ly}.
-
-@menu
-* Structure of a score::
-* Multiple scores in a book::
-* Multiple output files from one input file::
-* Output file names::
-* File structure::
-@end menu
 
 
 @node Structure of a score
@@ -554,24 +537,10 @@ Referència de la notació:
 Gairebé tota la música impresa té un títol i el nom del
 compositor; certes peces tenen molta més informació.
 
-@menu
-* Creating titles headers and footers::
-* Custom titles headers and footers::
-* Creating output file metadata::
-* Creating footnotes::
-* Reference to page numbers::
-* Table of contents::
-@end menu
 
-
+@need 1500
 @node Creating titles headers and footers
 @subsection Creació de títols encapçalaments i peus de pàgina
-
-@menu
-* Titles explained::
-* Default layout of bookpart and score titles::
-* Default layout of headers and footers::
-@end menu
 
 
 @node Titles explained
@@ -942,17 +911,13 @@ nivell superior.
 Per eliminar la línia de peu de pàgina predeterminada del
 LilyPond, establiu el valor de @code{tagline} a @code{##f}.
 
+
+@need 1500
 @node Custom titles headers and footers
 @subsection Títols encapçalaments i peus de pàgina personalitzats
 
 @c TODO: somewhere put a link to header spacing info
 @c       (you'll have to explain it more in NR 4).
-
-@menu
-* Custom text formatting for titles::
-* Custom layout for titles::
-* Custom layout for headers and footers::
-@end menu
 
 
 @node Custom text formatting for titles
@@ -1319,10 +1284,6 @@ la sortida impresa.
 
 Es poden crear dos tipus de notes al peu: automàtiques i manuals.
 
-@menu
-* Footnotes in music expressions::
-* Footnotes in stand-alone text::
-@end menu
 
 @node Footnotes in music expressions
 @unnumberedsubsubsec Notes al peu dins d'expressions musicals
@@ -2032,14 +1993,9 @@ Fitxers d'inici:
 @endpredefined
 
 
+@need 1500
 @node Working with input files
 @section Treball sobre els fitxers d'entrada
-
-@menu
-* Including LilyPond files::
-* Different editions from one source::
-* Special characters::
-@end menu
 
 
 @node Including LilyPond files
@@ -2222,11 +2178,6 @@ Qualsevol que sigui el mètode utilitzat, la separació de la
 notació de l'estructura de la partitura farà que sigui més fàcil
 canviar l'estructura deixant intacta la notació.
 
-@menu
-* Using variables::
-* Using tags::
-* Using global settings::
-@end menu
 
 @node Using variables
 @unnumberedsubsubsec Ús de les variables
@@ -2583,12 +2534,6 @@ Referència de la notació:
 @cindex caràcters especials
 @cindex caràcters no ASCII
 
-@menu
-* Text encoding::
-* Unicode::
-* ASCII aliases::
-@end menu
-
 
 @node Text encoding
 @unnumberedsubsubsec Codificació del text
@@ -2778,15 +2723,10 @@ Referència de la notació:
 Fitxers instal·lats:
 @file{ly/text-replacements.ly}.
 
+
+@need 1500
 @node Controlling output
 @section Control de la sortida
-
-@menu
-* Extracting fragments of music::
-* Skipping corrected music::
-* Alternative output formats::
-* Replacing the notation font::
-@end menu
 
 @funindex clip-regions
 @cindex fragments de música
@@ -3052,19 +2992,6 @@ Els fitxers MIDI no contenen so (com els fitxers AAC, MP3 o
 Vorbis) però requereixen de programari addicional per produir el
 so a partir d'ells.
 
-@menu
-* Supported notation for MIDI::
-* Unsupported notation for MIDI::
-* The MIDI block::
-* Controlling MIDI dynamics::
-* Using MIDI instruments::
-* Using repeats with MIDI::
-* MIDI channel mapping::
-* Context properties for MIDI effects::
-* Enhancing MIDI output::
-* The articulate script::
-@end menu
-
 @cindex MIDI, notació amb suport
 
 @node Supported notation for MIDI
@@ -3206,12 +3133,6 @@ que els crescendos i decrescendos varien el volum linealment
 entre els seus dos extrems.  És possible controlar el volum
 relatiu de les indicacions de matís dinàmic, i el volum general
 dels diferents instruments.
-
-@menu
-* Dynamic marks in MIDI::
-* Setting MIDI volume::
-* Setting MIDI block properties::
-@end menu
 
 @cindex MIDI, volum
 @cindex MIDI, equalització
@@ -3828,12 +3749,6 @@ l'efecte d'escurçament de les notes.}
 
 A més de crear un resultat visual i MIDI, el LilyPond és capaç de
 presentar informació musical en forma de text.
-
-@menu
-* Displaying LilyPond notation::
-* Displaying Scheme music expressions::
-* Saving music events to a file::
-@end menu
 
 
 @node Displaying LilyPond notation

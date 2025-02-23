@@ -23,13 +23,6 @@ A aquesta secció es discuteix com especificar l'altura de les
 notes. Aquest procés es composa de tres fases: entrada,
 modificació i sortida.
 
-@menu
-* Writing pitches::
-* Changing multiple pitches::
-* Displaying pitches::
-* Note heads::
-@end menu
-
 
 @node Writing pitches
 @subsection Escriptura de notes
@@ -38,13 +31,6 @@ A aquesta secció es descriu la manera d'introduir l'altura de les
 notes.  Hi ha dues formes diferents de col·locar les notes a la
 seva octava corresponent: el mode absolut i el relatiu.  A gairebé
 totes les ocasions, serà més pràctic el mode relatiu.
-
-@menu
-* Absolute octave entry::
-* Relative octave entry::
-* Accidentals::
-* Note names in other languages::
-@end menu
 
 
 @node Absolute octave entry
@@ -649,14 +635,6 @@ Fragments de codi:
 
 Aquesta secció tracta de la manera de modificar les altures.
 
-@menu
-* Octave checks::
-* Transpose::
-* Inversion::
-* Retrograde::
-* Modal transformations::
-@end menu
-
 
 @node Octave checks
 @unnumberedsubsubsec Comprovació d'octava
@@ -1095,14 +1073,6 @@ Referència de la notació:
 Aquesta secció tracta de com alterar la presentació de l'altura de
 les notes.
 
-@menu
-* Clef::
-* Key signature::
-* Ottava brackets::
-* Instrument transpositions::
-* Automatic accidentals::
-* Ambitus::
-@end menu
 
 @node Clef
 @unnumberedsubsubsec Clau
@@ -2963,12 +2933,6 @@ diverses indicacions d'àmbit simultànies a veus diferents.
 
 Aquesta secció proposa formes d'alterar els caps de les figures.
 
-@menu
-* Special note heads::
-* Easy notation note heads::
-* Shape note heads::
-* Improvisation::
-@end menu
 
 @node Special note heads
 @unnumberedsubsubsec Caps de nota especials

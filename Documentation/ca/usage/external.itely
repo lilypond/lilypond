@@ -16,13 +16,6 @@
 El LilyPond és capaç d'interactuar amb altres programes de
 diverses maneres.
 
-@menu
-* Point and click::
-* Text editor support::
-* Converting from other formats::
-* LilyPond output in other programs::
-* Independent includes::
-@end menu
 
 @node Point and click
 @section Apunteu i feu clic
@@ -34,12 +27,6 @@ diverses maneres.
 possibilitat de localitzar notes del codi d'entrada polsant sobre
 elles dins del visor del PDF.  Això facilita la trobada dels
 fragments de l'entrada que produeixen algun error en la partitura.
-
-@menu
-* Configuring the system for point and click::
-* Enabling point and click::
-* Selective point-and-click::
-@end menu
 
 
 @node Configuring the system for point and click
@@ -98,12 +85,6 @@ d'afegir la línia @code{(server-start)} al seu fitxer
 @file{~/.emacs}, atès que en cas contrari cada clic sobre un
 objecte del PDF obrirà una finestra nova de l'Emacs.}
 
-@menu
-* Using Xpdf for point and click::
-* Using GNOME 2 for point and click::
-* Using GNOME 3 for point and click::
-* Extra configuration for Evince::
-@end menu
 
 @node Using Xpdf for point and click
 @unnumberedsubsubsec Ús del Xpdf per Apunteu i feu clic
@@ -352,12 +333,6 @@ lilypond \
 @cindex colors, sintaxi
 
 Diversos editors de text donen suport al LilyPond.
-
-@menu
-* Emacs mode::
-* Vim mode::
-* Other editors::
-@end menu
 
 
 @node Emacs mode
@@ -800,12 +775,6 @@ fitxers del LilyPond.  Podeu trobar una llista a la secció
 Aquesta secció presenta mètodes per integrar text i música
 diferents del mètode automatitzat amb el @command{lilypond-book}.
 
-@menu
-* LuaTeX::
-* OpenOffice and LibreOffice::
-* Other programs::
-@end menu
-
 
 @node LuaTeX
 @subsection Lua@TeX{}
@@ -899,10 +868,6 @@ l'ordre @code{\include} al LilyPond per produir certs efectes, i
 els que s'indiquen més avall formen part de la distribució del
 LilyPond. Vegeu també
 @rnotationnamed{Working with input files, Treball sobre els fitxers d'entrada}
-
-@menu
-* MIDI articulation::
-@end menu
 
 
 @node MIDI articulation

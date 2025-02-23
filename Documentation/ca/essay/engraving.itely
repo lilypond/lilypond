@@ -205,13 +205,6 @@ al LilyPond.
 @c hand-engraved scores.  Instead, computer printouts have a bland,
 @c mechanical look, which makes them unpleasant to play from.
 
-@menu
-* Music fonts::
-* Optical spacing::
-* Ledger lines::
-* Optical sizing::
-* Why work so hard?::
-@end menu
 
 @node Music fonts
 @unnumberedsubsec Tipus de lletra per a música
@@ -572,11 +565,6 @@ disposició de les partitures gravades: un mètode per descriure
 disposicions correctes a l'ordinador i un munt de comparacions
 detallades de gravats reals.
 
-@menu
-* Beauty contests::
-* Improvement by benchmarking::
-* Getting things right::
-@end menu
 
 @node Beauty contests
 @unnumberedsubsec Concursos de bellesa
@@ -964,12 +952,6 @@ flexibilitat en ment.
 
 Aquesta secció descriu algunes de les decisions de programació que
 hem fet quan es va dissenyar el LilyPond.
-
-@menu
-* Music representation::
-* What symbols to engrave?::
-* Flexible architecture::
-@end menu
 
 
 @node Music representation

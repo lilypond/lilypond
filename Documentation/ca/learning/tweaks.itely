@@ -22,25 +22,10 @@ extremadament configurable; pràcticament tots els fragments de la
 sortida es poden canviar.
 
 
-@menu
-* Tweaking basics::
-* The Internals Reference manual::
-* Appearance of objects::
-* Placement of objects::
-* Vertical spacing::
-* Collisions of objects::
-* Further tweaking::
-@end menu
-
+@need 1500
 @node Tweaking basics
 @section Elements d'ajustament
 
-@menu
-* Introduction to tweaks::
-* Objects and interfaces::
-* Naming conventions of objects and properties::
-* Tweaking methods::
-@end menu
 
 @node Introduction to tweaks
 @subsection Introducció a l'ajustament
@@ -203,14 +188,6 @@ Referencia de la notació:
 
 @strong{L'ordre \override}
 
-@menu
-* The override command::
-* The revert command::
-* The once prefix::
-* The overrideProperty command::
-* The tweak command::
-* The single prefix::
-@end menu
 
 @node The override command
 @unnumberedsubsubsec L'ordre @code{\override}
@@ -623,11 +600,6 @@ Manual de aprenentatge:
 
 @cindex Referència de funcionament intern
 
-@menu
-* Properties of layout objects::
-* Properties found in interfaces::
-* Types of properties::
-@end menu
 
 @node Properties of layout objects
 @subsection Propietats dels objectes de presentació
@@ -1134,11 +1106,6 @@ Ara posarem en practica el que hem après amb uns quants exemples
 que mostren com es poden usar els ajustament per canviar l'aspecte
 de la música impresa.
 
-@menu
-* Visibility and color of objects::
-* Size of objects::
-* Length and thickness of objects::
-@end menu
 
 @node Visibility and color of objects
 @subsection Visibilitat i color dels objectes
@@ -1177,12 +1144,6 @@ visibilitat de les barres de compàs (i, per suposat, per extensió,
 també la de molts altres objectes de presentació).  Considerarem
 cada un d'ells per ordre.
 
-@menu
-* The stencil property::
-* The break-visibility property::
-* The transparent property::
-* The color property::
-@end menu
 
 @node The stencil property
 @unnumberedsubsubsec La propietat @code{stencil} (segell)
@@ -1843,14 +1804,10 @@ gruix en les lligadures, a @ref{Properties of layout objects}. El gruix de tots 
 aquells que no es produeixen a partir d'un tipus de lletra) es
 poden canviar de la mateixa forma.
 
+
+@need 1500
 @node Placement of objects
 @section Col·locació dels objectes
-
-@menu
-* Automatic behavior::
-* Within-staff objects::
-* Outside-staff objects::
-@end menu
 
 
 @node Automatic behavior
@@ -1955,10 +1912,6 @@ es mouen a la dreta o a l'esquerra quan apunten cap amunt o cap
 avall.  Això es controla automàticament quan està establerta la
 propietat @code{direction}.
 
-@menu
-* The direction property::
-* Fingering::
-@end menu
 
 @node The direction property
 @unnumberedsubsubsec La propietat @code{direction} (direcció)
@@ -2238,13 +2191,6 @@ provarem @w{@code{-7}}:
 Els objectes fora del pentagrama se situen automàticament per
 evitar les col·lisions.  Hi ha diverses formes de sobreescriure la
 col·locació automàtica si el posicionat no resulta òptim.
-
-@menu
-* The outside-staff-priority property::
-* The textLengthOn command::
-* Dynamics placement::
-* Grob sizing::
-@end menu
 
 
 @node The outside-staff-priority property
@@ -2843,14 +2789,10 @@ del @code{VerticalAxisGroup}.  Per veure més detalls, consulteu
 @rnotationnamed{Flexible vertical spacing within systems, Espaiat vertical flexible dins dels sistemes}.
 
 
+@need 1500
 @node Collisions of objects
 @section Col·lisions d'objectes
 
-@menu
-* Moving objects::
-* Fixing overlapping notation::
-* Real music example::
-@end menu
 
 @node Moving objects
 @subsection Moviment d'objectes
@@ -3141,16 +3083,6 @@ d'usar per a moure'ls.
 Vejam ara com poden ser d'ajuda les propietats que hem vist a la
 secció anterior, per resoldre problemes de notació que se superposa.
 
-@menu
-* The padding property::
-* The right-padding property::
-* The staff-padding property::
-* The self-alignment-X property::
-* The staff-position property::
-* The extra-offset property::
-* The positions property::
-* The force-hshift property::
-@end menu
 
 @node The padding property
 @unnumberedsubsubsec La propietat @code{padding} (farciment))
@@ -4062,24 +3994,13 @@ lhMusic = \relative {
 @end lilypond
 
 
+@need 2000
 @node Further tweaking
 @section Ajustaments addicionals
 
-@menu
-* Other uses for tweaks::
-* Using variables for layout adjustments::
-* Style sheets::
-* Other sources of information::
-* Advanced tweaks with Scheme::
-@end menu
 
 @node Other uses for tweaks
 @subsection Altres aplicacions dels ajustaments
-
-@menu
-* Tying notes across voices::
-* Simulating a fermata in MIDI::
-@end menu
 
 @cindex eliminar objectes
 @cindex objectes, eliminar

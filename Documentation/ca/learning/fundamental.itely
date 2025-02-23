@@ -22,13 +22,6 @@ a partir d'un simple fitxer de text.  Aquesta secció presenta els
 conceptes i tècniques que es requereixen per produir partitures
 igualment belles però més complexes.
 
-@menu
-* How LilyPond input files work::
-* Voices contain music::
-* Contexts and engravers::
-* Extending the templates::
-@end menu
-
 
 @node How LilyPond input files work
 @section Com funcionen els fitxers d'entrada del LilyPond
@@ -42,13 +35,6 @@ estructura, però pot obviar certs detalls per simplificar.  Per
 veure una descripció més completa del format d'entrada, consulteu
 @rnotationnamed{File structure, Estructura del fitxer}.
 
-
-@menu
-* Introduction to the LilyPond file structure::
-* Score is a (single) compound musical expression::
-* Nesting music expressions::
-* On the un-nestedness of brackets and ties::
-@end menu
 
 @node Introduction to the LilyPond file structure
 @subsection Introducció a l'estructura dels fitxers del LilyPond
@@ -577,11 +563,6 @@ realitat, la música per a qualsevol instrument d'una partitura
 està sempre continguda dins d'una veu --el concepte del LilyPond
 més fonamental de tots--.
 
-@menu
-* I'm hearing voices::
-* Explicitly instantiating voices::
-* Voices and vocals::
-@end menu
 
 @node I'm hearing voices
 @subsection Sento veus
@@ -1389,13 +1370,6 @@ seccions anteriors; ara tan sols veurem aquests conceptes amb més
 detall, ja que són importants a l'ajust fi de la sortida del
 LilyPond.
 
-@menu
-* Contexts explained::
-* Creating contexts::
-* Engravers explained::
-* Modifying context properties::
-* Adding and removing engravers::
-@end menu
 
 @node Contexts explained
 @subsection Explicació dels contextos
@@ -2200,13 +2174,6 @@ Bé, podeu trobar muntanyes de plantilles (vegeu
 que us poden servir com a punt de partida.  Però i si voleu
 quelcom que no està contemplat aquí? Continueu llegint.
 
-@menu
-* Soprano and cello::
-* Four-part SATB vocal score::
-* Building a score from scratch::
-* Saving typing with variables and functions::
-* Scores and parts::
-@end menu
 
 @node Soprano and cello
 @subsection Soprano i violoncel

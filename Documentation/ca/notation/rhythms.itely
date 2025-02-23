@@ -21,25 +21,11 @@
 Aquesta secció tracta dels ritmes, els silencis, les duracions, les barres
 i els compassos.
 
-@menu
-* Writing rhythms::
-* Writing rests::
-* Displaying rhythms::
-* Beams::
-* Bars::
-* Special rhythmic concerns::
-@end menu
 
-
+@need 1500
 @node Writing rhythms
 @subsection Escriptura de les duracions (valors rítmics)
 
-@menu
-* Durations::
-* Tuplets::
-* Scaling durations::
-* Ties::
-@end menu
 
 @node Durations
 @unnumberedsubsubsec Duració de les notes
@@ -653,11 +639,6 @@ lligadura d'expressió.
 Els silencis s'escriuen com a part de la música dins de les
 expressions musicals.
 
-@menu
-* Rests::
-* Invisible rests::
-* Full measure rests::
-@end menu
 
 @node Rests
 @unnumberedsubsubsec Silencis
@@ -1032,18 +1013,11 @@ un sols silenci multicompàs.
 Els silencis multicompàs no estan involucrats en les col·lisiones
 de silencis.
 
+
+@need 1500
 @node Displaying rhythms
 @subsection Impressió de les duracions
 
-@menu
-* Time signature::
-* Metronome marks::
-* Upbeats::
-* Unmetered music::
-* Polymetric notation::
-* Automatic note splitting::
-* Showing melody rhythms::
-@end menu
 
 @node Time signature
 @unnumberedsubsubsec Indicació de compàs
@@ -1998,15 +1972,10 @@ Referència de funcionament intern:
 @rinternals{Pitch_squash_engraver}.
 
 
+@need 1500
 @node Beams
 @subsection Barres
 
-@menu
-* Automatic beams::
-* Setting automatic beam behavior::
-* Manual beams::
-* Feathered beams::
-@end menu
 
 @node Automatic beams
 @unnumberedsubsubsec Barres automàtiques
@@ -2684,15 +2653,10 @@ Fragments de codi:
 L'ordre @code{\featherDurations} sols funciona amb fragments
 musicals molt breus, i quan els nombres de la fracció són petits.
 
+
+@need 1500
 @node Bars
 @subsection Compassos
-
-@menu
-* Bar lines::
-* Bar numbers::
-* Bar and bar number checks::
-* Rehearsal marks::
-@end menu
 
 
 @node Bar lines
@@ -3474,14 +3438,10 @@ Referència de funcionament intern:
 @rinternals{RehearsalMarkEvent}.
 
 
+@need 1500
 @node Special rhythmic concerns
 @subsection Temes especials de ritme
 
-@menu
-* Grace notes::
-* Aligning to cadenzas::
-* Time administration::
-@end menu
 
 @node Grace notes
 @unnumberedsubsubsec Notes d'adorn

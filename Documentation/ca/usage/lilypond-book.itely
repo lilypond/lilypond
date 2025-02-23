@@ -47,17 +47,6 @@ Texinfo o DocBook.
 @cindex DocBook, inserir música en
 @cindex LaTeX, inserir música en
 
-@menu
-* An example of a musicological document::
-* Integrating music and text::
-* Music fragment options::
-* Invoking lilypond-book::
-* Filename extensions::
-* lilypond-book templates::
-* Sharing the table of contents::
-* Alternate methods of mixing text and music::
-@end menu
-
 
 @node An example of a musicological document
 @section Un exemple de document musicològic
@@ -190,12 +179,6 @@ construcció @code{\book @{ @}}.
 Aquí explicarem com integrar el LilyPond amb alguns altres formats de
 sortida.
 
-@menu
-* LaTeX::
-* Texinfo::
-* HTML::
-* DocBook::
-@end menu
 
 @node LaTeX
 @subsection @LaTeX{}

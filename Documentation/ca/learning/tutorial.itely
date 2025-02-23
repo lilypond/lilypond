@@ -21,12 +21,6 @@
 
 Aquest capítol ofereix una introducció bàsica al treball amb el Lilypond.
 
-@menu
-* Compiling a file::
-* How to write input files::
-* Dealing with errors::
-* How to read the manuals::
-@end menu
 
 @node Compiling a file
 @section Compilació d'un fitxer
@@ -82,27 +76,12 @@ un missatge d'error.
 Aquesta secció presenta una part de la sintaxi bàsica del LilyPond
 com ajuda perquè us inicieu a l'escriptura de fitxers d'entrada.
 
-@menu
-* Simple notation::
-* Working on input files::
-@end menu
-
 
 @node Simple notation
 @subsection Notació senzilla
 
 @cindex senzilla, notació
 @cindex notació senzilla
-
-@menu
-* Pitches::
-* Durations (rhythms)::
-* Rests::
-* Time signature::
-* Tempo marks::
-* Clef::
-* All together::
-@end menu
 
 El LilyPond afegirà certs elements de notació de manera
 automàtica. A l'exemple següent hem especificat solament quatre
@@ -580,10 +559,6 @@ A vegades el LilyPond no produeix el resultat esperat.  Aquesta
 secció aporta alguns enllaços per ajudar-vos a resoldre els
 problemes que pugueu trobar.
 
-@menu
-* General troubleshooting tips::
-* Some common errors::
-@end menu
 
 @node General troubleshooting tips
 @subsection Consells generals de solució de problemes
@@ -611,12 +586,6 @@ Aquests errors es descriuen a @rprogramnamed{Common errors, Errors comuns}.
 Aquesta secció mostra com llegir la documentació de forma
 eficient, i presenta algunes funcionalitats interactives de la
 versió en línia.
-
-@menu
-* Omitted material::
-* Clickable examples::
-* Overview of manuals::
-@end menu
 
 
 @node Omitted material

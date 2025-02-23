@@ -50,30 +50,11 @@ coixinet@tie{}@code{#}.@footnote{@rextendnamed{Scheme tutorial,Tutorial de l'Sch
 conté un breu tutorial sobre la introducció de nombres, llistes,
 cadenes i símbols en Scheme.}
 
-@menu
-* Interpretation contexts::
-* Explaining the Internals Reference::
-* Modifying properties::
-* Useful concepts and properties::
-* Advanced tweaks::
-* Using music functions::
-@end menu
-
 
 @node Interpretation contexts
 @section Contextos d'interpretació
 
 Aquesta secció explica que són els contextos i com modificar-los.
-
-@menu
-* Contexts explained::
-* Creating and referencing contexts::
-* Keeping contexts alive::
-* Modifying context plug-ins::
-* Changing context default settings::
-* Defining new contexts::
-* Context layout order::
-@end menu
 
 @morerefs
 Manual d'aprenentatge:
@@ -96,13 +77,6 @@ Referència de funcionament intern:
 
 Els contextos es disposen de forma jeràrquica:
 
-@menu
-* Output definitions - blueprints for contexts::
-* Score - the master of all contexts::
-* Top-level contexts - staff containers::
-* Intermediate-level contexts - staves::
-* Bottom-level contexts - voices::
-@end menu
 
 @node Output definitions - blueprints for contexts
 @unnumberedsubsubsec Definicions de sortida - estructura dels contextos
@@ -823,11 +797,6 @@ fer-ho.  Una modifica els valors predeterminats a tos els
 contextos d'un tipus donat, i l'altre modifica els valors
 predeterminats sols a una instància concreta d'un context.
 
-@menu
-* Changing all contexts of the same type::
-* Changing just one specific context::
-* Order of precedence::
-@end menu
 
 @node Changing all contexts of the same type
 @unnumberedsubsubsec Canvi de tots els contextos del mateix tipus
@@ -1496,15 +1465,9 @@ Fitxers instal·lats:
 @file{ly/engraver-init.ly}.
 
 
+@need 1500
 @node Explaining the Internals Reference
 @section Explicació del Manual de referència de funcionament intern
-
-@menu
-* Navigating the program reference::
-* Layout interfaces::
-* Determining the grob property::
-* Naming conventions::
-@end menu
 
 
 @node Navigating the program reference
@@ -1785,18 +1748,9 @@ Preguntes encara sense resposta
 @end ignore
 
 
+@need 1500
 @node Modifying properties
 @section Modificació de les propietats
-
-@menu
-* Overview of modifying properties::
-* The set command::
-* The override command::
-* The tweak command::
-* set versus override::
-* The offset command::
-* Modifying alists::
-@end menu
 
 
 @node Overview of modifying properties
@@ -2759,21 +2713,11 @@ de propietats de context (com @code{beamExceptions},
 Aquestes propietats sols es poden modificar redefinint-les
 completament com a llistes-A.}
 
+
+@need 1500
 @node Useful concepts and properties
 @section Conceptes i propietats útils
 
-
-@menu
-* Input modes::
-* Direction and placement::
-* Distances and measurements::
-* Dimensions::
-* Staff symbol properties::
-* Spanners::
-* Visibility of objects::
-* Line styles::
-* Rotating objects::
-@end menu
 
 @node Input modes
 @subsection Modes d'entrada
@@ -2901,11 +2845,6 @@ dreta o centrada; etc.  La majoria d'aquestes eleccions poden
 deixar-se que el Lilypond les determini automàticament, però en
 certs casos pot ser desitjable forçar una direcció o col·locació
 concreta.
-
-@menu
-* Articulation direction indicators::
-* The direction property::
-@end menu
 
 
 @node Articulation direction indicators
@@ -3161,10 +3100,6 @@ Tots els objectes d'extensió donen suport a la interfície
 una línia recta entre els dos objectes, donen suport també  la
 interfície @code{line-spanner-interface}.
 
-@menu
-* Using the spanner-interface::
-* Using the line-spanner-interface::
-@end menu
 
 @node Using the spanner-interface
 @unnumberedsubsubsec Ús de la @code{spanner-interface}
@@ -3480,14 +3415,6 @@ Manual d'aprenentatge introdueix aquestes quatre tècniques, vegeu
 
 Hi ha també algunes altres tècniques que són específiques de certs
 objectes de presentació.  S'estudien sota Consideracions especials.
-
-@menu
-* Removing the stencil::
-* Making objects transparent::
-* Painting objects white::
-* Using break-visibility::
-* Special considerations::
-@end menu
 
 
 @node Removing the stencil
@@ -3954,10 +3881,6 @@ Tant els objectes de presentació com els elements de text de
 marcatge es poden girar qualsevol angle respecte a qualsevol punt,
 però hi ha diferents mètodes per fer-lo.
 
-@menu
-* Rotating layout objects::
-* Rotating markup::
-@end menu
 
 @node Rotating layout objects
 @unnumberedsubsubsec Rotació d'objectes de presentació
@@ -4018,15 +3941,6 @@ fis'^\markup { \rotate #30 "an F-Sharp" }
 Aquesta secció tracta sobre diferents enfocaments per a la
 realització d'ajustaments fins a l'aparença de la partitura
 impresa.
-
-@menu
-* Aligning objects::
-* Vertical grouping of grobs::
-* Modifying stencils::
-* Modifying shapes::
-* Modifying broken spanners::
-* Unpure-pure containers::
-@end menu
 
 @morerefs
 Manual d'aprenentatge:
@@ -4102,13 +4016,6 @@ Referència de la notació:
 
 Manual d'extensió:
 @rextendnamed{Callback functions,Funcions de callback}.
-
-@menu
-* Setting X-offset and Y-offset directly::
-* Using the side-position-interface::
-* Using the self-alignment-interface::
-* Using the break-alignable-interface::
-@end menu
 
 
 @node Setting X-offset and Y-offset directly
@@ -4474,12 +4381,9 @@ Referencia de la notación:
 @ref{Graphical markup,Grafisme}.
 
 
+@need 1500
 @node Modifying shapes
 @subsection Modificació de les formes
-
-@menu
-* Modifying ties and slurs::
-@end menu
 
 
 @node Modifying ties and slurs
@@ -4723,12 +4627,10 @@ Referència de funcionament intern:
 @rinternals{TieColumn}.
 
 
+@need 1500
 @node Modifying broken spanners
 @subsection Modificació d'objectes d'extensió dividits
 
-@menu
-* Using alterBroken::
-@end menu
 
 @node Using alterBroken
 @unnumberedsubsubsec Ús d'@code{\alterBroken}
@@ -4969,11 +4871,6 @@ estudiarem sols les funcions de @emph{substitució}, en les quals
 l'objecte es substitueix una variable dins d'un fragment de codi
 d'entrada del LilyPond.  Es descriuen altres funcions més
 complexes a @rextendnamed{Music functions,Funcions musicals}.
-
-@menu
-* Substitution function syntax::
-* Substitution function examples::
-@end menu
 
 
 @node Substitution function syntax

@@ -21,11 +21,6 @@
 Aquesta secció inclou elements de notació musical que es plantegen
 en escriure per a instruments de vent.
 
-@menu
-* Common notation for wind instruments::
-* Bagpipes::
-* Woodwinds::
-@end menu
 
 @node Common notation for wind instruments
 @subsection Notació comuna per a instruments de vent
@@ -33,10 +28,6 @@ en escriure per a instruments de vent.
 Aquesta secció presenta la notació comuna per gairebé tots els
 instruments de vent.
 
-@menu
-* References for wind instruments::
-* Fingerings::
-@end menu
 
 @node References for wind instruments
 @unnumberedsubsubsec Referències per a instruments de vent
@@ -154,10 +145,6 @@ Fragments de codi:
 
 Aquesta secció tracta de la notació comuna per a gaita.
 
-@menu
-* Bagpipe definitions::
-* Bagpipe example::
-@end menu
 
 @node Bagpipe definitions
 @unnumberedsubsubsec  Definicions per a la gaita
@@ -272,9 +259,6 @@ Fragments de codi:
 Aquesta secció estudia la notació específica per a instruments de
 vent fusta.
 
-@menu
-* Woodwind diagrams::
-@end menu
 
 @node Woodwind diagrams
 @subsubsection Diagrames de posicions per a vent fusta
