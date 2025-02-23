@@ -48,17 +48,6 @@ angewendet werden.
 @cindex LaTeX, Noten in
 
 
-@menu
-* An example of a musicological document::
-* Integrating music and text::
-* Music fragment options::
-* Invoking lilypond-book::
-* Filename extensions::
-* lilypond-book templates::
-* Sharing the table of contents::
-* Alternate methods of mixing text and music::
-@end menu
-
 @node An example of a musicological document
 @section Ein musikwissenschaftlicher Text als Beispiel
 
@@ -194,12 +183,6 @@ Wenn man eine @code{tagline} (die Zeile unten auf der Seite) braucht
 In diesem Abschnitt soll die Integration von LilyPond mit den
 verschiedenen Dateiformaten detailliert erläutert werden.
 
-@menu
-* LaTeX::
-* Texinfo::
-* HTML::
-* DocBook::
-@end menu
 
 @node LaTeX
 @subsection @LaTeX{}

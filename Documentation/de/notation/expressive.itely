@@ -19,12 +19,6 @@
 Dieser Abschnitt zeigt verschiedene Ausdrucksbezeichnungen,
 die zur Partitur hinzugefügt werden können.
 
-@menu
-* Expressive marks attached to notes::
-* Expressive marks as curves::
-* Expressive marks as lines::
-@end menu
-
 
 @node Expressive marks attached to notes
 @subsection Ausdrucksbezeichnungen an Noten angehängt
@@ -34,12 +28,6 @@ die an Noten gebunden sind: Artikulationszeichen, Ornamente und
 Dynamikzeichen.  Es werden auch Methoden gezeigt, eigene
 Ausdrucksbezeichnungen zu erstellen.
 
-
-@menu
-* Articulations and ornamentations::
-* Dynamics::
-* New dynamic marks::
-@end menu
 
 @node Articulations and ornamentations
 @unnumberedsubsubsec Artikulationszeichen und Verzierungen
@@ -610,12 +598,6 @@ Dieser Abschnitt erklärt, wie man verschiedene gebogene
 Ausdrucksbezeichnungen erstellt: Legato- und Phrasierungsbögen,
 Atemzeichen und Glissandos zu unbestimmten Tonhöhen.
 
-@menu
-* Slurs::
-* Phrasing slurs::
-* Breath marks::
-* Falls and doits::
-@end menu
 
 @node Slurs
 @unnumberedsubsubsec Legatobögen
@@ -1014,11 +996,6 @@ Dieser Abschnitt zeigt, wie man verschiedene Ausdrucksbezeichnungen
 erstellt, die sich linear erstrecken: Glissando, Arpeggio und
 Triller.
 
-@menu
-* Glissando::
-* Arpeggio::
-* Trills::
-@end menu
 
 @node Glissando
 @unnumberedsubsubsec Glissando

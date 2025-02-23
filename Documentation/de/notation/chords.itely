@@ -22,11 +22,6 @@ notiert werden; bei letztere Eingabemethode können unterschiedliche
 europäische Akkordbezeichnungsstile eingesetzt werden.  Akkordbezeichnungen
 und Generalbass können auch angezeigt werden.
 
-@menu
-* Chord mode::
-* Displaying chords::
-* Figured bass::
-@end menu
 
 @node Chord mode
 @subsection Akkord-Modus
@@ -37,12 +32,6 @@ und Generalbass können auch angezeigt werden.
 Im Akkordmodus (engl. @qq{chord}) werden Akkorde anhand von einem
 Symbol der erwünschten Akkordstruktur notiert, anstatt dass die
 einzelnen Tonhöhen ausgeschrieben werden.
-
-@menu
-* Chord mode overview::
-* Common chords::
-* Extended and altered chords::
-@end menu
 
 
 @node Chord mode overview
@@ -445,10 +434,6 @@ der Grundton des Akkordes geändert wird.
 Akkorde können zusätzlich zur üblichen Notation als Töne auf
 einem Notensystem auch mit einem Akkordsymbol gesetzt werden.
 
-@menu
-* Printing chord names::
-* Customizing chord names::
-@end menu
 
 @node Printing chord names
 @unnumberedsubsubsec Akkordbezeichnungen drucken
@@ -839,12 +824,6 @@ myChords = \relative c' {
 {snippets/figured-bass-headword.ly}
 
 Generalbassnotation kann dargestellt werden.
-
-@menu
-* Introduction to figured bass::
-* Entering figured bass::
-* Displaying figured bass::
-@end menu
 
 
 @node Introduction to figured bass

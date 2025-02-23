@@ -19,13 +19,6 @@
 Dieses Kapitel behandelt die technischen Details, wie LilyPond ausgeführt werden kann.
 
 
-@menu
-* Normal usage::
-* Command-line usage::
-* Error messages::
-* Common errors::
-@end menu
-
 @node Normal usage
 @section Übliche Programmbenutzung
 
@@ -54,14 +47,6 @@ soll in diesem Handbuch nicht näher beschrieben werden. Sehen Sie bitte
 im Handbuch Ihres Betriebssystems nach oder informieren Sie sich im
 Internet, wenn Sie mit der Kommandozeile nicht vertraut sind.
 
-
-@menu
-* Invoking LilyPond::
-* Basic command-line options for LilyPond::
-* Advanced command-line options for LilyPond::
-* Environment variables::
-* LilyPond in chroot jail::
-@end menu
 
 @node Invoking LilyPond
 @unnumberedsubsec @command{lilypond} aufrufen
@@ -885,15 +870,6 @@ Die Fehlermeldungen, die unten beschrieben werden, treten of auf,
 es ist jedoch nicht immer einfach, die Urache zu finden.  Wenn
 der Fehler einmal verstanden ist, kann er einfach behoben werden.
 
-
-@menu
-* Music runs off the page::
-* An extra staff appears::
-* Apparent error in init file::
-* Error message Unbound variable %::
-* Error message FT_Get_Glyph_Name::
-* Warning staff affinities should only decrease::
-@end menu
 
 @node Music runs off the page
 @unnumberedsubsec Noten laufen aus der Seite heraus

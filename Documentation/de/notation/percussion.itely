@@ -12,12 +12,9 @@
 
 @c Translators: Till Paala
 
+@need 1500
 @node Percussion
 @section Schlagzeug
-
-@menu
-* Common notation for percussion::
-@end menu
 
 
 @node Common notation for percussion
@@ -25,17 +22,6 @@
 
 Rhythmusnotation wird vor allem für Schlaginstrumente eingesetzt,
 aber hiermit kann auch der Rhythmus einer Melodie dargestellt werden.
-
-
-@menu
-* References for percussion::
-* Basic percussion notation::
-* Drum rolls::
-* Pitched percussion::
-* Percussion staves::
-* Custom percussion staves::
-* Ghost notes::
-@end menu
 
 
 @node References for percussion

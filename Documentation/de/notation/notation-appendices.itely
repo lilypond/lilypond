@@ -12,29 +12,10 @@
 
 @c \version "2.21.0"
 
+@need 1500
 @node Notation manual tables
 @appendix Notationsübersicht
 
-@menu
-* Chord name chart::
-* Common chord modifiers::
-* Predefined string tunings::
-* Predefined fretboard diagrams::
-* Predefined paper sizes::
-* MIDI instruments::
-* List of colors::
-* The Emmentaler font::
-* Note head styles::
-* Text markup commands::
-* Text markup list commands::
-* List of special characters::
-* List of articulations::
-* Percussion notes::
-* Technical glossary::
-* Available music functions::
-* Context modification identifiers::
-* Predefined type predicates::
-@end menu
 @c TODO: If adding "Default values for outside-staff-priority", put links into LM
 
 @node Chord name chart
@@ -884,34 +865,6 @@ or
 
 Siehe auch @ref{Formatting text}.
 
-@menu
-* Clef glyphs::
-* Time Signature glyphs::
-* Number glyphs::
-* Accidental glyphs::
-* Default Notehead glyphs::
-* Special Notehead glyphs::
-* Shape-note Notehead glyphs::
-* Rest glyphs::
-* Flag glyphs::
-* Dot glyphs::
-* Dynamic glyphs::
-* Script glyphs::
-* Arrowhead glyphs::
-* Bracket-tip glyphs::
-* Pedal glyphs::
-* Accordion glyphs::
-* Tie glyphs::
-* Vaticana glyphs::
-* Medicaea glyphs::
-* Hufnagel glyphs::
-* Mensural glyphs::
-* Neomensural glyphs::
-* Petrucci glyphs::
-* Solesmes glyphs::
-* Kievan Notation glyphs::
-@end menu
-
 
 @node Clef glyphs
 @unnumberedsubsec Notenschlüssel-Glyphen
@@ -1248,15 +1201,6 @@ Lesbarkeit eingefügt.
 
 Die Skripte unten sind in der Feta-Glyphe definiert und können
 an Noten angehängt werden (etwa @samp{c\accent}).
-
-@menu
-* Articulation scripts::
-* Ornament scripts::
-* Fermata scripts::
-* Instrument-specific scripts::
-* Repeat sign scripts::
-* Ancient scripts::
-@end menu
 
 @cindex accent
 @cindex espressivo
@@ -1642,24 +1586,6 @@ Ein Glossar der technischen Ausdrücke und Konzepte, die von
 LilyPond intern benutzt werden.  Die Ausdrücke kommen in den
 Handbüchern, auf den Mailinglisten oder im Quellcode vor.
 
-@menu
-* alist::
-* callback::
-* closure::
-* glyph::
-* grob::
-* immutable::
-* interface::
-* lexer::
-* mutable::
-* output-def::
-* parser::
-* parser variable::
-* prob::
-* simple closure::
-* smob::
-* stencil::
-@end menu
 
 @node alist
 @unnumberedsubsec alist

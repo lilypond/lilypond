@@ -47,32 +47,11 @@ LilyPond-Quelldatei mit einer Raute@tie{}@code{#} begonnen.@footnote{@rextendnam
 man Zahlen, Listen, Zeichenketten und Symbole in Scheme notiert.}
 
 
-@menu
-* Interpretation contexts::
-* Explaining the Internals Reference::
-* Modifying properties::
-* Useful concepts and properties::
-* Advanced tweaks::
-* Using music functions::
-@end menu
-
-
 @node Interpretation contexts
 @section Interpretationskontexte
 
 Dieser Abschnitt erklärt, was Kontexte sind und wie man sie
 verändern kann.
-
-@menu
-* Contexts explained::
-* Creating and referencing contexts::
-* Keeping contexts alive::
-* Modifying context plug-ins::
-* Changing context default settings::
-* Defining new contexts::
-* Context layout order::
-@end menu
-
 
 @morerefs
 Handbuch zum Lernen:
@@ -94,13 +73,6 @@ Referenz der Interna:
 @subsection Was sind Kontexte?
 
 Kontexte sind hierarchisch geordnet:
-
-@menu
-* Score - the master of all contexts::
-* Top-level contexts - staff containers::
-* Intermediate-level contexts - staves::
-* Bottom-level contexts - voices::
-@end menu
 
 @node Score - the master of all contexts
 @unnumberedsubsubsec Score -- der Vater aller Kontexte
@@ -715,11 +687,6 @@ wird, verändert.  Es gibt hierzu zwei Möglichkeiten.  Die eine verändert
 die Standardeinstellungen aller Kontexte eines bestimmten Typs, die andere
 verändert die Standardwerte nur eines bestimmten Kontextes.
 
-@menu
-* Changing all contexts of the same type::
-* Changing just one specific context::
-* Order of precedence::
-@end menu
 
 @node Changing all contexts of the same type
 @unnumberedsubsubsec Alle Kontexte des gleichen Typs verändern
@@ -1291,15 +1258,9 @@ Installierte Dateien:
 @file{ly/engraver-init.ly}.
 
 
+@need 1500
 @node Explaining the Internals Reference
 @section Die Referenz der Programminterna erklärt
-
-@menu
-* Navigating the program reference::
-* Layout interfaces::
-* Determining the grob property::
-* Naming conventions::
-@end menu
 
 
 @node Navigating the program reference
@@ -1605,17 +1566,9 @@ folgen bestimmten Regeln:
 @c todos left out
 
 
+@need 1500
 @node Modifying properties
 @section Eigenschaften verändern
-
-@menu
-* Overview of modifying properties::
-* The set command::
-* The override command::
-* The tweak command::
-* set versus override::
-* Modifying alists::
-@end menu
 
 
 @node Overview of modifying properties
@@ -2239,19 +2192,9 @@ Kontexteigenschaften (wie etwa @code{beamExceptions}, @code{keyAlterations},
 nur verändert werden, indem man sie vollständig als Alisten umdefiniert.}
 
 
+@need 1500
 @node Useful concepts and properties
 @section Nützliche Konzepte und Eigenschaften
-
-@menu
-* Input modes::
-* Direction and placement::
-* Distances and measurements::
-* Staff symbol properties::
-* Spanners::
-* Visibility of objects::
-* Line styles::
-* Rotating objects::
-@end menu
 
 
 @node Input modes
@@ -2903,14 +2846,6 @@ Es gibt auch einige weitere Techniken, die sich nur auf
 bestimmte Layout-Objekte beziehen.  Sie werden im letzten
 Abschnitt behandelt.
 
-@menu
-* Removing the stencil::
-* Making objects transparent::
-* Painting objects white::
-* Using break-visibility::
-* Special considerations::
-@end menu
-
 
 @node Removing the stencil
 @unnumberedsubsubsec Einen @code{stencil} entfernen
@@ -3334,10 +3269,6 @@ beliebigen Winkel um einen beliebigen Punkt herum gedreht
 werden, aber die Methode, mit der die Änderung vorgenommen
 werden muss, unterscheidet sich je nach Objekt.
 
-@menu
-* Rotating layout objects::
-* Rotating markup::
-@end menu
 
 @node Rotating layout objects
 @unnumberedsubsubsec Drehen von Layout-Objekten
@@ -3401,15 +3332,6 @@ fis'^\markup { \rotate #30 "an F-Sharp" }
 
 Dieser Abschnitt behandelt verschiedene Möglichkeiten, das
 Aussehen des Notenbildes zu polieren.
-
-@menu
-* Aligning objects::
-* Vertical grouping of grobs::
-* Modifying stencils::
-* Modifying shapes::
-* Unpure-pure containers::
-@end menu
-
 
 @morerefs
 Handbuch zum Lernen:
@@ -3485,13 +3407,6 @@ Notationshandbuch:
 Erweitern:
 @rextendnamed{Callback functions, Callback-Funktionen}.
 
-
-@menu
-* Setting X-offset and Y-offset directly::
-* Using the side-position-interface::
-* Using the self-alignment-interface::
-* Using the break-alignable-interface::
-@end menu
 
 @node Setting X-offset and Y-offset directly
 @unnumberedsubsubsec @code{X-offset} und @code{Y-offset} direkt setzen
@@ -3834,13 +3749,10 @@ Notationsreferenz:
 @ref{The Emmentaler font}.
 
 
-
+@need 1500
 @node Modifying shapes
 @subsection Formen verändern
 
-@menu
-* Modifying ties and slurs::
-@end menu
 
 @node Modifying ties and slurs
 @unnumberedsubsubsec Bögen verändern
@@ -4057,10 +3969,6 @@ erklärt werden, wo es darum geht, eine Variable mit einem Stück
 LilyPond-Code zu ersetzen.  Andere komplexere Funktionen werden
 beschrieben in @rextendnamed{Music functions, Musikalische Funktionen}.
 
-@menu
-* Substitution function syntax::
-* Substitution function examples::
-@end menu
 
 @node Substitution function syntax
 @subsection Syntax der Ersetzungsfunktion

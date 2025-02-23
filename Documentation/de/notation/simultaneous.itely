@@ -21,24 +21,12 @@ Vorhandensein von mehr als einer (eigenständigen) Stimme
 in einem Stück. Für LilyPond bedeutet es aber das Vorhandensein
 von mehr als einer Stimme pro System.
 
-@menu
-* Single voice::
-* Multiple voices::
-@end menu
-
 
 @node Single voice
 @subsection Eine einzelne Stimme
 
 Dieser Abschnitt behandelt gleichzeitige Noten innerhalb
 derselben Stimme.
-
-@menu
-* Chorded notes::
-* Chord repetition::
-* Simultaneous expressions::
-* Clusters::
-@end menu
 
 
 @node Chorded notes
@@ -397,13 +385,6 @@ Cluster produzieren kein MIDI.
 Dieser Abschnitt behandelt gleichzeitige Noten in mehreren Stimmen
 oder mehreren Systemen.
 
-@menu
-* Single-staff polyphony::
-* Voice styles::
-* Collision resolution::
-* Automatic part combining::
-* Writing music in parallel::
-@end menu
 
 @node Single-staff polyphony
 @unnumberedsubsubsec Mehrstimmigkeit in einem System

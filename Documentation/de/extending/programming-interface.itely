@@ -20,18 +20,6 @@ Scheme vorgenommen werden.  Wenn Sie Scheme nicht kennen, gibt
 es eine grundlegende Einleitung in LilyPonds
 @ref{Scheme tutorial}.
 
-@menu
-* LilyPond code blocks::
-* Scheme functions::
-* Music functions::
-* Event functions::
-* Markup functions::
-* Contexts for programmers::
-* Callback functions::
-* Inline Scheme code::
-* Difficult tweaks::
-@end menu
-
 
 @node LilyPond code blocks
 @section LilyPond-Codeabschnitte
@@ -75,11 +63,6 @@ einzusetzen.  Während Scheme auch eigene Funktionen besitzt, handelt
 % dieses kapitel von @emph{syntaktischen} Funktionen, Funktionen, die
 Argumente in LilyPond-Syntax annehmen.
 
-@menu
-* Scheme function definitions::
-* Scheme function usage::
-* Void Scheme functions::
-@end menu
 
 @node Scheme function definitions
 @subsection Definition von Scheme-Funktionen
@@ -283,16 +266,6 @@ Das funktioniert auch für musikalische Funktionen wie @code{\displayMusic}.
 @emph{Musikalische Funktionen} sind Scheme-Prozeduren,
 die musikalische Ausdrücke automatisch erstellen können und dadurch die
 Eingabedatei maßgeblich vereinfachen können.
-
-@menu
-* Music function definitions::
-* Music function usage::
-* Simple substitution functions::
-* Intermediate substitution functions::
-* Mathematics in functions::
-* Functions without arguments::
-* Void music functions::
-@end menu
 
 
 @node Music function definitions
@@ -553,13 +526,6 @@ Textbeschriftungselemente sind als besondere Scheme-Funktionen
 definiert, die ein @code{Stencil}-Objekt erstellen, dem eine Anzahl
 an Argumenten übergeben wird.
 
-@menu
-* Markup construction in Scheme::
-* How markups work internally::
-* New markup command definition::
-* New markup list command definition::
-@end menu
-
 
 @node Markup construction in Scheme
 @subsection Beschriftungskonstruktionen in Scheme
@@ -678,12 +644,6 @@ in diesem Abschnitt und in der Datei
 
 Dieser Abschnitt behandelt die Definition von neuen Textbeschriftungsbefehlen.
 
-@menu
-* Markup command definition syntax::
-* On properties::
-* A complete example::
-* Adapting builtin commands::
-@end menu
 
 @node Markup command definition syntax
 @unnumberedsubsubsec Syntax der Definition von Textbeschriftungsbefehlen
@@ -1075,13 +1035,10 @@ Dieser neue Beschriftungslistenbefehl kann wie folgt benutzt werden:
 @end example
 
 
+@need 1500
 @node Contexts for programmers
 @section Kontexte für Programmierer
 
-@menu
-* Context evaluation::
-* Running a function on all layout objects::
-@end menu
 
 @node Context evaluation
 @subsection Kontextauswertung

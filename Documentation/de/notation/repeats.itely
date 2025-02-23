@@ -44,20 +44,9 @@ Das wird benutzt, um Tremolo-Wiederholungen am Notenhals zu notieren.
 @end table
 
 
-@menu
-* Long repeats::
-* Short repeats::
-@end menu
-
+@need 1500
 @node Long repeats
 @subsection Lange Wiederholungen
-
-@menu
-* Normal repeats::
-* Manual repeat marks::
-* Written-out repeats::
-@end menu
-
 
 @cindex Wiederholungen
 @cindex Volta
@@ -630,10 +619,6 @@ Kurze Wiederholungen haben zwei Formen: Wiederholungen
 von einer Note bis zu zwei Takten, die mit Schrägstrichen oder
 Prozentzeichen dargestellt werden, und Tremolos.
 
-@menu
-* Percent repeats::
-* Tremolo repeats::
-@end menu
 
 @node Percent repeats
 @unnumberedsubsubsec Prozent-Wiederholungen

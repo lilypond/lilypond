@@ -20,12 +20,6 @@
 Dieser Abschnitt beinhaltet einige Notationselemente, die
 bei der Notation von Blasinstrumenten auftreten.
 
-@menu
-* Common notation for wind instruments::
-* Bagpipes::
-* Woodwinds::
-@end menu
-
 
 @node Common notation for wind instruments
 @subsection Übliche Notation für Bläser
@@ -33,10 +27,6 @@ bei der Notation von Blasinstrumenten auftreten.
 Dieser Abschnitt erklärt Notation, die für die meisten
 Blasinstrumente gültig sind.
 
-@menu
-* References for wind instruments::
-* Fingerings::
-@end menu
 
 @node References for wind instruments
 @unnumberedsubsubsec Referenz für Blasinstrumente
@@ -153,11 +143,6 @@ Snippets:
 
 Dieser Abschnitt beinhaltet die Notation von Dudelsackmusik.
 
-@menu
-* Bagpipe definitions::
-* Bagpipe example::
-@end menu
-
 
 @node Bagpipe definitions
 @unnumberedsubsubsec Dudelsack-Definitionen
@@ -269,9 +254,6 @@ Schnipsel:
 
 Dieser Abschnitt zeigt Notation, die spezifisch für Holzbläser ist.
 
-@menu
-* Woodwind diagrams::
-@end menu
 
 @node Woodwind diagrams
 @subsubsection Holzbläserdiagramme

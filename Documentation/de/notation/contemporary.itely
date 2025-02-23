@@ -24,27 +24,12 @@ der Notationstechnik begleitet.  Die Absicht dieses Abschnittes
 ist es, Informationen und Hintergrundwissen zu bieten, der zur
 Notation zeitgenössischer Musik benötigt wird.
 
-@menu
-* Pitch and harmony in contemporary music::
-* Contemporary approaches to rhythm::
-* Graphical notation::
-* Contemporary scoring techniques::
-* New instrumental techniques::
-* Further reading and scores of interest::
-@end menu
-
 
 @node Pitch and harmony in contemporary music
 @subsection Tonhöhe und Harmonie in zeitgenössischer Musik
 
 Dieser Abschnitt zeigt Lösungen zur Notation von zeitgenössischen
 Tonhöhen und Harmonien.
-
-@menu
-* References for pitch and harmony in contemporary music::
-* Microtonal notation::
-* Contemporary key signatures and harmony::
-@end menu
 
 
 @node References for pitch and harmony in contemporary music
@@ -88,15 +73,6 @@ addressed in @ref{Automatic accidentals}.
 
 Dieser Abschnitt erklärt Besonderheiten, die wichtig für
 die Notation von Rhythmus in zeitgenössischer Musik sind.
-
-@menu
-* References for contemporary approaches to rhythm::
-* Tuplets in contemporary music::
-* Contemporary time signatures::
-* Extended polymetric notation::
-* Beams in contemporary music::
-* Bar lines in contemporary music::
-@end menu
 
 
 @node References for contemporary approaches to rhythm
@@ -192,11 +168,6 @@ Mensurstrich-Taktstriche (zwischen den Systemen) finden sich erklärt in
 Dieser Abschnitt weist auf einige Bücher, Musikbeispiele und
 andere Resourcen hin, die relevant für die Notation
 zeitgenössischer Musik sind.
-
-@menu
-* Books and articles on contemporary musical notation::
-* Scores and musical examples::
-@end menu
 
 
 @node Books and articles on contemporary musical notation

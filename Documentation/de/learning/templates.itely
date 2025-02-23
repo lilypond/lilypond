@@ -20,17 +20,6 @@ LilyPond-Partitur schon eingerichtet ist. Sie müssen nur noch Ihre
 Noten einfügen, die Datei mit LilyPond übersetzen und sich an dem
 schönen Notenbild erfreuen!
 
-@menu
-* Built-in templates::
-* Single staff templates::
-* Piano templates::
-* String quartet templates::
-* Vocal ensembles templates::
-* Orchestral templates::
-* Ancient notation templates::
-* Other templates::
-@end menu
-
 
 @node Built-in templates
 @appendixsec Eingebaute Vorlagen
@@ -48,10 +37,6 @@ eingebauten Vorlagen am @emph{Ende} der Eingabedatei @code{@bs{}include}'d.}
 Die benötigten musikalischen Ausdrücke werden speziellen Variablen (oder Makros)
 zugewiesen und müssen definiert sein, bevor die Vorlage @code{\include}'d wird.
 
-@menu
-* SATB template::
-* SSAATTBB template::
-@end menu
 
 @node SATB template
 @appendixsubsec SATB Vorlage
@@ -341,15 +326,10 @@ Komplexere Arrangements von 8-stimmigen Chorwerken sind mit dieser doch eher
 einfachen eingebauten Vorlage nicht möglich.
 
 
+@need 1500
 @node Single staff templates
 @appendixsec Vorlagen für ein einzelnes System
 
-@menu
-* Notes only::
-* Notes and lyrics::
-* Notes and chords::
-* Notes lyrics and chords::
-@end menu
 
 @node Notes only
 @appendixsubsec Nur Noten
@@ -376,14 +356,10 @@ einfachen eingebauten Vorlage nicht möglich.
 {snippets/single-staff-template-with-notes,-lyrics,-and-chords.ly}
 
 
+@need 1500
 @node Piano templates
 @appendixsec Klaviervorlagen
 
-@menu
-* Solo piano::
-* Piano and melody with lyrics::
-* Piano centered lyrics::
-@end menu
 
 @node Solo piano
 @appendixsubsec Piano Solo
@@ -404,13 +380,10 @@ einfachen eingebauten Vorlage nicht möglich.
 {snippets/piano-template-with-centered-lyrics.ly}
 
 
+@need 1500
 @node String quartet templates
 @appendixsec Vorlagen für Streichquartette
 
-@menu
-* String quartet::
-* String quartet parts::
-@end menu
 
 @node String quartet
 @appendixsubsec Streichquartett
@@ -434,15 +407,6 @@ sie ein eher einfaches SATB Layout benötigen, sollten sie erwägen eine
 der eingebauten Vorlagen zu verwenden, die sie lediglich mit @code{\include}
 einzufügen bräuchten, siehe auch @ref{Built-in templates}.
 
-@menu
-* SATB vocal score::
-* SATB vocal score and automatic piano reduction::
-* SATB with aligned contexts::
-* SATB on four staves::
-* Solo verse and two-part refrain::
-* Hymn tunes::
-* Psalms::
-@end menu
 
 @node SATB vocal score
 @appendixsubsec SATB-Partitur
@@ -487,12 +451,10 @@ einzufügen bräuchten, siehe auch @ref{Built-in templates}.
 {snippets/anglican-psalm-template.ly}
 
 
+@need 1500
 @node Orchestral templates
 @appendixsec Orchestervorlagen
 
-@menu
-* Orchestra choir and piano::
-@end menu
 
 @node Orchestra choir and piano
 @appendixsubsec Orchester, Chor und Klavier
@@ -501,13 +463,10 @@ einzufügen bräuchten, siehe auch @ref{Built-in templates}.
 {snippets/orchestra,-choir-and-piano-template.ly}
 
 
+@need 1500
 @node Ancient notation templates
 @appendixsec Vorlagen für alte Notation
 
-@menu
-* Transcription of mensural music::
-* Gregorian transcription template::
-@end menu
 
 @node Transcription of mensural music
 @appendixsubsec Transkription mensuraler Musik
@@ -522,12 +481,10 @@ einzufügen bräuchten, siehe auch @ref{Built-in templates}.
 {snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 
+@need 1500
 @node Other templates
 @appendixsec Andere Vorlagen
 
-@menu
-* Jazz combo::
-@end menu
 
 @node Jazz combo
 @appendixsubsec Jazz-Combo

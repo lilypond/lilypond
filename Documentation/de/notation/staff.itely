@@ -22,12 +22,6 @@ Dieser Abschnitt zeigt, wie die Erscheinung von Systemen beeinflusst
 wird, wie Partituren mit mehr als einem System gesetzt werden und wie
 man Aufführungsanweisungen und Stichnoten zu einzelnen Systemen hinzufügt.
 
-@menu
-* Displaying staves::
-* Modifying single staves::
-* Writing parts::
-@end menu
-
 
 @node Displaying staves
 @subsection Systeme anzeigen lassen
@@ -35,12 +29,6 @@ man Aufführungsanweisungen und Stichnoten zu einzelnen Systemen hinzufügt.
 Dieser Abschnitt zeigt unterschiedliche Methoden, Notensysteme und
 Gruppen von Systemen zu erstellen.
 
-@menu
-* Instantiating new staves::
-* Grouping staves::
-* Nested staff groups::
-* Separating systems::
-@end menu
 
 @node Instantiating new staves
 @unnumberedsubsubsec Neue Notensysteme erstellen
@@ -411,12 +399,6 @@ Dieser Abschnitt zeigt, wie man bestimmte Eigenschaften eines Systems
 ändert -- etwa die Anzahl der Notenlinien oder die Größe des Systems.
 Es werden auch Methoden dargestellt, ein System zu beginnen und zu
 beenden sowie eine Methode, Ossia-Systeme zu erstellen.
-
-@menu
-* Staff symbol::
-* Ossia staves::
-* Hiding staves::
-@end menu
 
 
 @node Staff symbol
@@ -901,12 +883,6 @@ Dieser Abschnitt zeigt, wie man Tempo-Anweisungen und
 Instrumentenbezeichnungen einfügt.  Es werden auch Möglichkeiten
 vorgestellt, andere Stimmen zu zitieren und Stichnoten zu
 formatieren.
-
-@menu
-* Instrument names::
-* Quoting other voices::
-* Formatting cue notes::
-@end menu
 
 
 @node Instrument names

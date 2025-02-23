@@ -36,38 +36,17 @@ werden kann, der die am häufigsten vorkommenden Notationssymbole
 enthält.  Der Abschnitt baut auf dem @ref{Tutorial} auf.
 
 
-@menu
-* Single staff notation::
-* Multiple notes at once::
-* Songs::
-* Final touches::
-@end menu
-
-
 @node Single staff notation
 @section Notation auf einem System
 
 Dieses Kapitel lehrt grundlegende Bestandteile der Notation,
 die für eine Stimme auf einem System gebraucht werden.
 
-@menu
-* Bar lines and bar checks::
-* Pitches and key signatures::
-* Ties and slurs::
-* Articulation and dynamics::
-* Adding text::
-* Automatic and manual beams::
-* Advanced rhythmic commands::
-@end menu
 
-
+@need 1500
 @node Bar lines and bar checks
 @subsection Taktstriche und Taktüberprüfung
 
-@menu
-* Bar lines::
-* Bar checks::
-@end menu
 
 @node Bar lines
 @unnumberedsubsubsec Taktstriche
@@ -123,12 +102,6 @@ Notationsreferenz:
 
 @node Pitches and key signatures
 @subsection Tonhöhen und Tonartbezeichnungen (Vorzeichen)
-
-@menu
-* Pitch alterations::
-* Key signatures::
-* Warning key signatures and pitches::
-@end menu
 
 @warning{Neue Anwender missverstehen meist, wie LilyPond Tonartbezeichnungen
 verwendet -- bitte lesen sie die entsprechende Warnung am Ende dieses Abschnitts.}
@@ -279,6 +252,7 @@ Notationsreferenz:
 @rnotationnamed{Key signature, Tonartbezeichnung}.
 
 
+@need 1500
 @node Ties and slurs
 @subsection Bindebögen und Legatobögen
 
@@ -292,13 +266,6 @@ Notationsreferenz:
 @funindex ( ... )
 @funindex \( ... \)
 
-
-@menu
-* Ties::
-* Slurs::
-* Phrasing slurs::
-* Warnings slurs vs ties::
-@end menu
 
 @node Ties
 @unnumberedsubsubsec Bindebögen
@@ -394,11 +361,6 @@ Notationsreferenz:
 Artikulationszeichen und Lautstärke werden durch spezielle Zeichen
 nach den Noten angezeigt, auf die sie sich beziehen.
 
-@menu
-* Articulations::
-* Fingerings::
-* Dynamics::
-@end menu
 
 @node Articulations
 @unnumberedsubsubsec Artikulationszeichen
@@ -588,14 +550,10 @@ Notationsreferenz:
 @rnotationnamed{Manual beams, Manuelle Balken}.
 
 
+@need 1500
 @node Advanced rhythmic commands
 @subsection Zusätzliche rhythmische Befehle
 
-@menu
-* Partial measure::
-* Tuplets::
-* Grace notes::
-@end menu
 
 @node Partial measure
 @unnumberedsubsubsec Auftakt
@@ -693,14 +651,6 @@ Polyphonie nennt man in der Musik das Vorkommen von mehr als einer
 Stimme in einem Stück. Polyphonie bzw. Mehrstimmigkeit heißt für
 LilyPond allerdings das Vorkommen von mehr als einer Stimme pro System.
 
-@menu
-* Music expressions explained::
-* Multiple staves::
-* Staff groups::
-* Combining notes into chords::
-* Single staff polyphony::
-@end menu
-
 
 @node Music expressions explained
 @subsection Musikalische Ausdrücke erklärt
@@ -708,12 +658,6 @@ LilyPond allerdings das Vorkommen von mehr als einer Stimme pro System.
 @cindex Musikalischer Ausdruck
 @cindex Ausdruck, musikalischer
 @cindex zusammengesetzter musikalischer Ausdruck
-
-@menu
-* Analogy mathematical expressions::
-* Simultaneous music expressions multiple staves::
-* Simultaneous music expressions single staff::
-@end menu
 
 In LilyPond-Quelldateien wird Musik durch @emph{musikalische
 Ausdrücke} dargestellt. Eine einzelne Note ist ein musikalischer
@@ -1067,12 +1011,6 @@ In diesem Kapitel wird in die Kombination von Musik mit
 Text eingeführt und die Erstellung einfacher Song-Blätter
 gezeigt.
 
-@menu
-* Setting simple songs::
-* Aligning lyrics to a melody::
-* Lyrics to multiple staves::
-@end menu
-
 
 @node Setting simple songs
 @subsection Einfache Lieder setzen
@@ -1358,13 +1296,6 @@ Notationsreferenz:
 Das ist das letzte Kapitel des Tutoriums. Hier soll demonstriert werden,
 wie man den letzten Schliff an einfachen Stücken anbringen kann.
 Gleichzeitig dient es als Einleitung zum Rest des Handbuches.
-
-@menu
-* Organizing pieces with variables::
-* Adding titles::
-* Absolute note names::
-* After the tutorial::
-@end menu
 
 
 @node Organizing pieces with variables

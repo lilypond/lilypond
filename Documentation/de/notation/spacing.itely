@@ -41,29 +41,11 @@ etwa Papierhöhe oder ob Seitenzahlen ausgegeben werden sollen.  Siehe
 der Partitur selber, wie etwa die Zahl der Systeme oder den Platz zwischen
 Systemgruppen usw.  Siehe @ref{Score layout}.
 
-@menu
-* Page layout::
-* Score layout::
-* Breaks::
-* Vertical spacing::
-* Horizontal spacing::
-* Fitting music onto fewer pages::
-@end menu
-
 
 @node Page layout
 @section Seitenlayout
 
 Dieser Abschnitt behandelt Seitenlayout-Optionen innerhalb der @code{\paper}-Umgebung.
-
-@menu
-* The paper block::
-* Paper size and automatic scaling::
-* Fixed vertical spacing paper variables::
-* Flexible vertical spacing paper variables::
-* Horizontal spacing paper variables::
-* Other paper variables::
-@end menu
 
 
 @node The paper block
@@ -148,6 +130,7 @@ Installierte Dateien:
 @file{ly/paper-defaults-init.ly}.
 
 
+@need 1500
 @node Paper size and automatic scaling
 @subsection Papierformat und automatische Skalierung
 
@@ -155,11 +138,6 @@ Installierte Dateien:
 @cindex Seitenformat
 
 @funindex \paper
-
-@menu
-* Setting the paper size::
-* Automatic scaling to paper size::
-@end menu
 
 
 @node Setting the paper size
@@ -381,11 +359,6 @@ normalerweise innerhalb der @code{\score}-Umgebung vorgenommen
 werden, und nicht innerhalb der @code{\paper}-Umgebung.  Siehe auch
 @ref{Flexible vertical spacing within systems}.
 
-@menu
-* Structure of flexible vertical spacing alists::
-* List of flexible vertical spacing paper variables::
-@end menu
-
 
 @node Structure of flexible vertical spacing alists
 @unnumberedsubsubsec Struktur der Alisten für flexible vertikale Abstände
@@ -567,12 +540,6 @@ Schnipsel:
 @warning{Einige @code{@bs{}paper}-Dimensionen werden automatische
 entsprechend dem Papierformat skaliert und können deshalb ungewollte
 Resultate haben.  Siehe @ref{Automatic scaling to paper size}.}
-
-@menu
-* paper variables for widths and margins::
-* paper variables for two-sided mode::
-* paper variables for shifts and indents::
-@end menu
 
 
 @node paper variables for widths and margins
@@ -779,15 +746,9 @@ Schnipsel:
 @rlsr{Spacing}.
 
 
+@need 1500
 @node Other paper variables
 @subsection Andere @code{\paper}-Variablen
-
-@menu
-* paper variables for line breaking::
-* paper variables for page breaking::
-* paper variables for page numbering::
-* Miscellaneous paper variables::
-@end menu
 
 
 @node paper variables for line breaking
@@ -1013,14 +974,9 @@ Die Standard-Kopfzeilendefinition setzt die Seitenzahl und das
 Zeile.
 
 
-
+@need 1500
 @node Score layout
 @section Partiturlayout
-
-@menu
-* The layout block::
-* Setting the staff size::
-@end menu
 
 
 @node The layout block
@@ -1311,19 +1267,9 @@ Schnipsel:
 @rlsr{Spacing}.
 
 
+@need 1500
 @node Breaks
 @section Umbrüche
-
-@menu
-* Line breaking::
-* Page breaking::
-* Optimal page breaking::
-* Optimal page turning::
-* Minimal page breaking::
-* One-line page breaking::
-* Explicit breaks::
-* Using an extra voice for breaks::
-@end menu
 
 
 @node Line breaking
@@ -1865,12 +1811,6 @@ und Ränder), wieviel Platz zwischen Systemgruppen
 Platz zwischen Notensystemen (engl. staff, Pl. staves)
 innerhalb von Gruppen gesetzt wird.
 
-@menu
-* Flexible vertical spacing within systems::
-* Explicit staff and system positioning::
-* Vertical collision avoidance::
-@end menu
-
 
 @node Flexible vertical spacing within systems
 @subsection Flexible vertikale Abstände in Systemgruppen
@@ -1910,13 +1850,6 @@ nicht-Systemzeilen in einzelnen Systemgruppen behandelt.  Die vertikale
 Platzierung zwischen einzelnen Systemgruppen, Partituren, Beschriftungen
 usw. und den Rändern wird durch @code{\paper}-Variablen kontrolliert, die
 @ref{Flexible vertical spacing paper variables}.
-
-@menu
-* Within-system spacing properties::
-* Spacing of ungrouped staves::
-* Spacing of grouped staves::
-* Spacing of non-staff lines::
-@end menu
 
 
 @node Within-system spacing properties
@@ -2784,20 +2717,13 @@ Schnipsel:
 @rlsr{Spacing}.
 
 
+@need 1500
 @node Horizontal spacing
 @section Horizontale Abstände
 
 @cindex horizontale Platzierung
 @cindex horizontale Anordnung
 @cindex Anordnung, horizontal
-
-@menu
-* Horizontal spacing overview::
-* New spacing section::
-* Changing horizontal spacing::
-* Line length::
-* Proportional notation::
-@end menu
 
 
 @node Horizontal spacing overview
@@ -3525,11 +3451,6 @@ Funktion @code{annotate-spacing} von sehr großer Hilfe.  Hiermit
 wird in den Musiksatz zusätzlich Information darüber ausgegeben,
 wieviel Platz bestimmten Parametern zugewiesen wird.  Genaueres
 hierzu in @ref{Displaying spacing}.
-
-@menu
-* Displaying spacing::
-* Changing spacing::
-@end menu
 
 
 @node Displaying spacing

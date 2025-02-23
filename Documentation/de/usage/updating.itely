@@ -26,14 +26,6 @@ nicht mehr richtig bearbeiten kann.  Um dieses Problem zu umgehen, kann
 das Programm @command{convert-ly} benutzt werden, welches die meisten
 Syntaxveränderungen zwischen unterschiedlichen LilyPond-Versionen beherrscht.
 
-@menu
-* Why does the syntax change?::
-* Invoking convert-ly::
-* Command line options for convert-ly::
-* Problems running convert-ly::
-* Manual conversions::
-@end menu
-
 
 @node Why does the syntax change?
 @section Warum verändert sich die Syntax?

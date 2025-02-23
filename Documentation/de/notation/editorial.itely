@@ -20,11 +20,6 @@ Dieser Abschnitt zeigt die verschiedenen Möglichkeiten, die
 Erscheinung der Noten zu ändern und analytische bzw. pädagogische
 Anmerkungen anzubringen.
 
-@menu
-* Inside the staff::
-* Outside the staff::
-@end menu
-
 
 @node Inside the staff
 @subsection Innerhalb des Systems
@@ -32,14 +27,6 @@ Anmerkungen anzubringen.
 Dieser Abschnitt zeigt, wie man Elemente hervorhebt, die sich
 innerhalb des Notensystems befinden.
 
-@menu
-* Selecting notation font size::
-* Fingering instructions::
-* Hidden notes::
-* Coloring objects::
-* Parentheses::
-* Stems::
-@end menu
 
 @node Selecting notation font size
 @unnumberedsubsubsec Auswahl der Notations-Schriftgröße
@@ -507,11 +494,6 @@ Referenz der Interna:
 Dieser Abschnitt zeigt, wie man Elemente im System von
 außerhalb des Systems hervorhebt.
 
-@menu
-* Balloon help::
-* Grid lines::
-* Analysis brackets::
-@end menu
 
 @node Balloon help
 @unnumberedsubsubsec Erklärungen in Ballonform

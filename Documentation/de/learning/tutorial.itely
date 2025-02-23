@@ -18,12 +18,6 @@
 Dieses Kapitel stellt dem Leser das grundlegende Arbeiten mit LilyPond
 vor.
 
-@menu
-* Compiling a file::
-* How to write input files::
-* Dealing with errors::
-* How to read the manuals::
-@end menu
 
 @node Compiling a file
 @section Eine Quelldatei übersetzen
@@ -88,27 +82,12 @@ Zusätzlich unterscheidet LilyPond @strong{Groß- und Kleinschreibung}.
 Dieser Abschnitt erklärt die grundlegende LilyPond-Syntax und hilft
 bei den ersten Anfängen, eine LilyPond-Eingabedatei zu schreiben.
 
-@menu
-* Simple notation::
-* Working on input files::
-@end menu
-
 
 @node Simple notation
 @subsection Einfache Notation
 
 @cindex einfache Notation
 @cindex Notation, einfach
-
-@menu
-* Pitches::
-* Durations (rhythms)::
-* Rests::
-* Time signature::
-* Tempo marks::
-* Clef::
-* All together::
-@end menu
 
 LilyPond fügt einige Bestandteile des Notenbildes automatisch hinzu. Im
 nächsten Beispiel sind nur vier Tonhöhen angegeben, aber LilyPond setzt
@@ -602,11 +581,6 @@ Abschnitt stellt einige Links zur Verfügung, um Ihnen bei der Problemlösung
 möglicher Schwierigkeiten zu helfen.
 
 
-@menu
-* General troubleshooting tips::
-* Some common errors::
-@end menu
-
 @node General troubleshooting tips
 @subsection Allgemeine Fehlerbehandlungstipps
 
@@ -636,12 +610,6 @@ Fehlermeldungen der Log-Datei hat.  Sie werden näher erklärt in
 Dieser Abschnitt erklärt, wie die Dokumentation effizient gelesen
 werden kann und behandelt auch einige nützliche Interaktionseigenschaften
 der Online-Version.
-
-@menu
-* Omitted material::
-* Clickable examples::
-* Overview of manuals::
-@end menu
 
 
 @node Omitted material

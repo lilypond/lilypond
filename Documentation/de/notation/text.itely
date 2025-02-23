@@ -24,12 +24,6 @@ Formatierung) in Partituren einfügt.
 Einige Textelemente, die hier nicht behandelt werden, finden sich
 in anderen Abschnitten: @ref{Vocal music}, @ref{Titles and headers}.
 
-@menu
-* Writing text::
-* Formatting text::
-* Fonts::
-@end menu
-
 
 @node Writing text
 @subsection Text eingeben
@@ -44,13 +38,6 @@ Zeichen (wie etwa Text mit anderen Alphabeten) eingeben möchte,
 kann man die Zeichen einfach direkt in die Datei einfügen.  Die
 Datei muss als UTF-8 gespeichert werden.  Für mehr Information
 siehe @ref{Text encoding}.}
-
-@menu
-* Text scripts::
-* Text spanners::
-* Text marks::
-* Separate text::
-@end menu
 
 
 @node Text scripts
@@ -409,14 +396,6 @@ Dieser Abschnitt zeigt grundlegende und fortgeschrittene
 Formatierung von Text, wobei der Textbeschriftungsmodus
 (@code{\markup} benutzt wird.
 
-@menu
-* Text markup introduction::
-* Selecting font and font size::
-* Text alignment::
-* Graphic notation inside markup::
-* Music notation inside markup::
-* Multi-page markup::
-@end menu
 
 @node Text markup introduction
 @unnumberedsubsubsec Textbeschriftung (Einleitung)
@@ -1408,11 +1387,6 @@ Referenz der Interna:
 Dieser Abschnitt zeigt, wie Schriftarten eingesetzt werden können und
 wie man sie in Partituren ändern kann.
 
-@menu
-* Fonts explained::
-* Single entry fonts::
-* Entire document fonts::
-@end menu
 
 @node Fonts explained
 @unnumberedsubsubsec Was sind Schriftarten

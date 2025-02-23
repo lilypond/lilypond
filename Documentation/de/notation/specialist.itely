@@ -17,19 +17,6 @@
 Dieser Abschnitt erklärt, wie Notation erstellt wird, die nur für ein
 bestimmtes Instrument oder einen Stil eingesetzt wird.
 
-@menu
-* Vocal music::
-* Keyboard and other multi-staff instruments::
-* Unfretted string instruments::
-* Fretted string instruments::
-* Percussion::
-* Wind instruments::
-* Chord notation::
-* Contemporary music::
-* Ancient notation::
-* World music::
-@end menu
-
 @include de/notation/vocal.itely
 @include de/notation/keyboards.itely
 @include de/notation/unfretted-strings.itely

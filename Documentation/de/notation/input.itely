@@ -18,15 +18,6 @@
 Dieses Kapitel erklärt allgemeine Fragen zur Eingabe und Ausgabe von
 Notation mit LilyPond und weniger direkte Fragen der Notation.
 
-@menu
-* Input structure::
-* Titles and headers::
-* Working with input files::
-* Controlling output::
-* MIDI output::
-* Extracting musical information::
-@end menu
-
 
 @node Input structure
 @section Eingabestruktur
@@ -34,14 +25,6 @@ Notation mit LilyPond und weniger direkte Fragen der Notation.
 Das hauptsächliche Eingabeformat von LilyPond sind Textdateien.
 Üblicherweise werden diese Dateien mit der Endung @file{.ly}
 versehen.
-
-@menu
-* Structure of a score::
-* Multiple scores in a book::
-* Multiple output files from one input file::
-* Output file names::
-* File structure::
-@end menu
 
 
 @node Structure of a score
@@ -558,23 +541,10 @@ Fast alle gedruckten Noten beinhalten einen Titel und den Namen
 des Komponisten, teilweise wird auch noch sehr viel mehr Information
 zur Verfügung gestellt.
 
-@menu
-* Creating titles headers and footers::
-* Custom headers footers and titles::
-* Creating footnotes::
-* Reference to page numbers::
-* Table of contents::
-@end menu
 
-
+@need 1500
 @node Creating titles headers and footers
 @subsection Titel, Kopf- und Fußzeilen erstellen
-
-@menu
-* Title blocks explained::
-* Default layout of book and score title blocks::
-* Default layout of headers and footers::
-@end menu
 
 
 @node Title blocks explained
@@ -862,17 +832,12 @@ Um die @emph{tagline} ganz zu entfernen, wird ihr Inhalb als @code{##f}
 (falsch) definiert.
 
 
+@need 1500
 @node Custom headers footers and titles
 @subsection Eigene Kopf- und Fußzeilen sowie Titel
 
 @c TODO: somewhere put a link to header spacing info
 @c       (you'll have to explain it more in NR 4).
-
-@menu
-* Custom text formatting for title blocks::
-* Custom layout for title blocks::
-* Custom layout for headers and footers::
-@end menu
 
 
 @node Custom text formatting for title blocks
@@ -1174,11 +1139,6 @@ Installierte Dateien:
 Zwei Arten an Fußnoten können erstellt werden: automatische und
 manuelle Fußnoten.
 
-@menu
-* Footnotes overview::
-* Automatic footnotes::
-* Manual footnotes::
-@end menu
 
 @node Footnotes overview
 @unnumberedsubsubsec Übersicht über Fußnoten
@@ -1691,14 +1651,9 @@ Installierte Dateien:
 @endpredefined
 
 
+@need 1500
 @node Working with input files
 @section Arbeiten an Eingabe-Dateien
-
-@menu
-* Including LilyPond files::
-* Different editions from one source::
-* Special characters::
-@end menu
 
 
 @node Including LilyPond files
@@ -1839,11 +1794,6 @@ die eigentlichen Noten und die Struktur der Partitur voneinander
 getrennt notiert werden -- so kann die Struktur geändert werden,
 ohne dass man Änderungen an den Noten vornehmen muss.
 
-@menu
-* Using variables::
-* Using tags::
-* Using global settings::
-@end menu
 
 @node Using variables
 @unnumberedsubsubsec Variablen benutzen
@@ -2136,17 +2086,12 @@ Notationsreferenz:
 @ref{Including LilyPond files}.
 
 
+@need 1500
 @node Special characters
 @subsection Sonderzeichen
 
 @cindex Sonderzeichen
 @cindex Nicht-ASCII-Zeichen
-
-@menu
-* Text encoding::
-* Unicode::
-* ASCII aliases::
-@end menu
 
 
 @node Text encoding
@@ -2332,15 +2277,9 @@ Installierte Dateien:
 @file{ly/text-replacements.ly}.
 
 
+@need 1500
 @node Controlling output
 @section Ausgabe kontrollieren
-
-@menu
-* Extracting fragments of music::
-* Skipping corrected music::
-* Alternative output formats::
-* Replacing the notation font::
-@end menu
 
 
 @node Extracting fragments of music
@@ -2522,16 +2461,6 @@ Die MIDI-Ausgabe benötigt einen Kanal für jedes System und reserviert
 Kanal 10 für Schlagzeug.  Es gibt nur 16 MIDI-Kanäle pro Gerät,
 sodass MIDI-Kanäle mehrfach benutzt werden, wenn eine Partitur mehr
 als 15 Notensysteme hat.
-
-@menu
-* Creating MIDI files::
-* MIDI block::
-* What goes into the MIDI output?::
-* Repeats in MIDI::
-* Controlling MIDI dynamics::
-* Percussion in MIDI::
-* The articulate script::
-@end menu
 
 
 @node Creating MIDI files
@@ -3131,11 +3060,6 @@ kann schlechter klingen.
 Neben graphischer Ausgabe und MIDI kann LilyPond auch die musikalische
 Information als Text anzeigen:
 
-@menu
-* Displaying LilyPond notation::
-* Displaying Scheme music expressions::
-* Saving music events to a file::
-@end menu
 
 @node Displaying LilyPond notation
 @subsection LilyPond-Notation anzeigen

@@ -36,12 +36,6 @@ unter @uref{https://www.gnu.org/software/guile/}.  Der
 @uref{https://www.schemers.org/Documents/Standards/R5RS/}.
 
 
-@menu
-* Introduction to Scheme::
-* Scheme in LilyPond::
-* Building complicated functions::
-@end menu
-
 @node Introduction to Scheme
 @section Einleitung in Scheme
 
@@ -50,15 +44,6 @@ soll der Guile-Interpreter genommen werden, um zu erforschen, wie die Sprache
 funktioniert.  Nach besserer Bekanntschaft mit Scheme soll gezeigt werden, wie
 die Sprache in LilyPond-Dateien eingefügt werden kann.
 
-@menu
-* Scheme sandbox::
-* Scheme variables::
-* Scheme simple data types::
-* Scheme compound data types::
-* Calculations in Scheme::
-* Scheme procedures::
-* Scheme conditionals::
-@end menu
 
 @node Scheme sandbox
 @subsection Scheme-Sandkasten
@@ -619,19 +604,10 @@ guile> (cond ((< a b) "a is less than b")
 @end lisp
 
 
-
+@need 1500
 @node Scheme in LilyPond
 @section Scheme in LilyPond
 
-@menu
-* LilyPond Scheme syntax::
-* LilyPond variables::
-* Input variables and Scheme::
-* Importing Scheme in LilyPond::
-* Object properties::
-* LilyPond compound variables::
-* Internal music representation::
-@end menu
 
 @node LilyPond Scheme syntax
 @subsection LilyPond Scheme-Syntax
@@ -1071,13 +1047,6 @@ in @code{elements}.
 
 Dieser Abschnitt zeigt, wie man Information zusammensucht,
 um komplizierte musikalische Funktionen  zu erstellen.
-
-@menu
-* Displaying music expressions::
-* Music properties::
-* Doubling a note with slurs (example)::
-* Adding articulation to notes (example)::
-@end menu
 
 
 @node Displaying music expressions

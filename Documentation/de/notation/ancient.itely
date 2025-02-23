@@ -23,15 +23,6 @@
 @cindex Petrucci
 @cindex Mensuralnotation
 
-@menu
-* Overview of the supported styles::
-* Ancient notation - common features::
-* Typesetting mensural music::
-* Typesetting Gregorian chant::
-* Typesetting Kievan square notation::
-* Working with ancient music - scenarios and solutions::
-@end menu
-
 Unterstützung für Notation der Alten Musik enthält einige Eigenheiten
 der Mensuralnotation, der Notation des gregorianischen
 Chorals und der Kiever Quadratnotation.  Diese Eigenheiten können
@@ -178,15 +169,10 @@ Glossary:
 
 
 @c {{{1 Ancient notation, general
+@need 1500
 @node Ancient notation - common features
 @subsection Alte Notation -- Allgemeines
 
-@menu
-* Pre-defined contexts::
-* Ligatures::
-* Custodes::
-* Figured bass support::
-@end menu
 
 @c {{{2 Pre-defined contexts
 @node Pre-defined contexts
@@ -369,20 +355,9 @@ Notationsreferenz:
 
 
 @c {{{1 Typesetting mensural music
+@need 1500
 @node Typesetting mensural music
 @subsection Mensurale Musik setzen
-
-@menu
-* Mensural contexts::
-* Mensural clefs::
-* Mensural time signatures::
-* Mensural note heads::
-* Mensural flags::
-* Mensural rests::
-* Mensural accidentals and key signatures::
-* Annotational accidentals (musica ficta)::
-* White mensural ligatures::
-@end menu
 
 
 @c {{{2Mensural contexts
@@ -1045,16 +1020,6 @@ Versetzungszeichen können mit vorhergehenden Noten kollidieren.
 @c {{{1 Typesetting Gregorian chant
 @node Typesetting Gregorian chant
 @subsection Gregorianischen Choral setzen
-
-@menu
-* Gregorian chant contexts::
-* Gregorian clefs::
-* Gregorian accidentals and key signatures::
-* Divisiones::
-* Gregorian articulation signs::
-* Augmentum dots (morae)::
-* Gregorian square neume ligatures::
-@end menu
 
 Wenn ein gregorianischer Choral notiert wird, wählt der
 @code{Vaticana_ligature_engraver} automatisch die richtigen
@@ -2472,16 +2437,10 @@ musikalische Funktion, so dass @code{\augmentum} mit den anderen
 Präfixen in arbiträrer Reihenfolge notiert werden kann.
 
 
+@need 1500
 @node Typesetting Kievan square notation
 @subsection Kiever Quadratnotation setzen
 
-@menu
-* Kievan contexts::
-* Kievan clefs::
-* Kievan note heads::
-* Kievan accidentals::
-* Kievan bar line::
-@end menu
 
 @node Kievan contexts
 @unnumberedsubsubsec Kiever Kontexte
@@ -2640,13 +2599,6 @@ Schlussstrich bezeichnen kann.  Es wird gesetzt mit @code{\bar "k"}.
 @c Working with ancient music: scenarios and solutions::  {{{1
 @node Working with ancient music - scenarios and solutions
 @subsection Musiksatz Alter Musik in der Praxis -- Szenarien und Lösungen
-
-@menu
-* Incipits::
-* Mensurstriche layout::
-* Transcribing Gregorian chant::
-* Ancient and modern from one source::
-@end menu
 
 Wenn man mit Alter Notation zu tun hat, fallen oft Aufgaben
 an, die in der modernen Notation nicht vorkommen, für welche

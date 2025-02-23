@@ -17,14 +17,6 @@
 
 LilyPond kann mit anderen Programmen auf verschiedene Weise interagieren.
 
-@menu
-* Point and click::
-* Text editor support::
-* Converting from other formats::
-* LilyPond output in other programs::
-* Independent includes::
-@end menu
-
 
 @node Point and click
 @section Point and click
@@ -32,10 +24,6 @@ LilyPond kann mit anderen Programmen auf verschiedene Weise interagieren.
 Poind and click fügt Verlinkung für bestimmte Notationselemente
 in die PDF-Dokumente ein.
 
-@menu
-* Enabling point and click::
-* Selective point-and-click::
-@end menu
 
 @node Enabling point and click
 @unnumberedsubsec Point and click aktivieren
@@ -219,11 +207,6 @@ lilypond \
 
 Verschiedene Editoren unterstützen LilyPond
 
-@menu
-* Emacs mode::
-* Vim mode::
-* Other editors::
-@end menu
 
 @node Emacs mode
 @unnumberedsubsec Emacs-Modus
@@ -629,12 +612,6 @@ Weise kombiniert werden können als dies durch @command{lilypond-book}
 automatisiert geschieht.
 
 
-@menu
-* Many quotes from a large score::
-* Inserting LilyPond output into OpenOffice::
-* Inserting LilyPond output into other programs::
-@end menu
-
 @node Many quotes from a large score
 @unnumberedsubsec Viele Zitate aus einer langen Partitur
 
@@ -706,11 +683,6 @@ die man in vielen Projekten verwenden kann.  Dieser Code wird möglicherweise
 auch eines Tages in LilyPond selbst integriert werden, aber bis dahin
 müssen Sie ihn selber herunterladen und mit @code{\include} selber
 einfügen.
-
-
-@menu
-* MIDI articulation::
-@end menu
 
 
 @node MIDI articulation

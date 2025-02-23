@@ -20,22 +20,12 @@ insbesondere relevant sind, um Musik nicht-westlicher Tradition
 zu notieren.
 
 
-@menu
-* Common notation for non-Western music::
-* Arabic music::
-* Turkish classical music::
-@end menu
-
-
 @node Common notation for non-Western music
 @subsection Übliche Notation für nichteuropäische Musik
 
 Dieser Abschnitt zeigt, wie man Partituren erstellt, die nicht
 der europäischen klassischen Musiktradition angehören.
 
-@menu
-* Extending notation and tuning systems::
-@end menu
 
 @node Extending notation and tuning systems
 @unnumberedsubsubsec Erweiterung von Notation und Stimmungssystemen
@@ -100,15 +90,6 @@ Notationsreferenz:
 Dieser Abschnitt zeigt Möglichkeiten, wie arabische Musik notiert
 werden kann.
 
-
-@menu
-* References for Arabic music::
-* Arabic note names::
-* Arabic key signatures::
-* Arabic time signatures::
-* Arabic music example::
-* Further reading for Arabic music::
-@end menu
 
 @node References for Arabic music
 @unnumberedsubsubsec Referenz für arabische Musik
@@ -480,11 +461,6 @@ Ibrahim Ali Darwish Al-masri
 
 Dieser Abschnitt zeigt Probleme, die bei der Notation von klassischer
 türkischer Musik auftreten können.
-
-@menu
-* References for Turkish classical music::
-* Turkish note names::
-@end menu
 
 
 @node References for Turkish classical music

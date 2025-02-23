@@ -26,9 +26,6 @@ Dieser Abschnitt stellt Information und Referenzen zur Verfügung, die
 beim Setzen von Noten für Saiteninstrumente ohne Bund herangezogen
 werden können.
 
-@menu
-* Common notation for unfretted strings::
-@end menu
 
 @node Common notation for unfretted strings
 @subsection Übliche Notation für bundlose Saiteninstrumente
@@ -38,12 +35,6 @@ Bünde.  Die Noten werden auf einem System notiert und meistens ist auch nur
 eine Stimme erforderlich.  Zwei Stimmen können für Doppelgriff- oder
 Divisi-Stellen erforderlich sein.
 
-@menu
-* References for unfretted strings::
-* Bowing indications::
-* Harmonics::
-* Snap (Bartok) pizzicato::
-@end menu
 
 @node References for unfretted strings
 @unnumberedsubsubsec Hinweise für bundlose Saiteninstrumente

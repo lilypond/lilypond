@@ -25,26 +25,12 @@ Instrumenten, die auf mehreren Systemen notiert werden, als
 @qq{Tasteninstrumente} bezeichnet, auch wenn einige von ihnen
 keine Tasten aufweisen.
 
-@menu
-* Common notation for keyboards::
-* Piano::
-* Accordion::
-* Harp::
-@end menu
 
 @node Common notation for keyboards
 @subsection Übliche Notation für Tasteninstrumente
 
 Dieser Abschnitt zeigt allgemeine Eigenschaften des Notensatzes, die
 für die meisten Instrumente mit mehreren Systemen benötigt werden.
-
-@menu
-* References for keyboards::
-* Changing staff manually::
-* Changing staff automatically::
-* Staff-change lines::
-* Cross-staff stems::
-@end menu
 
 
 @node References for keyboards
@@ -462,9 +448,6 @@ Referenz der Interna:
 
 Dieser Abschnitt zeigt Eigenheiten der Notation von Klavermusik
 
-@menu
-* Piano pedals::
-@end menu
 
 @node Piano pedals
 @unnumberedsubsubsec Klavierpedal
@@ -566,9 +549,6 @@ Referenz der Interna:
 Dieser Abschnitt behandelt Notation, die nur für Akkordeonmusik
 benötigt wird.
 
-@menu
-* Discant symbols::
-@end menu
 
 @node Discant symbols
 @unnumberedsubsubsec Diskant-Symbole
@@ -599,11 +579,6 @@ Schnipsel:
 @subsection Harfe
 
 Dieser Abschnitt zeigt Eigenheiten der Notation für Harfe.
-
-@menu
-* References for harps::
-* Harp pedals::
-@end menu
 
 
 @node References for harps

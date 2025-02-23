@@ -19,15 +19,6 @@
 Dieser Aufsatz beschreibt, wie LilyPond entstand und wie es
 benutzt werden kann, um schönen Notensatz zu erstellen.
 
-@menu
-* The LilyPond story::
-* Engraving details::
-* Automated engraving::
-* Building software::
-* Putting LilyPond to work::
-* Engraved examples (BWV 861)::
-@end menu
-
 
 @node The LilyPond story
 @section Die Geschichte von LilyPond
@@ -196,13 +187,6 @@ imitieren wollten.
 @c des Notensatzes vermindert. Mit dem Computer erstellte Noten sehen
 @c langweilig und mechanisch aus, was es erschwert, von ihnen zu spielen.
 
-@menu
-* Music fonts::
-* Optical spacing::
-* Ledger lines::
-* Optical sizing::
-* Why work so hard?::
-@end menu
 
 @node Music fonts
 @unnumberedsubsec Notenschriftarten
@@ -577,11 +561,6 @@ schreiben, welches das Layout von gestochenen Noten nachahmen kann:
 eine Methode, dem Computer gute Layouts zu erklären und detailliertes
 Vergleichen mit echten Notendrucken.
 
-@menu
-* Beauty contests::
-* Improvement by benchmarking::
-* Getting things right::
-@end menu
 
 @node Beauty contests
 @unnumberedsubsec Schönheitswettbewerb
@@ -981,11 +960,6 @@ Dieser Abschnitt beschreibt einige der Entscheidungen,
 die wir während des Programmierens für das Design von LilyPond
 getroffen haben.
 
-@menu
-* Music representation::
-* What symbols to engrave?::
-* Flexible architecture::
-@end menu
 
 @node Music representation
 @unnumberedsubsec Die Darstellung der Musik

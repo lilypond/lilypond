@@ -19,13 +19,6 @@
 Dieser Abschnitt zeigt, wie man die Tonhöhe notieren kann.
 Es gibt drei Stufen in diesem Prozess: Eingabe, Veränderung und Ausgabe.
 
-@menu
-* Writing pitches::
-* Changing multiple pitches::
-* Displaying pitches::
-* Note heads::
-@end menu
-
 
 @node Writing pitches
 @subsection Tonhöhen setzen
@@ -36,12 +29,6 @@ Oktaven zu notieren: den absoluten und den relativen
 Modus.  In den meisten Fällen eignet sich der relative
 Modus besser.
 
-@menu
-* Absolute octave entry::
-* Relative octave entry::
-* Accidentals::
-* Note names in other languages::
-@end menu
 
 @node Absolute octave entry
 @unnumberedsubsubsec Absolute Oktavenbezeichnung
@@ -637,13 +624,6 @@ Schnipsel:
 
 Dieser Abschnitt zeigt, wie man Tonhöhen beeinflusst.
 
-@menu
-* Octave checks::
-* Transpose::
-* Inversion::
-* Retrograde::
-* Modal transformations::
-@end menu
 
 @node Octave checks
 @unnumberedsubsubsec Oktavenüberprüfung
@@ -1091,14 +1071,6 @@ Notationsreferenz:
 Dieser Abschnitt zeigt, wie die Ausgabe von Tonhöhen
 verändern werden kann.
 
-@menu
-* Clef::
-* Key signature::
-* Ottava brackets::
-* Instrument transpositions::
-* Automatic accidentals::
-* Ambitus::
-@end menu
 
 @node Clef
 @unnumberedsubsubsec Notenschlüssel
@@ -2745,12 +2717,6 @@ Es gibt keine Kollisionskontrolle bei mehreren Ambitus in einem System.
 
 Dieser Abschnitt zeigt, wie man Notenköpfe ändern kann.
 
-@menu
-* Special note heads::
-* Easy notation note heads::
-* Shape note heads::
-* Improvisation::
-@end menu
 
 @node Special note heads
 @unnumberedsubsubsec Besondere Notenköpfe

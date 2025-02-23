@@ -24,11 +24,6 @@ Saiteninstrumente mit Bünden.
 @cindex Gitarrentabulatur
 @cindex Banjo-Tabulatur
 
-@menu
-* Common notation for fretted strings::
-* Guitar::
-* Banjo::
-@end menu
 
 @node Common notation for fretted strings
 @subsection Übliche Notation für Saiteninstrumente mit Bünden
@@ -36,16 +31,6 @@ Saiteninstrumente mit Bünden.
 Dieser Abschnitt zeigt Besonderheiten der Notation, die allen
 Bundinstrumenten eigen ist.
 
-@menu
-* References for fretted strings::
-* String number indications::
-* Default tablatures::
-* Custom tablatures::
-* Fret diagram markups::
-* Predefined fret diagrams::
-* Automatic fret diagrams::
-* Right-hand fingerings::
-@end menu
 
 @node References for fretted strings
 @unnumberedsubsubsec Referenz für Saiteninstrumente mit Bünden
@@ -1659,11 +1644,6 @@ Anstatt dessen sollte ein Textbearbeitungsprogramm oder ein
 Satzprogramm wie GuitarTeX (für erfahrende Benutzer) eingesetzt
 werden.
 
-@menu
-* Indicating position and barring::
-* Indicating harmonics and dampened notes::
-* Indicating power chords::
-@end menu
 
 @node Indicating position and barring
 @unnumberedsubsubsec Position und Barré anzeigen
@@ -1835,14 +1815,10 @@ Schnipsel:
 @rlsr{Fretted strings}.
 
 
-
-
+@need 1500
 @node Banjo
 @subsection Banjo
 
-@menu
-* Banjo tablatures::
-@end menu
 
 @node Banjo tablatures
 @unnumberedsubsubsec Banjo-Tabulaturen
