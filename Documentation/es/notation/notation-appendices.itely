@@ -13,29 +13,6 @@
 @node Notation manual tables
 @appendix Tablas del manual sobre notación
 
-@menu
-* Chord name chart::
-* Common chord modifiers::
-* Predefined string tunings::
-* Predefined fretboard diagrams::
-* Predefined paper sizes::
-* MIDI instruments::
-* List of colors::
-* The Emmentaler font::
-* Note head styles::
-* Clef styles::
-* Text markup commands::
-* Text markup list commands::
-* List of special characters::
-* List of articulations::
-* Percussion notes::
-* Technical glossary::
-* Available music functions::
-* Context modification identifiers::
-* Predefined type predicates::
-@end menu
-
-
 
 @node Chord name chart
 @appendixsec Cuadro de nombres de acordes
@@ -507,14 +484,11 @@ cuerdas.
 
 @lilypondfile{en/included/display-predefined-string-tunings.ly}
 
+
+@need 1500
 @node Predefined fretboard diagrams
 @appendixsec Diagramas predefinidos de posiciones
 
-@menu
-* Diagrams for Guitar::
-* Diagrams for Ukulele::
-* Diagrams for Mandolin::
-@end menu
 
 @node Diagrams for Guitar
 @unnumberedsubsec Diagramas para guitarra
@@ -1046,34 +1020,6 @@ or
 
 Para ver más información, consulte @ref{Formatting text}.
 
-@menu
-* Clef glyphs::
-* Time Signature glyphs::
-* Number glyphs::
-* Accidental glyphs::
-* Default Notehead glyphs::
-* Special Notehead glyphs::
-* Shape-note Notehead glyphs::
-* Rest glyphs::
-* Flag glyphs::
-* Dot glyphs::
-* Dynamic glyphs::
-* Script glyphs::
-* Arrowhead glyphs::
-* Bracket-tip glyphs::
-* Pedal glyphs::
-* Accordion glyphs::
-* Tie glyphs::
-* Vaticana glyphs::
-* Medicaea glyphs::
-* Hufnagel glyphs::
-* Mensural glyphs::
-* Neomensural glyphs::
-* Petrucci glyphs::
-* Solesmes glyphs::
-* Kievan Notation glyphs::
-@end menu
-
 
 @node Clef glyphs
 @unnumberedsubsec Glifos de clave
@@ -1396,12 +1342,6 @@ posibles y el lugar del @emph{Do central} en cada una.
 @cindex blackmensural, clave
 @cindex kievana, clave
 
-@menu
-* Standard clefs::
-* Percussion staff clef::
-* Tab staff clefs::
-* Ancient music clefs::
-@end menu
 
 @node Standard clefs
 @unnumberedsubsec Claves estándar
@@ -2309,15 +2249,6 @@ glifos, para su utilización con la instrucción de marcado
 @c References for wind instruments (for "open"/"stopped")
 
 
-@menu
-* Articulation scripts::
-* Ornament scripts::
-* Fermata scripts::
-* Instrument-specific scripts::
-* Repeat sign scripts::
-* Ancient scripts::
-@end menu
-
 @ignore
 The @multitable @columnfraction value discrepancy between the first and
 the remaining columns is deliberate; it seems (at least visually
@@ -3208,24 +3139,6 @@ Glosario de los términos técnicos y conceptos que se utilizan
 internamente en LilyPond.  Estos términos pueden aparecer en los
 manuales, en las listas de distribución de correo o en el código
 fuente.
-
-@menu
-* alist::
-* callback::
-* closure::
-* glyph::
-* grob::
-* immutable::
-* interface::
-* lexer::
-* mutable::
-* output-def::
-* parser::
-* parser variable::
-* prob::
-* smob::
-* stenci::
-@end menu
 
 
 @node alist

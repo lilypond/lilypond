@@ -59,30 +59,12 @@ ajustes de disposición de la partitura, como el número de sistemas
 que utilizar, o la separación entre grupos de pentagramas, etc.
 Véase @ref{Score layout}.
 
-@menu
-* Page layout::
-* Score layout::
-* Breaks::
-* Vertical spacing::
-* Horizontal spacing::
-* Fitting music onto fewer pages::
-@end menu
-
 
 @node Page layout
 @section Disposición de la página
 
 Esta sección estudia las opciones de disposición de la página para
 el bloque @code{\paper}.
-
-@menu
-* The paper block::
-* Paper size and automatic scaling::
-* Fixed vertical spacing paper variables::
-* Flexible vertical spacing paper variables::
-* Horizontal spacing paper variables::
-* Other paper variables::
-@end menu
 
 
 @node The paper block
@@ -199,6 +181,7 @@ Archivos instalados:
 @file{ly/paper-defaults-init.ly}.
 
 
+@need 1500
 @node Paper size and automatic scaling
 @subsection Tamaño del papel y escalado automático
 
@@ -206,11 +189,6 @@ Archivos instalados:
 @cindex tamaño de la página
 
 @funindex \paper
-
-@menu
-* Setting paper size::
-* Automatic scaling to paper size::
-@end menu
 
 
 @node Setting paper size
@@ -450,11 +428,6 @@ que se escriben normalmente dentro de un bloque @code{\score} o
 @code{\layout}, y no dentro del bloque @code{\paper}.  Véase
 @ref{Flexible vertical spacing within systems}.
 
-@menu
-* Structure of flexible vertical spacing alists::
-* List of flexible vertical spacing paper variables::
-@end menu
-
 
 @node Structure of flexible vertical spacing alists
 @unnumberedsubsubsec Estructura de las listas-A de espaciado vertical flexible
@@ -650,12 +623,6 @@ Fragmentos de código:
 automáticamente al tamaño del papel, lo que puede dar lugar a un
 comportamiento distinto al esperado.  Véase
 @ref{Automatic scaling to paper size}.}
-
-@menu
-* paper variables for widths and margins::
-* paper variables for two-sided mode::
-* paper variables for shifts and indents::
-@end menu
 
 
 @node paper variables for widths and margins
@@ -898,15 +865,9 @@ Fragmentos de código:
 @rlsr{Spacing}.
 
 
+@need 1500
 @node Other paper variables
 @subsection Otras variables de @code{\paper}
-
-@menu
-* paper variables for line breaking::
-* paper variables for page breaking::
-* paper variables for page numbering::
-* Miscellaneous paper variables::
-@end menu
 
 
 @node paper variables for line breaking
@@ -1195,11 +1156,6 @@ sobre la misma línea.
 
 Esta sección trata de las opciones de disposición de la partitura
 para el bloque @code{\layout}.
-
-@menu
-* The layout block::
-* Setting the staff size::
-@end menu
 
 
 @node The layout block
@@ -1500,13 +1456,9 @@ Fragmentos de código:
 @rlsr{Spacing}.
 
 
+@need 1500
 @node Breaks
 @section Saltos
-
-@menu
-* Line breaking::
-* Page breaking::
-@end menu
 
 
 @node Line breaking
@@ -1693,16 +1645,6 @@ música.
 
 Esta sección describe los distintos métodos para crear saltos de
 página, y cómo modificarlos.
-
-@menu
-* Manual page breaking::
-* Optimal page breaking::
-* Minimal page breaking::
-* One-page page breaking::
-* One-line page breaking::
-* One-line-auto-height page breaking::
-* Optimal page turning::
-@end menu
 
 
 @node Manual page breaking
@@ -2041,12 +1983,6 @@ cantidad de espacio disponible (es decir, el tamaño del papel y
 los márgenes), la separación entre los sistemas, y la separación
 entre los pentagramas dentro de un sistema.
 
-@menu
-* Flexible vertical spacing within systems::
-* Explicit staff and system positioning::
-* Vertical collision avoidance::
-@end menu
-
 
 @node Flexible vertical spacing within systems
 @subsection Espaciado vertical flexible dentro de los sistemas
@@ -2090,13 +2026,6 @@ espaciado vertical entre distintos sistemas, partituras, marcados
 y márgenes se controla mediante variables de @code{\paper} que se
 estudian en
 @ref{Flexible vertical spacing paper variables}.
-
-@menu
-* Within-system spacing properties::
-* Spacing of ungrouped staves::
-* Spacing of grouped staves::
-* Spacing of non-staff lines::
-@end menu
 
 
 @node Within-system spacing properties
@@ -2995,19 +2924,12 @@ Fragmentos de código:
 @rlsr{Spacing}.
 
 
+@need 1500
 @node Horizontal spacing
 @section Espaciado horizontal
 
 @cindex horizontal, espaciado
 @cindex espaciado horizontal
-
-@menu
-* Horizontal spacing overview::
-* New spacing section::
-* Changing horizontal spacing::
-* Line width::
-* Proportional notation::
-@end menu
 
 
 @node Horizontal spacing overview
@@ -3197,11 +3119,6 @@ Referencia de funcionamiento interno:
 
 @node Changing horizontal spacing
 @subsection Cambiar el espaciado horizontal
-
-@menu
-* Uniform stretching of tuplets::
-* Strict note spacing::
-@end menu
 
 Se puede alterar el espaciado horizontal con la propiedad
 @code{base-shortest-duration}.  Aquí compararemos la misma música,
@@ -3732,11 +3649,6 @@ valor incalculable es @code{annotate-spacing}.  Esta instrucción
 imprime los valores de un cierto número de variables de espaciado;
 para ver más detalles consulte la sección siguiente,
 @ref{Displaying spacing}.
-
-@menu
-* Displaying spacing::
-* Changing spacing::
-@end menu
 
 
 @node Displaying spacing

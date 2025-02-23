@@ -17,12 +17,6 @@ El propósito de esta sección es remarcar los problemas de notación que
 son de relevancia a las tradiciones musicales distintas a la
 occidental.
 
-@menu
-* Common notation for non-Western music::
-* Arabic music::
-* Turkish classical music::
-@end menu
-
 
 @node Common notation for non-Western music
 @subsection Notación común para músicas no occidentales
@@ -30,10 +24,6 @@ occidental.
 Esta sección estudia la forma de introducir e imprimir partituras
 musicales que no pertenecen a la tradición clásica occidental, también
 conocida como @notation{Período de la práctica común}.
-
-@menu
-* Extending notation and tuning systems::
-@end menu
 
 
 @node Extending notation and tuning systems
@@ -108,15 +98,6 @@ Referencia de la notación:
 @subsection Música árabe
 
 Esta sección destaca asuntos relativos a la música árabe.
-
-@menu
-* References for Arabic music::
-* Arabic note names::
-* Arabic key signatures::
-* Arabic time signatures::
-* Arabic music example::
-* Further reading for Arabic music::
-@end menu
 
 
 @node References for Arabic music
@@ -544,12 +525,6 @@ Ibrahim Ali Darwish Al-masri
 Esta sección destaca los problemas de relevancia para la notación de
 la música clásica de Turquía.
 
-@menu
-* References for Turkish classical music::
-* Turkish note names::
-* Turkish key signatures::
-* Further reading for Turkish music::
-@end menu
 
 @node References for Turkish classical music
 @unnumberedsubsubsec Referencias para música clásica de Turquía

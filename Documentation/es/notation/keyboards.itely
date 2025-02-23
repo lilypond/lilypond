@@ -23,26 +23,12 @@ esta sección se denominan abreviadamente @qq{teclados} a todo este
 grupo de instrumentos de varios pentagramas, aunque algunos de
 ellos no tienen teclado.
 
-@menu
-* Common notation for keyboards::
-* Piano::
-* Accordion::
-* Harp::
-@end menu
-
 
 @node Common notation for keyboards
 @subsection Notación común para instrumentos de teclado
 
 Esta sección trata aspectos de notación que pueden aparecer en
 casi todos los instrumentos de teclado.
-
-@menu
-* References for keyboards::
-* Changing staff manually::
-* Changing staff automatically::
-* Staff-change lines::
-@end menu
 
 
 @node References for keyboards
@@ -518,10 +504,6 @@ Referencia de funcionamiento interno:
 Esta sección trata de aspectos de la notación directamente
 relacionados con el piano.
 
-@menu
-* Piano pedals::
-@end menu
-
 
 @node Piano pedals
 @unnumberedsubsubsec Pedales de piano
@@ -633,10 +615,6 @@ Referencia de funcionamiento interno:
 Esta sección se ocupa de la notación que es exclusiva del
 acordeón.
 
-@menu
-* Discant symbols::
-@end menu
-
 
 @node Discant symbols
 @unnumberedsubsubsec Símbolos de Discanto
@@ -678,10 +656,6 @@ Fragmentos de código:
 
 Esta sección trata sobre asuntos de notación específicos del arpa.
 
-@menu
-* References for harps::
-* Harp pedals::
-@end menu
 
 @node References for harps
 @unnumberedsubsubsec Referencias para notación de arpa

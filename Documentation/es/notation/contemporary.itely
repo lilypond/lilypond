@@ -22,27 +22,12 @@ notación musical.  El objetivo de esta sección es proporcionar
 referencias e información relevante para el trabajo con estas nuevas
 técnicas notacionales.
 
-@menu
-* Pitch and harmony in contemporary music::
-* Contemporary approaches to rhythm::
-* Graphical notation::
-* Contemporary scoring techniques::
-* New instrumental techniques::
-* Further reading and scores of interest::
-@end menu
-
 
 @node Pitch and harmony in contemporary music
 @subsection Altura y armonía en la música contemporánea
 
 Esta sección destaca los problemas de la notación de las alturas y la
 armonía en la música contemporánea.
-
-@menu
-* References for pitch and harmony in contemporary music::
-* Microtonal notation::
-* Contemporary key signatures and harmony::
-@end menu
 
 
 @node References for pitch and harmony in contemporary music
@@ -84,15 +69,6 @@ notations (arrows, slash-flats), etc.
 
 Esta sección destaca los problemas de la notación de las duraciones en
 la música contemporánea.
-
-@menu
-* References for contemporary approaches to rhythm::
-* Tuplets in contemporary music::
-* Contemporary time signatures::
-* Extended polymetric notation::
-* Beams in contemporary music::
-* Bar lines in contemporary music::
-@end menu
 
 
 @node References for contemporary approaches to rhythm
@@ -182,11 +158,6 @@ solamente entre los pentagramas) se estudian en @ref{Grouping staves}.
 
 Esta sección sugiere libros, ejemplos musicales y otros recursos de
 utilidad en el estudio de la notación musical contemporánea.
-
-@menu
-* Books and articles on contemporary musical notation::
-* Scores and musical examples::
-@end menu
 
 
 @node Books and articles on contemporary musical notation

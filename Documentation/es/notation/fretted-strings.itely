@@ -1,4 +1,3 @@
-
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
@@ -24,30 +23,12 @@ exclusivos de los instrumentos de cuerda con trastes.
 @cindex tablatura de banjo
 @cindex banjo, tablatura de
 
-@menu
-* Common notation for fretted strings::
-* Guitar::
-* Banjo::
-* Lute::
-@end menu
-
 
 @node Common notation for fretted strings
 @subsection Notación común para cuerdas con trastes
 
 Esta sección se ocupa de la notación común exclusiva de los
 instrumentos de cuerda con trastes.
-
-@menu
-* References for fretted strings::
-* String number indications::
-* Default tablatures::
-* Custom tablatures::
-* Fret diagram markups::
-* Predefined fret diagrams::
-* Automatic fret diagrams::
-* Right-hand fingerings::
-@end menu
 
 
 @node References for fretted strings
@@ -1857,12 +1838,6 @@ se recomienda para documentos que no tienen notación musical.  Una
 alternativa mejor es un procesador de texto, editor de texto o,
 para usuarios con experiencia, un tipografiador como GuitarTeX.
 
-@menu
-* Indicating position and barring::
-* Indicating harmonics and dampened notes::
-* Indicating power chords::
-@end menu
-
 
 @node Indicating position and barring
 @unnumberedsubsubsec Indicar la posición y la cejilla
@@ -2032,12 +2007,9 @@ Fragmentos de código:
 @rlsr{Fretted strings}.
 
 
+@need 1500
 @node Banjo
 @subsection Banjo
-
-@menu
-* Banjo tablatures::
-@end menu
 
 
 @node Banjo tablatures
@@ -2102,12 +2074,10 @@ Fragmentos de código:
 @rlsr{Fretted strings}.
 
 
+@need 1500
 @node Lute
 @subsection Laúd
 
-@menu
-* Lute tablatures::
-@end menu
 
 @node Lute tablatures
 @unnumberedsubsubsec Tablaturas de laúd

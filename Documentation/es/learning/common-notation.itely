@@ -31,13 +31,6 @@ Este capítulo explica cómo crear hermosas partituras que contengan
 notación musical común, como continuación al material que está en
 el @ref{Tutorial}.
 
-@menu
-* Single staff notation::
-* Multiple notes at once::
-* Songs::
-* Final touches::
-@end menu
-
 
 @node Single staff notation
 @section Notación en un solo pentagrama
@@ -45,24 +38,10 @@ el @ref{Tutorial}.
 Esta sección presenta la notación común que se utiliza para música
 a una voz sobre un pentagrama único.
 
-@menu
-* Bar lines and bar checks::
-* Pitches and key signatures::
-* Ties and slurs::
-* Articulations and dynamics::
-* Adding text::
-* Automatic and manual beams::
-* Advanced rhythmic commands::
-@end menu
-
 
 @node Bar lines and bar checks
 @subsection Líneas divisorias y comprobaciones de compás
 
-@menu
-* Bar lines::
-* Bar checks::
-@end menu
 
 @node Bar lines
 @unnumberedsubsubsec Líneas divisorias
@@ -120,11 +99,6 @@ Referencia de la notación:
 @node Pitches and key signatures
 @subsection Alturas y armaduras
 
-@menu
-* Pitch alterations::
-* Key signatures::
-* Warning key signatures and pitches::
-@end menu
 
 @warning{Con frecuencia, a los nuevos usuarios les cuesta
 comprender cómo usa LilyPond la armadura: le rogamos que lea la
@@ -288,6 +262,7 @@ Referencia de la notación:
 @rnotationnamed{Key signature, Armadura de la tonalidad}.
 
 
+@need 1500
 @node Ties and slurs
 @subsection Ligaduras de unión y de expresión
 
@@ -300,12 +275,6 @@ Referencia de la notación:
 @funindex ( ... )
 @funindex \( ... \)
 
-@menu
-* Ties::
-* Slurs::
-* Phrasing slurs::
-* Warnings slurs vs ties::
-@end menu
 
 @node Ties
 @unnumberedsubsubsec Ligaduras de unión
@@ -410,11 +379,6 @@ Las articulaciones y los matices dinámicos se indican escribiendo
 ciertos símbolos después de las notas a las que aquellos se
 aplican.
 
-@menu
-* Articulations::
-* Fingerings::
-* Dynamics::
-@end menu
 
 @node Articulations
 @unnumberedsubsubsec Articulaciones
@@ -602,14 +566,10 @@ Referencia de la notación:
 @rnotationnamed{Manual beams, Barras manuales}.
 
 
+@need 1500
 @node Advanced rhythmic commands
 @subsection Instrucciones rítmicas avanzadas
 
-@menu
-* Partial measure::
-* Tuplets::
-* Grace notes::
-@end menu
 
 @node Partial measure
 @unnumberedsubsubsec Compás parcial
@@ -711,14 +671,6 @@ tener más de una voz en un momento determinado dentro de una pieza
 musical.  La palabra @qq{polifonía} en LilyPond se refiere al
 hecho de tener más de una voz en el mismo pentagrama.
 
-@menu
-* Music expressions explained::
-* Multiple staves::
-* Staff groups::
-* Combining notes into chords::
-* Single staff polyphony::
-@end menu
-
 
 @node Music expressions explained
 @subsection Explicación de las expresiones musicales
@@ -727,12 +679,6 @@ hecho de tener más de una voz en el mismo pentagrama.
 @cindex expresión musical
 @cindex compuesta, expresión musical
 @cindex musical, expresión, compuesta
-
-@menu
-* Analogy mathematical expressions::
-* Simultaneous music expressions multiple staves::
-* Simultaneous music expressions single staff::
-@end menu
 
 En los archivos de entrada de LilyPond, la música se representa
 mediante @emph{expresiones musicales}.  Una sola nota es una
@@ -1058,12 +1004,6 @@ Referencia de la notación:
 En esta sección presentamos cómo elaborar música vocal y hojas de
 canción sencillas.
 
-@menu
-* Setting simple songs::
-* Aligning lyrics to a melody::
-* Lyrics to multiple staves::
-@end menu
-
 
 @node Setting simple songs
 @subsection Elaborar canciones sencillas
@@ -1340,13 +1280,6 @@ Referencia de la notación:
 Éste es el último apartado del tutorial; muestra la forma de dar
 los toques finales a piezas sencillas, y ofrece una introducción
 al resto del manual.
-
-@menu
-* Organizing pieces with variables::
-* Adding titles::
-* Absolute note names::
-* After the tutorial::
-@end menu
 
 
 @node Organizing pieces with variables

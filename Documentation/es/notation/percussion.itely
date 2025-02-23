@@ -10,12 +10,9 @@
 
 @c \version "2.19.2"
 
+@need 1500
 @node Percussion
 @section Percusión
-
-@menu
-* Common notation for percussion::
-@end menu
 
 
 @node Common notation for percussion
@@ -24,16 +21,6 @@
 La notación rítmica se emplea primordialmente para la percusión y
 la batería, pero también se puede utilizar para mostrar los
 valores rítmicos una melodía.
-
-@menu
-* References for percussion::
-* Basic percussion notation::
-* Drum rolls::
-* Pitched percussion::
-* Percussion staves::
-* Custom percussion staves::
-* Ghost notes::
-@end menu
 
 
 @node References for percussion

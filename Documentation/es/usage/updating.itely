@@ -28,15 +28,6 @@ Como ayuda para este problema, puede usarse la herramienta
 @command{convert-ly} para actualizar esos archivos de entrada
 antiguos y que sigan la sintaxis nueva.
 
-@menu
-* Why does the syntax change?::
-* Invoking convert-ly::
-* Command line options for convert-ly::
-* Problems running convert-ly::
-* Manual conversions::
-* Writing code to support multiple versions::
-@end menu
-
 
 @node Why does the syntax change?
 @section ¿Por qué cambia la sintaxis?

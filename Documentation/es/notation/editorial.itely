@@ -18,11 +18,6 @@
 Esta sección trata de las diversas maneras de modificar el aspecto
 de las notas y de aplicar énfasis analítico o educativo.
 
-@menu
-* Inside the staff::
-* Outside the staff::
-@end menu
-
 
 @node Inside the staff
 @subsection Dentro del pentagrama
@@ -30,14 +25,6 @@ de las notas y de aplicar énfasis analítico o educativo.
 Esta sección trata sobre cómo aplicar énfasis a los elementos
 situados dentro del pentagrama.
 
-@menu
-* Selecting notation font size::
-* Fingering instructions::
-* Hidden notes::
-* Coloring objects::
-* Parentheses::
-* Stems::
-@end menu
 
 @node Selecting notation font size
 @unnumberedsubsubsec Seleccionar el tamaño de la tipografía para la notación
@@ -758,12 +745,6 @@ Referencia de funcionamiento interno:
 Esta sección trata sobre cómo enfatizar elementos que están dentro
 del pentagrama, desde fuera del pentagrama.
 
-@menu
-* Note names::
-* Balloon help::
-* Grid lines::
-* Analysis brackets::
-@end menu
 
 @node Note names
 @unnumberedsubsubsec Nombre de las notas

@@ -17,17 +17,6 @@ Si no está familiarizado con Scheme, le conviene leer nuestro
 tutorial de Scheme, @ref{Scheme tutorial}.
 
 
-@menu
-* LilyPond code blocks::
-* Scheme functions::
-* Music functions::
-* Event functions::
-* Markup functions::
-* Contexts for programmers::
-* Callback functions::
-* Difficult tweaks::
-@end menu
-
 @node LilyPond code blocks
 @section Bloques de código de LilyPond
 
@@ -103,11 +92,6 @@ Scheme.  Mientras que Scheme tiene funciones propias, este
 capítulo se ocupa de las funciones @emph{sintácticas}, funciones
 que reciben argumentos especificados en la sintaxis de LilyPond.
 
-@menu
-* Scheme function definitions::
-* Scheme function usage::
-* Void Scheme functions::
-@end menu
 
 @node Scheme function definitions
 @subsection Definición de funciones de Scheme
@@ -318,16 +302,6 @@ encuentre.  También funciona para funciones musicales como
 Las @emph{funciones musicales} son procedimientos de Scheme que
 pueden crear automáticamente expresiones musicales, y se pueden
 usar para simplificar enormemente el archivo de entrada.
-
-@menu
-* Music function definitions::
-* Music function usage::
-* Simple substitution functions::
-* Intermediate substitution functions::
-* Mathematics in functions::
-* Functions without arguments::
-* Void music functions::
-@end menu
 
 
 @node Music function definitions
@@ -642,13 +616,6 @@ Scheme especiales que producen un objeto @code{Stencil} dada una
 serie de argumentos.
 
 
-@menu
-* Markup construction in Scheme::
-* How markups work internally::
-* New markup command definition::
-* New markup list command definition::
-@end menu
-
 @node Markup construction in Scheme
 @subsection Construcción de elementos de marcado en Scheme
 
@@ -786,13 +753,6 @@ complejos, así como en @file{scm/define-markup-commands.scm}.
 Esta sección trata sobre la definición de nuevas instrucciones de
 marcado.
 
-
-@menu
-* Markup command definition syntax::
-* On properties::
-* A complete example::
-* Adapting builtin commands::
-@end menu
 
 @node Markup command definition syntax
 @unnumberedsubsubsec Sintaxis de la definición de instrucciones de marcado
@@ -1214,13 +1174,10 @@ sigue:
 @end example
 
 
+@need 1500
 @node Contexts for programmers
 @section Contextos para programadores
 
-@menu
-* Context evaluation::
-* Running a function on all layout objects::
-@end menu
 
 @node Context evaluation
 @subsection Evaluación de contextos

@@ -17,11 +17,6 @@
 Esta sección explica cómo incluir texto (con diversos estilos de
 formateo) en las partituras.
 
-@menu
-* Writing text::
-* Formatting text::
-* Fonts::
-@end menu
 
 @node Writing text
 @subsection Escritura del texto
@@ -35,15 +30,6 @@ especiales (como los de idiomas distintos del inglés),
 sencillamente inserte los caracteres directamente en el archivo de
 LilyPond.  El archivo se debe guardar como UTF-8.  Para ver más
 información, consulte @ref{Text encoding}.}
-
-
-@menu
-* Text objects overview::
-* Text scripts::
-* Text spanners::
-* Text marks::
-* Separate text::
-@end menu
 
 
 @node Text objects overview
@@ -567,14 +553,6 @@ Referencia de funcionamiento interno:
 Esta sección presenta los formateados básico y avanzado de texto,
 usando la sintaxis específica del modo de @code{\markup}.
 
-@menu
-* Text markup introduction::
-* Selecting font and font size::
-* Text alignment::
-* Graphic notation inside markup::
-* Music notation inside markup::
-* Multi-page markup::
-@end menu
 
 @node Text markup introduction
 @unnumberedsubsubsec Introducción al marcado de texto
@@ -1611,12 +1589,6 @@ Referencia de funcionamiento interno:
 
 Esta sección presenta la forma en que se manejan las fuentes
 tipográficas, y cómo se pueden cambiar en las partituras.
-
-@menu
-* Fonts explained::
-* Single entry fonts::
-* Entire document fonts::
-@end menu
 
 
 @node Fonts explained

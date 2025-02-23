@@ -48,30 +48,11 @@ cuadradillo@tie{}@code{#}.@footnote{@rextendnamed{Scheme tutorial, Tutorial de S
 contiene un breve tutorial sobre la introducción de números,
 listas, cadenas y símbolos en Scheme.}
 
-@menu
-* Interpretation contexts::
-* Explaining the Internals Reference::
-* Modifying properties::
-* Useful concepts and properties::
-* Advanced tweaks::
-* Using music functions::
-@end menu
-
 
 @node Interpretation contexts
 @section Contextos de interpretación
 
 Esta sección explica qué son los contextos y cómo modificarlos.
-
-@menu
-* Contexts explained::
-* Creating and referencing contexts::
-* Keeping contexts alive::
-* Modifying context plug-ins::
-* Changing context default settings::
-* Defining new contexts::
-* Context layout order::
-@end menu
 
 @morerefs
 Manual de aprendizaje:
@@ -94,13 +75,6 @@ Referencia de funcionamiento interno:
 
 Los contextos se disponen de forma jerárquica:
 
-@menu
-* Output definitions - blueprints for contexts::
-* Score - the master of all contexts::
-* Top-level contexts - staff containers::
-* Intermediate-level contexts - staves::
-* Bottom-level contexts - voices::
-@end menu
 
 @node Output definitions - blueprints for contexts
 @unnumberedsubsubsec Definiciones de salida - estructura de los contextos
@@ -845,11 +819,6 @@ contextos de un tipo dado, y el otro modifica los valores
 predeterminados solamente en una instancia concreta de un
 contexto.
 
-@menu
-* Changing all contexts of the same type::
-* Changing just one specific context::
-* Order of precedence::
-@end menu
 
 @node Changing all contexts of the same type
 @unnumberedsubsubsec Cambiar todos los contextos del mismo tipo
@@ -1532,15 +1501,9 @@ Archivos instalados:
 @file{ly/engraver-init.ly}.
 
 
+@need 1500
 @node Explaining the Internals Reference
 @section Explicación del Manual de referencia de funcionamiento interno
-
-@menu
-* Navigating the program reference::
-* Layout interfaces::
-* Determining the grob property::
-* Naming conventions::
-@end menu
 
 
 @node Navigating the program reference
@@ -1829,18 +1792,9 @@ Preguntas aún sin respuesta
 @end ignore
 
 
+@need 1500
 @node Modifying properties
 @section Modificar las propiedades
-
-@menu
-* Overview of modifying properties::
-* The set command::
-* The override command::
-* The tweak command::
-* set versus override::
-* The offset command::
-* Modifying alists::
-@end menu
 
 
 @node Overview of modifying properties
@@ -2833,21 +2787,10 @@ propiedades sólo se pueden modificar redefiniéndolas completamente
 como listas-A.}
 
 
+@need 1500
 @node Useful concepts and properties
 @section Conceptos y propiedades útiles
 
-
-@menu
-* Input modes::
-* Direction and placement::
-* Distances and measurements::
-* Dimensions::
-* Staff symbol properties::
-* Spanners::
-* Visibility of objects::
-* Line styles::
-* Rotating objects::
-@end menu
 
 @node Input modes
 @subsection Modos de entrada
@@ -2987,11 +2930,6 @@ izquierda, a la derecha o centrado; etc.  La mayoría de estas
 elecciones pueden dejarse que LilyPond las determine
 automáticamente, pero en ciertos casos puede ser deseable forzar
 una dirección o colocación concreta.
-
-@menu
-* Articulation direction indicators::
-* The direction property::
-@end menu
 
 
 @node Articulation direction indicators
@@ -3250,10 +3188,6 @@ Todos los objetos de extensión contemplan el interface
 trazan una línea recta entre los dos objetos, contemplan también
 el interface @code{line-spanner-interface}.
 
-@menu
-* Using the spanner-interface::
-* Using the line-spanner-interface::
-@end menu
 
 @node Using the spanner-interface
 @unnumberedsubsubsec Uso del @code{spanner-interface}
@@ -3575,14 +3509,6 @@ Manual de aprendizaje introduce estas cuatro técnicas, véase
 Hay también algunas otras técnicas que son específicas de ciertos
 objetos de presentación.  Se estudian bajo Consideraciones
 especiales.
-
-@menu
-* Removing the stencil::
-* Making objects transparent::
-* Painting objects white::
-* Using break-visibility::
-* Special considerations::
-@end menu
 
 
 @node Removing the stencil
@@ -4057,10 +3983,6 @@ Tanto los objetos de presentación como los elementos de texto de
 marcado se pueden girar cualquier ángulo respecto a cualquier
 punto, pero difiere el método de hacerlo.
 
-@menu
-* Rotating layout objects::
-* Rotating markup::
-@end menu
 
 @node Rotating layout objects
 @unnumberedsubsubsec Rotación de objetos de presentación
@@ -4121,15 +4043,6 @@ fis'^\markup { \rotate #30 "an F-Sharp" }
 
 Esta sección trata sobre distintos enfoques en la realización de
 ajustes finos a la apariencia de la partitura impresa.
-
-@menu
-* Aligning objects::
-* Vertical grouping of grobs::
-* Modifying stencils::
-* Modifying shapes::
-* Modifying broken spanners::
-* Unpure-pure containers::
-@end menu
 
 @morerefs
 Manual de aprendizaje:
@@ -4207,13 +4120,6 @@ Referencia de la notación:
 
 Manual de extensión:
 @rextendnamed{Callback functions, Funciones de callback}.
-
-@menu
-* Setting X-offset and Y-offset directly::
-* Using the side-position-interface::
-* Using the self-alignment-interface::
-* Using the break-alignable-interface::
-@end menu
 
 
 @node Setting X-offset and Y-offset directly
@@ -4583,12 +4489,9 @@ Referencia de la notación:
 @ref{Graphical markup}.
 
 
+@need 1500
 @node Modifying shapes
 @subsection Modificación de las formas
-
-@menu
-* Modifying ties and slurs::
-@end menu
 
 
 @node Modifying ties and slurs
@@ -4836,12 +4739,10 @@ Referencia de funcionamiento interno:
 @rinternals{TieColumn}.
 
 
+@need 1500
 @node Modifying broken spanners
 @subsection Modificación de objetos de extensión divididos
 
-@menu
-* Using alterBroken::
-@end menu
 
 @node Using alterBroken
 @unnumberedsubsubsec Uso de @code{\alterBroken}
@@ -5088,11 +4989,6 @@ estudiaremos solamente las funciones de @emph{sustitución}, en las
 que el objeto es sustituir una variable dentro de un fragmento de
 código de entrada de LilyPond.  Se describen otras funciones más
 complejas en @rextendnamed{Music functions, Funciones musicales}.
-
-@menu
-* Substitution function syntax::
-* Substitution function examples::
-@end menu
 
 
 @node Substitution function syntax

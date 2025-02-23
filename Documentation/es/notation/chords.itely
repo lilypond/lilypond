@@ -20,12 +20,6 @@ ciertas convenciones europeas tradicionales de nomenclatura de
 acordes.  También se pueden imprimir los nombres de los acordes.
 Además se puede imprimir notación de bajo cifrado.
 
-@menu
-* Chord mode::
-* Displaying chords::
-* Figured bass::
-@end menu
-
 
 @node Chord mode
 @subsection Modo de acordes
@@ -35,13 +29,6 @@ Además se puede imprimir notación de bajo cifrado.
 Para introducir acordes se utiliza el modo de acordes. Se usa un
 indicador de la estructura del acorde en lugar de la altura de sus
 notas.
-
-@menu
-* Chord mode overview::
-* Common chords::
-* Extended and altered chords::
-* Chord inversions and specific voicings::
-@end menu
 
 
 @node Chord mode overview
@@ -453,10 +440,6 @@ Fragmentos de código:
 Los acordes se pueden imprimir por su nombre, además de la
 impresión estándar como notas sobre un pentagrama.
 
-@menu
-* Printing chord names::
-* Customizing chord names::
-@end menu
 
 @node Printing chord names
 @unnumberedsubsubsec Impresión de los nombres de acorde
@@ -866,12 +849,6 @@ myChords = \relative c' {
 {snippets/figured-bass-headword.ly}
 
 Se puede imprimir notación de bajo cifrado.
-
-@menu
-* Introduction to figured bass::
-* Entering figured bass::
-* Displaying figured bass::
-@end menu
 
 
 @node Introduction to figured bass

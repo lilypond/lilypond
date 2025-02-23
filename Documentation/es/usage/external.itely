@@ -16,14 +16,6 @@
 LilyPond es capaz de interactuar con otros programas de diversas
 maneras.
 
-@menu
-* Point and click::
-* Text editor support::
-* Converting from other formats::
-* LilyPond output in other programs::
-* Independent includes::
-@end menu
-
 
 @node Point and click
 @section Apuntar y pulsar
@@ -36,12 +28,6 @@ posibilidad de localizar notas del código de entrada pulsando
 sobre ellas dentro del visor de PDF.  Ello facilita encontrar los
 fragmentos de la entrada que producen algún tipo de error en la
 partitura.
-
-@menu
-* Configuring the system for point and click::
-* Enabling point and click::
-* Selective point-and-click::
-@end menu
 
 
 @node Configuring the system for point and click
@@ -101,12 +87,6 @@ Debe añadir la línea @code{(server-start)} a su archivo
 @file{~/.emacs}, pues en caso contrario cada pulsación sobre un
 objeto del PDF abrirá una nueva ventana de Emacs.}
 
-@menu
-* Using Xpdf for point and click::
-* Using GNOME 2 for point and click::
-* Using GNOME 3 for point and click::
-* Extra configuration for Evince::
-@end menu
 
 @node Using Xpdf for point and click
 @unnumberedsubsubsec Uso de Xpdf
@@ -357,12 +337,6 @@ lilypond \
 @cindex colores, sintaxis
 
 Existe apoyo por parte de varios editores de texto para LilyPond.
-
-@menu
-* Emacs mode::
-* Vim mode::
-* Other editors::
-@end menu
 
 
 @node Emacs mode
@@ -800,12 +774,6 @@ sección @rwebnamed{Easier editing, Entornos mejorados}.
 Esta sección presenta métodos para integrar texto y música
 distintos del método automatizado con @command{lilypond-book}.
 
-@menu
-* LuaTeX::
-* OpenOffice and LibreOffice::
-* Other programs::
-@end menu
-
 
 @node LuaTeX
 @subsection Lua@TeX{}
@@ -900,11 +868,6 @@ la instrucción @code{\include} en LilyPond para producir ciertos
 efectos, y aquellos que se relacionan más abajo forman parte de la
 distribución de LilyPond.  Véase también
 @rnotationnamed{Working with input files, Trabajar sobre los archivos de entrada}.
-
-
-@menu
-* MIDI articulation::
-@end menu
 
 
 @node MIDI articulation

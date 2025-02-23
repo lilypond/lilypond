@@ -24,9 +24,6 @@ Esta sección aporta información y referencias que resultan útiles
 si se escribe música para instrumentos de cuerda sin trastes,
 principalmente instrumentos de cuerda orquestales.
 
-@menu
-* Common notation for unfretted strings::
-@end menu
 
 @node Common notation for unfretted strings
 @subsection Notación común para cuerdas sin trastes
@@ -36,12 +33,6 @@ sin trastes.  La notación de la música se realiza en un solo
 pentagrama, y se suele usar una sola voz.  Se pueden necesitar dos
 voces para algunos pasajes en dobles cuerdas o en divisi.
 
-@menu
-* References for unfretted strings::
-* Bowing indications::
-* Harmonics::
-* Snap (Bartok) pizzicato::
-@end menu
 
 @node References for unfretted strings
 @unnumberedsubsubsec Referencias para cuerdas sin trastes

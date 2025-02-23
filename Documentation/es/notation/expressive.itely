@@ -17,12 +17,6 @@
 Esta sección relaciona diversas marcas de expresión que se pueden
 crear en un a partitura.
 
-@menu
-* Expressive marks attached to notes::
-* Expressive marks as curves::
-* Expressive marks as lines::
-@end menu
-
 
 @node Expressive marks attached to notes
 @subsection Expresiones adosadas a las notas
@@ -30,12 +24,6 @@ crear en un a partitura.
 Esta sección explica cómo crear marcas expresivas que están
 aplicadas a notas: articulaciones, ornamentos y matices.  También
 se tratan los métodos para crear las nuevas marcas dinámicas.
-
-@menu
-* Articulations and ornamentations::
-* Dynamics::
-* New dynamic marks::
-@end menu
 
 
 @node Articulations and ornamentations
@@ -797,13 +785,6 @@ Esta sección explica cómo crear varias marcas expresivas de forma
 curva: ligaduras de expresión y de fraseo, respiraciones, caídas y
 elevaciones de tono.
 
-@menu
-* Slurs::
-* Phrasing slurs::
-* Breath marks::
-* Falls and doits::
-@end menu
-
 
 @node Slurs
 @unnumberedsubsubsec Ligaduras de expresión
@@ -1245,12 +1226,6 @@ Fragmentos de código:
 
 Esta sección explica cómo crear diversas marcas de expresión que
 siguen un camino lineal: glissandi, arpegios y trinos.
-
-@menu
-* Glissando::
-* Arpeggio::
-* Trills::
-@end menu
 
 
 @node Glissando

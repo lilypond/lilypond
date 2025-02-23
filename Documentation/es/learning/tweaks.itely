@@ -18,25 +18,10 @@ extremadamente configurable; prácticamente todos los fragmentos de
 la salida se pueden cambiar.
 
 
-@menu
-* Tweaking basics::
-* The Internals Reference manual::
-* Appearance of objects::
-* Placement of objects::
-* Vertical spacing::
-* Collisions of objects::
-* Further tweaking::
-@end menu
-
+@need 1500
 @node Tweaking basics
 @section Elementos de trucaje
 
-@menu
-* Introduction to tweaks::
-* Objects and interfaces::
-* Naming conventions of objects and properties::
-* Tweaking methods::
-@end menu
 
 @node Introduction to tweaks
 @subsection Introducción al trucaje
@@ -203,14 +188,6 @@ Referencia de la notación:
 
 @strong{La instrucción \override}
 
-@menu
-* The override command::
-* The revert command::
-* The once prefix::
-* The overrideProperty command::
-* The tweak command::
-* The single prefix::
-@end menu
 
 @node The override command
 @unnumberedsubsubsec La instrucción @code{\override}
@@ -623,16 +600,12 @@ Manual de aprendizaje:
 @ref{Using variables for layout adjustments}.
 
 
+@need 1500
 @node The Internals Reference manual
 @section Manual de referencia de funcionamiento interno
 
 @cindex Referencia de funcionamiento interno
 
-@menu
-* Properties of layout objects::
-* Properties found in interfaces::
-* Types of properties::
-@end menu
 
 @node Properties of layout objects
 @subsection Propiedades de los objetos de presentación
@@ -1144,11 +1117,6 @@ Ahora vamos a poner en práctica lo que hemos aprendido con unos
 cuantos ejemplos que muestran cómo se pueden usar los trucos para
 cambiar el aspecto de la música impresa.
 
-@menu
-* Visibility and color of objects::
-* Size of objects::
-* Length and thickness of objects::
-@end menu
 
 @node Visibility and color of objects
 @subsection Visibilidad y color de los objetos
@@ -1188,12 +1156,6 @@ visibilidad de las barras de compás (y, por supuesto, por
 extensión, también la de muchos otros objetos de presentación).
 Vamos a considerar cada uno de ellos por orden.
 
-@menu
-* The stencil property::
-* The break-visibility property::
-* The transparent property::
-* The color property::
-@end menu
 
 @node The stencil property
 @unnumberedsubsubsec La propiedad @code{stencil} (sello)
@@ -1887,14 +1849,9 @@ se producen a partir de una tipografía) se pueden cambiar de la
 misma forma.
 
 
+@need 1500
 @node Placement of objects
 @section Colocación de los objetos
-
-@menu
-* Automatic behavior::
-* Within-staff objects::
-* Outside-staff objects::
-@end menu
 
 
 @node Automatic behavior
@@ -2000,10 +1957,6 @@ también se mueven a la derecha o a la izquierda cuando apuntan
 hacia arriba o hacia abajo.  Esto se controla automáticamente
 cuando está establecida la propiedad @code{direction}.
 
-@menu
-* The direction property::
-* Fingering::
-@end menu
 
 @node The direction property
 @unnumberedsubsubsec La propiedad @code{direction} (dirección)
@@ -2282,13 +2235,6 @@ probaremos @w{@code{-7}}:
 Los objetos fuera-del-pentagrama se sitúan automáticamente para
 evitar las colisiones.  Existen varias formas de sobreescribir la
 colocación automática si el posicionado no resulta óptimo.
-
-@menu
-* The outside-staff-priority property::
-* The textLengthOn command::
-* Dynamics placement::
-* Grob sizing::
-@end menu
 
 
 @node The outside-staff-priority property
@@ -2896,14 +2842,10 @@ consulte
 @rnotationnamed{Flexible vertical spacing within systems, Espaciado vertical flexible dentro de los sistemas}.
 
 
+@need 1500
 @node Collisions of objects
 @section Colisiones de objetos
 
-@menu
-* Moving objects::
-* Fixing overlapping notation::
-* Real music example::
-@end menu
 
 @node Moving objects
 @subsection Mover objetos
@@ -3202,16 +3144,6 @@ Veamos ahora cómo pueden ser de ayuda las propiedades que hemos
 visto en la sección anterior, para resolver problemas de notación
 que se superpone.
 
-@menu
-* The padding property::
-* The right-padding property::
-* The staff-padding property::
-* The self-alignment-X property::
-* The staff-position property::
-* The extra-offset property::
-* The positions property::
-* The force-hshift property::
-@end menu
 
 @node The padding property
 @unnumberedsubsubsec La propiedad @code{padding} (relleno)
@@ -4133,24 +4065,13 @@ lhMusic = \relative {
 @end lilypond
 
 
+@need 2000
 @node Further tweaking
 @section Trucajes adicionales
 
-@menu
-* Other uses for tweaks::
-* Using variables for layout adjustments::
-* Style sheets::
-* Other sources of information::
-* Advanced tweaks with Scheme::
-@end menu
 
 @node Other uses for tweaks
 @subsection Otras aplicaciones de los trucos
-
-@menu
-* Tying notes across voices::
-* Simulating a fermata in MIDI::
-@end menu
 
 @cindex eliminar objetos
 @cindex objetos, eliminar

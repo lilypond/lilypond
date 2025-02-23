@@ -21,23 +21,11 @@ una voz en una pieza cualquiera de música.  En LilyPond la
 polifonía hace referencia a tener más de una voz en el mismo
 pentagrama.
 
-@menu
-* Single voice::
-* Multiple voices::
-@end menu
-
 
 @node Single voice
 @subsection Una voz única
 
 Esta sección trata de la notas simultáneas dentro de la misma voz.
-
-@menu
-* Chorded notes::
-* Chord repetition::
-* Simultaneous expressions::
-* Clusters::
-@end menu
 
 
 @node Chorded notes
@@ -407,15 +395,6 @@ Los clusters no producen ninguna salida MIDI.
 
 Esta sección trata las notas simultáneas en varias voces o varios
 pentagramas.
-
-@menu
-* Single-staff polyphony::
-* Voice styles::
-* Collision resolution::
-* Merging rests::
-* Automatic part combining::
-* Writing music in parallel::
-@end menu
 
 
 @node Single-staff polyphony

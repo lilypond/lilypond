@@ -20,25 +20,12 @@ Esta sección explica cómo influir sobre la apariencia de los
 pentagramas, cómo imprimir partituras con más de un pentagrama y
 cómo añadir indicaciones de tempo y notas guía a los pentagramas.
 
-@menu
-* Displaying staves::
-* Modifying single staves::
-* Writing parts::
-@end menu
-
 
 @node Displaying staves
 @subsection Impresión de los pentagramas
 
 Esta sección describe los distintos métodos de creación de
 pentagramas y grupos de ellos.
-
-@menu
-* Instantiating new staves::
-* Grouping staves::
-* Nested staff groups::
-* Separating systems::
-@end menu
 
 
 @node Instantiating new staves
@@ -401,12 +388,6 @@ Esta sección explica cómo cambiar los atributos específicos de un
 pentagrama: por ejemplo, cambiar el número de líneas o el tamaño
 de la pauta.  También se describen los métodos para comenzar y
 terminar los pentagramas, y establecer secciones de ossia.
-
-@menu
-* Staff symbol::
-* Ossia staves::
-* Hiding staves::
-@end menu
 
 
 @node Staff symbol
@@ -1143,13 +1124,6 @@ individuales.
 Además, puede verse un método para la impresión de los pentagramas
 de @emph{divisi}, que se usan a veces en las particellas, en
 @ref{Hiding staves}.
-
-@menu
-* Instrument names::
-* Quoting other voices::
-* Formatting cue notes::
-* Compressing empty measures::
-@end menu
 
 
 @node Instrument names

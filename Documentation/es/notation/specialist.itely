@@ -20,19 +20,6 @@ ningún apartado distinto; sin embargo, varias nociones que son con
 frecuencia útiles en las partituras orquestales pueden verse en
 @ref{References for opera and stage musicals}.
 
-@menu
-* Vocal music::
-* Keyboard and other multi-staff instruments::
-* Unfretted string instruments::
-* Fretted string instruments::
-* Percussion::
-* Wind instruments::
-* Chord notation::
-* Contemporary music::
-* Ancient notation::
-* World music::
-@end menu
-
 @include es/notation/vocal.itely
 @include es/notation/keyboards.itely
 @include es/notation/unfretted-strings.itely

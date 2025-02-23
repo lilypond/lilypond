@@ -17,13 +17,6 @@
 Este capítulo detalla los aspectos técnicos de la ejecución de
 LilyPond.
 
-@menu
-* Normal usage::
-* Command-line usage::
-* Error messages::
-* Common errors::
-@end menu
-
 
 @node Normal usage
 @section Utilización normal
@@ -56,14 +49,6 @@ sale del ámbito de este manual; le rogamos que consulte otros
 documentos sobre este tema si no le resulta familiar la línea de
 órdenes.
 
-@menu
-* Invoking LilyPond::
-* Basic command-line options for LilyPond::
-* Advanced command-line options for LilyPond::
-* Environment variables::
-* Relocation::
-* LilyPond in chroot jail::
-@end menu
 
 @node Invoking LilyPond
 @unnumberedsubsec Invocar @command{lilypond}
@@ -1018,12 +1003,6 @@ calculan en tiempo de ejecución @emph{relativos al binario que se
 ejecuta}.
 
 
-@menu
-* Relocation files::
-* Relocation algorithm::
-@end menu
-
-
 @node Relocation files
 @unnumberedsubsubsec Archivos de reubicación
 
@@ -1365,16 +1344,6 @@ Las condiciones de error que se describen más abajo se producen
 con frecuencia, aunque su causa no es obvia o fácil de encontrar.
 Una vez se han visto y comprendido, se manejan sin problema.
 
-
-@menu
-* Music runs off the page::
-* An extra staff appears::
-* Error message Unbound variable %::
-* Error message FT_Get_Glyph_Name::
-* Warning staff affinities should only decrease::
-* Error message unexpected new::
-* Warning this voice needs a voiceXx or shiftXx setting::
-@end menu
 
 @node Music runs off the page
 @unnumberedsubsec La música se sale de la página

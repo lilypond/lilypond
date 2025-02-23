@@ -22,16 +22,6 @@
 @cindex Petrucci
 @cindex mensural
 
-
-@menu
-* Overview of the supported styles::
-* Ancient notation - common features::
-* Typesetting mensural music::
-* Typesetting Gregorian chant::
-* Typesetting Kievan square notation::
-* Working with ancient music - scenarios and solutions::
-@end menu
-
 Entre las formas en que está contemplada la notación antigua se
 encuentra la posibilidad de tipografiar notación mensural, canto
 gregoriano y canto kievano en notación cuadrada.  Se puede acceder
@@ -172,14 +162,9 @@ Glosario musical:
 @rglos{flag}.
 
 
+@need 1500
 @node Ancient notation - common features
 @subsection Notación antigua -- funcionalidades comunes
-
-@menu
-* Pre-defined contexts::
-* Ligatures::
-* Custodes::
-@end menu
 
 
 @node Pre-defined contexts
@@ -366,20 +351,10 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{Custos}.
 
+
+@need 1500
 @node Typesetting mensural music
 @subsection Tipografiar música mensural
-
-@menu
-* Mensural contexts::
-* Mensural clefs::
-* Mensural time signatures::
-* Mensural note heads::
-* Mensural flags::
-* Mensural rests::
-* Mensural accidentals and key signatures::
-* Annotational accidentals (musica ficta)::
-* White mensural ligatures::
-@end menu
 
 
 @node Mensural contexts
@@ -989,15 +964,6 @@ previas.
 @node Typesetting Gregorian chant
 @subsection Tipografiado del canto gregoriano
 
-@menu
-* Gregorian chant contexts::
-* Gregorian clefs::
-* Gregorian accidentals and key signatures::
-* Divisiones::
-* Gregorian articulation signs::
-* Augmentum dots (morae)::
-* Gregorian square neume ligatures::
-@end menu
 
 Al componer tipográficamente una pieza en notación de canto
 gregoriano, el grabador @code{Vaticana_ligature_engraver}
@@ -2432,17 +2398,11 @@ cabeza en vez de una función musical unaria, de forma que
 @code{\augmentum} se pudiera entremezclar con los prefijos de
 cabeza en un orden arbitrario.
 
+
+@need 1500
 @node Typesetting Kievan square notation
 @subsection Tipografiado del canto kievano en notación cuadrada
 
-@menu
-* Kievan contexts::
-* Kievan clefs::
-* Kievan notes::
-* Kievan accidentals::
-* Kievan bar line::
-* Kievan melismata::
-@end menu
 
 @node Kievan contexts
 @unnumberedsubsubsec Contextos del canto kievano
@@ -2683,13 +2643,6 @@ El espaciado horizontal de las ligaduras es mediocre.
 
 @node Working with ancient music - scenarios and solutions
 @subsection Trabajar con música antigua -- escenarios y soluciones
-
-@menu
-* Incipits::
-* Mensurstriche layout::
-* Transcribing Gregorian chant::
-* Ancient and modern from one source::
-@end menu
 
 El trabajo con música antigua implica con frecuencia tareas
 adicionales que difieren considerablemente de la notación moderna

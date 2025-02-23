@@ -36,11 +36,6 @@ diferente).  Hay información sobre Guile en
 @qq{R5RS} se encuentra en
 @uref{https://www.schemers.org/Documents/Standards/R5RS/}.
 
-@menu
-* Introduction to Scheme::
-* Scheme in LilyPond::
-* Building complicated functions::
-@end menu
 
 @node Introduction to Scheme
 @section Introducción a Scheme
@@ -51,16 +46,6 @@ manera en que el lenguaje funciona.  Una vez nos hayamos
 familiarizado con Scheme, mostraremos cómo se puede integrar el
 lenguaje en los archivos de LilyPond.
 
-
-@menu
-* Scheme sandbox::
-* Scheme variables::
-* Scheme simple data types::
-* Scheme compound data types::
-* Calculations in Scheme::
-* Scheme procedures::
-* Scheme conditionals::
-@end menu
 
 @node Scheme sandbox
 @subsection Cajón de arena de Scheme
@@ -223,12 +208,6 @@ También existen tipos de datos compuestos en Scheme.  Entre los
 tipos más usados en la programación de LilyPond se encuentran las
 parejas, las listas, las listas-A y las tablas de hash.
 
-@menu
-* Pairs::
-* Lists::
-* Association lists (alists)::
-* Hash tables::
-@end menu
 
 @node Pairs
 @unnumberedsubsubsec Parejas
@@ -538,11 +517,6 @@ Los procedimientos de Scheme son expresiones de Scheme ejecutables
 que devuelven un valor resultante de su ejecución.  También pueden
 manipular variables definidas fuera del procedimiento.
 
-@menu
-* Defining procedures::
-* Predicates::
-* Return values::
-@end menu
 
 @node Defining procedures
 @unnumberedsubsubsec Definir procedimientos
@@ -624,13 +598,10 @@ guile> (let ((x 2) (y 3) (z 4)) (display (+ x y)) (display (- z 4))
 @end lisp
 
 
+@need 1500
 @node Scheme conditionals
 @subsection Condicionales de Scheme
 
-@menu
-* if::
-* cond::
-@end menu
 
 @node if
 @unnumberedsubsubsec if
@@ -678,18 +649,11 @@ guile> (cond ((< a b) "a es menor que b")
 "a es menor que b"
 @end lisp
 
+
+@need 1500
 @node Scheme in LilyPond
 @section Scheme dentro de LilyPond
 
-@menu
-* LilyPond Scheme syntax::
-* LilyPond variables::
-* Input variables and Scheme::
-* Importing Scheme in LilyPond::
-* Object properties::
-* LilyPond compound variables::
-* Internal music representation::
-@end menu
 
 @node LilyPond Scheme syntax
 @subsection Sintaxis del Scheme de LilyPond
@@ -1043,16 +1007,9 @@ mientras que @code{veintiCuatro} es una variable.
 @c  LilyPond variable types.  I think this deserves a section all
 @c  its own
 
+@need 1500
 @node LilyPond compound variables
 @subsection Variables de LilyPond compuestas
-
-@menu
-* Offsets::
-* Fractions::
-* Extents::
-* Property alists::
-* Alist chains::
-@end menu
 
 
 @node Offsets
@@ -1198,13 +1155,6 @@ almacena dentro de la propiedad @code{element} de
 
 Esta sección explica cómo reunir la información necesaria para
 crear funciones musicales complicadas.
-
-@menu
-* Displaying music expressions::
-* Music properties::
-* Doubling a note with slurs (example)::
-* Adding articulation to notes (example)::
-@end menu
 
 
 @node Displaying music expressions

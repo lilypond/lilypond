@@ -17,25 +17,10 @@
 Esta sección trata de los ritmos, los silencios, las duraciones,
 las barras y los compases.
 
-@menu
-* Writing rhythms::
-* Writing rests::
-* Displaying rhythms::
-* Beams::
-* Bars::
-* Special rhythmic concerns::
-@end menu
-
 
 @node Writing rhythms
 @subsection Escritura de las duraciones (valores rítmicos)
 
-@menu
-* Durations::
-* Tuplets::
-* Scaling durations::
-* Ties::
-@end menu
 
 @node Durations
 @unnumberedsubsubsec Duración de las notas
@@ -737,11 +722,6 @@ preferible una ligadura de expresión.
 Los silencios se escriben como parte de la música dentro de las
 expresiones musicales.
 
-@menu
-* Rests::
-* Invisible rests::
-* Full measure rests::
-@end menu
 
 @node Rests
 @unnumberedsubsubsec Silencios
@@ -1109,18 +1089,10 @@ Los silencios multicompás no toman parte en las colisiones de
 silencios.
 
 
+@need 1500
 @node Displaying rhythms
 @subsection Impresión de las duraciones
 
-@menu
-* Time signature::
-* Metronome marks::
-* Upbeats::
-* Unmetered music::
-* Polymetric notation::
-* Automatic note splitting::
-* Showing melody rhythms::
-@end menu
 
 @node Time signature
 @unnumberedsubsubsec Indicación de compás
@@ -2130,15 +2102,10 @@ Referencia de funcionamiento interno:
 @rinternals{Pitch_squash_engraver}.
 
 
+@need 1500
 @node Beams
 @subsection Barras
 
-@menu
-* Automatic beams::
-* Setting automatic beam behavior::
-* Manual beams::
-* Feathered beams::
-@end menu
 
 @node Automatic beams
 @unnumberedsubsubsec Barras automáticas
@@ -2849,15 +2816,9 @@ fragmentos musicales muy breves, y cuando los números de la
 fracción son pequeños.
 
 
+@need 1500
 @node Bars
 @subsection Compases
-
-@menu
-* Bar lines::
-* Bar numbers::
-* Bar and bar number checks::
-* Rehearsal marks::
-@end menu
 
 
 @node Bar lines
@@ -3694,14 +3655,10 @@ Referencia de funcionamiento interno:
 @rinternals{RehearsalMarkEvent}.
 
 
+@need 1500
 @node Special rhythmic concerns
 @subsection Asuntos rítmicos especiales
 
-@menu
-* Grace notes::
-* Aligning to cadenzas::
-* Time administration::
-@end menu
 
 @node Grace notes
 @unnumberedsubsubsec Notas de adorno
