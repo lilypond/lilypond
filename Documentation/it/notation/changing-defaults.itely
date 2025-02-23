@@ -47,30 +47,10 @@ una breve guida sull'inserimento di numeri, liste, stringhe e simboli in
 Scheme.}
 
 
-@menu
-* Interpretation contexts::
-* Explaining the Internals Reference::
-* Modifying properties::
-* Useful concepts and properties::
-* Advanced tweaks::
-* Using music functions::
-@end menu
-
-
 @node Interpretation contexts
 @section Contesti di interpretazione
 
 Questa sezione spiega cosa sono i contesti e come modificarli.
-
-@menu
-* Contexts explained::
-* Creating and referencing contexts::
-* Keeping contexts alive::
-* Modifying context plug-ins::
-* Changing context default settings::
-* Defining new contexts::
-* Context layout order::
-@end menu
 
 @morerefs
 Manuale di apprendimento:
@@ -94,13 +74,6 @@ Guida al funzionamento interno:
 
 I contesti sono organizzati in modo gerarchico:
 
-@menu
-* Output definitions - blueprints for contexts::
-* Score - the master of all contexts::
-* Top-level contexts - staff containers::
-* Intermediate-level contexts - staves::
-* Bottom-level contexts - voices::
-@end menu
 
 @c blueprint letteralmente indica la cianografia architettonica
 @node Output definitions - blueprints for contexts
@@ -802,11 +775,6 @@ il contesto.  Esistono due modi per farlo.  Uno modifica i valori
 predefiniti in tutti i contesti di un certo tipo, l'altro modifica i
 valori predefiniti soltanto in una certa istanza di un contesto.
 
-@menu
-* Changing all contexts of the same type::
-* Changing just one specific context::
-* Order of precedence::
-@end menu
 
 @node Changing all contexts of the same type
 @unnumberedsubsubsec Modifica di tutti i contesti dello stesso tipo
@@ -1455,14 +1423,10 @@ File installati:
 @endmorerefs
 
 
+@need 1500
 @node Explaining the Internals Reference
 @section Come funziona la Guida al funzionamento interno
 
-@menu
-* Navigating the program reference::
-* Layout interfaces::
-* Determining the grob property::
-@end menu
 
 @node Navigating the program reference
 @subsection Navigazione nella guida al programma
@@ -1710,6 +1674,7 @@ Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
 @end quotation
 
 
+@need 1500
 @node Modifying properties
 @section Modifica delle proprietà
 
@@ -1717,16 +1682,6 @@ Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
 @c backslash once the new macro to handle the refs
 @c is available.  Need to find and change all refs at
 @c the same time. -td
-
-@menu
-* Overview of modifying properties::
-* The set command::
-* The override command::
-* The tweak command::
-* set versus override::
-* The offset command::
-* Modifying alists::
-@end menu
 
 
 @node Overview of modifying properties
@@ -2657,21 +2612,10 @@ proprietà possono essere modificate soltanto ridefinendole completamente
 come liste associative.}
 
 
+@need 1500
 @node Useful concepts and properties
 @section Proprietà e concetti utili
 
-
-@menu
-* Input modes::
-* Direction and placement::
-* Distances and measurements::
-* Dimensions::
-* Staff symbol properties::
-* Spanners::
-* Visibility of objects::
-* Line styles::
-* Rotating objects::
-@end menu
 
 @node Input modes
 @subsection Modalità di inserimento
@@ -2806,10 +2750,6 @@ essere allineato a sinistra, destra o al centro; etc.  La maggior parte
 di queste scelte possono essere lasciate alla decisione di LilyPond, ma in
 alcuni casi si può voler forzare una direzione o un posizionamento particolari.
 
-@menu
-* Articulation direction indicators::
-* The direction property::
-@end menu
 
 @node Articulation direction indicators
 @unnumberedsubsubsec Indicatori di direzione delle articolazioni
@@ -3066,10 +3006,6 @@ Tutti gli estensori supportano l'interfaccia @code{spanner-interface}.  Ma pochi
 essenzialmente quelli che disegnano una linea dritta tra due oggetti, supportano
 anche l'interfaccia @code{line-spanner-interface}.
 
-@menu
-* Using the spanner-interface::
-* Using the line-spanner-interface::
-@end menu
 
 @node Using the spanner-interface
 @unnumberedsubsubsec Uso di @code{spanner-interface}
@@ -3402,14 +3338,6 @@ in @rlearningnamed{Visibility and color of objects, Visibilità e colore degli o
 
 Esistono anche altre tecniche che sono specifiche di alcuni oggetti della
 formattazione.  Queste sono trattate in @ref{Special considerations}.
-
-@menu
-* Removing the stencil::
-* Making objects transparent::
-* Painting objects white::
-* Using break-visibility::
-* Special considerations::
-@end menu
 
 
 @node Removing the stencil
@@ -3862,10 +3790,6 @@ Sia gli oggetti della formattazione che il testo compreso in un blocco markup
 possono essere ruotati di qualsiasi angolo in quasi qualsiasi punto, ma il
 metodo per farlo cambia.
 
-@menu
-* Rotating layout objects::
-* Rotating markup::
-@end menu
 
 @node Rotating layout objects
 @unnumberedsubsubsec Rotazione degli oggetti della formattazione
@@ -3922,15 +3846,6 @@ fis'^\markup { \rotate #30 "un Fa diesis" }
 
 Questa sezione discute i vari approcci che permettono di migliorare
 l'aspetto delle partiture.
-
-@menu
-* Aligning objects::
-* Vertical grouping of grobs::
-* Modifying stencils::
-* Modifying shapes::
-* Modifying broken spanners::
-* Unpure-pure containers::
-@end menu
 
 @morerefs
 Manuale di apprendimento:
@@ -4004,12 +3919,6 @@ Estendere LilyPond:
 @rextend{Callback functions}.
 @endmorerefs
 
-@menu
-* Setting X-offset and Y-offset directly::
-* Using the side-position-interface::
-* Using the self-alignment-interface::
-* Using the break-alignable-interface::
-@end menu
 
 @node Setting X-offset and Y-offset directly
 @unnumberedsubsubsec Impostazione diretta di @code{X-offset} e @code{Y-offset}
@@ -4335,12 +4244,10 @@ Guida alla notazione:
 @endmorerefs
 
 
+@need 1500
 @node Modifying shapes
 @subsection Modifica delle forme
 
-@menu
-* Modifying ties and slurs::
-@end menu
 
 @node Modifying ties and slurs
 @unnumberedsubsubsec Modifica di legature di valore e di portamento
@@ -4610,12 +4517,10 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
+@need 1500
 @node Modifying broken spanners
 @subsection Modifica degli estensori spezzati
 
-@menu
-* Using alterBroken::
-@end menu
 
 @node Using alterBroken
 @unnumberedsubsubsec Uso di @code{\alterBroken}
@@ -4852,10 +4757,6 @@ di @emph{sostituzione}, dove l'obiettivo è sostituire una variabile in un
 punto del codice di input di LilyPond.  Altre funzioni più complesse sono
 descritte in @rextend{Music functions}.
 
-@menu
-* Substitution function syntax::
-* Substitution function examples::
-@end menu
 
 @node Substitution function syntax
 @subsection Sintassi della funzione di sostituzione

@@ -1,4 +1,4 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
     Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
 
@@ -24,11 +24,6 @@ formattazione) nelle partiture musicali.
 Alcuni elementi testuali che non sono trattati qui sono discussi in altre
 sezioni specifiche: @ref{Vocal music}, @ref{Titles and headers}.
 
-@menu
-* Writing text::
-* Formatting text::
-* Fonts::
-@end menu
 
 @node Writing text
 @subsection Inserimento del testo
@@ -40,13 +35,6 @@ Questa sezione presenta vari modi di aggiungere del testo a una partitura.
 altre lingue), basta inserire semplicemente i caratteri nel file
 LilyPond, purché il file sia salvato in formato UTF-8.  Ulteriori informazioni
 in @ref{Text encoding}.}
-
-@menu
-* Text scripts::
-* Text spanners::
-* Text marks::
-* Separate text::
-@end menu
 
 
 @node Text scripts
@@ -398,14 +386,6 @@ Guida al funzionamento interno:
 Questa sezione presenta la formattazione del testo basilare e quella avanzata,
 usando la sintassi specifica della modalità @code{\markup}.
 
-@menu
-* Text markup introduction::
-* Selecting font and font size::
-* Text alignment::
-* Graphic notation inside markup::
-* Music notation inside markup::
-* Multi-page markup::
-@end menu
 
 @node Text markup introduction
 @unnumberedsubsubsec Introduzione al testo a margine
@@ -1355,11 +1335,6 @@ Guida al funzionamento interno:
 Questa sezione presenta il modo in cui sono gestiti i tipi di carattere e come
 possono essere modificati nelle partiture.
 
-@menu
-* Fonts explained::
-* Single entry fonts::
-* Entire document fonts::
-@end menu
 
 @node Fonts explained
 @unnumberedsubsubsec Tipi di carattere in dettaglio

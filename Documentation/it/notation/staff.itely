@@ -23,24 +23,11 @@ Questa sezione spiega come modificare l'aspetto del rigo, come stampare
 partiture multirigo e come aggiungere indicazioni di tempo e citazioni
 in corpo più piccolo nel rigo.
 
-@menu
-* Displaying staves::
-* Modifying single staves::
-* Writing parts::
-@end menu
-
 
 @node Displaying staves
 @subsection Aspetto del rigo
 
 Questa sezione presenta i diversi metodi per creare e raggruppare i righi.
-
-@menu
-* Instantiating new staves::
-* Grouping staves::
-* Nested staff groups::
-* Separating systems::
-@end menu
 
 
 @node Instantiating new staves
@@ -398,12 +385,6 @@ Questa sezione spiega come modificare gli attributi specifici di un
 rigo, per esempio il numero di linee o la dimensione del rigo.  Vengono
 descritti anche i metodi per iniziare e finire un rigo e per impostare
 le sezioni ossia.
-
-@menu
-* Staff symbol::
-* Ossia staves::
-* Hiding staves::
-@end menu
 
 
 @node Staff symbol
@@ -862,12 +843,6 @@ Questa sezione spiega come inserire in una partitura le indicazioni di
 tempo e i nomi degli strumenti.  Mostra anche come citare altre voci
 e come formattare le citazioni in corpo più piccolo.
 
-@menu
-* Instrument names::
-* Quoting other voices::
-* Formatting cue notes::
-* Compressing empty measures::
-@end menu
 
 @node Instrument names
 @unnumberedsubsubsec Nomi degli strumenti

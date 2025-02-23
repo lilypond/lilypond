@@ -17,12 +17,6 @@
 
 Questo capitolo fornisce un'introduzione di base all'uso di LilyPond.
 
-@menu
-* Compiling a file::
-* How to write input files::
-* Dealing with errors::
-* How to read the manuals::
-@end menu
 
 @node Compiling a file
 @section Compilare un file
@@ -77,26 +71,12 @@ produce un messaggio di errore.
 Questa sezione introduce le basi della sintassi di LilyPond e ha l'obiettivo
 di aiutarti ad iniziare a scrivere i file di input.
 
-@menu
-* Simple notation::
-* Working on input files::
-@end menu
 
 @node Simple notation
 @subsection Notazione semplice
 
 @cindex notazione semplice
 @cindex notazione, semplice
-
-@menu
-* Pitches::
-* Duration (rhythms)::
-* Rests::
-* Time signature::
-* Tempo marks::
-* Clef::
-* All together::
-@end menu
 
 LilyPond aggiunge automaticamente alcuni elementi della notazione.  Nell'esempio
 seguente, abbiamo specificato soltanto quattro note, ma LilyPond
@@ -564,11 +544,6 @@ sezione fornisce alcuni collegamenti che possono aiutare a risolvere i
 problemi che si potranno incontrare.
 
 
-@menu
-* General troubleshooting tips::
-* Some common errors::
-@end menu
-
 @node General troubleshooting tips
 @subsection Consigli generali per la risoluzione dei problemi
 
@@ -595,12 +570,6 @@ descritti in @rprogramnamed{Common errors, Errori comuni}.
 Questa sezione spiega come leggere la documentazione in modo efficiente e
 introduce alcune utili funzionalità interattive che sono disponibili
 nella versione online della documentazione.
-
-@menu
-* Omitted material::
-* Clickable examples::
-* Overview of manuals::
-@end menu
 
 
 @node Omitted material

@@ -17,18 +17,6 @@ Questa sezione del manuale contiene dei modelli con la struttura del file
 LilyPond già preimpostata.  Non ti resta che aggiungere le note, eseguire
 LilyPond e goderti dei belli spartiti!
 
-@c bad node name for ancient notation to avoid conflict
-@menu
-* Built-in templates::
-* Single staff templates::
-* Piano templates::
-* String quartet templates::
-* Vocal ensembles templates::
-* Orchestral templates::
-* Ancient notation templates::
-* Other templates::
-@end menu
-
 
 @node Built-in templates
 @appendixsec Modelli integrati
@@ -47,10 +35,6 @@ Le espressioni musicali richieste si inseriscono definendo dei valori per
 variabili ben precise.  Tali definizioni devono precedere il file incluso
 con @code{\include}.
 
-@menu
-* SATB template::
-* SSAATTBB template::
-@end menu
 
 @node SATB template
 @appendixsubsec Modello SATB
@@ -339,15 +323,10 @@ Arrangiamenti più complessi di musica corale a 8 parti non sono possibili
 con questo semplice modello integrato.
 
 
+@need 1500
 @node Single staff templates
 @appendixsec Modelli per rigo singolo
 
-@menu
-* Notes only::
-* Notes and lyrics::
-* Notes and chords::
-* Notes lyrics and chords::
-@end menu
 
 @node Notes only
 @appendixsubsec Solo note
@@ -374,14 +353,10 @@ con questo semplice modello integrato.
 {snippets/single-staff-template-with-notes,-lyrics,-and-chords.ly}
 
 
+@need 1500
 @node Piano templates
 @appendixsec Modelli per pianoforte
 
-@menu
-* Solo piano::
-* Piano and melody with lyrics::
-* Piano centered lyrics::
-@end menu
 
 @node Solo piano
 @appendixsubsec Solo pianoforte
@@ -402,13 +377,10 @@ con questo semplice modello integrato.
 {snippets/piano-template-with-centered-lyrics.ly}
 
 
+@need 1500
 @node String quartet templates
 @appendixsec Modelli per quartetto d'archi
 
-@menu
-* String quartet::
-* String quartet parts::
-@end menu
 
 @node String quartet
 @appendixsubsec Quartetto d'archi semplice
@@ -431,15 +403,6 @@ lì.  Se la disposizione della tua partitura SATB è relativamente semplice,
 potresti preferire i modelli integrati, che possono essere semplicemente
 inclusi con @code{include}, come è spiegato in @ref{Built-in templates}.
 
-@menu
-* SATB vocal score::
-* SATB vocal score and automatic piano reduction::
-* SATB with aligned contexts::
-* SATB on four staves::
-* Solo verse and two-part refrain::
-* Hymn tunes::
-* Psalms::
-@end menu
 
 @node SATB vocal score
 @appendixsubsec Partitura vocale SATB
@@ -484,12 +447,10 @@ inclusi con @code{include}, come è spiegato in @ref{Built-in templates}.
 {snippets/anglican-psalm-template.ly}
 
 
+@need 1500
 @node Orchestral templates
 @appendixsec Modelli per orchestra
 
-@menu
-* Orchestra choir and piano::
-@end menu
 
 @node Orchestra choir and piano
 @appendixsubsec Orchestra, coro e pianoforte
@@ -498,13 +459,10 @@ inclusi con @code{include}, come è spiegato in @ref{Built-in templates}.
 {snippets/orchestra,-choir-and-piano-template.ly}
 
 
+@need 1500
 @node Ancient notation templates
 @appendixsec Modelli per notazione antica
 
-@menu
-* Transcription of mensural music::
-* Gregorian transcription template::
-@end menu
 
 @node Transcription of mensural music
 @appendixsubsec Trascrizione di musica mensurale
@@ -519,12 +477,10 @@ inclusi con @code{include}, come è spiegato in @ref{Built-in templates}.
 {snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 
+@need 1500
 @node Other templates
 @appendixsec Altri modelli
 
-@menu
-* Jazz combo::
-@end menu
 
 @node Jazz combo
 @appendixsubsec Combo jazz

@@ -12,12 +12,10 @@
 @c Translators: Federico Bruni
 @c Translation checkers:
 
+@need 1500
 @node Percussion
 @section Percussioni
 
-@menu
-* Common notation for percussion::
-@end menu
 
 @node Common notation for percussion
 @subsection Notazione comune per le percussioni
@@ -25,15 +23,6 @@
 La musica ritmica viene usata principalmente per la notazione di strumenti
 percussivi, ma può essere usata anche per mostrare i ritmi delle melodie.
 
-@menu
-* References for percussion::
-* Basic percussion notation::
-* Drum rolls::
-* Pitched percussion::
-* Percussion staves::
-* Custom percussion staves::
-* Ghost notes::
-@end menu
 
 @node References for percussion
 @unnumberedsubsubsec Riferimenti per percussioni

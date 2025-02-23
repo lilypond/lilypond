@@ -20,36 +20,12 @@
 Questa sezione spiega come scrivere la musica vocale e assicurarsi che
 il testo sia allineato con le note della melodia.
 
-@menu
-* Common notation for vocal music::
-* Techniques specific to lyrics::
-* Stanzas::
-* Songs::
-* Choral::
-* Opera and stage musicals::
-* Chants psalms and hymns::
-* Ancient vocal music::
-
-@end menu
-
 
 @node Common notation for vocal music
 @subsection Notazione comune per la musica vocale
 
 Questa sezione tratta le questioni relative alla maggior parte
 delle tipologie di musica vocale.
-
-@menu
-* References for vocal music::
-* Entering lyrics::
-* Aligning lyrics to a melody::
-* Automatic syllable durations::
-* Manual syllable durations::
-* Multiple syllables to one note::
-* Multiple notes to one syllable::
-* Extenders and hyphens::
-* Gradual changes of vowel::
-@end menu
 
 
 @node References for vocal music
@@ -925,20 +901,11 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
+@need 1500
 @node Techniques specific to lyrics
 @subsection Tecniche specifiche per il testo vocale
 
 @c TODO this whole section is to be reorganised
-
-@menu
-* Working with lyrics and variables::
-* Placing lyrics vertically::
-* Placing syllables horizontally::
-* Lyrics and repeats::
-* Divisi lyrics::
-* Polyphony with shared lyrics::
-@end menu
-
 
 
 @node Working with lyrics and variables
@@ -1833,17 +1800,9 @@ words = \lyricmode { la __ la __ }
 @end lilypond
 
 
+@need 1500
 @node Stanzas
 @subsection Strofe
-
-@menu
-* Adding stanza numbers::
-* Adding dynamics marks to stanzas::
-* Adding singers' names to stanzas::
-* Stanzas with different rhythms::
-* Printing stanzas at the end::
-* Printing stanzas at the end in multiple columns::
-@end menu
 
 
 @node Adding stanza numbers
@@ -2267,13 +2226,10 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
+@need 1500
 @node Songs
 @subsection Canzoni
 
-@menu
-* References for songs::
-* Lead sheets::
-@end menu
 
 @node References for songs
 @unnumberedsubsubsec Riferimenti per canzoni
@@ -2363,10 +2319,6 @@ Guida alla notazione:
 Questa sezione tratta le questioni che hanno a che fare più direttamente
 con la musica corale, compresi inni, cori polifonici, oratori, etc.
 
-@menu
-* References for choral::
-* Score layouts for choral::
-@end menu
 
 @node References for choral
 @unnumberedsubsubsec Riferimenti per musica corale
@@ -2602,13 +2554,6 @@ nell'opera e nei musical sono indicati nei riferimenti seguenti.
 A questi seguono sezioni che trattano le tecniche specifiche
 che sono peculiari per le partiture di opera e musical.
 
-@menu
-* References for opera and stage musicals::
-* Character names::
-* Musical cues::
-* Spoken music::
-* Dialogue over music::
-@end menu
 
 @node References for opera and stage musicals
 @unnumberedsubsubsec Riferimenti per opera e musical
@@ -3013,12 +2958,6 @@ formato ben definito in ciascuna chiesa.  Sebbene i formati possano
 differire da chiesa a chiesa, i problemi tipografici che si possono
 incontrare sono generalmente simili e sono trattati in questa sezione.
 
-@menu
-* References for chants and psalms::
-* Setting a chant::
-* Pointing a psalm::
-* Partial measures in hymn tunes::
-@end menu
 
 @node References for chants and psalms
 @unnumberedsubsubsec Riferimenti per canti e salmi

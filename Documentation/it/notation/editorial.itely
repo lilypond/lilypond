@@ -1,4 +1,4 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
     Translation of GIT committish: 1222079e16735f1c93d512c3b0a1dfde3ead6c5d
 
@@ -20,26 +20,12 @@
 Questa sezione tratta dei vari modi con cui cambiare l'aspetto delle note e
 aggiungere un'analisi o un accento didattico.
 
-@menu
-* Inside the staff::
-* Outside the staff::
-@end menu
-
 
 @node Inside the staff
 @subsection Interne al rigo
 
 Questa sezione spiega come aggiungere enfasi agli elementi interni al rigo.
 
-@menu
-* Selecting notation font size::
-* Fingering instructions::
-* Gliding fingers::
-* Hidden notes::
-* Coloring objects::
-* Parentheses::
-* Stems::
-@end menu
 
 @node Selecting notation font size
 @unnumberedsubsubsec Scelta della dimensione del tipo di carattere
@@ -930,12 +916,6 @@ Guida al funzionamento interno:
 Questa sezione spiega come dare risalto agli elementi nel rigo attraverso
 delle note esterne al rigo.
 
-@menu
-* Note names::
-* Balloon help::
-* Grid lines::
-* Analysis brackets::
-@end menu
 
 @node Note names
 @unnumberedsubsubsec Nomi delle note

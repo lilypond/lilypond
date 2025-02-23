@@ -25,15 +25,6 @@ versioni più vecchie, vengono usati con versioni più recenti.
 Per superare questo problema, si può usare il comando @command{convert-ly} per
 aggiornare questi file di input più vecchi alla nuova sintassi.
 
-@menu
-* Why does the syntax change?::
-* Invoking convert-ly::
-* Command line options for convert-ly::
-* Problems running convert-ly::
-* Manual conversions::
-* Writing code to support multiple versions::
-@end menu
-
 
 @node Why does the syntax change?
 @section Perché la sintassi cambia?

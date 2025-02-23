@@ -20,11 +20,6 @@
 Questa sezione tratta gli elementi della notazione musicale specifici degli
 strumenti aerofoni (o strumenti a fiato).
 
-@menu
-* Common notation for wind instruments::
-* Bagpipes::
-* Woodwinds::
-@end menu
 
 @node Common notation for wind instruments
 @subsection Notazione comune per gli strumenti aerofoni
@@ -32,10 +27,6 @@ strumenti aerofoni (o strumenti a fiato).
 Questa sezione tratta la notazione comune alla maggior parte degli strumenti
 aerofoni.
 
-@menu
-* References for wind instruments::
-* Fingerings::
-@end menu
 
 @node References for wind instruments
 @unnumberedsubsubsec Riferimenti per strumenti aerofoni
@@ -144,10 +135,6 @@ Frammenti:
 
 Questa sezione tratta la notazione comune per la cornamusa.
 
-@menu
-* Bagpipe definitions::
-* Bagpipe example::
-@end menu
 
 @node Bagpipe definitions
 @unnumberedsubsubsec Definizioni per cornamusa
@@ -260,9 +247,6 @@ Frammenti:
 
 Questa sezione tratta la notazione specifica per i legni.
 
-@menu
-* Woodwind diagrams::
-@end menu
 
 @node Woodwind diagrams
 @subsubsection Diagrammi per legni

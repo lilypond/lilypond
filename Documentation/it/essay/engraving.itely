@@ -24,14 +24,6 @@ come fa a produrre spartiti così belli.
 @c     require adding a new snippet option to lilypond-book.py
 @c check formatting of HTML output
 
-@menu
-* The LilyPond story::
-* Engraving details::
-* Automated engraving::
-* Building software::
-* Putting LilyPond to work::
-* Engraved examples (BWV 861)::
-@end menu
 
 @node The LilyPond story
 @section Storia di LilyPond
@@ -201,13 +193,6 @@ da imitare con LilyPond.
 @c raramente eguagliano la qualità di quelli incisi a mano:
 @c appaiono blandi, meccanici, il che li rende sgradevoli da usare.
 
-@menu
-* Music fonts::
-* Optical spacing::
-* Ledger lines::
-* Optical sizing::
-* Why work so hard?::
-@end menu
 
 @node Music fonts
 @unnumberedsubsec Font musicali
@@ -568,11 +553,6 @@ simulare l'aspetto degli spartiti incisi: un metodo di descrizione della
 buona formattazione al computer e numerosi confronti dettagliati con
 incisioni effettivamente esistenti.
 
-@menu
-* Beauty contests::
-* Improvement by benchmarking::
-* Getting things right::
-@end menu
 
 @node Beauty contests
 @unnumberedsubsec Concorsi di bellezza
@@ -953,12 +933,6 @@ LilyPond è stata progettata avendo in mente la flessibilità.
 
 Questa sezione descrive alcune decisioni di programmazione prese
 durante la progettazione di LilyPond.
-
-@menu
-* Music representation::
-* What symbols to engrave?::
-* Flexible architecture::
-@end menu
 
 
 @node Music representation

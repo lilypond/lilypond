@@ -28,12 +28,6 @@ elencate in @rwebnamed{Easier editing, Editing facilitato}.
 Scegli il tutorial che rispecchia i tuoi bisogni.  (Se non sai
 cos'è la @qq{linea di comando}, scegli l'installazione grafica!)
 
-@menu
-* Graphical setup under GNU/Linux::
-* Graphical setup under Windows::
-* Graphical setup under macOS::
-* Command line setup::
-@end menu
 
 @node Graphical setup under GNU/Linux
 @section Installazione grafica in GNU/Linux

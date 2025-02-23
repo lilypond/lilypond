@@ -22,12 +22,6 @@ per accordi, e visualizzati usando varie convenzioni della tradizione europea.
 Possono essere visualizzati anche i nomi degli accordi e la notazione del
 basso continuo.
 
-@menu
-* Chord mode::
-* Displaying chords::
-* Figured bass::
-@end menu
-
 
 @node Chord mode
 @subsection Modalità accordo
@@ -37,12 +31,6 @@ basso continuo.
 La modalità accordo serve a inserire accordi usando un indicatore della
 struttura dell'accordo invece delle altezze dell'accordo.
 
-@menu
-* Chord mode overview::
-* Common chords::
-* Extended and altered chords::
-* Chord inversions and specific voicings::
-@end menu
 
 @node Chord mode overview
 @unnumberedsubsubsec Panoramica sulla modalità accordo
@@ -439,10 +427,6 @@ Frammenti:
 Gli accordi possono essere visualizzati per nome, oltre alla visualizzazione
 standard come note di un rigo.
 
-@menu
-* Printing chord names::
-* Customizing chord names::
-@end menu
 
 @node Printing chord names
 @unnumberedsubsubsec Stampa dei nomi degli accordi
@@ -839,11 +823,6 @@ myChords = \relative c' {
 
 La notazione del basso continuo è supportata.
 
-@menu
-* Introduction to figured bass::
-* Entering figured bass::
-* Displaying figured bass::
-@end menu
 
 @node Introduction to figured bass
 @unnumberedsubsubsec Introduzione al basso continuo

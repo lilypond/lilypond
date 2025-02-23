@@ -31,12 +31,6 @@ esclusivamente gli strumenti a corde con tasti.
 @cindex banjo, tablatura
 @cindex banjo, intavolatura
 
-@menu
-* Common notation for fretted strings::
-* Guitar::
-* Banjo::
-* Lute::
-@end menu
 
 @node Common notation for fretted strings
 @subsection Notazione comune per strumenti a corde con tasti
@@ -44,16 +38,6 @@ esclusivamente gli strumenti a corde con tasti.
 Questa sezione presenta la notazione comune che riguarda esclusivamente gli
 strumenti a corde con tasti.
 
-@menu
-* References for fretted strings::
-* String number indications::
-* Default tablatures::
-* Custom tablatures::
-* Fret diagram markups::
-* Predefined fret diagrams::
-* Automatic fret diagrams::
-* Right-hand fingerings::
-@end menu
 
 @node References for fretted strings
 @unnumberedsubsubsec Riferimenti per strumenti a corde con tasti
@@ -2021,11 +2005,6 @@ documenti che non contengono notazione musicale.  Migliori alternative
 sono un programma di videoscrittura, un editor di testo oppure, per
 utenti esperti, un compositore tipografico come GuitarTeX.
 
-@menu
-* Indicating position and barring::
-* Indicating harmonics and dampened notes::
-* Indicating power chords::
-@end menu
 
 @node Indicating position and barring
 @unnumberedsubsubsec Indicazione di posizione e barré
@@ -2192,12 +2171,10 @@ Frammenti:
 @endmorerefs
 
 
+@need 1500
 @node Banjo
 @subsection Banjo
 
-@menu
-* Banjo tablatures::
-@end menu
 
 @node Banjo tablatures
 @unnumberedsubsubsec Intavolature per banjo
@@ -2264,12 +2241,10 @@ Frammenti:
 @endmorerefs
 
 
+@need 1500
 @node Lute
 @subsection Liuto
 
-@menu
-* Lute tablatures::
-@end menu
 
 @node Lute tablatures
 @unnumberedsubsubsec Intavolature per liuto

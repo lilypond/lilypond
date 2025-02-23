@@ -20,13 +20,6 @@
 Questa sezione tratta il modo in cui si determina l'altezza delle note.  Occorre
 considerare tre aspetti: input, modifica e output.
 
-@menu
-* Writing pitches::
-* Changing multiple pitches::
-* Displaying pitches::
-* Note heads::
-@end menu
-
 
 @node Writing pitches
 @subsection Inserimento delle altezze
@@ -34,13 +27,6 @@ considerare tre aspetti: input, modifica e output.
 Questa sezione spiega come indicare l'altezza delle note.  Ci sono due
 modi di collocare le note in una determinata ottava: il modo assoluto e il
 modo relativo.  Nella maggioranza dei casi il modo relativo è più funzionale.
-
-@menu
-* Absolute octave entry::
-* Relative octave entry::
-* Accidentals::
-* Note names in other languages::
-@end menu
 
 
 @node Absolute octave entry
@@ -673,13 +659,6 @@ Frammenti di codice:
 
 Questa sezione tratta il modo di modificare le altezze delle note.
 
-@menu
-* Octave checks::
-* Transpose::
-* Inversion::
-* Retrograde::
-* Modal transformations::
-@end menu
 
 @node Octave checks
 @unnumberedsubsubsec Controlli di ottava
@@ -1124,16 +1103,6 @@ Guida alla notazione:
 @subsection Aspetto delle altezze
 
 Questa sezione tratta il modo di modificare l'aspetto delle altezze delle note.
-
-@menu
-* Clef::
-* Key signature::
-* Ottava brackets::
-* Instrument transpositions::
-* Automatic accidentals::
-* Alternate accidental glyphs::
-* Ambitus::
-@end menu
 
 
 @node Clef
@@ -3253,12 +3222,6 @@ più di una voce.
 
 Questa sezione suggerisce i modi in cui modificare la testa di una nota.
 
-@menu
-* Special note heads::
-* Easy notation note heads::
-* Shape note heads::
-* Improvisation::
-@end menu
 
 @node Special note heads
 @unnumberedsubsubsec Teste di nota speciali

@@ -58,30 +58,12 @@ come l'altezza del foglio o se stampare o meno i numeri di pagina, etc.
 di formattazione della partitura, come il numero di sistemi da usare o lo
 spazio tra i gruppi di righi, etc. (vedi @ref{Score layout}).
 
-@menu
-* Page layout::
-* Score layout::
-* Breaks::
-* Vertical spacing::
-* Horizontal spacing::
-* Fitting music onto fewer pages::
-@end menu
-
 
 @node Page layout
 @section Formattazione della pagina
 
 Questa sezione tratta le opzioni di formattazione della pagina per il
 blocco @code{\paper}.
-
-@menu
-* The paper block::
-* Paper size and automatic scaling::
-* Fixed vertical spacing paper variables::
-* Flexible vertical spacing paper variables::
-* Horizontal spacing paper variables::
-* Other paper variables::
-@end menu
 
 
 @node The paper block
@@ -194,6 +176,7 @@ File installati:
 @endmorerefs
 
 
+@need 1500
 @node Paper size and automatic scaling
 @subsection Formato carta e ridimensionamento automatico
 
@@ -203,11 +186,6 @@ File installati:
 @cindex pagina, formato
 
 @funindex \paper
-
-@menu
-* Setting the paper size::
-* Automatic scaling to paper size::
-@end menu
 
 
 @node Setting the paper size
@@ -434,11 +412,6 @@ del grob, solitamente inserite in un blocco @code{\score} o
 @code{\layout} e non in un blocco @code{\paper}.  Vedi
 @ref{Flexible vertical spacing within systems}.
 
-@menu
-* Structure of flexible vertical spacing alists::
-* List of flexible vertical spacing paper variables::
-@end menu
-
 
 @node Structure of flexible vertical spacing alists
 @unnumberedsubsubsec Struttura delle liste associative flessibili della spaziatura verticale
@@ -625,12 +598,6 @@ Frammenti:
 @warning{Alcune dimensioni in @code{@bs{}paper} sono ridimensionate
 automaticamente in base al formato carta, producendo talvolta un
 risultato inatteso. Vedi @ref{Automatic scaling to paper size}.}
-
-@menu
-* paper variables for widths and margins::
-* paper variables for two-sided mode::
-* paper variables for shifts and indents::
-@end menu
 
 
 @node paper variables for widths and margins
@@ -853,15 +820,9 @@ Frammenti:
 @endmorerefs
 
 
+@need 1500
 @node Other paper variables
 @subsection Altre variabili di @code{\paper}
-
-@menu
-* paper variables for line breaking::
-* paper variables for page breaking::
-* paper variables for page numbering::
-* Miscellaneous paper variables::
-@end menu
 
 
 @node paper variables for line breaking
@@ -1132,11 +1093,6 @@ pagina e il campo @code{instrument} del blocco @code{\header}.
 
 Questa sezione tratta le opzioni di formattazione della partitura disponibili
 nel blocco @code{\layout}.
-
-@menu
-* The layout block::
-* Setting the staff size::
-@end menu
 
 
 @node The layout block
@@ -1421,13 +1377,9 @@ Frammenti:
 @endmorerefs
 
 
+@need 1500
 @node Breaks
 @section Interruzioni
-
-@menu
-* Line breaking::
-* Page breaking::
-@end menu
 
 
 @node Line breaking
@@ -1604,16 +1556,6 @@ comandi dopo la musica.
 
 Questa sezione descrive i diversi metodi di interruzione di pagina e
 spiega come modificarli.
-
-@menu
-* Manual page breaking::
-* Optimal page breaking::
-* Minimal page breaking::
-* One-page page breaking::
-* One-line page breaking::
-* One-line-auto-height page breaking::
-* Optimal page turning::
-@end menu
 
 
 @node Manual page breaking
@@ -1934,12 +1876,6 @@ spazio disponibile (ovvero il formato e i margini), la quantità di
 spazio tra i sistemi e la quantità di spazio tra i righi di un
 sistema.
 
-@menu
-* Flexible vertical spacing within systems::
-* Explicit staff and system positioning::
-* Vertical collision avoidance::
-@end menu
-
 
 @node Flexible vertical spacing within systems
 @subsection Spaziatura verticale flessibile all'interno dei sistemi
@@ -1980,13 +1916,6 @@ righi) all'interno di singoli sistemi.  La spaziatura verticale tra
 sistemi, partiture, testi e margini separati è regolata dalle variabili
 @code{\paper} trattate in
 @ref{Flexible vertical spacing paper variables}.
-
-@menu
-* Within-system spacing properties::
-* Spacing of ungrouped staves::
-* Spacing of grouped staves::
-* Spacing of non-staff lines::
-@end menu
 
 
 @node Within-system spacing properties
@@ -2846,19 +2775,12 @@ Frammenti:
 @endmorerefs
 
 
+@need 1500
 @node Horizontal spacing
 @section Spaziatura orizzontale
 
 @cindex spaziatura orizzontale
 @cindex orizzontale, spaziatura
-
-@menu
-* Horizontal spacing overview::
-* New spacing section::
-* Changing horizontal spacing::
-* Line width::
-* Proportional notation::
-@end menu
 
 
 @node Horizontal spacing overview
@@ -3039,11 +2961,6 @@ Guida al funzionamento interno:
 
 @node Changing horizontal spacing
 @subsection Modifica della spaziatura orizzontale
-
-@menu
-* Uniform stretching of tuplets::
-* Strict note spacing::
-@end menu
 
 La spaziatura orizzontale può essere modificata tramite la proprietà
 @code{base-shortest-duration}.  Nel prossimo esempio confrontiamo
@@ -3541,11 +3458,6 @@ Quando si studiano i problemi di formattazione, uno strumento irrinunciabile
 è @code{annotate-spacing}, un comando che mostra i valori delle diverse
 variabili di spaziatura.  Maggiori dettagli nella prossima sezione,
 @ref{Displaying spacing}.
-
-@menu
-* Displaying spacing::
-* Changing spacing::
-@end menu
 
 
 @node Displaying spacing

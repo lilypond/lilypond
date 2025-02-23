@@ -21,24 +21,12 @@ La polifonia in musica si riferisce alla coesistenza simultanea di più di una v
 brano musicale. In LilyPond la polifonia si riferisce alla coesistenza di
 più voci sullo stesso rigo.
 
-@menu
-* Single voice::
-* Multiple voices::
-@end menu
-
 
 @node Single voice
 @subsection Una voce
 
 In questa sezione vengono spiegate le note simultanee che fanno parte di
 un'unica voce.
-
-@menu
-* Chorded notes::
-* Chord repetition::
-* Simultaneous expressions::
-* Clusters::
-@end menu
 
 
 @node Chorded notes
@@ -393,15 +381,6 @@ I cluster non generano output MIDI.
 @subsection Più voci
 
 Questa sezione presenta le note simultanee in più voci o più righi.
-
-@menu
-* Single-staff polyphony::
-* Voice styles::
-* Collision resolution::
-* Merging rests::
-* Automatic part combining::
-* Writing music in parallel::
-@end menu
 
 
 @node Single-staff polyphony

@@ -1,4 +1,4 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: it -*-
 @ignore
     Translation of GIT committish: 21a1f431176e969d45a9cc973c99dce34e9e8733
 
@@ -18,12 +18,6 @@
 Questo capitolo tratta la notazione delle musiche tradizionali diverse da
 quelle occidentali.
 
-@menu
-* Common notation for non-Western music::
-* Arabic music::
-* Turkish classical music::
-@end menu
-
 
 @node Common notation for non-Western music
 @subsection Notazione comune per la musica non occidentale
@@ -31,10 +25,6 @@ quelle occidentali.
 Questa sezione spiega come scrivere e stampare partiture musicali che
 non appartengono alla tradizione classica occidentale, chiamata anche
 @notation{Periodo di pratica comune}.
-
-@menu
-* Extending notation and tuning systems::
-@end menu
 
 
 @node Extending notation and tuning systems
@@ -103,15 +93,6 @@ Guida alla notazione:
 
 Questa sezione evidenzia le questioni relative alla notazione della
 musica araba.
-
-@menu
-* References for Arabic music::
-* Arabic note names::
-* Arabic key signatures::
-* Arabic time signatures::
-* Arabic music example::
-* Further reading for Arabic music::
-@end menu
 
 
 @node References for Arabic music
@@ -486,11 +467,6 @@ Ibrahim Ali Darwish Al-masri
 
 Questa sezione evidenzia le questioni rilevanti per la notazione di musica
 classica turca.
-
-@menu
-* References for Turkish classical music::
-* Turkish note names::
-@end menu
 
 
 @node References for Turkish classical music

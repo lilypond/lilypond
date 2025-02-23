@@ -23,12 +23,6 @@ scritti su molti righi, come arpe e vibrafoni.  Ai fini di questa
 sezione, questo gruppo di strumenti multirigo viene chiamato @qq{tastiere}
 per brevità, anche se alcuni di questi strumenti non hanno una tastiera.
 
-@menu
-* Common notation for keyboards::
-* Piano::
-* Accordion::
-* Harp::
-@end menu
 
 @node Common notation for keyboards
 @subsection Notazione comune per tastiere
@@ -36,12 +30,6 @@ per brevità, anche se alcuni di questi strumenti non hanno una tastiera.
 Questa sezione tratta le questioni di notazione che riguardano la maggior
 parte degli strumenti a tastiera.
 
-@menu
-* References for keyboards::
-* Changing staff manually::
-* Changing staff automatically::
-* Staff-change lines::
-@end menu
 
 @node References for keyboards
 @unnumberedsubsubsec Riferimenti per tastiere
@@ -495,9 +483,6 @@ Guida al funzionamento interno:
 Questa sezione tratta le questioni di notazione che hanno a che fare
 più direttamente col pianoforte.
 
-@menu
-* Piano pedals::
-@end menu
 
 @node Piano pedals
 @unnumberedsubsubsec Pedali del pianoforte
@@ -606,9 +591,6 @@ Guida al funzionamento interno:
 
 Questa sezione tratta la notazione specifica della fisarmonica.
 
-@menu
-* Discant symbols::
-@end menu
 
 @node Discant symbols
 @unnumberedsubsubsec Simboli di discanto
@@ -645,10 +627,6 @@ Frammenti:
 
 Questa sezione tratta le questioni di notazione specifiche dell'arpa.
 
-@menu
-* References for harps::
-* Harp pedals::
-@end menu
 
 @node References for harps
 @unnumberedsubsubsec Riferimenti per arpe

@@ -20,12 +20,6 @@
 Questa sezione elenca vari segni di espressione che si possono
 usare in una partitura.
 
-@menu
-* Expressive marks attached to notes::
-* Expressive marks as curves::
-* Expressive marks as lines::
-@end menu
-
 
 @node Expressive marks attached to notes
 @subsection Segni di espressione collegati alle note
@@ -34,11 +28,6 @@ Questa sezione spiega come creare segni di espressione
 collegati alle note: articolazioni, abbellimenti e dinamiche.
 Sono trattati anche i metodi per creare nuove indicazioni dinamiche.
 
-@menu
-* Articulations and ornamentations::
-* Dynamics::
-* New dynamic marks::
-@end menu
 
 @node Articulations and ornamentations
 @unnumberedsubsubsec Articolazioni e abbellimenti
@@ -784,12 +773,6 @@ Questa sezione spiega come creare varie indicazioni espressive con
 forma curvilinea: legature di portamento, legature di frase, respiri, portamenti
 indeterminati discendenti (cadute) o ascendenti.
 
-@menu
-* Slurs::
-* Phrasing slurs::
-* Breath marks::
-* Falls and doits::
-@end menu
 
 @node Slurs
 @unnumberedsubsubsec Legature di portamento
@@ -1203,11 +1186,6 @@ Frammenti:
 Questa sezione spiega come creare varie indicazioni espressive che seguono
 una traiettoria lineare: glissandi, arpeggi e trilli.
 
-@menu
-* Glissando::
-* Arpeggio::
-* Trills::
-@end menu
 
 @node Glissando
 @unnumberedsubsubsec Glissando

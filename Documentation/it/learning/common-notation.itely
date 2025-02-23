@@ -18,13 +18,6 @@ Questo capitolo spiega come creare dei belli spartiti che
 facciano uso della notazione musicale comunemente utilizzata.
 Per le operazioni di base, @pxref{Tutorial}.
 
-@menu
-* Single staff notation::
-* Multiple notes at once::
-* Songs::
-* Final touches::
-@end menu
-
 
 @node Single staff notation
 @section Notazione su un solo pentagramma
@@ -32,23 +25,11 @@ Per le operazioni di base, @pxref{Tutorial}.
 Questa sezione presenta la notazione comunemente usata per una singola voce su
 un solo pentagramma.
 
-@menu
-* Bar lines and bar checks::
-* Pitches and key signatures::
-* Ties and slurs::
-* Articulations and dynamics::
-* Adding text::
-* Automatic and manual beams::
-* Advanced rhythmic commands::
-@end menu
 
+@need 1500
 @node Bar lines and bar checks
 @subsection Stanghette e controlli di battuta
 
-@menu
-* Bar lines::
-* Bar checks::
-@end menu
 
 @node Bar lines
 @unnumberedsubsubsec Stanghette
@@ -102,12 +83,6 @@ Guida alla notazione:
 
 @node Pitches and key signatures
 @subsection Altezze e armature di chiave
-
-@menu
-* Pitch alterations::
-* Key signatures::
-* Warning key signatures and pitches::
-@end menu
 
 @warning{I nuovi utenti sono spesso confusi riguardo a questi concetti -- leggi
 il messaggio di avviso alla fine di questa sezione.}
@@ -252,6 +227,7 @@ Guida alla notazione:
 @endmorerefs
 
 
+@need 1500
 @node Ties and slurs
 @subsection Legature di valore e di portamento
 
@@ -264,12 +240,6 @@ Guida alla notazione:
 @funindex ( ... )
 @funindex \( ... \)
 
-@menu
-* Ties::
-* Slurs::
-* Phrasing slurs::
-* Warnings slurs vs ties::
-@end menu
 
 @node Ties
 @unnumberedsubsubsec Legature di valore
@@ -367,11 +337,6 @@ Guida alla notazione:
 Le articolazioni e le dinamiche si indicano aggiungendo dei segni speciali
 dopo le note alle quali si applicano.
 
-@menu
-* Articulations::
-* Fingerings::
-* Dynamics::
-@end menu
 
 @node Articulations
 @unnumberedsubsubsec Articolazioni
@@ -554,14 +519,10 @@ Guida alla notazione:
 @endmorerefs
 
 
+@need 1500
 @node Advanced rhythmic commands
 @subsection Comandi di tempo avanzati
 
-@menu
-* Partial measure::
-* Tuplets::
-* Grace notes::
-@end menu
 
 @node Partial measure
 @unnumberedsubsubsec Battuta parziale
@@ -658,14 +619,6 @@ In musica per polifonia si intende la presenza di più di una voce
 in un brano.  In LilyPond per polifonia si intende la presenza di
 più di una voce sullo stesso pentagramma.
 
-@menu
-* Music expressions explained::
-* Multiple staves::
-* Staff groups::
-* Combining notes into chords::
-* Single staff polyphony::
-@end menu
-
 
 @node Music expressions explained
 @subsection Espressioni musicali
@@ -697,11 +650,6 @@ precedente). Il risultato è un'altra espressione musicale:
 \relative { { a'4 g } f4 g }
 @end lilypond
 
-@menu
-* Analogy mathematic expressions::
-* Simultaneous music expressions multiple staves::
-* Simultaneous music expressions single staff::
-@end menu
 
 @node Analogy mathematic expressions
 @unnumberedsubsubsec Analogia: le espressioni matematiche
@@ -1006,12 +954,6 @@ Guida alla notazione:
 
 Questa sezione presenta la musica vocale e gli spartiti di semplici canzoni.
 
-@menu
-* Setting simple songs::
-* Aligning lyrics to a melody::
-* Lyrics to multiple staves::
-@end menu
-
 
 @node Setting simple songs
 @subsection Impostare canzoni semplici
@@ -1287,13 +1229,6 @@ Guida alla notazione:
 Questa è la sezione finale della guida; spiega come dare gli ultimi
 ritocchi a semplici pezzi, e fornisce un'introduzione
 al resto del manuale.
-
-@menu
-* Organizing pieces with variables::
-* Adding titles::
-* Absolute note names::
-* After the tutorial::
-@end menu
 
 
 @node Organizing pieces with variables

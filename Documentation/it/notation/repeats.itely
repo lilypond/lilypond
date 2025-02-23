@@ -45,11 +45,6 @@ Si usa per scrivere travature a tremolo.
 @end table
 
 
-@menu
-* Long repeats::
-* Short repeats::
-@end menu
-
 @node Long repeats
 @subsection Ripetizioni lunghe
 
@@ -58,12 +53,6 @@ di più battute).  Tali ripetizioni possono essere in due forme: racchiuse
 tra segni di ritornello oppure ricopiate interamente (adatte
 a scrivere musica ripetitiva).  Si possono anche controllare
 manualmente i segni di ripetizione.
-
-@menu
-* Normal repeats::
-* Manual repeat marks::
-* Written-out repeats::
-@end menu
 
 @cindex volta
 @cindex prima volta
@@ -687,10 +676,6 @@ brevi possono avere due forme: segni di tratto obliquo o percentuale per rappres
 ripetizioni di una singola nota, di una singola misura o di due misure; tremolo
 negli altri casi.
 
-@menu
-* Percent repeats::
-* Tremolo repeats::
-@end menu
 
 @node Percent repeats
 @unnumberedsubsubsec Ripetizioni con percentuale

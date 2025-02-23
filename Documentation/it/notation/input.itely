@@ -18,29 +18,12 @@
 Questa sezione tratta le questioni generali relative all'input e
 all'output di LilyPond, non specifiche di un certo tipo di notazione.
 
-@menu
-* Input structure::
-* Titles and headers::
-* Working with input files::
-* Controlling output::
-* Creating MIDI output::
-* Extracting musical information::
-@end menu
-
 
 @node Input structure
 @section Struttura dell'input
 
 Il principale formato di input di LilyPond sono i file di testo.  Per
 convenzione, questi file hanno estensione @file{.ly}.
-
-@menu
-* Structure of a score::
-* Multiple scores in a book::
-* Multiple output files from one input file::
-* Output file names::
-* File structure::
-@end menu
 
 
 @node Structure of a score
@@ -562,24 +545,10 @@ Guida alla notazione:
 Quasi tutte le partiture musicali hanno il titolo e il nome del compositore e
 alcuni brani comprendono molte altre informazioni.
 
-@menu
-* Creating titles headers and footers::
-* Custom titles headers and footers::
-* Creating output file metadata::
-* Creating footnotes::
-* Reference to page numbers::
-* Table of contents::
-@end menu
 
-
+@need 1500
 @node Creating titles headers and footers
 @subsection Creazione di titoli intestazioni e piè di pagina
-
-@menu
-* Titles explained::
-* Default layout of bookpart and score titles::
-* Default layout of headers and footers::
-@end menu
 
 
 @node Titles explained
@@ -938,14 +907,9 @@ del livello superiore.
 Per toglierlo, impostare @code{tagline} su @code{##f}.
 
 
+@need 1500
 @node Custom titles headers and footers
 @subsection Titoli intestazioni e piè di pagina personalizzati
-
-@menu
-* Custom text formatting for titles::
-* Custom layout for titles::
-* Custom layout for headers and footers::
-@end menu
 
 
 @node Custom text formatting for titles
@@ -1309,10 +1273,6 @@ Le note a piè di pagina si creano diversamente a seconda che siano applicate a
 espressioni musicali o a del testo separato e fuori dalle espressioni
 musicali.
 
-@menu
-* Footnotes in music expressions::
-* Footnotes in stand-alone text::
-@end menu
 
 @node Footnotes in music expressions
 @unnumberedsubsubsec Note a piè di pagina nelle espressioni musicali
@@ -1998,14 +1958,9 @@ File installati:
 @endpredefined
 
 
+@need 1500
 @node Working with input files
 @section Lavorare coi file di input
-
-@menu
-* Including LilyPond files::
-* Different editions from one source::
-* Special characters::
-@end menu
 
 
 @node Including LilyPond files
@@ -2174,11 +2129,6 @@ Qualsiasi metodo venga usato, la separazione delle note dalla struttura
 della partitura permetterà di cambiare la struttura lasciando le note
 intatte.
 
-@menu
-* Using variables::
-* Using tags::
-* Using global settings::
-@end menu
 
 @node Using variables
 @unnumberedsubsubsec Uso delle variabili
@@ -2526,17 +2476,12 @@ Guida alla notazione:
 @endmorerefs
 
 
+@need 1500
 @node Special characters
 @subsection Caratteri speciali
 
 @cindex carattere speciale
 @cindex carattere non-ASCII
-
-@menu
-* Text encoding::
-* Unicode::
-* ASCII aliases::
-@end menu
 
 
 @node Text encoding
@@ -2723,15 +2668,10 @@ File installati:
 @endmorerefs
 
 
+@need 1500
 @node Controlling output
 @section Controllo dell'output
 
-@menu
-* Extracting fragments of music::
-* Skipping corrected music::
-* Alternative output formats::
-* Replacing the notation font::
-@end menu
 
 @funindex clip-regions
 @cindex frammento musicale
@@ -2844,9 +2784,6 @@ di output Portable Network Graphics (PNG), Scalable Vector Graphics (SVG)
 e Encapsulated PostScript (EPS) attraverso le opzioni da linea di comando,
 vedi @rprogramnamed{Basic command-line options for LilyPond, Opzioni di base della linea di comando per LilyPond}.
 
-@menu
-* SVG Output::
-@end menu
 
 @node SVG Output
 @unnumberedsubsubsec Output SVG
@@ -3021,18 +2958,6 @@ erroneo o note senza alterazioni e così via.
 I file MIDI non contengono audio (come i file AAC, MP3 o Vorbis), bensì
 richiedono un software esterno che produca il suono a partire da essi.
 
-@menu
-* Supported notation for MIDI::
-* Unsupported notation for MIDI::
-* The MIDI block::
-* Controlling MIDI dynamics::
-* Using MIDI instruments::
-* Using repeats with MIDI::
-* MIDI channel mapping::
-* Context properties for MIDI effects::
-* Enhancing MIDI output::
-@end menu
-
 @cindex MIDI, notazione supportata
 
 @node Supported notation for MIDI
@@ -3196,12 +3121,6 @@ gamma di volume MIDI disponibile, mentre crescendi e decrescendi variano
 il volume gradualmente tra i loro due estremi.  È possibile regolare il
 volume relativo delle dinamiche e i livelli del volume complessivo dei
 diversi strumenti.
-
-@menu
-* Dynamic marks in MIDI::
-* Setting MIDI volume::
-* Setting MIDI block properties::
-@end menu
 
 @cindex volume MIDI
 @cindex MIDI, volume
@@ -3739,10 +3658,6 @@ per sapere come il dispositivo interpreta questi valori.
 @node Enhancing MIDI output
 @subsection Miglioramento dell'output MIDI
 
-@menu
-* The articulate script::
-@end menu
-
 L'output MIDI predefinito fornisce le fuzionalità basilari, ma può essere
 migliorato impostando gli strumenti MIDI, le proprietà del blocco
 @code{\midi} e/o usando lo script @file{articulate}.
@@ -3816,11 +3731,6 @@ della durata delle note.}
 Oltre a creare l'output grafico e il MIDI, LilyPond può mostrare
 l'informazione musicale in forma testuale.
 
-@menu
-* Displaying LilyPond notation::
-* Displaying Scheme music expressions::
-* Saving music events to a file::
-@end menu
 
 @node Displaying LilyPond notation
 @subsection Mostrare la notazione LilyPond

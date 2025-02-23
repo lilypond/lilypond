@@ -26,9 +26,6 @@ Questa sezione fornisce informazioni e riferimenti utili per scrivere
 musica per strumenti a corde senza tasti, principalmente archi da
 orchestra.
 
-@menu
-* Common notation for unfretted strings::
-@end menu
 
 @node Common notation for unfretted strings
 @subsection Notazione comune per strumenti a corde senza tasti
@@ -38,12 +35,6 @@ La musica viene scritta su un solo rigo e di solito è richiesta una
 sola voce.  Due voci potrebbero essere necessarie solo per alcuni
 passaggi a doppia corda o i divisi.
 
-@menu
-* References for unfretted strings::
-* Bowing indications::
-* Harmonics::
-* Snap (Bartok) pizzicato::
-@end menu
 
 @node References for unfretted strings
 @unnumberedsubsubsec Riferimenti per archi senza tasti

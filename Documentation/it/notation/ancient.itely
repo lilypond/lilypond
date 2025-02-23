@@ -24,17 +24,6 @@
 @cindex Petrucci
 @cindex mensurale
 
-
-@menu
-* Overview of the supported styles::
-* Ancient notation - common features::
-* Typesetting mensural music::
-* Typesetting Gregorian chant::
-* Typesetting Kievan square notation::
-* Working with ancient music - scenarios and solutions::
-@end menu
-
-
 Il supporto per la notazione antica comprende funzionalità per la notazione
 mensurale, la notazione del canto gregoriano e la notazione quadrata di
 Kiev.  Tali funzionalità sono disponibili sia modificando le proprietà
@@ -164,14 +153,9 @@ Glossario musicale:
 @endmorerefs
 
 
+@need 1500
 @node Ancient notation - common features
 @subsection Notazione antica -- funzionalità comuni
-
-@menu
-* Pre-defined contexts::
-* Ligatures::
-* Custodes::
-@end menu
 
 
 @node Pre-defined contexts
@@ -348,20 +332,9 @@ Guida al funzionamento interno:
 @endmorerefs
 
 
+@need 1500
 @node Typesetting mensural music
 @subsection Scrivere la musica mensurale
-
-@menu
-* Mensural contexts::
-* Mensural clefs::
-* Mensural time signatures::
-* Mensural note heads::
-* Mensural flags::
-* Mensural rests::
-* Mensural accidentals and key signatures::
-* Annotational accidentals (musica ficta)::
-* White mensural ligatures::
-@end menu
 
 
 @node Mensural contexts
@@ -945,16 +918,6 @@ Le alterazioni potrebbero entrare in collisione con le note precedenti.
 
 @node Typesetting Gregorian chant
 @subsection Scrivere il canto gregoriano
-
-@menu
-* Gregorian chant contexts::
-* Gregorian clefs::
-* Gregorian accidentals and key signatures::
-* Divisiones::
-* Gregorian articulation signs::
-* Augmentum dots (morae)::
-* Gregorian square neume ligatures::
-@end menu
 
 Quando si scrive un brano nella notazione del canto gregoriano, l'incisore
 @code{Vaticana_ligature_engraver} seleziona automaticamente le teste di
@@ -2386,17 +2349,10 @@ come una funzione musicale unaria, in modo che possa essere combinato con
 prefissi in ordine arbitrario.
 
 
+@need 1500
 @node Typesetting Kievan square notation
 @subsection Scrivere in notazione quadrata di Kiev
 
-@menu
-* Kievan contexts::
-* Kievan clefs::
-* Kievan notes::
-* Kievan accidentals::
-* Kievan bar line::
-* Kievan melismata::
-@end menu
 
 @node Kievan contexts
 @unnumberedsubsubsec Contesti della notazione di Kiev
@@ -2633,13 +2589,6 @@ La spaziatura orizzontale delle legature è insoddisfacente.
 
 @node Working with ancient music - scenarios and solutions
 @subsection Lavorare con la musica antica -- scenari e soluzioni
-
-@menu
-* Incipits::
-* Mensurstriche layout::
-* Transcribing Gregorian chant::
-* Ancient and modern from one source::
-@end menu
 
 Lavorare con la musica antica richiede spesso compiti particolari che
 differiscono notevolmente dalla notazione moderna per cui LilyPond è

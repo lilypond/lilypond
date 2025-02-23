@@ -15,14 +15,6 @@
 
 LilyPond può interagire con altri programmi in vari modi.
 
-@menu
-* Point and click::
-* Text editor support::
-* Converting from other formats::
-* LilyPond output in other programs::
-* Independent includes::
-@end menu
-
 
 @node Point and click
 @section Punta e clicca
@@ -31,11 +23,6 @@ LilyPond può interagire con altri programmi in vari modi.
 Il "punta e clicca" aggiunge dei collegamenti ai documenti pdf per certi
 elementi musicali.
 
-@menu
-* Configuring the system for point and click::
-* Enabling point and click::
-* Selective point-and-click::
-@end menu
 
 @node Configuring the system for point and click
 @subsection Configurare il sistema
@@ -87,12 +74,6 @@ export LYEDITOR="code --goto %(file)s:%(line)s:%(column)s"
 aggiungere la riga @code{(server-start)} al proprio file @file{~/.emacs},
 altrimenti ogni clic su un oggetto del PDF aprirà una nuova finestra di Emacs.}
 
-@menu
-* Using Xpdf for point and click::
-* Using GNOME 2 for point and click::
-* Using GNOME 3 for point and click::
-* Extra configuration for Evince::
-@end menu
 
 @node Using Xpdf for point and click
 @unnumberedsubsubsec Usare Xpdf
@@ -328,11 +309,6 @@ lilypond \
 
 Vari editor di testo hanno funzionalità specifiche per LilyPond.
 
-@menu
-* Emacs mode::
-* Vim mode::
-* Other editors::
-@end menu
 
 @node Emacs mode
 @unnumberedsubsec Modalità di Emacs
@@ -751,11 +727,6 @@ in @rwebnamed{Easier editing, Editing facilitato}.
 Questa sezione presenta dei metodi per integrare testo e musica diversi
 dal metodo automatizzato di @command{lilypond-book}.
 
-@menu
-* LuaTeX::
-* OpenOffice and LibreOffice::
-* Other programs::
-@end menu
 
 @node LuaTeX
 @subsection Lua@TeX{}
@@ -851,10 +822,6 @@ Alcuni utenti hanno creato file che possono essere inclusi in LilyPond
 tramite @code{\include} per produrre certi effetti.  Quelli elencati
 in questo capitolo fanno parte di LilyPond.  Maggiori informazioni
 in @rnotationnamed{Working with input files, Lavorare coi file di input}.
-
-@menu
-* MIDI articulation::
-@end menu
 
 
 @node MIDI articulation

@@ -17,25 +17,10 @@ Questo capitolo spiega come modificare l'output.  LilyPond è estremamente
 configurabile; praticamente si può modificare qualsiasi elemento dell'output.
 
 
-@menu
-* Tweaking basics::
-* The Internals Reference manual::
-* Appearance of objects::
-* Placement of objects::
-* Vertical spacing::
-* Collisions of objects::
-* Further tweaking::
-@end menu
-
+@need 1500
 @node Tweaking basics
 @section Modifiche di base
 
-@menu
-* Introduction to tweaks::
-* Objects and interfaces::
-* Naming conventions of objects and properties::
-* Tweaking methods::
-@end menu
 
 @node Introduction to tweaks
 @subsection Introduzione alle modifiche
@@ -182,19 +167,13 @@ Guida alla notazione:
 @endmorerefs
 
 
+@need 1500
 @node Tweaking methods
 @subsection Metodi di modifica
 
 @cindex metodi di modifica
 @cindex modifica, metodi
 
-@menu
-* The override command::
-* The revert command::
-* The once prefix::
-* The tweak command::
-* The single prefix::
-@end menu
 
 @node The override command
 @unnumberedsubsubsec Il comando @code{\override}
@@ -584,16 +563,12 @@ Manuale di apprendimento:
 @endmorerefs
 
 
+@need 1500
 @node The Internals Reference manual
 @section Manuale del Funzionamento interno
 
 @cindex Guida al Funzionamento interno
 
-@menu
-* Properties of layout objects::
-* Properties found in interfaces::
-* Types of properties::
-@end menu
 
 @node Properties of layout objects
 @subsection Proprietà degli oggetti di formattazione
@@ -1074,11 +1049,6 @@ Mettiamo in pratica quello che abbiamo imparato con un po' di
 esempi che mostrano come modificare l'aspetto degli elementi
 di una partitura.
 
-@menu
-* Visibility and color of objects::
-* Size of objects::
-* Length and thickness of objects::
-@end menu
 
 @node Visibility and color of objects
 @subsection Visibilità e colore degli oggetti
@@ -1113,12 +1083,6 @@ Tutte queste proprietà hanno degli effetti sulla visibilità delle stanghette (
 ovviamente, anche di molti altri oggetti grafici).  Vediamole una per
 volta.
 
-@menu
-* The stencil property::
-* The break-visibility property::
-* The transparent property::
-* The color property::
-@end menu
 
 @node The stencil property
 @unnumberedsubsubsec La proprietà @code{stencil}
@@ -1791,14 +1755,9 @@ Lo spessore di tutti gli oggetti disegnati (ovvero quelli non prodotti
 da un tipo di carattere) può essere cambiato nello stesso modo.
 
 
+@need 1500
 @node Placement of objects
 @section Posizionamento degli oggetti
-
-@menu
-* Automatic behavior::
-* Within-staff objects::
-* Outside-staff objects::
-@end menu
 
 
 @node Automatic behavior
@@ -1898,10 +1857,6 @@ come i gambi e le code, a seconda dell'orientamento si dispongono anche sulla
 destra o sulla sinistra.  Tutto questo viene controllato automaticamente
 quando si imposta la proprietà @code{direction}.
 
-@menu
-* The direction property::
-* Fingering::
-@end menu
 
 @node The direction property
 @unnumberedsubsubsec La proprietà @code{direction}
@@ -2173,13 +2128,6 @@ con @w{@code{-7}}:
 Gli oggetti esterni al rigo sono disposti automaticamente in modo da evitare
 collisioni.  Ci sono vari modi per modificare la disposizione automatica
 se questa non è ottimale.
-
-@menu
-* The outside-staff-priority property::
-* The textLengthOn command::
-* Dynamics placement::
-* Grob sizing::
-@end menu
 
 
 @node The outside-staff-priority property
@@ -2720,14 +2668,10 @@ del @code{VerticalAxisGroup}.  Ulteriori dettagli in
 @rnotationnamed{Flexible vertical spacing within systems, Spaziatura verticale flessibile all'interno dei sistemi}.
 
 
+@need 1500
 @node Collisions of objects
 @section Collisioni tra oggetti
 
-@menu
-* Moving objects::
-* Fixing overlapping notation::
-* Real music example::
-@end menu
 
 @node Moving objects
 @subsection Spostare gli oggetti
@@ -3009,16 +2953,6 @@ poter sapere quali proprietà si possono usare per spostarlo.
 Vediamo ora come le proprietà presentate nella sezione precedente possano
 aiutare a risolvere la sovrapposizione degli elementi della notazione.
 
-@menu
-* The padding property::
-* The right-padding property::
-* The staff-padding property::
-* The self-alignment-X property::
-* The staff-position property::
-* The extra-offset property::
-* The positions property::
-* The force-hshift property::
-@end menu
 
 @node The padding property
 @unnumberedsubsubsec La proprietà @code{padding}
@@ -3917,24 +3851,13 @@ lhMusic = \relative {
 @end lilypond
 
 
+@need 2000
 @node Further tweaking
 @section Altre modifiche
 
-@menu
-* Other uses for tweaks::
-* Using variables for layout adjustments::
-* Style sheets::
-* Other sources of information::
-* Advanced tweaks with Scheme::
-@end menu
 
 @node Other uses for tweaks
 @subsection Altri usi delle modifiche con @code{\tweak}
-
-@menu
-* Tying notes across voices::
-* Simulating a fermata in MIDI::
-@end menu
 
 @cindex rimuovere gli oggetti
 @cindex oggetti, rimuoverli

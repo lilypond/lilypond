@@ -13,33 +13,6 @@
 @node Notation manual tables
 @appendix Tabelle del manuale della notazione
 
-@menu
-* Chord name chart::
-* Common chord modifiers::
-* Predefined string tunings::
-* Predefined fretboard diagrams::
-* Predefined paper sizes::
-* MIDI instruments::
-* List of colors::
-* The Emmentaler font::
-* Note head styles::
-* Accidental glyph sets::
-* Clef styles::
-* Text markup commands::
-* Text markup list commands::
-* List of special characters::
-* List of articulations::
-* List of breath marks::
-* Percussion notes::
-* Default values for outside-staff-priority::
-* Technical glossary::
-* Available music functions::
-* Context modification identifiers::
-* Naming conventions::
-* Predefined type predicates::
-@end menu
-
-
 
 @node Chord name chart
 @appendixsec Grafico dei nomi degli accordi
@@ -510,14 +483,11 @@ Il grafico seguente mostra le accordature predefinite degli strumenti a corda.
 
 @lilypondfile{en/included/display-predefined-string-tunings.ly}
 
+
+@need 1500
 @node Predefined fretboard diagrams
 @appendixsec Diagrammi degli accordi predefiniti
 
-@menu
-* Diagrams for Guitar::
-* Diagrams for Ukulele::
-* Diagrams for Mandolin::
-@end menu
 
 @node Diagrams for Guitar
 @unnumberedsubsec Diagrammi per chitarra
@@ -1075,36 +1045,6 @@ oppure
 Maggiori informazioni in @ref{Formatting text}.
 
 
-@menu
-* Clef glyphs::
-* Time Signature glyphs::
-* Number glyphs::
-* Figured bass symbol glyphs::
-* Accidental glyphs::
-* Default Notehead glyphs::
-* Special Notehead glyphs::
-* Shape-note Notehead glyphs::
-* Rest glyphs::
-* Flag glyphs::
-* Dot glyphs::
-* Dynamic glyphs::
-* Script glyphs::
-* Arrowhead glyphs::
-* Bracket-tip glyphs::
-* Pedal glyphs::
-* Accordion glyphs::
-* Tie glyphs::
-* Vaticana glyphs::
-* Medicaea glyphs::
-* Hufnagel glyphs::
-* Mensural glyphs::
-* Neomensural glyphs::
-* Petrucci glyphs::
-* Solesmes glyphs::
-* Kievan Notation glyphs::
-@end menu
-
-
 @c `texinfo.tex` inserts `\medskip` between images, which is far
 @c too much vertical distance for the glyph listings.  We thus
 @c set it to zero temporarily.
@@ -1450,12 +1390,6 @@ seconda della chiave).
 @cindex chiave mensurale
 @cindex mensurale, chiave
 
-@menu
-* Standard clefs::
-* Percussion staff clef::
-* Tab staff clefs::
-* Ancient music clefs::
-@end menu
 
 @node Standard clefs
 @unnumberedsubsec Chiavi standard
@@ -2361,15 +2295,6 @@ spiegato in @ref{Music notation inside markup}.
 @c Custom percussion staves (for "halfopen" -- not yet funindexed)
 @c References for wind instruments (for "open"/"stopped" -- not yet funindexed)
 
-
-@menu
-* Articulation scripts::
-* Ornament scripts::
-* Fermata scripts::
-* Instrument-specific scripts::
-* Repeat sign scripts::
-* Ancient scripts::
-@end menu
 
 @ignore
 The @multitable @columnfraction value discrepancy between the first and
@@ -3358,24 +3283,6 @@ Un glossario dei termini tecnici e dei concetti usati internamente in
 LilyPond.  Questi termini appaiono nei manuali, nelle mailing list e
 nel codice sorgente.
 
-@menu
-* alist::
-* callback::
-* closure::
-* glyph::
-* grob::
-* immutable::
-* interface::
-* lexer::
-* mutable::
-* output-def::
-* parser::
-* parser variable::
-* prob::
-* smob::
-* spanner::
-* stencil::
-@end menu
 
 @node alist
 @unnumberedsubsec alist
