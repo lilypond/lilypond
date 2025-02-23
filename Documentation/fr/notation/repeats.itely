@@ -59,27 +59,11 @@ Ce type permet de réaliser des trémolos sous forme de liens de croches.
 Les constructions d'accord peuvent se répéter à l'aide du symbole
 spécifique @code{q} -- @pxref{Chord repetition}.
 
-@menu
-* Long repeats::
-* Short repeats::
-@end menu
-
 
 @node Long repeats
 @subsection Répétition d'un long passage
 
 Cette section présente la syntaxe des répétitions longues.
-
-@menu
-* Written-out repeats::
-* Simple repeats::
-* Alternative endings::
-* Other variation in repeated sections::
-* Al-fine repeats::
-* Segno repeat structure::
-* Segno repeat appearance::
-* Manual repeat marks::
-@end menu
 
 @cindex reprise avec alternative
 @cindex fin alternative
@@ -1163,11 +1147,6 @@ Nous abordons ici les reprises de courte durée. Il en existe deux
 formes, à savoir la répétition d'une même note sur quelques mesures --
 représentée par une barre oblique ou le signe pourcent -- et les
 trémolos.
-
-@menu
-* Percent repeats::
-* Tremolo repeats::
-@end menu
 
 
 @node Percent repeats

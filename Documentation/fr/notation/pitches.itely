@@ -22,13 +22,6 @@ Cette section détaille la façon d'indiquer la hauteur des notes, sous
 trois aspects : la saisie des hauteurs, la modification des hauteurs et
 les options de gravure.
 
-@menu
-* Writing pitches::
-* Changing multiple pitches::
-* Displaying pitches::
-* Note heads::
-@end menu
-
 
 @node Writing pitches
 @subsection Écriture des hauteurs de note
@@ -37,13 +30,6 @@ Cette section explique la manière d'indiquer les hauteurs de note. Deux
 modes permettent d'indiquer l'octave des notes : le mode absolu, et le
 mode relatif. Ce dernier est le plus pratique lors de la saisie d'un
 fichier source au clavier de l'ordinateur.
-
-@menu
-* Absolute octave entry::
-* Relative octave entry::
-* Accidentals::
-* Note names in other languages::
-@end menu
 
 
 @node Absolute octave entry
@@ -682,14 +668,6 @@ Morceaux choisis :
 
 Cette partie traite de la manière de modifier les hauteurs de note.
 
-@menu
-* Octave checks::
-* Transpose::
-* Inversion::
-* Retrograde::
-* Modal transformations::
-@end menu
-
 
 @node Octave checks
 @unnumberedsubsubsec Vérifications d'octave
@@ -1123,16 +1101,6 @@ Manuel de notation :
 
 Nous allons voir dans cette partie comment influer sur la gravure des
 hauteurs.
-
-@menu
-* Clef::
-* Key signature::
-* Ottava brackets::
-* Instrument transpositions::
-* Automatic accidentals::
-* Alternate accidental glyphs::
-* Ambitus::
-@end menu
 
 
 @node Clef
@@ -3296,13 +3264,6 @@ une même portée.
 
 Nous allons voir dans ce chapitre comment modifier l'aspect des têtes de
 note.
-
-@menu
-* Special note heads::
-* Easy notation note heads::
-* Shape note heads::
-* Improvisation::
-@end menu
 
 
 @node Special note heads

@@ -33,12 +33,6 @@ Plusieurs options s'offrent à vous ; choisissez celle qui convient le
 mieux à vos besoins. Si vous ne savez pas ce qu'est la « ligne de
 commande », il vous faut une installation graphique.
 
-@menu
-* Graphical setup under GNU/Linux::
-* Graphical setup under Windows::
-* Graphical setup under macOS::
-* Command line setup::
-@end menu
 
 @node Graphical setup under GNU/Linux
 @section Installation en mode graphique sous GNU/Linux

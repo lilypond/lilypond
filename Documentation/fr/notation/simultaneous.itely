@@ -25,24 +25,12 @@ d'une voix simultanément dans une pièce. Dans LilyPond, la notion de
 polyphonie fait référence au fait d'avoir plus d'une voix sur la même
 portée.
 
-@menu
-* Single voice::
-* Multiple voices::
-@end menu
-
 
 @node Single voice
 @subsection Monophonie
 
 Nous allons voir ici comment gérer plusieurs notes simultanées dans une
 même voix.
-
-@menu
-* Chorded notes::
-* Chord repetition::
-* Simultaneous expressions::
-* Clusters::
-@end menu
 
 
 @node Chorded notes
@@ -448,15 +436,6 @@ Les clusters ne sont pas reproduits en MIDI.
 Nous allons nous intéresser, dans les paragraphes qui suivent, à la
 gestion de notes simultanées réparties sur plusieurs voix ou plusieurs
 portées.
-
-@menu
-* Single-staff polyphony::
-* Voice styles::
-* Collision resolution::
-* Merging rests::
-* Automatic part combining::
-* Writing music in parallel::
-@end menu
 
 
 @node Single-staff polyphony

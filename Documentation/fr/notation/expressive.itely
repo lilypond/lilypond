@@ -22,12 +22,6 @@
 Ce chapitre traite des différentes indications d'interprétation que l'on
 peut trouver sur les partitions.
 
-@menu
-* Expressive marks attached to notes::
-* Expressive marks as curves::
-* Expressive marks as lines::
-@end menu
-
 
 @node Expressive marks attached to notes
 @subsection Signes d'interprétation attachés à des notes
@@ -35,12 +29,6 @@ peut trouver sur les partitions.
 Nous allons voir au cours de ces lignes comment ajouter aux notes des
 indications d'interprétation -- articulation, ornementation, nuance --
 et aborderons la manière de générer vos propres signes.
-
-@menu
-* Articulations and ornamentations::
-* Dynamics::
-* New dynamic marks::
-@end menu
 
 
 @node Articulations and ornamentations
@@ -828,13 +816,6 @@ Ce chapitre traite des signes d'interprétation imprimés sous forme de
 courbe : liaisons d'articulation ou de phrasé, respirations, chutes
 et sauts.
 
-@menu
-* Slurs::
-* Phrasing slurs::
-* Breath marks::
-* Falls and doits::
-@end menu
-
 
 @node Slurs
 @unnumberedsubsubsec Liaisons d'articulation
@@ -1271,12 +1252,6 @@ Morceaux choisis :
 
 Cette partie traite de la manière de générer des signes d'interprétation
 d'aspect linéaire, tels les glissandos, arpèges et trilles.
-
-@menu
-* Glissando::
-* Arpeggio::
-* Trills::
-@end menu
 
 
 @node Glissando

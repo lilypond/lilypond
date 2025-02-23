@@ -24,12 +24,6 @@ d'un mode dédié ; ils seront rendus selon l'une des diverses
 nomenclatures occidentales. Les accords peuvent aussi se présenter sous
 forme nominale, ou bien en basse figurée.
 
-@menu
-* Chord mode::
-* Displaying chords::
-* Figured bass::
-@end menu
-
 
 @node Chord mode
 @subsection Mode accords
@@ -39,13 +33,6 @@ forme nominale, ou bien en basse figurée.
 
 Le mode accords permet de saisir des accords en indiquant leur structure
 plutôt que les notes qui les composent.
-
-@menu
-* Chord mode overview::
-* Common chords::
-* Extended and altered chords::
-* Chord inversions and specific voicings::
-@end menu
 
 
 @node Chord mode overview
@@ -442,12 +429,6 @@ Morceaux choisis :
 
 Les accords peuvent se présenter aussi bien sous forme nominative que
 comme un empilement de notes sur une portée.
-
-@menu
-* Printing chord names::
-* Customizing chord names::
-* Chord grids::
-@end menu
 
 
 @node Printing chord names
@@ -1008,12 +989,6 @@ Référence des propriétés internes :
 {snippets/figured-bass-headword.ly}
 
 LilyPond permet de générer des parties de continuo.
-
-@menu
-* Introduction to figured bass::
-* Entering figured bass::
-* Displaying figured bass::
-@end menu
 
 
 @node Introduction to figured bass

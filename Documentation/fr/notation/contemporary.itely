@@ -34,27 +34,12 @@ phénomènes ont participé à l'évolution de la notation musicale. Les
 paragraphes qui suivent sont là pour vous proposer des références et
 informations quant à ces nouvelles techniques de notation.
 
-@menu
-* Pitch and harmony in contemporary music::
-* Contemporary approaches to rhythm::
-* Graphical notation::
-* Contemporary scoring techniques::
-* New instrumental techniques::
-* Further reading and scores of interest::
-@end menu
-
 
 @node Pitch and harmony in contemporary music
 @subsection Hauteur et harmonie en musique contemporaine
 
 Intéressons-nous tout d'abord à ce qui relève de la notation des
 hauteurs et à l'harmonie en musique contemporaine.
-
-@menu
-* References for pitch and harmony in contemporary music::
-* Microtonal notation::
-* Contemporary key signatures and harmony::
-@end menu
 
 
 @node References for pitch and harmony in contemporary music
@@ -96,15 +81,6 @@ abordées à la rubrique @ref{Automatic accidentals}.
 
 Abordons à présent certaines particularités de la notation du rythme en
 musique contemporaine.
-
-@menu
-* References for contemporary approaches to rhythm::
-* Tuplets in contemporary music::
-* Contemporary time signatures::
-* Extended polymetric notation::
-* Beams in contemporary music::
-* Bar lines in contemporary music::
-@end menu
 
 
 @node References for contemporary approaches to rhythm
@@ -250,11 +226,6 @@ pour le style @code{'beam}) ou une flêche.
 Vous trouverez ici une sélection d'ouvrages de référence, d'exemples et
 autres ressources qui vous permettront d'étudier plus avant la notation
 contemporaine.
-
-@menu
-* Books and articles on contemporary musical notation::
-* Scores and musical examples::
-@end menu
 
 
 @node Books and articles on contemporary musical notation

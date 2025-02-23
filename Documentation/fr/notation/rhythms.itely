@@ -21,25 +21,10 @@
 Cette section traite du rythme : durées, silences, barres de
 ligature et de mesure.
 
-@menu
-* Writing rhythms::
-* Writing rests::
-* Displaying rhythms::
-* Beams::
-* Bars::
-* Special rhythmic concerns::
-@end menu
 
-
+@need 1500
 @node Writing rhythms
 @subsection Écriture du rythme
-
-@menu
-* Durations::
-* Tuplets::
-* Scaling durations::
-* Ties::
-@end menu
 
 
 @node Durations
@@ -748,13 +733,6 @@ un résultat indéfini. Dans ces cas là, il est préférable d'utiliser un
 On saisit les silences dans une expression musicale tout comme les
 notes.
 
-@menu
-* Rests::
-* Invisible rests::
-* Full measure rests::
-* Caesuras::
-@end menu
-
 
 @node Rests
 @unnumberedsubsubsec Silences
@@ -1269,18 +1247,9 @@ Propriétés de contexte ajustables}.
 @endmorerefs
 
 
+@need 1500
 @node Displaying rhythms
 @subsection Gravure du rythme
-
-@menu
-* Time signature::
-* Metronome marks::
-* Upbeats::
-* Unmetered music::
-* Polymetric notation::
-* Automatic note splitting::
-* Showing melody rhythms::
-@end menu
 
 
 @node Time signature
@@ -2396,18 +2365,11 @@ Référence des propriétés internes :
 @endmorerefs
 
 
+@need 1500
 @node Beams
 @subsection Barres de ligature
 
 @cindex lien de croche
-
-@menu
-* Automatic beams::
-* Setting automatic beam behavior::
-* Manual beams::
-* Feathered beams::
-* Slashed beams::
-@end menu
 
 
 @node Automatic beams
@@ -3149,18 +3111,9 @@ mus = \repeat unfold 4 a16
 @end lilypond
 
 
+@need 1500
 @node Bars
 @subsection Mesures
-
-@menu
-* Bar lines::
-* Automatic bar lines::
-* Bar numbers::
-* Bar and bar number checks::
-* Rehearsal marks::
-* Measure counts::
-* Section divisions::
-@end menu
 
 
 @node Bar lines
@@ -4390,14 +4343,9 @@ Référence des propriétés internes :
 @endmorerefs
 
 
+@need 1500
 @node Special rhythmic concerns
 @subsection Fonctionnalités rythmiques particulières
-
-@menu
-* Grace notes::
-* Aligning to cadenzas::
-* Time administration::
-@end menu
 
 
 @node Grace notes

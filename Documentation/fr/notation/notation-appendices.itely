@@ -12,36 +12,9 @@
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 
+@need 1500
 @node Notation manual tables
 @appendix Tables du manuel de notation
-
-@menu
-* Chord name chart::
-* Common chord modifiers::
-* Predefined string tunings::
-* Predefined fretboard diagrams::
-* Predefined paper sizes::
-* MIDI instruments::
-* List of colors::
-* The Emmentaler font::
-* Note head styles::
-* Accidental glyph sets::
-* Clef styles::
-* Text markup commands::
-* Text markup list commands::
-* List of special characters::
-* List of articulations::
-* List of breath marks::
-* Percussion notes::
-* Default values for outside-staff-priority::
-* Default values for script-priority::
-* Technical glossary::
-* Available music functions::
-* Context modification identifiers::
-* Paper variables::
-* Naming conventions::
-* Predefined type predicates::
-@end menu
 
 
 @node Chord name chart
@@ -523,14 +496,9 @@ dispose.
 @lilypondfile{en/included/display-predefined-string-tunings.ly}
 
 
+@need 1500
 @node Predefined fretboard diagrams
 @appendixsec Diagrammes d'accord prédéfinis
-
-@menu
-* Diagrams for Guitar::
-* Diagrams for Ukulele::
-* Diagrams for Mandolin::
-@end menu
 
 
 @node Diagrams for Guitar
@@ -897,36 +865,6 @@ ou
 Pour de plus amples informations, reportez-vous au chapitre
 @ref{Formatting text}.
 
-@menu
-* Clef glyphs::
-* Time Signature glyphs::
-* Number glyphs::
-* Figured bass symbol glyphs::
-* Accidental glyphs::
-* Default note head glyphs::
-* Special note head glyphs::
-* Note head glyphs for shape notes::
-* Rest glyphs::
-* Flag glyphs::
-* Dot glyphs::
-* Dynamic glyphs::
-* Script glyphs::
-* Arrowhead glyphs::
-* Bracket-tip glyphs::
-* Pedal glyphs::
-* Accordion glyphs::
-* Tie glyphs::
-* Vaticana glyphs::
-* Medicaea glyphs::
-* Hufnagel glyphs::
-* Mensural glyphs::
-* Neomensural glyphs::
-* Petrucci glyphs::
-* Solesmes glyphs::
-* Kievan Notation glyphs::
-@end menu
-
-
 @c `texinfo.tex` inserts `\medskip` between images, which is far
 @c too much vertical distance for the glyph listings.  We thus
 @c set it to zero temporarily.
@@ -1292,13 +1230,6 @@ mentionnées dans @ref{Clef}.
 @cindex mensural, clef
 @cindex blackmensural, clef
 @cindex kievan, clef
-
-@menu
-* Standard clefs::
-* Percussion staff clef::
-* Tab staff clefs::
-* Ancient music clefs::
-@end menu
 
 
 @node Standard clefs
@@ -2249,15 +2180,6 @@ exhaustif des glyphes accessibles par la commande de @emph{markup}
 @c   Snap (Bartók) pizzicato
 @c Custom percussion staves (for "halfopen" and "stopped")
 @c References for wind instruments (for "open"/"stopped")
-
-@menu
-* Articulation scripts::
-* Ornament scripts::
-* Fermata scripts::
-* Instrument-specific scripts::
-* Repeat sign scripts::
-* Ancient scripts::
-@end menu
 
 @ignore
 The @multitable @columnfraction value discrepancy between the first and

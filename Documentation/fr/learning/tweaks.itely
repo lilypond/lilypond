@@ -21,27 +21,9 @@ Ce chapitre indique comment modifier le résultat obtenu.
 LilyPond offre de nombreuses possibilités de réglages, permettant
 théoriquement de modifier chaque élément de votre partition.
 
-@menu
-* Tweaking basics::
-* The Internals Reference manual::
-* Appearance of objects::
-* Offsets and alignments::
-* Placement of objects::
-* Vertical spacing::
-* Collisions of objects::
-* Further tweaking::
-@end menu
-
 
 @node Tweaking basics
 @section Retouches élémentaires
-
-@menu
-* Objects and interfaces::
-* Naming conventions of objects and properties::
-* Tweaking methods::
-@end menu
-
 
 LilyPond regroupe sous le terme de « retouches » (@emph{tweaks} en
 anglais) les différents moyens dont dispose l'utilisateur pour
@@ -199,19 +181,12 @@ Manuel de notation :
 @endmorerefs
 
 
+@need 1500
 @node Tweaking methods
 @subsection Méthodes de retouche
 
 @cindex retouches, méthodologie
 @cindex méthodes de retouche
-
-@menu
-* The override command::
-* The revert command::
-* The once prefix::
-* The tweak and offset commands::
-* The single prefix::
-@end menu
 
 
 @node The override command
@@ -661,12 +636,6 @@ automatiquement à partir des sources même du logiciel, aucune
 infrastructure de traduction n'est à ce jour disponible en ce qui le
 concerne. Pour comprenndre comment l'utiliser, les sections qui suivent
 les informations qui vous seront nécessaires.
-
-@menu
-* Properties of layout objects::
-* Properties found in interfaces::
-* Types of properties::
-@end menu
 
 
 @node Properties of layout objects
@@ -1214,12 +1183,6 @@ Il est temps de mettre en pratique les notions apprises précédemment
 pour modifier l'allure de la partition ; les exemples qui suivent
 montrent l'utilisation des différentes méthodes de retouche.
 
-@menu
-* Visibility and color of objects::
-* Size of objects::
-* Length and thickness of objects::
-@end menu
-
 
 @node Visibility and color of objects
 @subsection Visibilité et couleur des objets
@@ -1254,13 +1217,6 @@ propriétés, deux d'entre elles déterminent son aspect visuel :
 figurent les propriétés @code{transparent} et @code{color}. Toutes
 peuvent modifier l'aspect visuel des barres de mesure -- et de beaucoup
 d'autres objets, bien sûr. Examinons chacune d'elles tour à tour.
-
-@menu
-* The stencil property::
-* The break-visibility property::
-* The transparent property::
-* The color property::
-@end menu
 
 
 @node The stencil property
@@ -2245,14 +2201,9 @@ parent pour déterminer les positions relatives au centre de l'étendue :
 @end lilypond
 
 
+@need 1500
 @node Placement of objects
 @section Positionnement des objets
-
-@menu
-* Automatic behavior::
-* Within-staff objects::
-* Outside-staff objects::
-@end menu
 
 
 @node Automatic behavior
@@ -2353,12 +2304,6 @@ le haut, tantôt vers le bas ; d'autres encore, comme les hampes et les
 crochets, peuvent se décaler vers la gauche ou vers la droite selon
 qu'ils pointent vers le haut ou vers le bas. Ce comportement est géré
 automatiquement dès lors que @code{direction} est activé.
-
-
-@menu
-* The direction property::
-* Fingering::
-@end menu
 
 
 @node The direction property
@@ -2636,13 +2581,6 @@ Les objets extérieurs à la portée sont placés automatiquement de façon à
 éviter les collisions. Il est toutefois possible, grâce à différentes
 méthodes, de rectifier un positionnement automatique qui se révèlerait
 ne pas être optimal.
-
-@menu
-* The outside-staff-priority property::
-* The textLengthOn command::
-* Dynamics placement::
-* Grob sizing::
-@end menu
 
 
 @node The outside-staff-priority property
@@ -3217,12 +3155,6 @@ l'extension d'aspects vus précédemment dans ce manuel. Vous devriez vous
 sentir à l'aise avec les concepts d'@dfn{extent}, @dfn{offset} et
 @dfn{alignment}, @pxref{Offsets and alignments}.
 
-@menu
-* Moving objects::
-* Fixing overlapping notation::
-* Real music example::
-@end menu
-
 
 @node Moving objects
 @subsection Déplacement d'objets
@@ -3520,17 +3452,6 @@ trouver les propriétés à retoucher pour obtenir un déplacement.
 
 Voyons maintenant comment les propriétés décrites dans la section
 précédente peuvent nous aider à résoudre les collisions.
-
-@menu
-* The padding property::
-* The right-padding property::
-* The staff-padding property::
-* The self-alignment-X property::
-* The staff-position property::
-* The extra-offset property::
-* The positions property::
-* The force-hshift property::
-@end menu
 
 
 @node The padding property
@@ -4444,25 +4365,12 @@ lhMusic = \relative {
 Nous avons pratiquement fait le tour de cette introduction aux
 retouches. Quelques aspects méritent un peu d'attention.
 
-@menu
-* Other uses for tweaks::
-* Using variables for layout adjustments::
-* Style sheets::
-* Other sources of information::
-* Advanced tweaks with Scheme::
-@end menu
-
 
 @node Other uses for tweaks
 @subsection Autres utilisations des retouches
 
 Nous allons ici aborder des situations qui se produisent régulièrement
 dans les partitions courantes.
-
-@menu
-* Tying notes across voices::
-* Simulating a fermata in MIDI::
-@end menu
 
 @cindex suppression d'objets
 @cindex objets, suppression d'

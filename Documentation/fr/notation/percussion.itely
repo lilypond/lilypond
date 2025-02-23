@@ -13,13 +13,9 @@
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: John Mandereau
 
-
+@need 1500
 @node Percussion
 @section Percussions
-
-@menu
-* Common notation for percussion::
-@end menu
 
 
 @node Common notation for percussion
@@ -28,16 +24,6 @@
 La notation rythmique sert avant tout aux parties de percussions ou de
 batterie, mais on peut aussi s'en servir à des fins pédagogiques, pour
 montrer le rythme d'une mélodie.
-
-@menu
-* References for percussion::
-* Basic percussion notation::
-* Drum rolls::
-* Pitched percussion::
-* Percussion staves::
-* Custom percussion staves::
-* Ghost notes::
-@end menu
 
 
 @node References for percussion

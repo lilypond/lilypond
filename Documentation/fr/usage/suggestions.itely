@@ -47,14 +47,6 @@ LilyPond peuvent être structurés de manière à faciliter leur mise à
 jour.
 @end itemize
 
-@menu
-* General suggestions::
-* Typesetting existing music::
-* Large projects::
-* Troubleshooting::
-* Make and Makefiles::
-@end menu
-
 
 @node General suggestions
 @section Suggestions générales

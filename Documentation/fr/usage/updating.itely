@@ -34,16 +34,6 @@ L'utilitaire @command{convert-ly} permet alors de mettre ces fichiers en
 conformité au fur et à mesure que de nouvelles versions de LilyPond sont
 disponibles.
 
-@menu
-* Why does the syntax change?::
-* Command-line preliminaries::
-* Invoking convert-ly::
-* Command-line options for convert-ly::
-* Problems running convert-ly::
-* Manual conversions::
-* Writing code to support multiple versions::
-@end menu
-
 
 @node Why does the syntax change?
 @section LilyPond est une langue vivante

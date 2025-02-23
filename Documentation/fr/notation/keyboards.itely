@@ -26,26 +26,12 @@ le vibraphone.  Pour les besoins du discours, et pour simplifier, nous
 parlerons ici de « clavier » bien que le recours à des portées
 multiples concerne aussi des instruments qui en sont dépourvus.
 
-@menu
-* Common notation for keyboards::
-* Piano::
-* Accordion::
-* Harp::
-@end menu
-
 
 @node Common notation for keyboards
 @subsection Vue d'ensemble des claviers
 
 Nous allons examiner ici les problèmes qui peuvent survenir en matière
 de notation pour la plupart des instrument à cordes multiples.
-
-@menu
-* References for keyboards::
-* Changing staff manually::
-* Changing staff automatically::
-* Staff-change lines::
-@end menu
 
 
 @node References for keyboards
@@ -513,10 +499,6 @@ Référence des propriétés internes :
 
 Ce chapitre traite des aspects de la notation directement liés au piano.
 
-@menu
-* Piano pedals::
-@end menu
-
 
 @node Piano pedals
 @unnumberedsubsubsec Pédales de piano
@@ -619,12 +601,9 @@ Référence des propriétés internes :
 @endmorerefs
 
 
+@need 1500
 @node Accordion
 @subsection Accordéon
-
-@menu
-* Discant symbols::
-@end menu
 
 
 @node Discant symbols
@@ -662,11 +641,6 @@ Morceaux choisis :
 
 Cette partie s'intéresse aux particularités en matière de notation pour
 la harpe.
-
-@menu
-* References for harps::
-* Harp pedals::
-@end menu
 
 
 @node References for harps

@@ -19,17 +19,6 @@ Cette annexe du manuel d'initiation propose des patrons de partition
 LilyPond, prets à l'emploi. Il vous suffira d'y ajouter quelques notes,
 de lancer LilyPond, et d'aprécier le résultat.
 
-@menu
-* Built-in templates::
-* Single staff templates::
-* Piano templates::
-* String quartet templates::
-* Vocal ensembles templates::
-* Orchestral templates::
-* Ancient notation templates::
-* Other templates::
-@end menu
-
 
 @node Built-in templates
 @appendixsec Gabarits préprogrammés
@@ -53,11 +42,6 @@ spécifiques. Ces définitions doivent intervenir avant la commande
 La musique peut se présenter en une ou deux voix par portée à l'aide du
 commutateur @code{TwoVoicesPerStaff} (@emph{DeuxVoixParPortée}) --
 valorisé à @code{##f} ou @code{##t} selon le cas.
-
-@menu
-* SATB template::
-* SSAATTBB template::
-@end menu
 
 
 @node SATB template
@@ -351,13 +335,6 @@ sont pas réalisables avec ce gabarit préprogrammé.
 @node Single staff templates
 @appendixsec Modèles pour portée unique
 
-@menu
-* Notes only::
-* Notes and lyrics::
-* Notes and chords::
-* Notes lyrics and chords::
-@end menu
-
 
 @node Notes only
 @appendixsubsec Notes seules
@@ -391,12 +368,6 @@ sont pas réalisables avec ce gabarit préprogrammé.
 @node Piano templates
 @appendixsec Modèles pour piano
 
-@menu
-* Solo piano::
-* Piano and melody with lyrics::
-* Piano-centered lyrics::
-@end menu
-
 
 @node Solo piano
 @appendixsubsec Piano seul
@@ -423,11 +394,6 @@ sont pas réalisables avec ce gabarit préprogrammé.
 @node String quartet templates
 @appendixsec Modèles pour quatuor à cordes
 
-@menu
-* String quartet::
-* String quartet parts::
-@end menu
-
 
 @node String quartet
 @appendixsubsec Quatuor à cordes simple
@@ -450,16 +416,6 @@ Les exemples ci-après demandent à être recopiés et édités dans vos
 propres fichiers. Pour des constructions simples, vous pouvez adopter
 une construction préprogrammée appelée par une instruction
 @code{\include} -- @pxref{Built-in templates}.
-
-@menu
-* SATB vocal score::
-* SATB vocal score and automatic piano reduction::
-* SATB with aligned contexts::
-* SATB on four staves::
-* Solo verse and two-part refrain::
-* Hymn tunes::
-* Psalms::
-@end menu
 
 
 @node SATB vocal score
@@ -511,12 +467,9 @@ une construction préprogrammée appelée par une instruction
 {snippets/anglican-psalm-template.ly}
 
 
+@need 1500
 @node Orchestral templates
 @appendixsec Orchestre
-
-@menu
-* Orchestra choir and piano::
-@end menu
 
 
 @node Orchestra choir and piano
@@ -526,13 +479,9 @@ une construction préprogrammée appelée par une instruction
 {snippets/orchestra,-choir-and-piano-template.ly}
 
 
+@need 1500
 @node Ancient notation templates
 @appendixsec Exemples de notation ancienne
-
-@menu
-* Transcription of mensural music::
-* Gregorian transcription template::
-@end menu
 
 
 @node Transcription of mensural music
@@ -549,12 +498,9 @@ une construction préprogrammée appelée par une instruction
 {snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 
+@need 1500
 @node Other templates
 @appendixsec Autres modèles
-
-@menu
-* Jazz combo::
-@end menu
 
 
 @node Jazz combo

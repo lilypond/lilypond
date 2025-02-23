@@ -68,14 +68,6 @@ environnements prenant en charge LilyPond sont susceptibles de fournir
 un moyen graphique de lancer @command{convert-ly}.}
 
 
-@menu
-* Major changes in LilyPond::
-* New for musical notation::
-* New for specialist notation::
-* Miscellaneous improvements::
-@end menu
-
-
 @node Major changes in LilyPond
 @unnumbered Modifications majeures de LilyPond
 
@@ -292,17 +284,9 @@ install-bytecode} avant @command{make install}.
 @end itemize
 
 
+@need 1500
 @node New for musical notation
 @unnumbered Nouveautés en matière de notation musicale
-
-@menu
-* Pitches improvements::
-* Rhythm improvements::
-* Expressive mark improvements::
-* Repeat improvements::
-* Editorial annotation improvements::
-* Text and font improvements::
-@end menu
 
 
 @node Pitches improvements

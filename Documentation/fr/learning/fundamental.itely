@@ -22,13 +22,6 @@ partir d'un simple fichier texte. Nous nous intéresserons dans cette
 partie aux concepts et techniques qui permettent d'obtenir des
 partitions complexes de même qualité.
 
-@menu
-* How LilyPond input files work::
-* Voices contain music::
-* Contexts and engravers::
-* Extending the templates::
-@end menu
-
 
 @node How LilyPond input files work
 @section Organisation des fichiers LilyPond
@@ -41,14 +34,6 @@ perdre en raison de cette souplesse. Cette section présente sommairement
 l'organisation du code LilyPond, en privilégiant la simplicité au
 détriment de certains détails. Vous trouverez une description plus
 complète dans @rnotationnamed{File structure, Structure de fichier}.
-
-@menu
-* Introduction to the LilyPond file structure::
-* A score is a (single) compound musical expression::
-* Nesting music expressions::
-* Structure of a note entry::
-* On the un-nestedness of brackets and ties::
-@end menu
 
 
 @node Introduction to the LilyPond file structure
@@ -613,12 +598,6 @@ Les chanteurs utilisent leur voix pour chanter ; il en va de même pour
 LilyPond. En fait, la musique de chacun des instruments d'une partition
 est contenue dans des voix (@emph{Voices} en anglais), qui se trouvent
 être le concept fondamental de LilyPond.
-
-@menu
-* I'm hearing voices::
-* Explicitly instantiating voices::
-* Voices and vocals::
-@end menu
 
 
 @node I'm hearing voices
@@ -1471,14 +1450,6 @@ Nous avons évoqué rapidement les contextes et graveurs dans les
 chapitres précédents ; examinons en détail ces concepts essentiels
 à la maîtrise de LilyPond.
 
-@menu
-* Contexts explained::
-* Creating contexts::
-* Engravers explained::
-* Modifying context properties::
-* Adding and removing engravers::
-@end menu
-
 
 @node Contexts explained
 @subsection Tout savoir sur les contextes
@@ -2264,14 +2235,6 @@ précisément ?
 
 Les exemples qui suivent vous donneront des méthodes générales pour
 adapter des modèles.
-
-@menu
-* Soprano and cello::
-* Four-part SATB vocal score::
-* Building a score from scratch::
-* Saving typing with variables and functions::
-* Scores and parts::
-@end menu
 
 
 @node Soprano and cello

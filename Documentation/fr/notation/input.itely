@@ -21,16 +21,6 @@ Nous n'allons pas, dans ce chapitre, parler directement de notation,
 mais plutôt du contenu des fichiers source et du résultat produit par
 LilyPond.
 
-@menu
-* Input modes::
-* Input structure::
-* Titles and headers::
-* Working with input files::
-* Controlling output::
-* Creating MIDI output::
-* Extracting musical information::
-@end menu
-
 
 @node Input modes
 @section Modes de saisie
@@ -193,14 +183,6 @@ mode paroles, accords, ou tout autre mode, et que vous deviez insérer un
 
 LilyPond traite des fichiers textuels.  Ces fichiers portent par
 convention une extension @code{.ly}.
-
-@menu
-* Structure of a score::
-* Multiple scores in a book::
-* Multiple output files from one input file::
-* Output file names::
-* File structure::
-@end menu
 
 
 @node Structure of a score
@@ -763,26 +745,10 @@ La plupart de la musique qui est éditée comporte un titre et le nom de
 son compositeur ; certains ouvrages dispensent beaucoup plus
 d'informations.
 
-@menu
-* Creating titles headers and footers::
-* Custom titles headers and footers::
-* Creating output file metadata::
-* Creating footnotes::
-* Creating in-notes::
-* Reference to page numbers::
-* Table of contents::
-@end menu
-
 
 @need 800
 @node Creating titles headers and footers
 @subsection Création de titres et entête ou pied de page
-
-@menu
-* Titles explained::
-* Default layout of bookpart and score titles::
-* Default layout of headers and footers::
-@end menu
 
 
 @node Titles explained
@@ -1186,12 +1152,6 @@ Manuel de notation :
 @c TODO: somewhere put a link to header spacing info
 @c       (you'll have to explain it more in NR 4).
 
-@menu
-* Custom text formatting for title blocks::
-* Custom layout for titles::
-* Custom layout for headers and footers::
-@end menu
-
 
 @node Custom text formatting for title blocks
 @unnumberedsubsubsec Mise en forme personnalisée des champs de titrage
@@ -1555,11 +1515,6 @@ headers and markups}.
 Selon qu'elle est référencée dans une expression musicale ou dans du
 texte indépendant, une note de bas de page sera créée suivant une
 procédure différente.
-
-@menu
-* Footnotes in music expressions::
-* Footnotes in stand-alone text::
-@end menu
 
 
 @node Footnotes in music expressions
@@ -2402,15 +2357,9 @@ Fichiers d'initialisation :
 @endmorerefs
 
 
+@need 1500
 @node Working with input files
 @section Travail sur des fichiers texte
-
-@menu
-* Including LilyPond files::
-* Different editions from one source::
-* Using music functions::
-* Special characters::
-@end menu
 
 
 @node Including LilyPond files
@@ -2573,12 +2522,6 @@ Quelle que soit la méthode utilisée, séparer la notation de la structure
 de la partition vous donnera plus de liberté dans l'agencement de
 l'ouvrage final, puisque vous ne reviendrez pas sur la musique qui le
 compose.
-
-@menu
-* Using variables::
-* Using tags::
-* Using global settings::
-@end menu
 
 
 @node Using variables
@@ -3048,13 +2991,6 @@ s'appliquer à différentes expressions musicales peut faire l'objet d'une
 bout de code LilyPond. D'autres fonctions, plus complexes, sont abordées
 au chapitre @rextendnamed{Music functions, Fonctions musicales}.
 
-@menu
-* Substitution function syntax::
-* Substitution function examples::
-* How to prevent sharing of music expressions::
-* Substitution functions and relative octave entry::
-@end menu
-
 
 @node Substitution function syntax
 @unnumberedsubsubsec Syntaxe d'une fonction de substitution
@@ -3388,17 +3324,12 @@ simpleAccompaniment =
 @end lilypond
 
 
+@need 1500
 @node Special characters
 @subsection Caractères spéciaux
 
 @cindex caractères spéciaux
 @cindex non-ASCII, caractères
-
-@menu
-* Text encoding::
-* Unicode::
-* ASCII aliases::
-@end menu
 
 
 @node Text encoding
@@ -3602,16 +3533,9 @@ Fichiers d'initialisation :
 @endmorerefs
 
 
+@need 1500
 @node Controlling output
 @section Contrôle des sorties
-
-@menu
-* Extracting fragments of music::
-* Skipping corrected music::
-* Alternative output formats::
-* Embedding files in PDF output::
-* Replacing the notation font::
-@end menu
 
 
 @node Extracting fragments of music
@@ -3756,10 +3680,6 @@ Graphics (SVG), Encapsulated PostScript (EPS) ou Portable Network
 Graphics (PNG) dès lors que vous aurez lancé LilyPond en ligne de
 commande avec l'option @i{ad hoc} -- voir @rprogramnamed{Command-line
 usage, Utilisation en ligne de commande} à ce sujet.
-
-@menu
-* SVG Output::
-@end menu
 
 
 @node SVG Output
@@ -3957,18 +3877,6 @@ Les fichiers MIDI, contrairement aux fichiers AAC, MP3 ou Vorbis, ne
 contiennent pas de son et nécessitent donc le recours à un logiciel
 supplémentaire pour les écouter.
 
-@menu
-* Supported notation for MIDI::
-* Unsupported notation for MIDI::
-* The MIDI block::
-* Controlling MIDI dynamics::
-* Using MIDI instruments::
-* Using repeats with MIDI::
-* MIDI channel mapping::
-* Context properties for MIDI effects::
-* Enhancing MIDI output::
-@end menu
-
 
 @node Supported notation for MIDI
 @subsection Notation prise en compte dans le MIDI
@@ -4131,12 +4039,6 @@ relatifs entre les différents instruments.
 Les indications de nuance se traduisent automatiquement en niveau de
 volume dans l'amplitude disponible en MIDI alors que crescendos et
 diminuendos auront une progression linéaire entre les extrêmes.
-
-@menu
-* Dynamic marks in MIDI::
-* Setting MIDI volume::
-* Setting MIDI block properties::
-@end menu
 
 
 @node Dynamic marks in MIDI
@@ -4709,11 +4611,6 @@ Des scripts additionnels permettent d'affiner la manière dont les
 nuances, articulations et rythme sont rendus en MIDI : le script
 @file{articulate} et le script @file{swing}.
 
-@menu
-* The articulate script::
-* The swing script::
-@end menu
-
 
 @node The articulate script
 @unnumberedsubsubsec Le script @file{articulate}
@@ -4873,12 +4770,6 @@ les triolets.
 
 En plus de générer du graphisme et du MIDI, LilyPond peut présenter
 l'information musicale sous forme textuelle.
-
-@menu
-* Displaying LilyPond notation::
-* Displaying Scheme music expressions::
-* Saving music events to a file::
-@end menu
 
 
 @node Displaying LilyPond notation

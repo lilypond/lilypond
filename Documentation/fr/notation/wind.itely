@@ -22,23 +22,12 @@
 Ce chapitre traite de certains aspects particuliers en matière de
 notation pour instruments à vent.
 
-@menu
-* Common notation for wind instruments::
-* Bagpipes::
-* Woodwinds::
-@end menu
-
 
 @node Common notation for wind instruments
 @subsection Vue d'ensemble des instruments à vent
 
 Nous allons aborder ici quelques aspects communs à la plupart des
 instruments à vent.
-
-@menu
-* References for wind instruments::
-* Fingerings::
-@end menu
 
 
 @node References for wind instruments
@@ -162,11 +151,6 @@ Morceaux choisis :
 
 Voici quelques informations spécifiques à la cornemuse.
 
-@menu
-* Bagpipe definitions::
-* Bagpipe example::
-@end menu
-
 
 @node Bagpipe definitions
 @unnumberedsubsubsec Définitions pour la cornemuse
@@ -282,10 +266,6 @@ Morceaux choisis :
 @subsection Bois
 
 Nous allons ici nous intéresser aux spécificités de la section des bois.
-
-@menu
-* Woodwind diagrams::
-@end menu
 
 
 @node Woodwind diagrams

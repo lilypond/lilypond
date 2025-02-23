@@ -23,13 +23,6 @@ Ce tutoriel est une introduction au langage musical utilisé par
 LilyPond, qui vous permettra de faire fonctionner le logiciel pour
 produire une partition.
 
-@menu
-* Compiling a file::
-* How to write input files::
-* Dealing with errors::
-* How to read the manuals::
-@end menu
-
 
 @node Compiling a file
 @section Compilation d'un fichier
@@ -101,27 +94,12 @@ message d'erreur.
 Cette partie présente les bases de la syntaxe de LilyPond, dans le
 but de vous aider à rédiger vos premiers fichiers sources.
 
-@menu
-* Simple notation::
-* Working on input files::
-@end menu
-
 
 @node Simple notation
 @subsection Notation simple
 
 @cindex simple, notation
 @cindex notation simple
-
-@menu
-* Pitches::
-* Durations (rhythms)::
-* Rests::
-* Time signature::
-* Tempo marks::
-* Clef::
-* All together::
-@end menu
 
 Il y a certains éléments graphiques de notation que LilyPond ajoute
 automatiquement. Dans l'exemple suivant, nous n'avons fourni que quatre
@@ -638,12 +616,6 @@ erreurs des plus courantes}.
 Nous allons voir ici comment consulter la documentation le plus
 efficacement possible. Nous en profiterons pour vous présenter quelques
 particularités de la documentation en ligne.
-
-@menu
-* Omitted material::
-* Clickable examples::
-* Overview of manuals::
-@end menu
 
 
 @node Omitted material

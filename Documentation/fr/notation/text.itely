@@ -22,12 +22,6 @@
 Nous allons voir ici comment insérer du texte dans une partition, ainsi
 que différentes manières de le mettre en forme.
 
-@menu
-* Writing text::
-* Formatting text::
-* Fonts::
-@end menu
-
 
 @node Writing text
 @subsection Ajout de texte
@@ -40,15 +34,6 @@ d'ajouter du texte à une partition.
 suffit de les insérer directement dans votre fichier LilyPond.  Ce
 fichier devra être sauvegardé avec l'encodage UTF-8.  Pour plus
 d'informations, voir @ref{Text encoding}.}
-
-@menu
-* Text objects overview::
-* Text scripts::
-* Text spanners::
-* Section labels::
-* Text marks::
-* Separate text::
-@end menu
 
 
 @node Text objects overview
@@ -737,14 +722,6 @@ Référence des propriétés internes :
 
 Nous allons voir dans les lignes qui suivent la manière de mettre en
 forme du texte à l'aide de la syntaxe propre au mode @emph{markup}.
-
-@menu
-* Text markup introduction::
-* Selecting font and font size::
-* Text alignment::
-* Graphic notation inside markup::
-* Music notation inside markup::
-@end menu
 
 
 @node Text markup introduction
@@ -1883,13 +1860,6 @@ particulièrement de leur rendu.
 Ce chapitre indique comment accéder aux fontes et polices de caractère
 dans LilyPond. Vous y apprendrez aussi comment changer de fonte en cours
 de partition.
-
-@menu
-* Finding fonts::
-* Font families::
-* Font features::
-* Changing fonts::
-@end menu
 
 
 @node Finding fonts

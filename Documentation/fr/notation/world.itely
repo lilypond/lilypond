@@ -20,13 +20,6 @@
 Ce chapitre a pour objet la notation des musiques traditionnelles autres
 qu'occidentales.
 
-@menu
-* Common notation for non-Western music::
-* Arabic music::
-* Turkish classical music::
-* Persian classical music::
-@end menu
-
 
 @node Common notation for non-Western music
 @subsection Noms des notes et altérations non-occidentaux
@@ -34,10 +27,6 @@ qu'occidentales.
 Nous allons voir ici comment saisir et imprimer des partitions dans
 d'autres formes que la musique occidentale, que les anglophones
 appellent aussi @emph{Common practice period}.
-
-@menu
-* Extending notation and tuning systems::
-@end menu
 
 
 @node Extending notation and tuning systems
@@ -110,15 +99,6 @@ Manuel de notation :
 
 Ce chapitre souligne les questions propres à la notation de la musique
 arabe.
-
-@menu
-* References for Arabic music::
-* Arabic note names::
-* Arabic key signatures::
-* Arabic time signatures::
-* Arabic music example::
-* Further reading for Arabic music::
-@end menu
 
 
 @node References for Arabic music
@@ -584,13 +564,6 @@ Ibrahim Ali Darwish Al-masri
 Ce chapitre met en évidence des questions propres à la notation de la
 musique classique turque.
 
-@menu
-* References for Turkish classical music::
-* Turkish note names::
-* Turkish key signatures::
-* Further reading for Turkish music::
-@end menu
-
 
 @node References for Turkish classical music
 @unnumberedsubsubsec Références pour la musique classique turque
@@ -730,12 +703,6 @@ disques compacts.
 Ce chapitre met en évidence des questions propres à la notation de la
 musique classique perse.
 
-@menu
-* Persian music notation::
-* Persian tunings::
-* Persian key signatures::
-* Further reading on Persian music::
-@end menu
 
 @node Persian music notation
 @unnumberedsubsubsec Notation de la musique perse

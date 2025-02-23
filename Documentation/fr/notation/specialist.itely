@@ -24,19 +24,6 @@ d'une partie distincte, un certain nombre de notions couramment
 utilisées dans ces types de partitions est abordé dans
 @ref{References for opera and stage musicals}.
 
-@menu
-* Vocal music::
-* Keyboard and other multi-staff instruments::
-* Unfretted string instruments::
-* Fretted string instruments::
-* Percussion::
-* Wind instruments::
-* Chord notation::
-* Contemporary music::
-* Ancient notation::
-* World music::
-@end menu
-
 @include fr/notation/vocal.itely
 @include fr/notation/keyboards.itely
 @include fr/notation/unfretted-strings.itely

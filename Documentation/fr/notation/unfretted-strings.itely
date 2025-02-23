@@ -28,10 +28,6 @@ Cette section dispense des informations supplémentaires et utiles à
 l'écriture pour les cordes non frettées, et tout spécialement pour les
 cordes d'orchestre.
 
-@menu
-* Common notation for unfretted strings::
-@end menu
-
 
 @node Common notation for unfretted strings
 @subsection Vue d'ensemble de la notation pour cordes non frettées
@@ -41,13 +37,6 @@ cordes non frettées.  La musique est notée sur une portée et ne
 nécessite généralement qu'une seule voix.  Le recours à deux voix
 distinctes peut cependant permettre de traiter efficacement des doubles
 notes ou des divisions.
-
-@menu
-* References for unfretted strings::
-* Bowing indications::
-* Harmonics::
-* Snap (Bartok) pizzicato::
-@end menu
 
 
 @node References for unfretted strings

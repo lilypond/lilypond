@@ -21,18 +21,6 @@ Scheme permet de réaliser des affinages très pointus.  Si vous ne
 connaissez rien de Scheme, vous en aurez un aperçu au travers de notre
 @ref{Scheme tutorial}.
 
-@menu
-* LilyPond code blocks::
-* Scheme functions::
-* Music functions::
-* Event functions::
-* Markup functions::
-* Contexts for programmers::
-* Callback functions::
-* Unpure-pure containers::
-* Difficult tweaks::
-@end menu
-
 
 @node LilyPond code blocks
 @section Blocs de code LilyPond
@@ -107,12 +95,6 @@ Bien que Scheme dispose de fonctions en propre, nous nous intéresserons,
 au fil des paragraphes qui suivent, aux fonctions @emph{syntaxiques},
 autrement dit des fonctions qui reçoivent des arguments libellés dans la
 syntaxe de LilyPond.
-
-@menu
-* Scheme function definitions::
-* Scheme function usage::
-* Void Scheme functions::
-@end menu
 
 
 @node Scheme function definitions
@@ -328,16 +310,6 @@ opérationnel dans le cadre de fonctions musicales telles que
 Les @emph{fonctions musicales} sont des procédures Scheme capables de
 créer automatiquement des expressions musicales ; elles permettent
 de grandement simplifier un fichier source.
-
-@menu
-* Music function definitions::
-* Music function usage::
-* Simple substitution functions::
-* Intermediate substitution functions::
-* Mathematics in functions::
-* Functions without arguments::
-* Void music functions::
-@end menu
 
 
 @node Music function definitions
@@ -658,13 +630,6 @@ Les @emph{markups} sont implémentés au travers de fonctions Scheme
 spécifiques qui produisent des objets @code{Stencil} comprenant un
 certain nombre d'arguments.
 
-@menu
-* Markup construction in Scheme::
-* How markups work internally::
-* New markup command definition::
-* New markup list command definition::
-@end menu
-
 
 @node Markup construction in Scheme
 @subsection Construction d'un @emph{markup} en Scheme
@@ -807,14 +772,6 @@ exemples se trouvent directement dans le fichier
 
 Nous allons étudier dans ce qui suit la manière de définir une nouvelle
 commande de @emph{markup}.
-
-@menu
-* Markup command definition syntax::
-* On properties::
-* A complete example::
-* Adapting builtin commands::
-* Converting markups to strings::
-@end menu
 
 
 @node Markup command definition syntax
@@ -1343,13 +1300,9 @@ Voici comment utiliser cette nouvelle commande de liste de
 @end example
 
 
+@need 1500
 @node Contexts for programmers
 @section Contextes pour programmeurs
-
-@menu
-* Context evaluation::
-* Running a function on all layout objects::
-@end menu
 
 
 @node Context evaluation

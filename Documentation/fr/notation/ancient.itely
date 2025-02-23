@@ -25,15 +25,6 @@
 @cindex Petrucci
 @cindex mensural
 
-@menu
-* Overview of the supported styles::
-* Ancient notation - common features::
-* Typesetting mensural music::
-* Typesetting Gregorian chant::
-* Typesetting Kievan square notation::
-* Working with ancient music - scenarios and solutions::
-@end menu
-
 La gestion par LilyPond des formes de notation ancienne inclut des
 fonctionnalités spécifiques à la notation mensurale, au chant grégorien
 et à la notation de style kievien. Ces fonctionnalités sont accessibles
@@ -178,12 +169,6 @@ Glossaire musicologique :
 
 @node Ancient notation - common features
 @subsection Considérations communes aux musiques anciennes
-
-@menu
-* Predefined contexts::
-* Ligatures::
-* Custodes::
-@end menu
 
 
 @node Predefined contexts
@@ -374,20 +359,9 @@ Morceaux choisis :
 @endmorerefs
 
 
+@need 1500
 @node Typesetting mensural music
 @subsection Typographie de musique ancienne
-
-@menu
-* Mensural contexts::
-* Mensural clefs::
-* Mensural time signatures::
-* Mensural note heads::
-* Mensural flags::
-* Mensural rests::
-* Mensural accidentals and key signatures::
-* Annotational accidentals (musica ficta)::
-* White mensural ligatures::
-@end menu
 
 
 @node Mensural contexts
@@ -1089,16 +1063,6 @@ Les altérations peuvent se chevaucher avec les notes précédentes.
 
 @node Typesetting Gregorian chant
 @subsection Typographie du chant grégorien
-
-@menu
-* Gregorian chant contexts::
-* Gregorian clefs::
-* Gregorian accidentals and key signatures::
-* Divisiones::
-* Gregorian articulation signs::
-* Augmentum dots (morae)::
-* Gregorian square neume ligatures::
-@end menu
 
 Si vous écrivez en notation grégorienne, le
 @code{Vaticana_ligature_engraver} se chargera de sélectionner les têtes
@@ -2534,21 +2498,13 @@ qu'en tant que fonction unaire, afin qu'@code{\augmentum} puisse
 s'intégrer avec d'autres préfixes dans n'importe quel ordre.
 
 
+@need 1500
 @node Typesetting Kievan square notation
 @subsection Typographie de notation kiévienne
 
 @cindex kiévien
 @cindex Kievan
 @cindex Kiev
-
-@menu
-* Kievan contexts::
-* Kievan clefs::
-* Kievan notes::
-* Kievan accidentals::
-* Kievan bar lines::
-* Kievan melismata::
-@end menu
 
 
 @node Kievan contexts
@@ -2797,13 +2753,6 @@ L'espacement des ligatures n'est pas des meilleurs.
 
 @node Working with ancient music - scenarios and solutions
 @subsection Réédition de musique ancienne
-
-@menu
-* Incipits::
-* Mensurstriche layout::
-* Transcribing Gregorian chant::
-* Ancient and modern from one source::
-@end menu
 
 Travailler sur de la musique ancienne requiert bien souvent des tâches
 particulières et qui s'éloignent fortement de la notation moderne pour

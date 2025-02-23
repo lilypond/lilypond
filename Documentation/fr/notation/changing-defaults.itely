@@ -44,28 +44,11 @@ surnommé « dièse ». @footnote{Le @rextendnamed{Scheme tutorial, Tutoriel
 Scheme} fournit quelques notions de base pour saisir des nombres, des
 listes, des chaînes de caractères ou des symboles, en Scheme.}
 
-@menu
-* Interpretation contexts::
-* Explaining the Internals Reference::
-* Modifying properties::
-* Useful concepts and properties::
-@end menu
-
 
 @node Interpretation contexts
 @section Contextes d'interprétation
 
 Nous allons voir ici ce que sont les contextes et comment les modifier.
-
-@menu
-* Contexts explained::
-* Creating and referencing contexts::
-* Keeping contexts alive::
-* Modifying context plug-ins::
-* Changing context default settings::
-* Defining new contexts::
-* Context layout order::
-@end menu
 
 @morerefs
 Manuel d'initiation :
@@ -88,14 +71,6 @@ Référence des propriétés internes :
 @subsection Tout savoir sur les contextes
 
 Les contextes sont hiérarchisés.
-
-@menu
-* Output definitions - blueprints for contexts::
-* Score - the master of all contexts::
-* Top-level contexts - staff containers::
-* Intermediate-level contexts - staves::
-* Bottom-level contexts - voices::
-@end menu
 
 
 @node Output definitions - blueprints for contexts
@@ -923,12 +898,6 @@ contextes. Deux manières de procéder sont envisageables : l'une consiste
 s'attache à adapter les valeurs par défaut d'une instance particulière
 d'un contexte.
 
-@menu
-* Changing all contexts of the same type::
-* Changing just one specific context::
-* Order of precedence::
-@end menu
-
 
 @node Changing all contexts of the same type
 @unnumberedsubsubsec Modification de tous les contextes d'un même type
@@ -1710,12 +1679,6 @@ Fichiers d'initialisation :
 @node Explaining the Internals Reference
 @section En quoi consiste la référence des propriétés internes
 
-@menu
-* Navigating the program reference::
-* Layout interfaces::
-* Determining the grob property::
-@end menu
-
 @morerefs
 Manuel de notation :
 @ref{Naming conventions}.
@@ -2058,19 +2021,9 @@ Le graveur Fingering_engraver fait partie des contextes : @dots{}
 @end quotation
 
 
+@need 1500
 @node Modifying properties
 @section Modification de propriétés
-
-@menu
-* Overview of modifying properties::
-* Set and unset::
-* Override and revert::
-* The once command::
-* set versus override::
-* Tweak and single::
-* The offset command::
-* Modifying alists::
-@end menu
 
 
 @node Overview of modifying properties
@@ -3066,21 +3019,6 @@ qu'au travers d'une complète redéfinition de leur liste associative.}
 Nous allons voir, au fil des paragraphes qui suivent, différentes
 approches permettant de fignoler l'apparence d'une partition.
 
-@menu
-* Direction and placement::
-* Distances and measurements::
-* Dimensions::
-* Spanners::
-* Modification de bandeaux avec rupture
-* Line styles::
-* Line spanners::
-* Visibility of objects::
-* Rotating objects::
-* Aligning objects::
-* Modifying stencils::
-* Modifying shapes::
-@end menu
-
 @morerefs
 Manuel d'initiation :
 @rlearningnamed{Other sources of information, Autres sources de documentation},
@@ -3115,11 +3053,6 @@ la portée, les indications textuelles s'alignent tantôt par la gauche,
 tantôt par la droite, ou être centrées. La plupart de ces choix peuvent
 être laissés à l'appréciation de LilyPond. Il peut être préférable, dans
 certains cas, d'imposer l'orientation ou le positionnement des éléments.
-
-@menu
-* Articulation direction indicators::
-* The direction property::
-@end menu
 
 
 @node Articulation direction indicators
@@ -3379,12 +3312,6 @@ ou glissandos. Ces objets, que l'on englobe sous l'appellation
 contrôler leur apparence et leur comportement. Ils font aussi appel à
 des méthodes spécifiques en matière de retouches liées au fait que
 certains peuvent être rompus lors d'un saut de ligne.
-
-@menu
-* Modifying broken spanners::
-* Setting minimum lengths for spanners::
-* Controlling spanner end points::
-@end menu
 
 
 @node Modifying broken spanners
@@ -3883,14 +3810,6 @@ color of objects, Visibilité et couleur des objets}.
 LilyPond met en œuvre quelques techniques particulières adaptées à
 certains objets ; elles sont couvertes par une rubrique spécifique.
 
-@menu
-* Removing the stencil::
-* Making objects transparent::
-* Painting objects white::
-* Using break-visibility::
-* Special considerations::
-@end menu
-
 
 @node Removing the stencil
 @unnumberedsubsubsec Suppression des stencils
@@ -4279,11 +4198,6 @@ Qu'il s'agisse des objets de rendu ou d'éléments textuels sous forme de
 partir de n'importe quel point. La méthode diffère cependant selon ce
 que vous désirez manipuler.
 
-@menu
-* Rotating layout objects::
-* Rotating markup::
-@end menu
-
 
 @node Rotating layout objects
 @unnumberedsubsubsec Rotation des objets de mise en forme
@@ -4381,13 +4295,6 @@ les barres de mesure, clefs, métriques et armures. Certaines propriétés
 spécifiques -- dépendant de la @code{break-@/aligned-@/interface} --
 permettent de gérer le positionnement des indications de repère sur ces
 objets.
-
-@menu
-* Setting X-offset and Y-offset directly::
-* Using the side-position-interface::
-* Using the self-alignment-interface::
-* Using the break-alignable-interface::
-@end menu
 
 @morerefs
 Manuel de notation :
@@ -4788,12 +4695,9 @@ Manuel de notation :
 @endmorerefs
 
 
+@need 1500
 @node Modifying shapes
 @subsection Modification de l'allure des éléments
-
-@menu
-* Modifying ties and slurs::
-@end menu
 
 
 @node Modifying ties and slurs

@@ -34,13 +34,6 @@ Tutorial guidelines:  (different from policy.txt!)
 Suite au premier contact avec le @ref{Tutorial}, voyons comment
 créer de belles partitions utilisant une notation musicale courante.
 
-@menu
-* Single-staff notation::
-* Multiple notes at once::
-* Songs::
-* Final touches::
-@end menu
-
 
 @node Single-staff notation
 @section Notation sur une seule portée
@@ -48,24 +41,10 @@ créer de belles partitions utilisant une notation musicale courante.
 Cette section présente la notation courante dont on a besoin pour
 écrire une voix sur une portée.
 
-@menu
-* Bar lines and bar checks::
-* Pitches and key signatures::
-* Ties and slurs::
-* Articulation and dynamics::
-* Adding text::
-* Automatic and manual beams::
-* Advanced rhythmic commands::
-@end menu
 
-
+@need 1500
 @node Bar lines and bar checks
 @subsection Barre et contrôle de mesure
-
-@menu
-* Bar lines::
-* Bar checks::
-@end menu
 
 
 @node Bar lines
@@ -125,11 +104,6 @@ Manuel de notation :
 @node Pitches and key signatures
 @subsection Hauteurs et armure
 
-@menu
-* Pitch alterations::
-* Key signatures::
-* Warning key signatures and pitches::
-@end menu
 
 @warning{Si, comme nombre de nouveaux utilisateurs, vous avez du mal à
 appréhender la notion de tonalité et d'armure dans LilyPond, consultez
@@ -305,13 +279,6 @@ Altérations accidentelles automatiques},
 Sont regrpoupées dans cette section, en raison de leur apparence
 similaire, les liaisons de phrasé et les liaisons de tenue.
 
-@menu
-* Ties::
-* Slurs::
-* Phrasing slurs::
-* Warnings slurs vs ties::
-@end menu
-
 @cindex liaisons de prolongation
 @cindex liaisons de tenue
 @cindex prolongation, liaisons de
@@ -431,12 +398,6 @@ Manuel de notation :
 
 Articulations et nuances s'indiquent par ajout de code spécifique à la
 suite de la note à laquelle elles s'appliquent.
-
-@menu
-* Articulations::
-* Fingerings::
-* Dynamics::
-@end menu
 
 
 @node Articulations
@@ -656,12 +617,6 @@ Pour compléter le principe de durée simple (un nombre, avec ou sans
 point, ajouté à une hauteur), intéressons-nous à d'autres concepts afin
 de couvrir plus d'aspects de la rythmique.
 
-@menu
-* Partial measure::
-* Tuplets::
-* Grace notes::
-@end menu
-
 
 @node Partial measure
 @unnumberedsubsubsec Mesure incomplète
@@ -764,25 +719,11 @@ En théorie musicale, la polyphonie désigne une musique constituée de
 plusieurs voix ; dans LilyPond, ce terme désigne les situations où
 il y a plus d'une voix sur une même portée.
 
-@menu
-* Music expressions explained::
-* Multiple staves::
-* Staff groups::
-* Combining notes into chords::
-* Single-staff polyphony::
-@end menu
-
 
 @node Music expressions explained
 @subsection Les expressions musicales en clair
 
 @cindex expression musicale
-
-@menu
-* Analogy mathematical expressions::
-* Simultaneous music expressions multiple staves::
-* Simultaneous music expressions single-staff::
-@end menu
 
 Dans les fichiers source LilyPond, la musique est représentée par ce
 qu'on appelle des @dfn{expressions musicales}.  En soi, une seule note
@@ -1126,12 +1067,6 @@ Manuel de notation :
 
 Cette section présente l'écriture vocale et les partitions de variété.
 
-@menu
-* Setting simple songs::
-* Aligning lyrics to a melody::
-* Lyrics to multiple staves::
-@end menu
-
 
 @node Setting simple songs
 @subsection Écriture de chants simples
@@ -1407,13 +1342,6 @@ Manuel de notation :
 L'ultime section de ce tutoriel montre comment ajouter une touche
 finale à des morceaux simples, et constitue une introduction au reste
 du manuel.
-
-@menu
-* Organizing pieces with variables::
-* Adding titles::
-* Absolute note names::
-* After the tutorial::
-@end menu
 
 
 @node Organizing pieces with variables

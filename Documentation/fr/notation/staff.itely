@@ -26,24 +26,11 @@ Cette section aborde les détails de gravure de la portée, la réalisation
 de partitions comprenant plusieurs portées et l'ajout d'indications
 globales d'exécution, présentes sur certaines portées seulement.
 
-@menu
-* Displaying staves::
-* Modifying single staves::
-* Writing parts::
-@end menu
-
 
 @node Displaying staves
 @subsection Gravure des portées
 
 Nous allons voir ici comment créer des portées et comment les regrouper.
-
-@menu
-* Instantiating new staves::
-* Grouping staves::
-* Nested staff groups::
-* Separating systems::
-@end menu
 
 
 @node Instantiating new staves
@@ -439,12 +426,6 @@ Cette section explique le réglage de la gravure de chaque portée, comme
 la taille de portée ou le nombre de lignes ; sont aussi décrits la
 suspension et la reprise de portées, ainsi que les portées
 d'@emph{ossia}.
-
-@menu
-* Staff symbol::
-* Ossia staves::
-* Hiding staves::
-@end menu
 
 
 @node Staff symbol
@@ -1181,13 +1162,6 @@ partition de pupitre.
 
 Par ailleurs, une méthode pour gérer la division d'un pupitre est
 abordée à la rubrique @ref{Hiding staves}.
-
-@menu
-* Instrument names::
-* Quoting other voices::
-* Formatting cue notes::
-* Compressing empty measures::
-@end menu
 
 
 @node Instrument names

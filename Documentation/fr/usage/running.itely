@@ -19,12 +19,6 @@
 
 Ce chapitre passe en revue ce qui se passe lorsque vous lancez LilyPond.
 
-@menu
-* Normal usage::
-* Command-line usage::
-* Error messages::
-* Common errors::
-@end menu
 
 @node Normal usage
 @section Utilisation habituelle
@@ -72,16 +66,6 @@ Des solutions pour activer de façon parmanente UTF-8 sur la ligne de
 commande de Windows sont disponibles sur
 internet.@footnote{@uref{https://stackoverflow.com/a/57134096/1276195}
 par exemple donne une réponse argumentée.}
-
-@menu
-* The PATH environment variable::
-* Invoking LilyPond::
-* Basic command-line options for LilyPond::
-* Advanced command-line options for LilyPond::
-* Environment variables::
-* Relocation::
-* LilyPond in chroot jail::
-@end menu
 
 
 @node The PATH environment variable
@@ -1136,11 +1120,6 @@ réadressage : au lieu d'utiliser des chemins codés en dur pour les
 fichiers de données, la localisation des fichiers de support nécéssaires
 est calculée lors de l'exécution @emph{relativement au binaire lancé}.
 
-@menu
-* Relocation files::
-* Relocation algorithm::
-@end menu
-
 
 @node Relocation files
 @unnumberedsubsubsec Fichiers de réadressage
@@ -1485,16 +1464,6 @@ Les conditions amenant aux erreurs qui suivent sont fréquentes, bien
 qu'elles ne soient pas évidentes ni facilement localisables.  Nous
 espérons que ces explications vous aideront à les résoudre plus
 facilement.
-
-@menu
-* Music runs off the page::
-* An extra staff appears::
-* Error message Unbound variable %::
-* Error message FT_Get_Glyph_Name::
-* Warning staff affinities should only decrease::
-* Error message unexpected new::
-* Warning this voice needs a voiceXx or shiftXx setting::
-@end menu
 
 
 @node Music runs off the page
