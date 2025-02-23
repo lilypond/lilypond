@@ -309,6 +309,19 @@ Certain spurious change clefs have been fixed.
 @itemize
 
 @item
+The @code{TimeSignature@/.fraction} property now accepts a
+@code{number-@/pair?} value, which is more general than the
+previous @code{fraction?}.  This makes certain tricks possible
+without overriding the @code{stencil} property.
+
+@lilypond[quote,verbatim]
+{       
+  \once \override Timing.TimeSignature.fraction = #'(-1 . 12)
+  R1
+}
+@end lilypond
+
+@item
 @code{\slashedGrace} now prints slashed beams.
 
 @lilypond[quote,verbatim]

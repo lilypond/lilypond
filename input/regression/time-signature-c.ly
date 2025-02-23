@@ -1,8 +1,11 @@
 \version "2.25.25"
 
 \header {
-  texidoc = "The @code{single-number} time-signature style prints the numerator
-only.  The numbers above the staff show the input in each case."
+  texidoc = "This test covers @code{TimeSignature@/.style} set to @code{C}.
+Time signatures 4/4 and 2/2 are printed with the traditional common- and
+cut-time symbols.  Other time signatures are printed as numbers.
+
+The numbers above the staff show the input in each case."
 }
 
 #(ly:set-option 'warning-as-error #t)
@@ -14,22 +17,19 @@ only.  The numbers above the staff show the input in each case."
     (make-center-column-markup args))))
 
 \new Staff \with {
-  \override TimeSignature.style = #'single-number
+  \override TimeSignature.style = #'C
 } \fixed c' {
-  \tempo \markup \case-label { 1 2 }
-  \time 1/2 d2
-
-  \tempo \markup \case-label { 2 4 }
-  \time 2/4 d4 d
+  \tempo \markup \case-label { 4 4 }
+  \time 4/4 d1
 
   \tempo \markup \case-label { 3 4 }
   \time 3/4 d2.
 
-  \tempo \markup \case-label { 16 4 }
-  \time 16/4 d\longa
+  \tempo \markup \case-label { 2 2 }
+  \time 2/2 d1
 
-  %% TODO: If it becomes possible to pass values like #'(2 . 1/2) to \time, this
-  %% should be changed to do that instead of using \override.
+  %% TODO: If it becomes possible to pass values like #'(2 . 1/2) to \time,
+  %% these should be changed to do that instead of using \override.
 
   \tempo \markup \case-label { 2 ½ }
   \once \override Timing.TimeSignature.fraction = #'(2 . 1/2)
