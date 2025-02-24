@@ -1581,7 +1581,7 @@ print a warning and set an optional @var{default}."
 (define-public scm->string
   (let ((newline-and-space-regex (ly:make-regex "\n "))
         (procedure-hex-at-regex
-         (ly:make-regex "#<procedure [0-9a-f]+ at .*/([^/]+/[^/]+.scm:)"))
+         (ly:make-regex "#<procedure [0-9a-f]+ at (?:.*/)?([^/]+/[^/]+.scm:)"))
         (program-hex-hex-regex
          (ly:make-regex "#<program [0-9a-f]+ [0-9a-f]+>")))
     (lambda (val)
