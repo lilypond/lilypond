@@ -50,6 +50,16 @@ environments with LilyPond support may provide a way to run
 @command{convert-ly} graphically.}
 
 
+@c Don't remove this top-level menu; it is needed to suppress automatic
+@c generation of a `@detailmenu` block by `texi2any` up to version 7.2.
+@menu
+* Major changes in LilyPond::
+* New for musical notation::
+* New for specialist notation::
+* Miscellaneous improvements::
+@end menu
+
+
 @node Major changes in LilyPond
 @unnumbered Major changes in LilyPond
 
