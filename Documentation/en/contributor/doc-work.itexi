@@ -314,11 +314,9 @@ Level@tie{}3 subsections are created with
 @@subsection Foo
 @end example
 
-Level@tie{}4 headings and menus@footnote{A @dfn{menu} is a
-@code{@@menu} @dots{} @code{@@end menu} block that holds node
-names of all subsections of a section.} must be preceded by
-level@tie{}3 headings and menus, and so on for level@tie{}3 and
-level@tie{}2.  If this is not what is wanted, please use:
+Level@tie{}4 headings must be preceded by level@tie{}3 headings,
+and so on for level@tie{}3 and level@tie{}2.  If this is not what
+is wanted, please use:
 
 @example
 @@subsubsubheading Foo
@@ -332,58 +330,82 @@ may be used for any @code{@@sub...} sections or headings, however.
 
 @example
 not:
-@@node @@code@{Foo@} Bar
-@@subsection @@code@{Foo@} Bar
+@@node @@code@{Foo@} bar
+@@subsection @@code@{Foo@} bar
 
 but instead:
-@@node Foo Bar
-@@subsection @@code@{Foo@} Bar
+@@node Foo bar
+@@subsection @@code@{Foo@} bar
 @end example
 
-No punctuation may be used in the node names.  If the heading text
-uses punctuation (in particular, colons and commas) simply leave
-this out of the node name and menu.
+Similarly, do not use punctuation in node names.  If the heading
+text uses punctuation (in particular, colons and commas) simply
+leave this out.
 
 @example
-@@menu
-* Foo Bar::
-@@end menu
-
-@@node Foo Bar
-@@subsection Foo: Bar
+@@node We all love Bach Mozart and Gregorian chant
+@@subsection We all love Bach, Mozart, and Gregorian chant
 @end example
+
+As can be seen in the previous examples, we use
+@dfn{sentence-style} capitalization (@emph{not} title case), which
+means that a heading starts with an uppercase letter, and you
+should only capitalize words in the remaining part of the heading
+if you would do so in an English sentence.
 
 Backslashes must not be used in node names either.
 
 @example
-@@menu
-* Set and unset
-@@end menu
-
-@@node Set and unset
+@@node set and unset
 @@subsection @@code@{\set@} and @@code@{\unset@}
 @end example
 
 With the exception of @code{@@}-commands, @code{\}-commands and
 punctuation, the section name should match the node name exactly.
+If it happens that the heading starts with a command name that in
+turn starts with a lowercase letter, do not capitalize the command
+name in the node name.
 
 Sectioning commands (@code{@@node} and @code{@@section}) must not
 appear inside an @code{@@ignore} @dots{} @code{@@end ignore}
 block.  Separate those commands with a space, i.e.,
 @samp{@@n@tie{}ode}.
 
-Nodes must be included inside a
+
+@node Menus
+@subsection Menus
+
+A Texinfo @dfn{menu} is a @code{@@menu} @dots{} @code{@@end menu}
+block that holds node names of all subsections of a section.  By
+default, such blocks are auto-generated while creating Info and
+HTML output; in PDF output, they are not used.  This means that it
+is not necessary to create menus normally.
+
+The auto-generated menus simply use node names (and display the
+corresponding section names).  If you want to add some description
+to one or more menu entries, however, you have to create the
+@code{@@menu} block manually, to be put at the end of the current
+node, right before the first subsection node.
+
+Assuming that the current section contains subsection node names
+@q{foo}, @q{bar}, and @q{baz}, the syntax is as follows.
 
 @example
 @@menu
-* foo::
+* foo::    A very long description of an extremely
+           important topic.
 * bar::
+* baz::    All you want to know about @@code@{baz@}.
 @@end menu
 @end example
 
-@noindent
-construct.  These can be constructed automatically,
-@pxref{Regenerating menus}.
+As can be seen, the description of a menu entry might contain
+Texinfo commands, and it can be broken across multiple lines (in
+Info mode, the formatting of the @code{@@menu} block is taken
+directly).
+
+In the LilyPond documentation, most top-level menus contain
+descriptions.
 
 
 @node LilyPond formatting
@@ -666,7 +688,10 @@ the @code{@@morerefs} block.
 @unnumberedsubsubsec Cross-references
 
 Enter the exact @code{@@node} name of the target reference between
-the braces (for example, @code{@@ref@{Syntax@tie{}survey@}}).
+the braces (for example, @code{@@ref@{Syntax survey@}}).  While
+cross references use the node name as an argument, they are set up
+for our documentation to display the corresponding section command
+in PDF and HTML output.
 
 @indentedblock
 @multitable {@code{@@rinternals}} {General Information webpage}
@@ -1706,13 +1731,8 @@ have been developed over time to help authors handle the most
 daunting tasks.
 
 
-@need 1500
-@node Scripts to test the documentation
-@subsection Scripts to test the documentation
-
-
 @node Building only one section of the documentation
-@unnumberedsubsubsec Building only one section of the documentation
+@subsection Building only one section of the documentation
 
 In order to save build time, a script is available to build and
 immediately display only one section of the documentation in
@@ -1798,28 +1818,8 @@ variables and corresponding default values as
 @command{doc-section.sh}.
 
 
-@need 1500
-@node Scripts to create documentation
-@subsection Scripts to create documentation
-
-
-@node Regenerating menus
-@unnumberedsubsubsec Regenerating menus
-
-If you are using Emacs to edit Texinfo files, you can use the key
-sequence @key{C-c C-u C-a} to regenerate @code{@@menu} blocks
-automatically.  Otherwise, run
-
-@example
-scripts/auxiliar/node-menuify.sh @var{filename}
-@end example
-
-The @command{node-menuify.sh} script just drives Emacs behind the
-scenes, so it requires Emacs to be installed.
-
-
-@node Updating doc with convert-ly
-@unnumberedsubsubsec Updating doc with @command{convert-ly}
+@node Updating documentation with convert-ly
+@subsection Updating documentation with @command{convert-ly}
 
 Don't.  This should be done by programmers when they add new
 features.  If you notice that it hasn't been done, complain to
@@ -2167,8 +2167,6 @@ communicate with the developers in English.
 In any case, please mark in your work the sections which do not result
 from the direct translation of a piece of English translation, using
 comments, i.e., lines starting with @samp{@@c}.
-
-Don't forget to update Texinfo menus, @pxref{Regenerating menus}.
 
 Some pieces of text manipulated by build scripts that appear in
 the output are translated in a @file{.po} file; this has been
@@ -2538,11 +2536,6 @@ configuration file by adding the four following lines:
 @noindent
 After restarting Emacs you can then obtain the structure in the
 @code{*Occur*} buffer with @key{C-c@tie{}s}.
-
-@item
-Do not bother updating @code{@@menu} commands when all menu
-entries are in the same file, just do @key{C-c C-u C-a}
-(@qq{update all menus}) when you are done with updating the file.
 
 @item
 Moving to the next or previous node can be easily done with
