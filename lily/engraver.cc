@@ -40,13 +40,13 @@ Engraver::get_group () const
 void
 Engraver::announce_grob (Grob_info inf, Context *reroute_context)
 {
-  get_group ()->announce_grob (inf, START, reroute_context);
+  get_group ()->add_grob_to_announce (inf, START, reroute_context);
 }
 
 void
 Engraver::announce_end_grob (Grob_info inf, Context *reroute_context)
 {
-  get_group ()->announce_grob (inf, STOP, reroute_context);
+  get_group ()->add_grob_to_announce (inf, STOP, reroute_context);
 }
 
 Grob_info

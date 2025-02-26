@@ -91,19 +91,26 @@ Engraver_group::disconnect_from_context ()
 }
 
 void
-Engraver_group::announce_grob (Grob_info info, Direction dir,
-                               Context *reroute_context)
+Engraver_group::add_grob_to_announce_locally_only (Grob_info info,
+                                                   Direction start_end)
 {
-  announce_infos_.push_back (Announce_grob_info (info, dir));
+  announce_infos_.push_back (Announce_grob_info (info, start_end));
+}
 
-  Context *dad_con
-    = reroute_context ? reroute_context : context_->get_parent ();
-
-  Engraver_group *dad_eng
-    = dad_con ? dynamic_cast<Engraver_group *> (dad_con->implementation ()) : 0;
-
-  if (dad_eng)
-    dad_eng->announce_grob (info, dir);
+void
+Engraver_group::add_grob_to_announce (Grob_info info, Direction start_end,
+                                      Context *reroute_context)
+{
+  add_grob_to_announce_locally_only (info, start_end);
+  auto *ctx = reroute_context ? reroute_context : context_->get_parent ();
+  while (ctx)
+    {
+      auto *group = dynamic_cast<Engraver_group *> (ctx->implementation ());
+      if (!group)
+        break;
+      group->add_grob_to_announce_locally_only (info, start_end);
+      ctx = group->context_->get_parent ();
+    }
 }
 
 void

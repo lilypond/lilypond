@@ -43,8 +43,8 @@ protected:
   void disconnect_from_context () override;
   void initialize () override;
   void finalize () override;
-  void announce_grob (Grob_info, Direction dir,
-                      Context *reroute_context = 0) override;
+  void add_grob_to_announce_locally_only (Grob_info,
+                                          Direction start_end) override;
   void stop_translation_timestep ();
 
   /*

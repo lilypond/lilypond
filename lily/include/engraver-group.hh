@@ -57,8 +57,10 @@ public:
   void do_announces ();
   void connect_to_context (Context *c) override;
   void disconnect_from_context () override;
-  virtual void announce_grob (Grob_info, Direction start_end,
-                              Context *reroute_context = 0);
+  virtual void add_grob_to_announce_locally_only (Grob_info,
+                                                  Direction start_end);
+  void add_grob_to_announce (Grob_info, Direction start_end,
+                             Context *reroute_context = 0);
   bool pending_grobs () const;
 
 private:
