@@ -55,10 +55,6 @@ Copyright @copyright{} 1999--2023 degli autori.
 @node @value{lyprefix} - \TEXT\
 @end macro
 
-@macro lyentry{TEXT}
-@value{lyprefix} - \TEXT\
-@end macro
-
 @unmacro lydoctitle
 @macro lydoctitle{TEXT}
 @unnumberedsec \TEXT\

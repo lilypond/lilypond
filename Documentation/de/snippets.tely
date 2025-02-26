@@ -53,10 +53,6 @@ Copyright @copyright{} 1999--2023 by the authors.
 @node @value{lyprefix} - \TEXT\
 @end macro
 
-@macro lyentry{TEXT}
-@value{lyprefix} - \TEXT\
-@end macro
-
 @unmacro lydoctitle
 @macro lydoctitle{TEXT}
 @unnumberedsec \TEXT\

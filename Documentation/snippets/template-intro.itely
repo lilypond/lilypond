@@ -3,6 +3,4 @@
 
 @set lyprefix Templates
 
-@lymenu
-
 @lysnippets
