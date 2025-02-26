@@ -98,19 +98,18 @@ Engraver_group::add_grob_to_announce_locally_only (Grob_info info,
 }
 
 void
-Engraver_group::add_grob_to_announce (Grob_info info, Direction start_end,
-                                      Context *reroute_context)
+Engraver_group::add_grob_to_announce (Grob_info inf, Direction start_end)
 {
-  add_grob_to_announce_locally_only (info, start_end);
-  auto *ctx = reroute_context ? reroute_context : context_->get_parent ();
-  while (ctx)
+  auto *group = this;
+  do
     {
-      auto *group = dynamic_cast<Engraver_group *> (ctx->implementation ());
-      if (!group)
+      group->add_grob_to_announce_locally_only (inf, start_end);
+      auto *ctx = group->context ()->get_parent ();
+      if (!ctx)
         break;
-      group->add_grob_to_announce_locally_only (info, start_end);
-      ctx = group->context_->get_parent ();
+      group = dynamic_cast<Engraver_group *> (ctx->implementation ());
     }
+  while (group);
 }
 
 void

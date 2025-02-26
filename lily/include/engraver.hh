@@ -40,6 +40,8 @@ private:
   T *internal_make_grob (SCM sym, SCM cause, char const *f, int l,
                          char const *fun);
 
+  static void announce_grob (Grob_info, Direction start_end, Context *);
+
 protected:
   /*
     take note of item/spanner
@@ -48,8 +50,19 @@ protected:
     Default: ignore the info
   */
   virtual void acknowledge_grob (Grob_info) {}
-  void announce_grob (Grob_info, Context *reroute_context = 0);
-  void announce_end_grob (Grob_info, Context *reroute_context = 0);
+
+  // announce a grob in this engraver's context and enclosing contexts
+  void announce_grob (Grob_info);
+  void announce_end_grob (Grob_info);
+
+  // announce a grob in the given context and its enclosing contexts
+  static void announce_grob (Grob_info, Context *);
+  static void announce_end_grob (Grob_info, Context *);
+
+  // announce a grob in this engraver's context only; this is unusual
+  void announce_grob_locally_only (Grob_info);
+  void announce_end_grob_locally_only (Grob_info);
+
   Engraver_group *get_group () const;
   bool is_midi () const override { return false; }
 

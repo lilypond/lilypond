@@ -196,7 +196,9 @@ Auto_beam_engraver::create_beam ()
     Beam::add_stem (beam, stem);
 
   Grob_info i = make_grob_info (beam, stems_[0]->self_scm ());
-  announce_grob (i, beam_start_context_.get ());
+  announce_grob_locally_only (i);
+  if (beam_start_context_)
+    announce_grob (i, beam_start_context_.get ());
 
   return beam;
 }
@@ -254,8 +256,9 @@ Auto_beam_engraver::end_beam ()
       if (finished_beam_)
         {
           Grob_info i = make_grob_info (finished_beam_, SCM_EOL);
-
-          announce_end_grob (i, beam_start_context_.get ());
+          announce_end_grob_locally_only (i);
+          if (beam_start_context_)
+            announce_end_grob (i, beam_start_context_.get ());
           finished_beam_pattern_ = std::move (beam_pattern_);
           finished_beaming_options_ = beaming_options_;
         }
@@ -434,6 +437,7 @@ Auto_beam_engraver::recheck_beam ()
           beam_pattern_ = std::move (new_grouping);
           shortest_dur_ = saved_shortest_dur;
           beam_settings_ = saved_beam_settings;
+          beam_start_context_ = context ()->get_parent ();
           beam_start_moment_ = now_mom ();
 
           i = 0;

@@ -38,15 +38,54 @@ Engraver::get_group () const
 }
 
 void
-Engraver::announce_grob (Grob_info inf, Context *reroute_context)
+Engraver::announce_grob (Grob_info inf)
 {
-  get_group ()->add_grob_to_announce (inf, START, reroute_context);
+  get_group ()->add_grob_to_announce (inf, START);
 }
 
 void
-Engraver::announce_end_grob (Grob_info inf, Context *reroute_context)
+Engraver::announce_end_grob (Grob_info inf)
 {
-  get_group ()->add_grob_to_announce (inf, STOP, reroute_context);
+  get_group ()->add_grob_to_announce (inf, STOP);
+}
+
+void
+Engraver::announce_grob (Grob_info inf, Direction start_end, Context *ctx)
+{
+  if (ctx)
+    {
+      if (auto *group = dynamic_cast<Engraver_group *> (ctx->implementation ()))
+        {
+          group->add_grob_to_announce (inf, start_end);
+          return;
+        }
+    }
+
+  programming_error ("announcing grob in invalid context");
+}
+
+void
+Engraver::announce_grob (Grob_info inf, Context *ctx)
+{
+  announce_grob (inf, START, ctx);
+}
+
+void
+Engraver::announce_end_grob (Grob_info inf, Context *ctx)
+{
+  announce_grob (inf, STOP, ctx);
+}
+
+void
+Engraver::announce_grob_locally_only (Grob_info inf)
+{
+  get_group ()->add_grob_to_announce_locally_only (inf, START);
+}
+
+void
+Engraver::announce_end_grob_locally_only (Grob_info inf)
+{
+  get_group ()->add_grob_to_announce_locally_only (inf, STOP);
 }
 
 Grob_info
