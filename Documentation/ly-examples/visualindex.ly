@@ -13,7 +13,7 @@
 % - Links are not clickable in SVG output
 
 
-\version "2.25.23"
+\version "2.25.25"
 
 #(set-default-paper-size "a4")
 % #(set-default-paper-size '(cons (* 160 mm) (* (+ 673.2 4) pt)))
@@ -509,6 +509,7 @@ ENGRAVER \"*\"', without space inbetween."
     \addLink Staff.CueEndClef "formatting-cue-notes"
     \addLink Staff.KeyCancellation "key-signature"
     \addLink Staff.KeySignature "key-signature"
+    \addLink Staff.OptionalMaterialBracket "brackets-for-optional-material"
     \addLink Staff.OttavaBracket "ottava-brackets"
     \addLink Staff.PianoPedalBracket "piano-pedals"
     \addLink Staff.SostenutoPedal "piano-pedals"
@@ -623,12 +624,16 @@ ENGRAVER \"*\"', without space inbetween."
       \doclink "CueEndClef"
     \cueClefUnset
 
-    \balloon PianoPedalBracket 2 -0.5 ##f 0.3 ##f ##f \markup \column {
+    \balloon PianoPedalBracket 2 -1.5 ##f 0.3 ##f ##f \markup \column {
       \doclink "PianoPedalBracket"
       \engraverlink "Piano_pedal" "Piano_pedal" }
     \set Staff.pedalSustainStyle = #'bracket
     f2 \sustainOn
     f2 \sustainOff
+
+    \startOptionalMaterial a1 \stopOptionalMaterial
+    \balloon OptionalMaterialBracket 0.5 -2 -0.8 ##f 0 ##f \markup
+      \docengraverlink "OptionalMaterialBracket" "Optional_material_bracket"
 
     \tweak X-offset 1.5 \tweak Y-offset 0.5 \mark \markup {
       \normalsize
