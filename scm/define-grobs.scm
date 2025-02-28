@@ -2894,8 +2894,7 @@ collisions of different voices.  See also
         (horizon-padding . 0.1) ; to avoid interleaving with accidentals
         (positioning-done . ,ly:script-interface::calc-positioning-done)
         (self-alignment-X . ,CENTER)
-        (side-axis . ,Y)
-        ;; padding set in script definitions.
+        ;; 'padding, 'side-axis set in script definitions.
         (slur-padding . 0.2)
         (staff-padding . 0.25)
         (stencil . ,ly:script-interface::print)
@@ -2905,6 +2904,7 @@ collisions of different voices.  See also
         (Y-offset . ,script-interface::calc-y-offset)
         (meta . ((class . Item)
                  (interfaces . (font-interface
+                                horizontal-script-interface
                                 outside-staff-interface
                                 script-interface
                                 self-alignment-interface

@@ -1960,7 +1960,110 @@ some offset from zero in y-axis direction."
      (variant ly:unpure-call)
      (variant ly:pure-call))))
 
+
+(define-public (ly:script-interface::calc-direction grob)
+"Usually the @code{'direction} of an articulation is set in
+@code{default-script-alist}. If the @code{'direction} is not specified there and
+not specified by user settings, this procedure steps in.
+
+In absence of @code{'direction} the direction for vertically placed scripts is
+calculated taking its @code{'direction-source}, usually @code{Stem}, and its
+@code{'side-relative-direction}, falling back to value@tie{}@code{1}, into
+account.
+For horizontally placed scripts we simply provide @code{LEFT} as a fallback
+value.
+
+As a last resort @code{CENTER} is returned."
+
+  (define (get-direction grob)
+    (if (eqv? (ly:grob-property grob 'side-axis) X)
+        (let* ((par-Y (ly:grob-parent grob Y)))
+          (if (grob::has-interface par-Y 'note-head-interface)
+              LEFT
+              ;; If no NoteHead is found, we provide CENTER as fall back;
+              ;; see comment below
+              CENTER))
+        (let ((dir-src (ly:grob-object grob 'direction-source #f)))
+          (if (and (ly:grob? dir-src) (grob::is-live? dir-src))
+              (* (ly:grob-property dir-src 'direction)
+                 (ly:grob-property grob 'side-relative-direction 1))
+              ;; This might be a script attached to a skip in a Dynamics context
+              ;; between two piano staves, for example.  Some scripts have
+              ;; differing glyphs depending on their direction, so we still pass
+              ;; a non-CENTER direction for downstream code, but we pick it
+              ;; silently because it can be useful, and let the user write an
+              ;; explicit direction specifier if the result does not fit.
+              CENTER))))
+
+  (let ((dir (get-direction grob)))
+    (ly:grob-property grob 'positioning-done)
+    dir))
+
+(define-public ((script::ledger-lines stencil) grob)
+  (let* ((par-y (ly:grob-parent grob Y))
+         (no-ledgers? (ly:grob-property grob 'no-ledgers #t)))
+    (if (and (zero? (ly:grob-property grob 'side-axis Y))
+             (not no-ledgers?))
+        (let* ((script-staff-pos
+                 (ly:grob-property grob 'staff-position
+                   (or ((horizontal-script::calc-staff-position 0) grob) 0)))
+               (staff-symbol (ly:grob-object grob 'staff-symbol))
+               (staff-space (ly:staff-symbol-staff-space grob))
+               ;; calculate thickness of ledger lines
+               (staff-line-thick (ly:staff-symbol-line-thickness grob))
+               (ledger-line-thickness-prop
+                 (ly:grob-property staff-symbol 'ledger-line-thickness))
+               (half-ledger-line-thick
+                 (/
+                   (+
+                      (* (car ledger-line-thickness-prop)
+                         staff-line-thick)
+                      (* (cdr ledger-line-thickness-prop)
+                         staff-space))
+                   2))
+               ;; calculate vertical positions of ledger lines
+               (line-positions
+                 (ly:grob-property staff-symbol 'line-positions))
+               (even-script-pos
+                 (cond
+                   ((even? script-staff-pos) script-staff-pos)
+                   ((negative? script-staff-pos) (1+ script-staff-pos))
+                   ((positive? script-staff-pos) (1- script-staff-pos))
+                   (else 0)))
+               (ledger-line-positions
+                 (remove
+                   (lambda (i)
+                     (or (odd? i)
+                         (if (positive? script-staff-pos)
+                             (<= i (apply max line-positions))
+                             (>= i (apply min line-positions)))))
+                   (map
+                     (lambda (x) (* x (sign script-staff-pos)))
+                     (iota (abs even-script-pos) 1 1))))
+               (length-fraction
+                 (ly:grob-property grob 'length-fraction 0))
+               ;; create ledger line stencils
+               (fake-ledgers
+                 (map
+                   (lambda (pos)
+                     (ly:stencil-translate-axis
+                       (ly:round-filled-box
+                         (interval-scale
+                           (ly:stencil-extent stencil X)
+                           (1+ length-fraction))
+                         (cons
+                           (- half-ledger-line-thick)
+                           half-ledger-line-thick)
+                         (* half-ledger-line-thick 2))
+                       (/ (* (- pos script-staff-pos) staff-space) 2)
+                       Y))
+                   ledger-line-positions)))
+          (apply ly:stencil-add fake-ledgers))
+        empty-stencil)))
+
 (define-public (ly:script-interface::print grob)
+"The @code{stencil} of a script grob."
+
   (define (pick-name name-entry)
     (if (not (pair? name-entry))
         name-entry
@@ -1975,22 +2078,26 @@ some offset from zero in y-axis direction."
 disambiguate between different glyphs")))
                 (car name-entry))))))
 
-  (let ((script-stencil (ly:grob-property grob 'script-stencil)))
-    (if (pair? script-stencil)
-        (let ((key (car script-stencil)))
-          (if (eq? key 'feta)
-              (let ((name (pick-name (cdr script-stencil)))
-                    (font (ly:grob-default-font grob)))
-                (ly:font-get-glyph font (string-append "scripts." name)))
-              (begin
-                (ly:programming-error
-                 "cannot deal with script-stencil key other than 'feta")
-                empty-stencil)))
-        (begin
-          (ly:event-warning (event-cause grob)
-                            (G_ "script-stencil property must be pair: ~a")
-                            script-stencil)
-          empty-stencil))))
+  (let* ((script-stencil (ly:grob-property grob 'script-stencil))
+         (raw-stencil
+           (if (pair? script-stencil)
+               (let ((key (car script-stencil)))
+                 (if (eq? key 'feta)
+                     (let ((name (pick-name (cdr script-stencil)))
+                           (font (ly:grob-default-font grob)))
+                       (ly:font-get-glyph font (string-append "scripts." name)))
+                     (begin
+                       (ly:programming-error
+                        "cannot deal with script-stencil key other than 'feta")
+                       empty-stencil)))
+               (begin
+                 (ly:event-warning
+                   (event-cause grob)
+                   (G_ "script-stencil property must be pair: ~a")
+                   script-stencil)
+                 empty-stencil))))
+    (ly:stencil-add ((script::ledger-lines raw-stencil) grob) raw-stencil)))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; instrument names

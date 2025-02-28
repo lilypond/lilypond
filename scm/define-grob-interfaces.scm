@@ -384,6 +384,12 @@ of music is skipped."
  '(bracket columns))
 
 (ly:add-interface
+ 'horizontal-script-interface
+ "Script placed horizontally left or right from a @code{NoteHead}.  It may need
+ledger lines."
+ '(length-fraction no-ledgers))
+
+(ly:add-interface
  'inline-accidental-interface
  "An inlined accidental (i.e., normal accidentals, cautionary
 accidentals)."

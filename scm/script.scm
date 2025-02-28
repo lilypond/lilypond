@@ -22,6 +22,7 @@
         (avoid-slur . around)
         (padding . 0.20)
         (script-stencil . (feta . ("sforzato" . "sforzato")))
+        (side-axis . ,Y)
         (side-relative-direction . ,DOWN)))
     (accentus
      . (
@@ -31,6 +32,7 @@
         (padding . 0.20)
         (quantize-position . #t)
         (script-priority . -100)
+        (side-axis . ,Y)
         (direction . ,UP)))
     (altcomma
      . (
@@ -38,6 +40,7 @@
         (quantize-position . #t)
         (padding . 0.20)
         (avoid-slur . ignore)
+        (side-axis . ,Y)
         (direction . ,UP)))
 
 
@@ -49,12 +52,14 @@
         (padding . 0.20)
         (quantize-position . #t)
         (script-priority . -100)
+        (side-axis . ,Y)
         (direction . ,UP)))
     (coda
      . (
         (script-stencil . (feta . ("coda" . "coda")))
         (padding . 0.20)
         (avoid-slur . outside)
+        (side-axis . ,Y)
         (direction . ,UP)))
     (comma
      . (
@@ -62,6 +67,7 @@
         (quantize-position . #t)
         (padding . 0.20)
         (avoid-slur . ignore)
+        (side-axis . ,Y)
         (direction . ,UP)))
 
 
@@ -72,18 +78,21 @@
         (skyline-horizontal-padding . 0.20)
         (avoid-slur . around)
         (direction . ,UP)
+        (side-axis . ,Y)
         (script-priority . 180)))
     (downmordent
      . (
         (script-stencil . (feta . ("downmordent" . "downmordent")))
         (padding . 0.20)
         (avoid-slur . around)
+        (side-axis . ,Y)
         (direction . ,UP)))
     (downprall
      . (
         (script-stencil . (feta . ("downprall" . "downprall")))
         (padding . 0.20)
         (avoid-slur . around)
+        (side-axis . ,Y)
         (direction . ,UP)))
 
 
@@ -92,6 +101,7 @@
         (avoid-slur . around)
         (padding . 0.20)
         (script-stencil . (feta . ("espr" .  "espr")))
+        (side-axis . ,Y)
         (side-relative-direction . ,DOWN)))
 
 
@@ -102,6 +112,7 @@
         (avoid-slur . around)
         (outside-staff-priority . 75)
         (script-priority . 175)
+        (side-axis . ,Y)
         (direction . ,UP)))
     (flageolet
      . (
@@ -109,6 +120,7 @@
         (padding . 0.20)
         (avoid-slur . around) ;guessing?
         (direction . ,UP)
+        (side-axis . ,Y)
         (script-priority . 50)))
 
 
@@ -117,6 +129,7 @@
         (avoid-slur . outside)
         (padding . 0.20)
         (script-stencil . (feta . ("halfopen" . "halfopen")))
+        (side-axis . ,Y)
         (direction . ,UP)))
 
     (halfopenvertical
@@ -124,6 +137,7 @@
         (avoid-slur . outside)
         (padding . 0.20)
         (script-stencil . (feta . ("halfopenvertical" . "halfopenvertical")))
+        (side-axis . ,Y)
         (direction . ,UP)))
 
     (haydnturn
@@ -131,6 +145,7 @@
         (script-stencil . (feta . ("haydnturn" . "haydnturn")))
         (padding . 0.20)
         (avoid-slur . inside)
+        (side-axis . ,Y)
         (direction . ,UP)))
 
     (henzelongfermata
@@ -140,6 +155,7 @@
         (avoid-slur . around)
         (outside-staff-priority . 75)
         (script-priority . 175)
+        (side-axis . ,Y)
         (direction . ,UP)))
 
     (henzeshortfermata
@@ -149,6 +165,7 @@
         (avoid-slur . around)
         (outside-staff-priority . 75)
         (script-priority . 175)
+        (side-axis . ,Y)
         (direction . ,UP)))
 
     (ictus
@@ -159,6 +176,7 @@
         (avoid-slur . ignore)
         (padding . 0.20)
         (script-priority . -100)
+        (side-axis . ,Y)
         (direction . ,DOWN)))
 
 
@@ -167,12 +185,14 @@
         (script-stencil . (feta . ("upedalheel" . "upedalheel")))
         (padding . 0.20)
         (avoid-slur . around) ;guessing?
+        (side-axis . ,Y)
         (direction . ,DOWN)))
     (lineprall
      . (
         (script-stencil . (feta . ("lineprall" . "lineprall")))
         (padding . 0.20)
         (avoid-slur . around)
+        (side-axis . ,Y)
         (direction . ,UP)))
     (longfermata
      . (
@@ -181,12 +201,14 @@
         (avoid-slur . around)
         (outside-staff-priority . 75)
         (script-priority . 175)
+        (side-axis . ,Y)
         (direction . ,UP)))
     (ltoe
      . (
         (script-stencil . (feta . ("upedaltoe" . "upedaltoe")))
         (padding . 0.20)
         (avoid-slur . around) ;guessing?
+        (side-axis . ,Y)
         (direction . ,DOWN)))
 
 
@@ -197,12 +219,14 @@
         (avoid-slur . inside)
         ;;(staff-padding . ())
         (quantize-position . #t)
+        (side-axis . ,Y)
         (side-relative-direction . ,DOWN)))
     (mordent
      . (
         (script-stencil . (feta . ("mordent" . "mordent")))
         (padding . 0.20)
         (avoid-slur . around)
+        (side-axis . ,Y)
         (direction . ,UP)))
 
 
@@ -211,12 +235,14 @@
         (avoid-slur . outside)
         (padding . 0.20)
         (script-stencil . (feta . ("open" . "open")))
+        (side-axis . ,Y)
         (direction . ,UP)))
     (outsidecomma
      . (
         (avoid-slur . around)
         (direction . ,UP)
         (padding . 0.20)
+        (side-axis . ,Y)
         (script-stencil . (feta . ("lcomma" . "rcomma")))))
 
 
@@ -225,36 +251,42 @@
         (script-stencil . (feta . ("uportato" . "dportato")))
         (avoid-slur . around)
         (padding . 0.45)
+        (side-axis . ,Y)
         (side-relative-direction . ,DOWN)))
     (prall
      . (
         (script-stencil . (feta . ("prall" . "prall")))
         (padding . 0.20)
         (avoid-slur . around)
+        (side-axis . ,Y)
         (direction . ,UP)))
     (pralldown
      . (
         (script-stencil . (feta . ("pralldown" . "pralldown")))
         (padding . 0.20)
         (avoid-slur . around)
+        (side-axis . ,Y)
         (direction . ,UP)))
     (prallmordent
      . (
         (script-stencil . (feta . ("prallmordent" . "prallmordent")))
         (padding . 0.20)
         (avoid-slur . around)
+        (side-axis . ,Y)
         (direction . ,UP)))
     (prallprall
      . (
         (script-stencil . (feta . ("prallprall" . "prallprall")))
         (padding . 0.20)
         (avoid-slur . around)
+        (side-axis . ,Y)
         (direction . ,UP)))
     (prallup
      . (
         (script-stencil . (feta . ("prallup" . "prallup")))
         (padding . 0.20)
         (avoid-slur . around)
+        (side-axis . ,Y)
         (direction . ,UP)))
 
 
@@ -263,18 +295,21 @@
         (script-stencil . (feta . ("reverseturn" . "reverseturn")))
         (padding . 0.20)
         (avoid-slur . inside)
+        (side-axis . ,Y)
         (direction . ,UP)))
     (rheel
      . (
         (script-stencil . (feta . ("dpedalheel" . "dpedalheel")))
         (padding . 0.20)
         (avoid-slur . around) ;guessing?
+        (side-axis . ,Y)
         (direction . ,UP)))
     (rtoe
      . (
         (script-stencil . (feta . ("dpedaltoe" . "dpedaltoe")))
         (padding . 0.20)
         (avoid-slur . around) ;guessing?
+        (side-axis . ,Y)
         (direction . ,UP)))
 
 
@@ -283,6 +318,7 @@
         (script-stencil . (feta . ("segno" . "segno")))
         (padding . 0.20)
         (avoid-slur . outside)
+        (side-axis . ,Y)
         (direction . ,UP)))
     (semicirculus
      . (
@@ -292,6 +328,7 @@
         (avoid-slur . ignore)
         (padding . 0.20)
         (script-priority . -100)
+        (side-axis . ,Y)
         (direction . ,UP)))
     (shortfermata
      . (
@@ -300,24 +337,28 @@
         (avoid-slur . around)
         (outside-staff-priority . 75)
         (script-priority . 175)
+        (side-axis . ,Y)
         (direction . ,UP)))
     (signumcongruentiae
      . (
         (script-stencil . (feta . ("dsignumcongruentiae" . "usignumcongruentiae")))
         (padding . 0.20)
         (avoid-slur . outside)
+        (side-axis . ,Y)
         (direction . ,UP)))
     (slashturn
      . (
         (script-stencil . (feta . ("slashturn" . "slashturn")))
         (padding . 0.20)
         (avoid-slur . inside)
+        (side-axis . ,Y)
         (direction . ,UP)))
     (snappizzicato
      . (
         (script-stencil . (feta . ("snappizzicato" . "snappizzicato")))
         (padding . 0.20)
         (avoid-slur . outside)
+        (side-axis . ,Y)
         (direction . ,UP)))
     (staccatissimo
      . (
@@ -326,12 +367,14 @@
         (script-stencil . (feta . ("dstaccatissimo" . "ustaccatissimo")))
         (padding . 0.20)
         (skyline-horizontal-padding . 0.10)
+        (side-axis . ,Y)
         (side-relative-direction . ,DOWN)
         (toward-stem-shift . 1.0)
         (toward-stem-shift-in-column . 0.0)))
     (staccato
      . (
         (script-stencil . (feta . ("staccato" . "staccato")))
+        (side-axis . ,Y)
         (side-relative-direction . ,DOWN)
         (quantize-position . #t)
         (avoid-slur . inside)
@@ -345,6 +388,7 @@
         (script-stencil . (feta . ("stopped" . "stopped")))
         (avoid-slur . inside)
         (padding . 0.20)
+        (side-axis . ,Y)
         (direction . ,UP)))
 
 
@@ -355,6 +399,7 @@
         (avoid-slur . inside)
         (padding . 0.20)
         (script-priority . -50)
+        (side-axis . ,Y)
         (side-relative-direction . ,DOWN)))
     (trill
      . (
@@ -362,12 +407,14 @@
         (direction . ,UP)
         (padding . 0.20)
         (avoid-slur . outside)
+        (side-axis . ,Y)
         (script-priority . 150)))
     (turn
      . (
         (script-stencil . (feta . ("turn" . "turn")))
         (avoid-slur . inside)
         (padding . 0.20)
+        (side-axis . ,Y)
         (direction . ,UP)))
 
 
@@ -377,18 +424,21 @@
         (avoid-slur . around)
         (padding . 0.20)
         (direction . ,UP)
+        (side-axis . ,Y)
         (script-priority . 180)))
     (upmordent
      . (
         (script-stencil . (feta . ("upmordent" . "upmordent")))
         (padding . 0.20)
         (avoid-slur . around)
+        (side-axis . ,Y)
         (direction . ,UP)))
     (upprall
      . (
         (script-stencil . (feta . ("upprall" . "upprall")))
         (padding . 0.20)
         (avoid-slur . around)
+        (side-axis . ,Y)
         (direction . ,UP)))
 
 
@@ -397,6 +447,7 @@
         (script-stencil . (feta . ("varcoda" . "varcoda")))
         (padding . 0.20)
         (avoid-slur . outside)
+        (side-axis . ,Y)
         (direction . ,UP)))
     (varcomma
      . (
@@ -404,6 +455,7 @@
         (quantize-position . #t)
         (padding . 0.20)
         (avoid-slur . ignore)
+        (side-axis . ,Y)
         (direction . ,UP)))
     (verylongfermata
      . (
@@ -412,6 +464,7 @@
         (avoid-slur . around)
         (outside-staff-priority . 75)
         (script-priority . 175)
+        (side-axis . ,Y)
         (direction . ,UP)))
     (veryshortfermata
      . (
@@ -420,5 +473,6 @@
         (avoid-slur . around)
         (outside-staff-priority . 75)
         (script-priority . 175)
+        (side-axis . ,Y)
         (direction . ,UP)))
     ))

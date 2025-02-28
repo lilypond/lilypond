@@ -2307,13 +2307,15 @@ adapted for typesetting within a chord grid.")))
             (when (eq? (grob::name grob) 'Script)
               (let* ((cause (ly:grob-property grob 'cause))
                      (art-type
-                       (ly:prob-property cause 'articulation-type)))
+                       (ly:prob-property cause 'articulation-type))
+                     (art-script-def (assv art-type script-defs)))
                 ;; Fill grob-object 'grob-defaults with the relevant entry
                 ;; of `script-defs`. Do this for all Script grobs, this also
                 ;; makes it easier to restrict other overrides to targeted
                 ;; types.
-                (ly:grob-set-object!
-                  grob 'grob-defaults (assv art-type script-defs))))
+                ;; NB Obviously this does not work in contexts missing this
+                ;; engraver.
+                (ly:grob-set-object! grob 'grob-defaults art-script-def)))
             (set! raw-scripts (cons grob raw-scripts)))
           ((script-column-interface this-engraver grob source-engraver)
             (when (eq? (grob::name grob) 'ScriptRow)
@@ -2334,7 +2336,6 @@ adapted for typesetting within a chord grid.")))
                  (filter
                    (lambda (sc) (eqv? (ly:grob-property sc 'side-axis) X))
                    raw-scripts)))
-
             ;; Proceed only if script-grobs with side-axis X are found
             (when (pair? scripts)
               (let* ((dots-array (if dot-col (ly:grob-object dot-col 'dots) #f))
