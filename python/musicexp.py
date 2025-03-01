@@ -4477,8 +4477,14 @@ class StaffGroup(Base):
         self.context_modifications.append(modification)
 
     def print_ly_contents(self, printer):
+        have_group_instrument_name = False
+        if (self.instrument_name is not None
+                or self.short_instrument_name is not None):
+            have_group_instrument_name = True
         for c in self.children:
             if c:
+                if not c.is_group and have_group_instrument_name:
+                    c.have_group_instrument_name = True
                 c.print_ly(printer)
         # Intention: I want to put the content of new StaffGroup in
         #            angled brackets (<< >>)
@@ -4563,16 +4569,23 @@ class StaffGroup(Base):
             printer.dump(r"\new %s" % self.stafftype)
         self.print_ly_overrides(printer)
         if self.stafftype:
-            printer.dump("<<")
+            printer("<<")
             printer.newline()
-        if self.stafftype and self.instrument_name:
-            printer.dump(r"\set %s.instrumentName =" % self.stafftype)
-            printer.dump(escape_instrument_string(self.instrument_name))
-            printer.newline()
-        if self.stafftype and self.short_instrument_name:
-            printer.dump(r"\set %s.shortInstrumentName =" % self.stafftype)
-            printer.dump(escape_instrument_string(self.short_instrument_name))
-            printer.newline()
+            if self.instrument_name:
+                printer(r"\set %s.instrumentName =" % self.stafftype)
+                printer(escape_instrument_string(self.instrument_name))
+                printer.newline()
+            if self.short_instrument_name:
+                printer(r"\set %s.shortInstrumentName =" % self.stafftype)
+                printer(escape_instrument_string(self.short_instrument_name))
+                printer.newline()
+            if not self.is_group and self.have_group_instrument_name:
+                printer(r"\override Staff.InstrumentName.self-alignment-X = "
+                        r"#RIGHT")
+                printer.newline()
+                printer(r"\override Staff.InstrumentName.padding = #1")
+                printer.newline()
+
         if self.sound:
             printer.dump(r'\set %s.midiInstrument = "%s"' %
                          (self.stafftype, self.sound))
@@ -4597,6 +4610,7 @@ class Staff(StaffGroup):
         StaffGroup.__init__(self, command)
         self.is_group = False
         self.part = None
+        self.have_group_instrument_name = False
         self.voice_command = "Voice"
         self.substafftype = None
         self.sound = None
