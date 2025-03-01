@@ -8,7 +8,7 @@
           given, it overrides &lt;group-name&gt; for display.
 
           The first two staves use only &lt;group-name&gt;, while the third and
-          fourth one (with the same &lt;group-name&gt; value) overrided it with
+          fourth one (with the same &lt;group-name&gt; value) override it with
           a custom text.
 
           In a similar vein, &lt;group-abbreviation&gt; can be overridden with

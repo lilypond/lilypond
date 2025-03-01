@@ -6,8 +6,9 @@
     <miscellaneous>
       <miscellaneous-field name="description">This score has multiple
           &lt;display-text&gt; elements in its &lt;part-name-display&gt; block:
-          the word ‘Player’ printed red with a large font size, the word ‘One’
-          printed blue with a small, italic font size.</miscellaneous-field>
+          the word ‘Player’ printed in red with a large font size, the word
+          ‘One’ printed in blue with a small, italic font
+          size.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
