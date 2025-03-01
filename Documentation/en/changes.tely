@@ -556,6 +556,40 @@ now be adjusted with the @code{volta-number-offset} property of
 @itemize
 
 @item
+Incipits may be printed with various context types.
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff \with { instrumentName = "MensuralStaff" }
+      {
+        \incipit { c'4 d' }
+        c'4 d' e' f' g'1
+      }
+
+    \new Staff \with { instrumentName = "KievanStaff" }
+      {
+        \incipit \new KievanStaff { c'4 d' }
+        c'4 d' e' f' g'1
+      }
+    \new Staff
+      \with { instrumentName = "TabStaff" }
+      {
+        \incipit
+          \new TabStaff
+            \with { \magnifyStaff 0.5 \override InstrumentName.font-size = 6 }
+            { c'4 d' }
+        c'4 d' e' f' g'1
+      }
+  >>
+  \layout {
+    indent = 5\cm
+    incipit-width = 2\cm
+  }
+}
+@end lilypond
+
+@item
 Optional additional material can be enclosed in brackets that pass
 through the staff with @code{\startOptionalMaterial} and
 @code{\stopOptionalMaterial}.
