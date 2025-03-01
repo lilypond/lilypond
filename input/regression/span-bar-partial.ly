@@ -1,35 +1,42 @@
-\version "2.19.21"
+\version "2.25.25"
+
 \header {
-  texidoc = "Span bars can be turned on/@/off on a staff-by-staff basis."
+  texidoc = "Span bars can be turned on/@/off on a staff-by-staff basis.
+
+Bar@tie{}2 should have no span bar between the top and the middle staves.
+Bar@tie{}3 should have no span bar between the middle and the bottom staves.
+There should be a fermata at the end of every bar line where no span bar is
+attached."
 }
 
-\layout {
-  \context {
-    \Staff
-  }
-  ragged-right =##t 
-}
+#(ly:set-option 'warning-as-error #t)
 
-\relative \new StaffGroup <<
+testCaesura = { \caesura ^\fermata _\fermata }
+
+\new StaffGroup \with {
+  caesuraType = #'((underlying-bar-line . ""))
+} \fixed c' <<
   \new Staff {
-    c'1
+    b1 \testCaesura
     \once \override Staff.BarLine.allow-span-bar = ##f
-    c1 c1 c1
-    \bar "|."
+    b1 \testCaesura
+    b1 \testCaesura
+    b1 \testCaesura
+    \fine
   }
   \new Staff {
-    a1 a1
+    a1 \testCaesura
+    a1 \testCaesura
     \once \override Staff.BarLine.allow-span-bar = ##f
-    a1 a1
+    a1 \testCaesura
+    a1 \testCaesura
+    \fine
   }
   \new Staff {
-    f1 f1 f1 f1
+    g1 \testCaesura
+    g1 \testCaesura
+    g1 \testCaesura
+    g1 \testCaesura
+    \fine
   }
 >>
-
-
-
-%% Local variables:
-%% LilyPond-indent-level:2
-%% End:
-

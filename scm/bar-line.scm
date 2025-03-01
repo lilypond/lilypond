@@ -1038,6 +1038,10 @@ no elements."
 ;; bulky side. Rewritten by Han-Wen. Ported from c++ to Scheme by Marc Hohl.
 (define-public (ly:span-bar::print grob)
   "The print routine for span bars."
+  ;; Should a span bar be drawn below the given bar line's staff?
+  (define (draw-span-bar-below? bar)
+    (car (ly:grob-object bar 'has-span-bar '(#f . #f))))
+
   (let ((span-bar empty-stencil)
         (model-bar (ly:span-bar::choose-model-bar-line grob))
         ;; note: choose-model-bar-line might have killed the span bar
@@ -1067,10 +1071,7 @@ no elements."
                    (set! extents (append extents (list ext)))
                    (set! make-span-bars
                          (append make-span-bars
-                                 (list (ly:grob-property
-                                        bar
-                                        'allow-span-bar
-                                        #t)))))))))
+                                 (list (draw-span-bar-below? bar)))))))))
          elts)
         ;; we discard the first entry in make-span-bars,
         ;; because its corresponding bar line is the

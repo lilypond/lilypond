@@ -101,13 +101,19 @@ Span_bar_engraver::stop_translation_timestep ()
                         });
 
       const auto num_bars = bars_.size ();
+      bool allow_above = false;
       for (vsize i = 0; i < num_bars; ++i)
         {
-          const bool is_top = (i == 0);
-          const bool is_bottom = (i == (num_bars - 1));
-          set_object (bars_[i], "has-span-bar",
-                      scm_cons (is_bottom ? SCM_BOOL_F : spanbar_->self_scm (),
-                                is_top ? SCM_BOOL_F : spanbar_->self_scm ()));
+          const auto &bar = bars_[i];
+          const bool is_bottom = ((i + 1) == num_bars);
+          const bool allow_below
+            = !is_bottom
+              && from_scm<bool> (get_property (bar, "allow-span-bar"));
+          set_object (
+            bar, "has-span-bar",
+            scm_cons (allow_below ? spanbar_->self_scm () : SCM_BOOL_F,
+                      allow_above ? spanbar_->self_scm () : SCM_BOOL_F));
+          allow_above = allow_below;
         }
       spanbar_ = nullptr;
     }
