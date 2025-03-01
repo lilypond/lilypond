@@ -4504,7 +4504,7 @@ class StaffGroup(Base):
             printer.newline()
         brack = {"brace": "SystemStartBrace",
                  "none": "SystemStartBar",
-                 "line": "SystemStartSquare"}.get(self.symbol, None)
+                 "square": "SystemStartSquare"}.get(self.symbol, None)
         if brack:
             printer.dump("systemStartDelimiter = #'%s" % brack)
             printer.newline()
