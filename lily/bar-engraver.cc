@@ -57,6 +57,7 @@ public:
 
 private:
   void acknowledge_end_spanner (Grob_info_t<Spanner>);
+  void acknowledge_span_bar_stub (Grob_info_t<Item>);
   ly_scm_list calc_bar_type () const;
   void initialize () override;
   void listen_caesura (Stream_event *);
@@ -504,8 +505,20 @@ Bar_engraver::acknowledge_end_spanner (Grob_info_t<Spanner> gi)
 }
 
 void
+Bar_engraver::acknowledge_span_bar_stub (Grob_info_t<Item> info)
+{
+  if (!bar_)
+    {
+      // Tell Span_bar_engraver that drawing a bar to this context is unwanted.
+      set_property (info.grob (), "allow-span-bar", SCM_BOOL_F);
+      set_property (info.grob (), "allow-span-bar-above", SCM_BOOL_F);
+    }
+}
+
+void
 Bar_engraver::boot ()
 {
+  ADD_ACKNOWLEDGER (span_bar_stub);
   ADD_END_ACKNOWLEDGER (spanner);
 
   ADD_LISTENER (caesura);

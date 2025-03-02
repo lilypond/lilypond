@@ -75,6 +75,7 @@ outer staff lines, but their ends may be rounded by
 setting the @code{rounded} property.  The ends of short
 and tick bars are always rounded."
  '(allow-span-bar
+   allow-span-bar-above
    bar-extent
    gap
    glyph
@@ -627,6 +628,15 @@ as bar lines, but it is not a bar line."
    pure-relevant-grobs
    pure-relevant-items
    pure-relevant-spanners))
+
+(ly:add-interface
+ 'span-bar-stub-interface
+ "A stand-in for a bar line that is used when engraving span bars.  This is an
+internal interface even though some of its properties are documented as user
+properties."
+ '(allow-span-bar
+   allow-span-bar-above
+   has-span-bar))
 
 (ly:add-interface
  'stanza-number-interface

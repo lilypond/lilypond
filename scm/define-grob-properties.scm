@@ -1492,6 +1492,8 @@ constructed from a whole number of squiggles.")
 dynamic spanners.")
      (all-elements ,ly:grob-array? "An array of all grobs in this line.  Its
 function is to protect objects from being garbage collected.")
+     (allow-span-bar-above ,boolean? "If false, no inter-staff bar line will
+be created above this item.")
      (annotation ,string? "Annotate a grob for debug purposes.")
      (axis-group-parent-X ,ly:grob? "Containing X@tie{}axis group.")
      (axis-group-parent-Y ,ly:grob? "Containing Y@tie{}axis group.")

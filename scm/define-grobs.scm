@@ -266,6 +266,7 @@ line to visually mark and annotate another grob.")))))
         ;; TODO:
         ;; kern should scale with line-thickness too.
         (allow-span-bar . #t)
+        (allow-span-bar-above . #t)
         (bar-extent . ,ly:bar-line::calc-bar-extent)
         (break-align-anchor . ,ly:bar-line::calc-anchor)
         (break-align-symbol . staff-bar)
@@ -3168,6 +3169,8 @@ a multi-staff bar line that are outside of staves.  See also
 
     (SpanBarStub
      . (
+        (allow-span-bar . #t)
+        (allow-span-bar-above . #t)
         (extra-spacing-height
          . ,pure-from-neighbor-interface::extra-spacing-height)
         (X-extent . ,(grob::inherit-parent-property
@@ -3181,7 +3184,8 @@ a multi-staff bar line that are outside of staves.  See also
                       . ,ly:axis-group-interface::calc-pure-y-common)
                      (pure-relevant-grobs
                       . ,ly:pure-from-neighbor-interface::calc-pure-relevant-grobs)))
-                 (interfaces . (pure-from-neighbor-interface))
+                 (interfaces . (pure-from-neighbor-interface
+                                span-bar-stub-interface))
                  (description . "An auxiliary grob, acting like a
 fake @iref{SpanBar} grob in contexts such as @iref{Lyrics} that
 are crossed by a span bar, to keep span bars taking horizontal

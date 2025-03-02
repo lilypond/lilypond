@@ -40,12 +40,14 @@ class Span_bar_engraver final : public Engraver
   Item *spanbar_ = nullptr;
   bool make_spanbar_ = false;
   std::vector<Item *> bars_;
+  std::vector<Item *> stubs_;
 
 public:
   TRANSLATOR_DECLARATIONS (Span_bar_engraver);
 
 protected:
   void acknowledge_bar_line (Grob_info_t<Item>);
+  void acknowledge_span_bar_stub (Grob_info_t<Item>);
   void stop_translation_timestep ();
   void process_acknowledged ();
 };
@@ -66,6 +68,12 @@ Span_bar_engraver::acknowledge_bar_line (Grob_info_t<Item> info)
       if (bars_.size () >= 2 && !spanbar_)
         make_spanbar_ = true;
     }
+}
+
+void
+Span_bar_engraver::acknowledge_span_bar_stub (Grob_info_t<Item> info)
+{
+  stubs_.push_back (info.grob ());
 }
 
 void
@@ -91,6 +99,25 @@ Span_bar_engraver::stop_translation_timestep ()
 {
   if (spanbar_)
     {
+      // Span_bar_stub_engraver creates stubs in contexts where no bar line was
+      // created.  Usually, this is because there is no Bar_engraver operating
+      // in these contexts; however, if Bar_engraver is operating in one of
+      // those contexts and has been configured not to create a BarLine at this
+      // point, it sets SpanBarStub.allow-span-bar and .allow-span-bar-above to
+      // #f to signal that.  In that case, we include this stub among the
+      // SpanBar's elements so that the SpanBar avoids drawing through the staff
+      // (or whatever context it happens to be).
+      for (auto *const stub : stubs_)
+        {
+          if (!from_scm<bool> (get_property (stub, "allow-span-bar"))
+              || !from_scm<bool> (get_property (stub, "allow-span-bar-above")))
+            {
+              bars_.push_back (stub);
+              Pointer_group_interface::add_grob (
+                spanbar_, ly_symbol2scm ("elements"), stub);
+            }
+        }
+
       // Because of alignAboveContext and alignBelowContext, grobs are not
       // necessarily announced in the order that they should be laid out, so
       // they need to be sorted.
@@ -108,7 +135,9 @@ Span_bar_engraver::stop_translation_timestep ()
           const bool is_bottom = ((i + 1) == num_bars);
           const bool allow_below
             = !is_bottom
-              && from_scm<bool> (get_property (bar, "allow-span-bar"));
+              && from_scm<bool> (get_property (bar, "allow-span-bar"))
+              && from_scm<bool> (
+                get_property (bars_[i + 1], "allow-span-bar-above"));
           set_object (
             bar, "has-span-bar",
             scm_cons (allow_below ? spanbar_->self_scm () : SCM_BOOL_F,
@@ -118,12 +147,14 @@ Span_bar_engraver::stop_translation_timestep ()
       spanbar_ = nullptr;
     }
   bars_.clear ();
+  stubs_.clear ();
 }
 
 void
 Span_bar_engraver::boot ()
 {
   ADD_ACKNOWLEDGER (bar_line);
+  ADD_ACKNOWLEDGER (span_bar_stub);
 }
 
 ADD_TRANSLATOR (Span_bar_engraver,
