@@ -90,37 +90,6 @@ Script_interface::calc_positioning_done (SCM smob)
   return SCM_BOOL_T;
 }
 
-Direction
-Script_interface::get_direction (Grob *me)
-{
-  SCM reldir = get_property (me, "side-relative-direction");
-  const auto relative_dir = from_scm<Direction> (reldir, Direction (1));
-
-  SCM other_elt = get_object (me, "direction-source");
-  if (auto *e = unsmob<Grob> (other_elt))
-    return relative_dir * get_grob_direction (e);
-
-  /* This might be a script attached to a skip in a
-     Dynamics context between two piano staves, for
-     example.  Some scripts have differing glyphs depending
-     on their direction, so we still pass a non-CENTER
-     direction for downstream code, but we pick it silently
-     because it can be useful, and let the user write an
-     explicit direction specifier if the result does not fit. */
-  return CENTER;
-}
-
-MAKE_SCHEME_CALLBACK (Script_interface, calc_direction,
-                      "ly:script-interface::calc-direction", 1);
-SCM
-Script_interface::calc_direction (SCM smob)
-{
-  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  Direction d = Script_interface::get_direction (me);
-  (void) get_property (me, "positioning-done");
-  return to_scm (d);
-}
-
 MAKE_SCHEME_CALLBACK (Script_interface, calc_cross_staff,
                       "ly:script-interface::calc-cross-staff", 1);
 SCM
