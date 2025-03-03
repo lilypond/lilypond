@@ -4439,9 +4439,11 @@ class StaffGroup(Base):
         self.sound = None
         self.short_instrument_name = None
         self.symbol = None
-        self.spanbar = None
+        self.spanbar = 'no'
+        self.connect_barlines = False
         self.children = []
         self.is_group = True
+        self.is_last_staff = False
         self.context_modifications = []
         # See the comment before function `format_staff_info` together with
         # function `update_score_setup` (both in file `musicxml2ly.py`) how
@@ -4482,11 +4484,30 @@ class StaffGroup(Base):
         if (self.instrument_name is not None
                 or self.short_instrument_name is not None):
             have_group_instrument_name = True
+
+        last_child = self.children[-1]
         for c in self.children:
             if c:
+                if c.is_last_staff:
+                    # No need to handle bar line connection for the
+                    # bottommost staff of a score.
+                    c.connect_barlines = True
+                elif c == last_child:
+                    # The bar line connection of a group's bottommost staff
+                    # depends on the parent's value.
+                    c.connect_barlines = self.connect_barlines
+                else:
+                    # Only if the parent's value isn't set to 'True' we
+                    # check `spanbar`.
+                    if self.connect_barlines:
+                        c.connect_barlines = True
+                    else:
+                        c.connect_barlines = (self.spanbar != 'no')
+
                 if not c.is_group and have_group_instrument_name:
                     c.have_group_instrument_name = True
                 c.print_ly(printer)
+
         # Intention: I want to put the content of new StaffGroup in
         #            angled brackets (<< >>)
         # printer.dump ("test") # test is printed twice at the end of a
@@ -4496,7 +4517,6 @@ class StaffGroup(Base):
 
     def needs_with(self):
         needs_with = False
-        needs_with |= self.spanbar == "no"
         needs_with |= self.instrument_name is not None
         needs_with |= self.short_instrument_name is not None
         needs_with |= (self.symbol is not None) and (self.symbol != "bracket")
@@ -4505,9 +4525,6 @@ class StaffGroup(Base):
     def print_ly_context_mods(self, printer):
         if self.instrument_name or self.short_instrument_name:
             printer.dump(r'\consists "Instrument_name_engraver"')
-            printer.newline()
-        if self.spanbar == "no":
-            printer.dump(r"\hide SpanBar")
             printer.newline()
         brack = {"brace": "SystemStartBrace",
                  "none": "SystemStartBar",
@@ -4643,6 +4660,9 @@ class Staff(StaffGroup):
             else:
                 printer(r'\context %s <<' % sub_staff_type)
             printer.newline()
+            if not self.connect_barlines:
+                printer(r'\override Staff.BarLine.allow-span-bar = ##f')
+                printer.newline()
             printer.dump(r"\mergeDifferentlyDottedOn")
             printer.newline()
             printer.dump(r"\mergeDifferentlyHeadedOn")
@@ -4733,6 +4753,10 @@ class Staff(StaffGroup):
 
     def print_ly(self, printer):
         if self.part_information and len(self.part_information) > 1:
+            # TODO: The group delimiter and the bar line connection for a
+            #       multi-staff part is not controlled by `<group-barline>`
+            #       but by `<part-symbol>`.
+            self.connect_barlines = True
             self.stafftype = "PianoStaff"
             self.substafftype = "Staff"
             # printer.dump ('test')

@@ -4719,7 +4719,6 @@ def update_score_setup(score_structure, part_list, voices, parts):
         if not nv_dict:
             if len(part_list) == len(voices) == 1:
                 # If there is only one part, infer the ID.
-                # See input/regression/musicxml/41g-PartNoId.xml.
                 nv_dict = list(voices.values())[0]
                 voices[part_id] = nv_dict
             else:
@@ -4773,6 +4772,12 @@ def update_score_setup(score_structure, part_list, voices, parts):
         part = score_structure.find_part(part_id)
         if part is not None:
             part.set_part_information(staves_info)
+
+    # Mark last (i.e., bottommost) `Staff` element.
+    contents = score_structure.contents
+    while type(contents) == musicexp.StaffGroup:
+        contents = contents.children[-1]
+    contents.is_last_staff = True
 
     sounds = []
     for part in parts:
