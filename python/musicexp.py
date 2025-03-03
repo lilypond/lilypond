@@ -4517,6 +4517,7 @@ class StaffGroup(Base):
 
     def needs_with(self):
         needs_with = False
+        needs_with |= self.spanbar == 'Mensurstrich'
         needs_with |= self.instrument_name is not None
         needs_with |= self.short_instrument_name is not None
         needs_with |= (self.symbol is not None) and (self.symbol != "bracket")
@@ -4525,6 +4526,9 @@ class StaffGroup(Base):
     def print_ly_context_mods(self, printer):
         if self.instrument_name or self.short_instrument_name:
             printer.dump(r'\consists "Instrument_name_engraver"')
+            printer.newline()
+        if self.spanbar == 'Mensurstrich':
+            printer('measureBarType = "-span|"')
             printer.newline()
         brack = {"brace": "SystemStartBrace",
                  "none": "SystemStartBar",
