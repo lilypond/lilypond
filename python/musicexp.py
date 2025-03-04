@@ -4431,6 +4431,15 @@ class EmptyChord(Music):
         printer.dump("<>")
 
 
+system_start_dict = {
+    'brace': 'SystemStartBrace',
+    'bracket': None,  # default of `systemStartDelimiter` in `StaffGroup`
+    'line': None,  # TODO: Implement
+    'none': 'SystemStartBar',
+    'square': 'SystemStartSquare',
+}
+
+
 class StaffGroup(Base):
     def __init__(self, command="StaffGroup"):
         self.stafftype = command
@@ -4488,11 +4497,7 @@ class StaffGroup(Base):
         last_child = self.children[-1]
         for c in self.children:
             if c:
-                if c.is_last_staff:
-                    # No need to handle bar line connection for the
-                    # bottommost staff of a score.
-                    c.connect_barlines = True
-                elif c == last_child:
+                if c == last_child:
                     # The bar line connection of a group's bottommost staff
                     # depends on the parent's value.
                     c.connect_barlines = self.connect_barlines
@@ -4530,9 +4535,7 @@ class StaffGroup(Base):
         if self.spanbar == 'Mensurstrich':
             printer('measureBarType = "-span|"')
             printer.newline()
-        brack = {"brace": "SystemStartBrace",
-                 "none": "SystemStartBar",
-                 "square": "SystemStartSquare"}.get(self.symbol, None)
+        brack = system_start_dict.get(self.symbol, None)
         if brack:
             printer.dump("systemStartDelimiter = #'%s" % brack)
             printer.newline()
@@ -4635,6 +4638,10 @@ class Staff(StaffGroup):
         StaffGroup.__init__(self, command)
         self.is_group = False
         self.part = None
+        # default of `systemStartDelimiter` in `PianoStaff`
+        self.part_symbol = 'brace'
+        self.barline_top = 0
+        self.barline_bottom = 0
         self.have_group_instrument_name = False
         self.voice_command = "Voice"
         self.substafftype = None
@@ -4644,7 +4651,6 @@ class Staff(StaffGroup):
         return False
 
     def print_ly_context_mods(self, printer):
-        # printer.dump ("test") #does nothing.
         pass
 
     def print_ly_contents(self, printer):
@@ -4653,20 +4659,51 @@ class Staff(StaffGroup):
         sub_staff_type = self.substafftype
         if not sub_staff_type:
             sub_staff_type = self.stafftype
-        # printer.dump ("test") # prints test in each staff after the
-        #                       # definitions of the instrument name and
-        #                       # before the definition of the contexts.
 
-        for [staff_id, voices] in self.part_information:
-            # now comes the real staff definition:
+        top = self.barline_top
+        bottom = self.barline_bottom
+        part_len = len(self.part_information)
+        # Ignore invalid range.
+        if top > part_len or bottom > part_len or bottom < top:
+            top = bottom = 0
+        # Normalize.
+        if top == 0 and bottom == part_len:
+            bottom = 0
+
+        for i, [staff_id, voices] in enumerate(self.part_information, start=1):
+            if i == top:
+                printer(r'\new PianoStaff')
+                if self.part_symbol != 'brace':
+                    brack = system_start_dict.get(self.part_symbol, None)
+                    if brack:
+                        printer(r'\with {')
+                        printer.newline()
+                        printer("systemStartDelimiter = #'%s" % brack)
+                        printer.newline()
+                        printer('}')
+                printer('<<')
+                printer.newline()
+
+            # Now comes the real definition of a part's staff (or staves).
             if staff_id:
                 printer(r'\context %s = "%s" <<' % (sub_staff_type, staff_id))
             else:
                 printer(r'\context %s <<' % sub_staff_type)
             printer.newline()
-            if not self.connect_barlines:
-                printer(r'\override Staff.BarLine.allow-span-bar = ##f')
-                printer.newline()
+
+            # Check whether we have to interrupt the bar line connection.
+            # There is nothing to do if all bar lines are to be connected
+            # anyway, or if we are at the bottommost staff.
+            if not (self.connect_barlines
+                    or (self.is_last_staff and i == part_len)):
+                # Within a part, interrupt the bar line connection before
+                # and after the staves (if any) that have the staff group
+                # delimiter, and after the last staff.
+                if (((top or bottom) and not top <= i < bottom)
+                        or i == part_len):
+                    printer(r'\override Staff.BarLine.allow-span-bar = ##f')
+                    printer.newline()
+
             printer.dump(r"\mergeDifferentlyDottedOn")
             printer.newline()
             printer.dump(r"\mergeDifferentlyHeadedOn")
@@ -4749,21 +4786,31 @@ class Staff(StaffGroup):
                             (figuredbass, figuredbass))
             printer('>>')
             printer.newline()
-            # printer.dump ("test") # prints test after each definition of a
-            #                       # context.
-            # printer.newline ()
-        # printer.dump ("test") # prints test after each definition of a
-        #                       # context.
+
+            if i == bottom:
+                printer('>>')
+                printer.newline()
 
     def print_ly(self, printer):
         if self.part_information and len(self.part_information) > 1:
-            # TODO: The group delimiter and the bar line connection for a
-            #       multi-staff part is not controlled by `<group-barline>`
-            #       but by `<part-symbol>`.
-            self.connect_barlines = True
+            # The group delimiter and the bar line connection for a
+            # multi-staff part are not controlled by `<group-barline>` but by
+            # `<part-symbol>`.
+            if self.barline_top or self.barline_bottom:
+                self.symbol = 'none'
+            else:
+                self.symbol = self.part_symbol
+
             self.stafftype = "PianoStaff"
             self.substafftype = "Staff"
             # printer.dump ('test')
+
+        if self.symbol != 'brace':
+            brack = system_start_dict.get(self.symbol, None)
+            if brack:
+                self.add_context_modification("systemStartDelimiter = #'%s"
+                                              % brack)
+
         StaffGroup.print_ly(self, printer)
 
 

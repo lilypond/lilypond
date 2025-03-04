@@ -8,12 +8,17 @@
           28 parts and different kinds of nested, bracketed groups.  Each
           part/group is assigned a name and an abbreviation to be shown before
           the staff.  Also, most of the groups show unbroken bar lines, while
-          the bar lines are broken between the groups.</miscellaneous-field>
+          the bar lines are broken between the groups.
+
+          Both the harp and the organ are multi-staff parts; the latter also
+          uses a &lt;part-symbol&gt; element to set up the
+          brace delimiter (and the non-contiguous bar line of the three
+          staves).</miscellaneous-field>
     </miscellaneous>
   </identification>
   <defaults>
     <scaling>
-      <millimeters>3.1</millimeters>
+      <millimeters>3</millimeters>
       <tenths>40</tenths>
     </scaling>
   </defaults>
@@ -242,13 +247,19 @@
         <instrument-name>Harp</instrument-name>
       </score-instrument>
     </score-part>
+
+    <part-group number="1" type="start">
+      <group-symbol default-x="-8">bracket</group-symbol>
+      <group-barline>no</group-barline>
+    </part-group>
     <score-part id="P23">
-      <part-name>Piano</part-name>
-      <part-abbreviation>Pno.</part-abbreviation>
+      <part-name>Organ</part-name>
+      <part-abbreviation>Org.</part-abbreviation>
       <score-instrument id="P23-I23">
-        <instrument-name>Piano</instrument-name>
+        <instrument-name>Organ</instrument-name>
       </score-instrument>
     </score-part>
+    <part-group number="1" type="stop"/>
 
     <part-group number="1" type="start">
       <group-symbol default-x="-8">bracket</group-symbol>
@@ -1358,12 +1369,19 @@
           <beats>4</beats>
           <beat-type>4</beat-type>
         </time>
-        <staves>2</staves>
+        <staves>3</staves>
+        <part-symbol top-staff="1"
+                     bottom-staff="2"
+                     default-x="16">brace</part-symbol>
         <clef number="1">
           <sign>G</sign>
           <line>2</line>
         </clef>
         <clef number="2">
+          <sign>F</sign>
+          <line>4</line>
+        </clef>
+        <clef number="3">
           <sign>F</sign>
           <line>4</line>
         </clef>
@@ -1418,6 +1436,33 @@
         <voice>2</voice>
         <type>half</type>
         <staff>2</staff>
+      </note>
+      <backup>
+        <duration>4</duration>
+      </backup>
+      <note>
+        <pitch>
+          <step>E</step>
+          <octave>3</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>3</voice>
+        <type>quarter</type>
+        <staff>3</staff>
+      </note>
+      <note>
+        <rest/>
+        <duration>1</duration>
+        <voice>3</voice>
+        <type>quarter</type>
+        <staff>3</staff>
+      </note>
+      <note>
+        <rest/>
+        <duration>2</duration>
+        <voice>3</voice>
+        <type>half</type>
+        <staff>3</staff>
       </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>

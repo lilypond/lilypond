@@ -414,7 +414,7 @@ def staff_attributes_to_lily_staff(mxl_attr):
     if not mxl_attr:
         return musicexp.Staff()
 
-    (staff_id, attributes) = list(mxl_attr.items())[0]
+    (_, attributes) = list(mxl_attr.items())[0]
 
     # We only distinguish between `TabStaff` and `Staff`.  Changing from a
     # tablature to a normal staff (and vice versa) in the middle of a piece
@@ -439,6 +439,13 @@ def staff_attributes_to_lily_staff(mxl_attr):
         staff.string_tunings = staff_attributes_to_string_tunings(attributes)
     else:
         staff = musicexp.Staff()
+
+    # We support `<part-symbol>` only at the beginning of a part.
+    part_symbol = attributes.get_maybe_exist_named_child('part-symbol')
+    if part_symbol:
+        staff.part_symbol = part_symbol.get_text()
+        staff.barline_top = int(getattr(part_symbol, 'top-staff', 0))
+        staff.barline_bottom = int(getattr(part_symbol, 'bottom-staff', 0))
 
     return staff
 
