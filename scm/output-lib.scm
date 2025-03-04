@@ -1960,6 +1960,38 @@ some offset from zero in y-axis direction."
      (variant ly:unpure-call)
      (variant ly:pure-call))))
 
+(define-public (ly:script-interface::print grob)
+  (define (pick-name name-entry)
+    (if (not (pair? name-entry))
+        name-entry
+        (let ((dir (ly:grob-property grob 'direction 0)))
+          (if (not (zero? dir))
+              (index-cell name-entry dir)
+              (begin
+                (when (not (equal? (car name-entry) (cdr name-entry)))
+                  (ly:event-warning
+                   (event-cause grob)
+                   (G_ "script needs an explicit direction specifier to \
+disambiguate between different glyphs")))
+                (car name-entry))))))
+
+  (let ((script-stencil (ly:grob-property grob 'script-stencil)))
+    (if (pair? script-stencil)
+        (let ((key (car script-stencil)))
+          (if (eq? key 'feta)
+              (let ((name (pick-name (cdr script-stencil)))
+                    (font (ly:grob-default-font grob)))
+                (ly:font-get-glyph font (string-append "scripts." name)))
+              (begin
+                (ly:programming-error
+                 "cannot deal with script-stencil key other than 'feta")
+                empty-stencil)))
+        (begin
+          (ly:event-warning (event-cause grob)
+                            (G_ "script-stencil property must be pair: ~a")
+                            script-stencil)
+          empty-stencil))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; instrument names
 

@@ -31,9 +31,6 @@
 class Script_interface
 {
 public:
-  static Stencil get_stencil (Grob *, Direction d);
-
-  DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
 
