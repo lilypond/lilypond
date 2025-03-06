@@ -1050,10 +1050,19 @@ context:
 }
 @end lilypond
 
-Lyrics may be positioned above the staff using one of
-two methods.  The simplest (and preferred) method
-is to use the same syntax as above and explicitly
-specify the position of the lyrics:
+@funindex alignAboveContext
+@funindex alignBelowContext
+
+Lyrics may be positioned above a staff using one of two methods.
+The simplest (and preferred) method is to use the same syntax as
+described above, explicitly specifying the position of the lyrics.
+The argument to @code{alignAboveContext} is the name of a
+@code{Staff} context or one of its siblings (using @code{Voice}
+doesn't work).
+
+Use @code{alignBelowContext} to position lyrics below a staff.
+This is usually only needed to enforce alignment to a staff that
+is not the default.
 
 @lilypond[quote,verbatim]
 \score {
