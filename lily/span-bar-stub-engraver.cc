@@ -22,6 +22,7 @@
 #include "grob.hh"
 #include "grob-properties.hh"
 #include "item.hh"
+#include "ly-scm-list.hh"
 #include "pointer-group-interface.hh"
 #include "engraver.hh"
 
@@ -50,7 +51,7 @@
 class Span_bar_stub_engraver final : public Engraver
 {
   std::vector<Grob *> spanbars_;
-  SCM axis_groups_ = SCM_EOL;
+  ly_scm_list axis_groups_;
 
 public:
   TRANSLATOR_DECLARATIONS (Span_bar_stub_engraver);
@@ -71,7 +72,7 @@ Span_bar_stub_engraver::Span_bar_stub_engraver (Context *c)
 void
 Span_bar_stub_engraver::derived_mark () const
 {
-  scm_gc_mark (axis_groups_);
+  axis_groups_.gc_mark ();
 }
 
 void
@@ -85,7 +86,7 @@ Span_bar_stub_engraver::acknowledge_hara_kiri_group_spanner (Grob_info i)
 {
   SCM s = scm_cons (i.grob ()->self_scm (),
                     i.origin_engraver ()->context ()->self_scm ());
-  axis_groups_ = scm_cons (s, axis_groups_);
+  axis_groups_.insert_before (axis_groups_.begin (), s);
 }
 
 void
@@ -94,38 +95,39 @@ Span_bar_stub_engraver::process_acknowledged ()
   if (!spanbars_.size ())
     return;
 
-  if (!scm_is_pair (axis_groups_))
+  if (axis_groups_.empty ())
     {
       programming_error ("At least one vertical axis group needs to be created "
                          "in the first time step.");
       return;
     }
   Grob *vertical_alignment = Grob::get_root_vertical_alignment (
-    unsmob<Grob> (scm_caar (axis_groups_)));
+    unsmob<Grob> (scm_car (*axis_groups_.begin ())));
   if (
     !vertical_alignment) // we are at the beginning of a score, so no need for stubs
     return;
 
-  for (vsize i = 0; i < spanbars_.size (); i++)
+  for (auto *const spanbar : spanbars_)
     {
-      extract_grob_set (spanbars_[i], "elements", bars);
+      extract_grob_set (spanbar, "elements", bars);
       std::vector<vsize> bar_axis_indices;
-      for (vsize j = 0; j < bars.size (); j++)
+      for (const auto &bar : bars)
         {
-          int i = Grob::get_vertical_axis_group_index (bars[j]);
+          int i = Grob::get_vertical_axis_group_index (bar);
           if (i >= 0)
             bar_axis_indices.push_back (static_cast<vsize> (i));
         }
       std::vector<Context *> affected_contexts;
       std::vector<Grob *> y_parents;
       std::vector<bool> keep_extent;
-      for (SCM s = axis_groups_; scm_is_pair (s); s = scm_cdr (s))
+      for (SCM s : axis_groups_)
         {
-          Context *c = unsmob<Context> (scm_cdar (s));
-          Grob *g = unsmob<Grob> (scm_caar (s));
-          if (!c || !g)
+          auto *const c = unsmob<Context> (scm_cdr (s));
+          if (!c || c->is_removable ())
             continue;
-          if (c->is_removable ())
+
+          auto *const g = unsmob<Grob> (scm_car (s));
+          if (!g)
             continue;
 
           vsize j = Grob::get_vertical_axis_group_index (g);
@@ -152,13 +154,12 @@ Span_bar_stub_engraver::process_acknowledged ()
 
       for (vsize j = 0; j < affected_contexts.size (); j++)
         {
-          Item *it
-            = new Item (Grob_property_info (affected_contexts[j],
-                                            ly_symbol2scm ("SpanBarStub"))
-                          .updated ());
-          it->set_x_parent (spanbars_[i]);
-          Grob_info gi = make_grob_info (it, spanbars_[i]->self_scm ());
-          announce_grob (gi, affected_contexts[j]);
+          auto *const ctx = affected_contexts[j];
+          auto *const it = new Item (
+            Grob_property_info (ctx, ly_symbol2scm ("SpanBarStub")).updated ());
+          it->set_x_parent (spanbar);
+          auto gi = make_grob_info (it, spanbar->self_scm ());
+          announce_grob (gi, ctx);
           if (!keep_extent[j])
             it->suicide ();
         }
@@ -167,22 +168,20 @@ Span_bar_stub_engraver::process_acknowledged ()
   spanbars_.clear ();
 }
 
-// removes all unused contexts
 void
 Span_bar_stub_engraver::stop_translation_timestep ()
 {
-  SCM axis_groups = SCM_EOL;
-  for (SCM s = axis_groups_; scm_is_pair (s); s = scm_cdr (s))
-    {
-      Context *c = unsmob<Context> (scm_cdar (s));
-      Grob *g = unsmob<Grob> (scm_caar (s));
-      if (!c || !g)
-        continue;
-      if (c->is_removable ())
-        continue;
-      axis_groups = scm_cons (scm_car (s), axis_groups);
-    }
-  axis_groups_ = axis_groups;
+  // remove unused contexts
+  axis_groups_.remove_if ([] (SCM s) {
+    auto *const c = unsmob<Context> (scm_cdr (s));
+    if (!c || c->is_removable ())
+      return true;
+
+    if (!unsmob<Grob> (scm_car (s)))
+      return true;
+
+    return false;
+  });
 }
 
 void
