@@ -1180,6 +1180,7 @@ class Lyrics(Base):
     def __init__(self):
         self.lyrics_syllables = []
         self.stanza_id = None
+        self.placement = None
 
     def lyrics_to_ly(self):
         mode = r'\lyricmode {'
@@ -4528,7 +4529,7 @@ class StaffGroup(Base):
 
     def print_chords(self, printer):
         try:
-            for [staff_id, voices] in self.part_information:
+            for [_, voices] in self.part_information:
                 for [v, lyrics, figuredbass, chordnames, fretboards] in voices:
                     if chordnames:
                         printer(r'\context ChordNames = "%s"' % chordnames)
@@ -4546,7 +4547,7 @@ class StaffGroup(Base):
 
     def print_fretboards(self, printer):
         try:
-            for [staff_id, voices] in self.part_information:
+            for [_, voices] in self.part_information:
                 for [v, lyrics, figuredbass, chordnames, fretboards] in voices:
                     if fretboards:
                         printer(r'\context FretBoards = "%s"' % fretboards)
@@ -4699,8 +4700,19 @@ class Staff(StaffGroup):
                 printer.newline()
                 printer.dump('}')
                 printer.newline()
-                for (l, stanza_id) in lyrics:
-                    printer(r'\new Lyrics \lyricsto "%s" {' % v)
+                for (l, stanza_id, placement) in lyrics:
+                    printer(r'\new Lyrics')
+                    if placement == 'above':
+                        printer(r'\with {')
+                        printer.newline()
+                        if self.stafftype == 'PianoStaff':
+                            id = staff_id
+                        else:
+                            id = self.id
+                        printer('alignAboveContext = "%s"' % id)
+                        printer.newline()
+                        printer('}')
+                    printer(r'\lyricsto "%s" {' % v)
                     printer.newline()
                     if stanza_id:
                         printer(r'\set stanza = "%s"' % stanza_id)

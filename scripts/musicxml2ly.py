@@ -3301,6 +3301,9 @@ def extract_lyrics(voice, lyric_key, lyrics_dict):
     base = None
     action = 'store'
     text = ''
+    placement = None
+    placement_warning = False
+
     for elem in voice._elements:
         if not is_note(elem):
             continue
@@ -3346,6 +3349,20 @@ def extract_lyrics(voice, lyric_key, lyrics_dict):
             # attribute, the existing one gets overwritten.  Note that we
             # ignore the `name` attribute.
             if getattr(lyric, 'number', '1') == lyric_key:
+                # We set the vertical lyrics position based on the
+                # `placement` attribute of the very first `<lyric>` element.
+                # This is quite inflexible, unfortunately, but LilyPond
+                # doesn't have any real support for lyrics positioning that
+                # jumps between above and below a staff.
+                placement_attr = getattr(lyric, 'placement', 'below')
+                if placement is None:
+                    placement = placement_attr
+                else:
+                    if placement != placement_attr and not placement_warning:
+                        ly.warning(_('cannot change vertical position of'
+                                     ' lyrics within a part'))
+                        placement_warning = True
+
                 text = musicxml_lyrics_to_text(lyric, None)
 
         action = 'store'
@@ -3370,7 +3387,7 @@ def extract_lyrics(voice, lyric_key, lyrics_dict):
         stanza_id = match.group(2).strip()
         result[0] = match.group(1) + match.group(3)
 
-    lyrics_dict[lyric_key] = (result, stanza_id)
+    lyrics_dict[lyric_key] = (result, stanza_id, placement)
 
 
 def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
@@ -4185,6 +4202,7 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
         ev = musicexp.Lyrics()
         ev.lyrics_syllables = v[0]
         ev.stanza_id = v[1]
+        ev.placement = v[2]
         return_value.lyrics_dict[k] = ev
 
     if options.shift_durations:
@@ -4633,11 +4651,15 @@ def print_voice_definitions(printer, part_list, voices):
 # [staff_id,
 #   [
 #     [lily_voice_id1,
-#       [(lily_lyrics_id11, stanza_id11), (lily_lyrics_id12, stanza_id12) ...],
+#       [(lily_lyrics_id11, stanza_id11, placement11),
+#        (lily_lyrics_id12, stanza_id12, placement12),
+#        ...],
 #       lily_figured_bass_id1,
 #       ...],
 #     [lily_voice_id2,
-#       [(lily_lyrics_id21, stanza_id21), (lily_lyrics_id22, stanza_id22) ...],
+#       [(lily_lyrics_id21, stanza_id21, placement21),
+#        (lily_lyrics_id22, stanza_id22, placement22),
+#        ...],
 #       lily_figured_bass_id2,
 #       ...],
 #     ...
@@ -4650,11 +4672,15 @@ def print_voice_definitions(printer, part_list, voices):
 # ```
 # [
 #   (voice_name_id1,
-#    [(lyrics_id11, stanza_id11), (lyrics_id12, stanza_id12), ...]
+#    [(lyrics_id11, stanza_id11, placement11),
+#     (lyrics_id12, stanza_id12, placement12),
+#     ...]
 #    figured_bass_id1,
 #    ...)
 #   (voice_name_id2,
-#    [(lyrics_id21, stanza_id21), (lyrics_id22, stanza_id22), ...]
+#    [(lyrics_id21, stanza_id21, placement21),
+#     (lyrics_id22, stanza_id22, placement22),
+#     ...]
 #    figured_bass_id2,
 #    ...)
 #   ...
@@ -4665,8 +4691,10 @@ def format_staff_info(part_id, staff_id, raw_voices):
     for (v, lyricsids, figured_bass, chordnames, fretboards) in raw_voices:
         voice_name = music_xml_voice_name_to_lily_name(part_id, v)
         voice_lyrics = [
-            (music_xml_lyrics_name_to_lily_name(part_id, v, l), stanza_id)
-            for (l, stanza_id) in lyricsids]
+            (music_xml_lyrics_name_to_lily_name(part_id, v, l),
+             stanza_id,
+             placement)
+            for (l, stanza_id, placement) in lyricsids]
         figured_bass_name = ''
         if figured_bass:
             figured_bass_name = music_xml_figuredbass_name_to_lily_name(
@@ -4713,7 +4741,9 @@ def update_score_setup(score_structure, part_list, voices, parts):
                     if voice.voicedata._start_staff == s:
                         order = []
                         for i in voice.lyrics_order:
-                            order.append((i, voice.lyrics_dict[i].stanza_id))
+                            order.append((i,
+                                          voice.lyrics_dict[i].stanza_id,
+                                          voice.lyrics_dict[i].placement))
                         raw_voice = (voice_name,
                                      order,
                                      voice.figured_bass,
@@ -4728,7 +4758,9 @@ def update_score_setup(score_structure, part_list, voices, parts):
             for (voice_name, voice) in nv_dict.items():
                 order = []
                 for i in voice.lyrics_order:
-                    order.append((i, voice.lyrics_dict[i].stanza_id))
+                    order.append((i,
+                                  voice.lyrics_dict[i].stanza_id,
+                                  voice.lyrics_dict[i].placement))
                 raw_voice = (voice_name,
                              order,
                              voice.figured_bass,
