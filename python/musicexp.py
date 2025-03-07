@@ -4566,7 +4566,10 @@ class StaffGroup(Base):
         self.print_chords(printer)
         self.print_fretboards(printer)
         if self.stafftype:
-            printer.dump(r"\new %s" % self.stafftype)
+            if isinstance(self, Staff) and self.stafftype != 'PianoStaff':
+                printer.dump(r'\new %s = "%s"' % (self.stafftype, self.id))
+            else:
+                printer.dump(r'\new %s' % self.stafftype)
         self.print_ly_overrides(printer)
         if self.stafftype:
             printer("<<")
