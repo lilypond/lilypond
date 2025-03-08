@@ -4,7 +4,9 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">A simple piano staff</miscellaneous-field>
+      <miscellaneous-field name="description">A simple piano
+          staff, i.e., two voices, each on a separate
+          staff.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -16,22 +18,41 @@
     <measure number="1">
       <attributes>
         <divisions>96</divisions>
-        <key><fifths>0</fifths></key>
-        <time><beats>4</beats><beat-type>4</beat-type></time>
+        <key>
+          <fifths>0</fifths>
+        </key>
+        <time>
+          <beats>4</beats>
+          <beat-type>4</beat-type>
+        </time>
         <staves>2</staves>
-        <clef number="1"><sign>G</sign><line>2</line></clef>
-        <clef number="2"><sign>F</sign><line>4</line></clef>
+        <clef number="1">
+          <sign>G</sign>
+          <line>2</line>
+        </clef>
+        <clef number="2">
+          <sign>F</sign>
+          <line>4</line>
+        </clef>
       </attributes>
       <note>
-        <pitch><step>F</step><octave>4</octave></pitch>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
         <duration>384</duration>
         <voice>1</voice>
         <type>whole</type>
         <staff>1</staff>
       </note>
-      <backup><duration>384</duration></backup>
+      <backup>
+        <duration>384</duration>
+      </backup>
       <note>
-        <pitch><step>B</step><octave>2</octave></pitch>
+        <pitch>
+          <step>B</step>
+          <octave>2</octave>
+        </pitch>
         <duration>384</duration>
         <voice>2</voice>
         <type>whole</type>

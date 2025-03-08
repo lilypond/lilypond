@@ -4,9 +4,12 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">A multi-voice / multi-staff part
-          with a clef change in the middle of a measure and a &lt;backward&gt;
-          for voice 2 jumping back beyond that clef change.</miscellaneous-field>
+      <miscellaneous-field name="description">A part with three voices; two on
+          the upper staff (voice two has a single chord) and one on the lower
+          staff.  There is a clef change in the upper staff in the middle of
+          measure one and a &lt;backup&gt; element for voice three, jumping back
+          beyond that clef change to the start of the
+          part.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -116,6 +119,42 @@
         <notations>
           <slur number="1" type="stop"/>
         </notations>
+      </note>
+      <backup>
+        <duration>168</duration>
+      </backup>
+      <note>
+        <pitch>
+          <step>B</step>
+          <octave>3</octave>
+        </pitch>
+        <duration>168</duration>
+        <voice>2</voice>
+        <type>eighth</type>
+        <staff>1</staff>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>168</duration>
+        <voice>2</voice>
+        <type>eighth</type>
+        <staff>1</staff>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>168</duration>
+        <voice>2</voice>
+        <type>eighth</type>
+        <accidental>natural</accidental>
+        <staff>1</staff>
       </note>
       <backup>
         <duration>1008</duration>
@@ -391,7 +430,5 @@
         </notations>
       </note>
     </measure>
-    <!--=======================================================-->
   </part>
-  <!--=========================================================-->
 </score-partwise>
