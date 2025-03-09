@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 32cd4b7fa952f810c94a2296f3dad0fa85f0eb5d
+    Translation of GIT committish: 7921dca2b11ee884bb547b3d4e6926737838160c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -232,7 +232,7 @@ musicD = {
 Notez bien que, comme précédemment, c'est la clef la plus large d'un
 regroupement de portées qui détermine le positionnement horizontal de
 toutes les clefs d'un système. Ceci signifie, par exemple, qu'une
-partiition pour piano comprtant une clef de sol et une clef d'alto ne
+partition pour piano comportant une clef de sol et une clef de fa ne
 sera en rien modifiée.
 
 Pour retrouver les valeurs par défaut antérieures, quelle qu'en soit la
@@ -263,8 +263,8 @@ le fournit. Il en sera ainsi plus facile aux nouveaux utilisateurs
 d'utiliser LilyPond au sein d'Emacs.
 
 Ceci pourrait perturber certaines configurations d'Emacs existantes sans
-une simple adaptation du fichier d'initialisation d'Emacs. Voisci
-comment, par exemple, spécifier l'utilissation du @code{lilypond-mode} à
+une simple adaptation du fichier d'initialisation d'Emacs. Voici
+comment, par exemple, spécifier l'utilisation du @code{lilypond-mode} à
 l'aide de la macro @code{use-package} d'Emacs :
 
 @example
@@ -286,10 +286,10 @@ groupes, vous pouvez aisément passer ce qui suit.
 
 @itemize
 @item
-LilyPond requiert désormais Guile 3.0.7. Comme précédemment, il est
-fortement recommandé de générer le @emph{bytecode} des fichiers
-@file{.scm} lors de la compilation en lançant @command{make
-install-bytecode} avant @command{make install}.
+LilyPond requiert désormais Guile 3.0.7 ou suprérieur. Le @emph{bytecode}
+des fichiers @file{.scm} est par défaut généré. Si tel n'est pas votre
+désir, qu'elle qu'en soit la raison, ajoutez l'option @code{BYTECODE=no}
+à la commande @command{make}.
 
 @end itemize
 
@@ -305,7 +305,7 @@ install-bytecode} avant @command{make install}.
 @itemize
 
 @item
-Certains faux changements de clefs ont été réglés.
+Certains faux changements de clef ont été réglés.
 
 @lilypond[quote,verbatim]
 {
@@ -322,6 +322,19 @@ Certains faux changements de clefs ont été réglés.
 @unnumberedsec Améliorations en matière de rythme
 
 @itemize
+
+@item
+La propriété @code{TimeSignature@/.fraction} accepte désormais une valeur
+@code{number-@/pair?}, ce qui est plus répandu que l'ancienne
+@code{fraction?}. Ceci permet quelques circonvolutions sans avoir à
+apporter de dérogation à la propriété @code{stencil}.
+
+@lilypond[quote,verbatim]
+{
+  \once \override Timing.TimeSignature.fraction = #'(-1 . 12)
+  R1
+}
+@end lilypond
 
 @item
 @code{\slashedGrace} imprime désormais des ligatures barrées.
@@ -357,6 +370,11 @@ L'apparence de la barre peut se personnaliser par dérogations aux
 sous-propriétés @code{details} @code{over-beam-height},
 @code{slash-slope}, @code{slash-side}, @code{slash-stem-fraction},
 @code{slash-thickness} et @code{slash-X-positions}.
+
+@item
+La commande @code{\autoBeamOff} interrompt désormais immédiatement la
+ligature automatique. Auparavant, ses effets étaient différés lorsque le
+graveur de ligature automatique était actif.
 
 @item
 Il est désormais possible d'aligner par la droite différents types de
@@ -428,18 +446,17 @@ subdivision d'une ligature. La simple activation de
 @code{subdivideBeams} divise automatiquement tous les intervalles par
 défaut. Trois nouvelles propriétés ont été introduites pour permettre
 d'affiner la subdivision automatique des ligatures :
-@code{beamMinimumSubdivision},
-@code{beamMaximumSubdivision} et @code{respectIncompleteBeams}.
-@code{beamMinimumSubdivision} limite les intervalles de
-subdivision de manière identique à ce que @code{beatBase} faisait
-auparavant (réduction de la fréquence des subdivisions de ligatures).
-@code{beamMaximumSubdivision} limite globalement le nombre de
-tronçons supprimés aux emplacements de subdivision.
+@code{beamMinimumSubdivision}, @code{beamMaximumSubdivision} et
+@code{respectIncompleteBeams}. @code{beamMinimumSubdivision} limite les
+intervalles de subdivision de manière identique à ce que @code{beatBase}
+faisait auparavant (réduction de la fréquence des subdivisions de
+ligatures). @code{beamMaximumSubdivision} limite globalement le nombre
+de tronçons supprimés aux emplacements de subdivision.
 @code{respectIncompleteBeams} limite le nombre de moignons lorsque le
 temps restant ne complèterait pas la métrique de la subdivision. Régler
-@code{beamMinimumSubdivision} à la valeur de @code{beatBase}
-dans tous les cas, y compris lorsque @code{beatBase} varie
-implicitement, préserve le comportement antérieur.
+@code{beamMinimumSubdivision} à la valeur de @code{beatBase} dans tous
+les cas, y compris lorsque @code{beatBase} varie implicitement, préserve
+le comportement antérieur.
 
 @item
 Sont désormais disponibles des glyphes de crochets « empilés ». Tous les
@@ -481,8 +498,16 @@ Le style de @code{TimeSignature} @code{'single-digit} a été renommé en
 @itemize
 
 @item
+Il est désormais possible de positionner un @code{Script} sur la gauche
+ou sur la droite d'un @code{NoteHead}.
+
+@lilypond[quote,verbatim]
+{ <c' g' c''\atRight \mordent e''>2 }
+@end lilypond
+
+@item
 Les soufflets de style Ferneyhough acceptent désormais un cercle
-@emph{al niente}.
+@dfn{al niente}.
 
 @lilypond[quote,verbatim]
 {
@@ -520,7 +545,7 @@ d'espace vertical.
 @item
 Les fins alternatives d'un @code{\repeat volta} ne créent plus de barre
 de mesure invisible. Ceci peut affecter le saut de ligne, l'espacement
-horizontal et l'extension d'un @code{VoltaBracket} lorsqu'une
+horizontal et la longueur d'un @code{VoltaBracket} lorsqu'une
 alternative débute ou se termine en l'absence de barre de mesure. Dans
 le cas d'un changement non désiré, il est possible d'ajouter un
 @code{\bar ""} ou toute autre commande créant un objet @code{BarLine}
@@ -550,6 +575,54 @@ reprise peut désormais s'ajuster à l'aide de la propriété
 @unnumberedsec Améliorations en matière d'annotations éditoriales
 
 @itemize
+
+@item
+Les @emph{incipits} peuvent désormais adopter différents types de
+contexte.
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff \with { instrumentName = "MensuralStaff" }
+      {
+        \incipit { c'4 d' }
+        c'4 d' e' f' g'1
+      }
+
+    \new Staff \with { instrumentName = "KievanStaff" }
+      {
+        \incipit \new KievanStaff { c'4 d' }
+        c'4 d' e' f' g'1
+      }
+    \new Staff
+      \with { instrumentName = "TabStaff" }
+      {
+        \incipit
+          \new TabStaff
+            \with { \magnifyStaff 0.5 \override InstrumentName.font-size = 6 }
+            { c'4 d' }
+        c'4 d' e' f' g'1
+      }
+  >>
+  \layout {
+    indent = 5\cm
+    incipit-width = 2\cm
+  }
+}
+@end lilypond
+
+@item
+Du matériau optionnel peut être indiqué par des crochets englobant la
+portée à l'aide de @code{\startOptionalMaterial} et
+@code{\stopOptionalMaterial}.
+
+@lilypond[quote]
+{
+  \startOptionalMaterial
+  c'1
+  \stopOptionalMaterial
+}
+@end lilypond
 
 @item
 Le @code{FingerGlideSpanner} permet maintenant de connecter des objets
@@ -745,7 +818,7 @@ fonte resserrée ou expansée.
 @item
 Le texte d'un objet @code{VoltaBracket} tel que défini par un
 @code{\override Score.VoltaBracket.text = @dots{}} ou @code{\set
-Score.repeatCommands =  @dots{}} n'est plus automatiquement rendu dans
+Score.repeatCommands = @dots{}} n'est plus automatiquement rendu dans
 une fonte musicale ; il faut pour cela utiliser la commande de
 @emph{markup} @code{\volta-number} sur les parties qui le nécessitent.
 Il faudra donc, par exemple, convertir
@@ -805,7 +878,7 @@ myText = \markup {
 Pour plus de clarté, la commande de @emph{markup} @code{\roman} a été
 renommée en @code{\serif}. Aussi, pour modifier une propriété
 @code{font-family} réglée à @code{sans} ou @code{typewriter}, il faut
-faut la définir à @code{serif}, non plus à @code{roman}.
+la définir à @code{serif}, non plus à @code{roman}.
 
 
 @item
@@ -826,10 +899,10 @@ augmentée en proportion inverse afin de compenser dans les cas habituels.
 
 @item
 Certains glyphes, tels que « one » ou « accidentals.hufnagelM1 », de la
-fonte Emmentaler avaient une boîte englobante trop larhe en raison d'un
-bogue dans la chaîne de production des fontes. Ceci est désormais
-corrigé, mais certaines différences pourraient apparaître dans la
-typographie puisque des boîtes englobantes plus étroites peuvent
+fonte Emmentaler avaient une boîte englobante excessivement large en
+raison d'un bogue dans la chaîne de production des fontes. Ceci est
+désormais corrigé, mais certaines différences pourraient apparaître dans
+la typographie puisque des boîtes englobantes plus étroites peuvent
 entraîner une typographie plus resserrée.
 
 @item
@@ -864,11 +937,6 @@ altérations ont été ajoutées : @code{\text-doubleflat},
 @unnumberedsec Améliorations pour instruments à portées multiples
 
 @itemize
-@item
-La commande @code{\autoBeamOff} interrompt désormais immédiatement la
-ligature automatique. Auparavant, ses effets étaient différés lorsque le
-graveur de ligature automatique était actif.
-
 @item
 Il n'est désormais plus nécessaire de désactiver les ligatures
 automatiques dans le cadre d'un @code{\crossStaff}.
@@ -964,14 +1032,10 @@ permettant d'indiquer quelque hampe non nécessaire.
     \clef "petrucci-c4"
     \[ a1 g f e \]
     \[ a1 g\longa \]
-    \[ \once \override NoteHead.left-down-stem = ##t
-       a\breve b
-       \once \override NoteHead.right-down-stem = ##t
-       g\longa \]
-    \[ \once \override NoteHead.right-down-stem = ##t
-       b\maxima
-       \once \override NoteHead.right-up-stem = ##t
-       g\longa \]
+    \[ \tweak left-down-stem ##t a\breve b
+       \tweak right-down-stem ##t g\longa \]
+    \[ \tweak right-down-stem ##t b\maxima
+       \tweak right-up-stem ##t g\longa \]
   }
   \layout {
     \context {
@@ -986,7 +1050,7 @@ permettant d'indiquer quelque hampe non nécessaire.
 
 @item
 L'utilisation du fichier @file{gregorian.ly} est désuète. Bien que
-toujours fonctionnelle pour raison de compatibilté ascendante, elle
+toujours distribué pour raison de compatibilté ascendante, son inclusion
 devrait être remplacée par l'utilisation d'un contexte
 @code{VaticanaScore}, avec si besoin des adaptations manuelles dans le
 bloc @code{\layout}. Un code tel que
@@ -1020,7 +1084,7 @@ devrait devenir
 @end itemize
 
 @node World music improvements
-@subsubheading Améliorations pour les musiques du monde
+@unnumberedsec Améliorations pour les musiques du monde
 
 @itemize
 @item
@@ -1037,18 +1101,104 @@ fonctionnelle pour des raisons de rétrocompatiblité -- si l'on charge
 
 @itemize
 @item
+La nouvelle fonction Scheme @code{ly:number->duration} convertit une
+durée exprimée unité relative de ronde en @code{ly:duration}. Le log, le
+nombre de points et le facteur d'échelonnement sont déterminés
+automatiquement.
+
+@item
+Les commandes de @emph{markup} @code{\hspace} et @code{\vspace}
+permettent d'insérer de l'espace, qui peut être négatif. Les autres
+objets sont déplacées en conséquence. Ce déplacement peut s'indiquer par
+une flêche qui s'imprimera à l'aide de la nouvelle commande
+@code{annotate-moving}. Il est à noter que ces flêches ne reflètent pas
+l'étendue réelle des objets créés par @code{\vspace} et @code{\hspace} ;
+on pourrait utiliser @code{\box} à cette fin.
+
+@lilypond[verbatim,quote]
+\markup {
+  left \annotate-moving \hspace #4 right
+  \column { top \annotate-moving \vspace #-4/3 bottom }
+}
+@end lilypond
+
+@item
+La nouvelle commande @code{\contextPropertyCheck} vérifie qu'une
+propriété est définie à une valeur attendue ou n'est pas définie
+dans un contexte spécifique.
+
+@item
+Un certain nombre de propriétés de contexte qui jusqu'à présent
+reposaient sur @code{ly:moment} prennent dorénavant des nombres
+rationnels. Afin de facilité cette transition, chaque propriété
+numérique est appairée avec une propriété de secours @code{ly:moment}.
+L'utilisation d'une propriété de secours accède de manière transparente
+à la propriété numérique et déclenche un avertissement.
+
+@indentedblock
+@multitable @columnfractions 0.5 0.5
+@item
+@b{Propriété de contexte obsolète}
+@tab
+@b{Nouvelle propriété de contexte}
+@c rows are sorted by deprecated property name
+@item
+@code{baseMoment}
+@tab
+@code{beatBase}
+@item
+@code{completionUnitAsMoment}
+@tab
+@code{completionUnit}
+@item
+@code{gridIntervalAsMoment}
+@tab
+@code{gridInterval}
+@item
+@code{measureLengthAsMoment}
+@tab
+@code{measureLength}
+@item
+@code{minimumPageTurnLength}
+@tab
+@code{pageTurnMinimumRestLength}
+@item
+@code{minimumRepeatLengthForPageTurn}
+@tab
+@code{pageTurnMinimumRepeatLength}
+@item
+@code{proportionalNotationDurationAsMoment}
+@tab
+@code{proportionalNotationDuration}
+@item
+@code{tempoWholesPerMinuteAsMoment}
+@tab
+@code{tempoWholesPerMinute}
+@item
+@code{tupletSpannerDurationAsMoment}
+@tab
+@code{tupletSpannerDuration}
+@item
+@code{voltaSpannerDurationAsMoment}
+@tab
+@code{voltaSpannerDuration}
+@end multitable
+@end indentedblock
+
+@item
+@code{\tempo @var{dur} = @var{min} - @var{max}} déterminait la propriété
+de contexte @code{tempoWholesPerMinute} après arrondi à l'entier le plus
+proche. Ceci n'est plus le cas. Par voie de conséquence, le tempo MIDI
+peut être modifié dans certains cas.
+
+@item
 Les fonctions Scheme @code{duration-length} et @code{ly:duration-length}
-ont été respectivement renommées en@code{ly:duration->number} et
+ont été respectivement renommées en @code{ly:duration->number} et
 @code{ly:duration->moment}.
 
 @item
 La nouvelle fonction Scheme @code{ly:parser-append-to-include-path}
 ajoute son argument au chemin de recherche courant de l'analyseur.
-
-@item
-La propriété de contexte @code{baseMoment} est abandonnée au profit de
-@code{beatBase}. L'utilisation de @code{baseMoment} accède de manière
-transparente à @code{beatBase} et génère un message d'avertissement.
 
 @item
 La valeur de la propriété de contexte @code{timeSignatureSettings}
@@ -1081,8 +1231,8 @@ Emmentaler, pour s'harmoniser avec les nombres (contrairement à celles
 déjà disponibles pour les altérations).
 
 @item
-Ont été ajoutés à la fonte Emmentaler les glyphes figure-dash (U+2012)
-et en-dash (U+2013) (quart de catradin).
+Ont été ajoutés à la fonte Emmentaler les glyphes figure-dash (U+2012),
+en-dash (U+2013) (quart de catradin) et slash (U+002F).
 
 @item
 Une espace pour nombres (U+2007), une espace fine (U+2009) et une espace
@@ -1101,8 +1251,15 @@ décalage peut se contrôler en ligne de commande à l'aide de l'option
 argument aux options de l'extrait.
 
 @item
+Il est possible d'utiliser en ligne de commande les diverses options de
+@command{musicxml2ly} en tant qu'options de la commande
+@code{musicxmlfile} de @command{lilypond-book}. Bien que disponible
+depuis la version 2.15.9 publiée en 2011, ceci n'était jusqu'alors pas
+documenté.
+
+@item
 Deux nouvelles options en ligne de commande font leur apparition :
-@option{-dfirst} and @option{-dlast}. Elles sont équivalents aux
+@option{-dfirst} and @option{-dlast}. Elles sont équivalentes aux
 réglages respectifs de @code{showFirstLength} et @code{showLastLength}
 dans un fichier LilyPond. Par exemple, taper
 
@@ -1119,12 +1276,6 @@ Est désormais disponible un nouveau manuel constituant un index de tous
 les objets graphiques (@emph{grobs}) de LilyPond. Il est basé sur le
 @uref{https://github.com/joram-berger/visualindex,
 travail de Joram Berger pour LilyPond 2.19}.
-
-@item
-L'impression des arpeggios a été améliorée de par l'utilisation de
-nouvelles valeurs par défaut différentes pour la propriété
-@code{Arpeggio@/.positions}. Les ajustements à cette propriété sont
-susceptibles d'évoluer.
 
 @item
 LilyPond prend en charge les annotations au fil du texte, autrement dit
@@ -1251,7 +1402,7 @@ Les deux nouvelles fonctions de @emph{markup} @code{\abs-hspace} et
 qui subsistent quelle que soit la taille de portée en cours.
 
 @item
-Les donnes émises par l'option en ligne de commande
+Les données émises par l'option en ligne de commande
 @option{-dshow-available-fonts} sont désormais envoyées sur la sortie
 standard.
 
@@ -1306,7 +1457,7 @@ axes peut requérir des valeurs différentes.
 nouvelles commandes permettant de manipuler les propriétés de contexte.
 La première insère la valeur courante dans une pile et définit une
 nouvelle valeur, alors que la seconde suprime cette valeur de la pile et
-restaure la valeur initale.
+restaure la valeur initiale.
 
 @lilypond[quote,verbatim]
 {
@@ -1329,6 +1480,76 @@ La nouvelle propriété d'objet graphique @code{whiteout-color} permet de
 définir la couleur de mise en surbrillance. Dans la même veine, la
 commande de @emph{markup} @code{\whiteout} attend une propriété
 @code{color} pour faire de même.
+
+@item
+Le script @command{musicxml2ly} a été complètement remanié afin de mieux
+convertir les fichiers MusicXML en LilyPond. Il prend désormais en
+charge plus de fonctionnalités et éléments MusicXML et tente d'être plus
+fiable dans la conversion afin de respecter au mieux l'apparence
+originelle.
+
+Voici une liste des quelques changements notables, exception faite des
+corrections de bogue.
+
+@itemize
+@item Le script est beaucoup plus rapide.
+
+@item Le chevauchement et l'imbrication des liaisons fonctionnent comme
+on est en droit de s'y attendre.
+
+@item Meilleure prise en charge automatique pour contrecarrer l'infâme
+ticket 34 de LilyPond (problème de synchronisation avec une appogiature
+en début de pièce avec plusieurs portées).
+
+@item Prise en charge des trémolos sur deux hampes et n-olets imbriqués.
+
+@item Prise en charge de la couleur et de la taille de fonte pour la
+plupart des éléments MusicXML. Une nouvelle option en ligne de commande
+@option{--dynamics-scale} aide à compenser les différences de taille des
+glyphes de nuance pour diverses fonte musicales.
+
+@item Prise en charge correcte des fins d'octaviation pour les fichiers
+MusicXML créés par Finale. Le script vérifie l'élément @code{<software>}
+pour déterminer le logiciel de notation utilisé. On peut y déroger si
+nécessaire à l'aide de l'option en ligne de commande
+@option{--ottavas-end-early}.
+
+@item L'option @option{--shift-meter} a été remplacée par l'option
+@option{--shift-durations} qui utilise une syntaxe plus simple.
+
+@item La nouvelle option en ligne de commande @option{--no-tagline} supprime
+la génération de la @emph{tagline} de LilyPond.
+
+@item La nouvelle option en ligne de commande @option{--book} encapsule
+la partition de premier niveau dans un @code{\book}.
+
+@item Les numéros de mesure insérés en commentaire dans le fichier
+LilyPond créé sont conformes, leur valeur indiquant la mesure
+précédente.
+
+@end itemize
+
+@item
+La commande de @emph{markup} @code{\page-ref} dispose d'une nouvelle
+propriété @code{x-align} destinée à contrôler l'alignement horizontal de
+la jauge de remplacement.
+
+@lilypond[quote,verbatim]
+\markup {
+  \box
+    \page-ref #'foo "???" "?" " aligné à droite (par défaut)"
+}
+\markup {
+  \box
+    \override #`(x-align . ,LEFT)
+    \page-ref #'foo "???" "?" " aligné à gauche"
+}
+\markup {
+  \box
+    \override #'(x-align . -2.5)
+    \page-ref #'foo "???" "?" " repoussé sur la gauche"
+}
+@end lilypond
 
 @end itemize
 
