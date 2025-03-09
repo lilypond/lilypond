@@ -1234,7 +1234,7 @@ class Header(Base):
                     printer.dump(r'\line { "' + s + '" }')
                 printer.newline()
                 printer.dump('}')
-                printer.newline()
+                printer.print_verbatim('\n')
             else:
                 printer.dump(value)
         printer.newline()
@@ -1245,9 +1245,8 @@ class Header(Base):
         for (k, v) in self.header_fields.items():
             if v:
                 self.format_header_strings(k, v, printer)
-        # printer.newline()
         printer.dump("}")
-        printer.newline()
+        printer.print_verbatim('\n')
         printer.newline()
 
 
@@ -1323,7 +1322,7 @@ class Paper(Base):
             printer.newline()
 
         printer.dump('}')
-        printer.newline()
+        printer.print_verbatim('\n')
         printer.newline()
 
 
@@ -1355,7 +1354,7 @@ class Layout(Base):
                 printer.dump('}')
                 printer.newline()
             printer.dump('}')
-            printer.newline()
+            printer.print_verbatim('\n')
             printer.newline()
 
 
@@ -1829,9 +1828,9 @@ class BarLine(Music):
         if self.bar_number > 1:
             printer.print_verbatim(' %% %d' % (self.bar_number - 1))
             if self.bar_number % 10 == 0:
+                printer.print_verbatim('\n')
                 printer.newline()
-                printer.newline()
-                printer.dump(r"\barNumberCheck #%d " % self.bar_number)
+                printer(r'\barNumberCheck #%d' % self.bar_number)
         printer.newline()
 
     def ly_expression(self):
