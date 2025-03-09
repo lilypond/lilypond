@@ -1052,7 +1052,7 @@ class SequentialMusic(NestedMusic):
             value = self.elements[at]
         return value
 
-    def print_ly(self, printer, newline=True):
+    def print_ly(self, printer, newline=True, closing=True):
         printer('{')
         if self.comment:
             self.print_comment(printer)
@@ -1062,9 +1062,10 @@ class SequentialMusic(NestedMusic):
         for e in self.elements:
             e.print_ly(printer)
 
-        printer('}')
-        if newline:
-            printer.newline()
+        if closing:
+            printer('}')
+            if newline:
+                printer.newline()
 
     def lisp_sub_expression(self, pred):
         name = self.name()
@@ -1154,26 +1155,40 @@ class RepeatedMusic(Base):
         return self == elem or self.music.contains(elem)
 
     def print_ly(self, printer):
+        is_tremolo = (self.repeat_type == 'tremolo')
+
         if self.tremolo_strokes is not None:
             # We can't use `\tweak` here.
             printer.dump(r'\once \override Beam.gap-count = %s'
                          % self.tremolo_strokes)
-        if self.repeat_type == 'tremolo' and self.color is not None:
+        if is_tremolo and self.color is not None:
             printer.dump(r'\once \override Beam.color = %s'
                          % color_to_ly(self.color))
         printer.dump(r'\repeat %s %s' % (self.repeat_type, self.repeat_count))
-        if self.music:
-            # No extra newlines for a tremolo group.
-            self.music.print_ly(printer, self.repeat_type != 'tremolo')
+
+        if is_tremolo:
+            if self.music:
+                self.music.print_ly(printer, newline=False)
+            else:
+                ly.warning(_('encountered tremolo repeat without body'))
+                printer('{}')
         else:
-            ly.warning(_("encountered repeat without body"))
-            printer.dump('{}')
-        if self.endings:
-            printer.dump(r'\alternative {')
+            if self.music:
+                self.music.print_ly(printer, closing=False)
+            else:
+                ly.warning(_('encountered volta repeat without body'))
+                printer('{')
+
+            if self.endings:
+                printer(r'\alternative {')
+                printer.newline()
+                for e in self.endings:
+                    e.print_ly(printer)
+                printer('}')
+                printer.newline()
+
+            printer('}')
             printer.newline()
-            for e in self.endings:
-                e.print_ly(printer)
-            printer.dump('}')
 
 
 class Lyrics(Base):
