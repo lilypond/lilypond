@@ -1164,15 +1164,22 @@ class RepeatedMusic(Base):
         if is_tremolo and self.color is not None:
             printer.dump(r'\once \override Beam.color = %s'
                          % color_to_ly(self.color))
-        printer.dump(r'\repeat %s %s' % (self.repeat_type, self.repeat_count))
 
         if is_tremolo:
+            printer(r'\repeat %s %s' % (self.repeat_type, self.repeat_count))
             if self.music:
                 self.music.print_ly(printer, newline=False)
             else:
                 ly.warning(_('encountered tremolo repeat without body'))
                 printer('{}')
         else:
+            # Increase repeat counter if there are more than two endings.
+            num_endings = len(self.endings)
+            repeat_count = self.repeat_count
+            if num_endings > 2:
+                repeat_count += num_endings - 2
+
+            printer(r'\repeat %s %s' % (self.repeat_type, repeat_count))
             if self.music:
                 self.music.print_ly(printer, closing=False)
             else:
