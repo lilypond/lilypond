@@ -4,8 +4,10 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">Nested repeats, each with
-          alternative endings.</miscellaneous-field>
+      <miscellaneous-field name="description">Multiple alternative endings.  The
+          first alternative starts and ends at bar 2; the second continues until
+          bar 5, the third until bar 9, the fourth until bar 10, and the fifth
+          implicitly until the end.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

@@ -4,7 +4,10 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">Repeats can also be nested.</miscellaneous-field>
+      <miscellaneous-field name="description">Repeats can also be nested.  The
+          inner repeat spans from bar 2 to bar bar 3 (to be played five times).
+          The outer repeat spans implicitly from the beginning to bar 7 (to be
+          played three times).</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
