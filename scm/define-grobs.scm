@@ -3815,6 +3815,8 @@ direction and shape of stacked @iref{Tie} grobs.")))))
         (extra-spacing-height
          . ,pure-from-neighbor-interface::extra-spacing-height-including-staff)
         (extra-spacing-width . (0.0 . 0.8))
+        (nested-fraction-mixed . #t)
+        (nested-fraction-orientation . default)
         (non-musical . #t)
         ;; TODO: Set note-dots-direction to a callback that avoids staff lines.
         (note-dots-direction . ,CENTER)

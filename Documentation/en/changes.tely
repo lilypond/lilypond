@@ -303,6 +303,36 @@ Certain spurious change clefs have been fixed.
 @itemize
 
 @item
+The @code{TimeSignature} grob and @code{\compound-@/meter} markup
+function have new properties that control the style of fractional
+parts.
+
+@lilypond[quote]
+{
+  \override Timing.TimeSignature.nested-fraction-mixed = ##t
+  \override Timing.TimeSignature.nested-fraction-relative-font-size = -5.5
+  \override Timing.TimeSignature.nested-fraction-orientation = #'vertical
+  \once \override Timing.TimeSignature.fraction = #'(5/2 . 4)
+  \time 5/8
+  r2 r8
+
+  \override Timing.TimeSignature.nested-fraction-mixed = ##t
+  \override Timing.TimeSignature.nested-fraction-relative-font-size = -5.5
+  \override Timing.TimeSignature.nested-fraction-orientation = #'horizontal
+  \once \override Timing.TimeSignature.fraction = #'(5/2 . 4)
+  \time 5/8
+  r2 r8
+
+  \override Timing.TimeSignature.nested-fraction-mixed = ##f
+  \override Timing.TimeSignature.nested-fraction-relative-font-size = 0
+  \override Timing.TimeSignature.nested-fraction-orientation = #'horizontal
+  \once \override Timing.TimeSignature.fraction = #'(5/2 . 4)
+  \time 5/8
+  r2 r8
+}
+@end lilypond
+
+@item
 The @code{\time} command now accepts a rational number in the
 denominator to support time signatures with a beat longer than a
 whole note.

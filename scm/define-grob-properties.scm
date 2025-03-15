@@ -770,6 +770,13 @@ Y@tie{}dimension, measured in @code{staff-space} units.")
 ;;;
 ;;; n
 ;;;
+     (nested-fraction-mixed ,boolean? "Whether a fractional term of a time
+signature is printed as a mixed number (e.g., @q{2@tie{}1/2}) or as a common
+fraction (e.g., @q{5/2}).")
+     (nested-fraction-relative-font-size ,number? "The font size of a numeral in
+a fractional term of a time signature, relative to size of the whole numbers.")
+     (nested-fraction-orientation ,symbol? "A symbol describing the orientation
+of a fractional part of a time signature.")
      (neutral-direction ,ly:dir? "Which direction to take in the
 center of the staff.")
      (neutral-position ,number? "Position (in half staff spaces) where

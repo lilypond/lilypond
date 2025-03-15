@@ -323,6 +323,9 @@ a fresh copy of the list-head is made."
   #:category music
   #:properties ((denominator-style 'default)
                 (font-size 0)
+                (nested-fraction-mixed #t)
+                (nested-fraction-orientation 'default)
+                (nested-fraction-relative-font-size '())
                 (note-dots-direction CENTER)
                 (note-flag-style '())
                 (note-head-style '())
@@ -365,13 +368,153 @@ denominators as a note and dots when exact representation is possible.  Example:
   }
 }
 @end lilypond
+
+The @code{nested-fraction-mixed} property controls whether fractional parts are
+printed as mixed numbers or as common fractions.  Example:
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\override #'(nested-fraction-mixed . #f)
+  \\compound-meter #'(5/2 4) or
+  \\override #'(nested-fraction-mixed . #t)
+  \\compound-meter #'(5/2 4)
+}
+@end lilypond
+
+The @code{nested-fraction-orientation} property controls how nested fractions
+are arranged.  Supported values are @code{horizontal} and @code{vertical}.
+Example:
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\override #'(nested-fraction-orientation . horizontal)
+  \\compound-meter #'(5/2 4) or
+  \\override #'(nested-fraction-orientation . vertical)
+  \\compound-meter #'(5/2 4)
+}
+@end lilypond
+
+The @code{nested-fraction-relative-font-size} property controls the size of the
+numerals in nested fractions.  Recommended values are -5.5 and 0.  Using large
+numerals may take precedence over related properties.  Example:
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\override #'(nested-fraction-relative-font-size . -5.5)
+  \\compound-meter #'(5/2 4) or
+  \\override #'(nested-fraction-relative-font-size . 0)
+  \\compound-meter #'(5/2 4)
+}
+@end lilypond
 "
+  (define (format-mixed-fraction-horiz rational)
+    (let* ((ipart (truncate rational))
+           (fpart (- rational ipart)))
+      (if (zero? ipart)
+          (number->string fpart)
+          (string-append (number->string ipart) " " (number->string fpart)))))
+
+  (define (format-small-fraction-horiz rational relative-staff-position)
+    ;; Assume that the normal time-signature digit occupies two staff spaces.
+    ;; The vertical center is therefore at +1 staff space; that is the reference
+    ;; point for relative-staff-position.
+    (make-fontsize-markup
+     (if (number? nested-fraction-relative-font-size)
+         nested-fraction-relative-font-size
+         -5.5)
+     (make-translate-markup
+      (cons
+       0 ; X
+       (* (1+ (/ relative-staff-position 2)) ; Y
+          (ly:output-def-lookup layout 'staff-space)
+          (magstep font-size)))
+      (make-vcenter-markup
+       (number->string rational)))))
+
+  (define (format-small-fraction-vert rational)
+    ;; Assume that the normal time-signature digit occupies two staff spaces.
+    ;; Center the numerator in the upper space and the denominator in the lower
+    ;; space.
+    (make-fontsize-markup
+     (if (number? nested-fraction-relative-font-size)
+         nested-fraction-relative-font-size
+         -5.5)
+     (make-left-align-markup
+      (make-combine-markup
+       (make-translate-markup
+        (cons
+         0 ; X
+         (* 3/2 ; Y
+            (ly:output-def-lookup layout 'staff-space)
+            (magstep font-size)))
+        (make-center-align-markup
+         (make-vcenter-markup
+          (number->string (numerator rational)))))
+       (make-translate-markup
+        (cons
+         0 ; X
+         (* 1/2 ; Y
+            (ly:output-def-lookup layout 'staff-space)
+            (magstep font-size)))
+        (make-center-align-markup
+         (make-vcenter-markup
+          (number->string (denominator rational)))))))))
+
+  (define (format-term num-den-sign n)
+    ;; num-den-sign is 1 when called for a numerator term, -1 when called for a
+    ;; denominator term, 0 when called for single-number style.
+    (cond
+     ((or (integer? n) (inexact? n))
+      (number->string n))
+     ((and (number? nested-fraction-relative-font-size)
+           (>= nested-fraction-relative-font-size 0))
+      ;; At full size, the fraction must be oriented horizontally, so the only
+      ;; remaining degree of freedom is whether the fraction is mixed or common.
+      (if nested-fraction-mixed
+          (format-mixed-fraction-horiz n)
+          (number->string n)))
+     (else
+      (let* ((ipart (truncate n))
+             (fpart (- n ipart)))
+        (cond
+         ((or (zero? ipart) (not nested-fraction-mixed)) ; as vulgar fraction
+          (cond
+           ((eq? nested-fraction-orientation 'horizontal)
+            (if (and (number? nested-fraction-relative-font-size)
+                     (< nested-fraction-relative-font-size 0))
+                (format-small-fraction-horiz
+                 n
+                 ;; shift into the space toward the center of the staff
+                 (- num-den-sign))
+                (number->string n)))
+           ((eq? nested-fraction-orientation 'vertical)
+            (format-small-fraction-vert n))
+           (else
+            (if (and (number? nested-fraction-relative-font-size)
+                     (< nested-fraction-relative-font-size 0))
+                (format-small-fraction-vert n)
+                (number->string n)))))
+         ((eq? nested-fraction-orientation 'horizontal)
+          (make-concat-markup
+           (list
+            (number->string ipart)
+            (format-small-fraction-horiz fpart 1))))
+         (else
+          (make-concat-markup
+           (list
+            (number->string ipart)
+            (format-small-fraction-vert fpart)))))))))
+
+  (define (format-numerator-term n) (format-term 1 n))
+  (define (format-denominator-term n) (format-term -1 n))
+  (define (format-center-term n) (format-term 0 n))
+
   (define (format-time-fraction time-sig-fraction)
     (let* ((revargs (reverse time-sig-fraction))
            (den (car revargs))
            (nums (reverse (cdr revargs)))
            (nums-markup (make-line-markup
-                         (insert-markups (map number->string nums) "+")))
+                         (insert-markups (map format-numerator-term nums) "+")))
            (note-dur (and (eq? denominator-style 'note)
                           (positive? den)
                           (ly:number->duration (/ den)))))
@@ -418,10 +561,7 @@ denominators as a note and dots when exact representation is possible.  Example:
             (cons 0 (* (ly:output-def-lookup layout 'staff-space)
                        (magstep font-size)
                        -2))
-            (number->string den)))))))))
-
-  (define (format-time-numerator time-sig)
-    (make-vcenter-markup (number->string (car time-sig))))
+            (format-denominator-term den)))))))))
 
   (define (format-time-element time-sig)
     (cond ((number-pair? time-sig)
@@ -429,7 +569,7 @@ denominators as a note and dots when exact representation is possible.  Example:
           ((pair? (cdr time-sig))
            (format-time-fraction time-sig))
           (else
-           (format-time-numerator time-sig))))
+           (make-vcenter-markup (format-center-term (car time-sig))))))
 
   (define (format-time-list time-sig)
     (make-override-markup '(baseline-skip . 0)

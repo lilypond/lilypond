@@ -783,6 +783,9 @@ placement.
 "
  '(denominator-style
    fraction
+   nested-fraction-mixed
+   nested-fraction-orientation
+   nested-fraction-relative-font-size
    note-dots-direction
    note-flag-style
    note-head-style
