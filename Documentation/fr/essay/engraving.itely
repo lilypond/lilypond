@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: ecd4ff25e8bee6643e9200eefb86f0ed23bda72f
+   Translation of GIT committish: 7921dca2b11ee884bb547b3d4e6926737838160c
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -22,15 +22,6 @@ Ce chapitre traite des objectifs et de l'architecture de LilyPond.
 @c     require adding a new snippet option to lilypond-book.py
 @c check formatting of HTML output
 @c
-
-@menu
-* The LilyPond story::      ce qui ne va pas avec les logiciels
-* Engraving details::       de l'homme à la machine
-* Automated engraving::      de la machine à l'homme
-* Building software:: qui fait quoi
-* Putting LilyPond to work:: LilyPond à l'œuvre
-* Engraved examples (BWV 861)::
-@end menu
 
 
 @node The LilyPond story
@@ -214,14 +205,6 @@ quoi LilyPond devait porter ses efforts.
 @c Unfortunately, computer-generated scores rarely match the quality of
 @c hand-engraved scores.  Instead, computer printouts have a bland,
 @c mechanical look, which makes them unpleasant to play from.
-
-@menu
-* Music fonts::             De la création des polices musicales
-* Optical spacing::                    Considérations sur les espacements
-* Ledger lines::        Cas particulier en matière de notation
-* Optical sizing::                       Considérations sur la taille des portées
-* Why work so hard?:: Pourquoi s'attacher aux détails
-@end menu
 
 
 @node Music fonts
@@ -589,12 +572,6 @@ ensuite sur l'analyse comparative par rapport aux éditions
 traditionnelles, avant de considérer le degré de flexibilité à y inclure
 pour être en mesure de gérer les différents cas de figure particuliers à
 la notation.
-
-@menu
-* Beauty contests::           l'option du moindre mal
-* Improvement by benchmarking:: l'évaluation des performances
-* Getting things right::          l'architecture flexible
-@end menu
 
 
 @node Beauty contests
@@ -992,12 +969,6 @@ l'architecture flexible de LilyPond.
 Nous allons nous intéresser, dans les paragraphes qui suivent, aux
 arbitrages en terme de programmation qui ont participé à l'élaboration
 de LilyPond.
-
-@menu
-* Music representation::   le format de saisie
-* What symbols to engrave?:: quels symboles graver
-* Flexible architecture::
-@end menu
 
 
 @node Music representation
