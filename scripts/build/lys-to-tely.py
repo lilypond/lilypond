@@ -94,14 +94,14 @@ p = argparse.ArgumentParser(
                " additional fragment options (separated by whitespace) for"
                " this input file.\n"
                "\n"
-               "If a file gets included with `@lilypondfile`, a `@node`"
-               " line is generated right before it, with its argument"
-               " enclosed in macro `@lynode` (which must be defined in the"
-               " template). If this file contains a `doctitle` field in its"
-               " `\\header` block, it uses the `doctitle` value as the"
-               " `@node` argument. If it doesn't contain such a field (or"
-               " if the file can't be read), the file name is used as the"
-               " argument for `@node`.")
+               "If a file gets included with `@lilypondfile` or"
+               " `@musicxmlfile`, a `@lynode` line is generated right"
+               " before it (`@lynode` is a macro and must be defined in"
+               " the template). If this file contains a `doctitle` field"
+               " in its `\\header` block, it uses the `doctitle` value as"
+               " the `@lynode` argument. If it doesn't contain such a"
+               " field (or if the file can't be read), the file name is"
+               " used as the argument for `@lynode`.")
 
 p.add_argument(
     '-f', '--fragment-options',
@@ -291,6 +291,7 @@ def name2line(n):
 
     elif xml_file_re.match(n):
         # Assume it's a MusicXML file -> convert, create image, etc.
+        node_name = os.path.basename(n)
         s = r"""
 @ifhtml
 @html
@@ -298,8 +299,10 @@ def name2line(n):
 @end html
 @end ifhtml
 
+@lynode{%s}
 @musicxmlfile[%s]{%s}
 """ % (os.path.basename(n),
+       node_name,
        options.fragment_options + fragment_options_string,
        options.prefix + n)
 
