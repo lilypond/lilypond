@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: c1444d90c29ad71bd1da0442ff5126168c3511da
+    Translation of GIT committish: 7921dca2b11ee884bb547b3d4e6926737838160c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -47,7 +47,7 @@ Copyright @copyright{} 2004--2023 by par les auteurs.
 * Interfaces for programmers:: Comment dialoguer avec Scheme.
 * LilyPond Scheme interfaces:: Obtention d'information dans la musique et autour
 
-Appendices
+Annexes
 
 * GNU Free Documentation License:: Licence de ce document.
 * Index of commands and concepts::
