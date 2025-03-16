@@ -291,19 +291,8 @@ Beaming_pattern::set_rhythmic_importance (Beaming_options const &options)
 {
   // span_contexts will always be non empty since there always exists
   // the root span
-  unsigned const time_signature_numerator
-    = scm_is_pair (options.time_signature_)
-        ? from_scm<unsigned> (scm_car (options.time_signature_))
-        : 1;
-  bool const divide_beats
-    = !(time_signature_numerator & 1
-        || (time_signature_numerator & (time_signature_numerator - 1)) == 0);
   std::forward_list<Span_position> span_contexts {
-    {options.measure_length_ / (divide_beats ? time_signature_numerator : 1),
-     divide_beats ? time_signature_numerator
-                      / (time_signature_numerator & -time_signature_numerator)
-                  : 1,
-     infos_[0].start_moment_ - measure_offset_,
+    {options.measure_length_, 1, infos_[0].start_moment_ - measure_offset_,
      end_moment (infos_.size () - 1)}};
   // infos_[i].duration_.factor_ is not sufficient for calculations for certain
   // cases, so we must manually alter the current factor based on incoming and
