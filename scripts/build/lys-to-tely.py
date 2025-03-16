@@ -293,16 +293,9 @@ def name2line(n):
         # Assume it's a MusicXML file -> convert, create image, etc.
         node_name = os.path.basename(n)
         s = r"""
-@ifhtml
-@html
-<a name="%s"></a>
-@end html
-@end ifhtml
-
 @lynode{%s}
 @musicxmlfile[%s]{%s}
-""" % (os.path.basename(n),
-       node_name,
+""" % (node_name,
        options.fragment_options + fragment_options_string,
        options.prefix + n)
 
@@ -310,16 +303,9 @@ def name2line(n):
         # Assume it's a LilyPond file -> create image, etc.
         node_name = get_node_name(n)
         s = r"""
-@ifhtml
-@html
-<a name="%s"></a>
-@end html
-@end ifhtml
-
 @lynode{%s}
 @lilypondfile[%s]{%s}
-""" % (os.path.basename(n),
-       node_name,
+""" % (node_name,
        options.fragment_options + fragment_options_string,
        options.prefix + n)
 
