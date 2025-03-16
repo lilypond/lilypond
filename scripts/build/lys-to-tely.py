@@ -201,7 +201,6 @@ template_default = rf'''\input texinfo
 @afourpaper
 
 @macro lynode{{TEXT}}
-@node \TEXT\
 @end macro
 
 @finalout @c we do not want black boxes.
