@@ -140,7 +140,7 @@ TexInfo_output = {
 @image{%(info_image_path)s,,,%(alt)s}
 @end ifinfo
 @html
-<a href="%(base)s%(ext)s">
+<a href="%(base)s%(ext2)s">
   <img align="middle"
        border="0"
        src="%(image)s"
@@ -344,6 +344,10 @@ class BookTexinfoOutputFormat (book_base.BookOutputFormat):
         rep['base'] = basename
         rep['filename'] = os.path.basename(snippet.filename)
         rep['ext'] = snippet.ext
+        if snippet.ext == '.xml' or snippet.ext == '.mxl':
+            rep['ext2'] = '.ly'
+        else:
+            rep['ext2'] = snippet.ext
 
         for image in snippet.get_images():
             rep1 = copy.copy(rep)
