@@ -2,7 +2,9 @@ depth = ../../..
 
 TEMPLATES = lilypond ly lysdoc 
 
-COLLATED_FILES = $(sort $(LY_FILES))
+COLLATED_FILES = \
+  AAA-intro-regression.tely \
+  $(sort $(LY_FILES))
 
 include $(depth)/make/lilypond.make
 

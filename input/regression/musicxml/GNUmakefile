@@ -7,6 +7,8 @@ MUSICMXL_FILES = $(call src-wildcard,*.mxl)  # Allow .mxl for compressed files
 
 COLLATED_FILES = $(sort $(MUSICXML_FILES) $(MUSICMXL_FILES) $(ITEXI_FILES))
 
+LYS_TO_TELY_OPTIONS = "--fragment-options=htmlprintfilename,texidoc"
+
 .SUFFIXES: .xml .mxl
 
 

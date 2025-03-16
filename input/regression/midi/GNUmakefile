@@ -2,7 +2,9 @@ depth = ../../..
 
 TEMPLATES = lilypond ly lysdoc 
 
-COLLATED_FILES = $(sort ${LY_FILES:%.ly=$(outdir)/recovered/%-midi.ly})
+COLLATED_FILES = \
+  AAA-intro-regression.tely \
+  $(sort ${LY_FILES:%.ly=$(outdir)/recovered/%-midi.ly})
 
 HEADER_FIELDS = texidoc options
 OUT_DIFF_FILES = ${LY_FILES:%.ly=$(outdir)/%.diff}

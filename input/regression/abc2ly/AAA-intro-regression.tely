@@ -4,14 +4,11 @@
 
 @unnumbered Introduction
 
-This document presents visual regression tests for LilyPond development; it
-is intended for finding bugs and for documenting bugfixes.
+This document presents regression tests for the @command{abc2ly} script
+development; it is intended for finding bugs and for documenting bugfixes.
 
 In the web version of this document, you can click on the
 figure for each example to see the corresponding input file.
-
-TODO: order of tests (file names!), test only one feature per test.
-Smaller and neater tests.
 
 @unnumbered Regression test cases
 

@@ -1,5 +1,8 @@
-@node Introduction
-@chapter Introduction
+@iftex
+@contents
+@end iftex
+
+@unnumbered Introduction
 
 @heading Why a MusicXML test suite?
 
@@ -34,9 +37,9 @@ If something does not seem right in the output, it might either be
 that this feature has not been implemented yet, has been wrongly
 implemented, or a regression has crept in recently@enddots{}
 
-In the web version of this document, you can click on the file
-name or figure for each example to see the corresponding
-@file{.ly} intermediary file.
+In the web version of this document, you can click on the file name
+of test to see the MusicXML input file.  If you click on the figure
+you can see the corresponding @file{.ly} intermediary file.
 
 @heading Structure of this test suite 
 
@@ -91,5 +94,9 @@ Some of the categories (in particular, the exact item positioning
 and the MIDI generation) don't have any test cases yet.
 
 
-@node Test cases
-@chapter Test cases
+@unnumbered Test cases
+
+@unmacro lynode
+@macro lynode{TEXT}
+@heading \TEXT\
+@end macro

@@ -3,7 +3,9 @@ depth = ../../..
 TEMPLATES = lilypond ly lysdoc 
 
 ABC_FILES = $(call src-wildcard,*.abc)
-COLLATED_FILES = $(sort ${ABC_FILES:%.abc=$(outdir)/%.ly})
+COLLATED_FILES = \
+  AAA-intro-regression.tely \
+  $(sort ${ABC_FILES:%.abc=$(outdir)/%.ly})
 
 include $(depth)/make/lilypond.make
 
