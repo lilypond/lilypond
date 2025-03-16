@@ -106,7 +106,7 @@ p = argparse.ArgumentParser(
 p.add_argument(
     '-f', '--fragment-options',
     type=str,
-    default='printfilename,texidoc',
+    default='texidoc',
     metavar='OPTIONS',
     help="use %(metavar)s as lilypond-book fragment options"
          " (default: '%(default)s')")
