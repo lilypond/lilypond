@@ -449,6 +449,7 @@ local-help:
 	@echo "  install-info    install Info documentation with images"
 	@echo
 	@echo "Some more targets are available for testing changes:"
+	@echo "  test"
 	@echo "  test-baseline"
 	@echo "  check"
 	@echo "  test-clean"

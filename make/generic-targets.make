@@ -32,6 +32,7 @@ help: generic-help local-help
 	@echo "  clean        remove all generated stuff in $(outdir)"
 	@echo "  doc          update documentation with images in directory \`out-www'"
 	@echo "  doc-clean    clean \`out-www' directory"
+	@echo "  website      update website files in directory \`out-web'"
 	@echo "  install      install programs and data (prefix=$(prefix))"
 	@echo "  uninstall    uninstall programs and data"
 	@echo
