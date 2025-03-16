@@ -192,7 +192,7 @@
 
 (define-public (sane-simple-time-signature? x)
   (and (pair? x)
-       (positive-exact-integer? (car x))
+       (positive-exact-rational? (car x))
        (positive-exact-rational? (cdr x))))
 
 (define-public (scale? x)

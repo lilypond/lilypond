@@ -17,14 +17,12 @@ in MIDI output.  Verifying the MIDI output requires manual inspection."
 
 \score {
   \fixed c' {
-%{
-    %% TODO: Let \time accept rational numerators.
     %% in MIDI file: time signature 5/8, metronome 1/4
     \time #'(5/2 . 4)
     \contextPropertyCheck Timing.beatBase #1/4
     \contextPropertyCheck Timing.beatStructure #'(1 1 1/2)
     \repeat unfold 5 c8
-%}
+
     %% in MIDI file: time signature 5/8, metronome 1/8
     \time 5/8
     \contextPropertyCheck Timing.beatBase #1/8

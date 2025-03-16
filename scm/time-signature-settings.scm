@@ -228,7 +228,12 @@
                               group-size)))
           (if (integer? beat-count)
               (make-list beat-count group-size)
-              '()))
+              ;; There's no necessarily correct default placement of the partial
+              ;; beat.  We place it at the end for the mnemonic value of
+              ;; matching how a mixed number is written, e.g., "4 1/2."
+              (let ((part (- beat-count (floor beat-count)))
+                    (full (make-list (floor beat-count) group-size)))
+                (reverse (cons part full)))))
         ;; use value obtained from time-signature-settings
         return-value)))
 
@@ -661,11 +666,12 @@ make a numbered time signature instead."
 
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ;;; Beat base: Use the largest denominator (corresponding to the shortest
-;;; musical length) of all the fractions.
+;;; duration) of all the fractions.
 ;;;
-;;; TODO: Shouldn't this compute the least common multiple?  For example,
-;;; denominators {8, 20} would call for a beat base of 1/40: 5/40 per 1/8, 2/40
-;;; per 1/20.  (If not, why not?)
+;;; Using lcm instead of max would yield a beat structure holding only integers,
+;;; which is intuitively mathematically nice; however, we need to support
+;;; non-integers in beatStructure anyway for fractional time signatures, and it
+;;; is also intuitively nice for beatBase to come directly from the user.
 
 (define (calculate-compound-beat-base-full time-sig)
   (apply max (map last time-sig)))

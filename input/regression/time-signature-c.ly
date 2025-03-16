@@ -1,4 +1,4 @@
-\version "2.25.25"
+\version "2.25.26"
 
 \header {
   texidoc = "This test covers @code{TimeSignature@/.style} set to @code{C}.
@@ -31,10 +31,6 @@ The numbers above the staff show the input in each case."
   \tempo \markup \case-label { 2 ½ }
   \time #'(2 . 1/2) d\longa
 
-  %% TODO: If it becomes possible to pass values like #'(2/3 . 2) to \time,
-  %% this should be changed to do that instead of using \override.
-
   \tempo \markup \case-label { ⅔ 2 }
-  \once \override Timing.TimeSignature.fraction = #'(2/3 . 2)
-  \time 1/3 \tuplet 3/2 { e'4 d'4 }
+  \time #'(2/3 . 2) \tuplet 3/2 { e'4 d'4 }
 }

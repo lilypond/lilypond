@@ -7,13 +7,10 @@ in MIDI output.  Verifying the MIDI output requires manual inspection."
 
 #(ly:set-option 'warning-as-error #t)
 
-%{
-%% TODO: Let \time accept rational numerators.
 #(ly:expect-warning
   (ly:translate-cpp-warning-scheme
    "Unsupported MIDI time signature: (%s)/(%s)")
   "8/3" "4")
-%}
 
 #(ly:expect-warning
   (ly:translate-cpp-warning-scheme
@@ -30,8 +27,6 @@ in MIDI output.  Verifying the MIDI output requires manual inspection."
 
 \score {
   \fixed c' {
-%{
-    %% TODO: Let \time accept rational numerators.
     %% in MIDI file: time signature ???, metronome 1/4
     \time #'(8/3 . 4)
     \contextPropertyCheck Timing.beatBase #1/4
@@ -39,7 +34,7 @@ in MIDI output.  Verifying the MIDI output requires manual inspection."
     \tuplet 3/2 { \repeat unfold 8 c8 }
     \tuplet 3/2 { \repeat unfold 8 d8 }
     \tuplet 3/2 { \repeat unfold 8 e8 }
-%}
+
     %% in MIDI file: time signature ???, metronome 1/12
     \time 8/12
     \contextPropertyCheck Timing.beatBase #1/12

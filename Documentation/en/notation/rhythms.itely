@@ -1223,8 +1223,7 @@ Internals Reference:
 @funindex \time
 
 To set a basic time signature, use the @code{\time} command with
-the fraction as argument.  A denominator longer than a whole note
-requires Scheme syntax.
+the fraction as argument.
 
 @lilypond[quote,verbatim,fragment]
 \time 2/4
@@ -1232,6 +1231,15 @@ c''2
 
 \time 3/4
 c''2.
+@end lilypond
+
+@noindent
+Fractional time signatures and denominators longer than a whole
+note require Scheme syntax.
+
+@lilypond[quote,verbatim,fragment]
+\time #'(5/2 . 4)
+c''2 r8
 
 \override Timing.TimeSignature.denominator-style = #'note
 \time #'(2 . 1/2)
