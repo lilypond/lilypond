@@ -639,19 +639,34 @@ stable, we have written a manual for development tasks.
 
 @itemize
 @item
-@uref{../../input/regression/collated-files.html, Regression tests}:
-This release's regtests.
-(@uref{../../input/regression/collated-files.pdf, pdf version})
+@uref{../../input/regression/collated-files.html,
+      Visual regression tests}:
+This release's regtests that contain (useful) visual output.
+(@uref{../../input/regression/collated-files.pdf, PDF version})
 
 @item
-@uref{../../input/regression/musicxml/collated-files.html, MusicXML tests}:
-This release's musicXML tests.
-(@uref{../../input/regression/musicxml/collated-files.pdf, pdf version})
+@uref{../../input/regression/midi/collated-files.html,
+      MIDI regression tests}:
+This release's regtests that cover MIDI output.
+(@uref{../../input/regression/midi/collated-files.pdf, PDF version})
 
 @item
-@uref{../../input/regression/abc2ly/collated-files.html, abc2ly tests}:
-This release's abc2ly tests.
-(@uref{../../input/regression/abc2ly/collated-files.pdf, pdf version})
+@uref{../../input/regression/other/collated-files.html,
+      Other regression tests}:
+This release's regtests without visual output.
+(@uref{../../input/regression/other/collated-files.pdf, PDF version})
+
+@item
+@uref{../../input/regression/musicxml/collated-files.html,
+      MusicXML tests}:
+This release's MusicXML tests (converted with @command{musicxml2ly}).
+(@uref{../../input/regression/musicxml/collated-files.pdf, PDF version})
+
+@item
+@uref{../../input/regression/abc2ly/collated-files.html,
+      ABC tests}:
+This release's ABC notation tests (converted with @command{abc2ly}).
+(@uref{../../input/regression/abc2ly/collated-files.pdf, PDF version})
 @end itemize
 
 @end ifclear
@@ -662,6 +677,10 @@ This release's abc2ly tests.
 @itemize
 @item @regtestDevel (@regtestDevelPdf{})
 
+@item @regtestDevelMidi (@regtestDevelMidiPdf{})
+
+@item @regtestDevelOther (@regtestDevelOtherPdf{})
+
 @item @regtestDevelXml (@regtestDevelXmlPdf{})
 
 @item @regtestDevelAbc (@regtestDevelAbcPdf{})
@@ -671,6 +690,10 @@ This release's abc2ly tests.
 
 @itemize
 @item @regtestStable (@regtestStablePdf{})
+
+@item @regtestStableMidi (@regtestStableMidiPdf{})
+
+@item @regtestStableOther (@regtestStableOtherPdf{})
 
 @item @regtestStableXml (@regtestStableXmlPdf{})
 

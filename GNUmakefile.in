@@ -168,7 +168,7 @@ WWW-post: $(WEB_ROOT_FILES)
 $(outdir)/%-root/index.html: doc-build
 	$(call ly_progress,Making,$@,)
 	rm -rf $(dir $@)/
-	for d in . musicxml abc2ly lilypond-book ; do \
+	for d in . abc2ly midi musicxml other ; do \
 	  mkdir -p $(dir $@)/input/regression/$${d}; \
 	  rsync -a --link-dest=$(build-dir)/input/regression/$${d}/out-www \
 		input/regression/$${d}/out-www/ \

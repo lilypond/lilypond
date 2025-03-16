@@ -63,6 +63,10 @@ translations = {
 
         'Regression tests for ': 'Proves de regressió per a ',
         'PDF of regtests for ': 'Proves de regressió en PDF per a ',
+        'MIDI Regression tests for ': 'Proves de regressió de MIDI per a ',
+        'PDF of MIDI regtests for ': 'Proves de regressió de MIDI en PDF per a ',
+        # 'Other Regression tests for ': 'Proves de regressió de ??? per a ',
+        # 'PDF of other regtests for ': 'Proves de regressió de ??? en PDF per a ',
         'abc2ly Regression tests for ': 'Proves de regressió d\'abc2ly per a ',
         'PDF of abc2ly regtests for ': 'Proves de regressió d\'abc2ly en PDF per a ',
         'MusicXML Regression tests for ': 'Proves de regressió de MusicXML per a ',
@@ -90,6 +94,10 @@ translations = {
 
         'Regression tests for ': 'Regressionstests für ',
         'PDF of regtests for ': 'PDF der Regressionstests für ',
+        'MIDI Regression tests for ': 'MIDI Regressionstests für ',
+        'PDF of MIDI regtests for ': 'PDF der MIDI Regressionstests für ',
+        'Other Regression tests for ': 'Andere Regressionstests für ',
+        'PDF of other regtests for ': 'PDF der anderen Regressionstests für ',
         'abc2ly Regression tests for ': 'abc2ly Regressionstests für ',
         'PDF of abc2ly regtests for ': 'PDF der abc2ly Regressionstests für ',
         'MusicXML Regression tests for ': 'MusicXML Regressionstests für ',
@@ -118,6 +126,10 @@ translations = {
 
         'Regression tests for ': 'Pruebas de regresión para ',
         'PDF of regtests for ': 'Pruebas en PDF para ',
+        'MIDI Regression tests for ': 'Pruebas de regresión de MIDI para ',
+        'PDF of MIDI regtests for ': 'Pruebas de MIDI en PDF para ',
+        # 'Other Regression tests for ': 'Pruebas de regresión de ??? para ',
+        # 'PDF of other regtests for ': 'Pruebas de ??? en PDF para ',
         'abc2ly Regression tests for ': 'Pruebas de regresión de abc2ly para ',
         'PDF of abc2ly regtests for ': 'Pruebas de abc2ly en PDF para ',
         'MusicXML Regression tests for ': 'Pruebas de regresión de MusicXML para ',
@@ -146,6 +158,10 @@ translations = {
 
         'Regression tests for ': 'Tests de régression pour ',
         'PDF of regtests for ': 'PDF des tests de régression pour ',
+        'MIDI Regression tests for ': 'Tests de régression de MIDI pour ',
+        'PDF of MIDI regtests for ': 'PDF des tests de régression de MIDI pour ',
+        # 'Other Regression tests for ': 'Tests de régression de ??? pour ',
+        # 'PDF of other regtests for ': 'PDF des tests de régression de ??? pour ',
         'abc2ly Regression tests for ': 'Tests de régression de abc2ly pour ',
         'PDF of abc2ly regtests for ': 'PDF des tests de régression de abc2ly pour ',
         'MusicXML Regression tests for ': 'Tests de régression de MusicXML pour ',
@@ -173,6 +189,10 @@ translations = {
 
         'Regression tests for ': 'Test di collaudo per ',
         'PDF of regtests for ': 'PDF dei test di collaudo per ',
+        'MIDI Regression tests for ': 'Test di collaudo di MIDI per ',
+        'PDF of MIDI regtests for ': 'PDF dei test di collaudo di MIDI per ',
+        # 'Other Regression tests for ': 'Test di collaudo di ??? per ',
+        # 'PDF of other regtests for ': 'PDF dei test di collaudo di ??? per ',
         'abc2ly Regression tests for ': 'Test di collaudo di abc2ly per ',
         'PDF of abc2ly regtests for ': 'PDF dei test di collaudo di abc2ly per ',
         'MusicXML Regression tests for ': 'Test di collaudo di MusicXML per ',
@@ -202,6 +222,10 @@ translations = {
 
         'Regression tests for ': '回帰テスト バージョン ',
         'PDF of regtests for ': '回帰テスト (PDF 版) バージョン ',
+        'MIDI Regression tests for ': 'MIDI 回帰テスト バージョン ',
+        'PDF of MIDI regtests for ': 'MIDI 回帰テスト (PDF 版) バージョン ',
+        # 'Other Regression tests for ': '??? 回帰テスト バージョン ',
+        # 'PDF of other regtests for ': '??? 回帰テスト (PDF 版) バージョン ',
         'abc2ly Regression tests for ': 'abc2ly 回帰テスト バージョン ',
         'PDF of abc2ly regtests for ': 'abc2ly 回帰テスト (PDF 版) バージョン ',
         'MusicXML Regression tests for ': 'MusicXML 回帰テスト バージョン ',
@@ -231,6 +255,10 @@ translations = {
 
         'Regression tests for ': '回归测试 ',
         'PDF of regtests for ': '回归测试的 PDF ',
+        'MIDI Regression tests for ': 'MIDI 回归测试 ',
+        'PDF of MIDI regtests for ': 'MIDI 的 PDF 回归测试 ',
+        # 'Other Regression tests for ': '??? 回归测试 ',
+        # 'PDF of other regtests for ': '??? 的 PDF 回归测试 ',
         'abc2ly Regression tests for ': 'abc2ly 回归测试 ',
         'PDF of abc2ly regtests for ': 'abc2ly 的 PDF 回归测试 ',
         'MusicXML Regression tests for ': 'MusicXML 回归测试 ',
@@ -377,15 +405,31 @@ def make_regtest_links(name, version, lang):
     make_ver_link(macroLang("regtest"+name+"Pdf", lang),
                   url+"collated-files.pdf",
                   getTrans("PDF of regtests for ", lang)+version)
+
+    make_ver_link(macroLang("regtest"+name+"Midi", lang),
+                  url+"midi/collated-files.html",
+                  getTrans("MIDI Regression tests for ", lang)+version)
+    make_ver_link(macroLang("regtest"+name+"MidiPdf", lang),
+                  url+"midi/collated-files.pdf",
+                  getTrans("PDF of MIDI regtests for ", lang)+version)
+
+    make_ver_link(macroLang("regtest"+name+"Other", lang),
+                  url+"other/collated-files.html",
+                  getTrans("Other Regression tests for ", lang)+version)
+    make_ver_link(macroLang("regtest"+name+"OtherPdf", lang),
+                  url+"other/collated-files.pdf",
+                  getTrans("PDF of other regtests for ", lang)+version)
+
     make_ver_link(macroLang("regtest"+name+"Xml", lang),
                   url+"musicxml/collated-files.html",
                   getTrans("MusicXML Regression tests for ", lang)+version)
-    make_ver_link(macroLang("regtest"+name+"Abc", lang),
-                  url+"abc2ly/collated-files.html",
-                  getTrans("abc2ly Regression tests for ", lang)+version)
     make_ver_link(macroLang("regtest"+name+"XmlPdf", lang),
                   url+"musicxml/collated-files.pdf",
                   getTrans("PDF of MusicXML regtests for ", lang)+version)
+
+    make_ver_link(macroLang("regtest"+name+"Abc", lang),
+                  url+"abc2ly/collated-files.html",
+                  getTrans("abc2ly Regression tests for ", lang)+version)
     make_ver_link(macroLang("regtest"+name+"AbcPdf", lang),
                   url+"abc2ly/collated-files.pdf",
                   getTrans("PDF of abc2ly regtests for ", lang)+version)
