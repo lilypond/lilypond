@@ -653,17 +653,17 @@ Les proves de l'abc2ly d'aquesta versió.
 
 @item @regtestDevelXml-ca (@regtestDevelXmlPdf-ca{})
 
-@item @regtestDevelAbc (@regtestDevelAbcPdf{})
+@item @regtestDevelAbc-ca (@regtestDevelAbcPdf-ca{})
 @end itemize
 
 @subsubheading Versió estable
 
 @itemize
-@item @regtestStable (@regtestStablePdf{})
+@item @regtestStable-ca (@regtestStablePdf-ca{})
 
-@item @regtestStableXml (@regtestStableXmlPdf{})
+@item @regtestStableXml-ca (@regtestStableXmlPdf-ca{})
 
-@item @regtestStableAbc (@regtestStableAbcPdf{})
+@item @regtestStableAbc-ca (@regtestStableAbcPdf-ca{})
 @end itemize
 @end ifset
 

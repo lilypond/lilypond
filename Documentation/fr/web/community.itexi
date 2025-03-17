@@ -713,22 +713,22 @@ relatifs à ce niveau de mise à jour
 @c VO Development version
 
 @itemize
-@item @regtestDevel (@regtestDevelPdf{})
+@item @regtestDevel-fr (@regtestDevelPdf-fr{})
 
-@item @regtestDevelXml (@regtestDevelXmlPdf{})
+@item @regtestDevelXml-fr (@regtestDevelXmlPdf-fr{})
 
-@item @regtestDevelAbc (@regtestDevelAbcPdf{})
+@item @regtestDevelAbc-fr (@regtestDevelAbcPdf-fr{})
 @end itemize
 
 @subsubheading Version stable
 @c VO Stable version
 
 @itemize
-@item @regtestStable (@regtestStablePdf{})
+@item @regtestStable-fr (@regtestStablePdf-fr{})
 
-@item @regtestStableXml (@regtestStableXmlPdf{})
+@item @regtestStableXml-fr (@regtestStableXmlPdf-fr{})
 
-@item @regtestStableAbc (@regtestStableAbcPdf{})
+@item @regtestStableAbc-fr (@regtestStableAbcPdf-fr{})
 @end itemize
 @end ifset
 

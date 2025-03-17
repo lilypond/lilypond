@@ -617,21 +617,21 @@ This release's abc2ly tests.
 @subsubheading 开发中版本
 
 @itemize
-@item @regtestDevel (@regtestDevelPdf{})
+@item @regtestDevel-zh (@regtestDevelPdf-zh{})
 
-@item @regtestDevelXml (@regtestDevelXmlPdf{})
+@item @regtestDevelXml-zh (@regtestDevelXmlPdf-zh{})
 
-@item @regtestDevelAbc (@regtestDevelAbcPdf{})
+@item @regtestDevelAbc-zh (@regtestDevelAbcPdf-zh{})
 @end itemize
 
 @subsubheading 稳定版
 
 @itemize
-@item @regtestStable (@regtestStablePdf{})
+@item @regtestStable-zh (@regtestStablePdf-zh{})
 
-@item @regtestStableXml (@regtestStableXmlPdf{})
+@item @regtestStableXml-zh (@regtestStableXmlPdf-zh{})
 
-@item @regtestStableAbc (@regtestStableAbcPdf{})
+@item @regtestStableAbc-zh (@regtestStableAbcPdf-zh{})
 @end itemize
 @end ifset
 

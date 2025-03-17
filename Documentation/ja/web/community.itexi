@@ -637,21 +637,21 @@ LilyPond の開発手法はかなり複雑です。@c
 @subsubheading 開発バージョン
 
 @itemize
-@item @regtestDevel (@regtestDevelPdf{})
+@item @regtestDevel-ja (@regtestDevelPdf-ja{})
 
-@item @regtestDevelXml (@regtestDevelXmlPdf{})
+@item @regtestDevelXml-ja (@regtestDevelXmlPdf-ja{})
 
-@item @regtestDevelAbc (@regtestDevelAbcPdf{})
+@item @regtestDevelAbc-ja (@regtestDevelAbcPdf-ja{})
 @end itemize
 
 @subsubheading 安定バージョン
 
 @itemize
-@item @regtestStable (@regtestStablePdf{})
+@item @regtestStable-ja (@regtestStablePdf-ja{})
 
-@item @regtestStableXml (@regtestStableXmlPdf{})
+@item @regtestStableXml-ja (@regtestStableXmlPdf-ja{})
 
-@item @regtestStableAbc (@regtestStableAbcPdf{})
+@item @regtestStableAbc-ja (@regtestStableAbcPdf-ja{})
 @end itemize
 @end ifset
 

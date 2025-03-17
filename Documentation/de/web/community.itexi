@@ -661,21 +661,21 @@ abc2ly-Tests dieser Version.
 @subsubheading Entwicklungsversion
 
 @itemize
-@item @regtestDevel (@regtestDevelPdf{})
+@item @regtestDevel-de (@regtestDevelPdf-de{})
 
-@item @regtestDevelXml (@regtestDevelXmlPdf{})
+@item @regtestDevelXml-de (@regtestDevelXmlPdf-de{})
 
-@item @regtestDevelAbc (@regtestDevelAbcPdf{})
+@item @regtestDevelAbc-de (@regtestDevelAbcPdf-de{})
 @end itemize
 
 @subsubheading Stabile Version
 
 @itemize
-@item @regtestStable (@regtestStablePdf{})
+@item @regtestStable-de (@regtestStablePdf-de{})
 
-@item @regtestStableXml (@regtestStableXmlPdf{})
+@item @regtestStableXml-de (@regtestStableXmlPdf-de{})
 
-@item @regtestStableAbc (@regtestStableAbcPdf{})
+@item @regtestStableAbc-de (@regtestStableAbcPdf-de{})
 @end itemize
 @end ifset
 

@@ -650,21 +650,21 @@ I collaudi abc2ly per questa versione.
 @subsubheading Versione di sviluppo
 
 @itemize
-@item @regtestDevel (@regtestDevelPdf{})
+@item @regtestDevel-it (@regtestDevelPdf-it{})
 
-@item @regtestDevelXml (@regtestDevelXmlPdf{})
+@item @regtestDevelXml-it (@regtestDevelXmlPdf-it{})
 
-@item @regtestDevelAbc (@regtestDevelAbcPdf{})
+@item @regtestDevelAbc-it (@regtestDevelAbcPdf-it{})
 @end itemize
 
 @subsubheading Versione stabile
 
 @itemize
-@item @regtestStable (@regtestStablePdf{})
+@item @regtestStable-it (@regtestStablePdf-it{})
 
-@item @regtestStableXml (@regtestStableXmlPdf{})
+@item @regtestStableXml-it (@regtestStableXmlPdf-it{})
 
-@item @regtestStableAbc (@regtestStableAbcPdf{})
+@item @regtestStableAbc-it (@regtestStableAbcPdf-it{})
 @end itemize
 @end ifset
 
