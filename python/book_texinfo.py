@@ -132,6 +132,13 @@ TexInfo_output = {
 %(code)s
 @end lilypond''',
 
+    book_snippets.HTMLPRINTFILENAME: '''@ifhtml
+@inlineraw{html, <a href="%(base)s%(ext)s">}
+@file{%(filename)s}
+@inlineraw{html, </a>}
+@end ifhtml
+''',
+
     book_snippets.OUTPUT: r'''@iftex
 @include %(base)s-systems.texi
 @end iftex''',
@@ -393,7 +400,11 @@ class BookTexinfoOutputFormat (book_base.BookOutputFormat):
                     s += '@include %s\n\n\n' % t
                     break
 
-        s += self.output_print_filename(basename, snippet)
+        if book_snippets.PRINTFILENAME in snippet.option_dict:
+            s += self.output_print_filename(basename, snippet)
+        elif book_snippets.HTMLPRINTFILENAME in snippet.option_dict:
+            s += self.output_print_filename(basename, snippet,
+                                            book_snippets.HTMLPRINTFILENAME)
 
         if book_snippets.INLINE not in snippet.option_dict:
             s += '\n'

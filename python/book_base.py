@@ -204,14 +204,15 @@ class BookOutputFormat:
     def output_simple_replacements(self, type, variables):
         return self.output.get(type, '') % variables
 
-    def output_print_filename(self, basename, snippet):
+    def output_print_filename(self, basename, snippet,
+                              option=book_snippets.PRINTFILENAME):
         s = ''
         rep = snippet.get_replacements()
-        if book_snippets.PRINTFILENAME in snippet.option_dict:
+        if option in snippet.option_dict:
             rep['base'] = basename
             rep['filename'] = os.path.basename(snippet.filename)
             rep['ext'] = snippet.ext
-            s = self.output[book_snippets.PRINTFILENAME] % rep
+            s = self.output[option] % rep
 
         return s
 

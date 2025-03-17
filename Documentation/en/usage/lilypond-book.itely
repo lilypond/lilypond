@@ -970,15 +970,21 @@ should be a macro defined in the Texinfo document.  The same
 remark about @code{texidoc} processing with localized
 documentation also applies to @code{doctitle}.
 
+@item htmlprintfilename
+(Only for Texinfo output.)  Similar to option
+@option{printfilename}, but emit the file name for HTML output
+only.
+
 @item nogettext
 (Only for Texinfo output.)  Do not translate comments and variable
 names in the snippet quoted verbatim.
 
 @item printfilename
-If a LilyPond input file is included with @code{lilypondfile}
-command, print the file name right before the music snippet.  For
-HTML output, this is a link.  Only the base name of the file is
-printed, i.e., the directory part of the file path is stripped.
+If an input file is included with @code{lilypondfile} or
+@code{musicxmlfile}, print the file name right before the music
+snippet.  For HTML output, this is a link.  Only the base name of
+the file is printed, i.e., the directory part of the file path is
+stripped.
 
 @end table
 

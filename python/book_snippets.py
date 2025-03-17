@@ -49,6 +49,7 @@ EXAMPLEINDENT = 'exampleindent'
 FILENAME = 'filename'
 FILTER = 'filter'
 FRAGMENT = 'fragment'
+HTMLPRINTFILENAME = 'htmlprintfilename'
 LAYOUT = 'layout'
 LINE_WIDTH = 'line-width'
 NOFRAGMENT = 'nofragment'
@@ -89,13 +90,14 @@ no_options = {
 # argument)
 PROCESSING_INDEPENDENT_OPTIONS = (
     ALT, NOGETTEXT, VERBATIM,
-    TEXIDOC, DOCTITLE, VERSION, PRINTFILENAME)
+    TEXIDOC, DOCTITLE, VERSION, PRINTFILENAME, HTMLPRINTFILENAME)
 
 
 # Options without a pattern in snippet_options.
 simple_options = [
     EXAMPLEINDENT,
     FRAGMENT,
+    HTMLPRINTFILENAME,
     INLINE,
     NOFRAGMENT,
     NOGETTEXT,
