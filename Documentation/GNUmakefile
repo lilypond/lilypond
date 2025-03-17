@@ -588,7 +588,7 @@ $(outdir)/snippets/%.itely: snippets/%-intro.itely snippets/%.snippet-list
 	mkdir -p $(dir $@)
 	xargs $(LYS_TO_TELY) \
 		--prefix=snippets/ \
-		-f doctitle,texidoc,verbatim \
+		--fragment-options="doctitle,texidoc,verbatim" \
 		--output=$@ \
 		--include=$(dir $<) \
 		--template=$< \
