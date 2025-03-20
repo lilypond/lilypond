@@ -673,147 +673,350 @@ def musicxml_partial_to_lily(partial_len):
     else:
         return None
 
-
-# Detect repeats and alternative endings in the chord event list(music_list)
-# and convert them to the corresponding musicexp objects, containing nested
-# music
+# Detect repeats and alternative endings and convert them to corresponding
+# 'musicexp' objects, containing nested music.
 def group_repeats(music_list):
-    repeat_replaced = True
-    music_start = 0
-    i = 0
-    # Walk through the list of expressions, looking for repeat structures
-    # (repeat start/end, corresponding endings).  If we find one, try to
-    # find the last event of the repeat, replace the whole structure, and
-    # start over again.  For nested repeats, as soon as we encounter another
-    # starting repeat bar, treat that one first, and start over for the
-    # outer repeat.
-    while repeat_replaced and i < 100:
-        i += 1
-        repeat_start = -1  # position of repeat start / end
-        repeat_end = -1  # position of repeat start / end
-        repeat_times = 0
-        ending_start = -1  # position of current ending start
-        endings = []  # list of already finished endings
-        pos = 0
-        last = len(music_list) - 1
-        repeat_replaced = False
-        final_marker = 0
-        while pos < len(music_list) and not repeat_replaced:
-            e = music_list[pos]
-            repeat_finished = False
-            if isinstance(e, conversion.RepeatMarker):
-                if not repeat_times and e.times:
-                    repeat_times = e.times
-                if e.direction == -1:
-                    if repeat_end >= 0:
-                        repeat_finished = True
-                    else:
-                        repeat_start = pos
-                        repeat_end = -1
-                        ending_start = -1
-                        endings = []
-                elif e.direction == 1:
-                    if repeat_start < 0:
-                        repeat_start = 0
-                    if repeat_end < 0:
-                        repeat_end = pos
-                    final_marker = pos
-            elif isinstance(e, conversion.EndingMarker):
-                if e.direction == -1:
-                    if repeat_start < 0:
-                        repeat_start = 0
-                    if repeat_end < 0:
-                        repeat_end = pos
-                    ending_start = pos
-                elif e.direction == 1:
-                    if ending_start < 0:
-                        ending_start = 0
-                    endings.append([ending_start, pos])
-                    ending_start = -1
-                    final_marker = pos
-            elif (not isinstance(e, musicexp.BarLine)
-                  or (isinstance(e, musicexp.BarLine)
-                      and e.type is not None)):
-                # As soon as we encounter an element when repeat start and
-                # end is set, and we are not inside an alternative ending
-                # (also ignoring `BarLine` nodes that only set the bar
-                # number), this whole repeat structure is finished, and we
-                # can replace it.
-                if repeat_start >= 0 and repeat_end > 0 and ending_start < 0:
-                    repeat_finished = True
+    def clamp_range(start, stop):
+        if start < 0:
+            start = 0
+        if stop > len(music_list):
+            stop = len(music_list)
+        return (start, stop)
 
-            # Finish off all repeats without an explicit ending bar (e.g.,
-            # when we convert only one page of a multi-page score with
-            # repeats).
-            if pos == last and repeat_start >= 0:
-                repeat_finished = True
-                final_marker = pos
-                if repeat_end < 0:
-                    repeat_end = pos
-                if ending_start >= 0:
-                    endings.append([ending_start, pos])
-                    ending_start = -1
+    # Wrap elements in `music_list` between `markers[start]` and
+    # `markers[end]`.
+    def wrap_repeat(start, stop):
+        nonlocal music_list_pos
 
-            if repeat_finished:
-                globvars.layout_information.set_context_item(
-                    'Score', 'doubleRepeatBarType = ":|.|:"')
+        globvars.layout_information.set_context_item(
+            'Score', 'doubleRepeatBarType = ":|.|:"')
 
-                # We found the whole structure replace it!
-                r = musicexp.RepeatedMusic()
-                if repeat_times <= 0:
-                    repeat_times = 2
-                r.repeat_count = repeat_times
-                # don't erase the first element for "implicit" repeats(i.e. no
-                # starting repeat bars at the very beginning)
-                start = repeat_start + 1
-                if repeat_start == music_start:
-                    start = music_start
-                r.set_music(music_list[start:repeat_end])
+        times = 2
+        if stop < len(music_list):
+            stop_marker = music_list[stop]
+            if type(stop_marker) == conversion.RepeatMarker:
+                times = stop_marker.times
+                if times == 1:
+                    # We need special LilyPond support for this case.
+                    globvars.layout_information.set_context_item(
+                        'Score', 'printTrivialVoltaRepeats = ##t')
 
-                # By storing the positions of `EndingMarker` elements in
-                # `endings`, the zero to three elements inbetween (as
-                # returned by function `musicxml.Barline.to_lily_object`)
-                # are removed after the following loop.  However, we have to
-                # append the bar line elements (if present) since they might
-                # further adjust the bars between endings by changing the
-                # color, for example.
-                #
-                # In a similar vein, we have to prepend the data from
-                # `<ending>` start elements to set properties for the
-                # `VoltaSpanner` grobs.  Note that MusicXML doesn't provide
-                # a separate `color` attribute for the volta number text.
-                last_index = len(endings) - 1
-                for i, (start, end) in enumerate(endings):
-                    s = musicexp.SequentialMusic()
+        r = musicexp.RepeatedMusic()
+        r.repeat_count = times
+        r.set_music(music_list[start + 1:stop])
 
-                    if isinstance(music_list[start], conversion.EndingMarker):
-                        ending = music_list[start].mxl_event
-                        attributes = ending._attribute_dict.copy()
-                        attributes.pop('color', None)
+        (m, n) = clamp_range(start, stop + 1)
+        del music_list[m:n]
 
-                        v = musicexp.VoltaStyleEvent()
-                        v.element = (ending, attributes)
+        music_list.insert(m, r)
 
-                        if getattr(ending, 'print-object', 'yes') == 'no':
-                            v.visible = False
-                        v.color = getattr(ending, 'color', None)
+        # We have to adjust `music_list_pos` if we modify the beginning of
+        # `music_list`.
+        if markers[0][1] <= music_list_pos:
+            music_list_pos = markers[0][1] + 1
 
-                        s.elements.append(v)
+    # Construct a `\repeat` block with alternatives as specified by `start` and
+    # `endings`.
+    def wrap_repeat_with_endings(start, endings):
+        nonlocal music_list_pos
 
-                    s.elements.extend(music_list[start + 1:end])
+        globvars.layout_information.set_context_item(
+            'Score', 'doubleRepeatBarType = ":|.|:"')
 
-                    if i < last_index:
-                        for j in range(end + 1, endings[i + 1][0]):
-                            if isinstance(music_list[j], musicexp.BarLine):
-                                s.elements.append(music_list[j])
-                                break
-                    r.add_ending(s)
+        stop = endings[0][0]
+        r = musicexp.RepeatedMusic()
+        r.repeat_count = len(endings)
+        r.set_music(music_list[start + 1:stop])
 
-                del music_list[repeat_start:final_marker + 1]
-                music_list.insert(repeat_start, r)
-                repeat_replaced = True
-            pos += 1
-        # TODO: Implement repeats until the end without explicit ending bar
+        for (i, j) in endings:
+            # We have to prepend the data from `<ending>` start elements to set
+            # properties for the `VoltaSpanner` grobs.  Note that MusicXML
+            # doesn't provide a separate `color` attribute for the volta number
+            # text.
+            el = music_list[i].mxl_event
+            attributes = el._attribute_dict.copy()
+            attributes.pop('color', None)
+
+            v = musicexp.VoltaStyleEvent()
+            v.element = (el, attributes)
+
+            if getattr(el, 'print-object', 'yes') == 'no':
+                v.visible = False
+            v.color = getattr(el, 'color', None)
+
+            s = musicexp.SequentialMusic()
+            s.elements.append(v)
+            s.elements.extend(music_list[i + 1:j])
+
+            r.add_ending(s)
+
+        # Deleting elements from `music_list` in a loop works if we do it in
+        # reverse order.  We also delete the repeat markers around the actual
+        # data.
+        for (i, j) in reversed(endings):
+            (m, n) = clamp_range(i, j + 1)
+            del music_list[m:n]
+
+        # There is no repeat marker after the element at position `stop`.
+        (m, n) = clamp_range(start, stop)
+        del music_list[m:n]
+
+        music_list.insert(m, r)
+
+        # We have to adjust `music_list_pos` if we modify the beginning of
+        # `music_list`.
+        if markers[0][1] <= music_list_pos:
+            music_list_pos = markers[0][1] + 1
+
+    marker_dict = {
+        (conversion.RepeatEndingMarker, -1): 'REPEAT FORWARD & ENDING START',
+        (conversion.RepeatEndingMarker, 1): 'ENDING STOP & REPEAT BACKWARD',
+        (conversion.RepeatMarker, -1): 'REPEAT FORWARD',
+        (conversion.RepeatMarker, 1): 'REPEAT BACKWARD',
+        (conversion.EndingMarker, -1): 'ENDING START',
+        (conversion.EndingMarker, 1): 'ENDING STOP',
+    }
+
+    marker_id_dict = {
+        'REPEAT FORWARD & ENDING START':
+            'combination <repeat type="forward"> with <ending type="start">',
+        'ENDING STOP & REPEAT BACKWARD':
+            'combination <ending type="stop"> with <repeat type="backward">',
+        'REPEAT FORWARD': 'element <repeat type="forward">',
+        'REPEAT BACKWARD': 'element <repeat type="backward">',
+        'ENDING START': 'element <ending type="start">',
+        'ENDING STOP': 'element <ending type="stop">',
+        '$': 'end of input',
+    }
+
+    # Marker objects from `music_list` are stored in the `markers` array.  We
+    # only access `music_list` if `markers` is exhausted.
+    def get_marker():
+        nonlocal markers_pos, music_list_pos
+
+        if markers_pos < len(markers):
+            ret = markers[markers_pos][0]
+            markers_pos += 1
+            return ret
+
+        music_list_end = len(music_list)
+
+        while music_list_pos < music_list_end:
+            el = music_list[music_list_pos]
+            direction = getattr(el, 'direction', None)
+            marker = marker_dict.get((type(el), direction), None)
+
+            if marker is not None:
+                markers.append([marker, music_list_pos])
+                music_list_pos += 1
+                markers_pos += 1
+                return marker
+
+            music_list_pos += 1
+
+        return '$'  # end of input
+
+    # Parse, rearrange, and transform the repeat structure data list.  The
+    # function returns 'True' if the list should be scanned again and 'False' if
+    # the list should be regenerated or if we are done.
+    def parse_markers():
+        nonlocal music_list_pos
+
+        state = '^'  # begin of input
+
+        while True:
+            # If we return False there is no need to adjust the `markers` array
+            # (except for what we need for wrapping) since it gets regenerated
+            # in the next call of the loop.
+
+            marker = get_marker()
+            marker_id = marker_id_dict.get(marker, None)
+
+            curr = markers_pos - 1
+            prev = markers_pos - 2
+
+            if state == '^':
+                if (marker == 'ENDING START'
+                        or marker == 'REPEAT BACKWARD'):
+                    # We have an implicit repeat start.
+                    markers.insert(0, ['REPEAT FORWARD', -1])
+                    return True
+
+                if (marker == 'ENDING STOP'
+                        or marker == 'ENDING STOP & REPEAT BACKWARD'
+                        or marker == 'REPEAT FORWARD & ENDING START'):
+                    ly.warning(_('ignoring unexpected %s') % marker_id)
+                    del music_list[markers[curr][1]]
+                    return False
+
+                if marker == '$':
+                    return False
+
+            # structure: ['ENDING START', pos]
+            elif state == 'ENDING START':
+                if marker == 'ENDING STOP':
+                    start = markers[prev][1]
+                    stop = markers[curr][1]
+                    markers[prev] = ['last ending', [start, stop]]
+                    del markers[curr]
+                    return True
+
+                if marker == '$':
+                    # We have an implicit ending stop.
+                    start = markers[prev][1]
+                    markers[prev] = ['last ending', [start, len(music_list)]]
+                    return True
+
+                if marker == 'ENDING STOP & REPEAT BACKWARD':
+                    start = markers[prev][1]
+                    stop = markers[curr][1]
+                    markers[prev] = ['endings with repeat', [[start, stop]]]
+                    del markers[curr]
+                    return True
+
+                if marker == 'ENDING START':
+                    ly.warning(_('ignoring unexpected %s') % marker_id)
+                    del music_list[markers[curr][1]]
+                    return False
+
+            # structure: ['REPEAT FORWARD', pos]
+            elif state == 'REPEAT FORWARD':
+                if marker == 'endings':
+                    start = markers[prev][1]
+                    endings = markers[curr][1]
+                    wrap_repeat_with_endings(start, endings)
+                    return False
+
+                if marker == 'REPEAT BACKWARD':
+                    start = markers[prev][1]
+                    stop = markers[curr][1]
+                    wrap_repeat(start, stop)
+                    return False
+
+                if marker == '$':
+                    # We have an implicit ending stop.
+                    start = markers[prev][1]
+                    stop = len(music_list)
+                    wrap_repeat(start, stop)
+                    return False
+
+                if marker == 'last ending':
+                    ly.warning(_('adding repeat barline to lone %s')
+                               % marker_id)
+                    range = markers[curr][1]
+                    markers[curr] = ['endings with repeat', [range]]
+                    return True
+
+            # structure: ['REPEAT FORWARD & ENDING START', pos]
+            elif state == 'REPEAT FORWARD & ENDING START':
+                if marker == 'ENDING STOP':
+                    # TODO: We ignore the ending position of the volta bracket
+                    #       and only use the position of the 'repeat backward &
+                    #       ending start' element, letting LilyPond handle the
+                    #       volta bracket automatically.  Find a way to control
+                    #       the length of the final volta bracket.
+                    markers[prev][0] = 'repeat forward & nested ending start'
+                    del markers[curr]
+                    music_list_pos -= 1
+                    del music_list[music_list_pos]
+                    # Continue with parsing; don't reset `music_list_pos` for
+                    # this case.
+                    return True
+
+                if marker == 'REPEAT BACKWARD':
+                    # A nested repeat that starts at the same position as the
+                    # volta bracket but ends within the volta bracket.
+                    start = markers[prev][1]
+                    stop = markers[curr][1]
+
+                    el = music_list[start]
+                    new_el = conversion.EndingMarker()
+                    new_el.direction = el.direction
+                    new_el.mxl_event = el.mxl_event
+                    wrap_repeat(start, stop)
+                    music_list.insert(start, new_el)
+
+                    return False
+
+                if marker == '$':
+                    # We have an implicit ending and repeat stop.
+                    start = markers[prev][1]
+
+                    el = music_list[start]
+                    new_el = conversion.EndingMarker()
+                    new_el.direction = el.direction
+                    new_el.mxl_event = el.mxl_event
+                    wrap_repeat(start, len(music_list))
+                    music_list.insert(start, new_el)
+
+                    return False
+
+                if (marker == 'REPEAT FORWARD & ENDING START'
+                        or marker == 'ENDING START'):
+                    ly.warning(_('ignoring unexpected %s') % marker_id)
+                    del music_list[markers[curr][1]]
+                    return False
+
+            # structure: ['repeat forward & nested ending start', pos]
+            elif state == 'repeat forward & nested ending start':
+                if marker == 'REPEAT BACKWARD':
+                    start = markers[prev][1]
+                    stop = markers[curr][1]
+
+                    # Emit the nested repeat and put it into a last ending.
+                    new_after = conversion.EndingMarker()
+                    new_after.direction = 1
+
+                    new_before = conversion.EndingMarker()
+                    new_before.direction = -1
+                    new_before.mxl_event = music_list[start].mxl_event
+
+                    wrap_repeat(start, stop)
+                    music_list.insert(start + 1, new_after)
+                    music_list.insert(start, new_before)
+
+                    # Adjust `music_list_pos` for proper re-parsing.
+                    if markers[0][1] < music_list_pos:
+                        music_list_pos = markers[0][1]
+                    return False
+
+            # structure: ['endings with repeat',
+            #             [[ending1_start, ending1_stop],
+            #              [ending2_start, ending2_stop],
+            #               ...]]
+            elif state == 'endings with repeat':
+                if marker == 'endings with repeat':
+                    markers[prev][1].extend(markers[curr][1])
+                    del markers[curr]
+                    return True
+
+                if marker == 'last ending':
+                    markers[prev][0] = 'endings'
+                    markers[prev][1].append(markers[curr][1])
+                    del markers[curr]
+                    return True
+
+            state = marker
+
+        return False
+
+    # Try to identify larger structures that can be wrapped with
+    # `RepeatedMusic` or `SequentialMusic` objects.  If we have a hit, do
+    # this wrapping and start again.
+    #
+    # `music_list` is modified in-place.
+    music_list_pos = 0
+    music_list_start = 0
+
+    while True:
+        # `markers` is modified in-place.
+        markers = []
+        markers_pos = 0
+        while parse_markers():
+            markers_pos = 0
+        if music_list_pos == len(music_list):
+            break
+
     return music_list
 
 
@@ -3167,8 +3370,7 @@ class LilyPondVoiceBuilder(musicexp.Base):
         elem = None
         for elem in reversed(self.elements):
             if not isinstance(elem, (musicexp.Break,
-                                     conversion.RepeatMarker,
-                                     conversion.EndingMarker)):
+                                     conversion.Marker)):
                 break
         if isinstance(elem, musicexp.BarLine):
             prev_barline = elem
@@ -3557,8 +3759,7 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
             for a in barlines:
                 if isinstance(a, musicexp.BarLine):
                     voice_builder.add_barline(a)
-                elif isinstance(a, (conversion.RepeatMarker,
-                                    conversion.EndingMarker)):
+                elif isinstance(a, conversion.Marker):
                     voice_builder.add_command(a)
 
                 figured_bass_builder.add_barline(a)

@@ -32,7 +32,6 @@ def musicxml_step_to_lily(step):
 class Marker(musicexp.Music):
     def __init__(self):
         self.direction = 0
-        self.mxl_event = None
 
     def print_ly(self, printer):
         ly.warning(_("Encountered unprocessed marker %s\n") % self)
@@ -45,8 +44,19 @@ class Marker(musicexp.Music):
 class RepeatMarker(Marker):
     def __init__(self):
         Marker.__init__(self)
-        self.times = 0
+        self.times = 2  # A simple repeat played twice as the default.
 
 
 class EndingMarker(Marker):
-    pass
+    def __init__(self):
+        Marker.__init__(self)
+        self.mxl_event = None
+
+
+class RepeatEndingMarker(RepeatMarker, EndingMarker):
+    def __init__(self, repeat, ending):
+        self.direction = repeat.direction
+        # According to the standard, `times` is not used if there is an
+        # `<ending>` element at the same time.
+        self.times = None
+        self.mxl_event = ending.mxl_event

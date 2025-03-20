@@ -696,13 +696,19 @@ class Backup(Measure_element):
 
 class Barline(Measure_element):
     def to_lily_object(self):
-        # Return a list with at most five elements, in the following order.
+        # Return a list with at most three elements, in the following order.
         #
-        #   backward-ending (EndingMarker)
-        #   backward-repeat (RepeatMarker)
-        #   bar-line (BarLine)
-        #   forward-repeat (RepeatMarker)
-        #   forward-ending (EndingMarker)
+        #   bar-line
+        #   backward-marker
+        #   forward-marker
+        #
+        # Both `backward-marker` and `forward-marker` elements are either of
+        # type `RepeatMarker`, `EndingMarker`, or `RepeatEndingMarker`.
+        #
+        # The `bar-line` element is of type `BarLine`; by putting it before
+        # `backward-marker` it gets included into the repeat group (in
+        # function `musicxml2ly.group_repeats`) so that it can control a
+        # repeat bar line's attributes.
         #
         # Missing elements are omitted.
         retval = [None, None, None, None, None]
@@ -743,13 +749,12 @@ class Barline(Measure_element):
             if times is not None:
                 try:
                     repeat.times = int(times)
-                except ValueError:  # TODO: explain this choice
-                    repeat.times = 2
-            repeat.mxl_event = repeat_element
+                except ValueError:
+                    pass
             if repeat.direction == -1:
                 retval[3] = repeat
             else:
-                retval[1] = repeat
+                retval[2] = repeat
 
         ending_type = getattr(ending_element, 'type', None)
         if ending_type is not None:
@@ -760,14 +765,22 @@ class Barline(Measure_element):
             if ending.direction == -1:
                 retval[4] = ending
             else:
-                retval[0] = ending
+                retval[1] = ending
             # TODO: Handle `number` attribute.
 
         if bartype is not None or barline_color is not None:
             b = musicexp.BarLine()
             b.type = bartype
             b.color = barline_color
-            retval[2] = b
+            retval[0] = b
+
+        # Synthesize `RepeatEndingMarker` objects if possible.
+        if retval[2] is not None and retval[1] is not None:
+            retval[2] = conversion.RepeatEndingMarker(retval[2], retval[1])
+            retval[1] = None
+        if retval[3] is not None and retval[4] is not None:
+            retval[3] = conversion.RepeatEndingMarker(retval[3], retval[4])
+            retval[4] = None
 
         return [r for r in retval if r is not None]
 
