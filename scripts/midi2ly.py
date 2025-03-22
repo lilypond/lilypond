@@ -290,21 +290,46 @@ class Note:
 
 
 class Time:
-    def __init__(self, num, den):
+    def __init__(self, num, den, metronome_clocks):
         self.clocks = 0
         self.num = num
         self.den = den
+        self.metronome_clocks = metronome_clocks
 
     def bar_clocks(self):
         return clocks_per_1 * self.num / self.den
 
+    def beats_per_measure(self):
+        measure_len = Fraction(self.num, self.den)
+        beat_len = Fraction(self.metronome_clocks, 96)
+        return measure_len / beat_len
+
     def __repr__(self):
-        return 'Time(%d/%d)' % (self.num, self.den)
+        return 'Time(%d/%d, %d)' % (self.num, self.den, self.metronome_clocks)
 
     def dump(self):
         global time
         time = self
-        return '\n  ' + '\\time %d/%d ' % (self.num, self.den) + '\n  '
+        beat_structure = ''
+        actual_beats = self.beats_per_measure ()
+        if (actual_beats.denominator == 1) and (actual_beats < self.num):
+            # The metronome suggests a uniformly grouped beat structure.
+            actual_group_size = self.num / actual_beats
+            # LilyPond defaults to groups of 3 when the time signature numerator
+            # is >= 6 and is a multiple of 3, so we probably don't need to emit
+            # the beat structure option for it to do the right thing in those
+            # cases.
+            default_group_size = 1
+            if (self.num > 3) and ((self.num % 3) == 0):
+                default_group_size = 3
+            if actual_group_size != default_group_size:
+                # We only need to list the number once because LilyPond repeats
+                # beatStructure to the end of the measure.
+                beat_structure = f"#'({actual_group_size}) "
+        # Note: The beat structure option does not override default beam
+        # exceptions, so for example, in 4/4 LilyPond will still beam eighths in
+        # half-measure groups even if this says otherwise.
+        return f'\n  \\time {beat_structure}{self.num}/{self.den}\n  '
 
 
 class Tempo:
@@ -519,9 +544,9 @@ class Channel:
                     seconds_per_1 = Fraction(us_per_4 * 4, 1000000)
                     music.append((t, Tempo(seconds_per_1)))
                 elif e[1][1] == midi.TIME_SIGNATURE:
-                    num, dur, _, _ = list(map(ord, e[1][2]))
+                    num, dur, metronome_clocks, _ = list(map(ord, e[1][2]))
                     den = 2 ** dur
-                    music.append((t, Time(num, den)))
+                    music.append((t, Time(num, den, metronome_clocks)))
                 elif e[1][1] == midi.KEY_SIGNATURE:
                     (alterations, minor) = list(map(ord, e[1][2]))
                     sharps = 0
@@ -1011,7 +1036,7 @@ def convert_midi(in_file, out_file):
 
     clocks_per_1 = midi_dump[0][1]
     clocks_per_4 = clocks_per_1 / 4
-    time = Time(4, 4)
+    time = Time(4, 4, clocks_per_4)
 
     if global_options.start_quant:
         start_quant_clocks = clocks_per_1 / global_options.start_quant
