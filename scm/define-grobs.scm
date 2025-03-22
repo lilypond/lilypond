@@ -2890,6 +2890,7 @@ collisions of different voices.  See also
         (add-stem-support . #t)
         (cross-staff . ,ly:script-interface::calc-cross-staff)
         (direction . ,ly:script-interface::calc-direction)
+        (extra-spacing-height . ,horizontal-script::extra-spacing-height)
         (font-encoding . fetaMusic)
         (horizon-padding . 0.1) ; to avoid interleaving with accidentals
         (positioning-done . ,ly:script-interface::calc-positioning-done)

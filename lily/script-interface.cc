@@ -103,7 +103,6 @@ An object that is put above or below a note.
                R"(
 avoid-slur
 direction-source
-grob-defaults
 positioning-done
 script-column
 script-priority

@@ -122,6 +122,8 @@ Methods to create new dynamic markings are also discussed.
 @cindex sign, variant coda
 @cindex sign, coda, variant
 @cindex @q{coda} sign, variant
+@cindex @q{bachschleifer} articulation
+@cindex articulation, bachschleifer
 
 @funindex \accent
 @funindex \marcato
@@ -169,6 +171,7 @@ Methods to create new dynamic markings are also discussed.
 @funindex \segno
 @funindex \coda
 @funindex \varcoda
+@funindex \bachschleifer
 
 @funindex -
 
@@ -226,13 +229,25 @@ may be manually placed above or below the staff; see
 @funindex \atLeft
 @funindex \atRight
 
+@cindex bachschleifer
 @cindex ornament, horizontally
 @cindex horizontal ornament
 
-It is also possible to position articulations and ornamentations to the left or
-right of a note head by overriding their @code{side-axis} and, if necessary, the
-@code{direction} property.  The convenience functions @code{\atLeft} or
-@code{\atRight} take care of this
+The @code{bachschleifer} is positioned to the left of the @code{NoteHead}.
+This ornament may have ledger lines.
+
+@lilypond[verbatim,quote]
+{
+  \autoBeamOff
+  b'8 g''\bachschleifer
+  e'' c'''\bachschleifer
+}
+@end lilypond
+
+It is also possible to position common articulations and ornamentations to the
+left or right of a note head by overriding their @code{side-axis} and, if
+necessary, the @code{direction} property.  The convenience functions
+@code{\atLeft} or @code{\atRight} take care of this.
 
 @lilypond[verbatim,quote]
 {

@@ -23,6 +23,7 @@ harmonic = #(make-music 'HarmonicEvent)
 
 accent = #(make-articulation 'accent
            'midi-extra-velocity 20)
+bachschleifer = #(make-articulation 'bachschleifer)
 coda = #(make-articulation 'coda)
 downbow = #(make-articulation 'downbow)
 downmordent = #(make-articulation 'downmordent)

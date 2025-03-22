@@ -2295,27 +2295,14 @@ adapted for typesetting within a chord grid.")))
           (stem #f)
           (acc-placement #f)
           (dot-col #f)
-          (script-row #f)
-          (script-defs (ly:context-property ctx 'scriptDefinitions)))
+          (script-row #f))
       (make-engraver
         (acknowledgers
-          ((script-interface this-engraver grob source-engraver)
-            ;; NB script-interface is currently used in
-            ;; AccidentalSuggestion, CaesuraScript, DynamicText,
-            ;; MultiMeasureRestScript and Script.
-            ;; For setting 'grob-defaults take only Script-grobs
-            (when (eq? (grob::name grob) 'Script)
-              (let* ((cause (ly:grob-property grob 'cause))
-                     (art-type
-                       (ly:prob-property cause 'articulation-type))
-                     (art-script-def (assv art-type script-defs)))
-                ;; Fill grob-object 'grob-defaults with the relevant entry
-                ;; of `script-defs`. Do this for all Script grobs, this also
-                ;; makes it easier to restrict other overrides to targeted
-                ;; types.
-                ;; NB Obviously this does not work in contexts missing this
-                ;; engraver.
-                (ly:grob-set-object! grob 'grob-defaults art-script-def)))
+          ;; NB 'script-interface is currently used in
+          ;; AccidentalSuggestion, CaesuraScript, DynamicText,
+          ;; MultiMeasureRestScript and Script, thus we use
+          ;; 'horizontal-script-interface.
+          ((horizontal-script-interface this-engraver grob source-engraver)
             (set! raw-scripts (cons grob raw-scripts)))
           ((script-column-interface this-engraver grob source-engraver)
             (when (eq? (grob::name grob) 'ScriptRow)
@@ -2438,6 +2425,6 @@ adapted for typesetting within a chord grid.")))
  Horizontal_script_engraver 'Horizontal_script_engraver
  '((events-accepted . ())
    (grobs-created . ())
-   (properties-read . (scriptDefinitions))
+   (properties-read . ())
    (properties-written . ())
    (description . "Aligns @code{Script} horizontally")))

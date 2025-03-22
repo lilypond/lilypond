@@ -44,6 +44,18 @@
         (direction . ,UP)))
 
 
+    (bachschleifer
+     . (
+        (script-stencil . (feta . ("bachschleifer" . "bachschleifer")))
+        (no-ledgers . #f)
+        (padding . 0.8)
+        (length-fraction . 0.5)
+        (avoid-slur . around)
+        (side-axis . ,X)
+        (direction . ,LEFT)
+        (staff-position . ,(horizontal-script::calc-staff-position -2))))
+
+
     (circulus
      . (
         (script-stencil . (feta . ("circulus" . "circulus")))

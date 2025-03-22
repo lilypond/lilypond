@@ -526,6 +526,13 @@ renamed to @code{'single-number}.
 
 
 @item
+A new ornament, @code{bachschleifer}, is now available.
+
+@lilypond[quote,verbatim]
+{ b' g''\bachschleifer }
+@end lilypond
+
+@item
 It is now possible to position @code{Script} to the left or right side of a
 @code{NoteHead}.
 

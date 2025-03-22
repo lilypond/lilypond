@@ -1924,20 +1924,25 @@ some offset from zero in y-axis direction."
             0))
       #f))
 
+(define-public (horizontal-script::extra-spacing-height grob)
+"Set @code{extra-spacing-height} for horizontal script to
+@code{item::extra-spacing-height-including-staff} to avoid overlapping with
+surrounding note columns."
+  (if (zero? (ly:grob-property grob 'side-axis))
+      (item::extra-spacing-height-including-staff grob)
+      '()))
+
 (define-public script-interface::calc-y-offset
 ;; If Script is positioned above or below we use
 ;; `side-position-interface::y-aligned-side`, an unpure-pure-container.
-;; Otherwise we look into the grob-object 'grob-defaults (provided by the
-;; engraver) for a possible setting of 'staff-position or use zero.
+;; If Script is positioned left or right we try to get 'staff-position from
+;; Script and parent NoteHead in order to calculate the vertical offset.
+;; Otherwise we fall back to zero.
   (let ((variant
          (lambda (accessor)
            (lambda (grob . rest)
              (if (zero? (ly:grob-property grob 'side-axis Y))
-                 (let* ((cause (ly:grob-property grob 'cause))
-                        (articulation-type
-                          (ly:prob-property cause 'articulation-type))
-                        (grob-defaults (ly:grob-object grob 'grob-defaults))
-                        (head (ly:grob-parent grob Y))
+                 (let* ((head (ly:grob-parent grob Y))
                         (head-y
                           (if (grob::has-interface head 'note-head-interface)
                               (ly:grob-property head 'staff-position #f)
