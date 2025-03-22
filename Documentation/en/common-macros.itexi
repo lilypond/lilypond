@@ -188,48 +188,13 @@ Macro definitions that contain translatable text belong to file
 \gdef\irefX[#1]{\begingroup
   \unsepspaces
   \def\printedrefname{\ignorespaces #1}%
-  %
-  % Make link in pdf output.
-  \ifpdf
-    % For pdfTeX and LuaTeX.
-    {\indexnofonts
-     \makevalueexpandable
-     \turnoffactive
-     \setpdfdestname{#1}%
-     \leavevmode
-     \startlink attr{/Border [0 0 0]} goto name{\pdfmkpgn{\pdfdestname}}%
-    }%
-    \setcolor{\linkcolor}%
-  \else
-    \ifx\XeTeXrevision\thisisundefined
-    \else
-      % For XeTeX.
-      {\indexnofonts
-       \makevalueexpandable
-       \turnoffactive
-       \setpdfdestname{#1}%
-       \leavevmode
-       \special{pdf:bann << /Border [0 0 0] /Type /Annot /Subtype /Link /A
-         << /S /GoTo /D (\pdfdestname) >> >>}%
-      }%
-      \setcolor{\linkcolor}%
-    \fi
-  \fi
-  %
-  {%
-    % Have to otherify everything special to allow `\csname` to
-    % include `_` in the xref name, etc.
-    \indexnofonts
-    \turnoffactive
-    \def\value##1{##1}%
-    \expandafter\global\expandafter\let\expandafter\Xthisreftitle
-      \csname XR#1-title\endcsname
-  }%
+  \startxreflink{#1}{}%
+  \getrefx{#1-title}\Xthisreftitle
   %
   % Start reference with node name.
-  \code{\printedrefname}\space
+  \code{\printedrefname}%
   % Output page reference.
-  \turnoffactive (\putwordpage\tie\refx{#1-pg})%
+  \turnoffactive \space (\putwordpage\tie\refx{#1-pg})%
   %
   % Add a `,` if `@iref` is followed by a space.
   \if\space\noexpand\tokenafteriref ,%
