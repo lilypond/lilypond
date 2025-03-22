@@ -19,8 +19,12 @@
 
 #include "audio-item.hh"
 #include "international.hh"
+#include "ly-scm-list.hh"
 #include "performer.hh"
 #include "protected-scm.hh"
+#include "rational.hh"
+
+#include <algorithm>
 
 class Time_signature_performer final : public Performer
 {
@@ -29,6 +33,7 @@ class Time_signature_performer final : public Performer
   Stream_event *event_ = nullptr;
 
 protected:
+  SCM calc_common_beat (SCM beat_structure);
   void derived_mark () const override;
   void stop_translation_timestep ();
   void process_music ();
@@ -55,6 +60,34 @@ Time_signature_performer::listen_time_signature (Stream_event *ev)
   event_ = ev;
 }
 
+SCM
+Time_signature_performer::calc_common_beat (SCM beat_structure)
+{
+  SCM common_beat = to_scm (0);
+
+  for (SCM beat : as_ly_scm_list (beat_structure))
+    {
+      if (scm_is_integer (beat))
+        {
+          // This handles the usual cases, e.g. \time 6/8 with structure (3 3).
+          common_beat = scm_gcd (common_beat, beat);
+        }
+      else
+        {
+          // When any beat has a fractional part, just use the beat base as the
+          // metronome period.  Example: Time signature 2½/4, yielding beatBase
+          // 1/4 and beatStructure (1 1 1/2).
+          //
+          // The closest approximation of the fraction that can be encoded in
+          // MIDI is 5/8, but we distinguish it from 2½/4 by setting the
+          // metronome period to a quarter note rather than an eighth note.
+          return to_scm (1);
+        }
+    }
+
+  return common_beat;
+}
+
 void
 Time_signature_performer::process_music ()
 {
@@ -73,15 +106,10 @@ Time_signature_performer::process_music ()
   if (scm_is_pair (fr) && (event_ || !ly_is_equal (fr, last_time_fraction_)))
     {
       last_time_fraction_ = fr;
-      int b = from_scm<int> (scm_car (fr));
-      int o = from_scm<int> (scm_cdr (fr));
       const auto beat_base
         = from_scm (get_property (this, "beatBase"), Rational (1, 4));
       Rational beat_base_clocks = 96 * beat_base;
-      SCM common_beat = SCM_INUM0;
-      for (SCM p = get_property (this, "beatStructure"); scm_is_pair (p);
-           p = scm_cdr (p))
-        common_beat = scm_gcd (common_beat, scm_car (p));
+      SCM common_beat = calc_common_beat (get_property (this, "beatStructure"));
       if (is_scm<Rational> (common_beat)
           && scm_is_false (scm_zero_p (common_beat)))
         beat_base_clocks *= from_scm<Rational> (common_beat);
@@ -101,7 +129,9 @@ Time_signature_performer::process_music ()
         }
 
       audio_ = new Audio_time_signature (
-        b, o, static_cast<int> (beat_base_clocks.numerator ()));
+        from_scm<Rational> (scm_car (fr)), // numerator
+        from_scm<Rational> (scm_cdr (fr)), // denominator
+        static_cast<int> (beat_base_clocks.numerator ()));
       Audio_element_info info (audio_, 0);
       announce_element (info);
     }

@@ -172,20 +172,81 @@ Midi_time_signature::Midi_time_signature (Audio_time_signature *a)
 std::string
 Midi_time_signature::to_string () const
 {
-  int num = std::abs (audio_->beats_);
-  if (num > 255)
+  bool warned = false;
+  auto warn_unsupported = [&] {
+    if (!warned)
+      {
+        warned = true;
+        warning (_f ("Unsupported MIDI time signature: (%s)/(%s)",
+                     ::to_string (audio_->num_), ::to_string (audio_->den_)));
+      }
+  };
+
+  auto num = audio_->num_;
+  if (!isfinite (num) || (num < 0))
     {
-      warning (_ ("Time signature with more than 255 beats.  Truncating"));
-      num = 255;
+      warn_unsupported ();
+      return "";
     }
 
-  int den = audio_->one_beat_;
+  auto den = audio_->den_;
+  if (!isfinite (den) || (den <= 0))
+    {
+      warn_unsupported ();
+      return "";
+    }
+
+  int midi_dlog = 0x100; // out-of-range signals unsupported
+  for (int try_count = 0; try_count < 2; ++try_count)
+    {
+      if (num.den () == 1)
+        {
+          if (auto dlog = intlog2 (den.num ()); den.num () == (1 << dlog))
+            {
+              // e.g., 4/4, which can be encoded without loss;
+              // or 4/(1/2), which this converts to 8/1;
+              // or 2/(8/3), which this converts to 6/8
+              if (dlog <= 0xff)
+                {
+                  if (auto new_num = num * den.den (); new_num <= 0xff)
+                    {
+                      num = new_num;
+                      midi_dlog = dlog;
+                      break;
+                    }
+                }
+            }
+        }
+      // Reduce the time signature the easy way and try one more time.  This
+      // should allow encoding some weird time signatures to measure-length
+      // equivalents, e.g., 9/12 as 3/4.
+      num = num / den;
+      den = num.den ();
+      num = num.num ();
+    }
+
+  if (midi_dlog > 0xff) // Couldn't find a way to preserve the measure length.
+    {
+      // num and den are integers as a result of the loop above.  Keep the
+      // powers of two in the denominator and throw away other factors.  This
+      // multiplies the measure length in the MIDI file, so it will on occasion
+      // be not horrible: when the notated number of measures in notated time
+      // signature matches the factor we have discarded.  This seems unlikely.
+      warn_unsupported ();
+      midi_dlog = intlog2 (den.num ());
+    }
+
+  if ((num.num () > 0xff) || (midi_dlog > 0xff))
+    {
+      warn_unsupported ();
+      return "";
+    }
 
   uint8_t out[] = {0xff,
                    0x58,
                    0x04,
-                   uint8_t (num),
-                   uint8_t (intlog2 (den)),
+                   static_cast<uint8_t> (num.num ()),
+                   static_cast<uint8_t> (midi_dlog),
                    uint8_t (audio_->beat_base_clocks_),
                    8};
   return std::string (reinterpret_cast<char *> (out), sizeof (out));

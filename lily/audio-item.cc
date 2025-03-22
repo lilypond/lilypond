@@ -190,14 +190,6 @@ Audio_span_dynamic::get_volume (Moment mom) const
   return start_volume_ + gain_ * (when / duration_);
 }
 
-Audio_time_signature::Audio_time_signature (int beats, int one_beat,
-                                            int beat_base_clocks)
-{
-  beats_ = beats;
-  one_beat_ = one_beat;
-  beat_base_clocks_ = beat_base_clocks;
-}
-
 std::string
 Audio_text::markup_to_string (SCM markup)
 {
