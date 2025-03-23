@@ -5,11 +5,12 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">A part with three voices; two on
-          the upper staff (voice two has a single chord) and one on the lower
-          staff.  There is a clef change in the upper staff in the middle of
-          measure one and a &lt;backup&gt; element for voice three, jumping back
-          beyond that clef change to the start of the
-          part.</miscellaneous-field>
+          the upper staff and one on the lower staff.  There are two clef
+          changes in the upper staff, one in the middle of measure one and one
+          at the end.  The third voice has a length of only three eights,
+          starting at the fourth eighth of the first bar.
+
+          No voice contains &lt;stem&gt; elements.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -121,8 +122,15 @@
         </notations>
       </note>
       <backup>
-        <duration>168</duration>
+        <duration>504</duration>
       </backup>
+      <note>
+        <rest/>
+        <duration>336</duration>
+        <voice>2</voice>
+        <type>quarter</type>
+        <staff>1</staff>
+      </note>
       <note>
         <pitch>
           <step>B</step>
@@ -343,7 +351,7 @@
       </note>
       <note>
         <pitch>
-          <step>F</step>
+          <step>E</step>
           <octave>4</octave>
         </pitch>
         <duration>336</duration>
