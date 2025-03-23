@@ -98,7 +98,7 @@ def strip_extension(f, ext):
 
 
 class Duration:
-    allowed_durs = (1, 2, 4, 8, 16, 32, 64, 128)
+    allowed_durs = (0.125, 0.25, 0.5, 1, 2, 4, 8, 16, 32, 64, 128)
 
     def __init__(self, clocks):
         self.clocks = clocks
@@ -112,7 +112,7 @@ class Duration:
         dur = 0
         num = 1
         den = 1
-        g = math.gcd(int(clocks), clocks_per_1)
+        g = math.gcd(int(clocks), 8 * clocks_per_1)
         if g:
             (dur, num) = (clocks_per_1 / g, clocks / g)
         if dur not in self.allowed_durs:
@@ -122,15 +122,24 @@ class Duration:
         return (dur, num, den)
 
     def __repr__(self):
+        def dur_str(d):
+            if d == 0.125:
+                return '\\maxima'
+            if d == 0.25:
+                return '\\longa'
+            elif d == 0.5:
+                return '\\breve'
+            else:
+                return str(int(d))
         if self.den == 1:
             if self.num == 1:
-                s = '%d' % self.dur
-            elif self.num == 3 and self.dur != 1:
-                s = '%d.' % (self.dur / 2)
+                s = dur_str(self.dur)
+            elif self.num == 3 and self.dur != 0.125:
+                s = dur_str(self.dur / 2) + '.'
             else:
-                s = '%d*%d' % (self.dur, self.num)
+                s = dur_str(self.dur) + ('*%d' % (self.num))
         else:
-            s = '%d*%d/%d' % (self.dur, self.num, self.den)
+            s = dur_str(self.dur) + ('*%d/%d' % (self.num, self.den))
         return s
 
     def dump(self):
