@@ -386,6 +386,9 @@ struct scm_conversions<int>
     return scm_is_signed_integer (s, limits::min (), limits::max ());
   }
   static int from_scm (SCM s) { return scm_to_int (s); }
+  // Guile provides the macro SCM_I_MAKINUM(x) (and short forms SCM_INUM0 and
+  // SCM_INUM1) for initializing immediate integers, which might be preferred
+  // where performance is a special concern.
   static SCM to_scm (const int &i) { return scm_from_int (i); }
 };
 

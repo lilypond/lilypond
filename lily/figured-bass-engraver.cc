@@ -441,7 +441,7 @@ Figured_bass_engraver::create_grobs ()
               && scm_is_null (group.augmented_slash_))
             {
               // Convert `<_>` to an invisible digit.
-              number = scm_from_int (0);
+              number = to_scm (0);
               set_property (item, "transparent", SCM_BOOL_T);
               set_property (item, "implicit", SCM_BOOL_T);
             }
@@ -476,7 +476,7 @@ Figured_bass_engraver::create_grobs ()
               set_property (event, "diminished", SCM_BOOL_F);
               set_property (event, "augmented-slash", SCM_BOOL_F);
 
-              text = ly_call (proc, scm_from_int (0), event->self_scm (),
+              text = ly_call (proc, to_scm (0), event->self_scm (),
                               context ()->self_scm ());
             }
           else
