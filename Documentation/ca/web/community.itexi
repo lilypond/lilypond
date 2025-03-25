@@ -635,7 +635,7 @@ Proves del llançament actual.
 @item
 @uref{../../input/regression/musicxml/collated-files.html, Proves de regressió del MusicXML}:
 les proves del MusicXML de la versió actual.
-(@uref{../input/regression/musicxml/collated-files.pdf, versió PDF}).
+(@uref{../../input/regression/musicxml/collated-files.pdf, versió PDF}).
 
 @item
 @uref{../../input/regression/abc2ly/collated-files.html, proves de l'abc2ly}:

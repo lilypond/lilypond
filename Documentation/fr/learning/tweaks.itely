@@ -561,7 +561,7 @@ commande @code{\override} :
 
 @morerefs
 Manuel de notation :
-@rnotationnamed{The tweak command, La commande d'affinage (tweak)},
+@rnotationnamed{Tweak and single, Les commandes @code{\tweak} et @code{\single}},
 @rnotationnamed{The offset command, La commande @code{\offset}}.
 @endmorerefs
 

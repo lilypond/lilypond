@@ -1415,8 +1415,8 @@ La disposition graphique d'un diagramme d'accord peut être
 modifiée suivant les préférences de l'utilisateur grâce aux
 propriétés de l'interface @code{fret-diagram-interface}. Des
 détails se trouvent dans @rinternals{fret-diagram-interface}. Voir
-aussi @rlsrsnippetnamed{Fretted strings, construction et
-developpement de diagrammes de fret,Construction et développement
+aussi @rlsrsnippetnamed{Fretted strings, Fret diagrams explained
+and developed, Construction et développement
 de diagrammes de fret} pour un exemple développé. Pour un
 diagramme d'accord, les propriétés de l'interface dépendent de
 @code{Voice.TextScript}.
@@ -1722,8 +1722,8 @@ La disposition graphique d'un diagramme d'accord peut être modifiée
 suivant les préférences de l'utilisateur grâce aux propriétés de
 l'interface @code{fret-diagram-interface}. Pour plus d'information,
 consultez @rinternals{fret-diagram-interface}. Voir aussi
-@rlsrsnippetnamed{Fretted strings, construction et developpement de
-diagrammes de fret,Construction et développement de diagrammes de fret}
+@rlsrsnippetnamed{Fretted strings, Fret diagrams explained and
+developed, Construction et développement de diagrammes de fret}
 pour un exemple développé. Pour un diagramme d'accord donné, les
 propriétés de l'interface dépendent de @code{FretBoards.FretBoard}.
 
@@ -1908,8 +1908,8 @@ plus d'information sur la propriété @code{stringTunings}.
 La disposition graphique d'un diagramme d'accord peut être modifiée
 suivant les préférences de l'utilisateur au travers des propriétés de
 l'interface @code{fret-diagram-interface}. Voir aussi
-@rlsrsnippetnamed{Fretted strings, construction et developpement de
-diagrammes de fret,Construction et développement de diagrammes de fret}
+@rlsrsnippetnamed{Fretted strings, Fret diagrams explained and
+developed, Construction et développement de diagrammes de fret}
 pour un exemple. Pour un diagramme d'accord @code{FretBoards} donné, les
 propriétés de l'interface dépendent de @code{FretBoards.FretBoard}.
 

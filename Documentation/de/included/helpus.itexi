@@ -50,11 +50,6 @@ Fehlerberichte: helfen Sie anderen Benutzern, richtige
 Fehlerteam an, um die @rcontribnamed{Issues,Probleme} zu verwalten.
 
 @item
-@rcontrib{Grand Regression Test Checking}: Verfizieren Sie, dass LilyPond
-richtig arbeitet, indem Sie die Ausgabe der Testschnipsel überprüfen.  Ein
-Schnipsel zu überprüfen dauert weniger als eine Minute!
-
-@item
 Dokumentation: kleine Änderungen (immer zuerst auf Englisch)
 können vorgeschlagen werden, wenn die Richtlinien
 von @rcontribnamed{Documentation suggestions,Vorschläge für die Dokumentation}

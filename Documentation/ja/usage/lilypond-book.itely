@@ -30,10 +30,7 @@
 
 @command{lilypond-book} は @command{lilypond} とは別のプログラムであり、@c
 コマンド ラインで実行されます。@c
-更なる情報は @ref{Command-line usage} を参照してください。@c
-Windows や Mac OS X のコマンド ラインを用いて @code{lilypond-book} を@c
-実行しようとした際に問題があるようなら、@rweb{Windows} や @rweb{MacOS X}
-を参照してください。
+更なる情報は @ref{Command-line usage} を参照してください。
 
 この処理は @LaTeX{}, HTML, Texinfo, または DocBook のドキュメントに@c
 適用することができます。

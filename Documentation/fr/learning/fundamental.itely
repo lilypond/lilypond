@@ -2050,7 +2050,7 @@ une commande @code{\set} au fil des notes.
 Manuel de notation :
 @rnotationnamed{Changing context default settings,
 Modification des réglages par défaut d'un contexte},
-@rnotationnamed{The set command, La commande de fixation (set)}.
+@rnotationnamed{Set and unset, Les commandes @code{\set} et @code{\unset}}.
 
 Référence des propriétés internes :
 @rinternals{Contexts},

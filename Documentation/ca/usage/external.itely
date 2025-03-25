@@ -409,9 +409,7 @@ dit, i s'executen des de la línia d'ordres;
 Són programes diferents a @command{lilypond} pròpiament dit, i
 s'executen dins la línia d'ordres; consulteu
 @ref{Command-line usage} per veure més
-informació.  Si teniu MacOS 10.3 o 10.4 i teniu problemes per
-executar alguns d'aquests guions, per exemple @code{convert-ly},
-consulteu @rweb{MacOS X}.
+informació.
 
 
 @knownissues

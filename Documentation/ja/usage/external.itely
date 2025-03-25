@@ -394,10 +394,7 @@ LilyPond 入力を作り出すツールは他にもあります。@c
 
 上で述べたツールは @command{lilypond} とは別のプログラムであり、@c
 コマンド ラインで実行します。@c
-詳細は @ref{Command-line usage} を参照してください。@c
-あなたが MacOS 10.3 や 10.4 を使っていて、@c
-これらのスクリプト (例えば @code{convert-ly}) を実行する際に問題が@c
-発生した場合は、@rweb{MacOS X} を参照してください。
+詳細は @ref{Command-line usage} を参照してください。
 
 @knownissues
 残念なことに我々にはこれらのプログラムを維持していくだけの余力はありません。@c

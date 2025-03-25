@@ -1363,7 +1363,7 @@ TODO: ADD
 @subsection Replacing the notation fonts in development versions
 
 The instructions to install other notation fonts (see
-@rnotation{Replacing the notation fonts}) are slightly different
+@rnotation{Replacing the notation font}) are slightly different
 if you call the @command{lilypond} binary directly from the build
 directory: instead of using a version directory name
 @file{@var{X}.@var{Y}.@var{Z}} in the path, you have to use
