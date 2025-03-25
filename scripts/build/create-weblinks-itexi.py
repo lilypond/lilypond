@@ -31,9 +31,8 @@ from version_data import version_data
 # ASCII with LANG=C (which the build system exports).
 sys.stdout = codecs.getwriter('utf-8')(sys.stdout.detach())
 
-# translation data -- shouldn't be here; see issue
-# https://sourceforge.net/p/testlilyissues/issues/1050/
-
+# translation data -- shouldn't be here; see
+# https://gitlab.com/lilypond/lilypond/-/issues/1050
 langs = [i.code if i.code != 'en' else '' for i in langdefs.WEB_LANGUAGES]
 
 
@@ -69,8 +68,8 @@ translations = {
         'PDF of regtests for ': 'Proves de regressió en PDF per a ',
         'MIDI Regression tests for ': 'Proves de regressió de MIDI per a ',
         'PDF of MIDI regtests for ': 'Proves de regressió de MIDI en PDF per a ',
-        # 'Other Regression tests for ': 'Proves de regressió de ??? per a ',
-        # 'PDF of other regtests for ': 'Proves de regressió de ??? en PDF per a ',
+        'Other Regression tests for ': 'Altres proves de regressió per a ',
+        'PDF of other regtests for ': 'Altres proves de regressió en PDF per a ',
         'abc2ly Regression tests for ': 'Proves de regressió d\'abc2ly per a ',
         'PDF of abc2ly regtests for ': 'Proves de regressió d\'abc2ly en PDF per a ',
         'MusicXML Regression tests for ': 'Proves de regressió de MusicXML per a ',
@@ -174,8 +173,8 @@ translations = {
         'PDF of regtests for ': 'PDF des tests de régression pour ',
         'MIDI Regression tests for ': 'Tests de régression de MIDI pour ',
         'PDF of MIDI regtests for ': 'PDF des tests de régression de MIDI pour ',
-        # 'Other Regression tests for ': 'Tests de régression de ??? pour ',
-        # 'PDF of other regtests for ': 'PDF des tests de régression de ??? pour ',
+        'Other Regression tests for ': 'Autres tests de régression pour ',
+        'PDF of other regtests for ': 'PDF des autres tests de régression pour ',
         'abc2ly Regression tests for ': 'Tests de régression de abc2ly pour ',
         'PDF of abc2ly regtests for ': 'PDF des tests de régression de abc2ly pour ',
         'MusicXML Regression tests for ': 'Tests de régression de MusicXML pour ',
@@ -246,8 +245,8 @@ translations = {
         'PDF of regtests for ': '回帰テスト (PDF 版) バージョン ',
         'MIDI Regression tests for ': 'MIDI 回帰テスト バージョン ',
         'PDF of MIDI regtests for ': 'MIDI 回帰テスト (PDF 版) バージョン ',
-        # 'Other Regression tests for ': '??? 回帰テスト バージョン ',
-        # 'PDF of other regtests for ': '??? 回帰テスト (PDF 版) バージョン ',
+        'Other Regression tests for ': 'その他の回帰テスト バージョン ',
+        'PDF of other regtests for ': 'その他の回帰テスト (PDF 版) バージョン ',
         'abc2ly Regression tests for ': 'abc2ly 回帰テスト バージョン ',
         'PDF of abc2ly regtests for ': 'abc2ly 回帰テスト (PDF 版) バージョン ',
         'MusicXML Regression tests for ': 'MusicXML 回帰テスト バージョン ',
