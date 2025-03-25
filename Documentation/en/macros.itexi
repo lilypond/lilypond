@@ -332,7 +332,7 @@ For LilyPond version @version{}
 @end macro
 
 @macro rlsrsnippet{PREFIX,TEXT}
-@ref{\PREFIX\: \TEXT\,,\TEXT\,snippets-big-page,Snippets}
+@ref{\PREFIX\ - \TEXT\,,\TEXT\,snippets-big-page,Snippets}
 @end macro
 
 @macro rinternals{TEXT}
@@ -433,7 +433,7 @@ For LilyPond version @version{}
 @end macro
 
 @macro rlsrsnippet{PREFIX,TEXT}
-@ref{\PREFIX\: \TEXT\,,\TEXT\,snippets,Snippets}
+@ref{\PREFIX\ - \TEXT\,,\TEXT\,snippets,Snippets}
 @end macro
 
 @macro rinternals{TEXT}
@@ -529,7 +529,7 @@ For LilyPond version @version{}
 @end macro
 
 @macro rlsrsnippet{PREFIX,TEXT}
-@ref{\PREFIX\: \TEXT\,,\TEXT\,lilypond-snippets,Snippets}
+@ref{\PREFIX\ - \TEXT\,,\TEXT\,lilypond-snippets,Snippets}
 @end macro
 
 @macro rinternals{TEXT}
@@ -632,7 +632,7 @@ For LilyPond version @version{}
 @end macro
 
 @macro rlsrsnippet{PREFIX,TEXT}
-@ref{\PREFIX\: \TEXT\,,\TEXT\,snippets,Snippets}
+@ref{\PREFIX\ - \TEXT\,,\TEXT\,snippets,Snippets}
 @end macro
 
 @macro rinternals{TEXT}

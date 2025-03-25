@@ -372,11 +372,11 @@ Pour LilyPond version @version{}
 @end macro
 
 @macro rlsrsnippet{PREFIX,TEXT}
-@ref{\PREFIX\: \TEXT\,,\TEXT\,snippets-big-page,Morceaux choisis}
+@ref{\PREFIX\ - \TEXT\,,\TEXT\,snippets-big-page,Morceaux choisis}
 @end macro
 
 @macro rlsrsnippetnamed{PREFIX,TEXT,DISPLAY}
-@ref{\PREFIX\: \TEXT\,,\DISPLAY\,snippets,Morceaux choisis}
+@ref{\PREFIX\ - \TEXT\,,\DISPLAY\,snippets,Morceaux choisis}
 @end macro
 
 @macro rinternals{TEXT}
@@ -477,11 +477,11 @@ Pour LilyPond version @version{}
 @end macro
 
 @macro rlsrsnippet{PREFIX,TEXT}
-@ref{\PREFIX\: \TEXT\,,\TEXT\,snippets,Morceaux choisis}
+@ref{\PREFIX\ - \TEXT\,,\TEXT\,snippets,Morceaux choisis}
 @end macro
 
 @macro rlsrsnippetnamed{PREFIX,TEXT,DISPLAY}
-@ref{\PREFIX\: \TEXT\,,\DISPLAY\,snippets,Morceaux choisis}
+@ref{\PREFIX\ - \TEXT\,,\DISPLAY\,snippets,Morceaux choisis}
 @end macro
 
 @macro rinternals{TEXT}
@@ -577,7 +577,7 @@ Pour LilyPond version @version{}
 @end macro
 
 @macro rlsrsnippet{PREFIX,TEXT}
-@ref{\PREFIX\: \TEXT\,,\TEXT\,lilypond-snippets,Morceaux choisis}
+@ref{\PREFIX\ - \TEXT\,,\TEXT\,lilypond-snippets,Morceaux choisis}
 @end macro
 
 @macro rinternals{TEXT}
@@ -680,11 +680,11 @@ Pour LilyPond version @version{}
 @end macro
 
 @macro rlsrsnippet{PREFIX,TEXT}
-@ref{\PREFIX\: \TEXT\,,\TEXT\,snippets,Morceaux choisis}
+@ref{\PREFIX\ - \TEXT\,,\TEXT\,snippets,Morceaux choisis}
 @end macro
 
 @macro rlsrsnippetnamed{PREFIX,TEXT,DISPLAY}
-@ref{\PREFIX\: \TEXT\,,\DISPLAY\,snippets,Morceaux choisis}
+@ref{\PREFIX\ - \TEXT\,,\DISPLAY\,snippets,Morceaux choisis}
 @end macro
 
 @macro rinternals{TEXT}
