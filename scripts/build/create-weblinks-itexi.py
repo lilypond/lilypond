@@ -307,7 +307,7 @@ def make_download(name, version, download, text):
     string = f"""\
 @uref{{https://gitlab.com/lilypond/lilypond/-/releases/\
 v{version}/downloads/lilypond-{version}-{download},
-{text}: LilyPond {version}}}"""
+{text}LilyPond {version}}}"""
     make_macro(name, string)
 
 def make_download_source(name, version, lang):
@@ -320,13 +320,13 @@ def make_download_source(name, version, lang):
 
 def make_all_downloads(macroName, version):
     make_download("download"+macroName+"Linux", version,
-                  "linux-x86_64.tar.gz", "GNU/Linux x86_64")
+                  "linux-x86_64.tar.gz", "GNU/Linux x86_64: ")
     make_download("download"+macroName+"DarwinArm", version,
-                  "darwin-arm64.tar.gz", "macOS arm64")
+                  "darwin-arm64.tar.gz", "macOS arm64: ")
     make_download("download"+macroName+"Darwin", version,
-                  "darwin-x86_64.tar.gz", "macOS x86_64")
+                  "darwin-x86_64.tar.gz", "macOS x86_64: ")
     make_download("download"+macroName+"Mingw", version,
-                  "mingw-x86_64.zip", "Windows x86_64")
+                  "mingw-x86_64.zip", "Windows x86_64: ")
 
 
 def make_ver_link(macroname, url, linktext):
@@ -446,7 +446,7 @@ def make_regtest_links(name, version, lang):
 def make_doctarball_links(name, version, lang):
     make_download(macroLang("doctarball"+name, lang), version,
                   "documentation.tar.xz",
-                  getTrans("Doc tarball for ", lang)+version)
+                  getTrans("Doc tarball for ", lang))
 
 
 def make_generic_value(name, version):
