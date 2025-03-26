@@ -51,7 +51,7 @@ termini musicali e traduzioni.
 @details{Glossary, Glossario}
 
 @item
-@ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Saggio}}
+@ifWebLinks{@manualStableEssaySplitNoName-it,@ressaynamed{Top,Saggio}}
 @emph{(lettura opzionale)}
 informazioni sull'incisione realizzata dal computer.
 @details{Essay, Saggio}
@@ -74,7 +74,7 @@ guida alla sintassi.
 eseguire i programmi.
 @details{Usage, Uso}
 
-@item @ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Frammenti}}
+@item @ifWebLinks{@manualStableSnippetsSplitNoName-it,@rlsrnamed{Top,Frammenti}}
 brevi trucchi e consigli.
 @details{Snippets, Frammenti}
 
@@ -95,7 +95,7 @@ Domande frequenti (Frequently Asked Questions).
 questo documento.
 @details{Web, Web}
 
-@item @ifWebLinks{@manualStableChangesSplitNoName-it,@rchangesnamed{Top,Cambiamenti}}
+@item @ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Cambiamenti}}
 cosa c'è di nuovo?
 @details{Changes, Cambiamenti}
 
@@ -260,9 +260,9 @@ nella versione PDF a causa della sua maggiore risoluzione.}
 
 @docLinks{Saggio, essay,
   @ressaynamed{Top,Saggio},
-  @manualStableEssaySplit,
-  @manualStableEssayBig,
-  @manualStableEssayPdf}
+  @manualStableEssaySplit-it,
+  @manualStableEssayBig-it,
+  @manualStableEssayPdf-it}
 
 @divEnd
 
@@ -341,9 +341,9 @@ ha un collegamento alla lista dei relativi frammenti di codice.
 
 @docLinks{Frammenti, snippets,
   @rlsrnamed{Top,Frammenti},
-  @manualStableSnippetsSplit,
-  @manualStableSnippetsBig,
-  @manualStableSnippetsPdf}
+  @manualStableSnippetsSplit-it,
+  @manualStableSnippetsBig-it,
+  @manualStableSnippetsPdf-it}
 
 @divEnd
 
@@ -438,9 +438,9 @@ funzionalità di LilyPond rispetto alla versione stabile precedente.
 
 @docLinks{Cambiamenti, changes,
   @rchangesnamed{Top,Cambiamenti},
-  @manualStableChangesSplit-it,
-  @manualStableChangesBig-it,
-  @manualStableChangesPdf-it}
+  @manualStableChangesSplit,
+  @manualStableChangesBig,
+  @manualStableChangesPdf}
 
 @divEnd
 
@@ -513,7 +513,7 @@ I pacchetti scaricabili sono disponibili presso @uref{https://lilypond.org}
 @divClass{keep-bullets}
 @itemize
 
-@item @doctarballStable
+@item @doctarballStable-it
 
 @end itemize
 

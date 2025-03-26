@@ -53,9 +53,9 @@ una introducció al LilyPond amable i @qq{imprescindible}.
 @details{Glossary, Glossari}
 
 @item
-@ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Essay}}
+@ifWebLinks{@manualStableEssaySplitNoName-ca,@ressaynamed{Top,Monografia}}
 @emph{(lectura opcional)} la informació de rerefons sobre gravat musical
-@details{Essay, Essay}
+@details{Essay, Monografia}
 
 
 @end itemize
@@ -78,7 +78,7 @@ com executar els programes.
 @details{Usage, Utilització}
 
 @item
-@ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Fragments}}
+@ifWebLinks{@manualStableSnippetsSplitNoName-ca,@rlsrnamed{Top,Fragments}}
 trucs i consells curts.
 @details{Snippets, Fragments}
 
@@ -102,12 +102,12 @@ aquest document.
 @details{Web, Web}
 
 @item
-@ifWebLinks{@manualStableChangesSplitNoName-ca,@rchangesnamed{Top,Canvis}}
+@ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Canvis}}
 que hi ha de nou?
 @details{Changes, Canvis}
 
 @item
-@ifWebLinks{@manualStableExtendingSplitNoName-ca,@rextendnamed{Top,Extensió}}
+@ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Extensió}}
 trucs interessants.
 @details{Extending, Extensió}
 
@@ -262,8 +262,8 @@ la versió en format PDF a causa de la seva major resolució.}
 
 @divClass{column-right-bottom}
 
-@docLinks{Essay, essay,
-  @ressaynamed{Top,Essay},
+@docLinks{Monografia, essay,
+  @ressaynamed{Top,Monografia},
   @manualStableEssaySplit-ca,
   @manualStableEssayBig-ca,
   @manualStableEssayPdf-ca}
@@ -351,9 +351,9 @@ també}.
 
 @docLinks{Fragments, snippets,
   @rlsrnamed{Top,Fragments},
-  @manualStableSnippetsSplit,
-  @manualStableSnippetsBig,
-  @manualStableSnippetsPdf}
+  @manualStableSnippetsSplit-ca,
+  @manualStableSnippetsBig-ca,
+  @manualStableSnippetsPdf-ca}
 
 @divEnd
 
@@ -427,7 +427,7 @@ maneres d'informar de les fallades, i desenvolupament.
   @ref{Top,Web},
   @manualDevelWebSplit-ca,
   @manualDevelWebBig-ca,
-  @manualDevelWebPdf}
+  @manualDevelWebPdf-ca}
 
 @divEnd
 
@@ -447,9 +447,9 @@ produïdes al LilyPond a partir de la versió estable anterior.
 
 @docLinks{Canvis, changes,
   @rchangesnamed{Top,Canvis},
-  @manualStableChangesSplit-ca,
-  @manualStableChangesBig-ca,
-  @manualStableChangesPdf-ca}
+  @manualStableChangesSplit,
+  @manualStableChangesBig,
+  @manualStableChangesPdf}
 
 @divEnd
 
@@ -468,9 +468,9 @@ Aquest manual explica com escriure extensions del LilyPond.
 
 @docLinks{Extensió, extending,
   @rextendnamed{Top,Extensió},
-  @manualStableExtendingSplit-ca,
-  @manualStableExtendingBig-ca,
-  @manualStableExtendingPdf-ca}
+  @manualStableExtendingSplit,
+  @manualStableExtendingBig,
+  @manualStableExtendingPdf}
 
 @divEnd
 

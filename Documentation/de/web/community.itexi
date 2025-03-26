@@ -595,7 +595,7 @@ MacPorts Paket}
 
 @downloadDevelMingw
 
-@downloadDevelSource
+@downloadDevelSource-de
 
 @end quotation
 
@@ -608,7 +608,7 @@ lesen Sie bitte den Anfang der
 @rlearningnamed{Top,Einführung}.
 @end ifclear
 @ifset web_version
-@manualDevelLearningSplitNoName.
+@manualDevelLearningSplitNoName-de.
 @end ifset
 
 @divEnd
@@ -736,11 +736,11 @@ Handbücher finden sich unter @url{https://lilypond.org}.}
 @docLinkPdf{Benutzung,usage,@manualDevelUsagePdf-de}
 
 @item
-@docLinkSplit{Schnipsel,snippets,@manualDevelSnippetsSplit}
+@docLinkSplit{Schnipsel,snippets,@manualDevelSnippetsSplit-de}
 @tab
-@docLinkBig{Schnipsel,snippets,@manualDevelSnippetsBig}
+@docLinkBig{Schnipsel,snippets,@manualDevelSnippetsBig-de}
 @tab
-@docLinkPdf{Schnipsel,snippets,@manualDevelSnippetsPdf}
+@docLinkPdf{Schnipsel,snippets,@manualDevelSnippetsPdf-de}
 @end multitable
 
 @multitable @columnfractions .3 .3 .3
@@ -780,7 +780,7 @@ Handbücher finden sich unter @url{https://lilypond.org}.}
 @headitem Zum Herunterladen
 
 @item
-@doctarballDevel
+@doctarballDevel-de
 @end multitable
 @end ifset
 

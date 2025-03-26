@@ -723,11 +723,11 @@ más recientes están en @url{https://lilypond.org}}
 @docLinkPdf{Utilización,usage,@manualDevelUsagePdf-es}
 
 @item
-@docLinkSplit{Fragmentos,snippets,@manualDevelSnippetsSplit}
+@docLinkSplit{Fragmentos,snippets,@manualDevelSnippetsSplit-es}
 @tab
-@docLinkBig{Fragmentos,snippets,@manualDevelSnippetsBig}
+@docLinkBig{Fragmentos,snippets,@manualDevelSnippetsBig-es}
 @tab
-@docLinkPdf{Fragmentos,snippets,@manualDevelSnippetsPdf}
+@docLinkPdf{Fragmentos,snippets,@manualDevelSnippetsPdf-es}
 @end multitable
 
 @multitable @columnfractions .3 .3 .3
@@ -741,11 +741,11 @@ más recientes están en @url{https://lilypond.org}}
 @docLinkPdf{Web,web,@manualDevelWebPdf-es}
 
 @item
-@docLinkSplit{Cambios,changes,@manualDevelChangesSplit-es}
+@docLinkSplit{Cambios,changes,@manualDevelChangesSplit}
 @tab
-@docLinkBig{Cambios,changes,@manualDevelChangesBig-es}
+@docLinkBig{Cambios,changes,@manualDevelChangesBig}
 @tab
-@docLinkPdf{Cambios,changes,@manualDevelChangesPdf-es}
+@docLinkPdf{Cambios,changes,@manualDevelChangesPdf}
 
 @item
 @docLinkSplit{Extensiones,extending,@manualDevelExtendingSplit-es}

@@ -74,7 +74,7 @@ cómo ejecutar los programas.
 @details{Usage, Utilización}
 
 @item
-@ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Fragmentos}}
+@ifWebLinks{@manualStableSnippetsSplitNoName-es,@rlsrnamed{Top,Fragmentos}}
 trucos y consejos cortos.
 @details{Snippets, Fragmentos}
 
@@ -98,7 +98,7 @@ este documento.
 @details{Web, Web}
 
 @item
-@ifWebLinks{@manualStableChangesSplitNoName-es,@rchangesnamed{Top,Cambios}}
+@ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Cambios}}
 ¿qué hay de nuevo?
 @details{Changes, Cambios}
 
@@ -345,9 +345,9 @@ también}.
 
 @docLinks{Fragmentos, snippets,
   @rlsrnamed{Top,Fragmentos},
-  @manualStableSnippetsSplit,
-  @manualStableSnippetsBig,
-  @manualStableSnippetsPdf}
+  @manualStableSnippetsSplit-es,
+  @manualStableSnippetsBig-es,
+  @manualStableSnippetsPdf-es}
 
 @divEnd
 
@@ -442,9 +442,9 @@ producidas en LilyPond a partir de la version estable anterior.
 
 @docLinks{Cambios, changes,
   @rchangesnamed{Top,Cambios},
-  @manualStableChangesSplit-es,
-  @manualStableChangesBig-es,
-  @manualStableChangesPdf-es}
+  @manualStableChangesSplit,
+  @manualStableChangesBig,
+  @manualStableChangesPdf}
 
 @divEnd
 

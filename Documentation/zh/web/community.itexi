@@ -565,7 +565,7 @@ MacPorts package}
 
 @downloadDevelMingw
 
-@downloadDevelSource
+@downloadDevelSource-zh
 
 @end quotation
 
@@ -653,9 +653,9 @@ This release's abc2ly tests.
 @headitem Introduction
 
 @item
-@docLinkSplit{Learning,learning,@manualDevelLearningSplit}
+@docLinkSplit{Learning,learning,@manualDevelLearningSplit-zh}
 @tab
-@docLinkBig{Learning,learning,@manualDevelLearningBig}
+@docLinkBig{Learning,learning,@manualDevelLearningBig-zh}
 @tab
 @docLinkPdf{Learning,learning,@manualDevelLearningPdf}
 
@@ -703,9 +703,9 @@ This release's abc2ly tests.
 @headitem Infrequent
 
 @item
-@docLinkSplit{Web,web,@manualDevelWebSplit}
+@docLinkSplit{Web,web,@manualDevelWebSplit-zh}
 @tab
-@docLinkBig{Web,web,@manualDevelWebBig}
+@docLinkBig{Web,web,@manualDevelWebBig-zh}
 @tab
 @docLinkPdf{Web,web,@manualDevelWebPdf}
 
@@ -736,7 +736,7 @@ This release's abc2ly tests.
 @headitem Downloadable
 
 @item
-@doctarballDevel
+@doctarballDevel-zh
 @end multitable
 @end ifset
 

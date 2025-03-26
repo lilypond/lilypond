@@ -41,7 +41,7 @@
 LilyPond 是 @strong{基于文本} 的音乐雕版印刷程序。请您先阅读这里的简介！
 
 @item
-@ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Learning}}
+@ifWebLinks{@manualStableLearningSplitNoName-zh,@rlearningnamed{Top,Learning}}
  @qq{必读} LilyPond 的简单介绍。
 @details{Learning}
 
@@ -184,8 +184,8 @@ LilyPond，同时也用简单的术语解释了一些关键的概念。您应该
 
 @docLinks{Learning, learning,
   @rlearningnamed{Top,Learning},
-  @manualStableLearningSplit,
-  @manualStableLearningBig,
+  @manualStableLearningSplit-zh,
+  @manualStableLearningBig-zh,
   @manualStableLearningPdf}
 
 @divEnd
@@ -375,8 +375,8 @@ LilyPond 是以文本的方式录入音乐的。请阅读有关我们的 @ref{Te
 
 @docLinksBare{Web, web,
   @ref{Top,Web},
-  @manualDevelWebSplit,
-  @manualDevelWebBig,
+  @manualDevelWebSplit-zh,
+  @manualDevelWebBig-zh,
   @manualDevelWebPdf}
 
 @divEnd
@@ -462,7 +462,7 @@ LilyPond 是以文本的方式录入音乐的。请阅读有关我们的 @ref{Te
 @divClass{keep-bullets}
 @itemize
 
-@item @doctarballStable
+@item @doctarballStable-zh
 
 @end itemize
 

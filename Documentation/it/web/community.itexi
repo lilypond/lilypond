@@ -585,7 +585,7 @@ MacPorts package}
 
 @downloadDevelMingw
 
-@downloadDevelSource
+@downloadDevelSource-it
 
 @end quotation
 
@@ -725,11 +725,11 @@ manuali sono reperibili su @url{https://lilypond.org}}
 @docLinkPdf{Utilizzo,usage,@manualDevelUsagePdf-it}
 
 @item
-@docLinkSplit{Snippets,snippets,@manualDevelSnippetsSplit}
+@docLinkSplit{Snippets,snippets,@manualDevelSnippetsSplit-it}
 @tab
-@docLinkBig{Snippets,snippets,@manualDevelSnippetsBig}
+@docLinkBig{Snippets,snippets,@manualDevelSnippetsBig-it}
 @tab
-@docLinkPdf{Snippets,snippets,@manualDevelSnippetsPdf}
+@docLinkPdf{Snippets,snippets,@manualDevelSnippetsPdf-it}
 @end multitable
 
 @multitable @columnfractions .3 .3 .3
@@ -743,11 +743,11 @@ manuali sono reperibili su @url{https://lilypond.org}}
 @docLinkPdf{Web,web,@manualDevelWebPdf-it}
 
 @item
-@docLinkSplit{Cambiamenti,changes,@manualDevelChangesSplit-it}
+@docLinkSplit{Cambiamenti,changes,@manualDevelChangesSplit}
 @tab
-@docLinkBig{Cambiamenti,changes,@manualDevelChangesBig-it}
+@docLinkBig{Cambiamenti,changes,@manualDevelChangesBig}
 @tab
-@docLinkPdf{Cambiamenti,changes,@manualDevelChangesPdf-it}
+@docLinkPdf{Cambiamenti,changes,@manualDevelChangesPdf}
 
 @item
 @docLinkSplit{Extending,extending,@manualDevelExtendingSplit}
@@ -769,7 +769,7 @@ manuali sono reperibili su @url{https://lilypond.org}}
 @headitem Per scaricare
 
 @item
-@doctarballDevel
+@doctarballDevel-it
 @end multitable
 @end ifset
 

@@ -584,7 +584,7 @@ git とコンパイルについての説明は貢献者向けガイドにあり�
 
 @downloadDevelMingw
 
-@downloadDevelSource
+@downloadDevelSource-ja
 
 @end quotation
 
@@ -756,7 +756,7 @@ LilyPond の開発手法はかなり複雑です。@c
 @headitem Downloadable
 
 @item
-@doctarballDevel
+@doctarballDevel-ja
 @end multitable
 @end ifset
 

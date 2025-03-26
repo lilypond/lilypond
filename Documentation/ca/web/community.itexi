@@ -699,11 +699,11 @@ manuals més recents estan a @url{https://lilypond.org}}
 @docLinkPdf{Glossari,music-glossary,@manualDevelGlossaryPdf}
 
 @item
-@docLinkSplit{Essay,essay,@manualDevelEssaySplit}
+@docLinkSplit{Monografia,essay,@manualDevelEssaySplit-ca}
 @tab
-@docLinkBig{Essay,essay,@manualDevelEssayBig}
+@docLinkBig{Monografia,essay,@manualDevelEssayBig-ca}
 @tab
-@docLinkPdf{Essay,essay,@manualDevelEssayPdf}
+@docLinkPdf{Monografia,essay,@manualDevelEssayPdf-ca}
 @end multitable
 
 @multitable @columnfractions .3 .3 .3
@@ -724,11 +724,11 @@ manuals més recents estan a @url{https://lilypond.org}}
 @docLinkPdf{Utilització,usage,@manualDevelUsagePdf-ca}
 
 @item
-@docLinkSplit{Fragments,snippets,@manualDevelSnippetsSplit}
+@docLinkSplit{Fragments,snippets,@manualDevelSnippetsSplit-ca}
 @tab
-@docLinkBig{Fragments,snippets,@manualDevelSnippetsBig}
+@docLinkBig{Fragments,snippets,@manualDevelSnippetsBig-ca}
 @tab
-@docLinkPdf{Fragments,snippets,@manualDevelSnippetsPdf}
+@docLinkPdf{Fragments,snippets,@manualDevelSnippetsPdf-ca}
 @end multitable
 
 @multitable @columnfractions .3 .3 .3
@@ -739,21 +739,21 @@ manuals més recents estan a @url{https://lilypond.org}}
 @tab
 @docLinkBig{Web,web,@manualDevelWebBig-ca}
 @tab
-@docLinkPdf{Web,web,@manualDevelWebPdf}
+@docLinkPdf{Web,web,@manualDevelWebPdf-ca}
 
 @item
 @docLinkSplit{Canvis,changes,@manualDevelChangesSplit}
 @tab
 @docLinkBig{Canvis,changes,@manualDevelChangesBig}
 @tab
-@docLinkPdf{Canvis,changes,@manualDevelChangesPdf-ca}
+@docLinkPdf{Canvis,changes,@manualDevelChangesPdf}
 
 @item
-@docLinkSplit{Extensions,extending,@manualDevelExtendingSplit-ca}
+@docLinkSplit{Extensions,extending,@manualDevelExtendingSplit}
 @tab
-@docLinkBig{Extensions,extending,@manualDevelExtendingBig-ca}
+@docLinkBig{Extensions,extending,@manualDevelExtendingBig}
 @tab
-@docLinkPdf{Extensions,extending,@manualDevelExtendingPdf-ca}
+@docLinkPdf{Extensions,extending,@manualDevelExtendingPdf}
 
 @item
 @docLinkSplit{Funcionament intern,internals,@manualDevelInternalsSplit}

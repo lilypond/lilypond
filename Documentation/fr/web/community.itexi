@@ -640,7 +640,7 @@ paquetage MacPorts}
 
 @downloadDevelMingw
 
-@downloadDevelSource
+@downloadDevelSource-fr
 
 @end quotation
 
@@ -790,11 +790,11 @@ dernière mouture est consultable sur @url{https://lilypond.org}}
 @docLinkPdf{Utilisation,usage,@manualDevelUsagePdf-fr}
 
 @item
-@docLinkSplit{Morceaux choisis,snippets,@manualDevelSnippetsSplit}
+@docLinkSplit{Morceaux choisis,snippets,@manualDevelSnippetsSplit-fr}
 @tab
-@docLinkBig{Morceaux choisis,snippets,@manualDevelSnippetsBig}
+@docLinkBig{Morceaux choisis,snippets,@manualDevelSnippetsBig-fr}
 @tab
-@docLinkPdf{Morceaux choisis,snippets,@manualDevelSnippetsPdf}
+@docLinkPdf{Morceaux choisis,snippets,@manualDevelSnippetsPdf-fr}
 
 @item
 @docLink{Index visuel (PDF),ly-examples/visualindex.pdf,
@@ -842,7 +842,7 @@ dernière mouture est consultable sur @url{https://lilypond.org}}
 @headitem En téléchargement
 
 @item
-@doctarballDevel
+@doctarballDevel-fr
 @end multitable
 @end ifset
 

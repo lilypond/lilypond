@@ -78,7 +78,7 @@ wie die Programme aufgerufen werden.
 @details{Usage, Benutzung}
 
 @item
-@ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Schnipsel}}
+@ifWebLinks{@manualStableSnippetsSplitNoName-de,@rlsrnamed{Top,Schnipsel}}
 kurze Tricks, Tipps und Beispiele.
 @details{Snippets, Schnipsel}
 
@@ -362,9 +362,9 @@ sind auch verlinkt vom @strong{Siehe auch}-Absatz.
 
 @docLinks{Schnipsel, snippets,
   @rlsrnamed{Top,Schnipsel},
-  @manualStableSnippetsSplit,
-  @manualStableSnippetsBig,
-  @manualStableSnippetsPdf}
+  @manualStableSnippetsSplit-de,
+  @manualStableSnippetsBig-de,
+  @manualStableSnippetsPdf-de}
 
 @divEnd
 
@@ -443,7 +443,7 @@ Programm.
   @ref{Top,Web},
   @manualDevelWebSplit-de,
   @manualDevelWebBig-de,
-  @manualDevelWebPdf}
+  @manualDevelWebPdf-de}
 
 @divEnd
 

@@ -94,7 +94,7 @@ particularités de certains systèmes d'exploitation.
 @details{Usage, Utilisation}
 
 @item
-@ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Morceaux choisis}}
+@ifWebLinks{@manualStableSnippetsSplitNoName-fr,@rlsrnamed{Top,Morceaux choisis}}
 courts extraits, trucs, modèles et autres exemples.
 @details{Snippets, Morceaux choisis}
 
@@ -129,12 +129,12 @@ ce document.
 @details{Web, Web}
 
 @item
-@ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Nouveautés}}
+@ifWebLinks{@manualStableChangesSplitNoName-fr,@rchangesnamed{Top,Nouveautés}}
 changements depuis la dernière version stable.
 @details{Changes, Nouveautés}
 
 @item
-@ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Extension}}
+@ifWebLinks{@manualStableExtendingSplitNoName-fr,@rextendnamed{Top,Extension}}
 programmation avancée d'ajustements et retouches dans LilyPond.
 @details{Extending, Extension}
 
@@ -379,9 +379,9 @@ manuel de notation est accessible par des liens dans le paragraphe
 
 @docLinks{Morceaux choisis, snippets,
   @rlsrnamed{Top, Morceaux choisis},
-  @manualStableSnippetsSplit,
-  @manualStableSnippetsBig,
-  @manualStableSnippetsPdf}
+  @manualStableSnippetsSplit-fr,
+  @manualStableSnippetsBig-fr,
+  @manualStableSnippetsPdf-fr}
 
 @divEnd
 
