@@ -60,6 +60,7 @@ translations = {
 
         ' (split HTML)': ' (HTML seccionat)',
         ' (big HTML)': ' (HTML monolític)',
+        ' (PDF)': ' (PDF)',
 
         'Regression tests for ': 'Proves de regressió per a ',
         'PDF of regtests for ': 'Proves de regressió en PDF per a ',
@@ -91,6 +92,7 @@ translations = {
 
         ' (split HTML)': ' (geteiltes HTML)',
         ' (big HTML)': ' (großes HTML)',
+        ' (PDF)': ' (PDF)',
 
         'Regression tests for ': 'Regressionstests für ',
         'PDF of regtests for ': 'PDF der Regressionstests für ',
@@ -123,6 +125,7 @@ translations = {
         # keep the spaces!
         ' (split HTML)': ' (HTML seccionado)',
         ' (big HTML)': ' (HTML monolítico)',
+        ' (PDF)': ' (PDF)',
 
         'Regression tests for ': 'Pruebas de regresión para ',
         'PDF of regtests for ': 'Pruebas en PDF para ',
@@ -155,6 +158,7 @@ translations = {
         # keep the spaces!
         ' (split HTML)': ' (HTML multipages)',
         ' (big HTML)': ' (HTML en page unique)',
+        ' (PDF)': ' (PDF)',
 
         'Regression tests for ': 'Tests de régression pour ',
         'PDF of regtests for ': 'PDF des tests de régression pour ',
@@ -186,6 +190,7 @@ translations = {
         # keep the spaces!
         ' (split HTML)': ' (HTML multipagina)',
         ' (big HTML)': ' (HTML pagina unica)',
+        ' (PDF)': ' (PDF)',
 
         'Regression tests for ': 'Test di collaudo per ',
         'PDF of regtests for ': 'PDF dei test di collaudo per ',
@@ -219,6 +224,7 @@ translations = {
         # keep the spaces!
         ' (split HTML)': ' (ページ毎に分割された HTML)',
         ' (big HTML)': ' (1 つの大きな HTML)',
+        ' (PDF)': ' (PDF)',
 
         'Regression tests for ': '回帰テスト バージョン ',
         'PDF of regtests for ': '回帰テスト (PDF 版) バージョン ',
@@ -252,6 +258,7 @@ translations = {
         # keep the spaces!
         ' (split HTML)': ' (分开的 HTML)',
         ' (big HTML)': ' (大的 HTML)',
+        ' (PDF)': ' (PDF)',
 
         'Regression tests for ': '回归测试 ',
         'PDF of regtests for ': '回归测试的 PDF ',
@@ -365,7 +372,8 @@ def make_manual_links(name, version, lang):
         if url.endswith('.html'):
             make_ver_link(macroLang("manual"+name+mshort+'Pdf', lang),
                           addLang(url, lang),
-                          getTrans(manual.capitalize(), lang) + '.pdf')
+                          getTrans(manual.capitalize(), lang) +
+                          getTrans(' (PDF)', lang))
             make_ver_link(macroLang("manual"+name+mshort+'Split', lang),
                           addLang(url, lang),
                           getTrans(manual.capitalize(), lang) +
@@ -379,7 +387,8 @@ def make_manual_links(name, version, lang):
             make_ver_link(macroLang("manual"+name+mshort+'Pdf', lang),
                           # TODO: this is an even stupider way of doing it
                           addLang(url+'.pdf', lang),
-                          getTrans(manual.capitalize(), lang) + '.pdf')
+                          getTrans(manual.capitalize(), lang) +
+                          getTrans(' (PDF)', lang))
             make_ver_link(macroLang("manual"+name+mshort+'Split', lang),
                           addLang(url + '/index.html', lang),
                           getTrans(manual.capitalize(), lang) +
