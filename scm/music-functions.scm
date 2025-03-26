@@ -1337,7 +1337,7 @@ parameter can be omitted in a call only when it cannot get confused
 with a following parameter of different type.
 
 A music function must return a music expression."
-  (define-syntax-function (ly:music? (make-music 'Music 'void #t)) elt ...))
+  (define-syntax-function (ly:music? (make-music 'Music)) elt ...))
 
 
 (define-syntax-rule-public (define-scheme-function elt ...)
@@ -1356,7 +1356,7 @@ from trying to interpret the return value."
 (define-syntax-rule-public (define-event-function elt ...)
   "Like @code{define-music-function}, but the return value must be a
 post-event."
-  (define-syntax-function (ly:event? (make-music 'Event 'void #t)) elt ...))
+  (define-syntax-function (ly:event? (make-music 'Event)) elt ...))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

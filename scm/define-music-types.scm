@@ -239,8 +239,9 @@ Syntax: @var{note}@code{\\-}")
         ))
 
     (Event
-     . ((description . "Atomic music event.")
+     . ((description . "Unspecified music event.")
         (types . (event))
+        (void . #t)
         ))
 
     (EventChord
@@ -417,8 +418,9 @@ Syntax: @code{R-\\markup @{ \"bla\" @}}")
         ))
 
     (Music
-     . ((description . "Generic type for music expressions.")
+     . ((description . "Unspecified music expression.")
         (types . ())
+        (void . #t)
         ))
 
     (NoteEvent

@@ -12,6 +12,14 @@ various kinds of music.  Problems are reported on stderr."
 
 \fixed c' <<
 
+\testStartAndLength ##{#}
+#ZERO-MOMENT
+#ZERO-MOMENT
+
+\testStartAndLength $#{#}
+#ZERO-MOMENT
+#ZERO-MOMENT
+
 \testStartAndLength \partial 1*0
 #ZERO-MOMENT
 #ZERO-MOMENT
