@@ -709,11 +709,13 @@ div.float-center a.clickable {
   padding : 0em;
   border-left: 2px;
   margin: 0em;
-  width: 67%;
+  width: 75%;
 }
 
 .normal-table table td {
-  padding: 0em;
+  padding: 0em 1em;
+  text-indent: -1em;
+  vertical-align: top;
 }
 
 .normal-table table a {
