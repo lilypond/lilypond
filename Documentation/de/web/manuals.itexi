@@ -169,11 +169,13 @@ Diese Handbücher sind unter der GNU Free Documentation License herausgegeben.
 @divClass{column-center-bottom}
 @subheading Format der Handbücher
 
-Die LilyPond Handbücher liegen generell in drei Formaten vor: geteiltes HTML, großes HTML und
-PDF.  Geteiltes HTML eignet sich besonders Online gelesen zu werden.  Großes HTML (und einige sind
-sehr groß) beinhaltet das gesamte Handbuch in einer einzigen Seite.  PDF ist zum Download und
-dem Offline Lesen vorgesehen.  Sie gelangen zu diesen 3 Formaten indem Sie den Links
-@code{details of} folgen und dann dem Namen des Handbuchs.
+Die LilyPond-Handbücher liegen generell in drei Formaten vor: geteiltes
+HTML, großes HTML und PDF.  Geteiltes HTML eignet sich besonders, um online
+gelesen zu werden.  Großes HTML (und einige der Dateien sind sehr groß)
+beinhaltet das jeweilige Handbuch auf einer einzigen Seite.  PDF ist zum
+Herunterladen und Offline-Lesen vorgesehen.  Sie gelangen zu diesen drei
+Formaten, indem Sie den Links @code{Einzelheiten zu} folgen und dann das
+gewünschte Format auswählen.
 
 @divEnd
 
@@ -349,11 +351,11 @@ Beachten Sie, dass dieses Dokument keine bestimmte Teilmenge von
 LSR darstellt.  LSR läuft unter der stabilen Version von LilyPond,
 sodass jedes Schnipsel, das eine neue Eigenschaft von der
 Entwicklungsversion zeigt, extra hinzugefügt werden muss.  Diese
-Schipsel sind in der Datei @file{Documentation/snippets/new/} im
-Quellverzeichnis von LilyPond gespeichert.
+Schnipsel sind in @file{Documentation/snippets/new/} unterhalb des
+Quellverzeichnisses von LilyPond gespeichert.
 
 Die Schnipsel-Listen für jeden Abschnitt der Notationsreferenz
-sind auch verlinkt vom @strong{Siehe auch} Absatz.
+sind auch verlinkt vom @strong{Siehe auch}-Absatz.
 @divEnd
 
 @divClass{column-right-bottom}

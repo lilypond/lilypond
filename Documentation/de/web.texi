@@ -306,7 +306,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
   @*@ @ @emph{(kleiner Download für jede Seite)}
 
 @item @docLinkBig{\name\,\base\,\big\} @minus{}
-  das Handbuch als eine großen HTML-Seite.
+  das Handbuch als eine große HTML-Seite.
   @*@ @ @docDownload{(großer einmaliger Download, \base\-big-page.html, )}
 
 @item @docLinkPdf{\name\,\base\,\pdf\} @minus{}
