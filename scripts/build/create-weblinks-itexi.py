@@ -61,6 +61,9 @@ translations = {
         ' (split HTML)': ' (HTML seccionat)',
         ' (big HTML)': ' (HTML monolític)',
         ' (PDF)': ' (PDF)',
+        ' (split HTML, Eng.)': ' (HTML seccionat, angl.)',
+        ' (big HTML, Eng.)': ' (HTML monolític, angl.)',
+        ' (PDF, Eng.)': ' (PDF, angl.)',
 
         'Regression tests for ': 'Proves de regressió per a ',
         'PDF of regtests for ': 'Proves de regressió en PDF per a ',
@@ -93,6 +96,9 @@ translations = {
         ' (split HTML)': ' (geteiltes HTML)',
         ' (big HTML)': ' (großes HTML)',
         ' (PDF)': ' (PDF)',
+        ' (split HTML, Eng.)': ' (geteiltes HTML, engl.)',
+        ' (big HTML, Eng.)': ' (großes HTML, engl.)',
+        ' (PDF, Eng.)': ' (PDF, engl.)',
 
         'Regression tests for ': 'Regressionstests für ',
         'PDF of regtests for ': 'PDF der Regressionstests für ',
@@ -126,6 +132,9 @@ translations = {
         ' (split HTML)': ' (HTML seccionado)',
         ' (big HTML)': ' (HTML monolítico)',
         ' (PDF)': ' (PDF)',
+        ' (split HTML, Eng.)': ' (HTML seccionat, ingl.)',
+        ' (big HTML, Eng.)': ' (HTML monolític, ingl.)',
+        ' (PDF, Eng.)': ' (PDF, ingl.)',
 
         'Regression tests for ': 'Pruebas de regresión para ',
         'PDF of regtests for ': 'Pruebas en PDF para ',
@@ -159,6 +168,9 @@ translations = {
         ' (split HTML)': ' (HTML multipages)',
         ' (big HTML)': ' (HTML en page unique)',
         ' (PDF)': ' (PDF)',
+        ' (split HTML, Eng.)': ' (HTML multipages, angl.)',
+        ' (big HTML, Eng.)': ' (HTML en page unique, angl.)',
+        ' (PDF, Eng.)': ' (PDF, angl.)',
 
         'Regression tests for ': 'Tests de régression pour ',
         'PDF of regtests for ': 'PDF des tests de régression pour ',
@@ -191,6 +203,9 @@ translations = {
         ' (split HTML)': ' (HTML multipagina)',
         ' (big HTML)': ' (HTML pagina unica)',
         ' (PDF)': ' (PDF)',
+        ' (split HTML, Eng.)': ' (HTML multipagina, ingl.)',
+        ' (big HTML, Eng.)': ' (HTML pagina unica, ingl.)',
+        ' (PDF, Eng.)': ' (PDF, ingl.)',
 
         'Regression tests for ': 'Test di collaudo per ',
         'PDF of regtests for ': 'PDF dei test di collaudo per ',
@@ -225,6 +240,9 @@ translations = {
         ' (split HTML)': ' (ページ毎に分割された HTML)',
         ' (big HTML)': ' (1 つの大きな HTML)',
         ' (PDF)': ' (PDF)',
+        ' (split HTML, Eng.)': ' (ページ毎に分割された HTML、英語)',
+        ' (big HTML, Eng.)': ' (1 つの大きな HTML、英語)',
+        ' (PDF, Eng.)': ' (PDF、英語)',
 
         'Regression tests for ': '回帰テスト バージョン ',
         'PDF of regtests for ': '回帰テスト (PDF 版) バージョン ',
@@ -259,6 +277,9 @@ translations = {
         ' (split HTML)': ' (分开的 HTML)',
         ' (big HTML)': ' (大的 HTML)',
         ' (PDF)': ' (PDF)',
+        ' (split HTML, Eng.)': ' (分开的 HTML，英语)',
+        ' (big HTML, Eng.)': ' (大的 HTML，英语)',
+        ' (PDF, Eng.)': ' (PDF，英语)',
 
         'Regression tests for ': '回归测试 ',
         'PDF of regtests for ': '回归测试的 PDF ',
@@ -330,6 +351,7 @@ def make_all_downloads(macroName, version):
 
 
 def make_ver_link(macroname, url, linktext):
+    linktext = linktext.replace(",", "@comma{}")
     make_macro(macroname, f"@uref{{{url},{linktext}}}")
 
 # TODO: this kind of thing should really be in a central place for
@@ -400,6 +422,55 @@ def make_manual_links(name, version, lang):
             newurl = url + '/index.html'
         make_ver_link(macroLang("manual"+name+mshort+'SplitNoName', lang),
                       addLang(newurl, lang),
+                      getTrans(manual.capitalize(), lang))
+
+
+def make_manual_stub_links(name, version, lang):
+    """These stubs should be used if a given manual is only available in
+    English, for whatever reason.
+    """
+    for m in manuals:
+        manual = m
+        # TODO: this is a stupid way of doing it
+        if m == 'music-glossary':
+            mshort = 'Glossary'
+        else:
+            mshort = m.capitalize()
+        if manual == 'music-glossary':
+            manual = 'Music glossary'
+        url = translateNameToUrl(m, version)
+
+        if url.endswith('.html'):
+            make_ver_link(macroLang("manualStub"+name+mshort+'Pdf', lang),
+                          url,
+                          getTrans(manual.capitalize(), lang) +
+                          getTrans(' (PDF, Eng.)', lang))
+            make_ver_link(macroLang("manualStub"+name+mshort+'Split', lang),
+                          url,
+                          getTrans(manual.capitalize(), lang) +
+                          getTrans(' (split HTML, Eng.)', lang))
+            make_ver_link(macroLang("manualStub"+name+mshort+'Big', lang),
+                          url,
+                          getTrans(manual.capitalize(), lang) +
+                          getTrans(' (big HTML, Eng.)', lang))
+            newurl = url
+        else:
+            make_ver_link(macroLang("manualStub"+name+mshort+'Pdf', lang),
+                          # TODO: this is an even stupider way of doing it
+                          url+'.pdf',
+                          getTrans(manual.capitalize(), lang) +
+                          getTrans(' (PDF, Eng.)', lang))
+            make_ver_link(macroLang("manualStub"+name+mshort+'Split', lang),
+                          url + '/index.html',
+                          getTrans(manual.capitalize(), lang) +
+                          getTrans(' (split HTML, Eng.)', lang))
+            make_ver_link(macroLang("manualStub"+name+mshort+'Big', lang),
+                          url + '-big-page.html',
+                          getTrans(manual.capitalize(), lang) +
+                          getTrans(' (big HTML, Eng.)', lang))
+            newurl = url + '/index.html'
+        make_ver_link(macroLang("manualStub"+name+mshort+'SplitNoName', lang),
+                      newurl,
                       getTrans(manual.capitalize(), lang))
 
 
@@ -489,6 +560,15 @@ for lang in langs:
 
     make_doctarball_links("Stable", version_data["VERSION_STABLE"], lang)
     make_doctarball_links("Devel", version_data["VERSION_DEVEL"], lang)
+
+print("@c ************************ Manual stub links ************")
+print("")
+for lang in langs:
+    if not lang:
+        continue
+    print("@c *********", lang, "***")
+    make_manual_stub_links("Stable", version_data["VERSION_STABLE"], lang)
+    make_manual_stub_links("Devel", version_data["VERSION_DEVEL"], lang)
 
 print("@c ************************ Regtest links ************")
 print("")
