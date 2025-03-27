@@ -674,9 +674,9 @@ traduit@dots{}}
 
 @docLinksBare{Guide du contributeur, contributor,
   @rcontribnamed{Top,Guide du contributeur},
-  @manualDevelContributorSplit,
-  @manualDevelContributorBig,
-  @manualDevelContributorPdf}
+  @manualStubDevelContributorSplit-fr,
+  @manualStubDevelContributorBig-fr,
+  @manualStubDevelContributorPdf-fr}
 
 @divEnd
 
@@ -758,11 +758,11 @@ dernière mouture est consultable sur @url{https://lilypond.org}}
 @docLinkPdf{Initiation,learning,@manualDevelLearningPdf-fr}
 
 @item
-@docLinkSplit{Glossaire,music-glossary,@manualDevelGlossarySplit}
+@docLinkSplit{Glossaire,music-glossary,@manualStubDevelGlossarySplit-fr}
 @tab
-@docLinkBig{Glossaire,music-glossary,@manualDevelGlossaryBig}
+@docLinkBig{Glossaire,music-glossary,@manualStubDevelGlossaryBig-fr}
 @tab
-@docLinkPdf{Glossaire,music-glossary,@manualDevelGlossaryPdf}
+@docLinkPdf{Glossaire,music-glossary,@manualStubDevelGlossaryPdf-fr}
 
 @item
 @docLinkSplit{Essai,essay,@manualDevelEssaySplit-fr}
@@ -830,11 +830,11 @@ dernière mouture est consultable sur @url{https://lilypond.org}}
 @docLinkPdf{Extension,extending,@manualDevelExtendingPdf-fr}
 
 @item
-@docLinkSplit{Références internes,internals,@manualDevelInternalsSplit}
+@docLinkSplit{Références internes,internals,@manualStubDevelInternalsSplit-fr}
 @tab
-@docLinkBig{Références internes,internals,@manualDevelInternalsBig}
+@docLinkBig{Références internes,internals,@manualStubDevelInternalsBig-fr}
 @tab
-@docLinkPdf{Références internes,internals,@manualDevelInternalsPdf}
+@docLinkPdf{Références internes,internals,@manualStubDevelInternalsPdf-fr}
 @end multitable
 
 @ifset web_version

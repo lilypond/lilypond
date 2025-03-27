@@ -46,14 +46,14 @@ LilyPond は @strong{テキスト ベース} の楽譜作成プログラムで�
 @details{Learning, 学習}
 
 @item
-@ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,用語集}}
+@ifWebLinks{@manualStubStableGlossarySplitNoName-ja,@rglosnamed{Top,用語集}}
 @emph{(副読本)}
 音楽用語についての説明と、
 英語の音楽用語に馴染みの無いユーザのための訳語を提供します。
 @details{Glossary, 用語集}
 
 @item
-@ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Essay}}
+@ifWebLinks{@manualStubStableEssaySplitNoName-ja,@ressaynamed{Top,Essay}}
 @emph{(副読本)}
 コンピュータによる譜刻についての背景。
 @details{Essay, エッセー}
@@ -78,7 +78,7 @@ LilyPond は @strong{テキスト ベース} の楽譜作成プログラムで�
 @details{Usage, 使用方法}
 
 @item
-@ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Snippets}}
+@ifWebLinks{@manualStubStableSnippetsSplitNoName-ja,@rlsrnamed{Top,Snippets}}
 ちょっとしたトリック、秘訣。
 @details{Snippets, コード断片集}
 
@@ -102,17 +102,17 @@ LilyPond は @strong{テキスト ベース} の楽譜作成プログラムで�
 @details{Web, Web}
 
 @item
-@ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Changes}}
+@ifWebLinks{@manualStubStableChangesSplitNoName-ja,@rchangesnamed{Top,Changes}}
 変更点。
 @details{Changes, 変更点}
 
 @item
-@ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Extending}}
+@ifWebLinks{@manualStubStableExtendingSplitNoName-ja,@rextendnamed{Top,Extending}}
 変則的な調整。
 @details{Extending, 拡張}
 
 @item
-@ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Internals}}
+@ifWebLinks{@manualStubStableInternalsSplitNoName-ja,@rinternalsnamed{Top,Internals}}
 調整のためのリファレンス。
 @details{Internals, 内部リファレンス}
 
@@ -213,7 +213,7 @@ PDF はダウンロードしてオフラインで利用することができま�
   @rlearningnamed{Top,学習},
   @manualStableLearningSplit-ja,
   @manualStableLearningBig-ja,
-  @manualStableLearningPdf}
+  @manualStubStableLearningPdf-ja}
 
 @divEnd
 
@@ -235,9 +235,9 @@ PDF はダウンロードしてオフラインで利用することができま�
 
 @docLinks{音楽用語集, music-glossary,
   @rglosnamed{Top,音楽用語集},
-  @manualStableGlossarySplit,
-  @manualStableGlossaryBig,
-  @manualStableGlossaryPdf}
+  @manualStubStableGlossarySplit-ja,
+  @manualStubStableGlossaryBig-ja,
+  @manualStubStableGlossaryPdf-ja}
 
 @divEnd
 
@@ -261,9 +261,9 @@ LilyPond の譜刻テクニックの例を挙げます。@c
 
 @docLinks{エッセー, essay,
   @ressaynamed{Top,エッセー},
-  @manualStableEssaySplit,
-  @manualStableEssayBig,
-  @manualStableEssayPdf}
+  @manualStubStableEssaySplit-ja,
+  @manualStubStableEssayBig-ja,
+  @manualStubStableEssayPdf-ja}
 
 @divEnd
 
@@ -290,7 +290,7 @@ LilyPond の譜刻テクニックの例を挙げます。@c
   @rnotationnamed{Top,記譜法},
   @manualStableNotationSplit-ja,
   @manualStableNotationBig-ja,
-  @manualStableNotationPdf}
+  @manualStubStableNotationPdf-ja}
 
 @divEnd
 
@@ -313,7 +313,7 @@ LilyPond 記譜法を他のプログラムと統合する方法について説�
   @rprogramnamed{Top,使用方法},
   @manualStableUsageSplit-ja,
   @manualStableUsageBig-ja,
-  @manualStableUsagePdf}
+  @manualStubStableUsagePdf-ja}
 
 @divEnd
 
@@ -343,9 +343,9 @@ LSR は LilyPond の安定版で実行することを前提としているため
 
 @docLinks{コード断片集, snippets,
   @rlsrnamed{Top,コード断片集},
-  @manualStableSnippetsSplit,
-  @manualStableSnippetsBig,
-  @manualStableSnippetsPdf}
+  @manualStubStableSnippetsSplit-ja,
+  @manualStubStableSnippetsBig-ja,
+  @manualStubStableSnippetsPdf-ja}
 
 @divEnd
 
@@ -422,7 +422,7 @@ LilyPond を使う理由については、@ref{Introduction} に書かれてい�
   @ref{Top,Web},
   @manualDevelWebSplit-ja,
   @manualDevelWebBig-ja,
-  @manualDevelWebPdf}
+  @manualStubDevelWebPdf-ja}
 
 @divEnd
 
@@ -442,9 +442,9 @@ LilyPond を使う理由については、@ref{Introduction} に書かれてい�
 
 @docLinks{変更点, changes,
   @rchangesnamed{Top,変更点},
-  @manualStableChangesSplit,
-  @manualStableChangesBig,
-  @manualStableChangesPdf}
+  @manualStubStableChangesSplit-ja,
+  @manualStubStableChangesBig-ja,
+  @manualStubStableChangesPdf-ja}
 
 @divEnd
 
@@ -463,9 +463,9 @@ LilyPond を使う理由については、@ref{Introduction} に書かれてい�
 
 @docLinks{拡張, extending,
   @rextendnamed{Top,拡張},
-  @manualStableExtendingSplit,
-  @manualStableExtendingBig,
-  @manualStableExtendingPdf}
+  @manualStubStableExtendingSplit-ja,
+  @manualStubStableExtendingBig-ja,
+  @manualStubStableExtendingPdf-ja}
 
 @divEnd
 
@@ -497,9 +497,9 @@ HTML ドキュメントでは、それらサブセクションにはクリック
 
 @docLinks{内部リファレンス, internals,
   @rinternalsnamed{Top,内部リファレンス},
-  @manualStableInternalsSplit,
-  @manualStableInternalsBig,
-  @manualStableInternalsPdf}
+  @manualStubStableInternalsSplit-ja,
+  @manualStubStableInternalsBig-ja,
+  @manualStubStableInternalsPdf-ja}
 
 @divEnd
 

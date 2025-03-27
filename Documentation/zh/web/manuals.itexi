@@ -46,12 +46,12 @@ LilyPond 是 @strong{基于文本} 的音乐雕版印刷程序。请您先阅读
 @details{Learning}
 
 @item
-@ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glossary}}
+@ifWebLinks{@manualStubStableGlossarySplitNoName-zh,@rglosnamed{Top,Glossary}}
 @emph{(选读)} 音乐术语和翻译。
 @details{Glossary}
 
 @item
-@ifWebLinks{@manualStableEssaySplitNoName,@ressaynamed{Top,Essay}}
+@ifWebLinks{@manualStubStableEssaySplitNoName-zh,@ressaynamed{Top,Essay}}
 @emph{(选读)} 计算机雕版印刷的背景信息。
 @details{Essay}
 
@@ -65,17 +65,17 @@ LilyPond 是 @strong{基于文本} 的音乐雕版印刷程序。请您先阅读
 @itemize
 
 @item
-@ifWebLinks{@manualStableNotationSplitNoName,@rnotationnamed{Top,Notation}}
+@ifWebLinks{@manualStubStableNotationSplitNoName-zh,@rnotationnamed{Top,Notation}}
 语法参考。
 @details{Notation}
 
 @item
-@ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Usage}}
+@ifWebLinks{@manualStubStableUsageSplitNoName-zh,@rprogramnamed{Top,Usage}}
 运行程序。
 @details{Usage}
 
 @item
-@ifWebLinks{@manualStableSnippetsSplitNoName,@rlsrnamed{Top,Snippets}}
+@ifWebLinks{@manualStubStableSnippetsSplitNoName-zh,@rlsrnamed{Top,Snippets}}
 短小的技巧和窍门。
 @details{Snippets}
 
@@ -99,17 +99,17 @@ LilyPond 是 @strong{基于文本} 的音乐雕版印刷程序。请您先阅读
 @details{Web}
 
 @item
-@ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Changes}}
+@ifWebLinks{@manualStubStableChangesSplitNoName-zh,@rchangesnamed{Top,Changes}}
 有什么新功能？
 @details{Changes}
 
 @item
-@ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Extending}}
+@ifWebLinks{@manualStubStableExtendingSplitNoName-zh,@rextendnamed{Top,Extending}}
 巧妙的调整。
 @details{Extending}
 
 @item
-@ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Internals}}
+@ifWebLinks{@manualStubStableInternalsSplitNoName-zh,@rinternalsnamed{Top,Internals}}
 调整参考。
 @details{Internals}
 
@@ -186,7 +186,7 @@ LilyPond，同时也用简单的术语解释了一些关键的概念。您应该
   @rlearningnamed{Top,Learning},
   @manualStableLearningSplit-zh,
   @manualStableLearningBig-zh,
-  @manualStableLearningPdf}
+  @manualStubStableLearningPdf-zh}
 
 @divEnd
 
@@ -205,9 +205,9 @@ LilyPond，同时也用简单的术语解释了一些关键的概念。您应该
 
 @docLinks{Music glossary, music-glossary,
   @rglosnamed{Top,Music glossary},
-  @manualStableGlossarySplit,
-  @manualStableGlossaryBig,
-  @manualStableGlossaryPdf}
+  @manualStubStableGlossarySplit-zh,
+  @manualStubStableGlossaryBig-zh,
+  @manualStubStableGlossaryPdf-zh}
 
 @divEnd
 
@@ -229,9 +229,9 @@ LilyPond，同时也用简单的术语解释了一些关键的概念。您应该
 
 @docLinks{Essay, essay,
   @ressaynamed{Top,Essay},
-  @manualStableEssaySplit,
-  @manualStableEssayBig,
-  @manualStableEssayPdf}
+  @manualStubStableEssaySplit-zh,
+  @manualStubStableEssayBig-zh,
+  @manualStubStableEssayPdf-zh}
 
 @divEnd
 
@@ -252,9 +252,9 @@ LilyPond，同时也用简单的术语解释了一些关键的概念。您应该
 
 @docLinks{Notation, notation,
   @rnotationnamed{Top,Notation},
-  @manualStableNotationSplit,
-  @manualStableNotationBig,
-  @manualStableNotationPdf}
+  @manualStubStableNotationSplit-zh,
+  @manualStubStableNotationBig-zh,
+  @manualStubStableNotationPdf-zh}
 
 @divEnd
 
@@ -275,9 +275,9 @@ LilyPond，同时也用简单的术语解释了一些关键的概念。您应该
 
 @docLinks{Usage, usage,
   @rprogramnamed{Top,Usage},
-  @manualStableUsageSplit,
-  @manualStableUsageBig,
-  @manualStableUsagePdf}
+  @manualStubStableUsageSplit-zh,
+  @manualStubStableUsageBig-zh,
+  @manualStubStableUsagePdf-zh}
 
 @divEnd
 
@@ -305,9 +305,9 @@ is also linked from the @strong{See also (参见)} portion.
 
 @docLinks{Snippets, snippets,
   @rlsrnamed{Top,Snippets},
-  @manualStableSnippetsSplit,
-  @manualStableSnippetsBig,
-  @manualStableSnippetsPdf}
+  @manualStubStableSnippetsSplit-zh,
+  @manualStubStableSnippetsBig-zh,
+  @manualStubStableSnippetsPdf-zh}
 
 @divEnd
 
@@ -377,7 +377,7 @@ LilyPond 是以文本的方式录入音乐的。请阅读有关我们的 @ref{Te
   @ref{Top,Web},
   @manualDevelWebSplit-zh,
   @manualDevelWebBig-zh,
-  @manualDevelWebPdf}
+  @manualStubDevelWebPdf-zh}
 
 @divEnd
 
@@ -396,9 +396,9 @@ LilyPond 是以文本的方式录入音乐的。请阅读有关我们的 @ref{Te
 
 @docLinks{Changes, changes,
   @rchangesnamed{Top,Changes},
-  @manualStableChangesSplit,
-  @manualStableChangesBig,
-  @manualStableChangesPdf}
+  @manualStubStableChangesSplit-zh,
+  @manualStubStableChangesBig-zh,
+  @manualStubStableChangesPdf-zh}
 
 @divEnd
 
@@ -417,9 +417,9 @@ LilyPond 是以文本的方式录入音乐的。请阅读有关我们的 @ref{Te
 
 @docLinks{Extending, extending,
   @rextendnamed{Top,Extending},
-  @manualStableExtendingSplit,
-  @manualStableExtendingBig,
-  @manualStableExtendingPdf}
+  @manualStubStableExtendingSplit-zh,
+  @manualStubStableExtendingBig-zh,
+  @manualStubStableExtendingPdf-zh}
 
 @divEnd
 
@@ -442,9 +442,9 @@ LilyPond 是以文本的方式录入音乐的。请阅读有关我们的 @ref{Te
 
 @docLinks{Internals, internals,
   @rinternalsnamed{Top,Internals},
-  @manualStableInternalsSplit,
-  @manualStableInternalsBig,
-  @manualStableInternalsPdf}
+  @manualStubStableInternalsSplit-zh,
+  @manualStubStableInternalsBig-zh,
+  @manualStubStableInternalsPdf-zh}
 
 @divEnd
 

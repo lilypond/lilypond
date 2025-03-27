@@ -691,11 +691,11 @@ más recientes están en @url{https://lilypond.org}}
 @docLinkPdf{Aprendizaje,learning,@manualDevelLearningPdf-es}
 
 @item
-@docLinkSplit{Glosario,music-glossary,@manualDevelGlossarySplit}
+@docLinkSplit{Glosario,music-glossary,@manualStubDevelGlossarySplit-es}
 @tab
-@docLinkBig{Glosario,music-glossary,@manualDevelGlossaryBig}
+@docLinkBig{Glosario,music-glossary,@manualStubDevelGlossaryBig-es}
 @tab
-@docLinkPdf{Glosario,music-glossary,@manualDevelGlossaryPdf}
+@docLinkPdf{Glosario,music-glossary,@manualStubDevelGlossaryPdf-es}
 
 @item
 @docLinkSplit{Ensayo,essay,@manualDevelEssaySplit-es}
@@ -741,11 +741,11 @@ más recientes están en @url{https://lilypond.org}}
 @docLinkPdf{Web,web,@manualDevelWebPdf-es}
 
 @item
-@docLinkSplit{Cambios,changes,@manualDevelChangesSplit}
+@docLinkSplit{Cambios,changes,@manualStubDevelChangesSplit-es}
 @tab
-@docLinkBig{Cambios,changes,@manualDevelChangesBig}
+@docLinkBig{Cambios,changes,@manualStubDevelChangesBig-es}
 @tab
-@docLinkPdf{Cambios,changes,@manualDevelChangesPdf}
+@docLinkPdf{Cambios,changes,@manualStubDevelChangesPdf-es}
 
 @item
 @docLinkSplit{Extensiones,extending,@manualDevelExtendingSplit-es}
@@ -755,11 +755,11 @@ más recientes están en @url{https://lilypond.org}}
 @docLinkPdf{Extensiones,extending,@manualDevelExtendingPdf-es}
 
 @item
-@docLinkSplit{Funcionamiento interno,internals,@manualDevelInternalsSplit}
+@docLinkSplit{Funcionamiento interno,internals,@manualStubDevelInternalsSplit-es}
 @tab
-@docLinkBig{Funcionamiento interno,internals,@manualDevelInternalsBig}
+@docLinkBig{Funcionamiento interno,internals,@manualStubDevelInternalsBig-es}
 @tab
-@docLinkPdf{Funcionamiento interno,internals,@manualDevelInternalsPdf}
+@docLinkPdf{Funcionamiento interno,internals,@manualStubDevelInternalsPdf-es}
 @end multitable
 
 @ifset web_version

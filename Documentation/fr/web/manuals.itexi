@@ -59,7 +59,7 @@ une introduction pas-à-pas à LilyPond.
 @details{Learning, Initiation}
 
 @item
-@ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glossaire}}
+@ifWebLinks{@manualStubStableGlossarySplitNoName-fr,@rglosnamed{Top,Glossaire}}
 @emph{(lecture optionnelle)} répertoire de définition et de traduction
 de termes musicaux, utile en particulier pour connaître les termes
 musicaux en anglais.
@@ -139,7 +139,7 @@ programmation avancée d'ajustements et retouches dans LilyPond.
 @details{Extending, Extension}
 
 @item
-@ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Propriétés internes}}
+@ifWebLinks{@manualStubStableInternalsSplitNoName-fr,@rinternalsnamed{Top,Propriétés internes}}
 information sur les structures internes de LilyPond, nécessaire en
 particulier pour élaborer des retouches.
 @details{Internals, Propriétés internes}
@@ -265,9 +265,9 @@ documentation.
 
 @docLinks{Glossaire musical, music-glossary,
   @rglosnamed{Top,Glossaire musical},
-  @manualStableGlossarySplit,
-  @manualStableGlossaryBig,
-  @manualStableGlossaryPdf}
+  @manualStubStableGlossarySplit-fr,
+  @manualStubStableGlossaryBig-fr,
+  @manualStubStableGlossaryPdf-fr}
 
 @divEnd
 
@@ -531,9 +531,9 @@ renvoie à la documentation générée automatiquement.
 
 @docLinks{Référence des propriétés internes, internals,
   @rinternalsnamed{Top,Référence des propriétés internes},
-  @manualStableInternalsSplit,
-  @manualStableInternalsBig,
-  @manualStableInternalsPdf}
+  @manualStubStableInternalsSplit-fr,
+  @manualStubStableInternalsBig-fr,
+  @manualStubStableInternalsPdf-fr}
 
 @divEnd
 

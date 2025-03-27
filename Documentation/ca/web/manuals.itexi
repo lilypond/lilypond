@@ -48,7 +48,7 @@ una introducció al LilyPond amable i @qq{imprescindible}.
 @details{Learning, Aprenentatge}
 
 @item
-@ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glossari}}
+@ifWebLinks{@manualStubStableGlossarySplitNoName-ca,@rglosnamed{Top,Glossari}}
 @emph{(lectura opcional)} termes musicals i traduccions.
 @details{Glossary, Glossari}
 
@@ -102,17 +102,17 @@ aquest document.
 @details{Web, Web}
 
 @item
-@ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Canvis}}
+@ifWebLinks{@manualStubStableChangesSplitNoName-ca,@rchangesnamed{Top,Canvis}}
 que hi ha de nou?
 @details{Changes, Canvis}
 
 @item
-@ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Extensió}}
+@ifWebLinks{@manualStubStableExtendingSplitNoName-ca,@rextendnamed{Top,Extensió}}
 trucs interessants.
 @details{Extending, Extensió}
 
 @item
-@ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Funcionament intern}}
+@ifWebLinks{@manualStubStableInternalsSplitNoName-ca,@rinternalsnamed{Top,Funcionament intern}}
 referències sobre com fer trucs.
 @details{Internals, Funcionament intern}
 
@@ -237,9 +237,9 @@ l'anglès), es recomana ferventment que consulteu el glossari.
 
 @docLinks{Glossari musical, music-glossary,
   @rglosnamed{Top,Glossari musical},
-  @manualStableGlossarySplit,
-  @manualStableGlossaryBig,
-  @manualStableGlossaryPdf}
+  @manualStubStableGlossarySplit-ca,
+  @manualStubStableGlossaryBig-ca,
+  @manualStubStableGlossaryPdf-ca}
 
 @divEnd
 
@@ -447,9 +447,9 @@ produïdes al LilyPond a partir de la versió estable anterior.
 
 @docLinks{Canvis, changes,
   @rchangesnamed{Top,Canvis},
-  @manualStableChangesSplit,
-  @manualStableChangesBig,
-  @manualStableChangesPdf}
+  @manualStubStableChangesSplit-ca,
+  @manualStubStableChangesBig-ca,
+  @manualStubStableChangesPdf-ca}
 
 @divEnd
 
@@ -468,9 +468,9 @@ Aquest manual explica com escriure extensions del LilyPond.
 
 @docLinks{Extensió, extending,
   @rextendnamed{Top,Extensió},
-  @manualStableExtendingSplit,
-  @manualStableExtendingBig,
-  @manualStableExtendingPdf}
+  @manualStubStableExtendingSplit-ca,
+  @manualStubStableExtendingBig-ca,
+  @manualStubStableExtendingPdf-ca}
 
 @divEnd
 
@@ -500,9 +500,9 @@ documentació generada.
 
 @docLinks{Funcionament intern, internals,
   @rinternalsnamed{Top,Funcionament intern},
-  @manualStableInternalsSplit,
-  @manualStableInternalsBig,
-  @manualStableInternalsPdf}
+  @manualStubStableInternalsSplit-ca,
+  @manualStubStableInternalsBig-ca,
+  @manualStubStableInternalsPdf-ca}
 
 @divEnd
 

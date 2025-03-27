@@ -614,9 +614,9 @@ stabile, abbiamo scritto un manuale per i compiti di sviluppo.
 
 @docLinksBare{Contributor's Guide, contributor,
   @rcontribnamed{Top,Contributor's Guide},
-  @manualDevelContributorSplit,
-  @manualDevelContributorBig,
-  @manualDevelContributorPdf}
+  @manualStubDevelContributorSplit-it,
+  @manualStubDevelContributorBig-it,
+  @manualStubDevelContributorPdf-it}
 
 @divEnd
 
@@ -693,11 +693,11 @@ manuali sono reperibili su @url{https://lilypond.org}}
 @docLinkPdf{Apprendimento,learning,@manualDevelLearningPdf-it}
 
 @item
-@docLinkSplit{Glossario,music-glossary,@manualDevelGlossarySplit}
+@docLinkSplit{Glossario,music-glossary,@manualStubDevelGlossarySplit-it}
 @tab
-@docLinkBig{Glossario,music-glossary,@manualDevelGlossaryBig}
+@docLinkBig{Glossario,music-glossary,@manualStubDevelGlossaryBig-it}
 @tab
-@docLinkPdf{Glossario,music-glossary,@manualDevelGlossaryPdf}
+@docLinkPdf{Glossario,music-glossary,@manualStubDevelGlossaryPdf-it}
 
 @item
 @docLinkSplit{Saggio,essay,@manualDevelEssaySplit-it}
@@ -743,25 +743,25 @@ manuali sono reperibili su @url{https://lilypond.org}}
 @docLinkPdf{Web,web,@manualDevelWebPdf-it}
 
 @item
-@docLinkSplit{Cambiamenti,changes,@manualDevelChangesSplit}
+@docLinkSplit{Cambiamenti,changes,@manualStubDevelChangesSplit-it}
 @tab
-@docLinkBig{Cambiamenti,changes,@manualDevelChangesBig}
+@docLinkBig{Cambiamenti,changes,@manualStubDevelChangesBig-it}
 @tab
-@docLinkPdf{Cambiamenti,changes,@manualDevelChangesPdf}
+@docLinkPdf{Cambiamenti,changes,@manualStubDevelChangesPdf-it}
 
 @item
-@docLinkSplit{Extending,extending,@manualDevelExtendingSplit}
+@docLinkSplit{Extending,extending,@manualStubDevelExtendingSplit-it}
 @tab
-@docLinkBig{Extending,extending,@manualDevelExtendingBig}
+@docLinkBig{Extending,extending,@manualStubDevelExtendingBig-it}
 @tab
-@docLinkPdf{Extending,extending,@manualDevelExtendingPdf}
+@docLinkPdf{Extending,extending,@manualStubDevelExtendingPdf-it}
 
 @item
-@docLinkSplit{Internals,internals,@manualDevelInternalsSplit}
+@docLinkSplit{Internals,internals,@manualStubDevelInternalsSplit-it}
 @tab
-@docLinkBig{Internals,internals,@manualDevelInternalsBig}
+@docLinkBig{Internals,internals,@manualStubDevelInternalsBig-it}
 @tab
-@docLinkPdf{Internals,internals,@manualDevelInternalsPdf}
+@docLinkPdf{Internals,internals,@manualStubDevelInternalsPdf-it}
 @end multitable
 
 @ifset web_version

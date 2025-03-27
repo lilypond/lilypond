@@ -624,9 +624,9 @@ geschrieben (nur auf Englisch).
 
 @docLinksBare{Handbuch für Entwicklungsarbeiten, contributor,
   @rcontribnamed{Top,Handbuch für Entwicklungsarbeiten},
-  @manualDevelContributorSplit,
-  @manualDevelContributorBig,
-  @manualDevelContributorPdf}
+  @manualStubDevelContributorSplit-de,
+  @manualStubDevelContributorBig-de,
+  @manualStubDevelContributorPdf-de}
 
 @divEnd
 
@@ -704,11 +704,11 @@ Handbücher finden sich unter @url{https://lilypond.org}.}
 @docLinkPdf{Lernen,learning,@manualDevelLearningPdf-de}
 
 @item
-@docLinkSplit{Glossar,music-glossary,@manualDevelGlossarySplit}
+@docLinkSplit{Glossar,music-glossary,@manualStubDevelGlossarySplit-de}
 @tab
-@docLinkBig{Glossar,music-glossary,@manualDevelGlossaryBig}
+@docLinkBig{Glossar,music-glossary,@manualStubDevelGlossaryBig-de}
 @tab
-@docLinkPdf{Glossar,music-glossary,@manualDevelGlossaryPdf}
+@docLinkPdf{Glossar,music-glossary,@manualStubDevelGlossaryPdf-de}
 
 @item
 @docLinkSplit{Aufsatz,essay,@manualDevelEssaySplit-de}
@@ -754,11 +754,11 @@ Handbücher finden sich unter @url{https://lilypond.org}.}
 @docLinkPdf{Webseite,web,@manualDevelWebPdf-de}
 
 @item
-@docLinkSplit{Veränderungen,changes,@manualDevelChangesSplit}
+@docLinkSplit{Veränderungen,changes,@manualStubDevelChangesSplit-de}
 @tab
-@docLinkBig{Veränderungen,changes,@manualDevelChangesBig}
+@docLinkBig{Veränderungen,changes,@manualStubDevelChangesBig-de}
 @tab
-@docLinkPdf{Veränderungen,changes,@manualDevelChangesPdf}
+@docLinkPdf{Veränderungen,changes,@manualStubDevelChangesPdf-de}
 
 @item
 @docLinkSplit{Erweitern,extending,@manualDevelExtendingSplit-de}
@@ -768,11 +768,11 @@ Handbücher finden sich unter @url{https://lilypond.org}.}
 @docLinkPdf{Erweitern,extending,@manualDevelExtendingPdf-de}
 
 @item
-@docLinkSplit{Interna,internals,@manualDevelInternalsSplit}
+@docLinkSplit{Interna,internals,@manualStubDevelInternalsSplit-de}
 @tab
-@docLinkBig{Interna,internals,@manualDevelInternalsBig}
+@docLinkBig{Interna,internals,@manualStubDevelInternalsBig-de}
 @tab
-@docLinkPdf{Interna,internals,@manualDevelInternalsPdf}
+@docLinkPdf{Interna,internals,@manualStubDevelInternalsPdf-de}
 @end multitable
 
 @ifset web_version

@@ -612,9 +612,9 @@ col·laboradors.
 
 @docLinksBare{Guia del col·laborador, contributor,
   @rcontribnamed{Top,Guía del col·laborador},
-  @manualDevelContributorSplit,
-  @manualDevelContributorBig,
-  @manualDevelContributorPdf}
+  @manualStubDevelContributorSplit-ca,
+  @manualStubDevelContributorBig-ca,
+  @manualStubDevelContributorPdf-ca}
 
 @divEnd
 
@@ -692,11 +692,11 @@ manuals més recents estan a @url{https://lilypond.org}}
 @docLinkPdf{Aprenentatge,learning,@manualDevelLearningPdf-ca}
 
 @item
-@docLinkSplit{Glossari,music-glossary,@manualDevelGlossarySplit}
+@docLinkSplit{Glossari,music-glossary,@manualStubDevelGlossarySplit-ca}
 @tab
-@docLinkBig{Glossari,music-glossary,@manualDevelGlossaryBig}
+@docLinkBig{Glossari,music-glossary,@manualStubDevelGlossaryBig-ca}
 @tab
-@docLinkPdf{Glossari,music-glossary,@manualDevelGlossaryPdf}
+@docLinkPdf{Glossari,music-glossary,@manualStubDevelGlossaryPdf-ca}
 
 @item
 @docLinkSplit{Monografia,essay,@manualDevelEssaySplit-ca}
@@ -742,25 +742,25 @@ manuals més recents estan a @url{https://lilypond.org}}
 @docLinkPdf{Web,web,@manualDevelWebPdf-ca}
 
 @item
-@docLinkSplit{Canvis,changes,@manualDevelChangesSplit}
+@docLinkSplit{Canvis,changes,@manualStubDevelChangesSplit-ca}
 @tab
-@docLinkBig{Canvis,changes,@manualDevelChangesBig}
+@docLinkBig{Canvis,changes,@manualStubDevelChangesBig-ca}
 @tab
-@docLinkPdf{Canvis,changes,@manualDevelChangesPdf}
+@docLinkPdf{Canvis,changes,@manualStubDevelChangesPdf-ca}
 
 @item
-@docLinkSplit{Extensions,extending,@manualDevelExtendingSplit}
+@docLinkSplit{Extensions,extending,@manualStubDevelExtendingSplit-ca}
 @tab
-@docLinkBig{Extensions,extending,@manualDevelExtendingBig}
+@docLinkBig{Extensions,extending,@manualStubDevelExtendingBig-ca}
 @tab
-@docLinkPdf{Extensions,extending,@manualDevelExtendingPdf}
+@docLinkPdf{Extensions,extending,@manualStubDevelExtendingPdf-ca}
 
 @item
-@docLinkSplit{Funcionament intern,internals,@manualDevelInternalsSplit}
+@docLinkSplit{Funcionament intern,internals,@manualStubDevelInternalsSplit-ca}
 @tab
-@docLinkBig{Funcionament intern,internals,@manualDevelInternalsBig}
+@docLinkBig{Funcionament intern,internals,@manualStubDevelInternalsBig-ca}
 @tab
-@docLinkPdf{Funcionament intern,internals,@manualDevelInternalsPdf}
+@docLinkPdf{Funcionament intern,internals,@manualStubDevelInternalsPdf-ca}
 @end multitable
 
 @ifset web_version

@@ -45,7 +45,7 @@ un'introduzione a LilyPond leggera e @qq{imprescindibile}.
 @details{Learning, Apprendimento}
 
 @item
-@ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glossario}}
+@ifWebLinks{@manualStubStableGlossarySplitNoName-it,@rglosnamed{Top,Glossario}}
 @emph{(lettura opzionale)}
 termini musicali e traduzioni.
 @details{Glossary, Glossario}
@@ -95,15 +95,15 @@ Domande frequenti (Frequently Asked Questions).
 questo documento.
 @details{Web, Web}
 
-@item @ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Cambiamenti}}
+@item @ifWebLinks{@manualStubStableChangesSplitNoName-it,@rchangesnamed{Top,Cambiamenti}}
 cosa c'è di nuovo?
 @details{Changes, Cambiamenti}
 
-@item @ifWebLinks{@manualStableExtendingSplitNoName,@rextendnamed{Top,Estendere}}
+@item @ifWebLinks{@manualStubStableExtendingSplitNoName-it,@rextendnamed{Top,Estendere}}
 tweak interessanti.
 @details{Extending, Estendere}
 
-@item @ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Funzionamento interno}}
+@item @ifWebLinks{@manualStubStableInternalsSplitNoName-it,@rinternalsnamed{Top,Funzionamento interno}}
 guida ai tweak.
 @details{Internals, Funzionamento interno}
 
@@ -234,9 +234,9 @@ si raccomanda vivamente di consultare il glossario.
 
 @docLinks{Glossario musicale, music-glossary,
   @rglosnamed{Top,Glossario musicale},
-  @manualStableGlossarySplit,
-  @manualStableGlossaryBig,
-  @manualStableGlossaryPdf}
+  @manualStubStableGlossarySplit-it,
+  @manualStubStableGlossaryBig-it,
+  @manualStubStableGlossaryPdf-it}
 
 @divEnd
 
@@ -438,9 +438,9 @@ funzionalità di LilyPond rispetto alla versione stabile precedente.
 
 @docLinks{Cambiamenti, changes,
   @rchangesnamed{Top,Cambiamenti},
-  @manualStableChangesSplit,
-  @manualStableChangesBig,
-  @manualStableChangesPdf}
+  @manualStubStableChangesSplit-it,
+  @manualStubStableChangesBig-it,
+  @manualStubStableChangesPdf-it}
 
 @divEnd
 
@@ -460,9 +460,9 @@ funzionalità di LilyPond.
 
 @docLinks{Estendere, extending,
   @rextendnamed{Top,Estendere},
-  @manualStableExtendingSplit,
-  @manualStableExtendingBig,
-  @manualStableExtendingPdf}
+  @manualStubStableExtendingSplit-it,
+  @manualStubStableExtendingBig-it,
+  @manualStubStableExtendingPdf-it}
 
 @divEnd
 
@@ -492,9 +492,9 @@ che si riferisce alla documentazione generata.
 
 @docLinks{Funzionamento interno, internals,
   @rinternalsnamed{Top,Funzionamento interno},
-  @manualStableInternalsSplit,
-  @manualStableInternalsBig,
-  @manualStableInternalsPdf}
+  @manualStubStableInternalsSplit-it,
+  @manualStubStableInternalsBig-it,
+  @manualStubStableInternalsPdf-it}
 
 @divEnd
 

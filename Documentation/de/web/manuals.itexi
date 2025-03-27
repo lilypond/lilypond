@@ -47,7 +47,7 @@ eine sanfte @qq{unbedingt lesen!} Einführung in LilyPond.
 @details{Learning, Einführung}
 
 @item
-@ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glossar}}
+@ifWebLinks{@manualStubStableGlossarySplitNoName-de,@rglosnamed{Top,Glossar}}
 @emph{(optional)} hier werden musikalische Begriffe auf englisch erklärt und
 die passenden Übersetzungen in vielen anderen Sprachen gegeben.
 @details{Glossary, Glossar}
@@ -102,7 +102,7 @@ Dieses Dokument.
 @details{Web, Web}
 
 @item
-@ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,@"Anderungen}}
+@ifWebLinks{@manualStubStableChangesSplitNoName-de,@rchangesnamed{Top,@"Anderungen}}
 Was ist neu?
 @details{Changes, Änderungen}
 
@@ -112,7 +112,7 @@ clevere Anpassungen.
 @details{Extending, Erweitern}
 
 @item
-@ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Interna}}
+@ifWebLinks{@manualStubStableInternalsSplitNoName-de,@rinternalsnamed{Top,Interna}}
 Referenz für Anpassungen.
 @details{Internals, Interna}
 
@@ -250,9 +250,9 @@ es sich sehr, dieses Glossar zu Hilfe zu ziehen.
 
 @docLinks{Glossar, music-glossary,
   @rglosnamed{Top,Glossar},
-  @manualStableGlossarySplit,
-  @manualStableGlossaryBig,
-  @manualStableGlossaryPdf}
+  @manualStubStableGlossarySplit-de,
+  @manualStubStableGlossaryBig-de,
+  @manualStubStableGlossaryPdf-de}
 
 @divEnd
 
@@ -463,9 +463,9 @@ Eigenschaften in LilyPond seit der vorigen stabilen Version.
 
 @docLinks{Änderungen, changes,
   @rchangesnamed{Top,@"Anderungen},
-  @manualStableChangesSplit,
-  @manualStableChangesBig,
-  @manualStableChangesPdf}
+  @manualStubStableChangesSplit-de,
+  @manualStubStableChangesBig-de,
+  @manualStubStableChangesPdf-de}
 
 @divEnd
 
@@ -517,9 +517,9 @@ erklärt.  Jeder Abschnitt der Notationsreferenz hat einen
 
 @docLinks{Interna, internals,
   @rinternalsnamed{Top,Interna},
-  @manualStableInternalsSplit,
-  @manualStableInternalsBig,
-  @manualStableInternalsPdf}
+  @manualStubStableInternalsSplit-de,
+  @manualStubStableInternalsBig-de,
+  @manualStubStableInternalsPdf-de}
 
 @divEnd
 

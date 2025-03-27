@@ -600,9 +600,9 @@ LilyPond の開発手法はかなり複雑です。@c
 
 @docLinksBare{Contributor's Guide, contributor,
   @rcontribnamed{Top,Contributor's Guide},
-  @manualDevelContributorSplit,
-  @manualDevelContributorBig,
-  @manualDevelContributorPdf}
+  @manualStubDevelContributorSplit-ja,
+  @manualStubDevelContributorBig-ja,
+  @manualStubDevelContributorPdf-ja}
 
 @divEnd
 
@@ -677,21 +677,21 @@ LilyPond の開発手法はかなり複雑です。@c
 @tab
 @docLinkBig{学習,learning,@manualDevelLearningBig-ja}
 @tab
-@docLinkPdf{学習,learning,@manualDevelLearningPdf}
+@docLinkPdf{学習,learning,@manualStubDevelLearningPdf-ja}
 
 @item
-@docLinkSplit{用語集,music-glossary,@manualDevelGlossarySplit}
+@docLinkSplit{用語集,music-glossary,@manualStubDevelGlossarySplit-ja}
 @tab
-@docLinkBig{用語集,music-glossary,@manualDevelGlossaryBig}
+@docLinkBig{用語集,music-glossary,@manualStubDevelGlossaryBig-ja}
 @tab
-@docLinkPdf{用語集,music-glossary,@manualDevelGlossaryPdf}
+@docLinkPdf{用語集,music-glossary,@manualStubDevelGlossaryPdf-ja}
 
 @item
-@docLinkSplit{Essay,essay,@manualDevelEssaySplit}
+@docLinkSplit{Essay,essay,@manualStubDevelEssaySplit-ja}
 @tab
-@docLinkBig{Essay,essay,@manualDevelEssayBig}
+@docLinkBig{Essay,essay,@manualStubDevelEssayBig-ja}
 @tab
-@docLinkPdf{Essay,essay,@manualDevelEssayPdf}
+@docLinkPdf{Essay,essay,@manualStubDevelEssayPdf-ja}
 @end multitable
 
 @multitable @columnfractions .3 .3 .3
@@ -702,21 +702,21 @@ LilyPond の開発手法はかなり複雑です。@c
 @tab
 @docLinkBig{記譜法,notation,@manualDevelNotationBig-ja}
 @tab
-@docLinkPdf{記譜法,notation,@manualDevelNotationPdf}
+@docLinkPdf{記譜法,notation,@manualStubDevelNotationPdf-ja}
 
 @item
 @docLinkSplit{使用方法,usage,@manualDevelUsageSplit-ja}
 @tab
 @docLinkBig{使用方法,usage,@manualDevelUsageBig-ja}
 @tab
-@docLinkPdf{使用方法,usage,@manualDevelUsagePdf}
+@docLinkPdf{使用方法,usage,@manualStubDevelUsagePdf-ja}
 
 @item
-@docLinkSplit{Snippets,snippets,@manualDevelSnippetsSplit}
+@docLinkSplit{Snippets,snippets,@manualStubDevelSnippetsSplit-ja}
 @tab
-@docLinkBig{Snippets,snippets,@manualDevelSnippetsBig}
+@docLinkBig{Snippets,snippets,@manualStubDevelSnippetsBig-ja}
 @tab
-@docLinkPdf{Snippets,snippets,@manualDevelSnippetsPdf}
+@docLinkPdf{Snippets,snippets,@manualStubDevelSnippetsPdf-ja}
 @end multitable
 
 @multitable @columnfractions .3 .3 .3
@@ -727,28 +727,28 @@ LilyPond の開発手法はかなり複雑です。@c
 @tab
 @docLinkBig{Web,web,@manualDevelWebBig-ja}
 @tab
-@docLinkPdf{Web,web,@manualDevelWebPdf}
+@docLinkPdf{Web,web,@manualStubDevelWebPdf-ja}
 
 @item
-@docLinkSplit{Changes,changes,@manualDevelChangesSplit}
+@docLinkSplit{Changes,changes,@manualStubDevelChangesSplit-ja}
 @tab
-@docLinkBig{Changes,changes,@manualDevelChangesBig}
+@docLinkBig{Changes,changes,@manualStubDevelChangesBig-ja}
 @tab
-@docLinkPdf{Changes,changes,@manualDevelChangesPdf}
+@docLinkPdf{Changes,changes,@manualStubDevelChangesPdf-ja}
 
 @item
-@docLinkSplit{Extending,extending,@manualDevelExtendingSplit}
+@docLinkSplit{Extending,extending,@manualStubDevelExtendingSplit-ja}
 @tab
-@docLinkBig{Extending,extending,@manualDevelExtendingBig}
+@docLinkBig{Extending,extending,@manualStubDevelExtendingBig-ja}
 @tab
-@docLinkPdf{Extending,extending,@manualDevelExtendingPdf}
+@docLinkPdf{Extending,extending,@manualStubDevelExtendingPdf-ja}
 
 @item
-@docLinkSplit{Internals,internals,@manualDevelInternalsSplit}
+@docLinkSplit{Internals,internals,@manualStubDevelInternalsSplit-ja}
 @tab
-@docLinkBig{Internals,internals,@manualDevelInternalsBig}
+@docLinkBig{Internals,internals,@manualStubDevelInternalsBig-ja}
 @tab
-@docLinkPdf{Internals,internals,@manualDevelInternalsPdf}
+@docLinkPdf{Internals,internals,@manualStubDevelInternalsPdf-ja}
 @end multitable
 
 @ifset web_version

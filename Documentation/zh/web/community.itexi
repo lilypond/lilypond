@@ -580,9 +580,9 @@ LilyPond 的开发是一个相当复杂的问题。为了帮助新的贡献者�
 
 @docLinksBare{Contributor's Guide, contributor,
   @rcontribnamed{Top,Contributor's Guide},
-  @manualDevelContributorSplit,
-  @manualDevelContributorBig,
-  @manualDevelContributorPdf}
+  @manualStubDevelContributorSplit-zh,
+  @manualStubDevelContributorBig-zh,
+  @manualStubDevelContributorPdf-zh}
 
 @divEnd
 
@@ -657,46 +657,46 @@ This release's abc2ly tests.
 @tab
 @docLinkBig{Learning,learning,@manualDevelLearningBig-zh}
 @tab
-@docLinkPdf{Learning,learning,@manualDevelLearningPdf}
+@docLinkPdf{Learning,learning,@manualStubDevelLearningPdf-zh}
 
 @item
-@docLinkSplit{Glossary,music-glossary,@manualDevelGlossarySplit}
+@docLinkSplit{Glossary,music-glossary,@manualStubDevelGlossarySplit-zh}
 @tab
-@docLinkBig{Glossary,music-glossary,@manualDevelGlossaryBig}
+@docLinkBig{Glossary,music-glossary,@manualStubDevelGlossaryBig-zh}
 @tab
-@docLinkPdf{Glossary,music-glossary,@manualDevelGlossaryPdf}
+@docLinkPdf{Glossary,music-glossary,@manualStubDevelGlossaryPdf-zh}
 
 @item
-@docLinkSplit{Essay,essay,@manualDevelEssaySplit}
+@docLinkSplit{Essay,essay,@manualStubDevelEssaySplit-zh}
 @tab
-@docLinkBig{Essay,essay,@manualDevelEssayBig}
+@docLinkBig{Essay,essay,@manualStubDevelEssayBig-zh}
 @tab
-@docLinkPdf{Essay,essay,@manualDevelEssayPdf}
+@docLinkPdf{Essay,essay,@manualStubDevelEssayPdf-zh}
 @end multitable
 
 @multitable @columnfractions .3 .3 .3
 @headitem Regular
 
 @item
-@docLinkSplit{Notation,notation,@manualDevelNotationSplit}
+@docLinkSplit{Notation,notation,@manualStubDevelNotationSplit-zh}
 @tab
-@docLinkBig{Notation,notation,@manualDevelNotationBig}
+@docLinkBig{Notation,notation,@manualStubDevelNotationBig-zh}
 @tab
-@docLinkPdf{Notation,notation,@manualDevelNotationPdf}
+@docLinkPdf{Notation,notation,@manualStubDevelNotationPdf-zh}
 
 @item
-@docLinkSplit{Usage,usage,@manualDevelUsageSplit}
+@docLinkSplit{Usage,usage,@manualStubDevelUsageSplit-zh}
 @tab
-@docLinkBig{Usage,usage,@manualDevelUsageBig}
+@docLinkBig{Usage,usage,@manualStubDevelUsageBig-zh}
 @tab
-@docLinkPdf{Usage,usage,@manualDevelUsagePdf}
+@docLinkPdf{Usage,usage,@manualStubDevelUsagePdf-zh}
 
 @item
-@docLinkSplit{Snippets,snippets,@manualDevelSnippetsSplit}
+@docLinkSplit{Snippets,snippets,@manualStubDevelSnippetsSplit-zh}
 @tab
-@docLinkBig{Snippets,snippets,@manualDevelSnippetsBig}
+@docLinkBig{Snippets,snippets,@manualStubDevelSnippetsBig-zh}
 @tab
-@docLinkPdf{Snippets,snippets,@manualDevelSnippetsPdf}
+@docLinkPdf{Snippets,snippets,@manualStubDevelSnippetsPdf-zh}
 @end multitable
 
 @multitable @columnfractions .3 .3 .3
@@ -707,28 +707,28 @@ This release's abc2ly tests.
 @tab
 @docLinkBig{Web,web,@manualDevelWebBig-zh}
 @tab
-@docLinkPdf{Web,web,@manualDevelWebPdf}
+@docLinkPdf{Web,web,@manualStubDevelWebPdf-zh}
 
 @item
-@docLinkSplit{Changes,changes,@manualDevelChangesSplit}
+@docLinkSplit{Changes,changes,@manualStubDevelChangesSplit-zh}
 @tab
-@docLinkBig{Changes,changes,@manualDevelChangesBig}
+@docLinkBig{Changes,changes,@manualStubDevelChangesBig-zh}
 @tab
-@docLinkPdf{Changes,changes,@manualDevelChangesPdf}
+@docLinkPdf{Changes,changes,@manualStubDevelChangesPdf-zh}
 
 @item
-@docLinkSplit{Extending,extending,@manualDevelExtendingSplit}
+@docLinkSplit{Extending,extending,@manualStubDevelExtendingSplit-zh}
 @tab
-@docLinkBig{Extending,extending,@manualDevelExtendingBig}
+@docLinkBig{Extending,extending,@manualStubDevelExtendingBig-zh}
 @tab
-@docLinkPdf{Extending,extending,@manualDevelExtendingPdf}
+@docLinkPdf{Extending,extending,@manualStubDevelExtendingPdf-zh}
 
 @item
-@docLinkSplit{Internals,internals,@manualDevelInternalsSplit}
+@docLinkSplit{Internals,internals,@manualStubDevelInternalsSplit-zh}
 @tab
-@docLinkBig{Internals,internals,@manualDevelInternalsBig}
+@docLinkBig{Internals,internals,@manualStubDevelInternalsBig-zh}
 @tab
-@docLinkPdf{Internals,internals,@manualDevelInternalsPdf}
+@docLinkPdf{Internals,internals,@manualStubDevelInternalsPdf-zh}
 @end multitable
 
 @ifset web_version

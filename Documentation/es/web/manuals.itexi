@@ -44,7 +44,7 @@ una introducción a LilyPond amable e @qq{imprescindible}.
 @details{Learning, Aprendizaje}
 
 @item
-@ifWebLinks{@manualStableGlossarySplitNoName,@rglosnamed{Top,Glosario}}
+@ifWebLinks{@manualStubStableGlossarySplitNoName-es,@rglosnamed{Top,Glosario}}
 @emph{(lectura opcional)} términos musicales y traducciones.
 @details{Glossary, Glosario}
 
@@ -98,7 +98,7 @@ este documento.
 @details{Web, Web}
 
 @item
-@ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Cambios}}
+@ifWebLinks{@manualStubStableChangesSplitNoName-es,@rchangesnamed{Top,Cambios}}
 ¿qué hay de nuevo?
 @details{Changes, Cambios}
 
@@ -108,7 +108,7 @@ trucos interesantes.
 @details{Extending, Extender}
 
 @item
-@ifWebLinks{@manualStableInternalsSplitNoName,@rinternalsnamed{Top,Funcionamiento interno}}
+@ifWebLinks{@manualStubStableInternalsSplitNoName-es,@rinternalsnamed{Top,Funcionamiento interno}}
 referencia sobre el trucaje.
 @details{Internals, Funcionamiento interno}
 
@@ -233,9 +233,9 @@ recomienda fervientemente que consulte el glosario.
 
 @docLinks{Glosario musical, music-glossary,
   @rglosnamed{Top,Glosario musical},
-  @manualStableGlossarySplit,
-  @manualStableGlossaryBig,
-  @manualStableGlossaryPdf}
+  @manualStubStableGlossarySplit-es,
+  @manualStubStableGlossaryBig-es,
+  @manualStubStableGlossaryPdf-es}
 
 @divEnd
 
@@ -442,9 +442,9 @@ producidas en LilyPond a partir de la version estable anterior.
 
 @docLinks{Cambios, changes,
   @rchangesnamed{Top,Cambios},
-  @manualStableChangesSplit,
-  @manualStableChangesBig,
-  @manualStableChangesPdf}
+  @manualStubStableChangesSplit-es,
+  @manualStubStableChangesBig-es,
+  @manualStubStableChangesPdf-es}
 
 @divEnd
 
@@ -495,9 +495,9 @@ se refiere a la documentación generada.
 
 @docLinks{Funcionamiento interno, internals,
   @rinternalsnamed{Top,Funcionamiento interno},
-  @manualStableInternalsSplit,
-  @manualStableInternalsBig,
-  @manualStableInternalsPdf}
+  @manualStubStableInternalsSplit-es,
+  @manualStubStableInternalsBig-es,
+  @manualStubStableInternalsPdf-es}
 
 @divEnd
 
