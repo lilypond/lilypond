@@ -1778,9 +1778,51 @@ is '~a' a valid EPS file?")
 
 (define-markup-list-command (score-lines layout props score)
   (ly:score?)
+  #:properties ((tags-to-keep '())
+                (tags-to-remove '())
+                (tags-with-pushes-alist '())
+                (tags-with-appends-alist '()))
   "Inline an image of music as specified by @var{score}.
 
 Like @code{\\score} but return a list of lines instead of a single markup."
+  (define (apply-tag-additions tags-with-additions-alist music folder tag-applier)
+    (if (pair? tags-with-additions-alist)
+      (let ((tag (caar tags-with-additions-alist))
+            (additions (cdar tags-with-additions-alist)))
+        (apply-tag-additions
+          (alist-delete tag tags-with-additions-alist eq?)
+          (folder
+            (lambda (addition mus)
+              (tag-applier tag addition mus))
+            music
+            additions)
+          folder
+          tag-applier))
+      music))
+
+  (define music (ly:score-music score))
+  (set! music
+    (fold
+      (lambda (keep-tags mus) #{ \keepWithTag #keep-tags #mus #})
+      music
+      tags-to-keep))
+  (if (pair? tags-to-remove)
+    (set! music #{ \removeWithTag #tags-to-remove #music #}))
+  (set! music
+    (apply-tag-additions
+      tags-with-pushes-alist
+      music
+      fold-right
+      (lambda (tag addition mus)
+        #{ \pushToTagMarkup #tag #addition #mus #})))
+  (set! music
+    (apply-tag-additions
+      tags-with-appends-alist
+      music
+      fold
+      (lambda (tag addition mus)
+        #{ \appendToTagMarkup #tag #addition #mus #})))
+
   (let ((output (ly:score-embedded-format score layout)))
 
     (if (ly:music-output? output)
@@ -6563,6 +6605,265 @@ version 1.3.\"
   (if (condition? layout props)
       empty-stencil
       (interpret-markup layout props argument)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; tags
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define (props-with-tags-to-keep props tags)
+  (let ((tags-list
+          (ensure-list tags))
+        (tags-to-keep (chain-assoc-get 'tags-to-keep props '())))
+    (prepend-alist-chain 'tags-to-keep (cons tags-list tags-to-keep) props)))
+
+(define-markup-command (keep-with-tag layout props tags arg)
+  (symbol-list-or-symbol? markup?)
+  #:category other
+  #:properties ((tags-to-keep '()))
+  #:as-string (markup->string
+                arg
+                #:layout layout
+                #:props (props-with-tags-to-keep props tags))
+  "Keep markup from @var{arg} that is untagged or tagged with @var{tags}.
+
+All other parts of @var{arg} that are using a different tag
+are replaced with empty stencils.
+It works similar to @code{\\keepWithTag} for music,
+but only with markups.
+
+@lilypond[verbatim,quote]
+tagged = \\markup {
+  untagged
+  \\tag #'foo A
+  \\tag #'bar B
+}
+
+\\markup { \\keep-with-tag #'bar \\tagged }
+\\markup { \\keep-with-tag #'foo \\tagged }
+@end lilypond"
+  (interpret-markup layout
+    (props-with-tags-to-keep props tags)
+    arg))
+
+(define (props-with-tags-to-remove props tags)
+  (let* ((tags-list
+           (ensure-list tags))
+         (tags-to-remove (chain-assoc-get 'tags-to-remove props '()))
+         (new-tags-to-remove-list
+           (lset-union eq? tags-to-remove tags-list)))
+    (prepend-alist-chain 'tags-to-remove new-tags-to-remove-list props)))
+
+(define-markup-command (remove-with-tag layout props tags arg)
+  (symbol-list-or-symbol? markup?)
+  #:category other
+  #:properties ((tags-to-remove '()))
+  #:as-string (markup->string
+                arg
+                #:layout layout
+                #:props (props-with-tags-to-remove props tags))
+  "Remove markup from @var{arg} that is tagged with @var{tags}.
+
+The removed markup is replaced with empty stencils.
+It works similar to @code{\\removeWithTag} for music,
+but only with markups.
+
+@lilypond[verbatim,quote]
+tagged = \\markup {
+  \\tag #'foo A
+  \\tag #'bar B
+}
+
+\\markup { \\remove-with-tag #'foo \\tagged }
+\\markup { \\remove-with-tag #'bar \\tagged }
+@end lilypond"
+  (interpret-markup layout
+    (props-with-tags-to-remove props tags)
+    arg))
+
+(define (props-with-tag-additions mode props tag more)
+  (let* ((prop-name (if (eq? mode 'push) 'tags-with-pushes-alist 'tags-with-appends-alist))
+         (tags-with-additions-alist (chain-assoc-get prop-name props '()))
+         (previous-additions (assq-ref tags-with-additions-alist tag))
+         (additions (if (list? previous-additions)
+                        (if (eq? mode 'push)
+                            (append previous-additions (list more))
+                            (cons more previous-additions))
+                        (list more)))
+         (new-tags-with-additions-alist
+           (acons tag additions tags-with-additions-alist)))
+    (prepend-alist-chain prop-name new-tags-with-additions-alist props)))
+
+(define-markup-command (push-to-tag layout props tag more arg)
+  (symbol? markup? markup?)
+  #:category other
+  #:properties ((tags-with-pushes-alist '()))
+  #:as-string (markup->string
+                arg
+                #:layout layout
+                #:props (props-with-tag-additions 'push props tag more))
+  "Prepend @var{more} to all markup in @var{arg} tagged with @var{tag}.
+
+It works similar to @code{\\pushToTag} for music,
+but only with markups.
+
+@lilypond[verbatim,quote]
+tagged = \\markup {
+  \\tag #'foo A
+  \\tag #'bar B
+}
+
+\\markup { \\push-to-tag #'foo prefoo \\tagged }
+@end lilypond"
+  (interpret-markup layout
+    (props-with-tag-additions 'push props tag more)
+    arg))
+
+(define-markup-command (append-to-tag layout props tag more arg)
+  (symbol? markup? markup?)
+  #:category other
+  #:properties ((tags-with-appends-alist '()))
+  #:as-string (markup->string
+                arg
+                #:layout layout
+                #:props (props-with-tag-additions 'append props tag more))
+  "Append @var{more} to all markup in var @var{arg} tagged with @var{tag}.
+
+It works similar to @code{\\appendToTag} for music,
+but only with markups.
+
+@lilypond[verbatim,quote]
+tagged = \\markup {
+  \\tag #'foo A
+  \\tag #'bar B
+}
+
+\\markup { \\append-to-tag #'foo postfoo \\tagged }
+@end lilypond"
+  (interpret-markup layout
+    (props-with-tag-additions 'append props tag more)
+    arg))
+
+(define (tags-visible? tags tags-to-keep tags-to-remove)
+  (let* ((tags-list
+           (ensure-list tags))
+         (should-remove-tag?
+           (pair? (lset-intersection eq? tags-to-remove tags-list)))
+         (should-keep-tag?
+           (every
+             (lambda (keep-tags)
+               (or
+                 (any (lambda (t) (memq t keep-tags)) tags-list)
+                 (let ((groups (delete-duplicates (map tag-group-get keep-tags) eq?)))
+                   (not (any (lambda (t) (memq (tag-group-get t) groups)) tags-list)))))
+             tags-to-keep)))
+    (and (not should-remove-tag?)
+         should-keep-tag?)))
+
+(define (combine-tag-markup-additions tags tags-with-pushes-alist tags-with-appends-alist tagged-markup-list)
+  (let* ((tags-list (ensure-list tags))
+         (tag-markup-additions
+           (lambda (mode)
+             (let ((tags-with-additions-alist
+                     (if (eq? mode 'tags-with-pushes-alist)
+                         tags-with-pushes-alist
+                         tags-with-appends-alist)))
+               (append-map
+                 (lambda (tag)
+                   (let ((new-tag-prop
+                           (cons mode (acons tag '() tags-with-additions-alist)))
+                         (markups
+                           (assq-ref tags-with-additions-alist tag)))
+                     (if (list? markups)
+                         (make-override-lines-markup-list new-tag-prop markups)
+                         '())))
+                 tags-list)))))
+    (append
+      (tag-markup-additions 'tags-with-pushes-alist)
+      tagged-markup-list
+      (tag-markup-additions 'tags-with-appends-alist))))
+
+(define-markup-command (tag layout props tags arg)
+  (symbol-list-or-symbol? markup?)
+  #:category other
+  #:properties ((tags-to-keep '())
+                (tags-to-remove '())
+                (tags-with-pushes-alist '())
+                (tags-with-appends-alist '()))
+  #:as-string (if (tags-visible? tags tags-to-keep tags-to-remove)
+                  (markup->string
+                    (make-line-markup
+                      (combine-tag-markup-additions
+                        tags
+                        tags-with-pushes-alist
+                        tags-with-appends-alist
+                        (list arg))))
+                  "")
+  "Tag markup @var{arg} with @var{tag}.
+
+@var{tag} can be one or multiple tags.
+This allows later on to reference @var{arg};
+for example, to remove it or to add markup before or after
+the tagged markup.
+It works similar to @code{\\tag} for music,
+but only with markups.
+
+@lilypond[verbatim,quote]
+tagged = \\markup {
+  \\tag #'foo A
+  \\tag #'bar B
+}
+
+\\markup { \\keep-with-tag #'bar \\tagged }
+\\markup { \\keep-with-tag #'foo \\tagged }
+@end lilypond"
+  (if (tags-visible? tags tags-to-keep tags-to-remove)
+    (interpret-markup layout props
+      (make-line-markup
+        (combine-tag-markup-additions
+          tags
+          tags-with-pushes-alist
+          tags-with-appends-alist
+          (list arg))))
+    empty-stencil))
+
+
+(define-markup-list-command (tag-list layout props tags arg)
+  (symbol-list-or-symbol? markup-list?)
+  #:category other
+  #:properties ((tags-to-keep '())
+                (tags-to-remove '())
+                (tags-with-pushes-alist '())
+                (tags-with-appends-alist '()))
+  "Tag markup list @var{arg} with @var{tag}.
+
+@var{tag} can be one or multiple tags.
+This allows later on to reference @var{arg};
+for example, to remove it or to add markup before or after
+the tagged markup list.
+
+It works like the @code{\\tag} command for markups but with markup lists.
+You will need it if you have to reference a whole list; for example,
+to use @code{\\push-to-tag} and @code{\\append-to-tag} without
+pushing or appending before or after every single item of the list,
+but before or after the whole list instead.
+
+@lilypond[verbatim,quote]
+tagged = \\markuplist {
+  \\tag-list #'foo { foo bar }
+}
+
+\\markup { \\push-to-tag #'foo test \\tagged }
+@end lilypond
+"
+  (if (tags-visible? tags tags-to-keep tags-to-remove)
+    (interpret-markup-list layout props
+      (combine-tag-markup-additions
+        tags
+        tags-with-pushes-alist
+        tags-with-appends-alist
+        arg))
+    '()))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Markup list commands

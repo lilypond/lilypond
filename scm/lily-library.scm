@@ -582,6 +582,12 @@ of Guile's @code{(ice-9 hash-table)} module, @strong{not}
           ((not (pair? x)) (cons x tail))
           (else (loop (car x) (loop (cdr x) tail))))))
 
+(define-public (ensure-list item-or-list-of-items)
+  "Ensure the argument is a list. If it is not put it in one."
+  (if (list? item-or-list-of-items)
+      item-or-list-of-items
+      (list item-or-list-of-items)))
+
 (define-public (uniq-list lst)
   "Remove doublets from list @var{lst} (i.e., make its elements unique),
 assuming that it is sorted.  Uses @code{equal?} for comparisons."

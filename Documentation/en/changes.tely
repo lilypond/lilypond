@@ -365,7 +365,7 @@ previous @code{fraction?}.  This makes certain tricks possible
 without overriding the @code{stencil} property.
 
 @lilypond[quote,verbatim]
-{       
+{
   \once \override Timing.TimeSignature.fraction = #'(-1 . 12)
   R1
 }
@@ -948,6 +948,36 @@ added:
 }
 @end lilypond
 
+@item
+The @code{\tag} command is now allowed in markup environments.  New
+markup commands are added for filtering (@code{\keep-with-tag}
+and @code{\remove-with-tag}) and for inserting markups
+(@code{\push-to-tag} and @code{\append-to-tag}) in markup context
+or from music context (@code{\pushToTagMarkup} @code{\appendToTagMarkup}).
+
+@lilypond[quote,verbatim]
+test = \markup {
+  \tag #'a a
+  \tag #'b b
+  c
+}
+
+music = \relative {
+  c'^\test c c c
+}
+
+\keepWithTag #'a \music
+\removeWithTag #'a \music
+\pushToTagMarkup #'a push \music
+\appendToTagMarkup #'a append \music
+
+\markup { \keep-with-tag #'a \test }
+\markup { \remove-with-tag #'a \test }
+\markup { \push-to-tag #'a push \test }
+\markup { \append-to-tag #'a append \test }
+\markup { \keep-with-tag #'a \score { \music } }
+@end lilypond
+
 @end itemize
 
 @node New for specialist notation
@@ -1053,13 +1083,13 @@ instead of @code{'roman-lower}.
 Two new options are available for @code{fret-diagram-details}:
 
 @itemize
-@item @code{string-overhang} allows to define the extension of string 
-lines beyond the last fret line, in multiples of @code{fret-distance}.  
-Default value@tie{}1. 
+@item @code{string-overhang} allows to define the extension of string
+lines beyond the last fret line, in multiples of @code{fret-distance}.
+Default value@tie{}1.
 
-@item @code{barre-thickness} defines the thickness of the barre line, in 
-multiples of @code{dot-radius}.  Only defined for @code{barre-type=straight}.  
-Default value@tie{}1.  
+@item @code{barre-thickness} defines the thickness of the barre line, in
+multiples of @code{dot-radius}.  Only defined for @code{barre-type=straight}.
+Default value@tie{}1.
 
 @end itemize
 
