@@ -595,19 +595,24 @@ draws the span bar variant, i.e., without the segno sign."
 (define ((make-bracket-bar-line dir) is-span grob extent)
   "Draw a bracket-style bar line. If @var{dir} is set to @code{LEFT}, the
 opening bracket will be drawn, for @code{RIGHT} we get the closing bracket."
+  (define (get-tip glyph-name)
+    (let ((tip (ly:font-get-glyph (ly:grob-default-font grob) glyph-name)))
+      ;; the x-extent of the bracket tips must not be taken into account for bar
+      ;; line constructs like "[|:", so we set new bounds:
+      (ly:make-stencil (ly:stencil-expr tip)
+                       (cons 0 0)
+                       (ly:stencil-extent tip Y))))
+
   (let* ((thick-stil (make-thick-bar-line is-span grob extent))
-         (brackettips-up (ly:font-get-glyph (ly:grob-default-font grob)
-                                            "brackettips.up"))
-         (brackettips-down (ly:font-get-glyph (ly:grob-default-font grob)
-                                              "brackettips.down"))
-         ;; the x-extent of the brackettips must not be taken into account
-         ;; for bar line constructs like "[|:", so we set new bounds:
-         (tip-up-stil (ly:make-stencil (ly:stencil-expr brackettips-up)
-                                       (cons 0 0)
-                                       (ly:stencil-extent brackettips-up Y)))
-         (tip-down-stil (ly:make-stencil (ly:stencil-expr brackettips-down)
-                                         (cons 0 0)
-                                         (ly:stencil-extent brackettips-down Y)))
+         (has-span-bar (if is-span ; don't add tips to span bar
+                           '(#t . #t)
+                           (ly:grob-object grob 'has-span-bar '(#f . #f))))
+         (tip-up-stil (if (not (cdr has-span-bar))
+                          (get-tip "brackettips.up")
+                          empty-stencil))
+         (tip-down-stil (if (not (car has-span-bar))
+                          (get-tip "brackettips.down")
+                          empty-stencil))
          (stencil (ly:stencil-add
                    thick-stil
                    (ly:stencil-translate-axis tip-up-stil
@@ -1306,12 +1311,12 @@ of the volta brackets relative to the bar lines."
 (define-bar-line ".|:-|" "|" #t ".|")
 (define-bar-line ".|:-||" "||" #t ".|")
 (define-bar-line ".|:-|." "|." #t ".|")
-(define-bar-line "[|:" #f #t " |")
-(define-bar-line "[|:-|" "|" #t " |")
-(define-bar-line "[|:-||" "||" #t " |")
-(define-bar-line "[|:-|." "|." #t " |")
-(define-bar-line ":|]" #t #f " | ")
-(define-bar-line ":|][|:" ":|]" "[|:" " |  |")
+(define-bar-line "[|:" #f #t "[|")
+(define-bar-line "[|:-|" "|" #t "[|")
+(define-bar-line "[|:-||" "||" #t "[|")
+(define-bar-line "[|:-|." "|." #t "[|")
+(define-bar-line ":|]" #t #f " |]")
+(define-bar-line ":|][|:" ":|]" "[|:" " |][|")
 
 ;; segno bar lines
 (define-bar-line "S" #f #t "=")

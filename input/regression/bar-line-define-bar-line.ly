@@ -5,10 +5,10 @@
 
 \paper { ragged-right = ##t }
 
-\defineBarLine "[|;" #'("|" #t " |")
+\defineBarLine "[|;" #'("|" #t "[|")
 %% Placing a zero-width bar line at the beginning of a line is
 %% unusual, but it's good to test it somewhere.  (Don't copy this.)
-\defineBarLine ";|]" #'(#t "" " |")
+\defineBarLine ";|]" #'(#t "" " |]")
 
 \relative \new StaffGroup <<
   \new Staff {
