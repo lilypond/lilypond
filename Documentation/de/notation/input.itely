@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.25.5"
+@c \version "2.25.27"
 
 @c Translators: Till Paala
 
@@ -1890,14 +1890,38 @@ wie folgt:
   @tab Resultat
 
 @item
-Markierte Noten mit vorgesetztem @code{\keepWithTag #'@var{Bezeichnung}}
-  @tab Unmarkierte Noten und Noten mit der Marke @var{Bezeichnung} werden
-  gesetzt, Noten mit einer anderen Marke werden nicht angezeigt.
+Markierte Noten mit vorgesetztem
+
+@example
+\keepWithTag #'@var{Bezeichnung}
+@end example
+
+@noindent
+oder
+
+@example
+\keepWithTag #'(@var{Bezeichnung1} @var{Bezeichnung2}@dots{})
+@end example
+
+  @tab Unmarkierte Noten und Noten, die mit einer der angegebenen Bezeichnung
+  markiert sind, werden gesetzt, Noten mit einer anderen Marke werden nicht angezeigt.
 
 @item
-Markierte Noten mit vorgesetztem @code{\removeWithTag #'@var{Bezeichnung}}
-  @tab Unmarkierte Noten und Noten mit einer anderen Marke als
-  @var{Bezeichnung} wird angezeigt, Noten markiert mit @var{Bezeichnung}
+Markierte Noten mit vorgesetztem
+
+@example
+\removeWithTag #'@var{Bezeichnung}
+@end example
+
+@noindent
+oder
+
+@example
+\removeWithTag #'(@var{Bezeichnung1} @var{Bezeichnung2}@dots{})
+@end example
+
+  @tab Unmarkierte Noten und Noten, die mit keiner der angegebenen Bezeichnungen
+  markiert sind, werden gesetzt, Noten, die mit einer der Bezeichnungen markiert sind,
   werden nicht angezeigt.
 
 @item
@@ -1908,9 +1932,21 @@ Markierte Noten, weder mit vorgesetztem @code{\keepWithTag} noch
 @end multitable
 
 Die Argumente der Befehle @code{\tag}, @code{\keepWithTag} und
-@code{\removeWithTag} sollten ein Symbol sein (wie etwa
-@code{#'score} oder @code{#'part}), gefolgt von einem musikalischen
-Ausdruck.
+@code{\removeWithTag} sollten ein Symbol oder eine Liste von Symbolen sein
+(wie etwa @code{#'score} oder @code{#'(violineI violineII)}),
+gefolgt von einem musikalischen Ausdruck.
+Nur wenn die Symbole gültige LilyPond-Bezeichner sind
+(nur Buchstaben, keine Zahlen, Unter- oder Bindestriche),
+die nicht mit Noten verwechselt werden können,
+kann @code{#'} als Kurzschreibweise weggelassen werden.
+Eine Liste von Symbolen kann ein Komma als Trenner nutzen,
+d.h. @code{\tag #'(violineI violineII)} kann auch als
+@code{\tag violineI,violineII} geschrieben werden.
+Das gleiche gilt für @code{\keepWithTag} und @code{\removeWithTag}.
+Die Tag-Befehle sind musikalische Funktionen und können damit nicht
+zum Filtern von Objekten benutzt werden, die kein musikalischer
+Ausdruck sind, also sowas wie @code{\book}- oder @code{\score}-Blöcke.
+Es gibt jedoch auch Befehle für Tags in @code{\markup}-Umgebungen.
 
 Im folgenden Beispiel erscheinen zwei Versionen der Noten, eine
 zeigt Triller in normaler Notation, die andere zeigt sie ausgeschrieben:
@@ -1988,18 +2024,22 @@ music = \relative c'' {
 Mehrfache @code{\removeWithTag}-Filter können auf einen
 musikalischen Ausdruck angewendet werden, um mehrere unterschiedliche
 markierte Abschnitte aus dem Druckbild zu entfernen.
+Alternativ kann auch ein einziger @code{\removeWithTag}-Befehl mit
+einer Liste von Marken benutzt werden.
 
 @lilypond[verbatim,quote]
 music = \relative c'' {
-\tag #'A { a4 a a a }
-\tag #'B { b4 b b b }
-\tag #'C { c4 c c c }
-\tag #'D { d4 d d d }
+  \tag #'A { a4 a a a }
+  \tag #'B { b4 b b b }
+  \tag #'C { c4 c c c }
+  \tag #'D { d4 d d d }
 }
-{
-\removeWithTag #'B
-\removeWithTag #'C
-\music
+\new Voice {
+  \removeWithTag #'B
+  \removeWithTag #'C
+  \music
+  \removeWithTag #'(B C)
+  \music
 }
 @end lilypond
 
@@ -2008,6 +2048,81 @@ Ausdruck bewirken, dass @emph{alle} markierten Abschnitte entfernt
 werden, weil der erste Befehl alle markierten Abschnitt außer dem
 im Befehl genannten wegfiltert und der zweite Befehl dann auch diesen
 eben genannten zusätzlich entfernt.
+Ein einzelner @code{\keepWithTag}-Befehl mit mehreren Marken entfernt
+nur diejenigen markierten Abschnitte, die nur andere Marken als die
+angegebenen enthalten.
+
+In folgendem Beispiel
+
+@lilypond[verbatim,quote]
+music = \relative c'' {
+  \tag #'violinI { a4 a a a }
+  \tag #'violinII { b4 b b b }
+  \tag #'viola { c4 c c c }
+  \tag #'cello { d4 d d d }
+}
+
+\new Staff {
+  \keepWithTag #'(violinI violinII)
+  \music
+}
+@end lilypond
+
+@noindent
+werden nur die mit @code{\tag} markierten Abchnitte ausgegeben,
+die die Bezeichner @var{violinI} und @var{violinII},
+aber nicht @var{viola} und @var{cello} benutzen.
+
+@cindex Marke, mehrere, in Gruppen
+@funindex \tagGroup
+
+Während @code{\keepWithTag} gut geeignet ist, um mit @emph{einer} Art
+von Alternativen umzugehen, führt das Entfernen von @emph{andersartigen}
+Marken zu Problemen, bei Nutzung für verschiedene Zwecke.
+In diesem Fall können Marken gruppiert werden:
+
+@example
+\tagGroup #'(violinI violinII viola cello)
+@end example
+
+@noindent
+Verschiedene Marken können somit zu einer Gruppe zusammengefasst werden.
+Allerdings kann eine einzelne Marke nur in einer Gruppe sein.
+
+Die Nutzung von
+
+@example
+\keepWithTag #'violinI @dots{}
+@end example
+
+@noindent
+entfernt nur markierte Abschnitte mit Marken der gleichen Gruppe,
+in der auch @code{violinI} ist, sofern es nicht @code{violinI} selber ist.
+Marken anderer Gruppen bleiben unangetastet.
+
+@lilypond[verbatim,quote]
+music = \relative {
+  \tagGroup #'(violinI violinII)
+  \tagGroup #'(viola cello)
+  \tag #'violinI { c''4^"violinI" c c c }
+  \tag #'violinII { a2 a }
+  \tag #'viola { e8 e e2. }
+  \tag #'cello { d'2 d4 d }
+  \tag #'other { f^"other" f f f }
+  R1^"untagged"
+}
+
+\new Voice {
+  \keepWithTag #'violinI
+  \music
+}
+@end lilypond
+
+Im Beispiel entfernt der @code{\keepWithTag}-Befehl lediglich @code{violinII},
+da diese Marke in der selben Gruppe wie @code{violinI} ist.
+@code{viola} und @code{cello} bleiben erhalten, weil sie in einer
+anderen Gruppe sind und @code{other} bleibt ebenfalls erhalten,
+weil diese Marke gar keiner Gruppe zugeordnet ist.
 
 Manchmal will man Noten an einem bestimmen Platz in existierenden
 Noten einfügen.  Dafür kann entweder @code{\pushToTag} oder
@@ -2034,6 +2149,127 @@ des Tags eingefügt werden soll und den Ausdruck, der mit dem Tag versehen
 ist.  Der Befehl stellt sicher, dass alle Änderungen kopiert werden, sodass
 das ursprüngliche @code{\test} seine Bedeutung behält.
 
+@funindex \keep-with-tag
+@funindex \remove-with-tag
+@funindex \push-to-tag
+@funindex \append-to-tag
+
+Der @code{\tag}-Befehl kann auch in @code{\markup}-Umgebungen eingesetzt werden.
+Auch die Befehle @code{\keep-with-tag}, @code{\remove-with-tag}, @code{\push-to-tag}
+und @code{\append-to-tag} können genutzt werden und verhalten sich wie ihre
+Pendants in musikalischen Umgebungen.
+
+@lilypond[verbatim,quote]
+test = \markup {
+  \tag #'a a
+  \tag #'b b
+  \tag #'c c
+}
+
+\markup { \keep-with-tag #'b \test }
+\markup { \remove-with-tag #'b \test }
+\markup { \push-to-tag #'c pre \test }
+\markup { \append-to-tag #'c post \test }
+@end lilypond
+
+Musikalische @code{\keepWithTag}- und @code{\removeWithTag}-Befehle
+filtern auch Marken in @code{\markup}-Abschnitten innerhalb des
+betroffenen Musikabschnitts.
+
+@lilypond[verbatim,quote]
+music = \relative {
+  c'4^\markup { \tag #'one first \tag #'two second part } c c c
+}
+
+{
+  \keepWithTag #'one \music
+  \removeWithTag #'one \music
+}
+@end lilypond
+
+@funindex \pushToTagMarkup
+@funindex \appendToTagMarkup
+
+Soll an die markierten Stellen in @code{\markup}-Abschnitten von
+musikalischen Objekten etwas hinzugefügt werden, kann man
+@code{\pushToTag} und @code{\appendToTag} nicht verwenden,
+denn diese fügen nur musikalische Ausdrücke hinzu.
+Hierfür wird @code{\pushToTagMarkup} und @code{\appendToTagMarkup} benötigt.
+
+@lilypond[verbatim,quote]
+music = \relative {
+  c'4^\markup { \tag #'part part } c c c
+}
+
+{
+  \pushToTagMarkup #'part "great" \music
+  \appendToTagMarkup #'part \markup { is also great } \music
+}
+@end lilypond
+
+Die Filterung von Marken wirkt sich umgekehrt auch auf Musik
+innerhalb eines @code{\score}-Befehls in einem @code{\markup}-Abschnitt aus.
+
+@lilypond[verbatim,quote]
+music = \relative {
+  c'2^\markup { \tag #'first first \tag #'second second } c
+  \tag #'first { d d }
+  \tag #'second { f f }
+}
+
+\markup {
+  \keep-with-tag #'first \score { \music }
+  \remove-with-tag #'first \score { \music }
+}
+@end lilypond
+
+@funindex \tag-list
+
+Bei der Verwendung von Marken in Markups ist allerdings beim Markieren
+von Listen besondere Vorsicht geboten. Während die Filter
+
+@lilypond[verbatim,quote]
+\markup {
+  \remove-with-tag #'test { a \tag #'test { b c } d }
+}
+@end lilypond
+
+@noindent
+gut funktionieren, gibt es bei den einfügenden Befehlen
+@code{\push-to-tag} und @code{\append-to-tag} Probleme.
+
+@lilypond[verbatim,quote]
+\markup {
+  \push-to-tag #'test "twice" { a \tag #'test { b c } d }
+}
+@end lilypond
+
+Das liegt in diesem Falle daran, dass LilyPond das Konstrukt
+
+@example
+\tag #'test @{ b c @}
+@end example
+
+@noindent
+intern auflöst zu
+
+@example
+\tag #'test b
+\tag #'test c
+@end example
+
+@noindent
+und daher den übergebenen Text zweimal einfügt.
+Geht es wirklich darum, vor oder nach einer Liste an sich
+etwas einzufügen, muss auch die ganze Liste entsprechend
+markiert werden. Das geht mit @code{\tag-list}.
+
+@lilypond[verbatim,quote]
+\markup {
+  \push-to-tag #'test "once" { a \tag-list #'test { b c } d }
+}
+@end lilypond
+
 @morerefs
 Handbuch zum Lernen:
 @rlearningnamed{Organizing pieces with variables, Stücke durch Variablen organisieren}.
@@ -2041,6 +2277,16 @@ Handbuch zum Lernen:
 Notationsreferenz:
 @ref{Automatic part combining},
 @ref{Including LilyPond files}.
+
+@knownissues
+Die Nutzung von @code{\relative} auf musikalische Abschnitte, die
+mittels @code{\keepWithTag} oder @code{\removeWithTag} gefiltert wurden,
+kann die Oktavlage verändern, da nur die Töne betrachtet werden,
+die nach der Filterung noch übrig sind.
+Wenn @code{\relative} zuerst angewendet wird, bevor @code{\keepWithTag} oder
+@code{\removeWithTag} filtern, kann das Problem vermieden werden, da
+@code{\relative} dann auf alle Töne angewendet wird
+und die Filterung danach erfolgt.
 
 
 @ignore
