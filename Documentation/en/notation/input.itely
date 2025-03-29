@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.9"
+@c \version "2.25.27"
 
 @node General input and output
 @chapter General input and output
@@ -2531,28 +2531,36 @@ to tagged music is as follows:
 
 @item
 Tagged music preceded by
+
 @example
 \keepWithTag #'@var{name}
 @end example
+
 @noindent
 or
+
 @example
 \keepWithTag #'(@var{name1} @var{name2}@dots{})
 @end example
+
   @tab Untagged music and music tagged with any of the given tag
        names is included;
        music tagged with any other tag name is excluded.
 
 @item
 Tagged music preceded by
+
 @example
 \removeWithTag #'@var{name}
 @end example
+
 @noindent
 or
+
 @example
 \removeWithTag #'(@var{name1} @var{name2}@dots{})
 @end example
+
   @tab Untagged music and music not tagged with any of the given tag names
        is included; music tagged with any of the given tag names is
        excluded.
@@ -2571,8 +2579,8 @@ followed by a music expression.  If @emph{and only if} the symbols
 are valid LilyPond identifiers (alphabetic characters only, no
 numbers, underscores, or dashes) which cannot be confused with notes,
 the @code{#'} may be omitted and, as a shorthand, a list of symbols
-can use the dot separator: i.e., @code{\tag #'(violinI violinII)} can
-be written @code{\tag violinI.violinII}.  The same applies to
+can use the comma separator: i.e., @code{\tag #'(violinI violinII)} can
+be written @code{\tag violinI,violinII}.  The same applies to
 @code{\keepWithTag} and @code{\removeWithTag}.  Tagging commands
 are music functions, thus they cannot be used to filter items that
 are not music expressions, such as @code{\book} or @code{\score} blocks.
@@ -2764,11 +2772,13 @@ music tagged with one of the @emph{other} tags will removed.
 
 @lilypond[verbatim,quote]
 music = \relative {
-  \tagGroup #'(violinI violinII viola cello)
+  \tagGroup #'(violinI violinII)
+  \tagGroup #'(viola cello)
   \tag #'violinI { c''4^"violinI" c c c }
   \tag #'violinII { a2 a }
   \tag #'viola { e8 e e2. }
   \tag #'cello { d'2 d4 d }
+  \tag #'other { f^"other" f f f }
   R1^"untagged"
 }
 
@@ -2821,6 +2831,126 @@ music = { \tag #'here { \tag #'here <<c''>> } }
 
 Both commands get a tag, the material to splice in at every occurrence of
 the tag, and the tagged expression.
+
+@funindex \keep-with-tag
+@funindex \remove-with-tag
+@funindex \push-to-tag
+@funindex \append-to-tag
+
+The @code{\tag} command can also be used in @code{\markup} environments.
+The commands @code{\keep-with-tag}, @code{\remove-with-tag}, @code{\push-to-tag}
+and @code{\append-to-tag} are also available and behave like their corresponding
+commands for music expressions.
+
+@lilypond[verbatim,quote]
+test = \markup {
+  \tag #'a a
+  \tag #'b b
+  \tag #'c c
+}
+
+\markup { \keep-with-tag #'b \test }
+\markup { \remove-with-tag #'b \test }
+\markup { \push-to-tag #'c pre \test }
+\markup { \append-to-tag #'c post \test }
+@end lilypond
+
+Music commands like @code{\keepWithTag} and @code{\removeWithTag}
+filter tags in @code{\markup} parts in the related music, too.
+
+@lilypond[verbatim,quote]
+music = \relative {
+  c'4^\markup { \tag #'one first \tag #'two second part } c c c
+}
+
+{
+  \keepWithTag #'one \music
+  \removeWithTag #'one \music
+}
+@end lilypond
+
+@funindex \pushToTagMarkup
+@funindex \appendToTagMarkup
+
+It is also possible to push and append something to the
+@code{\markup} of musical objects.
+We cannot use @code{\pushToTag} and @code{\appendToTag} because they
+only insert some music, so we need  @code{\pushToTagMarkup}
+and @code{\appendToTagMarkup} to insert markup.
+
+@lilypond[verbatim,quote]
+music = \relative {
+  c'4^\markup { \tag #'part part } c c c
+}
+
+{
+  \pushToTagMarkup #'part "great" \music
+  \appendToTagMarkup #'part \markup { is also great } \music
+}
+@end lilypond
+
+The filtering of tags also works for music embedded within
+@code{\score} blocks in markup commands.
+
+@lilypond[verbatim,quote]
+music = \relative {
+  c'2^\markup { \tag #'first first \tag #'second second } c
+  \tag #'first { d d }
+  \tag #'second { f f }
+}
+
+\markup {
+  \keep-with-tag #'first \score { \music }
+  \remove-with-tag #'first \score { \music }
+}
+@end lilypond
+
+@funindex \tag-list
+
+Be careful with the usage of tags with lists of markup.
+The filter functions work as expected
+
+@lilypond[verbatim,quote]
+\markup {
+  \remove-with-tag #'test { a \tag #'test { b c } d }
+}
+@end lilypond
+
+@noindent
+but commands like @code{\push-to-tag} and @code{\append-to-tag}
+have problems.
+
+@lilypond[verbatim,quote]
+\markup {
+  \push-to-tag #'test "twice" { a \tag #'test { b c } d }
+}
+@end lilypond
+
+The reason for this behavior is that LilyPond changes
+
+@example
+\tag #'test @{ b c @}
+@end example
+
+@noindent
+internally to
+
+@example
+\tag #'test b
+\tag #'test c
+@end example
+
+@noindent
+and thus the given text is inserted twice.
+For tagging a list to insert or append something
+before or after the whole list the command
+@code{\tag-list} should be used.
+
+@lilypond[verbatim,quote]
+\markup {
+  \push-to-tag #'test "once" { a \tag-list #'test { b c } d }
+}
+@end lilypond
 
 @morerefs
 Learning Manual:
