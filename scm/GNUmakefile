@@ -38,6 +38,12 @@ LINKED_SCM_FILES = $(addprefix $(outdir)/,$(SCM_FILES))
 
 default: $(GEN_SCM_FILES) $(LINKED_SCM_FILES)
 
+ifndef VERBOSE
+  GUILE_COMPILE_QUIET = 2>&1 | grep -v '^;;; compil\(ing\|ed\) '
+else
+  GUILE_COMPILE_QUIET =
+endif
+
 # This rule depends on *all* .scm files because Guile is horribly bad at
 # dependency tracking for macros. If any of the source files changes, we
 # have to rebuild the entire bytecode to be sure.
@@ -47,7 +53,7 @@ default: $(GEN_SCM_FILES) $(LINKED_SCM_FILES)
 $(outdir)/bytecode.dummy: compile.ly $(LINKED_SCM_FILES) $(GEN_SCM_FILES)
 	$(RM) -f $(outdir)/*.go
 	$(RM) -r $(guile-ccache)
-	GUILE_AUTO_COMPILE=1 $(LILYPOND_BINARY) $<
+	GUILE_AUTO_COMPILE=1 $(LILYPOND_BINARY) $< $(GUILE_COMPILE_QUIET)
 	for i in $$(find $(guile-ccache) -name "*.scm.go"); do \
 		mv $$i $(outdir)/$$(basename $$i .scm.go).go; \
 	done
