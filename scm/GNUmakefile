@@ -39,6 +39,9 @@ LINKED_SCM_FILES = $(addprefix $(outdir)/,$(SCM_FILES))
 default: $(GEN_SCM_FILES) $(LINKED_SCM_FILES)
 
 ifndef VERBOSE
+  # TODO: Guile 3.0.11 will have an -I command-line switch to "silence
+  # informative diagnostics."  Once available, figure out how to use it from
+  # within lilypond.
   GUILE_COMPILE_QUIET = 2>&1 | grep -v '^;;; compil\(ing\|ed\) '
 else
   GUILE_COMPILE_QUIET =

@@ -1007,26 +1007,6 @@ value is used for @code{extra-spacing-height} to push note columns right in
                          (format #f "~a" num)
                          (make-fontsize-markup -5 (make-note-markup numeratornote UP))))))
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Color
-
-(define-public (color? x)
-  (or
-   (string? x)
-   (and (list? x)
-        (let ((l (length x)))
-          (or (= 3 l)
-              (= 4 l)))
-        (every number? x)
-        (every (lambda (y) (<= 0 y 1)) x))))
-
-(define*-public (rgb-color r g b #:optional (a #f))
-  (if a
-      (list r g b a)
-      (list r g b)))
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; key signature
 

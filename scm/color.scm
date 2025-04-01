@@ -17,6 +17,21 @@
 
 (use-modules (ice-9 match))
 
+(define-public (color? x)
+  (or
+   (string? x)
+   (and (list? x)
+        (let ((l (length x)))
+          (or (= 3 l)
+              (= 4 l)))
+        (every number? x)
+        (every (lambda (y) (<= 0 y 1)) x))))
+
+(define*-public (rgb-color r g b #:optional (a #f))
+  (if a
+      (list r g b a)
+      (list r g b)))
+
 (define-public standard-color-list '())
 
 (define-syntax-rule (define-color name value)
