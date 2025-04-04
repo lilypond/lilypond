@@ -894,9 +894,20 @@ def group_repeats(music_list):
                     return False
 
                 if marker == '$':
-                    # We have an implicit ending stop.
+                    # We have an implicit backward repeat.
                     start = markers[prev][1]
                     stop = len(music_list)
+
+                    # Similar to explicit repeats we ignore the final bar
+                    # line's type (if set).
+                    el = music_list[stop - 1]
+                    if (isinstance(el, musicexp.ChordEvent)
+                            and not el.elements):
+                        # Ignore empty chord at the end of input.
+                        el = music_list[stop - 2]
+                    if isinstance(el, musicexp.BarLine):
+                        el.type = None
+
                     wrap_repeat(start, stop)
                     return False
 
@@ -939,7 +950,7 @@ def group_repeats(music_list):
                     return False
 
                 if marker == '$':
-                    # We have an implicit ending and repeat stop.
+                    # We have an implicit ending and backward repeat.
                     start = markers[prev][1]
 
                     el = music_list[start]
