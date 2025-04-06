@@ -4222,11 +4222,21 @@ markup_arglist_partial:
 	{
 		$$ = $2;
 	}
+	| EXPECT_MARKUP_LIST markup_arglist_partial
+	{
+		$$= $2;
+	}
 	| EXPECT_SCM markup_arglist_partial
 	{
 		$$= $2;
 	}
+	// The rules below match the first missing argument, and the rules
+	// above discard all remaining expectations.
 	| EXPECT_MARKUP markup_command_list_arguments
+	{
+		$$ = $2;
+	}
+	| EXPECT_MARKUP_LIST markup_command_list_arguments
 	{
 		$$ = $2;
 	}
