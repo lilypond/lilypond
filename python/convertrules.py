@@ -5532,7 +5532,15 @@ def conv(s):
                                 'beamMinimumSubdivision'))
         stderr_write(UPDATE_MANUALLY)
         raise FatalConversionError()
-    return s;
+    return s
+
+
+@rule((2, 25, 26), r"""
+(empty-music) -> (make-music 'Music)
+""")
+def conv(s):
+    s = re.sub(r'(\(\s*)empty-music(\s*\))', "(make-music 'Music)", s)
+    return s
 
 
 # Guidelines to write rules (please keep this at the end of this file)

@@ -1095,6 +1095,14 @@ the new inverted glyphs are named @code{scripts.dupbow} and
 @itemize
 
 @item
+@code{(make-music 'Music)} and @code{(make-music 'Event)} now
+create music expressions that have the @code{void} property set to
+@code{#t} by default.  The function @code{empty-music} has been
+removed in favor of @code{(make-music 'Music)}.  The new predicate
+@code{unspecified-music?}  recognizes any music expression with
+the @code{void} flag set.
+
+@item
 The new Scheme function @code{ly:number->duration} converts a
 duration expressed in units of whole notes to a
 @code{ly:duration}.  The log, number of dots, and scaling factor

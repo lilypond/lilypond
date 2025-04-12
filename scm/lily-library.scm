@@ -190,7 +190,7 @@ for page layout instructions. "
                                                                 permission))))))
                    '(line-break-permission page-break-permission
                                            page-turn-permission)))
-        ((not (music-property 'void))
+        ((not (unspecified-music? music))
          ;; a regular music expression: make a score with this music
          ;; void music is discarded
          (score-handler (scorify-music music)))))

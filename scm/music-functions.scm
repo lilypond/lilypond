@@ -24,6 +24,11 @@
   "Does @var{mus} belong to the music class @var{type}?"
   (memq type (ly:music-property mus 'types)))
 
+(define-public (unspecified-music? mus)
+  "Recognize @q{unspecified} music by its @code{void} property.  Music functions
+and event functions return such music by default."
+  (ly:music-property mus 'void #f))
+
 (eval-when (expand load eval)
   (define-public (music-type-predicate types)
     "Return a predicate function that can be used for checking
@@ -1050,9 +1055,6 @@ number, that's where numbering starts."
                (any music-separator? es))
           (context-spec-music (voicify-chord m id) 'Staff)
           m))))
-
-(define-public (empty-music)
-  (make-music 'Music))
 
 ;; Make a function that checks score element for being of a specific type.
 (define-public (make-type-checker symbol)
