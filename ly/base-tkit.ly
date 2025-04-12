@@ -70,7 +70,6 @@
 % Define the derived variables to be populated
 #(define all-music-lyrics-names '())  % eg "SopranoLyrics"
 #(define AllMusic (make-music 'SequentialMusic 'void #t))
-#(define KeepAlive AllMusic)   % used to ensure voices don't terminate
 #(define have-music #f)        % -> #t when at least one music name
                                 %    contains music
 #(define voice-postfixes
@@ -126,10 +125,7 @@
                (lambda (x)
                  (get-id x))
                all-music-names))))
-   (set! KeepAlive
-         (skip-of-length AllMusic))
    (set! have-music
          (ly:moment<?
           (ly:make-moment 0)
-          (ly:music-length KeepAlive))))
-
+          (ly:music-length AllMusic))))

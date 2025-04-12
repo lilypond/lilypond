@@ -153,7 +153,7 @@ make-two-voice-staff =
                      #(if v1midiName v1midiName "clarinet")
                  }
                  <<
-                   #(if KeepAlive KeepAlive)
+                   \skip \AllMusic
                    #(if Time Time)
                    #(if v2music voiceOne oneVoice)
                    #v1music
@@ -170,7 +170,7 @@ make-two-voice-staff =
                      #(if v2midiName v2midiName "clarinet")
                  }
                  <<
-                   #(if KeepAlive KeepAlive)
+                   \skip \AllMusic
                    #(if Time Time)
                    #(if v1music voiceTwo oneVoice)
                    #v2music

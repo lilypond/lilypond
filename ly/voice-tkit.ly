@@ -26,7 +26,7 @@ make-voice =
    (if music
        #{
          \new Voice = #(string-append name "Voice") <<
-           #(if KeepAlive KeepAlive)
+           \skip \AllMusic
            #(if Time Time )
            #music
          >>
