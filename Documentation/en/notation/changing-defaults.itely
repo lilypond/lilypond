@@ -864,7 +864,7 @@ default values in just one particular instance of a context.
 @node Changing all contexts of the same type
 @unnumberedsubsubsec Changing all contexts of the same type
 
-@cindex @code{\context} in @code{\layout} block
+@cindex @code{\context}, in @code{\layout} block
 @funindex \context
 @funindex \layout
 
