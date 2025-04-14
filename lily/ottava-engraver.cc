@@ -39,6 +39,8 @@ protected:
 
   void listen_ottava (Stream_event *);
   void acknowledge_note_column (Grob_info_t<Item>);
+  void acknowledge_percent_repeat (Grob_info_t<Grob>);
+  void acknowledge_trill_spanner (Grob_info_t<Spanner>);
 
   void create_spanner ();
   void process_music ();
@@ -48,6 +50,9 @@ protected:
 private:
   Stream_event *ottava_ev_ = nullptr;
   SCM ottavation_ = SCM_EOL;
+  Item *note_col_ = nullptr;
+  Item *last_note_col_ = nullptr;
+  bool acked_trill_ = false;
 
   Spanner *span_ = nullptr;
   Spanner *finished_ = nullptr;
@@ -140,8 +145,23 @@ Ottava_spanner_engraver::acknowledge_note_column (Grob_info_t<Item> info)
 
       if (!span_->get_bound (LEFT))
         span_->set_bound (LEFT, it);
-      span_->set_bound (RIGHT, it);
+
+      note_col_ = it;
     }
+}
+
+void
+Ottava_spanner_engraver::acknowledge_percent_repeat (Grob_info_t<Grob>)
+{
+  // A percent repeat disqualifies a preceding note from use as the right bound
+  // of the ottava bracket.
+  last_note_col_ = nullptr;
+}
+
+void
+Ottava_spanner_engraver::acknowledge_trill_spanner (Grob_info_t<Spanner>)
+{
+  acked_trill_ = true;
 }
 
 void
@@ -149,23 +169,37 @@ Ottava_spanner_engraver::typeset_all ()
 {
   if (finished_)
     {
-      for (const auto d : {LEFT, RIGHT})
+      if (finished_->get_bound (LEFT))
         {
           if (!finished_->get_bound (RIGHT))
             {
-              Grob *e
-                = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
-              finished_->set_bound (d, e);
+              // Usually, end the bracket just after the last note head.
+              auto *col = last_note_col_ ? last_note_col_
+                                         : unsmob<Item> (get_property (
+                                           this, "currentCommandColumn"));
+              finished_->set_bound (RIGHT, col);
             }
+        }
+      else
+        {
+          finished_->suicide ();
         }
 
       finished_ = nullptr;
+      last_note_col_ = nullptr;
     }
 }
 
 void
 Ottava_spanner_engraver::stop_translation_timestep ()
 {
+  // The head of a trilled note that is notated with a wavy line is not eligible
+  // for use as the right bound of an ottava bracket.
+  if (acked_trill_)
+    {
+      note_col_ = nullptr;
+    }
+
   if (span_ && !span_->get_bound (LEFT))
     {
       Grob *e = unsmob<Grob> (get_property (this, "currentMusicalColumn"));
@@ -173,7 +207,13 @@ Ottava_spanner_engraver::stop_translation_timestep ()
     }
 
   typeset_all ();
+  acked_trill_ = false;
   ottava_ev_ = nullptr;
+  if (note_col_)
+    {
+      last_note_col_ = note_col_;
+      note_col_ = nullptr;
+    }
 }
 
 void
@@ -192,6 +232,8 @@ Ottava_spanner_engraver::boot ()
 {
   ADD_LISTENER (ottava);
   ADD_ACKNOWLEDGER (note_column);
+  ADD_ACKNOWLEDGER (percent_repeat);
+  ADD_ACKNOWLEDGER (trill_spanner);
 }
 
 ADD_TRANSLATOR (Ottava_spanner_engraver,
