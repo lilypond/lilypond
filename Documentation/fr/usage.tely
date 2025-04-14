@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 7d3a21cd7b0c4d44a12991f49482e9fef6a62d09
+    Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -77,7 +77,7 @@ Annexes
 @include en/fdl.itexi
 
 @node Index of commands and concepts
-@appendix Index
+@appendix Index des commandes et concepts
 
 @printindex cp
 

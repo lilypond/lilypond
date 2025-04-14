@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -329,7 +329,7 @@ ajoutez-y les trois lignes suivantes :
 
 @example
 filetype off
-set runtimepath+=/usr/local/share/lilypond/current/vim/
+set runtimepath+=/usr/local/share/lilypond/@version{}/vim/
 filetype on
 syntax on
 @end example
@@ -337,7 +337,8 @@ syntax on
 @noindent
 Si LilyPond est installé dans un autre répertoire que
 @file{/usr/local/}, modifiez ce chemin en conséquence.  Pour de plus
-amples détails, consultez @rlearningnamed{Other sources of information, Autres sources de documentation}.
+amples détails, consultez @rlearningnamed{Other sources of information,
+Autres sources de documentation}.
 
 
 @node Other editors
@@ -347,7 +348,8 @@ LilyPond est pris en charge par d'autres éditeurs, aussi bien en mode
 texte qu'avec une interface graphique.  Dans la mesure où leurs fichiers
 de configuration ne sont pas fournis avec LilyPond, nous vous invitons à
 consulter leur documentation pour plus d'information.  Certains de ces
-éditeurs sont mentionnés à la page @rwebnamed{Easier editing, Facilités d'édition}.
+éditeurs sont mentionnés à la page @rwebnamed{Easier editing,
+Facilités d'édition}.
 
 
 @node Converting from other formats
@@ -373,10 +375,10 @@ peu de chance pour que nous soyons en mesure de résoudre les bogues de
 ces programmes.
 
 @menu
-* Invoking midi2ly::      importation de musique au format MIDI.
-* Invoking musicxml2ly::  importation de partitions au format MusicXML.
-* Invoking abc2ly::        importation de partitions au format ABC.
-* Invoking etf2ly::        importation de partitions Finale.
+* Invoking midi2ly::     importation de musique au format MIDI.
+* Invoking musicxml2ly:: importation de partitions au format MusicXML.
+* Invoking abc2ly::      importation de partitions au format ABC.
+* Invoking etf2ly::      importation de partitions Finale.
 * Other formats::
 @end menu
 
@@ -401,15 +403,14 @@ convertisseur capable d'importer directement un fichier.
 -- @rinternals{Voice}.  Les hauteurs sont rendues en mode relatif, et
 les durées spécifiées lorsque nécessaire.
 
-Vous pouvez enregistrer un fichier MIDI grâce à un clavier
-électronique et ensuite le convertir en fichier @file{.ly}.  Néanmoins
-le rythme humain n'a pas une précision suffisante pour qu'une
-conversion MIDI à ly ne se fasse sans surprise.  En le couplant à une
-quantisation (options @option{-s} et @option{-d}), @command{midi2ly}
-tente de compenser dans la mesure du possible ces problèmes de
-temporisation.  C'est la raison pour laquelle le recours à
-@command{midi2ly} n'est pas recommandé pour des fichiers midi générés
-manuellement.
+Vous pouvez enregistrer un fichier MIDI grâce à un clavier électronique
+et ensuite le convertir en fichier @file{.ly}. Néanmoins le rythme
+humain n'a pas une précision suffisante pour qu'une conversion MIDI à LY
+ne se fasse sans surprise. En le couplant à une quantisation (options
+@option{-s} et @option{-d}), @command{midi2ly} tente de compenser dans
+la mesure du possible ces problèmes de temporisation. C'est la raison
+pour laquelle le recours à @command{midi2ly} n'est pas recommandé pour
+des fichiers midi générés manuellement.
 
 Pour le lancer en ligne de commande, procédez ainsi :
 
@@ -474,24 +475,35 @@ ajoutez une indication de phrasé ou de pédale.
 
 @cindex MusicXML
 
-@uref{https://@/www.@/musicxml@/.org/,MusicXML} est un dialecte XML pour
-représenter la notation musicale.
+@uref{https://www.w3.org/2021/06/musicxml40/,MusicXML} est un dialecte
+XML pour représenter la notation musicale. Il constitue le standard pour
+échanger des partitions entre les différents programmes de notation.
+Certains de ses éléments sont néanmoins de bas niveau et orientés
+graphisme, ce qui les rend difficiles, voire même impossibles, à
+convertir automatiquement au format LilyPond.
 
-@command{musicxml2ly} extrait, à partir d'un fichier MusicXML, les
-notes, articulations, structure de la partition, paroles, etc. et les
-écrit dans un fichier @file{.ly}.  Il se lance ainsi en ligne de
-commande :
+Le script Python @command{musicxml2ly} extrait, à partir d'un fichier
+MusicXML, les notes, articulations, structure de la partition,
+paroles, etc. et les écrit dans un fichier @file{.ly}. Il se lance ainsi
+en ligne de commande :
 
 @example
-musicxml2ly [@var{option}]@dots{} @var{fichier-xml}
+musicxml2ly [@var{option}]@dots{} @var{fichier}
 @end example
 
 Notez bien que, par « ligne de commande », nous parlons de la ligne de
 commande du système.  Pour plus de précisions, reportez-vous à
 @ref{Converting from other formats}.
 
-Si @var{fichier.xml} est remlacé par @file{-}, @command{musicxml2ly}
-lira directement à partir de la ligne de commande.
+Par défaut, @command{musicxml2ly} supprime l'extension de @var{fichier}
+et lui ajoute @file{.ly} pour construire le nom du fichier de sortie. Si
+@var{fichier} est remplacé par « @file{-} », @command{musicxml2ly} lira
+directement à partir de la ligne de commande et écrira sur la sortie
+standard.
+
+Si le fichier @file{@var{fichier}} n'est pas trouvé, seront alors tentés
+en entrée @file{@var{fichier}.xml}, @file{@var{fichier}.musicxml} et
+@file{@var{fichier}.mxl}.
 
 @command{musicxml2ly} accepte les options suivantes :
 
@@ -499,24 +511,40 @@ lira directement à partir de la ligne de commande.
 @item -a, --absolute
 Rendu en hauteurs absolues.
 
+@item --book
+Placer la partition principale dans un bloc @code{\book @{ ... @}}.
+Ceci peut s'avérer utile en cas de traitement postérieur avec
+@command{lilypond-book}.
+
+@item --ds, --dynamics-scale=@var{facteur}
+Redimensionner les éléments @code{<dynamics>} selon un @var{facteur} non
+négatif ; une valeur de 0 indique l'utilisation de la taille standard de
+LilyPond en matière de nuances. Cette option peut s'avérer nécessaire
+pour les fichiers MusicXML utilisant une fonte musicale telle que
+« Maestro » dans laquelle les symboles de nuance comme « f » ou « p »
+diffèrent grandement des glypes « Emmentaler » de LilyPond.
+
 @item --fb --fretboards
-Convertir les événements @code{<frame>} dans une voix séparée FretBoard
-plutôt qu'en @emph{markups}.
+Convertir les événements @code{<frame>} dans une voix @code{FretBoard}
+séparée plutôt qu'en @emph{markups}.
 
 @item -h, --help
 Afficher un résumé de toutes les options utilisables.
 
-@item -l, --language=LANG
-Utiliser une autre définition linguistique (@var{LANG}), comme par exemple
-@var{deutsch} pour des noms de notes en allemand.
+@item -l, --language=@var{lang}
+Utiliser une autre définition linguistique (@var{lang}), comme par exemple
+@var{deutsch} pour des noms de notes en allemand. Sont autorisées les
+valeurs reconnues en tant que langue de saisie par LilyPond -- voir
+@rnotationnamed{Note names in other languages, Nom des notes dans
+d’autres langues}.
 
-@item --loglevel=@var{LOGLEVEL}
-Détermine le degré de verbosité à @var{LOGLEVEL}. Les valeurs autorisées
+@item --loglevel=@var{log-level}
+Détermine le degré de verbosité à @var{log-level}. Les valeurs autorisées
 sont @code{NONE}, @code{ERROR}, @code{WARN}, @code{PROGRESS} (par
 défaut) et @code{DEBUG}.
 
 @item -m, --midi
-Ajouter un bloc @code{\midi} au fichier @var{.ly}.
+Ajouter un bloc MIDI au fichier LilyPond résultant.
 
 @item nb, --no-beaming
 Ne pas convertir les informations de ligature ; laisser LilyPond
@@ -526,49 +554,59 @@ gérer les ligatures automatiquement.
 Ne pas convertir la direction (@code{^}, @code{_} ou @code{-}) des
 articulations, nuances, etc.
 
+@item --npb, --no-page-breaks
+Ignorer les sauts de page.
+
+@item --npl, --no-page-layout
+Ne pas convertir l'exacte mise en page et les sauts (raccourci des
+options @code{--nsb} @code{--npb} @code{--npm}).
+
+@item --npm, --no-page-margins
+Ignorer les marges de la page.
+
 @item --nrp, --no-rest-positions
 Ne pas convertir les silences à position forcée.
 
 @item --nsb, --no-system-breaks
 Ignorer les sauts de ligne.
 
-@item --npl, --no-page-layout
-Ne pas convertir l'exacte mise en page et les sauts (raccourci des
-options @code{--nsb} @code{--npb} @code{--npm}).
-
-@item --npb, --no-page-breaks
-Ignorer les sauts de page.
-
-@item --npm, --no-page-margins
-Ignorer les marges de la page.
-
 @item --nsd, --no-stem-directions
-Ignorer l'orientation des hampes de MusicXML, et laisser LilyPond s'en
-occuper.
+Ignorer l'orientation des hampes telle qu'indiquée dans le fichier
+MusicXML, et laisser LilyPond s'en occuper.
+
+@item --nt, --no-tagline
+Ne pas ajouter la mention spéciale de LilyPond (en pied de la dernière
+page).
 
 @item -o, --output=@var{fichier}
-Générer le résultat dans le fichier @var{fichier}.  S'il n'est pas
-déterminé, ce sera @var{fichierxml}@file{.ly} ; @file{-}
-produira le résultat sur la sortie standard (@var{stdout}).
+Générer le résultat dans le fichier @var{fichier}.  S'il est
+déterminé à « @file{-} », le résultat sera émis sur la sortie standard.
+
+@item --oe, --ottavas-end-early=t[rue]/f[alse]
+Considérer la clôture des éléments @code{<octave-shift>} avant le
+@code{<note>} associé (comme procède le logiciel « Finale ») si la
+valeur est @samp{t} (ou @code{true}). La valeur par défaut est @samp{f}
+(ou @code{false}).
 
 @item -r, --relative
 Rendu en hauteurs relatives (mode par défaut).
 
-@item --transpose=TOPITCH
-L'intervale entre le @code{do} et @var{TOPITCH} pour transposer.
-
-@item --sm, --shift-meter=BEATS/BEATTYPE
-Modifier la longueur|durée des notes en fonction d'une métrique donnée
-pour rendre la partition plus rapide ou plus lente (par ex. @code{4/4}
-ou @code{2/2}).
-
-@item --tc, --tab-clef=TABCLEFNAME
-Basculer entre deux types de clef de tablature (@code{tab} et
-@code{moderntab}).
+@item --sm, --shift-duration=@var{valeur}
+Modifier les durées et la métrique en fonction de @var{valeur}. Par
+exemple, la valeur -1 double toutes les durées, et la valeur de 1 les
+réduit de moitié.
 
 @item --sn --string-numbers=t[rue]/f[alse]
-Désactiver les stencils de numéro de corde avec @code{--string-numbers}
-@code{false} ;  @code{true} par défaut.
+Contrôler la génération des numéros de corde. Elle sera désactivée si
+l'option est valorisée à @samp{f} (ou @code{false}) ;  la valeur par
+défaut est @samp{t} (ou @code{true}).
+
+@item --tc, --tab-clef=@var{tab-clef-name}
+Basculer entre deux types de clef de tablature. Les valeurs autorisées
+sont @code{tab} (par défaut) et @code{moderntab}.
+
+@item --transpose=@var{to-pitch}
+Déterminer l'intervale entre le « do » et @var{to-pitch} pour transposer.
 
 @item -v, --verbose
 Mode verbeux.
@@ -577,7 +615,9 @@ Mode verbeux.
 Afficher le numéro de version et quitter.
 
 @item -z, --compressed
-Le fichier d'entrée est un fichier MusicXML zippé.
+Le fichier d'entrée est un fichier MusicXML compressé. Cette option est
+activée par défaut dès lors que le fichier d'entrée a une extension
+@file{.mxl}.
 @end table
 
 
@@ -855,7 +895,8 @@ sous formes de lignes de musique au lieu de pages.
 Si d'aventure vous deviez recopier un certain nombre d'extraits d'une
 même partition, vous pouvez recourir à « l'emporte pièce » -- la
 fonction @emph{clip systems} -- comme indiqué au chapitre
-@rnotationnamed{Extracting fragments of music, Extraction de fragments musicaux}.
+@rnotationnamed{Extracting fragments of music, Extraction de fragments
+musicaux}.
 
 
 @node Independent includes
@@ -864,7 +905,8 @@ fonction @emph{clip systems} -- comme indiqué au chapitre
 Certains utilisateurs ont, pour obtenir des effets particuliers, écrit
 des fichiers qu'il est toujours possible d'intégrer à LilyPond avec
 l'instruction @code{\include}.  Plusieurs sont même désormais inclus
-dans le programme.  Voir aussi @rnotationnamed{Working with input files, Travail sur des fichiers texte}.
+dans le programme.  Voir aussi @rnotationnamed{Working with input files,
+Travail sur des fichiers texte}.
 
 
 @node MIDI articulation
@@ -879,4 +921,5 @@ d'améliorer la sortie MIDI de LilyPond.  Les notes qui ne sont pas liées
 sont ainsi raccourcies dans le but « d'articuler ».  Ce raccourcissement
 dépend de l'articulation appliquée à la note : un @emph{staccato}
 raccourcira la note de moitié, un @emph{tenuto} lui gardera sa durée
-entière…  Voir @rnotationnamed{Enhancing MIDI output, Amélioration du rendu MIDI}.
+entière…  Voir @rnotationnamed{Enhancing MIDI output, Amélioration du
+rendu MIDI}.

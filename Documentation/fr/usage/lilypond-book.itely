@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+    Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -89,20 +89,21 @@ Par exemple,
 }
 \end{lilypond}
 
-Les options sont indiquées entre crochets.
+Des options permettant de contrôler l'apparence de l'extrait peuvent
+s'ajouter, comme ici :
 
 \begin{lilypond}[fragment,quote,staffsize=26,verbatim]
   c'4 f16
 \end{lilypond}
 
 Des extraits plus conséquents peuvent faire l'objet d'un fichier
-indépendant, alors inclus avec \verb+\lilypondfile+.
+indépendant, comme ici :
 
 \lilypondfile[quote,noindent]{screech-and-boink.ly}
 
-(Si besoin, remplacez @file{screech-and-boink.ly} par
-n'importe quel fichier @file{.ly} qui se trouve dans
-le même répertoire que le présent fichier.)
+(Si besoin, remplacez \verb+screech-and-boink.ly+ par n'importe quel
+fichier \verb+.ly+ qui se trouve dans le même répertoire que le présent
+fichier.)
 
 \end{document}
 @end verbatim
@@ -114,17 +115,20 @@ le même répertoire que le présent fichier.)
 Enregistrez ces lignes dans un fichier nommé @file{lilybook.lytex} puis,
 dans un terminal, lancez
 
-@c keep space after @version{} so TeX doesn't choke
 @example
-lilypond-book --output=out --pdf lilybook.lytex
-@emph{lilypond-book (GNU LilyPond) @version{} }
+> lilypond-book --output=out --pdf lilybook.lytex
+@emph{lilypond-book (GNU LilyPond) @version{}}
 @emph{Lecture de lilybook.lytex...}
 @emph{@dots{}nous vous épargnons le verbiage de la console@dots{}}
 @emph{Compilation de lilybook.tex...}
-cd out
-pdflatex lilybook
+@emph{Écriture de out/lilybook.tex...}
+> cd out
+> pdflatex lilybook
+@emph{This is pdfTex, ...}
+@emph{./lilybook.tex}
 @emph{@dots{}nous vous épargnons le verbiage de la console@dots{}}
-xpdf lilybook
+@emph{Sortie écrite dans lilypond.pdf...}
+> xpdf lilybook
 @emph{(remplacez @command{xpdf} par votre lecteur de PDF habituel)}
 @end example
 
@@ -135,9 +139,11 @@ recommandons d'utiliser l'option @option{--output=@var{répertoire}} afin
 que les fichiers créés soient isolés dans le sous-répertoire
 @file{répertoire}.
 
-Pour terminer, voici le résultat de cet exemple pour
-@LaTeX{}.@footnote{Ce manuel étant réalisé avec Texinfo, il se peut que
-la mise en forme diverge quelque peu.}
+Pour terminer, voici le résultat de cet exemple pour @LaTeX{}.
+
+Dans la mesure où ce manuel est réalisé avec Texinfo, il n'est pas
+possible de reproduire l'exacte mise en forme de @LaTeX{}. Toutefois, la
+section suivante présente un rendu approximatif du résultat.
 
 
 @page
@@ -1021,19 +1027,57 @@ d'une macro, définie dans le document Texinfo.
 Il en va de l'option @code{doctitle} comme de l'option @code{texidoc} en
 matière d'adaptation en langue étrangère.
 
+@item htmlprintfilename
+Option disponible uniquement avec Texinfo, et identique à l'option
+@option{printfilename} à ceci près qu'elle renvoie le nom du fichier
+uniquement pour une sortie HTML.
+
 @item nogettext
 Option disponible uniquement pour Texinfo.@*
 Commentaires et noms de variable ne seront pas traduits dans la recopie
 textuelle du code.
 
 @item printfilename
-Lorsqu'un fichier source LilyPond est inclus à l'aide de
-@code{lilypondfile}, le nom du fichier sera reproduit juste au dessus de
+Lorsqu'un fichier source est inclus à l'aide de @code{lilypondfile} ou
+@code{musicxmlfile}, le nom du fichier sera reproduit juste au dessus de
 l'extrait. Si le résultat est un fichier HTML, il s'agira alors d'un
 lien. Seul le nom du fichier est imprimé ; autrement dit, le chemin
 d'accès au fichier est tronqué.
 
 @end table
+
+Pour finir, la commande @code{musicxmlfile} accepte aussi les options
+suivantes, qui seront directement passées à @command{musicxml2ly}.
+
+@indentedblock
+@raggedright
+@w{@code{absolute}},
+@w{@code{book}},
+@w{@code{compressed}},
+@w{@code{dynamics-scale}},
+@w{@code{fretboards}},
+@w{@code{language}},
+@w{@code{ottavas-end-early}},
+@w{@code{no-articulation-directions}},
+@w{@code{no-beaming}},
+@w{@code{no-page-breaks}},
+@w{@code{no-page-layout}},
+@w{@code{no-page-margins}},
+@w{@code{no-rest-positions}},
+@w{@code{no-stem-directions}},
+@w{@code{no-system-breaks}},
+@w{@code{no-tagline}},
+@w{@code{shift-duration}},
+@w{@code{string-numbers}},
+@w{@code{tab-clef}},
+@w{@code{transpose}},
+@w{@code{relative}},
+@w{@code{verbose}}
+@end raggedright
+@end indentedblock
+
+@noindent
+@xref{Invoking musicxml2ly} pour la signification de ces options.
 
 
 @node Invoking lilypond-book
@@ -1100,15 +1144,17 @@ Les environnements tels que
 @end example
 
 @noindent
-ne sont pas interprétés par @LaTeX{}. En fait, @code{lilypond-book}
-extrait ces « environnements » dans des fichiers accessoires et les
-traite par LilyPond. Il récupère ensuite les graphiques résultants et
-crée un fichier @file{.tex} dans lequel les macros
-@code{\begin@{lilypond@}}@dots{}@code{\end@{lilypond@}} sont remplacées
-par des commandes « d'inclusion de graphique ». C'est seulement à ce
-moment là que @LaTeX{} est lancé -- bien que @LaTeX{} aura préalablement
-tourné, cela aura été en fait sur un document « vide » et pour calculer
-les dimensions du papier et la longueur de ligne pour l'extrait LilyPon.
+ne sont pas interprétés par @LaTeX{}. En fait,
+@code{lilypond-book} extrait ces « environnements » dans des
+fichiers accessoires et les traite par LilyPond. Il récupère
+ensuite les graphiques résultants et crée un fichier @file{.tex}
+dans lequel les macros
+@code{\begin@{lilypond@}}@dots{}@code{\end@{lilypond@}} sont
+remplacées par des commandes « d'inclusion de graphique ». C'est
+seulement à ce moment là que @LaTeX{} est lancé -- bien que
+@LaTeX{} aura préalablement tourné, cela aura été en fait sur un
+document « vide » et pour calculer les dimensions du papier et la
+longueur de ligne pour l'extrait LilyPond.
 
 @knownissues
 La commande @code{\pageBreak} est inopérante dans un environnement
