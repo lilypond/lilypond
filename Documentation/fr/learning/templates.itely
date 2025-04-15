@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 709a5683c94b57676ecddf1c5bb347a6c7d1f417
+   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -467,7 +467,7 @@ une construction préprogrammée appelée par une instruction
 {snippets/anglican-psalm-template.ly}
 
 
-@need 1500
+@need 800
 @node Orchestral templates
 @appendixsec Orchestre
 
@@ -479,7 +479,7 @@ une construction préprogrammée appelée par une instruction
 {snippets/orchestra,-choir-and-piano-template.ly}
 
 
-@need 1500
+@need 800
 @node Ancient notation templates
 @appendixsec Exemples de notation ancienne
 
@@ -498,7 +498,7 @@ une construction préprogrammée appelée par une instruction
 {snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 
-@need 1500
+@need 800
 @node Other templates
 @appendixsec Autres modèles
 

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: dc7cd6d41c4dd62eb9db709658eb1e60ec90b2ad
+   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1842,12 +1842,11 @@ contexte n'a pas été spécifié.
 >>
 @end lilypond
 
-Dans la mesure où le nom du contexte par défaut est @code{Voice}, la
-deuxième commande @code{\set} a défini la propriété @code{clefGlyph}
-dans le contexte de voix. Puisque LilyPond n'ira pas chercher une telle
-propriété dans le contexte @code{Voice}, celle-ci ne sera pas
-interprétée. Il ne s'agit pas d'une erreur, aucun message d'erreur ne
-sera ni émis ni enregistré.
+La deuxième commande @code{\set} définit bien la propriété
+@code{Voice.clefGlyph} à @code{clefs.F} mais, puisque LilyPond ne
+s'attend pas à une telle propriété dans un contexte de voix, rien ne se
+passe. Il ne s'agit pas d'une erreur, aucun message d'erreur ne sera ni
+émis ni enregistré.
 
 La propriété @code{clefGlyph} ne sera prise en compte que si elle est
 définie dans un contexte @code{Staff} ; d'autres propriétés peuvent par
@@ -1857,7 +1856,8 @@ de la propriété @code{extraNatural} qui est définie par défaut à
 valeur @code{#f} (faux) dans un contexte @code{Staff} particulier, elle
 ne s'appliquera qu'aux altérations de la portée en question ; si vous
 lui attribuez la valeur « faux » au niveau du contexte @code{Score},
-cela s'appliquera alors à toutes les portées.
+cela s'appliquera alors à tous les contextes @code{Staff} pour lesquels
+elle n'aura pas été stipulée.
 
 Voici comment supprimer les bécarres supplémentaires pour une portée :
 
@@ -1890,24 +1890,23 @@ et pour toutes les portées :
 
 Autre exemple, si la propriété @code{clefTransposition} est déterminée
 au niveau du contexte @code{Score}, elle modifiera la valeur de la
-transposition en cours pour toutes les portées actives ; cette valeur
-sera considérée comme étant la nouvelle valeur par défaut pour toutes
-les portées à venir.
+transposition pour le contexte @code{Staff} en cours et tous ceux à
+venir, sauf mention expresse.
 
-La commande opposée, @code{\unset}, efface la propriété du contexte ; la
-plupart des propriétés reviennent de ce fait à leur valeur par défaut.
+La commande opposée, @code{\unset}, efface la propriété du contexte.
 En règle générale, la commande @code{\unset} n'est pas nécessaire dès
 lors que vous faites appel à une nouvelle commande @code{\set} pour
-modifier le réglage.
+modifier le réglage. Il faut ici considérer la valeur que le contexte
+englobant doit perpétuer. @code{\set} le masque, et @code{\unset} le
+rend visible.
 
 Les commandes @code{\set} et @code{\unset} peuvent intervenir n'importe
 où dans votre fichier source. Elles seront effectives dès leur
 apparition et jusqu'à la fin de la partition, à moins d'être affectées
 par un @code{\unset} ou un nouveau @code{\set}. À titre d'exemple, nous
 allons jouer avec la taille des fontes, ce qui affecte entre autres la
-grosseur des têtes de note. Les modifications s'appliquent toujours par
-rapport à la valeur par défaut, non par rapport à la dernière valeur
-définie.
+grosseur des têtes de note. La valeur se définit par rapport à la taille
+de police par défaut, non par rapport à la dernière valeur définie.
 
 @lilypond[quote,verbatim,ragged-right]
 \relative {
@@ -1944,9 +1943,10 @@ création de ce contexte. Ceci constitue parfois une façon plus claire de
 spécifier les valeurs d'une propriété pour la durée de vie du contexte.
 Lorsque vous créez un contexte à l'aide de la commande @code{\new}, vous
 pouvez la faire suivre immédiatement d'un bloc
-@code{\with @{ @dots{} @}} qui contiendra les réglages des différentes
-propriétés. Ainsi, si nous voulions par exemple annuler l'impression des
-bécarres supplémentaires sur la durée d'une portée, nous écririons :
+@code{\with @{ @dots{} @}} qui contiendra les réglages initiaux des
+différentes propriétés. Ainsi, si nous voulions par exemple annuler
+l'impression des bécarres supplémentaires sur la durée d'une portée,
+nous écririons :
 
 @example
 \new Staff \with @{ extraNatural = ##f @}
@@ -1969,17 +1969,11 @@ ce qui donnerait :
 >>
 @end lilypond
 
-Les propriétés réglées de cette manière peuvent néanmoins être modifiées
-de façon dynamique grâce à @code{\set} ; un @code{\unset} les ramènera à
-leur valeur initialisée par @code{\with}.
-
-@cindex @code{fontSize}, valeur par défaut et réglage
-
-La propriété @code{fontSize} constitue une exception : lorsqu'elle est
-déterminée au sein d'un bloc @code{\with}, cela redéfinit la valeur par
-défaut de la taille de fonte. Une modification est possible par la
-commande @code{\set}, mais la commande @code{\unset fontSize} fera
-revenir à la nouvelle valeur par défaut.
+Un bloc @code{\with} permet de définir aisément des valeurs qui
+s'appliqueront sur toute la durée d'un contexte ; celles-ci ne sont
+toutefois pas immuables. Les propriétés initialisée de la sorte peuvent
+toujours être modifiées dynamiquement à l'aide des commandes @code{\set}
+et @code{\unset}.
 
 
 @subsubheading Définition des propriétés de contexte avec @code{\context}
