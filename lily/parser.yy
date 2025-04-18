@@ -600,7 +600,7 @@ embedded_lilypond:
 		// for empty rules, and the only token in the whole
 		// production, EMBEDDED_LILY, is synthetic and also
 		// contains no source location.
-		$$ = MAKE_SYNTAX (void_music, @$);
+		$$ = MAKE_SYNTAX (unspecified_music, @$);
 	}
 	| identifier_init_nonumber
 	| embedded_lilypond_number
@@ -636,7 +636,7 @@ embedded_lilypond:
 			else
 				$$ = MAKE_SYNTAX (sequential_music, @$, $$);
 		else if (scm_is_null ($$))
-			$$ = MAKE_SYNTAX (void_music, @$);
+			$$ = MAKE_SYNTAX (unspecified_music, @$);
 		// else already packaged post-event
 	}
 	| error {
@@ -1452,7 +1452,7 @@ pitch_as_music:
                 if (!unsmob<Music> ($$))
 		{
                         parser->parser_error (@1, _ ("music expected"));
-			$$ = MAKE_SYNTAX (void_music, @$);
+			$$ = MAKE_SYNTAX (unspecified_music, @$);
 		}
 	}
 	;
@@ -2944,7 +2944,7 @@ simple_revert_context:
 music_property_def:
 	OVERRIDE grob_prop_path '=' scalar {
 		if (SCM_UNBNDP ($2))
-			$$ = MAKE_SYNTAX (void_music, @$);
+			$$ = MAKE_SYNTAX (unspecified_music, @$);
 		else
 			$$ = MAKE_SYNTAX (property_override, @$,
 					  scm_car ($2),
@@ -2956,7 +2956,7 @@ music_property_def:
 	}
 	| SET context_prop_spec '=' scalar {
 		if (SCM_UNBNDP ($2))
-			$$ = MAKE_SYNTAX (void_music, @$);
+			$$ = MAKE_SYNTAX (unspecified_music, @$);
 		else
 			$$ = MAKE_SYNTAX (property_set, @$,
 					  scm_car ($2),
@@ -2965,7 +2965,7 @@ music_property_def:
 	}
 	| UNSET context_prop_spec {
 		if (SCM_UNBNDP ($2))
-			$$ = MAKE_SYNTAX (void_music, @$);
+			$$ = MAKE_SYNTAX (unspecified_music, @$);
 		else
 			$$ = MAKE_SYNTAX (property_unset, @$,
 					  scm_car ($2),

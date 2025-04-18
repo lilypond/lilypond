@@ -224,7 +224,7 @@ extern Variable sequential_music;
 extern Variable simultaneous_music;
 extern Variable tempo;
 extern Variable unrelativable_music;
-extern Variable void_music;
+extern Variable unspecified_music;
 }; // namespace Syntax
 
 namespace Unicode

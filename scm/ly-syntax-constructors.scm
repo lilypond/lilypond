@@ -135,7 +135,7 @@
             res)
           (make-music 'PostEvents)))))
 
-(define-public (void-music)
+(define-public (unspecified-music)
   (ly:set-origin! (make-music 'Music)))
 
 (define-public (sequential-alternative-music mlist)

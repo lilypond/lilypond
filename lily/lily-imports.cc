@@ -213,7 +213,7 @@ Variable sequential_music ("sequential-music");
 Variable simultaneous_music ("simultaneous-music");
 Variable tempo ("tempo");
 Variable unrelativable_music ("unrelativable-music");
-Variable void_music ("void-music");
+Variable unspecified_music ("unspecified-music");
 } // namespace Syntax
 
 namespace Unicode
