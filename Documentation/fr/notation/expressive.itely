@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 772e0e24539737ac9cb88ee0b457af42dd065be7
+   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -34,72 +34,74 @@ et aborderons la manière de générer vos propres signes.
 @node Articulations and ornamentations
 @unnumberedsubsubsec Articulations et ornements
 
-@cindex @qq{accent}, articulation
-@cindex articulation, @qq{accent}
-@cindex @qq{marcato}, articulation
-@cindex articulation, @qq{marcato}
-@cindex @qq{staccatissimo}, articulation
-@cindex articulation, @qq{staccatissimo}
-@cindex @qq{espressivo}, articulation
-@cindex articulation, @qq{espressivo}
-@cindex @qq{staccato}, articulation
-@cindex articulation, @qq{staccato}
-@cindex @qq{tenuto}, articulation
-@cindex articulation, @qq{tenuto}
-@cindex @qq{portato}, articulation
-@cindex articulation, @qq{portato}
-@cindex @qq{poussé}, archet
+@cindex @sortas{accent} « accent », articulation
+@cindex articulation, « accent »
+@cindex @sortas{marcato} « marcato », articulation
+@cindex articulation, « marcato »
+@cindex @sortas{staccatissimo} « staccatissimo », articulation
+@cindex articulation, « staccatissimo »
+@cindex @sortas{espressivo} « espressivo », articulation
+@cindex articulation, « espressivo »
+@cindex @sortas{staccato} « staccato », articulation
+@cindex articulation, « staccato »
+@cindex @sortas{tenuto} « tenuto », articulation
+@cindex articulation, « tenuto »
+@cindex @sortas{portato} « portato », articulation
+@cindex articulation, « portato »
+@cindex @sortas{poussé} « poussé », archet
 @cindex archet, indication
-@cindex @qq{tiré}, archet
-@cindex @qq{flageolet}, harmoniques
-@cindex harmoniques, @qq{flageolet}
-@cindex @qq{pouce}, doigté
-@cindex doigté, @qq{pouce}
+@cindex @sortas{tiré} « tiré », archet
+@cindex @sortas{flageolet} « flageolet », harmoniques
+@cindex harmoniques, « flageolet »
+@cindex @sortas{pouce} « pouce », doigté
+@cindex doigté, « pouce »
 @cindex pied, indication
 @cindex orgue, indication, pédalier
 @cindex pédalier, orgue indication
-@cindex @qq{talon}, pédalier
-@cindex pédalier, @qq{talon}
-@cindex @qq{pointe}, pédalier
-@cindex pédalier, @qq{pointe}
-@cindex @qq{ouvert}, articulation
-@cindex articulation, @qq{ouvert}
+@cindex @sortas{talon} « talon », pédalier
+@cindex pédalier, « talon »
+@cindex @sortas{pointe} « pointe », pédalier
+@cindex pédalier, « pointe »
+@cindex @sortas{ouvert} « ouvert », articulation
+@cindex articulation, « ouvert »
 @cindex open high hat
 @cindex high hat, open
-@cindex @qq{semi-ouvert}, articulation
-@cindex articulation, @qq{semi-ouvert}
+@cindex @sortas{semi-ouvert} « semi-ouvert », articulation
+@cindex articulation, « semi-ouvert »
 @cindex half-open high hat
 @cindex high hat, half open
-@cindex @qq{stop}, articulation
-@cindex articulation, @qq{stop}
+@cindex @sortas{stop} « stop », articulation
+@cindex articulation, « stop »
 @cindex pédale high hat
 @cindex high hat, pédale
-@cindex @qq{snappizzicato}, signe
-@cindex signe @qq{snappizzicato}
-@cindex @qq{grupetto}, ornement
-@cindex ornement, @qq{grupetto}
-@cindex @qq{grupetto renversé}, ornement
-@cindex ornement, @qq{grupetto renversé}
-@cindex @qq{grupetto barré}, ornement
-@cindex ornement, @qq{grupetto barré}
-@cindex @qq{grupetto Haydn}, ornement
-@cindex ornement, @qq{grupetto Haydn}
-@cindex @qq{trille}, ornement
-@cindex ornement, @qq{trille}
-@cindex @qq{mordant}, ornement
-@cindex ornement, @qq{mordant}
-@cindex @qq{mordant ascendant}, ornement
-@cindex ornement, @qq{mordant ascendant}
-@cindex @qq{mordant descendant}, ornement
-@cindex ornement, @qq{mordant descendant}
-@cindex @qq{signum congruentiae} ornement
-@cindex ornement, @qq{signum congruentiae}
+@cindex @sortas{snappizzicato} « snappizzicato », signe
+@cindex signe « snappizzicato »
+@cindex @sortas{grupetto} « grupetto », ornement
+@cindex ornement, « grupetto »
+@cindex @sortas{grupetto renversé} « grupetto renversé », ornement
+@cindex ornement, « grupetto renversé »
+@cindex @sortas{grupetto barré} « grupetto barré », ornement
+@cindex ornement, « grupetto barré »
+@cindex @sortas{grupetto Haydn} « grupetto Haydn », ornement
+@cindex ornement, « grupetto Haydn »
+@cindex @sortas{trille} « trille », ornement
+@cindex ornement, « trille »
+@cindex @sortas{mordant} « mordant », ornement
+@cindex ornement, « mordant »
+@cindex @sortas{mordant ascendant} « mordant ascendant », ornement
+@cindex ornement, « mordant ascendant
+@cindex @sortas{mordant descendant} « mordant descendant », ornement
+@cindex ornement, « mordant descendant »
+@cindex @sortas{signum congruentiae} « signum congruentiae », ornement
+@cindex ornement, « signum congruentiae »
 @cindex point d'orgue
 @cindex Henze, point d'orgue
-@cindex @qq{segno}, signe
-@cindex signe, @qq{segno}
-@cindex @qq{coda}, signe
-@cindex @qq{variante coda}, signe
+@cindex @sortas{segno} « segno », signe
+@cindex signe, « segno »
+@cindex @sortas{coda} « coda », signe
+@cindex @sortas{variante coda} « variante coda », signe
+@cindex @sortas{bachschleifer} « bachschleifer », articulation
+@cindex articulation, « bachschleifer »
 
 @funindex \accent
 @funindex \marcato
@@ -147,6 +149,7 @@ et aborderons la manière de générer vos propres signes.
 @funindex \segno
 @funindex \coda
 @funindex \varcoda
+@funindex \bachschleifer
 @funindex -
 
 Les différents symboles qui indiquent des ponctuations ou des modes de
@@ -166,12 +169,17 @@ Les valeurs de @var{nom} sont répertoriées dans l'annexe
 }
 @end lilypond
 
-@cindex marcato
-@cindex tenuto
-@cindex staccatissimo
-@cindex accent
-@cindex staccato
-@cindex portato
+@cindex articulation, « marcato »
+@cindex @sortas{marcato} « marcato », articulation
+@cindex @sortas{tenuto} « tenuto », articulation
+@cindex articulation, « staccatissimo »
+@cindex @sortas{staccatissimo} « staccatissimo », articulation
+@cindex articulation, « accent »
+@cindex @sortas{accent} « accent », articulation
+@cindex articulation, « staccato »
+@cindex @sortas{staccato} « staccato », articulation
+@cindex articulation, « portato »
+@cindex @sortas{portato} « portato », articulation
 
 Certains signes d'articulation disposent d'un raccourci. On les ajoute à
 chaque note au moyen d'un tiret suivi du caractère correspondant à
@@ -191,6 +199,48 @@ Même si LilyPond place automatiquement ces symboles, selon les règles
 contenues dans le fichier @file{scm/script.scm}, il est possible de
 l'obliger à les positionner au-dessus ou en dessous de la note, comme
 indiqué au chapitre @ref{Direction and placement}.
+
+@funindex \atLeft
+@funindex \atRight
+
+@cindex bachschleifer
+@cindex ornament, horizontally
+@cindex horizontal ornament
+
+Le @code{bachschleifer} se positionne sue la gauche d'un @code{NoteHead}.
+Cet ornement peut comporter des lignes supplémentaires.
+
+@lilypond[verbatim,quote]
+{
+  \autoBeamOff
+  b'8 g''\bachschleifer
+  e'' c'''\bachschleifer
+}
+@end lilypond
+
+Articulations et ornements courants peuvent se positionner aussi bien
+sur la gauche que sur la droite d'une tête de note en portant une
+dérogation à leur @code{side-axis} et, si nécessaire, à la propriété
+@code{direction}. Les fonctions @code{\atLeft} et @code{\atRight}
+permettent de le gérer sans encombre.
+
+@lilypond[verbatim,quote]
+{
+  \set fingeringOrientations = #'(left)
+  \set stringNumberOrientations = #'(left down)
+  <
+   c'-3\5_\rightHandFinger #1 \atLeft \mordent
+   g'^\rightHandFinger #2
+   c''-1\2^\rightHandFinger #3 \atRight \prall
+   e'' ^\rightHandFinger #4
+  >2^\tenuto
+}
+@end lilypond
+
+@predefined
+@code{\atLeft},
+@code{\atRight}.
+@endpredefined
 
 Le type d'objet graphique créé par une articulation dépend de ce à quoi
 il est attaché.
@@ -423,6 +473,8 @@ lorsqu'il faut ajouter un crescendo et un decrescendo à une même note :
 
 @cindex vide, accord
 @cindex accord vide
+@funindex <>
+
 Lorsque la première d'une succession d'indications sur une même note
 coïncide avec son attaque, il est judicieux de l'attacher à un accord
 vide @code{<>} ; les indications seront alors saisies selon leur ordre
@@ -1458,9 +1510,6 @@ liaisons de tenue. Pour plus d'information, @pxref{Ties}.
 @cindex enjambement de portée, arpège
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/creating-cross-staff-arpeggios-in-a-piano-staff.ly}
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/creating-cross-staff-arpeggios-in-other-contexts.ly}
 
 @cindex arpège, voix, enjambement
 @cindex voix, arpège, enjambement

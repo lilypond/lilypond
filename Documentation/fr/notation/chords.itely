@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 772e0e24539737ac9cb88ee0b457af42dd065be7
+   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -109,6 +109,8 @@ peut adjoindre une durée.
 \chordmode { c2 f4 g }
 @end lilypond
 
+@funindex :
+
 On peut cependant obtenir des accords différents -- mineur, augmenté ou
 diminué -- en utilisant le caractère deux points (@code{:}).
 
@@ -125,7 +127,7 @@ Les accords de septième sont aisément stipulables :
 @funindex aug
 @funindex dim
 @funindex maj
-@funindex m
+@cindex @code{m} (dans un accord)
 
 Voici les différents modificateurs d'accord de trois sons ou de
 septième.  Par défaut, la septième ajoutée sera mineure ; la
@@ -471,13 +473,13 @@ chordmusic = \relative {
 >>
 @end lilypond
 
-@cindex no-chord, symbole
+@cindex @sortas{No Chord} @qq{No Chord}, symbole
 @cindex N.C., symbole
 @cindex accord, No Chord
 
 L'apparition de silences, y compris multimesures, dans un contexte
 @code{ChordNames} déclenchera l'impression du texte « N.C. » (@emph{No
-Chord} pour sansn accord).
+Chord} pour sans accord).
 
 @lilypond[verbatim,quote]
 myChords = \chordmode {
@@ -531,7 +533,7 @@ myChords = \chordmode {
 {snippets/simple-lead-sheet.ly}
 
 @funindex noChordSymbol
-@cindex no-chord, personnalisation du symbole
+@cindex @sortas{No Chord} @qq{No Chord}, personnalisation du symbole
 @cindex N.C., personnalisation du symbole
 @lilypondfile[verbatim,quote,ragged-right,texidoc, doctitle]
 {snippets/customizing-the-no-chord-symbol.ly}
@@ -576,12 +578,12 @@ représenteront.
 @cindex accord, nom alternatif
 
 Le modèle par défaut des chiffrages d'accord est celui de Klaus Ignatzek
-pour le jazz (cf. @ressaynamed{Literature list, Références bibliographiques}). Il est possible
-de créer son propre modèle de chiffrages à l'aide des différentes
-propriétés mentionnées ci-dessous.  LilyPond dispose d'un système
-alternatif de chiffrage jazz qui a été élaboré grâce à ces même
-propriétés.  Les deux notations, Ignatzek et alternative, sont illustrés
-à l'annexe @ref{Chord name chart}.
+pour le jazz (cf. @ressaynamed{Literature list, Références
+bibliographiques}). Il est possible de créer son propre modèle de
+chiffrages à l'aide des différentes propriétés mentionnées ci-dessous.
+LilyPond dispose d'un système alternatif de chiffrage jazz qui a été
+élaboré grâce à ces même propriétés. Les deux notations, Ignatzek et
+alternative, sont illustrés à l'annexe @ref{Chord name chart}.
 
 @c FIXME: move the chord-names-alternative snippet to a new section. -vv
 @c bizarre, mais c'est paas dans snippets. JCM
@@ -617,9 +619,9 @@ suivantes :
 
 @table @code
 
+@item chordRootNamer
 @funindex chordRootNamer
 
-@item chordRootNamer
 Dans les chiffrages d'accord jazz, la note fondamentale de chaque accord
 est exprimée par une lettre capitale, parfois suivie d'une altération,
 correspondant à la notation anglo-saxonne de la musique.  Cette
@@ -628,19 +630,19 @@ fondamentale en nom de note ; c'est donc en assignant une nouvelle
 fonction à cette propriété que l'on peut produire des noms de note
 spéciaux adaptés par exemple aux systèmes de notation d'autres pays.
 
+@item majorSevenSymbol
 @funindex majorSevenSymbol
 @funindex \blackTriangleMarkup
 @funindex \whiteTriangleMarkup
 
-@item majorSevenSymbol
 Cette propriété définit l'objet ajouté au @code{chordRootNamer} pour
 indiquer une septième majeure.  Les options prédéfinies sont
 @code{whiteTriangleMarkup} (triangle blanc) et
 @code{blackTriangleMarkup} (triangle noir).
 
+@item additionalPitchPrefix
 @funindex additionalPitchPrefix
 
-@item additionalPitchPrefix
 Lorsqu'un chiffrage contient des notes ajoutées, vous pouvez le préfixer
 d'une annotation.  LilyPond n'en ajoute pas par défaut, dans le but de
 ne pas trop surcharger la partition ; vous pouvez cependant les
@@ -654,18 +656,18 @@ faire apparaître si elles sont visuellement efficaces.
 }
 @end lilypond
 
+@item chordNoteNamer
 @funindex chordNoteNamer
 
-@item chordNoteNamer
 Lorsqu'un chiffrage mentionne une note ajoutée (par exemple la basse),
 les règles utilisées sont par défaut celles définies par la propriété
 @code{chordRootNamer} ci-dessus.  Cependant, la propriété
 @code{chordNoteNamer} permet de régler cet élément indépendamment, par
 exemple pour imprimer la basse en caractères minuscules.
 
+@item chordNameSeparator
 @funindex chordNameSeparator
 
-@item chordNameSeparator
 Les différents termes d'un chiffrage jazz (par exemple les notes de
 l'accord et la basse) sont habituellement légèrement espacés.  La
 propriété @code{chordNameSeparator} permet d'indiquer un autre
@@ -681,9 +683,9 @@ la propriété @code{slashChordSeparator}.
 }
 @end lilypond
 
+@item slashChordSeparator
 @funindex slashChordSeparator
 
-@item slashChordSeparator
 La note basse d'un accord n'est pas forcément la fondamentale.  L'accord
 est alors « renversé » -- certains diront « barré » parce que son
 chiffrage est habituellement flanqué d'une barre oblique entre l'accord
@@ -699,18 +701,18 @@ modifier ce séparateur -- par défaut la barre de fraction.
 }
 @end lilypond
 
+@item chordNameExceptions
 @funindex chordNameExceptions
 
-@item chordNameExceptions
 Cette propriété recense, sous forme de paire, les accords mis en forme
 de manière particulière.  Le premier élément de chacune des paires
 répertorie les différentes hauteurs qui constituent l'accord.  Le second
 élément est un @emph{markup} qui sera ajouté au @code{chordRootNamer}
 lors de l'impression du chiffrage.
 
+@item minorChordModifier
 @funindex minorChordModifier
 
-@item minorChordModifier
 Les accords mineurs sont habituellement identifiés par un @code{m} après
 leur fondamentale.  Certaines nomenclatures ont cependant adopté un
 autre suffixe, comme le signe moins.
@@ -724,9 +726,9 @@ autre suffixe, comme le signe moins.
 }
 @end lilypond
 
+@item chordPrefixSpacer
 @funindex chordPrefixSpacer
 
-@item chordPrefixSpacer
 Le modificateur pour accord mineur, géré par la propriété
 @code{minorChordModifier}, est en principe accolé à la fondamentale.
 Vous pouvez cependant l'espacer de la fondamentale à l'aide de la

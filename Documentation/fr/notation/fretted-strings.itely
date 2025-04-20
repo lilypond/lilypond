@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 7480498e00714a0aa46b6e9d615d9af663697b95
+   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -473,18 +473,21 @@ horizontale discontinue, @code{'pre-bend} une ligne verticale terminée
 en flèche, et @code{'pre-bend-hold} une ligne verticale terminée en
 flèche suivie d'une horizontale discontinue.
 
+Les commandes @code{\bendHold}, @code{\preBend} et @code{\preBendHold}
+sont des raccourcis pour saisir le style de désinence.
+
 @lilypond[verbatim,quote]
 bend-styles = {
   <>^"default"
   f'4\^ g'4\^ f'2
 
-  <>^"'hold"
+  <>^\markup \typewriter "'hold"
   \grace f'4\^ g'1\bendHold \^ g'1
 
-  <>^"'pre-bend"
+  <>^\markup \typewriter "'pre-bend"
   \grace f'4\preBend \^ g'1\bendHold \^ g'1
 
-  <>^"'pre-bend-hold"
+  <>^\markup \typewriter "'pre-bend-hold"
   \grace f'4\preBendHold \^ g'1\bendHold \^ g'1\^ f'
 
   \bar "|."
@@ -508,10 +511,6 @@ bend-styles = {
     \context {
       \TabStaff
       minimumFret = 5
-    }
-    \context {
-      \TabVoice
-      \consists Bend_spanner_engraver
     }
   }
 }
@@ -557,10 +556,6 @@ mus = {
       \Voice
       \omit StringNumber
     }
-    \context {
-      \TabVoice
-      \consists Bend_spanner_engraver
-    }
   }
 }
 @end lilypond
@@ -596,10 +591,6 @@ mus = {
     \context {
       \Voice
       \omit StringNumber
-    }
-    \context {
-      \TabVoice
-      \consists Bend_spanner_engraver
     }
   }
 }
@@ -640,10 +631,6 @@ bends-with-ties-and-skips = {
       \TabStaff
       minimumFret = 3
       restrainOpenStrings = ##t
-    }
-    \context {
-      \TabVoice
-      \consists Bend_spanner_engraver
     }
   }
 }
@@ -1802,7 +1789,7 @@ notes seront automatiquement calculées.
   \new Staff {
     \clef "treble_8"
     <f, c f a c' f'>1
-    <g, b, d g b' g'>1
+    <g, b, d g b g'>1
   }
 >>
 @end lilypond
@@ -2106,20 +2093,15 @@ main droite sur les cordes juste au-dessus du chevalet, de façon à
 ce style de jeu en affectant un profil spécifique aux têtes de note.
 
 @lilypond[quote,ragged-right,verbatim]
-\new Voice { % Warning: explicit Voice instantiation is
-             %    required to have palmMuteOff work properly
-             %    when palmMuteOn comes at the beginning of
-             %    the piece.
-  \relative c, {
-    \clef "G_8"
+\relative c, {
+  \clef "G_8"
     \palmMuteOn
     e8^\markup { \musicglyph "noteheads.s2do"  = palm mute }
     < e b' e > e
     \palmMuteOff
-    e e  \palmMute e e e |
-    e8 \palmMute { e e e } e e e e |
-    < \palmMute e b' e >8 \palmMute { e e e } < \palmMute e b' e >2
-  }
+    e e \palmMute e e e |
+  e8 \palmMute { e e e } e e e e |
+  < \palmMute e b' e >8 \palmMute { e e e } < \palmMute e b' e >2
 }
 @end lilypond
 

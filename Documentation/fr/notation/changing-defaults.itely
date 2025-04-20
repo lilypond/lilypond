@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 21521aa3ab6ece49d3e8ad34c11668c24af8a8fe
+   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2041,9 +2041,9 @@ Les propriétés des contextes se libellent sous la forme
 @code{minusculeMajuscule}. Leur rôle consiste principalement à traduire
 la musique en notation : par exemple, @code{localAlterations}
 déterminera quand imprimer une altération accidentelle, et
-@code{measurePosition} quand imprimer une barre de mesure. La valeur des
+@code{currentBarNumber} quelnuméro de mesure imprimer. La valeur des
 propriétés des contextes peut évoluer au fur et à mesure que l'on avance
-dans le morceau -- @code{measurePosition} en est l'illustration
+dans le morceau -- @code{currentBarNumber} en est l'illustration
 parfaite.
 
 La commande @code{\set} (et sa contrepartie @code{\unset}) permet de
@@ -2179,8 +2179,8 @@ d'une propriété de contexte. Néanmoins, il est parfois utile de
 temporairement modifier une valeur puis de revenir à la précédente. Les
 deux commandes @code{\pushContextProperty} et @code{\popContextProperty}
 sont prévues à cet effet : la première insère la valeur courante dans
-une pile et définit une nouvelle valeur, alors que la seconde suprime
-cette valeur de la pile et restaure la valeur initale.
+une pile, alors que la seconde suprime cette valeur de la pile et
+restaure la propriété à sa valeur initale.
 
 @lilypond[quote,verbatim]
 {
@@ -2339,10 +2339,11 @@ Référence des propriétés internes :
 @funindex \override
 
 Les instructions @code{\set} et @code{\override} manipulent toutes deux
-des propriétés associées à des contextes. Dans tous les cas, ces
-propriétés tiennent compte de la @emph{hiérarchie des contextes} : les
-propriétés qui n'ont pas été définies dans le contexte lui-même héritent
-des valeurs de leur contexte parent respectif.
+des propriétés associées à des contextes. Les
+propriétés suivent une @emph{hiérarchie des contextes} selon laquelle
+chaque contexte en comporte un ou plusieurs en dessous de lui-même. Une
+propriété qui n'a pas été définie dans un contexte particulier adopte
+les valeurs définies par son contexte supérieur hiérarchique direct.
 
 Les valeurs et durée de vie des propriétés d'un contexte sont dynamiques
 et ne sont accessibles qu'au moment où la musique est interprétée. Lors
@@ -2377,7 +2378,7 @@ leurs sous-propriétés) séparément. Il sera dès lors possible de définir
 ces composants dans différents contextes et ainsi disposer d'une
 définition globale du @emph{grob} à l'instant où la création de cet
 objet assemblera les éléments relatifs aux différents contextes attachés
-au contexte en cours et à ses parents.
+au contexte en cours et ceux qui l'englobent.
 
 Les définitions de @emph{grob} se manipulent à l'aide des commandes
 @code{\override} et @code{\revert}, et leur nom commence par une
@@ -2385,7 +2386,7 @@ capitale (comme @samp{NoteHead}) alors que les propriétés de contexte
 ordinaires -- elles commencent par une minuscule -- se manipulent avec
 @code{\set} et @code{\unset}.
 
-@cindex @emph{tweak}, relation avec @code{\override}
+@cindex @code{\tweak}, relation avec @code{\override}
 @funindex \tweak
 @funindex \overrideProperty
 
@@ -2529,8 +2530,10 @@ d'un @code{\single}. Par exemple, la fonction @code{\easyHeadsOn} peut
 s'utiliser avec @code{\single} pour n'affecter qu'une seule des notes
 d'un accord :
 
-@lilypond[verbatim,quote,relative=1]
-< \single \easyHeadsOn c' g' >2
+@lilypond[verbatim,quote]
+\relative c' {
+  < \single \easyHeadsOn c' g' >2
+}
 @end lilypond
 
 @morerefs
@@ -3196,8 +3199,6 @@ Manuel de notation :
 LilyPond considère deux types de distances : les distances absolues
 et les distances relatives ou extensibles.
 
-@funindex \staff-space
-
 Les distances absolues permettent de spécifier les marges, indentations
 et autres détails de mise en page ; elles s'expriment par défaut en
 millimètres. Vous pouvez utiliser d'autres systèmes de mesure dès lors
@@ -3224,6 +3225,7 @@ que la quantité est suivie de la mesure : @code{\mm}, @code{\cm},
 @end multitable
 @end indentedblock
 
+@funindex \staff-space
 
 Les mesures de mise en page peuvent aussi s'exprimer en unité extensible
 de portée @code{\staff-space} (voir ci-après). Pour plus d'information
@@ -3292,8 +3294,17 @@ gauche est à @minus{}5, le bord droit à 10, le bord inférieur
 à @minus{}3 et le bord supérieur à 15 espaces de portée du point de
 référence de cet objet.
 
+Pour de plus amples information sur la manière dont sont définies de
+telles boîtes, y compris les définitions formelles de l'espace
+horizontal et vertical tel que les commandes de @emph{markup}
+ @code{\hspace} et @code{\vspace} le déterminent, voir
+@rextendnamed{LilyPond's box model,Le modèle de boîte de LilyPond}.
+
 @morerefs
 Manuel de notation :
+@ref{Other markup commands} (documentation sur des commandes similaires à
+@code{\with-dimensions}, telles que @code{\with-dimension} ou
+@code{\with-dimension-from}),
 @ref{Distances and measurements}.
 @endmorerefs
 
@@ -3321,7 +3332,6 @@ certains peuvent être rompus lors d'un saut de ligne.
 @cindex bandeau, modification
 @cindex bandeau avec rupture, modification
 @cindex extension avec rupture, modification
-@funindex \alterBroken
 
 Lorsqu'un bandeau ou l'extension d'un objet rencontre un saut de ligne
 ou une rupture, chacun de ses tronçons hérite des attributs de l'objet
@@ -3339,6 +3349,8 @@ s'applique aussi bien avant qu'après le saut de ligne.
   g8 f e d) r2
 }
 @end lilypond
+
+@funindex \alterBroken
 
 La commande @code{\alterBroken} permet de modifier indépendamment
 l'apparence de chacune des parties d'un bandeau. Selon le cas, cette
@@ -3583,6 +3595,7 @@ prendre effet, de régler la propriété @code{springs-and-rods} sur
 
   \once \override Glissando.springs-and-rods =
     #ly:spanner::set-spacing-rods
+  % for completeness; not necessary for manual breaks
   \once \override Glissando.breakable = ##t
   \once \override Glissando.after-line-breaking = ##t
   \once \override Glissando.minimum-length-after-break = 20
@@ -3672,7 +3685,6 @@ terminaisons à cet endroit se gèrent à l'aide des sous-clés
 ci-dessous :
 
 @lilypond[ragged-right,fragment,verbatim,quote]
-\override Glissando.breakable = ##t
 \override Glissando.bound-details.right-broken.Y = -3
 c''1 \glissando \break
 f''1
@@ -3706,9 +3718,10 @@ Les extenseurs linéaires peuvent commencer ou finir par un symbole,
 enregistré dans cette sous-propriété. Elle est conçue pour un usage
 interne, aussi nous vous conseillons de plutôt recourir à @code{text}.
 
+@item text
 @funindex \startTextSpan
 @funindex \stopTextSpan
-@item text
+
 Il s'agit d'un @emph{markup} qui se poursuivra par l'extenseur. C'est la
 sous-propriété utilisée pour ajouter @emph{cresc.}, @emph{tr} ou autre
 texte à un extenseur horizontal.
@@ -4843,6 +4856,8 @@ fois en utilisant la formulation d'affinage -- la forme @code{\tweak} :
   \relative { r4 <g' c,> <g c,> <g c,> }
 >>
 @end lilypond
+
+@funindex \vshape
 
 LilyPond dispose de la fonction @code{\vshape} qui apporte une
 assistance dans cette procédure d'affinage. Son nom signifie

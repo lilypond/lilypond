@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 7480498e00714a0aa46b6e9d615d9af663697b95
+   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -445,6 +445,9 @@ portées.
 @cindex portée simple et polyphonie
 @cindex voix
 @cindex paroles assignées à une voix
+
+@subsubsubheading Instanciation explicite des voix
+
 @funindex \voiceOne
 @funindex \voiceTwo
 @funindex \voiceThree
@@ -452,8 +455,6 @@ portées.
 @funindex Voice
 @funindex \oneVoice
 
-
-@subsubsubheading Instanciation explicite des voix
 
 La manière la plus facile d'entrer des fragments avec plus d'une voix
 sur une portée est la suivante :
@@ -1309,6 +1310,33 @@ que @code{Voice}s, dénommées @code{one} et @code{two}, puis décide de
 quand les parties seront fusionnées. Par conséquent, si les arguments
 changent pour d'autres noms de contexte @code{Voice}, les événements
 qu'ils contiendraient seront ignorés.
+
+Dans la mesure où @code{\partCombine} fonctionne en deux passes, il faut
+faire attention à ne pas mélanger les étapes. Par exemple, ce code
+
+@example
+one = @{ e''2 \tag #'score f''
+             \tag #'part fis'' g''1 @}
+two = @{ e''2 d'' g'1 @}
+
+\removeWithTag #'score \partCombine \one \two
+@end example
+
+@noindent
+échoue parce que, au premier passage, rien n'indique que l'on va
+supprimer la musique balisée et, par voie de conséquence, l'information
+enregistrée est en contradiction avec la musique lors du second passage.
+Lorsque l'on veut utiliser @code{\partCombine} avec du filtrage, des
+répétitions expansées ou d'autres transformations, il est primordial que
+ces transformations aient lieu avant, de telle sorte que la musique soit
+dans sont état définitif avant la première passe, comme par exemple
+
+@example
+...
+\partCombine
+  \removeWithTag #'score \one
+  \removeWithTag #'score \two
+@end example
 
 Certaines considérations apparaissent aussi dans les chapitres
 @ref{Default tablatures} et @ref{Automatic beams}.

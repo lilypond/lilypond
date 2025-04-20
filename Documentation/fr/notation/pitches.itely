@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 32cd4b7fa952f810c94a2296f3dad0fa85f0eb5d
+   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -240,6 +240,9 @@ en rien les octaves de la musique relative.
 }
 @end lilypond
 
+@funindex \chordmode
+@funindex \relative
+
 @code{\relative} est sans effet sur un bloc @code{\chordmode}.
 
 @lilypond[verbatim,quote]
@@ -252,6 +255,10 @@ en rien les octaves de la musique relative.
 @end lilypond
 
 @code{\relative} n'est pas permis au sein d'un bloc @code{\chordmode}.
+
+@funindex \transpose
+@cindex octave relative et transposition
+@cindex transposition et octave relative
 
 Pour utiliser le mode d'octave relative dans de la musique transposée,
 une clause @code{\relative} additionnelle doit être placée au sein du
@@ -304,6 +311,8 @@ diminuée de seulement six demi-tons.
 }
 @end lilypond
 
+@funindex \resetRelativeOctave
+
 Dans certaines situation complexes, il peut être souhaitable de revenir
 à une hauteur déterminée sans tenir compte de ce qui se passait
 auparavant, à l'aide d'un @code{\resetRelativeOctave} :
@@ -320,7 +329,6 @@ auparavant, à l'aide d'un @code{\resetRelativeOctave} :
 }
 @end lilypond
 
-@funindex \resetRelativeOctave
 
 @morerefs
 Glossaire musicologique :
@@ -470,10 +478,11 @@ Références des propriétés internes :
 @rinternals{accidental-interface}.
 @endmorerefs
 
+
+@knownissues
 @cindex accidentel, quart de ton
 @cindex quart de ton
 
-@knownissues
 Il n'y a pas de standard universellement accepté pour noter le bémol et
 demi (qui abaisse la hauteur trois quarts de ton), le symbole de
 LilyPond n'est donc conforme à aucun standard.
@@ -678,8 +687,6 @@ Cette partie traite de la manière de modifier les hauteurs de note.
 
 @c `funindex \=` is auto-generated
 @funindexpre =
-@funindex \octaveCheck
-@funindex controlpitch
 
 Les tests d'octave rendent la correction d'erreurs d'octave plus facile
 dans le mode d'octave @code{relative} -- un @code{,} ou un @code{'}
@@ -699,6 +706,9 @@ fonction de ce @code{d'} et non de @code{d''}.
   e2 f
 }
 @end lilypond
+
+@funindex \octaveCheck
+@funindex controlpitch (hauteur_référence)
 
 Il existe aussi une vérification d'octave qui ne produit pas de musique
 imprimée, ayant pour syntaxe @code{\octaveCheck @var{hauteur_référence}}
@@ -863,11 +873,11 @@ Référence des propriété internes :
 @rinternals{TransposedMusic}.
 @endmorerefs
 
+@knownissues
 @funindex \transpose
 @funindex \chordmode
 @funindex \relative
 
-@knownissues
 Si vous voulez utiliser en même temps @code{\transpose} et
 @code{\relative}, vous devez mettre @code{\transpose} en dehors de
 @code{\relative}, puisque @code{\relative} n'aura aucun effet sur la
@@ -1301,7 +1311,7 @@ l'objet @code{Clef} devra être manuellement répercuté sur l'objet
 \clef "treble_8" c4
 @end lilypond
 
-
+@need 1000
 @node Key signature
 @unnumberedsubsubsec Armure
 
@@ -1668,8 +1678,6 @@ Morceaux choisis :
 @cindex style d'accidentelle
 
 @funindex \accidentalStyle
-@funindex voice
-@funindex default
 
 LilyPond dispose d'une fonction chargée de regrouper les règles suivant
 lesquelles s'impriment les altérations. Elle s'invoque de la manière
@@ -2042,8 +2050,8 @@ musicB = {
 
 @item modern-voice
 
-@cindex @emph{modern}, style d'altération
-@cindex style d'altération @emph{modern}
+@cindex @emph{modern voice}, style d'altération
+@cindex style d'altération @emph{modern voice}
 @cindex altérations multivoix
 @cindex style d'altération @emph{modern accidental}
 @cindex voix multiples et altérations
@@ -2778,8 +2786,8 @@ musicB = {
 
 @item dodecaphonic-first
 
-@cindex dodecaphonic, style d'altération
-@cindex dodecaphonic, style néo-moderne
+@cindex @emph{dodecaphonic}, style d'altération
+@cindex @emph{dodecaphonic}, style néo-moderne
 
 @funindex dodecaphonic-first
 
@@ -3029,12 +3037,12 @@ Référence des propriétés internes :
 @rinternals{accidental-suggestion-interface}.
 @endmorerefs
 
+@knownissues
 @cindex altération et notes simultanées
 @cindex notes simultanées et altération
 @cindex altération et accord
 @cindex accord et altération
 
-@knownissues
 Les notes simultanées sont considérées comme des évènements séquentiels.
 Ceci implique que, dans un accord, les altérations accidentelles seront
 imprimées comme si les notes de l'accord apparaissaient l'une après

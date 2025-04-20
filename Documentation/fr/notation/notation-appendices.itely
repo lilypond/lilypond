@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-  Translation of GIT committish: 772e0e24539737ac9cb88ee0b457af42dd065be7
+  Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
 
   When revising a translation, copy the HEAD committish of the
   version that you are working on.  For details, see the Contributors'
@@ -11,6 +11,35 @@
 @c \version "2.21.0"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
+
+@need 1500
+@node Markup commands
+@appendix Commandes pour @emph{markups}
+
+
+@node Text markup commands
+@appendixsec Commandes pour @emph{markup}
+
+@ignore
+All the .tely files included in this appendix are automatically
+generated from source files during the build.
+For translators: you cannot translate the content of these files.
+@end ignore
+
+Les commandes suivantes peuvent être utilisées dans un bloc
+@code{\markup @{ @}}.
+
+@include en/markup-commands.tely
+
+
+@node Text markup list commands
+@appendixsec Commandes pour liste de @emph{markups}
+
+Les commandes suivantes peuvent être utilisées dans un bloc
+@code{\markuplist @{ @}}.
+
+@include en/markup-list-commands.tely
+
 
 @need 1500
 @node Notation manual tables
@@ -846,10 +875,10 @@ La fonte Emmentaler est constituée de deux @emph{jeux} de glyphes :
 « Feta » est utilisé pour la notation classique, et « Parmesan » pour la
 notation ancienne.
 
-
 Les différents symboles -- ou glyphes -- de la fonte Emmentaler peuvent
-s'inclure directement dans un objet @emph{markup}.  Pour ce faire, il
-suffit d'employer le nom du glyphe (voir les tables ci-après) comme ceci :
+s'inclure directement dans un objet @emph{markup}. Pour ce faire, il
+suffit d'employer le nom du glyphe (voir les tables ci-après) comme
+ceci :
 
 @example
 g^\markup @{ \musicglyph "scripts.segno" @}
@@ -877,8 +906,13 @@ Pour de plus amples informations, reportez-vous au chapitre
 @end iftex
 
 
-@node Clef glyphs
-@unnumberedsubsec Glyphes de clef
+@node Modern glyph charts
+@unnumberedsubsec Tables de glyphes modernes
+
+Tous les glyphes du sousensemble « Feta ».
+
+@anchor{Clef glyphs}
+@subsubheading Glyphes de clef
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -887,8 +921,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 @end lilypond
 
 
-@node Time Signature glyphs
-@unnumberedsubsec Glyphes de métrique
+@anchor{Time Signature glyphs}
+@subsubheading Glyphes de métrique
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -897,8 +931,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 @end lilypond
 
 
-@node Number glyphs
-@unnumberedsubsec Glyphes de chiffre
+@anchor{Number glyphs}
+@subsubheading Glyphes de chiffre
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -907,8 +941,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 @end lilypond
 
 
-@node Figured bass symbol glyphs
-@unnumberedsubsec Glyphes de symbole pour la basse chiffrée
+@anchor{Figured bass symbol glyphs}
+@subsubheading Glyphes de symbole pour la basse chiffrée
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -917,8 +951,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 @end lilypond
 
 
-@node Accidental glyphs
-@unnumberedsubsec Glyphes d'altération
+@anchor{Accidental glyphs}
+@subsubheading Glyphes d'altération
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -927,8 +961,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 @end lilypond
 
 
-@node Default note head glyphs
-@unnumberedsubsec Glyphes de tête de note par défaut
+@anchor{Default note head glyphs}
+@subsubheading Glyphes de tête de note par défaut
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -937,8 +971,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 @end lilypond
 
 
-@node Special note head glyphs
-@unnumberedsubsec Glyphes de tête de note spéciale
+@anchor{Special note head glyphs}
+@subsubheading Glyphes de tête de note spéciale
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -947,8 +981,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 @end lilypond
 
 
-@node Note head glyphs for shape notes
-@unnumberedsubsec Glyphes de tête de note à forme variable
+@anchor{Note head glyphs for shape notes}
+@subsubheading Glyphes de tête de note à forme variable
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -957,8 +991,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 @end lilypond
 
 
-@node Rest glyphs
-@unnumberedsubsec Glyphes de silence
+@anchor{Rest glyphs}
+@subsubheading Glyphes de silence
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -967,8 +1001,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 @end lilypond
 
 
-@node Flag glyphs
-@unnumberedsubsec Glyphes de crochet de croche
+@anchor{Flag glyphs}
+@subsubheading Glyphes de crochet de croche
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -977,8 +1011,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 @end lilypond
 
 
-@node Dot glyphs
-@unnumberedsubsec Glyphes de point
+@anchor{Dot glyphs}
+@subsubheading Glyphes de point
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -987,8 +1021,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 @end lilypond
 
 
-@node Dynamic glyphs
-@unnumberedsubsec Glyphes de nuance
+@anchor{Dynamic glyphs}
+@subsubheading Glyphes de nuance
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -997,8 +1031,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 @end lilypond
 
 
-@node Script glyphs
-@unnumberedsubsec Glyphes de script
+@anchor{Script glyphs}
+@subsubheading Glyphes de script
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -1007,8 +1041,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 @end lilypond
 
 
-@node Arrowhead glyphs
-@unnumberedsubsec Glyphes de flèche
+@anchor{Arrowhead glyphs}
+@subsubheading Glyphes de flèche
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -1017,8 +1051,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 @end lilypond
 
 
-@node Bracket-tip glyphs
-@unnumberedsubsec Glyphes d'extrémité d'accolade
+@anchor{Bracket-tip glyphs}
+@subsubheading Glyphes d'extrémité d'accolade
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -1027,8 +1061,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 @end lilypond
 
 
-@node Pedal glyphs
-@unnumberedsubsec Glyphes de pédale
+@anchor{Pedal glyphs}
+@subsubheading Glyphes de pédale
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -1037,8 +1071,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 @end lilypond
 
 
-@node Accordion glyphs
-@unnumberedsubsec Glyphes d'accordéon
+@anchor{Accordion glyphs}
+@subsubheading Glyphes d'accordéon
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -1047,8 +1081,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 @end lilypond
 
 
-@node Tie glyphs
-@unnumberedsubsec Glyphes de liaison
+@anchor{Tie glyphs}
+@subsubheading Glyphes de liaison
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -1057,8 +1091,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 @end lilypond
 
 
-@node Vaticana glyphs
-@unnumberedsubsec Glyphes de style vaticana
+@anchor{Vaticana glyphs}
+@subsubheading Glyphes de style vaticana
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -1067,8 +1101,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 @end lilypond
 
 
-@node Medicaea glyphs
-@unnumberedsubsec Glyphes de style medicaea
+@anchor{Medicaea glyphs}
+@subsubheading Glyphes de style medicaea
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -1077,8 +1111,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 @end lilypond
 
 
-@node Hufnagel glyphs
-@unnumberedsubsec Glyphes de style Hufnagel
+@anchor{Hufnagel glyphs}
+@subsubheading Glyphes de style Hufnagel
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -1087,8 +1121,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 @end lilypond
 
 
-@node Mensural glyphs
-@unnumberedsubsec Glyphes de style mensural
+@anchor{Mensural glyphs}
+@subsubheading Glyphes de style mensural
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -1097,8 +1131,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 @end lilypond
 
 
-@node Neomensural glyphs
-@unnumberedsubsec Glyphes de style néomensural
+@anchor{Neomensural glyphs}
+@subsubheading Glyphes de style néomensural
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -1107,8 +1141,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 @end lilypond
 
 
-@node Petrucci glyphs
-@unnumberedsubsec Glyphes de style Petrucci
+@anchor{Petrucci glyphs}
+@subsubheading Glyphes de style Petrucci
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -1117,8 +1151,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 @end lilypond
 
 
-@node Solesmes glyphs
-@unnumberedsubsec Glyphes de style Solesmes
+@anchor{Solesmes glyphs}
+@subsubheading Glyphes de style Solesmes
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -1127,8 +1161,8 @@ Pour de plus amples informations, reportez-vous au chapitre
 @end lilypond
 
 
-@node Kievan Notation glyphs
-@unnumberedsubsec Glyphes de style kiévien
+@anchor{Kievan Notation glyphs}
+@subsubheading Glyphes de style kiévien
 
 @lilypond[inline,quote]
 \include "en/included/font-table.ly"
@@ -1176,65 +1210,49 @@ ainsi que la position du @emph{do médium} par rapport à la clef.
 Certaines modifications, comme les indications d'octaviation, sont
 mentionnées dans @ref{Clef}.
 
-@cindex treble, clef
-@cindex clef treble
-@cindex violin, clef
-@cindex clef, violin
-@cindex clef G
-@cindex clef G2
-@cindex clef GG
-@cindex clef tenor G
-@cindex tenor G, clef
-@cindex clef french
-@cindex French, clef
-@cindex clef soprano
-@cindex soprano, clef
-@cindex clef mezzosoprano
-@cindex mezzosoprano, clef
-@cindex clef alto
-@cindex alto, clef
-@cindex clef C
-@cindex C, clef
-@cindex clef varC
-@cindex varC, clef
-@cindex clef alto varC
-@cindex alto varC, clef
-@cindex clef tenor
-@cindex tenor, clef
-@cindex clef tenor varC
-@cindex tenor varC, clef
-@cindex clef baritone varC
-@cindex baritone varC, clef
-@cindex clef varbaritone
-@cindex varbaritone, clef
-@cindex clef baritone varF
-@cindex baritone varF, clef
-@cindex clef bass
-@cindex bass, clef
-@cindex clef F
-@cindex F, clef
-@cindex clef subbass
-@cindex subbass, clef
-@cindex clef percussion
-@cindex percussion, clef
-@cindex clef tab
-@cindex tab, clef
-@cindex clef, style
-@cindex anciennes, clefs
-@cindex clef, musique ancienne
-@cindex clef, petrucci
-@cindex clef, mensural
-@cindex clef, blackmensural
-@cindex clef, kievan
-@cindex Petrucci, clef
-@cindex mensural, clef
-@cindex blackmensural, clef
-@cindex kievan, clef
-
 
 @node Standard clefs
 @unnumberedsubsec Clefs standards
 
+@cindex treble clef
+@cindex clef, treble
+@cindex violin clef
+@cindex clef, violin
+@cindex clef, G
+@cindex clef, G2
+@cindex clef, GG
+@cindex clef, tenor G
+@cindex tenor G clef
+@cindex clef, french
+@cindex French clef
+@cindex clef, soprano
+@cindex soprano clef
+@cindex clef, mezzo-soprano
+@cindex mezzo-soprano clef
+@cindex clef, alto
+@cindex alto clef
+@cindex clef, C
+@cindex C clef
+@cindex clef, varC
+@cindex varC clef
+@cindex clef, alto varC
+@cindex alto varC clef
+@cindex clef, tenor
+@cindex tenor clef
+@cindex clef, tenor varC
+@cindex tenor varC clef
+@cindex clef, baritone varC
+@cindex baritone varC clef
+@cindex clef, varbaritone
+@cindex baritone clef
+@cindex clef, baritone varF
+@cindex baritone varF clef
+@cindex clef, bass
+@cindex bass clef
+@cindex clef, F
+@cindex F clef
+@cindex clef, subbass
+@cindex subbass clef
 @multitable @columnfractions .3 .18 .34 .18
 
 @headitem
@@ -1420,6 +1438,8 @@ c1
 @node Percussion staff clef
 @unnumberedsubsec Clefs pour portée de percussions
 
+@cindex percussions, clef
+@cindex clef, percussions
 @multitable @columnfractions .3 .18 .34 .18
 
 @headitem
@@ -1452,6 +1472,8 @@ c1
 @node Tab staff clefs
 @unnumberedsubsec Clefs pour tablatures
 
+@cindex tablature, clef
+@cindex clef, tablature
 @multitable @columnfractions .3 .18 .34 .18
 
 @headitem
@@ -1494,11 +1516,22 @@ Résultat
 
 @end multitable
 
-
+@need 1500
 @node Ancient music clefs
 @unnumberedsubsec Clefs de musique ancienne
 
 @subsubheading Grégorien
+
+@cindex musique ancienne, clef
+@cindex clef, musique ancienne
+@cindex clef Petrucci
+@cindex clef mensurale
+@cindex clef mensurale noire
+@cindex clef kiévienne
+@cindex Petrucci, clef
+@cindex mensurale, clef
+@cindex mensurale noire, clef
+@cindex kiévienne, clef
 
 @multitable @columnfractions .3 .18 .34 .18
 
@@ -2103,30 +2136,6 @@ Résultat
 @end multitable
 
 
-@node Text markup commands
-@appendixsec Commandes pour @emph{markup}
-
-@ignore
-All the .tely files included in this appendix are automatically
-generated from source files during the build.
-For translators: you cannot translate the content of these files.
-@end ignore
-
-Les commandes suivantes peuvent être utilisées dans un bloc
-@code{\markup @{ @}}.
-
-@include en/markup-commands.tely
-
-
-@node Text markup list commands
-@appendixsec Commandes pour liste de @emph{markups}
-
-Les commandes suivantes peuvent être utilisées dans un bloc
-@code{\markuplist @{ @}}.
-
-@include en/markup-list-commands.tely
-
-
 @node List of special characters
 @appendixsec Liste des caractères spéciaux
 
@@ -2149,8 +2158,8 @@ décoller de l'encadrement.
 @node List of articulations
 @appendixsec Liste des signes d'articulation
 
-@cindex articulations
-@cindex ornements
+@cindex articulation
+@cindex ornement
 @cindex script
 @cindex postévénement
 
@@ -2190,6 +2199,7 @@ columns - JL
 @end ignore
 
 
+@need 1000
 @node Articulation scripts
 @unnumberedsubsec Scripts d'articulation
 
@@ -2253,6 +2263,7 @@ f^\tenuto e,_\tenuto b'\tenuto
 @end multitable
 
 
+@need 1000
 @node Ornament scripts
 @unnumberedsubsec Scripts d'ornement
 
@@ -2364,6 +2375,7 @@ f^\haydnturn e,_\haydnturn b'\haydnturn
 @end multitable
 
 
+@need 1000
 @node Fermata scripts
 @unnumberedsubsec Scripts de point d'orgue et point d'arrêt
 
@@ -2419,6 +2431,7 @@ f^\henzelongfermata e,_\henzelongfermata b'\henzelongfermata
 @end multitable
 
 
+@need 1000
 @node Instrument-specific scripts
 @unnumberedsubsec Scripts spécifiques à certains instruments
 
@@ -2513,6 +2526,7 @@ f^\thumb e,_\thumb b'\thumb
 @end multitable
 
 
+@need 1000
 @node Repeat sign scripts
 @unnumberedsubsec Scripts de reprise et de répétition
 
@@ -2544,6 +2558,7 @@ f^\varcoda e,_\varcoda b'\varcoda
 @end multitable
 
 
+@need 1000
 @node Ancient scripts
 @unnumberedsubsec Scripts pour musique ancienne
 
@@ -2597,6 +2612,7 @@ f^\varcoda e,_\varcoda b'\varcoda
 @end multitable
 
 
+@need 1000
 @node List of breath marks
 @appendixsec Liste des marques de respiration
 
@@ -2670,6 +2686,7 @@ b4 4 \breathe 4
 @end multitable
 
 
+@need 1000
 @node Percussion notes
 @appendixsec Notes utilisées en percussion
 
@@ -3230,7 +3247,7 @@ Propriétés listées par interface}.@*
 @rinternals{Graphical Object Interfaces}.
 
 @item lexer (analyseur lexical)
-@cindex lexer
+@cindex lexer, pour LilyPond
 @cindex analyse lexicale
 @cindex @command{flex}, programme
 

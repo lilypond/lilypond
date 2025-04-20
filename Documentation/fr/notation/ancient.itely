@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 32cd4b7fa952f810c94a2296f3dad0fa85f0eb5d
+   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -145,7 +145,7 @@ larges que pour les autres styles mensuraux.
 @end itemize
 
 Bien qu'il ne soient pas complets, les styles @emph{Baroque} et
-@emph{Classical} diffèrent du style par défaut par quelques détails --
+@emph{classical} diffèrent du style par défaut par quelques détails --
 certaines têtes de note pour le @emph{Baroque} et le soupir pour le
 @emph{Classical}.
 
@@ -166,7 +166,7 @@ Glossaire musicologique :
 @rglos{mensural notation}.
 @endmorerefs
 
-
+@need 1500
 @node Ancient notation - common features
 @subsection Considérations communes aux musiques anciennes
 
@@ -182,9 +182,9 @@ vif du sujet sans trop vous préoccuper d'ajuster des contextes,
 consultez les pages dédiées aux contextes prédéfinis. Ils vous
 permettront d'adapter vos contextes de voix et de portée, et vous
 n'aurez plus qu'à saisir les notes dans un contexte
-@code{VaticanaVoice}, @code{VaticanaStaff},@code{VaticanaScore},
-@code{MensuralVoice}, @code{MensuralStaff}, @code{KievanVoice} ou
-@code{KievanStaff}.
+@code{VaticanaScore}, @code{VaticanaVoice}, @code{VaticanaStaff},
+@code{MensuralVoice}, @code{MensuralStaff}, @code{PetrucciStaff},
++@code{PetrucciVoice}, @code{KievanVoice} ou @code{KievanStaff}.
 
 @morerefs
 Glossaire musicologique :
@@ -305,20 +305,43 @@ L'impression de guidons s'obtient en affectant, dans un bloc
 et, selon les besoins, d'en spécifier le style comme le montre l'exemple
 suivant.
 
-@lilypond[quote,ragged-right]
-\score {
-  \relative {
+@c Due to LilyPond's overzealous cropping on the right side we use
+@c different rendering code to avoid that.
+
+@example
+\score @{
+  \relative @{
     a'1
     \break
     g
-  }
-  \layout {
-    \context {
-      \Staff
-      \consists Custos_engraver
-      \override Custos.style = #'mensural
+  @}
+  \layout @{
+    \context @{
+       \Staff
+       \consists Custos_engraver
+       \override Custos.style = #'mensural
+    @}
+  @}
+@}
+@end example
+
+@lilypond[quote,ragged-right]
+\markup {
+  \score {
+    \relative {
+      a'1
+      \break
+      g
+    }
+    \layout {
+      \context {
+        \Staff
+        \consists Custos_engraver
+        \override Custos.style = #'mensural
+      }
     }
   }
+  \hspace #2
 }
 @end lilypond
 
@@ -900,8 +923,11 @@ Référence des propriétés internes :
 Les ligatures mensurales blanches sont prises en charge, avec des
 limitations.
 
+@funindex Ligature_bracket_engraver
+@funindex Mensural_ligature_engraver
+
 La gravure des ligatures mensurales blanches s'obtient après avoir
-remplacé, dans le contexte @code{Voice}, le
+remplacé, dans le contexte @code{Voice} du bloc @code{layout}, le
 @code{Ligature_@/bracket_@/engraver} par le
 @code{Mensural_@/ligature_@/engraver}, comme ici :
 
@@ -915,6 +941,15 @@ remplacé, dans le contexte @code{Voice}, le
 @}
 @end example
 
+@funindex PetrucciStaff
+@funindex PetrucciVoice
+
+Dans ce qui suit, nous utilisons un contexte @code{PetrucciStaff} qui,
+entre autres, opère ce remplacement, et se rapproche de la typographie
+du @cite{Harmonices Musices Odhecaton} d'Ottaviano Petrucci
+(Venise, 1501). Le contexte de voix qui lui est dévolu est un
+@code{PetrucciVoice}.
+
 Lorsque le code ci-dessus est employé, l'aspect d'une ligature mensurale
 blanche est déterminé à partir des hauteurs et durées des notes qui la
 composent. Bien que cela demande un temps d'adaptation au nouvel
@@ -923,58 +958,49 @@ musicale incluse dans la ligature est connue en interne. Ceci est non
 seulement important pour le rendu MIDI, mais aussi pour des questions de
 transcription automatisée d'une ligature.
 
+@cindex flexe et ligatures mensurales
+@cindex ligature mensurale, flexe
+
 Il se peut que deux notes consécutives puissent être représentées aussi
 bien par deux carrées que par un parallélogramme oblique (en forme de
-flexe). Par défaut, LilyPond présentera deux carrées ; l'impression
-d'une flexe s'obtient par affectation, pour la @strong{deuxième} note,
-de la propriété @code{ligature-flexa}. Le réglage de la longueur d'une
-flexe se gère par la propriété de tête de note @code{flexa-width}.
+@dfn{flexe}). Par défaut, LilyPond présentera deux carrées ;
+l'impression d'une flexe s'obtient par affectation, pour la
+@strong{deuxième} note, de la propriété @code{ligature-flexa}. Le
+réglage de la largeur d'une flexe se gère par la propriété de tête de
+note @code{flexa-width}.
 
+@noindent
 Par exemple,
 
-@lilypond[quote,ragged-right,verbatim]
-\score {
-  \relative {
-    \set Score.timing = ##f
-    \set Score.measureBarType = #'()
-    \override NoteHead.style = #'petrucci
-    \override Staff.TimeSignature.style = #'mensural
-    \clef "petrucci-g"
-    \[ c''\maxima g \]
-    \[ d\longa
-       \override NoteHead.ligature-flexa = ##t
-       \once \override NoteHead.flexa-width = 3.2
-       c\breve f e d \]
-    \[ c'\maxima d\longa \]
-    \[ e1 a, g\breve \]
-  }
-  \layout {
-    \context {
-      \Voice
-      \remove Ligature_bracket_engraver
-      \consists Mensural_ligature_engraver
-    }
-  }
+@lilypond[quote,verbatim]
+\new PetrucciStaff \relative {
+  \[ c''\maxima g \]
+  \[ d'\longa
+     \tweak ligature-flexa ##t
+     \tweak flexa-width #3.2 c\breve f e d \]
+  \[ c\maxima d\longa \]
+  \[ e1 a, g\breve \]
 }
 @end lilypond
 
 Si on ne remplace pas le @code{Ligature_bracket_engraver} par le
 @code{Mensural_@/ligature_@/engraver}, on obtient
 
-@lilypond[quote,ragged-right]
-\relative {
-  \set Score.timing = ##f
-  \set Score.measureBarType = #'()
-  \override NoteHead.style = #'petrucci
-  \override Staff.TimeSignature.style = #'mensural
-  \clef "petrucci-g"
+@lilypond[quote]
+\new PetrucciStaff \relative {
   \[ c''\maxima g \]
-  \[ d\longa
-     \override NoteHead.ligature-flexa = ##t
-     \once \override NoteHead.flexa-width = 3.2
-     c\breve f e d \]
-  \[ c'\maxima d\longa \]
+  \[ d'\longa
+     \tweak ligature-flexa ##t
+     \tweak flexa-width #3.2 c\breve f e d \]
+  \[ c\maxima d\longa \]
   \[ e1 a, g\breve \]
+}
+\layout {
+  \context {
+    \PetrucciVoice
+    \remove Mensural_ligature_engraver
+    \consists Ligature_bracket_engraver
+  }
 }
 @end lilypond
 
@@ -994,56 +1020,26 @@ ou non être pourvue d'une hampe à droite.
 @end itemize
 
 @noindent
-Par exemple,
+Voici un exemple illustrant ces retouches.
 
 @lilypond[quote,ragged-right,verbatim]
-\score {
-  \relative {
-    \set Score.timing = ##f
-    \set Score.measureBarType = #'()
-    \override NoteHead.style = #'petrucci
-    \override Staff.TimeSignature.style = #'mensural
-    \clef "petrucci-c4"
-    \[ \once \override NoteHead.left-down-stem = ##t
-       a\breve b
-       \once \override NoteHead.right-down-stem = ##t
-       g\longa \]
-    \[ \once \override NoteHead.right-down-stem = ##t
-       b\maxima
-       \once \override NoteHead.right-up-stem = ##t
-       g\longa \]
-  }
-  \layout {
-    \context {
-      \Voice
-      \remove Ligature_bracket_engraver
-      \consists Mensural_ligature_engraver
-    }
-  }
+\new PetrucciStaff \relative {
+  \clef "petrucci-c4"
+  \[ \tweak left-down-stem ##t a\breve b
+     \tweak right-down-stem ##t g\longa \]
+  \[ \tweak right-down-stem ##t b\maxima
+     \tweak right-up-stem ##t g\longa \]
 }
 @end lilypond
 
 @noindent
-sans retoucher les ligatures ressemble à
+sans retoucher les ligatures, cela ressemblerait à
 
 @lilypond[quote,ragged-right,verbatim]
-\score {
-  \relative {
-    \set Score.timing = ##f
-    \set Score.measureBarType = #'()
-    \override NoteHead.style = #'petrucci
-    \override Staff.TimeSignature.style = #'mensural
-    \clef "petrucci-c4"
-    \[ a\breve b g\longa \]
-    \[ b\maxima g\longa \]
-  }
-  \layout {
-    \context {
-      \Voice
-      \remove Ligature_bracket_engraver
-      \consists Mensural_ligature_engraver
-    }
-  }
+\new PetrucciStaff \relative {
+  \clef "petrucci-c4"
+  \[ a\breve b g\longa \]
+  \[ b\maxima g\longa \]
 }
 @end lilypond
 
@@ -1058,6 +1054,7 @@ Manuel de notation :
 
 @knownissues
 L'espacement horizontal peut laisser à désirer.
+
 Les altérations peuvent se chevaucher avec les notes précédentes.
 
 
@@ -2529,9 +2526,7 @@ lancer dans la saisie de votre chant, comme ci-dessous :
 \score {
   <<
     \new KievanVoice = "melody" \relative c' {
-      \cadenzaOn
-	c4 c c c c2 b\longa
-	\fine
+      c4 c c c c2 b\longa \fine
     }
     \new Lyrics \lyricsto "melody" {
       Го -- спо -- ди по -- ми -- луй.
@@ -2600,7 +2595,6 @@ syllabes sont chantées sur une même hauteur -- s'effectue à l'aide d'une
 kiéviennes :
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-\autoBeamOff
 \cadenzaOn
 \kievanOn
 b'1 b'2 b'4 b'8 b'\breve b'\longa
@@ -2698,6 +2692,9 @@ chant @emph{Znamenny}. Les mélismes sont traites par LilyPond comme des
 ligatures dont l'espacement est géré par le
 @code{Kievan_@/ligature_@/engraver}.
 
+@funindex Ligature_bracket_engraver
+@funindex Kievan_ligature_engraver
+
 Le @code{Kievan_ligature_engraver} est activé par défaut pour les
 contextes @code{KievanVoice} et @code{KievanStaff}. Pour les autres
 contextes, il s'active au sein d'un bloc @code{layout} dans lequel est
@@ -2727,8 +2724,7 @@ Voici comment générer des ligatures en notation kiévienne :
 \score {
   <<
     \new KievanVoice = "melody" \relative c' {
-      \cadenzaOn
-	e2 \[ e4( d4 ) \] \[ c4( d e  d ) \] e1 \fine
+      e2 \[ e4( d4 ) \] \[ c4( d e  d ) \] e1 \fine
     }
     \new Lyrics \lyricsto "melody" {
       Га -- врі -- и -- лу
@@ -2811,6 +2807,12 @@ portée d'incipit.
   }
 }
 @end lilypond
+
+Par défaut, LilyPond utilise un contexte @samp{MensuralStaff} pour
+rendre un incipit. Il est possible de recourir directement à d'autres
+contextes en libellant @code{\incipit \new @var{typedecontexte}
+@dots{}} ; celui-ci sera alors englobé dans un @samp{MensuralStaff}
+uniquement s'il est susceptible de contenir le contexte en question.
 
 @knownissues
 La propriété @code{instrumentName} doit se placer au sein de la musique
@@ -2909,11 +2911,11 @@ chant = \relative {
   c\breve c4 c f, f \finalis
 }
 
-verba = \lyricmode {
-  \once \override LyricText.self-alignment-X = -1
-  "Noctem quietam et" fi -- nem per -- fec -- tum
-  \once \override LyricText.self-alignment-X = -1
-  "concedat nobis Dominus" om -- ni -- po -- tens.
+words = \lyricmode {
+  \tweak self-alignment-X #LEFT "Noctem quietam et"
+    fi -- nem per -- fec -- tum
+  \tweak self-alignment-X #LEFT "concedat nobis Dominus"
+    om -- ni -- po -- tens.
 }
 \score {
   \new GregorianTranscriptionStaff <<
@@ -2921,7 +2923,7 @@ verba = \lyricmode {
       \chant
     }
     \new GregorianTranscriptionLyrics = "one" {
-      \lyricsto "melody" \verba
+      \lyricsto "melody" \words
     }
   >>
 }
@@ -2940,7 +2942,6 @@ le @code{Stem_engraver} et, selon les besoins, recourir aux clauses
 @lilypond[quote,verbatim,ragged-right]
 chant = \relative {
   \clef "G_8"
-  \set Score.timing = ##f
   \omit Stem
   \omit Flag
   c'\breve*1/16 \hide NoteHead c8 c c c c
@@ -3024,7 +3025,6 @@ spirLyr = \lyricmode {
       \GregorianTranscriptionStaff
       measureBarType = ""
       \override BarLine.X-extent = #'(-1 . 1)
-      \hide Beam
       \hide TupletNumber
       \hide TupletBracket
     }
@@ -3041,6 +3041,9 @@ spirLyr = \lyricmode {
 
 @node Ancient and modern from one source
 @unnumberedsubsubsec Éditions ancienne et moderne à partir d'une même source
+
+@funindex Completion_heads_engraver
+@funindex Completion_rest_engraver
 
 @cindex mensural, transcription
 @cindex musique ancienne, transcription

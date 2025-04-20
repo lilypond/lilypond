@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 709a5683c94b57676ecddf1c5bb347a6c7d1f417
+   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1043,8 +1043,8 @@ fichier @file{ly/paper-defaults-init.ly}.
 
 @table @code
 
-@cindex page, numérotation automatique
 @item auto-first-page-number
+@cindex page, numérotation automatique
 @funindex auto-first-page-number
 
 L'algorithme qui gère les sauts de page prend en compte le fait que le
@@ -1076,8 +1076,8 @@ première. La valeur par défaut est @code{#f}.
 La désactivation de cette variable permet d'obtenir des pages non
 numérotées. La valeur par défaut est @code{#t}.
 
-@cindex page, numérotation en chiffres romains
 @item page-number-type
+@cindex page, numérotation en chiffres romains
 @funindex page-number-type
 
 Le type de chiffres à utiliser pour la numérotation : @code{'arabic}
@@ -1086,9 +1086,9 @@ Le type de chiffres à utiliser pour la numérotation : @code{'arabic}
 @code{'roman-lower} (romains minuscules) ou @code{'roman-upper} (romains
 majuscules) . La valeur par défaut est @code{'arabic}.
 
+@item bookpart-level-page-numbering
 @cindex page, numérotation par @code{bookpart}
 @cindex page, numérotation indépendente pour l'introduction
-@item bookpart-level-page-numbering
 @funindex bookpart-level-page-numbering
 
 L'activation de cette variable permet d'obtenir une pagination
@@ -1408,12 +1408,10 @@ Morceaux choisis :
 @subsection Définition de la taille de portée
 
 @cindex fonte, définition de la taille
-@cindex portée, définition de la taille
+@cindex portée, taille
 @cindex mise en forme
 @funindex magnification->font-size
 @funindex magstep
-@funindex set-global-staff-size
-@funindex layout-set-staff-size
 
 La @strong{taille de portée} @emph{(staff size)} est fixée par défaut à
 20 points, ce qui correspond à 7,03 mm -- 1 point équivaut à
@@ -1423,6 +1421,8 @@ modifier :
 @enumerate
 
 @item
+@funindex set-global-staff-size
+
 La taille des portées peut se définir globalement pour toutes les
 partitions d'un même fichier à l'aide de @code{set-global-staff-size}.
 
@@ -1450,6 +1450,8 @@ pour les différents blocs @code{\book} :
 @end example
 
 @item
+@funindex layout-set-staff-size
+
 La taille d'une partition particulière au sein d'un ouvrage se définit à
 l'aide d'un @code{layout-set-staff-size} placé dans le bloc
 @code{\layout} approprié :
@@ -1621,17 +1623,13 @@ mus = { b1 \bar "|."}
 
 @cindex saut de ligne manuel
 @cindex ligne, passer à la suivante
-@funindex \break
-@funindex \noBreak
-@funindex \autoBreaksOff
-@funindex \autoBreaksOn
-@funindex \autoLineBreaksOff
-@funindex \autoLineBreaksOn
 
 Les sauts de ligne sont normalement gérés de façon automatique. Ils
 interviennent de telle sorte qu'une ligne ne soit ni trop resserrée, ni
 trop aérée, et que des lignes consécutives aient à peu près la même
 densité.
+
+@funindex \break
 
 Vous pouvez cependant insérer l'instruction @code{\break} à l'endroit où
 vous le jugez utile pour « forcer » le passage à la ligne suivante :
@@ -1656,6 +1654,8 @@ la présence d'un bandeau non ruptible, telle une ligature ou un
 glissando à cheval sur les mesures.
 @end itemize
 
+@funindex \allowBreak
+
 La commande @code{\break} force le saut de ligne dans tous les cas, sans
 tenir compte de la présence d'une barre de mesure ou des autres
 facteurs. On peut aussi s'affranchir de tous ces facteurs à l'aide de la
@@ -1665,6 +1665,11 @@ présence de ligature.
 
 @lilypond[verbatim,quote]
 \repeat unfold 56 { c'8 \allowBreak }
+
+\paper {
+  indent = 0
+  line-width = 140\mm
+}
 @end lilypond
 
 Il existe différents moyens d'éviter l'abus de @code{\allowBreak} afin
@@ -1676,7 +1681,11 @@ Le @code{Bar_@/engraver} interdit les ruptures entre les barres de
 mesure lorsqu'est activée @code{forbidBreakBetweenBarLines}. Pour s'en
 affranchir, il suffit de désactiver cette propriété.
 
-@lilypond[quote,ragged-right,line-width=50,verbatim]
+@lilypond[quote,verbatim]
+\fixed c' {
+  c8 d e f g a b c'
+}
+
 \layout {
   \context {
     \Score
@@ -1684,8 +1693,9 @@ affranchir, il suffit de désactiver cette propriété.
   }
 }
 
-\fixed c' {
-  c4 d
+\paper {
+  indent = 0
+  line-width = 30\mm
 }
 @end lilypond
 
@@ -1694,11 +1704,16 @@ Notes et silences en suspend en fin de mesure n'interdiront plus les
 ruptures dès lors que le @code{Forbid_@/line_@/break_@/engraver} aura
 été supprimé du contexte @code{Voice} :
 
-@lilypond[quote,ragged-right,line-width=50,verbatim]
+@lilypond[quote,verbatim]
 \new Voice \with {
   \remove Forbid_line_break_engraver
 } \relative {
   c''2. \tuplet 3/2 { c4 c c } c2.
+}
+
+\paper {
+  indent = 0
+  line-width = 35\mm
 }
 @end lilypond
 
@@ -1707,17 +1722,29 @@ Une ligature ou autre bandeau non ruptible s'étendant sur deux mesures
 consécutives seront ignorés dès lors que leur propriété @code{breakable}
 est activée.
 
-@lilypond[quote,ragged-right,line-width=50,verbatim]
+@lilypond[quote,verbatim]
 \relative c'' {
   \override Beam.breakable = ##t
   c2. c8[ c |
   c8 c] c2. |
- }
+}
+
+\paper {
+  indent = 0
+  line-width = 35\mm
+}
 @end lilypond
 @end itemize
 
+@funindex \noBreak
+
 L'instruction opposée, @code{\noBreak}, interdira toute tentative de
 saut de ligne à la fin de la mesure où elle est explicitée.
+
+@funindex \autoBreaksOff
+@funindex \autoBreaksOn
+@funindex \autoLineBreaksOff
+@funindex \autoLineBreaksOn
 
 Au sein même d'une pièce, les sauts de lignes automatiques sont inhibés
 dans la musique encadrée par les commandes @code{\autoLineBreaksOff} et
@@ -2070,7 +2097,7 @@ telle une double barre -- auquel cas il y déposera le
 Le @code{Page_turn_engraver} examine la propriété de contexte
 @code{pageTurnMinimumRestLength} pour déterminer quelle doit être la
 longueur d'un fragment sans note avant une tourne. La valeur par défaut
-de @code{pageTurnMinimumRestLength} est @code{1}, soit une
+de @code{pageTurnMinimumRestLength} est @code{1}, soit une
 ronde, et s'ajuste de la manière suivante :
 
 @example
@@ -2093,7 +2120,7 @@ Le @code{Page_turn_engraver} tient compte des reprises. C'est pourquoi
 il ne permettra une tourne que dans le cas où il y aura suffisamment de
 temps au début et à la fin de la reprise pour que l'exécutant puisse
 aisément revenir à la page précédente. Le @code{Page_turn_engraver} est
-même capable d'interdire un tourne dans le cas d'une reprise de courte
+même capable d'interdire une tourne dans le cas d'une reprise de courte
 durée, ajustable au travers de la propriété de contexte
 @code{pageTurnMinimumRepeatLength}.
 
@@ -2192,6 +2219,7 @@ spacing paper variables}.
 @funindex self-alignment-X
 @funindex X-offset
 @funindex VerticalAxisGroup
+@funindex StaffGrouper
 
 L'espacement entre les portées est géré par deux jeux de propriétés
 d'objet graphique (@emph{grob}). Le premier, associé à l'objet graphique
@@ -2996,8 +3024,6 @@ Morceaux choisis :
 
 @cindex collision verticale
 @funindex outside-staff-priority
-@funindex outside-staff-padding
-@funindex outside-staff-horizontal-padding
 
 Vous savez de manière intuitive qu'un certain nombre d'objets en matière
 de notation musicale appartiennent à la portée, et que d'autres se
@@ -3043,6 +3069,8 @@ particulière}.
 }
 @end lilypond
 
+@funindex outside-staff-padding
+
 Le décalage vertical entre des objets extérieurs à la portée se contrôle
 par la propriété @code{outside-staff-padding}.
 
@@ -3058,6 +3086,8 @@ par la propriété @code{outside-staff-padding}.
   R1
 }
 @end lilypond
+
+@funindex outside-staff-horizontal-padding
 
 Par défaut, les objets extérieurs à la portée sont positionnés en
 évitant les collisions horizontales avec des objets précédemment
@@ -3147,7 +3177,7 @@ propriété @code{base-shortest-duration}.
 @funindex common-shortest-duration
 @funindex base-shortest-duration
 @funindex stem-spacing-correction
-@funindex spacing
+@cindex espacement
 
 Les notes plus courtes que la note témoin sont suivies d'un espace
 proportionnel à la durée témoin. Si donc nous ajoutions quelques doubles
@@ -3687,8 +3717,6 @@ Référence des propriétés internes :
 @cindex ligne, longueur
 @funindex indent
 @funindex line-width
-@funindex ragged-right
-@funindex ragged-last
 
 @c Although line-width can be set in \layout, it should be set in paper
 @c block, to get page layout right.
@@ -3700,6 +3728,8 @@ Deux réglages de base ont une influence considérable sur l'espacement :
 @code{\layout}. Ils contrôleront la longueur des lignes et l'indentation
 de la première.
 
+@funindex ragged-right
+
 L'activation du commutateur @code{ragged-right} au sein du bloc
 @code{\layout} permet de terminer les systèmes naturellement plutôt que
 de les voir s'étirer sur toute la largeur de la page. Cette option est
@@ -3710,6 +3740,7 @@ seul système.
 
 @cindex page, mise en forme
 @cindex vertical, espacement
+@funindex ragged-last
 
 Le fonctionnement de l'option @code{ragged-last} est en tout point
 identique à celui de @code{ragged-right}, à ceci près qu'il ne concerne

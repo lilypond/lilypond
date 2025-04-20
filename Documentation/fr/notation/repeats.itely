@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 772e0e24539737ac9cb88ee0b457af42dd065be7
+   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -65,23 +65,14 @@ spécifique @code{q} -- @pxref{Chord repetition}.
 
 Cette section présente la syntaxe des répétitions longues.
 
-@cindex reprise avec alternative
-@cindex fin alternative
-@cindex alternative, reprise
-
-@funindex \repeat
-@funindex \alternative
-
-
 @node Written-out repeats
 @unnumberedsubsubsec Répétitions explicites
 
 @cindex musique répétitive
 @cindex reprise, expansion
 @cindex expansion de reprise
-
+@funindex \repeat
 @funindex \repeat unfold
-@funindex unfold
 
 Adjoindre à la commande @code{\repeat} l'opion @code{unfold} permet de
 s'affranchir de ressaisir de la musique répétitive. La syntaxe est
@@ -139,7 +130,6 @@ Référence des propriétés internes :
 @cindex reprise courante
 @funindex \repeat
 @funindex \repeat volta
-@funindex volta
 
 Les reprises courantes, sans alternative, s'indiquent comme ceci :
 
@@ -218,7 +208,6 @@ d'une pièce commençant par une levée afin de respecter cette entame.
 @funindex \repeat
 @funindex \repeat volta
 @funindex \volta
-@funindex volta
 
 Une répétition avec fins alternatives peut s'indiquer de deux manières
 différentes. La syntaxe préférentielle est la suivante :
@@ -329,6 +318,11 @@ alternatives, elle s'applique sur l'ensemble de ces alternatives.}
 @node Other variation in repeated sections
 @unnumberedsubsubsec Autres aspects des fragments répétés
 
+@funindex \alternative
+@funindex \unfolded
+@funindex \unfoldRepeats
+@funindex \volta
+
 Un bloc @code{\alternative} peut prendre place à l'intérieur d'un bloc
 @code{\repeat} afin de produire une notation comparable à des
 alternatives -- @pxref{Alternative endings}.
@@ -359,6 +353,7 @@ carrément la musique.
 @lilypond[verbatim,quote]
 music = \repeat volta 3 {
   \volta #'() { <>_\markup { \bold "3×" } }
+  \volta 1 { <>_\markup { \italic dolce } }
   g''1
 }
 
@@ -511,11 +506,12 @@ Les cas habituels d'utilisation sont les suivants.
 @indentedblock
 @table @emph
 
+@item al fine
 @cindex al fine
 @cindex fine
 @cindex reprise @emph{al fine}
 @funindex \fine
-@item al fine
+
 Les instructions de reprise comportent un @emph{al Fine} si la commande
 @code{\fine} a déjà été libellée -- @pxref{Al-fine repeats}.
 
@@ -534,13 +530,13 @@ music = \fixed c' {
 \score { \unfoldRepeats \music }
 @end lilypond
 
+@item alla coda
 @cindex al coda
 @cindex alla coda
 @cindex coda
 @cindex reprise @emph{alla coda}
 @cindex reprise @emph{e poi la coda}
 @funindex \sectionLabel
-@item alla coda
 
 Le début de chaque alternative est implicitement marqué d'un
 @code{\codaMark \default}. Les instructions de reprise des alternatives
@@ -574,11 +570,12 @@ music = \fixed c' {
 L'instruction de retour peut s'abréger par la définition d'une procédure
 de mise en forme alternative -- @pxref{Segno repeat appearance}.
 
+@item da capo
 @cindex D.C.
 @cindex da capo
 @cindex reprise, D.C.
 @cindex reprise, da capo
-@item da capo
+
 Les instructions de reprise incluent @emph{D.C.} lorsque le fragment à
 répéter est en début de partition. Les cas d'emploi de @emph{da capo}
 suivent le même principe que les cas de @emph{dal segno}.
@@ -595,12 +592,13 @@ music = \fixed c' {
 \score { \unfoldRepeats \music }
 @end lilypond
 
+@item dal segno
 @cindex D.S.
 @cindex dal segno
 @cindex reprise, D.S.
 @cindex reprise, dal segno
 @cindex segno
-@item dal segno
+
 Les instructions de reprise incluent @emph{D.S.} lorsque le fragment à
 répéter n'est pas en début de partition. Le début du fragment répété est
 implicitement marqué d'un @code{\segnoMark \default}.
@@ -1157,9 +1155,7 @@ trémolos.
 @cindex répétition, pourcent
 @cindex répétition de mesure
 @cindex répétition courte
-
 @funindex \repeat percent
-@funindex percent
 
 Le style de « reprise en pourcent » sert à répéter une séquence de
 notes. Elle sera imprimée une fois, puis remplacée par un symbole
@@ -1299,7 +1295,6 @@ devra impérativement se traîter sous forme de construction parallèle,
 @cindex trémolo, ligature de
 
 @funindex \repeat tremolo
-@funindex tremolo
 
 Il y a deux formes de trémolo : la répétition alernative de deux notes
 ou accords, et la répétition rapide d'une seule note ou d'un accord.

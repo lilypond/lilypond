@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 21521aa3ab6ece49d3e8ad34c11668c24af8a8fe
+    Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -15,7 +15,7 @@
 @macro manualIntro
 Ce document constitue le manuel de notation de GNU LilyPond @version{}.
 Sa lecture requiert une familiarité avec le contenu présenté dans le
-@rlearningnamed{Top, Manuel d'initiation}.
+@rlearning{Top}.
 @end macro
 
 @c 'Notation Reference' was born 1998-08-14 with this commit:
@@ -62,6 +62,7 @@ Copyright @copyright{} 1998--2023 par les auteurs.
 
 Annexes
 
+* Markup commands::                Description détaillée des commandes de @emph{markup}.
 * Notation manual tables::         tables et diagrammes.
 * Cheat sheet::                    résumé de la syntaxe de LilyPond.
 * GNU Free Documentation License:: licence de ce document.
@@ -89,15 +90,14 @@ Annexes
 @include en/fdl.itexi
 
 @node Index of commands and concepts
-@appendix Index
+@appendix Index des commandes et concepts
 
 En plus des commandes et mots réservés de LilyPond, cet index recense
 les termes musicaux qui s'y rapportent.
 @ifhtml
-Tout comme dans l'index des commandes, chaque lien est constitué de deux
-parties : la première pointe directement là où la commande ou le terme
-apparaît, la seconde au début de la section où la commande ou le terme
-est abordé.
+Chaque lien est constitué de deux parties : la première pointe
+directement là où la commande ou le terme apparaît, la seconde au début
+de la section où la commande ou le terme est abordé.
 @end ifhtml
 
 @printindex cp

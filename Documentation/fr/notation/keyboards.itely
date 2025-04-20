@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 772e0e24539737ac9cb88ee0b457af42dd065be7
+   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -546,10 +546,6 @@ pédale @notation{tonale} (@emph{sostenuto} ou @emph{sos.}).  La pédale
 @cindex sustain, style de pédale
 
 @funindex pedalSustainStyle
-@funindex mixed
-@c `@funindex \bracket' is auto-generated
-@funindexpre bracket
-@funindex text
 
 Trois styles sont à votre disposition pour imprimer les indications de
 pédale : sous forme de texte, de crochet, ou une combinaison des
@@ -699,6 +695,8 @@ cis''1_\markup \concat \vcenter {
 c''!1_\markup \concat \vcenter {
   [ C \natural ]}
 @end lilypond
+
+@funindex \harp-pedal
 
 ou bien sous forme de diagramme :
 

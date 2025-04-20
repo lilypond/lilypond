@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 772e0e24539737ac9cb88ee0b457af42dd065be7
+   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -855,6 +855,8 @@ traités comme des éléments de la liste principale.
 }
 @end lilypond
 
+@funindex \line
+
 Plusieurs éléments d'une liste de @emph{markups} seront mis en rang sur
 une même ligne s'ils sont regroupés à l'aide de la commande @code{\line}.
 
@@ -901,6 +903,7 @@ permet qu'lle soit traitee comme un argument @emph{markup} unique.
 @funindex \markuplist
 @funindex \justified-lines
 @funindex \wordwrap-lines
+@funindex \line
 
 Lorsque l'intégralité du contenu d'une expression @code{\markup}
 est une liste de @emph{markups}, elle est implicitement reproduite
@@ -1009,8 +1012,8 @@ fonte :
 }
 @end lilypond
 
-@cindex caractère, taille
-@cindex texte, taille
+@cindex caractère, taille (@emph{markup})
+@cindex texte (@emph{markup}), taille
 
 @funindex text-font-size
 @funindex \abs-fontsize
@@ -1139,8 +1142,7 @@ et deuxième mots.
 @noindent
 Certaines familles de police spécifiques aux nombres ou aux nuances par
 exemple, ne disposent pas de tous les caractères, comme nous l'avons vu
-dans les chapitres @ref{New dynamic marks} et
-@ref{Manual repeat marks}.
+dans les chapitres @ref{New dynamic marks} et @ref{Manual repeat marks}.
 
 @c \concat is actually documented in Align (it is not
 @c a font-switching command). But we need it here. -vv
@@ -1274,22 +1276,22 @@ numérique :
 @cindex @emph{markup} et décalage horizontal
 @funindex \hspace
 
-Enfin, les mots et tout autre objet peuvent se déplacer en les faisant
-précéder d'un décalage. Un décalage négatif est possible, ce qui aura
-pour effet de déplacer les objets qui le suivent dans la direction
-opposée. Bien que le décalage soit normalement invisible, des commandes
-spécifiques permettent de le mettre en évidence comme dans l'exemple
-ci-dessous :
+Enfin, les mots et tout autre objet peuvent se déplacer horizontalement
+en les faisant précéder d'un décalage. Un décalage négatif est possible,
+ce qui aura pour effet de déplacer les objets qui le suivent dans la
+direction opposée. Bien que le décalage soit normalement invisible, des
+commandes spécifiques permettent de le mettre en évidence comme dans
+l'exemple ci-dessous :
 
 @lilypond[quote,verbatim]
 \relative {
   d''1-\markup { poco }
   f
-  d-\markup { \with-color #darkred \box \hspace #4 poco }
+  d-\markup \concat { \with-color #darkred \box \hspace #4 poco }
   f
-  d-\markup { \with-color #darkred \box \hspace #-4 poco }
+  d-\markup \concat { \with-color #darkred \box \hspace #-4 poco }
   f
-  d-\markup { \with-color #darkred \box \hspace #10 poco }
+  d-\markup \concat { \with-color #darkred \box \hspace #10 poco }
 }
 @end lilypond
 
@@ -1305,7 +1307,6 @@ objets @emph{markup}, comme indiqué par exemple au chapitre
 
 @funindex \raise
 @funindex \lower
-@funindex \null
 
 @c QUERY Should the function of ``\null'' be clarified? rp
 
@@ -1348,14 +1349,14 @@ textuels en mode @emph{markup}, tant au niveau horizontal que vertical.
 \relative {
   d'2^\markup {
     Acte I
-    \translate #'(-1 . 2) "Scène 1"
+    \translate #'(2 . 2) "Scène 1"
   }
   a'
   g_\markup {
-    \general-align #Y #3.2 \bold "Très modéré"
+    \general-align #Y #5 \bold "Très modéré"
   }
   a
-  d,^\markup \translate-scaled #'(-1 . 2) \teeny {
+  d,^\markup \translate-scaled #'(-3 . 2) \teeny {
    "Une forêt."
   }
   a'4 a g2 a
@@ -1366,27 +1367,58 @@ textuels en mode @emph{markup}, tant au niveau horizontal que vertical.
 @cindex @emph{markup} et décalage vertical
 @funindex \vspace
 
-Ici aussi, un décalage (positif ou négatif) constitue un moyen efficace
-de positionner verticalement des objets empilés dans un @emph{markup} :
+En raison de la manière dont est implémenté le colonnage, @code{\vspace}
+@strong{ne peut pas} s'utiliser pour bouger arbitrairement vers le haut
+ou le bas des objets d'un @emph{markup} @code{\column}. La naïveté de
+l'approche suivante est donc vouée à l'échec.
 
 @lilypond[quote,verbatim]
 \relative {
   d'2^\markup {
     Acte I
     \column {
-      \with-color #darkred \box \vspace #-1
+      \vspace #-2
       "Scène 1"
     }
   }
   a'
   g_\markup \column {
-    \with-color #darkred \box \vspace #1
+    \vspace #1
     "Très modéré"
   }
   a
   d,^\markup \column {
-   "Une forêt."
-    \with-color #darkred \box \vspace #2
+    "Une forêt."
+    \vspace #2
+  }
+  a'4 a g2 a
+}
+@end lilypond
+
+Ce qui est fonctionnel consiste à insérer @code{\vspace} entre deux
+objets à l'étendue non nulle.
+
+@lilypond[quote,verbatim]
+\relative {
+  d'2^\markup {
+    Acte I
+    \column {
+      " "
+      \vspace #-2
+      "Scène 1"
+    }
+  }
+  a'
+  g_\markup \column {
+    " "
+    \vspace #1
+    "Très modéré"
+  }
+  a
+  d,^\markup \column {
+    "Une forêt."
+    \vspace #2
+    " "
   }
   a'4 a g2 a
 }

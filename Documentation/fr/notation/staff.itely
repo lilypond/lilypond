@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 21521aa3ab6ece49d3e8ad34c11668c24af8a8fe
+   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -41,21 +41,6 @@ Nous allons voir ici comment créer des portées et comment les regrouper.
 @cindex portée, instanciation
 @cindex portée, nouvelle
 @cindex portée simple
-@cindex portée de batterie
-@cindex portée de percussion
-@cindex batterie, portée
-@cindex percussion, portée
-@cindex portée, transcription de grégorien
-@cindex portée rythmique
-@cindex tablature
-
-@funindex \drummode
-@funindex DrumStaff
-@funindex RhythmicStaff
-@funindex TabStaff
-@funindex MensuralStaff
-@funindex VaticanaStaff
-@funindex GregorianTranscriptionStaff
 
 Les @notation{portées} -- en anglais @emph{staff} (@emph{staves} au
 pluriel) -- sont créées à l'aide des commandes @code{\new} ou
@@ -67,6 +52,13 @@ Le contexte de portée standard s'appelle @code{Staff} :
 @lilypond[verbatim,quote]
 \new Staff \relative { c''4 d e f }
 @end lilypond
+
+@cindex portée de batterie
+@cindex portée de percussion
+@cindex batterie, portée
+@cindex percussion, portée
+@funindex \drummode
+@funindex DrumStaff
 
 Le contexte @code{DrumStaff} crée une portée à cinq lignes correspondant
 à une batterie traditionnelle et chacun des instruments est représenté
@@ -81,6 +73,9 @@ spécifiée par son nom. Pour de plus amples détails, consultez
 }
 @end lilypond
 
+@cindex portée rythmique
+@funindex RhythmicStaff
+
 Un @code{RhythmicStaff} est composé d'une portée à ligne unique chargée
 de présenter les valeurs rythmiques saisies. Seules sont imprimées les
 durées. Pour de plus amples détails, consultez @ref{Showing melody
@@ -90,6 +85,9 @@ rhythms}.
 \new RhythmicStaff { c4 d e f }
 @end lilypond
 
+@cindex tablature
+@funindex TabStaff
+
 Un @code{TabStaff} crée une portée de tablature correspondant aux six
 cordes d'une guitare standard. Pour de plus amples détails, consultez
 @ref{Default tablatures}.
@@ -97,6 +95,11 @@ cordes d'une guitare standard. Pour de plus amples détails, consultez
 @lilypond[verbatim,quote]
 \new TabStaff \relative { c''4 d e f }
 @end lilypond
+
+@funindex MensuralStaff
+@funindex VaticanaStaff
+@funindex GregorianTranscriptionStaff
+@cindex portée, transcription de grégorien
 
 LilyPond dispose aussi de deux contextes dédiés à la musique ancienne :
 @code{MensuralStaff} et @code{VaticanaStaff}. Ils sont abordés plus en
@@ -154,11 +157,6 @@ Référence des propriétés internes :
 @cindex portée multiple
 @cindex portées, groupe de
 @cindex portées, regroupement
-@cindex chœur, système
-@cindex piano, système
-@cindex système choral
-@cindex système pianistique
-@cindex système, grand
 @cindex système
 
 LilyPond dispose de différents contextes permettant de regrouper des
@@ -188,6 +186,9 @@ crochet, et les barres de mesure sont d'un seul tenant.
 >>
 @end lilypond
 
+@cindex chœur, système
+@cindex système choral
+
 Dans un @code{ChoirStaff}, le groupe de portées est signifié par un
 crochet sur la gauche, et les barres de mesure sont individuelles.
 
@@ -198,6 +199,8 @@ crochet sur la gauche, et les barres de mesure sont individuelles.
 >>
 @end lilypond
 
+@cindex système, grand
+
 Dans un @code{GrandStaff}, le groupe de portées est signifié par une
 accolade sur la gauche, et les barres de mesure sont d'un seul tenant.
 
@@ -207,6 +210,9 @@ accolade sur la gauche, et les barres de mesure sont d'un seul tenant.
   \new Staff \relative { c''1 c }
 >>
 @end lilypond
+
+@cindex piano, système
+@cindex système pianistique
 
 Le contexte @code{PianoStaff} est identique au @code{GrandStaff}, sauf
 que ses portées ne peuvent être masquées que conjointement, jamais
@@ -375,6 +381,7 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Séparation des systèmes
 
 @cindex système, indicateur de séparation
+@cindex indicateur de système
 
 Le nombre de systèmes peut varier d'une page à l'autre ; vous pouvez, en
 pareil cas, rendre plus évidente la séparation entre les systèmes en
@@ -787,11 +794,9 @@ Référence des propriétés internes :
 @cindex Frenched scores
 @cindex masquage de portée
 @cindex musique ancienne, masquage de portée
-@cindex portéesrythmique, masquage
+@cindex portée rythmique, masquage
 @cindex portée vide
 
-@funindex \RemoveEmptyStaves
-@funindex \RemoveAllEmptyStaves
 @funindex Staff_symbol_engraver
 @funindex \stopStaff
 
@@ -849,6 +854,8 @@ portée ne sera pas considérée vide, sont répertoriés dans la propriété
 de contexte @code{keepAliveInterfaces} telle que définie dans le fichier
 @file{ly/engraver-init.ly}.
 
+@funindex \RemoveEmptyStaves
+@funindex \RemoveAllEmptyStaves
 @funindex remove-empty
 @funindex remove-first
 
@@ -1538,10 +1545,8 @@ qualité.
 @cindex voix, citation
 @cindex voix, réplication
 @funindex CueVoice
-@funindex \cueDuring
 @funindex \cueClef
 @funindex \cueClefUnset
-@funindex \cueDuringWithClef
 @funindex \quoteDuring
 
 Le moyen le plus simple pour mettre en forme des notes provenant d'une
@@ -1593,6 +1598,9 @@ sont disponibles si nécessaire en dehors d'un @code{CueVoice}.
   d,,4 r a r
 }
 @end lilypond
+
+@funindex \cueDuring
+@funindex \cueDuringWithClef
 
 Lorsque la situation est plus complexe, instrument transpositeur ou
 citations de plusieurs sources, vous disposez des instructions

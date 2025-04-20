@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: c7b4f1f1b3d1d7e67a454758928d8e972cf0884c
+   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -571,6 +571,7 @@ Référence des propriétés internes :
 @cindex espace dans les paroles
 @cindex guillemets dans les paroles
 @funindex _
+@funindex ~
 
 Pour attribuer plus d'une syllabe à une même note, vous pouvez soit les
 mettre entre guillemets, soit utiliser le caractère souligné (@code{_})
@@ -813,6 +814,7 @@ caractère souligné.
 @cindex mélisme
 @cindex extenseur
 @cindex prolongateur
+@funindex __
 
 @c leave this as samp. -gp
 Un mélisme sur la dernière syllabe d'un mot est indiqué par une longue
@@ -828,6 +830,8 @@ s'indiquer par un souligné unique, ce qui aura pour effet de sauter une
 note à chaque fois et de ne pas imprimer de ligne.}
 
 @cindex trait d'union
+@cindex @sortas{hyphénation} « hyphénation », trait d'union
+@funindex --
 
 @c leave this as samp. -gp
 Un trait d'union séparant deux syllabes d'un même mot s'obtient en
@@ -858,6 +862,7 @@ Référence des propriétés internes :
 
 
 @cindex voyelle, transition
+@funindex \vowelTransition
 
 Un changement graduel de voyelle (ou une consonne maintenue) peut
 s’indiquer en ajoutant une flêche entre les syllabes, à l’aide de la
@@ -907,7 +912,7 @@ Référence des propriétés internes :
 @node Working with lyrics and variables
 @unnumberedsubsubsec Travail avec des paroles et variables
 
-@cindex paroles, variables
+@cindex paroles, variable
 @cindex paroles, identificateur
 
 Vous pouvez créer des variables pour contenir les paroles, dès lors que
@@ -1019,10 +1024,20 @@ de paroles après le contexte de portée :
 }
 @end lilypond
 
+@funindex alignAboveContext
+@funindex alignBelowContext
+
 Positionner les paroles au-dessus de la portée se fait de deux manières
 différentes, le plus simple étant d'utiliser la même syntaxe que
 ci-dessus, à ceci près que la ligne de paroles sera positionnée de
-manière explicite :
+manière explicite. L'argument à @code{alignAboveContext} est le nom d'un
+contexte @code{Staff} ou l'un de ses semblables -- l'utilisation d'un
+@code{Voice} est inopérant.
+
+L'utilisation de @code{alignBelowContext} permet de positionner des
+paroles au-dessous d'une portée. Ce n'est en règle générale nécessaire
+que pour forcer le positionnement sous une portée qui n'est pas celle
+par défaut.
 
 @lilypond[quote,verbatim]
 \score {
@@ -1402,7 +1417,9 @@ seront repoussées sous la dernière portée. L'instruction
     }
     \new Voice = "harmony" {
       \relative {
-        f'4 f f f \repeat volta 2 { g8 g g4 g2 } a4 a8. a16 a2
+        f'4 f f f
+        \repeat volta 2 { g8 g g4 g2 }
+        a4 a8. a16 a2
       }
     }
   >>
@@ -1654,9 +1671,8 @@ en spécifiant ces mélismes au niveau des paroles :
     \new Voice = "melody" {
       \relative c' {
         \set melismaBusyProperties = #'()
-        \slurDown
         \slurDashed
-        e4 e8 ( e ) c4 c |
+        e4 e8( e) c4 c |
         \unset melismaBusyProperties
         c
       }
@@ -1665,7 +1681,7 @@ en spécifiant ces mélismes au niveau des paroles :
       They shall not o -- ver -- come
     }
     \new Lyrics \lyricsto "melody" {
-      We will _
+      We will _ rock you, yeah
     }
   >>
 }
@@ -3115,11 +3131,6 @@ Vous pouvez accessoirement, bien qu'il s'agisse de notation moderne,
 emprunter au grégorien des indications de pause et silence.
 
 @lilypond[verbatim,quote]
-divisioMinima = \caesura
-divisioMaior = { \caesura \shortfermata }
-divisioMaxima = { \caesura \fermata }
-finalis = \section
-
 \score {
   \relative {
     g'2 a4 g
@@ -3315,11 +3326,9 @@ mesure.
 \markup {
   \fill-line {
     \column {
-      \left-align {
-        \line { O come let us sing | unto the | Lord : let }
-        \line { us heartily rejoice in the | strength of | our }
-        \line { sal- | -vation. }
-      }
+      \line { O come let us sing | unto the | Lord : let }
+      \line { us heartily rejoice in the | strength of | our }
+      \line { sal- | -vation. }
     }
   }
 }
@@ -3336,13 +3345,9 @@ tick = \markup {
 \markup {
   \fill-line {
     \column {
-      \left-align {
-        \line { O come let us sing \tick unto the \tick Lord : let }
-        \line {
-          us heartily rejoice in the \tick strength of \tick our
-        }
-        \line { sal \tick vation. }
-      }
+      \line { O come let us sing \tick unto the \tick Lord : let }
+      \line { us heartily rejoice in the \tick strength of \tick our }
+      \line { sal \tick vation. }
     }
   }
 }
@@ -3364,15 +3369,9 @@ tick = \markup {
 \markup {
   \fill-line {
     \column {
-      \left-align {
-        \line {
-          O come let us sing \tick unto \dot the \tick Lord : let
-        }
-        \line {
-          us heartily rejoice in the \tick strength of \tick our
-        }
-        \line { sal \tick vation. }
-      }
+      \line { O come let us sing \tick unto \dot the \tick Lord : let }
+      \line { us heartily rejoice in the \tick strength of \tick our }
+      \line { sal \tick vation. }
     }
   }
 }
@@ -3392,15 +3391,11 @@ tick = \markup {
 \markup {
   \fill-line {
     \column {
-      \left-align {
-        \line { Today if ye will hear his voice * }
-        \line {
-          \concat { \bold hard en }
-          | not your | hearts : as in the pro-
-        }
-        \line { vocation * and as in the \bold day of tempt- | }
-        \line { -ation | in the | wilderness. }
-      }
+      \line { Today if ye will hear his voice * }
+      \line { \concat { \bold hard en } |
+               not your | hearts : as in the pro- }
+      \line { vocation * and as in the \bold day of tempt- | }
+      \line { -ation | in the | wilderness. }
     }
   }
 }
@@ -3416,21 +3411,11 @@ tick = \markup {
 \markup {
   \fill-line {
     \column {
-      \left-align {
-        \line {
-          O come let us \concat {
-            si \combine \tick ng
-          }
-          | unto the | Lord : let
-        }
-        \line {
-          us heartily \concat {
-            rejo \combine \tick ice
-          }
-          in the | strength of | our
-        }
-        \line { sal- | -vation. }
-      }
+      \line { O come let us \concat { si \combine \tick ng } |
+              unto the | Lord : let }
+      \line { us heartily \concat { rejo \combine \tick ice }
+              in the | strength of | our }
+      \line { sal- | -vation. }
     }
   }
 }

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 32cd4b7fa952f810c94a2296f3dad0fa85f0eb5d
+   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -34,10 +34,6 @@ ligature et de mesure.
 @cindex note, longueur
 @cindex longueur de note
 
-@funindex \longa
-@funindex \breve
-@funindex \maxima
-
 Dans les modes de notes, d'accords et de paroles, les durées sont
 écrites avec des chiffres et des points : les durées sont indiquées par
 leur valeur fractionnaire par rapport à la durée d'une ronde. Une noire,
@@ -46,6 +42,10 @@ anglais -- s'écrit @code{4}, alors qu'une blanche -- @emph{half-note},
 1/2 ronde -- s'écrit @code{2}. Des durées plus courtes que la quintuple
 croche -- 1/128 de ronde -- sont possibles, à condition de les ligaturer
 -- @pxref{Ligatures}.
+
+@funindex \longa
+@funindex \breve
+@funindex \maxima
 
 Pour des notes plus longues qu'une ronde, vous devrez utiliser les
 commandes @code{\longa} pour une longue, et @code{\breve} pour une
@@ -233,7 +233,7 @@ triolet, dans lequel trois notes occupent la durée de deux.
 
 @cindex regroupement de n-olets
 @cindex n-olet, regroupment
-@noindent
+
 Dans le cas d'une succession de n-olets, saisir la commande
 @code{\tuplet} pour chacun des n-olets devient vite fastidieux. LilyPond
 vous permet de stipuler la durée de base d'un n-olet juste avant
@@ -353,7 +353,7 @@ des notes sans imprimer de crochet, comme indiqué au chapitre
 @cindex n-olet, ligature, saut de ligne
 @cindex ligature, n-olet, saut de ligne
 @funindex Forbid_line_break_engraver
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/permitting-line-breaks-within-beamed-tuplets.ly}
 
 @morerefs
@@ -507,7 +507,8 @@ tout comme les points.}
 Une liaison de tenue s'indique au moyen d'un tilde (@code{~}) qui vient
 s'adjoindre à la première note de chacune des paires de notes à lier.
 Ceci indique que la note en question sera liée à la suivante, qui doit
-être de la même hauteur.
+être de la même hauteur. Il est à noter que les liaisons de tenue savent
+interpréter la « dernière hauteur explicite » des durées isolées :
 
 @lilypond[quote,verbatim]
 { a'2~ 4~ 16 r r8 }
@@ -695,6 +696,7 @@ permet d'obtenir une meilleure lisibilité.
 @cindex tenue, gravure manuelle
 @cindex gravure manuelle, liaison de tenue
 @funindex TieColumn
+@anchor{Engraving ties manually}
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/engraving-ties-manually.ly}
 
@@ -741,8 +743,7 @@ notes.
 @cindex durée d'un silence
 @cindex double pause
 
-@funindex \rest
-@funindex r
+@cindex @code{r} (@emph{rest}, silence)
 @funindex \maxima
 @funindex \longa
 @funindex \breve
@@ -778,6 +779,7 @@ utilisation est expliquée à la rubrique @ref{Full measure rests}.
 
 @cindex silence, spécification du positionnement vertical
 @cindex note silencieuse
+@funindex \rest
 
 Pour spécifier explicitement la position verticale d'un silence, écrivez
 une note suivie de @code{\rest}. Un silence de même durée sera placé à
@@ -832,7 +834,7 @@ disponibles ne couvre que les silences allant du
 @cindex silence invisible
 @cindex silence d'espacement
 
-@funindex s
+@cindex @code{s} (silence invisible)
 @funindex \skip
 
 Il existe deux formes de silence invisible -- que l'on pourrait appeler
@@ -971,7 +973,7 @@ la suit.
 @cindex une pause par mesure
 
 @funindex \compressMMRests
-@funindex R
+@cindex @code{R} (mesure de silence)
 
 Un silence valant une ou plusieurs mesures entières s'entre avec un
 @code{R} majuscule. Sa durée s'indique comme pour n'importe quelle note,
@@ -1032,9 +1034,6 @@ R1*2 |
 @cindex point d'orgue et silence multimesure
 @cindex silence multimesure et point d'orgue
 
-@funindex MultiMeasureRestScript
-@funindex MultiMeasureRestText
-
 Vous pouvez aussi ajouter du texte à un silence multimesure en utilisant
 la syntaxe @w{@var{note}-@code{markup}} (cf. @ref{Formatting text}).
 
@@ -1044,6 +1043,9 @@ la syntaxe @w{@var{note}-@code{markup}} (cf. @ref{Formatting text}).
   R2.*10^\markup { \italic "ad lib." }
 }
 @end lilypond
+
+@funindex MultiMeasureRestScript
+@funindex MultiMeasureRestText
 
 @warning{C'est @code{MultiMeasureRestText} qui créera le texte, et
 @code{MultiMeasureRestScript} pour les articulations, non
@@ -1120,10 +1122,10 @@ Référence des propriétés internes :
 @rinternals{MultiMeasureRestText}.
 @endmorerefs
 
+@knownissues
 @cindex doigté et silence multimesure
 @cindex silence multimesure et doigté
 
-@knownissues
 Vous ne pouvez pas utiliser de doigtés (par ex. @code{R1*10-4}) pour
 positionner des nombres au dessus d'un silence multimesure, le numéro de
 doigt (4) risquant de chevaucher le nombre de mesures à compter (10).
@@ -1134,7 +1136,7 @@ doigt (4) risquant de chevaucher le nombre de mesures à compter (10).
 Condenser plusieurs silences en un unique silence multimesure ne peut
 être automatisé.
 
-@cindex silences, collision entre
+@cindex silences et collisions
 
 Les silences multimesures peuvent générer des collisions avec d'autres
 silences.
@@ -1261,13 +1263,44 @@ Propriétés de contexte ajustables}.
 
 @funindex \time
 
-Le chiffre de mesure indique le mètre d'une pièce : une alternance
-régulière de temps forts et de temps faibles. Il est indiqué par une
-fraction au début de la portée :
+Le chiffre de mesure, ou métrique, indique le mètre d'une pièce : une
+alternance régulière de temps forts et de temps faibles.
+
+Une métrique simple s'obtient en donnant une fraction en argument à la
+commande @code{\time}.
 
 @lilypond[quote,verbatim,fragment]
-\time 2/4 c''2
-\time 3/4 c''2.
+\time 2/4
+c''2
+
+\time 3/4
+c''2.
+@end lilypond
+
+@noindent
+Lorsque la métrique est fractionnelle ou que son dénominateur dure plus
+d'une ronde, il faut recourir à une syntaxe Scheme.
+
+@lilypond[quote,verbatim,fragment]
+\time #'(5/2 . 4)
+c''2 r8
+
+\override Timing.TimeSignature.denominator-style = #'note
+\time #'(2 . 1/2)
+f''\breve c''
+@end lilypond
+
+D'autres dénominateurs inusuels peuvent s'utiliser pour ajouter un point
+d'augmentation à la note présentée ; toutefois, et afin de bénéficier
+des fonctionnalités présentées de part et d'autre, l'utilisation d'une
+fraction conventionnelle pour @code{\time} associée à une dérogation à
+@code{TimeSignature@/.fraction} est fotement recommandée en pareil cas.
+
+@lilypond[quote,verbatim,fragment]
+\override Timing.TimeSignature.denominator-style = #'note
+\once \override Timing.TimeSignature.fraction = #'(2 . 8/3)
+\time 6/8
+c''8 8 8 8 8 8
 @end lilypond
 
 Les changements de métrique en cours de mesure sont abordés dans
@@ -1323,7 +1356,6 @@ Les métriques anciennes font l'objet d'un
 @cindex métrique par défaut
 @cindex ligature et métrique
 @cindex métrique et ligature
-@funindex \overrideTimeSignatureSettings
 
 En plus de déterminer la métrique qui sera imprimée, la commande
 @code{\time} réglera aussi les valeurs par défaut des propriétés
@@ -1368,6 +1400,8 @@ de métrique correspondante :
   }
 }
 @end lilypond
+
+@funindex \overrideTimeSignatureSettings
 
 @code{\overrideTimeSignatureSettings} prend quatre arguments :
 
@@ -1564,6 +1598,18 @@ Une indication métronomique s'insère tout simplement comme ceci :
 }
 @end lilypond
 
+La vitesse donnée n'est paas forcément un entier, mais elle doit être un
+nombre exact.
+
+@lilypond[verbatim,quote]
+tempoI = 100
+\fixed c' {
+  \tempo 4 = #(* tempoI 2/3)
+  e2 e4 d
+  c2 g2
+}
+@end lilypond
+
 Lorsque le réglage précis du métronome est laissé à l'appréciation de
 l'exécutant, vous pouvez cependant lui fournir une plage :
 
@@ -1635,23 +1681,35 @@ parenthèses l'indication numérique :
 @funindex \markLengthOff
 
 Dans le cas d'une partie où l'instrumentiste a de longs moments de
-silence, les indications de tempo peuvent être fort rapprochées l'une de
-l'autre. L'instruction @code{\markLengthOn} permet de préserver
-suffisamment d'espace horizontal de telle sorte que ces indications ne
-se chevauchent ; l'instruction @code{\markLengthOff} restaure le
-comportement par défaut qui ignore les indications de tempo dans les
-calculs d'espacement horizontal.
+silence (@pxref{Full measure rests}), les indications de tempo, marques
+de repère et indications textuelles peuvent être fort rapprochées l'une
+de l'autre. L'instruction @code{\markLengthOn} permet de préserver
+suffisamment d'espace horizontal (et vertical) de telle sorte que ces
+indications ne se chevauchent ; l'instruction @code{\markLengthOff}
+restaure le comportement par défaut qui ignore les indications de tempo
+dans les calculs d'espacement horizontal.
 
 @lilypond[verbatim,quote]
 \compressMMRests {
   \markLengthOn
   \tempo "Molto vivace"
   R1*12
-  \tempo "Meno mosso"
+  \mark \default \tempo "Allegretto ma non troppo"
   R1*16
+  \mark \default \tempo "Tranquillo"
+  R1*2
+  \mark \default \tempo "Tempo I"
+  R1 R1 \break
+
   \markLengthOff
-  \tempo "Tranquillo"
-  R1*20
+  \tempo "Molto vivace"
+  R1*12
+  \mark \default \tempo "Allegretto ma non troppo"
+  R1*16
+  \mark \default \tempo "Tranquillo"
+  R1*2
+  \mark \default \tempo "Tempo I"
+  R1 R1
 }
 @end lilypond
 
@@ -1665,6 +1723,7 @@ calculs d'espacement horizontal.
 @c perhaps also an example of how to move it horizontally?
 
 @cindex tempo, changement masqué
+@cindex changement de tempo sans indication sur la partition
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/changing-the-tempo-without-a-metronome-mark.ly}
 
@@ -1704,7 +1763,6 @@ Référence des propriétés internes :
 @cindex incomplète, mesure
 @cindex métrique en cours de mesure
 
-@funindex measurePosition
 @funindex \partial
 
 Les mesures incomplètes, telles que les anacrouses ou levées, doivent
@@ -1726,6 +1784,8 @@ la valeur rythmique précédant la première mesure.
 }
 @end lilypond
 
+@cindex position dans la mesure
+
 Lorsque @code{\partial} est utilisé après le début du morceau,
 @code{@var{durée}} égale la valeur rythmique @strong{restant} dans la
 mesure en cours. Ceci ne crée pas de nouveau numéro de mesure.
@@ -1734,7 +1794,7 @@ mesure en cours. Ceci ne crée pas de nouveau numéro de mesure.
 \relative {
   \set Score.barNumberVisibility = #all-bar-numbers-visible
   \override Score.BarNumber.break-visibility =
-	    #end-of-line-invisible
+	      #end-of-line-invisible
   \time 9/8
   d''4.~ 4 d8 d( c) b | c4.~ 4. \bar "||"
   \time 12/8
@@ -1750,7 +1810,7 @@ change en cours de mesure, mais peut aussi s'utiliser isolément.
 \relative {
   \set Score.barNumberVisibility = #all-bar-numbers-visible
   \override Score.BarNumber.break-visibility =
-	    #end-of-line-invisible
+	      #end-of-line-invisible
   \time 6/8
   \partial 8
   e'8 | a4 c8 b[ c b] |
@@ -1761,10 +1821,6 @@ change en cours de mesure, mais peut aussi s'utiliser isolément.
   c8 b[ c b] |
 }
 @end lilypond
-
-La commande @code{\partial} détermine la propriété
-@code{Timing.measurePosition}, nombre rationnel qui indique combien de
-temps est déjà passé dans la mesure.
 
 Pour des raisons techniques, l'argument fourni à @code{\partial} ne
 saurait être une durée nulle (comme @code{\partial 4*0}).
@@ -2370,6 +2426,10 @@ Référence des propriétés internes :
 @subsection Barres de ligature
 
 @cindex lien de croche
+@cindex ligature
+
+LilyPond dispose de deux façons d'indiquer des ligatures, l'une
+automatisée, l'autre par saisie manuelle, les deux pouvant se combiner.
 
 
 @node Automatic beams
@@ -2381,9 +2441,6 @@ d'imprimer les ligatures.
 @cindex ligature manuelle
 @cindex ligature, définition de règles
 @cindex ligature, personnalisation
-
-@funindex \autoBeamOn
-@funindex \autoBeamOff
 
 @lilypond[quote,verbatim]
 \relative c'' {
@@ -2397,6 +2454,9 @@ définir des groupements manuellement -- @pxref{Manual beams}. Dans le
 cas où le groupe de notes en question contient un silence, il est
 @strong{impératif} d'indiquer explicitement les début et fin de la
 ligature.
+
+@funindex \autoBeamOn
+@funindex \autoBeamOff
 
 Lorsque les ligatures automatiques ne sont pas nécessaires, il suffit de
 désactiver la fonctionnalité par un @code{\autoBeamOff} -- réactivation
@@ -2431,15 +2491,12 @@ possibles ; @pxref{Setting automatic beam behavior}.
 @code{\autoBeamOn}.
 @endpredefined
 
-@cindex saut de ligne et ligature
-@cindex ligature et saut de ligne
-@cindex ligature coudée
-
-@funindex breakable
-
 @snippets
 
 @anchor{Beams across line breaks}
+@cindex saut de ligne et ligature
+@cindex ligature et saut de ligne
+@funindex breakable
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/beams-across-line-breaks.ly}
 
@@ -3154,6 +3211,7 @@ conduit à une musique compressée, voire à un débordement de la page.}
 @cindex saut de ligne
 @cindex barre de mesure invisible
 @cindex invisible, barre de mesure
+@funindex \allowBreak
 
 Les sauts de ligne sont aussi possibles lorsqu'est inséré manuellement
 une barre de mesure, même si cette mesure est incomplète. L'utilisation
@@ -3681,6 +3739,7 @@ présente, par ordre de priorité croissant, les propriétés disponibles.
 @quotation
 @table @code
 
+@item underlyingRepeatBarType
 @cindex barre double
 @cindex barre de mesure, reprise sous-jascente
 @cindex double barre
@@ -3690,61 +3749,58 @@ présente, par ordre de priorité croissant, les propriétés disponibles.
 @funindex \repeat segno
 @funindex \repeat volta
 @funindex \segnoMark
-@item underlyingRepeatBarType
+
 S'utilise en des points de reprise ou de départ pour lesquels aucune
 barre n'apparaîtrait normalement. Tel est le cas lorsque des sections
 répétées ne s'alignent pas avec les mesures. Certaines commandes
 emploient ce type de barre : @code{\codaMark}, @code{\inStaffSegno},
 @code{\repeat segno}, @code{\repeat volta} et @code{\segnoMark}.
 
+@item caesuraType underlying-bar-line
 @cindex barre de mesure, césure
 @cindex barre de mesure, phrase
 @cindex césure, barre de mesure
 @cindex phrase, barre de mesure
 @funindex \caesura
-@item caesuraType underlying-bar-line
+
 S'utilise avec @code{\caesura} -- voir
 @ref{Phrase bar lines in hymn tunes}.
 
+@item measureBarType
 @cindex barre par défaut
 @cindex barre, mesure
 @cindex barre simple
 @cindex défaut, barre de mesure
 @cindex simple, barre de mesure
-@item measureBarType
+
 S'utilise en limite de mesure.
 
+@item caesuraType bar-line
 @cindex barre de mesure, césure
 @cindex barre de mesure, phrase
 @cindex césure, barre de mesure
 @cindex phrase, barre de mesure
 @funindex \caesura
-@item caesuraType bar-line
+
 S'utilise avec @code{\caesura} -- @pxref{Phrase bar lines in hymn
 tunes}.
 
+@item sectionBarType
 @cindex barre double
 @cindex barre, section
 @cindex double barre
 @cindex section, barre de mesure
 @funindex \section
-@item sectionBarType
+
 S'utilise à un saut de section créé par @code{\section}.
 
+@item fineBarType
 @cindex barre finale
 @cindex finale, barre de mesure
 @funindex \fine
-@item fineBarType
+
 S'utilise avec l'instruction @code{\fine}.
 
-@cindex barre de mesure, reprise
-@cindex barre de mesure, @emph{segno}
-@cindex reprise, barre de mesure
-@cindex @emph{segno}, barre de mesure
-@funindex \inStaffSegno
-@funindex \repeat segno
-@funindex \repeat volta
-@funindex \segnoMark
 @item doubleRepeatBarType
 @itemx doubleRepeatSegnoBarType
 @itemx endRepeatBarType
@@ -3754,6 +3810,15 @@ S'utilise avec l'instruction @code{\fine}.
 @itemx segnoBarType
 @itemx startRepeatBarType
 @itemx startRepeatSegnoBarType
+@cindex barre de mesure, reprise
+@cindex barre de mesure, @emph{segno}
+@cindex reprise, barre de mesure
+@cindex @emph{segno}, barre de mesure
+@funindex \inStaffSegno
+@funindex \repeat segno
+@funindex \repeat volta
+@funindex \segnoMark
+
 Seul l'un de ces types s'utilisera, selon la structure de la pièce.
 
 Les propriétés dont le nom comporte @code{startRepeat} ou
@@ -3911,6 +3976,7 @@ Référence des propriétés internes :
 @knownissues
 @cindex numéro de mesure et collision
 @cindex collision et numéro de mesure
+
 Les numéros de mesure peuvent entrer en collision avec les crochets d'un
 @rinternals{StaffGroup}. La propriété @code{padding} -- décalage -- de
 l'objet @rinternals{BarNumber} permet alors d'ajuster leur
@@ -3924,7 +3990,6 @@ positionnement.
 @cindex mesure, vérification des limites
 @cindex test de mesure
 
-@funindex barCheckSynchronize
 @funindex |
 
 Les tests de limite de mesure (ou tests de mesure) aident à détecter les
@@ -4285,13 +4350,9 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Division en sections
 
 @cindex barre de mesure double
-@cindex barre finale
-@cindex finale, barre
 @cindex barre de mesure, section
 @cindex double barre
 @cindex section, barre de mesure
-
-@funindex \fine
 @funindex \section
 
 La commande @code{\section} marque un point dans la musique où une
@@ -4302,6 +4363,10 @@ l'instruction @emph{D.C.} ou lorsqu'un mouvement s'enchaîne directement
 avec le suivant. En règle générale, @code{\section} crée une double
 barre de mesure. Ses effets peuvent aussi dépendre d'autres
 considérations, comme par exemple une barre de reprise.
+
+@cindex barre finale
+@cindex finale, barre
+@funindex \fine
 
 La commande @code{\fine} indique la fin de la pièce, normalement par une
 barre finale. Son utilisation ne se limite toutefois pas à la dernière
@@ -4354,14 +4419,9 @@ Référence des propriétés internes :
 @cindex ornement
 @cindex broderie
 @cindex note d'ornement
-@cindex appoggiature
-@cindex acciaccature
 @cindex petite note
 
 @funindex \grace
-@funindex \slashedGrace
-@funindex \acciaccatura
-@funindex \appoggiatura
 
 Les petites notes sont des ornements entièrement écrits. Leur taille est
 un peu plus petite que celle des notes normales et elles n'occupent pas
@@ -4373,6 +4433,12 @@ de temps dans la mesure.
   \grace { b16 c16 } a2)
 }
 @end lilypond
+
+@cindex appoggiature
+@cindex acciaccature
+@funindex \slashedGrace
+@funindex \acciaccatura
+@funindex \appoggiatura
 
 Les plus courantes sont les acciaccatures, qui doivent se jouer très
 vite, et qui s'écrivent sous forme d'une petite note barrée (sur la
@@ -4687,10 +4753,6 @@ Morceaux choisis :
 @cindex musique non mesurée
 @cindex non mesurée, musique
 
-@funindex currentBarNumber
-@funindex measurePosition
-@funindex measureLength
-@funindex Timing
 
 Le temps est administré par le @code{Timing_translator}, qui réside en
 principe dans le contexte @code{Score}. Un alias, @code{Timing}, sera
@@ -4706,43 +4768,50 @@ minutage de la partition.
 
 @table @code
 @item currentBarNumber
+@funindex currentBarNumber
+
 Le numéro de la mesure en cours.  Un exemple d'utilisation se trouve au
 chapitre @ref{Bar numbers}.
 
 @item measureLength
+@funindex measureLength
+
 La longueur de la mesure, dans la métrique en cours. Pour une mesure à
 4/4, elle est de 1, et de 3/4 pour une mesure à 6/8. Sa valeur détermine
 où peut s'insérer une barre et comment seront générées les ligatures
 automatiques.
 
 @item measurePosition
-Le moment où l'on en est dans la mesure en cours. Cette quantité est
-remise à 0 dès lors qu'on dépasse @code{measureLength} ; la variable
-@code{currentBarNumber} est alors incrémentée.
+@funindex measurePosition
+Cette propriété interne enregistre le moment où l'on en est dans la
+mesure en cours. Cette quantité est remise à 0 dès lors qu'on dépasse
+@code{measureLength} ; la variable @code{currentBarNumber} est alors
+incrémentée. @code{measurePosition} ne devrait pas être déterminée
+explicitement ; on peut la modifier par la commande @code{\partial}.
 
 @item timing
+@funindex timing
 Lorsqu'on lui assigne la valeur @code{#t}, les valeurs ci-dessus
-mentionnées sont mises à jour à chaque pas. Fixée à @code{#f}, le
-graveur restera indéfiniment dans la mesure en cours.
+mentionnées sont mises à jour à chaque pas. Fixée à @code{#f}, leur
+valeur estera figée indéfiniment.
 
 @end table
 
-Le calage peut être modifié en réglant explicitement l'une de ces
-variables. Dans l'exemple qui suit, nous réglons la métrique à 4/4, tout
-en fixant @code{measureLength} à 5/4. Arrivé à 4/8 dans la troisième
-mesure, nous avançons de 1/8, en assignant 5/8 à @code{measurePosition},
-raccourcissant donc cette mesure d'une croche. La barre de mesure
-suivante tombera donc à 9/8 et non à 5/8.
+Le calage peut être modifié en réglant l'une de ces variables. Dans
+l'exemple qui suit, nous réglons la métrique à 4/4, tout en fixant
+@code{measureLength} à 5/4. Arrivé à 4/8 dans la troisième mesure, la
+commande @code{\partial} nous avance pour laisser 5/8, raccourcissant
+donc cette mesure d'une croche. La barre de mesure suivante tombera donc
+à 9/8 et non à 5/8.
 
 @lilypond[quote,verbatim]
-\new Voice \relative {
+\fixed c' {
+  \override Score.BarNumber.break-visibility = #all-visible
   \set Timing.measureLength = #5/4
-  c'1 c4 |
-  c1 c4 |
-  c4 c
-  \set Timing.measurePosition = \musicLength 8*5
-  b4 b b8 |
-  c4 c1 |
+  c1 c4
+  c1 c4
+  c4 c \partial 8*5 b4 b b8
+  c4 c1
 }
 @end lilypond
 

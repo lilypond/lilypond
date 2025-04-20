@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: c7b4f1f1b3d1d7e67a454758928d8e972cf0884c
+   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -93,8 +93,9 @@ Morceaux choisis :
 @funindex \romanStringNumbers
 
 @cindex indication d'archet
-@cindex poussé, indication d'archet
-@cindex tiré, indication d'archet
+@cindex archet, indication
+@cindex @sortas{poussé} « poussé », indication d'archet
+@cindex @sortas{tiré} « tiré », indication d'archet
 @cindex indication de corde à vide
 @cindex corde à vide, indication
 @cindex corde, numéro
@@ -142,9 +143,6 @@ Manuel de notation :
 @node Harmonics
 @unnumberedsubsubsec Harmoniques
 
-@funindex \harmonic
-
-@noindent
 @subsubsubheading Harmoniques naturels
 
 @cindex harmonique naturel
@@ -178,11 +176,12 @@ harmonique :
 d''2^\flageolet d''_\flageolet
 @end lilypond
 
-@noindent
 @subsubsubheading Harmoniques artificiels
 
 @cindex harmoniques artificiels
 @cindex artificiels, harmoniques
+
+@funindex \harmonic
 
 Les harmoniques artificiels sont indiqués par une double tête de note :
 l'une normale, indique la note à pincer, et l'autre, en forme de

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 32cd4b7fa952f810c94a2296f3dad0fa85f0eb5d
+   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -521,19 +521,14 @@ bigMargin = \paper @{ top-margin = 10\cm @}
 @node File structure
 @subsection Structure de fichier
 
-@funindex \paper
-@funindex \midi
-@funindex \layout
-@funindex \header
-@funindex \score
-@funindex \book
-@funindex \bookpart
-
 Un fichier @code{.ly} peut contenir un certain nombre d'expressions de
 haut niveau. Les expressions de haut niveau sont les suivantes :
 
 @itemize
 @item
+@funindex \paper
+@funindex \midi
+@funindex \layout
 Une définition de sortie, comme @code{\paper}, @code{\midi} et
 @code{\layout}. Ces définitions, lorsqu'elles se trouvent à un niveau
 supérieur, s'appliqueront à l'intégralité de l'ouvrage. Si l'une de ces
@@ -549,6 +544,7 @@ Une expression Scheme pure, telle que
 @w{@code{#(ly:set-option 'point-and-click #f)}}.
 
 @item
+@funindex \header
 Un bloc @code{\header}, dont le contenu sera valide pour tout le
 fichier. Il comporte en général les valeurs par défaut des champs de
 titrage, tels le titre ou l'auteur entre autres, communs à tous les
@@ -556,6 +552,7 @@ blocs @code{\book} inclus dans le fichier -- voir @ref{Titles
 explained}.
 
 @item
+@funindex \score
 Un bloc @code{\score} pour la partition. Cette partition sera assemblée
 avec les autres partitions se trouvant au même niveau pour composer le
 @code{\book}. Vous pouvez modifier ce comportement à l'aide de la
@@ -565,6 +562,7 @@ par défaut est défini dans le fichier d'initialisation
 @file{../ly/declarations-init.ly}.
 
 @item
+@funindex \book
 Un bloc @code{\book} permet de regrouper naturellement plusieurs
 mouvements -- autrement dit plusieurs blocs @code{\score} -- dans un
 même document. Lorsqu'il y a plusieurs @code{\score}, LilyPond génère un
@@ -581,6 +579,7 @@ modifier ce comportement à l'aide de la variable
 est défini dans le fichier d'initialisation @file{../scm/lily.scm}.
 
 @item
+@funindex \bookpart
 Un bloc @code{\bookpart}. Un ouvrage peut se découper en plusieurs
 parties à l'aide de blocs @code{\bookpart}, aussi bien pour alléger le
 travail de l'algorithme de calcul des sauts de page, que si les réglages
@@ -628,10 +627,9 @@ Du texte sous forme de @emph{markup} comme les paroles d'un couplet
 De tels @emph{markups} seront imprimés là où ils apparaissent, avant,
 après ou entre les expressions musicales.
 
+@item
 @cindex variables
 @cindex identificateurs
-
-@item
 Une variable, ou identificateur, telle que
 @example
 toto = @{ c4 d e d @}
@@ -671,25 +669,29 @@ Voici trois éléments que vous pouvez placer à un niveau supérieur :
 Vous pouvez placer, n'importe où dans votre fichier, les instructions
 suivantes :
 
-@funindex \version
-@funindex \include
-@funindex \sourcefilename
-@funindex \sourcefileline
-@funindex %
-@funindex %@{ @dots{} %@}
-@cindex commentaire
-@cindex ligne de commentaire
-@cindex bloc de commentaire
-
 @itemize
 @item @code{\version}
+@funindex \version
+
 @item @code{\include}
+@funindex \include
+
 @item @code{\sourcefilename}
+@funindex \sourcefilename
+
 @item @code{\sourcefileline}
+@funindex \sourcefileline
+
 @item
+@funindex %
+@cindex commentaire, ligne
+@cindex ligne de commentaire
 Une ligne de commentaire, introduite par le signe @code{%}.
 
 @item
+@funindex %@{ @dots{} %@}
+@cindex commentaire, bloc
+@cindex bloc de commentaire
 Un bloc de commentaire, délimité par @code{%@{ @dots{} %@}}.
 
 @end itemize
@@ -1443,8 +1445,8 @@ fichiers d'initialisation :
 @node Creating output file metadata
 @subsection Création des métadonnées des fichiers de sortie
 
-@cindex PDF metadata
-@cindex MIDI metadata
+@cindex PDF, métadonnées
+@cindex MIDI, métadonnées
 @cindex métadonnées PDF
 @cindex métadonnées MIDI
 
@@ -2005,7 +2007,7 @@ sont trop nombreuses sur une même page.
 @cindex in-note
 
 Les notes en ligne fonctionnent comme les notes de bas de page en ceci
-qu'ils servent à annoter la musique, mais sont différents puisqu'ils
+qu'elles servent à annoter la musique, mais sont différents puisqu'elles
 apparaissent au-dessus ou au-dessous du système dans lequel se trouve
 l'objet auquel elles se rattachent.
 
@@ -2098,6 +2100,37 @@ positionnés. Bien que le numéro de page en question ne soit pas encore
 déterminé, LilyPond doit connaître les dimensions de ce @emph{markup}.
 Vous pouvez, lorsque l'ouvrage contiendra plus de dix pages, stipuler un
 emporte-pièce sur deux caractères -- soit @code{"00"}.
+
+Lorsque la taille du texte final diffère de l'emporte-pièce, il peut
+s'avérer utile de configurer son alignement horizontal par rapport à
+l'espace réservé, à l'aide de la propriété @code{x-align}. Le réglage
+par défaut est un alignement sur la droite.
+
+@lilypond[quote,verbatim]
+\markup {
+  \box
+    \page-ref #'foo "???" "?" " right-aligned (default)"
+}
+\markup {
+  \box
+    \override #`(x-align . ,LEFT)
+    \page-ref #'foo "???" "?" " left-aligned"
+}
+\markup {
+  \box
+    \override #'(x-align . -2.5)
+    \page-ref #'foo "???" "?" " left outside"
+}
+@end lilypond
+
+Dans cet exemple, l'emporte-pièce @samp{???} est plus large que le texte
+de remplacement @samp{?}. Le texte de remplacement est utilisé parce que
+le label @code{#'foo} n'existe pas.
+
+La propriété @code{x-align} peut prendre n'importe quel nombre. Les
+symboles prédéfinis @code{LEFT}, @code{CENTER} et @code{RIGHT}
+permettent d'aligner respectivement sur la gauche, au centre, et sur la
+droite de l'emporte-pièce.
 
 @predefined
 @funindex \label
@@ -3336,6 +3369,7 @@ simpleAccompaniment =
 @unnumberedsubsubsec Codage du texte
 
 @cindex UTF-8
+@cindex texte, codage
 
 LilyPond utilise le jeu de caractères défini par le consortium Unicode
 et la norme ISO/CEI 10646. Chaque caractère est identifié par un nom
@@ -3769,7 +3803,11 @@ Et ces même mesures avec les glyphes @emph{Feta} de LilyPond :
 Téléchargez puis extrayez les fichiers de fonte.
 
 @item
-Copiez les fichiers
+Copiez@footnote{Il est pour l'instant nécessaire de répéter ces
+opération à chaque installation d'une nouvelle version de LilyPond. Si
+vous lancez le binaire @command{lilypond} directement du dossier de
+construction, consultez @rcontrib{Replacing the notation fonts in
+development versions} pour de plus amples informations.} les fichiers
 
 @example
 gonville-11.otf
@@ -3785,12 +3823,10 @@ gonville-brace.otf
 
 @noindent
 dans le dossier
-@file{@dots{}/@/share/@/lilypond/@/current/@/fonts/@/otf} ou
 @file{@dots{}/@/share/@/lilypond/@/@var{X.Y.Z}/@/fonts/@/otf}.
 
 @item
 Si vous disposez des fichiers @file{gonville-*.svg}, copiez les dans
-@file{@dots{}/@/share/@/lilypond/@/current/@/fonts/@/svg} ou
 @file{@dots{}/@/share/@/lilypond/@/@var{X.Y.Z}/@/fonts/@/svg}.
 @end itemize
 
@@ -3837,10 +3873,8 @@ Si vous disposez d'autres fontes musicales telles que
 les utiliser de façon comparable à Gonville.
 
 Autrement dit, copiez les fichiers @file{@var{nomfonte}-*.otf} dans
-@file{@dots{}/@/share/@/lilypond/@/current/@/fonts/@/otf} ou
 @file{@dots{}/@/share/@/lilypond/@/@var{X.Y.Z}/@/fonts/@/otf}. Si vous
 disposez de fichiers @file{@var{nomfonte}-*@/.svg}, copiez les dans
-@file{@dots{}/@/share/@/lilypond/@/current/@/fonts/@/svg} ou
 @file{@dots{}/@/share/@/lilypond/@/@var{X.Y.Z}/@/fonts/@/svg}.
 
 Note : à ce jour, et pour fonctionner correctement, LilyPond requiert la
@@ -3903,7 +3937,8 @@ modulation,
 @item le rythme sous forme de durée de note, y compris les n-olets,
 @item les articulations « simples » comme staccato, staccatissimo,
 accent, marcato et portato,
-@item les changements de tempo indiqués par un @code{\tempo},
+@item les changements de tempo indiqués par un @code{\tempo}, y compris
+des valeurs métronomique sous forme de fraction,
 @item les liaisons de tenue,
 @item les tremolos, excepté ceux utilisant la syntaxe
 « @code{:}[@var{nombre}] ».
@@ -4031,6 +4066,7 @@ raison des propriétés MIDI, notamment l'instrument utilisé.
 @subsection Gestion des nuances en MIDI
 
 @cindex MIDI, gestion des nuances
+@cindex nuances et MIDI
 
 Le volume général de la sortie MIDI peut se définir, ainsi que ses
 modulations, en fonction des indications de nuance et les volumes
@@ -4045,6 +4081,7 @@ diminuendos auront une progression linéaire entre les extrêmes.
 @unnumberedsubsubsec Indication des nuances en MIDI
 
 @cindex MIDI, indications de nuance
+@cindex nuances et MIDI, indication
 
 Les indications de nuance, de @code{ppppp} à @code{fffff} -- y compris
 @code{mp}, @code{mf} et @code{sf} -- ont des valeurs prédéfinies. Ce
@@ -4079,6 +4116,7 @@ Référence des propriétés internes :
 @unnumberedsubsubsec Réglage du volume en MIDI
 
 @cindex MIDI, réglage du volume
+@cindex MIDI, égalisation
 
 Les valeurs extrêmes du volume MIDI des nuances se contrôlent à l'aide
 des propriétés @code{midiMinimumVolume} et @code{midiMaximumVolume} qui
@@ -4272,7 +4310,7 @@ début de portée peuvent se retrouver dédoublées dans la sortie MIDI.
 
 @cindex instrument, nom d'
 @cindex MIDI, instrument
-@funindex Staff.midiInstrument
+@funindex midiInstrument
 
 L'instrument MIDI est déterminé par la propriété @code{midiInstrument},
 au sein d'un contexte @code{Staff}.
@@ -4492,18 +4530,7 @@ peut être réglée sur @code{'instrument} comme ceci :
 @subsection Propriétés de contextes et effets MIDI
 
 @cindex effets MIDI
-@cindex pan, MIDI
-@cindex spatialisation (pan), MIDI
-@cindex stéréo MIDI, balance
-@cindex balance MIDI
-@cindex expression MIDI
-@cindex reverb MIDI
-@cindex chorus MIDI
-@funindex midiPanPosition
-@funindex midiBalance
-@funindex midiExpression
-@funindex midiReverbLevel
-@funindex midiChorusLevel
+@cindex MIDI, effets
 
 Les différentes propriétés de contexte qui suivent permettent
 d'appliquer différents effets MIDI aux notes contenues dans le canal
@@ -4522,6 +4549,9 @@ LilyPond dispose des propriétés de contexte suivantes :
 @table @code
 
 @item Staff.midiPanPosition
+@cindex pan, MIDI
+@cindex spatialisation (pan), MIDI
+@funindex midiPanPosition
 
 La spatialisation (@emph{pan position}) contrôle le positionnement d'un
 canal MIDI entre les sorties stéréo droite et gauche. Cette propriété de
@@ -4536,6 +4566,9 @@ droite d'un équipement stéréophonique.
 
 
 @item Staff.midiBalance
+@cindex stéréo MIDI, balance
+@cindex balance MIDI
+@funindex midiBalance
 
 La balance stéréo d'un canal MIDI. Tout comme la spatialisation, cette
 propriété de contexte prend en argument une valeur comprise entre -1.0
@@ -4544,6 +4577,8 @@ volume relatif envoyé aux deux haut-parleurs stéréo sans pour autant
 affecter la distribution des signaux stéréo.
 
 @item Staff.midiExpression
+@cindex expression MIDI
+@funindex midiExpression
 
 Le niveau d'expression, en tant que fraction du niveau maximum de volume
 disponible, à appliquer à un canal MIDI. Un périphérique MIDI combine le
@@ -4562,12 +4597,16 @@ Le niveau d'expression varie entre 0.0 (sans expression, autrement dit
 volume à zéro) et 1.0 (volume au maximum).
 
 @item Staff.midiReverbLevel
+@cindex reverb MIDI
+@funindex midiReverbLevel
 
 Le niveau de réverbération, en tant que fraction du niveau maximum
 disponible, à appliquer à un canal MIDI. Cette propriété prend en
 argument une valeur entre 0.0 (pas d'écho) et 1.0 (effet maximal).
 
 @item Staff.midiChorusLevel
+@cindex chorus MIDI
+@funindex midiChorusLevel
 
 Le niveau de chœur, en tant que fraction du niveau maximum disponible, à
 appliquer à un canal MIDI. Cette propriété prend en argument une valeur
@@ -4615,9 +4654,7 @@ nuances, articulations et rythme sont rendus en MIDI : le script
 @node The articulate script
 @unnumberedsubsubsec Le script @file{articulate}
 
-@cindex MIDI, instrument
-@cindex articulate, script
-@funindex Staff.midiInstrument
+@cindex @code{articulate.ly} script
 
 L'utilisation du script @code{articulate} se fait après avoir ajouté en
 tête de fichier la commande @code{\include} appropriée :
@@ -4668,8 +4705,7 @@ script @file{articulate}.}
 @node The swing script
 @unnumberedsubsubsec Le script @file{swing}
 
-@cindex swing, script
-@cindex swing.ly
+@cindex @code{swing.ly} script
 
 Le script @file{swing} procure des fonctions additionnelles qui
 permettent de jouer des durées égales sur un rythme inégal. L'exemple le
@@ -4684,18 +4720,16 @@ source :
 \include "swing.ly"
 @end example
 
-@funindex \tripletFeel
-@funindex \applySwing
-@funindex \applySwingWithOffset
-
 Le script fournit trois commandes :
 @itemize
 @item
+@funindex \tripletFeel
 @code{\tripletFeel} crée un @emph{swing} sur une base de triolet. Elle
 prend deux arguments : les durées à affecter (typiquement @code{8} pour
 des croches) et l'expression musicale sur laquelle l'appliquer.
 
 @item
+@funindex \applySwing
 @code{\applySwing} prend un argument supplémentaire avant l'expression
 musicale : une @emph{liste de pondération} de @var{n} nombres de ratio
 exprimant la manière dont doivent être jouées les notes régulières. Par
@@ -4721,6 +4755,7 @@ une impression de samba sur des double-croches peut s'obtenir ainsi :
 @end example
 
 @item
+@funindex \applySwingWithOffset
 @code{\applySwingWithOffset} ajoute quant à elle un autre argument entre
 la @emph{liste de pondération} et l'expression musicale : une durée de
 décalage. Cette commande devrait s'utiliser lorsque l'expression

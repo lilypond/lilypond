@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 772e0e24539737ac9cb88ee0b457af42dd065be7
+   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -38,24 +38,14 @@ l'intérieur même de la portée.
 @cindex taille des notes
 @cindex tête de note
 
-@funindex fontSize
-@funindex font-size
-@funindex magnification->font-size
-@funindex magstep
-@funindex \magnifyMusic
-@funindex \teeny
-@funindex \tiny
-@funindex \small
-@funindex \normalsize
-@funindex \large
-@funindex \huge
-
 @warning{@*
 Pour les tailles de police textuelle,
 @pxref{Selecting font and font size}.@*
 Pour la taille des portées, @pxref{Setting the staff size}.@*
 Pour les petites notes, @pxref{Formatting cue notes}.@*
 Pour les variantes, @pxref{Ossia staves}.}
+
+@funindex \magnifyMusic
 
 Le plus sûr moyen de régler la taille des éléments de notation sans
 modifier la taille de la portée consiste à utiliser la commande
@@ -83,10 +73,12 @@ La présence d'un @code{\override} dans cet exemple permet de contourner
 une bogue -- voir « Problèmes connus et avertissements » en fin de
 section.
 
+@funindex \normalsize
+
 Dans le cas de fusion d'une tête de note normale avec une autre de
 taille inférieure, la taille de la petite note peut nécessiter une
-réinitialisation -- à l'aide d'un @w{@samp{\once@tie{}\normalsize}} --
-de telle sorte que les hampes et altérations s'alignent correctement :
+réinitialisation -- à l'aide d'un @code{\once \normalsize} -- de telle
+sorte que les hampes et altérations s'alignent correctement :
 
 @c Chopin Prelude op.28 no.8
 @lilypond[verbatim,quote]
@@ -133,6 +125,8 @@ intervenir en complément d'une modification de la taille de portée --
 @subsubsubheading Redimmensionnement individuel d'objets de rendu
 @c VO Resizing individual layout objects
 
+@funindex font-size
+
 L'ajustement de la propriété @code{font-size} à l'aide des commandes
 @code{\tweak} ou @code{\override} permet de retailler un objet de rendu
 particulier :
@@ -150,6 +144,8 @@ particulier :
 }
 @end lilypond
 
+@funindex font-interface
+
 La valeur par défaut de @code{font-size} est mentionnée, pour chaque
 objet de rendu, dans la référence des propriétés internes. La propriété
 @code{font-size} ne peut intervenir que pour les objets qui utilisent
@@ -161,6 +157,8 @@ des polices, autrement dit ceux qui disposent de l'interface de rendu
 
 @subsubsubheading La propriété @code{fontSize}
 @c VO Understanding the @code{fontSize} property
+
+@funindex fontSize
 
 La propriété @code{fontSize} d'un contexte a pour effet de définir la
 taille proportionnelle de tout élément de notation basé sur un glyphe
@@ -189,6 +187,8 @@ doublement de la taille ; un pas de moins six la réduit de moitié.
 Chaque incrément correspond à une augmentation d'environ 12 % de la
 taille de la police.
 
+@funindex magnification->font-size
+
 La fonction Scheme @code{magnification->font-size} permet de
 s'affranchir de l'échelle logarithmique peu intuitive des unités de la
 propriété @code{font-size}. Ainsi, l'ajustement à 75 % de la notation
@@ -198,9 +198,10 @@ musicale par rapport à la taille de la portée peut se libeller :
 \set fontSize = #(magnification->font-size 0.75)
 @end example
 
-La fonction Scheme @code{magstep} quant à elle effectue
-l'inverse : elle convertit le nombre affecté à @code{font-size} en
-facteur d'échelle.
+@funindex magstep
+
+La fonction Scheme @code{magstep} quant à elle effectue l'inverse : elle
+convertit le nombre affecté à @code{font-size} en facteur d'échelle.
 
 La propriété @code{fontSize} affecte uniquement les éléments de notation
 reposant sur des glyphes, tels les têtes de note, altérations,
@@ -235,6 +236,13 @@ c''4-3
 c''4-3
 @end lilypond
 
+@funindex \teeny
+@funindex \tiny
+@funindex \small
+@funindex \normalsize
+@funindex \large
+@funindex \huge
+
 LilyPond dispose d'un certain nombre de raccourcis :
 
 @multitable @columnfractions .2 .4 .4
@@ -267,7 +275,6 @@ LilyPond dispose d'un certain nombre de raccourcis :
 @cindex standard, taille de note
 @cindex note, taille standard
 
-@funindex font-interface
 @funindex font-size
 
 Pour changer la taille des caractères, LilyPond met à l'échelle la fonte
@@ -436,7 +443,6 @@ Référence des propriétés internes :
 
 @cindex doigte, glissé
 @cindex glissé, doigté
-@funindex glide
 @funindex \glide
 
 En matière d'instrument à cordes, un doigt que l'on fait glisser
@@ -709,7 +715,6 @@ Référence des propriétés internes :
 @node Coloring objects
 @unnumberedsubsubsec Coloration d'objets
 
-@cindex objet en couleur
 @cindex couleur
 @cindex colorisation d'objet
 @cindex coloration d'objet
@@ -762,7 +767,7 @@ pour du PostScript ni du PDF. Dans l'exemple précédent, on peut voir à
 travers le silence dès lors qu'il est compilé avec le moteur SVG, comme
 expliqué dans @ref{Alternative output formats}.
 
-@cindex x11, couleur
+@cindex X11, couleur
 @funindex x11-color
 
 De manière différente, l'intégralité de la palette des couleurs
@@ -814,10 +819,10 @@ daltonisme ou non. Il est accessible sous le nom de
 \markup \with-color #(universal-color 'vermillion) vermillion
 @end lilypond
 
-@cindex couleur rgb
-@cindex couleur rvb
-@cindex rgb, couleur
-@cindex rvb, couleur
+@cindex couleur RGB
+@cindex couleur RVB
+@cindex RGB, couleur
+@cindex RVB, couleur
 
 @funindex rgb-color
 
@@ -855,8 +860,8 @@ Morceaux choisis :
 @rlsrnamed{Editorial annotations,Annotations éditoriales}.
 @endmorerefs
 
-@cindex x11, couleur
-@cindex couleur, note d'un accord
+@cindex X11, couleur
+@cindex couleur, notes d'un accord
 @cindex note colorisée dans un accord
 @cindex accord et couleur
 
@@ -1042,6 +1047,57 @@ ci-dessus permet alors de contourner le problème.
   c'1
 }
 @end lilypond
+
+
+@node Brackets for optional material
+@unnumberedsubsubsec Crochets de matériau optionel
+
+L'addition de matériau optionnel peut s'indiquer à l'aide de crochets
+englobat la portée.
+
+@lilypond[verbatim,quote]
+{
+  \startOptionalMaterial
+  c'1
+  \stopOptionalMaterial
+}
+@end lilypond
+
+Les positions de l'annotation que le crochet encadre peuvent se
+modifier. L'intervalle entre les extrémités est mesuré en espace de
+portée à partir de la ligne médiane.
+
+@lilypond[verbatim,quote]
+{
+  \tweak OptionalMaterialBracket.positions #'(-4 . 1)
+  \startOptionalMaterial
+  c'1
+  \once \override Staff.OptionalMaterialBracket.positions =
+  #'(-2 . 4)
+  \stopOptionalMaterial
+}
+@end lilypond
+
+@cindex matter, optional
+@cindex optional material
+@cindex optional passage
+@funindex \startOptionalMaterial
+@funindex \stopOptionalMaterial
+
+@predefined
+@code{\startOptionalMaterial},
+@code{\stopOptionalMaterial}.
+@endpredefined
+
+@morerefs
+Morceaux choisis :
+@rlsr{Editorial annotations}.
+
+Référence des propriétés internes :
+@rinternals{Optional_material_bracket_engraver},
+@rinternals{OptionalMaterialBracket},
+@rinternals{optional-material-bracket-interface}.
+@endmorerefs
 
 
 @node Parentheses
@@ -1339,11 +1395,11 @@ En voici un exemple :
 @end lilypond
 
 Vous disposez de deux fonctions musicales, @code{balloonGrobText} et
-@code{balloonText}.  @code{balloonGrobText} prend en argument l'objet
+@code{balloonText}. @code{balloonGrobText} prend en argument l'objet
 graphique à agrémenter et s'utilise comme @code{\once \override}.
 @code{balloonText}, quant à lui, s'utilise comme une simple articulation
 et fonctionne comme @code{\tweak} pour attacher du texte à l'une des
-notes d'un accord.  Les autres arguments sont le décalage et le texte de
+notes d'un accord. Les autres arguments sont le décalage et le texte de
 la bulle.
 
 Les info-bulles n'ont aucune influence sur l'espacement des notes ; on

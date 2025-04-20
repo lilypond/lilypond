@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 21521aa3ab6ece49d3e8ad34c11668c24af8a8fe
+    Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -244,12 +244,12 @@ lignes.
 @lilypond[quote,line-width=12.0\cm]
 nam = \lyricmode {
   cymc cyms cymr
-  hh hhc hho hhho hhp
+   hh hhc hho hhho hhp hhs
   cb hc bd sn ss
   tomh tommh tomml toml tomfh tomfl }
 mus = \drummode {
   cymc cyms cymr \break
-  hh hhc hho hhho hhp \break
+  hh hhc hho hhho hhp hhs \break
   cb hc bd sn ss \break
   tomh tommh tomml toml tomfh tomfl }
 \score {
@@ -285,12 +285,12 @@ notation s'est répandue au-delà de l'hexagone.
 @lilypond[quote,line-width=10.0\cm]
 nam = \lyricmode {
   cymc cyms cymr
-  hh hhc hho hhho hhp
+  hh hhc hho hhho hhp hhs
   cb hc bd sn ss
   tomh tommh tomml toml tomfh tomfl }
 mus = \drummode {
   cymc cyms cymr \break
-  hh hhc hho hhho hhp \break
+  hh hhc hho hhho hhp hhs \break
   cb hc bd sn ss \break
   tomh tommh tomml toml tomfh tomfl }
 \score {
@@ -321,12 +321,12 @@ dans son @emph{Guidelines for Drumset Notation}.
 @lilypond[quote,line-width=12.0\cm]
 nam = \lyricmode {
   cymc cymr cymra cymch
-  hh hhc hho hhho hhp
+  hh hhc hho hhho hhp hhs
   cb bd bda ss sn rb
   tomh tommh tomml toml tomfh tomfl }
 mus = \drummode {
   cymc cymr cymra cymch \break
-  hh hhc hho hhho hhp \break
+  hh hhc hho hhho hhp hhs \break
   cb bd bda ss sn rb \break
   tomh tommh tomml toml tomfh tomfl }
 \score {
@@ -493,8 +493,6 @@ Morceaux choisis :
 @unnumberedsubsubsec Personnalisation de portées de percussion
 
 @cindex percussions, personnalisation
-@funindex \halfopen
-@funindex \stopped
 @funindex drumStyleTable
 
 LilyPond offre la possibilité de construire son propre style de
@@ -507,16 +505,31 @@ contraire) et, enfin, le positionnement de la tête de note sur la
 portée. Cette liste devra alors être convertie en table de hachage à
 l'aide de la fonction @code{alist->hash-table}.
 
-@lilypond[quote,verbatim]
-#(define mydrums '(
-         (bassdrum        ()        #f         -1)
-         (snare           ()        #f         0)
-         (hihat           cross     #f         1)
-         (halfopenhihat   cross     halfopen   1)
-         (pedalhihat      xcircle   stopped    2)
-         (lowtom          diamond   #f         3)))
+L''entrée pour une articulation peut être soit un nom symbolique de
+script, soit une paire, auquel cas le premier élément est le nom
+symbolique du script et le second un indicateur de positionnement de ce
+script.
 
-up = \drummode { hh8 hh hhho hhho hhp4 hhp }
+[Dans l'exemple ci-dessous, notez bien l'utilisation de
+l'apostrophe inversée (@samp{`}) au début de l'expression Scheme au lieu
+de l'apostrophe normale (@samp{'}), ce qui permet de traiter
+correctement la virgule (@samp{,}) pour l'évaluation de l'élément qui
+précède.]
+
+@funindex \halfopen
+@funindex \stopped
+
+@lilypond[quote,verbatim]
+#(define mydrums `(
+         (bassdrum        ()        #f               -1)
+         (snare           ()        #f               0)
+         (hihat           cross     #f               1)
+         (halfopenhihat   cross     halfopen         1)
+         (pedalhihat      xcircle   stopped          2)
+         (splashhihat     xcircle   (open . ,DOWN)   2)
+         (lowtom          diamond   #f               3)))
+
+up = \drummode { hh8 hh hhho hhho hhp4 hhs }
 down = \drummode { bd4 sn bd toml8 toml }
 
 \new DrumStaff \with { drumStyleTable = #(alist->hash-table mydrums) }
