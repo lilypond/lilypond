@@ -131,6 +131,8 @@ current beam (if any) is finished according to the auto-beaming rules.")
 but it controls cautionary accidentals rather than normal ones.  Both
 lists are tried, and the one giving the most accidentals wins.  In
 case of draw, a normal accidental is typeset.")
+     (autoExtenders ,boolean? "Create lyric extenders automatically for
+syllables in melismata that are not followed by a hyphen.")
 
 
      (barCheckSynchronize ,boolean? "If true then reset

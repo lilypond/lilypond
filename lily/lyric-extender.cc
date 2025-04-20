@@ -23,6 +23,7 @@
 #include "system.hh"
 #include "item.hh"
 #include "warn.hh"
+#include "lily-imports.hh"
 #include "lookup.hh"
 #include "output-def.hh"
 #include "note-head.hh"
@@ -111,6 +112,19 @@ Lyric_extender::print (SCM smob)
   if (w < 1.5 * h)
     return SCM_EOL;
 
+  if (!heads.empty () && from_scm<bool> (Lily::unbroken_spanner_p (smob))
+      && from_scm<bool> (get_property (me, "auto-generated"))
+      && from_scm<bool> (get_property (me, "remove-short-autoextender")))
+    {
+      auto last_nodehead_x = heads.back ()->extent (common, X_AXIS)[LEFT];
+
+      if (last_nodehead_x < left_point)
+        {
+          me->suicide ();
+          return SCM_EOL;
+        }
+    }
+
   Stencil mol (
     Lookup::round_filled_box (Box (Interval (0, w), Interval (0, h)), 0.8 * h));
   mol.translate_axis (left_point - me->relative_coordinate (common, X_AXIS),
@@ -126,9 +140,11 @@ length of a melisma (a tied or slurred note).
 
                /* properties */
                R"(
+auto-generated
 heads
 left-padding
 next
+remove-short-autoextender
 right-padding
 thickness
                )");

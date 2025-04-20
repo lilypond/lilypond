@@ -155,6 +155,7 @@ extern Variable stencil_whiteout_box;
 extern Variable stencil_with_color;
 extern Variable symbol_list_p;
 extern Variable type_name;
+extern Variable unbroken_spanner_p;
 extern Variable unbroken_or_first_broken_spanner_p;
 extern Variable unbroken_or_last_broken_spanner_p;
 extern Variable volta_bracket_calc_hook_visibility;

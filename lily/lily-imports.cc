@@ -146,6 +146,7 @@ Variable stencil_whiteout ("stencil-whiteout");
 Variable stencil_with_color ("stencil-with-color");
 Variable symbol_list_p ("symbol-list?");
 Variable type_name ("type-name");
+Variable unbroken_spanner_p ("unbroken-spanner?");
 Variable
   unbroken_or_first_broken_spanner_p ("unbroken-or-first-broken-spanner?");
 Variable unbroken_or_last_broken_spanner_p ("unbroken-or-last-broken-spanner?");

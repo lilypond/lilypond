@@ -987,6 +987,9 @@ The property can also be set as a symbol for common behaviors:
 @code{#'any} to keep the layer alive with any other layer in the
 group; @code{#'above} or @code{#'below} to keep the layer alive with
 the context immediately before or after it, respectively.")
+     (remove-short-autoextender ,boolean? "If set, auto-generated
+unbroken lyric extenders are removed if the lyric syllable stretches
+up to the last contained note head.")
      (replacement-alist ,alist? "Alist of strings.
 The key is a string of the pattern to be replaced.  The value is a
 string of what should be displayed.  Useful for ligatures.")
@@ -1659,6 +1662,9 @@ used to create vertical skylines.")
      (adjacent-pure-heights ,pair? "A pair of vectors.  Used by a
 @code{VerticalAxisGroup} to cache the @code{Y-extent}s of different column
 ranges.")
+     (auto-generated ,boolean? "True if the grob was created by an
+automatic mechanism as opposed to an explicit event.  Used for lyric
+extenders.")
 
      (begin-of-line-visible ,boolean? "Set to make @code{ChordName} or
 @code{FretBoard} be visible only at beginning of line or at

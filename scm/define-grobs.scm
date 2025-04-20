@@ -2081,6 +2081,7 @@ into modern notation.  See also @iref{KievanLigature},
         (minimum-length . 1.5)
         (stencil . ,ly:lyric-extender::print)
         (thickness . 0.8) ; line-thickness
+        (remove-short-autoextender . #t)
         (meta . ((class . Spanner)
                  (interfaces . (lyric-extender-interface
                                 lyric-interface))
