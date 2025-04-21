@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+   Translation of GIT committish: 82e83c35506a69c4dca77a1d91debe6787038209
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1275,6 +1275,10 @@ and indents})
 
 @end itemize
 
+@noindent
+Les valeurs par défaut des variables ci-dessus sont récupérées du bloc
+@code{\paper}.
+
 Voici un exemple de bloc @code{\layout} :
 
 @example
@@ -1361,10 +1365,9 @@ Notre variable peut alors être utilisée au sein d'un autre bloc
 
 Un bloc @code{\layout} qui contient une variable comme ci-dessus ne
 recopie pas la configuration actuelle ; il utilise en fait le contenu de
-@code{layoutVariable} en tant que configuration de base pour les
-adaptations ultérieures, en conséquence de quoi toute modification
-intervenant entre la définition et l'utilisation de la variable sera
-perdue.
+@code{layoutVariable} en tant que configuration de base pour adaptations
+ultérieures, en conséquence de quoi toute modification intervenant entre
+la définition et l'utilisation de la variable sera perdue.
 
 Si @code{layoutVariable} est définie, ou rapatriée par un
 @code{\indude}, juste avant d'être utilisée, son contenu devient la
@@ -1373,11 +1376,11 @@ contient. Considérant l'exemple d'utilisation de @code{layoutVariable}
 ci-dessus, le bloc @code{\layout} final contiendra donc :
 
 @example
-  TextScript.padding = 1
-  TextScript.color = #magenta
-  Glissando.thickness = 1.5
-  NoteHead.font-size = 4
-  NoteHead.color = #red
+TextScript.padding = 1
+TextScript.color = #magenta
+Glissando.thickness = 1.5
+NoteHead.font-size = 4
+NoteHead.color = #red
 @end example
 
 @noindent
@@ -1387,8 +1390,8 @@ Cependant, si la variable avait été définie bien avant le premier bloc
 @code{\layout}, la configuration actuelle ne contiendrait que
 
 @example
-  NoteHead.font-size= 4 % (écrit dans la définition de la variable)
-  NoteHead.color = #red % (ajouté après l'utilisation de la variable)
+NoteHead.font-size= 4 % écrit dans la définition de la variable
+NoteHead.color = #red % ajouté après l'utilisation de la variable
 @end example
 
 Une gestion attentive des variables de @code{\layout} se révèle être un
