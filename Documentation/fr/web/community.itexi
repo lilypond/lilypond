@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 772e0e24539737ac9cb88ee0b457af42dd065be7
+   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -691,19 +691,39 @@ traduit@dots{}}
 
 @itemize
 @item
-@uref{../../input/regression/collated-files.html, Tests de régression}
-relatifs à ce niveau de mise à jour
-(@uref{../../input/regression/collated-files.pdf, version pdf}).
+@uref{../../input/regression/collated-files.html,
+      Tests de régression visuelle} :
+il s'agit des tests de régression relatifs à ce niveau de mise à jour et
+concernant les sorties visualisables
+(@uref{../../input/regression/collated-files.pdf, version PDF}).
 
 @item
-@uref{../../input/regression/musicxml/collated-files.html, Tests de MusicXML}
-relatifs à ce niveau de mise à jour
-(@uref{../../input/regression/musicxml/collated-files.pdf, version pdf}).
+@uref{../../input/regression/midi/collated-files.html,
+      Tests de regression MIDI} :
+il s'agit des tests de régression relatifs à ce niveau de mise à jour et
+concernant les sorties MIDI
+(@uref{../../input/regression/midi/collated-files.pdf, version PDF}).
 
 @item
-@uref{../../input/regression/abc2ly/collated-files.html, Test de abc2ly}
-relatifs à ce niveau de mise à jour
-(@uref{../../input/regression/abc2ly/collated-files.pdf, version pdf}).
+@uref{../../input/regression/other/collated-files.html,
+      Autres tests de régression} :
+il s'agit des tests de régression relatifs à ce niveau de mise à jour et
+sans relation avec une sortie visualisable
+(@uref{../../input/regression/other/collated-files.pdf, version PDF}).
+
+@item
+@uref{../../input/regression/musicxml/collated-files.html,
+      Tests de MusicXML} :
+il s'agit des tests de régression relatifs à ce niveau de mise à jour et
+concernant la notation MusicXML -- convertie par @command{musicxml2ly} --
+(@uref{../../input/regression/musicxml/collated-files.pdf, version PDF}).
+
+@item
+@uref{../../input/regression/abc2ly/collated-files.html,
+      Tests de ABC}
+il s'agit des tests de régression relatifs à ce niveau de mise à jour et
+concernant la notation ABC -- convertie par @command{abc2ly} --
+(@uref{../../input/regression/abc2ly/collated-files.pdf, version PDF}).
 @end itemize
 
 @end ifclear
@@ -715,6 +735,10 @@ relatifs à ce niveau de mise à jour
 @itemize
 @item @regtestDevel-fr (@regtestDevelPdf-fr{})
 
+@item @regtestDevelMidi-fr (@regtestDevelMidiPdf-fr{})
+
+@item @regtestDevelOther-fr (@regtestDevelOtherPdf-fr{})
+
 @item @regtestDevelXml-fr (@regtestDevelXmlPdf-fr{})
 
 @item @regtestDevelAbc-fr (@regtestDevelAbcPdf-fr{})
@@ -725,6 +749,10 @@ relatifs à ce niveau de mise à jour
 
 @itemize
 @item @regtestStable-fr (@regtestStablePdf-fr{})
+
+@item @regtestStableMidi-fr (@regtestStableMidiPdf-fr{})
+
+@item @regtestStableOther-fr (@regtestStableOtherPdf-fr{})
 
 @item @regtestStableXml-fr (@regtestStableXmlPdf-fr{})
 
