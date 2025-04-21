@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 7480498e00714a0aa46b6e9d615d9af663697b95
+%% Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
   texidocfr = "
 Les ligatures d'une succession de notes de durée inférieure à la double
 croche ne sont pas subdivisées par défaut. Autrement dit, tous les
@@ -12,7 +12,7 @@ Les propriétés @code{beamMinimumSubdivision} et
 @code{beamMaximumSubdivision} permettent de configurer les
 limites de la subdivision automatique des ligatures : l'intervalle
 rythmique minimum auquel subdiviser et le nombre de tronçons supprimés
-selon cet intervalle. Lorsque le nombre fourni à
+selon cet intervalle. Lorsque le nombre fourni en numérateur à
 @code{beamMaximumSubdivision} n'est pas une puissance de 2, la
 plus petite durée pour subdiviser sera de
 @code{beamMaximumSubdivision} divisé par une puissance de 2 tout

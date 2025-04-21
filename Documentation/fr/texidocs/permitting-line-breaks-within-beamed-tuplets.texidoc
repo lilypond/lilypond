@@ -1,8 +1,11 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
   texidocfr = "
-Cet exemple peu académique démontre comment il est possible d'insérer un
-saut de ligne dans un n-olet portant une ligature. Ces ligatures doivent
-toutefois être explicites.
+Ces exemples peu académiques démontrent comment il est possible d'insérer un
+saut de ligne dans un n-olet portant une ligature et qui ne sauraient se
+découper de manière exacte.
+
+Cette fonctionnalité n'est opérationnelle qu'avec des ligatures
+manuelles.
 "
 
   doctitlefr = "Saut de ligne au milieu d'un n-olet avec ligature"

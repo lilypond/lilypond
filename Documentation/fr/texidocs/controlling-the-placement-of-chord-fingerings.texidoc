@@ -1,10 +1,24 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
   texidocfr = "
-Le positionnement des doigtés peut être contrôlé de manière très
-précise. Afin que l'orientation soit prise en compte, il est nécessaire
-d'utiliser une syntaxe d'accord @code{<...>}, même s'il ne s'agit que
-d'une seule note. Le positionnement des numéros de corde et doigtés main
-droite se règle de manière analogue.
+
+Le positionnement des doigtés peut être contrôlé de manière très précise
+à l'aide de la propriété @code{fingeringOrientation}. Afin que
+l'orientation soit prise en compte, il est nécessaire d'utiliser une
+syntaxe d'accord @code{<...>}, même s'il ne s'agit que d'une seule note.
+Le positionnement des numéros de corde et doigtés main droite se règle
+de manière analogue à l'aide des propriétés
+@code{stringNumberOrientation} et @code{strokeFingerOrientation}.
+
+Ces propriétés peuvent prendre une liste de trois valeurs. Elles
+contrôlent si les informations doivent être placées au-dessus (en
+présence d'un @code{up}) ou au-dessous (en présence d'un @code{down}), à
+gauche (en présence d'un @code{left} ou à droite (en présence d'un
+@code{right}). Par contre, si un positionnement n'est pas mentionné,
+aucun doigté n'y figurera. LilyPond tient compte de ces contraintes et
+trouvera le meilleur emplacement pour le doigté des notes de l'accord
+qui suit. Bien entendu, @code{left} et @code{right} sont exclusifs l'un
+de l'autre -- les doigtés ne peuvent se placer que d'un seul côté.
+
 "
 
   doctitlefr = "Contrôler la position des doigtés dans un accord"

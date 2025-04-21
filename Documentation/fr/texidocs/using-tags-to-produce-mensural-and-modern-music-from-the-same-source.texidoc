@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
  texidocfr = "
 Grâce aux balises (@emph{tags}), il est possible d'utiliser une même
 source pour produire une partition de musique mensurale et moderne. Dans
@@ -11,6 +11,15 @@ les besoins, comme des « mesures de silence » (R1, R\\breve, etc.) en
 notation moderne mais des silences normaux (r1, r\\breve, etc.) en
 notation ancienne. L'action de convertir de la musique mensurale en
 version moderne est communément appelée « transcription ».
+
+L'appel à @code{c4.\\Be c8 c\\Am} revient au même que @code{c4.[ c8 c]}.
+N'éanmoins, il évite les avertissements si le début intervient sur une
+note dépourvue de ligature mais pourrait s'en voir affublée de par
+l'utilisation du @code{Completion_heads_engraver}.
+
+[La ligne légèrement plus courte dans la portée mensurale permet
+d'éviter que le glyphe de custode ne soit raccourci lors de la
+génération des images.]
 "
 
   doctitlefr = "Recours aux balises pour produire une partition ancienne et moderne à partir de la même source"
