@@ -42,7 +42,7 @@ make-one-stanza =
 
    (let* ((lyrics-name (string-append voicePrefix lyrics))
           (staff-name (string-append staffPrefix "Staff"))
-          (music-name (make-id voicePrefix "Music"))
+          (music-name (tkit-lookup voicePrefix "Music"))
           (assoc-voice-name (if music-name
                                voicePrefix
                                altVoicePrefix))
@@ -54,11 +54,11 @@ make-one-stanza =
                #}
                (make-music 'SequentialMusic 'void #t)))
           (stanza (if (member lyrics lyrics-postfixes)
-                        (make-id voicePrefix lyrics)
-                        (get-id lyrics))))
+                        (tkit-lookup voicePrefix lyrics)
+                        (tkit-lookup lyrics))))
    (if (and stanza  ;we need lyrics and at least one associated voice
             (or music-name
-                (make-id altVoicePrefix "Music")))
+                (tkit-lookup altVoicePrefix "Music")))
         #{
           \new Lyrics = #lyrics-name
           \with { #with-clause }

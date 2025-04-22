@@ -24,14 +24,15 @@
 
 % TODO: these may be more sensibly (re)defined as a scm file
 
-#(define (get-id str)
-   "Return the identifier with the value str"
-   (ly:parser-lookup (string->symbol str)))
+#(define (strings->symbol str . rest)
+  "Given one or more strings, concatenate them and return the result as a
+symbol."
+  (string->symbol (string-concatenate (cons str rest))))
 
-#(define (make-id a b)
-  "Return the identifier formed from concatenating the
-   two strings provided as arguments."
-   (get-id (string-append a b)))
+#(define (tkit-lookup str . rest)
+  "Given one or more strings, concatenate them, then return the value of the
+parser variable of that name."
+  (ly:parser-lookup (apply strings->symbol str rest)))
 
 #(define (cartesian a b)
   "Return a list formed from concatenating every element
@@ -123,7 +124,7 @@
       (filter ly:music?
               (map
                (lambda (x)
-                 (get-id x))
+                 (tkit-lookup x))
                all-music-names))))
    (set! have-music
          (ly:moment<?

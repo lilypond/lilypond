@@ -227,38 +227,38 @@
    (define (make-sym str1 str2)
      (string->symbol (string-append str1 str2)))
 
-   (if (not (make-id voice "OneInstrumentName"))
+   (if (not (tkit-lookup voice "OneInstrumentName"))
        (ly:parser-define!
          (make-sym voice "OneInstrumentName")
           (string-append voice " 1")))
-   (if (not (make-id voice "TwoInstrumentName"))
+   (if (not (tkit-lookup voice "TwoInstrumentName"))
        (ly:parser-define!
          (make-sym voice "TwoInstrumentName")
           (string-append voice " 2")))
-   (if (not (make-id voice "DividedInstrumentName"))
+   (if (not (tkit-lookup voice "DividedInstrumentName"))
        (ly:parser-define!
          (make-sym voice "DividedInstrumentName")
          #{ \markup \right-column \smallCaps {
-           #(if (make-id voice "OneMusic")
-                  (make-id voice "OneInstrumentName") "")
-           #(if (make-id voice "TwoMusic")
-                (make-id voice "TwoInstrumentName") "") } #} ))
-   (if (not (make-id voice "OneShortInstrumentName"))
+           #(if (tkit-lookup voice "OneMusic")
+                  (tkit-lookup voice "OneInstrumentName") "")
+           #(if (tkit-lookup voice "TwoMusic")
+                (tkit-lookup voice "TwoInstrumentName") "") } #} ))
+   (if (not (tkit-lookup voice "OneShortInstrumentName"))
        (ly:parser-define!
          (make-sym voice "OneShortInstrumentName")
          (string-append (substring voice 0 1) " 1")))
-   (if (not (make-id voice "TwoShortInstrumentName"))
+   (if (not (tkit-lookup voice "TwoShortInstrumentName"))
        (ly:parser-define!
          (make-sym voice "TwoShortInstrumentName")
          (string-append (substring voice 0 1) " 2")))
-   (if (not (make-id voice "DividedShortInstrumentName"))
+   (if (not (tkit-lookup voice "DividedShortInstrumentName"))
        (ly:parser-define!
          (make-sym voice "DividedShortInstrumentName")
          #{ \markup \right-column \smallCaps {
-           #(if (make-id voice "OneMusic")
-                (make-id voice "OneShortInstrumentName") "")
-           #(if (make-id voice "TwoMusic")
-                (make-id voice "TwoShortInstrumentName") "") } #} )))
+           #(if (tkit-lookup voice "OneMusic")
+                (tkit-lookup voice "OneShortInstrumentName") "")
+           #(if (tkit-lookup voice "TwoMusic")
+                (tkit-lookup voice "TwoShortInstrumentName") "") } #} )))
 
 #(set-default-instr-names! "Soprano")
 #(set-default-instr-names! "Alto")

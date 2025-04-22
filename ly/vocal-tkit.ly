@@ -29,7 +29,7 @@ make-one-voice-vocal-staff =
     name: the default prefix for instrument name and music
     clef: the clef for this staff "
 
-  (if (make-id name "Music")
+  (if (tkit-lookup name "Music")
       (make-simultaneous-music
        (list
         (make-one-voice-staff name clef "Up")
@@ -50,8 +50,8 @@ make-two-voice-vocal-staff =
    v1name: the prefix to the name of voice one
    v2name: the prefix to the name of voice two "
 
-  (define v1music (make-id v1name "Music"))
-  (define v2music (make-id v2name "Music"))
+  (define v1music (tkit-lookup v1name "Music"))
+  (define v2music (tkit-lookup v2name "Music"))
 
   (make-simultaneous-music
    (delq! #f
@@ -100,4 +100,3 @@ The number of stanzas is determined by the number of populated verse names.
         verses))
     (make-two-voice-vocal-staff
      lowerName lowerClef v3name v4name))))
-

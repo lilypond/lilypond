@@ -22,7 +22,7 @@
 
 make-voice =
 #(define-music-function (name) (voice-prefix?)
-   (define music (make-id name "Music"))
+   (define music (tkit-lookup name "Music"))
    (if music
        #{
          \new Voice = #(string-append name "Voice") <<
@@ -31,4 +31,3 @@ make-voice =
            #music
          >>
        #} ))
-

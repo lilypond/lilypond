@@ -45,10 +45,10 @@ make-one-voice-staff =
               clef: the clef for this staff
  dynamic-direction: dynamics are up, down or neither"
 
-   (define music (make-id name "Music"))
-   (define instrName (make-id name "InstrumentName"))
-   (define shortInstrName (make-id name "ShortInstrumentName"))
-   (define midiName (make-id name "MidiInstrument"))
+   (define music (tkit-lookup name "Music"))
+   (define instrName (tkit-lookup name "InstrumentName"))
+   (define shortInstrName (tkit-lookup name "ShortInstrumentName"))
+   (define midiName (tkit-lookup name "MidiInstrument"))
    (define dynUp (equal? dynamic-direction "Up"))
    (define dynDown (equal? dynamic-direction "Down"))
    (if music
@@ -94,16 +94,16 @@ make-two-voice-staff =
     v1name: the prefix to the name of voice one
     v2name: the prefix to the name of voice two "
 
-   (define v1music (make-id v1name "Music"))
-   (define v2music (make-id v2name "Music"))
-   (define instrName (make-id name "InstrumentName"))
-   (define v1InstrName (make-id v1name "InstrumentName"))
-   (define v2InstrName (make-id v2name "InstrumentName"))
-   (define shortInstrName (make-id name "ShortInstrumentName"))
-   (define v1ShortInstrName (make-id v1name "ShortInstrumentName"))
-   (define v2ShortInstrName (make-id v2name "ShortInstrumentName"))
-   (define v1midiName (make-id v1name "MidiInstrument"))
-   (define v2midiName (make-id v2name "MidiInstrument"))
+   (define v1music (tkit-lookup v1name "Music"))
+   (define v2music (tkit-lookup v2name "Music"))
+   (define instrName (tkit-lookup name "InstrumentName"))
+   (define v1InstrName (tkit-lookup v1name "InstrumentName"))
+   (define v2InstrName (tkit-lookup v2name "InstrumentName"))
+   (define shortInstrName (tkit-lookup name "ShortInstrumentName"))
+   (define v1ShortInstrName (tkit-lookup v1name "ShortInstrumentName"))
+   (define v2ShortInstrName (tkit-lookup v2name "ShortInstrumentName"))
+   (define v1midiName (tkit-lookup v1name "MidiInstrument"))
+   (define v2midiName (tkit-lookup v2name "MidiInstrument"))
    (if (or v1music v2music)
        #{
          <<
