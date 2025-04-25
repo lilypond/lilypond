@@ -185,6 +185,7 @@ namespace Syntax
 Scm_module module ("lily ly-syntax-constructors");
 
 Variable add_lyrics ("add-lyrics");
+Variable alternative ("alternative");
 Variable argument_error ("argument-error");
 Variable composed_markup_list ("composed-markup-list");
 Variable context_change ("context-change");
@@ -208,7 +209,6 @@ Variable property_unset ("property-unset");
 Variable repeat ("repeat");
 Variable repeat_alt ("repeat-alt");
 Variable repetition_chord ("repetition-chord");
-Variable sequential_alternative_music ("sequential-alternative-music");
 Variable sequential_music ("sequential-music");
 Variable simultaneous_music ("simultaneous-music");
 Variable tempo ("tempo");

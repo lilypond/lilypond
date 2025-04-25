@@ -138,10 +138,23 @@
 (define-public (unspecified-music)
   (ly:set-origin! (make-music 'Music)))
 
-(define-public (sequential-alternative-music mlist)
-  (ly:set-origin! (make-music
-                   'SequentialAlternativeMusic
-                   'elements mlist)))
+(define-public (alternative mus)
+   (cond
+    ((music-is-of-type? mus 'sequential-alternative-music)
+     mus)
+    ((music-is-of-type? mus 'sequential-music)
+     (ly:set-origin! (make-music 'SequentialAlternativeMusic mus)))
+    ;; Simultaneous alternative music could be considered for uses like
+    ;; second-time tacet (Behind Bars, p.235) and alternative rhythms (Behind
+    ;; Bars, p.449).  The big question is whether there is any default notation
+    ;; that \alternative could add to << >> and << \\ >> that would be generally
+    ;; regarded as useful.  Users' expectations might diverge too much to make
+    ;; anything worthwhile.
+    (else
+     ;; Graciously treat unspecified music as an empty sequence.
+     (when (not (unspecified-music? mus))
+       (ly:music-error mus (G_ "sequential music required")))
+     (ly:set-origin! (make-music 'SequentialAlternativeMusic)))))
 
 (define-public (sequential-music mlist)
   (ly:set-origin! (make-sequential-music mlist)))

@@ -1510,25 +1510,20 @@ repeated_music:
 	{
 		$$ = MAKE_SYNTAX (repeat, @$, $2, $3, $4);
 	}
-	| REPEAT simple_string unsigned_integer music sequential_alternative_music
+	| REPEAT simple_string unsigned_integer music alternative_music
 	{
 		$$ = MAKE_SYNTAX (repeat_alt, @$, $2, $3, $4, $5);
 	}
 	;
 
-sequential_alternative_music:
-	ALTERNATIVE braced_music_list {
-		$$ = MAKE_SYNTAX (sequential_alternative_music, @$, $2);
+alternative_music:
+	ALTERNATIVE basic_music {
+		$$ = MAKE_SYNTAX (alternative, @$, $2);
 	}
-	|
-	ALTERNATIVE MUSIC_IDENTIFIER { $$ = $2; }
 	;
 
 sequential_music:
-	sequential_alternative_music {
-		$$ = $1;
-	}
-	| SEQUENTIAL braced_music_list {
+	SEQUENTIAL braced_music_list {
 		$$ = MAKE_SYNTAX (sequential_music, @$, $2);
 	}
 	| braced_music_list {
@@ -1677,6 +1672,7 @@ new_lyrics:
 basic_music:
 	music_function_call
 	| repeated_music
+	| alternative_music
 	| music_bare
 	| LYRICSTO simple_string lyric_mode_music {
 		$$ = MAKE_SYNTAX (lyric_combine, @$, $2, SCM_EOL, $3);

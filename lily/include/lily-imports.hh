@@ -196,6 +196,7 @@ extern Scm_module module;
 typedef Module_variable<module> Variable;
 
 extern Variable add_lyrics;
+extern Variable alternative;
 extern Variable argument_error;
 extern Variable composed_markup_list;
 extern Variable context_change;
@@ -219,7 +220,6 @@ extern Variable property_unset;
 extern Variable repeat;
 extern Variable repeat_alt;
 extern Variable repetition_chord;
-extern Variable sequential_alternative_music;
 extern Variable sequential_music;
 extern Variable simultaneous_music;
 extern Variable tempo;
