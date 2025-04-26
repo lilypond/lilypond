@@ -818,8 +818,9 @@ must be inserted manually with a double underscore.
 In the last syllable of a word, melismata are sometimes indicated with
 a long horizontal line starting in the melisma syllable, and ending in
 the next one.  Such a line is called an extender line, and it is
-entered as @samp{ __ } (note the spaces before and after the two
-underscore characters).
+entered manually as @samp{ __ } (note the spaces before and after the
+two underscore characters).  It is also possible to create extender
+lines automatically by setting @code{autoExtenders} to @code{#t}.
 
 @warning{Melismata are indicated in the score with extender lines,
 which are entered as one double underscore; but short melismata can

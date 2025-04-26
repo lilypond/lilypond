@@ -1086,6 +1086,21 @@ the new inverted glyphs are named @code{scripts.dupbow} and
 }
 @end lilypond
 
+@item
+In lyrics aligned to a melody, extender lines can now be added
+automatically for words ending in a melisma.
+
+@lilypond[quote,verbatim]
+\relative {
+  d'4 e f4 g8( f
+  e4 d c2)
+}
+\addlyrics {
+  \set autoExtenders = ##t
+  A me -- lis -- ma.
+}
+@end lilypond
+
 @end itemize
 
 
