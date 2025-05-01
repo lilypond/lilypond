@@ -776,6 +776,11 @@ of ranges, represented as pairs.  For example:
       (cdr x)
       x))
 
+(define (last-or-identity x)
+  (if (pair? x)
+      (last x)
+      x))
+
 (define-public (ordered-cons a b)
   (cons (min a b)
         (max a b)))
@@ -860,6 +865,19 @@ right (@var{dir}=@code{+1})."
 
 (define-public (reverse-interval iv)
   (cons (cdr iv) (car iv)))
+
+(define-public (fill-integer-interval iv)
+  "Return a new list based upon @var{iv}, supposed to be an ordered interval of
+numbers.  This new list contains the interval bounds and every integer between
+them."
+;; Example:
+;; (fill-integer-interval '(-3 . 2)) -> '(-3 -2 -1 0 1 2)
+
+  (if (and (integer? (car iv)) (integer? (cdr iv)))
+      (iota (1+ (- (cdr iv) (car iv))) (car iv) 1)
+      (begin
+        (ly:warning "Interval ~a needs integer bounds, returning unchanged" iv)
+        iv)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; coordinates

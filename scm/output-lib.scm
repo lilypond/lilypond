@@ -4003,3 +4003,114 @@ for measure division ~a")
         ;; prefatory matter of a staff) as the horizontal starting position
         ;; of a broken bracket.
         (cons (- (cdr extent)) 0))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; ledger-lines
+
+(define-public (closest-staff-line staff-symbol nhd-staff-pos)
+  "Return the line-position of @var{staff-symbol} which is closest to
+@var{nhd-staff-pos}."
+  (let* ((staff-symbol-line-positions
+           (ly:grob-property staff-symbol 'line-positions)))
+    (fold-right
+      (lambda (x y)
+        (if (<= (abs (- (car-or-identity x) nhd-staff-pos))
+                (abs (- (car-or-identity y) nhd-staff-pos)))
+            x
+            y))
+      +inf.0
+      staff-symbol-line-positions)))
+
+(define-public (calc-pattern-element pattern-list factor)
+  "First and last relevant value of the probably nested number-list
+@var{pattern-list}, supposed to be a sorted list,  are used to determine how to
+scale.  @var{factor} is the multiplier for the found value.  The returned new
+list drops the first element of @var{pattern-list}."
+  (let* ((relevant-first-elt (car-or-identity (car pattern-list)))
+         (relevant-last-elt (car-or-identity (last pattern-list)))
+         (covered (- relevant-last-elt relevant-first-elt)))
+    (map
+      (lambda (x)
+        (if (pair? x)
+            (map (lambda (y) (+ y (* factor covered))) x)
+            (+ x (* factor covered))))
+      (cdr pattern-list))))
+
+(define-public
+  (ledger-lines::positions-from-staff-symbol staff-symbol staff-pos)
+  "Reading properties from @var{staff-symbol} calculate positions of
+ledger-lines for grobs with @code{'staff-position} @var{staff-pos}."
+  (let* ((staff-symbol-ledger-positions
+           ;; If StaffSymbol.ledger-positions is not set fall back to '(0 2)
+           ;; getting default positions.
+           ;; NB user input may not be sorted
+           (ly:grob-property staff-symbol 'ledger-positions '(0 2)))
+         (ledger-extra
+           (ly:grob-property staff-symbol 'ledger-extra 0))
+         (staff-line-pos
+           (closest-staff-line staff-symbol staff-pos))
+         (dist (- staff-pos staff-line-pos))
+         (dir (sign dist))
+         (stripped-down-pos-list
+           (map car-or-identity staff-symbol-ledger-positions))
+         (min-pos
+           (apply min stripped-down-pos-list))
+         (max-pos
+           (apply max stripped-down-pos-list))
+         (cycle (- max-pos min-pos))
+         (min-max-ledger-proc
+           (lambda (pos) (floor (/ (- (+ pos (* 0.5 dir)) min-pos) cycle))))
+         (modified-pos (+ staff-pos (* ledger-extra dir)))
+         (init-ledgers
+           (ordered-cons
+             (min-max-ledger-proc modified-pos)
+             (min-max-ledger-proc staff-line-pos)))
+         (delete-adjacent-duplicates
+           (lambda (lst)
+             (if (pair? lst)
+                 (fold-right
+                   (lambda (elem ret)
+                     (if (equal? elem (first ret))
+                         ret
+                         (cons elem ret)))
+                   (list (last lst))
+                   lst)
+                 lst)))
+         (calculated-ledgers
+           (if (> (abs dist) 0.5)
+               (append-map
+                 (lambda (x)
+                   (let ((current-pattern
+                          (calc-pattern-element
+                            staff-symbol-ledger-positions x)))
+                     ;; Remove unwanted ledgers.
+                     (remove
+                       (lambda (y)
+                         (cond
+                           ((= (abs staff-pos)
+                               (- (abs staff-line-pos) (abs ledger-extra)))
+                             #t)
+                           ((and (negative? ledger-extra)
+                                 (>= (abs ledger-extra) (abs dist)))
+                             (if (<= dist 0)
+                                 (or
+                                   (>= (car-or-identity y) modified-pos)
+                                   (< (last-or-identity y) staff-line-pos))
+                                 (or
+                                   (<= (last-or-identity y) modified-pos)
+                                   (> (car-or-identity y) staff-line-pos))))
+                           ((<= dist 0)
+                             (or
+                               (< (last-or-identity y) modified-pos)
+                               (>= (car-or-identity y) staff-line-pos)))
+                           ((> dist 0)
+                             (or
+                               (> (car-or-identity y) modified-pos)
+                               (<= (last-or-identity y) staff-line-pos)))
+                           (else #f)))
+                       current-pattern)))
+                 (fill-integer-interval init-ledgers))
+               '())))
+    ;; Unnest, sort and delete duplicates
+    (delete-adjacent-duplicates (sort (flatten-list calculated-ledgers) <))))
