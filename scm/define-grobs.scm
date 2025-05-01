@@ -1142,17 +1142,19 @@ properties if automatic part combining is active.")))))
         (break-align-symbol . custos)
         (break-visibility . ,end-of-line-visible)
         (neutral-direction . ,DOWN)
+        (no-ledgers . #f)
         (non-musical . #t)
         (space-alist . (
                         (first-note . (minimum-fixed-space . 0.0))
                         (right-edge . (extra-space . 0.1))))
-        (stencil . ,ly:custos::print)
+        (stencil . ,custos::print)
         (style . vaticana)
         (Y-offset . ,staff-symbol-referencer::callback)
         (meta . ((class . Item)
                  (interfaces  . (break-aligned-interface
                                  custos-interface
                                  font-interface
+                                 ledgered-custos-interface
                                  staff-symbol-referencer-interface))
                  (description . "A custos, mainly used in older
 notation like Gregorian chant.")))))

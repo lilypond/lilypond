@@ -18,17 +18,17 @@
 
   \override Staff.Custos.style = #'hufnagel
   c'1^"hufnagel"
-  \break < d' a' f''>1
+  \break < a d' a' f'' a''>1
 
   \override Staff.Custos.style = #'medicaea
   c'1^"medicaea"
-  \break < d' a' f''>1
+  \break < a d' a' f'' a''>1
 
   \override Staff.Custos.style = #'vaticana
   c'1^"vaticana"
-  \break < d' a' f''>1
+  \break < a d' a' f'' a''>1
 
   \override Staff.Custos.style = #'mensural
   c'1^"mensural"
-  \break < d' a' f''>1
+  \break < a d' a' f'' a''>1
 }

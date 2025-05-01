@@ -4104,3 +4104,63 @@ ledger-lines for grobs with @code{'staff-position} @var{staff-pos}."
                '())))
     ;; Unnest, sort and delete duplicates
     (delete-adjacent-duplicates (sort (flatten-list calculated-ledgers) <))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; custos
+
+(define-public custos::print
+  (lambda (grob)
+   (let* ((no-ledgers? (ly:grob-property grob 'no-ledgers #f))
+          (stil (ly:custos::print grob)))
+     (if no-ledgers?
+         stil
+         (let* ((stil-ext (ly:stencil-extent stil X))
+                (style (ly:grob-property grob 'style))
+                (staff-symbol (ly:grob-object grob 'staff-symbol))
+                (staff-space (ly:staff-symbol-staff-space grob))
+                ;; calculate thickness of ledger lines
+                (staff-line-thick (ly:staff-symbol-line-thickness grob))
+                (ledger-line-thickness-prop
+                  (ly:grob-property staff-symbol 'ledger-line-thickness))
+                (half-ledger-line-thick
+                  (/
+                    (+
+                       (* (car ledger-line-thickness-prop)
+                          staff-line-thick)
+                       (* (cdr ledger-line-thickness-prop)
+                          staff-space))
+                    2))
+                (line-positions
+                  (ly:grob-property staff-symbol 'line-positions))
+                (staff-pos (ly:grob-property grob 'staff-position))
+                (ledger-line-positions
+                  (ledger-lines::positions-from-staff-symbol
+                    staff-symbol staff-pos))
+                (length-fraction
+                  (ly:grob-property
+                    grob 'length-fraction (if (eq? style 'mensural) 01.5 2.2)))
+                (single-ledger
+                  (ly:round-filled-box
+                    (interval-scale
+                      (symmetric-interval (interval-center stil-ext))
+                      length-fraction)
+                    (cons
+                      (- half-ledger-line-thick)
+                      half-ledger-line-thick)
+                    (* half-ledger-line-thick 2)))
+                (fake-ledgers
+                  (map
+                    (lambda (pos)
+                      (ly:stencil-translate
+                        (ly:make-stencil
+                          (ly:stencil-expr single-ledger)
+                          '(0 . 0)
+                          (cons
+                            (- half-ledger-line-thick)
+                            half-ledger-line-thick))
+                        (cons
+                          (+ (interval-center stil-ext))
+                          (/ (* (- pos staff-pos) staff-space) 2))))
+                    ledger-line-positions)))
+             (apply ly:stencil-add stil fake-ledgers))))))

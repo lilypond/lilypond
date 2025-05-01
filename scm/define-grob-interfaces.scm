@@ -416,6 +416,11 @@ accidentals)."
  '())
 
 (ly:add-interface
+ 'ledgered-custos-interface
+ "A custos.  It may need ledger lines."
+ '(length-fraction no-ledgers))
+
+(ly:add-interface
  'ligature-head-interface
  "A note head that can become part of a ligature."
  '())
