@@ -387,7 +387,7 @@ of music is skipped."
  'horizontal-script-interface
  "Script placed horizontally left or right from a @code{NoteHead}.  It may need
 ledger lines."
- '(length-fraction no-ledgers))
+ '(ledger-positions length-fraction no-ledgers))
 
 (ly:add-interface
  'inline-accidental-interface

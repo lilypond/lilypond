@@ -1900,7 +1900,7 @@ some offset from zero in y-axis direction."
       (let* ((head (ly:grob-parent grob Y)))
         (if (grob::has-interface head 'note-head-interface)
             (let ((head-staff-pos (ly:grob-property head 'staff-position)))
-              (- head-staff-pos (abs val)))
+              (+ head-staff-pos val))
             0))
       #f))
 
@@ -2009,22 +2009,12 @@ As a last resort @code{CENTER} is returned."
                ;; calculate vertical positions of ledger lines
                (line-positions
                  (ly:grob-property staff-symbol 'line-positions))
-               (even-script-pos
-                 (cond
-                   ((even? script-staff-pos) script-staff-pos)
-                   ((negative? script-staff-pos) (1+ script-staff-pos))
-                   ((positive? script-staff-pos) (1- script-staff-pos))
-                   (else 0)))
                (ledger-line-positions
-                 (remove
-                   (lambda (i)
-                     (or (odd? i)
-                         (if (positive? script-staff-pos)
-                             (<= i (apply max line-positions))
-                             (>= i (apply min line-positions)))))
-                   (map
-                     (lambda (x) (* x (sign script-staff-pos)))
-                     (iota (abs even-script-pos) 1 1))))
+                 (or
+                   (ly:grob-property grob 'ledger-positions #f)
+                   (ly:grob-property par-y 'ledger-positions #f)
+                   (ledger-lines::positions-from-staff-symbol
+                     staff-symbol script-staff-pos)))
                (length-fraction
                  (ly:grob-property grob 'length-fraction 0))
                ;; create ledger line stencils
