@@ -1154,7 +1154,7 @@ properties if automatic part combining is active.")))))
                  (interfaces  . (break-aligned-interface
                                  custos-interface
                                  font-interface
-                                 ledgered-custos-interface
+                                 ledgered-grob-interface
                                  staff-symbol-referencer-interface))
                  (description . "A custos, mainly used in older
 notation like Gregorian chant.")))))
@@ -2908,7 +2908,7 @@ collisions of different voices.  See also
         (Y-offset . ,script-interface::calc-y-offset)
         (meta . ((class . Item)
                  (interfaces . (font-interface
-                                horizontal-script-interface
+                                ledgered-grob-interface
                                 outside-staff-interface
                                 script-interface
                                 self-alignment-interface

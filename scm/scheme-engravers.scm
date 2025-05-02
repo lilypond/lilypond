@@ -2301,8 +2301,8 @@ adapted for typesetting within a chord grid.")))
           ;; NB 'script-interface is currently used in
           ;; AccidentalSuggestion, CaesuraScript, DynamicText,
           ;; MultiMeasureRestScript and Script, thus we use
-          ;; 'horizontal-script-interface.
-          ((horizontal-script-interface this-engraver grob source-engraver)
+          ;; 'ledgered-grob-interface (used for Script and Custos).
+          ((ledgered-grob-interface this-engraver grob source-engraver)
             (set! raw-scripts (cons grob raw-scripts)))
           ((script-column-interface this-engraver grob source-engraver)
             (when (eq? (grob::name grob) 'ScriptRow)
@@ -2321,7 +2321,9 @@ adapted for typesetting within a chord grid.")))
           (let ((scripts
                  ;; late filtration supports \tweak
                  (filter
-                   (lambda (sc) (eqv? (ly:grob-property sc 'side-axis) X))
+                   (lambda (sc)
+                     (and (grob::has-interface sc 'script-interface)
+                          (eqv? (ly:grob-property sc 'side-axis) X)))
                    raw-scripts)))
             ;; Proceed only if script-grobs with side-axis X are found
             (when (pair? scripts)

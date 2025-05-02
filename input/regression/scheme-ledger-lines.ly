@@ -1,10 +1,10 @@
 \version "2.25.26"
 
 \header {
-texidoc = "Three lines with: default ledgers, ledgers from
+  texidoc = "Three lines with: default ledgers, ledgers from
 @code{NoteHead.ledger-positions} and from
 @code{StaffSymbol.ledger-positions-function}.  The latter two internally use
-@code{ledger-lines::positions-from-staff-symbol}.  All three lines should print
+@code{ledger-lines::positions-from-ledgered-grob}.  All three lines should print
 identically."
 }
 
@@ -16,7 +16,7 @@ identically."
              (ly:grob-property staff-symbol 'ledger-positions '(0 2))))
       (if (pair? staff-symbol-ledger-positions)
           (let ((l-lines
-                  (ledger-lines::positions-from-staff-symbol
+                  (ledger-lines::positions-from-ledgered-grob
                     staff-symbol staff-pos))
                 (staff-symbol-line-positions
                   (ly:grob-property staff-symbol 'line-positions)))
@@ -29,7 +29,7 @@ identically."
           '()))))
 
 %% There are infinite possibilities combining 'ledger-extra, 'line-positions and
-%% 'ledger-positions. Here some possibilities.
+%% 'ledger-positions. Here are some examples.
 #(define ledger-pattern
 ;  '(0 (2 3 4))
 ;  '(0 1)
@@ -62,11 +62,11 @@ testNotes = {
 
 lpf =
  \override Staff.StaffSymbol.ledger-positions-function =
-   #'(lambda (staff-symbol pos)
+   #'(lambda (grob pos)
        (lset-difference
          =
-         (ledger-lines::positions-from-staff-symbol staff-symbol pos)
-         (ly:grob-property staff-symbol 'line-positions)))
+         (ledger-lines::positions-from-ledgered-grob grob pos)
+         (ly:grob-property grob 'line-positions)))
 
 
 m = {

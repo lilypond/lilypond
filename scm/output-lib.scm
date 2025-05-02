@@ -2013,8 +2013,8 @@ As a last resort @code{CENTER} is returned."
                  (or
                    (ly:grob-property grob 'ledger-positions #f)
                    (ly:grob-property par-y 'ledger-positions #f)
-                   (ledger-lines::positions-from-staff-symbol
-                     staff-symbol script-staff-pos)))
+                   (ledger-lines::positions-from-ledgered-grob
+                     grob script-staff-pos)))
                (length-fraction
                  (ly:grob-property grob 'length-fraction 0))
                ;; create ledger line stencils
@@ -4013,7 +4013,7 @@ for measure division ~a")
       staff-symbol-line-positions)))
 
 (define-public (calc-pattern-element pattern-list factor)
-  "First and last relevant value of the probably nested number-list
+  "First and last relevant value of the probably nested number list
 @var{pattern-list}, supposed to be a sorted list,  are used to determine how to
 scale.  @var{factor} is the multiplier for the found value.  The returned new
 list drops the first element of @var{pattern-list}."
@@ -4028,16 +4028,21 @@ list drops the first element of @var{pattern-list}."
       (cdr pattern-list))))
 
 (define-public
-  (ledger-lines::positions-from-staff-symbol staff-symbol staff-pos)
-  "Reading properties from @var{staff-symbol} calculate positions of
-ledger-lines for grobs with @code{'staff-position} @var{staff-pos}."
-  (let* ((staff-symbol-ledger-positions
+  (ledger-lines::positions-from-ledgered-grob ledgered-grob staff-pos)
+  "Reading properties from @code{StaffSymbol}, calculate positions of ledger
+lines for grobs with @code{'staff-position} @var{staff-pos}.
+@code{'ledger-extra} may be taken from @var{ledgered-grob}."
+  (let* ((staff-symbol (ly:grob-object ledgered-grob 'staff-symbol))
+         (staff-symbol-ledger-positions
            ;; If StaffSymbol.ledger-positions is not set fall back to '(0 2)
            ;; getting default positions.
            ;; NB user input may not be sorted
            (ly:grob-property staff-symbol 'ledger-positions '(0 2)))
          (ledger-extra
-           (ly:grob-property staff-symbol 'ledger-extra 0))
+           (or
+             (ly:grob-property ledgered-grob 'ledger-extra #f)
+             (ly:grob-property staff-symbol 'ledger-extra #f)
+             0))
          (staff-line-pos
            (closest-staff-line staff-symbol staff-pos))
          (dist (- staff-pos staff-line-pos))
@@ -4135,8 +4140,8 @@ ledger-lines for grobs with @code{'staff-position} @var{staff-pos}."
                   (ly:grob-property staff-symbol 'line-positions))
                 (staff-pos (ly:grob-property grob 'staff-position))
                 (ledger-line-positions
-                  (ledger-lines::positions-from-staff-symbol
-                    staff-symbol staff-pos))
+                  (ledger-lines::positions-from-ledgered-grob
+                    grob staff-pos))
                 (length-fraction
                   (ly:grob-property
                     grob 'length-fraction (if (eq? style 'mensural) 01.5 2.2)))

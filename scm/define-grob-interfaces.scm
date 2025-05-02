@@ -384,12 +384,6 @@ of music is skipped."
  '(bracket columns))
 
 (ly:add-interface
- 'horizontal-script-interface
- "Script placed horizontally left or right from a @code{NoteHead}.  It may need
-ledger lines."
- '(ledger-positions length-fraction no-ledgers))
-
-(ly:add-interface
  'inline-accidental-interface
  "An inlined accidental (i.e., normal accidentals, cautionary
 accidentals)."
@@ -416,9 +410,10 @@ accidentals)."
  '())
 
 (ly:add-interface
- 'ledgered-custos-interface
- "A custos.  It may need ledger lines."
- '(length-fraction no-ledgers))
+ 'ledgered-grob-interface
+ ;; NoteHead gets the ledger lines from StaffSymbol, thus not listed.
+ "A grob with possible ledger lines, currently @code{Script} and @code{Custos}."
+ '(ledger-extra ledger-positions length-fraction no-ledgers))
 
 (ly:add-interface
  'ligature-head-interface

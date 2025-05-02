@@ -5,7 +5,8 @@
 @code{no-ledgers}.  The thickness is taken from the relevant properties of
 @code{StaffSymbol}.
 The @code{length-fraction} may be set for the @code{Script} grob itself.
-Works with unusual settings as well."
+Non-standard settings of @code{StaffSymbol@/.line-positions} and
+@code{StaffSymbol@/.ledger-positions} are also supported."
 }
 
 {
