@@ -25,6 +25,7 @@
 #include "engraver.hh"
 #include "grob-properties.hh"
 #include "item.hh"
+#include "international.hh"
 #include "rest.hh"
 #include "spanner.hh"
 #include "stream-event.hh"
@@ -55,6 +56,7 @@ protected:
   void acknowledge_breathing_sign (Grob_info);
   void acknowledge_stem (Grob_info_t<Item>);
   void listen_beam_forbid (Stream_event *);
+  void listen_beam_break (Stream_event *);
 
   Moment beaming_measure_position ()
   {
@@ -76,8 +78,11 @@ private:
   void typeset_beam ();
 
   Stream_event *forbid_ = nullptr;
+  Stream_event *break_ = nullptr;
   Moment measure_position_at_start_of_timestep_;
   bool force_end_ = false;
+  bool breathing_sign_ = false;
+  bool forbid_auto_ending_ = false;
   bool considered_bar_ = false;
   /*
     shortest_dur_ is the shortest note in the beam.
@@ -142,6 +147,33 @@ Auto_beam_engraver::listen_beam_forbid (Stream_event *ev)
   force_end_ = true;
 }
 
+void
+Auto_beam_engraver::listen_beam_break (Stream_event *ev)
+{
+  assign_event_once (break_, ev);
+
+  SCM permission = get_property (ev, "beam-break-permission");
+
+  if (scm_is_symbol (permission))
+    {
+      if (scm_is_eq (permission, ly_symbol2scm ("force")))
+        {
+          force_end_ = true;
+          forbid_auto_ending_ = false;
+        }
+      else if (scm_is_eq (permission, ly_symbol2scm ("forbid")))
+        {
+          force_end_ = false;
+          forbid_auto_ending_ = true;
+        }
+      else
+        {
+          warning (_f ("unknown beam-break-permission type: %s",
+                       ly_symbol2string (permission).c_str ()));
+        }
+    }
+}
+
 bool
 Auto_beam_engraver::test_moment (Direction dir, Moment const &test_mom,
                                  Rational const &dur) const
@@ -174,7 +206,7 @@ Auto_beam_engraver::consider_end (Rational const &dur)
   //
   // measurePosition might have changed, e.g., at a transition between volta
   // alternatives.  Base this decision on the previous value.
-  if (busy ()
+  if (!forbid_auto_ending_ && busy ()
       && test_moment (STOP, measure_position_at_start_of_timestep_, dur))
     {
       end_beam ();
@@ -296,7 +328,16 @@ Auto_beam_engraver::stop_translation_timestep ()
   typeset_beam ();
   process_acknowledged_count_ = 0;
   forbid_ = nullptr;
+  break_ = nullptr;
   considered_bar_ = false;
+  breathing_sign_ = false;
+  forbid_auto_ending_ = false;
+  /*
+    Normally, force_end_ gets cleared in the process_acknowledged stage.
+    But since that stage might be skipped if skipTypesetting = #t,
+    we reset it here as well to be on the safe side.
+  */
+  force_end_ = false;
 }
 
 void
@@ -318,7 +359,7 @@ Auto_beam_engraver::acknowledge_beam (Grob_info /* info */)
 void
 Auto_beam_engraver::acknowledge_breathing_sign (Grob_info /* info */)
 {
-  force_end_ = true;
+  breathing_sign_ = true;
 }
 
 void
@@ -461,6 +502,15 @@ Auto_beam_engraver::recheck_beam ()
 void
 Auto_beam_engraver::process_acknowledged ()
 {
+  if (breathing_sign_ && !forbid_auto_ending_)
+    {
+      force_end_ = true;
+      // avoid breathing_sign_ staying true, thus switching on
+      // force_end_ again during repeated calls to
+      // process_acknowledged ()
+      breathing_sign_ = false;
+    }
+
   // This engraver can't observe bar lines with acknowledge_bar_line ()
   // because the Bar_engraver operates in Staff context.
   // process_acknowledged () can be called more than once, but
@@ -469,7 +519,7 @@ Auto_beam_engraver::process_acknowledged ()
     {
       considered_bar_ = true;
 
-      if (!force_end_ && busy ())
+      if (!force_end_ && !forbid_auto_ending_ && busy ())
         {
           if (unsmob<Grob> (get_property (this, "currentBarLine")))
             force_end_ = true;
@@ -481,7 +531,9 @@ Auto_beam_engraver::process_acknowledged ()
       force_end_ = false;
 
       if (busy ())
-        end_beam ();
+        {
+          end_beam ();
+        }
     }
 
   if (current_stem_)
@@ -517,6 +569,7 @@ void
 Auto_beam_engraver::boot ()
 {
   ADD_LISTENER (beam_forbid);
+  ADD_LISTENER (beam_break);
   ADD_ACKNOWLEDGER (stem);
   ADD_ACKNOWLEDGER (beam);
   ADD_ACKNOWLEDGER (breathing_sign);
@@ -618,6 +671,7 @@ void
 Grace_auto_beam_engraver::boot ()
 {
   ADD_LISTENER (beam_forbid);
+  ADD_LISTENER (beam_break);
   ADD_ACKNOWLEDGER (stem);
   ADD_ACKNOWLEDGER (beam);
   ADD_ACKNOWLEDGER (breathing_sign);

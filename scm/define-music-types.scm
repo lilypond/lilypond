@@ -124,8 +124,13 @@ Syntax for manual control: @code{c8-[ c c-] c8}")
         ))
 
     (BeamForbidEvent
-     . ((description . "Specify that a note may not auto-beamed.")
+     . ((description . "Specify that a note must not be auto-beamed.")
         (types . (post-event event beam-forbid-event))
+        ))
+
+    (BeamBreakEvent
+     . ((description . "Manual control over whether to connect or disconnect auto-beam groups.")
+        (types . (event beam-break-event))
         ))
 
     (BendSpanEvent

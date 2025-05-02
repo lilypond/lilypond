@@ -166,6 +166,8 @@ are reported on the stderr of this run."
 \test ##[ c4\repeatTie #]		% RepeatTieEvent
 \test ##[ c4^\repeatTie #]
 \test ##[ c4\noBeam #] 			% BeamForbidEvent
+\test ##[ \beamBreak #] 		% BeamBreakEvent
+\test ##[ \noBeamBreak #] 		% BeamBreakEvent
 \test ##[ c4\1 #] 			% StringNumberEvent
 \test ##[ { c4:8 c4:1 } #]		% TremoloEvent
 \test ##[ { c4-^ c4^^ c4_^ } #]		% ArticulationEvent

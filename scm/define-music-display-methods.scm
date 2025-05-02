@@ -241,6 +241,17 @@ expression."
   (format #f "##{#}"))
 
 ;;;
+;;; Beam breaks
+;;;
+
+(define-display-method BeamBreakEvent (expr)
+  (let ((permission (ly:music-property expr 'beam-break-permission)))
+    (cond
+     ((eq? permission 'force) "\\beamBreak")
+     ((eq? permission 'forbid) "\\noBeamBreak")
+     (else #f))))
+
+;;;
 ;;; Graces
 ;;;
 

@@ -40,7 +40,8 @@
                     percent-event key-change-event
                     string-number-event stroke-finger-event tie-event
                     part-combine-event ottava-event
-                    beam-forbid-event script-event tempo-change-event
+                    beam-break-event beam-forbid-event
+                    script-event tempo-change-event
                     tremolo-event bend-after-event fingering-event
                     glissando-event harmonic-event hyphen-event
                     laissez-vibrer-event mark-event text-mark-event
@@ -63,7 +64,7 @@
     (break-event . (line-break-event page-break-event page-turn-event))
     (dynamic-event . (absolute-dynamic-event))
     (span-event . (bend-span-event
-                   beam-event episema-event finger-glide-event
+                   beam-event beam-group-event episema-event finger-glide-event
                    staff-highlight-event ligature-event
                    measure-spanner-event
                    measure-counter-event

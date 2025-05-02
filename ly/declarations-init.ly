@@ -76,6 +76,8 @@ startStaff = #(make-span-event 'StaffSpanEvent START)
 % Code articulation definitions
 %
 noBeam = #(make-music 'BeamForbidEvent)
+beamBreak = #(make-music 'BeamBreakEvent 'beam-break-permission 'force)
+noBeamBreak = #(make-music 'BeamBreakEvent 'beam-break-permission 'forbid)
 glide = #(make-music 'FingerGlideEvent)
 "|" = #(make-music 'BarCheckEvent)
 "[" = #(make-span-event 'BeamEvent START)

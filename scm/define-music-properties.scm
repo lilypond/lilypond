@@ -53,6 +53,8 @@ splitting in @code{Completion_heads_engraver}.")
 
      (bar-type ,string? "The type of bar line to create, e.g., @code{\"|\"}")
      (bass ,boolean? "Set if this note is a bass note in a chord.")
+     (beam-break-permission ,symbol? "Whether to force or forbid breaking of an
+automatic beam between two notes.")
      (beat-structure ,optionally-grouped-beat-structure? "Beat structure for
 automatic beams, optionally with inner lists defining submeasure structure for
 automatic bar lines.")
