@@ -757,7 +757,7 @@ pre.example, pre.example-preformatted {
   margin: 0;
 }
 
-.menu {
+.menu, .section-toc {
   display: none;
 }
 

@@ -438,7 +438,7 @@ table .title {
   margin: 0.4em 0;
 }
 
-table.menu {
+table.menu, .section-toc {
   margin: 0 0 1em;
 }
 
