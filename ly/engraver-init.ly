@@ -1408,6 +1408,7 @@ in a notational style approximating @cite{Editio Vaticana}."
   %% Select vaticana style font.
   alterationGlyphs = #alteration-vaticana-glyph-name-alist
   \override Custos.style = #'vaticana
+  \override Custos.length-fraction = #2.8
   \override Custos.neutral-position = #3
   \override Custos.neutral-direction = #DOWN
   \override Dots.style = #'vaticana

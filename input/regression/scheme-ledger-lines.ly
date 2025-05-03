@@ -1,4 +1,4 @@
-\version "2.25.26"
+\version "2.25.27"
 
 \header {
   texidoc = "Three lines with: default ledgers, ledgers from

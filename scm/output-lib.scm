@@ -4033,18 +4033,23 @@ list drops the first element of @var{pattern-list}."
 lines for grobs with @code{'staff-position} @var{staff-pos}.
 @code{'ledger-extra} may be taken from @var{ledgered-grob}."
   (let* ((staff-symbol (ly:grob-object ledgered-grob 'staff-symbol))
+         (staff-space (ly:grob-property staff-symbol 'staff-space 1))
+         (staff-line-pos
+           (closest-staff-line staff-symbol staff-pos))
+         ;; By default, the first ledger line is two staff-spaces above/below
+         ;; the relevant staff line.
+         (default-pos
+           (list staff-line-pos (+ staff-line-pos (* 2 staff-space))))
          (staff-symbol-ledger-positions
-           ;; If StaffSymbol.ledger-positions is not set fall back to '(0 2)
-           ;; getting default positions.
+           ;; If StaffSymbol.ledger-positions is not set fall back to
+           ;; `default-pos`
            ;; NB user input may not be sorted
-           (ly:grob-property staff-symbol 'ledger-positions '(0 2)))
+           (ly:grob-property staff-symbol 'ledger-positions default-pos))
          (ledger-extra
            (or
              (ly:grob-property ledgered-grob 'ledger-extra #f)
              (ly:grob-property staff-symbol 'ledger-extra #f)
              0))
-         (staff-line-pos
-           (closest-staff-line staff-symbol staff-pos))
          (dist (- staff-pos staff-line-pos))
          (dir (sign dist))
          (stripped-down-pos-list
@@ -4139,21 +4144,41 @@ lines for grobs with @code{'staff-position} @var{staff-pos}.
                 (line-positions
                   (ly:grob-property staff-symbol 'line-positions))
                 (staff-pos (ly:grob-property grob 'staff-position))
+                ;; Prefer 'ledger-positions from custos, otherwise calculate it.
                 (ledger-line-positions
-                  (ledger-lines::positions-from-ledgered-grob
-                    grob staff-pos))
+                  (or
+                    (ly:grob-property grob 'ledger-positions #f)
+                    (ledger-lines::positions-from-ledgered-grob
+                      grob staff-pos)))
                 (length-fraction
                   (ly:grob-property
-                    grob 'length-fraction (if (eq? style 'mensural) 01.5 2.2)))
-                (single-ledger
+                    grob
+                    'length-fraction
+                    (cond
+                      ((eq? style 'mensural) 1.5)
+                      ((eq? style 'vaticana) 4.0)
+                      ((eq? style 'medicaea) 3.5)
+                      (else 2))))
+                (raw-single-ledger
                   (ly:round-filled-box
-                    (interval-scale
-                      (symmetric-interval (interval-center stil-ext))
-                      length-fraction)
+                    (cons
+                      (+ (* -1 (interval-length stil-ext) length-fraction)
+                         (interval-center stil-ext))
+                      (interval-center stil-ext))
                     (cons
                       (- half-ledger-line-thick)
                       half-ledger-line-thick)
                     (* half-ledger-line-thick 2)))
+                ;; In VaticanaScore the ledger line gets the color from
+                ;; LedgerLineSpanner.
+                ;; TODO how to get LedgerLineSpanner from Custos or StaffSymbol?
+                ;;      For now we take the color from StaffSymbol (per current
+                ;;      default, it's the same)
+                (clr (ly:grob-property staff-symbol 'color #f))
+                (single-ledger
+                  (if clr
+                      (stencil-with-color raw-single-ledger clr)
+                      raw-single-ledger))
                 (fake-ledgers
                   (map
                     (lambda (pos)
@@ -4168,4 +4193,6 @@ lines for grobs with @code{'staff-position} @var{staff-pos}.
                           (+ (interval-center stil-ext))
                           (/ (* (- pos staff-pos) staff-space) 2))))
                     ledger-line-positions)))
-             (apply ly:stencil-add stil fake-ledgers))))))
+             ;; `stil` needs to be last, otherwise a probably colored ledger
+             ;; would print above the note head.
+             (apply ly:stencil-add (append fake-ledgers (list stil))))))))

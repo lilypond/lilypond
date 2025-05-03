@@ -1,4 +1,4 @@
-\version "2.25.25"
+\version "2.25.27"
 
 \header {
   texidoc = "Horizontal @code{Script} may get ledger lines by disabling

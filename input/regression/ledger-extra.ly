@@ -1,4 +1,4 @@
-\version "2.19.36"
+\version "2.25.27"
 
 \header {
   texidoc = "The @code{ledger-extra} grob property increases
