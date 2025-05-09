@@ -77,20 +77,15 @@ our $manual_name;
 # ourselves in lilypond_format_end_file.
 texinfo_set_from_init_file('CONTENTS_OUTPUT_LOCATION', 'separate_element');
 
-# Older Texinfo versions don't emit auto-generated @menu blocks with option
-# 'menu', which can be considered a bug.  However, Texinfo provides an
-# alternative mechanism via the 'sectiontoc' option to create mini-ToCs with
-# an almost identical appearance; the difference is that they are simple
-# bullet lists, not displaying sectioning numbers.
-#
-# Given that sectioning numbers can always be seen in the side panel (which
-# shows the complete ToC), the possibility to omit almost all manual @menu
-# entries outweighs this minor disadvantage.
+# Older Texinfo versions don't emit auto-generated @menu blocks.  It is
+# necessary to explicitly enable this feature.
 if ($texinfo_version lt '7.0') {
-    texinfo_set_from_init_file('FORMAT_MENU', 'sectiontoc');
-} else {
-    texinfo_set_from_init_file('FORMAT_MENU', 'menu');
+    texinfo_set_from_init_file('TREE_TRANSFORMATIONS',
+                               'complete_tree_nodes_menus');
 }
+
+# This gives us Texinfo menus as defined in the source.
+texinfo_set_from_init_file('FORMAT_MENU', 'menu');
 
 # Remove colon after index (before Texinfo 7.1) and menu entries (Texinfo 6.8
 # and later).
