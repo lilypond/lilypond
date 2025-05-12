@@ -10,6 +10,7 @@
 
 @c \version "2.19.22"
 
+
 @node Scheme tutorial
 @chapter Scheme tutorial
 
@@ -68,6 +69,7 @@ nicer editing of the Scheme command line, check the file
 enabled the readline library for your interactive Guile sessions outside
 of LilyPond, this should work in the sandbox as well.
 
+
 @node Scheme variables
 @subsection Scheme variables
 
@@ -118,6 +120,7 @@ guile> a
 12345
 guile>
 @end lisp
+
 
 @node Scheme simple data types
 @subsection Scheme simple data types
@@ -178,6 +181,7 @@ The string @code{\a said "b"} is entered as
 There are additional Scheme data types that are not discussed here.
 For a complete listing see the Guile reference guide,
 @uref{https://www.gnu.org/software/guile/docs/docs-1.8/guile-ref/Simple-Data-Types.html}.
+
 
 @node Scheme compound data types
 @subsection Scheme compound data types
@@ -242,6 +246,7 @@ Note:  @code{cdr} is pronounced "could-er", according Sussman and
 Abelson, see
 @uref{https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book-Z-H-14.html#footnote_Temp_133}
 
+
 @node Lists
 @unnumberedsubsubsec Lists
 
@@ -281,6 +286,7 @@ Lists are a central part of Scheme.  In, fact, Scheme is considered
 a dialect of lisp, where @q{lisp} is an abbreviation for
 @q{List Processing}.  Scheme expressions are all lists.
 
+
 @node Association lists (alists)
 @unnumberedsubsubsec Association lists (alists)
 
@@ -305,6 +311,7 @@ guile>
 @end lisp
 
 Alists are widely used in LilyPond to store properties and other data.
+
 
 @node Hash tables
 @unnumberedsubsubsec Hash tables
@@ -352,6 +359,7 @@ guile> (hashq-get-handle h 'frob)
 #f
 guile>
 @end lisp
+
 
 @node Calculations in Scheme
 @subsection Calculations in Scheme
@@ -505,6 +513,7 @@ guile> (average 3 12)
 15/2
 @end lisp
 
+
 @node Predicates
 @unnumberedsubsubsec Predicates
 
@@ -519,6 +528,7 @@ guile> (less-than-ten? 9)
 guile> (less-than-ten? 15)
 #f
 @end lisp
+
 
 @node Return values
 @unnumberedsubsubsec Return values
@@ -577,6 +587,7 @@ guile> (define b 5)
 guile> (if (> a b) "a is greater than b" "a is not greater than b")
 "a is not greater than b"
 @end lisp
+
 
 @node cond
 @unnumberedsubsubsec cond
@@ -857,6 +868,7 @@ reads @code{#} and the following Scheme expression @emph{without}
 evaluating it, so it can go ahead with the assignment, and
 @emph{afterwards} execute the Scheme code without problem.
 
+
 @node Importing Scheme in LilyPond
 @subsection Importing Scheme in LilyPond
 @funindex $
@@ -955,6 +967,7 @@ while @code{twentyFour} is a variable.
 @c  LilyPond variable types.  I think this deserves a section all
 @c  its own
 
+
 @need 1500
 @node LilyPond compound variables
 @subsection LilyPond compound variables
@@ -964,8 +977,8 @@ while @code{twentyFour} is a variable.
 @unnumberedsubsubsec Offsets
 
 Two-dimensional offsets (X and Y coordinates) are stored as @emph{pairs}.
-The @code{car} of the offset is the X coordinate, and the @code{cdr} is
-the Y coordinate.
+The @code{car} of the offset is the X@tie{}coordinate, and the @code{cdr} is
+the Y@tie{}coordinate.
 
 @example
 \override TextScript.extra-offset = #'(1 . 2)
@@ -978,6 +991,7 @@ this command moves the object 1 staff space to the right, and 2 spaces up.
 
 Procedures for working with offsets are found in @file{scm/lily-library.scm}.
 
+
 @node Fractions
 @unnumberedsubsubsec Fractions
 
@@ -988,6 +1002,7 @@ and we need to be able to distinguish between them.  Similarly there are
 no negative @q{fractions} in LilyPond's mind.  So @code{2/4} in LilyPond
 means @code{(2 . 4)} in Scheme, and @code{#2/4} in LilyPond means
 @code{1/2} in Scheme.
+
 
 @node Extents
 @unnumberedsubsubsec Extents
@@ -1003,6 +1018,7 @@ Procedures for working with intervals are found in
 @file{scm/lily-library.scm}.  These procedures should be used when possible
 to ensure consistency of code.
 
+
 @node Property alists
 @unnumberedsubsubsec Property alists
 
@@ -1011,6 +1027,7 @@ keys are properties and whose values are Scheme expressions that give
 the desired value for the property.
 
 LilyPond properties are Scheme symbols, such as @code{'thickness}.
+
 
 @node Alist chains
 @unnumberedsubsubsec Alist chains
@@ -1025,6 +1042,7 @@ entry found is returned, and the value is the property value.
 
 The Scheme procedure @code{chain-assoc-get} is normally used to get
 grob property values.
+
 
 @node LilyPond's box model
 @subsection LilyPond's box model
@@ -1148,6 +1166,7 @@ negative: for example, the horizontal extent of the markup command
 @code{\hspace #-4} is @code{#'(0 . -4)}.
 @end itemize
 
+
 @node Internal music representation
 @subsection Internal music representation
 
@@ -1199,6 +1218,7 @@ and @rinternals{GraceMusic} has its single argument in
 @code{element}.  The body of a repeat is stored in the @code{element}
 property of @rinternals{VoltaRepeatedMusic}, and the alternatives in
 @code{elements}.
+
 
 @node Building complicated functions
 @section Building complicated functions
@@ -1631,6 +1651,7 @@ a @code{"f"} text property) stored in its @code{articulations} property.
 @code{\displayMusic} returns the music it displays, so it will get
 interpreted as well as displayed.  To avoid interpretation, write
 @code{\void} before @code{\displayMusic}.
+
 
 @node Music properties
 @subsection Music properties

@@ -12,6 +12,7 @@
 
 @c Translator: Walter Garcia-Fontes
 
+
 @node Music engraving
 @chapter Gravat musical
 
@@ -23,14 +24,6 @@ produir partitures musical tan boniques.
 @c     require adding a new snippet option to lilypond-book.py
 @c check formatting of HTML output
 
-@menu
-* The LilyPond story::          la història del Lilypond
-* Engraving details::           detalls del gravat
-* Automated engraving::         gravat automàtic
-* Building software::           preparació de programari
-* Putting LilyPond to work::    posar el LilyPond a treballar
-* Engraved examples (BWV 861):: exemple de gravat (BWV 861)
-@end menu
 
 @node The LilyPond story
 @section La història del LilyPond
@@ -40,11 +33,11 @@ partitures boniques per a l'execució musical, abans que pogués
 crear apunts per a cursos universitaris o fins i tot simples
 melodies, abans que hi hagués una comunitat d'usuaris al voltant
 del món o fins i tot un assaig sobre el gravat musical, el
-LilyPond va començar a mab una pregunta:
+LilyPond va començar amb una pregunta:
 
 @quotation
 Perquè la major part de les partitures produïdes per ordinador
-fracassen d'aconseguir la bellesa i l'armonia de les partitures
+fracassen d'aconseguir la bellesa i l'harmonia de les partitures
 gravades a mà?
 @end quotation
 
@@ -145,6 +138,7 @@ Henle no. 666, @copyright{}2000:
 @sourceimage{henle-suite1-fullpage-hires,16cm,}
 @page
 @end iftex
+
 
 @node Engraving details
 @section Detalls del gravat
@@ -299,6 +293,7 @@ superior.  El sostingut i el natural són més fàcils de distingir des
 d'una distància ja que les seves línies angulades tenen diferents
 pendents i els traços verticals són més pesats.
 
+
 @node Optical spacing
 @unnumberedsubsec Espaiat òptic
 
@@ -309,7 +304,7 @@ que porta a pitjors resultats.  A l'exemple següent es presenta un motiu
 dos cops: el primer cop s'usa un espaiat matemàtic exacte, i el segon
 cop amb correccions. Quin preferiu?
 
-@cindex optical spacing
+@cindex espaiat òptic
 
 @lilypond
 \paper {
@@ -384,6 +379,7 @@ Els algoritmes d'espaiat al LilyPond fins i tot prenen la línia de
 compàs, cosa que fa la plica cap amunt final a l'exemple rebi un
 espaiat més gran perquè no es vegi atapeït. A una plica cap avall
 no li caldria aquest ajustament.
+
 
 @node Ledger lines
 @unnumberedsubsec Línies addicionals
@@ -554,6 +550,7 @@ algoritmes, dissenys tipogràfics, i configuracions als programes
 per produir impressions que estan a l'alçada de la qualitat de les
 edicions antigues que estimem veure i usar per executar la música.
 
+
 @node Automated engraving
 @section Gravat automàtic
 
@@ -654,6 +651,7 @@ d'unió i els punts als acords, salts de línia, i salts de pàgina.
 Es poden jutjar els resultats d'aquestes decisions en comparació
 amb gravats reals.
 
+
 @node Improvement by benchmarking
 @unnumberedsubsec Millores per comparació
 
@@ -747,6 +745,7 @@ versió actual del LilyPond (@version{}):
 La sortida actual no és idèntica a l'edició de referència, però
 està molt més a prop a la qualitat de publicació que la sortida
 anterior.
+
 
 @node Getting things right
 @unnumberedsubsec Aconseguint que les coses siguin correctes
@@ -866,7 +865,7 @@ connector Patterson Beams, però hem preferit saltar-nos aquest pas
 per a aquest example.
 @item Finale no ajusta les posicions dels caps de nota que se
 superposen, cosa que fa extremadament difícil llegir la música
-quen les veus superior i inferior canvien de posició temporalment:
+quan les veus superior i inferior canvien de posició temporalment:
 
 @lilypond
 collide = \once \override NoteColumn.force-hshift = #0
@@ -888,7 +887,7 @@ collide = \once \override NoteColumn.force-hshift = #0
 @item Finale ha posat tots els silencis a alçades fixes sobre la
   partitura. L'usuari té la llibertat d'ajustar-ho com calgui,
   però el programa no intenta considerar el contingut de l'altra
-  veu.  Per casualitat, no hi ha col·lisions de veritat enre les
+  veu.  Per casualitat, no hi ha col·lisions de veritat entre les
   notes i els silencis en aquest example, però això te més a veure
   amb les posicions de les notes que les posicions dels
   silencis. En altres paraules, Bach ha de rebre més crèdit per
@@ -897,14 +896,14 @@ collide = \once \override NoteColumn.force-hshift = #0
 @end itemize
 
 La intenció d'aquest exemple no és suggerir que el Finale no es
-pot usar per prooduir resultats amb qualitat de publicació.  Al
+pot usar per produir resultats amb qualitat de publicació.  Al
 contrari, en mans d'un usuari qualificat, ho pot fer, però
 requereix coneixements professionals i temps. Una de les
 diferències fonamentals entre el LilyPond i els processadors de
 música comercials és que el LilyPond intenta reduir la quantitat
 d'intervenció humana a un mínim, mentre que altres paquets
 intenten proveir una interfície atractiva on fer aquest tipus
-d'edicins.
+d'edicions.
 
 Un omissió particularment destacable que hem trobat al Final és un
 bemoll faltant al compàs 33:
@@ -921,7 +920,7 @@ bemoll faltant al compàs 33:
 @noindent
 El símbol de bemoll cal per cancel·lar el bequadre al mateix
 compàs, però el Finale l'ignora perquè apareix a una altra veu. De
-mnera que, a més d'executar un connector de pliques i de verificar
+manera que, a més d'executar un connector de pliques i de verificar
 la separació entre els caps de nota i els silencis, l'usuari també
 ha de repassar cada compàs per alteracions entre veus per evitar
 que s'aturi una pràctica per culpa d'un error de gravat.
@@ -947,6 +946,7 @@ manual es necessita cada cop menys.  Als llocs on cal l'ajustament
 manual, l'estructura del LilyPond s'ha dissenyat amb aquesta
 flexibilitat en ment.
 
+
 @node Building software
 @section Construcció de programari
 
@@ -958,7 +958,7 @@ hem fet quan es va dissenyar el LilyPond.
 @unnumberedsubsec Representació de la música
 
 @cindex syntaxi
-@cindex estructuras recursives
+@cindex estructures recursives
 
 Idealment, el format d'entrada per a qualsevol sistema de
 formatat d'alt nivell és una descripció abstracte del contingut.
@@ -1137,6 +1137,7 @@ per reproduir aquest exemple perquè estan construïts amb
 l'estructura de capses niuades.  Amb el Lilypond, en canvi, hem
 intentat mantenir el format d'entrada i l'estructura el més
 flexible que sigui possible.
+
 
 @node What symbols to engrave?
 @unnumberedsubsec Quins símbols s'han de gravar?
@@ -1350,6 +1351,7 @@ Referències internes:
 @rinternals{Contexts}.
 @endmorerefs
 
+
 @node Flexible architecture
 @unnumberedsubsec Arquitectura flexible
 
@@ -1373,29 +1375,30 @@ les definicions sobre l'estil de tipografia també han d'estar
 accessibles per a l'usuari.
 
 
-@item Finally, we continually refine the formatting algorithms, so
-we need a flexible approach to rules.  The C++ language forces a
-certain method of grouping rules that cannot readily be applied to
-formatting music notation.
+@item Finalment, contínuament estem refinant els algoritmes de
+format, per tant ens cal un enfoc flexible per a les regles. El
+llenguatge C++ força a un cert mètode d'agrupament de regles que
+no es pot aplicar directament al formatat de la notació musical.
 
 @end itemize
 
-@cindex Scheme programming language
+@cindex Llenguatge de programació Scheme
 
-These problems have been addressed by integrating an interpreter
-for the Scheme programming language and rewriting parts of
-LilyPond in Scheme.  The current formatting architecture is built
-around the notion of graphical objects, described by Scheme
-variables and functions.  This architecture encompasses formatting
-rules, typographical style and individual formatting decisions.
-The user has direct access to most of these controls.
+Aquests problemes han estat adreçats integrant un interpretador
+per al llenguatge de programació Scheme i amb la reescriptura de
+parts del LilyPond amb Scheme. L'arquitectura actual de formatat
+està construïda en torn a la noció d'objectes gràfics, descrits
+per variables i funcions de l'Scheme.  Aquesta arquitectura inclou
+regles de formatat, estil tipogràfic i decisions individuals de
+formatat.  L'usuari té accés directe a la major part d'aquests
+controls.
 
-Scheme variables control layout decisions.  For example, many
-graphical objects have a direction variable that encodes the
-choice between up and down (or left and right).  Here you see two
-chords, with accents and arpeggios.  In the first chord, the
-graphical objects have all directions down (or left).  The second
-chord has all directions up (right).
+Les variables de l'Scheme controlen les decisions de disposició.
+Per exemple, molts objectes gràfics tenen una variable de direcció
+que codifica l'elecció entre amunt i avall (o esquerra i dreta).
+Aquí veieu dos acords, amb accents i arpegis.  Al primer acord,
+els objectes gràfics tenen direccions avall (o esquerra).  El
+segon acord té totes les direccions cap amunt (dreta).
 
 @lilypond[quote,ragged-right]
 \score {
@@ -1414,17 +1417,17 @@ chord has all directions up (right).
 }
 @end lilypond
 
-@cindex score formatting
-@cindex formatting a score
-@cindex formatting rules
+@cindex formatat de partitures
+@cindex donar format a una partitura
+@cindex regles de formatat
 
 @noindent
-The process of formatting a score consists of reading and writing
-the variables of graphical objects.  Some variables have a preset
-value.  For example, the thickness of many lines -- a
-characteristic of typographical style -- is a variable with a
-preset value.  You are free to alter this value, giving your score
-a different typographical impression.
+El procés de formatat d'una partitura consisteix en la lectura i
+l'escriptura d'objectes gràfics.  Algunes variables tenen un valor
+preestablert.  Per exemple, el gruix de moltes línies -- una
+característica de l'estil tipogràfic -- és una variable amb un
+valor preestablert.  Podeu alterar aquest valor si voleu,
+donant-li a la vostra partitura una impressió tipogràfica diferent.
 
 @lilypond[quote,ragged-right]
 fragment = {
@@ -1445,12 +1448,13 @@ fragment = {
 >>
 @end lilypond
 
-Formatting rules are also preset variables: each object has
-variables containing procedures.  These procedures perform the
-actual formatting, and by substituting different ones, we can
-change the appearance of objects.  In the following example, the
-rule governing which note head objects are used to produce the
-note head symbol is changed during the music fragment.
+Les regles de formatat són també variables preestablertes: cada
+objecte té variables que contenen procediments.  Aquests
+procediments realitzen el formatat real, i mitjançant la
+substitució d'algun procediments, podem canviar l'aparença dels
+objectes.  A l'exemple següent la regla que governa quins objectes
+de caps de nota es fan servir per produir el símbol de cap de nota
+es canvia durant el fragment de música.
 
 @lilypond[quote,ragged-right]
 #(set-global-staff-size 30)
@@ -1491,17 +1495,15 @@ note head symbol is changed during the music fragment.
 @end lilypond
 
 
-
 @node Putting LilyPond to work
-@section Putting LilyPond to work
+@section Posant el LilyPond a treballar
 
-@cindex simple examples
-@cindex examples, simple
+@cindex exemples simples
 
-We have written LilyPond as an experiment of how to condense the
-art of music engraving into a computer program.  Thanks to all
-that hard work, the program can now be used to perform useful
-tasks.  The simplest application is printing notes.
+Hem escrit el LilyPond com un experiments sobre com condensar
+l'art del gravat de música en un programa d'ordinador.  Gràcies a
+tot aquest dur treball, el programa pot fer-se servir ara per fer
+tasques útils.  L'aplicació més simple és imprimir notes.
 
 @lilypond[quote,relative=1]
 {
@@ -1511,7 +1513,7 @@ tasks.  The simplest application is printing notes.
 @end lilypond
 
 @noindent
-By adding chord names and lyrics we obtain a lead sheet.
+Afegint noms d'acords i la lletra obtenim un full guia (lead sheet).
 
 @lilypond[quote,ragged-right]
 <<
@@ -1525,13 +1527,13 @@ By adding chord names and lyrics we obtain a lead sheet.
 >>
 @end lilypond
 
-Polyphonic notation and piano music can also be printed.  The
-following example combines some more exotic constructs.
+També es pot imprimir notació polifònica i música per a piano.
+L'exemple següent combina construccions més exòtiques.
 
 @lilypond[quote,line-width=15.9\cm]
 \header {
-  title = "Screech and boink"
-  subtitle = "Random complex notation"
+  title = "Xiscle i cops"
+  subtitle = "Notació aleatòria complexa"
   composer = "Han-Wen Nienhuys"
 }
 
@@ -1596,32 +1598,36 @@ following example combines some more exotic constructs.
 }
 @end lilypond
 
-The fragments shown above have all been written by hand, but that
-is not a requirement.  Since the formatting engine is mostly
-automatic, it can serve as an output means for other programs that
-manipulate music.  For example, it can also be used to convert
-databases of musical fragments to images for use on websites and
-multimedia presentations.
+Els fragments que es mostren a dalt s'han escrit tots a mà, però
+això no és un requisit.  Atès que la màquina de formatat és
+majorment automàtica, pot servir com un mitjà de sortida per a
+altres programes que manipulen música.  Per exemple, es pot fer
+servir també per convertir bases de dades de fragments musicals a
+imatges per al seu ús a pàgines web i presentacions multimèdia.
 
-This manual also shows an application: the input format is text, and can
-therefore be easily embedded in other text-based formats such as
-@LaTeX{}, HTML, or in the case of this manual, Texinfo.  Using the
-@command{lilypond-book} program, included with LilyPond, the input
-fragments can be replaced by music images in the resulting PDF or HTML
-output files.  Another example is the third-party OOoLilyPond extension
-for OpenOffice.org or LibreOffice, which makes it extremely easy to
-embed musical examples in documents.
+Aquest manual també mostra una aplicació: el format d'entrada és
+text, i per tant pot incrustar-se fàcilment en d'altres formats
+basats en text com ara @LaTeX{}, HTML, o en el case d'aquest
+manual, Texinfo.  Usant el programa @command{lilypond-book},
+que està inclòs al LilyPond, els fragments d'entrada poden
+reemplaçar-se per imatges de música als fitxers de sortida PDF o
+HTML resultants.  Un altre example es l'extensió de tercers
+OOoLilyPond per a l'OpenOffice.org o Libreoffice, cosa que fa
+extremadament fàcil incrustar exemples musicals en documents.
 
-For more examples of LilyPond in action, full documentation, and the
-software itself, see our main website: www.lilypond.org.
+Per a més exemples del LilyPond en acció, la documentació completa
+i el propi programa, vegeu la nostra pàgina web principal:
+www.lilypond.org.
 
 @page
-@node Engraved examples (BWV 861)
-@section Engraved examples (BWV 861)
 
-This section contains four reference engravings and two
-software-engraved versions of Bach's Fugue in G minor from the
-Well-Tempered Clavier, Book I, BWV 861 (the last seven measures).
+
+@node Engraved examples (BWV 861)
+@section Exemples de gravat (BWV 861)
+
+Aquesta secció conté quatre gravats de referència i dues versions
+de gravat per ordinador de la Fuga en Sol Menor del Clavecí Ben
+Temperat de Bach, llibre I, BWV 861 (els últims set compassos).
 
 @noindent
 Bärenreiter BA5070 (Neue Ausgabe Sämtlicher Werke, Serie V, Band 6.1,
@@ -1636,9 +1642,9 @@ Bärenreiter BA5070 (Neue Ausgabe Sämtlicher Werke, Serie V, Band 6.1,
 
 @noindent
 Bärenreiter BA5070 (Neue Ausgabe Sämtlicher Werke, Serie V, Band 6.1,
-1989), an alternate musical source.  Aside from the textual differences,
-this demonstrates slight variations in the engraving decisions, even
-from the same publisher and edition:
+1989), una font musical alternativa.  A part de les diferències
+textuals, això mostra petites variacions en les decisions de
+gravat, fins i tot per part del mateix editor i la mateixa edició:
 
 @iftex
 @sourceimage{bwv861-baer-alt,16cm,}
@@ -1649,9 +1655,9 @@ from the same publisher and edition:
 
 @noindent
 Breitkopf & Härtel, edited by Ferruccio Busoni (Wiesbaden, 1894), also
-available from the Petrucci Music Library (IMSLP #22081).  The editorial
-markings (fingerings, articulations, etc.@:) have been removed for clearer
-comparison with the other editions here:
+available from the Petrucci Music Library (IMSLP #22081).  Les
+annotacions editorials (digitació, aritculacions, etc.@:) s'han
+eliminat per a una comparació més clara amb les altres edicions aquí:
 
 @iftex
 @sourceimage{bwv861-breitkopf,16cm,}
@@ -1661,7 +1667,7 @@ comparison with the other editions here:
 @end ifnottex
 
 @noindent
-Bach-Gesellschaft edition (Leipzig, 1866), available from the Petrucci
+Bach-Gesellschaft edition (Leipzig, 1866), disponibles a la 
 Music Library (IMSPL #02221):
 
 @iftex

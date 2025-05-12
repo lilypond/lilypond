@@ -1,0 +1,1609 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+@c This file is part of extending.tely
+@ignore
+    Translation of GIT committish: 36f7b38c3c093f59c5574c4271cfc46ea1a89932
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.19.24"
+
+
+@node Interfaces for programmers
+@chapter Interfícies per a programadors
+
+Es poden realitzar ajustaments avançats mitjançant l'ús de
+l'Scheme. Si no coneixeu l'Scheme, us convidem a llegir el nostre
+tutorial de l'Scheme, @ref{Scheme tutorial}.
+
+
+@node LilyPond code blocks
+@section Blocs de codi del LilyPond
+
+@cindex Blocs de codi del LilyPond
+@cindex LilyPond, blocs de codi del
+@funindex #@{ @dots{} #@}
+@funindex $
+@funindex #
+
+La creació d'expressions musicals a l'Scheme pot ser una tasca
+tediosa perquè a vegades impliquen molts nivells de profunditat de
+niuat i el codi resultant és extens.  Per a algunes tasques
+senzilles, això es pot evitar utilitzant blocs de codi del
+LilyPond, que permeten usar la sintaxi ordinària del LilyPond dins
+de l'Scheme.
+
+Els blocs de codi tenen l'aspecte següent:
+@example
+#@{ @var{codi del LilyPond} #@}
+@end example
+
+Heus aquí un exemple trivial:
+
+@lilypond[verbatim,quote]
+ritpp = #(define-event-function () ()
+  #{ ^"rit." \pp #}
+)
+
+{ c'4 e'4\ritpp g'2 }
+@end lilypond
+
+Els blocs de codi del LilyPond es poden fer servir en qualsevol
+lloc en el qual es pugui escriure codi de l'Scheme.  El lector de
+l'Scheme en efecte es modifica perquè pugui incorporar blocs de
+codi del LilyPond i pugui ocupar-se de les expressions de l'Scheme
+incrustades que comencen per @code{$} i@w{ }@code{#}.
+
+El lector extrau el bloc de codi del LilyPond i genera una crida
+en temps d'execució a l'analitzador sintàctic perquè interpreti el
+codi del LilyPond.  Les expressions de l'Scheme incrustades al
+codi del LilyPond s'avaluen dins de l'entorn lèxic del bloc de
+codi del LilyPond, de manera que pugui accedir-se a totes les
+variables locals i els paràmetres de funció que estan disponibles
+al punt en el qual s'escriu el bloc de codi del LilyPond.  Les
+variables definides en altres mòduls de l'Scheme, com els mòduls
+que contenen blocs @code{\header} i @code{\layout}, no estan
+accessibles com a variables de l'Scheme, és a dir, precedides
+de@tie{}@code{#}, però es pot accedir a elles com a variables del
+Lilypond, és a dir, precedides de@tie{}@code{\}.
+
+Tota la música generada dins del bloc de codi té el seu
+@samp{origin} establert a la localització actual del punter
+d'entrada.
+
+Un bloc de codi del Lilypond pot contenir qualsevol cosa que
+podríem utilitzar a la part dreta d'una assignació.  A més, un
+bloc del LilyPond buit correspon a una expressió musical buida, i
+un bloc del LilyPond que conté diversos esdeveniments musicals es
+converteix en una expressió de música en seqüència.
+
+
+@node Scheme functions
+@section Funcions de l'Scheme
+@cindex Scheme, funcions de (sintaxi del LilyPond)
+
+Les @emph{funcions de l'Scheme} són procediments de l'Scheme que
+poden crear expressions de l'Scheme a partir de codi d'entrada
+escrit en la sintaxi del LilyPond.  Es poden cridar des de
+pràcticament qualsevol lloc en el qual es permeti l'ús de
+@code{#} per a l'especificació d'un valor en sintaxi de l'Scheme.
+Mentre que l'Scheme té funcions pròpies, aquest capítol s'ocupa de
+les funcions @emph{sintàctiques}, funcions que reben arguments
+especificats en la sintaxi del LilyPond.
+
+
+@node Scheme function definitions
+@subsection Definició de funcions de l'Scheme
+@funindex define-scheme-function
+
+La forma general de la definició d'una funció de l'Scheme és:
+
+@example
+funcion =
+#(define-scheme-function
+     (@var{arg1} @var{arg2} @dots{})
+     (@var{tipus1?} @var{tipus2?} @dots{})
+   @var{cuerpo})
+@end example
+
+@noindent
+donde
+
+@multitable @columnfractions .33 .66
+@item @code{@var{argN}}
+@tab @var{n}-èssim argument.
+
+@item @code{@var{tipusN?}}
+@tab Un @emph{predicat de tipus} de l'Scheme per al qual
+@code{@var{argN}} ha de retornar @code{#t}.  També
+existeix una forma especial @code{(@emph{predicate?}
+@emph{default})} per especificar arguments opcionals.  Si
+l'argument actual no està present quan es crida a la funció, s'usa
+el valor predeterminat en substitució.  Els valors predeterminats
+s'avaluen en temps de definició (incloent-hi els blocs de codi del
+LilyPond!), de manera que si ens cal un valor per omissió calculat
+en temps d'execució, hem d'escriure en el seu lloc un valor
+especial que puguem reconèixer fàcilment.  Si escrivim el
+predicat entre parèntesis, però no seguim pel valor predeterminat,
+s'usa @code{#f} como a valor per omissió.  Els valors per omissió
+no es verifiquen amb @emph{predicate?} en temps de definició ni en
+temps d'execució: és la nostra responsabilitat tractar amb els
+valors que especifiquem.  Els valors per omissió que són
+expressions musicals es copien mentre s'estableix @code{origin} a
+la ubicació actual del cursor d'entrada.
+
+@item @code{@var{cos}}
+@tab una seqüència de formes de l'Scheme que s'avaluen
+ordenadament; l'última forma de la seqüència s'usa com el valor de
+retorn de la funció de l'Scheme.  Pot contenir blocs de codi del
+LilyPond tancat entre claus amb coixinets
+(@tie{}@w{@code{#@{@dots{}#@}}}@tie{}), tal com es descriu a
+@ref{LilyPond code blocks}.  Dins dels blocs de codi del LilyPond
+useu el símbol @code{#} per fer referència a arguments de funció
+(per exemple @samp{#arg1}) o per iniciar una expressió en línia de
+l'Scheme que contingui arguments de funció (per exemple
+@w{@samp{#(cons arg1 arg2)}}).  On les expressions normals de
+l'Scheme que usen @code{#} no funcionen, ens podria caldre tornar
+a expressions de l'Scheme immediates que usen @code{$}, com per
+exemple @samp{$music}.
+
+Si la nostra funció torna una expressió musical, rep un valor de
+@code{origin} útil.
+@end multitable
+
+@noindent
+La idoneïtat dels arguments per als predicats es determina
+mitjançant crides reals al predicat després que el LilyPond ja las
+hagi convertit en una expressió de l'Scheme.  Com a conseqüència,
+l'argument es pot especificar en la sintaxi de l'Scheme si es
+desitja (precedit de @code{#} o com a resultat d'haver cridat una
+funció de l'Scheme), però el LilyPond també converteix algunes
+construccions del LilyPond a Scheme abans de fer efectivament la
+comprovació del predicat sobre elles. Actualment es troben entre
+elles la música, els post-esdeveniments, les cadenes simples
+(entre cometes o no), els nombres, els elements de marcatge i de
+llistes de marcatge, score (partitura), book (llibre), bookpart
+(part de llibre), les definicions de context i els blocs de
+definició de sortida.
+
+El LilyPond resol algunes ambigüitats mitjançant la comprovació
+amb funcions de predicat: és @samp{-3} un post-esdeveniment de
+digitació o un nombre negatiu?  És @code{"a" 4} en el mode de
+lletra una cadena seguida per un nombre, o un esdeveniment de
+lletra amb la duració @code{4}?  El LilyPond prova el predicat de
+l'argument sobre diverses interpretacions successives fins que ho
+aconsegueix, amb un ordre dissenyat per minimitzar les
+interpretacions poc consistents i la lectura per avançat.
+
+Per exemple, un predicat que accepta tant expressions musicals com
+altures consideraria que @code{c''} és una altura en lloc d'una
+expressió musical.  Les duracions o post-esdeveniments que
+segueixen immediatament canvien aquesta interpretació.  És millor
+evitar els predicats excessivament permissius com @code{scheme?}
+quan l'aplicació requeriria tipus d'arguments més específics.
+
+Per veure una llista dels predicats de tipus disponibles, consulteu
+@rnotationnamed{Predefined type predicates, Predicats de tipus predefinits}.
+
+@morerefs
+
+Referencia de la notació:
+@rnotationnamed{Predefined type predicates, Predicats de tipus predefinits}.
+
+Fitxers instal·lats:
+@file{lily/music-scheme.cc},
+@file{scm/c++.scm},
+@file{scm/lily.scm}.
+
+
+@node Scheme function usage
+@subsection Ús de les funcions de l'Scheme
+
+Les funcions de l'Scheme es poden cridar gairebé des de qualsevol
+lloc en el qual es pot escriure una expressió de l'Scheme que
+comenci amb el coixinet@tie{}@code{#}.  Cridem a una funció de
+l'Scheme escrivint el seu nom precedit de la barra
+invertida@tie{}@code{\}, i seguit pels seus arguments.  Un cop que
+un argument opcional no correspon amb cap argument, el LilyPond se
+salta aquest argument i tots els que el segueixen, substituint-los
+pel seu valor per defecte especificat, i @q{recupera} l'argument
+que no corresponia al lloc del següent argument obligatori.  Atès
+que l'argument recuperat cal anar a algun lloc, els argument
+opcionals no es consideren realment opcionals a no ser que vagin
+seguits d'un argument obligatori.
+
+Hi existeix una excepció: si escrivim @code{\default} enlloc d'un
+argument opcional, aquest argument i tots els arguments opcionals
+que el segueixen se salten i se substitueixen pels seus valors
+predeterminats.  Això funciona fins i tot si no segueix cap
+argument obligatori perquè no cal que @code{\default} es
+recuperi.  Les instruccions@code{mark} i @code{key} fan ús
+d'aquest ajustament per oferir el seu comportament predeterminat
+quan van seguides sols per @code{\default}.
+
+A part dels llocs on es requereix un valor de l'Scheme hi ha certs
+llocs en els quals s'accepten expressions de coixinet @code{#} i
+s'avaluen pels seus efectes secundaris, però a part d'això
+s'ignoren.  Són, majorment, els llocs en els quals també seria
+acceptable posar una assignació.
+
+Atès que no és bona idea retornar valors que puguin
+malinterpretar-se en algun context, hauríeu de fer servir funcions
+de l'Scheme normals sols per als casos en els quals sempre es
+retorna un valor útil, i fer servir funcions de l'Scheme buides
+@pxref{Void scheme functions}) en cas contrari.
+
+Per conveniència, les funcions de l'Scheme també es poden cridar
+directament des de l'Scheme, fent un pont sobre l'analitzador 
+sintàctic del Lilypond.  El seu nom pot utilitzar-se com el nom 
+d'una funció corrent.  La comprovació de tipus dels arguments i el salt
+d'arguments opcionals es produeix de la mateixa forma que quan es
+crida des de dins del LilyPond,  agafant el valor de l'Scheme
+@code{*unspecified*} el paper de la paraula reservada
+@code{\default} per saltar explícitament arguments opcionals.
+
+
+@node Void scheme functions
+@subsection Funcions de l'Scheme buides
+@funindex define-void-function
+@funindex \void
+
+En ocasions, un procediment s'executa amb l'objectiu de fer alguna
+acció més per retornar un valor.  Alguns llenguatges de
+programació (com a C i l'Scheme) usen les funcions per als dos
+conceptes i es limiten a descartar el valor retornat (usualment
+fent que qualsevol expressió pugui actuar com a instrucció,
+ignorant el resultat retornat).  Això pot semblar intel·ligent
+però és propens a errors: gairebé tots els compiladors de C d'avui
+en dia emeten advertiments quan es descarta una expressió no
+buida.  Per a moltes funcions que executen una acció, els
+estàndards de l'Scheme declaren que el valor de retorn sigui no
+especificat.  Guile, l'intèrpret de l'Scheme al LilyPond, té un
+valor únic @code{*unspecified*} que en tals casos retorna de forma
+usual (com quan es fa servir directament @code{set!} sobre una
+variable), però desgraciadament no de forma consistent.
+
+Definir una funció del LilyPond amb @code{define-void-function}
+assegura que es retorna aquest valor especial, l'únic valor que
+satisfà el predicat @code{void?}.
+
+@example
+noApuntarYPulsar =
+#(define-void-function
+     ()
+     ()
+   (ly:set-option 'point-and-click #f))
+@dots{}
+\noApuntarYPulsar   % desactivar la funció d'apuntar i clicar
+@end example
+
+Si volem avaluar una expressió sols pel seu efecte col·lateral i
+no volem que s'interpreti cap valor que pugui retornar, podem
+fer-lo anteposant el prefix @code{\void}:
+
+@example
+\void #(hashq-set! alguna-taula alguna-clau algun-valor)
+@end example
+
+D'aquesta forma podem assegurar que el LilyPond no assignarà cap
+significat al valor retornat, independentment d'on el trobi.
+També funciona per a funcions musicals com @code{\displayMusic}.
+
+
+@node Music functions
+@section Funcions musicals
+
+@cindex funcions musicals
+
+Les @emph{funcions musicals} són procediments de l'Scheme que
+poden crear automàticament expressions musicals, i es poden usar
+per simplificar enormement el fitxer d'entrada.
+
+
+@node Music function definitions
+@subsection Definicions de funcions musicals
+@cindex definició de funcions musicals
+@funindex define-music-function
+
+La forma general per definir funcions musicals és:
+
+@example
+funcion =
+#(define-music-function
+     (@var{arg1} @var{arg2} @dots{})
+     (@var{tipo1?} @var{tipo2?} @dots{})
+   @var{cuerpo})
+@end example
+
+@noindent
+de forma força anàloga a
+@ref{Scheme function definitions}.  El més probable és que el
+@var{cos} sigui un
+@ref{LilyPond code blocks,bloc de codi del LilyPond}.
+
+Per veure una llista de predicats de tipus disponibles,
+consulteu @rnotationnamed{Predefined type predicates, Predicats de
+tipus predefinits}.
+
+@morerefs
+
+Referència de la notació:
+@rnotationnamed{Predefined type predicates, Predicats de tipus predefinits}.
+
+Fitxers d'inici:
+@file{lily/music-scheme.cc},
+@file{scm/c++.scm},
+@file{scm/lily.scm}.
+
+
+@node Music function usage
+@subsection Ús de les funcions musicals
+
+Una @q{funció musical} ha de retornar una expressió que es
+correspongui amb el predicat @code{ly:music?}.  Això fa que les
+crides a funcions musicals siguin apropiades com arguments del
+tipus @code{ly:music?} per a una altra crida a una funció musical.
+
+Si s'usa una crida a funció musical dins d'altres contextos, el
+context pot aplicar restriccions semàntiques addicionals.
+
+@itemize
+@item
+En el nivell superior dins d'una expressió musical no s'accepta
+cap post-esdeveniment.
+
+@item
+Quan una funció musical (a diferència d'una funció d'esdeveniment)
+retorna una expressió del tipus post-esdeveniment, el LilyPond
+requereix un dels indicadors de direcció amb nom
+(@code{-}, @code{^}, @w{y @code{_}}) per poder integrar
+adequadament el post-esdeveniment produït per la crida a la funció
+musical dins de l'expressió que l'envolta.
+
+@item
+Com a component d'un acord.  L'expressió retornada ha de ser del tipus
+@code{rhythmic-event}, probablement un @code{NoteEvent}.
+@end itemize
+
+@noindent
+Es poden aplicar funcions @q{polimòrfiques}, com @code{\tweak},
+als post-esdeveniments, components d'acords i expressions musicals
+de nivell superior.
+
+
+@node Simple substitution functions
+@subsection Funcions de substitució senzilles
+
+Una funció de substitució senzilla és una funció musical
+l'expressió de sortida de la qual està escrita en codi del
+LilyPond i conté arguments de la funció en l'expressió de sortida.
+Es descriuen a @rnotationnamed{Substitution function examples, Exemple de funcions de substitució}.
+
+
+@node Intermediate substitution functions
+@subsection Funcions de substitució intermèdies
+
+Les funcions de substitució intermèdies contenen una barreja de
+codi de l'Scheme i del LilyPond dins de l'expressió musical que es
+retorna.
+
+Algunes instruccions @code{\override} requereixen un argument que
+consisteix en una parella de nombres (anomenada una @emph{cela cons}
+a l'Scheme.
+
+La parella es pot passar directament dins de la funció musical,
+usant una variable @code{pair?}:
+
+@example
+barraManual =
+#(define-music-function
+     (principi-final)
+     (pair?)
+   #@{
+     \once \override Beam.positions = #principi-final
+   #@})
+
+\relative c' @{
+  \barraManual #'(3 . 6) c8 d e f
+@}
+@end example
+
+De forma alternativa, els nombres que composen la parella es pot
+passar com arguments separats, i el codi de l'Scheme que s'ha usat
+per crear la parella es pot incloure dins de l'expressió musical:
+
+@lilypond[quote,verbatim,ragged-right]
+manualBeam =
+#(define-music-function
+     (beg end)
+     (number? number?)
+   #{
+     \once \override Beam.positions = #(cons beg end)
+   #})
+
+\relative c' {
+  \manualBeam #3 #6 c8 d e f
+}
+@end lilypond
+
+@funindex \temporary
+@cindex sobreescriptures temporals
+@cindex temporals, sobreeescriptures
+@cindex propietats, recuperar valors anteriors
+
+Les propietats es mantenen conceptualment utilitzant una pila per
+a cada propietat, per a cada grob i per a cada context.  Les
+funcions musicals poden requerir la sobreescriptura duna o
+diverses propietats durant el temps de duració de la funció,
+restaurant-les als seus valors previs abans de sortir.  No
+obstant, les sobreescriptures normals extrauen i descarten el cim
+de la pila de propietats actual abans d'introduir un valor a
+ella, de manera que el valor anterior de la propietat es perd quan
+se sobreescriu.  Si es vol preservar el valor anterior, s'ha de
+precedir l'ordre @code{\override} amb la paraula clau
+@code{\temporary}, així:
+
+@example
+\temporary \override @dots{}
+@end example
+
+L'ús de @code{\temporary} fa que s'esborri la propietat
+(normalment establerta a un cert valor) @code{pop-first} de la
+sobreescriptura, de forma que el valor anterior no s'extrau de la
+pila de propietats abans de posar en ella el valor nou.  Quan una
+ordre @code{\revert} posterior extrau el valor sobreescrit
+temporalment, tornarà a emergir el valor anterior.
+
+En altres paraules, una crida a @code{\temporary \override} i a
+continuació una altra a @code{\revert} sobre la mateixa propietat,
+té un valor net que és nul.  De forma semblant, la combinació en
+seqüència de @code{\temporary} i @code{\undo} sobre la mateixa
+música que conté les sobreescriptures, té un efecte net nul.
+
+Heus aquí un exemple d'una funció musical que utilitza l'exposat
+anteriorment.  L'ús de @code{\temporary} assegura que els
+valors de les propietats @code{cross-staff} i @code{style} es
+restauren a la sortida als valors que tenien quan es va cridar a
+la funció @code{crossStaff}.  Sense @code{\temporary}, a la
+sortida s'haurien fixat els valors predeterminats.
+
+
+@example
+crossStaff =
+#(define-music-function (notes) (ly:music?)
+  (_i "Create cross-staff stems")
+  #@{
+  \temporary \override Stem.cross-staff = #cross-staff-connect
+  \temporary \override Flag.style = #'no-flag
+  #notes
+  \revert Stem.cross-staff
+  \revert Flag.style
+#@})
+@end example
+
+
+@node Mathematics in functions
+@subsection Matemàtiques dins de les funcions
+
+Les funcions musicals poden comptar amb programació de l'Scheme a
+més de la simple substitució:
+
+@lilypond[quote,verbatim,ragged-right]
+AltOn =
+#(define-music-function
+     (mag)
+     (number?)
+   #{
+     \override Stem.length = #(* 7.0 mag)
+     \override NoteHead.font-size =
+       #(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
+   #})
+
+AltOff = {
+  \revert Stem.length
+  \revert NoteHead.font-size
+}
+
+\relative {
+  c'2 \AltOn #0.5 c4 c
+  \AltOn #1.5 c c \AltOff c2
+}
+@end lilypond
+
+@noindent
+Aquest exemple es pot reescriure de forma que passi expressions
+musicals:
+
+@lilypond[quote,verbatim,ragged-right]
+withAlt =
+#(define-music-function
+     (mag music)
+     (number? ly:music?)
+   #{
+     \override Stem.length = #(* 7.0 mag)
+     \override NoteHead.font-size =
+       #(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
+     #music
+     \revert Stem.length
+     \revert NoteHead.font-size
+   #})
+
+\relative {
+  c'2 \withAlt #0.5 { c4 c }
+  \withAlt #1.5 { c c } c2
+}
+@end lilypond
+
+
+@node Functions without arguments
+@subsection Funcions sense arguments
+
+En gairebé tots els casos, una funció sense arguments s'ha
+d'escriure amb una variable:
+
+@example
+dolce = \markup@{ \italic \bold dolce @}
+@end example
+
+No obstant, en rares ocasions pot ser d'utilitat crear una funció
+musical sense arguments:
+
+@example
+mostrarNumeroDeCompas =
+#(define-music-function
+     ()
+     ()
+   (if (eq? #t (ly:get-option 'display-bar-numbers))
+       #@{ \once \override Score.BarNumber.break-visibility = ##f #@}
+       #@{#@}))
+@end example
+
+Per a la impressió real dels nombres de compàs on es crida aquesta
+funció, invoqueu a @command{lilypond} amb
+
+@example
+lilypond -d display-bar-numbers FITXER.ly
+@end example
+
+
+@node Void music functions
+@subsection Funcions musicals buides
+
+Una funció musical ha de retornar una expressió musical.  Si voleu
+executar una funció exclusivament pels seus efectes secundaris,
+hauríeu d'usar @code{define-void-function}.  Però pot haver-hi
+casos en els quals a vegades volem produir una expressió musical,
+i a vegades no (com a l'exemple anterior).  Retornar una expressió
+musical @code{void} (buida) per mitjà de @code{#@{ #@}} ho fa
+possible.
+
+
+@node Event functions
+@section Funcions d'esdeveniments
+@funindex define-event-function
+@cindex event functions
+
+Per usar una funció musical en el lloc d'un esdeveniment, hem
+d'escriure un indicador de direcció abans d'ella.  Però a vegades,
+això fa que es perdi la correspondència amb la sintaxi de les
+construccions que volem substituir.  Per exemple, si volem
+escriure instruccions de matís dinàmic, els matisos s'adjunten
+habitualment sense indicador de direcció, com @code{c'\pp}.  Heus
+aquí una forma d'escriure indicacions dinàmiques arbitràries:
+
+@lilypond[quote,verbatim,ragged-right]
+dyn=#(define-event-function (arg) (markup?)
+         (make-dynamic-script arg))
+\relative { c'\dyn pfsss }
+@end lilypond
+
+Podríem haver fer el mateix usant una funció musical, però
+aleshores hauríem d'escriure sempre un indicador de direcció abans
+de cridar-la, com @code{@w{c-\dyn pfsss}}.
+
+
+@node Markup functions
+@section Funcions de marcatge
+
+Els elements de marcatge estan implementats com funcions de
+l'Scheme especials que produeixen un objecte @code{Stencil} donats
+una sèrie d'arguments.
+
+
+@node Markup construction in Scheme
+@subsection Construcció d'elements de marcatge a l'Scheme
+
+@cindex marcatge, definir instruccions de
+@funindex \displayScheme
+
+Les expressions de marcatge es representen internament a l'Scheme
+usant el macro @code{markup}:
+
+@example
+(markup @var{expr})
+@end example
+
+Per veure una expressió de marcatge en la seva forma de l'Scheme,
+utilitzeu l'ordre @code{\displayScheme}:
+
+@example
+\displayScheme
+\markup @{
+  \column @{
+    \line @{ \bold \italic "hola" \raise #0.4 "món" @}
+    \larger \line @{ pep pepet pepepet @}
+  @}
+@}
+@end example
+
+@noindent
+La compilació del codi anterior envia a la consola el següent:
+
+@example
+(markup
+  #:line
+  (#:column
+   (#:line
+    (#:bold (#:italic "hola") #:raise 0.4 "món")
+    #:larger
+    (#:line ("pep" "pepet" "pepepet")))))
+@end example
+
+Per evitar que el marcatge s'imprimeixi en la pàgina, useu
+@w{@samp{\void \displayScheme @var{marcatge}}}.  També, com passa
+amb l'ordre @code{\displayMusic}, la sortida de
+@code{\displayScheme} es pot desar en un fitxer extern.
+Vegeu @ref{Displaying music expressions}.
+
+@noindent
+Aquest exemple mostra les principals regles de traducció entre la
+sintaxi del marcatge normal del LilyPond i la sintaxi del marcatge
+de l'Scheme.  La utilització de @code{#@{ @dots{} #@}} per
+escriure en la sintaxi del Lilypond serà amb freqüència el més
+convenient, però explicarem com fer servir la macro @code{markup}
+per obtenir una solució sols amb l'Scheme.
+
+@quotation
+@multitable @columnfractions .3 .3
+@item @b{LilyPond} @tab @b{Scheme}
+@item @code{\markup marcatge1} @tab @code{(markup marcatge1)}
+@item @code{\markup @{ marcatge1 marcatge2 @dots{} @}} @tab
+        @code{(markup marcatge1 marcatge2 @dots{} )}
+@item @code{\ordre} @tab @code{#:ordre}
+@item @code{\variable} @tab @code{variable}
+@item @code{\center-column @{ @dots{} @}} @tab
+        @code{#:center-column ( @dots{} )}
+@item @code{cadena} @tab @code{"cadena"}
+@item @code{#argument-de-scheme} @tab @code{argument-de-scheme}
+@end multitable
+@end quotation
+
+Tot el llenguatge de l'Scheme està accessible dins del macro
+@code{markup}.  Per exemple, podem usar crides a funcions dins de
+@code{markup} per així manipular cadenes de caràcters.  Això és
+útil si s'estan definint ordres de marcatge noves (vegeu
+@ref{New markup command definition}).
+
+
+@knownissues
+
+L'argument markup-list que dóna ordres com @code{#:line},
+@code{#:center} i @code{#:column} no pot ser una variable ni el
+resultat d'una crida a una funció.
+
+@lisp
+(markup #:line (funció-que-retorna-marcatges))
+@end lisp
+
+@noindent
+no és vàlid.  Cal fer servir les funcions
+@code{make-line-markup}, @code{make-center-markup} o
+@code{make-column-markup} en el seu lloc:
+
+@lisp
+(markup (make-line-markup (funció-que-retorna-marcatges)))
+@end lisp
+
+
+@node How markups work internally
+@subsection Com funcionen internament els elements de marcatge
+
+En un element de marcatge com
+
+@example
+\raise #0.5 "exemple de text"
+@end example
+
+@noindent
+@code{\raise} es representa en realitat per mitjà de la funció
+@code{raise-markup}.  L'expressió de marcatge s'emmagatzema com
+
+@example
+(list raise-markup 0.5 "exemple de text")
+@end example
+
+Quan el marcatge es converteix en objectes imprimibles (Stencils o
+segells), es crida la funció @code{raise-markup} com
+
+@example
+(apply raise-markup
+       @var{\objecte de marcatge}
+       @var{llista de llistes associatives de propietats}
+       0.5
+       @var{el marcatge "exemple de text"})
+@end example
+
+Primer la funció @code{raise-markup} crea el segell per a la
+cadena @code{exemple de text}, i després eleva el segell Stencil
+en 0.5 espais de pentagrama.  Aquest és un exemple força senzill;
+a la resta de la secció es podran veure exemple més complexos,
+així com a @file{scm/define-markup-commands.scm}.
+
+
+@node New markup command definition
+@subsection Definició d'una ordre nova de marcatge 
+
+Aquesta secció tracta sobre la definició de noves ordres de marcatge.
+
+
+@node Markup command definition syntax
+@unnumberedsubsubsec Sintaxi de la definició d'ordre de marcatge
+
+Es poden definir ordres noves de marcatge usant el macro de
+l'Scheme @code{define-markup-command}, al nivell sintàctic
+superior.
+
+@lisp
+(define-markup-command (@var{nom-ordre} @var{disposició} @var{props} @var{arg1} @var{arg2} @dots{})
+    (@var{tipus-arg1?} @var{tipus-arg2?} @dots{})
+    [ #:properties ((@var{propietat1} @var{valor-predeterminat1})
+                    @dots{}) ]
+  @dots{}command body@dots{})
+@end lisp
+
+Els arguments són
+
+@table @code
+@item @var{nom-ordre}
+nom de l'ordre de marcatge
+@item layout
+la definició de @q{disposició}.
+@item props
+una llista de llistes associatives, que contenen totes les
+propietats actives.
+@item @var{argi}
+argument @var{i}-éssim d'ordre
+@item @var{tipus-argi?}
+predicat de tipus per a l'argument @var{i}-éssim
+@end table
+
+Si l'ordre utilitza propietats dels arguments @code{props}, es pot
+usar la paraula clau @code{#:properties} per especificar quines
+propietats es fan servir, així com els seus valors per defecte.
+
+Els arguments es distingeixen segons el seu tipus:
+@itemize
+@item un marcatge, que correspon al predicat de tipus @code{markup?};
+@item una llista de marcatges, que correspon al predicat de tipus @code{markup-list?};
+@item qualsevol altre tipus de l'Scheme, que correspon a predicats
+de tipus com ara @code{list?}, @code{number?}, @code{boolean?}, etc.
+@end itemize
+
+No existeix cap limitació en l'ordre dels arguments (després dels
+arguments estàndard @code{layout} i @code{props}).  No obstant
+això, les funcions de marcatge que agafen un element de marcatge
+com el seu últim argument són una mica especials perquè podem
+aplicar-les a una llista de marcatge i el resultat és una llista
+de marcatges on la funció de marcatge (amb els arguments
+antecedents especificats) s'ha aplicat a tots els elements de la
+llista de marcatges original.
+
+Atès que la replicació dels arguments precedents per aplicar una
+funció de marcatge a una llista de marcatges és poc costosa
+principalment pels arguments de l'Scheme, s'eviten les caigudes de
+rendiment simplement mitjançant la utilització d'arguments de
+l'Scheme per als arguments antecedents de les funcions de marcatge
+que agafen un marcatge com el seu últim argument.
+
+@funindex \markup
+@cindex markup macro
+@funindex interpret-markup
+Les ordres de marcatge tenen un cicle de vida relativament
+complex.  El cos de la definició d'una ordre de marcatge és
+responsable de la conversió dels arguments de l'ordre de marcatge
+en una expressió de segell que es retorna.  Molt sovint això es fa
+cridant a la funció @code{interpret-markup} sobre una expressió de
+marcatge, i passant-li els arguments @var{layout} i
+@var{props}. En general aquests arguments es coneixen en una fase
+molt tardana de la composició tipogràfica.  Les expressions de
+marcatge ja tenen els seus components muntats dins
+d'expressions de marcatge quan s'expandeixen les ordres
+@code{\markup} (dins de l'Scheme).  L'avaluació i la comprovació
+de tipus dels arguments de l'ordre de marcatge es realitza en el
+moment en el qual s'interpreten @code{\markup} o @code{markup}.
+
+Però la conversió real d'expressions de marcatge en expressions de
+segell mitjançant l'execució dels cossos en funció de marcatge
+sols es realitza quan es crida @code{interpret-markup} sobre una
+expressió de marcatge.
+
+
+@node On properties
+@unnumberedsubsubsec Quant a les propietats
+
+Els arguments @code{layout} i @code{props} de les ordres de
+marcatge introdueixen un context per a la interpretació del
+marcatge: mida de la tipografia, gruix de la línia, etc.
+
+L'argument @code{layout} permet l'accés a les propietats definides
+als blocs @code{paper}, usant la funció
+@code{ly:output-def-lookup}.  Per example, el gruix de línia (el
+mateix que es fa servir a les partitures) es llegeix usant:
+
+@example
+(ly:output-def-lookup layout 'line-width)
+@end example
+
+L'argument @code{props} fa accessibles algunes propietats a les
+ordres de marcatge.  Per exemple, quan s'interpreta el marcatge
+del títol d'un llibre, totes les variables definides dins del bloc
+@code{\header} s'afegeixen automàticament a @code{props}, de manera
+que el marcatge del títol del llibre pot accedir al títol del
+llibre, l'autor, etc.  També és una forma de configurar el
+comportament d'una ordre de marcatge: per exemple, quan una
+instrucció utilitza mides de tipografia durant el processat, la
+mida es llegeix de @code{props} en comptes de tenir un argument 
+@code{font-size}.  El que crida a una ordre de marcatge pot
+canviar el valor de la propietat de la mida de la tipografia amb
+l'objecte de modificar el comportament.  Feu servir la paraula
+clau @code{#:properties} de @code{define-markup-command} per
+especificar quines propietats s'han de llegir dels arguments de
+@code{props}.
+
+L'exemple de la secció següent il·lustra com accedir i
+sobreescriure les propietats d'una ordre de marcatge.
+
+
+@node A complete example
+@unnumberedsubsubsec Un exemple complet
+
+L'exemple següent defineix una ordre de marcatge per traçar un
+rectangle doble al voltant d'un fragment de text.
+
+En primer lloc, ens cal construir un resultat aproximat utilitzant
+marcatges.  Una consulta a @rnotationnamed{Text markup commands,
+Ordres de marcatge de text} ens mostra que és útil l'odre
+@code{\box}:
+
+@lilypond[quote,verbatim,ragged-right]
+\markup \box \box HOLA
+@end lilypond
+
+Ara, considerem que és preferible tenir més separació entre el
+text i els rectangles.  Segons la documentació de @code{\box},
+aquesta ordre usa una propietat @code{box-padding}, el valor
+predeterminat de la qual és 0.2.  La documentació també menciona
+com sobreescriure aquest valor:
+
+@lilypond[quote,verbatim,ragged-right]
+\markup \box \override #'(box-padding . 0.6) \box A
+@end lilypond
+
+Després, l'emplenament o separació entre els dos rectangles ens
+sembla molt petit, així que també el sobreescriurem:
+
+@lilypond[quote,verbatim,ragged-right]
+\markup \override #'(box-padding . 0.4) \box
+     \override #'(box-padding . 0.6) \box A
+@end lilypond
+
+@noindent
+Repetir aquesta extensa ordre de marcatge un i un altre cop seria
+un maldecap.  Aquí és on cal una ordre de marcatge.  Així doncs,
+escrivim una ordre de marcatge @code{double-box}, que agafa un
+argument (el text).  Dibuixa els dos rectangles i afegeix una
+separació.
+
+@lisp
+#(define-markup-command (double-box layout props text) (markup?)
+  "Trazar un rectángulo doble rodeando el texto."
+  (interpret-markup layout props
+    #@{\markup \override #'(box-padding . 0.4) \box
+            \override #'(box-padding . 0.6) \box @{ #text @}#@}))
+@end lisp
+
+o, de forma equivalent,
+
+@lisp
+#(define-markup-command (double-box layout props text) (markup?)
+  "Trazar un rectángulo doble rodeando el texto."
+  (interpret-markup layout props
+    (markup #:override '(box-padding . 0.4) #:box
+            #:override '(box-padding . 0.6) #:box text)))
+@end lisp
+
+@code{text} és el nom de l'argument de l'ordre, i
+@code{markup?} és el tipus: l'identifica com un element de
+marcatge.  La funció @code{interpret-markup} s'usa en gairebé
+totes les ordres de marcatge: construeix un segell, usant
+@code{layout}, @code{props}, i un element de marcatge.  En el
+segon cas, la marca es construeix usant el macro de l'Scheme
+@code{markup}, vegeu @ref{Markup construction in Scheme}.  La
+transformació d'una expressió @code{\markup} en una expressió de
+marcatge de l'Scheme és directa.
+
+L'ordre nova es pot usar com segueix:
+
+@example
+\markup \double-box A
+@end example
+
+Fora bo fer una l'ordre @code{double-box} que es pogués personalitzar
+aquí, els valors d'emplenament @code{box-padding} són fixos i no
+es poden canviar per part d l'usuari. A més a més, fora millor
+distingir la separació entre els dos rectangles, de l'emplenament
+entre el rectangle intern i el text.  Així docs, introduïm una
+nova propietat, @code{inter-box-padding}, per a l'emplenament
+entre els rectangles.  El @code{box-padding} s'usarà per a
+l'emplenament intern.  Ara el codi nou és com es veu a
+continuació:
+
+@lisp
+#(define-markup-command (double-box layout props text) (markup?)
+  #:properties ((inter-box-padding 0.4)
+                (box-padding 0.6))
+  "Trazar un rectángulo doble rodeando el texto."
+  (interpret-markup layout props
+    #@{\markup \override #`(box-padding . ,inter-box-padding) \box
+               \override #`(box-padding . ,box-padding) \box
+               @{ #text @} #@}))
+@end lisp
+
+De nou, la versió equivalent que utilitza la macro de marcatge
+seria:
+
+@lisp
+#(define-markup-command (double-box layout props text) (markup?)
+  #:properties ((inter-box-padding 0.4)
+                (box-padding 0.6))
+  "Traç d'un rectangle doble rodejant el test."
+  (interpret-markup layout props
+    (markup #:override `(box-padding . ,inter-box-padding) #:box
+            #:override `(box-padding . ,box-padding) #:box text)))
+@end lisp
+
+Aquí la paraula clau @code{#:properties} s'usa de manera que les
+propietats @code{inter-box-padding} i @code{box-padding} es
+llegeixen a partir de l'argument @code{props}, i se'ls
+proporcionen uns valors predeterminats si les propietats no estan
+definides.
+
+Després, aquests valors s'usen per sobreescriure les propietats
+@code{box-padding} usades per les dues instruccions @code{\box}.
+Observeu l'apòstrof invertit i la coma a l'argument de
+@code{\override}: ens permeten introduir un valor de variable dins
+d'una expressió literal.
+
+Ara, l'ordre es pot usar dins d'un element de marcatge, i
+l'emplenament dels rectangles es pot personalitzar:
+
+@lilypond[quote,verbatim,ragged-right]
+#(define-markup-command (double-box layout props text) (markup?)
+  #:properties ((inter-box-padding 0.4)
+                (box-padding 0.6))
+  "Traç d'un rectangle doble rodejant el text."
+  (interpret-markup layout props
+    #{\markup \override #`(box-padding . ,inter-box-padding) \box
+              \override #`(box-padding . ,box-padding) \box
+              { #text } #}))
+
+\markup \double-box A
+\markup \override #'(inter-box-padding . 0.8) \double-box A
+\markup \override #'(box-padding . 1.0) \double-box A
+@end lilypond
+
+
+@node Adapting builtin commands
+@unnumberedsubsubsec Adaptació d'ordres incorporades
+
+Una bona manera de començar a escriure una ordre de marcatge nova
+és seguir l'exemple d'una altra ordre ja incorporada.  Gairebé
+totes les ordres de marcatge que estan incorporades al LilyPond es
+poden trobar al fitxer @file{scm/define-markup-commands.scm}.
+
+Per exemple, voldríem adaptar l'ordre @code{\draw-line} perquè
+traci una línia doble.  L'ordre @code{\draw-line} està definida
+com segueix (s'han suprimit els comentaris de documentació):
+
+@lisp
+(define-markup-command (draw-line layout props dest)
+  (number-pair?)
+  #:category graphic
+  #:properties ((thickness 1))
+  "@dots{}documentación@dots{}"
+  (let ((th (* (ly:output-def-lookup layout 'line-thickness)
+               thickness))
+        (x (car dest))
+        (y (cdr dest)))
+    (make-line-stencil th 0 0 x y)))
+@end lisp
+
+Per definir una ordre nova basada en una altra existent, copieu la
+definició i canvieu-li el nom.  La paraula clau @code{#:category}
+es pot eliminar sense por, atès que sols s'utilitza per generar
+documentació del LilyPond, i no té cap utilitat per a les ordre de
+marcatge definits per l'usuari.
+
+@lisp
+(define-markup-command (draw-double-line layout props dest)
+  (number-pair?)
+  #:properties ((thickness 1))
+  "@dots{}documentació@dots{}"
+  (let ((th (* (ly:output-def-lookup layout 'line-thickness)
+               thickness))
+        (x (car dest))
+        (y (cdr dest)))
+    (make-line-stencil th 0 0 x y)))
+@end lisp
+
+A continuació s'afegeix una propietat per establir la separació
+entre les dues línies, anomenada @code{line-gap}, amb un valor
+predeterminat, per exemple 0.6:
+
+@lisp
+(define-markup-command (draw-double-line layout props dest)
+  (number-pair?)
+  #:properties ((thickness 1)
+                (line-gap 0.6))
+  "@dots{}documentació@dots{}"
+  @dots{}
+@end lisp
+
+Finalment, s'afegeix el codi per traçar les dues línies.  S'usen
+dues crides a @code{make-line-stencil} per traçar les línies, i
+els segells resultants es combinen usant @code{ly:stencil-add}:
+
+@lilypond[quote,verbatim,ragged-right]
+#(define-markup-command (my-draw-line layout props dest)
+  (number-pair?)
+  #:properties ((thickness 1)
+                (line-gap 0.6))
+  "..documentació.."
+  (let* ((th (* (ly:output-def-lookup layout 'line-thickness)
+                thickness))
+         (dx (car dest))
+         (dy (cdr dest))
+         (w (/ line-gap 2.0))
+         (x (cond ((= dx 0) w)
+                  ((= dy 0) 0)
+                  (else (/ w (sqrt (+ 1 (* (/ dx dy) (/ dx dy))))))))
+         (y (* (if (< (* dx dy) 0) 1 -1)
+               (cond ((= dy 0) w)
+                     ((= dx 0) 0)
+                     (else (/ w (sqrt (+ 1 (* (/ dy dx) (/ dy dx))))))))))
+     (ly:stencil-add (make-line-stencil th x y (+ dx x) (+ dy y))
+                     (make-line-stencil th (- x) (- y) (- dx x) (- dy y)))))
+
+\markup \my-draw-line #'(4 . 3)
+\markup \override #'(line-gap . 1.2) \my-draw-line #'(4 . 3)
+@end lilypond
+
+
+@node New markup list command definition
+@subsection Definició de noves ordres de llista de marcatge
+
+@funindex define-markup-list-command
+@funindex interpret-markup-list
+
+Les ordres de llistes de marcatge es defineixen amb el macro de l'Scheme
+@code{define-markup-list-command}, que és semblant al macro
+@code{define-markup-command} descrit a @ref{New markup command
+definition}, excepte que on aquest últim retorna un segell únic,
+el primer retorna una llista de segells.
+
+A l'exemple següent es defineix una ordre de llista de marcatge
+@code{\paragraph}, que retorna una llista de línies justificades,
+estant la primera d'elles sagnades.  L'amplada del sagnat s'agafa
+de l'argument @code{props}.
+
+
+@example
+#(define-markup-list-command (paragraph layout props args) (markup-list?)
+   #:properties ((par-indent 2))
+   (interpret-markup-list layout props
+     #@{\markuplist \justified-lines @{ \hspace #par-indent #args @} #@}))
+@end example
+
+
+La versió que usa solament Scheme és més complexa:
+@example
+#(define-markup-list-command (paragraph layout props args) (markup-list?)
+   #:properties ((par-indent 2))
+   (interpret-markup-list layout props
+     (make-justified-lines-markup-list (cons (make-hspace-markup par-indent)
+                                             args))))
+@end example
+
+A part dels arguments usuals @code{layout} i @code{props}, l'ordre
+de llista de marcatge @code{paragraph} agafa un argument de llista
+de marcatges, cridant @code{args}.  El predicat per a llistes de
+marcatges és @code{markup-list?}.
+
+En primer lloc, la funció agafa l'amplada del sagnat, una
+propietat anomenada aquí @code{par-indent}, de la llista de
+propietats @code{props}.  Si no es troba la propietat, el valor
+predeterminat és @code{2}.  Després, es fa una llista de línies
+justificades usant l'ordre incorporada de llista de marcatges
+@code{\justified-lines}, que està relacionada amb la funció
+@code{make-justified-lines-markup-list}.  S'afegeix un espai
+horitzontal al principi usant @code{\hspace} (o la funció 
+@code{make-hspace-markup}).  Finalment, la llista de
+marcatges s'interpreta usant la funció
+@code{interpret-markup-list}.
+
+Aquest nova ordre de llista de marcatges es pot usar com segueix:
+
+@example
+\markuplist @{
+  \paragraph @{
+    L'art de la tipografia musical s'anomena \italic @{gravat (en planxa).@}
+    El terme deriva del procés tradicional d'impressió de música.
+    Fa sols algunes dècades, les partitures es feien retallant i estampant
+    la música en una planxa de zinc o llauna en una imatge invertida. 
+  @}
+  \override-lines #'(par-indent . 4) \paragraph @{
+    La planxa s'havia d'entintar, i les depressions causades pels talls
+    i estampats retenien la tina.  Es formava una imatge pressionant el paper
+    contra la planxa.  L'estampat i tallat es feia completament 
+    a mà.
+  @}
+@}
+@end example
+
+
+@node Contexts for programmers
+@section Contextos per a programadors
+
+
+@node Context evaluation
+@subsection Avaluació de contextos
+
+@cindex codi, crides durant la interpretació
+@funindex \applyContext
+@funindex make-apply-context
+@funindex ly:context-property
+@funindex ly:context-set-property!
+@funindex ly:context-grob-definition
+@funindex ly:assoc-get
+@funindex ly:context-pushpop-property
+
+Es poden modificar els contextos durant la interpretació amb codi
+de l'Scheme.  Dins d'un bloc de codi del LilyPond, la sintaxi per
+fer això és:
+
+@example
+\applyContext @var{funció}
+@end example
+
+En codi de l'Scheme, la sintaxi és:
+
+@example
+(make-apply-context @var{funció})
+@end example
+
+@code{@var{funció}} ha de ser una funció de l'Scheme que agafa un
+únic argument, que és el context al qual aplicar-la.  La funció
+pot accedir a, així com sobreescriure o establir propietats de
+grobs s i propietats de contextos.  Qualsevol acció agafada per la
+funció que depengui de l'estat del context, està limitada a
+l'estat del context @emph{en el moment de cridar a la funció}.
+Així mateix, els canvis efectuats per una crida a
+@code{\applyContext} romanen en efecte fins que es modifiquen de
+nou directament, o es reverteixen, fins i tot si han canviat les
+condicions inicials sobre les que depenen.
+
+Les funcions següents de l'Scheme són útils quan s'utilitza
+@code{\applyContext}:
+
+@table @code
+@item ly:context-property
+recuperar el valor d'una propietat de context
+
+@item ly:context-set-property!
+establir el valor d'una propietat de context
+
+@item ly:context-grob-definition
+@itemx ly:assoc-get
+recuperar el valor d'una propietat d'un grob
+
+@item ly:context-pushpop-property
+fer una sobreescriptura temporal
+(@code{\temporary@tie{}\override}) o una reversió
+(@code{\revert}) sobre una propietat d'un grob
+@end table
+
+L'exemple següent recupera el valor actual de @code{fontSize}, i a
+continuació el dobla:
+
+@lilypond[quote,verbatim]
+doubleFontSize =
+\applyContext
+  #(lambda (context)
+     (let ((fontSize (ly:context-property context 'fontSize)))
+       (ly:context-set-property! context 'fontSize (+ fontSize 6))))
+
+{
+  \set fontSize = -3
+  b'4
+  \doubleFontSize
+  b'
+}
+@end lilypond
+
+
+L'exemple següent recupera els colors actuals dels grobs
+@code{NoteHead}, @code{Stem} i @code{Beam}, i a continuació els
+modifica perquè tinguin un matís menys saturat.
+
+@lilypond[quote,verbatim]
+desaturate =
+\applyContext
+  #(lambda (context)
+     (define (desaturate-grob grob)
+       (let* ((grob-def (ly:context-grob-definition context grob))
+              (color (ly:assoc-get 'color grob-def black))
+              (new-color (map (lambda (x) (min 1 (/ (1+ x) 2))) color)))
+         (ly:context-pushpop-property context grob 'color new-color)))
+     (for-each desaturate-grob '(NoteHead Stem Beam)))
+
+\relative {
+  \time 3/4
+  g'8[ g] \desaturate g[ g] \desaturate g[ g]
+  \override NoteHead.color = #darkred
+  \override Stem.color = #darkred
+  \override Beam.color = #darkred
+  g[ g] \desaturate g[ g] \desaturate g[ g]
+}
+@end lilypond
+
+Això pot implementar-se també com una funció musical, amb
+l'objecte de restringir les modificacions a un únic bloc de
+música.  Observeu com s'usa @code{ly:context-pushpop-property}
+tant com una sobreescriptura temporal
+(@code{\temporary@tie{}\override}) com una reversió
+(@code{\revert}):
+
+@lilypond[quote,verbatim]
+desaturate =
+#(define-music-function
+   (music) (ly:music?)
+   #{
+     \applyContext
+     #(lambda (context)
+        (define (desaturate-grob grob)
+          (let* ((grob-def (ly:context-grob-definition context grob))
+                 (color (ly:assoc-get 'color grob-def black))
+                 (new-color (map (lambda (x) (min 1 (/ (1+ x) 2))) color)))
+            (ly:context-pushpop-property context grob 'color new-color)))
+        (for-each desaturate-grob '(NoteHead Stem Beam)))
+     #music
+     \applyContext
+     #(lambda (context)
+        (define (revert-color grob)
+          (ly:context-pushpop-property context grob 'color))
+        (for-each revert-color '(NoteHead Stem Beam)))
+   #})
+
+\relative {
+  \override NoteHead.color = #darkblue
+  \override Stem.color = #darkblue
+  \override Beam.color = #darkblue
+  g'8 a b c
+  \desaturate { d c b a }
+  g b d b g2
+}
+@end lilypond
+
+
+@node Running a function on all layout objects
+@subsection Execució d'una funció sobre tots els objectes de la presentació
+
+@cindex codi, cridar sobre objectes de presentació
+@funindex \applyOutput
+
+La manera més versàtil de realitzar l'ajust fi d'un objecte és
+@code{\applyOutput}, que funciona inserint un esdeveniment del
+context especificat (@rinternals{ApplyOutputEvent}).  La seva
+sintaxi és o bé
+
+@example
+\applyOutput @var{Contexto} @var{proc}
+@end example
+
+@noindent
+o bé
+
+@example
+\applyOutput @var{Context}.@var{Grob} @var{proc}
+@end example
+
+@noindent
+donde @code{@var{proc}} és una funció de l'Scheme que agafa tres
+arguments.
+
+En interpretar-se, la funció @code{@var{proc}} es crida per a cada
+objecte de presentació (amb el nom de grob @var{Grob} si
+s'especifica) que est troba al context @code{@var{Context}} al
+temps actual, amb els següents arguments:
+
+@itemize
+@item el propi objecte de presentació,
+@item el context en el qual es va crear l'objecte de presentació, i
+@item el context en el qual es processa @code{\applyOutput}.
+@end itemize
+
+
+A més, la causa de l'objecte de presentació, és a dir l'objecte o
+expressió musical que és responsable d'haver-ho creat, està a la
+propietat @code{cause} de l'objecte.  Per exemple, per al cap
+d'una nota, aquest és un esdeveniment @rinternals{NoteHead}, y per
+a un objecte plica, aquest és un objecte @rinternals{Stem}.
+
+Vet aquí una funció a usar per a @code{\applyOutput}; esborra els
+caps de les notes que estan sobre la línia central i junt a ella:
+
+@lilypond[quote,verbatim,ragged-right]
+#(define (blanker grob grob-origin context)
+   (if (< (abs (ly:grob-property grob 'staff-position)) 2)
+       (set! (ly:grob-property grob 'transparent) #t)))
+
+\relative {
+  a'4 e8 <<\applyOutput Voice.NoteHead #blanker a c d>> b2
+}
+@end lilypond
+
+Perquè @var{funció} s'interpreti en els nivells de
+@code{Score} o de @code{Staff} utilitzeu aquestes formes:
+
+@example
+\applyOutput Score@dots{}
+\applyOutput Staff@dots{}
+@end example
+
+
+@node Callback functions
+@section Funcions de callback
+
+Les propietats (com @code{thickness} (gruix), @code{direction}
+(direcció), etc.) es poden establir a valors fixos amb
+\override, per exemple::
+
+@example
+\override Stem.thickness = #2.0
+@end example
+
+Les propietats poden fixar-se també a un procediment de l'Scheme:
+
+@lilypond[fragment,verbatim,quote]
+\override Stem.thickness = #(lambda (grob)
+    (if (= UP (ly:grob-property grob 'direction))
+        2.0
+        7.0))
+\relative { c'' b a g b a g b }
+@end lilypond
+
+@noindent
+En aquest cas, el procediment s'executa tan aviat com el valor de
+la propietat es reclama durant el procés de formatat.
+
+Gairebé tot el motor de tipografia està gestionat per aquests
+@emph{callbacks}.  Entre les propietats que usen normalment
+@emph{callbacks} estan
+
+@table @code
+@item stencil
+  La rutina d'impressió, que construeix un dibuix per a un símbol
+@item X-offset
+  La rutina que estableix la posició horitzontal
+@item X-extent
+  La rutina que calcula l'amplada d'un objecte
+@end table
+
+El procediment sempre agafa un argument únic, que és el grob
+(l'objecte gràfic).
+
+Aquest procediment pot accedir al valor usual de la propietat,
+cridant en primer lloc a la funció que és el @q{callback} usual
+per a aquesta propietat, i que pot veure's al manual de
+referència interna o al fitxer 'define-grobs.scm':
+
+@example
+\relative @{
+  \override Flag.X-offset = #(lambda (flag)
+    (let ((default (ly:flag::calc-x-offset flag)))
+      (* default 4.0)))
+  c''4. d8 a4. g8
+@}
+@end example
+
+També és possible obtenir el valor predeterminat existent, usant
+la funció @code{grob-transformer}:
+
+@lilypond[verbatim,quote]
+\relative {
+  \override Flag.X-offset = #(grob-transformer 'X-offset
+    (lambda (flag default) (* default 4.0)))
+  c''4. d8 a4. g8
+}
+@end lilypond
+
+Des de dins d'una callback, el mètode més fàcil per avaluar un
+element de marcatge és usar grob-interpret-markup.  Per exemple:
+
+@example
+mi-callback = #(lambda (grob)
+                 (grob-interpret-markup grob (markup "fulanito")))
+@end example
+
+@ignore
+
+@n ode Codi de l'Scheme en línia
+@s ection Codi de l'Scheme en línia
+@t ranslationof Inline Scheme code
+
+TODO: after this section had been written, LilyPond has improved
+to the point that finding a @emph{simple} example where one would
+@emph{have} to revert to Scheme has become rather hard.
+
+Until this section gets a rewrite, let's pretend we don't know.
+
+El principal desavantatge de @code{\tweak} es la seva
+inflexibilitat sintàctica.  Per exemple, el següent produeix un
+error de sintaxi (o més bé, així ho feia en algun moment del
+passat):
+
+@example
+F = \tweak font-size #-3 -\flageolet
+
+\relative @{
+  c''4^\F c4_\F
+@}
+@end example
+
+@noindent
+Usant l'Scheme, es pot donar un rodeig a aquest problema.  La ruta
+cap al resultat es dóna a @ref{Adding articulation to notes
+(example)}, especialment com usar @code{\displayMusic} com a guia
+d'ajuda.
+
+@example
+F = #(let ((m (make-music 'ArticulationEvent
+                          'articulation-type 'flageolet)))
+       (set! (ly:music-property m 'tweaks)
+             (acons 'font-size -3
+                    (ly:music-property m 'tweaks)))
+       m)
+
+\relative @{
+  c''4^\F c4_\F
+@}
+@end example
+
+@noindent
+Aquí, les propietats @code{tweaks} de l'objecte flageolet @code{m}
+(creat amb @code{make-music}) se extrauen amb
+@code{ly:music-property}, s'anteposa un nou parell clau-valor per
+canviar la mida de la tipografia a la llista de propietats amb la
+funció de l'Scheme @code{acons}, y finalment el resultat s'escriu
+de nou amb @code{set!}.  L'últim element del bloc @code{let} és el
+valor de retorn, el propi @code{m}.
+
+@end ignore
+
+
+@node Difficult tweaks
+@section Ajustaments difícils
+
+Hi ha un cert nombre de tipus d'ajustament difícils.
+
+@itemize
+
+
+@item
+Un tipus d'ajustament difícil és l'aparença dels objectes
+d'extensió, com les lligadures d'expressió i d'unió.  Inicialment,
+sols es crea un d'aquests objectes, i poden ajustar-se amb el
+mecanisme normal.  No obstant, en certs caos els objectes
+extensors creuen els salts de línia.  Si això passa, aquests
+objectes es clonen.  Es crea un objecte diferent per cada sistema
+en el qual es troba.  Aquests són clons de l'objecte original i
+hereten totes les seves propietats, inclosos els
+@code{\override}s.
+
+En altres paraules, un @code{\override} sempre afecta a totes les
+peces d'un objecte d'extensió fragmentat.  Per canviar sols una
+part d'un extensor en el salt de línia, cal inspeccionar el procés
+de formatat.  El @emph{callback} @code{after-line-breaking} conté
+el procediment Scheme que es crida després que s'han determinat
+els salts de línia, i els objectes de presentació han estat
+dividits sobre els diferents sistemes.
+
+A l'exemple següent definim un procediment @code{my-callback}.
+Aquest procediment
+
+@itemize
+@item
+determina si hem estat dividits pels salts de línia
+@item
+en cas afrimatiu, reuneix tots els objectes dividits
+@item
+comprova si som l'últim dels objectes dividits
+@item
+en cas afirmatiu, estableix @code{extra-offset}.
+@end itemize
+
+Aquest procediment s'instal·la en @rinternals{Tie} (lligadura
+d'unió), de forma que l'última part de la lligadura dividida es
+trasllada cap a dalt.
+
+@lilypond[quote,verbatim,ragged-right]
+#(define (my-callback grob)
+   (let* (
+          ;; hem estat dividits?
+          (orig (ly:grob-original grob))
+
+          ;; si és sí, obté les parts dividides (els nostres bessons)
+          (siblings (if (ly:grob? orig)
+                        (ly:spanner-broken-into orig)
+                        '())))
+
+     (if (and (>= (length siblings) 2)
+              (eq? (car (last-pair siblings)) grob))
+         (ly:grob-set-property! grob 'extra-offset '(1 . -4)))))
+
+\relative {
+  \override Tie.after-line-breaking =
+  #my-callback
+  c''1 ~ \break
+  c2 ~ 2
+}
+@end lilypond
+
+@noindent
+En aplicar aquest ajustament, la nova funció de callback
+@code{after-line-breaking} també ha de cridar a l'antiga, si
+existeix aquest valor predeterminat.  Per exemple, si s'usa amb
+@code{Hairpin}, s'ha de cridar també a
+@code{ly:spanner::kill-zero-spanned-time}.
+
+
+@item Algunes objectes no es poden canviar amb @code{\override}
+per raons tècnics.  Són exemples @code{NonMusicalPaperColumn} i
+@code{PaperColumn}.  Es poden canviar amb la funció
+@code{\overrideProperty} que funciona de forma similar a
+@code{\once \override}, però usa una sintaxi diferent.
+
+@example
+\overrideProperty
+Score.NonMusicalPaperColumn      % Nom del grob
+  . line-break-system-details    % Nom de la propietat
+  . next-padding                 % Nom de la subpropietat, opcional
+  #20                            % Valor
+@end example
+
+Observeu, no obstant, que @code{\override}, aplicat a
+@code{NonMusicalPaperColumn} i a @code{PaperColumn}, encara
+funciona com s'espera dins dels blocs @code{\context}.
+
+@end itemize
+
+
+@node LilyPond Scheme interfaces
+@chapter Interfícies de l'Scheme del LilyPond
+
+Aquest capítol cobreix les diverses eines proporcionades per
+LilyPond com ajuda als programadors de l'Scheme en extraure i
+introduir informació dels fluxos musicals.
+
+PER FER @c TODO -- figure out what goes in here and how to organize it

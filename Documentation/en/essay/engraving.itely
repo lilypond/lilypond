@@ -10,6 +10,7 @@
 
 @c \version "2.25.8"
 
+
 @node Music engraving
 @chapter Music engraving
 
@@ -127,6 +128,7 @@ Henle no. 666, @copyright{}2000:
 @sourceimage{henle-suite1-fullpage-hires,16cm,}
 @page
 @end iftex
+
 
 @node Engraving details
 @section Engraving details
@@ -271,6 +273,7 @@ wider at the top.  The sharp and the natural are easier to distinguish
 from a distance because their angled lines have different slopes and the
 vertical strokes are heavier.
 
+
 @node Optical spacing
 @unnumberedsubsec Optical spacing
 
@@ -356,6 +359,7 @@ The spacing algorithms in LilyPond even take the bar lines into account,
 which is why the final up-stem in the properly spaced example has been
 given a little more space before the bar line to keep it from looking
 crowded.  A down-stem would not need this adjustment.
+
 
 @node Ledger lines
 @unnumberedsubsec Ledger lines
@@ -613,6 +617,7 @@ for beam configurations, ties and dots in chords, line breaks, and page
 breaks.  The results of these decisions can be judged by comparison to
 real engravings.
 
+
 @node Improvement by benchmarking
 @unnumberedsubsec Improvement by benchmarking
 
@@ -703,6 +708,7 @@ from the current version of LilyPond (@version{}):
 @noindent
 The current output is not a clone of the reference edition, but it is
 much closer to publication quality that the earlier output.
+
 
 @node Getting things right
 @unnumberedsubsec Getting things right
@@ -892,6 +898,7 @@ automatically, so manual overrides are less and less necessary.  Where
 manual adjustments are needed, LilyPond's structure has been designed
 with that flexibility in mind.
 
+
 @node Building software
 @section Building software
 
@@ -1077,6 +1084,7 @@ software packages would struggle with reproducing this example because
 they are built on the nested box structure.  With LilyPond, on the other
 hand, we have tried to keep the input format and the structure as
 flexible as possible.
+
 
 @node What symbols to engrave?
 @unnumberedsubsec What symbols to engrave?
@@ -1282,6 +1290,7 @@ Internals Reference:
 @rinternals{Contexts}.
 @endmorerefs
 
+
 @node Flexible architecture
 @unnumberedsubsec Flexible architecture
 
@@ -1425,7 +1434,6 @@ note head symbol is changed during the music fragment.
 @section Putting LilyPond to work
 
 @cindex simple examples
-@cindex examples, simple
 
 We have written LilyPond as an experiment of how to condense the
 art of music engraving into a computer program.  Thanks to all
@@ -1543,6 +1551,7 @@ embed musical examples in documents.
 
 For more examples of LilyPond in action, full documentation, and the
 software itself, see our main website: www.lilypond.org.
+
 
 @page
 @node Engraved examples (BWV 861)

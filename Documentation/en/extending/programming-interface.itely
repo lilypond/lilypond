@@ -10,6 +10,7 @@
 
 @c \version "2.23.6"
 
+
 @node Interfaces for programmers
 @chapter Interfaces for programmers
 
@@ -35,7 +36,7 @@ which enable common LilyPond syntax to be used within Scheme.
 LilyPond code blocks look like
 
 @example
-  #@{ @var{LilyPond code} #@}
+#@{ @var{LilyPond code} #@}
 @end example
 
 Here is a trivial example:
@@ -72,6 +73,7 @@ right side of an assignment.  In addition, an empty LilyPond block
 corresponds to a void music expression, and a LilyPond block
 containing multiple music events gets turned into a sequential music
 expression.
+
 
 @node Scheme functions
 @section Scheme functions
@@ -223,6 +225,7 @@ reserved word for explicitly skipping optional arguments.
 Optional arguments at the end of an argument list can just be
 omitted without indication when called via Scheme.
 
+
 @node Void Scheme functions
 @subsection Void Scheme functions
 @funindex define-void-function
@@ -265,6 +268,7 @@ prefixing it with @code{\void}:
 That way, you can be sure that LilyPond will not assign meaning to the
 returned value regardless of where it encounters it.  This will also
 work for music functions such as @code{\displayMusic}.
+
 
 @node Music functions
 @section Music functions
@@ -340,6 +344,7 @@ As a chord constituent.  The returned expression must be of a
 @noindent
 @q{Polymorphic} functions, like @code{\tweak}, can be applied to
 post-events, chord constituent and top level music expressions.
+
 
 @node Simple substitution functions
 @subsection Simple substitution functions
@@ -537,6 +542,7 @@ execute a function only for its side effect, you should use
 sometimes want to produce a music expression, and sometimes not (like
 in the previous example).  Returning a @code{void} music expression
 via @code{#@{ #@}} will achieve that.
+
 
 @node Event functions
 @section Event functions
@@ -786,6 +792,7 @@ But the actual conversion of markup expressions into stencil
 expressions by executing the markup function bodies only happens
 when @code{interpret-markup} is called on a markup expression.
 
+
 @node On properties
 @unnumberedsubsubsec On properties
 
@@ -815,6 +822,7 @@ specify which properties shall be read from the @code{props} arguments.
 
 The example in next section illustrates how to access and override
 properties in a markup command.
+
 
 @node A complete example
 @unnumberedsubsubsec A complete example
@@ -847,6 +855,7 @@ override it too:
      \override #'(box-padding . 0.6) \box A
 @end lilypond
 
+@noindent
 Repeating this lengthy markup would be painful.  This is where a markup
 command is needed.  Thus, we write a @code{double-box} markup command,
 taking one argument (the text).  This draws the two boxes, with some
@@ -860,6 +869,7 @@ padding.
             \override #'(box-padding . 0.6) \box @{ #text @}#@}))
 @end lisp
 
+@noindent
 or, equivalently
 
 @lisp
@@ -943,6 +953,7 @@ customized:
 \markup \override #'(inter-box-padding . 0.8) \double-box A
 \markup \override #'(box-padding . 1.0) \double-box A
 @end lilypond
+
 
 @node Adapting builtin commands
 @unnumberedsubsubsec Adapting builtin commands
@@ -1197,6 +1208,7 @@ This new markup list command can be used as follows:
   @}
 @}
 @end example
+
 
 @node Contexts for programmers
 @section Contexts for programmers
@@ -1731,6 +1743,7 @@ a bug report would be appreciated.}
 
 
 @end itemize
+
 
 @node LilyPond Scheme interfaces
 @chapter LilyPond Scheme interfaces
