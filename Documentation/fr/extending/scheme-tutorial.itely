@@ -54,7 +54,7 @@ L'installation de LilyPond comprend l'implémentation Guile de Scheme.
 Tous les paquetages de LilyPond disposent d'un « bac à sable » Scheme,
 accessible par la commande :
 @example
-lilypond Scheme-sandbox
+lilypond scheme-sandbox
 @end example
 
 @noindent
