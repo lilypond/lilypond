@@ -528,16 +528,19 @@ one voice.")))
            (begin
              (for-each
               (lambda (dur-line)
-                ;; TODO rethink:
-                ;; For MultiMeasureRest always use to-barline #t
-                (ly:grob-set-property! dur-line 'to-barline #t)
-                (ly:spanner-set-bound! dur-line RIGHT
-                                       (ly:context-property context 'currentMusicalColumn))
-                (ly:engraver-announce-end-grob this-engraver dur-line grob))
+                (let* ((bound-details
+                        (ly:grob-property dur-line 'bound-details))
+                       (right-details (assoc-get 'right bound-details))
+                       (end-on-break-align-group?
+                         (assoc-get 'end-on-break-align-group right-details)))
+                  (ly:spanner-set-bound! dur-line RIGHT
+                                         (if end-on-break-align-group?
+                                             (ly:context-property context 'currentCommandColumn)
+                                             (ly:context-property context 'currentMusicalColumn)))
+                  (ly:engraver-announce-end-grob this-engraver dur-line grob)))
               current-dur-grobs)
              (set! stop-duration-line #f)
              (set! current-dur-grobs #f)))
-
 
        (if (and start-duration-line
                 (event-has-articulation? 'duration-line-event mmr-event))

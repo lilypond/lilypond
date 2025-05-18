@@ -1302,6 +1302,7 @@ contain mixed durations.  See also @iref{PercentRepeat},
         (arrow-length . 2)
         (bound-details . ((right . ((attach-dir . ,LEFT)
                                     (end-on-accidental . #t)
+                                    (end-on-break-align-group . #f)
                                     (end-on-arpeggio . #t)
                                     (padding . 0.4)
                                     ;; possible values for endstyle: arrow, hook

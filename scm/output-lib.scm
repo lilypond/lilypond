@@ -3285,9 +3285,36 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
     ;;;;;;;;;;;;;;;;;;;;;;;;
     ;;;; DurationLine end
     ;;;;;;;;;;;;;;;;;;;;;;;;
-         (right-bound (ly:spanner-bound grob RIGHT))
+
     ;;;;
-    ;;;; adjust or Arpeggio of right NoteColumn
+    ;;;; adjust for BreakAlignGroup, if present and wished
+    ;;;;
+         (right-bound (ly:spanner-bound grob RIGHT))
+         (system (ly:grob-system right-bound))
+         (end-on-bag? (assoc-get 'end-on-break-align-group right-bound-details))
+         (right-bound-column (ly:item-get-column right-bound))
+         (right-bound-left-column
+           (ly:grob-object right-bound-column 'left-neighbor))
+         (relevant-elts
+           (cond ((grob::has-interface right-bound 'paper-column-interface)
+                  (ly:grob-object right-bound 'elements #f))
+                 ((and
+                    (ly:grob? right-bound-left-column)
+                    (not (equal? right-bound-left-column left-bound)))
+                  (ly:grob-object right-bound-left-column 'elements #f))
+                 (else #f)))
+         (bag-elts
+           (if relevant-elts
+               (filter
+                 (lambda (elt) (grob::has-interface elt 'break-aligned-interface))
+                 (ly:grob-array->list relevant-elts))
+               '()))
+         (bag-start
+           (if (and end-on-bag? (pair? bag-elts))
+               (car (ly:relative-group-extent bag-elts system X))
+               #f))
+    ;;;;
+    ;;;; adjust for Arpeggio of right NoteColumn
     ;;;;
     ;;;; TODO: build this into the line-spanner-interface, allowing it
     ;;;; to be used on other line spanners.
@@ -3326,9 +3353,9 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
     ;;;;
          (right-info-X
           (assoc-get 'X right-bound-details 0))
-         ;; Repect padding and other possible items.
+         ;; Respect padding and other possible items.
          (right-end
-          (- (or arpeggio-start right-info-X)
+          (- (or bag-start arpeggio-start right-info-X)
              left-X
              right-padding
              adjust-for-arrow))
@@ -3367,7 +3394,6 @@ Please consider to increase 'minimum-length or decrease 'arrow-length.")))
     ;;;;;;;;;;;;;;;;;;;;
     ;;;; final alist
     ;;;;;;;;;;;;;;;;;;;;
-
     (list
      (cons 'x-start left-start)
      (cons 'x-end right-end)

@@ -196,6 +196,26 @@ The duration line may end with a hook (beam-style only) or an arrow.
 }
 @end lilypond
 
+@code{DurationLine} may avoid mid-line items from @code{BreakAlignGroup}.
+
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Voice
+    \consists "Duration_line_engraver"
+  }
+}
+
+<<
+  \new Staff {
+    g'1\- s \clef "alto" g'
+  }
+  \new Staff {
+    \override DurationLine.bound-details.right.end-on-break-align-group = ##t
+    g'1\- s \clef "alto" g' \bar "|."
+  }
+>>
+@end lilypond
 
 @node Contemporary scoring techniques
 @subsection Contemporary scoring techniques

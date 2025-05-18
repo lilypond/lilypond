@@ -2,7 +2,9 @@
 
 \header {
   texidoc = "A @code{DurationLine} grob may end with a special behavior.
-Currently available are hooks (with settable direction) and arrows."
+Currently available are hooks (with settable direction) and arrows.
+
+The @code{DurationLine} ends nicely even if in not continued voices."
 }
 
 \layout {
