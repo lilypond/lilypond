@@ -1074,7 +1074,11 @@ def compare_tree_pairs(tree_pairs, dest_dir: str, threshold: float) -> Compariso
 
     data.read_sources()
 
-    data.write_changed(dest_dir, threshold)
+    # changed.txt controls whether the GitLab UI indicates "pass" or
+    # "warning."  In that context, we prefer to be warned when there
+    # are any differences, since even below-threshold differences
+    # might deserve further investigation.
+    data.write_changed(dest_dir, 0)
     data.create_html_result_page(dest_dir, threshold)
     data.create_text_result_page(dest_dir, threshold)
     data.print_results(threshold)
@@ -1343,7 +1347,7 @@ def test_basic_compare():
 \repeat unfold 12 { a'1\break }
 """)
 
-    
+
     names = simple_names + ["20multipage",
                             "19multipage"] + ['added', 'removed', 'added-multipage.ly']
     binary = os.environ.get("LILYPOND_BINARY", "lilypond")

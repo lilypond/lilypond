@@ -11,7 +11,7 @@
 
 set -eu
 
-LOGS=$(find out/lybook-testdb -name "*.log" | xargs grep -l "fatal error: ")
+LOGS="$(grep -rl --include='*.log' 'fatal error: ' out/lybook-testdb || true)"
 
 for log in $LOGS ; do
     ly=${log%%.log}.ly
