@@ -193,7 +193,8 @@ other expressions may be added to chords, sequential or simultaneous music.")
 appendToTagMarkup =
 #(define-music-function (tag more music) (symbol? markup? ly:music?)
    (_i "Append @var{more} to every markup in @var{music} tagged with @var{tag}.")
-   (markupMap 'text #{ \markup \append-to-tag #tag #more \etc #}
+   (apply-tag-operating-markup
+     (lambda (text) (make-append-to-tag-markup tag more text))
      music))
 
 applyContext =
@@ -919,10 +920,11 @@ symbols.
 Each tag may be declared as a member of at most one tag group (defined with
 @code{\\tagGroup}).  If none of a @var{music} element's tags share a tag group
 with one of the specified @var{tags}, the element is retained.")
-   (markupMap 'text #{ \markup \keep-with-tag #tags \etc #}
+   (apply-tag-operating-markup
+     (lambda (text) (make-keep-with-tag-markup tags text))
      (music-filter
-      (tags-keep-predicate tags)
-      music)))
+       (tags-keep-predicate tags)
+       music)))
 
 key =
 #(define-music-function (tonic pitch-alist)
@@ -1941,7 +1943,8 @@ other expressions may be added to chords, sequential or simultaneous music.")
 pushToTagMarkup =
 #(define-music-function (tag more music) (symbol? markup? ly:music?)
    (_i "Prepend @var{more} to every markup in @var{music} tagged with @var{tag}.")
-   (markupMap 'text #{ \markup \push-to-tag #tag #more \etc #}
+   (apply-tag-operating-markup
+     (lambda (text) (make-push-to-tag-markup tag more text))
      music))
 
 quoteDuring =
@@ -2005,10 +2008,11 @@ removeWithTag =
 @var{tags}.
 
 @var{tags} may be either a single symbol or a list of symbols.")
-   (markupMap 'text #{ \markup \remove-with-tag #tags \etc #}
-     (music-filter
-      (tags-remove-predicate tags)
-      music)))
+    (apply-tag-operating-markup
+      (lambda (text) (make-remove-with-tag-markup tags text))
+      (music-filter
+        (tags-remove-predicate tags)
+        music)))
 
 resetRelativeOctave =
 #(define-music-function (pitch) (ly:pitch?)

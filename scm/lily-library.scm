@@ -582,6 +582,16 @@ of Guile's @code{(ice-9 hash-table)} module, @strong{not}
           ((not (pair? x)) (cons x tail))
           (else (loop (car x) (loop (cdr x) tail))))))
 
+(define-public (list-map function ls)
+  "Apply @var{function} to the probably nested list @var{ls} and all of it
+sublists.
+First it recurses over the children, then the function is applied to
+@var{ls}."
+  (if (list? ls)
+      (set! ls (map (lambda (y) (list-map function y)) ls))
+      ls)
+  (function ls))
+
 (define-public (ensure-list item-or-list-of-items)
   "Ensure the argument is a list. If it is not put it in one."
   (if (list? item-or-list-of-items)

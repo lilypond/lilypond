@@ -124,3 +124,26 @@ when interpreting markups."
         ;; list of anything.
         ""))))
    (else "")))
+
+(define-public (apply-tag-operating-markup text-modificator music)
+  "Iterates over @code{music}. If @code{tag-markup} is noticed in the
+music property @code{'text} of any part, apply @code{text-modificator}
+to the text."
+  (map-some-music
+    (lambda (m)
+      (let* ((m-text (ly:music-property m 'text)))
+        (and
+          (pair? m-text)
+          (let* ((tag-markup? #f))
+            (when (pair? m-text)
+              (list-map
+                (lambda (x)
+                  (when
+                    (and (procedure? x) (eq? (procedure-name x) 'tag-markup))
+                    (set! tag-markup? #t))
+                  x)
+                m-text))
+            (when tag-markup?
+              (ly:music-set-property! m 'text (text-modificator m-text)))
+            m))))
+    music))
