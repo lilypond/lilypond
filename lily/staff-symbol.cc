@@ -172,14 +172,29 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item *head)
       // find the extent of the ledger pattern
       for (SCM s = ledger_positions; scm_is_pair (s); s = scm_cdr (s))
         {
+          Real current_ledger;
+
           s2 = scm_car (s);
-          if (!scm_is_number (s2))
-            s2 = scm_car (s2);
-          Real current_ledger = from_scm<double> (s2);
-          if (current_ledger > max_pos)
-            max_pos = current_ledger;
-          if (current_ledger < min_pos)
-            min_pos = current_ledger;
+          if (scm_is_pair (s2))
+            {
+              for (SCM ss = s2; scm_is_pair (ss); ss = scm_cdr (ss))
+                {
+                  SCM ss2 = scm_car (ss);
+                  current_ledger = from_scm<double> (ss2);
+                  if (current_ledger > max_pos)
+                    max_pos = current_ledger;
+                  if (current_ledger < min_pos)
+                    min_pos = current_ledger;
+                }
+            }
+          else
+            {
+              current_ledger = from_scm<double> (s2);
+              if (current_ledger > max_pos)
+                max_pos = current_ledger;
+              if (current_ledger < min_pos)
+                min_pos = current_ledger;
+            }
         }
 
       Real cycle = max_pos - min_pos;
