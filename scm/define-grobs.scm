@@ -1157,7 +1157,12 @@ properties if automatic part combining is active.")))))
                                  ledgered-grob-interface
                                  staff-symbol-referencer-interface))
                  (description . "A custos, mainly used in older
-notation like Gregorian chant.")))))
+notation like Gregorian chant.")
+                 (remarks . ("The @code{ledger-positions} property holds
+positions that are taken as-is.  Ledger lines may be placed on staff lines.  If
+@code{ledger-positions} is not set for this grob but for @code{NoteHead}, use
+the latter one.  If this isn't set either, use either the value set via
+@code{StaffSymbol} or fall back to the standard value."))))))
 
 
     ;; Divisio grew out of BreathingSign but is break-aligned like
@@ -2528,7 +2533,11 @@ the same voice.  See also @iref{NoteCollision}.")))))
                                 staff-symbol-referencer-interface
                                 vaticana-ligature-interface))
                  (description . "A note head.  See also
-@iref{TabNoteHead}.")))))
+@iref{TabNoteHead}.")
+                 (remarks . ("For this grob, the @code{ledger-positions}
+property holds positions that are taken as-is, overriding
+@code{StaffSymbol@/.ledger-positions} (if set).  Ledger lines may be placed on
+staff lines."))))))
 
     (NoteName
      . (
@@ -2916,7 +2925,12 @@ collisions of different voices.  See also
                                 side-position-interface))
                  (description . "An articulation (staccato,
 accent, etc.).  See also @iref{ScriptColumn},
-@iref{ScriptRow}, and @iref{MultiMeasureRestScript}.")))))
+@iref{ScriptRow}, and @iref{MultiMeasureRestScript}.")
+                 (remarks . ("The @code{ledger-positions} property holds
+positions that are taken as-is.  Ledger lines may be placed on staff lines.  If
+@code{ledger-positions} is not set for this grob but for @code{NoteHead}, use
+the latter one.  If this isn't set either, use either the value set via
+@code{StaffSymbol} or fall back to the standard value."))))))
 
     (ScriptColumn
      . (
@@ -3296,7 +3310,13 @@ passage.")))))
         (meta . ((class . Spanner)
                  (interfaces . (staff-symbol-interface))
                  (description . "A staff symbol, usually
-five horizontal lines.")))))
+five horizontal lines.")
+                 (remarks . ("For this grob, the @code{ledger-positions}
+property defines a repeating pattern of ledger lines.  Positions put into
+sublists are always be shown together, and values identical to staff line
+positions are ignored."
+                             "If the @code{ledger-positions-function}
+property is set, @code{ledger-positions} and @code{ledger-extra} are ignored."))))))
 
     (StanzaNumber
      . (

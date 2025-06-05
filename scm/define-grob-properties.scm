@@ -650,19 +650,20 @@ objects.  Objects with the lowest value of layer are drawn first, then
 objects with progressively higher values are drawn, so objects with
 higher values overwrite objects with lower values.  By default most
 objects are assigned a layer value of 1.")
-     (ledger-extra ,ly:dimension? "Extra distance from staff line to draw ledger
-lines for.")
+     (ledger-extra ,ly:dimension? "A distance relative to a note head's vertical
+position to modify the range where ledger lines are drawn, depending on the
+actually used ledger line positions.  If positive, this range gets extended,
+possibly adding extra ledger lines.  If negative, the range gets reduced,
+possibly removing ledger lines.")
      (ledger-line-thickness ,number-pair? "The thickness of ledger
-lines.  It is the sum of 2@tie{}numbers: The first is the factor for
-line thickness, and the second for staff space.  Both contributions
-are added.")
-     (ledger-positions ,list? "Vertical positions of ledger lines.
-When set on a @code{StaffSymbol} grob it defines a repeating
-pattern of ledger lines and any parenthesized groups will always be
-shown together.")
-     (ledger-positions-function ,scheme? "A quoted Scheme procedure that
-takes a @code{StaffSymbol} grob and the vertical position of a note head
-as arguments and returns a list of ledger line positions.")
+lines.  It is the sum of two numbers: The first is the factor for line
+thickness, and the second for staff space.  Both contributions are added.")
+     (ledger-positions ,list? "A list of vertical positions of ledger lines.
+Its exact behaviour depends on the grob; see @iref{StaffSymbol},
+@iref{NoteHead}, @iref{Custos}, and @iref{Script}.")
+     (ledger-positions-function ,scheme? "A quoted Scheme procedure that takes
+a @code{StaffSymbol} grob and the vertical position of a note head as arguments
+and returns a list of ledger line positions.")
      (left-bound-info ,symbol-key-alist? "An alist of properties for
 determining attachments of spanners to edges.")
      (left-number-text ,markup? "For a measure counter, this is the
