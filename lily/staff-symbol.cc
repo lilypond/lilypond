@@ -146,14 +146,20 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item *head)
     return values;
 
   // find the staff line nearest to note position
-  Real nearest_line = line_positions[0];
-  Real line_dist = std::abs (line_positions[0] - pos);
+  Real nearest_line = 0;
+  Real line_dist = HUGE_VAL;
   for (const Real p : line_positions)
     {
-      if (std::abs (p - pos) < line_dist)
+      auto dist = std::abs (p - pos);
+      // prefer values nearer to the middle staff line
+      if ((p >= 0 && pos > 0 && p < pos) || (p <= 0 && pos < 0 && p > pos))
+        {
+          dist = std::nextafter (dist, 0);
+        }
+      if (dist < line_dist)
         {
           nearest_line = p;
-          line_dist = std::abs (p - pos);
+          line_dist = dist;
         }
     }
 
