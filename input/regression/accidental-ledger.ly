@@ -1,36 +1,19 @@
 \version "2.19.21"
 
 \header {
-
   texidoc = "Ledger lines are shortened when there are accidentals.
-This happens only for the single ledger line close to the note head,
-and only if the accidental is horizontally close to the head.  "
-  
+Depending on the accidental, more than a single staff line gets shortened.
+This happens only if the accidental is horizontally close to the head."
 }
 
-
 \relative {
-  disis
-  dis
-  d
-  des
-  deses
-  eses
-  es
-  e
-  eis
-  eisis
-  eses'''
-  es
-  e
-  eis
-  eisis
-  feses
-  fes
-  f
-  fis
-  fisis
-  <cis,, gis'>
-  
-} 
+  \override Staff.StaffSymbol.ledger-positions = #'(0 1)
+  \override Staff.StaffSymbol.ledger-extra = 4
 
+  disis4 dis d des |
+  deses4 eses es e |
+  eis4 eisis eses''' es |
+  e4 eis eisis feses |
+  fes4 f fis fisis |
+  <cis,, gis'>4
+}

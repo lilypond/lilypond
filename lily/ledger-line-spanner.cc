@@ -21,6 +21,7 @@
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"
 #include "lookup.hh"
+#include "pitch.hh"
 #include "spanner.hh"
 #include "pointer-group-interface.hh"
 #include "paper-column.hh"
@@ -143,12 +144,14 @@ struct Head_data
   Interval head_extent_;
   Interval ledger_extent_;
   Interval accidental_extent_;
+  Rational alteration_;
   Head_data ()
   {
     position_ = 0;
     head_extent_.set_empty ();
     ledger_extent_.set_empty ();
     accidental_extent_.set_empty ();
+    alteration_ = 0;
   }
 };
 
@@ -238,7 +241,11 @@ Ledger_line_spanner::print (SCM smob)
           hd.ledger_extent_ = ledger_extent;
           hd.head_extent_ = head_extent;
           if (Grob *g = unsmob<Grob> (get_object (h, "accidental-grob")))
-            hd.accidental_extent_ = g->extent (common_x, X_AXIS);
+            {
+              hd.accidental_extent_ = g->extent (common_x, X_AXIS);
+              hd.alteration_
+                = from_scm<Rational> (get_property (g, "alteration"), 0);
+            }
           reqs[rank][vdir].heads_.push_back (hd);
         }
     }
@@ -308,6 +315,17 @@ Ledger_line_spanner::print (SCM smob)
               Interval &ledger_size = lr.heads_[h].ledger_extent_;
               Interval &head_size = lr.heads_[h].head_extent_;
               Interval &acc_extent = lr.heads_[h].accidental_extent_;
+              int pos = lr.heads_[h].position_;
+
+              Rational alt = lr.heads_[h].alteration_;
+              // TODO: shall this be made user-configurable?
+              const Interval alteration_range
+                = (alt == FLAT_ALTERATION)           ? Interval (0, 1)
+                  : (alt == DOUBLE_FLAT_ALTERATION)  ? Interval (0, 1)
+                  : (alt == SHARP_ALTERATION)        ? Interval (-1, 2)
+                  : (alt == DOUBLE_SHARP_ALTERATION) ? Interval (-1, 1)
+                  : (alt == NATURAL_ALTERATION)      ? Interval (-3, 2)
+                                                     : Interval (0, 0);
 
               // Limit ledger extents to a maximum to preserve space
               // between ledgers when note heads get close.
@@ -321,8 +339,8 @@ Ledger_line_spanner::print (SCM smob)
                   Interval x_extent = ledger_size;
 
                   // Notes with accidental signs get shorter ledgers.
-                  // (Only happens for the furthest note in the column.)
-                  if (l == 0 && !acc_extent.is_empty ())
+                  if (alteration_range.contains (lpos - pos)
+                      && !acc_extent.is_empty ())
                     {
                       const auto dist
                         = (acc_extent.right () + head_size.left ()) / 2;
@@ -330,10 +348,6 @@ Ledger_line_spanner::print (SCM smob)
                       Real left_shorten
                         = std::max (-ledger_size[LEFT] + dist, 0.0);
                       x_extent[LEFT] += left_shorten;
-                      /*
-                        TODO: shorten 2 ledger lines for the case
-                        natural + downstem.
-                      */
                     }
                   if (x_extent.is_empty ())
                     continue;

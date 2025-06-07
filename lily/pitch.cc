@@ -293,6 +293,7 @@ Rational NATURAL_ALTERATION (0);
 Rational FLAT_ALTERATION (-1, 2);
 Rational DOUBLE_FLAT_ALTERATION (-1);
 Rational SHARP_ALTERATION (1, 2);
+Rational DOUBLE_SHARP_ALTERATION (1);
 
 Pitch
 Pitch::negated () const
