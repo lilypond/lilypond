@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 7921dca2b11ee884bb547b3d4e6926737838160c
+   Translation of GIT committish: 917e0a90fae40da9c2efa704963fa741ecef0b0b
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -927,6 +927,7 @@ modifions le à son tour :
      \override #'(box-padding . 0.6) \box A
 @end lilypond
 
+@noindent
 Vous conviendrez que recopier une telle définition de @emph{markup}
 deviendra vite fastidieux. C'est pourquoi nous écrivons la commande de
 @emph{markup} @code{double-box} qui prendra un seul argument -- le

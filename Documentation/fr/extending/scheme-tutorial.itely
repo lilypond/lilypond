@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 7921dca2b11ee884bb547b3d4e6926737838160c
+   Translation of GIT committish: 917e0a90fae40da9c2efa704963fa741ecef0b0b
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1035,8 +1035,8 @@ alors que @code{vingtQuatre} est une variable.
 
 Les décalages (@emph{offset}) sur deux axes (coordonnées X et Y) sont
 stockés sous forme de @emph{paires}. Le @code{car} de l'offset
-correspond à l'abscisse (coordonnée X) et le @code{cdr} à l'ordonnée
-(coordonnée Y).
+correspond à l'abscisse (coordonnée X) et le @code{cdr} à l'ordonnée
+(coordonnée Y).
 
 @example
 \override TextScript.extra-offset = #'(1 . 2)
