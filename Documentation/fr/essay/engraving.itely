@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 7921dca2b11ee884bb547b3d4e6926737838160c
+   Translation of GIT committish: 917e0a90fae40da9c2efa704963fa741ecef0b0b
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1367,6 +1367,7 @@ contextes de portée peuvent être assemblés dans un contexte de partition
 Référence des propriétés internes :
 @rinternals{Contexts}.
 @endmorerefs
+
 
 @node Flexible architecture
 @unnumberedsubsec Flexibilité architecturale
