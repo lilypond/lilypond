@@ -28,6 +28,8 @@
 #include "staff-symbol-referencer.hh"
 #include "spanner.hh"
 
+#include <algorithm>
+
 MAKE_SCHEME_CALLBACK (Staff_symbol, print, "ly:staff-symbol::print", 1);
 
 SCM
@@ -190,6 +192,7 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item *head)
       Real min_pos = HUGE_VAL;
       Real max_pos = -HUGE_VAL;
       SCM s2;
+      std::vector<Real> values2;
 
       // find the extent of the ledger pattern
       for (SCM s = ledger_positions; scm_is_pair (s); s = scm_cdr (s))
@@ -244,24 +247,22 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item *head)
           else
             // grouped ledger lines, either add all or none
             {
+              values2.clear ();
               do
                 {
                   current = from_scm<double> (scm_car (s2)) + offset;
-                  if (ledger_fill.contains (current))
-                    {
-                      s2 = scm_car (s);
-                      do
-                        {
-                          current = from_scm<double> (scm_car (s2)) + offset;
-                          values.push_back (current);
-                          s2 = scm_cdr (s2);
-                        }
-                      while (scm_is_pair (s2));
-                    }
-                  else
-                    s2 = scm_cdr (s2);
+                  values2.push_back (current);
+                  s2 = scm_cdr (s2);
                 }
               while (scm_is_pair (s2));
+
+              if (std::any_of (values2.begin (), values2.end (), [&] (Real v) {
+                    return ledger_fill.contains (v);
+                  }))
+                {
+                  values.insert (values.end (), values2.begin (),
+                                 values2.end ());
+                }
             }
           s = scm_cdr (s);
           if (!scm_is_pair (s))
@@ -270,7 +271,7 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item *head)
               offset += cycle;
             }
         }
-      while (current <= ledger_fill[UP]);
+      while (offset + min_pos <= ledger_fill[UP]);
     }
   else
     // normal ledger lines
