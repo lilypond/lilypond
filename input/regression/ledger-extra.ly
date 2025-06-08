@@ -9,26 +9,23 @@ Ledgered grobs like @code{Script} or @code{Custos} may be affected differently
 from @code{StaffSymbol}."
 }
 
-notes = \relative {
-  \time 6/8
-  a4. b | c d | e f |
-  g4. a | b c | d e |
-  f4. g | a b |
-}
 
-\new Staff {
-  \notes
-}
+notes =
+#(define-music-function (s) (ly:dimension?)
+   #{ \override Staff.StaffSymbol.ledger-positions = #'(0 1)
+      \override Staff.StaffSymbol.ledger-extra = #s
+      \relative c {
+        \time 2/4
+        \mark \markup \small { "ledger-extra =" #(number->string s) }
+        f4 g | a b | c d | e f | g a |
+        b4 c | d e | f g | a b | c d |
+      } #})
 
-\new Staff {
-  \override Staff.StaffSymbol.ledger-extra = 1
-  \notes
-}
-
-\new Staff {
-  \override Staff.StaffSymbol.ledger-extra = 2
-  \notes
-}
+\new Staff { \notes #2 }
+\new Staff { \notes #1 }
+\new Staff { \notes #0 }
+\new Staff { \notes #-1 }
+\new Staff { \notes #-2 }
 
 
 \score {

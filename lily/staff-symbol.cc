@@ -163,10 +163,26 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item *head)
         }
     }
 
-  if (line_dist < .5)
+  // nothing to do for notes on a staff line and normal ledger lines
+  if (line_dist == 0 && !scm_is_pair (ledger_positions) && ledger_extra == 0)
     return values;
 
-  const Direction dir (pos - nearest_line);
+  const Direction extra_dir ((pos - nearest_line > 0)   ? UP
+                             : (pos - nearest_line < 0) ? DOWN
+                             : (nearest_line > 0)       ? UP
+                                                        : DOWN);
+
+  // construct an interval that spans up the vertical range of ledger
+  // lines, normally from the nearest staff line to the note head
+  Real extra_pos = pos + ledger_extra * extra_dir;
+  if ((extra_pos - nearest_line) * extra_dir < 0)
+    {
+      extra_pos = nearest_line;
+    }
+
+  Interval ledger_fill;
+  ledger_fill.add_point (nearest_line);
+  ledger_fill.add_point (extra_pos);
 
   if (scm_is_pair (ledger_positions))
     // custom ledger positions via StaffSymbol.ledger-positions
@@ -205,14 +221,15 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item *head)
 
       Real cycle = max_pos - min_pos;
 
-      Interval ledger_fill;
-      ledger_fill.add_point (nearest_line + 0.5 * dir);
-      ledger_fill.add_point (pos + 0.5 * dir + ledger_extra * dir);
+      // fill the interval `ledger_fill` with ledger lines; we start at a
+      // multiple of the pattern cycle length that is at the edge or below
+      // the `ledger_fill` range
+      auto n = (ledger_fill[DOWN] - min_pos) / cycle;
+      auto multiple = static_cast<int> (std::floor (n));
+      auto offset = multiple * cycle;
 
-      // fill the Interval ledger_fill with ledger lines
-      auto n = static_cast<int> (floor ((ledger_fill[DOWN] - min_pos) / cycle));
       Real current;
-      SCM s = scm_cdr (ledger_positions);
+      SCM s = ledger_positions;
       if (!scm_is_pair (s) || cycle < 0.1)
         return values;
       do
@@ -220,7 +237,7 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item *head)
           s2 = scm_car (s);
           if (scm_is_number (s2))
             {
-              current = from_scm<double> (s2) + n * cycle;
+              current = from_scm<double> (s2) + offset;
               if (ledger_fill.contains (current))
                 values.push_back (current);
             }
@@ -229,13 +246,13 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item *head)
             {
               do
                 {
-                  current = from_scm<double> (scm_car (s2)) + n * cycle;
+                  current = from_scm<double> (scm_car (s2)) + offset;
                   if (ledger_fill.contains (current))
                     {
                       s2 = scm_car (s);
                       do
                         {
-                          current = from_scm<double> (scm_car (s2)) + n * cycle;
+                          current = from_scm<double> (scm_car (s2)) + offset;
                           values.push_back (current);
                           s2 = scm_cdr (s2);
                         }
@@ -249,8 +266,8 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item *head)
           s = scm_cdr (s);
           if (!scm_is_pair (s))
             {
-              s = scm_cdr (ledger_positions);
-              n++;
+              s = ledger_positions;
+              offset += cycle;
             }
         }
       while (current <= ledger_fill[UP]);
@@ -258,16 +275,23 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item *head)
   else
     // normal ledger lines
     {
-      const auto ledger_count = static_cast<int> (
-        floor ((std::abs (nearest_line - pos) + ledger_extra) / 2));
-      values.resize (ledger_count);
-      for (int i = 0; i < ledger_count; i++)
+      auto bottom = static_cast<int> (std::ceil (ledger_fill[DOWN]));
+      auto top = static_cast<int> (std::floor (ledger_fill[UP]));
+      auto nearest = (nearest_line < 0) ? std::floor (nearest_line)
+                                        : std::ceil (nearest_line);
+      auto odd_start = static_cast<int> (nearest) & 1;
+      int num_ledgers = (top - bottom + 2 - ((bottom & 1) != odd_start)) / 2;
+
+      values.resize (num_ledgers);
+      auto value = bottom + ((bottom & 1) != odd_start);
+      for (int i = 0; i < num_ledgers; i++)
         {
-          values[i] = nearest_line + dir * (ledger_count - i) * 2;
+          values[i] = value;
+          value += 2;
         }
     }
-  // remove any ledger lines that would fall on staff lines,
-  // which can happen when ledger-extra > 0
+
+  // remove all ledger lines that would fall on staff lines
   std::vector<Real> final_values;
   for (const Real v : values)
     {
