@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+   Translation of GIT committish: 917e0a90fae40da9c2efa704963fa741ecef0b0b
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.9"
+@c \version "2.25.27"
 
 @c Translators: Jean-Charles Malahieude, Valentin Villenave
 @c Translation checkers: Jean Abou Samra
@@ -2641,42 +2641,54 @@ manière suivante :
 
 @item
 Musique balisée précédée de
+
 @example
 \keepWithTag #'@var{nom}
 @end example
+
 @noindent
 ou
+
 @example
 \keepWithTag #'(@var{nom1} @var{nom2}@dots{})
 @end example
+
   @tab Musique non balisée et musique balisée par l'un des noms de
        balise fournis seront incluses ; la musique balisée autrement est
        exclue.
 
 @item
 Musique balisée précédée de
+
 @example
 \removeWithTag #'@var{nom}
 @end example
+
 @noindent
 ou
+
 @example
 \removeWithTag #'(@var{nom1} @var{nom2}@dots{})
 @end example
+
   @tab Musique non balisée et fragments appelés autrement que par l'un
        des noms fournis seront inclus ; la musique balisée par l'un des
        noms mentionnés est exclue.
 
 @item
 Musique balisée non précédée de
+
 @example
 \keepWithTag
 @end example
+
 @noindent
 ou
+
 @example
 \removeWithTag
 @end example
+
   @tab Musique balisée et non balisée seront incluses.
 
 @end multitable
@@ -2689,9 +2701,9 @@ expression musicale. Si, @emph{et seulement si} les symboles sont des
 indentifiants LilyPond valides (caractères alphabétiques uniquement,
 sans chiffre, souligné ou tiret) qui ne peuvent se confondre avec des
 notes, le @code{#'} peut s'omettre et, pour raccourcir, une liste de
-symbole peut utiliser le point en séparateur -- autrement dit,
+symboles peut utiliser la virgule en séparateur -- autrement dit,
 @code{\tag #'(violinI violinII)} peut s'écrire @code{\tag
-violinI.violinII}. Ceci s'applique aussi bien pour @code{\keepWithTag}
+violinI,violinII}. Ceci s'applique aussi bien pour @code{\keepWithTag}
 que pour @code{\removeWithTag}. Les commandes de balisage sont des
 fonctions musicales ; elles ne peuvent donc s'utiliser pour filtrer des
 éléments qui ne sont pas des expressions musicales tels que des blocs
@@ -2842,8 +2854,8 @@ expression musicale aboutit à l'exclusion de @b{tous} les balisages. En
 effet, si le premier filtre exclut tous les autres balisages,
 l'application du second exclura les effets du premier. L'utilisation
 d'une unique commande @code{\keepWithTag} avec une liste de balises est
-en pareil cas des plus pertinente : seront exclus tous les fragments non
-concernés par l'une quelconque des balises mentionnées.
+en pareil cas des plus pertinentes : seront exclus tous les fragments
+non concernés par l'une quelconque des balises mentionnées.
 
 @lilypond[verbatim,quote]
 music = \relative c'' {
@@ -2893,11 +2905,13 @@ serait balisé par l'un des autres filtres de ce jeu sera rejeté.
 
 @lilypond[verbatim,quote]
 music = \relative {
-  \tagGroup #'(violinI violinII viola cello)
+  \tagGroup #'(violinI violinII)
+  \tagGroup #'(viola cello)
   \tag #'violinI { c''4^"violinI" c c c }
   \tag #'violinII { a2 a }
   \tag #'viola { e8 e e2. }
   \tag #'cello { d'2 d4 d }
+  \tag #'autre { f^"autre" f f f }
   R1^"non balisé"
 }
 
@@ -2957,6 +2971,128 @@ music = { \tag #'here { \tag #'here <<c''>> } }
 
 Ces deux instructions sont affectées d'une balise, le matériau à
 raccorder à chaque instance de la balise, et l'expression balisée.
+
+@funindex \keep-with-tag
+@funindex \remove-with-tag
+@funindex \push-to-tag
+@funindex \append-to-tag
+
+La commande @code{\tag} peut s'utiliser aussi dans les environnements
+@code{\markup}. Les commandes @code{\keep-with-tag},
+@code{\remove-with-tag}, @code{\push-to-tag} et @code{\append-to-tag} y
+sont disponibles et se comportent comme celles utilisées pour les
+expressions musicales.
+
+@lilypond[verbatim,quote]
+test = \markup {
+  \tag #'a a
+  \tag #'b b
+  \tag #'c c
+}
+
+\markup { \keep-with-tag #'b \test }
+\markup { \remove-with-tag #'b \test }
+\markup { \push-to-tag #'c pre \test }
+\markup { \append-to-tag #'c post \test }
+@end lilypond
+
+Les commandes musicales @code{\keepWithTag} et @code{\removeWithTag}
+filtrent aussi les balises des portions @code{\markup} incluses dans la
+musique.
+
+@lilypond[verbatim,quote]
+music = \relative {
+  c'4^\markup { \tag #'one first \tag #'two second part } c c c
+}
+
+{
+  \keepWithTag #'one \music
+  \removeWithTag #'one \music
+}
+@end lilypond
+
+@funindex \pushToTagMarkup
+@funindex \appendToTagMarkup
+
+Il est aussi possible d'insérer ou ajouter quelque chose à un
+@code{\markup} attaché aux objets musicaux. On ne peut utiliser
+@code{\pushToTag} et @code{\appendToTag} puisqu'ils ne traîtent que de
+la musique, mais @code{\pushToTagMarkup} et @code{\appendToTagMarkup}
+sont conçus pour rajouter un @emph{markup}.
+
+@lilypond[verbatim,quote]
+music = \relative {
+  c'4^\markup { \tag #'part part } c c c
+}
+
+{
+  \pushToTagMarkup #'part "great" \music
+  \appendToTagMarkup #'part \markup { is also great } \music
+}
+@end lilypond
+
+Le filtrage des balises fonctionne aussi lorsque de la musique comprise
+dans un bloc @code{\score} est membre d'une commande de @emph{markup}.
+
+@lilypond[verbatim,quote]
+music = \relative {
+  c'2^\markup { \tag #'first first \tag #'second second } c
+  \tag #'first { d d }
+  \tag #'second { f f }
+}
+
+\markup {
+  \keep-with-tag #'first \score { \music }
+  \remove-with-tag #'first \score { \music }
+}
+@end lilypond
+
+@funindex \tag-list
+
+Une attention particulière doit toutefois être portée lors de
+l'utilisation de balises avec des listes de @emph{markups}. Les
+fonctions de filtrage fonctionent comme prévu
+
+@lilypond[verbatim,quote]
+\markup {
+  \remove-with-tag #'test { a \tag #'test { b c } d }
+}
+@end lilypond
+
+@noindent
+mais les commandes telles que @code{\push-to-tag} et
+@code{\append-to-tag} posent problème.
+
+@lilypond[verbatim,quote]
+\markup {
+  \push-to-tag #'test "twice" { a \tag #'test { b c } d }
+}
+@end lilypond
+
+La raison de ce comportemenet tient au fait que LilyPond transforme
+
+@example
+\tag #'test @{ b c @}
+@end example
+
+@noindent
+de manière interne en
+
+@example
+\tag #'test b
+\tag #'test c
+@end example
+
+@noindent
+et donc insère deux fois le texte donné. Le balisage d'une liste à
+laquelle doit s'insérer ou s'ajouter quelque chose s'obtient en
+utilisant la commande @code{\tag-list}.
+
+@lilypond[verbatim,quote]
+\markup {
+  \push-to-tag #'test "once" { a \tag-list #'test { b c } d }
+}
+@end lilypond
 
 @morerefs
 Manuel d'initiation :

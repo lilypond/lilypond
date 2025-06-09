@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+   Translation of GIT committish: 917e0a90fae40da9c2efa704963fa741ecef0b0b
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -821,7 +821,8 @@ Un mélisme sur la dernière syllabe d'un mot est indiqué par une longue
 ligne horizontale basse s'étirant jusqu'à la syllabe suivante.  Une
 telle ligne, que nous appellerons prolongateur ou extenseur, s'obtient
 en saisissant @samp{ __ } (notez les espaces entourant le double
-caractère souligné).
+caractère souligné). Il est aussi possible de créer automatiquement des
+lignes d'extension en activant la propriété @code{autoExtenders}.
 
 @warning{Dans une partition, les mélismes, ou vocalises, sont
 matérialisés par une ligne de prolongation.  On l'indique par un double
