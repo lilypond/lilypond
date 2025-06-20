@@ -113,6 +113,14 @@ the lower right corner of this rectangle is attached to the glyph at position
 chardwy)` is used instead.
 
 
+Hints for ledger line shortening
+--------------------------------
+
+An accidental's vertical range to shorten ledger lines (relative to the note
+head position) is given by the two special variables `accbot` and `acctop`,
+using staff spaces as a unit.
+
+
 Proofing
 --------
 
@@ -206,6 +214,8 @@ follows.
   *charwy*        (the y coordinate of the up-stem attachment point)
   *chardwx*       (the x coordinate of the down-stem attachment point)
   *chardwy*       (the y coordinate of the down-stem attachment point)
+  *accbot*        (an accidental's bottom value for ledger line shortening)
+  *acctop*        (an accidental's top value for ledger line shortening)
   *idstr*         (the glyph name in the current group)
   --------------  -----------------------------------------------------------
 
@@ -235,7 +245,7 @@ Finally, the `*.fontforge.py` Python scripts create the 'Emmentaler' and
 - Embed the Lisp data verbatim into the OpenType fonts as SFNT tables 'LILY'
   and 'LILC', respectively.  The 'LILC' table gets compressed with zlib.
 
-  For music symbols, LilyPond exclusively uses the data of these three
+  For music symbols, LilyPond exclusively uses the data of these two
   tables for glyph metrics information; it does not use the metrics
   information in the font's 'hmtx' table.  On the other hand, script-like
   glyph and text strings are handled by the Pango library, which uses the

@@ -25,7 +25,7 @@
 message "**********************************************************************";
 message "Using feta Autometric macros.";
 message "Order of glyph parameters:";
-message "  name bp wd dp ht charwx charwy chardwx chardwy idstr";
+message "  name bp wd dp ht charwx charwy chardwx chardwy accbot acctop idstr";
 message "**********************************************************************";
 message "";
 
@@ -86,6 +86,8 @@ def autometric_output_char =
           & "@:" & decimal charwy
           & "@:" & decimal chardwx
           & "@:" & decimal chardwy
+          & "@:" & decimal accbot
+          & "@:" & decimal acctop
           & "@:" & idstr
           & "@}";
 enddef;
@@ -233,6 +235,7 @@ def fet_beginchar (expr name, id_lit) =
   save w, b, h, d;
   save charwx, charwy;
   save chardwx, chardwy;
+  save accbot, acctop;
 
   string idstr, charnamestr;
   charnamestr := name;
@@ -297,6 +300,12 @@ def fet_endchar =
   fi;
   if unknown chardwy:
     chardwy := charht - chardp - charwy;
+  fi;
+  if unknown accbot:
+    accbot := 0;
+  fi;
+  if unknown acctop:
+    acctop := 0;
   fi;
   autometric_output_char;
   breapth_endchar;

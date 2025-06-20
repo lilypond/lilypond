@@ -58,10 +58,10 @@ def parse_logfile(fn):
             group = ''
         elif tags[0] == 'char':
             try:
-                name = tags[10]
+                name = tags[12]
             except IndexError:
                 print('Error in mf-to-table while processing file', fn)
-                print('Index 10 >', len(tags)-1, 'on line', i)
+                print('Index 12 >', len(tags) - 1, 'on line', i)
                 print(l)
                 raise
 
@@ -78,6 +78,8 @@ def parse_logfile(fn):
                 'wy': float(tags[7]),
                 'dwx': float(tags[8]),
                 'dwy': float(tags[9]),
+                'accbot': float(tags[10]),
+                'acctop': float(tags[11]),
             }
             charmetrics.append(m)
         elif tags[0] == 'font':
@@ -93,28 +95,20 @@ def character_lisp_table(global_info, charmetrics):
 
     def conv_char_metric(charmetric):
         f = 1.0
+
+        s = '(%s .' % charmetric['name']
+        s += ('\n ((bbox . (%.3f %.3f %.3f %.3f))' %
+              (-charmetric['breapth'] * f, -charmetric['depth'] * f,
+               charmetric['width'] * f, charmetric['height'] * f))
         if (charmetric['name'].startswith('noteheads.')):
-            s = """(%s .
-((bbox . (%.3f %.3f %.3f %.3f))
-(attachment . (%.3f . %.3f))
-(attachment-down . (%.3f . %.3f))))
-""" % (charmetric['name'],
-                -charmetric['breapth'] * f,
-                -charmetric['depth'] * f,
-                charmetric['width'] * f,
-                charmetric['height'] * f,
-                charmetric['wx'],
-                charmetric['wy'],
-                charmetric['dwx'],
-                charmetric['dwy'])
-        else:
-            s = """(%s .
-((bbox . (%.3f %.3f %.3f %.3f))))
-""" % (charmetric['name'],
-                -charmetric['breapth'] * f,
-                -charmetric['depth'] * f,
-                charmetric['width'] * f,
-                charmetric['height'] * f)
+            s += ('\n  (attachment . (%.3f . %.3f))' %
+                  (charmetric['wx'], charmetric['wy']))
+            s += ('\n  (attachment-down . (%.3f . %.3f))' %
+                  (charmetric['dwx'], charmetric['dwy']))
+        elif (charmetric['name'].startswith('accidentals.')):
+            s += ('\n  (ledger-shortening-range . (%.3f . %.3f))' %
+                  (charmetric['accbot'], charmetric['acctop']))
+        s += '))\n'
 
         return s
 
