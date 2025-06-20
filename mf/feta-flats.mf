@@ -258,6 +258,9 @@ fet_beginchar ("flat", "flat");
   labels (2a);
 
   draw_staff_if_debugging (-2, 2);
+
+  accbot := 0 staff_space#;
+  acctop := .8 staff_space#;
 fet_endchar;
 
 
@@ -274,6 +277,9 @@ fet_beginchar ("arrowed flat (arrow up)", "flat.arrowup");
   labels (2a);
 
   draw_staff_if_debugging (-2, 2);
+
+  accbot := 0 staff_space#;
+  acctop := .8 staff_space#;
 fet_endchar;
 
 
@@ -283,6 +289,9 @@ fet_beginchar ("arrowed flat (arrow down)", "flat.arrowdown");
   labels (2a);
 
   draw_staff_if_debugging (-2, 2);
+
+  accbot := 0 staff_space#;
+  acctop := .8 staff_space#;
 fet_endchar;
 
 
@@ -292,6 +301,9 @@ fet_beginchar ("arrowed flat (arrow up and down)", "flat.arrowboth");
   labels (2a);
 
   draw_staff_if_debugging (-2, 2);
+
+  accbot := 0 staff_space#;
+  acctop := .8 staff_space#;
 fet_endchar;
 
 
@@ -334,6 +346,9 @@ fet_beginchar ("flat (slashed)", "flat.slash");
   labels (11, 14, 15);
 
   draw_staff_if_debugging (-2, 2);
+
+  accbot := 0 staff_space#;
+  acctop := .8 staff_space#;
 fet_endchar;
 
 
@@ -398,6 +413,9 @@ fet_beginchar ("flat (slashed twice)", "flat.slashslash");
   labels (21, 24, 25);
 
   draw_staff_if_debugging (-2, 2);
+
+  accbot := 0 staff_space#;
+  acctop := .8 staff_space#;
 fet_endchar;
 
 
@@ -513,6 +531,9 @@ fet_beginchar ("flatflat (mirrored)", "mirroredflat.flat");
   currentpicture := currentpicture shifted (w/2, 0);
 
   draw_staff_if_debugging (-2, 2);
+
+  accbot := 0 staff_space#;
+  acctop := .8 staff_space#;
 fet_endchar;
 
 
@@ -528,6 +549,9 @@ fet_beginchar ("semi flat", "mirroredflat");
   currentpicture := currentpicture xscaled -1 shifted (w - b, 0);
 
   draw_staff_if_debugging (-2, 2);
+
+  accbot := -.8 staff_space#;
+  acctop := 2 staff_space#;
 fet_endchar;
 
 
@@ -570,6 +594,9 @@ fet_beginchar ("semi flat (slashed)", "mirroredflat.backslash");
   labels (1, 2, 3);
 
   draw_staff_if_debugging (-2, 2);
+
+  accbot := 0 staff_space#;
+  acctop := 1 staff_space#;
 fet_endchar;
 
 
@@ -594,6 +621,9 @@ fet_beginchar ("double flat", "flatflat");
                   false, false, false, false);
 
   draw_staff_if_debugging (-2, 2);
+
+  accbot := 0 staff_space#;
+  acctop := .8 staff_space#;
 fet_endchar;
 
 
@@ -665,4 +695,7 @@ fet_beginchar ("3/4 flat", "flatflat.slash");
   labels (14, 15);
 
   draw_staff_if_debugging (-2, 2);
+
+  accbot := 0 staff_space#;
+  acctop := .8 staff_space#;
 fet_endchar;

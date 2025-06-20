@@ -205,6 +205,9 @@ enddef;
 
 fet_beginchar ("sharp", "sharp");
   draw_sharp (false, false, false);
+
+  accbot := -.8 staff_space#;
+  acctop := 1 staff_space#;
 fet_endchar;
 
 
@@ -215,16 +218,25 @@ fet_endchar;
 
 fet_beginchar ("arrowed sharp (arrow up)", "sharp.arrowup");
   draw_sharp (true, false, false);
+
+  accbot := -.8 staff_space#;
+  acctop := 2 staff_space#;
 fet_endchar;
 
 
 fet_beginchar ("arrowed sharp (arrow down)", "sharp.arrowdown");
   draw_sharp (false, true, false);
+
+  accbot := -.8 staff_space#;
+  acctop := 1 staff_space#;
 fet_endchar;
 
 
 fet_beginchar ("arrowed sharp (arrows up and down)", "sharp.arrowboth");
   draw_sharp (true, true, false);
+
+  accbot := -.8 staff_space#;
+  acctop := 2 staff_space#;
 fet_endchar;
 
 
@@ -263,6 +275,9 @@ fet_beginchar ("1/2 sharp", "sharp.slashslash.stem");
 
   labels (5, 6);
   draw_staff_if_debugging (-2, 2);
+
+  accbot := -.8 staff_space#;
+  acctop := 1 staff_space#;
 fet_endchar;
 
 
@@ -314,6 +329,9 @@ fet_beginchar ("sharp (3 beams)", "sharp.slashslashslash.stemstem");
 
   labels (5, 6, 7, 8);
   draw_staff_if_debugging (-2, 2);
+
+  accbot := -.8 staff_space#;
+  acctop := 1 staff_space#;
 fet_endchar;
 
 
@@ -356,6 +374,9 @@ fet_beginchar ("1/2 sharp (3 beams)", "sharp.slashslashslash.stem");
 
   labels (5, 6);
   draw_staff_if_debugging (-2, 2);
+
+  accbot := -.8 staff_space#;
+  acctop := 1 staff_space#;
 fet_endchar;
 
 
@@ -391,6 +412,9 @@ fet_beginchar ("1/2 sharp (1 beam)", "sharp.slash.stem");
 
   labels (5, 6);
   draw_staff_if_debugging (-2, 2);
+
+  accbot := 0 staff_space#;
+  acctop := 0 staff_space#;
 fet_endchar;
 
 
@@ -442,6 +466,9 @@ fet_beginchar ("3/4 sharp", "sharp.slashslash.stemstemstem");
 
   labels (5, 6, 7, 8, 9, 10);
   draw_staff_if_debugging (-2, 2);
+
+  accbot := -.8 staff_space#;
+  acctop := 1 staff_space#;
 fet_endchar;
 
 
@@ -516,6 +543,9 @@ enddef;
 
 fet_beginchar ("double sharp", "doublesharp");
   draw_double_sharp (false);
+
+  accbot := -.8 staff_space#;
+  acctop := .8 staff_space#;
 fet_endchar;
 
 

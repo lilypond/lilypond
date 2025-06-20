@@ -176,6 +176,9 @@ fet_beginchar ("sori", "sharp.sori");
   labels (range 0 thru 10, 1', 2', 5', 6');
   penlabels (11', 12');
   draw_staff_if_debugging (-2, 2);
+
+  accbot := 0 staff_space#;
+  acctop := 0 staff_space#;
 fet_endchar;
 
 
@@ -322,4 +325,7 @@ fet_beginchar ("koron", "flat.koron");
   labels (1tl, 1tr, 4, 5, 5bl, 6, 6bl, 6tr, 7);
 
   draw_staff_if_debugging (-2, 2);
+
+  accbot := 0 staff_space#;
+  acctop := 0 staff_space#;
 fet_endchar;

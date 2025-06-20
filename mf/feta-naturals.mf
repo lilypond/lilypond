@@ -200,6 +200,9 @@ enddef;
 
 fet_beginchar ("natural", "natural");
   draw_natural (false, false, false);
+
+  accbot := -1.8 staff_space#;
+  acctop := 1 staff_space#;
 fet_endchar;
 
 
@@ -210,14 +213,23 @@ fet_endchar;
 
 fet_beginchar ("arrowed natural (arrow up)", "natural.arrowup");
   draw_natural (true, false, false);
+
+  accbot := -1.8 staff_space#;
+  acctop := 1 staff_space#;
 fet_endchar;
 
 
 fet_beginchar ("arrowed natural (arrow down)", "natural.arrowdown");
   draw_natural (false, true, false);
+
+  accbot := -2 staff_space#;
+  acctop := 1 staff_space#;
 fet_endchar;
 
 
 fet_beginchar ("arrowed natural (arrows up and down)", "natural.arrowboth");
   draw_natural (true, true, false);
+
+  accbot := -2 staff_space#;
+  acctop := 1 staff_space#;
 fet_endchar;

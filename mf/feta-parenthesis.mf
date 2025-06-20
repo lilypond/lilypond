@@ -27,6 +27,9 @@ fet_beginchar ("right accidental parenthesis", "rightparen");
   penlabels (1, 2, 3);
 
   draw_staff_if_debugging (-2, 2);
+
+  accbot := -1 staff_space#;
+  acctop := 1 staff_space#;
 fet_endchar;
 
 
