@@ -17,15 +17,16 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "font-interface.hh"
+#include "interval-set.hh"
+#include "lookup.hh"
 #include "note-head.hh"
+#include "paper-column.hh"
+#include "pitch.hh"
+#include "pointer-group-interface.hh"
+#include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"
-#include "lookup.hh"
-#include "pitch.hh"
-#include "spanner.hh"
-#include "pointer-group-interface.hh"
-#include "paper-column.hh"
-#include "interval-set.hh"
 
 #include <map>
 
@@ -144,14 +145,14 @@ struct Head_data
   Interval head_extent_;
   Interval ledger_extent_;
   Interval accidental_extent_;
-  Rational alteration_;
+  Interval ledger_shortening_range_;
   Head_data ()
   {
     position_ = 0;
     head_extent_.set_empty ();
     ledger_extent_.set_empty ();
     accidental_extent_.set_empty ();
-    alteration_ = 0;
+    ledger_shortening_range_.set_empty ();
   }
 };
 
@@ -243,8 +244,29 @@ Ledger_line_spanner::print (SCM smob)
           if (Grob *g = unsmob<Grob> (get_object (h, "accidental-grob")))
             {
               hd.accidental_extent_ = g->extent (common_x, X_AXIS);
-              hd.alteration_
-                = from_scm<Rational> (get_property (g, "alteration"), 0);
+
+              std::string glyph;
+              if (from_scm<bool> (get_property (g, "parenthesized")))
+                {
+                  glyph = "accidentals.rightparen";
+                }
+              else
+                {
+                  SCM glyph_scm = get_property (g, "glyph-name");
+                  if (scm_is_string (glyph_scm))
+                    {
+                      glyph = from_scm<std::string> (glyph_scm);
+                    }
+                }
+
+              if (!glyph.empty ())
+                {
+                  Font_metric *fm = Font_interface::get_default_font (g);
+                  hd.ledger_shortening_range_
+                    = fm->ledger_shortening_range (glyph) * (1 / halfspace);
+                  // Compensate for rounding errors.
+                  hd.ledger_shortening_range_.widen (1e-3);
+                }
             }
           reqs[rank][vdir].heads_.push_back (hd);
         }
@@ -317,15 +339,9 @@ Ledger_line_spanner::print (SCM smob)
               Interval &acc_extent = lr.heads_[h].accidental_extent_;
               int pos = lr.heads_[h].position_;
 
-              Rational alt = lr.heads_[h].alteration_;
               // TODO: shall this be made user-configurable?
-              const Interval alteration_range
-                = (alt == FLAT_ALTERATION)           ? Interval (0, 1)
-                  : (alt == DOUBLE_FLAT_ALTERATION)  ? Interval (0, 1)
-                  : (alt == SHARP_ALTERATION)        ? Interval (-1, 2)
-                  : (alt == DOUBLE_SHARP_ALTERATION) ? Interval (-1, 1)
-                  : (alt == NATURAL_ALTERATION)      ? Interval (-3, 2)
-                                                     : Interval (0, 0);
+              const Interval ledger_shortening_range
+                = lr.heads_[h].ledger_shortening_range_;
 
               // Limit ledger extents to a maximum to preserve space
               // between ledgers when note heads get close.
@@ -339,7 +355,7 @@ Ledger_line_spanner::print (SCM smob)
                   Interval x_extent = ledger_size;
 
                   // Notes with accidental signs get shorter ledgers.
-                  if (alteration_range.contains (lpos - pos)
+                  if (ledger_shortening_range.contains (lpos - pos)
                       && !acc_extent.is_empty ())
                     {
                       const auto dist
