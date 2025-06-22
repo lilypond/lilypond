@@ -130,6 +130,12 @@ Font_metric::index_to_charcode (size_t i) const
   return i;
 }
 
+Interval
+Font_metric::ledger_shortening_range (const std::string &) const
+{
+  return Interval (0, 0);
+}
+
 std::pair<Offset, bool>
 Font_metric::attachment_point (const std::string &, Direction) const
 {

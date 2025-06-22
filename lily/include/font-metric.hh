@@ -56,6 +56,7 @@ public:
 
   virtual std::string font_name () const;
   virtual size_t count () const;
+  virtual Interval ledger_shortening_range (const std::string &) const;
   virtual std::pair<Offset, bool> attachment_point (const std::string &,
                                                     Direction) const;
   virtual Offset get_indexed_wxwy (size_t) const;

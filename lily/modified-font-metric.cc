@@ -78,6 +78,14 @@ Modified_font_metric::count () const
   return orig_->count ();
 }
 
+Interval
+Modified_font_metric::ledger_shortening_range(
+  const std::string &glyph_name) const
+{
+  Interval range = orig_->ledger_shortening_range (glyph_name);
+  return range * magnification_;
+}
+
 std::pair<Offset, bool>
 Modified_font_metric::attachment_point (const std::string &s, Direction d) const
 {

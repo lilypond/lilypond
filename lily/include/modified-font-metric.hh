@@ -41,6 +41,7 @@ public:
   static SCM make_scaled_font_metric (Font_metric *fm, Real magnification);
   size_t count () const override;
   Offset get_indexed_wxwy (size_t) const override;
+  Interval ledger_shortening_range (const std::string &) const override;
   std::pair<Offset, bool> attachment_point (const std::string &,
                                             Direction) const override;
   size_t name_to_index (std::string) const override;

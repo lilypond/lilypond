@@ -301,6 +301,25 @@ Open_type_font::derived_mark () const
   scm_gc_mark (lily_global_table_);
 }
 
+Interval
+Open_type_font::ledger_shortening_range (const std::string &glyph_name) const
+{
+  Interval range;
+
+  SCM sym = ly_symbol2scm (glyph_name);
+  SCM entry = scm_hashq_ref (lily_character_table_, sym, SCM_BOOL_F);
+  if (scm_is_false (entry))
+    return range;
+
+  SCM range_scm = scm_assq_ref (entry,
+                                ly_symbol2scm ("ledger-shortening-range"));
+  if (!scm_is_pair (range_scm))
+    return range;
+
+  return Interval (from_scm<double> (scm_car (range_scm), 0),
+                   from_scm<double> (scm_cdr (range_scm), 0)) * point_constant;
+}
+
 /*
   Get stem attachment point for a note head glyph.  This reads either
   attachment or attachment-down depending on the direction, for compliance

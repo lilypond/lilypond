@@ -70,6 +70,7 @@ public:
   }
   std::string font_name () const override;
   ~Open_type_font ();
+  Interval ledger_shortening_range (const std::string &) const override;
   std::pair<Offset, bool> attachment_point (const std::string &,
                                             Direction) const override;
   size_t count () const override;
