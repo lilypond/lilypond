@@ -139,7 +139,19 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item *head)
     }
 
   SCM ledger_positions = get_property (me, "ledger-positions");
-  Real ledger_extra = from_scm<double> (get_property (me, "ledger-extra"), 0);
+
+  // allow override of `ledger-extra` via note head grob...
+  SCM ledger_extra_scm = SCM_EOL;
+  if (head)
+    {
+      ledger_extra_scm = get_property (head, "ledger-extra");
+    }
+  if (scm_is_null (ledger_extra_scm))
+    {
+      ledger_extra_scm = get_property (me, "ledger-extra");
+    }
+  Real ledger_extra = from_scm<double> (ledger_extra_scm, 0);
+
   const std::vector<Real> line_positions
     = from_scm_list<std::vector<Real>> (get_property (me, "line-positions"));
   std::vector<Real> values;

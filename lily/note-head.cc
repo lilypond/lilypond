@@ -237,12 +237,13 @@ list, see @rnotation{Note head styles}.
 
                /* properties */
                R"(
-duration-log
-note-names
 accidental-grob
-ignore-ambitus
+duration-log
 glyph-name
+ignore-ambitus
+ledger-extra
+ledger-positions
+note-names
 stem-attachment
 style
-ledger-positions
                )");

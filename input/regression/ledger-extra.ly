@@ -72,3 +72,11 @@ notes =
     ragged-right = ##t
   }
 }
+
+
+{
+  \mark \markup \small \typewriter "NoteHead.ledger-extra"
+  c'''1
+  \tweak ledger-extra #4 c'''1
+  c'''1
+}

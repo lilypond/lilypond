@@ -1586,6 +1586,18 @@ gauge replacement.
 }
 @end lilypond
 
+@item
+It is now also possible to set the @code{ledger-extra} property via the
+@code{NoteHead} grob.
+
+@lilypond[quote,verbatim]
+{
+  c'''1
+  \tweak ledger-extra #4 c'''1
+  c'''1
+}
+@end lilypond
+
 @end itemize
 
 
