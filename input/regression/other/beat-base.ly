@@ -18,6 +18,9 @@ stream."
 #(expect-equal "signature not found in settings; zero denominator"
   (beat-base '(1 . 0) '())
   +inf.0)
+#(expect-equal "signature not found in settings; subdivided fraction"
+  (beat-base '((5 12) . 13) '())
+  1/13)
 
 #(expect-equal "base not found in settings"
   (beat-base '(6 . 7) '(((6 . 7) . ())))
@@ -28,6 +31,9 @@ stream."
 #(expect-equal "base not found in settings; zero denominator"
   (beat-base '(1 . 0) '(((1 . 0) . ())))
   +inf.0)
+#(expect-equal "base not found in settings; subdivided fraction"
+  (beat-base '((5 12) . 13) '((((5 12) . 13) . ())))
+  1/13)
 
 #(expect-equal "base found in settings"
   (beat-base '(6 . 8) '(((6 . 8) . ((beatBase . 1/3)))))
@@ -38,3 +44,6 @@ stream."
 #(expect-equal "base found in settings; zero denominator"
   (beat-base '(1 . 0) '(((1 . 0) . ((beatBase . 1/12)))))
   1/12)
+#(expect-equal "base found in settings; subdivided fraction"
+  (beat-base '((5 12) . 13) '((((5 12) . 13) . ((beatBase . 1/17)))))
+  1/17)

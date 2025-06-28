@@ -268,19 +268,40 @@ Example:
       (apply + (map fraction->length (time-signature->list time-sig)))
       +inf.0)) ; time-sig was #f for senza misura (or else garbage)
 
-(define-public (beat-base time-signature time-signature-settings)
-  "Get @code{beatBase} rational value for @var{time-signature} from
-@var{time-signature-settings}."
-  (let ((return-value (get-setting 'beatBase
-                                   time-signature
-                                   time-signature-settings)))
-    (if (null? return-value)
-        (if (pair? time-signature)
-            (/ (if (zero? (cdr time-signature))
-                   0.0 ; avoid integer div error
-                   (cdr time-signature)))
-            +inf.0) ; senza misura
-        return-value)))
+(define-public (beat-base time-sig time-signature-settings)
+  "Get the @code{beatBase} value for @var{time-sig} from @var{time-signature-settings}.
+
+@var{time-sig} must be a sane, canonical time signature.
+
+If there is no entry, derive a value from @var{time-sig}."
+
+  (define (least-element lst)
+    "The built-in min converts exact numbers to inexact if +inf.0 appears in the
+list.  This does not."
+    (define (lesser a b) (if (< a b) a b))
+    (fold lesser (car lst) (cdr lst)))
+
+  (let ((from-table (get-setting 'beatBase time-sig time-signature-settings)))
+    (cond
+     ((not (null? from-table))
+      from-table)
+     ((not (pair? time-sig)) ; #f for senza misura (or else garbage)
+      +inf.0)
+     ((not (number? (cdr time-sig))) ; two or more fractions
+      ;; Use the shortest base of the component fractions.  Using the lcm of the
+      ;; denominators would yield a beat structure holding only integers, which
+      ;; is intuitively mathematically nice; however, we need to support
+      ;; non-integers in beatStructure anyway for fractional time signatures,
+      ;; and it is also intuitively nice for beatBase to come directly from the
+      ;; user.
+      (least-element (map (lambda (ts)
+                            (beat-base ts time-signature-settings))
+                          time-sig)))
+     (else ; a single fraction (simple or subdivided)
+      (let ((den (cdr time-sig)))
+        (if (zero? den) ; avoid integer div error
+            +inf.0
+            (/ den)))))))
 
 (define-public (beat-structure base time-sig time-signature-settings)
   "Get the @code{beatStructure} value for time signature @var{time-sig} from
