@@ -168,6 +168,14 @@
 ;;;  Accessor and constructor functions
 ;;;
 
+(define (time-signature->list time-sig)
+  "Convert canonical time signature @var{time-sig} to a list of fractions: if
+@var{time-sig} is a single fraction, wrap it in a list; otherwise, pass
+@var{time-sig} through."
+  (if (number? (cdr time-sig))
+      (list time-sig)
+      time-sig))
+
 (define (tsig-fraction-abbr-expand abbr)
   "Syntactically convert an abbreviated time-signature fraction to
 canonical form, or to @code{#f} on error.  Values are not examined."
@@ -243,14 +251,22 @@ Example:
    (cons 'beatStructure beat-structure)
    (cons 'beamExceptions beam-exceptions)))
 
-(define-public (calc-measure-length time-signature)
-  "Calculate the measure length for @var{time-signature}."
-  (if (pair? time-signature)
-      (/ (car time-signature)
-         (if (zero? (cdr time-signature))
-             0.0 ; avoid integer div error
-             (cdr time-signature)))
-      +inf.0)) ;; senza misura
+(define-public (calc-measure-length time-sig)
+  "Calculate the measure length for @var{time-sig}.
+
+@var{time-sig} must be a sane, canonical time signature."
+
+  (define (fraction->length time-sig-fraction)
+    (let* ((num (car time-sig-fraction))
+           (den (cdr time-sig-fraction))
+           (num-sum (if (number? num) num (apply + num))))
+      (if (zero? den) ; avoid integer div error
+          +inf.0
+          (/ num-sum den))))
+
+  (if (pair? time-sig)
+      (apply + (map fraction->length (time-signature->list time-sig)))
+      +inf.0)) ; time-sig was #f for senza misura (or else garbage)
 
 (define-public (beat-base time-signature time-signature-settings)
   "Get @code{beatBase} rational value for @var{time-signature} from
