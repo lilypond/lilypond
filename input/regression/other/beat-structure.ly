@@ -28,6 +28,15 @@ error stream."
 #(expect-equal "signature not found in settings; zero base"
   (beat-structure 0 '(4 . 4) '())
   '(+inf.0))
+#(expect-equal "subdivided signature not found in settings; zero numerator"
+  (beat-structure 1/4 '((0 0) . 3) '())
+  '(0 0)) % '() would be better, but this is just a robustness test
+#(expect-equal "subdivided signature not found in settings; zero denominator"
+  (beat-structure 1/4 '((1 2) . 0) '())
+  '(+inf.0))
+#(expect-equal "subdivided signature not found in settings; zero base"
+  (beat-structure 0 '((3 4) . 4) '())
+  '(+inf.0))
 
 testSettings = #'(
   ((2 . 0) . ())
@@ -56,6 +65,21 @@ testSettings = #'(
   '(+inf.0))
 #(expect-equal "structure not found in settings; zero base"
   (beat-structure 0 '(4 . 4) testSettings)
+  '(+inf.0))
+#(expect-equal "subdivided structure not found in settings; zero numerator"
+  (beat-structure 1/4
+   '((0 0) . 3)
+   '((((0 0) . 3) . ())))
+  '(0 0)) % '() would be better, but this is just a robustness test
+#(expect-equal "subdivided structure not found in settings; zero denominator"
+  (beat-structure 1/4
+   '((1 2) . 0)
+   '((((1 2) . 0) . ())))
+  '(+inf.0))
+#(expect-equal "subdivided structure not found in settings; zero base"
+  (beat-structure 0
+   '((3 4) . 4)
+   '((((3 4) . 4) . ())))
   '(+inf.0))
 
 #(expect-equal "structure and base found in settings; same base"

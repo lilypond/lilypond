@@ -304,12 +304,28 @@ list.  This does not."
             (/ den)))))))
 
 (define-public (beat-structure base time-sig time-signature-settings)
-  "Get the @code{beatStructure} value for time signature @var{time-sig} from
-@var{time-signature-settings}, scaled to @var{base} units.  If there is no
-entry, derive a structure from the time signature."
+  "Get the @code{beatStructure} value for @var{time-sig} from @var{time-signature-settings}, scaled to @var{base} units.
 
-  (define (default-beat-structure time-sig)
-    (let* ((num (car time-sig))
+@var{time-sig} must be a sane, canonical time signature.
+
+If there is no entry, derive a structure from @var{time-sig}."
+
+  ;; Look up the beat structure that would be used for the given fraction in
+  ;; isolation.  Then, scale it to the beat base that will be used for the
+  ;; concatenated time signature.
+  (define (recur time-sig-fraction)
+    (let* ((lone-base (beat-base time-sig-fraction time-signature-settings))
+           (lone-struct (beat-structure lone-base time-sig-fraction
+                                        time-signature-settings))
+           (beat-factor (/ base lone-base)))
+      (if (zero? beat-factor)
+          '(+inf.0) ; unexpected in this context
+          (map (lambda (x) (/ x beat-factor)) lone-struct))))
+
+  ;; Subdivide a simple fraction using the convention that a numerator that is a
+  ;; multiple of 3 (>=6) indicates triplet subdivision.
+  (define (calc-simple-fraction-structure time-sig-fraction)
+    (let* ((num (car time-sig-fraction))
            (group-size (if (and (> num 3)
                                 (zero? (remainder num 3)))
                            3
@@ -323,24 +339,51 @@ entry, derive a structure from the time signature."
           (let ((part (- beat-count (floor beat-count)))
                 (full (make-list (floor beat-count) group-size)))
             (reverse (cons part full))))))
+
+  ;; Return the numerator terms normalized to the beat base.
+  (define (calc-subdivided-fraction-structure time-sig-fraction)
+    (let* ((num (car time-sig-fraction))
+           (den (cdr time-sig-fraction))
+           (factor (* den base)))
+      (if (zero? factor)
+          '(+inf.0) ; unexpected in this context
+          (map (lambda (f) (/ f factor))
+               (ensure-list num)))))
+
   (if (not (finite? base))
       '() ; senza misura: scaling the structure (if any) is meaningless
       (let* ((settings (assoc-get time-sig time-signature-settings '()))
-             (table-base (assoc-get 'beatBase settings '()))
-             (beat-factor (/ base
-                             (if (null? table-base)
-                                 (beat-base time-sig time-signature-settings)
-                                 table-base)))
-             (table-struct (assoc-get 'beatStructure settings '()))
-             (struct (if (and (null? table-struct) (pair? time-sig))
-                         (default-beat-structure time-sig)
-                         table-struct)))
-        (if (zero? beat-factor)
-            ;; Likely: The computed beat base is +inf.0 for senza misura.
-            ;; Unexpected: The beat base found in the settings is +inf.0
-            ;; or the beat base function argument is zero.
-            '(+inf.0)
-            (map (lambda (x) (/ x beat-factor)) struct)))))
+             (table-struct (assoc-get 'beatStructure settings '())))
+        (if (and (null? table-struct)
+                 (pair? time-sig)
+                 (not (number? (cdr time-sig))))
+            ;; time-sig is two or more fractions, representing a strictly
+            ;; alternating time signature.  Also, it has no entry in the
+            ;; settings. (Finding an entry in the settings would be unusual for
+            ;; this kind of time signature, but we allow it.)
+            (concatenate (map recur time-sig))
+            (let* ((table-base (assoc-get 'beatBase settings '()))
+                   (beat-factor
+                    (/ base
+                       (if (null? table-base)
+                           (beat-base time-sig time-signature-settings)
+                           table-base)))
+                   (struct
+                    (cond
+                     ((not (null? table-struct))
+                      table-struct)
+                     ((not (pair? time-sig)) ; #f for senza misura (or garbage)
+                      '())
+                     ((number? (car time-sig))
+                      (calc-simple-fraction-structure time-sig))
+                     (else
+                      (calc-subdivided-fraction-structure time-sig)))))
+              (if (zero? beat-factor)
+                  ;; Likely: The computed beat base is +inf.0 for senza misura.
+                  ;; Unexpected: The beat base found in the settings is +inf.0
+                  ;; or the beat base function argument is zero.
+                  '(+inf.0)
+                  (map (lambda (x) (/ x beat-factor)) struct)))))))
 
 (define-public (beam-exceptions time-signature time-signature-settings)
   "Get @code{beamExceptions} value for @var{time-signature} from
