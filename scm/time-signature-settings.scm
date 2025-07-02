@@ -385,10 +385,92 @@ If there is no entry, derive a structure from @var{time-sig}."
                   '(+inf.0)
                   (map (lambda (x) (/ x beat-factor)) struct)))))))
 
-(define-public (beam-exceptions time-signature time-signature-settings)
-  "Get @code{beamExceptions} value for @var{time-signature} from
-@var{time-signature-settings}."
-  (get-setting 'beamExceptions time-signature time-signature-settings))
+(define-public (beam-exceptions time-sig time-signature-settings)
+  "Get the @code{beamExceptions} value for @var{time-sig} from @var{time-signature-settings}.
+
+@var{time-sig} must be a sane, canonical time signature."
+
+  (define (get-grouping-lists-for-beam-type
+           ;; a sequence of alists of (beam-type . grouping-list)
+           component-exceptions
+           ;; the beam type of interest
+           beam-type
+           ;; a sequence of grouping lists for the next longest beam type
+           ;; (same length as component-exceptions)
+           prev-grouping-lists
+           ;; the next longest beam type
+           prev-beam-type)
+    "Map component-exceptions to a list of its grouping lists for beam-type.
+Whenever an element of component-exceptions has no entry for beam-type, default
+to the corresponding element of prev-grouping-lists, rescaled from
+prev-beam-type to beam-type."
+    (map (lambda (defined-exceptions default-grouping-list)
+           (let ((gl (assoc-get beam-type defined-exceptions '())))
+             (if (null? gl)
+                 (let ((factor (/ prev-beam-type beam-type)))
+                   (map (lambda (x) (* x factor)) default-grouping-list))
+                 gl)))
+         component-exceptions prev-grouping-lists))
+
+  (define (compose-end-exceptions
+           ;; a sequence of alists of (beam-type . grouping-list)
+           component-exceptions
+           ;; union of beam types from all exceptions, sorted longest duration
+           ;; first
+           beam-types)
+    ;; returns an alist of (beam-type . grouping-list)
+    (let* ((bt-prev 1) ; previously handled beam type: initially arbitrary
+           ;; grouping lists for the previously handled beam type: initially,
+           ;; the component beat structures
+           (gls-prev
+            (map (lambda (ts)
+                   (beat-structure bt-prev ts time-signature-settings))
+                 time-sig)))
+      (map (lambda (beam-type)
+             (let ((gls (get-grouping-lists-for-beam-type
+                         component-exceptions
+                         beam-type
+                         gls-prev
+                         bt-prev)))
+               (set! bt-prev beam-type)
+               (set! gls-prev gls)
+               (cons beam-type (concatenate gls))))
+           beam-types)))
+  
+  (define (compose-beaming-exceptions)
+    "Compose beam exceptions for a strictly alternating time signature."
+    (let* (;; 'end exceptions for each component of the alternating time sig.
+           (component-end-exceptions
+            (map (lambda (ts)
+                   (let ((x (beam-exceptions ts time-signature-settings)))
+                     (assoc-get 'end
+                                x
+                                '())))
+                 time-sig))
+           ;; The union of beam types found among component exceptions, sorted
+           ;; longest duration first.  The composite exceptions will have an
+           ;; entry for each.
+           (beam-types (uniq-list (sort
+                                   (concatenate
+                                    (map alist-keys component-end-exceptions))
+                                    >))))
+      (if (null? beam-types)
+          '()
+          (list (cons 'end (compose-end-exceptions
+                            component-end-exceptions
+                            beam-types))))))
+
+  (let ((from-table (get-setting 'beamExceptions time-sig
+                                 time-signature-settings)))
+    (cond
+     ((not (null? from-table))
+      from-table)
+     ((not (pair? time-sig)) ; #f for senza misura (or else garbage)
+      '())
+     ((not (number? (cdr time-sig))) ; two or more fractions
+      (compose-beaming-exceptions))
+     (else ; a single fraction
+      '()))))
 
 
 ;;; Functions for overriding time-signature settings

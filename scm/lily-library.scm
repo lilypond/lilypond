@@ -465,6 +465,10 @@ functions."
       '()
       alist))))
 
+(define-public (alist-keys alist)
+  "Get the keys of @var{alist}, not necessarily sorted or unique."
+  (map car alist))
+
 (define-public (alist<? x y)
   (string<? (symbol->string (car x))
             (symbol->string (car y))))

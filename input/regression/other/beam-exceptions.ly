@@ -18,6 +18,9 @@ standard error stream."
 #(expect-equal "signature not found in settings; zero denominator"
   (beam-exceptions '(1 . 0) '())
   '())
+#(expect-equal "signature not found in settings; subdivided fraction"
+  (beam-exceptions '((5 12) . 13) '())
+  '())
 
 #(expect-equal "exceptions not found in settings"
   (beam-exceptions '(6 . 7) '(((6 . 7) . ())))
@@ -27,6 +30,9 @@ standard error stream."
   '())
 #(expect-equal "exceptions not found in settings; zero denominator"
   (beam-exceptions '(1 . 0) '(((1 . 0) . ())))
+  '())
+#(expect-equal "exceptions not found in settings; subdivided fraction"
+  (beam-exceptions '((5 12) . 13) '((((5 12) . 13) . ())))
   '())
 
 #(expect-equal "exceptions found in settings"
@@ -44,3 +50,8 @@ standard error stream."
    '(1 . 0)
    '(((1 . 0) . ((beamExceptions . dummy3)))))
   'dummy3)
+#(expect-equal "exceptions found in settings; subdivided fraction"
+  (beam-exceptions
+   '((5 12) . 13)
+   '((((5 12) . 13) . ((beamExceptions . dummy4)))))
+  'dummy4)
