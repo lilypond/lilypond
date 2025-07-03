@@ -433,43 +433,18 @@ may be @code{\\default} to use the next number in sequence automatically.")
        (make-music 'CodaMarkEvent)))
 
 compoundMeter =
-#(define-music-function (args) (pair?)
-  (_i "Create a compound time signature.
+#(define-music-function (time-sig) (pair?)
+   (_i "Set the time signature to @var{time-sig}.
 
-The argument @var{args} is a Scheme list of lists.  Each list represents one
-fraction, where all entries but the last hold the summands in the numerator,
-and the last entry is the denominator.  If the time signature consists of just
-one fraction, the list can be given directly, i.e., not as a list containing a
-single list.  For example, a time signature of (3+1)/8 + 2/4 can be created with
-@code{\\compoundMeter #'((3 1 8) (2 4))}, and a time signature of (3+2)/8 with
-either @code{\\compoundMeter #'((3 2 8))} or the shorter version
-@code{\\compoundMeter #'(3 2 8)}.")
-  (let ((canonical (tsig-abbr-expand args)))
-    (cond
-     ((not canonical) ; syntax error
-      (ly:input-warning (*location*) (G_ "invalid time signature"))
-      (make-music 'Music))
-     ((not (sane-time-signature? canonical))
-      (ly:input-warning (*location*) (G_ "unsupported time signature"))
-      (make-music 'Music))
-     ((sane-simple-time-signature? canonical)
-      ;; handle a single, simple fraction like \time
-      #{ \time #canonical #} )
-     (else
-      (let* ((mlen (calculate-compound-measure-length args))
-             (beat-base (calculate-compound-beat-base args))
-             (beat-structure (calculate-compound-beat-grouping args))
-             (time-sig (cons (apply + beat-structure) (/ beat-base))))
-        #{
-          \once \override Timing.TimeSignature.stencil =
-          #(lambda (grob)
-             (grob-interpret-markup grob (make-compound-meter-markup args)))
-          \set Timing.timeSignatureFraction = #time-sig
-          \set Timing.beatBase = #beat-base
-          \set Timing.beatStructure = #beat-structure
-          \set Timing.beamExceptions = #'()
-          \set Timing.measureLength = #mlen
-          #} )))))
+This is like @code{\\time} @var{time-sig}, except that it allows abbreviating
+fractions as lists.  For example, a time signature of (3+1)/8 + 2/4 can be
+created with @code{\\compoundMeter #'((3 1 8) (2 4))}, and a time signature
+of (3+2)/8 with either @code{\\compoundMeter #'((3 2 8))} or the shorter version
+@code{\\compoundMeter 3,2,8}.")
+   (let ((canonical (tsig-abbr-expand time-sig)))
+     (if canonical
+         #{ \time #canonical #}
+         #{ #})))
 
 compressMMRests =
 #(define-music-function (music) (ly:music?)
@@ -2268,20 +2243,33 @@ textEndMark =
    (make-music 'TextMarkEvent 'text text 'horizontal-direction LEFT))
 
 time =
-#(define-music-function (beat-structure fraction)
-   ((number-list? '()) number-pair?)
-   (_i "Set @var{fraction} as a time signature.
+#(define-music-function (beat-structure time-sig)
+   ((number-list? '()) time-signature?)
+   (_i "Set the time signature to @var{time-sig}.
 
 The optional number list @var{beat-structure} additionally sets a beat
-structure.")
+structure.
+
+@var{time-sig} may be a fraction, e.g., @code{3/4}.
+
+@var{time-sig} may also describe a complex time signature as a Scheme
+expression.  Fractions are represented as pairs, @code{(@var{numerator}
+.@tie{}@var{denominator})}, where the denominator is always a number.  The
+numerator is one number or a list of two or more numbers.  A list represents
+concatenation.
+
+For example, a time signature of (3+1)/8 +@tie{}2/4 can be created with
+@code{\\time #'(((3@tie{}1) .@tie{}8) (2 .@tie{}4))}")
    (cond
-    ((not (sane-simple-time-signature? fraction))
+    ((not (sane-time-signature? time-sig))
      (ly:input-warning (*location*) (G_ "unsupported time signature"))
      (make-music 'Music))
     (else
+     ;; TODO: Does it make sense to provide a separate beat structure when the
+     ;; time signature itself is subdivided?  Maybe we should warn and ignore it
+     ;; in that case.
      (make-music 'TimeSignatureMusic
-                 'numerator (car fraction)
-                 'denominator (cdr fraction)
+                 'time-signature time-sig
                  'beat-structure beat-structure))))
 
 times =

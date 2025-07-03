@@ -206,18 +206,7 @@ This change is purely syntactic and does not check any values.  Return @code{#f}
 if @var{abbr} is not syntactically valid.
 
 See the @code{\\compoundMeter} command for a description of abbreviated form.
-In canonical form,
-
-@itemize
-@item
-The concatenation of two or more elements is represented by a list.  There are
-no single-element lists.
-@item
-A fraction is represented by a pair, @code{(@var{numerator}
-.@tie{}@var{denominator})}, where the denominator is not a pair.
-@item
-A time signature is a fraction or a list of them.
-@end itemize
+See the @code{\\time} command for a description of canonical form.
 
 Example:
 
@@ -744,10 +733,11 @@ numerals may take precedence over related properties.  Example:
   (define (format-denominator-term n) (format-term -1 n))
   (define (format-center-term n) (format-term 0 n))
 
-  (define (format-time-fraction time-sig-fraction)
-    (let* ((revargs (reverse time-sig-fraction))
-           (den (car revargs))
-           (nums (reverse (cdr revargs)))
+  (define (format-time-fraction canonical)
+    (let* ((den (cdr canonical))
+           (nums (if (pair? (car canonical))
+                     (car canonical)
+                     (list (car canonical))))
            (nums-markup (make-line-markup
                          (insert-markups (map format-numerator-term nums) "+")))
            (note-dur (and (eq? denominator-style 'note)
@@ -798,12 +788,15 @@ numerals may take precedence over related properties.  Example:
                        -2))
             (format-denominator-term den)))))))))
 
+  (define (format-time-fraction-abbr abbreviated)
+    (format-time-fraction (tsig-fraction-abbr-expand abbreviated)))
+
   (define (format-time-element time-sig)
-    (cond ((number-pair? time-sig)
-           (format-time-fraction (list (car time-sig) (cdr time-sig))))
-          ((pair? (cdr time-sig))
+    (cond ((number? (cdr time-sig)) ; canonical fraction
            (format-time-fraction time-sig))
-          (else
+          ((pair? (cdr time-sig)) ; abbreviated fraction
+           (format-time-fraction-abbr time-sig))
+          (else ; list of one element
            (make-vcenter-markup (format-center-term (car time-sig))))))
 
   (define (format-time-list time-sig)
@@ -815,11 +808,14 @@ numerals may take precedence over related properties.  Example:
   (define (format-compound-time time-sig)
     (make-number-markup
      (cond
-      ((number? time-sig) (format-time-element (list time-sig)))
-      ((number-pair? time-sig)
-       (format-time-element (list (car time-sig) (cdr time-sig))))
-      ((pair? (car time-sig)) (format-time-list time-sig))
-      (else (format-time-element time-sig)))))
+      ((number? time-sig)
+       (format-time-element (list time-sig)))
+      ((number? (cdr time-sig)) ; canonical fraction
+       (format-time-fraction time-sig))
+      ((pair? (car time-sig)) ; list of (maybe abbreviated) fractions
+       (format-time-list time-sig))
+      (else ; abbreviated fraction
+       (format-time-element time-sig)))))
 
   (interpret-markup layout props (format-compound-time time-sig)))
 
@@ -866,74 +862,26 @@ make a numbered time signature instead."
 (add-simple-time-signature-style 'default
                                  make-c-time-signature-markup)
 
-
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-;;; Measure length calculation of (possibly complex) compound time signatures
-
-(define (calculate-time-fraction time-sig-fraction)
-  (let* ((revargs (reverse time-sig-fraction))
-         (den (car revargs))
-         (num (apply + (cdr revargs))))
-    (/ num den)))
-
-(define (calculate-complex-compound-time time-sig)
-  (let accumulate ((sum 0)
-                   (remaining (map calculate-time-fraction time-sig)))
-    (if (pair? remaining)
-        (accumulate (+ sum (car remaining)) (cdr remaining))
-        sum)))
-
-(define-public (calculate-compound-measure-length time-sig)
-  (cond
-   ((not (pair? time-sig)) 4/4)
-   ((pair? (car time-sig)) (calculate-complex-compound-time time-sig))
-   (else (calculate-time-fraction time-sig))))
-
-;; TODO: print a deprecation warning when this is called (once per process)
-(define-public (calculate-compound-measure-length-as-moment time-sig)
-  (ly:make-moment (calculate-compound-measure-length time-sig)))
-
-
-;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-;;; Beat base: Use the largest denominator (corresponding to the shortest
-;;; duration) of all the fractions.
+;;; Legacy compound-meter functions
 ;;;
-;;; Using lcm instead of max would yield a beat structure holding only integers,
-;;; which is intuitively mathematically nice; however, we need to support
-;;; non-integers in beatStructure anyway for fractional time signatures, and it
-;;; is also intuitively nice for beatBase to come directly from the user.
+;;; TODO: Print a deprecation warning when any of these is called (once per
+;;; function per process, ideally).
 
-(define (calculate-compound-beat-base-full time-sig)
-  (apply max (map last time-sig)))
+(define-public (calculate-compound-measure-length time-sig-abbr)
+  (calc-measure-length (tsig-abbr-expand time-sig-abbr)))
 
-(define-public (calculate-compound-beat-base time-sig)
-  (/
-   (cond
-    ((not (pair? time-sig)) 4)
-    ((pair? (car time-sig)) (calculate-compound-beat-base-full time-sig))
-    (else (calculate-compound-beat-base-full (list time-sig))))))
+(define-public (calculate-compound-measure-length-as-moment time-sig-abbr)
+  (ly:make-moment (calculate-compound-measure-length time-sig-abbr)))
 
-;; TODO: print a deprecation warning when this is called (once per process)
-(define-public (calculate-compound-beat-base-as-moment time-sig)
-  (ly:make-moment (calculate-compound-beat-base time-sig)))
+(define-public (calculate-compound-beat-base time-sig-abbr)
+  (beat-base (tsig-abbr-expand time-sig-abbr) '()))
 
-;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-;;; Beat Grouping
+(define-public (calculate-compound-beat-base-as-moment time-sig-abbr)
+  (ly:make-moment (calculate-compound-beat-base time-sig-abbr)))
 
-(define (normalize-fraction frac beat)
-  (let* ((thisbeat (car (reverse frac)))
-         (factor (/ beat thisbeat)))
-    (map (lambda (f) (* factor f)) frac)))
-
-(define (beat-grouping-internal time-sig)
-  ;; Normalize to given beat, extract the beats and join them to one list
-  (let* ((beat (calculate-compound-beat-base-full time-sig))
-         (normalized (map (lambda (f) (normalize-fraction f beat)) time-sig))
-         (beats (map (lambda (f) (drop-right f 1)) normalized)))
-    (concatenate beats)))
-
-(define-public (calculate-compound-beat-grouping time-sig)
-  (cond
-   ((not (pair? time-sig)) '(2 . 2))
-   ((pair? (car time-sig)) (beat-grouping-internal time-sig))
-   (else (beat-grouping-internal (list time-sig)))))
+(define-public (calculate-compound-beat-grouping time-sig-abbr)
+  (let* ((time-signature-settings '())
+         (time-sig (tsig-abbr-expand time-sig-abbr))
+         (base (beat-base time-sig time-signature-settings)))
+    (beat-structure base time-sig time-signature-settings)))

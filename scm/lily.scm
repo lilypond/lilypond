@@ -882,6 +882,7 @@ determines the number of scale steps that make up an octave.  Usually the
     (,symbol-list-or-music? . "symbol list or music")
     (,symbol-list-or-symbol? . "symbol list or symbol")
     (,symbol-key-alist? . "alist, with symbols as keys")
+    (,time-signature? . "time signature")
     (,void? . "void")
     ))
 

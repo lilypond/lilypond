@@ -213,6 +213,8 @@ finger.")
 in a part.")
      (tempo-unit ,ly:duration? "The unit for the metronome count.")
      (text ,markup? "Markup expression to be printed.")
+     (time-signature ,sane-time-signature? "A time-signature specification.  See
+the @code{\\time} command.")
      (to-relative-callback ,procedure? "How to transform a piece of music
 to relative pitches.")
      (tonic ,ly:pitch? "Base of the scale.")

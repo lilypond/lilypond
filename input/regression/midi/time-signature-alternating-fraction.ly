@@ -16,9 +16,7 @@ Verifying the MIDI output requires manual inspection."
     \compoundMeter #'((2 4) (6 8))
     \contextPropertyCheck Timing.beamExceptions #'()
     \contextPropertyCheck Timing.beatBase #1/8
-    %% Issue 6789: beatStructure should be #'(2 2 3 3).  Fixing this issue
-    %% should change the MIDI metronome from 1/4 to 1/8.
-    \contextPropertyCheck Timing.beatStructure #'(4 6)
+    \contextPropertyCheck Timing.beatStructure #'(2 2  3 3)
     \contextPropertyCheck Timing.measureLength #5/4
     \contextPropertyCheck Timing.timeSignatureFraction 10/8
 

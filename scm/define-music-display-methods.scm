@@ -13,7 +13,6 @@
 (use-modules ((ice-9 list)
               #:select (rassoc)))
 
-
 ;;;
 ;;; Scheme forms
 ;;;
@@ -1020,21 +1019,23 @@ Otherwise, return #f."
             (new-line->lily-string))))
 
 (define-display-method TimeSignatureMusic (expr)
-  (let* ((num (ly:music-property expr 'numerator))
-         (den (ly:music-property expr 'denominator))
+  (let* ((spec (ly:music-property expr 'time-signature))
+         (spec-str (if (fraction? spec)
+                       (format #f "~a/~a" (car spec) (cdr spec))
+                       (format #f "#'~a" spec)))
          (structure (ly:music-property expr 'beat-structure)))
     (if (null? structure)
         (format #f
-                "\\time ~a/~a~a"
-                num den
+                "\\time ~a~a"
+                spec-str
                 (new-line->lily-string))
         (format #f
                 ;; This is silly but the latter will also work for #f
                 ;; and other
                 (if (key-list? structure)
-                    "\\time ~{~a~^,~} ~a/~a~a"
-                    "\\time #'~a ~a/~a~a")
-                structure num den
+                    "\\time ~{~a~^,~} ~a~a"
+                    "\\time #'~a ~a~a")
+                structure spec-str
                 (new-line->lily-string)))))
 
 ;;; \melisma and \melismaEnd

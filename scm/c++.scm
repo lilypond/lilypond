@@ -18,6 +18,7 @@
 
 ;;; Note: this file can't be used without LilyPond executable
 
+(use-modules (ice-9 match))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; type predicates.
@@ -198,13 +199,7 @@
 (define-public (sane-time-signature? x)
   "Is @var{x} a supported, semantically valid time signature in canonical form?
 
-A sane time signature is one sane time-signature fraction or a list of two or
-more of them (representing concatenation).
-
-A sane time-signature fraction is a pair, @code{(@var{numerator}
-.@tie{}@var{denominator})}.  The denominator is a positive exact rational
-number.  The numerator is one positive exact rational number or a list of two or
-more of them (representing concatenation)."
+See the @code{\\time} command for a description of canonical form."
   (define (sane-time-signature-fraction? x)
     ;; This can't express the silly 3-and-two-halves/4 in "Reverie der Laputier,
     ;; nebst ihren Aufweckern" from _Intrada, nebst burlesquer Suite_ by
@@ -243,6 +238,43 @@ more of them (representing concatenation)."
        (ly:skyline? (cdr x))))
 
 (define-public (scheme? x) #t)
+
+(define-public (time-signature? x)
+  "Is @var{x} syntactically a time signature in canonical form?
+
+When defining a music function that requires a canonical time signature, use
+this predicate in the function signature, then validate the value in the
+function body.
+
+A time signature is one fraction or a list of two or more fractions
+(representing concatenation).
+
+A fraction is a pair, @code{(@var{numerator} .@tie{}@var{denominator})}, where
+the denominator is always a number.  The numerator is one term or a list of two
+or more terms, where each term is either a number or another fraction.  A list
+represents concatenation."
+  (define (time-signature-fraction? x)
+    (define numerator-term?
+      ;; Accepting fractions recursively leaves a door open to support the silly
+      ;; 3-and-two-halves/4 in "Reverie der Laputier, nebst ihren Aufweckern"
+      ;; from _Intrada, nebst burlesquer Suite_ by Telemann.
+      (match-lambda
+        ((? number?) #t)
+        ((? time-signature-fraction?) #t) ; recursion
+        (_ #f)))
+    (define numerator? ; a term, or a list of two or more
+      (match-lambda
+        ((? numerator-term?) #t)
+        (((? numerator-term?) (? numerator-term?) ..1) #t)
+        (_ #f)))
+    (match x
+      (((? numerator?) . (? number?)) #t)
+      (_ #f)))
+
+  (match x
+    ((? time-signature-fraction?) #t)
+    (((? time-signature-fraction?) (? time-signature-fraction?) ..1) #t)
+    (_ #f)))
 
 (define-public (void? x)
   (unspecified? x))

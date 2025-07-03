@@ -205,36 +205,56 @@ depth-first through MUSIC."
 
 (define (make-time-signature-set music)
   "Set context properties for a time signature."
-  (let* ((num (ly:music-property music 'numerator #f))
-         (den (ly:music-property music 'denominator #f))
-         (structure (ly:music-property music 'beat-structure))
-         (fraction (and num den (cons num den))))
-    (list (context-spec-music
+  (let* ((spec (ly:music-property music 'time-signature))
+         (complex? (not (number-pair? spec)))
+         (structure (ly:music-property music 'beat-structure)))
+    (list (if complex? ; \once \override Timing.TimeSignature.stencil = ...
+              (context-spec-music
+               (make-music 'OverrideProperty
+                           'once #t
+                           'pop-first #t
+                           'symbol 'TimeSignature
+                           'grob-property 'stencil
+                           'grob-value
+                           (lambda (grob)
+                             (grob-interpret-markup
+                              grob (make-compound-meter-markup spec))))
+               'Timing)
+              (make-music 'Music))
+          (context-spec-music
            (make-apply-context
             (lambda (context)
               (let* ((time-signature-settings
                       (ly:context-property context 'timeSignatureSettings))
-                     (my-beat-base (beat-base fraction time-signature-settings))
+                     (my-beat-base
+                      (beat-base spec time-signature-settings))
                      (my-beat-structure
                       (if (null? structure)
                           (beat-structure my-beat-base
-                                          fraction
+                                          spec
                                           time-signature-settings)
                           structure))
-                     (beaming-exception
-                      (beam-exceptions fraction time-signature-settings))
-                     (new-measure-length
-                      (calc-measure-length fraction)))
+                     (my-beam-exceptions
+                      (beam-exceptions spec time-signature-settings))
+                     (my-measure-length
+                      (calc-measure-length spec))
+                     ;; When a single simple fraction is provided, preserve its
+                     ;; numbers; otherwise, lump all the numerator terms
+                     ;; together over the beat base.
+                     (my-fraction
+                      (if complex?
+                          (cons (apply + my-beat-structure) (/ my-beat-base))
+                          spec)))
                 (ly:context-set-property!
-                 context 'timeSignatureFraction fraction)
+                 context 'timeSignatureFraction my-fraction)
                 (ly:context-set-property!
                  context 'beatBase my-beat-base)
                 (ly:context-set-property!
                  context 'beatStructure my-beat-structure)
                 (ly:context-set-property!
-                 context 'beamExceptions beaming-exception)
+                 context 'beamExceptions my-beam-exceptions)
                 (ly:context-set-property!
-                 context 'measureLength new-measure-length))))
+                 context 'measureLength my-measure-length))))
            'Timing)
           ;; (make-music 'TimeSignatureEvent music) would always
           ;; create a Bottom context.  So instead, we just send the

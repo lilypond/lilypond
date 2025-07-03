@@ -1,4 +1,4 @@
-\version "2.25.25"
+\version "2.25.27"
 
 #(use-modules (srfi srfi-13)
               (ice-9 format)
@@ -256,6 +256,14 @@ are reported on the stderr of this run."
 \test ##[ \clef "treble_[8]" #]
 \test ##[ \clef "bass^(15)" #]
 \test ##[ \clef "alto_3" #]
+\test "\\time 1/2"
+      ##[ \compoundMeter #'(1 2) #]
+\test "\\time 1/2"
+      ##[ \compoundMeter #'((1 2)) #]
+\test "\\time #'((3 2) . 8)"
+      ##[ \compoundMeter 3,2,8 #]
+\test "\\time #'((1 . 2) (3 . 4))"
+      ##[ \compoundMeter #'((1 2) (3 4)) #]
 \test ##[ \time 2/4 #]
 \test ##[ \time 3,2 5/8 #]
 \test ##[ \bar "|." #]
