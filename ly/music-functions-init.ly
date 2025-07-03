@@ -27,7 +27,6 @@
 
 %% need SRFI-1 for filter; optargs for lambda*
 #(use-modules (srfi srfi-1)
-              (ice-9 match)
               (ice-9 optargs))
 
 absolute =
@@ -445,26 +444,32 @@ single list.  For example, a time signature of (3+1)/8 + 2/4 can be created with
 @code{\\compoundMeter #'((3 1 8) (2 4))}, and a time signature of (3+2)/8 with
 either @code{\\compoundMeter #'((3 2 8))} or the shorter version
 @code{\\compoundMeter #'(3 2 8)}.")
-  (match args ; handle a single, simple fraction exactly like \time
-    (((? index?) (? index?))
-     #{ \time #(cons (list-ref args 0) (list-ref args 1)) #} )
-    ((((? index?) (? index?)))
-     #{ \time #(cons (list-ref (car args) 0) (list-ref (car args) 1)) #} )
-    (_
-     (let* ((mlen (calculate-compound-measure-length args))
-            (beat-base (calculate-compound-beat-base args))
-            (beat-structure (calculate-compound-beat-grouping args))
-            (time-sig (cons (apply + beat-structure) (/ beat-base))))
-       #{
-         \once \override Timing.TimeSignature.stencil =
-         #(lambda (grob)
-            (grob-interpret-markup grob (make-compound-meter-markup args)))
-         \set Timing.timeSignatureFraction = #time-sig
-         \set Timing.beatBase = #beat-base
-         \set Timing.beatStructure = #beat-structure
-         \set Timing.beamExceptions = #'()
-         \set Timing.measureLength = #mlen
-       #} ))))
+  (let ((canonical (tsig-abbr-expand args)))
+    (cond
+     ((not canonical) ; syntax error
+      (ly:input-warning (*location*) (G_ "invalid time signature"))
+      (make-music 'Music))
+     ((not (sane-time-signature? canonical))
+      (ly:input-warning (*location*) (G_ "unsupported time signature"))
+      (make-music 'Music))
+     ((sane-simple-time-signature? canonical)
+      ;; handle a single, simple fraction like \time
+      #{ \time #canonical #} )
+     (else
+      (let* ((mlen (calculate-compound-measure-length args))
+             (beat-base (calculate-compound-beat-base args))
+             (beat-structure (calculate-compound-beat-grouping args))
+             (time-sig (cons (apply + beat-structure) (/ beat-base))))
+        #{
+          \once \override Timing.TimeSignature.stencil =
+          #(lambda (grob)
+             (grob-interpret-markup grob (make-compound-meter-markup args)))
+          \set Timing.timeSignatureFraction = #time-sig
+          \set Timing.beatBase = #beat-base
+          \set Timing.beatStructure = #beat-structure
+          \set Timing.beamExceptions = #'()
+          \set Timing.measureLength = #mlen
+          #} )))))
 
 compressMMRests =
 #(define-music-function (music) (ly:music?)

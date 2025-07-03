@@ -195,6 +195,36 @@
        (positive-exact-rational? (car x))
        (positive-exact-rational? (cdr x))))
 
+(define-public (sane-time-signature? x)
+  "Is @var{x} a supported, semantically valid time signature in canonical form?
+
+A sane time signature is one sane time-signature fraction or a list of two or
+more of them (representing concatenation).
+
+A sane time-signature fraction is a pair, @code{(@var{numerator}
+.@tie{}@var{denominator})}.  The denominator is a positive exact rational
+number.  The numerator is one positive exact rational number or a list of two or
+more of them (representing concatenation)."
+  (define (sane-time-signature-fraction? x)
+    ;; This can't express the silly 3-and-two-halves/4 in "Reverie der Laputier,
+    ;; nebst ihren Aufweckern" from _Intrada, nebst burlesquer Suite_ by
+    ;; Telemann.  It seems better to keep the code simple and require stencil
+    ;; overrides for rare cases like that.
+    (define numerator?
+      (match-lambda
+        ((? positive-exact-rational?) #t)
+        (((? positive-exact-rational?) (? positive-exact-rational?) ..1) #t)
+        (_ #f)))
+    (match x
+      (((? numerator?) . (? positive-exact-rational?)) #t)
+      (_ #f)))
+
+  (match x
+    ((? sane-time-signature-fraction?) #t)
+    (((? sane-time-signature-fraction?) (? sane-time-signature-fraction?) ..1)
+     #t)
+    (_ #f)))
+
 (define-public (scale? x)
   (or (and (rational? x) (exact? x) (not (negative? x)))
       (fraction? x)

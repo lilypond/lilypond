@@ -168,6 +168,66 @@
 ;;;  Accessor and constructor functions
 ;;;
 
+(define (tsig-fraction-abbr-expand abbr)
+  "Syntactically convert an abbreviated time-signature fraction to
+canonical form, or to @code{#f} on error.  Values are not examined."
+  (define (numerator-term-expand x)
+    (if (pair? x)
+        (tsig-fraction-abbr-expand x)
+        x))
+
+  (define (numerator-expand num)
+    (if (null? (cdr num))
+        (numerator-term-expand (car num)) ; one term
+        (let ((terms (map numerator-term-expand num))) ; two or more terms
+          (and (every identity terms) terms))))
+
+  (and (list? abbr)
+       (not (null? (cdr abbr))) ; need at least two elements
+       (let* ((reversed (reverse abbr))
+              (den (car reversed)))
+         (and (not (pair? den))
+              (let ((num (numerator-expand (reverse (cdr reversed)))))
+                (and num
+                     (cons num den)))))))
+
+(define-public (tsig-abbr-expand abbr)
+  "Convert abbreviated time signature @var{abbr} to canonical form.
+
+This change is purely syntactic and does not check any values.  Return @code{#f}
+if @var{abbr} is not syntactically valid.
+
+See the @code{\\compoundMeter} command for a description of abbreviated form.
+In canonical form,
+
+@itemize
+@item
+The concatenation of two or more elements is represented by a list.  There are
+no single-element lists.
+@item
+A fraction is represented by a pair, @code{(@var{numerator}
+.@tie{}@var{denominator})}, where the denominator is not a pair.
+@item
+A time signature is a fraction or a list of them.
+@end itemize
+
+Example:
+
+@example
+(tsig-abbr-expand '((2 3 8) (2 4)))
+@result{} '(((2 3) . 8) (2 . 4))
+@end example
+"
+  (or (tsig-fraction-abbr-expand abbr)
+      (and (list? abbr)
+           (if (null? (cdr abbr))
+               ;; one fraction in a list: discard the outer list
+               (tsig-fraction-abbr-expand (car abbr))
+               ;; two or more fractions: convert each
+               (let ((fracs (map tsig-fraction-abbr-expand abbr)))
+                 (and (every identity fracs) ; verify conversion
+                      fracs))))))
+
 (define (get-setting my-symbol time-signature time-signature-settings)
   "Get setting @code{my-symbol} for @code{time-signature} from
 @code{time-signature-settings}."
