@@ -476,20 +476,14 @@ When a merge request is opened, a bot automatically adds the
 GitLab triggers automated testing, which ensures that the patch
 completes @code{make}, @code{make check}, and @code{make doc}.
 
-After testing succeeds, the patch author or a reviewer should
-check the regression test comparison.  If there is any difference
-for any regression test the check job of the pipeline will warn you
-with a yellow exclamation mark.  To find the test comparison, first
-view the log for the @code{make check} job.  Currently, this can be
-reached by clicking the second of the three green circles with
-check marks next to the text @qq{Merge request pipeline #@dots{} passed}.
-This opens a small window; click the line containing the word
-@q{check}.
-
-On the job page, you will find a direct link to the regression
-test visual comparison page at the very end of the log text.
-Around ten lines before the last line, look for the text
-@qq{Results can be viewed at @enddots{}}
+After the CI pipeline has succeeded, the patch meister or any
+developer (even the author) should check the regression test
+comparison.  When there are no differences, the @qq{Test summary}
+section of the merge request page has a green check mark.  If it
+instead has a yellow exclamation mark, click the caret to expand
+the section, then click the @qq{View details} link next to the
+@qq{Machine review} entry.  A window pops up with a link to the
+regression test visual comparison page.
 
 If tests display no obviously bad differences, the patch can be
 advanced to @code{Patch::review}.  If the size of the regression

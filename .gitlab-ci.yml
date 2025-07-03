@@ -149,17 +149,46 @@ check:
     - *touch-build
     - ../scripts/auxiliar/download-test-baseline.sh
     - make $MAKE_FLAGS check
-    - mv out/test-results/ ..
-    # $CI_PAGES_URL refers to the GitLab Pages of the repository, we want the
-    # "implicit" pages URL with a dash before the project name. Do not use
+    - mv out/test-results/ ..    
+    # Link from the job page to the regression test comparison.  It will appear
+    # in the right sidebar under the heading "External Links".  $CI_PAGES_URL
+    # refers to the GitLab Pages of the repository.  We want the "implicit"
+    # pages URL with a dash before the project name.  Do not use
     # $CI_PAGES_DOMAIN to construct it because that is only available if GitLab
     # Pages are enabled for the repository (which may be a user's fork).
-    - echo "Results can be viewed at https://$CI_PROJECT_ROOT_NAMESPACE.gitlab.io/-/$CI_PROJECT_NAME/-/jobs/$CI_JOB_ID/artifacts/test-results/index.html"
-    # Return exit code 23 if there are real changes detected in the regression test result.
-    # We want to warn in that case to review the test results carefully.
-    - if [ $(wc -l < ../test-results/changed.txt) -ge 2 ]; then exit 23; else exit 0; fi
-  allow_failure:
-    exit_codes: 23
+    - regtest_url="https://$CI_PROJECT_ROOT_NAMESPACE.gitlab.io/-/$CI_PROJECT_NAME/-/jobs/$CI_JOB_ID/artifacts/test-results/index.html"
+    - |
+      cat <<EOF > gitlab-annotations-test-results.json
+      {
+        "Regression test comparison": [
+          {
+            "external_link": {
+              "label": "Regression test comparison",
+              "url": "${regtest_url}"
+            }
+          }
+        ]
+      }
+      EOF
+    # Note on the main page of the MR whether any difference in the regression
+    # tests was detected.  This is reported as a test of its own, which either
+    # passes (there are no differences) or errors (the machine cannot qualify
+    # the differences as desirable or undesirable).  One difference in
+    # input/regression/tree.gittxt is always expected.    
+    - |
+      if [ $(wc -l < ../test-results/changed.txt) -eq 1 ]; then
+        regtest_machine_review_outcome=""
+      else
+        regtest_machine_review_outcome="<error>Human review is required.&#10;${regtest_url}</error>"
+      fi
+    - |
+      cat <<EOF > gitlab-regtest-machine-review-junit.xml
+      <testsuite name="Regression test review">
+        <testcase classname="Regression test review" name="Machine review">
+          ${regtest_machine_review_outcome}
+        </testcase>
+      </testsuite>
+      EOF
   after_script:
     - cd build
     - ../scripts/build/summarize-regtest-failure.sh
@@ -170,6 +199,9 @@ check:
     paths:
       - "test-results/**"
       - "**/*.fail.log"
+    reports:
+      annotations: build/gitlab-annotations-test-results.json
+      junit: build/gitlab-regtest-machine-review-junit.xml
 
 test-no-bytecode:
   stage: test
