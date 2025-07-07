@@ -2019,7 +2019,8 @@ class Part(Music_xml_node):
                     # as a heuristic threshold.
                     if (prev_default_y is not None
                             and default_y is not None
-                            and abs(int(prev_default_y) - int(default_y)) < 5):
+                            and abs(float(prev_default_y)
+                                    - float(default_y)) < 5):
                         prev_staff = prev_n.get('staff', '0')
                         staff = n.get('staff', '0')
 
@@ -2028,12 +2029,12 @@ class Part(Music_xml_node):
                             prev_offset_elem = prev_n.get_named_child('offset')
                             prev_offset = 0
                             if prev_offset_elem is not None:
-                                prev_offset = int(prev_offset_elem.get_text())
+                                prev_offset = float(prev_offset_elem.get_text())
 
                             offset_elem = n.get_named_child('offset')
                             offset = 0
                             if offset_elem is not None:
-                                offset = int(offset_elem.get_text())
+                                offset = float(offset_elem.get_text())
 
                             # Condition (3).
                             if prev_offset == offset:

@@ -74,11 +74,11 @@
         <direction-type>
           <wedge default-y="-73" type="diminuendo"/>
         </direction-type>
-        <offset>8</offset>
+        <offset>8.1</offset>
       </direction>
       <direction placement="below">
         <direction-type>
-          <dynamics default-y="-77">
+          <dynamics default-y="-76.5">
             <f/>
           </dynamics>
         </direction-type>
