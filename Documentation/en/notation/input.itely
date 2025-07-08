@@ -10,17 +10,16 @@
 
 @c \version "2.25.27"
 
-@node General input and output
-@chapter General input and output
 
-This section deals with general LilyPond input and output issues,
-rather than specific notation.
+@part General input and output
 
+@raisesections
 
 @c TODO: shouldn't these explanations be scattered in the
 @c sections for the respective input modes? --JeanAS
 
 @node Input modes
+@anchor{General input and output} @c retain old label
 @section Input modes
 
 The way in which the notation contained within an input file is
@@ -4854,3 +4853,5 @@ Not all lilypond music events are supported by
 not included, copy @file{event-listener.ly} into your lilypond
 directory and modify the file so that it outputs the information
 you want.
+
+@lowersections

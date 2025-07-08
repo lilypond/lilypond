@@ -10,6 +10,7 @@
 @c \version "2.25.3"
 
 @node Vocal music
+@anchor{Specialist notation} @c retain old label
 @section Vocal music
 
 @lilypondfile[quote]{snippets/vocal-headword.ly}

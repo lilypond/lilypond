@@ -9,15 +9,10 @@
 
 @c \version "2.16.0"
 
-@node Specialist notation
-@chapter Specialist notation
 
-This chapter explains how to create musical notation for specific
-types of instrument or in specific styles.
+@part Specialist notation
 
-Orchestral and ensemble music is not addressed in a separate section;
-however, several notions commonly useful in orchestral scores are
-found in @ref{References for opera and stage musicals}.
+@raisesections
 
 @include en/notation/vocal.itely
 @include en/notation/keyboards.itely
@@ -30,3 +25,4 @@ found in @ref{References for opera and stage musicals}.
 @include en/notation/ancient.itely
 @include en/notation/world.itely
 
+@lowersections

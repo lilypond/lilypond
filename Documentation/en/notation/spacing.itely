@@ -27,8 +27,13 @@ https://sourceforge.net/p/testlilyissues/issues/68/
 @end ignore
 
 
-@node Spacing issues
-@chapter Spacing issues
+@part Spacing issues
+
+@raisesections
+
+@node Page layout
+@anchor{Spacing issues} @c retain old label
+@section Page layout
 
 The global paper layout is determined by three factors: the page layout, the
 line breaks, and the spacing.  These all influence each other.  The
@@ -52,13 +57,6 @@ paper height, or whether to print page numbers, etc.  See
 @ref{Page layout}.  The @code{\layout} block contains score layout
 settings, such as the number of systems to use, or the space
 between staff groups, etc.  @xref{Score layout}.
-
-
-@node Page layout
-@section Page layout
-
-This section discusses page layout options for the @code{\paper}
-block.
 
 
 @node The paper block
@@ -4138,3 +4136,5 @@ Notation Reference:
 Snippets:
 @rlsr{Spacing}.
 @endmorerefs
+
+@lowersections

@@ -515,6 +515,12 @@ pre-pdf:
 	$(buildscript-dir)/run-and-check.sh \
 	  "mktextfm larm1095" "$(outdir)/larm1095.mktextfm.log"
 
+# We use 'node' as the default split mode for HTML pages.  However, some
+# versions of the NR use `@part`, making this split mode too low-level, so
+# we replace it with 'section' mode for them.
+TEXI2ANY_SPLIT := node
+$(outdir)/en/notation/index.html: TEXI2ANY_SPLIT := section
+
 $(outdir)/%/index.html: \
   $(outdir)/%.texi \
   $(outdir)/version.itexi \
@@ -530,7 +536,7 @@ $(outdir)/%/index.html: \
 "$(WEB_ENV) \
  DEPTH=$(depth)/../ \
    $(TEXI2ANY_HTML) \
-     --split=node \
+     --split=$(TEXI2ANY_SPLIT) \
      $(DOCUMENTATION_INCLUDES) \
      $(TEXI2ANY_HTML_FLAGS) \
      --output=$(dir $@) \

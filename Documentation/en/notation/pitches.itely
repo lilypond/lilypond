@@ -11,6 +11,7 @@
 
 
 @node Pitches
+@anchor{Musical notation} @c retain old label
 @section Pitches
 
 @lilypondfile[quote]{snippets/pitches-headword.ly}

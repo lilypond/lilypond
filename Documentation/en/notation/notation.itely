@@ -9,21 +9,10 @@
 
 @c \version "2.16.0"
 
-@node Musical notation
-@chapter Musical notation
 
-This chapter explains how to create musical notation.
+@part Musical notation
 
-@menu
-* Pitches::            Writing and display the pitches of notes.
-* Rhythms::            Writing and displaying the durations of notes.
-* Expressive marks::   Adding expression to notes.
-* Repeats::            Repeat music.
-* Simultaneous notes:: More than one note at once.
-* Staff notation::     Displaying staves.
-* Editorial annotations:: Special notation to increase legibility.
-* Text::               Adding text to scores.
-@end menu
+@raisesections
 
 @include en/notation/pitches.itely
 @include en/notation/rhythms.itely
@@ -34,3 +23,4 @@ This chapter explains how to create musical notation.
 @include en/notation/editorial.itely
 @include en/notation/text.itely
 
+@lowersections

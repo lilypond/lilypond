@@ -10,8 +10,14 @@
 
 @c \version "2.25.24"
 
-@node Changing defaults
-@chapter Changing defaults
+
+@part Changing defaults
+
+@raisesections
+
+@node Tuning output
+@anchor{Changing defaults} @c retain old label
+@section Tuning output
 
 The purpose of LilyPond's design is to provide the finest quality
 output by default.  Nevertheless, it may happen that you need to
@@ -4748,3 +4754,5 @@ required.
 Internals Reference:
 @rinternals{TieColumn}.
 @endmorerefs
+
+@lowersections

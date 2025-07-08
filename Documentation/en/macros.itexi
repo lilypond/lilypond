@@ -75,6 +75,15 @@ found at @w{@uref{https://@/lilypond@/.org/}}.
 @end macro
 
 
+@c Suppress the word 'Appendix' for `@appendix` entries in the
+@c table of contents.
+@tex
+\gdef\appentry#1#2#3#4{%
+  \retrievesecnowidth\secnowidthchap{#2}%
+  \dochapentry{#1}{#2}{#3}{#4}}
+@end tex
+
+
 @macro lilyTitlePage{TITLE}
 @c  This produces the unified index
 @syncodeindex fn cp
