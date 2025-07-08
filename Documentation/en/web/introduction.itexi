@@ -85,14 +85,14 @@ concentrate on @emph{playing} music instead of @emph{reading} it.
 @c it's not worth translating the right column of the following
 @c menu. -JM
 @menu
-* Features::                    What can LilyPond do?
-* Examples::                    I want to see some music!
-* Freedom::                     Freedom and the GPL.
-* Background::                  Computational aesthetics.
-* Productions::                 Real-life use of LilyPond.
-* Reviews::                     What do people say about it?
-* Text input::                  You write music as text?!
-* Easier editing::              Other ways of working with LilyPond.
+* Features::       What can LilyPond do?
+* Examples::       I want to see some music!
+* Freedom::        Freedom and the GPL.
+* Background::     Computational aesthetics.
+* Productions::    Real-life use of LilyPond.
+* Reviews::        What do people say about it?
+* Text input::     You write music as text?!
+* Easier editing:: Other ways of working with LilyPond.
 @end menu
 
 

@@ -45,7 +45,8 @@ Copyright @copyright{} 1998--2023 by the authors.
 * Installing::                     Installing LilyPond
 * Tutorial::                       Basics of typesetting with LilyPond.
 * Common notation::                Writing very common notation.
-* Fundamental concepts::           Basic concepts required for reading the rest of the manuals.
+* Fundamental concepts::           Basic concepts required for reading
+                                     the rest of the manuals.
 * Tweaking output::                Introduction to modifying output.
 
 Appendices

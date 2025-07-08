@@ -342,10 +342,10 @@ programs; please consider them @qq{as-is}.  Patches are appreciated, but
 bug reports will almost certainly not be resolved.
 
 @menu
-* Invoking midi2ly::            Importing MIDI.
-* Invoking musicxml2ly::        Importing MusicXML.
-* Invoking abc2ly::             Importing ABC.
-* Invoking etf2ly::             Importing Finale.
+* Invoking midi2ly::     Importing MIDI.
+* Invoking musicxml2ly:: Importing MusicXML.
+* Invoking abc2ly::      Importing ABC.
+* Invoking etf2ly::      Importing Finale.
 * Other formats::
 @end menu
 

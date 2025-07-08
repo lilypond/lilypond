@@ -179,19 +179,19 @@ these manuals are published under the GNU Free Documentation License.
 
 
 @menu
-* Learning::             Learning.
-* Glossary::              Glossary.
-* Essay::                       Essay.
-* Notation::          Reference.
-* Usage::           Usage.
-* Snippets::                Snippets.
-* FAQ::                         FAQ.
-* Web::                      Web.
-* Changes::                     NEWS.
-* Extending::         Programming.
-* Internals::         Internals.
-* All::                 All manuals.
-* FDL::                     Licence.
+* Learning::  Learning.
+* Glossary::  Glossary.
+* Essay::     Essay.
+* Notation::  Reference.
+* Usage::     Usage.
+* Snippets::  Snippets.
+* FAQ::       FAQ.
+* Web::       Web.
+* Changes::   NEWS.
+* Extending:: Programming.
+* Internals:: Internals.
+* All::       All manuals.
+* FDL::       Licence.
 @end menu
 
 

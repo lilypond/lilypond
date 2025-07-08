@@ -241,10 +241,10 @@ Browse our gallery of @ref{Examples} and be inspired!
 @ifnottex
 
 @menu
-* Introduction::     Start here to creating sheet music.
-* Download::         Get LilyPond.
-* Manuals::          Read The Fine Manuals (RTFM).
-* Community::        Contact other users.
+* Introduction:: Start here to creating sheet music.
+* Download::     Get LilyPond.
+* Manuals::      Read The Fine Manuals (RTFM).
+* Community::    Contact other users.
 @end menu
 
 @end ifnottex
