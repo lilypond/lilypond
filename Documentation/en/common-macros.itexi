@@ -5,9 +5,10 @@
 MACRO DEFINITIONS GUIDELINES
 ****************************
 
-This file contains macro definitions that are common to all languages,
-i.e., all macro definitions that do not contain translatable text
-(namely text visible in the output).
+This file contains macro definitions that are common to all languages.
+It holds all macro definitions that either do not contain translatable
+text (i.e., text visible in the output) or intentionally stay
+untranslated.
 
 Macro definitions that contain translatable text belong to file
 `macros.itexi`.
@@ -76,6 +77,36 @@ Macro definitions that contain translatable text belong to file
 @macro smallspace
 @sp 1
 @end macro
+
+
+@c This macro stays untranslated because it is only used in untranslated
+@c manuals.
+
+@ifhtml
+
+@macro advanced{TEXT}
+@html
+<div class="advanced">
+@end html
+@strong{Advanced note:} \TEXT\
+@c keep the space for proper nesting of </p>
+
+@html
+</div>
+@end html
+@end macro
+
+@end ifhtml
+
+@ifnothtml
+
+@macro advanced{TEXT}
+@quotation
+@b{Advanced note:} \TEXT\
+@end quotation
+@end macro
+
+@end ifnothtml
 
 
 @c   ***** Displaying images *****
@@ -355,7 +386,7 @@ UNTRANSLATED NODE: IGNORE ME
 @end ifnothtml
 
 
-@c  ***** Macros specific to the web site *****
+@c   ***** Macros specific to the web site *****
 
 @ifset web
 
@@ -519,7 +550,7 @@ UNTRANSLATED NODE: IGNORE ME
 @end macro
 
 
-@c  ***** Macros and fonts for displaying LilyPond code snippets *****
+@c   ***** Macros and fonts for displaying LilyPond code snippets *****
 
 @tex
 
@@ -713,7 +744,7 @@ UNTRANSLATED NODE: IGNORE ME
 @end macro
 
 
-@c  ***** LuaTeX enhancement for `@code` *****
+@c   ***** LuaTeX enhancement for `@code` *****
 
 @c See file `code.lua` for details.
 @tex
