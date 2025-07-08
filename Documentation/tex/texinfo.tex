@@ -3,7 +3,7 @@
 % Load plain if necessary, i.e., if running under initex.
 \expandafter\ifx\csname fmtname\endcsname\relax\input plain\fi
 %
-\def\texinfoversion{2025-03-22.08}
+\def\texinfoversion{2025-07-08.12}
 %
 % Copyright 1985, 1986, 1988, 1990-2025 Free Software Foundation, Inc.
 %
@@ -6973,7 +6973,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 
 % \raggedbottom in plain.tex hardcodes \topskip so override it
 \catcode`\@=11
-\def\raggedbottom{\advance\topskip by 0pt plus60pt \r@ggedbottomtrue}
+\def\raggedbottom{\advance\topskip by 0pt plus30pt \r@ggedbottomtrue}
 \catcode`\@=\other
 
 % redefined for the two-volume lispref.  We always output on
@@ -6986,6 +6986,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 \def\contents{%
   \startcontents{\putwordTOC}{\contentsmkdest}%
     \ifxetex\xetexpreauxfile\fi
+    \penalty2 % mark beginning of contents
     \openin 1 \tocreadfilename\space
     \ifeof 1 \else
       \findsecnowidths
@@ -7078,25 +7079,34 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 %   #3 - level of section (e.g "chap", "sec")
 %   #4 - page number
 
-% Parts, in the main contents.  Replace the part number, which doesn't
-% exist, with an empty box.  Let's hope all the numbers have the same width.
-% Also ignore the page number, which is conventionally not printed.
-\def\numeralbox{\setbox0=\hbox{8}\hbox to \wd0{\hfil}}
+% Parts, in the main contents.  Ignore the page number, which is
+% conventionally not printed.
 \def\partentry#1#2#3#4{%
+  \ifnum\lastpenalty = 2
+    % use less space if at very first entry of contents
+    \vskip 1\baselineskip plus .33\baselineskip minus .25\baselineskip
+  \else
+    \vskip 2\baselineskip plus .66\baselineskip minus .5\baselineskip
+  \fi
   % Add stretch and a bonus for breaking the page before the part heading.
   % This reduces the chance of the page being broken immediately after the
   % part heading, before a following chapter heading.
-  \vskip 0pt plus 5\baselineskip
+  \vskip 0pt plus 3\baselineskip
   \penalty-300
-  \vskip 0pt plus -5\baselineskip
-  \dochapentry{#1}{\numeralbox}{#3}{}%
+  \vskip 0pt plus -3\baselineskip
+  \begingroup
+    \secfonts \rm
+    \entryinternal{#1}{}%
+  \endgroup
+  \afterpartentrytrue
 }
+\newif\ifafterpartentry
 %
 % Parts, in the short toc.
 \def\shortpartentry#1#2#3#4{%
   \penalty-300
   \vskip.5\baselineskip plus.15\baselineskip minus.1\baselineskip
-  \shortchapentry{{\bf #1}}{\numeralbox}{}{}%
+  \tocentry{{\bf #1}}{}{}{}%
 }
 
 % Chapters, in the main contents.
@@ -7164,7 +7174,13 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 % If the toc has to be broken over pages, we want it to be at chapters
 % if at all possible; hence the \penalty.
 \def\dochapentry#1#2#3#4{%
-   \penalty-300 \vskip1\baselineskip plus.33\baselineskip minus.25\baselineskip
+   \ifafterpartentry
+     \afterpartentryfalse
+     \penalty5000
+   \else
+     \penalty-300
+   \fi
+   \vskip1\baselineskip plus.33\baselineskip minus.25\baselineskip
    \begingroup
      % Move the page numbers slightly to the right
      \advance\entryrightmargin by -0.05em
@@ -9419,6 +9435,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
     \expandafter\xdef\csname floatlist\iffloattype\endcsname{\the\toks0
       {\safexrefname}}%
   \fi
+  \ignorespaces % ignore ends of line in aux file
 }
 
 % If working on a large document in chapters, it is convenient to
