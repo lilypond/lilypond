@@ -35,9 +35,10 @@
 (define (document-type-predicate-category alist nodename description)
   (string-append
    "@node " nodename "\n"
-   "@unnumberedsubsec " nodename "\n"
-   "\n\n"
-   description "\n\n"
+   "@appendixsubsec " nodename "\n"
+   "\n"
+   description "\n"
+   "\n"
    "@indentedblock\n"
    "@multitable @columnfractions .38 .6\n"
    "@headitem Type predicate @tab Description\n"
@@ -46,6 +47,7 @@
           ly:string-ci<?))
    "@end multitable\n"
    "@end indentedblock\n"
+   "\n"
    "\n"))
 
 (define-public type-predicates-doc-string
@@ -56,14 +58,8 @@
    "@cindex true (@code{#t})\n"
    "\n"
    "Predicates return @code{#t} (true) if their argument is of the named type
-and @code{#f} (false) if it isn't.\n\n"
-   "@menu\n"
-   "* R5RS primary predicates::\n"
-   "* R5RS secondary predicates::\n"
-   "* Guile predicates::\n"
-   "* LilyPond scheme predicates::\n"
-   "* LilyPond exported predicates::\n"
-   "@end menu\n"
+and @code{#f} (false) if it isn't.\n"
+   "\n"
    "\n"
    (string-concatenate
     (map
