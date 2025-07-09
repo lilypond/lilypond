@@ -87,6 +87,10 @@ if ($texinfo_version lt '7.0') {
 # This gives us Texinfo menus as defined in the source.
 texinfo_set_from_init_file('FORMAT_MENU', 'menu');
 
+# We always want both header and footer navigation panels in split HTML
+# output.
+texinfo_set_from_init_file('WORDS_IN_PAGE', 0);
+
 # Remove colon after index (before Texinfo 7.1) and menu entries (Texinfo 6.8
 # and later).
 texinfo_set_from_init_file('INDEX_ENTRY_COLON', '');
@@ -477,6 +481,11 @@ sub format_navigation_button {
     } elsif ($direction eq 'Forward' or $direction eq 'FastForward') {
         $text = " $name$text";
     } elsif ($direction eq 'Up') {
+        if ($name eq '') {
+          return "";
+        }
+        # Strip trailing whitespace.
+        $text =~ s/\s+$//g;
         # The translations have whitespace in front, so make sure it's symmetric.
         $text = " $text: $name ";
     }
