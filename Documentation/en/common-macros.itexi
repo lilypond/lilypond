@@ -175,7 +175,7 @@ Macro definitions that contain translatable text belong to file
 @end macro
 
 @macro lydoctitle {TEXT}
-@subsubsubheading{\TEXT\}
+@subsubheading @i{\TEXT\}
 @end macro
 
 

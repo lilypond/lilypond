@@ -10,7 +10,7 @@
 @c \version "2.23.1"
 
 @node Fretted string instruments
-@section Fretted string instruments
+@chapter Fretted string instruments
 
 @lilypondfile[quote]{snippets/fretted-headword.ly}
 
@@ -25,14 +25,14 @@ to fretted string instruments.
 
 
 @node Common notation for fretted strings
-@subsection Common notation for fretted strings
+@section Common notation for fretted strings
 
 This section discusses common notation that is unique
 to fretted string instruments.
 
 
 @node References for fretted strings
-@unnumberedsubsubsec References for fretted strings
+@subsection References for fretted strings
 
 Music for fretted string instruments is normally notated on
 a single staff, either in traditional music notation or in
@@ -76,7 +76,7 @@ Notation Reference:
 
 
 @node String number indications
-@unnumberedsubsubsec String number indications
+@subsection String number indications
 
 @cindex string number
 @cindex string number, vs.@: fingering
@@ -147,7 +147,7 @@ Internals Reference:
 
 
 @node Default tablatures
-@unnumberedsubsubsec Default tablatures
+@subsection Default tablatures
 
 @cindex tablature, basic
 @cindex tablature, default
@@ -724,7 +724,7 @@ Guitar special effects are limited to harmonics and slides.
 
 
 @node Custom tablatures
-@unnumberedsubsubsec Custom tablatures
+@subsection Custom tablatures
 
 @cindex tablature, custom
 @cindex tablature, banjo
@@ -961,7 +961,7 @@ monotonically with string number, such as ukuleles.
 
 
 @node Fret diagram markups
-@unnumberedsubsubsec Fret diagram markups
+@subsection Fret diagram markups
 
 @cindex fret diagram
 @cindex chord diagram
@@ -1420,7 +1420,7 @@ Internals Reference:
 
 
 @node Predefined fret diagrams
-@unnumberedsubsubsec Predefined fret diagrams
+@subsection Predefined fret diagrams
 
 @cindex fret diagram
 @cindex fret diagram, ukulele
@@ -1753,7 +1753,7 @@ Internals Reference:
 
 
 @node Automatic fret diagrams
-@unnumberedsubsubsec Automatic fret diagrams
+@subsection Automatic fret diagrams
 
 @cindex fret diagram, automatic
 @cindex chord diagram, automatic
@@ -1915,7 +1915,7 @@ with non-monotonic tunings.
 
 
 @node Right-hand fingerings
-@unnumberedsubsubsec Right-hand fingerings
+@subsection Right-hand fingerings
 
 @cindex fretted instrument, right-hand fingering
 @cindex fingering, right-hand, for fretted instruments
@@ -1976,7 +1976,7 @@ Internals Reference:
 
 
 @node Guitar
-@subsection Guitar
+@section Guitar
 
 Most of the notational issues associated with guitar music are
 covered sufficiently in the general fretted strings section, but there
@@ -1989,7 +1989,7 @@ or, for experienced users, a typesetter like GuitarTeX.
 
 
 @node Indicating position and barring
-@unnumberedsubsubsec Indicating position and barring
+@subsection Indicating position and barring
 
 @cindex indicating position and barring for fretted instrument
 @cindex fretted instrument, indicating position and barring
@@ -2030,7 +2030,7 @@ Snippets:
 
 
 @node Indicating harmonics and dampened notes
-@unnumberedsubsubsec Indicating harmonics and dampened notes
+@subsection Indicating harmonics and dampened notes
 
 @cindex fretted instrument, dampened note
 @cindex fretted instrument, harmonics
@@ -2110,7 +2110,7 @@ Notation Reference:
 
 
 @node Indicating power chords
-@unnumberedsubsubsec Indicating power chords
+@subsection Indicating power chords
 
 @cindex power chord
 @cindex chord, power
@@ -2165,10 +2165,10 @@ Snippets:
 
 @need 1500
 @node Banjo
-@subsection Banjo
+@section Banjo
 
 @node Banjo tablatures
-@unnumberedsubsubsec Banjo tablatures
+@subsection Banjo tablatures
 
 @cindex banjo tablature
 @cindex tablature, banjo
@@ -2234,10 +2234,10 @@ Snippets:
 
 @need 1500
 @node Lute
-@subsection Lute
+@section Lute
 
 @node Lute tablatures
-@unnumberedsubsubsec Lute tablatures
+@subsection Lute tablatures
 
 @cindex lute tablature
 @cindex tablature, lute

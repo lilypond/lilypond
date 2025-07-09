@@ -11,7 +11,7 @@
 
 
 @node Repeats
-@section Repeats
+@chapter Repeats
 
 @lilypondfile[quote]{snippets/repeats-headword.ly}
 
@@ -55,14 +55,14 @@ symbol, @code{q}.  See @ref{Chord repetition}.
 
 
 @node Long repeats
-@subsection Long repeats
+@section Long repeats
 
 This section discusses how to input long (usually multi-measure)
 repeats.
 
 
 @node Written-out repeats
-@unnumberedsubsubsec Written-out repeats
+@subsection Written-out repeats
 
 @cindex written-out repeat
 @cindex repeat, written-out
@@ -119,7 +119,7 @@ Internals Reference:
 
 
 @node Simple repeats
-@unnumberedsubsubsec Simple repeats
+@subsection Simple repeats
 
 @cindex volta
 @cindex repeat, simple
@@ -200,7 +200,7 @@ there is a truly incomplete measure the first time through.
 
 
 @node Alternative endings
-@unnumberedsubsubsec Alternative endings
+@subsection Alternative endings
 
 @cindex volta
 @cindex prima volta
@@ -325,7 +325,7 @@ to the outermost bracketed alternatives.}
 
 
 @node Other variation in repeated sections
-@unnumberedsubsubsec Other variation in repeated sections
+@subsection Other variation in repeated sections
 
 @funindex \alternative
 @funindex \unfolded
@@ -402,7 +402,7 @@ function with respect to the innermost repeat enclosing them.}
 
 
 @node Al-fine repeats
-@unnumberedsubsubsec Al-fine repeats
+@subsection Al-fine repeats
 
 @funindex \fine
 
@@ -478,7 +478,7 @@ Internals Reference:
 
 
 @node Segno repeat structure
-@unnumberedsubsubsec Segno repeat structure
+@subsection Segno repeat structure
 
 @cindex @q{coda} sign, with repeats
 @cindex @q{segno} sign, with repeats
@@ -676,7 +676,7 @@ Internals Reference:
 
 
 @node Segno repeat appearance
-@unnumberedsubsubsec Segno repeat appearance
+@subsection Segno repeat appearance
 
 @funindex \codaMark
 @funindex \segnoMark
@@ -922,7 +922,7 @@ For clarity, it is advisable to use braces in such situations.
 
 
 @node Manual repeat marks
-@unnumberedsubsubsec Manual repeat marks
+@subsection Manual repeat marks
 
 @cindex manual repeat mark
 @cindex repeat, manual
@@ -1156,7 +1156,7 @@ Internals Reference:
 
 
 @node Short repeats
-@subsection Short repeats
+@section Short repeats
 
 This section discusses how to input short repeats.  Short repeats can
 take two forms: slashes or percent signs to represent repeats of a
@@ -1164,7 +1164,7 @@ single note, a single measure or two measures, and tremolos otherwise.
 
 
 @node Percent repeats
-@unnumberedsubsubsec Percent repeats
+@subsection Percent repeats
 
 @cindex beat repeat
 @cindex percent repeat
@@ -1311,7 +1311,7 @@ timing track.
 
 
 @node Tremolo repeats
-@unnumberedsubsubsec Tremolo repeats
+@subsection Tremolo repeats
 
 @cindex tremolo beam
 @cindex tremolo

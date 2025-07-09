@@ -523,19 +523,19 @@ The chart below shows the predefined string tunings.
 
 
 @node Diagrams for Guitar
-@unnumberedsubsec Diagrams for Guitar
+@appendixsubsec Diagrams for Guitar
 
 @lilypondfile[line-width=15.5\cm]{en/included/display-predefined-fretboards.ly}
 
 
 @node Diagrams for Ukulele
-@unnumberedsubsec Diagrams for Ukulele
+@appendixsubsec Diagrams for Ukulele
 
 @lilypondfile[line-width=15.5\cm]{en/included/display-predefined-ukulele-fretboards.ly}
 
 
 @node Diagrams for Mandolin
-@unnumberedsubsec Diagrams for Mandolin
+@appendixsubsec Diagrams for Mandolin
 
 @lilypondfile[line-width=15.5\cm]{en/included/display-predefined-mandolin-fretboards.ly}
 
@@ -694,7 +694,7 @@ or
 
 
 @node Modern glyph charts
-@unnumberedsubsec Modern glyph charts
+@appendixsubsec Modern glyph charts
 
 All glyphs of the @qq{Feta} subset.
 
@@ -862,7 +862,7 @@ All glyphs of the @qq{Feta} subset.
 
 
 @node Ancient glyph charts
-@unnumberedsubsec Ancient glyph charts
+@appendixsubsec Ancient glyph charts
 
 All glyphs of the @qq{Parmesan} subset.
 
@@ -980,7 +980,7 @@ For more modification possibilities like ottavation digits,
 
 
 @node Standard clefs
-@unnumberedsubsec Standard clefs
+@appendixsubsec Standard clefs
 
 @cindex treble clef
 @cindex clef, treble
@@ -1209,7 +1209,7 @@ c1
 
 
 @node Percussion staff clef
-@unnumberedsubsec Percussion staff clef
+@appendixsubsec Percussion staff clef
 
 @cindex clef, percussion
 @cindex percussion clef
@@ -1244,7 +1244,7 @@ c1
 
 
 @node Tab staff clefs
-@unnumberedsubsec Tab staff clefs
+@appendixsubsec Tab staff clefs
 
 @cindex clef, tab
 @cindex tab clef
@@ -1294,7 +1294,7 @@ Output
 
 @need 1500
 @node Ancient music clefs
-@unnumberedsubsec Ancient music clefs
+@appendixsubsec Ancient music clefs
 
 @cindex ancient music clef
 @cindex clef, ancient music
@@ -1977,7 +1977,7 @@ columns - JL
 
 @need 1000
 @node Articulation scripts
-@unnumberedsubsec Articulation scripts
+@appendixsubsec Articulation scripts
 
 @funindex \accent
 @funindex ->
@@ -2055,7 +2055,7 @@ f^\tenuto e,_\tenuto b'\tenuto
 
 @need 1000
 @node Ornament scripts
-@unnumberedsubsec Ornament scripts
+@appendixsubsec Ornament scripts
 
 @funindex \prall
 @funindex \prallup
@@ -2197,7 +2197,7 @@ f^\haydnturn e,_\haydnturn b'\haydnturn
 
 @need 1000
 @node Fermata scripts
-@unnumberedsubsec Fermata scripts
+@appendixsubsec Fermata scripts
 
 @funindex \fermata
 @funindex \shortfermata
@@ -2258,7 +2258,7 @@ f^\henzelongfermata e,_\henzelongfermata b'\henzelongfermata
 
 @need 1000
 @node Instrument-specific scripts
-@unnumberedsubsec Instrument-specific scripts
+@appendixsubsec Instrument-specific scripts
 
 @funindex \upbow
 @funindex \downbow
@@ -2366,7 +2366,7 @@ f^\thumb e,_\thumb b'\thumb
 
 @need 1000
 @node Repeat sign scripts
-@unnumberedsubsec Repeat sign scripts
+@appendixsubsec Repeat sign scripts
 
 @funindex \segno
 @funindex \coda
@@ -2404,7 +2404,7 @@ f^\varcoda e,_\varcoda b'\varcoda
 
 @need 1000
 @node Ancient scripts
-@unnumberedsubsec Ancient scripts
+@appendixsubsec Ancient scripts
 
 @funindex \accentus
 @funindex \circulus

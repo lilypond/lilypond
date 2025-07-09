@@ -12,8 +12,6 @@
 
 @part Specialist notation
 
-@raisesections
-
 @include en/notation/vocal.itely
 @include en/notation/keyboards.itely
 @include en/notation/unfretted-strings.itely
@@ -24,5 +22,3 @@
 @include en/notation/contemporary.itely
 @include en/notation/ancient.itely
 @include en/notation/world.itely
-
-@lowersections

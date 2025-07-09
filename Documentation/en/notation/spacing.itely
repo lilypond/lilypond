@@ -29,11 +29,9 @@ https://sourceforge.net/p/testlilyissues/issues/68/
 
 @part Spacing issues
 
-@raisesections
-
 @node Page layout
 @anchor{Spacing issues} @c retain old label
-@section Page layout
+@chapter Page layout
 
 The global paper layout is determined by three factors: the page layout, the
 line breaks, and the spacing.  These all influence each other.  The
@@ -60,7 +58,7 @@ between staff groups, etc.  @xref{Score layout}.
 
 
 @node The paper block
-@subsection The @code{\paper} block
+@section The @code{\paper} block
 
 @code{\paper} blocks may be placed in three different places to form
 a descending hierarchy of @code{\paper} blocks:
@@ -182,7 +180,7 @@ Installed Files:
 
 @need 1500
 @node Paper size and automatic scaling
-@subsection Paper size and automatic scaling
+@section Paper size and automatic scaling
 
 @cindex paper size
 @cindex page size
@@ -191,7 +189,7 @@ Installed Files:
 
 
 @node Setting the paper size
-@unnumberedsubsubsec Setting the paper size
+@subsection Setting the paper size
 
 @q{A4} is the default value when no explicit paper size is set.
 However, there are two functions that can be used to change it:
@@ -285,7 +283,7 @@ Installed Files:
 
 
 @node Automatic scaling to paper size
-@unnumberedsubsubsec Automatic scaling to paper size
+@subsection Automatic scaling to paper size
 
 If the paper size is changed with one of the Scheme functions
 (@code{set-default-paper-size} or @code{set-paper-size}), the
@@ -328,7 +326,7 @@ Installed Files:
 
 
 @node Fixed vertical spacing paper variables
-@subsection Fixed vertical spacing @code{\paper} variables
+@section Fixed vertical spacing @code{\paper} variables
 
 @warning{Some @code{@bs{}paper} dimensions are automatically
 scaled to the paper size, which may lead to unexpected behavior.
@@ -395,7 +393,7 @@ bottom margin settings.
 
 
 @node Flexible vertical spacing paper variables
-@subsection Flexible vertical spacing @code{\paper} variables
+@section Flexible vertical spacing @code{\paper} variables
 
 In most cases, it is preferable for the vertical distances between
 certain items (such as margins, titles, systems, and separate
@@ -413,7 +411,7 @@ settings typically entered inside a @code{\score} or
 
 
 @node Structure of flexible vertical spacing alists
-@unnumberedsubsubsec Structure of flexible vertical spacing alists
+@subsection Structure of flexible vertical spacing alists
 
 Each of the flexible vertical spacing @code{\paper} variables is
 an alist (association list) containing four @emph{keys}:
@@ -506,7 +504,7 @@ redefines the variable:
 
 
 @node List of flexible vertical spacing paper variables
-@unnumberedsubsubsec List of flexible vertical spacing @code{\paper} variables
+@subsection List of flexible vertical spacing @code{\paper} variables
 
 The names of these variables follow the format
 @code{@var{upper}-@var{lower}-spacing}, where @code{@var{upper}}
@@ -588,7 +586,7 @@ Snippets:
 
 
 @node Horizontal spacing paper variables
-@subsection Horizontal spacing @code{\paper} variables
+@section Horizontal spacing @code{\paper} variables
 
 @warning{Some @code{@bs{}paper} dimensions are automatically
 scaled to the paper size, which may lead to unexpected behavior.
@@ -596,7 +594,7 @@ See @ref{Automatic scaling to paper size}.}
 
 
 @node paper variables for widths and margins
-@unnumberedsubsubsec @code{\paper} variables for widths and margins
+@subsection @code{\paper} variables for widths and margins
 
 Default values (before scaling) that are not listed here are
 defined in file @file{ly/@/paper-defaults-init.ly}.
@@ -709,7 +707,7 @@ right margin settings.
 
 
 @node paper variables for two-sided mode
-@unnumberedsubsubsec @code{\paper} variables for two-sided mode
+@subsection @code{\paper} variables for two-sided mode
 
 Default values (before scaling) are defined in
 @file{ly/paper-defaults-init.ly}.
@@ -763,7 +761,7 @@ Installed Files:
 
 
 @node paper variables for shifts and indents
-@unnumberedsubsubsec @code{\paper} variables for shifts and indents
+@subsection @code{\paper} variables for shifts and indents
 
 Default values (before scaling) that are not listed here are
 defined in @file{ly/@/paper-@/defaults-@/init.ly}.
@@ -815,11 +813,11 @@ Snippets:
 
 @need 1000
 @node Other paper variables
-@subsection Other @code{\paper} variables
+@section Other @code{\paper} variables
 
 
 @node paper variables for line breaking
-@unnumberedsubsubsec @code{\paper} variables for line breaking
+@subsection @code{\paper} variables for line breaking
 
 @table @code
 
@@ -860,7 +858,7 @@ Notation Reference:
 
 
 @node paper variables for page breaking
-@unnumberedsubsubsec @code{\paper} variables for page breaking
+@subsection @code{\paper} variables for page breaking
 
 Default values not listed here are defined in
 @file{ly/paper-defaults-init.ly}
@@ -969,7 +967,7 @@ Installed Files:
 
 
 @node paper variables for page numbering
-@unnumberedsubsubsec @code{\paper} variables for page numbering
+@subsection @code{\paper} variables for page numbering
 
 Default values not listed here are defined in
 @file{ly/paper-defaults-init.ly}
@@ -1056,7 +1054,7 @@ of the cover page so that page@tie{}1 is on the right-hand side.
 
 
 @node paper variables concerning headers and markups
-@unnumberedsubsubsec @code{\paper} variables concerning headers and markups
+@subsection @code{\paper} variables concerning headers and markups
 
 @table @code
 
@@ -1125,7 +1123,7 @@ field from the @code{\header} block on a line.
 
 
 @node paper variables for debugging
-@unnumberedsubsubsec @code{\paper} variables for debugging
+@subsection @code{\paper} variables for debugging
 
 @funindex debug-beam-scoring
 @funindex debug-slur-scoring
@@ -1138,14 +1136,14 @@ for a detailed explanation, what these variables do.
 
 
 @node Score layout
-@section Score layout
+@chapter Score layout
 
 This section discusses score layout options for the @code{\layout}
 block.
 
 
 @node The layout block
-@subsection The @code{\layout} block
+@section The @code{\layout} block
 
 @funindex \layout
 
@@ -1323,7 +1321,7 @@ Snippets:
 
 
 @node Setting the staff size
-@subsection Setting the staff size
+@section Setting the staff size
 
 @cindex font size, setting
 @cindex staff, size
@@ -1523,11 +1521,11 @@ mus = { b1 \bar "|."}
 
 @need 1500
 @node Breaks
-@section Breaks
+@chapter Breaks
 
 
 @node Line breaking
-@subsection Line breaking
+@section Line breaking
 
 @cindex manual line break
 @cindex breaking lines
@@ -1746,14 +1744,14 @@ commands after some music.
 
 
 @node Page breaking
-@subsection Page breaking
+@section Page breaking
 
 This section describes the different page breaking methods, and
 how to modify them.
 
 
 @node Manual page breaking
-@unnumberedsubsubsec Manual page breaking
+@subsection Manual page breaking
 
 @funindex \pageBreak
 @funindex \noPageBreak
@@ -1855,7 +1853,7 @@ bars (the precise number of bars depends on the score) before being
 turned off, else the opportunity to break the page will not be taken.
 
 @node Optimal page breaking
-@unnumberedsubsubsec Optimal page breaking
+@subsection Optimal page breaking
 
 @funindex ly:optimal-breaking
 
@@ -1872,7 +1870,7 @@ Snippets:
 
 
 @node Minimal page breaking
-@unnumberedsubsubsec Minimal page breaking
+@subsection Minimal page breaking
 
 @funindex ly:minimal-breaking
 
@@ -1896,7 +1894,7 @@ Snippets:
 
 
 @node One-page page breaking
-@unnumberedsubsubsec One-page page breaking
+@subsection One-page page breaking
 
 @funindex ly:one-page-breaking
 
@@ -1916,7 +1914,7 @@ in the paper block.
 
 
 @node One-line page breaking
-@unnumberedsubsubsec One-line page breaking
+@subsection One-line page breaking
 
 @funindex ly:one-line-breaking
 
@@ -1933,7 +1931,7 @@ The height of the page is left unmodified.
 
 
 @node One-line-auto-height page breaking
-@unnumberedsubsubsec One-line-auto-height page breaking
+@subsection One-line-auto-height page breaking
 
 @funindex ly:one-line-auto-height-breaking
 
@@ -1950,7 +1948,7 @@ to simply place the music between the top and bottom margins.
 
 
 @node Optimal page turning
-@unnumberedsubsubsec Optimal page turning
+@subsection Optimal page turning
 
 @funindex ly:page-turn-breaking
 
@@ -2055,7 +2053,7 @@ Snippets:
 
 
 @node Vertical spacing
-@section Vertical spacing
+@chapter Vertical spacing
 
 @cindex vertical spacing
 @cindex spacing, vertical
@@ -2067,7 +2065,7 @@ inside a system.
 
 
 @node Flexible vertical spacing within systems
-@subsection Flexible vertical spacing within systems
+@section Flexible vertical spacing within systems
 
 @cindex distance, between staves
 @cindex staff, distance
@@ -2109,7 +2107,7 @@ systems, scores, markups, and margins is controlled by
 
 
 @node Within-system spacing properties
-@unnumberedsubsubsec Within-system spacing properties
+@subsection Within-system spacing properties
 
 @funindex staff-affinity
 @funindex staffgroup-staff-spacing
@@ -2407,7 +2405,7 @@ Internals Reference:
 
 
 @node Spacing of ungrouped staves
-@unnumberedsubsubsec Spacing of ungrouped staves
+@subsection Spacing of ungrouped staves
 
 @emph{Staves} (such as @code{Staff}, @code{DrumStaff},
 @code{TabStaff}, etc.@:) are contexts that can contain one or more
@@ -2483,7 +2481,7 @@ Internals Reference:
 
 
 @node Spacing of grouped staves
-@unnumberedsubsubsec Spacing of grouped staves
+@subsection Spacing of grouped staves
 
 In orchestral and other large scores, it is common to place staves
 in groups.  The space between groups is typically larger than the
@@ -2554,7 +2552,7 @@ Internals Reference:
 
 
 @node Spacing of non-staff lines
-@unnumberedsubsubsec Spacing of non-staff lines
+@subsection Spacing of non-staff lines
 
 @emph{Non-staff lines} (such as @code{Lyrics}, @code{ChordNames},
 etc.@:) are contexts whose layout objects are engraved like staves
@@ -2630,7 +2628,7 @@ Internals Reference:
 
 
 @node Explicit staff and system positioning
-@subsection Explicit staff and system positioning
+@section Explicit staff and system positioning
 
 One way to understand the flexible vertical spacing mechanisms
 explained above is as a collection of settings that control the
@@ -2908,7 +2906,7 @@ Snippets:
 
 
 @node Vertical collision avoidance
-@subsection Vertical collision avoidance
+@section Vertical collision avoidance
 
 @funindex outside-staff-priority
 
@@ -2998,14 +2996,14 @@ Snippets:
 
 @need 1500
 @node Horizontal spacing
-@section Horizontal spacing
+@chapter Horizontal spacing
 
 @cindex horizontal spacing
 @cindex spacing, horizontal
 
 
 @node Horizontal spacing overview
-@subsection Horizontal spacing overview
+@section Horizontal spacing overview
 
 The spacing engine translates differences in durations into stretchable
 distances (@q{springs}) of differing lengths.  Longer durations get
@@ -3120,7 +3118,7 @@ No workaround exists for decreasing the amount of space.
 
 
 @node New spacing section
-@subsection New spacing section
+@section New spacing section
 
 @funindex \newSpacingSection
 @cindex new spacing section
@@ -3179,7 +3177,7 @@ Internals Reference:
 
 
 @node Changing horizontal spacing globally
-@subsection Changing horizontal spacing globally
+@section Changing horizontal spacing globally
 
 Horizontal spacing may be altered with the
 @code{base-shortest-duration} property.  Here we compare the same
@@ -3216,7 +3214,7 @@ Larger values yield tighter spacing.
 
 
 @node Uniform stretching of tuplets
-@unnumberedsubsubsec Uniform stretching of tuplets
+@subsection Uniform stretching of tuplets
 
 By default, spacing in tuplets depends on various non-duration
 factors (such as accidentals, clef changes, etc).  To disregard
@@ -3245,7 +3243,7 @@ property can only be changed at the beginning of a score,
 
 
 @node Strict note spacing
-@unnumberedsubsubsec Strict note spacing
+@subsection Strict note spacing
 
 When @code{strict-note-spacing} is set, notes are spaced without
 regard for clefs, bar lines, and grace notes,
@@ -3263,7 +3261,7 @@ Snippets:
 
 
 @node Adjusting horizontal spacing for specific layout objects
-@subsection Adjusting horizontal spacing for specific layout objects
+@section Adjusting horizontal spacing for specific layout objects
 
 In addition to the general-purpose parameters of the default
 spacing algorithm that apply to all elements of the score or
@@ -3277,7 +3275,7 @@ identifying the type of spacing at play.
 
 
 @node Overview of object-specific horizontal spacing tweaks
-@unnumberedsubsubsec Overview of object-specific horizontal spacing tweaks
+@subsection Overview of object-specific horizontal spacing tweaks
 
 @cindex paper column
 @cindex column
@@ -3358,7 +3356,7 @@ between columns are different.
 
 
 @node Spacing between adjacent non-musical items
-@unnumberedsubsubsec Spacing between adjacent non-musical items
+@subsection Spacing between adjacent non-musical items
 
 @cindex horizontal spacing, between non-musical items
 @cindex non-musical item, horizontal spacing
@@ -3451,7 +3449,7 @@ Internals Reference:
 
 
 @node Spacing between adjacent columns
-@unnumberedsubsubsec Spacing between adjacent columns
+@subsection Spacing between adjacent columns
 
 @cindex horizontal spacing, between columns
 
@@ -3581,7 +3579,7 @@ Internals Reference:
 
 
 @node Line width
-@subsection Line width
+@section Line width
 
 @cindex page break
 @cindex breaking pages
@@ -3636,7 +3634,7 @@ Snippets:
 
 
 @node Proportional notation
-@subsection Proportional notation
+@section Proportional notation
 
 LilyPond supports proportional notation, a type of horizontal spacing
 in which each note consumes an amount of horizontal space exactly
@@ -3943,7 +3941,7 @@ Snippets:
 
 
 @node Fitting music onto fewer pages
-@section Fitting music onto fewer pages
+@chapter Fitting music onto fewer pages
 
 Sometimes you can end up with one or two staves on a second
 (or third, or fourth@dots{}) page.  This is annoying, especially
@@ -3957,7 +3955,7 @@ spacing variables; for more details see the following section,
 
 
 @node Displaying spacing
-@subsection Displaying spacing
+@section Displaying spacing
 
 @funindex annotate-spacing
 @cindex spacing, display of layout
@@ -4016,7 +4014,7 @@ Snippets:
 
 
 @node Changing spacing
-@subsection Changing spacing
+@section Changing spacing
 
 The output of @code{annotate-spacing} reveals vertical dimensions
 in great detail.  For details about modifying margins and other
@@ -4136,5 +4134,3 @@ Notation Reference:
 Snippets:
 @rlsr{Spacing}.
 @endmorerefs
-
-@lowersections

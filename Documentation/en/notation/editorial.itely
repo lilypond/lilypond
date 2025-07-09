@@ -10,7 +10,7 @@
 @c \version "2.25.23"
 
 @node Editorial annotations
-@section Editorial annotations
+@chapter Editorial annotations
 
 @lilypondfile[quote]{snippets/editorial-headword.ly}
 
@@ -19,14 +19,14 @@ notes and add analysis or educational emphasis.
 
 
 @node Inside the staff
-@subsection Inside the staff
+@section Inside the staff
 
 This section discusses how to add emphasis to elements that are
 inside the staff.
 
 
 @node Selecting notation font size
-@unnumberedsubsubsec Selecting notation font size
+@subsection Selecting notation font size
 
 @cindex font size (notation), scaling
 @cindex font size (notation)
@@ -114,7 +114,7 @@ used when also resizing the staff.  @xref{Setting the staff
 size}.}
 
 
-@subsubsubheading Resizing individual layout objects
+@subsubheading Resizing individual layout objects
 
 @funindex font-size
 
@@ -145,7 +145,7 @@ not specified in the object's @q{Standard@tie{}settings} list, its
 value is 0.  See @rinternals{All layout objects}.
 
 
-@subsubsubheading Understanding the @code{fontSize} property
+@subsubheading Understanding the @code{fontSize} property
 
 @funindex fontSize
 
@@ -321,7 +321,7 @@ and @code{\revert} commands:
 
 
 @node Fingering instructions
-@unnumberedsubsubsec Fingering instructions
+@subsection Fingering instructions
 
 @cindex fingering
 @cindex finger change
@@ -426,7 +426,7 @@ Internals Reference:
 
 
 @node Gliding fingers
-@unnumberedsubsubsec Gliding fingers
+@subsection Gliding fingers
 
 @cindex fingering, glide
 @cindex gliding fingering
@@ -635,7 +635,7 @@ Internals Reference:
 
 
 @node Hidden notes
-@unnumberedsubsubsec Hidden notes
+@subsection Hidden notes
 
 @cindex hidden note
 @cindex invisible note
@@ -701,7 +701,7 @@ Internals Reference:
 
 
 @node Coloring objects
-@unnumberedsubsubsec Coloring objects
+@subsection Coloring objects
 
 @cindex coloring object
 @cindex object, colored
@@ -868,7 +868,7 @@ Notes in a chord cannot be separately colored with
 
 
 @node Staff highlights
-@unnumberedsubsubsec Staff highlights
+@subsection Staff highlights
 
 @cindex staff, highlight
 @cindex highlight, staff
@@ -1039,7 +1039,7 @@ above can be used to work around this issue.
 
 
 @node Brackets for optional material
-@unnumberedsubsubsec Brackets for optional material
+@subsection Brackets for optional material
 
 Optional additional material can be enclosed in brackets that pass
 through the staff.
@@ -1090,7 +1090,7 @@ Internals Reference:
 
 
 @node Parentheses
-@unnumberedsubsubsec Parentheses
+@subsection Parentheses
 
 @cindex ghost note
 @cindex note, ghost
@@ -1185,7 +1185,7 @@ grob has to be adjusted manually to obtain correctly sized parentheses
 on chords and some other objects.
 
 @node Stems
-@unnumberedsubsubsec Stems
+@subsection Stems
 
 @cindex stem
 @cindex stem, invisible
@@ -1241,14 +1241,14 @@ Internals Reference:
 
 
 @node Outside the staff
-@subsection Outside the staff
+@section Outside the staff
 
 This section discusses how to add emphasis to elements in the staff
 from outside of the staff.
 
 
 @node Note names
-@unnumberedsubsubsec Note names
+@subsection Note names
 
 @cindex note name, printing
 
@@ -1354,7 +1354,7 @@ Internals Reference:
 
 
 @node Balloon help
-@unnumberedsubsubsec Balloon help
+@subsection Balloon help
 
 @cindex balloon
 @cindex notation, explaining
@@ -1457,7 +1457,7 @@ Internals Reference:
 
 
 @node Grid lines
-@unnumberedsubsubsec Grid lines
+@subsection Grid lines
 
 @cindex grid line
 @cindex line, grid
@@ -1529,7 +1529,7 @@ Internals Reference:
 
 
 @node Analysis brackets
-@unnumberedsubsubsec Analysis brackets
+@subsection Analysis brackets
 
 @cindex bracket
 @cindex bracket, phrasing

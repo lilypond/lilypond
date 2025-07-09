@@ -10,7 +10,7 @@
 @c \version "2.19.16"
 
 @node Wind instruments
-@section Wind instruments
+@chapter Wind instruments
 
 @lilypondfile[quote]{snippets/wind-headword.ly}
 
@@ -19,13 +19,13 @@ writing specifically for wind instruments.
 
 
 @node Common notation for wind instruments
-@subsection Common notation for wind instruments
+@section Common notation for wind instruments
 
 This section discusses notation common to most wind instruments.
 
 
 @node References for wind instruments
-@unnumberedsubsubsec References for wind instruments
+@subsection References for wind instruments
 
 @cindex wind instrument
 
@@ -88,7 +88,7 @@ Snippets:
 
 
 @node Fingerings
-@unnumberedsubsubsec Fingerings
+@subsection Fingerings
 
 All wind instruments other than the trombone require the use of several
 fingers to produce each pitch.  Some fingering examples are shown in
@@ -127,13 +127,13 @@ Snippets:
 
 
 @node Bagpipes
-@subsection Bagpipes
+@section Bagpipes
 
 This section discusses notation common bagpipes.
 
 
 @node Bagpipe definitions
-@unnumberedsubsubsec Bagpipe definitions
+@subsection Bagpipe definitions
 
 @cindex bagpipe
 @cindex Scottish highland bagpipe
@@ -186,7 +186,7 @@ Snippets:
 
 
 @node Bagpipe example
-@unnumberedsubsubsec Bagpipe example
+@subsection Bagpipe example
 
 @cindex bagpipe, example
 @cindex @q{Amazing Grace}, bagpipe example
@@ -238,13 +238,13 @@ Snippets:
 
 
 @node Woodwinds
-@subsection Woodwinds
+@section Woodwinds
 
 This section discusses notation specifically for woodwind instruments.
 
 
 @node Woodwind diagrams
-@unnumberedsubsubsec Woodwind diagrams
+@subsection Woodwind diagrams
 
 Woodwind diagrams can be used to indicate the fingering to be used
 for specific notes and are available for the following instruments:

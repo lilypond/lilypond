@@ -12,7 +12,7 @@
 
 @node Pitches
 @anchor{Musical notation} @c retain old label
-@section Pitches
+@chapter Pitches
 
 @lilypondfile[quote]{snippets/pitches-headword.ly}
 
@@ -21,7 +21,7 @@ are three steps to this process: input, modification, and output.
 
 
 @node Writing pitches
-@subsection Writing pitches
+@section Writing pitches
 
 This section discusses how to input pitches.  There are two
 different ways to place notes in octaves: absolute and relative
@@ -29,7 +29,7 @@ mode.  In most cases, relative mode will be more convenient.
 
 
 @node Absolute octave entry
-@unnumberedsubsubsec Absolute octave entry
+@subsection Absolute octave entry
 
 @cindex pitch name
 @cindex pitch
@@ -108,7 +108,7 @@ Snippets:
 
 
 @node Relative octave entry
-@unnumberedsubsubsec Relative octave entry
+@subsection Relative octave entry
 
 @cindex relative
 @cindex relative octave entry
@@ -340,7 +340,7 @@ Internals Reference:
 
 
 @node Accidentals
-@unnumberedsubsubsec Accidentals
+@subsection Accidentals
 
 @cindex accidental
 @cindex key signature
@@ -485,7 +485,7 @@ any standard.
 
 
 @node Note names in other languages
-@unnumberedsubsubsec Note names in other languages
+@subsection Note names in other languages
 
 @cindex note name, other languages
 @cindex pitch name, other languages
@@ -665,13 +665,13 @@ Snippets:
 
 
 @node Changing multiple pitches
-@subsection Changing multiple pitches
+@section Changing multiple pitches
 
 This section discusses how to modify pitches.
 
 
 @node Octave checks
-@unnumberedsubsubsec Octave checks
+@subsection Octave checks
 
 @cindex octave correction
 @cindex octave check
@@ -745,7 +745,7 @@ Internals Reference:
 
 
 @node Transpose
-@unnumberedsubsubsec Transpose
+@subsection Transpose
 
 @cindex transposing
 @cindex transposition
@@ -891,7 +891,7 @@ rather than e-triple-flat).
 
 
 @node Inversion
-@unnumberedsubsubsec Inversion
+@subsection Inversion
 
 @cindex inversion
 @cindex operation, inversion
@@ -930,7 +930,7 @@ Notation Reference:
 
 
 @node Retrograde
-@unnumberedsubsubsec Retrograde
+@subsection Retrograde
 
 @cindex retrograde transformation
 @cindex transformation, retrograde
@@ -967,7 +967,7 @@ Notation Reference:
 
 
 @node Modal transformations
-@unnumberedsubsubsec Modal transformations
+@subsection Modal transformations
 
 @cindex modal transformation
 @cindex transformation, modal
@@ -983,7 +983,7 @@ It may also be reversed to produce its @notation{retrograde}, see
 @warning{Any note that does not lie within the given scale will be
 left untransformed.}
 
-@subsubsubheading Modal transposition
+@subsubheading Modal transposition
 
 @cindex modal transposition
 @cindex transposition, modal
@@ -1039,7 +1039,7 @@ motif = \relative { c'8 d e f g a b c }
 }
 @end lilypond
 
-@subsubsubheading Modal inversion
+@subsubheading Modal inversion
 
 @cindex modal inversion
 @cindex inversion, modal
@@ -1108,13 +1108,13 @@ Notation Reference:
 
 
 @node Displaying pitches
-@subsection Displaying pitches
+@section Displaying pitches
 
 This section discusses how to alter the output of pitches.
 
 
 @node Clef
-@unnumberedsubsubsec Clef
+@subsection Clef
 
 @cindex G clef
 @cindex C clef
@@ -1333,7 +1333,7 @@ need to be applied, as a separate @code{\override}, to the
 
 @need 1000
 @node Key signature
-@unnumberedsubsubsec Key signature
+@subsection Key signature
 
 @cindex key signature
 
@@ -1461,7 +1461,7 @@ Internals Reference:
 
 
 @node Ottava brackets
-@unnumberedsubsubsec Ottava brackets
+@subsection Ottava brackets
 
 @cindex ottava
 @cindex 15ma
@@ -1580,7 +1580,7 @@ Internals Reference:
 
 
 @node Instrument transpositions
-@unnumberedsubsubsec Instrument transpositions
+@subsection Instrument transpositions
 
 @cindex transposition, MIDI
 @cindex transposition, instrument
@@ -1686,7 +1686,7 @@ Snippets:
 
 
 @node Automatic accidentals
-@unnumberedsubsubsec Automatic accidentals
+@subsection Automatic accidentals
 
 @cindex accidental style
 @cindex accidental style, default
@@ -3091,7 +3091,7 @@ forget = #(define-music-function (music) (ly:music?) #{
 @end lilypond
 
 @node Alternate accidental glyphs
-@unnumberedsubsubsec Alternate accidental glyphs
+@subsection Alternate accidental glyphs
 
 @cindex alternate accidental glyph
 @cindex accidental, alternate glyphs
@@ -3177,7 +3177,7 @@ Internals Reference:
 
 
 @node Ambitus
-@unnumberedsubsubsec Ambitus
+@subsection Ambitus
 
 @cindex ambitus
 @cindex range of pitches
@@ -3254,13 +3254,13 @@ ambitus.
 
 
 @node Note heads
-@subsection Note heads
+@section Note heads
 
 This section suggests ways of altering note heads.
 
 
 @node Special note heads
-@unnumberedsubsubsec Special note heads
+@subsection Special note heads
 
 @cindex note head, special
 @cindex note head, cross
@@ -3374,7 +3374,7 @@ Internals Reference:
 
 
 @node Easy notation note heads
-@unnumberedsubsubsec Easy notation note heads
+@subsection Easy notation note heads
 
 @cindex note head, practice
 @cindex practice note head
@@ -3436,7 +3436,7 @@ Internals Reference:
 
 
 @node Shape note heads
-@unnumberedsubsubsec Shape note heads
+@subsection Shape note heads
 
 @cindex note head, shape
 @cindex note head, Aiken
@@ -3569,7 +3569,7 @@ Internals Reference:
 
 
 @node Improvisation
-@unnumberedsubsubsec Improvisation
+@subsection Improvisation
 
 @cindex improvisation
 @cindex slashed note head

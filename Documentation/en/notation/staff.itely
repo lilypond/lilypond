@@ -10,7 +10,7 @@
 @c \version "2.19.21"
 
 @node Staff notation
-@section Staff notation
+@chapter Staff notation
 
 @c The line width is a bit of a hack to allow space for the
 @c instrument names.
@@ -22,14 +22,14 @@ indications and cue notes to staves.
 
 
 @node Displaying staves
-@subsection Displaying staves
+@section Displaying staves
 
 This section describes the different methods of creating and
 grouping staves.
 
 
 @node Instantiating new staves
-@unnumberedsubsubsec Instantiating new staves
+@subsection Instantiating new staves
 
 @cindex new staff
 @cindex staff, initiation
@@ -139,7 +139,7 @@ Internals Reference:
 
 
 @node Grouping staves
-@unnumberedsubsubsec Grouping staves
+@subsection Grouping staves
 
 @cindex start of system
 @cindex staff, multiple
@@ -309,7 +309,7 @@ Internals Reference:
 @endmorerefs
 
 @node Nested staff groups
-@unnumberedsubsubsec Nested staff groups
+@subsection Nested staff groups
 
 @cindex staff, nested
 @cindex nesting, staves
@@ -368,7 +368,7 @@ Internals Reference:
 
 
 @node Separating systems
-@unnumberedsubsubsec Separating systems
+@subsection Separating systems
 
 @cindex system separator mark
 @cindex separator mark, system
@@ -417,7 +417,7 @@ Snippets:
 
 
 @node Modifying single staves
-@subsection Modifying single staves
+@section Modifying single staves
 
 This section explains how to change specific attributes of one
 staff: for example, modifying the number of staff lines or the
@@ -426,7 +426,7 @@ sections are also described.
 
 
 @node Staff symbol
-@unnumberedsubsubsec Staff symbol
+@subsection Staff symbol
 
 @cindex staff symbol
 @cindex staff line, stopping and starting
@@ -614,7 +614,7 @@ Internals Reference:
 
 
 @node Ossia staves
-@unnumberedsubsubsec Ossia staves
+@subsection Ossia staves
 
 @cindex staff, Frenched
 @cindex ossia
@@ -772,7 +772,7 @@ Internals Reference:
 
 
 @node Hiding staves
-@unnumberedsubsubsec Hiding staves
+@subsection Hiding staves
 
 @cindex Frenched score
 @cindex Frenched staff
@@ -1133,7 +1133,7 @@ For the Known issues and warnings associated with
 
 
 @node Writing parts
-@subsection Writing parts
+@section Writing parts
 
 @cindex individual parts
 @cindex desk parts
@@ -1155,7 +1155,7 @@ sometimes used in individual or desk parts, can be found in
 
 
 @node Instrument names
-@unnumberedsubsubsec Instrument names
+@subsection Instrument names
 
 @cindex instrument name
 @cindex instrument name, short
@@ -1311,7 +1311,7 @@ Internals Reference:
 
 
 @node Quoting other voices
-@unnumberedsubsubsec Quoting other voices
+@subsection Quoting other voices
 
 @cindex quote, voices
 @cindex voice, quoting
@@ -1507,7 +1507,7 @@ triplets may result in poor notation.
 
 
 @node Formatting cue notes
-@unnumberedsubsubsec Formatting cue notes
+@subsection Formatting cue notes
 
 @cindex cue note
 @cindex fragment
@@ -1811,7 +1811,7 @@ direction.
 
 
 @node Compressing empty measures
-@unnumberedsubsubsec Compressing empty measures
+@subsection Compressing empty measures
 
 @cindex multi-measure rest, expanding multiple
 @cindex multi-measure rest, contracting multiple

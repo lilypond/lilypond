@@ -11,7 +11,7 @@
 
 
 @node Contemporary music
-@section Contemporary music
+@chapter Contemporary music
 
 From the beginning of the 20th Century there has been a massive
 expansion of compositional style and technique.  New harmonic
@@ -24,14 +24,14 @@ these new notational techniques.
 
 
 @node Pitch and harmony in contemporary music
-@subsection Pitch and harmony in contemporary music
+@section Pitch and harmony in contemporary music
 
 This section highlights issues that are relevant to notating
 pitch and harmony in contemporary music.
 
 
 @node References for pitch and harmony in contemporary music
-@unnumberedsubsubsec References for pitch and harmony in contemporary music
+@subsection References for pitch and harmony in contemporary music
 
 @itemize
 @item Standard quarter tone notation is addressed in
@@ -47,7 +47,7 @@ addressed in @ref{Automatic accidentals}.
 
 
 @node Microtonal notation
-@unnumberedsubsubsec Microtonal notation
+@subsection Microtonal notation
 
 @ignore
     Discussion of microtones other than quarter tones,
@@ -56,7 +56,7 @@ addressed in @ref{Automatic accidentals}.
 
 
 @node Contemporary key signatures and harmony
-@unnumberedsubsubsec Contemporary key signatures and harmony
+@subsection Contemporary key signatures and harmony
 
 @ignore
     Discussion of contemporary key signatures:
@@ -65,14 +65,14 @@ addressed in @ref{Automatic accidentals}.
 
 
 @node Contemporary approaches to rhythm
-@subsection Contemporary approaches to rhythm
+@section Contemporary approaches to rhythm
 
 This section highlights issues that are relevant to the
 notation of rhythm in contemporary music.
 
 
 @node References for contemporary approaches to rhythm
-@unnumberedsubsubsec References for contemporary approaches to rhythm
+@subsection References for contemporary approaches to rhythm
 
 @itemize
 @item Compound time signatures are addressed in @ref{Time signature}.
@@ -89,7 +89,7 @@ addressed in @ref{Grouping staves}.
 
 
 @node Tuplets in contemporary music
-@unnumberedsubsubsec Tuplets in contemporary music
+@subsection Tuplets in contemporary music
 
 @ignore
     Extended discussion of modern tuplets, including
@@ -101,7 +101,7 @@ addressed in @ref{Grouping staves}.
 
 
 @node Contemporary time signatures
-@unnumberedsubsubsec Contemporary time signatures
+@subsection Contemporary time signatures
 
 @ignore
     Extended discussion of compound time signatures
@@ -115,7 +115,7 @@ addressed in @ref{Grouping staves}.
 
 
 @node Extended polymetric notation
-@unnumberedsubsubsec Extended polymetric notation
+@subsection Extended polymetric notation
 
 @ignore
     Extended examples e.g., different instruments
@@ -124,7 +124,7 @@ addressed in @ref{Grouping staves}.
 
 
 @node Beams in contemporary music
-@unnumberedsubsubsec Beams in contemporary music
+@subsection Beams in contemporary music
 
 @ignore
     Beaming practices, stemlets, Boulez-esque displaying
@@ -133,7 +133,7 @@ addressed in @ref{Grouping staves}.
 
 
 @node Bar lines in contemporary music
-@unnumberedsubsubsec Bar lines in contemporary music
+@subsection Bar lines in contemporary music
 
 @ignore
     Mensurstriche bar lines, tick bar lines, etc.
@@ -141,7 +141,7 @@ addressed in @ref{Grouping staves}.
 
 
 @node Graphical notation
-@subsection Graphical notation
+@section Graphical notation
 
 @cindex duration line
 @cindex note continuation
@@ -218,22 +218,22 @@ The duration line may end with a hook (beam-style only) or an arrow.
 @end lilypond
 
 @node Contemporary scoring techniques
-@subsection Contemporary scoring techniques
+@section Contemporary scoring techniques
 
 
 @node New instrumental techniques
-@subsection New instrumental techniques
+@section New instrumental techniques
 
 
 @node Further reading and scores of interest
-@subsection Further reading and scores of interest
+@section Further reading and scores of interest
 
 This section suggests books, musical examples and other
 resources useful in studying contemporary musical notation.
 
 
 @node Books and articles on contemporary musical notation
-@unnumberedsubsubsec Books and articles on contemporary musical notation
+@subsection Books and articles on contemporary musical notation
 
 @itemize
 @item
@@ -252,7 +252,7 @@ by Kurt Stone [W. W. Norton, 1980]
 
 
 @node Scores and musical examples
-@unnumberedsubsubsec Scores and musical examples
+@subsection Scores and musical examples
 
 @ignore
     Rough list of composers whose work could be included

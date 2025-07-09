@@ -10,7 +10,7 @@
 @c \version "2.19.21"
 
 @node Expressive marks
-@section Expressive marks
+@chapter Expressive marks
 
 @lilypondfile[quote]{snippets/expressive-headword.ly}
 
@@ -19,7 +19,7 @@ created in a score.
 
 
 @node Expressive marks attached to notes
-@subsection Expressive marks attached to notes
+@section Expressive marks attached to notes
 
 This section explains how to create expressive marks that are
 attached to notes: articulations, ornamentations, and dynamics.
@@ -27,7 +27,7 @@ Methods to create new dynamic markings are also discussed.
 
 
 @node Articulations and ornamentations
-@unnumberedsubsubsec Articulations and ornamentations
+@subsection Articulations and ornamentations
 
 
 @cindex @q{accent} articulation
@@ -360,7 +360,7 @@ Internals Reference:
 
 
 @node Dynamics
-@unnumberedsubsubsec Dynamics
+@subsection Dynamics
 
 @cindex absolute dynamics
 @cindex dynamics
@@ -761,7 +761,7 @@ Internals Reference:
 
 
 @node New dynamic marks
-@unnumberedsubsubsec New dynamic marks
+@subsection New dynamic marks
 
 @cindex new dynamic mark
 @cindex dynamic mark, new
@@ -888,7 +888,7 @@ Snippets:
 
 
 @node Expressive marks as curves
-@subsection Expressive marks as curves
+@section Expressive marks as curves
 
 This section explains how to create various expressive marks that
 are curved: normal slurs, phrasing slurs, breath marks, falls, and
@@ -896,7 +896,7 @@ doits.
 
 
 @node Slurs
-@unnumberedsubsubsec Slurs
+@subsection Slurs
 
 @cindex slur
 
@@ -1073,7 +1073,7 @@ Internals Reference:
 
 
 @node Phrasing slurs
-@unnumberedsubsubsec Phrasing slurs
+@subsection Phrasing slurs
 
 @cindex phrasing slur
 @cindex phrasing mark
@@ -1211,7 +1211,7 @@ Internals Reference:
 
 
 @node Breath marks
-@unnumberedsubsubsec Breath marks
+@subsection Breath marks
 
 @cindex breath mark
 @cindex pause mark
@@ -1279,7 +1279,7 @@ Internals Reference:
 
 
 @node Falls and doits
-@unnumberedsubsubsec Falls and doits
+@subsection Falls and doits
 
 @cindex fall
 @cindex doit
@@ -1319,14 +1319,14 @@ Snippets:
 
 
 @node Expressive marks as lines
-@subsection Expressive marks as lines
+@section Expressive marks as lines
 
 This section explains how to create various expressive marks that
 follow a linear path: glissandi, arpeggios, and trills.
 
 
 @node Glissando
-@unnumberedsubsubsec Glissando
+@subsection Glissando
 
 @cindex glissando
 @funindex \glissando
@@ -1434,7 +1434,7 @@ supported.
 
 
 @node Arpeggio
-@unnumberedsubsubsec Arpeggio
+@subsection Arpeggio
 
 @cindex arpeggio
 @cindex broken chord
@@ -1595,7 +1595,7 @@ cross-staff arpeggios; see @ref{Cross-staff stems}.
 
 
 @node Trills
-@unnumberedsubsubsec Trills
+@subsection Trills
 
 @cindex trill
 

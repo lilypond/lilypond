@@ -13,11 +13,9 @@
 
 @part Changing defaults
 
-@raisesections
-
 @node Tuning output
 @anchor{Changing defaults} @c retain old label
-@section Tuning output
+@chapter Tuning output
 
 The purpose of LilyPond's design is to provide the finest quality
 output by default.  Nevertheless, it may happen that you need to
@@ -46,7 +44,7 @@ Scheme.}
 
 
 @node Interpretation contexts
-@section Interpretation contexts
+@chapter Interpretation contexts
 
 This section describes what contexts are, and how to modify them.
 
@@ -68,13 +66,13 @@ Internals Reference:
 
 
 @node Contexts explained
-@subsection Contexts explained
+@section Contexts explained
 
 Contexts are arranged hierarchically.
 
 
 @node Output definitions - blueprints for contexts
-@unnumberedsubsubsec Output definitions -- blueprints for contexts
+@subsection Output definitions -- blueprints for contexts
 
 This section explains the relevance of output definitions when
 working with @dfn{contexts}.  Examples for actual output
@@ -123,7 +121,7 @@ Installed Files:
 @c descriptions in `engraver-init.ly`.
 
 @node Score - the master of all contexts
-@unnumberedsubsubsec @code{Score} -- the master of all contexts
+@subsection @code{Score} -- the master of all contexts
 
 @funindex Score
 @funindex Global
@@ -154,7 +152,7 @@ and the timing variables are then copied from wherever
 
 
 @node Top-level contexts - staff containers
-@unnumberedsubsubsec Top-level contexts -- staff containers
+@subsection Top-level contexts -- staff containers
 
 @table @code
 @item StaffGroup
@@ -210,7 +208,7 @@ A @code{Score}-level context for use by @code{\markup \rhythm}.
 
 
 @node Intermediate-level contexts - staves
-@unnumberedsubsubsec Intermediate-level contexts -- staves
+@subsection Intermediate-level contexts -- staves
 
 @table @code
 @item Staff
@@ -281,7 +279,7 @@ Silently discard all musical information given to this context.
 
 
 @node Bottom-level contexts - voices
-@unnumberedsubsubsec Bottom-level contexts -- voices
+@subsection Bottom-level contexts -- voices
 
 @funindex \defaultchild
 @code{Voice}-level contexts initialize certain properties and
@@ -398,7 +396,7 @@ the same music should appear, say, in a @code{Staff} and a
 
 
 @node Creating and referencing contexts
-@subsection Creating and referencing contexts
+@section Creating and referencing contexts
 
 @funindex \new
 @funindex \context
@@ -606,7 +604,7 @@ Notation Reference:
 
 
 @node Keeping contexts alive
-@subsection Keeping contexts alive
+@section Keeping contexts alive
 
 @cindex context, keeping alive
 @cindex context, lifetime
@@ -758,7 +756,7 @@ words = \lyricmode { These words fol -- low the mel -- o -- dy }
 
 
 @node Modifying context plug-ins
-@subsection Modifying context plug-ins
+@section Modifying context plug-ins
 
 Notation contexts (like @code{Score} and @code{Staff}) not only
 store properties, they also contain plug-ins called
@@ -850,7 +848,7 @@ Installed Files:
 
 
 @node Changing context default settings
-@subsection Changing context default settings
+@section Changing context default settings
 
 @cindex default context property, changing
 @cindex context property, changing default
@@ -868,7 +866,7 @@ default values in just one particular instance of a context.
 
 
 @node Changing all contexts of the same type
-@unnumberedsubsubsec Changing all contexts of the same type
+@subsection Changing all contexts of the same type
 
 @cindex @code{\context}, in @code{\layout} block
 @funindex \context
@@ -1016,7 +1014,7 @@ the same command written in the music stream.
 
 
 @node Changing just one specific context
-@unnumberedsubsubsec Changing just one specific context
+@subsection Changing just one specific context
 
 @funindex \with
 
@@ -1135,7 +1133,7 @@ Notation Reference:
 
 
 @node Order of precedence
-@unnumberedsubsubsec Order of precedence
+@subsection Order of precedence
 
 The value of a property which applies at a particular time is
 determined as follows:
@@ -1172,7 +1170,7 @@ Notation Reference:
 
 
 @node Defining new contexts
-@subsection Defining new contexts
+@section Defining new contexts
 
 @subsubheading Context definition overview
 
@@ -1500,7 +1498,7 @@ of engravers need to access the topmost context using its alias.
 
 
 @node Context layout order
-@subsection Context layout order
+@section Context layout order
 
 @cindex context, layout order
 @funindex \accepts
@@ -1622,7 +1620,7 @@ Installed Files:
 
 
 @node Explaining the Internals Reference
-@section Explaining the Internals Reference
+@chapter Explaining the Internals Reference
 
 @morerefs
 Notation Reference:
@@ -1630,7 +1628,7 @@ Notation Reference:
 @endmorerefs
 
 @node Navigating the program reference
-@subsection Navigating the program reference
+@section Navigating the program reference
 
 @c TODO remove this (it's in the LM)
 @c Replace with more factual directions
@@ -1743,7 +1741,7 @@ tuned.
 
 
 @node Layout interfaces
-@subsection Layout interfaces
+@section Layout interfaces
 
 @cindex interface, layout
 @cindex layout, interface
@@ -1848,7 +1846,7 @@ is directly generated from this definition.
 
 
 @node Determining the grob property
-@subsection Determining the grob property
+@section Determining the grob property
 
 @c TODO remove this (it's in the LM)
 @c Replace with more factual directions
@@ -1911,10 +1909,10 @@ Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
 
 @need 1500
 @node Modifying properties
-@section Modifying properties
+@chapter Modifying properties
 
 @node Overview of modifying properties
-@subsection Overview of modifying properties
+@section Overview of modifying properties
 
 Within each context, there are two different kinds of properties:
 @dfn{context properties} and @dfn{grob properties}.  Context
@@ -1935,7 +1933,7 @@ used to change values for grob properties.
 
 
 @node Set and unset
-@subsection @code{\set} and @code{\unset}
+@section @code{\set} and @code{\unset}
 
 @cindex property, modifying
 @cindex modifying properties
@@ -2073,7 +2071,7 @@ one pops a value from the stack and restores the property to it.
 
 
 @node Override and revert
-@subsection @code{\override} and @code{\revert}
+@section @code{\override} and @code{\revert}
 
 @cindex grob, property
 @cindex property, grob
@@ -2176,7 +2174,7 @@ grobs in the affected context from the current time forward:
 
 
 @node The once command
-@subsection The @code{\once} command
+@section The @code{\once} command
 
 @funindex \once
 
@@ -2198,7 +2196,7 @@ Internals Reference:
 
 
 @node set versus override
-@subsection @code{\set} versus @code{\override}
+@section @code{\set} versus @code{\override}
 
 @funindex \set
 @funindex \override
@@ -2258,7 +2256,7 @@ a music event (@code{\tweak}) or, in the case of
 
 
 @node Tweak and single
-@subsection @code{\tweak} and @code{\single}
+@section @code{\tweak} and @code{\single}
 
 @funindex \tweak
 @funindex \single
@@ -2408,7 +2406,7 @@ one encountered in the input file.
 
 
 @node The offset command
-@subsection The @code{\offset} command
+@section The @code{\offset} command
 
 @funindex \offset
 @cindex offsetting
@@ -2435,7 +2433,7 @@ as either a @code{\tweak} or @code{\override}.  The variations in
 usage are discussed after consideration is given to grob properties
 that may be used with @code{\offset}.
 
-@subsubsubheading Properties which may be offset
+@subsubheading Properties which may be offset
 
 Many, but not all, grob properties may be offset.  If @var{property}
 cannot be offset, the object will remain unchanged and a warning will
@@ -2520,7 +2518,7 @@ support for @q{nested properties}.
 
 @end itemize
 
-@subsubsubheading @code{\offset} as an override
+@subsubheading @code{\offset} as an override
 
 If @var{item} is a grob name like @code{Arpeggio} or
 @code{Staff.OttavaBracket}, the result is an @code{\override} of the
@@ -2615,7 +2613,7 @@ longStem = \offset length 6 Stem
 }
 @end lilypond
 
-@subsubsubheading @code{\offset} as a tweak
+@subsubheading @code{\offset} as a tweak
 
 If @var{item} is a music expression such as @code{(} or
 @code{\arpeggio}, the result is the same music expression with a tweak
@@ -2677,7 +2675,7 @@ to both members of a @code{number-pair}.)
 }
 @end lilypond
 
-@subsubsubheading @code{\offset} with broken spanners
+@subsubheading @code{\offset} with broken spanners
 
 Independently modifying segments of a spanner extending over a line
 break or breaks is also possible.  In this case, @var{offsets}
@@ -2727,7 +2725,7 @@ corresponding illustration at @ref{Modifying shapes}.
 
 
 @node Modifying alists
-@subsection Modifying alists
+@section Modifying alists
 
 Some user-configurable properties are internally represented as
 @emph{alists} (association lists), which store pairs of
@@ -2839,7 +2837,7 @@ modified by completely redefining them as alists.}
 
 
 @node Useful concepts and properties
-@section Useful concepts and properties
+@chapter Useful concepts and properties
 
 This section discusses various common layout issues and the
 tweaking methods related to them.
@@ -2867,7 +2865,7 @@ Internals Reference:
 @endmorerefs
 
 @node Direction and placement
-@subsection Direction and placement
+@section Direction and placement
 
 In typesetting music the direction and placement of many items is
 a matter of choice.  For example, the stems of notes can
@@ -2878,7 +2876,7 @@ be determined automatically by LilyPond, but in some cases it may
 be desirable to force a particular direction or placement.
 
 @node Articulation direction indicators
-@unnumberedsubsubsec Articulation direction indicators
+@subsection Articulation direction indicators
 
 By default some directions are always up or always down (e.g.,
 dynamics or fermata), while other things can alternate between
@@ -2931,7 +2929,7 @@ Direction indicators affect only the next note:
 
 
 @node The direction property
-@unnumberedsubsubsec The direction property
+@subsection The direction property
 
 The position or direction of many layout objects is controlled by the
 @code{direction} property.
@@ -2993,7 +2991,7 @@ Notation Reference:
 
 
 @node Distances and measurements
-@subsection Distances and measurements
+@section Distances and measurements
 
 @cindex distance, absolute
 @cindex distance, scaled
@@ -3086,7 +3084,7 @@ Notation Reference:
 
 
 @node Dimensions
-@subsection Dimensions
+@section Dimensions
 
 @cindex dimension
 @cindex bounding box
@@ -3124,7 +3122,7 @@ Notation Reference:
 
 
 @node Spanners
-@subsection Spanners
+@section Spanners
 
 @cindex spanner
 
@@ -3138,7 +3136,7 @@ across systems.
 
 
 @node Modifying broken spanners
-@unnumberedsubsubsec Modifying broken spanners
+@subsection Modifying broken spanners
 
 @cindex spanner, modifying
 @cindex broken spanner, modifying
@@ -3250,12 +3248,12 @@ Extending LilyPond:
 
 
 @node Setting minimum lengths for spanners
-@unnumberedsubsubsec Setting minimum lengths for spanners
+@subsection Setting minimum lengths for spanners
 
 The @code{spanner-interface} interface provides three properties
 that apply to several spanners.
 
-@subsubsubheading The @code{minimum-length} property
+@subsubheading The @code{minimum-length} property
 
 The minimum length of the spanner is specified by the
 @code{minimum-length} property.  Increasing this usually has the
@@ -3368,7 +3366,7 @@ e'8 e' e' e'
 e'8 e' e' e'
 @end lilypond
 
-@subsubsubheading The @code{minimum-length-after-break} property
+@subsubheading The @code{minimum-length-after-break} property
 
 The property @code{minimum-length-after-break} can be
 used to stretch broken spanners starting after a line break.
@@ -3414,7 +3412,7 @@ As for the @code{minimum-length} property, it is often needed to set the
 @end lilypond
 
 @node Controlling spanner end points
-@unnumberedsubsubsec Controlling spanner end points
+@subsection Controlling spanner end points
 
 The @code{to-barline} property of the @code{spanner-interface},
 usually defaulting to @code{#t}, causes hairpins and other spanners
@@ -3437,7 +3435,7 @@ not be meaningful.
 
 
 @node Line styles
-@subsection Line styles
+@section Line styles
 
 The @rinternals{line-interface} groups all objects printing lines.
 All objects supporting these interfaces can be printed using
@@ -3462,7 +3460,7 @@ Some objects may support specific additional styles.
 
 
 @node Line spanners
-@subsection Line spanners
+@section Line spanners
 
 Some performance indications, e.g., @emph{rallentando} and
 @emph{accelerando} and trills are written as text and are extended
@@ -3610,7 +3608,7 @@ Internals Reference:
 
 
 @node Visibility of objects
-@subsection Visibility of objects
+@section Visibility of objects
 
 @cindex object, visibility
 @cindex grob, visibility
@@ -3630,7 +3628,7 @@ considerations.
 
 
 @node Removing the stencil
-@unnumberedsubsubsec Removing the stencil
+@subsection Removing the stencil
 
 @cindex stencil, removing
 @funindex \omit
@@ -3660,7 +3658,7 @@ a a a
 @end lilypond
 
 @node Making objects transparent
-@unnumberedsubsubsec Making objects transparent
+@subsection Making objects transparent
 
 @cindex transparent objects
 @funindex \hide
@@ -3684,7 +3682,7 @@ a' a'
 @end lilypond
 
 @node Painting objects white
-@unnumberedsubsubsec Painting objects white
+@subsection Painting objects white
 
 @cindex object, colored
 @cindex coloring object
@@ -3736,7 +3734,7 @@ a'1
 {snippets/using-the-whiteout-property.ly}
 
 @node Using break-visibility
-@unnumberedsubsubsec Using @code{break-visibility}
+@subsection Using @code{break-visibility}
 
 @c TODO Add making other objects breakable
 
@@ -3859,9 +3857,9 @@ to print them and @code{all-@/invisible} to suppress them.
 
 
 @node Special considerations
-@unnumberedsubsubsec Special considerations
+@subsection Special considerations
 
-@subsubsubheading Visibility following explicit changes
+@subsubheading Visibility following explicit changes
 
 @cindex key signature, visibility following explicit change
 @funindex explicitKeySignatureVisibility
@@ -3918,7 +3916,7 @@ object to remove these.
 }
 @end lilypond
 
-@subsubsubheading Visibility of cancelling accidentals
+@subsubheading Visibility of cancelling accidentals
 
 To remove the cancelling accidentals printed at an explicit key
 change, set the Staff context property @code{printKeyCancellation}
@@ -3978,7 +3976,7 @@ the visibility of the @code{KeyCancellation} grob instead:
 
 @c TODO Add visibility of cautionary accidentals before notes
 
-@subsubsubheading Transposed clefs
+@subsubheading Transposed clefs
 
 @cindex transposed clef, visibility
 @cindex visibility of transposed clef
@@ -4001,14 +3999,14 @@ Learning Manual:
 
 
 @node Rotating objects
-@subsection Rotating objects
+@section Rotating objects
 
 Both layout objects and elements of markup text can be rotated by
 any angle about any point, but the method of doing so differs.
 
 
 @node Rotating layout objects
-@unnumberedsubsubsec Rotating layout objects
+@subsection Rotating layout objects
 
 @cindex rotating object
 @cindex object, rotating
@@ -4038,7 +4036,7 @@ g4\< e' d'' f''\!
 @end lilypond
 
 @node Rotating markup
-@unnumberedsubsubsec Rotating markup
+@subsection Rotating markup
 
 All markup text can be rotated to lie at any angle by prefixing it
 with the @code{\rotate} command.  The command takes two arguments:
@@ -4059,7 +4057,7 @@ fis'^\markup { \rotate #30 "an F-Sharp" }
 @end lilypond
 
 @node Aligning objects
-@subsection Aligning objects
+@section Aligning objects
 
 Graphical objects which support the @code{self-alignment-interface}
 and/or the @code{side-@/position-@/interface} can be aligned to a previously
@@ -4107,7 +4105,7 @@ Extending LilyPond:
 
 
 @node Setting X-offset and Y-offset directly
-@unnumberedsubsubsec Setting @code{X-offset} and @code{Y-offset} directly
+@subsection Setting @code{X-offset} and @code{Y-offset} directly
 
 Numerical values may be given to the @code{X-offset} and @code{Y-offset}
 properties of many objects.  The following example shows three
@@ -4129,7 +4127,7 @@ a'
 @c TODO write more
 
 @node Using the side-position-interface
-@unnumberedsubsubsec Using the @code{side-position-interface}
+@subsection Using the @code{side-position-interface}
 
 An object which supports the @code{side-position-interface} can be
 placed next to its parent object so that
@@ -4172,9 +4170,9 @@ to value of @code{direction}.
 @c TODO Add examples
 
 @node Using the self-alignment-interface
-@unnumberedsubsubsec Using the @code{self-alignment-interface}
+@subsection Using the @code{self-alignment-interface}
 
-@subsubsubheading Self-aligning objects horizontally
+@subsubheading Self-aligning objects horizontally
 
 The horizontal alignment of an object which supports the
 @code{self-alignment-interface} is controlled by the value of
@@ -4209,7 +4207,7 @@ a'
 ^"aligned further to the right"
 @end lilypond
 
-@subsubsubheading Self-aligning objects vertically
+@subsubheading Self-aligning objects vertically
 
 Objects may be aligned vertically in an analogous way to aligning
 them horizontally if the @code{Y-offset} property is set to
@@ -4227,7 +4225,7 @@ with the reference point of the parent.  The symbols @code{DOWN},
 @code{CENTER}, and @code{UP} may be substituted for @w{@code{-1}},
 @code{0}, and @code{1}, respectively.
 
-@subsubsubheading Self-aligning objects in both directions
+@subsubheading Self-aligning objects in both directions
 
 By setting both @code{X-offset} and @code{Y-offset}, an object may
 be aligned in both directions simultaneously.
@@ -4244,7 +4242,7 @@ a'
 @end lilypond
 
 @ignore
-@unnumberedsubsubsec Using the @code{aligned-on-parent} procedures
+@subsection Using the @code{aligned-on-parent} procedures
 
 @c Cannot document as they do not seem to operate consistently on all objects -td
 @c TODO investigate further
@@ -4263,7 +4261,7 @@ example shows the difference:
 @end ignore
 
 @ignore
-@unnumberedsubsubsec Using the @code{centered-on-parent} procedures
+@subsection Using the @code{centered-on-parent} procedures
 
 @c Cannot document as they do not seem to operate consistently on all objects -td
 @c TODO investigate further
@@ -4273,7 +4271,7 @@ example shows the difference:
 @c TODO The align-interface, BassFigureAlignment and VerticalAlignment
 
 @node Using the break-alignable-interface
-@unnumberedsubsubsec Using the @code{break-alignable-interface}
+@subsection Using the @code{break-alignable-interface}
 
 @cindex align to object
 @funindex break-align-symbols
@@ -4419,7 +4417,7 @@ e'1
 
 
 @node Modifying stencils
-@subsection Modifying stencils
+@section Modifying stencils
 
 All layout objects have a @code{stencil} property which is part of
 the @code{grob-interface}.  By default, this property is usually
@@ -4479,10 +4477,10 @@ Notation Reference:
 
 @need 1500
 @node Modifying shapes
-@subsection Modifying shapes
+@section Modifying shapes
 
 @node Modifying ties and slurs
-@unnumberedsubsubsec Modifying ties and slurs
+@subsection Modifying ties and slurs
 
 @cindex slur, modifying
 @cindex tie, modifying
@@ -4510,7 +4508,7 @@ if only slight adjustments to the curve are required; the second may
 be better for creating curves which are related to just a single
 note.
 
-@subsubsubheading Cubic Bézier curves
+@subsubheading Cubic Bézier curves
 
 Third-order or cubic Bézier curves are defined by four control
 points.  The first and fourth control points are precisely the
@@ -4548,7 +4546,7 @@ exactly the same operations on the curve.
 
 
 
-@subsubsubheading Specifying displacements from current control points
+@subsubheading Specifying displacements from current control points
 
 @cindex shaping slurs and ties
 @funindex \shape
@@ -4698,7 +4696,7 @@ automatically.
 }
 @end lilypond
 
-@subsubsubheading Specifying control points explicitly
+@subsubheading Specifying control points explicitly
 
 The coordinates of the Bézier control points are specified in units
 of staff spaces.  The X@tie{}coordinate is relative to the reference
@@ -4754,5 +4752,3 @@ required.
 Internals Reference:
 @rinternals{TieColumn}.
 @endmorerefs
-
-@lowersections

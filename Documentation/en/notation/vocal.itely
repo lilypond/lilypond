@@ -11,7 +11,7 @@
 
 @node Vocal music
 @anchor{Specialist notation} @c retain old label
-@section Vocal music
+@chapter Vocal music
 
 @lilypondfile[quote]{snippets/vocal-headword.ly}
 
@@ -20,13 +20,13 @@ that the lyrics will be aligned with the notes of their melody.
 
 
 @node Common notation for vocal music
-@subsection Common notation for vocal music
+@section Common notation for vocal music
 
 This section discusses issues common to most types of vocal music.
 
 
 @node References for vocal music
-@unnumberedsubsubsec References for vocal music
+@subsection References for vocal music
 
 This section indicates where to find details of notation issues
 that may arise in any type of vocal music.
@@ -72,7 +72,7 @@ Snippets:
 
 
 @node Entering lyrics
-@unnumberedsubsubsec Entering lyrics
+@subsection Entering lyrics
 
 @cindex lyrics, entering
 @cindex entering lyrics
@@ -193,7 +193,7 @@ Snippets:
 
 
 @node Aligning lyrics to a melody
-@unnumberedsubsubsec Aligning lyrics to a melody
+@subsection Aligning lyrics to a melody
 
 @cindex lyrics, aligning to a melody
 @funindex associatedVoice
@@ -321,7 +321,7 @@ Internals Reference:
 
 
 @node Automatic syllable durations
-@unnumberedsubsubsec Automatic syllable durations
+@subsection Automatic syllable durations
 
 @cindex syllable duration, automatic
 @cindex lyrics, and melodies
@@ -487,7 +487,7 @@ Notation Reference:
 
 
 @node Manual syllable durations
-@unnumberedsubsubsec Manual syllable durations
+@subsection Manual syllable durations
 
 In some complex vocal music, it may be desirable to place lyrics
 completely independently of notes.  In this case do not use
@@ -566,7 +566,7 @@ Internals Reference:
 
 
 @node Multiple syllables to one note
-@unnumberedsubsubsec Multiple syllables to one note
+@subsection Multiple syllables to one note
 
 @funindex _
 @funindex ~
@@ -603,7 +603,7 @@ Internals Reference:
 
 
 @node Multiple notes to one syllable
-@unnumberedsubsubsec Multiple notes to one syllable
+@subsection Multiple notes to one syllable
 
 @cindex melisma
 @cindex melismata
@@ -807,7 +807,7 @@ must be inserted manually with a double underscore.
 
 
 @node Extenders and hyphens
-@unnumberedsubsubsec Extenders and hyphens
+@subsection Extenders and hyphens
 
 @cindex melisma
 @cindex extender
@@ -858,7 +858,7 @@ Internals Reference:
 
 
 @node Gradual changes of vowel
-@unnumberedsubsubsec Gradual changes of vowel
+@subsection Gradual changes of vowel
 
 @cindex vowel transition
 @funindex \vowelTransition
@@ -903,13 +903,13 @@ Internals Reference:
 
 @need 1500
 @node Techniques specific to lyrics
-@subsection Techniques specific to lyrics
+@section Techniques specific to lyrics
 
 @c TODO this whole section is to be reorganized
 
 
 @node Working with lyrics and variables
-@unnumberedsubsubsec Working with lyrics and variables
+@subsection Working with lyrics and variables
 
 @cindex lyrics, using variables
 
@@ -991,7 +991,7 @@ Internals Reference:
 
 
 @node Placing lyrics vertically
-@unnumberedsubsubsec Placing lyrics vertically
+@subsection Placing lyrics vertically
 
 @cindex placement, lyrics
 @cindex lyrics, positioning
@@ -1140,7 +1140,7 @@ Notation Reference:
 
 
 @node Placing syllables horizontally
-@unnumberedsubsubsec Placing syllables horizontally
+@subsection Placing syllables horizontally
 
 @cindex spacing, lyrics
 @cindex lyrics, increasing space between
@@ -1220,7 +1220,7 @@ To make lyrics avoid bar lines as well, use
 @end example
 
 @node Lyrics and repeats
-@unnumberedsubsubsec Lyrics and repeats
+@subsection Lyrics and repeats
 
 @cindex repeat, and lyrics
 @cindex lyrics, repeating
@@ -1650,7 +1650,7 @@ Notation Reference:
 
 
 @node Divisi lyrics
-@unnumberedsubsubsec Divisi lyrics
+@subsection Divisi lyrics
 
 @cindex divided lyrics
 @cindex lyrics, divided
@@ -1730,7 +1730,7 @@ passage is the proper construct to use, see section
 
 
 @node Polyphony with shared lyrics
-@unnumberedsubsubsec Polyphony with shared lyrics
+@subsection Polyphony with shared lyrics
 
 @funindex NullVoice
 @cindex polyphony, shared lyrics
@@ -1819,11 +1819,11 @@ words = \lyricmode { la __ la __ }
 
 @need 1000
 @node Stanzas
-@subsection Stanzas
+@section Stanzas
 
 
 @node Adding stanza numbers
-@unnumberedsubsubsec Adding stanza numbers
+@subsection Adding stanza numbers
 
 @cindex stanza number
 
@@ -1876,7 +1876,7 @@ stanzaOneThree = \lyricmode {
 @end lilypond
 
 @node Adding dynamics marks to stanzas
-@unnumberedsubsubsec Adding dynamics marks to stanzas
+@subsection Adding dynamics marks to stanzas
 
 Stanzas differing in loudness may be indicated by putting a
 dynamics mark before each stanza.  In LilyPond, everything coming in
@@ -1902,7 +1902,7 @@ text = {
 @end lilypond
 
 @node Adding singers' names to stanzas
-@unnumberedsubsubsec Adding singers' names to stanzas
+@subsection Adding singers' names to stanzas
 
 @cindex singer name
 @cindex name, of singer
@@ -1925,7 +1925,7 @@ the line, just like instrument names.  They are created by setting
 @end lilypond
 
 @node Stanzas with different rhythms
-@unnumberedsubsubsec Stanzas with different rhythms
+@subsection Stanzas with different rhythms
 
 Often, different stanzas of one song are put to one melody in slightly
 differing ways.  Such variations can still be captured with
@@ -2094,7 +2094,7 @@ reasons, and it is not a bug.}
 
 
 @node Printing stanzas at the end
-@unnumberedsubsubsec Printing stanzas at the end
+@subsection Printing stanzas at the end
 
 Sometimes it is appropriate to have one stanza set
 to the music, and the rest added in verse form at
@@ -2148,7 +2148,7 @@ text = \lyricmode {
 
 
 @node Printing stanzas at the end in multiple columns
-@unnumberedsubsubsec Printing stanzas at the end in multiple columns
+@subsection Printing stanzas at the end in multiple columns
 
 When a piece of music has many verses, they are often printed in
 multiple columns across the page.  An outdented verse number often
@@ -2229,11 +2229,11 @@ Internals Reference:
 
 @need 1500
 @node Songs
-@subsection Songs
+@section Songs
 
 
 @node References for songs
-@unnumberedsubsubsec References for songs
+@subsection References for songs
 
 Songs are usually written on three staves with the melody for the
 singer on the top staff and two staves of piano accompaniment at
@@ -2295,7 +2295,7 @@ Snippets:
 
 
 @node Lead sheets
-@unnumberedsubsubsec Lead sheets
+@subsection Lead sheets
 
 Lead sheets may be printed by combining vocal parts and
 @q{chord mode}; this syntax is explained in @ref{Chord notation}.
@@ -2314,7 +2314,7 @@ Notation Reference:
 
 
 @node Choral
-@subsection Choral
+@section Choral
 
 @cindex anthem
 @cindex part song
@@ -2327,7 +2327,7 @@ etc.
 
 
 @node References for choral
-@unnumberedsubsubsec References for choral
+@subsection References for choral
 
 Choral music is usually notated on two, three or four staves within
 a @code{ChoirStaff} group.  Accompaniment, if required, is placed
@@ -2405,7 +2405,7 @@ Internals Reference:
 
 
 @node Score layouts for choral
-@unnumberedsubsubsec Score layouts for choral
+@subsection Score layouts for choral
 
 Choral music containing four staves, with or without piano
 accompaniment, is usually laid out with two systems per page.
@@ -2515,7 +2515,7 @@ Notation Reference:
 
 
 @node Opera and stage musicals
-@subsection Opera and stage musicals
+@section Opera and stage musicals
 
 @cindex opera
 @cindex vocal score
@@ -2563,7 +2563,7 @@ typesetting opera and musical scores.
 
 
 @node References for opera and stage musicals
-@unnumberedsubsubsec References for opera and stage musicals
+@subsection References for opera and stage musicals
 
 @cindex orchestral music
 @cindex ensemble music
@@ -2632,7 +2632,7 @@ Snippets:
 
 
 @node Character names
-@unnumberedsubsubsec Character names
+@subsection Character names
 
 @cindex character name
 @cindex name, character
@@ -2725,7 +2725,7 @@ Notation Reference:
 
 
 @node Musical cues
-@unnumberedsubsubsec Musical cues
+@subsection Musical cues
 
 @cindex musical cue
 @cindex cue, musical
@@ -2857,7 +2857,7 @@ declaring separate @code{CueVoice} contexts and using
 
 
 @node Spoken music
-@unnumberedsubsubsec Spoken music
+@subsection Spoken music
 
 @cindex parlato
 @cindex Sprechgesang
@@ -2872,7 +2872,7 @@ note heads, as demonstrated in @ref{Special note heads}.
 @c add "lyrics independents of notes" ref
 
 @node Dialogue over music
-@unnumberedsubsubsec Dialogue over music
+@subsection Dialogue over music
 
 Dialogue over music is usually printed over the staves in an italic
 font, with the start of each phrase keyed in to a particular music
@@ -2954,7 +2954,7 @@ Internal Reference:
 
 
 @node Chants psalms and hymns
-@subsection Chants psalms and hymns
+@section Chants psalms and hymns
 
 @cindex chant
 @cindex psalm
@@ -2969,7 +2969,7 @@ which arise are broadly similar, and are covered in this section.
 
 
 @node References for chants and psalms
-@unnumberedsubsubsec References for chants and psalms
+@subsection References for chants and psalms
 
 Typesetting Gregorian chant in various styles of ancient notation
 is described in @ref{Ancient notation}.
@@ -2984,7 +2984,7 @@ Snippets:
 
 
 @node Setting a chant
-@unnumberedsubsubsec Setting a chant
+@subsection Setting a chant
 
 Modern chant settings use modern notation with varying numbers of
 elements taken from ancient notation.  Some of the elements and
@@ -3243,7 +3243,7 @@ Notation Reference:
 
 
 @node Pointing a psalm
-@unnumberedsubsubsec Pointing a psalm
+@subsection Pointing a psalm
 
 The words to an Anglican psalm are usually printed in separate
 verses centered underneath the chant.
@@ -3378,7 +3378,7 @@ Notation Reference:
 
 
 @node Phrase bar lines in hymn tunes
-@unnumberedsubsubsec Phrase bar lines in hymn tunes
+@subsection Phrase bar lines in hymn tunes
 
 @funindex \caesura
 @cindex bar line, in hymns
@@ -3426,7 +3426,7 @@ when a line is broken in mid-measure at the end of a phrase.
 @end lilypond
 
 @node Partial measures in hymn tunes
-@unnumberedsubsubsec Partial measures in hymn tunes
+@subsection Partial measures in hymn tunes
 
 Hymn tunes frequently start and end every line of music with
 partial measures so that each line of music corresponds exactly
@@ -3441,7 +3441,7 @@ the start of the music and a bar line at the end of each line.
 
 
 @node Ancient vocal music
-@subsection Ancient vocal music
+@section Ancient vocal music
 
 Ancient vocal music is supported, as explained in
 @ref{Ancient notation}.

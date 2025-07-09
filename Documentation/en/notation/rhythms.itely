@@ -10,7 +10,7 @@
 @c \version "2.25.23"
 
 @node Rhythms
-@section Rhythms
+@chapter Rhythms
 
 @lilypondfile[quote]{snippets/rhythms-headword.ly}
 
@@ -18,11 +18,11 @@ This section discusses rhythms, rests, durations, beaming and bars.
 
 
 @node Writing rhythms
-@subsection Writing rhythms
+@section Writing rhythms
 
 
 @node Durations
-@unnumberedsubsubsec Durations
+@subsection Durations
 
 @cindex duration, of note
 @cindex note duration
@@ -189,7 +189,7 @@ rests between @code{1024} and @code{\maxima} may be printed.
 
 
 @node Tuplets
-@unnumberedsubsubsec Tuplets
+@subsection Tuplets
 
 @cindex tuplet
 @cindex triplet
@@ -366,7 +366,7 @@ Internals Reference:
 
 
 @node Scaling durations
-@unnumberedsubsubsec Scaling durations
+@subsection Scaling durations
 
 @cindex scaling duration
 @cindex duration, scaling
@@ -460,7 +460,7 @@ an error.
 
 
 @node Ties
-@unnumberedsubsubsec Ties
+@subsection Ties
 
 @cindex tie
 @funindex ~
@@ -699,13 +699,13 @@ In these cases, a slur may be preferable.
 
 
 @node Writing rests
-@subsection Writing rests
+@section Writing rests
 
 Rests are entered as part of the music in music expressions.
 
 
 @node Rests
-@unnumberedsubsubsec Rests
+@subsection Rests
 
 @cindex rest
 @cindex rest, entering durations
@@ -793,7 +793,7 @@ are rests from 1024th to maxima (8× whole).
 
 
 @node Invisible rests
-@unnumberedsubsubsec Invisible rests
+@subsection Invisible rests
 
 @cindex skip
 @cindex invisible rest
@@ -926,7 +926,7 @@ practice to provide an explicit duration for the music immediately
 following the command.
 
 @node Full measure rests
-@unnumberedsubsubsec Full measure rests
+@subsection Full measure rests
 
 @cindex multi-measure rest
 @cindex full-measure rest
@@ -1104,7 +1104,7 @@ Multi-measure rests do not take part in rest collisions.
 
 
 @node Caesuras
-@unnumberedsubsubsec Caesuras
+@subsection Caesuras
 
 @cindex caesura
 @cindex pause mark
@@ -1211,11 +1211,11 @@ Internals Reference:
 
 @need 1500
 @node Displaying rhythms
-@subsection Displaying rhythms
+@section Displaying rhythms
 
 
 @node Time signature
-@unnumberedsubsubsec Time signature
+@subsection Time signature
 
 @cindex time signature
 @cindex meter
@@ -1541,7 +1541,7 @@ music = {
 
 
 @node Metronome marks
-@unnumberedsubsubsec Metronome marks
+@subsection Metronome marks
 
 @cindex tempo
 @cindex beats per minute
@@ -1720,7 +1720,7 @@ Internals Reference:
 
 
 @node Upbeats
-@unnumberedsubsubsec Upbeats
+@subsection Upbeats
 
 @cindex anacrusis
 @cindex irregular measure
@@ -1811,7 +1811,7 @@ Internal Reference:
 
 
 @node Unmetered music
-@unnumberedsubsubsec Unmetered music
+@subsection Unmetered music
 
 @cindex cadenza
 @cindex cadenza, beams
@@ -1956,7 +1956,7 @@ Snippets:
 
 
 @node Polymetric notation
-@unnumberedsubsubsec Polymetric notation
+@subsection Polymetric notation
 
 @c This section necessarily uses \set
 @c This is acceptable  -td
@@ -1975,7 +1975,7 @@ Snippets:
 Polymetric notation is supported explicitly or by manually modifying the
 visible time signature symbol and/or scaling note durations.
 
-@subsubsubheading Different time signatures with equal-length measures
+@subsubheading Different time signatures with equal-length measures
 
 Set a common time signature for each staff, and set the
 @code{timeSignatureFraction} to the desired fraction.  Then use the
@@ -2019,7 +2019,7 @@ affect the auto-beaming rules.
 >>
 @end lilypond
 
-@subsubsubheading Different time signatures with unequal-length measures
+@subsubheading Different time signatures with unequal-length measures
 
 Each staff can be given its own independent time signature as soon
 as @code{\enablePolymeter} is placed in the @code{\layout} block.
@@ -2119,7 +2119,7 @@ In order to use this feature with MIDI output, also include
 @end quotation
 
 
-@subsubsubheading Compound time signatures
+@subsubheading Compound time signatures
 
 @funindex \compoundMeter
 @cindex compound time signature
@@ -2187,7 +2187,7 @@ time signatures.
 
 
 @node Automatic note splitting
-@unnumberedsubsubsec Automatic note splitting
+@subsection Automatic note splitting
 
 @cindex note, splitting
 @cindex splitting notes
@@ -2283,7 +2283,7 @@ of the input durations.
 
 
 @node Showing melody rhythms
-@unnumberedsubsubsec Showing melody rhythms
+@subsection Showing melody rhythms
 
 @cindex melody rhythm, showing
 @cindex rhythm, showing melody
@@ -2388,14 +2388,14 @@ Internals Reference:
 
 
 @node Beams
-@subsection Beams
+@section Beams
 
 LilyPond provides two different possibilities for entering beams:
 automatic and manual input, which can be also mixed.
 
 
 @node Automatic beams
-@unnumberedsubsubsec Automatic beams
+@subsection Automatic beams
 
 By default, beams are inserted automatically:
 
@@ -2497,7 +2497,7 @@ new beam starts.
 
 
 @node Setting automatic beam behavior
-@unnumberedsubsubsec Setting automatic beam behavior
+@subsection Setting automatic beam behavior
 
 @cindex beam, with lyrics
 @cindex lyrics, with beam
@@ -2526,7 +2526,7 @@ in force, the beam placement is determined by the values of
 @code{beatBase} and @code{beatStructure}.
 
 
-@subsubsubheading Beaming based on @code{beatBase} and @code{beatStructure}
+@subsubheading Beaming based on @code{beatBase} and @code{beatStructure}
 
 By default, @code{beamExceptions} rules are defined for most common
 time signatures, so the @code{beamExceptions} rules must be disabled
@@ -2646,7 +2646,7 @@ By default @code{beatBase} is set to one over the denominator of
 the time signature.  Any exceptions to this default can be found in
 @file{scm/time-@/signature-@/settings.scm}.
 
-@subsubsubheading Beaming based on @code{beamExceptions}
+@subsubheading Beaming based on @code{beamExceptions}
 
 Special auto-beaming rules (other than ending a beam on a beat)
 are defined in the @code{beamExceptions} property.
@@ -2747,7 +2747,7 @@ which has effect only in time signatures with 3 in the numerator:
 }
 @end lilypond
 
-@subsubsubheading How automatic beaming works
+@subsubheading How automatic beaming works
 
 When automatic beaming is enabled, the placement of automatic beams
 is determined by the context properties
@@ -2892,7 +2892,7 @@ beaming settings for a time signature are described in
 
 
 @node Manual beams
-@unnumberedsubsubsec Manual beams
+@subsection Manual beams
 
 @cindex beam, manual
 @cindex manual beam
@@ -3017,7 +3017,7 @@ Internals Reference:
 
 
 @node Feathered beams
-@unnumberedsubsubsec Feathered beams
+@subsection Feathered beams
 
 @cindex beam, feathered
 @cindex feathered beam
@@ -3083,7 +3083,7 @@ music snippets, and when numbers in the fraction are small.
 
 
 @node Slashed beams
-@unnumberedsubsubsec Slashed beams
+@subsection Slashed beams
 
 @cindex beam, slashed
 @cindex slashed beam
@@ -3128,11 +3128,11 @@ mus = \repeat unfold 4 a16
 
 @need 1500
 @node Bars
-@subsection Bars
+@section Bars
 
 
 @node Bar lines
-@unnumberedsubsubsec Bar lines
+@subsection Bar lines
 
 @cindex bar line
 @cindex measure line
@@ -3676,7 +3676,7 @@ Internals Reference:
 
 
 @node Automatic bar lines
-@unnumberedsubsubsec Automatic bar lines
+@subsection Automatic bar lines
 
 @cindex automatic bar line
 @cindex bar line, automatic
@@ -3831,7 +3831,7 @@ Internals Reference:
 
 
 @node Bar numbers
-@unnumberedsubsubsec Bar numbers
+@subsection Bar numbers
 
 @cindex bar number
 @cindex measure number
@@ -3947,7 +3947,7 @@ if there is one.  To solve this, the @code{padding} property of
 
 
 @node Bar and bar number checks
-@unnumberedsubsubsec Bar and bar number checks
+@subsection Bar and bar number checks
 
 @cindex bar, check
 @cindex bar number, check
@@ -4036,7 +4036,7 @@ Snippets:
 
 
 @node Rehearsal marks
-@unnumberedsubsubsec Rehearsal marks
+@subsection Rehearsal marks
 
 @cindex rehearsal mark
 @cindex mark, rehearsal
@@ -4181,7 +4181,7 @@ Internals Reference:
 
 
 @node Measure counts
-@unnumberedsubsubsec Measure counts
+@subsection Measure counts
 
 @cindex measure counter
 
@@ -4314,7 +4314,7 @@ Internals Reference:
 
 
 @node Section divisions
-@unnumberedsubsubsec Section divisions
+@subsection Section divisions
 
 @cindex bar line, double
 @cindex bar line, section
@@ -4374,11 +4374,11 @@ Internals Reference:
 
 @need 1500
 @node Special rhythmic concerns
-@subsection Special rhythmic concerns
+@section Special rhythmic concerns
 
 
 @node Grace notes
-@unnumberedsubsubsec Grace notes
+@subsection Grace notes
 
 @cindex ornament
 @cindex grace note
@@ -4642,7 +4642,7 @@ See @ref{Scaling durations}.
 
 
 @node Aligning to cadenzas
-@unnumberedsubsubsec Aligning to cadenzas
+@subsection Aligning to cadenzas
 
 @cindex cadenza
 @cindex cadenza, aligning to
@@ -4711,7 +4711,7 @@ Snippets:
 
 
 @node Time administration
-@unnumberedsubsubsec Time administration
+@subsection Time administration
 
 @cindex time administration
 @cindex timing, within score

@@ -11,7 +11,7 @@
 
 
 @node Simultaneous notes
-@section Simultaneous notes
+@chapter Simultaneous notes
 
 @lilypondfile[quote,ragged-right,line-width=16\cm]{snippets/simultaneous-headword.ly}
 
@@ -21,13 +21,13 @@ than one voice on the same staff.
 
 
 @node Single voice
-@subsection Single voice
+@section Single voice
 
 This section discusses simultaneous notes inside the same voice.
 
 
 @node Chorded notes
-@unnumberedsubsubsec Chorded notes
+@subsection Chorded notes
 
 @cindex chord
 @cindex bracket, angle
@@ -155,7 +155,7 @@ enharmonic transcription of one or more pitches,
 
 
 @node Chord repetition
-@unnumberedsubsubsec Chord repetition
+@subsection Chord repetition
 
 @cindex chord, repetition
 @cindex repetition, using @code{q}
@@ -252,7 +252,7 @@ Installed Files:
 
 
 @node Simultaneous expressions
-@unnumberedsubsubsec Simultaneous expressions
+@subsection Simultaneous expressions
 
 @funindex <<
 @funindex >>
@@ -331,7 +331,7 @@ collision resolution whatsoever and may have other unintended effects
 
 
 @node Clusters
-@unnumberedsubsubsec Clusters
+@subsection Clusters
 
 @cindex cluster
 @cindex note cluster
@@ -406,21 +406,21 @@ Clusters do not produce MIDI output.
 
 
 @node Multiple voices
-@subsection Multiple voices
+@section Multiple voices
 
 This section discusses simultaneous notes in multiple voices or
 multiple staves.
 
 
 @node Single-staff polyphony
-@unnumberedsubsubsec Single-staff polyphony
+@subsection Single-staff polyphony
 
 @cindex single-staff polyphony
 @cindex polyphony, single-staff
 @cindex voice
 @cindex lyrics, assigned to one voice
 
-@subsubsubheading Explicitly instantiating voices
+@subsubheading Explicitly instantiating voices
 
 @funindex \voiceOne
 @funindex \voiceTwo
@@ -455,7 +455,7 @@ Note that @code{Voice} is a bottom-level context
 (@pxref{Bottom-level contexts - voices}).
 In @code{TabStaff} one would use @code{TabVoice} instead.
 
-@subsubsubheading Temporary polyphonic passages
+@subsubheading Temporary polyphonic passages
 
 A temporary polyphonic passage can be created with the following
 construct:
@@ -543,7 +543,7 @@ mus =
 >>
 @end lilypond
 
-@subsubsubheading The double backslash construct
+@subsubheading The double backslash construct
 
 @funindex << ... \\ ... >>
 @funindex @sortas{@bs{}@bs{}} \\
@@ -592,7 +592,7 @@ In all but the simplest works it is advisable to create explicit
 @code{Voice} contexts as explained in @rlearning{Contexts and engravers} and
 @rlearning{Explicitly instantiating voices}.
 
-@subsubsubheading Voice order
+@subsubheading Voice order
 
 When entering multiple voices in the input file, use the following
 order:
@@ -653,7 +653,7 @@ When a different voice entry order is desired, the command
 @warning{Lyrics and spanners (such as slurs, ties, hairpins, etc.@:) cannot
 be created @q{across} voices.}
 
-@subsubsubheading Identical rhythms
+@subsubheading Identical rhythms
 
 In the special case that we want to typeset parallel pieces of music
 that have the same rhythm, we can combine them into a single
@@ -695,7 +695,7 @@ Snippets:
 
 
 @node Voice styles
-@unnumberedsubsubsec Voice styles
+@subsection Voice styles
 
 @cindex voice style
 @cindex style, voice
@@ -744,7 +744,7 @@ Snippets:
 
 
 @node Collision resolution
-@unnumberedsubsubsec Collision resolution
+@subsection Collision resolution
 
 @cindex merging notes
 @cindex note collision
@@ -996,7 +996,7 @@ are at the same time differently dotted are not clear.
 
 
 @node Merging rests
-@unnumberedsubsubsec Merging rests
+@subsection Merging rests
 
 @cindex merging rests
 @cindex rest, merging
@@ -1032,7 +1032,7 @@ Setting the context property @code{suspendRestMerging} to @code{#t}
 allows for turning off rest merging temporarily.
 
 @node Automatic part combining
-@unnumberedsubsubsec Automatic part combining
+@subsection Automatic part combining
 
 @cindex automatic part combining
 @cindex part combiner
@@ -1212,7 +1212,7 @@ instrumentTwo = \relative {
 @end lilypond
 
 
-@subsubsubheading Using @code{\partCombine} with lyrics
+@subsubheading Using @code{\partCombine} with lyrics
 
 @cindex @code{\partCombine}, and lyrics
 
@@ -1309,7 +1309,7 @@ Refer also to @emph{Known issues and warnings} when using
 
 
 @node Writing music in parallel
-@unnumberedsubsubsec Writing music in parallel
+@subsection Writing music in parallel
 
 @cindex writing music in parallel
 @cindex interleaved music

@@ -154,7 +154,7 @@ For LilyPond version @version{}
 @c   ***** Headings in a doc subsection *****
 
 @macro predefined
-@subsubheading Predefined commands
+@subheading Predefined commands
 @raggedright
 @end macro
 
@@ -165,7 +165,7 @@ For LilyPond version @version{}
 
 @macro snippets
 @need 1000
-@subsubheading Selected Snippets
+@subheading Selected Snippets
 @end macro
 
 
@@ -173,7 +173,7 @@ For LilyPond version @version{}
 @c unwanted extra vertical space in the PDF output.
 
 @macro morerefs
-@subsubheading See also
+@subheading See also
 @raggedright
 @end macro
 
@@ -183,7 +183,7 @@ For LilyPond version @version{}
 
 
 @macro knownissues
-@subsubheading Known issues and warnings
+@subheading Known issues and warnings
 @end macro
 
 

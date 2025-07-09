@@ -12,8 +12,6 @@
 
 @part Musical notation
 
-@raisesections
-
 @include en/notation/pitches.itely
 @include en/notation/rhythms.itely
 @include en/notation/expressive.itely
@@ -22,5 +20,3 @@
 @include en/notation/staff.itely
 @include en/notation/editorial.itely
 @include en/notation/text.itely
-
-@lowersections

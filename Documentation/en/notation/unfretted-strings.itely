@@ -10,7 +10,7 @@
 @c \version "2.18.0"
 
 @node Unfretted string instruments
-@section Unfretted string instruments
+@chapter Unfretted string instruments
 
 @lilypondfile[quote]
 {snippets/unfretted-headword.ly}
@@ -25,7 +25,7 @@ orchestral strings.
 
 
 @node Common notation for unfretted strings
-@subsection Common notation for unfretted strings
+@section Common notation for unfretted strings
 
 There is little specialist notation for unfretted string
 instruments.  The music is notated on a single staff, and
@@ -34,7 +34,7 @@ be required for some double-stopped or divisi passages.
 
 
 @node References for unfretted strings
-@unnumberedsubsubsec References for unfretted strings
+@subsection References for unfretted strings
 
 Most of the notation which is useful for orchestral strings
 and other bowed instruments is covered elsewhere:
@@ -76,7 +76,7 @@ Snippets:
 
 
 @node Bowing indications
-@unnumberedsubsubsec Bowing indications
+@subsection Bowing indications
 
 @funindex \upbow
 @funindex \downbow
@@ -133,9 +133,9 @@ Notation Reference:
 
 
 @node Harmonics
-@unnumberedsubsubsec Harmonics
+@subsection Harmonics
 
-@subsubsubheading Natural harmonics
+@subsubheading Natural harmonics
 
 @cindex note head, diamond-shaped
 @cindex diamond-shaped note head
@@ -167,7 +167,7 @@ played as a harmonic:
 d''2^\flageolet d''_\flageolet
 @end lilypond
 
-@subsubsubheading Artificial harmonics
+@subsubheading Artificial harmonics
 
 @cindex artificial harmonics
 @cindex harmonics, artificial
@@ -212,7 +212,7 @@ a chord.
 
 
 @node Snap (Bartok) pizzicato
-@unnumberedsubsubsec Snap (Bartók) pizzicato
+@subsection Snap (Bartók) pizzicato
 
 @cindex pizzicato, Bartók
 @cindex pizzicato, snap

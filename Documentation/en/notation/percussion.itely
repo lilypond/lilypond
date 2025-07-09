@@ -11,18 +11,18 @@
 
 @need 1500
 @node Percussion
-@section Percussion
+@chapter Percussion
 
 
 @node Common notation for percussion
-@subsection Common notation for percussion
+@section Common notation for percussion
 
 Rhythmic music is primarily used for percussion and drum notation, but it can
 also be used to show the rhythms of melodies.
 
 
 @node References for percussion
-@unnumberedsubsubsec References for percussion
+@subsection References for percussion
 
 @c TODO add more references.
 
@@ -49,7 +49,7 @@ Snippets:
 
 
 @node Basic percussion notation
-@unnumberedsubsubsec Basic percussion notation
+@subsection Basic percussion notation
 
 @cindex percussion
 @cindex drum
@@ -115,7 +115,7 @@ Snippets:
 
 
 @node Drum rolls
-@unnumberedsubsubsec Drum rolls
+@subsection Drum rolls
 
 Drum rolls are indicated with three slashes across the stem.  For
 quarter notes or longer the three slashes are shown explicitly,
@@ -159,7 +159,7 @@ Snippets:
 
 
 @node Pitched percussion
-@unnumberedsubsubsec Pitched percussion
+@subsection Pitched percussion
 
 Certain pitched percussion instruments (e.g., xylophone,
 vibraphone, and timpani) are written using normal staves.
@@ -175,7 +175,7 @@ Snippets:
 
 
 @node Percussion staves
-@unnumberedsubsubsec Percussion staves
+@subsection Percussion staves
 
 @cindex percussion
 @cindex drum
@@ -471,7 +471,7 @@ Snippets:
 
 
 @node Custom percussion staves
-@unnumberedsubsubsec Custom percussion staves
+@subsection Custom percussion staves
 
 @cindex percussion, custom
 @funindex drumStyleTable
@@ -625,7 +625,7 @@ Internals Reference:
 
 
 @node Ghost notes
-@unnumberedsubsubsec Ghost notes
+@subsection Ghost notes
 
 @cindex ghost note, percussion
 @cindex dead note, percussion

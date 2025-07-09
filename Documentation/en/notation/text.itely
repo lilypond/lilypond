@@ -10,7 +10,7 @@
 @c \version "2.25.6"
 
 @node Text
-@section Text
+@chapter Text
 
 @lilypondfile[quote]{snippets/text-headword.ly}
 
@@ -19,7 +19,7 @@ formatting) in music scores.
 
 
 @node Writing text
-@subsection Writing text
+@section Writing text
 
 This section introduces different ways of adding text to a score.
 
@@ -31,7 +31,7 @@ information, see @ref{Text encoding}.}
 
 
 @node Text objects overview
-@unnumberedsubsubsec Text objects overview
+@subsection Text objects overview
 
 @funindex \markup
 @cindex text object
@@ -179,7 +179,7 @@ Snippets:
 
 
 @node Text scripts
-@unnumberedsubsubsec Text scripts
+@subsection Text scripts
 
 @cindex text script
 @cindex text item, non-empty
@@ -263,7 +263,7 @@ performance is desired, use
 
 
 @node Text spanners
-@unnumberedsubsubsec Text spanners
+@subsection Text spanners
 
 @cindex text spanner
 
@@ -358,7 +358,7 @@ Internals Reference:
 
 
 @node Section labels
-@unnumberedsubsubsec Section labels
+@subsection Section labels
 
 
 @cindex section label
@@ -398,7 +398,7 @@ Internals Reference:
 
 
 @node Text marks
-@unnumberedsubsubsec Text marks
+@subsection Text marks
 
 @cindex text mark
 @cindex mark, text
@@ -620,7 +620,7 @@ Internals Reference:
 
 
 @node Separate text
-@unnumberedsubsubsec Separate text
+@subsection Separate text
 
 @cindex separate text
 @cindex text, separate
@@ -698,14 +698,14 @@ Internals Reference:
 
 
 @node Formatting text
-@subsection Formatting text
+@section Formatting text
 
 This section presents basic and advanced text formatting,
 using the markup mode specific syntax.
 
 
 @node Text markup introduction
-@unnumberedsubsubsec Text markup introduction
+@subsection Text markup introduction
 
 @cindex markup
 @cindex text markup
@@ -953,7 +953,7 @@ Syntax error messages for markup mode can be confusing.
 
 
 @node Selecting font and font size
-@unnumberedsubsubsec Selecting font and font size
+@subsection Selecting font and font size
 
 @cindex font, switching
 @cindex changing font
@@ -1181,7 +1181,7 @@ using @code{\fontsize}.
 
 
 @node Text alignment
-@unnumberedsubsubsec Text alignment
+@subsection Text alignment
 
 @cindex text, aligning
 @cindex aligning text
@@ -1529,7 +1529,7 @@ Internals Reference:
 
 
 @node Graphic notation inside markup
-@unnumberedsubsubsec Graphic notation inside markup
+@subsection Graphic notation inside markup
 
 @cindex graphics, embedding
 @cindex drawing graphic object
@@ -1695,7 +1695,7 @@ Internals Reference:
 
 
 @node Music notation inside markup
-@unnumberedsubsubsec Music notation inside markup
+@subsection Music notation inside markup
 
 @cindex notation, inside markup
 @cindex music, inside markup
@@ -1830,7 +1830,7 @@ by @code{baseline-skip}.  Any @code{\paper} settings are ignored.
 
 
 @node Fonts
-@subsection Fonts
+@section Fonts
 
 @cindex Pango
 @cindex FontConfig
@@ -1846,7 +1846,7 @@ change them in scores.
 
 
 @node Finding fonts
-@unnumberedsubsubsec Finding fonts
+@subsection Finding fonts
 
 @cindex font, finding
 @cindex font, external files
@@ -1876,7 +1876,7 @@ same effect.
 
 
 @node Font families
-@unnumberedsubsubsec Font families
+@subsection Font families
 
 Three generic aliases for text font families@footnote{In its
 simplest form, a @emph{font family} usually contains fonts in
@@ -2005,7 +2005,7 @@ cases it is preferable to use the simpler syntax explained in
 
 
 @node Font features
-@unnumberedsubsubsec Font features
+@subsection Font features
 
 @cindex feature, OpenType font
 @cindex font feature, OpenType
@@ -2076,7 +2076,7 @@ Snippets:
 
 
 @node Changing fonts
-@unnumberedsubsubsec Changing fonts
+@subsection Changing fonts
 
 It is possible to change the fonts used in LilyPond's default font
 families.

@@ -12,7 +12,7 @@
 
 
 @node Ancient notation
-@section Ancient notation
+@chapter Ancient notation
 
 @lilypondfile[quote]{snippets/ancient-headword.ly}
 
@@ -72,7 +72,7 @@ Notation Reference:
 
 
 @node Overview of the supported styles
-@subsection Overview of the supported styles
+@section Overview of the supported styles
 
 Three styles are available for typesetting Gregorian chant:
 
@@ -157,10 +157,10 @@ Music Glossary:
 
 @need 1500
 @node Ancient notation - common features
-@subsection Ancient notation -- common features
+@section Ancient notation -- common features
 
 @node Predefined contexts
-@unnumberedsubsubsec Predefined contexts
+@subsection Predefined contexts
 
 For Gregorian chant and mensural notation, there are predefined
 voice, staff, and score contexts available, which set all the
@@ -184,7 +184,7 @@ Notation Reference:
 
 
 @node Ligatures
-@unnumberedsubsubsec Ligatures
+@subsection Ligatures
 
 @cindex ligature
 
@@ -260,7 +260,7 @@ be changed to @qq{postfix} style @code{note\[ @dots{} note\]}.
 
 
 @node Custodes
-@unnumberedsubsubsec Custodes
+@subsection Custodes
 
 @cindex custos
 @cindex custodes
@@ -360,10 +360,10 @@ Internals Reference:
 
 @need 1500
 @node Typesetting mensural music
-@subsection Typesetting mensural music
+@section Typesetting mensural music
 
 @node Mensural contexts
-@unnumberedsubsubsec Mensural contexts
+@subsection Mensural contexts
 
 @funindex MensuralVoice
 @funindex MensuralStaff
@@ -401,7 +401,7 @@ Music Glossary:
 
 
 @node Mensural clefs
-@unnumberedsubsubsec Mensural clefs
+@subsection Mensural clefs
 
 @cindex clef, style
 @cindex ancient music clef
@@ -478,7 +478,7 @@ The Mensural g clef is mapped to the Petrucci g clef.
 
 
 @node Mensural time signatures
-@unnumberedsubsubsec Mensural time signatures
+@subsection Mensural time signatures
 
 @cindex mensuration sign
 @cindex time signature, mensural
@@ -615,7 +615,7 @@ Use @code{\markup @{\musicglyph "timesig.mensural68alt" @}} instead.
 
 
 @node Mensural note heads
-@unnumberedsubsubsec Mensural note heads
+@subsection Mensural note heads
 
 @cindex note head, ancient
 
@@ -686,7 +686,7 @@ Notation Reference:
 
 
 @node Mensural flags
-@unnumberedsubsubsec Mensural flags
+@subsection Mensural flags
 
 @cindex flag, mensural
 @cindex mensural flag
@@ -727,7 +727,7 @@ scope for mensural notation).
 
 
 @node Mensural rests
-@unnumberedsubsubsec Mensural rests
+@subsection Mensural rests
 
 @cindex rest, ancient
 
@@ -767,7 +767,7 @@ using pitched rests.
 
 
 @node Mensural accidentals and key signatures
-@unnumberedsubsubsec Mensural accidentals and key signatures
+@subsection Mensural accidentals and key signatures
 
 @cindex accidental, mensural
 @cindex key signature, mensural
@@ -813,7 +813,7 @@ Internals Reference:
 
 
 @node Annotational accidentals (musica ficta)
-@unnumberedsubsubsec Annotational accidentals (@emph{musica ficta})
+@subsection Annotational accidentals (@emph{musica ficta})
 
 In European music from before about 1600, singers were expected to
 chromatically alter notes at their own initiative according to
@@ -861,7 +861,7 @@ Internals Reference:
 
 
 @node White mensural ligatures
-@unnumberedsubsubsec White mensural ligatures
+@subsection White mensural ligatures
 
 @cindex ligature, mensural
 @cindex mensural ligature
@@ -1005,7 +1005,7 @@ Accidentals may collide with previous notes.
 
 
 @node Typesetting Gregorian chant
-@subsection Typesetting Gregorian chant
+@section Typesetting Gregorian chant
 
 When typesetting a piece in Gregorian chant notation, the
 @code{Vaticana_ligature_engraver} automatically selects the
@@ -1026,7 +1026,7 @@ Notation Reference:
 
 
 @node Gregorian chant contexts
-@unnumberedsubsubsec Gregorian chant contexts
+@subsection Gregorian chant contexts
 
 @funindex VaticanaVoice
 @funindex VaticanaLyrics
@@ -1072,7 +1072,7 @@ following excerpt demonstrates.
 
 
 @node Gregorian clefs
-@unnumberedsubsubsec Gregorian clefs
+@subsection Gregorian clefs
 
 @cindex clef
 
@@ -1227,7 +1227,7 @@ Notation Reference:
 
 
 @node Gregorian accidentals and key signatures
-@unnumberedsubsubsec Gregorian accidentals and key signatures
+@subsection Gregorian accidentals and key signatures
 
 @cindex accidental, Gregorian
 @cindex key signature, Gregorian
@@ -1282,7 +1282,7 @@ Internals Reference:
 
 
 @node Divisiones
-@unnumberedsubsubsec Divisiones
+@subsection Divisiones
 
 @cindex bar line, in Gregorian chant
 @cindex divisio
@@ -1370,7 +1370,7 @@ Notation Reference:
 
 
 @node Gregorian articulation signs
-@unnumberedsubsubsec Gregorian articulation signs
+@subsection Gregorian articulation signs
 
 @cindex articulation, Gregorian
 @cindex Gregorian articulation
@@ -1446,7 +1446,7 @@ corresponding note heads.
 
 
 @node Augmentum dots (morae)
-@unnumberedsubsubsec Augmentum dots (@emph{morae})
+@subsection Augmentum dots (@emph{morae})
 
 Augmentum dots, also called @emph{morae}, are added with the music
 function @code{\augmentum}.  Note that @code{\augmentum} is
@@ -1479,7 +1479,7 @@ Snippets:
 
 
 @node Gregorian square neume ligatures
-@unnumberedsubsubsec Gregorian square neume ligatures
+@subsection Gregorian square neume ligatures
 
 @cindex ligature, square neumes
 @cindex square neumes ligature
@@ -1536,7 +1536,7 @@ between @code{\[@dots{}\]}.
 @c Regarding the @emph{punctum}, @code{b} and @code{\[ b \]} are
 @c equivalent.
 
-@subsubsubheading Single-note neumes
+@subsubheading Single-note neumes
 
 @itemize
 @item The @emph{punctum} is the basic note shape (in the
@@ -1552,7 +1552,7 @@ lines on either side of the note.
 produced by the modifier @code{\virga}.
 @end itemize
 
-@subsubsubheading Ligatures
+@subsubheading Ligatures
 
 Unlike most other neumes notation systems, the typographical
 appearance of ligatures is not directly dictated by the input
@@ -1569,7 +1569,7 @@ separate the musical aspects of the input from the notation style
 of the output.  This way, the same input can be reused to typeset
 the same music in a different style of Gregorian chant notation.
 
-@subsubsubheading Liquescent neumes
+@subsubheading Liquescent neumes
 
 Another main category of notes in Gregorian chant is the so-called
 liquescent neumes.  They are used under certain circumstances at
@@ -1589,7 +1589,7 @@ of a single-note neume with @code{\auctum} and one of the direction
 markers @code{\descendens} or @code{\ascendens}, e.g.,
 @code{ \[ \auctum \descendens a \] }.
 
-@subsubsubheading Special signs
+@subsubheading Special signs
 
 A third category of signs is made up of a small number of signs
 with a special meaning (which, incidentally, in most cases is only
@@ -1641,7 +1641,7 @@ shows the code fragment that produces this ligature, using
 @code{g}, @code{a}, and @code{b} as example pitches.
 
 
-@subsubsubheading Single-note neumes
+@subsubheading Single-note neumes
 
 @need 1000
 @indentedblock
@@ -1791,7 +1791,7 @@ shows the code fragment that produces this ligature, using
 @end indentedblock
 
 
-@subsubsubheading Two-note ligatures
+@subsubheading Two-note ligatures
 
 @need 1000
 @indentedblock
@@ -1953,7 +1953,7 @@ Initio Debilis}
 @end indentedblock
 
 
-@subsubsubheading Multi-note ligatures
+@subsubheading Multi-note ligatures
 
 @need 1000
 @indentedblock
@@ -2198,7 +2198,7 @@ Initio Debilis}
 @end indentedblock
 
 
-@subsubsubheading Special signs
+@subsubheading Special signs
 
 @need 1000
 @indentedblock
@@ -2457,10 +2457,10 @@ with head prefixes in arbitrary order.
 
 @need 1500
 @node Typesetting Kievan square notation
-@subsection Typesetting Kievan square notation
+@section Typesetting Kievan square notation
 
 @node Kievan contexts
-@unnumberedsubsubsec Kievan contexts
+@subsection Kievan contexts
 
 @funindex KievanVoice
 @funindex KievanStaff
@@ -2502,7 +2502,7 @@ House.  LilyPond does not support the older (less common) forms of
 Kievan notation that were used in Galicia to notate Rusyn plainchant.
 
 @node Kievan clefs
-@unnumberedsubsubsec Kievan clefs
+@subsection Kievan clefs
 
 @cindex clef
 
@@ -2526,7 +2526,7 @@ Notation Reference:
 
 
 @node Kievan notes
-@unnumberedsubsubsec Kievan notes
+@subsection Kievan notes
 
 @cindex note head, ancient
 
@@ -2573,7 +2573,7 @@ direction within a single melisma.  This can be done manually by
 setting the @code{direction} property of the @code{Stem} object.
 
 @node Kievan accidentals
-@unnumberedsubsubsec Kievan accidentals
+@subsection Kievan accidentals
 
 @cindex accidental, Kievan
 @cindex Kievan accidental
@@ -2605,7 +2605,7 @@ Notation Reference:
 
 
 @node Kievan bar lines
-@unnumberedsubsubsec Kievan bar lines
+@subsection Kievan bar lines
 
 @funindex \caesura
 @funindex \fine
@@ -2637,7 +2637,7 @@ Notation Reference:
 
 
 @node Kievan melismata
-@unnumberedsubsubsec Kievan melismata
+@subsection Kievan melismata
 
 @cindex ligature, Kievan
 @cindex Kievan ligature
@@ -2704,7 +2704,7 @@ Horizontal spacing of ligatures is poor.
 
 
 @node Working with ancient music - scenarios and solutions
-@subsection Working with ancient music -- scenarios and solutions
+@section Working with ancient music -- scenarios and solutions
 
 Working with ancient music frequently involves particular tasks
 which differ considerably from the modern notation for which
@@ -2725,7 +2725,7 @@ same source.
 
 
 @node Incipits
-@unnumberedsubsubsec Incipits
+@subsection Incipits
 @funindex \incipit
 @cindex incipit, adding
 
@@ -2775,7 +2775,7 @@ produced.  If no instrument name is required then use
 
 
 @node Mensurstriche layout
-@unnumberedsubsubsec Mensurstriche layout
+@subsection Mensurstriche layout
 
 @cindex Mensurstriche
 
@@ -2802,7 +2802,7 @@ orientation aids that bar lines give.
 
 
 @node Transcribing Gregorian chant
-@unnumberedsubsubsec Transcribing Gregorian chant
+@subsection Transcribing Gregorian chant
 
 Gregorian chant can be transcribed into modern notation with a
 number of simple tweaks.
@@ -2986,7 +2986,7 @@ spirLyr = \lyricmode {
 
 
 @node Ancient and modern from one source
-@unnumberedsubsubsec Ancient and modern from one source
+@subsection Ancient and modern from one source
 
 @funindex Completion_heads_engraver
 @funindex Completion_rest_engraver

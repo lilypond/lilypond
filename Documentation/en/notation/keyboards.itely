@@ -10,7 +10,7 @@
 @c \version "2.21.0"
 
 @node Keyboard and other multi-staff instruments
-@section Keyboard and other multi-staff instruments
+@chapter Keyboard and other multi-staff instruments
 
 @lilypondfile[quote]{snippets/keyboard-headword.ly}
 
@@ -23,14 +23,14 @@ keyboard.
 
 
 @node Common notation for keyboards
-@subsection Common notation for keyboards
+@section Common notation for keyboards
 
 This section discusses notation issues that may arise for most
 keyboard instruments.
 
 
 @node References for keyboards
-@unnumberedsubsubsec References for keyboards
+@subsection References for keyboards
 
 @cindex piano staff
 @cindex staff, piano
@@ -122,7 +122,7 @@ Snippets:
 
 
 @node Changing staff manually
-@unnumberedsubsubsec Changing staff manually
+@subsection Changing staff manually
 
 @cindex changing staff manually
 @cindex manual staff change
@@ -260,7 +260,7 @@ right before a change in staff.  In this case use manual beams.
 
 
 @node Changing staff automatically
-@unnumberedsubsubsec Changing staff automatically
+@subsection Changing staff automatically
 
 @cindex changing staff automatically
 @cindex automatic staff change
@@ -366,7 +366,7 @@ staff based on the first note named in the chord construct.
 
 
 @node Staff-change lines
-@unnumberedsubsubsec Staff-change lines
+@subsection Staff-change lines
 
 @cindex staff-change line
 @cindex cross-staff line
@@ -471,14 +471,14 @@ Internals Reference:
 
 
 @node Piano
-@subsection Piano
+@section Piano
 
 This section discusses notation issues that relate most directly to the
 piano.
 
 
 @node Piano pedals
-@unnumberedsubsubsec Piano pedals
+@subsection Piano pedals
 
 @cindex piano pedal
 @cindex pedal, piano
@@ -570,7 +570,7 @@ Internals Reference:
 
 
 @node Accordion
-@subsection Accordion
+@section Accordion
 
 @cindex accordion
 
@@ -578,7 +578,7 @@ This section discusses notation that is unique to the accordion.
 
 
 @node Discant symbols
-@unnumberedsubsubsec Discant symbols
+@subsection Discant symbols
 
 @cindex accordion discant symbol
 @cindex discant symbol, accordion
@@ -611,13 +611,13 @@ Snippets:
 
 
 @node Harp
-@subsection Harp
+@section Harp
 
 This section discusses notation issues that are unique to the harp.
 
 
 @node References for harps
-@unnumberedsubsubsec References for harps
+@subsection References for harps
 @cindex harp
 @cindex bisbigliando
 
@@ -647,7 +647,7 @@ Notation Reference:
 
 
 @node Harp pedals
-@unnumberedsubsubsec Harp pedals
+@subsection Harp pedals
 
 @cindex harp, pedal
 @cindex harp, pedal diagram

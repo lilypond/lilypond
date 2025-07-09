@@ -10,14 +10,14 @@
 @c \version "2.19.21"
 
 @node World music
-@section World music
+@chapter World music
 
 The purpose of this section is to highlight musical notation issues
 that are relevant to traditions outside the Western tradition.
 
 
 @node Common notation for non-Western music
-@subsection Common notation for non-Western music
+@section Common notation for non-Western music
 
 This section discusses how to enter and print music scores
 that do not belong to the Western classical tradition,
@@ -25,7 +25,7 @@ also referred to as @notation{Common Practice Period}.
 
 
 @node Extending notation and tuning systems
-@unnumberedsubsubsec Extending notation and tuning systems
+@subsection Extending notation and tuning systems
 
 Standard classical notation (also known as
 @notation{Common Practice Period} notation) is commonly
@@ -92,14 +92,14 @@ Notation Reference:
 
 
 @node Arabic music
-@subsection Arabic music
+@section Arabic music
 
 This section highlights issues that are relevant to notating Arabic
 music.
 
 
 @node References for Arabic music
-@unnumberedsubsubsec References for Arabic music
+@subsection References for Arabic music
 
 @cindex Arabic music
 @cindex medium interval
@@ -155,7 +155,7 @@ Snippets:
 
 
 @node Arabic note names
-@unnumberedsubsubsec Arabic note names
+@subsection Arabic note names
 
 @cindex Arabic note name
 @cindex Hel-arabic note name
@@ -238,7 +238,7 @@ Snippets:
 
 
 @node Arabic key signatures
-@unnumberedsubsubsec Arabic key signatures
+@subsection Arabic key signatures
 
 @cindex Arabic key signatures
 
@@ -415,7 +415,7 @@ Internals Reference:
 
 
 @node Arabic time signatures
-@unnumberedsubsubsec Arabic time signatures
+@subsection Arabic time signatures
 
 @cindex Arabic time signatures
 @cindex semai form
@@ -462,7 +462,7 @@ Snippets:
 
 
 @node Arabic music example
-@unnumberedsubsubsec Arabic music example
+@subsection Arabic music example
 
 @cindex Arabic music example
 @cindex Arabic music template
@@ -504,7 +504,7 @@ Snippets:
 
 
 @node Further reading for Arabic music
-@unnumberedsubsubsec Further reading for Arabic music
+@subsection Further reading for Arabic music
 
 There are some variations in the details of how maqams are grouped,
 despite agreement of grouping maqams related through common lower tetra
@@ -552,14 +552,14 @@ Ibrahim Ali Darwish Al-masri
 
 
 @node Turkish classical music
-@subsection Turkish classical music
+@section Turkish classical music
 
 This section highlights issues that are relevant to notating Turkish
 classical music.
 
 
 @node References for Turkish classical music
-@unnumberedsubsubsec References for Turkish classical music
+@subsection References for Turkish classical music
 
 @cindex Turkish music
 @cindex Ottoman music
@@ -581,7 +581,7 @@ Special note names and accidentals are explained in
 
 
 @node Turkish note names
-@unnumberedsubsubsec Turkish note names
+@subsection Turkish note names
 
 @cindex Turkish note name
 @cindex makam
@@ -614,7 +614,7 @@ Notation Reference:
 
 
 @node Turkish key signatures
-@unnumberedsubsubsec Turkish key signatures
+@subsection Turkish key signatures
 
 LilyPond supports over 200 makam key signature definitions -- well
 beyond what is used in Turkish classical music -- with each makam having
@@ -643,7 +643,7 @@ automatically.
 
 
 @node Further reading for Turkish music
-@unnumberedsubsubsec Further reading for Turkish music
+@subsection Further reading for Turkish music
 
 @itemize
 
@@ -672,7 +672,7 @@ CDs.
 
 
 @node Persian classical music
-@subsection Persian classical music
+@section Persian classical music
 
 @cindex Persian classical music
 
@@ -681,7 +681,7 @@ Persian classical music.
 
 
 @node Persian music notation
-@unnumberedsubsubsec Persian music notation
+@subsection Persian music notation
 
 @cindex sori
 @cindex koron
@@ -761,7 +761,7 @@ The following suffixes to English note names are provided.
 
 
 @node Persian tunings
-@unnumberedsubsubsec Persian tunings
+@subsection Persian tunings
 
 Dastgahs can have many tunings; it has become common to name
 tunings after representative dastgahs featuring them.  The
@@ -817,7 +817,7 @@ following.
 
 
 @node Persian key signatures
-@unnumberedsubsubsec Persian key signatures
+@subsection Persian key signatures
 
 By default, the order of accidentals in Persian key signatures is
 flats followed by korons, then sharps followed by soris (then
@@ -841,7 +841,7 @@ flats and sharps, respectively.
 
 
 @node Further reading on Persian music
-@unnumberedsubsubsec Further reading on Persian music
+@subsection Further reading on Persian music
 
 @itemize
 

@@ -11,7 +11,7 @@
 
 
 @node Chord notation
-@section Chord notation
+@chapter Chord notation
 
 @lilypondfile[quote]{snippets/chords-headword.ly}
 
@@ -21,7 +21,7 @@ names and figured bass notation can also be displayed.
 
 
 @node Chord mode
-@subsection Chord mode
+@section Chord mode
 
 @cindex chord
 
@@ -30,7 +30,7 @@ structure, rather than the chord pitches.
 
 
 @node Chord mode overview
-@unnumberedsubsubsec Chord mode overview
+@subsection Chord mode overview
 
 @cindex chord name
 @cindex chord mode
@@ -84,7 +84,7 @@ on notes in chord mode, see @ref{Articulations and ornamentations}.
 
 
 @node Common chords
-@unnumberedsubsubsec Common chords
+@subsection Common chords
 
 @cindex triad
 @cindex seventh chord
@@ -221,7 +221,7 @@ in @ref{Extended and altered chords}.
 
 
 @node Extended and altered chords
-@unnumberedsubsubsec Extended and altered chords
+@subsection Extended and altered chords
 
 @cindex extended chord
 @cindex altered chord
@@ -382,7 +382,7 @@ interpreted last.
 
 
 @node Chord inversions and specific voicings
-@unnumberedsubsubsec Chord inversions and specific voicings
+@subsection Chord inversions and specific voicings
 
 @cindex chord, rotating
 @cindex chord, inversion
@@ -423,14 +423,14 @@ Snippets:
 
 
 @node Displaying chords
-@subsection Displaying chords
+@section Displaying chords
 
 Chords can be displayed by name, in addition to the standard display
 as notes on a staff.
 
 
 @node Printing chord names
-@unnumberedsubsubsec Printing chord names
+@subsection Printing chord names
 
 @cindex printing chord name
 @cindex chord name
@@ -557,7 +557,7 @@ properly if entered using simultaneous music.
 
 
 @node Customizing chord names
-@unnumberedsubsubsec Customizing chord names
+@subsection Customizing chord names
 
 @cindex customizing chord name
 
@@ -810,7 +810,7 @@ myChords = \relative c' {
 
 
 @node Chord grids
-@unnumberedsubsubsec Chord grids
+@subsection Chord grids
 
 @cindex chord grid
 @funindex ChordGrid
@@ -979,7 +979,7 @@ Internals Reference:
 
 
 @node Figured bass
-@subsection Figured bass
+@section Figured bass
 
 @lilypondfile[quote,staffsize=18,indent=2\cm,line-width=159\mm]
 {snippets/figured-bass-headword.ly}
@@ -988,7 +988,7 @@ Figured bass notation can be displayed.
 
 
 @node Introduction to figured bass
-@unnumberedsubsubsec Introduction to figured bass
+@subsection Introduction to figured bass
 
 @cindex basso continuo
 @cindex thorough bass
@@ -1049,7 +1049,7 @@ Snippets:
 
 
 @node Entering figured bass
-@unnumberedsubsubsec Entering figured bass
+@subsection Entering figured bass
 
 @code{\figuremode} is used to switch the input mode to figure
 mode.  @xref{Input modes} for more information on different input
@@ -1287,7 +1287,7 @@ Internals Reference:
 
 
 @node Displaying figured bass
-@unnumberedsubsubsec Displaying figured bass
+@subsection Displaying figured bass
 
 Figured bass can be displayed using the @code{FiguredBass} context,
 or in most staff contexts.
