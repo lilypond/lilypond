@@ -60,10 +60,13 @@ def musicxml_duration_to_log(dur):
 
 # Examples:
 #
-# r'"foo  \"bar  baz\"  urgh"'  ->  [r'"foo  \"bar  baz\"  urgh"']
-# r'foo  "bar  baz"  urgh'      ->  ['foo', '"bar  baz"', 'urgh']
+#   r'"foo  \"bar  baz\"  urgh"'  ->  [r'"foo  \"bar  baz\"  urgh"']
+#   r'foo  "bar  baz"  urgh'      ->  ['foo', '"bar  baz"', 'urgh']
+#
+# We only split at ASCII whitespace characters, mainly to preserve the
+# non-breakable space character (U+0080).
 def split_string_and_preserve_doublequoted_substrings(value):
-    return re.findall(r'(?sx) (?: " .*? [^\\] " | \S )+', value)
+    return re.findall(r'(?asx) (?: " .*? [^\\] " | \S )+', value)
 
 
 def musicxml_sound_to_lilypond_midi_instrument(sound):
