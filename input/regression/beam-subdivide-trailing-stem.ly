@@ -11,7 +11,6 @@ stem has beamlets to the left."
 \relative c' {
   \time 1/4
   \set subdivideBeams = ##t
-  \set beatBase = #1/16
   c32 [ c c c c32 ] r16.
   c32 [ c c c c64 ] r32. r16
   c32 [ c c32 ] r32 r8
