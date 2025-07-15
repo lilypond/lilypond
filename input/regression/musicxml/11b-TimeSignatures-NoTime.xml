@@ -5,8 +5,8 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">A score without
-          a time signature (but with a key and clefs).  The first bar misses a
-          &lt;time&gt; element altogether, the second bar sets a 2/2 time with
+          a time signature at the beginning (but with &lt;key&gt; and
+          &lt;clef&gt; elements).  The second bar sets a 2/2 time with
           ‘print-object="no"’ for both staves, and the third bar sets a 4/4 time
           with ‘print-object="no"’ only for the lower
           staff.</miscellaneous-field>

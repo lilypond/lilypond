@@ -4,7 +4,11 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">Several ties that have their end tag missing.</miscellaneous-field>
+      <miscellaneous-field name="description">Several ties that have their end
+          tag missing.  The end position of the tie starting at position A is at
+          position C.  The tie starting at position C has no end tag at all.
+          The tie starting at position D is ended at
+          position E.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

@@ -5,10 +5,12 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">Displaying tuplet note types that
-          might not coincide with the displayed note.  The first two tuplets
-          take the type from the note, the second two from the
-          &lt;time-modification&gt; element, the remaining pair of tuplets from
-          the &lt;tuplet&gt; notation element.
+          might not coincide with the displayed note.  The tuplets in measure 1
+          derive the type from the note, the tuplets in measure 2 use the
+          &lt;normal-type&rt; and &lt;normal-dot&gt; children of the
+          &lt;time-modification&gt; element, and the remaining tuplets use the
+          &lt;tuplet-type&gt; and &lt;tuplet-dot&gt; children of the
+          &lt;tuplet&gt; element.
 
           The tuplets in measure 3 specify both a number of notes and a type
           inside the &lt;tuplet-actual&gt; and &lt;tuplet-normal&gt; elements,
@@ -16,8 +18,8 @@
           the ones in measure 5 specify only a number of tuplet notes (but no
           type, which is deduced from the note's type).
 
-          The first tuplet of measures 3 to 5 uses ‘display-type="actual"’, the
-          second one ‘display-type="both"’.
+          The first tuplets of measures 3 to 5 use the attribute
+          ‘display-type="actual"’, the second ones ‘display-type="both"’.
 
           FIXME: The tuplet-normal should coincide with the real
           notes!</miscellaneous-field>

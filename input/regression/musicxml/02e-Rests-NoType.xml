@@ -4,9 +4,9 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">In some cases, a rest might
-          not have its type attribute set (this happens, for example, with
-          voices in Finale, where you don't manually insert a
+      <miscellaneous-field name="description">In some cases, a &lt;rest&gt;
+          element misses the &lt;type&gt; child (this happens, for example,
+          with voices in Finale, where you don't manually insert a
           rest).</miscellaneous-field>
     </miscellaneous>
   </identification>

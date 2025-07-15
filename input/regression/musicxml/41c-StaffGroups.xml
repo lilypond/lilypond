@@ -5,10 +5,11 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">A huge orchestra score with
-          28 parts and different kinds of nested, bracketed groups.  Each
-          part/group is assigned a name and an abbreviation to be shown before
-          the staff.  Also, most of the groups show unbroken bar lines, while
-          the bar lines are broken between the groups.
+          28 parts and different kinds of nested, bracketed groups, using quite
+          a small staff size.  Each part/group is assigned a name and an
+          abbreviation to be shown before the staff.  Also, most of the groups
+          show unbroken bar lines, while the bar lines are broken between the
+          groups.
 
           Both the harp and the organ are multi-staff parts; the latter also
           uses a &lt;part-symbol&gt; element to set up the brace delimiter (and

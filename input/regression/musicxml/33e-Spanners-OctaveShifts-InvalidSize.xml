@@ -4,8 +4,9 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">Invalid octave-shifts: 27 down,
-            11 up.</miscellaneous-field>
+      <miscellaneous-field name="description">Invalid &lt;octave-shifts&gt;
+          values: 27 down for the second note, and 11 up for the third
+          note.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

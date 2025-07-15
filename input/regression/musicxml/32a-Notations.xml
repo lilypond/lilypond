@@ -8,8 +8,10 @@
           defined in MusicXML.  The lyrics show the notation assigned to each
           note.
 
-          The third-last bar is a full-measure rest with a
-          fermata.</miscellaneous-field>
+          The third-last bar is a full-measure rest with a fermata.
+
+          A trailing up-arrow indicates a ‘placement="above"’ attribute, a
+          down-arrow means ‘placement="below"’.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

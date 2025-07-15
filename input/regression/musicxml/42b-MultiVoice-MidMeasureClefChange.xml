@@ -6,9 +6,10 @@
     <miscellaneous>
       <miscellaneous-field name="description">A part with three voices; two on
           the upper staff and one on the lower staff.  There are two clef
-          changes in the upper staff, one in the middle of measure one and one
-          at the end.  The third voice has a length of only three eights,
-          starting at the fourth eighth of the first bar.
+          changes in the upper staff, one in the middle of measure 1 and one at
+          the end.  The third voice (i.e., the second voice in the upper staff)
+          has a length of only three eights, starting at the fourth eighth of
+          the first measure.
 
           No voice contains &lt;stem&gt; elements.</miscellaneous-field>
     </miscellaneous>

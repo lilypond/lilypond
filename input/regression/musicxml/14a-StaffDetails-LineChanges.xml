@@ -6,14 +6,15 @@
     <miscellaneous>
       <miscellaneous-field name="description">Testing staff line configurations
           and pitched notes.  The number of staff lines can be modified by using
-          the ‘staff-lines’ child of the ‘staff-details’ attribute.  This can
-          happen globally (the first staff has one line globally) or during the
-          part at the beginning of a measure and even inside a measure (the
-          second part has 5 lines initially, 4 at the beginning of the second
-          measure, and 3 starting in the middle of the third measure).  The
-          fourth measure in the lower staff has five lines again but uses
-          ‘print-object="no"’ in the ‘line-detail’ element to suppress the
-          second and fourth staff line.</miscellaneous-field>
+          the &lt;staff-lines&gt; child of the &lt;staff-details&gt; attribute.
+          This can happen globally (the first staff has one line globally) or
+          during the part at the beginning of a measure and even inside a
+          measure (the second part has five lines initially, four at the
+          beginning of the second measure, and three starting in the middle of
+          the third measure).  The fourth measure in the lower staff has five
+          lines again but uses the ‘print-object="no"’ attribute in the
+          &lt;line-detail&gt; element to suppress the second and fourth staff
+          line.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

@@ -6,10 +6,10 @@
     <miscellaneous>
       <miscellaneous-field name="description">
           It should not make any difference whether two articulations are given
-          inside two different notation elements, inside two different articulations
-          children of the same notation element or inside the same articulations
-          element. Thus, all three notes should have a staccato and an accent.
-      </miscellaneous-field>
+          inside two different &lt;notations&gt; elements, inside two different
+          &lt;articulations&gt; children of the same &lt;notations&gt; element,
+          or inside the same &lt;articulations&gt; element.  Thus, all three
+          notes should have a staccato and an accent.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

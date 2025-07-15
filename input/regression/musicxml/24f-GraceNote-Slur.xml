@@ -7,8 +7,8 @@
       <miscellaneous-field name="description">A grace note with a slur to the
           actual note.  The &lt;grace&gt; element has no ‘slash’ attribute;
           since MusicXML does not provide a default value it is up to the
-          application to interpret the grace note as an acciaccatura or an
-          appoggiatura.</miscellaneous-field>
+          application to interpret the grace note as an acciaccatura (with
+          slash) or an appoggiatura (without slash).</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

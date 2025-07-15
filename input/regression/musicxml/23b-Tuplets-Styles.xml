@@ -7,7 +7,7 @@
       <miscellaneous-field name="description">Different tuplet styles: default,
           none, x:y, x:y-note, and x-note:y-note; each with bracket, slur, and
           without bracket.  Finally, non-standard 4:3 and 17:2 tuplets are
-          given.</miscellaneous-field>
+          given in the last measure.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

@@ -1,3 +1,5 @@
+@hyphenation{Music-XML}
+
 @iftex
 @contents
 @end iftex
@@ -6,7 +8,7 @@
 
 @heading Why a MusicXML test suite?
 
-This test suite of sample @uref{http://www.musicxml.org/,
+This test suite of sample @uref{https://www.w3.org/2021/06/musicxml40/,
 MusicXML} files is supposed to fill a severe gap for all
 developers implementing MusicXML support in their application:
 There is no complete test suite of MusicXML files available for

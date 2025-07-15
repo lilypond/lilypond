@@ -5,13 +5,13 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">Different kinds of grace notes.
-          First bar: single 1/16 grace note, beamed 1/16 grace notes,
-          1/16 appoggiatura, 1/8 appoggiatura.  Second bar: slashed single 1/16
-          grace note, beamed 1/16 grace notes (with both notes marked as
-          slashed), 1/16 acciaccatura, 1/16 grace note (without slash) right
-          before the measure bar.  Third bar: no grace note before chord, 1/4
+          First measure: single 1/16 grace note, two beamed 1/16 grace notes,
+          1/16 appoggiatura, 1/8 appoggiatura.  Second measure: slashed single
+          1/16 grace note, two beamed 1/16 grace notes (with both notes marked
+          as slashed), 1/16 acciaccatura, 1/16 grace note (without slash) right
+          before the bar line.  Third measure: no grace note before chord, 1/4
           grace note with sharp, two 1/4 grace notes with flats, 1/16 slashed
-          grace note before rest.</miscellaneous-field>
+          grace note with natural before a quarter rest.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

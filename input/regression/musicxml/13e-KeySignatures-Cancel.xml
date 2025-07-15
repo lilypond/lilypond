@@ -5,8 +5,17 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">Tests of key signature
-          cancellation: at default location, at right, and before barline, then
-          cancelling a key signature that does not exist.</miscellaneous-field>
+          cancellation: in measure 2 it is positioned at the default location
+          (which usually means that the cancellation comes immediately after the
+          bar line), in measure 3 it uses the attribute ‘location="right"’
+          (i.e., the cancellation comes after the new key signature), in
+          measure 4 it uses ‘location="before-barline"’, and in measure 5 it
+          uses the attribute ‘location="left"’ (the cancellation comes before
+          the new key signature).
+
+          The &lt;cancel&gt; element's value (4) in the last measure
+          intentionally doesn't correspond to the value of the previous
+          &lt;fifths&gt; value (2) for testing purposes.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

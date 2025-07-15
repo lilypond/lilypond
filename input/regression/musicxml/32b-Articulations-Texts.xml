@@ -8,7 +8,10 @@
           font sizes, weights, horizontal positions (using ‘default-x’), and
           vertical positions (using ‘default-y’).  Strings below the staff are
           positioned right before the &lt;measure&gt;; the last one is also
-          drawn in red.</miscellaneous-field>
+          drawn in red.
+
+          A trailing up-arrow indicates a ‘placement="above"’ attribute, a
+          down-arrow means ‘placement="below"’.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

@@ -4,8 +4,8 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">One simple chord
-          consisting of two notes.</miscellaneous-field>
+      <miscellaneous-field name="description">A chord consisting of two quarter
+      notes followed by a quarter rest.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

@@ -11,11 +11,14 @@
           The first ‘molto f’ uses &lt;words&gt;molto &lt;words&gt;, i.e., it
           omits the ‘xml:space’ attribute.   This makes the rendering of the
           space between ‘molto’ and ‘f’ implementation-dependent (and might be
-          thus omitted).  The second ‘molto f’, together with ‘meno f’, uses
-          ‘xml:space="preserve"’.
+          thus not rendered).  The second ‘molto f’, together with ‘meno f’,
+          uses ‘xml:space="preserve"’.
 
-          For demonstration purposes, there is no space between words ‘bold’ and
-          ‘italic’.</miscellaneous-field>
+          For demonstration purposes, there is no space between the words ‘bold’
+          and ‘italic’.
+
+          A trailing up-arrow indicates a ‘placement="above"’ attribute, a
+          down-arrow means ‘placement="below"’.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

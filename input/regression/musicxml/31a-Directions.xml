@@ -7,8 +7,10 @@
       <miscellaneous-field name="description">All &lt;direction&gt; elements
           defined in MusicXML.  The lyrics for each note describes the direction
           element assigned to that note.  Not marked with lyrics is a
-          &lt;scordatura&gt; element at the very
-          beginning.</miscellaneous-field>
+          &lt;scordatura&gt; element at the very beginning.
+
+          A trailing up-arrow indicates a ‘placement="above"’ attribute, a
+          down-arrow means ‘placement="below"’.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
