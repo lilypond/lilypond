@@ -11,11 +11,11 @@
           produces unwanted results (and the application actually supports this
           attribute).
 
-          In the following, staves 1 to 4 have a four-staves brace on the left
-          and two two-staves braces to the right.  On staves 4 to 8 it's exactly
-          the opposite (i.e., the four-staves brace is to the right), using the
-          same ‘number’ attribute values as before but different ‘default-x’
-          values.
+          In the following (using a smaller staff size), staves 1 to 4 have a
+          four-staves brace on the left and two two-staves braces to the right.
+          On staves 4 to 8 it's exactly the opposite (i.e., the four-staves
+          brace is to the right), using the same ‘number’ attribute values as
+          before but different ‘default-x’ values.
 
           Note also that the four-staves brace has the element
           &lt;group-barline&gt; set to value ‘no’ while the two-staves braces
@@ -23,6 +23,12 @@
           should be grouped into two staves each.</miscellaneous-field>
     </miscellaneous>
   </identification>
+  <defaults>
+    <scaling>
+      <millimeters>5</millimeters>
+      <tenths>40</tenths>
+    </scaling>
+  </defaults>
   <part-list>
     <part-group number="2" type="start">
       <group-symbol default-x="-20">brace</group-symbol>

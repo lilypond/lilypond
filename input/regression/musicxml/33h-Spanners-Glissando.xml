@@ -5,7 +5,10 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">All different types of
-          glissando defined in MusicXML</miscellaneous-field>
+          glissando defined in MusicXML.  The first two and a half measures
+          contain &lt;glissando&gt; elements with various ‘line-type’
+          attributes, the rest contains &lt;slide&gt; elements (also with
+          various ‘line-type’ attributes).</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -39,7 +42,7 @@
         <notations>
           <glissando number="1" type="start"/>
         </notations>
-        <lyric number="1"><text>normal</text></lyric>
+        <lyric number="1"><text>default</text></lyric>
       </note>
       <note>
         <pitch>
@@ -81,6 +84,7 @@
         <lyric number="1"><text>(+text)</text></lyric>
       </note>
     </measure>
+    <!--=======================================================-->
     <measure number="2">
       <note>
         <pitch>
@@ -133,6 +137,7 @@
         </notations>
       </note>
     </measure>
+    <!--=======================================================-->
     <measure number="3">
       <note>
         <pitch>
@@ -170,7 +175,7 @@
         <notations>
           <slide number="1" type="start"/>
         </notations>
-        <lyric number="1"><text>normal</text></lyric>
+        <lyric number="1"><text>default</text></lyric>
       </note>
       <note>
         <pitch>
@@ -186,6 +191,7 @@
         <lyric number="1"><text>slide</text></lyric>
       </note>
     </measure>
+    <!--=======================================================-->
     <measure number="4">
       <note>
         <pitch>
@@ -239,6 +245,7 @@
         </notations>
       </note>
     </measure>
+    <!--=======================================================-->
     <measure number="5">
       <note>
         <pitch>

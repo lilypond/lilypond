@@ -5,10 +5,11 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">Various clefs: G, C, F,
-          percussion, TAB, and ‘none’ (in measure 17).  Some clefs are also
-          shown with transposition and on other staff lines than their default.
+          percussion, TAB, and ‘none’ (in measure 16).  Some clefs are also
+          shown with transposition and on other staff lines than their default;
+          the displayed note is always C4.
 
-          Each measure shows a different clef; only measure 18 has the same
+          Each measure shows a different clef; only measure 17 has the same
           treble clef as the first measure.</miscellaneous-field>
     </miscellaneous>
   </identification>
@@ -248,23 +249,6 @@
     <measure number="13">
       <attributes>
         <clef>
-          <sign>percussion</sign>
-        </clef>
-      </attributes>
-      <note>
-        <pitch>
-          <step>C</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>4</duration>
-        <voice>1</voice>
-        <type>whole</type>
-      </note>
-    </measure>
-    <!--=======================================================-->
-    <measure number="14">
-      <attributes>
-        <clef>
           <sign>G</sign>
           <line>2</line>
           <clef-octave-change>1</clef-octave-change>
@@ -281,7 +265,7 @@
       </note>
     </measure>
     <!--=======================================================-->
-    <measure number="15">
+    <measure number="14">
       <attributes>
         <clef>
           <sign>F</sign>
@@ -300,7 +284,7 @@
       </note>
     </measure>
     <!--=======================================================-->
-    <measure number="16">
+    <measure number="15">
       <attributes>
         <clef>
           <sign>TAB</sign>
@@ -318,7 +302,7 @@
       </note>
     </measure>
     <!--=======================================================-->
-    <measure number="17">
+    <measure number="16">
       <attributes>
         <clef>
           <sign>none</sign>
@@ -335,7 +319,7 @@
       </note>
     </measure>
     <!--=======================================================-->
-    <measure number="18">
+    <measure number="17">
       <attributes>
         <clef>
           <sign>G</sign>

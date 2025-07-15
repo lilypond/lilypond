@@ -59,6 +59,12 @@
         <notations><arpeggiate/></notations>
       </note>
       <note>
+        <rest/>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+      </note>
+      <note>
         <pitch>
           <step>C</step><octave>4</octave>
         </pitch>
@@ -89,35 +95,14 @@
         <notations><arpeggiate direction="up"/></notations>
       </note>
       <note>
-        <pitch>
-          <step>C</step><octave>4</octave>
-        </pitch>
+        <rest/>
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <notations><arpeggiate/></notations>
-        <lyric number="1"><text>normal</text></lyric>
       </note>
-      <note>
-        <chord/>
-        <pitch>
-          <step>E</step><octave>5</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <notations><arpeggiate/></notations>
-      </note>
-      <note>
-        <chord/>
-        <pitch>
-          <step>G</step><octave>5</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <notations><arpeggiate/></notations>
-      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="2">
       <note>
         <pitch>
           <step>C</step><octave>4</octave>
@@ -148,38 +133,11 @@
         <type>quarter</type>
         <notations><arpeggiate direction="down"/></notations>
       </note>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2">
       <note>
-        <pitch>
-          <step>C</step><octave>4</octave>
-        </pitch>
+        <rest/>
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <notations><arpeggiate/></notations>
-        <lyric number="1"><text>normal</text></lyric>
-      </note>
-      <note>
-        <chord/>
-        <pitch>
-          <step>E</step><octave>5</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <notations><arpeggiate/></notations>
-      </note>
-      <note>
-        <chord/>
-        <pitch>
-          <step>G</step><octave>5</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <notations><arpeggiate/></notations>
       </note>
       <note>
         <pitch>
@@ -212,35 +170,14 @@
         <notations><non-arpeggiate type="top"/></notations>
       </note>
       <note>
-        <pitch>
-          <step>C</step><octave>4</octave>
-        </pitch>
+        <rest/>
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <notations><arpeggiate/></notations>
-        <lyric number="1"><text>normal</text></lyric>
       </note>
-      <note>
-        <chord/>
-        <pitch>
-          <step>E</step><octave>5</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <notations><arpeggiate/></notations>
-      </note>
-      <note>
-        <chord/>
-        <pitch>
-          <step>G</step><octave>5</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <notations><arpeggiate/></notations>
-      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="3">
       <note>
         <pitch>
           <step>C</step><octave>4</octave>
@@ -271,9 +208,12 @@
         <type>quarter</type>
         <notations><arpeggiate/></notations>
       </note>
-    </measure>
-    <!--=======================================================-->
-    <measure number="3">
+      <note>
+        <rest/>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+      </note>
       <note>
         <pitch>
           <step>C</step><octave>4</octave>
@@ -304,6 +244,12 @@
         <voice>1</voice>
         <type>quarter</type>
         <notations><non-arpeggiate type="top"/></notations>
+      </note>
+      <note>
+        <rest/>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
       </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>

@@ -64,7 +64,6 @@
     </measure>
     <!--=======================================================-->
     <measure number="4">
-      <print new-system="yes"/>
       <note>
         <rest/>
         <duration>1024</duration>
@@ -134,6 +133,7 @@
     </measure>
     <!--=======================================================-->
     <measure number="5">
+      <print new-system="yes"/>
       <attributes>
         <time>
           <beats>3</beats>

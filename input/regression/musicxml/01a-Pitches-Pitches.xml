@@ -5,10 +5,12 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">All pitches from G to c’’’’ in
-          ascending steps.  First without accidentals, then with a sharp and
-          then with a flat accidental, then with explicit natural accidentals.
-          Double alterations and cautionary accidentals are tested at the
-          end.</miscellaneous-field>
+          ascending steps.  First without accidentals, then with a sharp, and
+          then with a flat accidental.
+
+          Measures 25 and 26 show explicit natural accidentals; measure 27
+          displays double alterations, cautionary, and editorial
+          accidentals.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -1215,32 +1217,7 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <accidental>sharp</accidental>
-      </note>
-      <note>
-        <pitch>
-          <step>C</step>
-          <alter>1</alter>
-          <octave>5</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <accidental>sharp</accidental>
-      </note>
-    </measure>
-    <!--=======================================================-->
-    <measure number="28">
-      <note>
-        <pitch>
-          <step>C</step>
-          <alter>1</alter>
-          <octave>5</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <accidental>sharp</accidental>
+        <accidental cautionary="yes">sharp</accidental>
       </note>
       <note>
         <pitch>

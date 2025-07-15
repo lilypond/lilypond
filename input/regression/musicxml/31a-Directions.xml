@@ -645,7 +645,7 @@
         <lyric number="1"><text>metro-</text></lyric>
         <lyric number="2"><text>nome</text></lyric>
       </note>
-      <direction>
+      <direction placement="below">
         <direction-type>
           <harp-pedals>
             <pedal-tuning>
@@ -685,9 +685,9 @@
         <voice>1</voice>
         <type>quarter</type>
         <lyric number="1"><text>harp</text></lyric>
-        <lyric number="2"><text>pedal</text></lyric>
+        <lyric number="2"><text>pedal↓</text></lyric>
       </note>
-      <direction>
+      <direction placement="above">
         <direction-type>
           <damp/>
         </direction-type>
@@ -697,7 +697,7 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <lyric number="1"><text>damp</text></lyric>
+        <lyric number="1"><text>damp↑</text></lyric>
       </note>
       <direction>
         <direction-type>

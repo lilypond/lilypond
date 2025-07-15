@@ -130,6 +130,7 @@
       </note>
     </measure>
     <measure number="7">
+      <print new-system="yes"/>
       <attributes>
         <time>
           <beats>4</beats>
