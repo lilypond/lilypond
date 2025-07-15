@@ -78,7 +78,14 @@ h4.subheading, h4.unnumberedsubsubsec {
   margin-top: 0.9em;
 }
 
-h4.subheading {
+/* This is for the first `h4.subheading` child, ... */
+.unnumberedsec > .subheading {
+  border-top: none;
+}
+
+/* ... while this is for all other `h4.subheading` children
+   to get more vertical space and a horizontal line. */
+.unnumberedsec > .subheading ~ .subheading {
   border-top: 1px solid rgb(200, 200, 200);
   padding-top: 0.8em;
 }
@@ -246,6 +253,11 @@ table td {
 
 img {
   vertical-align: middle;
+}
+
+/* This is for images right before a header or end of a blockquote. */
+img:last-child {
+  padding-bottom: 1em;
 }
 
 /***********************************************************/
