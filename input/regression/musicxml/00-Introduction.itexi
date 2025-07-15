@@ -98,5 +98,5 @@ and the MIDI generation) don't have any test cases yet.
 
 @unmacro lynode
 @macro lynode{TEXT}
-@heading \TEXT\
+@subheading \TEXT\
 @end macro
