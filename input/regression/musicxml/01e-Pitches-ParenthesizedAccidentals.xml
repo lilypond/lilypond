@@ -5,10 +5,10 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">Accidentals have the attributes
-          ‘cautionary’, ‘editorial’, ‘parenthesized’, and ‘bracketed’. The first
-          two measures each have a cautionary accidental, an editorial, a
+          ‘cautionary’, ‘editorial’, ‘parenthesized’, and ‘bracketed’.  The
+          first two measures each have a cautionary accidental, an editorial, a
           cautionary with parentheses off, and an editorial and cautionary
-          accidental. The next two measures each have a normal accidental, a
+          accidental.  The next two measures each have a normal accidental, a
           bracketed, a parenthesized, and a bracketed and parenthesized
           accidental.</miscellaneous-field>
     </miscellaneous>

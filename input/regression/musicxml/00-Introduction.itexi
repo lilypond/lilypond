@@ -41,7 +41,7 @@ In the web version of this document, you can click on the file name
 of test to see the MusicXML input file.  If you click on the figure
 you can see the corresponding @file{.ly} intermediary file.
 
-@heading Structure of this test suite 
+@heading Structure of this test suite
 
 Each test file (typically hand-crafted from the MusicXML
 specification) checks one particular aspect of MusicXML.  A short

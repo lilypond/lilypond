@@ -19,7 +19,7 @@
           &lt;direction&gt; element containing a dynamics mark.  Since the
           wedge has an &lt;offset&gt; element with a positive value while the
           dynamics has no such element at all, the dynamics precedes the
-          wedge.</miscellaneous-field> 
+          wedge.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <defaults/>

@@ -5,8 +5,9 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">A grace note that appears at the
-          measure end (without any steal-from-* attribute set). Some
-          applications need to convert this into an after-grace.</miscellaneous-field>
+          measure end (without any ‘steal-from-*’ attribute set).  Some
+          applications need to convert this into an
+          after-grace.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

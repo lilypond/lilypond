@@ -11,8 +11,8 @@
           the bar lines are broken between the groups.
 
           Both the harp and the organ are multi-staff parts; the latter also
-          uses a &lt;part-symbol&gt; element to set up the
-          brace delimiter (and the non-contiguous bar line of the three
+          uses a &lt;part-symbol&gt; element to set up the brace delimiter (and
+          the non-contiguous bar line of the three
           staves).</miscellaneous-field>
     </miscellaneous>
   </identification>

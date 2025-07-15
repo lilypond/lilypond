@@ -4,9 +4,8 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">A simple piano
-          staff, i.e., two voices, each on a separate
-          staff.</miscellaneous-field>
+      <miscellaneous-field name="description">A simple piano staff, i.e., two
+          voices, each on a separate staff.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
