@@ -4,9 +4,9 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">Five multi-measure rests: 3
-          measures, 15 measures, 1 measure, 12 measures, and 3 measures with
-          ‘use-symbols’ set.</miscellaneous-field>
+      <miscellaneous-field name="description">Five multi-measure rests:
+          3 measures, 15 measures, 1 measure, 12 measures, and finally
+          3 measures with ‘use-symbols’ set.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

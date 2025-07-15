@@ -7,8 +7,8 @@
       <miscellaneous-field name="description">Two voices share one staff.  To
           each voice some lyrics is assigned (with the lyrics of voice one
           positioned above the staff).  In the last bar, the second voice is
-          empty, thus the full rest should be positioned on the staff's middle
-          line.</miscellaneous-field>
+          empty, thus the full rest should be placed on the staff's default
+          position.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

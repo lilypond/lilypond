@@ -5,7 +5,7 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">All different rest lengths: A
-          two-bar multi-measure rest, a whole rest, a half, etc., until a
+          two-bar multi-measure rest, a whole rest, a half rest, etc., until a
           1024th-rest, then the same with dotted durations.  The last bar is a
           full-measure rest with the attribute
           ‘measure="no"’.</miscellaneous-field>

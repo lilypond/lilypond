@@ -4,10 +4,10 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">Senza-misura time signature.  The
-          first bar has three eighth notes, the second bar contains a
-          full-measure rest (indicated by setting ‘measure="yes"’ for the
-          &lt;rest&gt; element) with a length of a dotted half note, and the
+      <miscellaneous-field name="description">A &lt;senza-misura&gt; time
+          signature.  The first bar has three eighth notes, the second bar
+          contains a full-measure rest (indicated by setting ‘measure="yes"’ for
+          the &lt;rest&gt; element) with a length of a dotted half note, and the
           third bar contains four eighth notes.</miscellaneous-field>
     </miscellaneous>
   </identification>

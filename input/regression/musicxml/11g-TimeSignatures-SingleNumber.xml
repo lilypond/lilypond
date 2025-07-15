@@ -4,7 +4,7 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">Time signature displayed as a
+      <miscellaneous-field name="description">A time signature displayed as a
           single number.</miscellaneous-field>
     </miscellaneous>
   </identification>

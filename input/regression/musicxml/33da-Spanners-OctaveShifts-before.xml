@@ -10,7 +10,7 @@
       <miscellaneous-field name="description">All types of octave shifts (15ma
           on the third eighth note, 15mb on the fourth and fifth, 8va on the
           sixth and seventh, and 8vb on the last two 16th notes).  This test
-          file positions &lt;octave-shift type="stop"/>&gt; before the
+          file positions &lt;octave-shift type="stop"&gt; before the
           associated note, as expected in MusicXML import of Finale, for
           example.  Consequently, it contains ‘Finale’ as the &lt;software&gt;
           tag.

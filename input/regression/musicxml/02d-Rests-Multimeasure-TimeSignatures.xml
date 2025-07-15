@@ -5,7 +5,7 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">Multi-measure rests should always
-          be converted into durations that are a multiple of the time
+          be converted into durations that are multiples of the time
           signature.</miscellaneous-field>
     </miscellaneous>
   </identification>

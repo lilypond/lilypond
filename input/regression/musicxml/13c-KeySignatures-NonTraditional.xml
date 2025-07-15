@@ -5,10 +5,10 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">Non-traditional key signatures,
-          where each alteration is separately given.  The first signature is [f
-          sharp, a flat, b flat].  The second one is [c flatflat, g sharp sharp,
-          d flat, b sharp, f natural], with explicitly selected octaves for each
-          alteration.</miscellaneous-field>
+          where each alteration is separately given.  The first signature is
+          [f sharp, a flat, b flat].  The second one is [c flat-flat,
+          g sharp-sharp, d flat, b sharp, f natural], with explicitly selected
+          octaves for each alteration.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
