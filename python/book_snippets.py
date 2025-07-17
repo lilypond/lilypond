@@ -50,14 +50,14 @@ FILENAME = 'filename'
 FILTER = 'filter'
 FRAGMENT = 'fragment'
 HTMLPRINTFILENAME = 'htmlprintfilename'
+INDENT = 'indent'
+INLINE = 'inline'
+INLINEOUTPUT = 'inlineoutput'
 LAYOUT = 'layout'
 LINE_WIDTH = 'line-width'
 NOFRAGMENT = 'nofragment'
 NOGETTEXT = 'nogettext'
 NOINDENT = 'noindent'
-INDENT = 'indent'
-INLINE = 'inline'
-INLINEOUTPUT = 'inlineoutput'
 NORAGGED_RIGHT = 'noragged-right'
 NOTES = 'body'
 NOTIME = 'notime'
@@ -87,15 +87,24 @@ no_options = {
 }
 
 # Options that have no impact on processing by lilypond (or --process
-# argument)
+# argument).
 PROCESSING_INDEPENDENT_OPTIONS = (
-    ALT, NOGETTEXT, VERBATIM,
-    TEXIDOC, DOCTITLE, VERSION, PRINTFILENAME, HTMLPRINTFILENAME)
-
+    ALT,
+    DOCTITLE,
+    HTMLPRINTFILENAME,
+    NOGETTEXT,
+    PRINTFILENAME,
+    TEXIDOC,
+    VERBATIM,
+    VERSION,
+)
 
 # Options without a pattern in snippet_options.
 simple_options = [
+    ALT,
+    DOCTITLE,
     EXAMPLEINDENT,
+    FILENAME,
     FRAGMENT,
     HTMLPRINTFILENAME,
     INLINE,
@@ -105,11 +114,8 @@ simple_options = [
     PAPER_HEIGHT,
     PAPER_WIDTH,
     PRINTFILENAME,
-    DOCTITLE,
     TEXIDOC,
     VERBATIM,
-    FILENAME,
-    ALT
 ]
 
 
@@ -676,9 +682,9 @@ class LilypondSnippet (Snippet):
 
     def get_checksum(self):
         if not self.checksum:
-            # We only want to calculate the hash based on the snippet
-            # code plus fragment options relevant to processing by
-            # lilypond, not the snippet + preamble
+            # We calculate the hash based on the snippet code (without
+            # preamble) plus fragment options relevant to processing by
+            # lilypond.
             hash = hashlib.md5(self.relevant_contents(
                 self.ly()).encode('utf-8'))
             for option in self.get_outputrelevant_option_strings():
@@ -807,8 +813,7 @@ printing diff against existing file." % filename)
                   base + '.texidoc',
                   base + '.doctitle',
                   base + '-systems.texi',
-                  base + '-systems.tex',
-                  base + '-systems.pdftexi']:
+                  base + '-systems.tex']:
             consider_file(f)
         if self.formatter.document_language:
             for f in [base + '.texidoc' + self.formatter.document_language,
