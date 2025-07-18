@@ -1148,8 +1148,8 @@ class RepeatedMusic(Base):
                          "for the repeat %(repeat)s")
                        % {'music': music, 'repeat': self})
 
-    def add_ending(self, music):
-        self.endings.append(music)
+    def add_ending(self, volte, music):
+        self.endings.append([volte, music])
 
     def contains(self, elem):
         return self == elem or self.music.contains(elem)
@@ -1183,7 +1183,8 @@ class RepeatedMusic(Base):
             if self.endings:
                 printer(r'\alternative {')
                 printer.newline()
-                for e in self.endings:
+                for (volte, e) in self.endings:
+                    printer(r'\volta %s' % ','.join(map(str, volte)))
                     e.print_ly(printer)
                 printer('}')
                 printer.newline()

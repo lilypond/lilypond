@@ -771,11 +771,16 @@ class Barline(Measure_element):
             ending.direction = {"start": -1, "stop": 1, "discontinue": 1}.get(
                 ending_type, 0)
             ending.mxl_event = ending_element
+
+            ending_number = getattr(ending_element, 'number', None)
+            if ending_number is not None:
+                ending.volte = \
+                    conversion.musicxml_numbers_to_volte(ending_number)
+
             if ending.direction == -1:
                 retval[4] = ending
             else:
                 retval[1] = ending
-            # TODO: Handle `number` attribute.
 
         if bartype is not None or barline_color is not None:
             b = musicexp.BarLine()

@@ -8,7 +8,8 @@
 
           The first repeat starts implicitly at the beginning, with the first
           alternative starting and ending at bar 2, and the second ending at
-          bar 3.  The next repeat starts and ends at bar 5.  Another repeat
+          bar 3.  All four &lt;ending&gt; elements have ‘number=""’ as an
+          attribute.  The next repeat starts and ends at bar 5.  Another repeat
           starts at bar 6 (causing a back-to-back bar line between bars 5
           and 6), with the first alternative starting and ending at bar 7.  Its
           second alternative (starting and ending at bar 8) is the start of a
@@ -48,7 +49,7 @@
     <!--=======================================================-->
     <measure number="2">
       <barline location="left">
-        <ending number="1" type="start"/>
+        <ending number="" type="start"/>
       </barline>
       <note>
         <rest/>
@@ -57,14 +58,14 @@
       </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>
-        <ending number="1" type="stop"/>
+        <ending number="" type="stop"/>
         <repeat direction="backward"/>
       </barline>
     </measure>
     <!--=======================================================-->
     <measure number="3">
       <barline location="left">
-        <ending number="2" type="start"/>
+        <ending number="" type="start"/>
       </barline>
       <note>
         <rest/>
@@ -72,7 +73,7 @@
         <voice>1</voice>
       </note>
       <barline location="right">
-        <ending number="2" type="discontinue"/>
+        <ending number="" type="discontinue"/>
       </barline>
     </measure>
     <!--=======================================================-->

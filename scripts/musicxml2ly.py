@@ -732,30 +732,54 @@ def group_repeats(music_list):
 
         stop = endings[0][0]
         r = musicexp.RepeatedMusic()
-        r.repeat_count = len(endings)
         r.set_music(music_list[start + 1:stop])
 
+        repeat_count = 0
         for (i, j) in endings:
             # We have to prepend the data from `<ending>` start elements to set
             # properties for the `VoltaSpanner` grobs.  Note that MusicXML
             # doesn't provide a separate `color` attribute for the volta number
             # text.
-            el = music_list[i].mxl_event
-            attributes = el._attribute_dict.copy()
+            el_start = music_list[i].mxl_event
+            attributes = el_start._attribute_dict.copy()
             attributes.pop('color', None)
 
             v = musicexp.VoltaStyleEvent()
-            v.element = (el, attributes)
+            v.element = (el_start, attributes)
 
-            if getattr(el, 'print-object', 'yes') == 'no':
+            # Check the `number` attribute of the start and stop `<ending>`
+            # elements.
+            volte_start = music_list[i].volte;
+            volte_stop = music_list[j].volte;
+            if volte_start:
+                volte = volte_start
+            elif volte_stop:
+                volte = volte_stop
+            else:
+                # Handle an empty `volte` list (i.e., MusicXML tells us that
+                # the volta number is undetermined, whatever this means).
+                # Since LilyPond doesn't print a right-open volta bracket if
+                # both the first and the second ending have the same volta
+                # number, we use values '1' and '2'.
+                el_stop = music_list[j].mxl_event
+                if getattr(el_stop, 'type', None) == 'discontinue':
+                    volte = [2]
+                else:
+                    volte = [1]
+
+            repeat_count += len(volte)
+
+            if getattr(el_start, 'print-object', 'yes') == 'no':
                 v.visible = False
-            v.color = getattr(el, 'color', None)
+            v.color = getattr(el_start, 'color', None)
 
             s = musicexp.SequentialMusic()
             s.elements.append(v)
             s.elements.extend(music_list[i + 1:j])
 
-            r.add_ending(s)
+            r.add_ending(volte, s)
+
+        r.repeat_count = repeat_count
 
         # Deleting elements from `music_list` in a loop works if we do it in
         # reverse order.  We also delete the repeat markers around the actual
@@ -951,6 +975,7 @@ def group_repeats(music_list):
                     new_el = conversion.EndingMarker()
                     new_el.direction = el.direction
                     new_el.mxl_event = el.mxl_event
+                    new_el.volte = el.volte
                     wrap_repeat(start, stop)
                     music_list.insert(start, new_el)
 
@@ -964,6 +989,7 @@ def group_repeats(music_list):
                     new_el = conversion.EndingMarker()
                     new_el.direction = el.direction
                     new_el.mxl_event = el.mxl_event
+                    new_el.volte = el.volte
                     wrap_repeat(start, len(music_list))
                     music_list.insert(start, new_el)
 
@@ -988,6 +1014,7 @@ def group_repeats(music_list):
                     new_before = conversion.EndingMarker()
                     new_before.direction = -1
                     new_before.mxl_event = music_list[start].mxl_event
+                    new_before.volte = music_list[start].volte
 
                     wrap_repeat(start, stop)
                     music_list.insert(start + 1, new_after)
