@@ -20,12 +20,14 @@
 #include "beaming-pattern.hh"
 #include "lily-guile.hh"
 #include "lily-guile-macros.hh"
+#include "ly-scm-list.hh"
 #include "misc.hh"
 #include "moment.hh"
 #include "stream-event.hh"
 #include "tuplet-description.hh"
 
 #include <forward_list>
+#include <numeric>
 #include <vector>
 
 /*
@@ -292,7 +294,7 @@ Beaming_pattern::set_rhythmic_importance (Beaming_options const &options)
   // span_contexts will always be non empty since there always exists
   // the root span
   std::forward_list<Span_position> span_contexts {
-    {options.measure_length_, 1, infos_[0].start_moment_ - measure_offset_,
+    {options.period_, 1, infos_[0].start_moment_ - measure_offset_,
      end_moment (infos_.size () - 1)}};
   // infos_[i].duration_.factor_ is not sufficient for calculations for certain
   // cases, so we must manually alter the current factor based on incoming and
@@ -557,6 +559,18 @@ Beaming_pattern::split_pattern (vsize i, Rational const &measure_length)
   return new_pattern;
 }
 
+Rational
+Beaming_options::calc_period (Context const *context, SCM beat_structure,
+                              Rational beat_base)
+{
+  const auto &bs = as_ly_scm_list_t<Rational> (beat_structure);
+  const auto total_beats
+    = std::accumulate (bs.begin (), bs.end (), Rational (0));
+  const auto period = beat_base * total_beats;
+  // period == 0 is likely in a senza-misura passage (no beat structure).
+  return period ? period : measure_length (context);
+}
+
 Beaming_options::Beaming_options (Context const *c)
   : subdivide_beams_ (from_scm<bool> (get_property (c, "subdivideBeams"))),
     strict_beat_beaming_ (
@@ -565,7 +579,7 @@ Beaming_options::Beaming_options (Context const *c)
       from_scm<bool> (get_property (c, "respectIncompleteBeams"))),
     beat_structure_ (get_property (c, "beatStructure")),
     beat_base_ (from_scm (get_property (c, "beatBase"), Rational (1, 4))),
-    measure_length_ (measure_length (c)),
+    period_ (calc_period (c, beat_structure_, beat_base_)),
     time_signature_ (get_property (c, "timeSignatureFraction")),
     minimum_subdivision_interval_ (
       from_scm (get_property (c, "beamMinimumSubdivision"), Rational (0))),

@@ -42,7 +42,12 @@ public:
 
   SCM beat_structure_ = SCM_EOL;
   Rational beat_base_ = Rational (1, 4);
-  Rational measure_length_ = 1;
+  // This period is the length of the beat structure in units of whole notes.
+  // It normally equals the measure length, but in music with irregular
+  // measures, the beat structure may be longer than the current measure (and be
+  // used only partly) or shorter than the current measure (and be repeated to
+  // fill the measure).
+  Rational period_ = 1;
 
   SCM time_signature_ = SCM_EOL;
 
@@ -59,6 +64,10 @@ public:
   Beaming_options &operator= (const Beaming_options &) = default;
 
   void gc_mark () const;
+
+private:
+  static Rational calc_period (Context const *, SCM beat_structure,
+                               Rational beat_base);
 };
 
 /*

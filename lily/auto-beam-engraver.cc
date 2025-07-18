@@ -56,6 +56,11 @@ protected:
   void acknowledge_stem (Grob_info_t<Item>);
   void listen_beam_forbid (Stream_event *);
 
+  Moment beaming_measure_position ()
+  {
+    return measure_position (context (), beaming_options_.period_);
+  }
+
 private:
   virtual bool test_moment (Direction, Moment const &, Rational const &) const;
   bool busy () const;
@@ -109,7 +114,7 @@ Auto_beam_engraver::derived_mark () const
 void
 Auto_beam_engraver::start_translation_timestep ()
 {
-  measure_position_at_start_of_timestep_ = measure_position (context ());
+  measure_position_at_start_of_timestep_ = beaming_measure_position ();
 }
 
 void
@@ -158,7 +163,7 @@ Auto_beam_engraver::consider_begin (Rational const &dur)
 {
   if (!busy () && !forbid_
       && from_scm<bool> (get_property (this, "autoBeaming"))
-      && test_moment (START, measure_position (context ()), dur))
+      && test_moment (START, beaming_measure_position (), dur))
     begin_beam ();
 }
 
@@ -423,8 +428,8 @@ Auto_beam_engraver::recheck_beam ()
 
           /* Eliminate (and save) the items no longer part of the first beam */
 
-          auto new_grouping = beam_pattern_->split_pattern (
-            i, beaming_options_.measure_length_);
+          auto new_grouping
+            = beam_pattern_->split_pattern (i, beaming_options_.period_);
           std::vector<Item *> new_stems (stems_.begin () + (i + 1),
                                          stems_.end ());
           stems_.resize (i + 1);
@@ -578,7 +583,7 @@ Grace_auto_beam_engraver::process_music ()
   if (now.main_part_ > last_grace_start_.main_part_)
     {
       last_grace_start_ = now;
-      last_grace_position_ = measure_position (context ());
+      last_grace_position_ = beaming_measure_position ();
     }
 
   Auto_beam_engraver::process_music ();
