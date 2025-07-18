@@ -35,20 +35,28 @@
 
 struct Beaming_options
 {
-  bool subdivide_beams_;
-  bool strict_beat_beaming_;
-  bool respect_incomplete_beams_;
+public:
+  bool subdivide_beams_ = false;
+  bool strict_beat_beaming_ = false;
+  bool respect_incomplete_beams_ = false;
 
-  SCM beat_structure_;
-  Rational beat_base_;
-  Rational measure_length_;
+  SCM beat_structure_ = SCM_EOL;
+  Rational beat_base_ = Rational (1, 4);
+  Rational measure_length_ = 1;
 
-  SCM time_signature_;
+  SCM time_signature_ = SCM_EOL;
 
-  Rational minimum_subdivision_interval_;
-  Rational maximum_subdivision_interval_;
+  Rational minimum_subdivision_interval_ = 0;
+  Rational maximum_subdivision_interval_ = Rational::infinity ();
 
-  void from_context (Context const *);
+public:
+  Beaming_options () = default;
+
+  // Initialize with the current values from the given context.
+  explicit Beaming_options (Context const *);
+
+  Beaming_options (const Beaming_options &) = default;
+  Beaming_options &operator= (const Beaming_options &) = default;
 
   void gc_mark () const;
 };

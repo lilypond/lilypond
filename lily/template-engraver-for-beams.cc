@@ -43,7 +43,7 @@ Template_engraver_for_beams::begin_beam ()
   auto beam_start_position
     = from_scm (get_property (this, "measurePosition"), Moment (0));
 
-  beaming_options_.from_context (context ());
+  beaming_options_ = Beaming_options (context ());
   if (beam_start_position.grace_part_)
     beam_start_position.main_part_ = beam_start_position.grace_part_;
   beam_pattern_ = std::make_unique<Beaming_pattern> (
