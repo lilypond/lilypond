@@ -23,7 +23,7 @@
 
 
 # `musicxml2ly` converts MusicXML input files (currently supporting a subset
-# of version 2.0) to output files containing LilyPond source code.  This is
+# of version 4.0) to output files containing LilyPond source code.  This is
 # done in three phases.
 #
 # 1.  Use Python's `xml.dom.minidom` API to parse the MusicXML file and
@@ -690,6 +690,13 @@ def group_repeats(music_list):
 
         globvars.layout_information.set_context_item(
             'Score', 'doubleRepeatBarType = ":|.|:"')
+
+        start_marker = music_list[start]
+        if isinstance(start_marker, conversion.RepeatMarker):
+            if start_marker.at_start:
+                # We need special LilyPond support for this case.
+                globvars.layout_information.set_context_item(
+                    'Score', 'printInitialRepeatBar = ##t')
 
         times = 2
         if stop < len(music_list):

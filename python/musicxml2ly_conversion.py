@@ -45,6 +45,7 @@ class RepeatMarker(Marker):
     def __init__(self):
         Marker.__init__(self)
         self.times = 2  # A simple repeat played twice as the default.
+        self.at_start = False
 
 
 class EndingMarker(Marker):
@@ -59,4 +60,5 @@ class RepeatEndingMarker(RepeatMarker, EndingMarker):
         # According to the standard, `times` is not used if there is an
         # `<ending>` element at the same time.
         self.times = None
+        self.at_start = repeat.at_start
         self.mxl_event = ending.mxl_event

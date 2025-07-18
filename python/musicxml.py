@@ -734,6 +734,7 @@ class Barline(Measure_element):
         if direction is not None:
             repeat = conversion.RepeatMarker()
             repeat.direction = {'forward': -1, 'backward': 1}.get(direction, 0)
+            repeat.at_start = (repeat.direction == -1 and self._when == 0)
 
             # The MusicXML standard has issues with specifying the type for
             # repeats, especially for back-to-back repeats; see
