@@ -4,8 +4,8 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">Pickup measure with chord names
-           and figured bass.</miscellaneous-field>
+      <miscellaneous-field name="description">A pickup measure with chord names
+          and figured bass.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -34,7 +34,9 @@
         <kind>major</kind>
       </harmony>
       <figured-bass>
-        <figure><figure-number>3</figure-number></figure>
+        <figure>
+          <figure-number>3</figure-number>
+        </figure>
         <duration>1</duration>
       </figured-bass>
       <note>
@@ -56,6 +58,7 @@
         <type>eighth</type>
       </note>
     </measure>
+    <!--=======================================================-->
     <measure number="1">
       <harmony print-frame="no">
         <root>
@@ -64,7 +67,9 @@
         <kind>major</kind>
       </harmony>
       <figured-bass>
-        <figure><figure-number>3</figure-number></figure>
+        <figure>
+          <figure-number>3</figure-number>
+        </figure>
         <duration>1</duration>
       </figured-bass>
       <note>
@@ -105,4 +110,5 @@
       </note>
     </measure>
   </part>
+  <!--=========================================================-->
 </score-partwise>

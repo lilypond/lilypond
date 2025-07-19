@@ -4,9 +4,13 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">A 3/8 pickup measure, a measure
-          that is split into one (incomplete, only 2/4) measure and an implicit
-          measure, and an incomplete measure (containg 3/4).</miscellaneous-field>
+      <miscellaneous-field name="description">A combination of unusual measures.
+
+          At the beginning there is a 3/8 pickup measure (measure 0).  Measure 1
+          consists of an incomplete measure with two quarters, followed by
+          an invisible bar line and another pickup measure with two quarters to
+          complete it.  Measure 2 is also incomplete, holding only three
+          quarters.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -33,22 +37,22 @@
         </clef>
       </attributes>
       <note>
-          <pitch>
-              <step>E</step>
-              <octave>4</octave>
-          </pitch>
-          <duration>2</duration>
-          <voice>1</voice>
-          <type>quarter</type>
+        <pitch>
+          <step>E</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>2</duration>
+        <voice>1</voice>
+        <type>quarter</type>
       </note>
       <note>
-          <pitch>
-              <step>E</step>
-              <octave>4</octave>
-          </pitch>
-          <duration>1</duration>
-          <voice>1</voice>
-          <type>eighth</type>
+        <pitch>
+          <step>E</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>eighth</type>
       </note>
     </measure>
     <!--=======================================================-->
