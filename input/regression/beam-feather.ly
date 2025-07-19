@@ -1,12 +1,11 @@
 \header  {
+  texidoc = "Specifying @code{grow-direction} on a beam causes feathered
+beaming.  The @code{\\featherDurations} function can be used to adjust note
+durations and the duration of unassigned lyrics."
 
-  texidoc = "Specifying @code{grow-direction} on a beam, will cause
-  feathered beaming. The @code{\\featherDurations} function can be used
-  to adjust note durations."
-  
 }
 
-\version "2.23.10"
+\version "2.25.28"
 
 \paper {
   ragged-right = ##t
@@ -18,9 +17,20 @@
 % a linear decrease instead?
 %
 
-\featherDurations 3/4 \relative {
-  \override Beam.grow-direction = #LEFT
-  c''16[
-    c c c
-    c c c c ] 
-}
+<<
+  \featherDurations 3/4
+  \relative {
+    \override Beam.grow-direction = #LEFT
+    c''16[ c c c  c c c c]
+  }
+  \new Lyrics
+    \lyricmode {
+      \set stanza = "adjusted"
+      \featherDurations 3/4 { x x x x  x x x x }
+    }
+  \new Lyrics
+    \lyricmode {
+      \set stanza = " not adjusted:"
+      x x x x  x x x x
+    }
+>>

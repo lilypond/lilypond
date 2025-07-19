@@ -651,7 +651,9 @@ featherDurations=
             (begin
               (ly:music-compress mus multiplier)
               (set! multiplier (* factor multiplier)))))
-      (extract-named-music music '(EventChord NoteEvent RestEvent SkipEvent)))
+      (extract-named-music
+        music
+        '(EventChord LyricEvent NoteEvent RestEvent SkipEvent)))
      (ly:music-compress
       music
       (ly:moment-div orig-duration (ly:music-length music)))))
