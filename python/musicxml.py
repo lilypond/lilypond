@@ -241,15 +241,15 @@ class Identification(Xml_node):
         ret = []
         for r in rights:
             text = r.get_text()
-            # if this Xml_node has an attribute, such as 'type="words"',
-            # include it in the header. Otherwise, it is assumed that
+            # If this node has a 'type' attribute such as `type="words"`,
+            # include it in the return value.  Otherwise it is assumed that
             # the text contents of this node looks something like this:
             # 'Copyright: X.Y.' and thus already contains the relevant
             # information.
             rights_type = getattr(r, 'type', None)
             if rights_type is not None:
                 rights_type = rights_type.title()  # capitalize first letter
-                result = ''.join([rights_type, ': ', text])
+                result = rights_type + ': ' + text
                 ret.append(result)
             else:
                 ret.append(text)
@@ -353,23 +353,31 @@ class Credit(Xml_node):
         else:
             return None
 
-    # TODO: Should this method even exist?  Review all callers since there
-    # can be multiple <credit-words> in a <credit>.
     def get_first_credit_words(self):
         try:
             return self['credit-words'][0]
         except IndexError:
             return None
 
+    # Apply heuristics to find out how `<credit-words>` children are
+    # positioned on a page and what they do; then try to derive a proper
+    # type for it.
     def find_type(self, credits):
         # PERF: These calls repeat linear searches of the same elements.
+
+        # First, we collect 'font-size', 'default-x', and 'default-y'
+        # attribute values of the first `<credit-words>` child of all
+        # `<credit>` elements.
         sizes = self.get_font_sizes(credits)
         sizes.sort(reverse=True)
-        ys = self.get_default_ys(credits)
-        ys.sort(reverse=True)
+        # Coordinates are relative to the bottom-left corner of a page.
         xs = self.get_default_xs(credits)
         xs.sort(reverse=True)
+        ys = self.get_default_ys(credits)
+        ys.sort(reverse=True)
 
+        # Then we do the same for the first `<credit-words>` child of the
+        # current `<credit>` element, also collecting some more attributes.
         words = self.get_first_credit_words()
         size = getattr(words, 'font-size', None)
         if size is not None:
@@ -381,8 +389,8 @@ class Credit(Xml_node):
         if y is not None:
             y = round(float(y))
         justify = getattr(words, 'justify', None)
-        # The spec says that if the halign attribute is not present, it takes
-        # its value from the justify attribute.
+        # The standard says that if the 'halign' attribute is not present,
+        # it takes its value from the 'justify' attribute.
         halign = getattr(words, 'halign', justify)
         valign = getattr(words, 'valign', None)
 

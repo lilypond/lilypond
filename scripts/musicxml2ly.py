@@ -225,22 +225,24 @@ def extract_paper_information(score_partwise):
     return globvars.paper
 
 
+# A map from `<credit-type>` standard values to LilyPond's `\header` fields.
 credit_dict = {
     None: None,
     '': None,
-    'page number': None,  # TODO: what is it used for ?
-    'title': 'title',
-    'subtitle': 'subtitle',
-    'composer': 'composer',
     'arranger': 'arranger',
+    'composer': 'composer',
     'lyricist': 'poet',
-    'rights': 'copyright'
+    'page number': None,  # Ignored.
+    'part name': None,  # TODO
+    'rights': 'copyright',
+    'subtitle': 'subtitle',
+    'title': 'title',
 }
 
 
-# Score information is contained in the <work>, <identification> or
-# <movement-title> tags.  Extract those into a hash, indexed by proper
-# lilypond header attributes.
+# Score information is contained in the `<work>`, `<identification>`,
+# `<movement-title>`, and `<credit>` elements.  Extract those into a hash
+# and map them to LilyPond `\header` fields.
 def extract_score_information(tree):
     header = musicexp.Header()
 
@@ -256,9 +258,10 @@ def extract_score_information(tree):
                                  utilities.escape_ly_output_string(value))
 
     movement_title = tree.get_maybe_exist_named_child('movement-title')
-    movement_number = tree.get_maybe_exist_named_child('movement-number')
     if movement_title:
         set_if_exists('title', movement_title.get_text())
+
+    movement_number = tree.get_maybe_exist_named_child('movement-number')
     if movement_number:
         set_if_exists('movementnumber', movement_number.get_text())
         # The movement number should be visible in the score.
@@ -266,43 +269,58 @@ def extract_score_information(tree):
 
     work = tree.get_maybe_exist_named_child('work')
     if work:
-        work_number = work.get_work_number()
-        work_title = work.get_work_title()
-        # Overwrite the title from movement-title with work->title
-        set_if_exists('title', work.get_work_title())
         set_if_exists('opus', work.get_work_number())
-        # Use movement-title as subtitle
+        set_if_exists('title', work.get_work_title())
+        # Use `movement_title` as a subtitle.
         if movement_title:
             set_if_exists('subtitle', movement_title.get_text())
 
-    # TODO: Translation of opus element.  Not to be confused with opus in
-    #       LilyPond.  MusicXML opus is a document element for opus DTD.
+        # TODO: Support inclusion of other MusicXML files via the `<opus>`
+        # element; see
+        #
+        #   https://www.w3.org/2021/06/musicxml40/opus-reference/
+        #
+        # for details.
+
     identifications = tree.get_named_children('identification')
     for ids in identifications:
+        # <rights>
         set_if_exists('copyright', ids.get_rights())
+        # <creator>
         set_if_exists('composer', ids.get_composer())
         set_if_exists('arranger', ids.get_arranger())
         set_if_exists('editor', ids.get_editor())
         set_if_exists('poet', ids.get_poet())
 
-        set_if_exists('encodingsoftware', ids.get_encoding_software())
-        set_if_exists('encodingdate', ids.get_encoding_date())
-        set_if_exists('encoder', ids.get_encoding_person())
-        set_if_exists('encodingdescription', ids.get_encoding_description())
+        # <encoding>
+        # We only get the data from the first child, irrespective of its
+        # 'type' attribute.
+        set_if_exists('encodingsoftware',
+                      ids.get_encoding_software())  # <software>
+        set_if_exists('encodingdate',
+                      ids.get_encoding_date())  # <encoding-date>
+        set_if_exists('encoder',
+                      ids.get_encoding_person())  # <encoder>
+        set_if_exists('encodingdescription',
+                      ids.get_encoding_description())  # <encoding-description>
+
+        # <source>
         set_if_exists('source', ids.get_source())
 
-        # <miscellaneous><miscellaneous-field name="description"> ... becomes
-        # \header { texidoc = ...
+        # <miscellaneous>
+        # The element `<miscellaneous-field name="description">` becomes the
+        # `texidoc` field in `\header`.
         set_if_exists('texidoc', ids.get_file_description())
 
-        # Finally, apply the required compatibility modes
-        # Some applications created wrong MusicXML files, so we need to
-        # apply some compatibility mode, e.g. ignoring some features/tags
-        # in those files
+        # TODO: Handle `<relation>` element.
+
+        # Finally, apply the required compatibility modes.
+        #
+        # Some applications created invalid MusicXML files, so we need to
+        # apply some compatibility settings, e.g., ignoring some features or
+        # elements in such files.
         software = ids.get_encoding_software_list()
 
-        # Case 1: "Sibelius 5.1" with the "Dolet 3.4 for Sibelius" plugin
-        #         is missing all beam ends => ignore all beaming information
         ignore_beaming_software = {
             "Dolet 4 for Sibelius, Beta 2": "Dolet 4 for Sibelius, Beta 2",
             "Dolet 3.5 for Sibelius": "Dolet 3.5 for Sibelius",
@@ -313,7 +331,10 @@ def extract_score_information(tree):
             "Dolet for Sibelius 1.3": "Dolet for Sibelius 1.3",
             "Noteworthy Composer": "Noteworthy Composer's nwc2xm[",
         }
+
         for s in software:
+            # "Sibelius 5.1" with the "Dolet 3.4 for Sibelius" plugin is
+            # missing all beam ends; we thus ignore all beaming information.
             app_description = ignore_beaming_software.get(s, False)
             if app_description:
                 conversion_settings.ignore_beaming = True
@@ -322,6 +343,8 @@ def extract_score_information(tree):
                              "information in the MusicXML file will be "
                              "ignored") % app_description)
 
+            # Finale encodes ottava ends differently than many other
+            # applications.
             if 'Finale' in s:
                 musicexp.set_ottavas_end_early('t')
 
