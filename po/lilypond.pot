@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.25.26\n"
+"Project-Id-Version: lilypond 2.25.27\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
-"POT-Creation-Date: 2025-05-03 14:09+0200\n"
+"POT-Creation-Date: 2025-07-20 12:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1115,7 +1115,7 @@ msgstr ""
 msgid "%s end seen without %s start"
 msgstr ""
 
-#: musicxml.py:2040
+#: musicxml.py:2041
 msgid "Found overlapping <direction> elements"
 msgstr ""
 
@@ -2390,7 +2390,7 @@ msgstr ""
 msgid "unterminated episema"
 msgstr ""
 
-#: extender-engraver.cc:172 extender-engraver.cc:181
+#: extender-engraver.cc:273
 msgid "unterminated extender"
 msgstr ""
 
@@ -3314,17 +3314,17 @@ msgstr ""
 msgid "cannot get CFF name"
 msgstr ""
 
-#: open-type-font.cc:343
+#: open-type-font.cc:362
 #, c-format
 msgid "no stem attachment found in font for glyph %s"
 msgstr ""
 
-#: open-type-font.cc:365
+#: open-type-font.cc:384
 #, c-format
 msgid "FT_Get_Glyph_Name () Freetype error: %s"
 msgstr ""
 
-#: open-type-font.cc:496
+#: open-type-font.cc:515
 #, c-format
 msgid "FT_Get_Glyph_Name () error: %s"
 msgstr ""
@@ -4351,13 +4351,13 @@ msgstr ""
 msgid "symbol ~S redefined"
 msgstr ""
 
-#: define-context-properties.scm:1040
+#: define-context-properties.scm:1042
 msgid ""
 "'voltaSpannerDuration' is deprecated; use the grob property "
 "VoltaBracket.musical-length"
 msgstr ""
 
-#: define-context-properties.scm:1052
+#: define-context-properties.scm:1054
 msgid ""
 "'voltaSpannerDurationAsMoment' is deprecated; use the grob property "
 "VoltaBracket.musical-length"
@@ -4390,10 +4390,6 @@ msgstr ""
 #: define-markup-commands.scm:1749
 #, scheme-format
 msgid "EPS image dimensions could not be determined; is '~a' a valid EPS file?"
-msgstr ""
-
-#: define-markup-commands.scm:1797
-msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
 #: define-music-callbacks.scm:103
@@ -4706,23 +4702,23 @@ msgstr ""
 msgid "Music unsuitable for output-def"
 msgstr ""
 
-#: lily-library.scm:1212
+#: lily-library.scm:1250
 msgid ""
 "version with third number omitted is only allowed for stable releases (when "
 "the second number is even)"
 msgstr ""
 
-#: lily-library.scm:1225
+#: lily-library.scm:1263
 #, scheme-format
 msgid "Invalid version string \"~a\""
 msgstr ""
 
-#: lily-library.scm:1240
+#: lily-library.scm:1278
 #, scheme-format
 msgid "program too old: ~a (file requires: ~a)"
 msgstr ""
 
-#: lily-library.scm:1256
+#: lily-library.scm:1294
 #, scheme-format
 msgid ""
 "\n"
@@ -4734,7 +4730,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: lily-library.scm:1424
+#: lily-library.scm:1462
 msgid ""
 "Bisect between the integers @var{start} and @var{end}, both ends inclusive, "
 "to\n"
@@ -4753,17 +4749,17 @@ msgid ""
 "greater than or equal to @var{target-val}."
 msgstr ""
 
-#: lily-library.scm:1677
+#: lily-library.scm:1715
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
 
-#: lily-library.scm:1710
+#: lily-library.scm:1748
 #, scheme-format
 msgid "conflict with event: `~a'"
 msgstr ""
 
-#: lily-library.scm:1711
+#: lily-library.scm:1749
 #, scheme-format
 msgid "discarding event: `~a'"
 msgstr ""
@@ -4797,37 +4793,37 @@ msgstr ""
 msgid "note scale expected: ~S"
 msgstr ""
 
-#: lily.scm:1007
+#: lily.scm:1009
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:1008
+#: lily.scm:1010
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:1122
+#: lily.scm:1124
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:1125
+#: lily.scm:1127
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:1129
+#: lily.scm:1131
 #, scheme-format
 msgid "Children ~a exited with errors."
 msgstr ""
 
-#: lily.scm:1145
+#: lily.scm:1147
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:1178
+#: lily.scm:1180
 #, scheme-format
 msgid "Processing `~a'\n"
 msgstr ""
@@ -5024,43 +5020,43 @@ msgid ""
 "one in alterationGlyphs"
 msgstr ""
 
-#: output-lib.scm:2062
+#: output-lib.scm:2052
 msgid ""
 "script needs an explicit direction specifier to disambiguate between "
 "different glyphs"
 msgstr ""
 
-#: output-lib.scm:2081
+#: output-lib.scm:2071
 #, scheme-format
 msgid "script-stencil property must be pair: ~a"
 msgstr ""
 
-#: output-lib.scm:2547
+#: output-lib.scm:2537
 #, scheme-format
 msgid "~a with two line-breaks is not yet supported"
 msgstr ""
 
-#: output-lib.scm:2864
+#: output-lib.scm:2854
 #, scheme-format
 msgid "Factor ~a needs to be an integer value."
 msgstr ""
 
-#: output-lib.scm:3359
+#: output-lib.scm:3376
 msgid ""
 "Not enough space to print a nice arrow.\n"
 "Please consider to increase 'minimum-length or decrease 'arrow-length."
 msgstr ""
 
-#: output-lib.scm:3375
+#: output-lib.scm:3392
 msgid "Please consider to increase 'minimum-length"
 msgstr ""
 
-#: output-lib.scm:3698
+#: output-lib.scm:3714
 #, scheme-format
 msgid "no entry in measure-division-lines-alist for measure division ~a"
 msgstr ""
 
-#: output-lib.scm:3722
+#: output-lib.scm:3738
 #, scheme-format
 msgid ""
 "no entry in measure-division-chord-placement-alist for measure division ~a"
@@ -5232,11 +5228,11 @@ msgstr ""
 msgid "unterminated measure spanner"
 msgstr ""
 
-#: scheme-engravers.scm:720
+#: scheme-engravers.scm:723
 msgid "unterminated DurationLine"
 msgstr ""
 
-#: scheme-engravers.scm:863
+#: scheme-engravers.scm:866
 msgid ""
 "No notes found to start from,\n"
 "ignoring. If you want to bend an open string, consider to override/tweak "
@@ -5244,19 +5240,19 @@ msgid ""
 "'bend-me property."
 msgstr ""
 
-#: scheme-engravers.scm:897
+#: scheme-engravers.scm:900
 msgid "Unbound BendSpanner, ignoring"
 msgstr ""
 
-#: scheme-engravers.scm:1184
+#: scheme-engravers.scm:1187
 msgid "unterminated finger glide spanner"
 msgstr ""
 
-#: scheme-engravers.scm:1780
+#: scheme-engravers.scm:1783
 msgid "unterminated measure for chord square"
 msgstr ""
 
-#: scheme-engravers.scm:1913
+#: scheme-engravers.scm:1916
 msgid "no highlight to end"
 msgstr ""
 
