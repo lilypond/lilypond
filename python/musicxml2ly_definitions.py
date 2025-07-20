@@ -503,4 +503,16 @@ Cresc = #(make-music 'CrescendoEvent 'span-direction START
 Decresc = #(make-music 'DecrescendoEvent 'span-direction START
                                          'span-type 'text)
 """,
+
+   "for-barline": """\
+% This `\\caesura` creates a light-light bar line where there isn't
+% already a more significant bar line, and aligns its decorations
+% (e.g., fermatas) to the bar line.
+forBarLine =
+{
+  \\once \\set Staff.caesuraType = #'((underlying-bar-line . "||"))
+  \\once \\set Staff.caesuraTypeTransform = ##f
+  \\caesura
+}
+""",
 }

@@ -3765,7 +3765,16 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
             fretboards_builder.jumpto(n._when)
 
         if isinstance(n, musicxml.Barline):
-            barlines = n.to_lily_object()
+            (barlines, fermatas) = n.to_lily_object()
+
+            if fermatas:
+                needed_additional_definitions.append('for-barline')
+
+                voice_builder.add_command(musicexp.ForBarline())
+                for f in fermatas:
+                    f_ev = musicxml_fermata_to_lily_event(f)
+                    voice_builder.add_command(f_ev)
+
             curr_alterations = alterations.copy()
             for a in barlines:
                 if isinstance(a, musicexp.BarLine):

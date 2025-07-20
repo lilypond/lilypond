@@ -1853,6 +1853,11 @@ class BarLine(Music):
         return " | "
 
 
+class ForBarline(Music):
+    def print_ly(self, printer):
+        printer(r'\forBarLine')
+
+
 class Event(Music):
     def __init__(self):
         # strings to print before the note to which an event is attached.

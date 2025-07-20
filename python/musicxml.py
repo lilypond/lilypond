@@ -696,25 +696,33 @@ class Backup(Measure_element):
 
 class Barline(Measure_element):
     def to_lily_object(self):
-        # Return a list with at most three elements, in the following order.
+        # Return a list of two lists.
         #
-        #   bar-line
-        #   backward-marker
-        #   forward-marker
+        # * The first one contains at most three elements, in the following
+        #   order.
         #
-        # Both `backward-marker` and `forward-marker` elements are either of
-        # type `RepeatMarker`, `EndingMarker`, or `RepeatEndingMarker`.
+        #     bar-line
+        #     backward-marker
+        #     forward-marker
         #
-        # The `bar-line` element is of type `BarLine`; by putting it before
-        # `backward-marker` it gets included into the repeat group (in
-        # function `musicxml2ly.group_repeats`) so that it can control a
-        # repeat bar line's attributes.
+        #   Both `backward-marker` and `forward-marker` elements are either
+        #   of type `RepeatMarker`, `EndingMarker`, or `RepeatEndingMarker`.
         #
-        # Missing elements are omitted.
+        #   The `bar-line` element is of type `BarLine`; by putting it
+        #   before `backward-marker` it gets included into the repeat group
+        #   (in function `musicxml2ly.group_repeats`) so that it can control
+        #   a repeat bar line's attributes.
+        #
+        #   Missing elements are omitted.
+        #
+        # * The second list has at most two elements, holding fermata nodes
+        #   attached to the bar line.
+        #
         retval = [None, None, None, None, None]
         bartype_element = self.get_maybe_exist_named_child("bar-style")
         repeat_element = self.get_maybe_exist_named_child("repeat")
         ending_element = self.get_maybe_exist_named_child("ending")
+        fermata_elements = self.get_named_children("fermata")
 
         bartype = None
         barline_color = None
@@ -782,7 +790,7 @@ class Barline(Measure_element):
             retval[3] = conversion.RepeatEndingMarker(retval[3], retval[4])
             retval[4] = None
 
-        return [r for r in retval if r is not None]
+        return [[r for r in retval if r is not None], fermata_elements[:2]]
 
 
 class Partial(Measure_element):
