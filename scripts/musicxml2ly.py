@@ -226,7 +226,7 @@ def extract_paper_information(score_partwise):
 
 
 # A map from `<credit-type>` standard values to LilyPond's `\header` fields.
-credit_dict = {
+credit_type_dict = {
     None: None,
     '': None,
     'arranger': 'arranger',
@@ -358,9 +358,9 @@ def extract_score_information(tree):
 
     has_composer = False
     for cred in credits:
-        type = credit_dict.get(cred.get_type())
+        type = credit_type_dict.get(cred.get_type())
         if type is None:
-            type = credit_dict.get(cred.find_type(credits))
+            type = credit_type_dict.get(cred.find_type(credits))
         if type == 'composer':
             if has_composer:
                 type = 'poet'
