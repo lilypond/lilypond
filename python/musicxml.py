@@ -81,16 +81,16 @@ class Xml_node(object):
         return key in self._content
 
     # Xml_node presents itself as a dictionary of children keyed by MusicXML
-    # element name.  The class variable max_occurs_by_child specifies which
-    # elements to track with this dictionary.
+    # element name.  The class variable `max_occurs_by_child` specifies
+    # which elements to track with this dictionary.
     #
-    # When maxOccurs is 1, a successful lookup accesses the child node.  For
-    # optional elements, the lookup may fail.
+    # When `max_occurs_by_child` is 1, a successful lookup accesses the
+    # child node.  For optional elements, the lookup may fail.
     #
-    # When maxOccurs is 2 (meaning not limited) the lookup accesses a list of
-    # child nodes, which may be empty.  The class specifying maxOccurs 2 is
-    # responsible for initializing an empty list in its instances so that the
-    # lookup cannot fail.
+    # When `max_occurs_by_child` is 2 (meaning not limited) the lookup
+    # accesses a list of child nodes, which may be empty.  The class
+    # specifying `max_occurs_by_child 2` is responsible for initializing an
+    # empty list in its instances so that the lookup cannot fail.
     def __getitem__(self, key):
         return self._content[key]
 
@@ -2444,7 +2444,7 @@ def minidom_demarshal_node(node, py_parent=None):
     # node, we just create a value.
     try:
         value = cls.minidom_demarshal_to_value(node)
-        # TODO: Create lists when max_occurs > 1?
+        # TODO: Create lists when `max_occurs_by_child` > 1?
         assert type(py_parent).max_occurs_by_child[name] == 1
         py_parent._content[name] = value
         return
