@@ -243,6 +243,9 @@ credit_dict = {
 # Score information is contained in the `<work>`, `<identification>`,
 # `<movement-title>`, and `<credit>` elements.  Extract those into a hash
 # and map them to LilyPond `\header` fields.
+#
+# We only handle `<credit>` elements for the 'credit page' as given by the
+# command line option `--credit-page`, ignoring the remaining ones.
 def extract_score_information(tree):
     header = musicexp.Header()
 
@@ -349,6 +352,10 @@ def extract_score_information(tree):
                 musicexp.set_ottavas_end_early('t')
 
     credits = tree.get_named_children('credit')
+    credit_page_string = str(options.credit_page)
+    credits = [c for c in credits
+               if getattr(c, 'page', '1') == credit_page_string]
+
     has_composer = False
     for cred in credits:
         type = credit_dict.get(cred.get_type())
@@ -695,6 +702,7 @@ def musicxml_partial_to_lily(partial_len):
         return p
     else:
         return None
+
 
 # Detect repeats and alternative endings and convert them to corresponding
 # 'musicexp' objects, containing nested music.
@@ -4827,6 +4835,16 @@ information.""") % 'lilypond')
                  default=False,
                  dest="midi",
                  help=_("activate midi-block in .ly file"))
+
+    p.add_option('--cp', '--credit-page',
+                 metavar=_("N"),
+                 action="store",
+                 dest="credit_page",
+                 default=1,
+                 type='int',
+                 help=_('use <credit> information from page N '
+                        'to fill the fields of the \\header block. '
+                        'Default is value 1'))
 
     # transpose function
     p.add_option('--transpose',

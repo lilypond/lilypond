@@ -480,6 +480,12 @@ Put the top-level score into a @code{\book @{ ... @}} block.  This
 might be useful for further processing with
 @command{lilypond-book}.
 
+@item --cp, --credit-page=@var{n}
+Specify the page from which LilyPond should take @code{<credit>}
+data to fill the @code{\header} block.  To suppress the handling
+of @code{<credit>} elements, pass value@tie{}0.  The default value
+is@tie{}1, i.e., take the data from the first page.
+
 @item --ds, --dynamics-scale=@var{factor}
 Scale @code{<dynamics>} elements by a non-negative @var{factor};
 value 0 means to use LilyPond's standard size for dynamics.  This
