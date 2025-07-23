@@ -115,7 +115,6 @@ translations = {
     },
     'es': {
         'Source': 'Código fuente',
-
         'Learning': 'Aprendizaje',
         'Music glossary': 'Glosario',
         'Essay': 'Ensayo',
@@ -151,7 +150,6 @@ translations = {
     },
     'fr': {
         'Source': 'Sources',
-
         'Learning': 'Initiation',
         'Music glossary': 'Glossaire',
         'Essay': 'Essai',
@@ -301,14 +299,18 @@ translations = {
 
 manuals = sys.argv[1:] # get manual names from the command line
 
+trans_warnings = set()
+
 def getTrans(text, lang):
     if not lang:
         return text
     trans = translations.get(lang.split('_')[0], {}).get(text, None)
     if not trans:
         trans = text
-        sys.stderr.write(
-            'create-weblinks-itexi: warning: [%(lang)s]: translation missing for: %(text)s\n' % locals())
+        trans_warning = \
+            '[%(lang)s]: translation missing for: "%(text)s"' % locals()
+        if trans_warning not in trans_warnings:
+            trans_warnings.add(trans_warning)
     return trans
 
 
@@ -592,3 +594,6 @@ print(r"""
 @ref{\TEXT\,,\DISPLAY\}
 @end macro
 """)
+
+for tw in sorted(trans_warnings):
+    sys.stderr.write('create-weblinks-itexi: warning: ' + tw + '\n')
