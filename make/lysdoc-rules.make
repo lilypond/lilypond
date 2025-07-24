@@ -2,7 +2,7 @@ $(outdir)/collated-files.list: $(COLLATED_FILES)
 	$(call ly_progress,Making,$@,< $(words $^) files)
 	@true ; $(file >$@,$^)
 
-$(outdir)/collated-files.tely: $(outdir)/collated-files.list
+$(outdir)/collated-files.tely: $(outdir)/collated-files.list $(LYBOOK_FILES)
 	$(call ly_progress,Making,$@,)
 	$(LYS_TO_TELY) --output=$(outdir)/collated-files.tely \
 	               --title="$(TITLE)" \

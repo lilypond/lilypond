@@ -4,6 +4,7 @@ TEMPLATES = lilypond ly lysdoc
 
 MUSICXML_FILES = $(call src-wildcard,*.xml)
 MUSICMXL_FILES = $(call src-wildcard,*.mxl)  # Allow .mxl for compressed files
+LYBOOK_FILES = $(call src-wildcard,*.lybook)
 
 COLLATED_FILES = $(sort $(MUSICXML_FILES) $(MUSICMXL_FILES) $(ITEXI_FILES))
 
