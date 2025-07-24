@@ -347,11 +347,13 @@ class Credit(Xml_node):
         self._content['credit-words'] = []
 
     def get_type(self):
-        type = self.get_maybe_exist_named_child('credit-type')
-        if type is not None:
-            return type.get_text()
-        else:
-            return None
+        types = self.get_named_children('credit-type')
+        val = []
+        for t in types:
+            val.append(t.get_text())
+        # The choice of using ', ' as a separator between multiple credit
+        # types in the return value is arbitrary.
+        return ', '.join(val)
 
     def get_first_credit_words(self):
         try:
@@ -388,7 +390,7 @@ class Credit(Xml_node):
         y = getattr(words, 'default-y', None)
         if y is not None:
             y = round(float(y))
-        justify = getattr(words, 'justify', None)
+        justify = getattr(words, 'justify', 'left')
         # The standard says that if the 'halign' attribute is not present,
         # it takes its value from the 'justify' attribute.
         halign = getattr(words, 'halign', justify)
@@ -419,7 +421,7 @@ class Credit(Xml_node):
             # The first one is the composer, the second one is the lyricist
             return 'composer'
 
-        return None  # no type recognized
+        return ''  # No type recognized.
 
     def get_font_sizes(self, credits):
         sizes = []
@@ -2153,6 +2155,14 @@ class Chord(Music_xml_node):
     minidom_demarshal_to_value = minidom_demarshal_true
 
 
+class Credit_words(Xml_node):
+    pass
+
+
+class Credit_symbol(Xml_node):
+    pass
+
+
 class Dashes(Music_xml_spanner):
     pass
 
@@ -2334,9 +2344,9 @@ class Tremolo(Music_xml_spanner):
         return self._attribute_dict.get('type', 'single')
 
 
-# need this, not all classes are instantiated
-# for every input file. Only add those classes, that are either directly
-# used by class name or extend Music_xml_node in some way!
+# We need this since not all classes are instantiated for every input file.
+# Only add classes that are either directly used by class name or extend
+# `Music_xml_node` in some way!
 class_dict = {
     '#comment': Hash_comment,
     '#text': Hash_text,
@@ -2358,6 +2368,8 @@ class_dict = {
     'bracket': Bracket,
     'chord': Chord,
     'credit': Credit,
+    'credit-words': Credit_words,
+    'credit-symbol': Credit_symbol,
     'dashes': Dashes,
     'degree': ChordModification,
     'direction': Direction,

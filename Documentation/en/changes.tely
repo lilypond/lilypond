@@ -1558,9 +1558,33 @@ the output of a LilyPond tagline.
 @item New command-line option @option{--book} to wrap the
 top-level score with @code{\book}.
 
+@item If @code{<credit>} elements are present, they now fill the
+fields in LilyPond's @code{\header} block instead of metadata
+elements like @code{<work-title>} or @code{<creator>}.
+
 @item New command-line option @option{--credit-page} to specify
 the page from which LilyPond should take @code{<credit>} data to
 fill the @code{\header} block.
+
+@item All metadata elements that are not mapped to standard
+@code{\header} fields (and which are not ignored like the @q{page
+number} type) are output with more consistent field names: the
+prefix @samp{id:@tie{}} is used for @code{<identification>}
+children, @samp{credit:@tie{}} for @code{<credit>} elements, and
+the MusicXML element name (without a prefix) in all other cases.
+As a consequence, some (unused) fields got new names.
+
+@indentedblock
+@multitable @columnfractions 0.3 0.4
+@headitem old                    @tab new
+@item @code{movementnumber}      @tab @code{movement-number}
+@item @code{encodingsoftware}    @tab @code{id: software}
+@item @code{encodingdate}        @tab @code{id: encoding-date}
+@item @code{encoder}             @tab @code{id: encoder}
+@item @code{encodingdescription} @tab @code{id: encoding-description}
+@item @code{source}              @tab @code{id: source}
+@end multitable
+@end indentedblock
 
 @item The bar numbers shown as comments in the created LilyPond
 input file are now as expected, i.e., the values shown refer to

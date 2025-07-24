@@ -2763,7 +2763,8 @@ def text_to_ly(elements, init_markup=None):
 
         text = ''
         name = element.get_name()
-        if name in ['display-text',
+        if name in ['credit-words',
+                    'display-text',
                     'ending',
                     'group-abbreviation',
                     'group-name',

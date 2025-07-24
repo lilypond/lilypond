@@ -256,13 +256,13 @@ extra_enclosures = (
 
 # A map from `<credit-type>` standard values to LilyPond's `\header` fields.
 credit_type_dict = {
-    None: None,
     '': None,
     'arranger': 'arranger',
     'composer': 'composer',
     'lyricist': 'poet',
     'page number': None,  # Ignored.
-    'part name': None,  # TODO
+    'part name': 'instrument',  # Not ideal because it persists for the
+                                # whole document instead of a single page.
     'rights': 'copyright',
     'subtitle': 'subtitle',
     'title': 'title',
@@ -278,7 +278,9 @@ credit_type_dict = {
 def extract_score_information(tree):
     header = musicexp.Header()
 
-    def set_if_exists(field, value):
+    def set_if_exists(field, value, alt_field=None, is_markup=False):
+        assert field is not None or alt_field is not None
+
         if value:
             if field == 'texidoc':
                 # Don't surround the string with doublequotes yet so that it
@@ -286,25 +288,106 @@ def extract_score_information(tree):
                 # function `dump_texidoc`.
                 header.set_field(field, value.replace('"', r'\"'))
             else:
-                header.set_field(field,
-                                 utilities.escape_ly_output_string(value))
+                if is_markup:
+                    value = r'\markup \normal-text \normalsize ' + value
+                else:
+                    value = utilities.escape_ly_output_string(value)
+
+                nonlocal credit_dict
+
+                if field:
+                    if alt_field is not None and credit_dict:
+                        header.set_field(
+                            utilities.escape_ly_output_string(alt_field),
+                            value)
+                    else:
+                        header.set_field(
+                            utilities.escape_ly_output_string(field), value)
+                else:
+                    if credit_dict:
+                        header.set_field(
+                            utilities.escape_ly_output_string(alt_field),
+                            value)
+
+    # If we have one or more `<credit>` elements, don't use metadata for
+    # typesetting headers.
+
+    credits = tree.get_named_children('credit')
+    credit_page_string = str(options.credit_page)
+    credits = [c for c in credits
+               if getattr(c, 'page', '1') == credit_page_string]
+
+    # Collect all `<credit>` entries, with and without a type.
+    credit_named_dict = {}
+    credit_guessed_dict = {}
+    no_type_count = 1
+    for cred in credits:
+        cred_type = cred.get_type()
+        if cred_type:
+            header_type = credit_type_dict.get(cred_type)
+            if header_type is not None:
+                credit_named_dict[header_type] = cred
+            else:
+                # While LilyPond can't process unknown header fields without
+                # manual support (i.e., code supplied by the user), it still
+                # makes sense to output them.
+                cred_type = 'credit: ' + cred_type
+                credit_named_dict[cred_type] = cred
+        else:
+            guessed_type = cred.find_type(credits)
+            header_type = credit_type_dict.get(guessed_type)
+            if header_type is not None:
+                credit_guessed_dict[header_type] = cred
+            else:
+                # If we can't guess a type for an entry, output the data
+                # with a sequence number in the field name.
+                credit_guessed_dict['credit: ' + str(no_type_count)] = cred
+                no_type_count += 1
+
+    # Only use guessed entries for entries that don't have a type.
+    credit_dict = dict(list(credit_guessed_dict.items())
+                       + list(credit_named_dict.items()))
+
+    for (type, cred) in credit_dict.items():
+        elements = []
+        attributes = {}
+
+        credit_children = [c for c in cred.get_all_children()
+                           if isinstance(c, (musicxml.Credit_words,
+                                             musicxml.Credit_symbol))]
+        for elem in credit_children:
+            # Attributes are 'carried over', so update attributes with data
+            # from the current element.
+            for a in elem._attribute_dict:
+                if a not in formatting_attributes_to_ignore:
+                    attributes[a] = elem._attribute_dict[a]
+
+            enclosure = attributes.get('enclosure', None)
+            if enclosure is not None and enclosure in extra_enclosures:
+                needed_additional_definitions.append(enclosure)
+
+            elements.append((elem, attributes.copy()))
+
+        set_if_exists(type, musicexp.text_to_ly(elements), is_markup=True)
+
+    # Emit metadata.
 
     movement_title = tree.get_maybe_exist_named_child('movement-title')
     if movement_title:
-        set_if_exists('title', movement_title.get_text())
+        set_if_exists('title', movement_title.get_text(), 'movement-title')
 
     movement_number = tree.get_maybe_exist_named_child('movement-number')
     if movement_number:
-        set_if_exists('movementnumber', movement_number.get_text())
-        # The movement number should be visible in the score.
-        # set_if_exists('piece', movement_number.get_text())
+        # TODO The movement number should be visible in the score,
+        #      probably in the 'piece' field of `\header`.
+        set_if_exists(None, movement_number.get_text(), 'movement-number')
 
     work = tree.get_maybe_exist_named_child('work')
     if work:
-        set_if_exists('opus', work.get_work_number())
-        set_if_exists('title', work.get_work_title())
+        set_if_exists('opus', work.get_work_number(), 'work-number')
+        set_if_exists('title', work.get_work_title(), 'work-title')
         # Use `movement_title` as a subtitle.
-        if movement_title:
+        if movement_title and not credit_dict:
             set_if_exists('subtitle', movement_title.get_text())
 
         # TODO: Support inclusion of other MusicXML files via the `<opus>`
@@ -317,27 +400,28 @@ def extract_score_information(tree):
     identifications = tree.get_named_children('identification')
     for ids in identifications:
         # <rights>
-        set_if_exists('copyright', ids.get_rights())
+        set_if_exists('copyright', ids.get_rights(), 'id: copyright')
+
         # <creator>
-        set_if_exists('composer', ids.get_composer())
-        set_if_exists('arranger', ids.get_arranger())
-        set_if_exists('editor', ids.get_editor())
-        set_if_exists('poet', ids.get_poet())
+        set_if_exists('composer', ids.get_composer(), 'id: composer')
+        set_if_exists('arranger', ids.get_arranger(), 'id: arranger')
+        set_if_exists('editor', ids.get_editor(), 'id: editor')
+        set_if_exists('poet', ids.get_poet(), 'id: lyricist')
 
         # <encoding>
         # We only get the data from the first child, irrespective of its
         # 'type' attribute.
-        set_if_exists('encodingsoftware',
+        set_if_exists('id: software',
                       ids.get_encoding_software())  # <software>
-        set_if_exists('encodingdate',
+        set_if_exists('id: encoding-date',
                       ids.get_encoding_date())  # <encoding-date>
-        set_if_exists('encoder',
+        set_if_exists('id: encoder',
                       ids.get_encoding_person())  # <encoder>
-        set_if_exists('encodingdescription',
+        set_if_exists('id: encoding-description',
                       ids.get_encoding_description())  # <encoding-description>
 
         # <source>
-        set_if_exists('source', ids.get_source())
+        set_if_exists('id: source', ids.get_source())
 
         # <miscellaneous>
         # The element `<miscellaneous-field name="description">` becomes the
@@ -379,34 +463,6 @@ def extract_score_information(tree):
             # applications.
             if 'Finale' in s:
                 musicexp.set_ottavas_end_early('t')
-
-    credits = tree.get_named_children('credit')
-    credit_page_string = str(options.credit_page)
-    credits = [c for c in credits
-               if getattr(c, 'page', '1') == credit_page_string]
-
-    has_composer = False
-    for cred in credits:
-        type = credit_type_dict.get(cred.get_type())
-        if type is None:
-            type = credit_type_dict.get(cred.find_type(credits))
-        if type == 'composer':
-            if has_composer:
-                type = 'poet'
-            else:
-                has_composer = True
-            set_if_exists(type, cred.get_text())
-        elif type == 'title':
-            if not work and not movement_title:
-                set_if_exists('title', cred.get_text())
-            # elif (not(movement_title)):  # bullshit!
-            #    # bullshit! otherwise both title and subtitle show the work
-            #    # title.
-            #    set_if_exists('subtitle', cred.get_text())
-        elif type is None:
-            pass
-        else:
-            set_if_exists(type, cred.get_text())
 
     # TODO: Check for other unsupported features
     return header

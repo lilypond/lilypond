@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0 Partwise//EN"
+                                "http://www.musicxml.org/dtds/partwise.dtd">
+<score-partwise version="4.0">
+  <identification>
+    <miscellaneous>
+      <miscellaneous-field name="description">Check multiple &lt;credit&gt;
+          elements with various &lt;credit-type&gt; children (also testing the
+          case without such a child and having two).  There is also a
+          &lt;defaults&gt; block to properly set up (quite small) page
+          dimensions and a ‘tenth’ value, making the ‘default-x’ and ‘default-y’
+          attributes of &lt;credit-words&gt; children meaningful.
+
+          The following &lt;credit&gt; elements are present, with the given
+          &lt;credit-type&gt; type.
+
+          – ‘rights’ (at the bottom; halign: center, justify: right, valign:
+          bottom).
+
+          – ‘title’ (two &lt;credit-words&gt; elements, attributes only set for
+          the first one, almost at the top; justify: center, valign: middle,
+          enclosure: rectangle).
+
+          – No &lt;credit-type&gt; element (below the title; halign: center,
+          valign: middle).
+
+          – Two &lt;credit-type&gt; elements (types ‘foo’ and ‘bar’, at the top;
+          justify: center, valign: top, font-stype: italic).
+
+          – ‘composer’ (below the type-less element; justify: right, valign:
+          middle).
+
+          – ‘lyricist’ (below the type-less element; valign: middle).
+
+          There are no metadata elements.
+
+          Measure 1 contains &lt;print blank-page="1"/&gt; to make the music
+          start on page 2 (i.e., all &lt;credit&gt; elements in this test go to
+          page 1).
+
+          Chances are high that an application ignores all &lt;credit&gt;
+          elements, using only metadata to derive titles, subtitles, and
+          more.</miscellaneous-field>
+    </miscellaneous>
+  </identification>
+  <defaults>
+    <scaling>
+      <millimeters>6.35</millimeters>
+      <tenths>40</tenths>
+    </scaling>
+    <page-layout>
+      <page-height>660</page-height>
+      <page-width>860</page-width>
+    </page-layout>
+  </defaults>
+  <credit>
+    <credit-type>rights</credit-type>
+    <credit-words default-x="430"
+                  default-y="80"
+                  font-size="9"
+                  halign="center"
+                  justify="right"
+                  valign="bottom">The copyright comes here.</credit-words>
+  </credit>
+  <credit>
+    <credit-type>title</credit-type>
+    <credit-words default-x="430"
+                  default-y="440"
+                  font-size="24"
+                  justify="center"
+                  valign="middle"
+                  enclosure="rectangle">The </credit-words>
+    <credit-words>Title</credit-words>
+  </credit>
+  <credit>
+    <credit-words default-x="430"
+                  default-y="360"
+                  font-size="14"
+                  halign="center"
+                  valign="middle">A subtitle without a type</credit-words>
+  </credit>
+  <credit>
+    <credit-type>foo</credit-type>
+    <credit-type>bar</credit-type>
+    <credit-words default-x="430"
+                  default-y="600"
+                  font-size="12"
+                  font-style="italic"
+                  justify="center"
+                  valign="top">Two types (foo + bar)</credit-words>
+  </credit>
+  <credit>
+    <credit-type>composer</credit-type>
+    <credit-words default-x="780"
+                  default-y="280"
+                  font-size="10"
+                  justify="right"
+                  valign="middle">The Composer</credit-words>
+  </credit>
+  <credit>
+    <credit-type>lyricist</credit-type>
+    <credit-words default-x="80"
+                  default-y="280"
+                  font-size="10"
+                  valign="middle">The Lyricist</credit-words>
+  </credit>
+  <part-list>
+    <score-part id="P1">
+      <part-name>MusicXML Part</part-name>
+    </score-part>
+  </part-list>
+  <!--=========================================================-->
+  <part id="P1">
+    <measure number="1">
+      <print blank-page="1"/>
+      <note>
+        <rest/>
+        <duration>4</duration>
+        <voice>1</voice>
+        <type>whole</type>
+      </note>
+      <barline location="right">
+        <bar-style>light-heavy</bar-style>
+      </barline>
+    </measure>
+  </part>
+  <!--=========================================================-->
+</score-partwise>
