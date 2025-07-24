@@ -225,6 +225,35 @@ def extract_paper_information(score_partwise):
     return globvars.paper
 
 
+# Contrary to other parts of MusicXML, "for a series of `<direction-type>`
+# children, non-positional formatting attributes are carried over from
+# previous elements by default."  The same holds for children of `<credit>`.
+#
+# Unfortunately, it is not defined what 'non-positional formatting
+# attributes' actually means.  The following set of attributes to be ignored
+# for this 'carry-over' is thus a heuristic guess, combined with attributes
+# `musicxml2ly` doesn't handle.
+formatting_attributes_to_ignore = {
+    'default-x',
+    'default-y',
+    'dir',  # not handled
+    'id',  # not handled
+    'relative-x',
+    'relative-y',
+    'smufl',
+    'type',
+    'xml:lang',  # not handled
+}
+
+
+# A list of MusicXML enclosure types for which `musicxml2ly` provides
+# additional support.  Enclosure types unsupported by LilyPond are filtered
+# out in function `text_to_ly`.
+extra_enclosures = (
+    'square'
+)
+
+
 # A map from `<credit-type>` standard values to LilyPond's `\header` fields.
 credit_type_dict = {
     None: None,
@@ -2735,25 +2764,6 @@ def musicxml_direction_to_lily(n):
             'textmark': musicxml_textmark_to_lily_event,
             'words': musicxml_words_to_lily_event,
         }
-        # Contrary to other parts of MusicXML, "for a series of
-        # `<direction-type>` children, non-positional formatting attributes
-        # are carried over from previous elements by default."
-        #
-        # Unfortunately, it is not defined what 'non-positional formatting
-        # attributes' actually means.  The following set of attributes to be
-        # ignored for this 'carry-over' is thus a heuristic guess, combined
-        # with attributes `musicxml2ly` doesn't handle.
-        attributes_to_ignore = {
-            'default-x',
-            'default-y',
-            'dir',  # not handled
-            'id',  # not handled
-            'relative-x',
-            'relative-y',
-            'smufl',
-            'type',
-            'xml:lang',  # not handled
-        }
         direction_type_spanners = {
             'bracket',
             'octave-shift',
@@ -2774,13 +2784,6 @@ def musicxml_direction_to_lily(n):
             # 'staff-divide': TODO
             # 'string-mute': TODO
         }
-        # A list of MusicXML enclosure types for which `musicxml2ly`
-        # provides additional support.  Enclosure types unsupported by
-        # LilyPond are filtered out in function `text_to_ly`.
-        extra_enclosures = (
-            'square'
-        )
-
         entry = dirtype_children[i]
 
         # We store `<direction-type>` children together with the
@@ -2805,7 +2808,7 @@ def musicxml_direction_to_lily(n):
 
             # Update attributes with data from current element.
             for a in elem._attribute_dict:
-                if a not in attributes_to_ignore:
+                if a not in formatting_attributes_to_ignore:
                     attributes[a] = elem._attribute_dict[a]
 
             if state == 'cresc-spanner':
