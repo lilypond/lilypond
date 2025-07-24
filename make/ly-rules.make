@@ -1,22 +1,9 @@
-.SUFFIXES: .doc .tely .texi .ly
+.SUFFIXES: .tely .texi .ly
 
 # TODO: fix hardcoded out/ ?
 LYS_OUTPUT_OPTION = --lily-output-dir=$(LYS_OUTPUT_DIR)
 LYS_OUTPUT_DIR = $(top-build-dir)/out/lybook-db
 LILYPOND_BOOK_FLAGS += $(LYS_OUTPUT_OPTION)
-
-$(outdir)/%.latex: %.doc
-	$(call ly_progress,Making,$@,< doc)
-	LILYPOND_VERSION=$(TOPLEVEL_VERSION) \
-	  TEX="$(PDFTEX)" PDFTEX="$(PDFTEX)" PDFLATEX="$(PDFLATEX)" \
-	  $(PYTHON) $(LILYPOND_BOOK) \
-	    $(LILYPOND_BOOK_INCLUDES) \
-	    --process='$(LILYPOND_BOOK_PROCESS) \
-	               $(LILYPOND_BOOK_LILYPOND_FLAGS)' \
-	    --output=$(dir $@) \
-	    $(LILYPOND_BOOK_FLAGS) \
-	    --redirect-lilypond-output \
-	    $<
 
 # don't do ``cd $(outdir)'', and assume that $(outdir)/.. is the src dir.
 # it is not, for --srcdir builds
