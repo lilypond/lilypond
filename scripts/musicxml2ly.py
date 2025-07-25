@@ -317,6 +317,8 @@ def extract_score_information(tree):
     credits = [c for c in credits
                if getattr(c, 'page', '1') == credit_page_string]
 
+    credit_group = musicxml.Credit_group(credits)
+
     # Collect all `<credit>` entries, with and without a type.
     credit_named_dict = {}
     credit_guessed_dict = {}
@@ -334,7 +336,7 @@ def extract_score_information(tree):
                 cred_type = 'credit: ' + cred_type
                 credit_named_dict[cred_type] = cred
         else:
-            guessed_type = cred.find_type(credits)
+            guessed_type = cred.find_type(credit_group)
             header_type = credit_type_dict.get(guessed_type)
             if header_type is not None:
                 credit_guessed_dict[header_type] = cred

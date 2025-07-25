@@ -337,6 +337,35 @@ class Identification(Xml_node):
         return None
 
 
+class Credit_group:
+    def __init__(self, credits):
+        self.words_font_sizes = []
+        self.words_default_xs = []
+        self.words_default_ys = []
+
+        # Collect 'font-size', 'default-x', and 'default-y' attribute values
+        # of the first `<credit-words>` child of all `<credit>` elements.
+        for cred in credits:
+            words = cred.get_first_credit_words()
+
+            text = getattr(words, 'font-size', None)
+            if text is not None:
+                self.words_font_sizes.append(int(float(text)))
+
+            text = getattr(words, 'default-x', None)
+            if text is not None:
+                self.words_default_xs.append(round(float(text)))
+
+            text = getattr(words, 'default-y', None)
+            if text is not None:
+                self.words_default_ys.append(round(float(text)))
+
+        self.words_font_sizes.sort(reverse=True)
+        # Coordinates are relative to the bottom-left corner of a page.
+        self.words_default_xs.sort(reverse=True)
+        self.words_default_ys.sort(reverse=True)
+
+
 class Credit(Xml_node):
     max_occurs_by_child = {
         'credit-words': 2,
@@ -361,101 +390,70 @@ class Credit(Xml_node):
         except IndexError:
             return None
 
-    # Apply heuristics to find out how `<credit-words>` children are
-    # positioned on a page and what they do; then try to derive a proper
-    # type for it.
-    def find_type(self, credits):
-        # PERF: These calls repeat linear searches of the same elements.
-
-        # First, we collect 'font-size', 'default-x', and 'default-y'
-        # attribute values of the first `<credit-words>` child of all
-        # `<credit>` elements.
-        sizes = self.get_font_sizes(credits)
-        sizes.sort(reverse=True)
-        # Coordinates are relative to the bottom-left corner of a page.
-        xs = self.get_default_xs(credits)
-        xs.sort(reverse=True)
-        ys = self.get_default_ys(credits)
-        ys.sort(reverse=True)
-
-        # Then we do the same for the first `<credit-words>` child of the
-        # current `<credit>` element, also collecting some more attributes.
+    # Apply heuristics to find out where a `<credit>` element is positioned
+    # on a page and what it does, then try to derive a proper type for it.
+    def find_type(self, credit_group):
+        # Collect various' attribute values of the first `<credit-words>`
+        # child of the current `<credit>` element.
         words = self.get_first_credit_words()
+
         size = getattr(words, 'font-size', None)
         if size is not None:
             size = int(float(size))
+
         x = getattr(words, 'default-x', None)
         if x is not None:
             x = round(float(x))
+
         y = getattr(words, 'default-y', None)
         if y is not None:
             y = round(float(y))
+
         justify = getattr(words, 'justify', 'left')
         # The standard says that if the 'halign' attribute is not present,
         # it takes its value from the 'justify' attribute.
         halign = getattr(words, 'halign', justify)
         valign = getattr(words, 'valign', None)
 
-        if (size and size == max(sizes) and y and y == max(ys)
+        # The arrays in `credit_group` are sorted in reverse order.
+        if (size and size == credit_group.words_font_sizes[0]
+                and y and y == credit_group.words_default_ys[0]
                 and halign == 'center'):
             return 'title'
-        elif y and y > min(ys) and y < max(ys) and halign == 'center':
+        elif (y and y > credit_group.words_default_ys[-1]
+              and y < credit_group.words_default_ys[0]
+              and halign == 'center'):
             return 'subtitle'
-        elif halign == 'left' and (not x or x == min(xs)):
+        elif (halign == 'left'
+              and (not x or x == credit_group.words_default_xs[-1])):
             return 'lyricist'
-        elif halign == 'right' and (not x or x == max(xs)):
+        elif (halign == 'right'
+              and (not x or x == credit_group.words_default_xs[0])):
             return 'composer'
-        elif size and size == min(sizes) and y == min(ys):
+        elif (size and size == credit_group.words_font_sizes[-1]
+              and y == credit_group.words_default_ys[-1]):
             return 'rights'
-        # Special cases for Finale NotePad
-        elif valign and valign == 'top' and y and y == ys[1]:
+
+        # Special cases for Finale NotePad.
+        elif (valign and valign == 'top'
+              and y and y == credit_group.words_default_ys[1]):
             return 'subtitle'
-        elif valign and valign == 'top' and x and x == min(xs):
+        elif (valign and valign == 'top'
+              and x and x == credit_group.words_default_xs[-1]):
             return 'lyricist'
-        elif valign and valign == 'top' and y and y == min(ys):
+        elif (valign and valign == 'top'
+              and y and y == credit_group.words_default_ys[-1]):
             return 'rights'
-        # Other special cases
+
+        # Other special cases.
         elif valign and valign == 'bottom':
             return 'rights'
-        elif len([i for i, item in enumerate(ys) if item == y]) == 2:
-            # The first one is the composer, the second one is the lyricist
+        elif len([i for i, item in enumerate(credit_group.words_default_ys)
+                 if item == y]) == 2:
+            # The first one is the composer, the second one is the lyricist.
             return 'composer'
 
         return ''  # No type recognized.
-
-    def get_font_sizes(self, credits):
-        sizes = []
-        for cred in credits:
-            words = cred.get_first_credit_words()
-            text = getattr(words, 'font-size', None)
-            if text is not None:
-                sizes.append(int(float(text)))
-        return sizes
-
-    def get_default_xs(self, credits):
-        default_xs = []
-        for cred in credits:
-            words = cred.get_first_credit_words()
-            text = getattr(words, 'default-x', None)
-            if text is not None:
-                default_xs.append(round(float(text)))
-        return default_xs
-
-    def get_default_ys(self, credits):
-        default_ys = []
-        for cred in credits:
-            words = cred.get_first_credit_words()
-            text = getattr(words, 'default-y', None)
-            if text is not None:
-                default_ys.append(round(float(text)))
-        return default_ys
-
-    def get_text(self):
-        words = self.get_first_credit_words()
-        if words is not None:
-            return words.get_text()
-        else:
-            return ''
 
 
 class Duration(Music_xml_node):
