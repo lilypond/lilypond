@@ -43,7 +43,7 @@ def copy_slice(src: str, dst: str, lines: slice):
 class Expat(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "2.6.2"
+        return "2.7.1"
 
     @property
     def directory(self) -> str:
@@ -139,7 +139,7 @@ zlib = Zlib()
 class FreeType(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "2.13.2"
+        return "2.13.3"
 
     @property
     def directory(self) -> str:
@@ -180,7 +180,7 @@ freetype = FreeType()
 class Fontconfig(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "2.14.2"
+        return "2.17.1"
 
     @property
     def directory(self) -> str:
@@ -192,7 +192,7 @@ class Fontconfig(ConfigurePackage):
 
     @property
     def download_url(self) -> str:
-        return f"https://www.freedesktop.org/software/fontconfig/release/{self.archive}"
+        return f"https://gitlab.freedesktop.org/api/v4/projects/890/packages/generic/fontconfig/{self.version}/{self.archive}"
 
     def dependencies(self, c: Config) -> List[Package]:
         return [expat, freetype]
@@ -214,7 +214,7 @@ fontconfig = Fontconfig()
 class Ghostscript(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "10.03.0"
+        return "10.05.1"
 
     @property
     def directory(self) -> str:
@@ -295,7 +295,7 @@ class Gettext(ConfigurePackage):
 
     @property
     def version(self) -> str:
-        return "0.22.5"
+        return "0.26"
 
     @property
     def directory(self) -> str:
@@ -390,7 +390,7 @@ gettext = Gettext()
 class Libffi(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "3.4.6"
+        return "3.5.1"
 
     @property
     def directory(self) -> str:
@@ -424,7 +424,7 @@ libffi = Libffi()
 class PCRE2(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "10.43"
+        return "10.45"
 
     @property
     def directory(self) -> str:
@@ -452,7 +452,7 @@ class PCRE2(ConfigurePackage):
 
     @property
     def license_files(self) -> List[str]:
-        return ["LICENCE"]
+        return ["LICENCE.md"]
 
     def __str__(self) -> str:
         return f"PCRE2 {self.version}"
@@ -464,7 +464,7 @@ pcre2 = PCRE2()
 class GLib(MesonPackage):
     @property
     def version(self) -> str:
-        return "2.80.0"
+        return "2.84.3"
 
     @property
     def directory(self) -> str:
@@ -526,7 +526,7 @@ glib = GLib()
 class Bdwgc(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "8.2.6"
+        return "8.2.8"
 
     @property
     def directory(self) -> str:
@@ -569,7 +569,7 @@ class Libiconv(ConfigurePackage):
 
     @property
     def version(self) -> str:
-        return "1.17"
+        return "1.18"
 
     @property
     def directory(self) -> str:
@@ -597,7 +597,7 @@ libiconv = Libiconv()
 class Libunistring(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "1.2"
+        return "1.3"
 
     @property
     def directory(self) -> str:
@@ -826,7 +826,7 @@ guile = Guile()
 class HarfBuzz(MesonPackage):
     @property
     def version(self) -> str:
-        return "8.4.0"
+        return "11.3.2"
 
     @property
     def directory(self) -> str:
@@ -865,7 +865,7 @@ harfbuzz = HarfBuzz()
 class FriBidi(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "1.0.13"
+        return "1.0.16"
 
     @property
     def directory(self) -> str:
@@ -894,7 +894,7 @@ fribidi = FriBidi()
 class Pango(MesonPackage):
     @property
     def version(self) -> str:
-        return "1.52.2"
+        return "1.56.4"
 
     @property
     def directory(self) -> str:
@@ -953,7 +953,7 @@ pango = Pango()
 class Libpng(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "1.6.43"
+        return "1.6.50"
 
     @property
     def directory(self) -> str:
@@ -989,7 +989,7 @@ libpng = Libpng()
 class Pixman(MesonPackage):
     @property
     def version(self) -> str:
-        return "0.43.4"
+        return "0.46.4"
 
     @property
     def directory(self) -> str:
@@ -1024,7 +1024,7 @@ pixman = Pixman()
 class Cairo(MesonPackage):
     @property
     def version(self) -> str:
-        return "1.18.0"
+        return "1.18.4"
 
     @property
     def directory(self) -> str:
@@ -1067,7 +1067,7 @@ class Cairo(MesonPackage):
 cairo = Cairo()
 
 
-PYTHON_VERSION = "3.12.2"
+PYTHON_VERSION = "3.13.5"
 
 
 class Python(ConfigurePackage):
