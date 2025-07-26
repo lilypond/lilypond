@@ -40,15 +40,15 @@ Make sure that your operating system's default compiler is able to compile LilyP
 C source code files should then be compiled with the corresponding C compiler sibling that has the same version
 (for example, gcc version 8).
 
-Mingw peculiarities
+MinGW peculiarities
 -------------------
 
-In order to do cross-compilation to mingw, a previous successful Linux build is necessary,
+In order to do cross-compilation to MinGW, a previous successful Linux build is necessary,
 because Guile needs to bootstrap itself, which is not possible when host and target system differ.
 
 You need MinGW-w64 version 8.0.0 or newer.
 
-Only the 'win32' thread model is supported for the gcc and g++ mingw cross compilers;
+Only the 'win32' thread model is supported for the gcc and g++ MinGW cross compilers;
 this can be verified by checking the output of `x86_64-w64-mingw32-gcc -v`.
 
 Goals and Non-Goals
@@ -57,7 +57,7 @@ Goals and Non-Goals
  * **Build natively, avoid cross-compilation**.
    This reduces a large amount of the complexity since many packages are not well-prepared for cross-compilation.
    Native compilation is also required for macOS due to Apple's licensing policies.
-   (Cross-compilation to mingw may become an exception to the rule.)
+   Cross-compilation to Windows with MinGW is an exception to the rule.
  * **Use static builds of dependencies, no shared libraries**.
    This avoids problems related to finding dependencies while not interfering with their system-provided versions.
     * *Only link dynamically against fundamental libraries*, such as `libc` on Unix systems.
