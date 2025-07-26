@@ -309,7 +309,7 @@ class Gettext(ConfigurePackage):
     def download_url(self) -> str:
         return f"https://ftpmirror.gnu.org/gnu/gettext/{self.archive}"
 
-    def apply_patches(self, c: Config):
+    def _apply_patches_locale_charset(self, c: Config):
         # localcharset.c defines locale_charset, which is also provided by
         # Guile. However, Guile has a modification to this file so we really
         # need to build that version.
@@ -324,6 +324,12 @@ class Gettext(ConfigurePackage):
 
         dcigettext = os.path.join("gettext-runtime", "intl", "dcigettext.c")
         self.patch_file(c, dcigettext, patch_dcigettext)
+
+    def apply_patches(self, c: Config):
+        # On mingw, we build a shared libintl.dll (see below) so there is no
+        # problem with duplicate locale_charset (see above).
+        if not c.is_mingw():
+            self._apply_patches_locale_charset(c)
 
     @property
     def configure_script(self) -> str:
