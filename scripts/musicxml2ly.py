@@ -374,23 +374,13 @@ def extract_score_information(tree):
 
     # Emit metadata.
 
-    movement_title = tree.get_maybe_exist_named_child('movement-title')
-    if movement_title:
-        set_if_exists('title', movement_title.get_text(), 'movement-title')
-
-    movement_number = tree.get_maybe_exist_named_child('movement-number')
-    if movement_number:
-        # TODO The movement number should be visible in the score,
-        #      probably in the 'piece' field of `\header`.
-        set_if_exists(None, movement_number.get_text(), 'movement-number')
-
     work = tree.get_maybe_exist_named_child('work')
+    work_title_text = ''
     if work:
         set_if_exists('opus', work.get_work_number(), 'work-number')
-        set_if_exists('title', work.get_work_title(), 'work-title')
-        # Use `movement_title` as a subtitle.
-        if movement_title and not credit_dict:
-            set_if_exists('subtitle', movement_title.get_text())
+
+        work_title_text = work.get_work_title()
+        set_if_exists('title', work_title_text, 'work-title')
 
         # TODO: Support inclusion of other MusicXML files via the `<opus>`
         # element; see
@@ -398,6 +388,24 @@ def extract_score_information(tree):
         #   https://www.w3.org/2021/06/musicxml40/opus-reference/
         #
         # for details.
+
+    movement_title = tree.get_maybe_exist_named_child('movement-title')
+    movement_title_text = ''
+    if movement_title:
+        movement_title_text = movement_title.get_text()
+
+    if movement_title_text:
+        if work_title_text:
+            field = 'subtitle'
+        else:
+            field = 'title'
+        set_if_exists(field, movement_title_text, 'movement-title')
+
+    movement_number = tree.get_maybe_exist_named_child('movement-number')
+    if movement_number:
+        # TODO The movement number should be visible in the score,
+        #      probably in the 'piece' field of `\header`.
+        set_if_exists(None, movement_number.get_text(), 'movement-number')
 
     identifications = tree.get_named_children('identification')
     for ids in identifications:
