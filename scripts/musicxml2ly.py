@@ -421,8 +421,9 @@ def extract_score_information(tree):
         # <encoding>
         # We only get the data from the first child, irrespective of its
         # 'type' attribute.
+        software = ids.get_encoding_software()
         set_if_exists('id: software',
-                      ids.get_encoding_software())  # <software>
+                      software)  # <software>
         set_if_exists('id: encoding-date',
                       ids.get_encoding_date())  # <encoding-date>
         set_if_exists('id: encoder',
@@ -445,7 +446,7 @@ def extract_score_information(tree):
         # Some applications created invalid MusicXML files, so we need to
         # apply some compatibility settings, e.g., ignoring some features or
         # elements in such files.
-        software = ids.get_encoding_software_list()
+        software = software.splitlines()
 
         ignore_beaming_software = {
             "Dolet 4 for Sibelius, Beta 2": "Dolet 4 for Sibelius, Beta 2",

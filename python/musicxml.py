@@ -255,30 +255,30 @@ class Identification(Xml_node):
                 ret.append(text)
         return "\n".join(ret)
 
-    # Get contents of the source-element (usually used for publishing
-    # information).  (These contents are saved in a custom variable named
-    # "source" in the header of the .ly file.)
     def get_source(self):
-        source = self.get_named_children('source')
-        ret = []
-        for r in source:
-            ret.append(r.get_text())
-        return "\n".join(ret)
+        source = self.get_maybe_exist_named_child('source')
+        if source:
+            return source.get_text()
+        return ''
 
     def get_creator(self, type):
         creators = self.get_named_children('creator')
-        # return the first creator tag that has the particular type
+        ret = []
         for i in creators:
             if getattr(i, 'type', None) == type:
-                return i.get_text()
-        return None
+                text = i.get_text()
+                if text:
+                    ret.append(text)
+        return '\n'.join(ret)
 
     def get_composer(self):
         c = self.get_creator('composer')
         if c:
             return c
+
+        # XXX Why a heuristic second try?
         creators = self.get_named_children('creator')
-        # return the first creator tag that has no type at all
+        # Return the first `<creator>` element that has no type.
         for i in creators:
             if not hasattr(i, 'type'):
                 return i.get_text()
@@ -298,13 +298,16 @@ class Identification(Xml_node):
         return v
 
     def get_encoding_information(self, type):
-        enc = self.get_named_children('encoding')
-        if enc:
-            children = enc[0].get_named_children(type)
-            if children:
-                return children[0].get_text()
-        else:
-            return None
+        encoding = self.get_maybe_exist_named_child('encoding')
+        if encoding:
+            children = encoding.get_named_children(type)
+            ret = []
+            for child in children:
+                text = child.get_text()
+                if text:
+                    ret.append(text)
+            return '\n'.join(ret)
+        return ''
 
     def get_encoding_software(self):
         return self.get_encoding_information('software')
@@ -318,23 +321,14 @@ class Identification(Xml_node):
     def get_encoding_description(self):
         return self.get_encoding_information('encoding-description')
 
-    def get_encoding_software_list(self):
-        enc = self.get_named_children('encoding')
-        software = []
-        for e in enc:
-            softwares = e.get_named_children('software')
-            for s in softwares:
-                software.append(s.get_text())
-        return software
-
     def get_file_description(self):
-        misc = self.get_named_children('miscellaneous')
-        for m in misc:
-            misc_fields = m.get_named_children('miscellaneous-field')
+        misc = self.get_maybe_exist_named_child('miscellaneous')
+        if misc:
+            misc_fields = misc.get_named_children('miscellaneous-field')
             for mf in misc_fields:
                 if getattr(mf, 'name', None) == 'description':
                     return mf.get_text()
-        return None
+        return ''
 
 
 class Credit_group:

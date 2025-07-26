@@ -3,13 +3,21 @@
                                 "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise version="4.0">
   <identification>
+    <creator type="composer">Joe User</creator>
+    <creator type="composer">A. U. Thor</creator>
     <rights>Copyright © XXXX by Y. ZZZZ.</rights>
     <rights>Released to the public domain.</rights>
+    <encoding>
+      <software>"Hand-crafted" MusicXML file</software>
+      <software>Very, very hand-crafted</software>
+      <encoding-date>2008-02-06</encoding-date>
+      <encoding-date>2025-07-26</encoding-date>
+    </encoding>
     <miscellaneous>
-      <miscellaneous-field name="description">There can be multiple
-          &lt;rights&gt; children in the &lt;identification&gt; element of the
-          score.  This test contains two such elements, which should ideally
-          both be used.</miscellaneous-field>
+      <miscellaneous-field name="description">Some metadata elements can occur
+          multiple times.  This test file contains the elements &lt;creator&gt;
+          (type ‘composer’), &lt;rights&gt;, &lt;software&gt;, and
+          &lt;encoding-date&gt; twice.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
