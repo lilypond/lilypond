@@ -532,7 +532,7 @@ class Bdwgc(ConfigurePackage):
 
     @property
     def download_url(self) -> str:
-        return f"https://github.com/ivmai/bdwgc/releases/download/v{self.version}/{self.archive}"
+        return f"https://github.com/bdwgc/bdwgc/releases/download/v{self.version}/{self.archive}"
 
     def configure_args(self, c: Config) -> List[str]:
         return [
