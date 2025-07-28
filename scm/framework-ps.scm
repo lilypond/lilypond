@@ -321,6 +321,9 @@ for subfont ~a of file `~a'...")
                              (ly:get-option 'font-ps-resdir) name)))
         (if (not (symlink-or-copy-if-not-exist file-name newpath))
             (ly:debug (G_ "File `~a' already exists, skipping...") newpath))))
+     ((eq? font-format 'CFF2)
+      (ly:warning (G_ "Font ~S=~S cannot be used in PostScript resource \
+directory because it uses the CFF2 format.") name file-name))
      (else
       (ly:warning (G_ "Font ~S=~S cannot be used in PostScript resource \
 directory because it has an unknown format.") name file-name)))))
@@ -410,6 +413,10 @@ because it is a TrueType font that does not have glyph names.")
        ((eq? font-format 'CFF)
         ;; OpenType/CFF fonts (OTF) and OpenType/CFF Collection (OTC)
         (check-conflict-and-embed-cff name file-name font-index))
+       ((eq? font-format 'CFF2)
+        (ly:warning (G_ "cannot embed ~S=~S because \
+PostScript doesn't support the CFF2 format") name file-name)
+        "")
        (else
         (ly:warning (G_ "do not know how to embed ~S=~S") name file-name)
         ""))))
