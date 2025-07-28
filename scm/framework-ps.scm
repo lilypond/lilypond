@@ -253,7 +253,8 @@
                        (G_ "CFF font `~a' already embedded, skipping.")
                        name)
                       (ly:warning
-                       (G_ "Different CFF fonts which have the same name `~a' has been detected. The font cannot be embedded.")
+                       (G_ "Different CFF fonts which have the same name `~a' \
+has been detected. The font cannot be embedded.")
                        name))
                   "")
                 (begin
@@ -284,8 +285,8 @@
     retval))
 
 (define (link-ps-resdir-font name file-name font-index)
-  (ly:debug (G_ "Preparing font ~a in PostScript resource directory\
- for subfont ~a of file `~a'...")
+  (ly:debug (G_ "Preparing font ~a in PostScript resource directory \
+for subfont ~a of file `~a'...")
             name font-index file-name)
   (let* ((index (if (number? font-index) font-index 0))
          (font-format (ly:get-font-format file-name index)))
@@ -321,8 +322,8 @@
         (if (not (symlink-or-copy-if-not-exist file-name newpath))
             (ly:debug (G_ "File `~a' already exists, skipping...") newpath))))
      (else
-      (ly:warning (G_ "Font ~a cannot be used in PostScript resource directory\
- because it is unknown format.") name)))))
+      (ly:warning (G_ "Font ~S=~S cannot be used in PostScript resource \
+directory because it has an unknown format.") name file-name)))))
 
 (define (write-preamble paper load-fonts? port)
   (define (internal-font? font-name-filename)
@@ -360,19 +361,22 @@
       (cond
        ((and (number? font-index)
              (!= font-index 0))
-        (ly:warning (G_ "Font ~a cannot be loaded via Ghostscript because its font-index (~a) is not zero.")
+        (ly:warning (G_ "Font ~a cannot be loaded via Ghostscript \
+because its font-index (~a) is not zero.")
                     name font-index)
         (load-font font-name-filename))
        ((and (string? bare-file-name)
              (eq? (ly:get-font-format bare-file-name font-index) 'CFF)
              (is-collection-font? bare-file-name))
-        (ly:warning (G_ "Font ~a cannot be loaded via Ghostscript because it is an OpenType/CFF Collection (OTC) font.")
+        (ly:warning (G_ "Font ~a cannot be loaded via Ghostscript \
+because it is an OpenType/CFF Collection (OTC) font.")
                     name)
         (load-font font-name-filename))
        ((and (string? bare-file-name)
              (eq? (ly:get-font-format bare-file-name font-index) 'TrueType)
              (not (ly:has-glyph-names? bare-file-name font-index)))
-        (ly:warning (G_ "Font ~a cannot be used via Ghostscript because it is a TrueType font that does not have glyph names.")
+        (ly:warning (G_ "Font ~a cannot be used via Ghostscript \
+because it is a TrueType font that does not have glyph names.")
                     name)
         (load-font font-name-filename))
        (else
