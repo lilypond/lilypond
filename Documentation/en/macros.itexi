@@ -12,6 +12,9 @@
 @include en/common-macros.itexi
 
 
+@hyphenation{Post-Script}
+
+
 @ignore
 ******************************************************
 See MACRO DEFINITION GUIDELINES in common-macros.itexi

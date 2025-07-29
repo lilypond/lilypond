@@ -1845,6 +1845,70 @@ This section shows how to access fonts in LilyPond, and how to
 change them in scores.
 
 
+@node Unsupported font formats
+@subsection Unsupported font formats
+
+A word of caution at the beginning: LilyPond creates its final PDF
+output using an intermediate PostScript file.  As a consequence,
+some font formats cannot be used because PostScript, being an old
+standard and no longer receiving any updates, lacks support for
+them.  Here is a list of font formats that won't work.
+
+@table @b
+@item CFF2
+@cindex CFF2, font format
+@cindex font format, CFF2
+@cindex OpenType font (@file{.otf})
+In the last years this font format became the default for OpenType
+(@file{.otf}) fonts.  While its predecessor (CFF, also using the
+extension @file{.otf}) is supported, the more compact CFF2 is not.
+LilyPond warns on the console if it encounters such a font, and
+the conversion to a PDF will either fail or the PDF will miss
+glyphs from this font.
+
+@item Font Variations
+@cindex font format, Font Variations (VF)
+@cindex Variation Font format (VF)
+Such fonts usually have @q{VF} somewhere in their name;
+unfortunately, they are not supported regardless of whether they
+are TrueType or OpenType Font Variations, and consequently
+filtered out in advance.
+
+@item color fonts
+@cindex fonts, color
+@cindex color fonts
+@cindex fonts, for Emojis
+@cindex Emoji fonts
+Not supported; this affects in particular scalable Emoji fonts.
+Some fonts, however, also contain B/W versions of the Emojis (as
+normal outline glyphs), and these should work just fine – provided
+they come in a supported font format.
+
+@item OpenType collections
+@cindex font format, OTC
+@cindex OpenType collections (@file{.otc})
+This is a container format (usually with extension @file{.otc})
+that holds multiple fonts in a single file.  Today, it is often
+used as a last resort font, i.e., it gets used by the OS if no
+other font fits, for whatever reason.
+
+@item bitmap fonts
+@cindex font format, bitmap
+@cindex bitmap fonts
+Not supported at all and automatically filtered out before
+LilyPond sees the list of available fonts.  This includes some
+older Emoji color fonts.
+@end table
+
+Many fonts are available in both the TrueType and the OpenType
+format; if the @file{.otf} version fails, try the @file{.ttf} one.
+If you cannot find an alternative to a CFF2 font, try LilyPond's
+@option{-dbackend=@/cairo} command line option; this currently
+experimental backend bypasses the PostScript step and directly
+creates PDF output, thus being able to support CFF2 (and also
+OpenType collections).
+
+
 @node Finding fonts
 @subsection Finding fonts
 
