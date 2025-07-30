@@ -3939,12 +3939,14 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
             for a in barlines:
                 if isinstance(a, musicexp.BarLine):
                     voice_builder.add_barline(a)
+                    figured_bass_builder.add_barline(a)
+                    chordnames_builder.add_barline(a)
+                    fretboards_builder.add_barline(a)
                 elif isinstance(a, conversion.Marker):
                     voice_builder.add_command(a)
-
-                figured_bass_builder.add_barline(a)
-                chordnames_builder.add_barline(a)
-                fretboards_builder.add_barline(a)
+                    figured_bass_builder.add_command(a, False)
+                    chordnames_builder.add_command(a, False)
+                    fretboards_builder.add_command(a, False)
             continue
 
         if isinstance(n, musicxml.Print):
