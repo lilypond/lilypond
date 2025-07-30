@@ -3675,6 +3675,9 @@ class RestEvent(RhythmicEvent):
         return elements
 
     def print_ly(self, printer):
+        if self.duration is None:
+            return
+
         printer(self.ly_expression_pre_chord())
         printer(self.ly_expression_pre_note(True))
 
