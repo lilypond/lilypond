@@ -14,7 +14,12 @@
           element is of type 'discontinue'); there is no &lt;repeat&gt; element
           between bars 2 and 3.  Finally, at the end of bar 4 there is a
           both a &lt;repeat direction="backward"&gt; and a &lt;ending
-          type="stop"&gt; element.</miscellaneous-field>
+          type="stop"&gt; element.
+
+          Bar 6 starts a repeat, bar 7 start and ends a prima volta bracket, but
+          the corresponding repeat bar is between bars 8 and 9, followed by a
+          seconda volta bracket starting and ending in
+          bar 9.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -89,6 +94,66 @@
     </measure>
     <!--=======================================================-->
     <measure number="5">
+      <note>
+        <rest/>
+        <duration>4</duration>
+        <voice>1</voice>
+      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="6">
+      <barline location="left">
+        <bar-style>heavy-light</bar-style>
+        <repeat direction="forward"/>
+      </barline>
+      <note>
+        <rest/>
+        <duration>4</duration>
+        <voice>1</voice>
+      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="7">
+      <barline location="left">
+        <ending number="1" type="start"/>
+      </barline>
+      <note>
+        <rest/>
+        <duration>4</duration>
+        <voice>1</voice>
+      </note>
+      <barline location="right">
+        <ending number="1" type="stop"/>
+      </barline>
+    </measure>
+    <!--=======================================================-->
+    <measure number="8">
+      <note>
+        <rest/>
+        <duration>4</duration>
+        <voice>1</voice>
+      </note>
+      <barline location="right">
+        <bar-style>light-heavy</bar-style>
+        <repeat direction="backward"/>
+      </barline>
+    </measure>
+    <!--=======================================================-->
+    <measure number="9">
+      <barline location="left">
+        <ending number="2" type="start"/>
+      </barline>
+      <note>
+        <rest/>
+        <duration>4</duration>
+        <voice>1</voice>
+      </note>
+      <barline location="right">
+        <ending number="2" type="discontinue"/>
+      </barline>
+    </measure>
+    <!--=======================================================-->
+    <measure number="10">
       <note>
         <rest/>
         <duration>4</duration>

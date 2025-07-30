@@ -1068,13 +1068,6 @@ def group_repeats(music_list):
                     wrap_repeat(start, stop)
                     return False
 
-                if marker == 'last ending':
-                    ly.warning(_('adding repeat barline to lone %s')
-                               % marker_id)
-                    range = markers[curr][1]
-                    markers[curr] = ['endings with repeat', [range]]
-                    return True
-
             # structure: ['REPEAT FORWARD & ENDING START', pos]
             elif state == 'REPEAT FORWARD & ENDING START':
                 if marker == 'ENDING STOP':
@@ -1165,6 +1158,39 @@ def group_repeats(music_list):
                     markers[prev][0] = 'endings'
                     markers[prev][1].append(markers[curr][1])
                     del markers[curr]
+                    return True
+
+            elif state == 'last ending':
+                # This catches the unusual situation where a prima volta
+                # bracket is ended before the repeat bar.
+                if marker == 'REPEAT BACKWARD':
+                    ending_stop = markers[prev][1][1]
+                    repeat = markers[curr][1]
+
+                    ending_stop_el = music_list[ending_stop]
+                    repeat_el = music_list[repeat]
+
+                    # We move the volta bracket end to the repeat bar.
+                    music_list[repeat] = \
+                        conversion.RepeatEndingMarker(repeat_el,
+                                                      ending_stop_el)
+                    del music_list[ending_stop]
+
+                    # Adjust `music_list_pos` for proper re-parsing.
+                    music_list_pos = markers[0][1]
+                    return False
+                else:
+                    ly.warning(_('adding repeat barline to lone %s')
+                               % marker_id)
+
+                    ending_stop = markers[prev][1][1]
+                    ending_stop_el = music_list[ending_stop]
+
+                    music_list[ending_stop] = conversion.RepeatEndingMarker(
+                        conversion.RepeatMarker(), ending_stop_el)
+
+                    markers[prev][0] = 'endings with repeat'
+                    markers[prev][1] = [markers[prev][1]]
                     return True
 
             state = marker
