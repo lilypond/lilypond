@@ -59,7 +59,10 @@ Use version 1.16 or newer.
 
 @item
 @uref{https://www.fontconfig.org, FontConfig}@*
-Use version 2.13 or newer.
+Use at least version 2.13; however, we recommend version 2.15 or
+newer so that LilyPond can better reject Font Variations (see
+@rnotation{Unsupported font formats} and @ref{Noto Serif CJK
+warning,,this warning}).
 
 @item
 @uref{https://www.freetype.org, FreeType}@*
@@ -185,7 +188,7 @@ Also see @rcontrib{Working with source code}.
 @end itemize
 
 @warning{By default, when building LilyPond's documentation,
-pdf@TeX{} is used.  However ligatures (fi, fl, ff, etc.@:) may not
+pdf@TeX{} is used.  However, ligatures (fi, fl, ff, etc.@:) may not
 be printed in the PDF output.  In this case Xe@TeX{} can be used instead.
 Download and install the @code{texlive-xetex} package.
 
@@ -204,7 +207,7 @@ it is available.  No additional configuration is required.}
 
 The following instructions were tested on @q{Linux Mint 17.1} and
 @q{LMDE - Betsy} and will download all the software required to both
-compile LilyPond and build the documentation..
+compile LilyPond and build the documentation.
 
 @itemize
 
@@ -260,7 +263,7 @@ Also see @rcontrib{Working with source code}.
 @end itemize
 
 @warning{By default, when building LilyPond's documentation,
-pdf@TeX{} is used.  However ligatures (fi, fl, ff, etc.@:) may not
+pdf@TeX{} is used.  However, ligatures (fi, fl, ff, etc.@:) may not
 be printed in the PDF output.  In this case Xe@TeX{} can be used instead.
 Download and install the @code{texlive-xetex} package.
 
@@ -319,7 +322,7 @@ Also see @rcontrib{Working with source code}.
 @end itemize
 
 @warning{By default, when building LilyPond's documentation,
-pdf@TeX{} is used.  However ligatures (fi, fl, ff, etc.@:) may not
+pdf@TeX{} is used.  However, ligatures (fi, fl, ff, etc.@:) may not
 be printed in the PDF output.  In this case Xe@TeX{} can be used instead.
 Download and install the @code{texlive-xetex} package.
 
@@ -369,7 +372,7 @@ Also see @rcontrib{Working with source code}.
 @end itemize
 
 @warning{By default, when building LilyPond's documentation,
-pdf@TeX{} is used.  However ligatures (fi, fl, ff, etc.@:) may not
+pdf@TeX{} is used.  However, ligatures (fi, fl, ff, etc.@:) may not
 be printed in the PDF output.  In this case Xe@TeX{} can be used instead.
 Download and install the @code{texlive-xetex} package.
 
@@ -511,6 +514,21 @@ It is recommended to install the standard Roman (or Regular),
 Italic, Bold, and Bold Italic styles for all listed families; for
 the large Japanese fonts of the @q{Noto Serif CJK JP} or
 @q{Noto Serif JP} family, Regular and Bold styles are sufficient.
+
+@anchor{Noto Serif CJK warning}
+@warning{Be careful to install a version of @q{Noto Serif CJK JP}
+that works with LilyPond!  For technical reasons, neither the CFF2
+font format nor Font Variations (VF) are supported, and many
+GNU/Linux distributions use exactly that for the Noto CJK family
+as a fallback.  While Font Variations are filtered out by
+LilyPond's @file{99-lilypond-@/fonts@/.conf} configuration file
+for FontConfig, this cannot be done for CFF2.  If you encounter
+errors during @code{make doc} related to Noto Serif CJK, consider
+to download fitting fonts directly from their repository@c
+@footnote{@url{https://github.com/notofonts/noto-cjk/blob/main/Serif/OTF/Japanese/NotoSerifCJKjp-Regular.otf}}@c
+@footnote{@url{https://github.com/notofonts/noto-cjk/blob/main/Serif/OTF/Japanese/NotoSerifCJKjp-Bold.otf}}
+and to install them into your local fonts directory (for example,
+@file{~/.fonts}) so that FontConfig finds them first.}
 
 @item
 @uref{https://github.com/trueroad/extractpdfmark,
