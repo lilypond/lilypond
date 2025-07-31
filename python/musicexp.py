@@ -728,9 +728,9 @@ class Pitch:
 
     def absolute_pitch(self):
         if self.octave >= 0:
-            return "'" * (self.octave + 1)
+            return "'" * int(self.octave + 1)
         elif self.octave < -1:
-            return "," * (-self.octave - 1)
+            return "," * int(-self.octave - 1)
         else:
             return ''
 

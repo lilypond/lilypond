@@ -3090,7 +3090,7 @@ def musicxml_get_string_tunings(lines):
         for i in range(0, lines):
             p = musicexp.Pitch()
             p.step = conversion.musicxml_step_to_lily(
-                ((("E", "A", "D", "G", "B") * (lines / 5 + 1))[0:lines])[i])
+                ((("E", "A", "D", "G", "B") * (lines // 5 + 1))[0:lines])[i])
             p.octave = (([-2 + int(x % 5 > 1) + 2 * (x / 5)
                           for x in range(0, lines)][0:lines])[i])
             p.alteration = 0
