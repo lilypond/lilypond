@@ -3,7 +3,7 @@
 % Load plain if necessary, i.e., if running under initex.
 \expandafter\ifx\csname fmtname\endcsname\relax\input plain\fi
 %
-\def\texinfoversion{2025-07-08.12}
+\def\texinfoversion{2025-07-31.19}
 %
 % Copyright 1985, 1986, 1988, 1990-2025 Free Software Foundation, Inc.
 %
@@ -483,8 +483,8 @@
 %   \envdef\foo{...}
 %   \def\Efoo{...}
 %
-% It's the responsibility of \envdef to insert \begingroup before the
-% actual body; @end closes the group after calling \Efoo.  \envdef also
+% \envdef inserts \begingroup before the actual body; @end calls
+% \Efoo then closes the group with \endgroup.  \envdef also
 % defines \thisenv, so the current environment is known; @end checks
 % whether the environment name matches.  The \checkenv macro can also be
 % used to check whether the current environment is the one expected.
@@ -3888,7 +3888,8 @@ $$%
 }
 
 \def\finishtitlepage{%
-  \vskip4pt \hrule height 2pt width \hsize
+  \ifseenauthor \vskip4pt \else \vskip 0pt plus 1filll \fi
+  \hrule height 2pt width \hsize
   \vskip\titlepagebottomglue
   \finishedtitlepagetrue
 }
@@ -3911,32 +3912,104 @@ $$%
 \let\subtitlerm=\rmfont
 \def\subtitlefont{\subtitlerm \normalbaselineskip = 13pt \normalbaselines}
 
+\let\savedtitle\empty
+\let\savedsubtitlegroup\empty
+\let\savedauthorgroup\empty
+
 \parseargdef\title{%
-  \checkenv\titlepage
-  \vbox{\titlefonts \raggedtitlesettings #1\par}%
-  % print a rule at the page bottom also.
-  \finishedtitlepagefalse
-  \vskip4pt \hrule height 4pt width \hsize \vskip4pt
+  \expandafter\ifx\thisenv\documentinfo
+    \gdef\savedtitle{#1}%
+  \else
+    \checkenv\titlepage
+    \vbox{\titlefonts \raggedtitlesettings #1\par}%
+    % print a rule at the page bottom also.
+    \finishedtitlepagefalse
+    \vskip4pt \hrule height 4pt width \hsize \vskip4pt
+  \fi
 }
 
 \parseargdef\subtitle{%
-  \checkenv\titlepage
-  {\subtitlefont \rightline{#1}}%
+  \expandafter\ifx\thisenv\documentinfo
+    \ifx\savedsubtitlegroup\empty
+      \gdef\savedsubtitlegroup{\savedsubtitle{#1}}%
+    \else
+      \expandafter\gdef\expandafter\savedsubtitlegroup\expandafter{%
+        \savedsubtitlegroup\savedsubtitle{#1}}%
+    \fi
+  \else
+    \checkenv\titlepage
+    {\subtitlefont \rightline{#1}}%
+  \fi
 }
 
 % @author should come last, but may come many times.
 % It can also be used inside @quotation.
 %
 \parseargdef\author{%
-  \def\temp{\quotation}%
-  \ifx\thisenv\temp
-    \def\quotationauthor{#1}% printed in \Equotation.
+  \expandafter\ifx\thisenv\documentinfo
+    \ifx\savedauthorgroup\empty
+      \gdef\savedauthorgroup{\savedauthor{#1}}%
+    \else
+      \expandafter\gdef\expandafter\savedauthorgroup\expandafter{%
+        \savedauthorgroup\savedauthor{#1}}%
+    \fi
   \else
-    \checkenv\titlepage
-    \ifseenauthor\else \vskip 0pt plus 1filll \seenauthortrue \fi
-    {\secfonts\rm \leftline{#1}}%
+    \def\temp{\quotation}%
+    \ifx\thisenv\temp
+      \def\quotationauthor{#1}% printed in \Equotation.
+    \else
+      \checkenv\titlepage
+      \ifseenauthor\else \vskip 0pt plus 1filll \seenauthortrue \fi
+      {\secfonts\rm \leftline{#1}}%
+    \fi
   \fi
 }
+
+% @maketitle
+{\obeylines
+\gdef\maketitle{%
+\titlepage
+\ifx\savedtitle\empty\else
+  \title \savedtitle
+  \ifx\savedsubtitlegroup\empty\else
+    \savedsubtitlegroup
+\fi\fi
+\ifx\savedauthorgroup\empty\else
+  \savedauthorgroup
+\fi
+% start verso page if either copying or publication text is given
+\ifx\copyingtext\relax
+  \ifx\publicationtext\relax\else
+    \page \vskip 0pt plus 1filll
+  \fi
+\else
+  \page \vskip 0pt plus 1filll
+\fi
+\ifx\publicationtext\relax\else
+  \insertpublication
+  \sp 1
+\fi
+\ifx\copyingtext\relax\else
+  \insertcopying
+\fi
+\end titlepage
+}
+
+% \savedauthor{#1}, called with braces.  output an @author line.
+\gdef\savedauthor#1{%
+\author#1
+}
+
+% \savedsubtitle{#1}, called with braces.  output a @subtitle line.
+\gdef\savedsubtitle#1{%
+\subtitle#1
+}
+} % \obeylines
+
+% @documentinfo block
+\envdef\documentinfo{%
+}
+\def\Edocumentinfo{}%
 
 
 % Set up page headings and footings.
@@ -7809,6 +7882,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 {\catcode`\ =\other
 \gdef\docopying#1@end copying{\endgroup\def\copyingtext{#1}}
 }
+\let\copyingtext\relax
 
 \def\insertcopying{%
   \begingroup
@@ -7817,6 +7891,18 @@ might help (with 'rm \jobname.?? \jobname.??s')%
   \endgroup
 }
 
+\def\publication{\checkenv{}\begingroup\macrobodyctxt\dopublication}
+{\catcode`\ =\other
+\gdef\dopublication#1@end publication{\endgroup\def\publicationtext{#1}}
+}
+\let\publicationtext\relax
+
+\def\insertpublication{%
+  \begingroup
+    \parindent = 0pt  % paragraph indentation looks wrong on title page
+    \scanexp\publicationtext
+  \endgroup
+}
 
 \message{defuns,}
 % @defun etc.
@@ -9548,7 +9634,10 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 % Auto-number footnotes.  Otherwise like plain.
 \gdef\footnote{%
   \global\advance\footnoteno by \@ne
-  \edef\thisfootno{$^{\the\footnoteno}$}%
+  %
+  % Output for the footnote marker.  If we are immediately after another
+  % footnote, output a comma and small space first.
+  \edef\thisfootno{$^{\ifnum\lastpenalty=3 ,\mskip 1mu \fi\the\footnoteno}$}%
   %
   % In case the footnote comes at the end of a sentence, preserve the
   % extra spacing after we do the footnote number.
@@ -9557,19 +9646,25 @@ might help (with 'rm \jobname.?? \jobname.??s')%
   %
   % Remove inadvertent blank space before typesetting the footnote number.
   \unskip
-  \thisfootno\@sf
+  %
+  % \scriptspace is 0.5pt by default and gives excessive space before the
+  % comma if we have multiple footnote markers in a row.
+  \bgroup\scriptspace=0pt
+    \thisfootno\@sf
+  \egroup
   \dofootnote
 }%
 
-% Don't bother with the trickery in plain.tex to not require the
-% footnote text as a parameter.  Our footnotes don't need to be so general.
-%
-% Oh yes, they do; otherwise, @ifset (and anything else that uses
-% \parseargline) fails inside footnotes because the tokens are fixed when
-% the footnote is read.  --karl, 16nov96.
+% marker for immediately after a footnote marker
+\gdef\footnoteendmarker{\penalty3 }
+
+% Do not require the footnote text as a parameter; otherwise, @ifset
+% (and anything else that uses \parseargline) fails inside footnotes
+% because the tokens are fixed when the footnote is read.
 %
 \gdef\dofootnote{%
   \insert\footins\bgroup
+  \aftergroup\footnoteendmarker
   %
   % Nested footnotes are not supported in TeX, that would take a lot
   % more work.  (\startsavinginserts does not suffice.)
@@ -9600,14 +9695,14 @@ might help (with 'rm \jobname.?? \jobname.??s')%
   % Hang the footnote text off the number.  Use \everypar in case the
   % footnote extends for more than one paragraph.
   \everypar = {\hang}%
-  \textindent{\thisfootno}%
+  \textindent{$^{\the\footnoteno}$}%
   %
   % Don't crash into the line above the footnote text.  Since this
   % expands into a box, it must come within the paragraph, lest it
   % provide a place where TeX can split the footnote.
   \footstrut
   %
-  % Invoke rest of plain TeX footnote routine.
+  % Eat opening brace and invoke rest of plain TeX footnote routine.
   \futurelet\next\fo@t
 }
 }%end \catcode `\@=11
@@ -10074,8 +10169,18 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 \gdef\documentlanguagetrywithoutunderscore#1_#2\finish{%
   \openin 1 txi-#1.tex
   \ifeof 1
-    \errhelp = \nolanghelp
-    \errmessage{Cannot read language file txi-#1.tex}%
+    \def\lang{#1}%
+    \def\enword{en}%
+    \ifx\lang\enword
+      % for English only, keep on going rather than issuing a fatal error
+      % message, as txi-en.tex likely doesn't contain any changes from the
+      % defaults.  note that this is a problem if we already loaded another
+      % language file and want to switch back to English.
+      \message{Cannot read language file txi-#1.tex}%
+    \else
+      \errhelp = \nolanghelp
+      \errmessage{Cannot read language file txi-#1.tex}%
+    \fi
   \else
     \globaldefs = 1  % everything in the txi-LL files needs to persist
     \input txi-#1.tex
