@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 15ef24e676b62a3b2dead4feac7be1f90a764816
+   Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -14,8 +14,11 @@
 @c Translation checkers: Gilles Thibault, Jean Abou Samra
 
 
-@node Changing defaults
-@chapter Modification des réglages prédéfinis
+@part Modification des réglages prédéfinis
+
+@node Tuning output
+@anchor{Changing defaults} @c retain old label
+@chapter Personnalisation des sorties
 
 LilyPond est conçu pour générer, par défaut, des partitions de la plus
 haute qualité. Cependant, on peut parfois avoir à modifier cette mise en
@@ -46,7 +49,7 @@ listes, des chaînes de caractères ou des symboles, en Scheme.}
 
 
 @node Interpretation contexts
-@section Contextes d'interprétation
+@chapter Contextes d'interprétation
 
 Nous allons voir ici ce que sont les contextes et comment les modifier.
 
@@ -68,13 +71,13 @@ Référence des propriétés internes :
 
 
 @node Contexts explained
-@subsection Tout savoir sur les contextes
+@section Tout savoir sur les contextes
 
 Les contextes sont hiérarchisés.
 
 
 @node Output definitions - blueprints for contexts
-@unnumberedsubsubsec Définitions de la sortie -- hiérarchie des contextes
+@subsection Définitions de la sortie -- hiérarchie des contextes
 
 Les lignes qui suivent traitent de l'intérêt des définitions de sorties
 lorsque l'on travaille avec les @dfn{contextes}. Des exemples de
@@ -132,7 +135,7 @@ Fichiers d'initialisation :
 @c descriptions in `engraver-init.ly`.
 
 @node Score - the master of all contexts
-@unnumberedsubsubsec Score -- le père de tous les contextes
+@subsection @code{Score} -- le père de tous les contextes
 
 @funindex Score
 @funindex Global
@@ -163,7 +166,7 @@ soit lancé.
 
 
 @node Top-level contexts - staff containers
-@unnumberedsubsubsec Contextes de haut niveau -- les systèmes
+@subsection Contextes de haut niveau -- les systèmes
 
 @table @code
 @funindex StaffGroup
@@ -220,7 +223,7 @@ Contexte de niveau @code{Score} dévolu à @code{\markup \rhythm}.
 
 
 @node Intermediate-level contexts - staves
-@unnumberedsubsubsec Contextes de niveau intermédiaire -- les portées
+@subsection Contextes de niveau intermédiaire -- les portées
 
 @table @code
 @item Staff
@@ -296,7 +299,7 @@ contexte.
 
 
 @node Bottom-level contexts - voices
-@unnumberedsubsubsec Contextes de bas niveau -- les voix
+@subsection Contextes de bas niveau -- les voix
 
 @funindex \defaultchild
 Les contextes de niveau « voix » initialisent un certain nombre de
@@ -415,7 +418,7 @@ même musique est utilisée, par exemple, à la fois dans des contextes
 
 
 @node Creating and referencing contexts
-@subsection Création et référencement d'un contexte
+@section Création et référencement d'un contexte
 
 @cindex contexte, création
 @cindex contexte, référencement
@@ -625,7 +628,7 @@ Manuel de notation :
 
 
 @node Keeping contexts alive
-@subsection Conservation d'un contexte
+@section Conservation d'un contexte
 
 @cindex contexte, maintien actif
 @cindex contexte, durée de vie
@@ -777,7 +780,7 @@ words = \lyricmode { These words fol -- low the mel -- o -- dy }
 
 
 @node Modifying context plug-ins
-@subsection Modification des greffons de contexte
+@section Modification des greffons de contexte
 
 Les contextes, tels que @code{Score} ou @code{Staff}, ne contiennent pas
 que des propriétés ; ils mettent également en œuvre certains
@@ -880,7 +883,7 @@ Fichiers d'initialisation :
 
 
 @node Changing context default settings
-@subsection Modification des réglages par défaut d'un contexte
+@section Modification des réglages par défaut d'un contexte
 
 @cindex réglage par défaut, modification
 @cindex contexte, modification des propriétés par défaut
@@ -900,7 +903,7 @@ d'un contexte.
 
 
 @node Changing all contexts of the same type
-@unnumberedsubsubsec Modification de tous les contextes d'un même type
+@subsection Modification de tous les contextes d'un même type
 
 @cindex @code{\context} dans un bloc @code{\layout}
 
@@ -1054,7 +1057,7 @@ mêmes critères que si la commande était écrite dans le flot musical.
 
 
 @node Changing just one specific context
-@unnumberedsubsubsec Modification d'un contexte particulier
+@subsection Modification d'un contexte particulier
 
 @funindex \with
 
@@ -1176,7 +1179,7 @@ Manuel de notation :
 
 
 @node Order of precedence
-@unnumberedsubsubsec Ordre de préséance
+@subsection Ordre de préséance
 
 La valeur d'une propriété qui doit s'appliquer à un instant particulier
 est déterminée comme suit :
@@ -1215,7 +1218,7 @@ Manuel de notation :
 
 
 @node Defining new contexts
-@subsection Définition de nouveaux contextes
+@section Définition de nouveaux contextes
 
 
 @subsubheading Généralités en matière de définition d'un contexte
@@ -1555,7 +1558,7 @@ besoin d'accéder au contexte sommital par son alias.
 
 
 @node Context layout order
-@subsection Ordonnancement des contextes
+@section Ordonnancement des contextes
 
 @cindex contextes, ordonnancement
 
@@ -1677,7 +1680,7 @@ Fichiers d'initialisation :
 
 
 @node Explaining the Internals Reference
-@section En quoi consiste la référence des propriétés internes
+@chapter En quoi consiste la référence des propriétés internes
 
 @morerefs
 Manuel de notation :
@@ -1686,7 +1689,7 @@ Manuel de notation :
 
 
 @node Navigating the program reference
-@subsection Navigation dans les références du programme
+@section Navigation dans les références du programme
 
 @c TODO remove this (it's in the LM)
 @c Replace with more factual directions
@@ -1807,7 +1810,7 @@ francophones.
 
 
 @node Layout interfaces
-@subsection Interfaces de rendu
+@section Interfaces de rendu
 
 @cindex interfaces de rendu
 @cindex rendu, interfaces de
@@ -1929,7 +1932,7 @@ définition.
 
 
 @node Determining the grob property
-@subsection Détermination de la propriété d'un objet graphique (grob)
+@section Détermination de la propriété d'un objet graphique (grob)
 
 @c TODO remove this (it's in the LM)
 @c Replace with more factual directions
@@ -2023,11 +2026,11 @@ Le graveur Fingering_engraver fait partie des contextes : @dots{}
 
 @need 1500
 @node Modifying properties
-@section Modification de propriétés
+@chapter Modification de propriétés
 
 
 @node Overview of modifying properties
-@subsection Vue d'ensemble de la modification des propriétés
+@section Vue d'ensemble de la modification des propriétés
 
 Les contextes comportent deux types différents de propriétés : des
 propriétés de contexte et des propriétés d'objet graphique. Les
@@ -2062,7 +2065,7 @@ Référence des propriétés internes :
 
 
 @node Set and unset
-@subsection Les commandes @code{\set} et @code{\unset}
+@section Les commandes @code{\set} et @code{\unset}
 
 @cindex propriétés, modification
 @cindex modifier des propriétés
@@ -2200,7 +2203,7 @@ restaure la propriété à sa valeur initiale.
 
 
 @node Override and revert
-@subsection Les commandes @code{\override} et @code{\revert}
+@section Les commandes @code{\override} et @code{\revert}
 
 @cindex @emph{grob}, propriétés
 @cindex objet graphique, propriétés
@@ -2310,7 +2313,7 @@ mentionné :
 
 
 @node The once command
-@subsection La commande @code{\once}
+@section La commande @code{\once}
 
 @cindex @emph{override} ponctuel
 @funindex \once
@@ -2333,7 +2336,7 @@ Référence des propriétés internes :
 
 
 @node set versus override
-@subsection @code{\set} ou @code{\override}
+@section @code{\set} ou @code{\override}
 
 @funindex \set
 @funindex \override
@@ -2400,7 +2403,7 @@ lorsqu'ils sont d'une qualité particulière (un
 
 
 @node Tweak and single
-@subsection Les commandes @code{\tweak} et @code{\single}
+@section Les commandes @code{\tweak} et @code{\single}
 
 @cindex retouche (@emph{tweak})
 @cindex affinage (@emph{tweak})
@@ -2555,7 +2558,7 @@ pour la première rencontrée dans le fichier source.
 
 
 @node The offset command
-@subsection La commande @code{\offset}
+@section La commande @code{\offset}
 
 @funindex \offset
 @cindex décalage
@@ -2582,7 +2585,7 @@ tantôt comme un @code{\tweak}, tantôt comme un @code{\override}. Les
 différences entre ces utilisations seront abordées après avoir recensé
 les propriétés qui peuvent être soumises à un @code{\offset}.
 
-@subsubsubheading Propriétés acceptant des décalages
+@subsubheading Propriétés acceptant des décalages
 @c VO Properties which may be offset
 
 Bon nombre de propriétés d'objet graphique, mais pas toutes, peuvent
@@ -2673,7 +2676,7 @@ imbriquées ».
 @end itemize
 
 
-@subsubsubheading @code{\offset} en tant que dérogation
+@subsubheading @code{\offset} en tant que dérogation
 @c VO \offset as an override
 
 Lorsque @var{élément} est un nom d'objet graphique comme @code{Arpeggio}
@@ -2773,7 +2776,7 @@ longStem = \offset length 6 Stem
 }
 @end lilypond
 
-@subsubsubheading @code{\offset} en tant qu'affinage
+@subsubheading @code{\offset} en tant qu'affinage
 @c VO offset as a tweak
 
 Lorsque @var{élément} est une expression musicale, comme @code{(} ou
@@ -2840,7 +2843,7 @@ un unique @code{number} s'appliquera aux deux membres d'un
 }
 @end lilypond
 
-@subsubsubheading @code{\offset} et les bandeaux avec rupture
+@subsubheading @code{\offset} et les bandeaux avec rupture
 @c VO offset with broken spanners
 
 Il est aussi possible de modifier indépendamment les segments d'un objet
@@ -2894,7 +2897,7 @@ exemple produit un résultat identique à ce qui est illustré dans
 
 
 @node Modifying alists
-@subsection Modification de listes associatives
+@section Modification de listes associatives
 
 @cindex liste associative, modification
 
@@ -3017,7 +3020,7 @@ qu'au travers d'une complète redéfinition de leur liste associative.}
 
 
 @node Useful concepts and properties
-@section Propriétés et contextes utiles
+@chapter Propriétés et contextes utiles
 
 Nous allons voir, au fil des paragraphes qui suivent, différentes
 approches permettant de fignoler l'apparence d'une partition.
@@ -3046,7 +3049,7 @@ Référence des propriétés internes :
 
 
 @node Direction and placement
-@subsection Direction et positionnement
+@section Direction et positionnement
 
 En matière de typographie musicale, l'orientation et le positionnement
 de nombreux éléments est affaire de goût. Par exemple, les hampes
@@ -3059,7 +3062,7 @@ certains cas, d'imposer l'orientation ou le positionnement des éléments.
 
 
 @node Articulation direction indicators
-@unnumberedsubsubsec Indicateurs de position d'une articulation
+@subsection Indicateurs de position d'une articulation
 
 Certains positionnements sont opérés par défaut -- toujours au-dessus ou
 toujours en dessous (nuances ou points d'orgue) -- alors que d'autres
@@ -3115,7 +3118,7 @@ Les indicateurs de positionnement n'affectent que la note qui suit :
 
 
 @node The direction property
-@unnumberedsubsubsec La propriété @code{direction}
+@subsection La propriété @code{direction}
 
 Le positionnement ou l'orientation de nombreux objets de rendu sont
 gérés par la propriété @code{direction}.
@@ -3184,7 +3187,7 @@ Manuel de notation :
 
 
 @node Distances and measurements
-@subsection Distances et unités de mesure
+@section Distances et unités de mesure
 
 @cindex distance absolue
 @cindex distance relative
@@ -3270,7 +3273,7 @@ Manuel de notation :
 
 
 @node Dimensions
-@subsection Dimensions
+@section Dimensions
 
 @cindex dimension
 @cindex @emph{bounding box} (boîte englobante)
@@ -3310,7 +3313,7 @@ Manuel de notation :
 
 
 @node Spanners
-@subsection Extenseurs et prolongateurs
+@section Extenseurs et prolongateurs
 
 @cindex bandeau @emph{(spanner)}
 @cindex @emph{spanner}, bandeau
@@ -3326,7 +3329,7 @@ certains peuvent être rompus lors d'un saut de ligne.
 
 
 @node Modifying broken spanners
-@unnumberedsubsubsec Modification de bandeaux avec rupture
+@subsection Modification de bandeaux avec rupture
 
 @cindex extenseur, modification
 @cindex bandeau, modification
@@ -3440,12 +3443,12 @@ Manuel d'extension :
 
 
 @node Setting minimum lengths for spanners
-@unnumberedsubsubsec Affectation d'une longueur minimale aux extenseurs
+@subsection Affectation d'une longueur minimale aux extenseurs
 
 L'interface @code{spanner-interface} fournit trois propriétés qui
 s'appliquent à certains extenseurs.
 
-@subsubsubheading La propriété @code{minimum-length}
+@subsubheading La propriété @code{minimum-length}
 
 La longueur minimale d'un extenseur est déterminée par la propriété
 @code{minimum-length}. Au plus sa valeur est élevée, au plus
@@ -3559,7 +3562,7 @@ e'8 e' e' e'
 @end lilypond
 
 
-@subsubsubheading La propriété @code{minimum-length-after-break}
+@subsubheading La propriété @code{minimum-length-after-break}
 
 La propriété @code{minimum-length-after-break} peut s'utiliser pour
 dimensionner le tronçon d'extenseur placé après un saut de ligne. Tout
@@ -3607,7 +3610,7 @@ prendre effet, de régler la propriété @code{springs-and-rods} sur
 
 
 @node Controlling spanner end points
-@unnumberedsubsubsec Contrôle du point d'arrêt des bandeaux
+@subsection Contrôle du point d'arrêt des bandeaux
 
 La propriété @code{to-barline} fournie par la @code{spanner-interface},
 activée par défaut, permet aux soufflets et autres extenseurs finissant
@@ -3631,7 +3634,7 @@ phrasé !
 
 
 @node Line styles
-@subsection Styles de ligne
+@section Styles de ligne
 
 La @rinternals{line-interface} regroupe tous les objets affichant des
 lignes. Tous les objets pris en charge par cette interface peuvent
@@ -3656,7 +3659,7 @@ Certains objets peuvent adopter d'autres styles spécifiques.
 
 
 @node Line spanners
-@subsection Lignes de prolongation
+@section Lignes de prolongation
 
 Certaines indications portées à l'attention de l'exécutant -- tels
 @emph{rallentando}, @emph{accelerando} et @emph{trilles} -- apparaissent
@@ -3805,7 +3808,7 @@ Référence des propriétés internes :
 
 
 @node Visibility of objects
-@subsection Visibilité des objets
+@section Visibilité des objets
 
 @cindex objet, visibilité
 @cindex grob, visibilité
@@ -3825,7 +3828,7 @@ certains objets ; elles sont couvertes par une rubrique spécifique.
 
 
 @node Removing the stencil
-@unnumberedsubsubsec Suppression des stencils
+@subsection Suppression des stencils
 
 @cindex stencil, suppression
 
@@ -3859,7 +3862,7 @@ a a a
 
 
 @node Making objects transparent
-@unnumberedsubsubsec Transparence des objets
+@subsection Transparence des objets
 
 @cindex transparent, objet
 
@@ -3886,7 +3889,7 @@ a' a'
 
 
 @node Painting objects white
-@unnumberedsubsubsec Blanchiment des objets
+@subsection Blanchiment des objets
 
 @cindex objet, couleur
 @cindex couleur d'objet
@@ -3938,7 +3941,7 @@ a'1
 
 
 @node Using break-visibility
-@unnumberedsubsubsec Utilisation de @code{break-visibility}
+@subsection Utilisation de @code{break-visibility}
 
 @c TODO Add making other objects breakable
 
@@ -4060,9 +4063,9 @@ les voir et @code{all-invisible} pour les masquer.
 
 
 @node Special considerations
-@unnumberedsubsubsec Considérations spécifiques
+@subsection Considérations spécifiques
 
-@subsubsubheading Visibilité après changement explicite
+@subsubheading Visibilité après changement explicite
 
 @cindex armure, visibilité après changement explicite
 @funindex explicitKeySignatureVisibility
@@ -4118,7 +4121,7 @@ dehors d'un début de ligne ; il faudra en pareil cas forcer la
 }
 @end lilypond
 
-@subsubsubheading Visibilité des bécarres de précaution
+@subsubheading Visibilité des bécarres de précaution
 
 L'impression d'altérations de précaution au moment d'un changement
 explicite de tonalité sera annulée dès lors que vous aurez désactivé la
@@ -4179,7 +4182,7 @@ visibilité de l'objet @code{KeyCancellation} :
 @c TODO Add visibility of cautionary accidentals before notes
 
 
-@subsubsubheading Clefs transposées
+@subsubheading Clefs transposées
 
 @cindex octaviation
 @cindex clef transposée, visibilité
@@ -4204,7 +4207,7 @@ Visibilité et couleur des objets}.
 
 
 @node Rotating objects
-@subsection Rotation des objets
+@section Rotation des objets
 
 Qu'il s'agisse des objets de rendu ou d'éléments textuels sous forme de
 @emph{markup}, vous pouvez les faire pivoter selon vos désirs et à
@@ -4213,7 +4216,7 @@ que vous désirez manipuler.
 
 
 @node Rotating layout objects
-@unnumberedsubsubsec Rotation des objets de mise en forme
+@subsection Rotation des objets de mise en forme
 
 @cindex objet, rotation
 
@@ -4240,7 +4243,7 @@ g4\< e' d'' f''\!
 
 
 @node Rotating markup
-@unnumberedsubsubsec Rotation des étiquettes
+@subsection Rotation des étiquettes
 
 @cindex @emph{markup}, rotation
 
@@ -4265,7 +4268,7 @@ fis'^\markup { \rotate #30 "un fa dièse" }
 
 
 @node Aligning objects
-@subsection Alignement des objets
+@section Alignement des objets
 
 Les objets graphiques disposant des interfaces
 @code{self-alignment-interface} ou @code{side-@/position-@/interface}
@@ -4319,7 +4322,7 @@ Manuel d'extension :
 
 
 @node Setting X-offset and Y-offset directly
-@unnumberedsubsubsec Détermination directe de @code{X-offset} et @code{Y-offset}
+@subsection Détermination directe de @code{X-offset} et @code{Y-offset}
 
 Vous pouvez fournir, pour de nombreux objets, des valeurs numériques aux
 propriétés @code{X-offset} et @code{Y-offset}. Voici par exemple une
@@ -4343,7 +4346,7 @@ a'
 
 
 @node Using the side-position-interface
-@unnumberedsubsubsec Utilisation de @code{side-position-interface}
+@subsection Utilisation de @code{side-position-interface}
 
 Un objet disposant de la @code{side-position-interface} peut se voir
 accolé à son voisin de telle sorte que les bords des deux objets se
@@ -4391,9 +4394,9 @@ l'objet au-dessus ou en dessous de son parent, selon la valeur de
 
 
 @node Using the self-alignment-interface
-@unnumberedsubsubsec Utilisation de @code{self-alignment-interface}
+@subsection Utilisation de @code{self-alignment-interface}
 
-@subsubsubheading Réalignement d'objets horizontalement
+@subsubheading Réalignement d'objets horizontalement
 
 L'alignement horizontal d'un objet disposant de la
 @code{self-alignment-interface} dépend de la valeur de sa propriété
@@ -4429,7 +4432,7 @@ a'
 @end lilypond
 
 
-@subsubsubheading Réalignement d'objets verticalement
+@subsubheading Réalignement d'objets verticalement
 
 L'alignement vertical suit le même principe : la propriété
 @code{Y-offset} doit alors engager la procédure
@@ -4449,7 +4452,7 @@ sur le point de référence de son parent. Les valeurs symboliques
 à @w{@code{-1}}, @code{0} et @code{1}.
 
 
-@subsubsubheading Réalignement d'objets sur les deux axes
+@subsubheading Réalignement d'objets sur les deux axes
 
 Définir à la fois @code{X-offset} et @code{Y-offset} permet de réaligner
 un objet sur les deux axes.
@@ -4467,7 +4470,7 @@ a'
 
 
 @ignore
-@unnumberedsubsubsec Utilisation de @code{aligned-on-parent}
+@subsection Utilisation de @code{aligned-on-parent}
 
 @c Cannot document as they do not seem to operate consistently on all objects -td
 @c TODO investigate further
@@ -4487,7 +4490,7 @@ example shows the difference:
 
 
 @ignore
-@unnumberedsubsubsec Utilisation de @code{centered-on-parent}
+@subsection Utilisation de @code{centered-on-parent}
 
 @c Cannot document as they do not seem to operate consistently on all objects -td
 @c TODO investigate further
@@ -4498,7 +4501,7 @@ example shows the difference:
 
 
 @node Using the break-alignable-interface
-@unnumberedsubsubsec Utilisation de @code{break-aligned-interface}
+@subsection Utilisation de @code{break-aligned-interface}
 
 @cindex alignement sur un objet
 @funindex break-align-symbols
@@ -4649,7 +4652,7 @@ e'1
 
 
 @node Modifying stencils
-@subsection Modification des stencils
+@section Modification des stencils
 
 Tout objet de rendu dispose d'une propriété @code{stencil} attachée à la
 @code{grob-interface}. En règle générale, cette propriété référence par
@@ -4710,11 +4713,11 @@ Manuel de notation :
 
 @need 1500
 @node Modifying shapes
-@subsection Modification de l'allure des éléments
+@section Modification de l'allure des éléments
 
 
 @node Modifying ties and slurs
-@unnumberedsubsubsec Modification des liaisons
+@subsection Modification des liaisons
 
 @cindex liaison, modification
 @cindex Bézier, points de contrôle d'une courbe
@@ -4743,7 +4746,7 @@ dans le cas d'une légère adaptation de la courbe ; la seconde sera plus
 efficace lorsqu'il s'agira de créer une courbe sur une seule et unique
 note.
 
-@subsubsubheading Courbes de Bézier cubiques
+@subsubheading Courbes de Bézier cubiques
 @c VO  Cubic Bézier curves
 
 Quatre points définissent une courbe de Bézier cubique. Les premier et
@@ -4778,7 +4781,7 @@ Tout déplacement (translation, rotation, échelonnement) des points de
 contrôle sera répercuté sur le dessin de la courbe.
 
 
-@subsubsubheading Spécification de l'ajustement des points de contrôle
+@subsubheading Spécification de l'ajustement des points de contrôle
 @c VO Specifying displacements from current control points
 
 @cindex galbe des liaisons
@@ -4938,7 +4941,7 @@ automatiquement pour un tel galbe.
 @end lilypond
 
 
-@subsubsubheading Déclaration explicite des points de contrôle
+@subsubheading Déclaration explicite des points de contrôle
 @c VO Specifying control points explicitly
 
 Les coordonnées des points de contrôle sont données en unités d'espace

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-  Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+  Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
 
   When revising a translation, copy the HEAD committish of the
   version that you are working on.  For details, see the Contributors'
@@ -12,7 +12,8 @@
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 
-@need 1500
+@part Annexes
+
 @node Markup commands
 @appendix Commandes pour @emph{markups}
 
@@ -531,21 +532,21 @@ dispose.
 
 
 @node Diagrams for Guitar
-@unnumberedsubsec Diagrammes pour guitare
+@appendixsubsec Diagrammes pour guitare
 
 @lilypondfile[line-width=15.5\cm]
 {en/included/display-predefined-fretboards.ly}
 
 
 @node Diagrams for Ukulele
-@unnumberedsubsec Diagrammes pour ukulele
+@appendixsubsec Diagrammes pour ukulele
 
 @lilypondfile[line-width=15.5\cm]
 {en/included/display-predefined-ukulele-fretboards.ly}
 
 
 @node Diagrams for Mandolin
-@unnumberedsubsec Diagrammes pour mandoline
+@appendixsubsec Diagrammes pour mandoline
 
 @lilypondfile[line-width=15.5\cm]
 {en/included/display-predefined-mandolin-fretboards.ly}
@@ -907,9 +908,9 @@ Pour de plus amples informations, reportez-vous au chapitre
 
 
 @node Modern glyph charts
-@unnumberedsubsec Tables de glyphes modernes
+@appendixsubsec Tables de glyphes modernes
 
-Tous les glyphes du sousensemble « Feta ».
+Tous les glyphes du sous-ensemble « Feta ».
 
 @anchor{Clef glyphs}
 @subsubheading Glyphes de clef
@@ -1091,6 +1092,11 @@ Tous les glyphes du sousensemble « Feta ».
 @end lilypond
 
 
+@node Ancient glyph charts
+@appendixsubsec Tables des glyphes anciens
+
+Tous les glyphes du sous-ensemble « Parmesan ».
+
 @anchor{Vaticana glyphs}
 @subsubheading Glyphes de style vaticana
 
@@ -1212,7 +1218,7 @@ mentionnées dans @ref{Clef}.
 
 
 @node Standard clefs
-@unnumberedsubsec Clefs standards
+@appendixsubsec Clefs standards
 
 @cindex treble clef
 @cindex clef, treble
@@ -1436,7 +1442,7 @@ c1
 
 
 @node Percussion staff clef
-@unnumberedsubsec Clefs pour portée de percussions
+@appendixsubsec Clefs pour portée de percussions
 
 @cindex percussions, clef
 @cindex clef, percussions
@@ -1470,7 +1476,7 @@ c1
 
 
 @node Tab staff clefs
-@unnumberedsubsec Clefs pour tablatures
+@appendixsubsec Clefs pour tablatures
 
 @cindex tablature, clef
 @cindex clef, tablature
@@ -3082,6 +3088,21 @@ b4 4 \breathe 4
 @end lilypond
 
 @end multitable
+
+
+@node List of bar lines
+@appendixsec Liste des types de barre de mesure
+
+Dans chacune des systèmes suivants est indiquée l'apparence d'un type
+particulier de barre selon qu'elle intervient au début, en cours et en
+fin de ligne.
+
+Pour de plus amples informations, @pxref{Bar lines} and @ref{Automatic
+bar lines}.
+
+@cindex barre de mesure, liste
+
+@lilypondfile{en/included/bar-lines.ly}
 
 
 @node Default values for outside-staff-priority

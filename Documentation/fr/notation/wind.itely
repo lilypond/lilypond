@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+   Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -15,7 +15,7 @@
 
 
 @node Wind instruments
-@section Instruments à vent
+@chapter Instruments à vent
 
 @lilypondfile[quote]{snippets/wind-headword.ly}
 
@@ -24,14 +24,14 @@ notation pour instruments à vent.
 
 
 @node Common notation for wind instruments
-@subsection Vue d'ensemble des instruments à vent
+@section Vue d'ensemble des instruments à vent
 
 Nous allons aborder ici quelques aspects communs à la plupart des
 instruments à vent.
 
 
 @node References for wind instruments
-@unnumberedsubsubsec Références en matière d'instruments à vent
+@subsection Références en matière d'instruments à vent
 
 @cindex instrument à vent
 @cindex vents
@@ -112,7 +112,7 @@ Morceaux choisis :
 
 
 @node Fingerings
-@unnumberedsubsubsec Doigtés pour vents
+@subsection Doigtés pour vents
 
 Tout instrument à vent, hormis le trombone à coulisse, fait appel à
 plusieurs doigts pour produire un son.  Les exemples ci-dessous vous
@@ -147,13 +147,13 @@ Morceaux choisis :
 
 
 @node Bagpipes
-@subsection Cornemuse
+@section Cornemuse
 
 Voici quelques informations spécifiques à la cornemuse.
 
 
 @node Bagpipe definitions
-@unnumberedsubsubsec Définitions pour la cornemuse
+@subsection Définitions pour la cornemuse
 
 @cindex bagpipe
 @cindex cornemuse
@@ -211,7 +211,7 @@ Morceaux choisis :
 
 
 @node Bagpipe example
-@unnumberedsubsubsec Exemple pour la cornemuse
+@subsection Exemple pour la cornemuse
 
 @cindex cornemuse : exemple
 @cindex @sortas{Amazing} « Amazing Grace » : exemple pour cornemuse
@@ -263,13 +263,13 @@ Morceaux choisis :
 
 
 @node Woodwinds
-@subsection Bois
+@section Bois
 
 Nous allons ici nous intéresser aux spécificités de la section des bois.
 
 
 @node Woodwind diagrams
-@unnumberedsubsubsec Diagrammes pour bois
+@subsection Diagrammes pour bois
 
 Les doigtés pour obtenir une note particulière peuvent s'afficher sous
 forme graphique.  LilyPond dispose de diagrammes pour la plupart des

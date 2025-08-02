@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+   Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -15,7 +15,7 @@
 
 
 @node Editorial annotations
-@section Annotations éditoriales
+@chapter Annotations éditoriales
 
 @lilypondfile[quote]{snippets/editorial-headword.ly}
 
@@ -24,14 +24,14 @@ un but pédagogique ou d'analyse.
 
 
 @node Inside the staff
-@subsection Dans la portée
+@section Dans la portée
 
 Nous allons voir ici comment mettre en exergue certains éléments à
 l'intérieur même de la portée.
 
 
 @node Selecting notation font size
-@unnumberedsubsubsec Indication de la taille de fonte musicale
+@subsection Indication de la taille de fonte musicale
 
 @cindex sélection de la taille (notation)
 @cindex notation, taille
@@ -122,7 +122,7 @@ intervenir en complément d'une modification de la taille de portée --
 @pxref{Setting the staff size}.}
 
 
-@subsubsubheading Redimmensionnement individuel d'objets de rendu
+@subsubheading Redimmensionnement individuel d'objets de rendu
 @c VO Resizing individual layout objects
 
 @funindex font-size
@@ -155,7 +155,7 @@ des polices, autrement dit ceux qui disposent de l'interface de rendu
 @rinternals{All layout objects} @emph{(Tous les objets de rendu)}.
 
 
-@subsubsubheading La propriété @code{fontSize}
+@subsubheading La propriété @code{fontSize}
 @c VO Understanding the @code{fontSize} property
 
 @funindex fontSize
@@ -282,7 +282,6 @@ dont la taille est la plus proche de la taille voulue. La taille
 standard (pour laquelle @code{font-size = 0}) dépend de la hauteur de la
 portée. À une portée de 20 points correspond une police de 11 points.
 
-
 @predefined
 @code{\magnifyMusic},
 @code{\teeny},
@@ -335,7 +334,7 @@ et @code{\revert} :
 
 
 @node Fingering instructions
-@unnumberedsubsubsec Doigtés
+@subsection Doigtés
 
 @cindex doigté
 @cindex substitution de doigt
@@ -439,7 +438,7 @@ Référence des propriétés internes :
 
 
 @node Gliding fingers
-@unnumberedsubsubsec Glissement de doigt
+@subsection Glissement de doigt
 
 @cindex doigte, glissé
 @cindex glissé, doigté
@@ -647,7 +646,7 @@ Manuel des références internes :
 
 
 @node Hidden notes
-@unnumberedsubsubsec Dictée à trous
+@subsection Dictée à trous
 
 @cindex masquée, note
 @cindex invisible, note
@@ -713,7 +712,7 @@ Référence des propriétés internes :
 
 
 @node Coloring objects
-@unnumberedsubsubsec Coloration d'objets
+@subsection Coloration d'objets
 
 @cindex couleur
 @cindex colorisation d'objet
@@ -882,7 +881,7 @@ détails, consultez @ref{Tweak and single}.
 
 
 @node Staff highlights
-@unnumberedsubsubsec Surlignage de portées
+@subsection Surlignage de portées
 
 @cindex portée, surlignage
 @cindex colorisation de portées
@@ -1050,7 +1049,7 @@ ci-dessus permet alors de contourner le problème.
 
 
 @node Brackets for optional material
-@unnumberedsubsubsec Crochets de matériau optionel
+@subsection Crochets de matériau optionel
 
 L'addition de matériau optionnel peut s'indiquer à l'aide de crochets
 englobat la portée.
@@ -1101,7 +1100,7 @@ Référence des propriétés internes :
 
 
 @node Parentheses
-@unnumberedsubsubsec Parenthèses
+@subsection Parenthèses
 
 @cindex fantôme, note
 @cindex note fantôme
@@ -1200,7 +1199,7 @@ parenthèses correcte dans le cas des accords entre autres.
 
 
 @node Stems
-@unnumberedsubsubsec Hampes
+@subsection Hampes
 
 @cindex hampe
 @cindex hampe invisible
@@ -1253,14 +1252,14 @@ Référence des propriétés internes :
 
 
 @node Outside the staff
-@subsection Hors de la portée
+@section Hors de la portée
 
 Nous allons nous intéresser ici à souligner des éléments inscrits dans
 la portée par des éléments qui lui seront externes.
 
 
 @node Note names
-@unnumberedsubsubsec Nom des notes
+@subsection Nom des notes
 
 @cindex note, impression du nom
 @cindex solfège
@@ -1365,7 +1364,7 @@ Référence des propriété internes :
 
 
 @node Balloon help
-@unnumberedsubsubsec Info-bulle
+@subsection Info-bulle
 
 @cindex bulle
 @cindex notation, explication
@@ -1473,7 +1472,7 @@ Référence des propriétés internes :
 
 
 @node Grid lines
-@unnumberedsubsubsec Quadrillage temporel
+@subsection Quadrillage temporel
 
 @cindex quadrillage temporel
 @cindex temporel, quadrillage
@@ -1545,7 +1544,7 @@ Référence des propriétés internes :
 
 
 @node Analysis brackets
-@unnumberedsubsubsec Crochets d'analyse
+@subsection Crochets d'analyse
 
 @cindex crochet
 @cindex crochet de phrasé

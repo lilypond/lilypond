@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+    Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -85,35 +85,6 @@ translations should be in macros.itexi.
 @end ifnothtml
 
 
-@c do not translate the following macro -- it is used in
-@c an untranslated manual.
-
-@ifhtml
-
-@macro advanced{TEXT}
-@html
-<div class="advanced">
-@end html
-@strong{Advanced note:} \TEXT\
-@c keep the space for proper nesting of </p>
-
-@html
-</div>
-@end html
-@end macro
-
-@end ifhtml
-
-@ifnothtml
-
-@macro advanced{TEXT}
-@quotation
-@b{Advanced note:} \TEXT\
-@end quotation
-@end macro
-
-@end ifnothtml
-
 @macro docMain
 @cartouche
 Pour connaître la place qu'occupe ce manuel dans la
@@ -123,6 +94,15 @@ Si vous ne disposez pas de certains manuels, la documentation complète
 se trouve sur @w{@uref{https://@/lilypond@/.org/}}.
 @end cartouche
 @end macro
+
+
+@c Suppress the word 'Appendix' for `@appendix` entries in the
+@c table of contents.
+@tex
+\gdef\appentry#1#2#3#4{%
+  \retrievesecnowidth\secnowidthchap{#2}%
+  \dochapentry{#1}{#2}{#3}{#4}}
+@end tex
 
 
 @macro lilyTitlePage{TITLE}
@@ -211,7 +191,7 @@ Pour LilyPond version @version{}
 @c   ***** Headings in a doc subsection *****
 
 @macro predefined
-@subsubheading Commandes prédéfinies
+@subheading Commandes prédéfinies
 @raggedright
 @end macro
 
@@ -221,13 +201,13 @@ Pour LilyPond version @version{}
 
 
 @macro snippets
-@subsubheading Morceaux choisis
+@subheading Morceaux choisis
 @end macro
 
 
 @c obsolete, remove when translation is fully updated
 @macro commonprop
-@subsubheading Propriétés couramment modifiées
+@subheading Propriétés couramment modifiées
 @end macro
 
 
@@ -235,7 +215,7 @@ Pour LilyPond version @version{}
 @c unwanted extra vertical space in the PDF output.
 
 @macro morerefs
-@subsubheading Voir aussi
+@subheading Voir aussi
 @raggedright
 @end macro
 
@@ -244,7 +224,7 @@ Pour LilyPond version @version{}
 @end macro
 
 @macro knownissues
-@subsubheading Problèmes connus et avertissements
+@subheading Problèmes connus et avertissements
 @end macro
 
 

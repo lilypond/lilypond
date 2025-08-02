@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+   Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -10,12 +10,12 @@
 
 @c \version "2.19.28"
 
-@c Translators: Valentin Villenave,Jean-Charles Malahieude
+@c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: J.-C. Malahieude, John Mandereau, Jean Abou Samra
 
 
 @node Chord notation
-@section Notation des accords
+@chapter Notation des accords
 
 @lilypondfile[quote]{snippets/chords-headword.ly}
 
@@ -26,7 +26,7 @@ forme nominale, ou bien en basse figurée.
 
 
 @node Chord mode
-@subsection Mode accords
+@section Mode accords
 
 @cindex chordmode
 @cindex accord, mode
@@ -36,7 +36,7 @@ plutôt que les notes qui les composent.
 
 
 @node Chord mode overview
-@unnumberedsubsubsec Généralités sur le mode accords
+@subsection Généralités sur le mode accords
 
 @cindex accord, nom
 @cindex accord, chiffrage
@@ -93,7 +93,7 @@ en mode accord -- @pxref{Articulations and ornamentations}.
 
 
 @node Common chords
-@unnumberedsubsubsec Accords courants
+@subsection Accords courants
 
 @cindex triade
 @cindex septième
@@ -231,7 +231,7 @@ d'une altération de ses composantes, comme indiqué à la rubrique
 
 
 @node Extended and altered chords
-@unnumberedsubsubsec Extension et altération d'accords
+@subsection Extension et altération d'accords
 
 Le mode accords permet d'élaborer des accords complexes.  Ainsi, on peut
 enrichir l'accord par des notes ajoutées, enlever certaines notes,
@@ -386,7 +386,7 @@ parce qu'elle est indiquée en dernier :
 
 
 @node Chord inversions and specific voicings
-@unnumberedsubsubsec Renversement d'accord et vocification spécifique
+@subsection Renversement d'accord et vocification spécifique
 
 @cindex accord, renversement
 @cindex accord, vocification
@@ -427,14 +427,14 @@ Morceaux choisis :
 
 
 @node Displaying chords
-@subsection Gravure des accords
+@section Gravure des accords
 
 Les accords peuvent se présenter aussi bien sous forme nominative que
 comme un empilement de notes sur une portée.
 
 
 @node Printing chord names
-@unnumberedsubsubsec Impression des noms d'accord
+@subsection Impression des noms d'accord
 
 @cindex chiffrage d'accord
 @cindex accord, chiffrage
@@ -562,7 +562,7 @@ pas chiffré correctement s'il est saisi en tant que musique simultanée.
 
 
 @node Customizing chord names
-@unnumberedsubsubsec Personnalisation des noms d'accord
+@subsection Personnalisation des noms d'accord
 
 @cindex accord, personnalisation du chiffrage
 @cindex chiffrage d'accord, personnalisation
@@ -815,7 +815,7 @@ myChords = \relative c' {
 
 
 @node Chord grids
-@unnumberedsubsubsec Grilles harmoniques
+@subsection Grilles harmoniques
 
 @cindex harmoniques, grilles
 @cindex accords, grille
@@ -985,7 +985,7 @@ Référence des propriétés internes :
 
 
 @node Figured bass
-@subsection Basse chiffrée
+@section Basse chiffrée
 
 @lilypondfile[quote,staffsize=18,indent=2\cm,line-width=159\mm]
 {snippets/figured-bass-headword.ly}
@@ -994,7 +994,7 @@ LilyPond permet de générer des parties de continuo.
 
 
 @node Introduction to figured bass
-@unnumberedsubsubsec Introduction à la basse chiffrée
+@subsection Introduction à la basse chiffrée
 
 @cindex basse continue
 @cindex basse chiffrée
@@ -1075,7 +1075,7 @@ Morceaux choisis :
 
 
 @node Entering figured bass
-@unnumberedsubsubsec Saisie de la basse chiffrée
+@subsection Saisie de la basse chiffrée
 
 @code{\figuremode} permet de faire la relation entre ce qui est saisi et
 le mode de chiffrage.  De plus amples informations quant aux différents
@@ -1312,7 +1312,7 @@ Référence des propriétés internes :
 
 
 @node Displaying figured bass
-@unnumberedsubsubsec Gravure de la basse chiffrée
+@subsection Gravure de la basse chiffrée
 
 Une ligne de basse chiffrée s'imprime soit dans un contexte
 @code{FiguredBass}, soit dans la plupart des autres contextes du niveau

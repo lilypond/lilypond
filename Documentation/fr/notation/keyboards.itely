@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+   Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -15,7 +15,7 @@
 
 
 @node Keyboard and other multi-staff instruments
-@section Instruments utilisant des portées multiples
+@chapter Instruments utilisant des portées multiples
 
 @lilypondfile[quote]{snippets/keyboard-headword.ly}
 
@@ -28,14 +28,14 @@ multiples concerne aussi des instruments qui en sont dépourvus.
 
 
 @node Common notation for keyboards
-@subsection Vue d'ensemble des claviers
+@section Vue d'ensemble des claviers
 
 Nous allons examiner ici les problèmes qui peuvent survenir en matière
 de notation pour la plupart des instrument à cordes multiples.
 
 
 @node References for keyboards
-@unnumberedsubsubsec Généralités sur les instruments à clavier
+@subsection Généralités sur les instruments à clavier
 
 @cindex piano, système pour
 @cindex portée de piano
@@ -142,7 +142,7 @@ Référence des propriétés internes :
 
 
 @node Changing staff manually
-@unnumberedsubsubsec Changement de portée manuel
+@subsection Changement de portée manuel
 
 @cindex changement de portée manuel
 @cindex changement de portée forcé
@@ -283,7 +283,7 @@ de portée, utilisez alors une ligature manuelle.
 
 
 @node Changing staff automatically
-@unnumberedsubsubsec Changement de portée automatique
+@subsection Changement de portée automatique
 
 @cindex changement de portée automatique
 @cindex automatique, changement de portée
@@ -396,7 +396,7 @@ construction de cet accord.
 
 
 @node Staff-change lines
-@unnumberedsubsubsec Lignes de changement de portée
+@subsection Lignes de changement de portée
 
 @cindex voix entre deux portées
 @cindex changement de portée
@@ -495,13 +495,13 @@ Référence des propriétés internes :
 
 
 @node Piano
-@subsection Piano
+@section Piano
 
 Ce chapitre traite des aspects de la notation directement liés au piano.
 
 
 @node Piano pedals
-@unnumberedsubsubsec Pédales de piano
+@subsection Pédales de piano
 
 @cindex piano et pédale
 @cindex pédale de piano
@@ -599,11 +599,11 @@ Référence des propriétés internes :
 
 @need 1500
 @node Accordion
-@subsection Accordéon
+@section Accordéon
 
 
 @node Discant symbols
-@unnumberedsubsubsec Symboles de jeux
+@subsection Symboles de jeux
 
 @cindex accordéon, symbole de registre
 @cindex registre, symbole pour accordéon
@@ -633,14 +633,14 @@ Morceaux choisis :
 
 
 @node Harp
-@subsection Harpe
+@section Harpe
 
 Cette partie s'intéresse aux particularités en matière de notation pour
 la harpe.
 
 
 @node References for harps
-@unnumberedsubsubsec Généralités sur la harpe
+@subsection Généralités sur la harpe
 
 @cindex harpe
 @cindex bisbigliando
@@ -672,7 +672,7 @@ Manuel de notation :
 
 
 @node Harp pedals
-@unnumberedsubsubsec Pédales de harpe
+@subsection Pédales de harpe
 
 @cindex harpe, pédale
 @cindex harpe, diagramme de pédales

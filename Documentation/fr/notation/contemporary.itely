@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+    Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -15,7 +15,7 @@
 
 
 @node Contemporary music
-@section Musique contemporaine
+@chapter Musique contemporaine
 
 L'aube du
 @ifnothtml
@@ -36,14 +36,14 @@ informations quant à ces nouvelles techniques de notation.
 
 
 @node Pitch and harmony in contemporary music
-@subsection Hauteur et harmonie en musique contemporaine
+@section Hauteur et harmonie en musique contemporaine
 
 Intéressons-nous tout d'abord à ce qui relève de la notation des
 hauteurs et à l'harmonie en musique contemporaine.
 
 
 @node References for pitch and harmony in contemporary music
-@unnumberedsubsubsec Généralités en matière de hauteur et d'harmonie
+@subsection Généralités en matière de hauteur et d'harmonie
 
 @itemize
 @item La notation habituelle des quarts de tons est abordée à la
@@ -59,7 +59,7 @@ abordées à la rubrique @ref{Automatic accidentals}.
 
 
 @node Microtonal notation
-@unnumberedsubsubsec Notation microtonale
+@subsection Notation microtonale
 
 @ignore
     Discussion of microtones other than quarter-tones,
@@ -68,7 +68,7 @@ abordées à la rubrique @ref{Automatic accidentals}.
 
 
 @node Contemporary key signatures and harmony
-@unnumberedsubsubsec Armures contemporaines et harmonie
+@subsection Armures contemporaines et harmonie
 
 @ignore
     Discussion of contemporary key signatures:
@@ -77,14 +77,14 @@ abordées à la rubrique @ref{Automatic accidentals}.
 
 
 @node Contemporary approaches to rhythm
-@subsection Approches du rythme en musique contemporaine
+@section Approches du rythme en musique contemporaine
 
 Abordons à présent certaines particularités de la notation du rythme en
 musique contemporaine.
 
 
 @node References for contemporary approaches to rhythm
-@unnumberedsubsubsec Généralités sur le rythme en musique contemporaine
+@subsection Généralités sur le rythme en musique contemporaine
 
 @itemize
 @item Les métrique composites sont abordées à la rubrique
@@ -103,7 +103,7 @@ portées) sont abordées à la rubrique @ref{Grouping staves}.
 
 
 @node Tuplets in contemporary music
-@unnumberedsubsubsec N-olets et musique contemporaine
+@subsection N-olets et musique contemporaine
 
 @ignore
     Extended discussion of modern tuplets, including
@@ -115,7 +115,7 @@ portées) sont abordées à la rubrique @ref{Grouping staves}.
 
 
 @node Contemporary time signatures
-@unnumberedsubsubsec Métriques contemporaines
+@subsection Métriques contemporaines
 
 @ignore
     Extended discussion of compound time signatures
@@ -129,7 +129,7 @@ portées) sont abordées à la rubrique @ref{Grouping staves}.
 
 
 @node Extended polymetric notation
-@unnumberedsubsubsec Notation polymétrique étendue
+@subsection Notation polymétrique étendue
 
 @ignore
     Extended examples e.g. different instruments
@@ -138,7 +138,7 @@ portées) sont abordées à la rubrique @ref{Grouping staves}.
 
 
 @node Beams in contemporary music
-@unnumberedsubsubsec Ligatures et musique contemporaine
+@subsection Ligatures et musique contemporaine
 
 @ignore
     Beaming practices, stemlets, Boulez-esque displaying
@@ -147,7 +147,7 @@ portées) sont abordées à la rubrique @ref{Grouping staves}.
 
 
 @node Bar lines in contemporary music
-@unnumberedsubsubsec Barres de mesure et musique contemporaine
+@subsection Barres de mesure et musique contemporaine
 
 @ignore
     Mensurstriche bar lines, tick barlines, etc.
@@ -155,7 +155,7 @@ portées) sont abordées à la rubrique @ref{Grouping staves}.
 
 
 @node Graphical notation
-@subsection Notation graphique
+@section Notation graphique
 
 @cindex durée, ligne de
 @cindex note, prolongation
@@ -211,17 +211,39 @@ pour le style @code{'beam}) ou une flêche.
 }
 @end lilypond
 
+@code{DurationLine} peut éviter les éléments de @code{BreakAlignGroup}
+en cours de ligne.
+
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Voice
+    \consists "Duration_line_engraver"
+  }
+}
+
+<<
+  \new Staff {
+    g'1\- s \clef "alto" g'
+  }
+  \new Staff {
+    \override DurationLine.bound-details.right.end-on-break-align-group = ##t
+    g'1\- s \clef "alto" g' \bar "|."
+  }
+>>
+@end lilypond
+
 
 @node Contemporary scoring techniques
-@subsection Techniques de partition contemporaine
+@section Techniques de partition contemporaine
 
 
 @node New instrumental techniques
-@subsection Nouvelles techniques instrumentales
+@section Nouvelles techniques instrumentales
 
 
 @node Further reading and scores of interest
-@subsection Informations complémentaires et exemples pertinents
+@section Informations complémentaires et exemples pertinents
 
 Vous trouverez ici une sélection d'ouvrages de référence, d'exemples et
 autres ressources qui vous permettront d'étudier plus avant la notation
@@ -229,7 +251,7 @@ contemporaine.
 
 
 @node Books and articles on contemporary musical notation
-@unnumberedsubsubsec Ouvrages et articles sur la notation en musique contemporaine
+@subsection Ouvrages et articles sur la notation en musique contemporaine
 
 @itemize
 @item
@@ -248,7 +270,7 @@ par Kurt Stone [W. W. Norton, 1980]
 
 
 @node Scores and musical examples
-@unnumberedsubsubsec Partitions et exemples
+@subsection Partitions et exemples
 
 @ignore
     Rough list of composers whose work could be included

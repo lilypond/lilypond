@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+   Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -15,7 +15,7 @@
 
 
 @node Expressive marks
-@section Signes d'interprétation
+@chapter Signes d'interprétation
 
 @lilypondfile[quote]{snippets/expressive-headword.ly}
 
@@ -24,7 +24,7 @@ peut trouver sur les partitions.
 
 
 @node Expressive marks attached to notes
-@subsection Signes d'interprétation attachés à des notes
+@section Signes d'interprétation attachés à des notes
 
 Nous allons voir au cours de ces lignes comment ajouter aux notes des
 indications d'interprétation -- articulation, ornementation, nuance --
@@ -32,7 +32,7 @@ et aborderons la manière de générer vos propres signes.
 
 
 @node Articulations and ornamentations
-@unnumberedsubsubsec Articulations et ornements
+@subsection Articulations et ornements
 
 @cindex @sortas{accent} « accent », articulation
 @cindex articulation, « accent »
@@ -331,7 +331,7 @@ Référence des propriétés internes :
 
 
 @node Dynamics
-@unnumberedsubsubsec Nuances
+@subsection Nuances
 
 @cindex nuances
 
@@ -725,7 +725,7 @@ Référence des propriétés internes :
 
 
 @node New dynamic marks
-@unnumberedsubsubsec Personnalisation des indications de nuance
+@subsection Personnalisation des indications de nuance
 
 @cindex indication de nuance, personnalisation
 @cindex nuance personnalisée
@@ -860,7 +860,7 @@ Construction d'un markup en Scheme}.
 
 
 @node Expressive marks as curves
-@subsection Signes d'interprétation sous forme de courbe
+@section Signes d'interprétation sous forme de courbe
 
 @cindex courbes
 
@@ -870,7 +870,7 @@ et sauts.
 
 
 @node Slurs
-@unnumberedsubsubsec Liaisons d'articulation
+@subsection Liaisons d'articulation
 
 @cindex legato
 @cindex liaison d'articulation
@@ -1053,7 +1053,7 @@ Référence des propriétés internes :
 
 
 @node Phrasing slurs
-@unnumberedsubsubsec Liaisons de phrasé
+@subsection Liaisons de phrasé
 
 @cindex liaison de phrasé
 @cindex phrasé, liaison de
@@ -1192,7 +1192,7 @@ Référence des propriétés internes :
 
 
 @node Breath marks
-@unnumberedsubsubsec Signes de respiration
+@subsection Signes de respiration
 
 @cindex respiration, indication
 @cindex point d'arrêt
@@ -1260,7 +1260,7 @@ Référence des propriétés internes :
 
 
 @node Falls and doits
-@unnumberedsubsubsec Chutes et sauts
+@subsection Chutes et sauts
 
 @cindex chute
 @cindex saut
@@ -1298,7 +1298,7 @@ Morceaux choisis :
 
 
 @node Expressive marks as lines
-@subsection Signes d'interprétation sous forme de ligne
+@section Signes d'interprétation sous forme de ligne
 
 @cindex lignes
 
@@ -1307,7 +1307,7 @@ d'aspect linéaire, tels les glissandos, arpèges et trilles.
 
 
 @node Glissando
-@unnumberedsubsubsec Glissando
+@subsection Glissando
 
 @cindex glissando
 @funindex \glissando
@@ -1414,7 +1414,7 @@ le long de la ligne de glissando.
 
 
 @node Arpeggio
-@unnumberedsubsubsec Arpèges
+@subsection Arpèges
 
 @cindex arpège
 @cindex accord arpégé
@@ -1575,7 +1575,7 @@ n'est pas opérationnelle pour des arpèges inter-portées ;
 
 
 @node Trills
-@unnumberedsubsubsec Trilles
+@subsection Trilles
 
 @cindex trille
 

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+   Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -14,7 +14,8 @@
 @c Translation checkers: Valentin Villenave, J.-C. Malahieude
 
 @node Pitches
-@section Hauteurs
+@anchor{Musical notation} @c retain old label
+@chapter Hauteurs
 
 @lilypondfile[quote]{snippets/pitches-headword.ly}
 
@@ -24,7 +25,7 @@ les options de gravure.
 
 
 @node Writing pitches
-@subsection Écriture des hauteurs de note
+@section Écriture des hauteurs de note
 
 Cette section explique la manière d'indiquer les hauteurs de note. Deux
 modes permettent d'indiquer l'octave des notes : le mode absolu, et le
@@ -33,7 +34,7 @@ fichier source au clavier de l'ordinateur.
 
 
 @node Absolute octave entry
-@unnumberedsubsubsec Hauteurs avec octave absolue
+@subsection Hauteurs avec octave absolue
 
 @cindex nom de note
 @cindex hauteur
@@ -114,7 +115,7 @@ Morceaux choisis :
 
 
 @node Relative octave entry
-@unnumberedsubsubsec Octaves relatives
+@subsection Octaves relatives
 
 @cindex relatif
 @cindex indication d'octave relative
@@ -348,7 +349,7 @@ Référence des propriétés internes :
 
 
 @node Accidentals
-@unnumberedsubsubsec Altérations
+@subsection Altérations
 
 @cindex altération
 @cindex armure
@@ -489,7 +490,7 @@ LilyPond n'est donc conforme à aucun standard.
 
 
 @node Note names in other languages
-@unnumberedsubsubsec Nom des notes dans d'autres langues
+@subsection Nom des notes dans d'autres langues
 
 @cindex note, nom selon la langue
 @cindex nom de note, langue
@@ -673,13 +674,13 @@ Morceaux choisis :
 
 
 @node Changing multiple pitches
-@subsection Modification de plusieurs hauteurs
+@section Modification de plusieurs hauteurs
 
 Cette partie traite de la manière de modifier les hauteurs de note.
 
 
 @node Octave checks
-@unnumberedsubsubsec Vérifications d'octave
+@subsection Vérifications d'octave
 
 @cindex vérification d'octave
 @cindex octave, vérification
@@ -754,7 +755,7 @@ Référence des propriétés internes :
 
 
 @node Transpose
-@unnumberedsubsubsec Transposition
+@subsection Transposition
 
 @cindex transposition
 @cindex transposition des hauteurs
@@ -889,7 +890,7 @@ exemple ré bémol au lieu de mi triple bémol.
 
 
 @node Inversion
-@unnumberedsubsubsec Inversion
+@subsection Inversion
 
 @cindex inversion
 
@@ -928,7 +929,7 @@ Manuel de notation :
 
 
 @node Retrograde
-@unnumberedsubsubsec Rétrogradation
+@subsection Rétrogradation
 
 @cindex rétrograde, transformation
 @cindex transformation rétrograde
@@ -967,7 +968,7 @@ Manuel de notation :
 
 
 @node Modal transformations
-@unnumberedsubsubsec Transformations modales
+@subsection Transformations modales
 
 @cindex modale, transformation
 
@@ -981,7 +982,7 @@ peut aussi être renversé pour produire une rétrogradation.
 sera pas transformée.}
 
 
-@subsubsubheading Transposition modale
+@subsubheading Transposition modale
 @c VO Modal transposition
 
 @cindex modale, transposition
@@ -1038,7 +1039,7 @@ motif = \relative { c'8 d e f g a b c }
 @end lilypond
 
 
-@subsubsubheading Inversion modale
+@subsubheading Inversion modale
 @c VO Modal inversion
 
 @cindex modale, inversion
@@ -1107,14 +1108,14 @@ Manuel de notation :
 
 
 @node Displaying pitches
-@subsection Gravure des hauteurs
+@section Gravure des hauteurs
 
 Nous allons voir dans cette partie comment influer sur la gravure des
 hauteurs.
 
 
 @node Clef
-@unnumberedsubsubsec Clefs
+@subsection Clefs
 
 @cindex clef de sol
 @cindex sol, clef de
@@ -1313,7 +1314,7 @@ l'objet @code{Clef} devra être manuellement répercuté sur l'objet
 
 @need 1000
 @node Key signature
-@unnumberedsubsubsec Armure
+@subsection Armure
 
 @cindex armure
 
@@ -1443,7 +1444,7 @@ Référence des propriétés internes :
 
 
 @node Ottava brackets
-@unnumberedsubsubsec Marques d'octaviation
+@subsection Marques d'octaviation
 
 @cindex ottava
 @cindex 15ma
@@ -1564,7 +1565,7 @@ Référence des propriétés internes :
 
 
 @node Instrument transpositions
-@unnumberedsubsubsec Instruments transpositeurs
+@subsection Instruments transpositeurs
 
 @cindex transposition et MIDI
 @cindex MIDI et transposition
@@ -1668,7 +1669,7 @@ Morceaux choisis :
 
 
 @node Automatic accidentals
-@unnumberedsubsubsec Altérations accidentelles automatiques
+@subsection Altérations accidentelles automatiques
 
 @cindex altération, style
 @cindex altération, style par défaut
@@ -3106,7 +3107,7 @@ forget = #(define-music-function (music) (ly:music?) #{
 
 
 @node Alternate accidental glyphs
-@unnumberedsubsubsec Glyphes d'altération alternatifs
+@subsection Glyphes d'altération alternatifs
 
 @cindex alternatif, glyphe d'altération
 @cindex altération, glyphes alternatifs
@@ -3193,7 +3194,7 @@ Référence des propriétés internes :
 
 
 @node Ambitus
-@unnumberedsubsubsec Ambitus
+@subsection Ambitus
 
 @cindex ambitus
 @cindex tessiture
@@ -3268,14 +3269,14 @@ une même portée.
 
 
 @node Note heads
-@subsection Têtes de note
+@section Têtes de note
 
 Nous allons voir dans ce chapitre comment modifier l'aspect des têtes de
 note.
 
 
 @node Special note heads
-@unnumberedsubsubsec Têtes de note spécifiques
+@subsection Têtes de note spécifiques
 
 @cindex tête de note, spéciale
 @cindex croix, tête de note
@@ -3382,7 +3383,7 @@ Référence des propriétés internes :
 
 
 @node Easy notation note heads
-@unnumberedsubsubsec Têtes de note avec nom de note
+@subsection Têtes de note avec nom de note
 
 @cindex tête de note, apprentissage
 @cindex notation facile
@@ -3437,7 +3438,7 @@ Référence des propriétés internes :
 
 
 @node Shape note heads
-@unnumberedsubsubsec Têtes de note à forme variable
+@subsection Têtes de note à forme variable
 
 @cindex tête de note, allure
 @cindex tête de note, Aiken
@@ -3572,7 +3573,7 @@ Référence des propriétés internes :
 
 
 @node Improvisation
-@unnumberedsubsubsec Improvisation
+@subsection Improvisation
 
 @cindex improvisation
 @cindex note penchée

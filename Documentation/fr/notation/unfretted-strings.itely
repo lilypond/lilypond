@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+   Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -15,7 +15,7 @@
 
 
 @node Unfretted string instruments
-@section Cordes non frettées
+@chapter Cordes non frettées
 
 @lilypondfile[quote]
 {snippets/unfretted-headword.ly}
@@ -30,7 +30,7 @@ cordes d'orchestre.
 
 
 @node Common notation for unfretted strings
-@subsection Vue d'ensemble de la notation pour cordes non frettées
+@section Vue d'ensemble de la notation pour cordes non frettées
 
 Il existe peu d'éléments spécifiques à l'écriture pour instruments à
 cordes non frettées.  La musique est notée sur une portée et ne
@@ -40,7 +40,7 @@ notes ou des divisions.
 
 
 @node References for unfretted strings
-@unnumberedsubsubsec Références en matière de cordes non frettées
+@subsection Références en matière de cordes non frettées
 
 La majorité des éléments de notation nécessaires en matière de
 cordes d'orchestre et autres instruments à archet est abordée dans
@@ -85,7 +85,7 @@ Morceaux choisis :
 
 
 @node Bowing indications
-@unnumberedsubsubsec Indications d'archet
+@subsection Indications d'archet
 
 @funindex \upbow
 @funindex \downbow
@@ -141,9 +141,9 @@ Manuel de notation :
 
 
 @node Harmonics
-@unnumberedsubsubsec Harmoniques
+@subsection Harmoniques
 
-@subsubsubheading Harmoniques naturels
+@subsubheading Harmoniques naturels
 
 @cindex harmonique naturel
 @cindex naturel, harmonique
@@ -176,7 +176,7 @@ harmonique :
 d''2^\flageolet d''_\flageolet
 @end lilypond
 
-@subsubsubheading Harmoniques artificiels
+@subsubheading Harmoniques artificiels
 
 @cindex harmoniques artificiels
 @cindex artificiels, harmoniques
@@ -220,7 +220,7 @@ construction d'accord.
 
 
 @node Snap (Bartok) pizzicato
-@unnumberedsubsubsec Snap (Bartók) pizzicato
+@subsection Snap (Bartók) pizzicato
 
 @cindex pizzicato, Bartók
 @cindex pizzicato, @emph{snap}

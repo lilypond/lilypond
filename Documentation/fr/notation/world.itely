@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+    Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -15,14 +15,14 @@
 
 
 @node World music
-@section Musiques du monde
+@chapter Musiques du monde
 
 Ce chapitre a pour objet la notation des musiques traditionnelles autres
 qu'occidentales.
 
 
 @node Common notation for non-Western music
-@subsection Noms des notes et altérations non-occidentaux
+@section Noms des notes et altérations non-occidentaux
 
 Nous allons voir ici comment saisir et imprimer des partitions dans
 d'autres formes que la musique occidentale, que les anglophones
@@ -30,7 +30,7 @@ appellent aussi @emph{Common practice period}.
 
 
 @node Extending notation and tuning systems
-@unnumberedsubsubsec Extension des systèmes de notation et d'accordage
+@subsection Extension des systèmes de notation et d'accordage
 
 Les formes de notation propres à la musique classique traditionnelle
 sont employées dans toutes sortes de musique autres que le
@@ -95,14 +95,14 @@ Manuel de notation :
 
 
 @node Arabic music
-@subsection Musique arabe
+@section Musique arabe
 
 Ce chapitre souligne les questions propres à la notation de la musique
 arabe.
 
 
 @node References for Arabic music
-@unnumberedsubsubsec Références pour la musique arabe
+@subsection Références pour la musique arabe
 
 @cindex musique arabe
 @cindex intervalle medium
@@ -158,7 +158,7 @@ Morceaux choisis :
 
 
 @node Arabic note names
-@unnumberedsubsubsec Noms des notes en arabe
+@subsection Noms des notes en arabe
 
 @cindex notes, nom en arabe
 @cindex arabe, nom de note
@@ -242,7 +242,7 @@ Morceaux choisis :
 
 
 @node Arabic key signatures
-@unnumberedsubsubsec Armures arabes
+@subsection Armures arabes
 
 @cindex armure arabe
 @cindex arabe, armure
@@ -420,7 +420,7 @@ Morceaux choisis :
 
 
 @node Arabic time signatures
-@unnumberedsubsubsec Métriques arabes
+@subsection Métriques arabes
 
 @cindex métrique arabe
 @cindex arabe, métrique
@@ -468,7 +468,7 @@ Morceaux choisis :
 
 
 @node Arabic music example
-@unnumberedsubsubsec Exemple de musique arabe
+@subsection Exemple de musique arabe
 
 @cindex exemple de musique arabe
 @cindex modèle de musique arabe
@@ -513,7 +513,7 @@ Morceaux choisis :
 
 
 @node Further reading for Arabic music
-@unnumberedsubsubsec Lectures complémentaires pour la musique arabe
+@subsection Lectures complémentaires pour la musique arabe
 
 Si tout le monde s'accorde à apparenter les maqams d'après leur
 tétracorde inférieur, parfois transposé, les méthodes de classification
@@ -559,14 +559,14 @@ Ibrahim Ali Darwish Al-masri
 
 
 @node Turkish classical music
-@subsection Musique classique turque
+@section Musique classique turque
 
 Ce chapitre met en évidence des questions propres à la notation de la
 musique classique turque.
 
 
 @node References for Turkish classical music
-@unnumberedsubsubsec Références pour la musique classique turque
+@subsection Références pour la musique classique turque
 
 @cindex musique turque
 @cindex turque, musique
@@ -600,7 +600,7 @@ mentionnés dans @ref{Common notation for non-Western music}.
 
 
 @node Turkish note names
-@unnumberedsubsubsec Noms de note en turc
+@subsection Noms de note en turc
 
 @cindex turc, nom de note
 @cindex makam
@@ -637,7 +637,7 @@ Manuel de notation :
 
 
 @node Turkish key signatures
-@unnumberedsubsubsec Armures turques
+@subsection Armures turques
 
 LilyPond prend en charge plus de 200 définitions d'armures de makam --
 nettement moins que ce qui peut être utilisé en musique classique turque
@@ -667,7 +667,7 @@ affichés automatiquement.
 
 
 @node Further reading for Turkish music
-@unnumberedsubsubsec Lectures complémentaires pour la musique turque
+@subsection Lectures complémentaires pour la musique turque
 
 @itemize
 
@@ -696,7 +696,7 @@ disques compacts.
 
 
 @node Persian classical music
-@subsection Musique classique perse
+@section Musique classique perse
 
 @cindex Perse, musique classique
 
@@ -705,7 +705,7 @@ musique classique perse.
 
 
 @node Persian music notation
-@unnumberedsubsubsec Notation de la musique perse
+@subsection Notation de la musique perse
 
 @cindex sori
 @cindex koron
@@ -788,7 +788,7 @@ Voici les différents suffixes à porter aux nom des notes en anglais.
 
 
 @node Persian tunings
-@unnumberedsubsubsec Tonalités perses
+@subsection Tonalités perses
 
 Les dastgahs peuvent avoir plusieurs tonalités ; il est maintenant
 courant de nommer les tonalités selon la représentation des dastgahs qui
@@ -870,7 +870,7 @@ aussi la tonalité @code{\delkashMahur}).
 
 
 @node Persian key signatures
-@unnumberedsubsubsec Armures perses
+@subsection Armures perses
 
 Par défaut, l'ordre des altérations dans une armure perse est la
 suivant : bémols uivis des korons, puis dièses suivis des soris (puis
@@ -891,7 +891,7 @@ bémols et dièses.
 
 
 @node Further reading on Persian music
-@unnumberedsubsubsec Lectures complémentaires pour la musique perse
+@subsection Lectures complémentaires pour la musique perse
 
 @itemize
 

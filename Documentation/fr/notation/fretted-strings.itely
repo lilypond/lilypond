@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+   Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -15,7 +15,7 @@
 
 
 @node Fretted string instruments
-@section Instruments à cordes frettées
+@chapter Instruments à cordes frettées
 
 @lilypondfile[quote]{snippets/fretted-headword.ly}
 
@@ -30,14 +30,14 @@ instruments à cordes frettées.
 
 
 @node Common notation for fretted strings
-@subsection Vue d'ensemble des cordes frettées
+@section Vue d'ensemble des cordes frettées
 
 Nous allons aborder, dans les paragraphes qui suivent, les
 particularités communes aux différents instruments à cordes frettées.
 
 
 @node References for fretted strings
-@unnumberedsubsubsec Références en matière de cordes frettées
+@subsection Références en matière de cordes frettées
 
 La musique pour instruments à cordes frettées est généralement notée sur
 une seule portée, en notation traditionnelle ou en tablature, les deux
@@ -82,7 +82,7 @@ Manuel de notation :
 
 
 @node String number indications
-@unnumberedsubsubsec Indications du numéro de corde
+@subsection Indications du numéro de corde
 
 @cindex corde numérotée
 @cindex numéro de corde
@@ -155,7 +155,7 @@ Référence des propriétés internes :
 
 
 @node Default tablatures
-@unnumberedsubsubsec Tablatures par défaut
+@subsection Tablatures par défaut
 
 @cindex tablature, base
 @cindex tablature par défaut
@@ -735,7 +735,7 @@ harmoniques et aux glissandos.
 
 
 @node Custom tablatures
-@unnumberedsubsubsec Tablatures personnalisées
+@subsection Tablatures personnalisées
 
 @cindex personnalisation de tablature
 @cindex banjo, tablature
@@ -964,7 +964,7 @@ hauteurs, comme le ukulele.
 
 
 @node Fret diagram markups
-@unnumberedsubsubsec Tablatures sous forme d'étiquettes
+@subsection Tablatures sous forme d'étiquettes
 
 @cindex fret, diagramme
 @cindex accord, diagramme
@@ -1433,7 +1433,7 @@ Référence des propriétés internes :
 
 
 @node Predefined fret diagrams
-@unnumberedsubsubsec Tablatures prédéfinies
+@subsection Tablatures prédéfinies
 
 @cindex fret, diagramme
 @cindex accord, diagramme
@@ -1762,7 +1762,7 @@ Référence des propriétés internes :
 
 
 @node Automatic fret diagrams
-@unnumberedsubsubsec Tablatures automatiques
+@subsection Tablatures automatiques
 
 @cindex fret, diagramme automatique
 @cindex accord, diagramme automatique
@@ -1923,7 +1923,7 @@ hauteurs.
 
 
 @node Right-hand fingerings
-@unnumberedsubsubsec Doigtés pour la main droite
+@subsection Doigtés pour la main droite
 
 @cindex cordes frettées, doigtés main droite
 @cindex doigtés main droite et cordes frettées
@@ -1982,7 +1982,7 @@ Référence des propriétés internes :
 
 
 @node Guitar
-@subsection Guitare
+@section Guitare
 
 La plupart des aspects en matière de notation pour guitare sont traités
 dans la partie commune aux instruments frettés. Il subsiste cependant
@@ -1998,7 +1998,7 @@ GuitarTeX.
 
 
 @node Indicating position and barring
-@unnumberedsubsubsec Indication de la position et du barré
+@subsection Indication de la position et du barré
 
 @cindex barré, indication de la position
 @cindex cordes frettées, indication de la position et du barré
@@ -2036,7 +2036,7 @@ Morceaux choisis :
 
 
 @node Indicating harmonics and dampened notes
-@unnumberedsubsubsec Indication des harmoniques et notes étouffées
+@subsection Indication des harmoniques et notes étouffées
 
 @cindex cordes frettées, note étouffée
 @cindex cordes frettées, harmonique
@@ -2116,7 +2116,7 @@ Morceaux choisis :
 
 
 @node Indicating power chords
-@unnumberedsubsubsec Indication de @emph{power chord}
+@subsection Indication de @emph{power chord}
 
 @cindex power chords
 @cindex chord, power
@@ -2173,11 +2173,11 @@ Morceaux choisis :
 
 @need 1500
 @node Banjo
-@subsection Banjo
+@section Banjo
 
 
 @node Banjo tablatures
-@unnumberedsubsubsec Tablatures pour banjo
+@subsection Tablatures pour banjo
 
 @cindex banjo, tablature
 @cindex tablature pour banjo
@@ -2244,11 +2244,11 @@ Morceaux choisis :
 
 @need 1500
 @node Lute
-@subsection Luth
+@section Luth
 
 
 @node Lute tablatures
-@unnumberedsubsubsec Tablatures pour luth
+@subsection Tablatures pour luth
 
 @cindex luth, tablature
 @cindex tablature, luth

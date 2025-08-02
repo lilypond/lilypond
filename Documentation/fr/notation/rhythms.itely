@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+   Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -14,7 +14,7 @@
 @c Translation checkers: Valentin Villenave, François Martin, Xavier Scheuer
 
 @node Rhythms
-@section Rythme
+@chapter Rythme
 
 @lilypondfile[quote]{snippets/rhythms-headword.ly}
 
@@ -24,11 +24,11 @@ ligature et de mesure.
 
 @need 1500
 @node Writing rhythms
-@subsection Écriture du rythme
+@section Écriture du rythme
 
 
 @node Durations
-@unnumberedsubsubsec Durées
+@subsection Durées
 
 @cindex durée
 @cindex note, longueur
@@ -205,7 +205,7 @@ disponibles ne couvre que les silences allant de
 
 
 @node Tuplets
-@unnumberedsubsubsec N-olets
+@subsection N-olets
 
 @cindex n-olet
 @cindex triolet
@@ -384,7 +384,7 @@ Références des propriétés internes :
 
 
 @node Scaling durations
-@unnumberedsubsubsec Changement d'échelle des durées
+@subsection Changement d'échelle des durées
 
 @cindex @'echelonnement des durées
 @cindex durées, échelonnement
@@ -482,7 +482,7 @@ d'erreur.
 
 
 @node Ties
-@unnumberedsubsubsec Liaisons de prolongation
+@subsection Liaisons de prolongation
 
 @cindex liaison de prolongation
 @cindex liaison de tenue
@@ -730,14 +730,14 @@ un résultat indéfini. Dans ces cas là, il est préférable d'utiliser un
 
 
 @node Writing rests
-@subsection Écriture des silences
+@section Écriture des silences
 
 On saisit les silences dans une expression musicale tout comme les
 notes.
 
 
 @node Rests
-@unnumberedsubsubsec Silences
+@subsection Silences
 
 @cindex silence
 @cindex durée d'un silence
@@ -828,7 +828,7 @@ disponibles ne couvre que les silences allant du
 
 
 @node Invisible rests
-@unnumberedsubsubsec Silences invisibles
+@subsection Silences invisibles
 
 @cindex saut de durée
 @cindex silence invisible
@@ -964,7 +964,7 @@ la suit.
 
 
 @node Full measure rests
-@unnumberedsubsubsec Silences valant une mesure
+@subsection Silences valant une mesure
 
 @cindex mesure à compter
 @cindex mesure entière de silence
@@ -1143,7 +1143,7 @@ silences.
 
 
 @node Caesuras
-@unnumberedsubsubsec Césures
+@subsection Césures
 
 @cindex cæsura
 @cindex césure
@@ -1251,11 +1251,11 @@ Propriétés de contexte ajustables}.
 
 @need 1500
 @node Displaying rhythms
-@subsection Gravure du rythme
+@section Gravure du rythme
 
 
 @node Time signature
-@unnumberedsubsubsec Métrique
+@subsection Métrique
 
 @cindex chiffrage de mesure
 @cindex chiffre indicateur de mesure
@@ -1580,7 +1580,7 @@ music = {
 
 
 @node Metronome marks
-@unnumberedsubsubsec Indication métronomique
+@subsection Indication métronomique
 
 @cindex tempo
 @cindex battements par minute
@@ -1755,7 +1755,7 @@ Référence des propriétés internes :
 
 
 @node Upbeats
-@unnumberedsubsubsec Levées
+@subsection Levées
 
 @cindex anacrouse
 @cindex levée
@@ -1841,7 +1841,7 @@ Références des propriétés internes :
 
 
 @node Unmetered music
-@unnumberedsubsubsec Musique sans métrique
+@subsection Musique sans métrique
 
 @cindex cadence
 @cindex barre de mesure, suppression
@@ -1982,7 +1982,7 @@ Morceaux choisis :
 
 
 @node Polymetric notation
-@unnumberedsubsubsec Notation polymétrique
+@subsection Notation polymétrique
 
 @c This section necessarily uses \set
 @c This is acceptable  -td
@@ -2002,7 +2002,7 @@ que de manière détournée -- modification de l'indicateur de métrique et
 échelonnement de la durée des notes.
 
 
-@subsubsubheading Métriques différentes et mesures d'égale longueur
+@subsubheading Métriques différentes et mesures d'égale longueur
 @c VO Different time signatures with equal-length measures
 
 Il suffit, pour obtenir cette forme de notation, de tout d'abord
@@ -2050,7 +2050,7 @@ ligature automatique.
 @end lilypond
 
 
-@subsubsubheading Métriques différentes et mesures de longueur inégale
+@subsubheading Métriques différentes et mesures de longueur inégale
 @c VO Different time signatures with unequal-length measures
 
 Il arrive aussi que chaque portée ait sa propre métrique. Vous y
@@ -2154,7 +2154,7 @@ qu'elle est libellée dans le bloc @code{\midi}.
 @end quotation
 
 
-@subsubsubheading Métriques complexes
+@subsubheading Métriques complexes
 @c VO Compound time signatures
 
 @cindex métrique composite
@@ -2225,7 +2225,7 @@ chacune des différentes métriques.
 
 
 @node Automatic note splitting
-@unnumberedsubsubsec Découpage automatique des notes
+@subsection Découpage automatique des notes
 
 @cindex note, division
 @cindex division de note
@@ -2323,7 +2323,7 @@ des durées saisies.
 
 
 @node Showing melody rhythms
-@unnumberedsubsubsec Gravure de lignes rythmiques
+@subsection Gravure de lignes rythmiques
 
 @cindex mélodie, affichage du rythme seul
 @cindex rythmique d'une mélodie
@@ -2423,7 +2423,7 @@ Référence des propriétés internes :
 
 @need 1500
 @node Beams
-@subsection Barres de ligature
+@section Barres de ligature
 
 @cindex lien de croche
 @cindex ligature
@@ -2433,7 +2433,7 @@ automatisée, l'autre par saisie manuelle, les deux pouvant se combiner.
 
 
 @node Automatic beams
-@unnumberedsubsubsec Barres de ligature automatiques
+@subsection Barres de ligature automatiques
 
 LilyPond décide automatiquement de la manière de grouper les notes et
 d'imprimer les ligatures.
@@ -2538,7 +2538,7 @@ terminaison ne sera prise en compte qu'à l'occasion de la
 
 
 @node Setting automatic beam behavior
-@unnumberedsubsubsec Définition des règles de ligature automatique
+@subsection Définition des règles de ligature automatique
 
 @cindex ligature et paroles
 @cindex paroles et ligature
@@ -2567,7 +2567,7 @@ en vigueur, les ligatures seront déterminées par les réglages conjoints
 de @code{beatBase} et @code{beatStructure}.
 
 
-@subsubsubheading Ligature basée sur @code{beatBase} et @code{beatStructure}
+@subsubheading Ligature basée sur @code{beatBase} et @code{beatStructure}
 @c VO Beaming based on @code{beatBase} and @code{beatStructure}
 
 @code{beamExceptions} dispose par défaut de règles pour les métriques
@@ -2700,7 +2700,7 @@ par métrique et type de règle, sont répertoriées dans le fichier
 @file{scm/time-@/signature-@/settings.scm}.
 
 
-@subsubsubheading Ligature basée sur @code{beamExceptions}
+@subsubheading Ligature basée sur @code{beamExceptions}
 @c VO Beaming based on beamExceptions
 
 Les règles spécifiques autres que celles concernant la terminaison des
@@ -2797,7 +2797,7 @@ numérateur de la métrique est un 3.
 @end lilypond
 
 
-@subsubsubheading Principes de la ligature automatique
+@subsubheading Principes de la ligature automatique
 @c VO How automatic beaming works
 
 Lorsqu'elle est activée, la gestion automatisée des ligatures est
@@ -2937,7 +2937,7 @@ automatiques est abordée au chapitre @ref{Time signature}.
 
 
 @node Manual beams
-@unnumberedsubsubsec Barres de ligature manuelles
+@subsection Barres de ligature manuelles
 
 @cindex groupement de note manuel
 @cindex ligature manuelle
@@ -3058,7 +3058,7 @@ Référence des propriétés internes :
 
 
 @node Feathered beams
-@unnumberedsubsubsec Liens de croches en soufflet
+@subsection Liens de croches en soufflet
 
 @cindex soufflet, ligature
 @cindex ligature en soufflet
@@ -3124,7 +3124,7 @@ courts extraits, avec une faible amplitude.
 
 
 @node Slashed beams
-@unnumberedsubsubsec Ligatures barrées
+@subsection Ligatures barrées
 
 @cindex ligature barrée
 @cindex barrée, ligature
@@ -3170,11 +3170,11 @@ mus = \repeat unfold 4 a16
 
 @need 1500
 @node Bars
-@subsection Mesures
+@section Mesures
 
 
 @node Bar lines
-@unnumberedsubsubsec Barres de mesure
+@subsection Barres de mesure
 
 @cindex barre de mesure
 @cindex barre finale
@@ -3717,7 +3717,7 @@ Référence des propriétés internes :
 
 
 @node Automatic bar lines
-@unnumberedsubsubsec Barres de mesure automatiques
+@subsection Barres de mesure automatiques
 
 @cindex automatique, barre de mesure
 @cindex barre de mesure automatique
@@ -3871,7 +3871,7 @@ Référence des propriétés internes :
 
 
 @node Bar numbers
-@unnumberedsubsubsec Numéros de mesure
+@subsection Numéros de mesure
 
 @cindex mesure, numérotation
 @cindex numéro de mesure
@@ -3984,7 +3984,7 @@ positionnement.
 
 
 @node Bar and bar number checks
-@unnumberedsubsubsec Vérification des limites et numéros de mesure
+@subsection Vérification des limites et numéros de mesure
 
 @cindex vérification des limites de mesure
 @cindex mesure, vérification des limites
@@ -4070,7 +4070,7 @@ Morceaux choisis :
 
 
 @node Rehearsal marks
-@unnumberedsubsubsec Indications de repère
+@subsection Indications de repère
 
 @cindex repère, indication de
 @cindex indication, repère
@@ -4211,7 +4211,7 @@ Référence des propriétés internes :
 
 
 @node Measure counts
-@unnumberedsubsubsec Compteurs de mesures
+@subsection Compteurs de mesures
 
 @cindex mesure, compteur
 
@@ -4347,7 +4347,7 @@ Référence des propriétés internes :
 
 
 @node Section divisions
-@unnumberedsubsubsec Division en sections
+@subsection Division en sections
 
 @cindex barre de mesure double
 @cindex barre de mesure, section
@@ -4410,11 +4410,11 @@ Référence des propriétés internes :
 
 @need 1500
 @node Special rhythmic concerns
-@subsection Fonctionnalités rythmiques particulières
+@section Fonctionnalités rythmiques particulières
 
 
 @node Grace notes
-@unnumberedsubsubsec Notes d'ornement
+@subsection Notes d'ornement
 
 @cindex ornement
 @cindex broderie
@@ -4676,7 +4676,7 @@ Voir @ref{Scaling durations}.
 
 
 @node Aligning to cadenzas
-@unnumberedsubsubsec Alignement et cadences
+@subsection Alignement et cadences
 
 @cindex cadenza
 @cindex cadence
@@ -4747,7 +4747,7 @@ Morceaux choisis :
 
 
 @node Time administration
-@unnumberedsubsubsec Gestion du temps
+@subsection Gestion du temps
 
 @cindex temps, gestion du
 @cindex musique non mesurée

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+   Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -15,7 +15,7 @@
 
 
 @node Text
-@section Texte
+@chapter Texte
 
 @lilypondfile[quote]{snippets/text-headword.ly}
 
@@ -24,7 +24,7 @@ que différentes manières de le mettre en forme.
 
 
 @node Writing text
-@subsection Ajout de texte
+@section Ajout de texte
 
 Cette partie constitue une introduction aux différentes manières
 d'ajouter du texte à une partition.
@@ -37,7 +37,7 @@ d'informations, voir @ref{Text encoding}.}
 
 
 @node Text objects overview
-@unnumberedsubsubsec Vue d'ensemble des objets textuels
+@subsection Vue d'ensemble des objets textuels
 
 @funindex \markup
 @cindex objet texte
@@ -193,7 +193,7 @@ Morceaux choisis :
 
 
 @node Text scripts
-@unnumberedsubsubsec Commentaires textuels
+@subsection Commentaires textuels
 
 @cindex @'etiquette de texte
 @cindex bloc de texte
@@ -279,7 +279,7 @@ vous pouvez toutefois vous en affranchir en ajoutant
 
 
 @node Text spanners
-@unnumberedsubsubsec Indication textuelle avec extension
+@subsection Indication textuelle avec extension
 
 @cindex texte et extenseur
 @cindex prolongation de texte
@@ -381,7 +381,7 @@ Un moyen de contournement est disponible à la rubrique
 
 
 @node Section labels
-@unnumberedsubsubsec Marque de section
+@subsection Marque de section
 
 @cindex section, marque
 @cindex texte, sur barre de mesure
@@ -419,7 +419,7 @@ Référence des propriétés internes :
 
 
 @node Text marks
-@unnumberedsubsubsec Indications textuelles
+@subsection Indications textuelles
 
 @cindex indication textuelle
 @cindex repère textuel
@@ -643,7 +643,7 @@ Référence des propriétés internes :
 
 
 @node Separate text
-@unnumberedsubsubsec Texte indépendant
+@subsection Texte indépendant
 
 @cindex texte indépendant
 @cindex texte isolé
@@ -718,14 +718,14 @@ Référence des propriétés internes :
 
 
 @node Formatting text
-@subsection Mise en forme du texte
+@section Mise en forme du texte
 
 Nous allons voir dans les lignes qui suivent la manière de mettre en
 forme du texte à l'aide de la syntaxe propre au mode @emph{markup}.
 
 
 @node Text markup introduction
-@unnumberedsubsubsec Introduction au formatage de texte
+@subsection Introduction au formatage de texte
 
 @cindex @'etiquette
 @cindex commentaire textuel
@@ -985,7 +985,7 @@ explicites.
 
 
 @node Selecting font and font size
-@unnumberedsubsubsec Sélection de la fonte et de la taille
+@subsection Sélection de la fonte et de la taille
 
 @cindex fonte, changement
 @cindex changement de fonte
@@ -1218,7 +1218,7 @@ espacements nettement moins réguliers que si vous utilisez
 
 
 @node Text alignment
-@unnumberedsubsubsec Alignement du texte
+@subsection Alignement du texte
 
 @cindex texte, alignement
 @cindex alignement du texte
@@ -1571,7 +1571,7 @@ Référence des propriétés internes :
 
 
 @node Graphic notation inside markup
-@unnumberedsubsubsec Éléments graphiques dans du texte formaté
+@subsection Éléments graphiques dans du texte formaté
 
 @cindex graphisme, tracé
 @cindex tracé d'objet graphique
@@ -1741,7 +1741,7 @@ Référence des propriétés internes :
 
 
 @node Music notation inside markup
-@unnumberedsubsubsec Notation musicale dans du texte formaté
+@subsection Notation musicale dans du texte formaté
 
 @cindex notation dans un @emph{markup}
 @cindex musique dans un @emph{markup}
@@ -1878,7 +1878,7 @@ réglage au sein d'un bloc @code{\paper} est ignoré.
 
 
 @node Fonts
-@subsection Fontes
+@section Fontes
 
 @cindex Pango
 @cindex FontConfig
@@ -1895,7 +1895,7 @@ de partition.
 
 
 @node Finding fonts
-@unnumberedsubsubsec Localisation des fontes
+@subsection Localisation des fontes
 
 @cindex fonte, généralités
 @cindex fonte, localisation
@@ -1925,7 +1925,7 @@ différent du nom du fichier. Par ailleurs, lancer @command{lilypond
 
 
 @node Font families
-@unnumberedsubsubsec Familles de fontes
+@subsection Familles de fontes
 
 
 Vous disposez de trois familles de fontes@footnote{Dans sa forme la plus
@@ -2056,7 +2056,7 @@ dispose d'une syntaxe allégée comme nous l'avons vu dans
 
 
 @node Font features
-@unnumberedsubsubsec Fonctionnalités des fontes
+@subsection Fonctionnalités des fontes
 
 @cindex OpenType, fonctionnalités
 @cindex fonctionnalités OpenType
@@ -2117,7 +2117,7 @@ Manuel de notation :
 
 
 @node Changing fonts
-@unnumberedsubsubsec Choix des fontes
+@subsection Choix des fontes
 
 On peut tout à fait modifier le jeu de polices par défaut de LilyPond.
 

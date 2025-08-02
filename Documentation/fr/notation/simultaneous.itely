@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+   Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -15,7 +15,7 @@
 
 
 @node Simultaneous notes
-@section Notes simultanées
+@chapter Notes simultanées
 
 @lilypondfile[quote,ragged-right,line-width=16\cm]
 {snippets/simultaneous-headword.ly}
@@ -27,14 +27,14 @@ portée.
 
 
 @node Single voice
-@subsection Monophonie
+@section Monophonie
 
 Nous allons voir ici comment gérer plusieurs notes simultanées dans une
 même voix.
 
 
 @node Chorded notes
-@unnumberedsubsubsec Notes en accords
+@subsection Notes en accords
 
 @cindex accord
 @cindex chevrons
@@ -165,7 +165,7 @@ des @ref{Clusters}.
 
 
 @node Chord repetition
-@unnumberedsubsubsec Répétition d'accords
+@subsection Répétition d'accords
 
 @cindex accord, répétition
 @cindex répétition, utilisation de @code{q}
@@ -268,7 +268,7 @@ Fichiers d'initialisation :
 
 
 @node Simultaneous expressions
-@unnumberedsubsubsec Expressions simultanées
+@subsection Expressions simultanées
 
 @funindex <<
 @funindex >>
@@ -356,7 +356,7 @@ rubrique @ref{Collision resolution}).
 
 
 @node Clusters
-@unnumberedsubsubsec Clusters
+@subsection Clusters
 
 @cindex cluster
 
@@ -431,7 +431,7 @@ Les clusters ne sont pas reproduits en MIDI.
 
 
 @node Multiple voices
-@subsection Plusieurs voix
+@section Plusieurs voix
 
 Nous allons nous intéresser, dans les paragraphes qui suivent, à la
 gestion de notes simultanées réparties sur plusieurs voix ou plusieurs
@@ -439,14 +439,14 @@ portées.
 
 
 @node Single-staff polyphony
-@unnumberedsubsubsec Polyphonie sur une portée
+@subsection Polyphonie sur une portée
 
 @cindex polyphonie, portée simple
 @cindex portée simple et polyphonie
 @cindex voix
 @cindex paroles assignées à une voix
 
-@subsubsubheading Instanciation explicite des voix
+@subsubheading Instanciation explicite des voix
 
 @funindex \voiceOne
 @funindex \voiceTwo
@@ -483,7 +483,7 @@ N'oubliez pas que @code{Voice} est un contexte de bas niveau --
 @code{TabStaff}, il faudrait donc utiliser un @code{TabVoice}.
 
 
-@subsubsubheading Polyphonie temporaire
+@subsubheading Polyphonie temporaire
 
 Un fragment temporairement polyphonique se construit de la manière
 suivante :
@@ -572,7 +572,7 @@ mus =
 @end lilypond
 
 
-@subsubsubheading La construction avec un double antislash
+@subsubheading La construction avec un double antislash
 
 @cindex couche
 @cindex calque
@@ -627,7 +627,7 @@ les contextes de voix de manière explicite.  Voir à ce sujet
 Instanciation explicite des voix}.
 
 
-@subsubsubheading Ordre des voix
+@subsubheading Ordre des voix
 
 L'ordre dans lequel doivent apparaître les voix d'une construction
 simultanée suit le schéma suivant :
@@ -687,7 +687,7 @@ La commande @code{\voices} permet de gérer l'ordre de saisie des voix :
 @warning{Paroles et objets étendus (liaisons, soufflets, etc.) ne peuvent
 passer d'une voix à l'autre.}
 
-@subsubsubheading Identité rythmique
+@subsubheading Identité rythmique
 
 Lorsque l'on doit saisir des fragments de musique parallèle qui ont le
 même rythme, on peut les combiner dans un contexte de voix unique et par
@@ -731,7 +731,7 @@ Morceaux choisis :
 
 
 @node Voice styles
-@unnumberedsubsubsec Styles de voix
+@subsection Styles de voix
 
 @cindex voix, style
 @cindex style de voix
@@ -780,7 +780,7 @@ Morceaux choisis :
 
 
 @node Collision resolution
-@unnumberedsubsubsec Résolution des collisions
+@subsection Résolution des collisions
 
 @cindex fusion de notes
 @cindex collision de notes
@@ -1026,7 +1026,7 @@ are at the same time differently dotted are not clear.
 
 
 @node Merging rests
-@unnumberedsubsubsec Fusion de silences
+@subsection Fusion de silences
 
 @cindex silences, fusion
 
@@ -1063,7 +1063,7 @@ un @code{#t}, permet de suspendre temporairement la fusion des silences.
 
 
 @node Automatic part combining
-@unnumberedsubsubsec Regroupement automatique de parties
+@subsection Regroupement automatique de parties
 
 @cindex combinateur de parties
 @cindex parties, combiner des
@@ -1245,7 +1245,7 @@ instrumentTwo = \relative {
 @end lilypond
 
 
-@subsubsubheading Utilisation de @code{\partCombine} et paroles
+@subsubheading Utilisation de @code{\partCombine} et paroles
 
 @cindex @code{\partCombine} et paroles
 @cindex paroles et @code{\partCombine}
@@ -1343,7 +1343,7 @@ Certaines considérations apparaissent aussi dans les chapitres
 
 
 @node Writing music in parallel
-@unnumberedsubsubsec Saisie de musique en parallèle
+@subsection Saisie de musique en parallèle
 
 @cindex @'ecrire la musique en parallèle
 @cindex musique en parallèle

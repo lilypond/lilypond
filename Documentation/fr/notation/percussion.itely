@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+    Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -15,11 +15,11 @@
 
 @need 1500
 @node Percussion
-@section Percussions
+@chapter Percussions
 
 
 @node Common notation for percussion
-@subsection Vue d'ensemble des percussions
+@section Vue d'ensemble des percussions
 
 La notation rythmique sert avant tout aux parties de percussions ou de
 batterie, mais on peut aussi s'en servir à des fins pédagogiques, pour
@@ -27,7 +27,7 @@ montrer le rythme d'une mélodie.
 
 
 @node References for percussion
-@unnumberedsubsubsec Références en matière de notation pour percussions
+@subsection Références en matière de notation pour percussions
 
 @c TODO add more references.
 
@@ -55,7 +55,7 @@ Morceaux choisis :
 
 
 @node Basic percussion notation
-@unnumberedsubsubsec Notation de base pour percussions
+@subsection Notation de base pour percussions
 
 @cindex percussions
 @cindex batterie
@@ -124,7 +124,7 @@ Morceaux choisis :
 
 
 @node Drum rolls
-@unnumberedsubsubsec Roulements de tambour
+@subsection Roulements de tambour
 
 Les roulements de tambour s'indiquent par une triple barre en travers
 des hampes.  Qu'il s'agisse d'une noire ou d'une durée plus longue,
@@ -174,7 +174,7 @@ Morceaux choisis :
 
 
 @node Pitched percussion
-@unnumberedsubsubsec Hauteurs en percussions
+@subsection Hauteurs en percussions
 
 Certains instruments à percussion émettent des hauteurs, comme le
 xylophone, le vibraphone ou les timbales ; ils utilisent donc des
@@ -191,7 +191,7 @@ Morceaux choisis :
 
 
 @node Percussion staves
-@unnumberedsubsubsec Portées de percussion
+@subsection Portées de percussion
 
 @cindex percussions
 @cindex batterie
@@ -490,7 +490,7 @@ Morceaux choisis :
 
 
 @node Custom percussion staves
-@unnumberedsubsubsec Personnalisation de portées de percussion
+@subsection Personnalisation de portées de percussion
 
 @cindex percussions, personnalisation
 @funindex drumStyleTable
@@ -638,7 +638,7 @@ Référence des propriétés internes :
 
 
 @node Ghost notes
-@unnumberedsubsubsec Notes fantômes
+@subsection Notes fantômes
 
 @cindex fantôme, note, percussion
 @cindex silencieuse, note, percussion

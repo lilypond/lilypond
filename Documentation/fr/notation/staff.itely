@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+   Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -15,7 +15,7 @@
 
 
 @node Staff notation
-@section Notation sur la portée
+@chapter Notation sur la portée
 
 @c The line width is a bit of a hack to allow space for the
 @c instrument names.
@@ -28,13 +28,13 @@ globales d'exécution, présentes sur certaines portées seulement.
 
 
 @node Displaying staves
-@subsection Gravure des portées
+@section Gravure des portées
 
 Nous allons voir ici comment créer des portées et comment les regrouper.
 
 
 @node Instantiating new staves
-@unnumberedsubsubsec Initialisation de nouvelles portées
+@subsection Initialisation de nouvelles portées
 
 @cindex nouvelle portée
 @cindex portée, initialisation
@@ -149,7 +149,7 @@ Référence des propriétés internes :
 
 
 @node Grouping staves
-@unnumberedsubsubsec Regroupement de portées
+@subsection Regroupement de portées
 
 @cindex système, début de
 @cindex crochet vertical
@@ -323,7 +323,7 @@ Référence des propriétés internes :
 
 
 @node Nested staff groups
-@unnumberedsubsubsec Imbrication de regroupements de portées
+@subsection Imbrication de regroupements de portées
 
 @cindex portées, regroupement et imbrication
 @cindex systèmes imbriqués
@@ -378,7 +378,7 @@ Référence des propriétés internes :
 
 
 @node Separating systems
-@unnumberedsubsubsec Séparation des systèmes
+@subsection Séparation des systèmes
 
 @cindex système, indicateur de séparation
 @cindex indicateur de système
@@ -427,7 +427,7 @@ Morceaux choisis :
 
 
 @node Modifying single staves
-@subsection Modification de portées individuelles
+@section Modification de portées individuelles
 
 Cette section explique le réglage de la gravure de chaque portée, comme
 la taille de portée ou le nombre de lignes ; sont aussi décrits la
@@ -436,7 +436,7 @@ d'@emph{ossia}.
 
 
 @node Staff symbol
-@unnumberedsubsubsec Symbole de la portée
+@subsection Symbole de la portée
 
 @cindex symbole de portée
 @cindex portée, lignes de
@@ -631,7 +631,7 @@ Référence des propriétés internes :
 
 
 @node Ossia staves
-@unnumberedsubsubsec Portées d'ossia
+@subsection Portées d'ossia
 
 @cindex portée à la française
 @cindex ossia
@@ -789,7 +789,7 @@ Référence des propriétés internes :
 
 
 @node Hiding staves
-@unnumberedsubsubsec Masquage de portées
+@subsection Masquage de portées
 
 @cindex Frenched scores
 @cindex masquage de portée
@@ -1153,7 +1153,7 @@ l'instruction @code{\RemoveEmptyStaves}, consultez
 
 
 @node Writing parts
-@subsection Écriture de parties séparées
+@section Écriture de parties séparées
 
 @cindex pupitre, partition de
 @cindex individuelle, partition
@@ -1172,7 +1172,7 @@ abordée à la rubrique @ref{Hiding staves}.
 
 
 @node Instrument names
-@unnumberedsubsubsec Noms d'instrument
+@subsection Noms d'instrument
 
 @cindex instrument, nom
 @cindex nom d'instrument
@@ -1336,7 +1336,7 @@ Référence des propriétés internes :
 
 
 @node Quoting other voices
-@unnumberedsubsubsec Citation d'autres voix
+@subsection Citation d'autres voix
 
 @cindex réplique
 @cindex citation
@@ -1538,7 +1538,7 @@ qualité.
 
 
 @node Formatting cue notes
-@unnumberedsubsubsec Mise en forme d'une citation
+@subsection Mise en forme d'une citation
 
 @cindex petites notes, formater des
 @cindex réplique, formatage
@@ -1837,7 +1837,7 @@ après l'origine et la position.
 
 
 @node Compressing empty measures
-@unnumberedsubsubsec Compression de mesures vides
+@subsection Compression de mesures vides
 
 @cindex multimesure, note, expansion
 @cindex multimesure, note, contraction
