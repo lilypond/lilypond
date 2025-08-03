@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
+   Translation of GIT committish: 7ac0dd1495161592599f5fdf9bb1233b3d588a02
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1892,6 +1892,73 @@ particulièrement de leur rendu.
 Ce chapitre indique comment accéder aux fontes et polices de caractère
 dans LilyPond. Vous y apprendrez aussi comment changer de fonte en cours
 de partition.
+
+
+@node Unsupported font formats
+@subsection Formats de fontes non pris en charge
+
+Quelques précisions pour commencer : LilyPond crée le PDF final à partir
+d'un fichier PostScript intermédiaire. Par voie de conséquence, certains
+formats de fontes ne peuvent être utilisés parce que PostScript, en tant
+que standard ancien ne bénéficiant plus d'aucune mise à jour, ne les
+prend pas en charge. Voici une liste de formats de fonte qui sont
+déficients.
+
+@table @b
+@item CFF2
+@cindex CFF2, format de fonte
+@cindex format de fonte, CFF2
+@cindex OpenType, fonte (@file{.otf})
+Ce format de fonte est devenu ces dernières années le format par défaut
+des fontes OpenType (@file{.otf}). Bien que son prédécesseur (CFF, qui
+utilise aussi une extension @file{.otf}) soit pris en charge, le CFF2 --
+plus compact  -- ne l'est pas. LilyPond émet un avertissement en console
+s'il rencontre une telle fonte, et la conversion en PDF échouera ou bien
+certains glyphes de la fonte seront absents du PDF.
+
+@item Font Variations
+@cindex format de fonte, Font Variations (VF)
+@cindex Variation Font, format (VF)
+De telles fontes comportent habituellement un « VF » dans leur nom ;
+elles ne sont malheuresement pas prises en charge, qu'elles soient en
+TrueType ou en OpenType, et sont donc exclues d'entrée de jeu.
+
+@item fontes colorisées
+@cindex fontes en couleur
+@cindex colorisée, fonte
+@cindex fontes pour Emojis
+@cindex Emoji, fontes
+Ces fontes ne sont pas prises en charge, ce qui concerne tout
+particulièrement les fontes d'Emojis échelonnables. Toutefois, certaines
+fontes contiennent aussi des versions en noir et blanc des Emojis qui
+pourraient être acceptés, dès lors qu'elles sont dans un format de fonte
+pris en charge.
+
+@item OpenType collections
+@cindex fonte, format OTC
+@cindex format de fonte OTC
+@cindex OpenType collections (@file{.otc})
+Il s'agit d'un format de type conteneur (habituellement avec une
+extension @file{.otc}) où de pultiples fontes sont dans un même fichier.
+Il est à ce jour souvent utilisé en dernier ressort par le système
+d'exploitation lorsqu'aucune fonte ne convient, quelle qu'en soit la
+raison.
+
+@item fontes bitmap
+@cindex format de fonte bitmap
+@cindex bitmap, format de fonte
+Ce format n'est absolument pas pris en charge et est automatiquement
+exclu avant même que LilyPond consulte la liste des fontes disponibles.
+Ceci inclut certaines anciennes fontes Emoji colorisées.
+@end table
+
+De nombreuses fontes sont disponibles aussi bien au format TrueType que
+OpenType. Si la version @file{.otf} échoue, il faut essayer la version
+@file{.ttf}. Lorsqu'aucune alternative à une fonte CFF2 n'est
+disponible, on peut tenter l'option de LilyPond en ligne de commande
+@option{-dbackend=@/cairo} ; actuellement expérimental, ce moteur
+contourne l'étape PostScript et crée directement la sortie PDF, ce qui
+permet de prendre en charge CFF2 (et aussi les OpenType collections).
 
 
 @node Finding fonts

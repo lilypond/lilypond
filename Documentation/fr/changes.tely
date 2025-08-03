@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 917e0a90fae40da9c2efa704963fa741ecef0b0b
+    Translation of GIT committish: 7ac0dd1495161592599f5fdf9bb1233b3d588a02
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -59,13 +59,13 @@ restent fonctionnels avec les nouvelles versions. Afin de mettre à jour
 vos fichiers, il est @strong{fortement conseillé} d'utiliser
 l'utilitaire @command{convert-ly} distribué avec LilyPond et qui est
 abordé dans @rprogramnamed{Updating files with convert-ly,
-Mise à jour avec convert-ly}. @command{convert-ly}
-est capable de réaliser la plupart des modifications de syntaxe
-automatiquement. Les utilisateurs de Frescobaldi peuvent lancer
-@command{convert-ly} directement à partir du menu de Frescobaldi en
-faisant « Outils > Mettre à jour avec convert-ly@dots{} ». D'autres
-environnements prenant en charge LilyPond sont susceptibles de fournir
-un moyen graphique de lancer @command{convert-ly}.}
+Mise à jour avec convert-ly}. @command{convert-ly} est capable de
+réaliser la plupart des modifications de syntaxe automatiquement. Les
+utilisateurs de Frescobaldi peuvent lancer @command{convert-ly}
+directement à partir du menu de Frescobaldi en faisant « Outils > Mettre
+à jour avec convert-ly@dots{} ». D'autres environnements prenant en
+charge LilyPond sont susceptibles de fournir un moyen graphique de
+lancer @command{convert-ly}.}
 
 
 @c Don't remove this top-level menu; it is needed to suppress automatic
@@ -162,9 +162,9 @@ musicD = {
 
 \markup \line {
   \override #'(baseline-skip . 10) \column {
-    "clef + time sig"
+    "clef + métrique"
     \vspace #-2.5
-    "old"
+    "ancien"
     \vspace #-1
     \score { { \clef "treble" \musicA } }
     \score { { \clef "alto" \musicA } }
@@ -178,9 +178,9 @@ musicD = {
   \hspace #3
 
   \override #'(baseline-skip . 10) \column {
-    "clef + time sig"
+    "clef + métrique"
     \vspace #-2.5
-    "new"
+    "nouveau"
     \vspace #-1
     \score { { \clef "treble" \diff "-1.6" \musicB } }
     \score { { \clef "alto" \diff "+0.5" \musicB } }
@@ -194,9 +194,9 @@ musicD = {
   \hspace #4
 
   \override #'(baseline-skip . 10) \column {
-    "clef + key sig"
+    "clef + métrique"
     \vspace #-2.5
-    "old"
+    "ancien"
     \vspace #-1
     \score { { \clef "treble" \musicC } }
     \score { { \clef "alto" \musicC } }
@@ -210,9 +210,9 @@ musicD = {
   \hspace #4
 
   \override #'(baseline-skip . 10) \column {
-    "clef + key sig"
+    "clef + métrique"
     \vspace #-2.5
-    "new"
+    "nouveau"
     \vspace #-1
     \score { { \clef "treble" \diff "-1.5" \musicD } }
     \score { { \clef "alto" \diff "+0.5" \musicD } }
@@ -286,7 +286,7 @@ groupes, vous pouvez aisément passer ce qui suit.
 
 @itemize
 @item
-LilyPond requiert désormais Guile 3.0.7 ou suprérieur. Le @emph{bytecode}
+LilyPond requiert désormais Guile 3.0.7 ou supérieur. Le @emph{bytecode}
 des fichiers @file{.scm} est par défaut généré. Si tel n'est pas votre
 désir, qu'elle qu'en soit la raison, ajoutez l'option @code{BYTECODE=no}
 à la commande @command{make}.
@@ -719,7 +719,7 @@ une barre de mesure dans du texte.
 \markup {
   \override #'(word-space . 2)
     \line {
-      Examples
+      Exemples
       \fontsize #-5 \translate-scaled #'(0 . 2) {
         \bar-line ":|."
         \bar-line ".|:"
@@ -807,7 +807,7 @@ alors être disponible) :
 @end quotation
 
 Dans la mesure où @code{fonts} est une simple propriété, il est possible
-de lui apporter dérogation sur la base d'un objet graphique, comme par
+de lui porter dérogation sur la base d'un objet graphique, comme par
 exemple
 
 @quotation
@@ -817,6 +817,7 @@ exemple
 }
 @end verbatim
 @end quotation
+
 Ceci s'avère préférable à l'utilisation de la propriété
 @code{font-name}, cette dernière rendant ineffectives les commandes
 telles que @code{\bold} et requérant d'inclure « Bold » dans la chaîne
@@ -970,7 +971,7 @@ la typographie puisque des boîtes englobantes plus étroites peuvent
 entraîner une typographie plus resserrée.
 
 @item
-De nouvelles commandes pour imprimer une reprrésentation textuelle des
+De nouvelles commandes pour imprimer une représentation textuelle des
 altérations ont été ajoutées : @code{\text-doubleflat},
 @code{\text-flat}, @code{\text-natural}, @code{\text-sharp},
 @code{\text-doublesharp} ainsi que de manière plus générale
@@ -978,10 +979,10 @@ altérations ont été ajoutées : @code{\text-doubleflat},
 
 @lilypond[quote,verbatim]
 \markuplist \override #'(padding . 1) \table #'(-1 -1 -1 -1 -1 -1) {
-  "Accidentals for text:"
+  "Altérations pour du texte :"
    \text-doubleflat \text-flat \text-natural \text-sharp
    \text-doublesharp
-  "Accidentals for music:"
+  "Altérations dans la musique :"
   \doubleflat \flat \natural \sharp \doublesharp
 }
 @end lilypond
@@ -1224,8 +1225,8 @@ d'un @code{void}.
 
 @item
 La nouvelle fonction Scheme @code{ly:number->duration} convertit une
-durée exprimée unité relative de ronde en @code{ly:duration}. Le log, le
-nombre de points et le facteur d'échelonnement sont déterminés
+durée exprimée en unité relative de ronde en @code{ly:duration}. Le log,
+le nombre de points et le facteur d'échelonnement sont déterminés
 automatiquement.
 
 @item
@@ -1252,7 +1253,7 @@ dans un contexte spécifique.
 @item
 Un certain nombre de propriétés de contexte qui jusqu'à présent
 reposaient sur @code{ly:moment} prennent dorénavant des nombres
-rationnels. Afin de facilité cette transition, chaque propriété
+rationnels. Afin de faciliter cette transition, chaque propriété
 numérique est appairée avec une propriété de secours @code{ly:moment}.
 L'utilisation d'une propriété de secours accède de manière transparente
 à la propriété numérique et déclenche un avertissement.
@@ -1627,7 +1628,7 @@ en début de pièce avec plusieurs portées).
 @item Prise en charge de la couleur et de la taille de fonte pour la
 plupart des éléments MusicXML. Une nouvelle option en ligne de commande
 @option{--dynamics-scale} aide à compenser les différences de taille des
-glyphes de nuance pour diverses fonte musicales.
+glyphes de nuance pour diverses fontes musicales.
 
 @item Prise en charge correcte des fins d'octaviation pour les fichiers
 MusicXML créés par Finale. Le script vérifie l'élément @code{<software>}
@@ -1638,11 +1639,40 @@ nécessaire à l'aide de l'option en ligne de commande
 @item L'option @option{--shift-meter} a été remplacée par l'option
 @option{--shift-durations} qui utilise une syntaxe plus simple.
 
-@item La nouvelle option en ligne de commande @option{--no-tagline} supprime
-la génération de la @emph{tagline} de LilyPond.
+@item La nouvelle option en ligne de commande @option{--no-tagline}
+supprime la génération de la @emph{tagline} de LilyPond.
 
 @item La nouvelle option en ligne de commande @option{--book} encapsule
 la partition de premier niveau dans un @code{\book}.
+
+@item Lorsque des éléments @code{<credit>} sont présents, ils alimentent
+les champs du bloc @code{\header} de LilyPond au lieu des métadonnées
+telles que @code{<work-title>} ou @code{<creator>}.
+
+@item La nouvelle option en ligne de commande @option{--credit-page}
+spécifie la page où LilyPond devra récupérer les données
+@code{<credit>} pour alimenter le bloc @code{\header}.
+
+@item Tous les éléments de métadonnée qui n'ont pas de correspondant
+dans les champs standards de @code{\header} (et qui ne sont pas ignorés
+comme le type « page number ») sont rendus dans des champs au nom plus
+cohérent : le préfixe @samp{id:@tie{}} est ajouté pour les éléments de
+@code{<identification>}, @samp{credit:@tie{}} pour les éléments de
+@code{<credit>}, et le nom de l'élément MusicXML (sans préfixe) dans
+tous les autres cas. Par conséquent, certains champs (non utilisés)
+prennent un nouveau nom.
+
+@indentedblock
+@multitable @columnfractions 0.3 0.4
+@headitem ancien                 @tab nouveau
+@item @code{movementnumber}      @tab @code{movement-number}
+@item @code{encodingsoftware}    @tab @code{id: software}
+@item @code{encodingdate}        @tab @code{id: encoding-date}
+@item @code{encoder}             @tab @code{id: encoder}
+@item @code{encodingdescription} @tab @code{id: encoding-description}
+@item @code{source}              @tab @code{id: source}
+@end multitable
+@end indentedblock
 
 @item Les numéros de mesure insérés en commentaire dans le fichier
 LilyPond créé sont conformes, leur valeur indiquant la mesure
@@ -1669,6 +1699,18 @@ la jauge de remplacement.
   \box
     \override #'(x-align . -2.5)
     \page-ref #'foo "???" "?" " repoussé sur la gauche"
+}
+@end lilypond
+
+@item
+La propriété @code{ledger-extra} peut désormais se régler aussi à partir
+de l'objet @code{NoteHead}.
+
+@lilypond[quote,verbatim]
+{
+  c'''1
+  \tweak ledger-extra #4 c'''1
+  c'''1
 }
 @end lilypond
 

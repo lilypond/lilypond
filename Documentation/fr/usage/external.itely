@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
+   Translation of GIT committish: 7ac0dd1495161592599f5fdf9bb1233b3d588a02
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -515,6 +515,13 @@ Rendu en hauteurs absolues.
 Placer la partition principale dans un bloc @code{\book @{ ... @}}.
 Ceci peut s'avérer utile en cas de traitement postérieur avec
 @command{lilypond-book}.
+
+@item --cp, --credit-page=@var{n}
+Spécifier la page à laquelle LilyPond doit récupérer la donnée
+@code{<credit>} pour alimenter le bloc @code{\header}. Passer une
+valeur 0 revient à ne pas traiter les éléments de @code{<credit>}. La
+valeur par défaut est 1, autrement dit prendre les valeurs de la
+première page.
 
 @item --ds, --dynamics-scale=@var{facteur}
 Redimensionner les éléments @code{<dynamics>} selon un @var{facteur} non
