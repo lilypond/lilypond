@@ -2805,16 +2805,19 @@ def text_to_ly(elements, init_markup=None):
                 else:
                     # `\r` can only be created with `&#xD;`.
                     lines = text.replace('\r', '\n').split('\n')
-                    text = []
-                    text.append(r'\center-column {')
-                    for line in lines:
-                        if line:
-                            text.append(
-                                utilities.escape_ly_output_string(line))
-                        else:
-                            text.append(r'\null')
-                    text.append('}')
-                    text = ' '.join(text)
+                    if len(lines) > 1:
+                        text = []
+                        text.append(r'\center-column {')
+                        for line in lines:
+                            if line:
+                                text.append(
+                                    utilities.escape_ly_output_string(line))
+                            else:
+                                text.append(r'\null')
+                        text.append('}')
+                        text = ' '.join(text)
+                    else:
+                        text = utilities.escape_ly_output_string(lines[0])
         elif name == 'segno':
             text = r'\fontsize #2 \segno'
         elif name == 'coda':
