@@ -2461,13 +2461,11 @@ def musicxml_dynamics_to_lily_event(elements, note_color=None,
             markup = []
             markup_attributes = {}
 
-            if before:
+            if before or after:
                 markup.append(r'\dynamic')
             else:
                 markup_attributes.update(attributes)
             markup.append(dynamics_string)
-            if after:
-                markup.append(r'\normal-text')
 
             markup_node = musicxml.LilyPond_markup()
             markup_node._data = ' '.join(markup)
@@ -2482,7 +2480,7 @@ def musicxml_dynamics_to_lily_event(elements, note_color=None,
                 text_elements.extend(after_text_elements)
 
             init_markup = None
-            if before:
+            if before or after:
                 init_markup = r'\normal-text'
             dynamics_markup = musicexp.text_to_ly(text_elements, init_markup)
 

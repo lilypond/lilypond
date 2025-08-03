@@ -2717,20 +2717,19 @@ def text_to_ly(elements, init_markup=None):
     if init_markup is not None:
         markup.append(init_markup)
 
-    concat = (elements[0][0].get_name() == 'lilypond-markup'
-              or len(elements) > 1)
-    if concat:
+    closing_braces = 0
+    if elements[0][0].get_name() == 'lilypond-markup' or len(elements) > 1:
         markup.append(r'\concat {')
+        closing_braces += 1
 
     for (element, attributes) in elements:
         enclosure_attribute = attributes.get('enclosure', 'none')
         enclosure = enclosure_dict.get(enclosure_attribute, '')
         if prev_enclosure != enclosure:
-            # At this point we certainly have more than one element.
-            markup.append('}')
             if enclosure:
                 markup.append(enclosure)
             markup.append(r'\concat {')
+            closing_braces += 1
 
             prev_enclosure = enclosure
 
@@ -2837,7 +2836,7 @@ def text_to_ly(elements, init_markup=None):
         if text:
             markup.append(text)
 
-    if concat:
+    for _ in range(closing_braces):
         markup.append('}')
 
     return ' '.join(markup)

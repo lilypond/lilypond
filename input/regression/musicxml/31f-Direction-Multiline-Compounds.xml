@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0 Partwise//EN"
+                                "http://www.musicxml.org/dtds/partwise.dtd">
+<score-partwise version="4.0">
+  <identification>
+    <miscellaneous>
+      <miscellaneous-field name="description">A test that checks how newlines in
+          &lt;words&gt; elements are supported.
+
+          Within a single &lt;direction&gt; element to be placed above the
+          staff, the ‘p’ dynamic symbol gets followed by a single space, which
+          in turn is followed by some boxed text that spreads over three lines
+          and has the attribute ‘valign="center"’.  The latter two also set the
+          attribute ‘xml:space="preserve"’.</miscellaneous-field>
+    </miscellaneous>
+  </identification>
+  <part-list>
+    <score-part id="P1">
+      <part-name print-object="no">MusicXML Part</part-name>
+    </score-part>
+  </part-list>
+  <!--=========================================================-->
+  <part id="P1">
+    <measure number="1">
+      <attributes>
+        <divisions>1</divisions>
+        <key>
+          <fifths>0</fifths>
+          <mode>major</mode>
+        </key>
+        <time symbol="common">
+          <beats>4</beats>
+          <beat-type>4</beat-type>
+        </time>
+        <clef>
+          <sign>G</sign>
+          <line>2</line>
+        </clef>
+      </attributes>
+      <direction placement="above">
+        <direction-type>
+          <dynamics default-y="-80">
+            <p/>
+          </dynamics>
+        </direction-type>
+        <direction-type>
+          <words default-y="-80"
+                 font-family="Times New Roman"
+                 font-size="10.25"
+                 xml:space="preserve"> </words>
+        </direction-type>
+        <direction-type>
+          <words default-y="-80"
+                 font-family="Times New Roman"
+                 font-size="10.25"
+                 xml:space="preserve"
+                 enclosure="rectangle"
+                 valign="middle">text
+in
+a small box</words>
+        </direction-type>
+       </direction>
+      <note>
+        <pitch><step>C</step><octave>4</octave></pitch>
+        <duration>4</duration>
+        <voice>1</voice>
+        <type>whole</type>
+      </note>
+      <barline location="right">
+        <bar-style>light-heavy</bar-style>
+      </barline>
+    </measure>
+  </part>
+</score-partwise>
