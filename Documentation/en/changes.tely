@@ -952,6 +952,23 @@ added:
 @end lilypond
 
 @item
+The @code{\circle} markup command now listens to a @code{bbox}
+property.  If set to @code{#t}, the bounding box of its argument
+is used for the circle's diameter.
+
+@lilypond[verbatim,quote]
+\markup {
+  \circle {
+    \center-column { "short" "short" "very very long" }
+  }
+  \override #'(bbox . #t) \circle {
+    \center-column { "short" "short" "very very long" }
+  }
+}
+@end lilypond
+
+
+@item
 The @code{\tag} command is now allowed in markup environments.  New
 markup commands are added for filtering (@code{\keep-with-tag}
 and @code{\remove-with-tag}) and for inserting markups

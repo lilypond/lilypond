@@ -650,15 +650,22 @@ not participate in spacing and is not recognized by skylines."
          raw-y-ext
          (ly:stencil-extent boxed-stencil Y)))))
 
-(define-public (circle-stencil stencil thickness padding)
-  "Add a circle around @var{stencil}, producing a new stencil."
+(define*-public (circle-stencil stencil thickness padding
+                                #:optional (bbox #f))
+  "Add a circle around @var{stencil}, producing a new stencil.
+
+If optional argument @var{bbox} is set to @code{#t}, use the bounding box of
+@var{stencil} as the circle's diameter.  Otherwise, use either the width or
+height of @var{stencil} (whatever is larger)."
   (let* ((x-ext (ly:stencil-extent stencil X))
          (y-ext (ly:stencil-extent stencil Y))
-         (diameter (max (interval-length x-ext)
-                        (interval-length y-ext)))
+         (x-length (interval-length x-ext))
+         (y-length (interval-length y-ext))
+         (diameter (if bbox
+                       (ly:length x-length y-length)
+                       (max x-length y-length)))
          (radius (+ (/ diameter 2) padding thickness))
          (circle (make-circle-stencil radius thickness #f)))
-
     (ly:stencil-add
      stencil
      (ly:stencil-translate circle

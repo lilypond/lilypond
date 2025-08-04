@@ -565,7 +565,8 @@ The appearance can be controlled with properties @code{extroversion},
   #:category graphic
   #:properties ((thickness 1)
                 (font-size 0)
-                (circle-padding 0.2))
+                (circle-padding 0.2)
+                (bbox #f))
   ;; \circle <digit> and \circle <english_letter> could be transformed
   ;; to U+2460 etc., but there are a limited number of them, so it
   ;; would create inconsistencies when things outside the set are used.
@@ -577,12 +578,21 @@ The appearance can be controlled with properties @code{extroversion},
 Draw a circle around @var{arg}.
 
 Use properties @code{thickness}, @code{circle-padding}, and @code{font-size} to
-set the line thickness and padding around the markup.
+set the line thickness and padding around the markup.  If @code{bbox} is set to
+@code{#t}, make the circle enclose the bounding box of @var{arg}, otherwise use
+either the width or the height of @var{arg} (whatever is larger) as the
+diameter.
 
 @lilypond[verbatim,quote]
 \\markup {
   \\circle {
     Hi
+  }
+  \\circle {
+    \\center-column { \"short\" \"short\" \"very very long\" }
+  }
+  \\override #'(bbox . #t) \\circle {
+    \\center-column { \"short\" \"short\" \"very very long\" }
   }
 }
 @end lilypond
@@ -593,7 +603,7 @@ commands like @code{\\left-align} or @code{\\table} to make LilyPond realign it.
                thickness))
         (pad (* (magstep font-size) circle-padding))
         (m (interpret-markup layout props arg)))
-    (circle-stencil m th pad)))
+    (circle-stencil m th pad bbox)))
 
 (define-markup-command (ellipse layout props arg)
   (markup?)
