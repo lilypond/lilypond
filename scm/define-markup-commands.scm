@@ -585,7 +585,10 @@ set the line thickness and padding around the markup.
     Hi
   }
 }
-@end lilypond"
+@end lilypond
+
+Note that the circle does not horizontally displace its argument.  Use markup
+commands like @code{\\left-align} or @code{\\table} to make LilyPond realign it."
   (let ((th (* (ly:output-def-lookup layout 'line-thickness)
                thickness))
         (pad (* (magstep font-size) circle-padding))
@@ -615,7 +618,10 @@ This is the same as function @code{\\oval} but with different padding defaults.
     Hi
   }
 }
-@end lilypond"
+@end lilypond
+
+Note that the ellipse does not horizontally displace its argument.  Use markup
+commands like @code{\\left-align} or @code{\\table} to make LilyPond realign it."
   (let ((th (* (ly:output-def-lookup layout 'line-thickness)
                thickness))
         (pad-x (* (magstep font-size) x-padding))
@@ -649,7 +655,11 @@ defaults.
     Hi
   }
 }
-@end lilypond"
+@end lilypond
+
+Note that the oval does not horizontally displace its argument.  Use markup
+commands like @code{\\left-align} or @code{\\table} to make LilyPond realign
+it."
   (let ((th (* (ly:output-def-lookup layout 'line-thickness)
                thickness))
         (pad-x (* (magstep font-size) x-padding))
