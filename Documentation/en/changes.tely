@@ -60,6 +60,9 @@ environments with LilyPond support may provide a way to run
 @end menu
 
 
+@contents
+
+
 @node Major changes in LilyPond
 @unnumbered Major changes in LilyPond
 
@@ -838,7 +841,7 @@ been renamed to @code{\normal-weight}.
 
 
 @item
-The new @code{font-stretch} property allows the selection a
+The new @code{font-stretch} property allows the selection of a
 condensed or expanded font.
 
 
