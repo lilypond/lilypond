@@ -2045,17 +2045,24 @@ Return a list of paddings."
 
    ;; special case first padding
    ((= (length text-widths) word-count)
-    (cons
-     (- (- (/ line-width (1- word-count)) (car text-widths))
-        (/ (cadr text-widths) 2))
-     (get-fill-space
-      word-count line-width word-space (cdr text-widths)
-      constant-space?)))
+    (let ((default-padding
+            (- (- (/ line-width (1- word-count)) (car text-widths))
+               (/ (cadr text-widths) 2))))
+      (cons (if (> word-space default-padding)
+                word-space
+                default-padding)
+            (get-fill-space
+             word-count line-width word-space (cdr text-widths)
+             constant-space?))))
    ;; special case last padding
    ((= (length text-widths) 2)
-    (list (- (/ line-width (1- word-count))
-             (+ (/ (car text-widths) 2) (cadr text-widths)))
-          0))
+    (let ((default-padding
+            (- (/ line-width (1- word-count))
+               (+ (/ (car text-widths) 2) (cadr text-widths)))))
+      (list (if (> word-space default-padding)
+                word-space
+                default-padding)
+            0)))
    (else
     (let ((default-padding
             (- (/ line-width (1- word-count))

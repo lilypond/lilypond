@@ -1,23 +1,19 @@
 \version "2.16.0"
 
+\header {
+  texidoc = "Correct handling of PDF metadata.  LilyPond uses UTF-16BE
+encoding with BOM.
 
-\header
-{
+In this test, the @code{title} and @code{poet} fields contain some
+characters with Unicode values larger than U+00FF (Russian letters, Euro,
+etc.), while the @code{composer} field uses only characters below this
+threshold.  As a stress test, they also contain a closing parenthesis, which
+needs to be escaped in the metadata strings by a backslash @emph{after}
+encoding."
 
-  texidoc = "PDF metadata need either Latin1 encoding (not UTF8) or full
-  UTF-16BE with BOM. The title field uses full UTF-16 (russian characters,
-  euro, etc), while the composer uses normal european diacrits (which need
-  to be encoded as Latin1, not as UTF8). Closing parenthesis need to be
-  escaped by a backslash AFTER encoding!"
-
-  % Non-latin1 text, requiring UTF-16BE (with BOM) encoding in PDF metatdata:
-  % closing parentheses and backslashed need to be escaped AFTER encoding!
-  title = "UTF-16BE title:² € ĂĄœŖŮůſЖюљ)\\\n ¡"
-  % Latin1 text, requiring at least PDFDocEncoding in PDF metadata, all Latin1
-  % characters coincide, so no special encoding is required, just print out
-  % the Latin1 characters (NOT the utf8 bytes!)
-  composer = "Latin1 composer (with special chars): Jöhånñ Strauß"
-  poet = "UTF-16BE with parentheses: ) € ĂĄœŖŮůſЖюљ"
+  title = "UTF-16BE title: ² € ĂĄœŖŮůſЖюљ)\\\n ¡"
+  composer = "Latin1 composer: Jöhånñ Strauß"
+  poet = "UTF-16BE poet: ) € ĂĄœŖŮůſЖюљ"
 }
 
 \score
