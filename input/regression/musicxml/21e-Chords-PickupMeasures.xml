@@ -5,7 +5,7 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">A test for proper chord detection
-          after a pickup measure (i.e., the first beat of the measure is not
+          after a pickup measure (i.e., the first beat of measure 1 is not
           aligned with a multiple of the time signature).</miscellaneous-field>
     </miscellaneous>
   </identification>

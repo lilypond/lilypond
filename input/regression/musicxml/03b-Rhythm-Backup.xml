@@ -6,8 +6,9 @@
     <miscellaneous>
       <miscellaneous-field name="description">Two voices with a &lt;backup&gt;
           element that does not jump to the beginning of the measure for voice 2
-          but to the second beat.  Voice 2 thus doesn't have any notes or rests
-          for the first beat of the measure.</miscellaneous-field>
+          but to the second beat.  Voice 1 covers beats 1 and 2, and voice 2
+          covers beats 2 and 3.  There is no rest or note for uncovered
+          beats.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

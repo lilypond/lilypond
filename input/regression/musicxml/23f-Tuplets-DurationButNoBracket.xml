@@ -180,6 +180,7 @@
         <voice>2</voice>
         <type>16th</type>
         <staff>2</staff>
+        <beam number="1">begin</beam>
         <beam number="2">begin</beam>
       </note>
       <note>
@@ -191,6 +192,7 @@
         <voice>2</voice>
         <type>16th</type>
         <staff>2</staff>
+        <beam number="1">continue</beam>
         <beam number="2">continue</beam>
       </note>
       <note>
@@ -202,6 +204,7 @@
         <voice>2</voice>
         <type>16th</type>
         <staff>2</staff>
+        <beam number="1">continue</beam>
         <beam number="2">continue</beam>
       </note>
       <note>
@@ -213,6 +216,7 @@
         <voice>2</voice>
         <type>16th</type>
         <staff>2</staff>
+        <beam number="1">end</beam>
         <beam number="2">end</beam>
       </note>
       <note>
@@ -228,6 +232,7 @@
           <normal-notes>2</normal-notes>
         </time-modification>
         <staff>2</staff>
+        <beam number="1">begin</beam>
         <beam number="2">begin</beam>
       </note>
       <note>
@@ -243,6 +248,7 @@
           <normal-notes>2</normal-notes>
         </time-modification>
         <staff>2</staff>
+        <beam number="1">continue</beam>
         <beam number="2">continue</beam>
       </note>
       <note>
@@ -258,6 +264,7 @@
           <normal-notes>2</normal-notes>
         </time-modification>
         <staff>2</staff>
+        <beam number="1">continue</beam>
         <beam number="2">continue</beam>
       </note>
       <note>
@@ -273,6 +280,7 @@
           <normal-notes>2</normal-notes>
         </time-modification>
         <staff>2</staff>
+        <beam number="1">continue</beam>
         <beam number="2">continue</beam>
       </note>
       <note>
@@ -288,6 +296,7 @@
           <normal-notes>2</normal-notes>
         </time-modification>
         <staff>2</staff>
+        <beam number="1">continue</beam>
         <beam number="2">continue</beam>
       </note>
       <note>
@@ -303,6 +312,7 @@
           <normal-notes>2</normal-notes>
         </time-modification>
         <staff>2</staff>
+        <beam number="1">end</beam>
         <beam number="2">end</beam>
       </note>
     </measure>

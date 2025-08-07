@@ -6,7 +6,7 @@
     <miscellaneous>
       <miscellaneous-field name="description">Five multi-measure rests:
           3 measures, 15 measures, 1 measure, 12 measures, and finally
-          3 measures with ‘use-symbols’ set.</miscellaneous-field>
+          3 measures with the ‘use-symbols’ attribute set.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
