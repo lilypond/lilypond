@@ -2015,65 +2015,50 @@ and ignore the rest.
 (define-public empty-markup "")
 
 ;; helper for justifying lines.
-(define (get-fill-space
+(define (get-fill-spaces
          word-count line-width word-space text-widths constant-space?)
-  "Calculate the necessary paddings between adjacent texts in a
-single justified line.  The lengths of all texts are stored in
-@var{text-widths}.
-When @var{constant-space?} is @code{#t}, the formula for the padding
-between texts is:
-padding = (line-width - total-text-width)/(word-count - 1)
-When @var{constant-space?} is @code{#f}, the formula for the
-padding between interior texts a and b is:
-padding = line-width/(word-count - 1) - (length(a) + length(b))/2
-In this case, the first and last padding have to be calculated
-specially using the whole length of the first or last text.
-All paddings are checked to be at least word-space, to ensure that
-no texts collide.
-Return a list of paddings."
+  "Calculate paddings between adjacent texts for a single, justified line.
+
+The lengths of all texts are stored in the list TEXT-WIDTHS; the number of
+elements is WORD-COUNT.  When CONSTANT_SPACE? is #t, the formula for the padding
+between texts is
+
+  padding = (line-width - total-text-width) / (word-count - 1) .
+
+Otherwise the formula for the padding between two successive texts A and B is
+
+  padding = line-width / (word-count - 1) - (length(a) + length(b)) / 2 ,
+
+with the first and last padding calculated specially so that the first text
+element is left-aligned and and last element right-aligned.
+
+The minimum padding value is WORD-SPACE to ensure that no texts collide.  This
+function returns a list of paddings."
+  (define (get-spaces word-count width text-widths)
+    (cond
+     ;; First padding.
+     ((= (length text-widths) word-count)
+      (cons (- width (car text-widths) (/ (cadr text-widths) 2))
+            (get-spaces word-count width (cdr text-widths))))
+     ;; Last padding.
+     ((= (length text-widths) 2)
+      (list (- width (/ (car text-widths) 2) (cadr text-widths))))
+     ;; Padding inbetween.
+     (else
+      (cons (- width (/ (+ (car text-widths) (cadr text-widths)) 2))
+            (get-spaces word-count width (cdr text-widths))))))
+
   (cond
    ((null? text-widths) '())
    (constant-space?
     (make-list
      (1- word-count)
-     ;; Ensure that space between words cannot be
-     ;; less than word-space.
-     (max
-      word-space
-      (/ (- line-width (apply + text-widths))
-         (1- word-count)))))
-
-   ;; special case first padding
-   ((= (length text-widths) word-count)
-    (let ((default-padding
-            (- (- (/ line-width (1- word-count)) (car text-widths))
-               (/ (cadr text-widths) 2))))
-      (cons (if (> word-space default-padding)
-                word-space
-                default-padding)
-            (get-fill-space
-             word-count line-width word-space (cdr text-widths)
-             constant-space?))))
-   ;; special case last padding
-   ((= (length text-widths) 2)
-    (let ((default-padding
-            (- (/ line-width (1- word-count))
-               (+ (/ (car text-widths) 2) (cadr text-widths)))))
-      (list (if (> word-space default-padding)
-                word-space
-                default-padding)
-            0)))
+     (max word-space
+          (/ (- line-width (apply + text-widths)) (1- word-count)))))
    (else
-    (let ((default-padding
-            (- (/ line-width (1- word-count))
-               (/ (+ (car text-widths) (cadr text-widths)) 2))))
-      (cons
-       (if (> word-space default-padding)
-           word-space
-           default-padding)
-       (get-fill-space
-        word-count line-width word-space (cdr text-widths)
-        constant-space?))))))
+    (let* ((width (/ line-width (1- word-count)))
+           (fill-spaces (get-spaces word-count width text-widths)))
+      (map (lambda (fs) (max word-space fs)) fill-spaces)))))
 
 (define (justify-line-helper
          layout props args text-direction word-space line-width constant-space?)
@@ -2106,7 +2091,7 @@ words varies according to their relative lengths."
             (list
              (- line-width text-width)))
            (else
-            (get-fill-space
+            (get-fill-spaces
              word-count line-width word-space text-widths
              constant-space?))))
          (line-contents (if (= word-count 1)
