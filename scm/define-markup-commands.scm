@@ -2127,36 +2127,39 @@ words varies according to their relative lengths."
   #:properties ((text-direction RIGHT)
                 (word-space 0.6)
                 (line-width #f))
-  "Put markups @var{args} into a horizontal line.
+  "Put markups @var{args} into a horizontal line at fixed positions.
 
-The markups are spaced or flushed to fill the entire line.  If there are no
+If there is a single argument, it gets centered.  If there are two arguments,
+they get aligned to the left and right, respectively.  Otherwise, if there are
+@var{n}@tie{}arguments, the markups are aligned to @var{n}@tie{}equally spaced
+positions, with the first markup left-aligned, the last markup right-aligned,
+and the remaining markups centered at the respective positions.  If there are no
 arguments, return an empty stencil.
 
 The width of the horizontal line can be modified by overriding the
-@code{line-width} property.
+@code{line-width} property.  The space between arguments is at least as large as
+the value of the @code{word-space} property, at the cost of lengthening the line
+if necessary.
 
 @lilypond[verbatim,quote,line-width=14\\cm]
 \\markup {
   \\column {
-    \\fill-line {
-      Words evenly spaced across the page
-    }
+    \\fill-line { Words positioned evenly across a line }
+    \\fill-line { | | | | | | }
     \\null
     \\fill-line {
       \\line { Text markups }
-      \\line {
-        \\italic { evenly spaced }
-      }
-      \\line { across the page }
+      \\line { \\italic { positioned evenly } }
+      \\line { across a line }
     }
     \\null
     \\override #'(line-width . 50)
-    \\fill-line {
-      Width explicitly specified
-    }
+    \\fill-line { Width explicitly specified }
   }
 }
-@end lilypond"
+@end lilypond
+
+See also @code{\\justify-line}."
   (justify-line-helper
    layout props args text-direction word-space line-width #f))
 
@@ -2166,13 +2169,17 @@ The width of the horizontal line can be modified by overriding the
   #:properties ((text-direction RIGHT)
                 (word-space 0.6)
                 (line-width #f))
-  "Put markups @var{args} into a horizontal line.
+  "Put markups @var{args} into a horizontal line, equally spaced.
 
-The markups are spread to fill the entire line and separated by equal space.  If
-there are no arguments, return an empty stencil.
+If there is a single argument, it gets centered.  If there are two arguments,
+they get aligned to the left and right, respectively.  Otherwise, the markups
+are spread to fill the entire line, separated by equally large spaces.  If there
+are no arguments, return an empty stencil.
 
 The width of the horizontal line can be modified by overriding the
-@code{line-width} property.
+@code{line-width} property.  The space between arguments is at least as large as
+the value of the @code{word-space} property, at the cost of lengthening the line
+if necessary.
 
 @lilypond[verbatim,quote,line-width=14\\cm]
 \\markup {
@@ -2180,7 +2187,9 @@ The width of the horizontal line can be modified by overriding the
     Constant space between neighboring words
   }
 }
-@end lilypond"
+@end lilypond
+
+See also @code{\\fill-line}."
   (justify-line-helper
    layout props args text-direction word-space line-width #t))
 
