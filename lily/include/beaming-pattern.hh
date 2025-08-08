@@ -49,8 +49,6 @@ public:
   // fill the measure).
   Rational period_ = 1;
 
-  SCM time_signature_ = SCM_EOL;
-
   Rational minimum_subdivision_interval_ = 0;
   Rational maximum_subdivision_interval_ = Rational::infinity ();
 

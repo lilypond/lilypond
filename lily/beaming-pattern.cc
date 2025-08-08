@@ -580,7 +580,6 @@ Beaming_options::Beaming_options (Context const *c)
     beat_structure_ (get_property (c, "beatStructure")),
     beat_base_ (from_scm (get_property (c, "beatBase"), Rational (1, 4))),
     period_ (calc_period (c, beat_structure_, beat_base_)),
-    time_signature_ (get_property (c, "timeSignatureFraction")),
     minimum_subdivision_interval_ (
       from_scm (get_property (c, "beamMinimumSubdivision"), Rational (0))),
     maximum_subdivision_interval_ (from_scm (
@@ -592,5 +591,4 @@ void
 Beaming_options::gc_mark () const
 {
   scm_gc_mark (beat_structure_);
-  scm_gc_mark (time_signature_);
 }
