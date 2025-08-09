@@ -303,10 +303,10 @@ Timing_translator::connect_to_context ()
 void
 Timing_translator::initialize ()
 {
-  // Sanity check: In the polymeter use case, when we are not in the top
-  // user-accessible context, we expect that a context above (typically Score)
-  // has been initialized as Timing so that we can copy its current property
-  // values for our initial values here.
+  // Sanity check: When we are not in the top user-accessible context (which is
+  // recommended in cases of polymeter with unaligned measures), we expect that
+  // a context above (typically Score) has been initialized as Timing so that we
+  // can copy its current property values for our initial values here.
   if (auto *const parent = context ()->get_parent ())
     {
       if (parent->is_accessible_to_user ()
