@@ -1,4 +1,4 @@
-\version "2.25.23"
+\version "2.25.28"
 
 \header {
   texidoc = "The deprecated context property @code{completionUnitAsMoment}
@@ -17,21 +17,11 @@ accesses the value of @code{completionUnit}."
 {
   %% setting completionUnitAsMoment sets completionUnit
   \set Score.completionUnitAsMoment = #(ly:make-moment 22/7)
-  \applyContext
-  #(lambda (ctx)
-    (or
-     (= (ly:context-property ctx 'completionUnit) 22/7)
-     (ly:error "fail")))
+  \contextPropertyCheck Score.completionUnit #22/7
 
   %% getting completionUnitAsMoment gets a moment made from completionUnit
   \set Score.completionUnit = #5/12
-  \applyContext
-  #(lambda (ctx)
-    (or
-     (equal?
-      (ly:context-property ctx 'completionUnitAsMoment)
-      (ly:make-moment 5/12))
-     (ly:error "fail")))
+  \contextPropertyCheck Score.completionUnitAsMoment #(ly:make-moment 5/12)
 
   s
 }

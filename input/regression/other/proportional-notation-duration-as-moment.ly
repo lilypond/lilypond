@@ -1,4 +1,4 @@
-\version "2.25.23"
+\version "2.25.28"
 
 \header {
   texidoc = "The deprecated context property
@@ -19,22 +19,13 @@
   %% setting proportionalNotationDurationAsMoment sets
   %% proportionalNotationDuration
   \set Score.proportionalNotationDurationAsMoment = #(ly:make-moment 22/7)
-  \applyContext
-  #(lambda (ctx)
-    (or
-     (= (ly:context-property ctx 'proportionalNotationDuration) 22/7)
-     (ly:error "fail")))
+  \contextPropertyCheck Score.proportionalNotationDuration #22/7
 
   %% getting proportionalNotationDurationAsMoment gets a moment made from
   %% proportionalNotationDuration
   \set Score.proportionalNotationDuration = #5/12
-  \applyContext
-  #(lambda (ctx)
-    (or
-     (equal?
-      (ly:context-property ctx 'proportionalNotationDurationAsMoment)
-      (ly:make-moment 5/12))
-     (ly:error "fail")))
+  \contextPropertyCheck Score.proportionalNotationDurationAsMoment
+  #(ly:make-moment 5/12)
 
   s
 }

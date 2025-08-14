@@ -1,4 +1,4 @@
-\version "2.25.22"
+\version "2.25.28"
 
 \header {
   texidoc = "The deprecated context property @code{baseMoment} accesses the
@@ -17,19 +17,11 @@ value of @code{beatBase}."
 {
   %% setting baseMoment sets beatBase
   \set Timing.baseMoment = #(ly:make-moment 22/7)
-  \applyContext
-  #(lambda (ctx)
-    (or
-     (= (ly:context-property ctx 'beatBase) 22/7)
-     (ly:error "fail")))
+  \contextPropertyCheck Timing.beatBase #22/7
 
   %% getting baseMoment gets a moment made from beatBase
   \set Timing.beatBase = #5/12
-  \applyContext
-  #(lambda (ctx)
-    (or
-     (equal? (ly:context-property ctx 'baseMoment) (ly:make-moment 5/12))
-     (ly:error "fail")))
+  \contextPropertyCheck Timing.baseMoment #(ly:make-moment 5/12)
 
   s
 }

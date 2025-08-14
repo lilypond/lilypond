@@ -1,4 +1,4 @@
-\version "2.25.23"
+\version "2.25.28"
 
 \header {
   texidoc = "The deprecated context property @code{tempoWholesPerMinuteAsMoment}
@@ -17,22 +17,13 @@ accesses the value of @code{tempoWholesPerMinute}."
 {
   %% setting tempoWholesPerMinuteAsMoment sets tempoWholesPerMinute
   \set Score.tempoWholesPerMinuteAsMoment = #(ly:make-moment 22/7)
-  \applyContext
-  #(lambda (ctx)
-    (or
-     (= (ly:context-property ctx 'tempoWholesPerMinute) 22/7)
-     (ly:error "fail")))
+  \contextPropertyCheck Score.tempoWholesPerMinute #22/7
 
   %% getting tempoWholesPerMinuteAsMoment gets a moment made from
   %% tempoWholesPerMinute
   \set Score.tempoWholesPerMinute = #5/12
-  \applyContext
-  #(lambda (ctx)
-    (or
-     (equal?
-      (ly:context-property ctx 'tempoWholesPerMinuteAsMoment)
-      (ly:make-moment 5/12))
-     (ly:error "fail")))
+  \contextPropertyCheck Score.tempoWholesPerMinuteAsMoment
+  #(ly:make-moment 5/12)
 
   s
 }

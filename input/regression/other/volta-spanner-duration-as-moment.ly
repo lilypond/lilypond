@@ -1,4 +1,4 @@
-\version "2.25.23"
+\version "2.25.28"
 
 \header {
   texidoc = "The deprecated context property @code{voltaSpannerDurationAsMoment}
@@ -16,24 +16,13 @@ use the grob property VoltaBracket.musical-length"))
 {
   %% setting voltaSpannerDurationAsMoment sets voltaBracketMusicalLength
   \set Score.voltaSpannerDurationAsMoment = #(ly:make-moment 22/7)
-  \applyContext
-  #(lambda (ctx)
-    (or
-     (equal?
-      (ly:context-property ctx 'voltaBracketMusicalLength)
-      (ly:make-moment 22/7))
-     (ly:error "fail")))
+  \contextPropertyCheck Score.voltaBracketMusicalLength #(ly:make-moment 22/7)
 
   %% getting voltaSpannerDurationAsMoment gets a moment made from
   %% voltaBracketMusicalLength
   \set Score.voltaBracketMusicalLength = #(ly:make-moment 5/12)
-  \applyContext
-  #(lambda (ctx)
-    (or
-     (equal?
-      (ly:context-property ctx 'voltaSpannerDurationAsMoment)
-      (ly:make-moment 5/12))
-     (ly:error "fail")))
+  \contextPropertyCheck Score.voltaSpannerDurationAsMoment
+  #(ly:make-moment 5/12)
 
   s
 }

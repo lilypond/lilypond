@@ -1,4 +1,4 @@
-\version "2.25.23"
+\version "2.25.28"
 
 \header {
   texidoc = "The deprecated context property
@@ -18,22 +18,13 @@
 {
   %% setting tupletSpannerDurationAsMoment sets tupletSpannerDuration
   \set Score.tupletSpannerDurationAsMoment = #(ly:make-moment 22/7)
-  \applyContext
-  #(lambda (ctx)
-    (or
-     (= (ly:context-property ctx 'tupletSpannerDuration) 22/7)
-     (ly:error "fail")))
+  \contextPropertyCheck Score.tupletSpannerDuration #22/7
 
   %% getting tupletSpannerDurationAsMoment gets a moment made from
   %% tupletSpannerDuration
   \set Score.tupletSpannerDuration = #5/12
-  \applyContext
-  #(lambda (ctx)
-    (or
-     (equal?
-      (ly:context-property ctx 'tupletSpannerDurationAsMoment)
-      (ly:make-moment 5/12))
-     (ly:error "fail")))
+  \contextPropertyCheck Score.tupletSpannerDurationAsMoment
+  #(ly:make-moment 5/12)
 
   s
 }

@@ -1,4 +1,4 @@
-\version "2.25.23"
+\version "2.25.28"
 
 \header {
   texidoc = "The deprecated context property
@@ -18,22 +18,12 @@
 {
   %% setting measureLengthAsMoment sets measureLength
   \set Score.measureLengthAsMoment = #(ly:make-moment 22/7)
-  \applyContext
-  #(lambda (ctx)
-    (or
-     (= (ly:context-property ctx 'measureLength) 22/7)
-     (ly:error "fail")))
+  \contextPropertyCheck Score.measureLength #22/7
 
   %% getting measureLengthAsMoment gets a moment made from
   %% measureLength
   \set Score.measureLength = #5/12
-  \applyContext
-  #(lambda (ctx)
-    (or
-     (equal?
-      (ly:context-property ctx 'measureLengthAsMoment)
-      (ly:make-moment 5/12))
-     (ly:error "fail")))
+  \contextPropertyCheck Score.measureLengthAsMoment #(ly:make-moment 5/12)
 
   s
 }

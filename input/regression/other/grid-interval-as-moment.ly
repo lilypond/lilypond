@@ -1,4 +1,4 @@
-\version "2.25.23"
+\version "2.25.28"
 
 \header {
   texidoc = "The deprecated context property @code{gridIntervalAsMoment}
@@ -17,22 +17,12 @@ accesses the value of @code{gridInterval}."
 {
   %% setting gridIntervalAsMoment sets gridInterval
   \set Score.gridIntervalAsMoment = #(ly:make-moment 22/7)
-  \applyContext
-  #(lambda (ctx)
-    (or
-     (= (ly:context-property ctx 'gridInterval) 22/7)
-     (ly:error "fail")))
+  \contextPropertyCheck Score.gridInterval #22/7
 
   %% getting gridIntervalAsMoment gets a moment made from
   %% gridInterval
   \set Score.gridInterval = #5/12
-  \applyContext
-  #(lambda (ctx)
-    (or
-     (equal?
-      (ly:context-property ctx 'gridIntervalAsMoment)
-      (ly:make-moment 5/12))
-     (ly:error "fail")))
+  \contextPropertyCheck Score.gridIntervalAsMoment #(ly:make-moment 5/12)
 
   s
 }

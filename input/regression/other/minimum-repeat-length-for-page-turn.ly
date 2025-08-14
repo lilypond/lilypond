@@ -1,4 +1,4 @@
-\version "2.25.23"
+\version "2.25.28"
 
 \header {
   texidoc = "The deprecated context property
@@ -18,22 +18,13 @@
 {
   %% setting minimumRepeatLengthForPageTurn sets pageTurnMinimumRepeatLength
   \set Score.minimumRepeatLengthForPageTurn = #(ly:make-moment 22/7)
-  \applyContext
-  #(lambda (ctx)
-    (or
-     (= (ly:context-property ctx 'pageTurnMinimumRepeatLength) 22/7)
-     (ly:error "fail")))
+  \contextPropertyCheck Score.pageTurnMinimumRepeatLength #22/7
 
   %% getting minimumRepeatLengthForPageTurn gets a moment made from
   %% pageTurnMinimumRepeatLength
   \set Score.pageTurnMinimumRepeatLength = #5/12
-  \applyContext
-  #(lambda (ctx)
-    (or
-     (equal?
-      (ly:context-property ctx 'minimumRepeatLengthForPageTurn)
-      (ly:make-moment 5/12))
-     (ly:error "fail")))
+  \contextPropertyCheck Score.minimumRepeatLengthForPageTurn
+  #(ly:make-moment 5/12)
 
   s
 }
