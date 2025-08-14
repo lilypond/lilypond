@@ -1,8 +1,8 @@
-\version "2.25.7"
+\version "2.25.28"
 
 \header {
   texidoc = "When the @code{Timing} context is initialized with
-@code{timeSignatureFraction = ##f}, various derived properties are set
+@code{timeSignature = ##f}, various derived properties are set
 accordingly.  The output should have no time signature or bar lines."
 }
 
@@ -12,7 +12,7 @@ accordingly.  The output should have no time signature or bar lines."
   \context {
     \Score
     forbidBreakBetweenBarLines = ##f
-    timeSignatureFraction = ##f
+    timeSignature = ##f
   }
 }
 

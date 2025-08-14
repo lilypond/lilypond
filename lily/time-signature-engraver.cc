@@ -21,6 +21,7 @@
 
 #include "item.hh"
 #include "international.hh"
+#include "lily-imports.hh"
 #include "misc.hh"
 #include "moment.hh"
 #include "stream-event.hh"
@@ -34,7 +35,7 @@
 class Time_signature_engraver final : public Engraver
 {
   Item *time_signature_ = nullptr;
-  SCM last_time_fraction_ = SCM_EOL;
+  SCM last_spec_ = SCM_EOL;
   Stream_event *event_ = nullptr;
 
 protected:
@@ -50,7 +51,7 @@ public:
 void
 Time_signature_engraver::derived_mark () const
 {
-  scm_gc_mark (last_time_fraction_);
+  scm_gc_mark (last_spec_);
 }
 
 Time_signature_engraver::Time_signature_engraver (Context *c)
@@ -70,9 +71,9 @@ Time_signature_engraver::process_music ()
   if (time_signature_)
     return;
 
-  SCM fr = get_property (this, "timeSignatureFraction");
-  if (!scm_is_eq (last_time_fraction_, fr)
-      && (scm_is_pair (fr) || scm_is_false (fr)))
+  SCM spec = get_property (this, "timeSignature");
+  if (!scm_is_eq (last_spec_, spec)
+      && (scm_is_pair (spec) || scm_is_false (spec)))
     {
       time_signature_
         = make_item ("TimeSignature", event_ ? to_scm (event_) : SCM_EOL);
@@ -80,13 +81,21 @@ Time_signature_engraver::process_music ()
       // check value before setting to respect overrides
       SCM fraction_sym = ly_symbol2scm ("fraction");
       if (scm_is_null (get_property (time_signature_, fraction_sym)))
-        set_property (time_signature_, fraction_sym, fr);
+        {
+          set_property (time_signature_, fraction_sym,
+                        Lily::time_signature_2_fraction (spec));
+        }
 
-      if (scm_is_null (last_time_fraction_))
-        set_property (time_signature_, "break-visibility",
-                      get_property (this, "initialTimeSignatureVisibility"));
+      // TODO: Override TimeSignature.stencil for complex meters here instead of
+      // in make-time-signature-set.
 
-      last_time_fraction_ = fr;
+      if (scm_is_null (last_spec_))
+        {
+          set_property (time_signature_, "break-visibility",
+                        get_property (this, "initialTimeSignatureVisibility"));
+        }
+
+      last_spec_ = spec;
     }
 }
 
@@ -117,7 +126,7 @@ Time_signature_engraver::boot ()
 ADD_TRANSLATOR (Time_signature_engraver,
                 /* doc */
                 R"(
-Create a @iref{TimeSignature} whenever @code{timeSignatureFraction} changes.
+Create a @iref{TimeSignature} whenever @code{timeSignature} changes.
                 )",
 
                 /* create */
@@ -129,7 +138,7 @@ TimeSignature
                 R"(
 initialTimeSignatureVisibility
 partialBusy
-timeSignatureFraction
+timeSignature
                 )",
 
                 /* write */

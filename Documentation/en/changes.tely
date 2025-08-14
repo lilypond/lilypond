@@ -1160,6 +1160,14 @@ automatically for words ending in a melisma.
 @itemize
 
 @item
+The @code{timeSignatureFraction} context property is deprecated in
+favor of @code{timeSignature}.  The new property accepts
+subdivided and alternating time signatures in addition to the
+simple fractions that the old property accepted.  Accessing the
+old property transparently derives a simple fraction from the new
+property and triggers a warning.
+
+@item
 @code{(make-music 'Music)} and @code{(make-music 'Event)} now
 create music expressions that have the @code{void} property set to
 @code{#t} by default.  The function @code{empty-music} has been

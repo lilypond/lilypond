@@ -19,6 +19,7 @@
 
 #include "audio-item.hh"
 #include "international.hh"
+#include "lily-imports.hh"
 #include "ly-scm-list.hh"
 #include "performer.hh"
 #include "protected-scm.hh"
@@ -94,7 +95,13 @@ Time_signature_performer::process_music ()
   if (audio_)
     return;
 
-  SCM fr = get_property (this, "timeSignatureFraction");
+  // TODO: For a strictly alternating time signature, it would likely be better
+  // to insert a change for each component, though some users might prefer that
+  // to be optional.  (Any components with subdivided numerators would still
+  // need to have their numerators totaled.)
+  SCM fr
+    = Lily::time_signature_2_fraction (get_property (this, "timeSignature"));
+
   // If there is a \time event, we emit the time signature even if it
   // is the same as previously.  Midi may need it in some cases.
   // In particular:
@@ -155,7 +162,7 @@ Time_signature_performer::boot ()
 ADD_TRANSLATOR (Time_signature_performer,
                 /* doc */
                 R"(
-Creates a MIDI time signature whenever @code{timeSignatureFraction} changes or
+Creates a MIDI time signature whenever @code{timeSignature} changes or
 a @code{\time} command is issued.
                 )",
 
@@ -166,7 +173,7 @@ a @code{\time} command is issued.
 
                 /* read */
                 R"(
-timeSignatureFraction
+timeSignature
                 )",
 
                 /* write */

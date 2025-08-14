@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.23"
+@c \version "2.25.28"
 
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
@@ -1127,7 +1127,7 @@ valor del tipus de compàs:
   \new Staff {
     \relative c' {
       \overrideTimeSignatureSettings
-        4/4        % timeSignatureFraction
+        4/4        % timeSignature
         #1/4       % beatBase
         3,1        % beatStructure
         #'()       % beamExceptions
@@ -1143,7 +1143,7 @@ valor del tipus de compàs:
 @enumerate
 
 @item
-@code{@var{timeSignatureFraction}}, una fracció que descriu el
+@code{@var{timeSignature}}, una fracció que descriu el
 tipus de compàs al que s'apliquen aquests valors.
 
 @item
@@ -1174,7 +1174,7 @@ de compàs es poden restaurar als valors originals:
   \relative {
     \repeat unfold 8 { c'8 } |
     \overrideTimeSignatureSettings
-      4/4        % timeSignatureFraction
+      4/4        % timeSignature
       #1/4       % beatBase
       3,1        % beatStructure
       #'()       % beamExceptions
@@ -1198,7 +1198,7 @@ context @code{Staff}.
   \new StaffGroup <<
      \new Staff {
         \overrideTimeSignatureSettings
-          4/4        % timeSignatureFraction
+          4/4        % timeSignature
           #1/4       % beatBase
           3,1        % beatStructure
           #'()       % beamExceptions
@@ -1207,7 +1207,7 @@ context @code{Staff}.
      }
      \new Staff {
         \overrideTimeSignatureSettings
-          4/4        % timeSignatureFraction
+          4/4        % timeSignature
           #1/4       % beatBase
           1,3        % beatStructure
           #'()       % beamExceptions
@@ -1628,7 +1628,7 @@ mesurar per permetre els salts:
 @cindex metre polimètric
 @cindex doble compàs
 
-@funindex timeSignatureFraction
+@funindex timeSignature
 @funindex \scaleDurations
 @funindex \tuplet
 
@@ -1639,7 +1639,7 @@ compàs i/o l'escalat de la duració de les notes.
 @subsubsubheading Pentagrames amb diferents indicacions de compàs i compassos d'igual longitud
 
 Establiu una indicació de copàs comuna per a cada pentagrama, i
-fixeu @code{timeSignatureFraction} a la fracció desitjada.
+fixeu @code{timeSignature} a la fracció desitjada.
 Després useu la funció @code{\scaleDurations} per escalar les
 duracions de les notes a cada pauta a la indicació de compàs comú.
 
@@ -1663,7 +1663,7 @@ afecta a les regles de barrat automàtic.
   }
   \new Staff {
     \time 3/4
-    \set Staff.timeSignatureFraction = 9/8
+    \set Staff.timeSignature = 9/8
     \scaleDurations 2/3 {
       \repeat unfold 3 { c8[ c c] }
       \repeat unfold 3 { c4 c8 }
@@ -1671,7 +1671,7 @@ afecta a les regles de barrat automàtic.
   }
   \new Staff {
     \time 3/4
-    \set Staff.timeSignatureFraction = 10/8
+    \set Staff.timeSignature = 10/8
     \scaleDurations 3/5 {
       \repeat unfold 2 { c8[ c c] }
       \repeat unfold 2 { c8[ c] } |
@@ -2467,7 +2467,7 @@ una indicació de compàs es descriu a
 <<
   \new Staff {
     \overrideTimeSignatureSettings
-      3/4               % timeSignatureFraction
+      3/4               % timeSignature
       #1/8              % beatBase
       1,5               % beatStructure
       #'()		% beamExceptions

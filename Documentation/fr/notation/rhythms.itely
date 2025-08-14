@@ -8,7 +8,7 @@
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.23"
+@c \version "2.25.28"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 @c Translation checkers: Valentin Villenave, François Martin, Xavier Scheuer
@@ -1391,7 +1391,7 @@ de métrique correspondante :
 \score {
   \relative c' {
     \overrideTimeSignatureSettings
-      4/4        % timeSignatureFraction
+      4/4        % timeSignature
       #1/4       % beatBase
       3,1        % beatStructure
       #'()       % beamExceptions
@@ -1408,7 +1408,7 @@ de métrique correspondante :
 @enumerate
 
 @item
-@code{@var{timeSignatureFraction}}, une fraction indiquant la
+@code{@var{timeSignature}}, une fraction indiquant la
 métrique pour laquelle ces valeurs doivent s'appliquer,
 
 @item
@@ -1437,7 +1437,7 @@ métrique :
   \relative {
     \repeat unfold 8 { c'8 } |
     \overrideTimeSignatureSettings
-      4/4        % timeSignatureFraction
+      4/4        % timeSignature
       #1/4       % beatBase
       3,1        % beatStructure
       #'()       % beamExceptions
@@ -1459,7 +1459,7 @@ réglages particuliers pour les différentes portées d'un regroupement --
   \new StaffGroup <<
      \new Staff {
         \overrideTimeSignatureSettings
-          4/4        % timeSignatureFraction
+          4/4        % timeSignature
           #1/4       % beatBase
           3,1        % beatStructure
           #'()       % beamExceptions
@@ -1468,7 +1468,7 @@ réglages particuliers pour les différentes portées d'un regroupement --
      }
      \new Staff {
         \overrideTimeSignatureSettings
-          4/4        % timeSignatureFraction
+          4/4        % timeSignature
           #1/4       % beatBase
           1,3        % beatStructure
           #'()       % beamExceptions
@@ -1993,7 +1993,7 @@ Morceaux choisis :
 @cindex métrique polymétrique
 @cindex polymétrie
 
-@funindex timeSignatureFraction
+@funindex timeSignature
 @funindex \scaleDurations
 @funindex \tuplet
 
@@ -2008,7 +2008,7 @@ que de manière détournée -- modification de l'indicateur de métrique et
 Il suffit, pour obtenir cette forme de notation, de tout d'abord
 affecter une même métrique aux différentes portées. Cette métrique sera
 ensuite remplacée dans chacune des portées par un quotient fourni en
-argument à la propriété @code{timeSignatureFraction}. La durée des notes
+argument à la propriété @code{timeSignature}. La durée des notes
 sera enfin proratisée selon la métrique commune grâce à la fonction
 @code{\scaleDurations}.
 
@@ -2031,7 +2031,7 @@ ligature automatique.
   }
   \new Staff {
     \time 3/4
-    \set Staff.timeSignatureFraction = 9/8
+    \set Staff.timeSignature = 9/8
     \scaleDurations 2/3 {
       \repeat unfold 3 { c8[ c c] }
       \repeat unfold 3 { c4 c8 }
@@ -2039,7 +2039,7 @@ ligature automatique.
   }
   \new Staff {
     \time 3/4
-    \set Staff.timeSignatureFraction = 10/8
+    \set Staff.timeSignature = 10/8
     \scaleDurations 3/5 {
       \repeat unfold 2 { c8[ c c] }
       \repeat unfold 2 { c8[ c] } |
@@ -2921,7 +2921,7 @@ automatiques est abordée au chapitre @ref{Time signature}.
 <<
   \new Staff {
     \overrideTimeSignatureSettings
-      3/4               % timeSignatureFraction
+      3/4               % timeSignature
       #1/8              % beatBase
       1,5               % beatStructure
       #'()		% beamExceptions

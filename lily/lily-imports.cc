@@ -145,6 +145,7 @@ Variable scorify_music ("scorify-music");
 Variable stencil_whiteout ("stencil-whiteout");
 Variable stencil_with_color ("stencil-with-color");
 Variable symbol_list_p ("symbol-list?");
+Variable time_signature_2_fraction ("time-signature->fraction");
 Variable type_name ("type-name");
 Variable unbroken_spanner_p ("unbroken-spanner?");
 Variable

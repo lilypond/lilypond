@@ -225,6 +225,18 @@ Example:
                  (and (every identity fracs) ; verify conversion
                       fracs))))))
 
+(define-public (time-signature->fraction time-sig)
+  "Reduce canonical time signature @var{time-sig} to a single, simple fraction
+(or #f)."
+  (if (or (not time-sig) (number-pair? time-sig))
+      ;; already a single simple fraction or #f
+      time-sig
+      ;; lump the numerator terms together over the beat base
+      (let* ((settings '())
+             (base (beat-base time-sig settings))
+             (structure (beat-structure base time-sig settings)))
+        (cons (apply + structure) (/ base)))))
+
 (define (get-setting my-symbol time-signature time-signature-settings)
   "Get setting @code{my-symbol} for @code{time-signature} from
 @code{time-signature-settings}."

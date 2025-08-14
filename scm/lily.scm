@@ -696,6 +696,7 @@ determines the number of scale steps that make up an octave.  Usually the
   'minimumRepeatLengthForPageTurn
   'proportionalNotationDurationAsMoment
   'tempoWholesPerMinuteAsMoment
+  'timeSignatureFraction
   'translation-type?
   'tupletSpannerDurationAsMoment
   'voltaSpannerDuration

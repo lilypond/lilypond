@@ -1,4 +1,4 @@
-\version "2.25.27"
+\version "2.25.28"
 
 \header {
   texidoc = "The MIDI time signature derived from an alternating time signature
@@ -11,6 +11,8 @@ Verifying the MIDI output requires manual inspection."
 %% alternating time signature and insert changes for each component; however,
 %% given the current limitations, 10/8 is better than 5/4.
 
+#(ly:set-option 'warning-as-error #t)
+
 \score {
   \fixed c' {
     \compoundMeter #'((2 4) (6 8))
@@ -18,7 +20,7 @@ Verifying the MIDI output requires manual inspection."
     \contextPropertyCheck Timing.beatBase #1/8
     \contextPropertyCheck Timing.beatStructure #'(2 2  3 3)
     \contextPropertyCheck Timing.measureLength #5/4
-    \contextPropertyCheck Timing.timeSignatureFraction 10/8
+    \contextPropertyCheck Timing.timeSignature #'((2 . 4) (6 . 8))
 
     c2 d2.
   }

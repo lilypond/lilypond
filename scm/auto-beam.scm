@@ -65,8 +65,9 @@
          ;; to avoid the appearance of 6/N beat structure.
          (define (start?)
            (or (get 'beamHalfMeasure #t)
-               (let ((tsig (get 'timeSignatureFraction '(4 . 4))))
+               (let ((tsig (get 'timeSignature '(4 . 4))))
                  (or ;; the time signature is 3/N
+                  (not (number-pair? tsig))
                   (not (= 3 (car tsig)))
                   ;; the beamed note is 1/6 of a measure in the time signature
                   ;; (regardless of the current value of measureLength)

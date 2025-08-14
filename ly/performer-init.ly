@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.25.23"
+\version "2.25.28"
 
 %%
 %% setup for Request->Element conversion.
@@ -298,7 +298,7 @@
   %% Timing_translator has been run.
 
   timeSignatureSettings = #default-time-signature-settings
-  timeSignatureFraction = 4/4
+  timeSignature = 4/4
   autoBeaming = ##t  % needed for consistent melismata with engravers
   codaMarkFormatter = #format-coda-mark
   rehearsalMark = #1

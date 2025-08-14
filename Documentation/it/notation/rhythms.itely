@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.23"
+@c \version "2.25.28"
 
 @c Translators: Federico Bruni
 @c Translation checkers: Luca Rossetto Casel
@@ -1149,7 +1149,7 @@ specificata nelle nuove impostazioni:
   \new Staff {
     \relative c' {
       \overrideTimeSignatureSettings
-        4/4        % timeSignatureFraction
+        4/4        % timeSignature
         #1/4       % beatBase
         3,1        % beatStructure
         #'()       % beamExceptions
@@ -1165,7 +1165,7 @@ specificata nelle nuove impostazioni:
 @enumerate
 
 @item
-@code{@var{timeSignatureFraction}}, una frazione che indica l'indicazione
+@code{@var{timeSignature}}, una frazione che indica l'indicazione
 di tempo a cui questi valori si riferiscono.
 
 @item
@@ -1195,7 +1195,7 @@ essere ripristinati ai valori originali:
   \relative {
     \repeat unfold 8 { c'8 } |
     \overrideTimeSignatureSettings
-      4/4        % timeSignatureFraction
+      4/4        % timeSignature
       #1/4       % beatBase
       3,1        % beatStructure
       #'()       % beamExceptions
@@ -1218,7 +1218,7 @@ di tempo per righi diversi spostando @code{Timing_translator} e
   \new StaffGroup <<
      \new Staff {
         \overrideTimeSignatureSettings
-          4/4        % timeSignatureFraction
+          4/4        % timeSignature
           #1/4       % beatBase
           3,1        % beatStructure
           #'()       % beamExceptions
@@ -1227,7 +1227,7 @@ di tempo per righi diversi spostando @code{Timing_translator} e
      }
      \new Staff {
         \overrideTimeSignatureSettings
-          4/4        % timeSignatureFraction
+          4/4        % timeSignature
           #1/4       % beatBase
           1,3        % beatStructure
           #'()       % beamExceptions
@@ -1654,7 +1654,7 @@ di musica in tempo libero è necessario inserire manualmente delle stanghette
 @cindex polimetria, indicazione
 @cindex tempo polimetrico
 
-@funindex timeSignatureFraction
+@funindex timeSignature
 @funindex \scaleDurations
 @funindex \tuplet
 
@@ -1665,7 +1665,7 @@ delle note).
 @subsubsubheading Diverse indicazioni di tempo con misure di uguale lunghezza
 
 Si sceglie una normale indicazione di tempo per ogni rigo e si imposta
-@code{timeSignatureFraction} sulla frazione desiderata.  Quindi si usa
+@code{timeSignature} sulla frazione desiderata.  Quindi si usa
 la funzione @code{\scaleDurations} per scalare la durata delle note di
 ogni rigo in modo che rientrino nella comune indicazione di tempo.
 
@@ -1688,7 +1688,7 @@ durate influenzerà le regole della disposizione automatica delle travature.
   }
   \new Staff {
     \time 3/4
-    \set Staff.timeSignatureFraction = 9/8
+    \set Staff.timeSignature = 9/8
     \scaleDurations 2/3 {
       \repeat unfold 3 { c8[ c c] }
       \repeat unfold 3 { c4 c8 }
@@ -1696,7 +1696,7 @@ durate influenzerà le regole della disposizione automatica delle travature.
   }
   \new Staff {
     \time 3/4
-    \set Staff.timeSignatureFraction = 10/8
+    \set Staff.timeSignature = 10/8
     \scaleDurations 3/5 {
       \repeat unfold 2 { c8[ c c] }
       \repeat unfold 2 { c8[ c] } |
@@ -2523,7 +2523,7 @@ descritte in @ref{Time signature}.
 <<
   \new Staff {
     \overrideTimeSignatureSettings
-      3/4               % timeSignatureFraction
+      3/4               % timeSignature
       #1/8              % beatBase
       1,5               % beatStructure
       #'()		% beamExceptions

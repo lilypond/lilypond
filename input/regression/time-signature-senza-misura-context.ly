@@ -1,7 +1,7 @@
-\version "2.25.6"
+\version "2.25.28"
 
 \header {
-  texidoc = "Setting @code{Timing@/.timeSignatureFraction} to @code{#f} prints a
+  texidoc = "Setting @code{Timing@/.timeSignature} to @code{#f} prints a
 special sign in place of a time signature, provided that @code{TimeSignature} is
 appropriately configured.  The first and third measures should have an X-shaped
 sign."
@@ -10,10 +10,10 @@ sign."
 \new Staff \with {
   \senzaMisuraTimeSignatureX
 } \fixed c' {
-  \set Timing.timeSignatureFraction = ##f
+  \set Timing.timeSignature = ##f
   b1
-  \set Timing.timeSignatureFraction = #'(2 . 2)
+  \set Timing.timeSignature = #'(2 . 2)
   b1
-  \set Timing.timeSignatureFraction = ##f
+  \set Timing.timeSignature = ##f
   b1
 }

@@ -154,6 +154,7 @@ extern Variable stencil_whiteout;
 extern Variable stencil_whiteout_box;
 extern Variable stencil_with_color;
 extern Variable symbol_list_p;
+extern Variable time_signature_2_fraction;
 extern Variable type_name;
 extern Variable unbroken_spanner_p;
 extern Variable unbroken_or_first_broken_spanner_p;

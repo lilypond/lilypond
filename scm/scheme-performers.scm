@@ -19,7 +19,8 @@
   (define (closest-beat ctx mp)
     ;; return the first on-beat measure position not before mp
     (let* ((mp (ly:moment-main mp))
-           (tf (ly:context-property ctx 'timeSignatureFraction '(4 . 4)))
+           (tf (time-signature->fraction
+                (ly:context-property ctx 'timeSignature '(4 . 4))))
            (bb (ly:context-property ctx 'beatBase (/ (cdr tf))))
            (bs (ly:context-property ctx 'beatStructure)))
       (let loop ((pos 0) (bs bs))
@@ -89,7 +90,7 @@
                        measurePosition
                        beatBase
                        beatStructure
-                       timeSignatureFraction
+                       timeSignature
                        barExtraVelocity
                        beatExtraVelocity))
    (properties-written . ())
@@ -113,7 +114,7 @@ autogeneration of the next on-beat accent to be skipped.")))
                        measurePosition
                        beatBase
                        beatStructure
-                       timeSignatureFraction
+                       timeSignature
                        barExtraVelocity
                        beatExtraVelocity))
    (properties-written . ())

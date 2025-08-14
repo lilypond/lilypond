@@ -5543,6 +5543,14 @@ def conv(s):
     return s
 
 
+@rule((2, 25, 28), r"""
+timeSignatureFraction -> timeSignature
+""")
+def conv(s):
+    s = re.sub(r'\btimeSignatureFraction\s*=', r'timeSignature =', s)
+    return s
+
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

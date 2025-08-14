@@ -1,4 +1,4 @@
-\version "2.25.25"
+\version "2.25.28"
 
 \header {
   texidoc = "@code{\\time #'(@var{x} . 1/2)} sets timing properties using a
@@ -19,7 +19,7 @@ double whole note as the beat base."
   \contextPropertyCheck Timing.beatBase 2
   \contextPropertyCheck Timing.beatStructure #'(1 1 1)
   \contextPropertyCheck Timing.measureLength 6
-  \contextPropertyCheck Timing.timeSignatureFraction #'(3 . 1/2)
+  \contextPropertyCheck Timing.timeSignature #'(3 . 1/2)
   <<
     \context Staff = "A" { c\breve e g }
     \context Staff = "B" { R\breve*3 }
@@ -29,7 +29,7 @@ double whole note as the beat base."
   \contextPropertyCheck Timing.beatBase 2
   \contextPropertyCheck Timing.beatStructure #'(1 1 1 1)
   \contextPropertyCheck Timing.measureLength 8
-  \contextPropertyCheck Timing.timeSignatureFraction #'(4 . 1/2)
+  \contextPropertyCheck Timing.timeSignature #'(4 . 1/2)
   <<
     \context Staff = "A" { c\breve e g a }
     \context Staff = "B" { R\breve*4 }
@@ -39,7 +39,7 @@ double whole note as the beat base."
   \contextPropertyCheck Timing.beatBase 2
   \contextPropertyCheck Timing.beatStructure #'(3 3)
   \contextPropertyCheck Timing.measureLength 12
-  \contextPropertyCheck Timing.timeSignatureFraction #'(6 . 1/2)
+  \contextPropertyCheck Timing.timeSignature #'(6 . 1/2)
   <<
     \context Staff = "A" { c\breve d e f g a }
     \context Staff = "B" { R\breve*6 }

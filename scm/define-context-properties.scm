@@ -786,9 +786,8 @@ whole notes per minute.")
      (tieWaitForNote ,boolean? "If true, tied notes do not have to
 follow each other directly.  This can be used for writing out
 arpeggios.")
-     (timeSignatureFraction ,sane-simple-time-signature? "A pair of numbers,
-signifying the time signature.  For example, @code{'(4 . 4)} is a 4/4 time
-signature.")
+     (timeSignature ,sane-time-signature? "A time-signature specification.  See
+the @code{\\time} command.")
      (timeSignatureSettings ,cheap-list? "A nested alist of settings for
 time signatures.  Contains elements for various time signatures.  The
 element for each time signature contains entries for @code{beatBase},
@@ -1024,6 +1023,13 @@ This property is deprecated; overriding the @code{musical-@/length} property of
   #:new-symbol 'tempoWholesPerMinute
   #:old->new ly:moment-main
   #:new->old ly:make-moment)
+
+(define-deprecated-property
+  'translation-type? 'timeSignatureFraction
+  sane-simple-time-signature?
+  #:new-symbol 'timeSignature
+  #:old->new identity
+  #:new->old time-signature->fraction)
 
 (define-deprecated-property
   'translation-type? 'tupletSpannerDurationAsMoment

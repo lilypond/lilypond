@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.25.23"
+@c \version "2.25.28"
 
 @c Translators: Till Paala
 
@@ -1087,7 +1087,7 @@ werden.
   \new Staff {
     \relative c' {
       \overrideTimeSignatureSettings
-        4/4        % timeSignatureFraction
+        4/4        % timeSignature
         #1/4       % beatBase
         3,1        % beatStructure
         #'()       % beamExceptions
@@ -1103,7 +1103,7 @@ werden.
 @enumerate
 
 @item
-@code{@var{timeSignatureFraction}} (Taktart-Bruch), ein Bruch,
+@code{@var{timeSignature}} (Taktart), ein Bruch,
 der den Takt beschreibt.
 
 @item
@@ -1131,7 +1131,7 @@ Noten in dem Kontext befinen müssen, bevor
   \relative c' {
     % This call will fail because the context isn't yet instantiated
     \overrideTimeSignatureSettings
-      4/4        % timeSignatureFraction
+      4/4        % timeSignature
       #1/4       % beatBase
       3,1        % beatStructure
       #'()       % beamExceptions
@@ -1140,7 +1140,7 @@ Noten in dem Kontext befinen müssen, bevor
     \repeat unfold 7 { c8 } |
     % This call will succeed
     \overrideTimeSignatureSettings
-      4/4        % timeSignatureFraction
+      4/4        % timeSignature
       #1/4       % beatBase
       3,1        % beatStructure
       #'()       % beamExceptions
@@ -1165,7 +1165,7 @@ Standard zurückgesetzt werden:
   \relative {
     \repeat unfold 8 { c'8 } |
     \overrideTimeSignatureSettings
-      4/4        % timeSignatureFraction
+      4/4        % timeSignature
       #1/4       % beatBase
       3,1        % beatStructure
       #'()       % beamExceptions
@@ -1188,7 +1188,7 @@ Notensysteme können eingerichtet werden, indem man den
   \new StaffGroup <<
      \new Staff {
         \overrideTimeSignatureSettings
-          4/4        % timeSignatureFraction
+          4/4        % timeSignature
           #1/4       % beatBase
           3,1        % beatStructure
           #'()       % beamExceptions
@@ -1197,7 +1197,7 @@ Notensysteme können eingerichtet werden, indem man den
      }
      \new Staff {
         \overrideTimeSignatureSettings
-          4/4        % timeSignatureFraction
+          4/4        % timeSignature
           #1/4       % beatBase
           1,3        % beatStructure
           #'()       % beamExceptions
@@ -1597,7 +1597,7 @@ ein seltsamer Fehler auftreten kann.
 @cindex Metrum, polymetrisch
 @cindex unterteilte Taktarten
 
-@funindex timeSignatureFraction
+@funindex timeSignature
 @funindex \scaleDurations
 @funindex \times
 
@@ -1608,7 +1608,7 @@ die Notendauern skaliert.
 @subsubheading Unterschiedliche Taktarten mit gleicher Taktlänge
 
 Für jedes System wird eine gemeinsame Taktart gesetzt und dann
-die Einstellung von @code{timeSignatureFraction} auf den gewünschten
+die Einstellung von @code{timeSignature} auf den gewünschten
 Bruch geändert.  Mit dem Befehl @code{\scaleDurations} werden
 die Dauern der Noten auf jedem System dann auf die gemeinsame
 Taktart skaliert.  Siehe auch @ref{Scaling durations}.
@@ -1634,7 +1634,7 @@ auswirkt.
   }
   \new Staff {
     \time 3/4
-    \set Staff.timeSignatureFraction = 9/8
+    \set Staff.timeSignature = 9/8
     \scaleDurations 2/3 {
       \repeat unfold 3 { c8[ c c] }
       \repeat unfold 3 { c4 c8 }
@@ -1642,7 +1642,7 @@ auswirkt.
   }
   \new Staff {
     \time 3/4
-    \set Staff.timeSignatureFraction = 10/8
+    \set Staff.timeSignature = 10/8
     \scaleDurations 3/5 {
       \repeat unfold 2 { c8[ c c] }
       \repeat unfold 2 { c8[ c] } |
@@ -2406,7 +2406,7 @@ der automatischen Bebalkungsregeln für eine Taktart sind in
 <<
   \new Staff {
     \overrideTimeSignatureSettings
-      3/4               % timeSignatureFraction
+      3/4               % timeSignature
       #1/8              % beatBase
       1,5               % beatStructure
       #'()		% beamExceptions

@@ -26,7 +26,7 @@ testMusic = {
   \contextPropertyCheck Score.beatBase #+inf.0
   \contextPropertyCheck Score.beatStructure #'()
   \contextPropertyCheck Score.measureLength #+inf.0
-  \contextPropertyCheck Score.timeSignatureFraction ##f
+  \contextPropertyCheck Score.timeSignature ##f
   \repeat unfold 8 { 8 }
 }
 

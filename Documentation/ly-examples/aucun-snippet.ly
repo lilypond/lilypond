@@ -1,4 +1,4 @@
-\version "2.19.22"
+\version "2.25.28"
 \include "example-header.ily"
 
 \paper {
@@ -235,7 +235,7 @@ tenorNotes = \relative {
       %\set Staff.instrumentName = "Triplum"
       \set Staff.instrumentName = \incipitTriplum
       \set Staff.shortInstrumentName = "Tr."
-      \set Staff.timeSignatureFraction = 9/8
+      \set Staff.timeSignature = 9/8
 
       \new Voice = "triplum" \scaleDurations 2/3 { \global \triplumNotes }
       %\scaleDurations 2/3
@@ -246,7 +246,7 @@ tenorNotes = \relative {
       %\set Staff.instrumentName = "Motetus"
       \set Staff.instrumentName = \incipitMotetus
       \set Staff.shortInstrumentName = "M."
-      \set Staff.timeSignatureFraction = 9/8
+      \set Staff.timeSignature = 9/8
 
       \context Voice = "motetus" \scaleDurations 2/3 { \global \motetusNotes }
       \new Lyrics \lyricsto "motetus" \motetusWords

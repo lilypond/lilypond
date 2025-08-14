@@ -322,20 +322,19 @@ Timing_translator::initialize ()
   set_property (context (), "currentBarNumber", bar_number);
   set_property (context (), "internalBarNumber", bar_number);
 
-  SCM time_signature_fraction = get_property (this, "timeSignatureFraction");
+  SCM time_signature = get_property (this, "timeSignature");
 
-  if (!scm_is_pair (time_signature_fraction)
-      && !scm_is_false (time_signature_fraction))
+  if (!scm_is_pair (time_signature) && !scm_is_false (time_signature))
     {
-      programming_error ("missing timeSignatureFraction");
-      time_signature_fraction = SCM_BOOL_F;
+      programming_error ("missing timeSignature");
+      time_signature = SCM_BOOL_F;
     }
-  set_property (context (), "timeSignatureFraction", time_signature_fraction);
+  set_property (context (), "timeSignature", time_signature);
 
   SCM measure_length = get_property (this, "measureLength");
   if (scm_is_null (measure_length))
     {
-      measure_length = Lily::calc_measure_length (time_signature_fraction);
+      measure_length = Lily::calc_measure_length (time_signature);
     }
   set_property (context (), "measureLength", measure_length);
   {
@@ -355,23 +354,22 @@ Timing_translator::initialize ()
   SCM beam_exceptions = get_property (this, "beamExceptions");
   if (!scm_is_pair (beam_exceptions))
     {
-      beam_exceptions = Lily::beam_exceptions (time_signature_fraction,
-                                               time_signature_settings);
+      beam_exceptions
+        = Lily::beam_exceptions (time_signature, time_signature_settings);
     }
   set_property (context (), "beamExceptions", beam_exceptions);
 
   SCM beat_base = get_property (this, "beatBase");
   if (!is_scm<Rational> (beat_base))
     {
-      beat_base
-        = Lily::beat_base (time_signature_fraction, time_signature_settings);
+      beat_base = Lily::beat_base (time_signature, time_signature_settings);
     }
   set_property (context (), "beatBase", beat_base);
 
   SCM beat_structure = get_property (this, "beatStructure");
   if (!scm_is_pair (beat_structure))
     {
-      beat_structure = Lily::beat_structure (beat_base, time_signature_fraction,
+      beat_structure = Lily::beat_structure (beat_base, time_signature,
                                              time_signature_settings);
     }
   set_property (context (), "beatStructure", beat_structure);
@@ -526,7 +524,7 @@ currentBarNumber
 internalBarNumber
 measureLength
 measurePosition
-timeSignatureFraction
+timeSignature
                 )",
 
                 /* write */
@@ -538,5 +536,5 @@ internalBarNumber
 measureLength
 measurePosition
 measureStartNow
-timeSignatureFraction
+timeSignature
                 )");

@@ -16,7 +16,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.25.23"
+\version "2.25.28"
 
 %% Warning: if updating context hierarchies, don't forget ly/performer-init.ly!
 
@@ -870,7 +870,7 @@ run."
   %% scm/time-signature-settings.scm
 
   timeSignatureSettings = #default-time-signature-settings
-  timeSignatureFraction = 4/4
+  timeSignature = 4/4
 
   beamHalfMeasure = ##t
 

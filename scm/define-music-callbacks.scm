@@ -237,16 +237,9 @@ depth-first through MUSIC."
                      (my-beam-exceptions
                       (beam-exceptions spec time-signature-settings))
                      (my-measure-length
-                      (calc-measure-length spec))
-                     ;; When a single simple fraction is provided, preserve its
-                     ;; numbers; otherwise, lump all the numerator terms
-                     ;; together over the beat base.
-                     (my-fraction
-                      (if complex?
-                          (cons (apply + my-beat-structure) (/ my-beat-base))
-                          spec)))
+                      (calc-measure-length spec)))
                 (ly:context-set-property!
-                 context 'timeSignatureFraction my-fraction)
+                 context 'timeSignature spec)
                 (ly:context-set-property!
                  context 'beatBase my-beat-base)
                 (ly:context-set-property!
