@@ -517,7 +517,8 @@ error (using optionally @var{location})."
     ;; A Guile 1.x bug specific to optargs precludes moving the
     ;; defines out of the let
     (define (property? s)
-      (object-property s 'translation-type?))
+      (or (object-property s 'translation-type?)
+          (deprecated-translation-getter-description s)))
     (define (unspecial? s)
       (not (property? s)))
     (define (check c p) (c p))
