@@ -1280,7 +1280,7 @@ class Tuplet(Music_xml_spanner):
         tuplet_actual = self.get_maybe_exist_named_child('tuplet-actual')
         if tuplet_actual:
             tuplet_number = tuplet_actual.get_maybe_exist_named_child(
-                                'tuplet-number')
+                'tuplet-number')
             if tuplet_number:
                 color = getattr(tuplet_number, 'color', None)
                 font_size = getattr(tuplet_number, 'font-size', None)
@@ -1975,7 +1975,7 @@ class Part(Music_xml_node):
             if isinstance(n, (Measure,
                               Partial,
                               Barline)):
-                if id == None:
+                if id is None:
                     id = '1'
                 for i in assign_to_next_note:
                     voices[id].add_element(i)
@@ -2051,7 +2051,8 @@ class Part(Music_xml_node):
                             prev_offset_elem = prev_n.get_named_child('offset')
                             prev_offset = 0
                             if prev_offset_elem is not None:
-                                prev_offset = float(prev_offset_elem.get_text())
+                                prev_offset = float(
+                                    prev_offset_elem.get_text())
 
                             offset_elem = n.get_named_child('offset')
                             offset = 0
@@ -2091,7 +2092,7 @@ class Part(Music_xml_node):
 
         # Assign all remaining elements from `assign_to_next_note` to the
         # voice of the previous note (if any).
-        if id == None:
+        if id is None:
             id = '1'
         for i in assign_to_next_note:
             voices[id].add_element(i)

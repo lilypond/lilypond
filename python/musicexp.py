@@ -1533,11 +1533,11 @@ class ChordEvent(NestedMusic):
 
                 if have_substitution:
                     start = utilities.escape_ly_output_string(
-                                ''.join(fingerings[:-2]))
+                        ''.join(fingerings[:-2]))
                     left = utilities.escape_ly_output_string(
-                               fingerings[-2])
+                        fingerings[-2])
                     right = utilities.escape_ly_output_string(
-                                fingerings[-1])
+                        fingerings[-1])
                     fingering_events[0].type = (r'\substFinger %s %s %s'
                                                 % (start, left, right))
                 else:
@@ -3499,7 +3499,7 @@ class ChordNameEvent(Event):
             value = value + self.kind
         # If there are modifications, we need a `:` (plain major chords
         # don't have that).
-        if self.modifications and not ":" in value:
+        if self.modifications and ":" not in value:
             value += ":"
         # First print all additions and changes, then handle all
         # subtractions.
@@ -3848,14 +3848,14 @@ class HarmonicNoteEvent(NoteEvent):
             elements.append(r'\harmonicParen %.1f %.1f'
                             % self.harmonic_parentheses_tweaks())
 
-        if type(self.harmonic_type) == list:
+        if isinstance(self.harmonic_type, list):
             if 'small' in self.harmonic_type:
                 elements.append(r'\harmonicSmall')
             if 'parentheses' in self.harmonic_type:
                 elements.append(r'\parenthesize')
 
     def harmonic_post_note_ly(self, elements):
-        if type(self.harmonic_type) == list:
+        if isinstance(self.harmonic_type, list):
             if 'diamond' in self.harmonic_type:
                 elements.append(r'\harmonic')
         elif self.harmonic_visible:
@@ -4135,7 +4135,7 @@ class Clef_StaffLinesEvent(Music):
             default_lines = list(range(1, lines + 1))
             staff_lines = [e for e in default_lines
                            if e not in self.line_details
-                               or self.line_details[e] != 'no']
+                           or self.line_details[e] != 'no']
             if staff_lines != default_lines:
                 use_line_details = True
         if use_line_details:

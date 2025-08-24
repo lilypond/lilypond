@@ -82,7 +82,7 @@ import utilities
 # Load translation and install _() into Python's builtins namespace.
 gettext.install('lilypond', '@localedir@')
 
-import lilylib as ly
+import lilylib as ly  # nopep8
 
 lilypond_version = "@TOPLEVEL_VERSION@"
 
@@ -827,7 +827,7 @@ def group_repeats(music_list):
         times = 2
         if stop < len(music_list):
             stop_marker = music_list[stop]
-            if type(stop_marker) == conversion.RepeatMarker:
+            if type(stop_marker) == conversion.RepeatMarker:  # nopep8
                 times = stop_marker.times
                 if times == 1:
                     # We need special LilyPond support for this case.
@@ -875,8 +875,8 @@ def group_repeats(music_list):
 
             # Check the `number` attribute of the start and stop `<ending>`
             # elements.
-            volte_start = music_list[i].volte;
-            volte_stop = music_list[j].volte;
+            volte_start = music_list[i].volte
+            volte_stop = music_list[j].volte
             if volte_start:
                 volte = volte_start
             elif volte_stop:
@@ -1830,7 +1830,7 @@ def musicxml_attributes_to_lily(attrs):
     ]
     for (k, func) in attr_dispatch:
         f = None
-        if type(k) == tuple:
+        if isinstance(k, tuple):
             children1 = attrs.get_named_children(k[0])
             children2 = attrs.get_named_children(k[1])
             if children1 or children2:
@@ -2983,7 +2983,7 @@ def musicxml_direction_to_lily(n):
                         maybe_dashes_stop_index = n
                         if elem.paired_with is not None:
                             paired = elem.paired_with.spanner_event
-                            if type(paired) == musicexp.DynamicsSpannerEvent:
+                            if type(paired) == musicexp.DynamicsSpannerEvent:  # nopep8
                                 # Don't add `<words>` at the right of a
                                 # dynamics spanner.
                                 state = 'cresc-dim-stop'
@@ -4493,7 +4493,7 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
                             pass
 
                         try:
-                            if ev.start_stop == True:
+                            if ev.start_stop:
                                 voice_builder.add_last(ev)
                                 continue
                         except AttributeError:
@@ -5175,7 +5175,7 @@ def update_score_setup(score_structure, part_list, voices, parts):
 
     # Mark last (i.e., bottommost) `Staff` element.
     contents = score_structure.contents
-    while type(contents) == musicexp.StaffGroup:
+    while type(contents) == musicexp.StaffGroup:  # nopep8
         contents = contents.children[-1]
     contents.is_last_staff = True
 

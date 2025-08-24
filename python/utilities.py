@@ -21,6 +21,7 @@
 
 import re
 
+
 def escape_ly_output_string(input_string):
     return_string = input_string
     needs_quotes = not re.match("^[a-zA-ZäöüÜÄÖßñ]+$", return_string)
