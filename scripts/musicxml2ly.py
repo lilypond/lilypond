@@ -2573,6 +2573,10 @@ def musicxml_textmark_to_lily_event(elements):
     globvars.layout_information.set_context_item(
         'Score', r'\override TextMark.font-size = 2')
 
+    # TODO: `wait_for_note` returns `False` for this class, which means that
+    #       it gets emitted immediately.  However, at the end of music, we
+    #       should use `\textEndMark` instead so that it doesn't get ignored
+    #       by LilyPond.
     ev = musicexp.TextMarkEvent()
     ev.text_elements = elements
     return ev
@@ -3455,7 +3459,7 @@ class LilyPondVoiceBuilder(musicexp.Base):
             # Instead, do `<>^\markup{...} R1`.  Since it doesn't cause a
             # problem, we do this for the remaining pending elements also.
             if self.pending_elements:
-                self.add_pending_elements(True)
+                self.add_pending_elements(with_empty_chord=True)
 
             self.elements.append(self.multi_measure_ev_chord)
             self.multi_measure_count = 0
@@ -3471,9 +3475,23 @@ class LilyPondVoiceBuilder(musicexp.Base):
     def current_duration(self):
         return self.end_moment - self.begin_moment
 
-    def add_pending_elements(self, with_empty_chord=False):
+    def add_pending_elements(self,
+                             with_empty_chord=False, to_barline=False):
         if with_empty_chord:
             self.elements.append(musicexp.EmptyChord())
+        if to_barline:
+            # Elements right before a barline or before a measure end (in
+            # particular `<direction>`) are associated with the following
+            # bar line and not with the first note in the next bar.  We set
+            # the `to_barline` attribute for pending elements.
+            #
+            # TODO: Right now, only `HairpinEvent` fully supports this
+            #       attribute.  Other types (dynamics, words, etc.) use it
+            #       temporarily until a solution similar to handling
+            #       `<offset>` gets implemented, namely by moving the event
+            #       back in time a little bit.
+            for e in self.pending_elements:
+                e.to_barline = True
         self.elements.extend(self.pending_elements)
         self.pending_elements = []
 
@@ -3528,6 +3546,9 @@ class LilyPondVoiceBuilder(musicexp.Base):
         self.elements.append(command)
 
     def add_barline(self, barline, no_bar_number=True):
+        if self.pending_elements:
+            self.add_pending_elements(to_barline=True)
+
         # (Re)store `has_relevant_elements` so that a barline alone does not
         # trigger output for figured bass or chord names.
         has_relevant = self.has_relevant_elements
@@ -3870,13 +3891,9 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
             fretboards_builder.bar_number = num
 
             if voice_builder.pending_elements:
-                # This handles the corner case of having elements like
-                # `<direction>` between `<note>` and `<measure>`, and which
-                # already belong to the next bar.  Such elements should
-                # actually be aligned at the bar line (at least this is what
-                # other programs like Finale or MuseScore do); however, it
-                # is not worth the trouble to actually support that.
-                voice_builder.add_pending_elements(True)
+                # Elements emitted after the last `<note>` of a measure are
+                # to be aligned at or near the following bar line.
+                voice_builder.add_pending_elements(to_barline=True)
 
             if n.senza_misura_length:
                 is_senza_misura = True
@@ -4567,17 +4584,17 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
     # For getting a correct value in the last bar check comment.
     voice_builder.bar_number += 1
 
-    # Force trailing multi-measure rests and/or pending elements to be
-    # written out.
-    ce = musicexp.ChordEvent()
     if (voice_builder.multi_measure_rest is None
             and voice_builder.pending_elements):
         # We have elements that are positioned after the last `<note>`,
-        # i.e., after the music has finished.  To make LilyPond output them
-        # we need an 'anchor', so we append a skip with a very short length.
-        s = musicexp.SkipEvent()
-        s.duration.set_from_fraction(Fraction(1, 1024))
-        ce.append(s)
+        # i.e., after the music has finished.  Note that LilyPond skips
+        # items that actually need music in the next measure (which we don't
+        # have at the very end); for example, a 'p' dynamics gets discarded.
+        voice_builder.add_pending_elements(to_barline=True)
+
+    # Force trailing multi-measure rests and/or pending elements to be
+    # written out.
+    ce = musicexp.ChordEvent()
     voice_builder.add_music(ce, 0)
 
     ly_voice = group_tremolos(voice_builder.elements, tremolo_events)

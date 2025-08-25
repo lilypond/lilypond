@@ -2461,6 +2461,9 @@ class TieEvent(Event):
 
 
 class HairpinEvent(SpanEvent):
+    def __init__(self):
+        self.to_barline = False
+
     def set_span_type(self, type):
         self.span_type = {'crescendo': 1,
                           'decrescendo': -1,
@@ -2487,7 +2490,8 @@ class HairpinEvent(SpanEvent):
                     printer.dump(r'\tweak color %s' % color)
                 printer.dump('%s%s' % (self.direction_mod(), val))
             else:
-                printer.dump(val)
+                pre = '<>' if self.to_barline else ''
+                printer.dump('%s%s' % (pre, val))
 
 
 class DynamicsEvent(Event):
@@ -2496,6 +2500,7 @@ class DynamicsEvent(Event):
         self.type = None
         self.force_direction = 0
         self.font_size_scale = 1.0
+        self.to_barline = False
 
     def wait_for_note(self):
         return True
@@ -2506,6 +2511,12 @@ class DynamicsEvent(Event):
     def ly_expression(self):
         res = []
         if self.type:
+            # TODO: This is a temporary solution because LilyPond ignores a
+            #       dynamics symbol at the end of music with a warning.  A
+            #       solution similar to handling `<offset>` is needed.
+            if self.to_barline:
+                res.append('<>')
+
             color = color_to_ly(self.color)
             if color is not None:
                 res.append(r'\tweak color %s' % color)
@@ -2845,6 +2856,7 @@ class TextEvent(Event):
         Event.__init__(self)
         self.text_elements = None
         self.force_direction = None
+        self.to_barline = False
 
     def wait_for_note(self):
         r""" This is problematic: LilyPond markup like `^"text"` requires
@@ -2861,7 +2873,11 @@ class TextEvent(Event):
     def ly_expression(self):
         text_markup = text_to_ly(self.text_elements)
         if text_markup:
-            return r'%s\markup %s' % (self.direction_mod(), text_markup)
+            # TODO: This is a temporary solution because text at the end of
+            #       music silently disappears.  A solution similar to
+            #       handling `<offset>` is needed.
+            pre = '<>' if self.to_barline else ''
+            return r'%s%s\markup %s' % (pre, self.direction_mod(), text_markup)
         else:
             return ''
 
