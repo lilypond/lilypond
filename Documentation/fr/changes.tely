@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 7ac0dd1495161592599f5fdf9bb1233b3d588a02
+    Translation of GIT committish: e6b269e6daab5d6a85a6de713a8bd38c4bdc4fb4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -76,6 +76,9 @@ lancer @command{convert-ly}.}
 * New for specialist notation::
 * Miscellaneous improvements::
 @end menu
+
+
+@contents
 
 
 @node Major changes in LilyPond
@@ -988,6 +991,23 @@ altérations ont été ajoutées : @code{\text-doubleflat},
 @end lilypond
 
 @item
+La commande de @emph{markup} @code{\circle} accepte désormais une
+propriété @code{bbox}. Lorsque cette propriété est activée, la boîte
+englobant ses argument est utilisée pour définir le diamètre du cercle.
+
+@lilypond[verbatim,quote]
+\markup {
+  \circle {
+    \center-column { "court" "court" "très très long" }
+  }
+  \override #'(bbox . #t) \circle {
+    \center-column { "court" "court" "très très long" }
+  }
+}
+@end lilypond
+
+
+@item
 La commande @code{\tag} est désormais fonctionnelle dans les
 environnements @code{\markup}. De nouvelles commandes de @emph{markup}
 sont ajoutées pour filtrer (@code{\keep-with-tag} et
@@ -1214,6 +1234,14 @@ fonctionnelle pour des raisons de rétrocompatiblité -- si l'on charge
 @unnumbered Autres améliorations diverses
 
 @itemize
+
+@item
+La propriété de contexte @code{timeSignatureFraction} est déclarée
+obsolète, au profit de @code{timeSignature}. La nouvelle propriété
+accepte des métriques subdivisées ou alternatives, en plus des simples
+fractions jusqu'à présent prises en charge. Accéder à l'ancienne
+propriété résultera pour la nouvelle en une simle fraction et
+déclenchera un avertissement.
 
 @item
 @code{(make-music 'Music)} et @code{(make-music 'Event)} créent

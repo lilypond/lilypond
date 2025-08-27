@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
+   Translation of GIT committish: e6b269e6daab5d6a85a6de713a8bd38c4bdc4fb4
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1408,8 +1408,8 @@ de métrique correspondante :
 @enumerate
 
 @item
-@code{@var{timeSignature}}, une fraction indiquant la
-métrique pour laquelle ces valeurs doivent s'appliquer,
+@code{@var{timeSignature}}, une fraction indiquant la métrique pour
+laquelle ces valeurs doivent s'appliquer,
 
 @item
 @code{@var{beatBase}}, durée musicale correspondant à une unité de
@@ -2008,8 +2008,8 @@ que de manière détournée -- modification de l'indicateur de métrique et
 Il suffit, pour obtenir cette forme de notation, de tout d'abord
 affecter une même métrique aux différentes portées. Cette métrique sera
 ensuite remplacée dans chacune des portées par un quotient fourni en
-argument à la propriété @code{timeSignature}. La durée des notes
-sera enfin proratisée selon la métrique commune grâce à la fonction
+argument à la propriété @code{timeSignature}. La durée des notes sera
+enfin proratisée selon la métrique commune grâce à la fonction
 @code{\scaleDurations}.
 
 @cindex ligature et musique polymétrique
