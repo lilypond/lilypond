@@ -45,7 +45,7 @@ Copyright @copyright{} 1998--2023 por los autores.
 
 @menu
 * Musical notation::                Notación que se utiliza en casi todos los proyectos.
-* Specialist notation::          Notación que sólo se usa para cometidos específicos.
+* Specialist notation::          Notación que solo se usa para cometidos específicos.
 * General input and output::      Información general sobre la entrada y la salida de LilyPond.
 * Spacing issues::          Presentación del resultado en papel.
 * Changing defaults:: Ajuste fino del resultado.
