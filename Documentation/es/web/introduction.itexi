@@ -693,7 +693,7 @@ de viento, piano y percusión, que se interpretó en 2014 por parte
 de @emph{Muziektheater Hollands Diep}.
 
 Joe creó también las partituras de ensayo para coro, de la
-traducción holandesa del @emph{Saint Nicolas} de Benjamin Britten,
+traducción neerlandesa del @emph{Saint Nicolas} de Benjamin Britten,
 que se interpretó en 2011 por @emph{Muziektheater Hollands Diep},
 véase
 @uref{https://muziektheaterhollandsdiep.nl/?s=sint+nicolaas+leeft,www.muziektheaterhollandsdiep.nl}.
@@ -970,7 +970,7 @@ apareció en
 @item
 Octubre de 2004
 
-Los editores de Computer!Totaal, una revista holandesa de
+Los editores de Computer!Totaal, una revista neerlandesa de
 informática,
 @staticFile{media/computer-totaal.jpeg,describen a LilyPond}
 en la edición de octubre de 2004 como: @qq{Maravilloso software
@@ -1229,7 +1229,7 @@ instrucciones especiales se introducen mediante barras invertidas.
 
 Las alteraciones se hacen con nombres distintos: añada
 @w{@code{-is}} para obtener un sostenido, y @w{@code{-es}} para un
-bemol (son los nombres de las notas en holandés, pero están
+bemol (son los nombres de las notas en neerlandés, pero están
 disponibles otros idiomas).  LilyPond averigua dónde hay que
 imprimir las alteraciones.
 

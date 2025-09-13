@@ -824,6 +824,7 @@ música directamente.
 @morerefs
 Manual de extensión:
 @ref{LilyPond Scheme syntax}.
+@endmorerefs
 
 @node Input variables and Scheme
 @subsection Variables de entrada y Scheme

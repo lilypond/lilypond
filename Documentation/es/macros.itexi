@@ -12,6 +12,9 @@
 @include en/common-macros.itexi
 
 
+@hyphenation{Post-Script}
+
+
 @ignore
 ******************************************************
 See MACRO DEFINITION GUIDELINES in common-macros.itexi
@@ -62,35 +65,6 @@ See MACRO DEFINITION GUIDELINES in common-macros.itexi
 
 @end ifnothtml
 
-@c do not translate the following macro -- it is used in
-@c an untranslated manual.
-
-@ifhtml
-
-@macro advanced{TEXT}
-@html
-<div class="advanced">
-@end html
-@strong{Advanced note:} \TEXT\
-@c keep the space for proper nesting of </p>
-
-@html
-</div>
-@end html
-@end macro
-
-@end ifhtml
-
-@ifnothtml
-
-@macro advanced{TEXT}
-@quotation
-@b{Advanced note:} \TEXT\
-@end quotation
-@end macro
-
-@end ifnothtml
-
 
 @macro docMain
 @cartouche
@@ -102,6 +76,15 @@ Si le falta algún manual, encontrará toda la documentación en
 @w{@uref{https://@/lilypond@/.org/}}.
 @end cartouche
 @end macro
+
+
+@c Suppress the word 'Appendix' for `@appendix` entries in the
+@c table of contents.
+@tex
+\gdef\appentry#1#2#3#4{%
+  \retrievesecnowidth\secnowidthchap{#2}%
+  \dochapentry{#1}{#2}{#3}{#4}}
+@end tex
 
 
 @macro lilyTitlePage{TITLE}
@@ -210,13 +193,18 @@ Para la versión de LilyPond @version{}
 
 @macro morerefs
 @subsubheading Véase también
-@indent
+@c @ raggedright @c temporarily do not open an environment here, breaks doc build of Spanish docs until every file includes endmorerefs
+@end macro
+
+@macro endmorerefs
+@c @ end raggedright @c temporarily do nothing
 @end macro
 
 
 @macro knownissues
 @subsubheading Advertencias y problemas conocidos
 @end macro
+
 
 
 @c   ***** Links and references *****
@@ -229,6 +217,7 @@ Para la versión de LilyPond @version{}
 @c     @rinternals
 @c     @rlearning
 @c     @rlsr
+@c     @rlsrsnippet
 @c     @rprogram
 @c     @rnotation
 @c     @rchanges
@@ -247,6 +236,7 @@ Para la versión de LilyPond @version{}
 @ifnottex
 
 @c ** bigpage **
+
 
 @ifset bigpage
 

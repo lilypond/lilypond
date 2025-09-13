@@ -127,7 +127,7 @@ Glosario musical:
 
 LilyPond emplea letras minúsculas para las alturas.  Los nombres
 de nota en todos los ejemplos de esta sección usan la nomenclatura
-holandesa, en que las teclas blancas del piano van desde la c (Do)
+neerlandesa, en que las teclas blancas del piano van desde la c (Do)
 hasta la b (Si).  Sin embargo, LilyPond contempla muchos otros
 sistemas para los nombres de las notas, como el inglés o el @q{Do
 fijo} (do-re-mi-...).  Véase @rnotationnamed{Note names in other languages, Nombres de las notas en otros

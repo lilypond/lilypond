@@ -351,7 +351,7 @@ alturas.  Una nota sin alteración como@tie{}@code{c} significa
 @q{Do natural}, si que le afecten la armadura ni la clave.  Para
 ver más información, consulte @rlearningnamed{Pitches and key signatures, Alturas y armaduras}.}
 
-@cindex nota, nombres holandeses de
+@cindex nota, nombres neerlandeses de
 @cindex nota, nombres predeterminados
 @cindex predeterminado, nombres de nota
 @cindex sostenido
@@ -368,7 +368,7 @@ nombre de la nota, y un @notation{bemol} añadiendo @code{es}.
 Como es de esperar, un @notation{dobles sostenido} y un
 @notation{doble bemol} se obtiene añadiendo @code{isis} o
 @code{eses}.  Esta sintaxis deriva de los nombres de las notas en
-holandés.  Para utilizar otros nombres para las alteraciones,
+neerlandés.  Para utilizar otros nombres para las alteraciones,
 consulte @ref{Note names in other languages}.
 
 @lilypond[verbatim,quote,fragment]
@@ -575,7 +575,7 @@ alteraciones pueden también variar dependiendo del idioma:
 @end quotation
 
 
-En holandés, @code{aes} se contrae como @code{as}, pero las dos
+En neerlandés, @code{aes} se contrae como @code{as}, pero las dos
 formas se aceptan en LilyPond.  De forma similar, se aceptan tanto
 @code{es} como @code{ees}.  Esto se aplica también a
 @code{aeses}@tie{}/@tie{}@code{ases} y a
