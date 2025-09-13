@@ -17,15 +17,17 @@ Este archivo ofrece una introducción al programa LilyPond versión
 @version{}.
 @end macro
 
-@c `Learning Manual' was born 1998-08-14 with this commit:
+@c 'Learning Manual' was born 1998-08-14 with this commit:
 @c release: 1.0.2
 @c author: Han-Wen Nienhuys
 @c commit: a3a44f9f3c581b6824b3a65f9039656693e09bbf
 @c   file: Documentation/tex/tutorial.yo
 
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2023 por los autores.
+Copyright @copyright{} 1998--2023 por los autores.
 @end macro
+
+@c no dircategory nor direntry in Spanish
 
 @set FDL
 @include es/macros.itexi
@@ -58,10 +60,6 @@ Apéndices
 
 @c TOC - tex
 @contents
-
-@iftex
-@allowcodebreaks false
-@end iftex
 
 @c INCLUDES
 
