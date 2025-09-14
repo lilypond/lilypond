@@ -42,9 +42,9 @@
           - m4
           - ninja-build
           - perl
-          - python3.11
-          - python3.11-packaging
-          - python3.11-pip
+          - python3.12
+          - python3.12-packaging
+          - python3.12-pip
           - t1utils
           - texlive-kpathsea-bin
           - texlive-metafont-bin
