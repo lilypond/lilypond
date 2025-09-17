@@ -1166,6 +1166,7 @@ Note that number arguments to markup functions within a
 @morerefs
 Manual de Extensión:
 @rextendnamed{Scheme tutorial, Tutorial de Scheme}.
+@endmorerefs
 
 
 @node Appearance of objects
@@ -1476,7 +1477,6 @@ predefinidos, podemos especificar un código de color hexadecimal:
   g,8 a16 b8 c d4 e16 |
   e8
 }
-
 @end lilypond
 
 @noindent
@@ -1502,7 +1502,6 @@ whiteVar = "#FFFFFF"
 
 @cindex rgb, colores
 @cindex color, rgb
-
 @funindex rgb-color
 
 Otra manera de añadir colores a nuestra partitura es mediante el
@@ -2453,6 +2452,10 @@ siguiente el efecto de especificar @code{DOWN} y @code{UP}:
 }
 @end lilypond
 
+@funindex -
+@funindex ^
+@funindex _
+
 Sin embargo, la sobreescritura de la propiedad @code{direction} no
 es la forma más sencilla de especificar manualmente la digitación
 por encima o por debajo de las notas; suele ser preferible usar
@@ -2565,7 +2568,7 @@ probaremos @w{@code{-7}}:
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
-  \override Fingering.font-size = #-7
+  \override Fingering.font-size = -7
   \set fingeringOrientations = #'(left)
   <f'-2>4
   <c-1 e-2 g-3 b-5>4
@@ -2675,24 +2678,24 @@ algunos de ellos.
 @cindex bound-details, propiedad, ejemplo
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-% Set details for later Text Spanner
-\override TextSpanner.bound-details.left.text
-    = \markup { \small \bold Slower }
-% Place dynamics above staff
+% set details for later TextSpanner
+\override TextSpanner.bound-details.left.text =
+  \markup { \small \bold Slower }
+% place dynamics above staff
 \dynamicUp
-% Start Ottava Bracket
-\ottava #1
+% start ottava bracket
+\ottava 1
 c''4 \startTextSpan
-% Add Dynamic Text and hairpin
+% add dynamic text and hairpin
 c''4\pp\<
 c''4
-% Add Text Script
+% add text script
 c''4^Text |
 c''4 c''
-% Add Dynamic Text and terminate hairpin
+% add dynamic text and terminate hairpin
 c''4\ff c'' \stopTextSpan |
-% Stop Ottava Bracket
-\ottava #0
+% stop ottava bracket
+\ottava 0
 c'4 c' c' c' |
 @end lilypond
 
@@ -2728,27 +2731,27 @@ crea dentro del contexto de @code{Staff}:
 @cindex bound-details, propiedad, ejemplo
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-% Set details for later Text Spanner
-\override TextSpanner.bound-details.left.text
-    = \markup { \small \bold Slower }
-% Place dynamics above staff
+% set details for later text spanner
+\override TextSpanner.bound-details.left.text =
+  \markup { \small \bold Slower }
+% place dynamics above staff
 \dynamicUp
-% Place following Ottava Bracket below Text Spanners
-\once \override Staff.OttavaBracket.outside-staff-priority = #340
-% Start Ottava Bracket
-\ottava #1
+% place following ottava bracket below text spanners
+\once \override Staff.OttavaBracket.outside-staff-priority = 340
+% start ottava bracket
+\ottava 1
 c''4 \startTextSpan
-% Add Dynamic Text
+% add dynamic text
 c''4\pp
-% Add Dynamic Line Spanner
+% add dynamic line spanner
 c''4\<
-% Add Text Script
+% add text script
 c''4^Text |
 c''4 c''
-% Add Dynamic Text
+% add dynamic text
 c''4\ff c'' \stopTextSpan |
-% Stop Ottava Bracket
-\ottava #0
+% stop ottava bracket
+\ottava 0
 c'4 c' c' c' |
 @end lilypond
 
@@ -2785,7 +2788,7 @@ aquí un ejemplo que muestra el efecto de los dos métodos:
     \once \override TextScript.avoid-slur = #'inside
     \once \override TextScript.outside-staff-priority = ##f
     c4^\markup { \tiny \sharp } d4.) c8 |
-  \once \override Slur.outside-staff-priority = #500
+  \once \override Slur.outside-staff-priority = 500
     c4( c^\markup { \tiny \sharp } d4.) c8 |
 }
 @end lilypond
@@ -2806,7 +2809,7 @@ la prioridad de @qq{Text3} hasta un valor superior:
 @lilypond[quote,fragment,ragged-right,verbatim]
 c''2^"Text1"
 c''2^"Text2" |
-\once \override TextScript.outside-staff-priority = #500
+\once \override TextScript.outside-staff-priority = 500
 c''2^"Text3"
 c''2^"Text4" |
 @end lilypond
@@ -3059,10 +3062,10 @@ funciona.
       }
     }
     \new Lyrics \with {
-      \override VerticalAxisGroup.
-        nonstaff-relatedstaff-spacing.padding = #5
-      \override VerticalAxisGroup.
-        nonstaff-unrelatedstaff-spacing.padding = #5
+      \override VerticalAxisGroup
+                .nonstaff-relatedstaff-spacing.padding = 5
+      \override VerticalAxisGroup
+                .nonstaff-unrelatedstaff-spacing.padding = 5
     }
     \lyricsto "music" {
       Here are some lyrics
@@ -3099,8 +3102,8 @@ del @code{staffgroup-staff-spacing}.
 @lilypond[quote,fragment,ragged-right,verbatim]
 <<
   \new ChoirStaff \with {
-    \override StaffGrouper.
-      staffgroup-staff-spacing.basic-distance = #15
+    \override StaffGrouper
+              .staffgroup-staff-spacing.basic-distance = 15
   }
   <<
     \new Staff {
@@ -3109,10 +3112,10 @@ del @code{staffgroup-staff-spacing}.
       }
     }
     \new Lyrics \with {
-      \override VerticalAxisGroup.
-        nonstaff-relatedstaff-spacing.padding = #2
-      \override VerticalAxisGroup.
-        nonstaff-unrelatedstaff-spacing.padding = #2
+      \override VerticalAxisGroup
+                .nonstaff-relatedstaff-spacing.padding = 2
+      \override VerticalAxisGroup
+                .nonstaff-unrelatedstaff-spacing.padding = 2
     }
     \lyricsto "music" {
       Here are some lyrics
@@ -3143,8 +3146,8 @@ muestra a continuación.
 @lilypond[quote,fragment,ragged-right,verbatim]
 <<
   \new ChoirStaff \with {
-    \override StaffGrouper.
-      staffgroup-staff-spacing.basic-distance = #15
+    \override StaffGrouper
+              .staffgroup-staff-spacing.basic-distance = 15
   }
   <<
     \new Staff {
@@ -3153,10 +3156,10 @@ muestra a continuación.
       }
     }
     \new Lyrics \with {
-      \override VerticalAxisGroup.
-        nonstaff-relatedstaff-spacing.padding = #2
-      \override VerticalAxisGroup.
-        nonstaff-unrelatedstaff-spacing.padding = #2
+      \override VerticalAxisGroup
+                .nonstaff-relatedstaff-spacing.padding = 2
+      \override VerticalAxisGroup
+                .nonstaff-unrelatedstaff-spacing.padding = 2
     }
     \lyricsto "music" {
       Here are some lyrics
@@ -3166,9 +3169,9 @@ muestra a continuación.
     }
   >>
   \new PianoStaff \with {
-    \override StaffGrouper.staff-staff-spacing = #'(
-                            (basic-distance . 0)
-                            (padding . 0))
+    \override StaffGrouper.staff-staff-spacing =
+                #'((basic-distance . 0)
+                   (padding . 0))
   }
   <<
     \new Staff {
@@ -3521,7 +3524,7 @@ las notas.
 
 @lilypond[quote,fragment,verbatim]
 c'2\fermata
-\override Script.padding = #3
+\override Script.padding = 3
 b2\fermata
 @end lilypond
 
@@ -3530,11 +3533,11 @@ b2\fermata
 
 @lilypond[quote,fragment,verbatim]
 % This will not work, see below
-\override MetronomeMark.padding = #3
+\override MetronomeMark.padding = 3
 \tempo 4 = 120
 c'1 |
 % This works
-\override Score.MetronomeMark.padding = #3
+\override Score.MetronomeMark.padding = 3
 \tempo 4 = 80
 d'1 |
 @end lilypond
@@ -3574,31 +3577,17 @@ marcado que contenga los símbolos deseados, así:
 
 
 @lilypond[quote,ragged-right,verbatim]
-sesquisharp = \markup { \sesquisharp }
-\relative {
-  c''4
-  % This prints a sesquisharp but the spacing is too small
-  \once \override Accidental.stencil = #ly:text-interface::print
-  \once \override Accidental.text = #sesquisharp
-  cis4 c
-  % This improves the spacing
-  \once \override Score.AccidentalPlacement.right-padding = #0.6
-  \once \override Accidental.stencil = #ly:text-interface::print
-  \once \override Accidental.text = #sesquisharp
-  cis4 |
+\relative c' {
+  cis8[ dis eis fis gis ais bis cis]
+}
+
+\relative c' {
+  % move accents nearer to note heads
+  \override Score.AccidentalPlacement.right-padding = -0.1
+  cis8[ dis eis fis gis ais bis cis]
 }
 @end lilypond
 
-@noindent
-Esto utiliza necesariamente una sobreescritura para el sello de la
-alteración que no se estudiará hasta más adelante.  El tipo de
-sello debe ser un procedimiento, aquí modificado para que imprima
-el contenido de la propiedad @code{text} del objeto
-@code{Accidental}, que a su vez está establecido como un signo de
-sesquisostenido.  Entonces el signo se puede separar de la cabeza
-de la nota sobreescribiendo @code{right-padding}.
-
-@noindent
 
 @node The staff-padding property
 @unnumberedsubsubsec La propiedad @code{staff-padding} (relleno de pentagrama)
@@ -3622,7 +3611,7 @@ las indicaciones de matiz en el ejemplo de la sección anterior:
 @cindex staff-padding, propiedad, ejemplo
 
 @lilypond[quote,fragment,ragged-right,verbatim]
-\override DynamicLineSpanner.staff-padding = #3
+\override DynamicLineSpanner.staff-padding = 3
 \relative { a'4\f b\mf a\p b\mp }
 @end lilypond
 
@@ -3677,7 +3666,7 @@ pentagrama, al valor @w{@code{-10}}.
 <<
   \relative { c'4 c c c }
   \\
-  \override MultiMeasureRest.staff-position = #-10
+  \override MultiMeasureRest.staff-position = -10
   { R1 }
 >>
 @end lilypond
@@ -3918,7 +3907,7 @@ y el pedal.
 rhMusic = \relative {
   \new Voice {
     r2 c''4.\( g8 |
-    \once \override Tie.staff-position = #3.5
+    \once \override Tie.staff-position = 3.5
     bes1~ |
     \bar "||"
     \time 6/4
@@ -4216,7 +4205,7 @@ al final, dando como resultado:
 rhMusic = \relative {
   \new Voice {
     r2 c''4.\( g8 |
-    \once \override Tie.staff-position = #3.5
+    \once \override Tie.staff-position = 3.5
     bes1~ |
     \bar "||"
     \time 6/4
@@ -4291,7 +4280,7 @@ interfiera con los dos Re.  Al aplicar estos cambios obtenemos:
 rhMusic = \relative {
   \new Voice {
     r2 c''4.\( g8 |
-    \once \override Tie.staff-position = #3.5
+    \once \override Tie.staff-position = 3.5
     bes1~ |
     \bar "||"
     \time 6/4
@@ -4362,7 +4351,7 @@ transparente, y movemos el Do con la propiedad
 rhMusic = \relative {
   \new Voice {
     r2 c''4.\( g8 |
-    \once \override Tie.staff-position = #3.5
+    \once \override Tie.staff-position = 3.5
     bes1~ |
     \bar "||"
     \time 6/4
@@ -4476,6 +4465,7 @@ voz, da la impresión de que la ligadura se cruza entre las voces:
 Manual de aprendizaje
 @ref{The once prefix},
 @ref{The stencil property}.
+@endmorerefs
 
 
 @node Simulating a fermata in MIDI
@@ -4557,6 +4547,8 @@ sello suprimido) no lo hace.
 @morerefs
 Glosario musical:
 @rglos{system}.
+@endmorerefs
+
 
 @node Using variables for layout adjustments
 @subsection Uso de variables para los ajustes de disposición
@@ -4675,7 +4667,7 @@ tienen todos los @code{#()}.  Esto se explicará en @ref{Advanced tweaks with Sc
 
 @lilypond[quote,verbatim,ragged-right]
 mpdolce =
-  \tweak self-alignment-X #-0.6
+  \tweak self-alignment-X -0.6
   #(make-dynamic-script
     #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
 
@@ -4735,7 +4727,7 @@ este archivo como @file{musica.ly}).
   \tempo 4=50
   a'4.\mpdolce d8 cis4--\glissando a |
   b4 bes a2 |
-  \inst "Clarinete"
+  \inst "Clarinet"
   cis4.\< d8 e4 fis |
   g8(\! fis)-. e( d)-. cis2 |
 @}
@@ -4743,7 +4735,7 @@ este archivo como @file{musica.ly}).
 
 @lilypond[quote,ragged-right]
 mpdolce =
-  \tweak self-alignment-X #-0.6
+  \tweak self-alignment-X -0.6
   #(make-dynamic-script
     #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
 
@@ -4776,7 +4768,7 @@ Sustituyamos nuestro archivo @file{definiciones.ily} con éste:
 @example
 %%%  definiciones.ily
 mpdolce =
-  \tweak self-alignment-X #-0.6
+  \tweak self-alignment-X -0.6
   #(make-dynamic-script
     #@{ \markup @{ \dynamic mp \normal-text \italic \bold dolce @} #@})
 
@@ -4790,23 +4782,23 @@ inst =
   \context @{
     \Score
     \override MetronomeMark.extra-offset = #'(-5 . 0)
-    \override MetronomeMark.padding = #'3
+    \override MetronomeMark.padding = 3
   @}
   \context @{
     \Staff
-    \override TimeSignature.style = #'numbered
+    \numericTimeSignature
   @}
   \context @{
     \Voice
-    \override Glissando.thickness = #3
-    \override Glissando.gap = #0.1
+    \override Glissando.thickness = 3
+    \override Glissando.gap = 0.1
   @}
 @}
 @end example
 
 @lilypond[quote,ragged-right]
 mpdolce =
-  \tweak self-alignment-X #-0.6
+  \tweak self-alignment-X -0.6
   #(make-dynamic-script
     #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
 
@@ -4820,16 +4812,16 @@ inst =
   \context {
     \Score
     \override MetronomeMark.extra-offset = #'(-5 . 0)
-    \override MetronomeMark.padding = #'3
+    \override MetronomeMark.padding = 3
   }
   \context {
     \Staff
-    \override TimeSignature.style = #'numbered
+    \numericTimeSignature
   }
   \context {
     \Voice
-    \override Glissando.thickness = #3
-    \override Glissando.gap = #0.1
+    \override Glissando.thickness = 3
+    \override Glissando.gap = 0.1
   }
 }
 
@@ -4854,7 +4846,7 @@ pantalla, también vamos a aumentar el tamaño general de la salida.
 @example
 %%%  publicar-web.ily
 mpdolce =
-  \tweak self-alignment-X #-0.6
+  \tweak self-alignment-X -0.6
   #(make-dynamic-script
     #@{ \markup @{ \dynamic mp \normal-text \italic \bold dolce @} #@})
 
@@ -4870,22 +4862,22 @@ inst =
   \context @{
     \Score
     \override MetronomeMark.extra-offset = #'(-5 . 0)
-    \override MetronomeMark.padding = #'3
+    \override MetronomeMark.padding = 3
   @}
   \context @{
     \Staff
   @}
   \context @{
     \Voice
-    \override Glissando.thickness = #3
-    \override Glissando.gap = #0.1
+    \override Glissando.thickness = 3
+    \override Glissando.gap = 0.1
   @}
 @}
 @end example
 
 @lilypond[quote,ragged-right]
 mpdolce =
-  \tweak self-alignment-X #-0.6
+  \tweak self-alignment-X -0.6
   #(make-dynamic-script
     #{ \markup { \dynamic mp \normal-text \italic \bold dolce } #})
 
@@ -4900,11 +4892,11 @@ inst =
 \layout{
   \context { \Score
     \override MetronomeMark.extra-offset = #'(-5 . 0)
-    \override MetronomeMark.padding = #'3
+    \override MetronomeMark.padding = 3
   }
   \context { \Voice
-    \override Glissando.thickness = #3
-    \override Glissando.gap = #0.1
+    \override Glissando.thickness = 3
+    \override Glissando.gap = 0.1
   }
 }
 
@@ -5076,6 +5068,8 @@ archivos (véase @rextendnamed{Scheme tutorial, Tutorial de Scheme}).
 Si ya tiene estos conocimientos, los archivos de Scheme que pueden
 interesarle son:
 
+@indentedblock
+@raggedright
 @multitable @columnfractions .4 .6
 @headitem Archivo
   @tab Contenido
@@ -5094,6 +5088,8 @@ interesarle son:
 @item @file{scm/script.scm}
   @tab Ajustes predeterminados para las articulaciones
 @end multitable
+@end raggedright
+@end indentedblock
 
 
 @node Advanced tweaks with Scheme
