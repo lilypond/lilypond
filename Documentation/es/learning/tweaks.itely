@@ -107,7 +107,7 @@ gestionan a otros objetos gráficos.  Los ejemplos usuales son
 @code{NonMusicalPaperColumn}.  Más tarde veremos cómo
 se usan algunos de ellos.
 
-Aún falta por explicar qué son los @dfn{Interfaces}.  Muchos
+Aún falta por explicar qué son las @dfn{Interfaces}.  Muchos
 objetos, incluso aunque son bastante diferentes, comparten
 funcionalidades que se deben procesar de la misma manera.  Por
 ejemplo, todos los objetos gráficos tienen un color, un tamaño,
@@ -115,10 +115,10 @@ una posición, etc., y todas estas propiedades se procesan de la
 misma forma durante la interpretación del archivo de entrada por
 parte de LilyPond.  Para simplificar estas operaciones internas,
 estas acciones y propiedades comunes se agrupan en un objeto
-llamado @code{grob-interface}, interface de grob.  Hay muchas
+llamado @code{grob-interface}, interfaz de grob.  Hay muchas
 otras agrupaciones de propiedades comunes como ésta, y cada una
 recibe un nombre que acaba en @code{interface}.  En total hay más
-de 100 interfaces de éstos.  Veremos más adelante porqué esto es
+de 100 interfaces de éstas.  Veremos más adelante porqué esto es
 del interés y de utilidad para el usuario.
 
 Estos son, en fin, los términos principales relativos a los
@@ -567,13 +567,12 @@ Referencia de la notación:
 @rnotation{The offset command}
 @endmorerefs
 
-@c Hasta aquí
 
 @node The single prefix
 @unnumberedsubsubsec El prefijo @code{\single}
 
 @funindex \single
-@cindex truco, generado a partir de una sobreescritura
+@cindex truco, generado a partir de @code{\override}
 
 Supongamos que queremos enfatizar la cabeza de algunas notas
 trazándolas de color e incrementando su tamaño, y supongamos
@@ -631,17 +630,21 @@ Manual de aprendizaje:
 @node The Internals Reference manual
 @section Manual de referencia de funcionamiento interno
 
-@cindex Referencia de funcionamiento interno
+@cindex Referencia de Funcionamiento Interno
+
+The @dfn{Internals Reference} manual (IR) is the ultimate answer
+to LilyPond's configurability.  To understand how it can be used,
+however, you need a bunch of information that has not yet been
+presented, and which follows in the next subsections.
 
 
 @node Properties of layout objects
 @subsection Propiedades de los objetos de presentación
 
-@cindex propiedades de los objetos de presentación
-@cindex propiedades de los grobs
-@cindex grobs, propiedades de
+@cindex propiedad, de un objeto de presentación
+@cindex propiedad, de un grob
+@cindex grob, propiedades de un
 @cindex presentación, propiedades de los objetos de
-@cindex Referencia de funcionamiento interno
 
 Suponga que tiene una partitura con una ligadura de expresión que
 para su gusto es demasiado fina y quiere trazarla un poco más
@@ -666,6 +669,7 @@ referencia de funcionamiento interno por sí mismo con tan sólo
 algo de práctica.
 
 @cindex sobreescritura, ejemplo de
+@cindex @code{\override}, ejemplo de
 @cindex Referencia de Funcionamiento Interno, ejemplo de utilización
 @cindex @code{\addlyrics}, ejemplo
 
@@ -713,7 +717,7 @@ información sobre los objetos de presentación.  Una vez allí, bajo
 el encabezamiento @strong{Backend}, siga el enlace @emph{All
 layout objects}.  La página que aparece relaciona todos los
 objetos de presentación que se usan en su versión de LilyPond, en
-orden alfabético.  Siga el enlace Slur (ligadura de expresión), y
+orden alfabético.  Siga el enlace @code{Slur} (ligadura de expresión), y
 aparecerán relacionadas las propiedades de las ligaduras de
 expresión o Slurs.
 
@@ -726,21 +730,20 @@ del objeto de presentación que pretende trucar, le resultará más
 fácil ir directamente al RFI y buscar allí.
 
 Esta página sobre las ligaduras de expresión dentro del manual RFI
-nos dice en primer lugar que los objetos Slur se crean por el
-grabador Slur_engraver.  A continuación relaciona los ajustes
-estándar.  Navegue por ellos buscando una propiedad que pudiera
-controlar el grosor de las ligaduras, y encontrará
+nos dice en primer lugar que los objetos @code{Slur} se crean por el grabador @code{Slur_engraver}.  A continuación relaciona los ajustes estándar.  Navegue por ellos buscando una propiedad que pudiera controlar el grosor de las ligaduras, y encontrará
 
 @example
 thickness (number)
-     1.2
-     Line thickness, generally measured in line-thickness
+    1.2
+    [...] For slurs and ties, this is the distance between the two
+    arcs of the curve's outline at its thickest point, [...]  This
+    property is expressed as a multiple of the current staff-line
+    thickness [...]
 @end example
 
 Esto promete ser una buena opción para cambiar el grosor.  Nos
 dice que el valor de @code{thickness} es un simple @emph{número},
-que el valor predeterminado es 1.2, y que las unidades están
-dentro de otra propiedad llamada @code{line-thickness}.
+que el valor predeterminado es 1.2, y este valor depende del grosor de las líneas del pentagrama, lo que significa (más o menos) que los pentagramas de tamaño menor tienen ligaduras más delgadas también.
 
 Como dijimos con anterioridad, existen entre pocas y ninguna
 explicación en el RFI, pero ya tenemos información suficiente para
@@ -758,19 +761,16 @@ principio, para estar seguros de que la instrucción está
 funcionando.  Obtenemos lo siguiente:
 
 @example
-\override Slur.thickness = #5.0
+\override Slur.thickness = 5.0
 @end example
-
-¡No olvide el @code{#'} antes del nombre de la propiedad
-y@tie{}@code{#} antes del valor nuevo!
 
 La pregunta final es @q{¿Dónde se debe colocar esta instrucción?}
 Aunque nos falta seguridad y estamos todavía aprendiendo, la mejor
 respuesta es: @q{Dentro de la música, antes de la primera ligadura
 y cerca de ella.}  Hagámoslo así:
 
-@cindex Slur, ejemplo de sobreescritura
-@cindex thickness, propiedad, ejemplo
+@cindex @code{Slur}, ejemplo de sobreescritura
+@cindex @code{thickness}, propiedad, ejemplo
 
 @lilypond[quote,verbatim]
 {
@@ -778,7 +778,7 @@ y cerca de ella.}  Hagámoslo así:
   \time 6/8
   \relative {
     % Increase thickness of all following slurs from 1.2 to 5.0
-    \override Slur.thickness = #5.0
+    \override Slur.thickness = 5.0
     r4 bes'8 bes[( g]) g |
     g8[( es]) es d[( f]) as |
     as8 g
@@ -807,17 +807,17 @@ vienen a continuación.
 
 Pero en primer lugar ¿qué habría pasado si hubiésemos tenido que
 especificar el contexto? ¿Cuál sería?  Podemos suponer que las
-ligaduras están en el contexto de Voz, por estar claramente
+ligaduras están en el contexto @code{Voice}, por estar claramente
 asociados de manera estrecha con las líneas individuales de
 música, pero ¿podemos estar seguros?  Para averiguarlo, vayamos de
 nuevo al inicio de la página del RFI que describe las ligaduras
-(Slur), donde dice @q{Slur objects are created by the following engraver(s): Slur_engraver.}
+(@code{Slur}), donde dice @q{Slur objects are created by the following engraver(s): @code{Slur_engraver}.}
 («Los objetos de ligadura de expresión se crean por: el grabador
-Slur»).  Así pues, las ligaduras de expresión se crean en
+@code{Slur_engraver}»).  Así pues, las ligaduras de expresión se crean en
 cualquier contexto en el que se encuentre el grabador
 @code{Slur_engraver}.  Siga el enlace a la página del grabador
 @code{Slur_engraver}.  Al final del todo, dice que el grabador
-@code{Slur_engraver} es parte de siete contextos de voz, incluido
+@code{Slur_engraver} es parte de diez contextos de voz, incluido
 el contexto de voz estándar, @code{Voice}, por lo que nuestra
 suposición era acertada.  Y a causa de que @code{Voice} es uno de
 los contextos de más bajo nivel que se encuentra implícito sin
@@ -827,7 +827,7 @@ omitirlo en este lugar concreto.
 @subsubsubheading Sobreescritura por una sola vez
 
 @cindex sobreescritura por una sola vez
-@cindex once override
+@cindex @code{\once} @code{\override}
 
 @funindex \once
 
@@ -843,8 +843,8 @@ hasta que se encuentre alguna ligadura, sino que simplemente se
 ignora.  Así pues, la instrucción que lleva @code{\once} se debe
 reposicionar de la forma siguiente:
 
-@cindex Slur, ejemplo de sobreescritura
-@cindex thickness, propiedad, ejemplo
+@cindex @code{Slur}, ejemplo de sobreescritura
+@cindex @code{thickness}, propiedad, ejemplo
 
 @lilypond[quote,verbatim]
 {
@@ -853,7 +853,7 @@ reposicionar de la forma siguiente:
   \relative {
     r4 bes'8
     % Increase thickness of immediately following slur only
-    \once \override Slur.thickness = #5.0
+    \once \override Slur.thickness = 5.0
     bes8[( g]) g |
     g8[( es]) es d[( f]) as |
     as8 g
@@ -871,6 +871,21 @@ gruesa.
 La instrucción o prefijo @code{\once} también se puede usar antes
 de la instrucción @code{\set}.
 
+An alternative to @code{\once \override} is to use the
+@code{\tweak} command; you get the same result if you replace
+
+@example
+\once \override Slur.thickness = 5.0
+bes8[(
+@end example
+
+@noindent
+in the previous example with
+
+@example
+bes8[\tweak thickness 5.0 (
+@end example
+
 @subsubsubheading Recuperación del ajuste
 
 @cindex revertir
@@ -884,8 +899,8 @@ instrucciones, cada una de ellas precedida por el prefijo
 @code{\once}, situadas inmediatamente antes de cada una de las
 notas en que comienzan las ligaduras:
 
-@cindex Slur, ejemplo de sobreescritura
-@cindex thickness, propiedad, ejemplo
+@cindex @code{Slur}, ejemplo de sobreescritura
+@cindex @code{thickness}, propiedad, ejemplo
 
 @lilypond[quote,verbatim]
 {
@@ -894,10 +909,10 @@ notas en que comienzan las ligaduras:
   \relative {
     r4 bes'8
     % Increase thickness of immediately following slur only
-    \once \override Slur.thickness = #5.0
+    \once \override Slur.thickness = 5.0
     bes[( g]) g |
     % Increase thickness of immediately following slur only
-    \once \override Slur.thickness = #5.0
+    \once \override Slur.thickness = 5.0
     g8[( es]) es d[( f]) as |
     as8 g
   }
@@ -913,8 +928,8 @@ la instrucción @code{\revert} (restablecer) para devolver la
 propiedad del grosor, @code{thickness}, a su valor predeterminado
 después de la segunda ligadura:
 
-@cindex Slur, ejemplo de sobreescritura
-@cindex thickness, propiedad, ejemplo
+@cindex @code{Slur}, ejemplo de sobreescritura
+@cindex @code{thickness}, propiedad, ejemplo
 
 @lilypond[quote,verbatim]
 {
@@ -923,7 +938,7 @@ después de la segunda ligadura:
   \relative {
     r4 bes'8
     % Increase thickness of all following slurs from 1.2 to 5.0
-    \override Slur.thickness = #5.0
+    \override Slur.thickness = 5.0
     bes[( g]) g |
     g8[( es]) es
     % Revert thickness of all following slurs to default of 1.2
@@ -952,11 +967,11 @@ extraer información de él.  Estos ejemplos irán conteniendo cada
 vez menos palabras de guía y explicación.
 
 @node Properties found in interfaces
-@subsection Propiedades de los interfaces
+@subsection Propiedades de las interfaces
 
-@cindex interface
-@cindex propiedades de los interfaces
-@cindex interfaces, propiedades
+@cindex interfaz
+@cindex propiedad, de las interfaces
+@cindex interfaz, propiedades
 
 Suponga ahora que queremos imprimir la letra de la canción en
 cursiva.  ¿Qué forma de instrucción @code{\override} necesitamos
@@ -970,31 +985,29 @@ nada que pudiera aplicar una forma cursiva.  Esto es porque la
 propiedad de la forma es común a todos los objetos de fuente
 tipográfica, y por tanto, en vez de incluirlo en cada uno de los
 objetos de presentación, se agrupa junto con otras propiedades
-comunes similares y se deposita en un @strong{Interface}, el
-interface de las fuentes tipográficas @code{font-interface}.
+comunes similares y se deposita en una @strong{Interfaz}, la
+interfaz de las fuentes tipográficas @code{font-interface}.
 
 Por tanto, ahora necesitamos aprender cómo encontrar las
-propiedades de los interfaces, y descubrir qué objetos usan estas
-propiedades de interface.
+propiedades de las interfaces, y descubrir qué objetos usan estas
+propiedades de interfaz.
 
-Mire de nuevo la página del RFI que describe a LyricText.  Al
-final de la página hay una lista de enlaces a los interfaces que
-LyricText contempla.  La lista tiene siete elementos, entre ellos
+Mire de nuevo la página del RFI que describe a @code{LyricText}.  Al
+final de la página hay una lista de enlaces a las interfaces que
+@code{LyricText} contempla.  La lista tiene siete elementos, entre ellos
 @code{font-interface}.  Al seguir este enlace llegamos a las
-propiedades asociadas con este interface, que también son
+propiedades asociadas con esta interfaz, que también son
 propiedades de todos los objetos que lo llevan, entre ellos
-LyricText.
+@code{LyricText}.
 
 Ahora vemos todas las propiedades ajustables por el usuario que
-controlan las tipografías, entre ellas @code{font-shape(symbol)},
-donde @code{symbol} se puede establecer a @code{upright} (recta),
-@code{italics} (cursiva)o @code{caps} (mayúsculas pequeñas).
+controlan las tipografías, entre ellas @q{@code{font-shape} (symbol)}.  El valor entre paréntesis da el tipo de variable que se espera por parte de la propiedad; en este caso es un sýmbolo (de Scheme).  El manual documenta también los valores posibles, que son @code{upright} (recta), @code{italics} (cursiva) o @code{slanted} (inclinada).
 
 Observará que @code{font-series} y @code{font-size} también se
 encuentran aquí relacionadas.  Esto inmediatamente hace que surja
 la pregunta: ¿Por qué están las propiedades comunes de tipografía
 @code{font-series} y @code{font-size} relacionadas bajo
-@code{LyricText} así como bajo el interface @code{font-interface}
+@code{LyricText} así como bajo la interfaz @code{font-interface}
 pero @code{font-shape} no lo está?  La respuesta es que
 @code{font-series} y @code{font-size} se cambian a partir de sus
 valores predeterminados globales cuando se crea un objeto
@@ -1011,7 +1024,7 @@ Igual que antes, omitiremos el contexto.
 
 Como nota aparte, aunque es importante, observe que ciertas
 propiedades toman valores que son símbolos, como @code{italic}, y
-deben ir precedidos de un apóstrofo, @code{'}.  Los símbolos se
+deben ir precedidos de un apóstrofo, @samp{'}.  Los símbolos se
 leen a continuación internamente por parte de LilyPond.  Tenga en
 cuenta la diferencia con las cadenas de texto arbitrarias, que
 aparecerían como @code{"una cadena de texto"}; para ver más
@@ -1029,9 +1042,9 @@ la letra en cursiva, es:
 Esto debe escribirse justo delante de la letra a la que debe
 afectar, de esta forma:
 
-@cindex font-shape, propiedad, ejemplo
+@cindex @code{font-shape}, propiedad, ejemplo
 @cindex italic, ejemplo
-@cindex LyricText, ejemplo de sobreescritura
+@cindex @code{LyricText}, ejemplo de sobreescritura
 @cindex @code{\addlyrics}, ejemplo
 
 @lilypond[quote,ragged-right,verbatim]
@@ -1060,76 +1073,94 @@ final y la llave de cierre.}
 @morerefs
 Manual de Extensión:
 @rextendnamed{Scheme tutorial, Tutorial de Scheme}.
+@endmorerefs
 
 
 @node Types of properties
 @subsection Tipos de propiedades
 
-@cindex propiedades, tipos de
+@cindex propiedad, tipos de
+@cindex @code{#t} (true. Verdadero)
+@cindex @code{#f} (false. Falso)
+@cindex true (@code{#t}, verdadero)
+@cindex false (@code{#f}, falso)
+@cindex Scheme, expresiones (@code{#})
+@cindex @code{#}, expresiones de Scheme
 
-Hasta ahora hemos visto dos tipos de propiedad:: @code{número} y
-@code{símbolo}.  Para que sea válido, el valor que se da a una
+Hasta ahora hemos visto dos tipos de propiedad:: @q{número} y
+@q{símbolo}.  Para que sea válido, el valor que se da a una
 propiedad debe ser del tipo correcto y obedecer las reglas de
 dicho tipo.  El tipo de la propiedad se muestra siempre entre
 paréntesis después del nombre de la propiedad en el RFI.  He aquí
 una lista de los tipos que podrá necesitar, junto con las reglas
-de dicho tipo, y algunos ejemplos.  Debe escribir siempre un
-símbolo de almohadilla, @code{#}, por supuesto, delante de estos
+de dicho tipo, y algunos ejemplos.  Al usar una expresión de Scheme, debe escribir siempre un
+símbolo de almohadilla, @samp{#}, delante de estos
 valores cuando se introducen en la instrucción @code{\override},
-incluso si el propio valor ya comienza por@tie{}@code{#}.
+incluso si el propio valor ya comienza por @samp{#}.
 Solamente ofrecemos aquí ejemplos para constantes; si quiere
 calcular un valor usando Scheme, consulte @rextendnamed{Calculations in Scheme, Cálculos en
 Scheme}.
 
-@multitable @columnfractions .2 .45 .35
+@indentedblock
+@raggedright
+@multitable {@b{Tipo de propiedad}} {e@q{verdadero} o @q{falso}, representado} {@code{\markup @{ \italic "cresc." @}},}
 @headitem Tipo de propiedad
   @tab Reglas
   @tab Ejemplos
 @item Booleano
-  @tab Verdadero o Falso, representado por #t o #f
-  @tab @code{#t}, @code{#f}
-@item Dimensión (en espacios de pentagrama)
-  @tab Un número decimal (en unidades de espacios de pentagrama)
+  @tab @q{verdadero} o @q{falso}, representado por @code{#t} o @code{#f}
+  @tab @code{##t}, @code{##f}
+@item dimensión@*(en espacios de pentagrama)
+  @tab un número decimal (en unidades de espacios de pentagrama)
   @tab @code{2.5}, @code{0.34}
-@item Dirección
-  @tab Una constante válida de dirección o su equivalente numérico
+@item dirección
+  @tab una constante válida de dirección o su equivalente numérico
   (@code{0} o @code{CENTER} indican una dirección neutra)
-  @tab @code{LEFT}, @code{CENTER}, @code{UP},
-       @code{1}, @w{@code{-1}}
-@item Entero
-  @tab Un número entero positivo
+  @tab @code{#LEFT}, @code{#CENTER}, @code{#UP}, @code{1}, @code{-1}
+@item entero
+  @tab un número entero positivo
   @tab @code{3}, @code{-1}
-@item Lista
+@item lista
   @tab Una secuencia de constantes o símbolos separados por espacios,
   encerrado entre paréntesis
   y precedido de un apóstrofo o comilla simple
-  @tab @code{'(left-edge staff-bar)}, @code{'(1)}, @code{'()},
-       @code{'(1.0 0.25 0.5)}
-@item Marcado
+  @tab @code{#'(left-edge staff-bar)},@*
+       @code{#'(1)}, @code{#'()},@*
+       @code{#'(1.0 0.25 0.5)}
+@item marcado
   @tab Cualquier elemento válido de marcado de texto
-  @tab @code{\markup @{ \italic "cresc." @}}, @code{"gaita"}
-@item Momento
-  @tab Una fracción de redonda construida con la función make-moment
-  @tab @code{(ly:make-moment 1/4)},
-       @code{(ly:make-moment 3/8)}
-@item Número
-  @tab Cualquier valor positivo o negativo, posiblemente decimal
-  @tab @code{3}, @w{@code{-2.45}}
-@item Pareja (de números)
-  @tab Dos números separados por un @q{espacio . espacio}, encerrado entre paréntesis y precedido de un apóstrofo
-  @tab @code{'(2 . 3.5)}, @code{'(0.1 . -3.2)}
-@item Símbolo
-  @tab Cualquiera del conjunto de símbolos permitidos para esa propiedad, precedido de un apóstrofo
-  @tab @code{'italic}, @code{'inside}
-@item Desconocido
-  @tab Un procedimiento o @code{#f} para no producir ninguna acción
-  @tab @code{bend::print}, @code{ly:text-interface::print},
-       @code{#f}
-@item Vector
-  @tab Constantes
-  encerradas entre @code{#(}@dots{}@code{)}.
-  @tab @code{#(#t #t #f)}
+  @tab @code{\markup @{ \italic "cresc." @}},@*
+       @code{"gaita"}
+@item momento
+  @tab una duración musical; este tipo es diferente de la duración de una nota
+  @tab @code{\musicLength 4.},@*
+       @code{\musicLength @{ 2 2. @}}
+@item número
+  @tab cualquier valor positivo o negativo, posiblemente decimal
+  @tab @code{3}, @code{-2.45}
+@item Pareja@*(de números)
+  @tab Dos números separados por la secuencia @q{espacio},
+       @samp{.}, @q{espacio}, encerrado entre paréntesis y
+       precedido de un apóstrofo
+  @tab @code{#'(2 . 3.5)},@*
+       @code{#'(0.1 . -3.2)}
+@item símbolo
+  @tab cualquiera del conjunto de símbolos permitidos para esa propiedad, precedido de un apóstrofo
+  @tab @code{#'italic}, @code{#'inside}
+@item desconocido
+  @tab un procedimiento, o bien @code{#f} para no producir ninguna acción
+  @tab @code{#bend::print},@*
+       @code{#ly:text-interface::print},@*
+       @code{##f}
+@item vector
+  @tab constantes encerradas entre @code{#(}@dots{}@code{)}.
+  @tab @code{##(#t #t #f)}
 @end multitable
+@end raggedright
+@end indentedblock
+
+Note that number arguments to markup functions within a
+@code{\markup} block need a leading hash mark.
 
 
 @morerefs
@@ -1162,11 +1193,11 @@ los objetos se agrupan en lo que hemos llamado @emph{interfaces}
 agrupar las propiedades que se pueden usar juntas para trucar un
 objeto gráfico: si una de ellas se necesita para un objeto,
 también las otras.  Así, ciertos objetos usan las propiedades de
-algunos interfaces, otros usan las de otros interfaces.  Los
+algunas interfaces, otros usan las de otras interfaces.  Las
 interfaces que contienen las propiedades que un determinado grob
 necesita se encuentran relacionadas en el manual RFI al final de
 la página que describe dicho grob, y esas propiedades se pueden
-ver mirando dichos interfaces.
+ver mirando dichas interfaces.
 
 Hemos explicado cómo encontrar información sobre los grobs en
 @ref{Properties of layout objects}.  Usando el mismo
@@ -1323,7 +1354,7 @@ la página @q{All layout objects} del RFI, buscamos las propiedades
 del objeto de presentación @code{TimeSignature}.  Se produce por
 parte del grabador @code{Time_signature_engraver} que como puede
 comprobar vive dentro del contexto de @code{Staff} y también
-contempla el interface @code{grob-interface}.  Así pues, la
+contempla la interfaz @code{grob-interface}.  Así pues, la
 instrucción que hace transparente a la indicación de compás es:
 
 @cindex TimeSignature, ejemplo de sobreescritura
@@ -1399,7 +1430,7 @@ ocurre así, y cómo controlarlo, se estudian en @rnotationnamed{Painting object
 objetos de blanco}; de momento estamos estudiando el color, por lo
 que le rogamos que acepte esta limitación por ahora).
 
-El interface @code{grob-interface} especifica que la propiedad del
+La interfaz @code{grob-interface} especifica que la propiedad del
 color es una lista, pero no hay ninguna explicación sobre lo que
 debe ir en esa lista.  La lista que requiere es realmente una
 lista de valores en unidades internas, pero para evitar tener que
@@ -1766,7 +1797,7 @@ Vamos a probarlo en nuestro ejemplo del ossia:
         \omit Clef
         \omit TimeSignature
         % Reduce all font sizes by ~24%
-        fontSize = #-2
+        fontSize = -2
       }
       { f8 f c }
     >>
@@ -1785,7 +1816,7 @@ esto.
 @node Length and thickness of objects
 @subsection Longitud y grosor de los objetos
 
-@cindex distancias
+@cindex distancia, entre objetos
 @cindex grosor
 @cindex longitud
 @cindex magstep
@@ -1835,7 +1866,7 @@ proporción.  Se usa de la siguiente forma:
         alignAboveContext = "main"
         \omit Clef
         \omit TimeSignature
-        fontSize = #-2
+        fontSize = -2
         % Reduce stem length and line spacing to match
         \override StaffSymbol.staff-space = #(magstep -2)
       }
@@ -1846,48 +1877,336 @@ proporción.  Se usa de la siguiente forma:
 }
 @end lilypond
 
+While changing @code{staff-space} affects the scale of the ossia, it
+does not affect the horizontal spacing -- this is determined by
+the layout of the main music in order to remain
+synchronized with it, so it is not affected by any of these changes in
+size.  Of course, if the scale of all the main music were changed in
+this way then the horizontal spacing would be affected.  This is
+discussed later in the layout section.
+
+This, then, completes the creation of an ossia.  The sizes and
+lengths of all other objects may be modified in analogous ways.
+
+For small changes in scale, as in the example above, the
+thickness of the various drawn lines such as bar lines,
+beams, hairpins, slurs, etc., does not usually require global
+adjustment.  If the thickness of any particular layout object
+needs to be adjusted this can be best achieved by overriding its
+@code{thickness} property.  An example of changing the thickness
+of slurs was shown above in @ref{Properties of layout objects}.
+The thickness of all drawn objects (i.e., those not produced
+from a font) may be changed in the same way.
+
+
+@node Offsets and alignments
+@section Offsets and alignments
+
+LilyPond needs to know where each and every grob should be placed.
+This placement information is stored using relative coordinates:
+the position of a grob is defined relative to the position of its
+parent (if we had to use absolute coordinates instead -- e.g.,
+distances from the edges of the page -- it would be hard to
+maintain spatial relationships between grobs).
+
+Every grob knows which grob is its parent in the respective axis.
+For example, a @code{Flag} grob knows that its x-parent is a
+particular @code{Stem} grob.
+
+@cindex @code{X-offset} property
+@cindex @code{Y-offset} property
+
+Relative coordinates that describe a grob's placement are stored
+in grob properties called @code{X-offset} and @code{Y-offset}.
+They are measured in staff spaces.  @code{X-offset} is the
+horizontal displacement between a grob's @dfn{reference point} and
+the reference point of a grob's x-parent (similarly with
+@code{Y-offset}).
+
+What is a reference point?  It's a special point that defines the
+grob's position.  Think about geometry: if you have to define
+where a figure is placed on a plane, you'll usually say something
+like @qq{the lower left corner of this square has coordinates
+(0,@tie{}2)}, or @qq{the center of this circle is at
+(@w{-1},@tie{}3)}. @q{Lower left corner} and @q{center} would be
+the reference points for square and circle, respectively.
+
+This illustration shows where reference points of particular grobs
+are located, indicated as red dots (for example, the middle staff
+line for bars and stems, the intersection between the baseline and
+the left edge for a text box, or the vertical center at the left
+side for a note head).
+
+@example
+@{
+  \override NoteHead.style = #'altdefault     % for breve
+
+  \time 4/2 g'2-> c''\fermata as'1^"Yogi" |
+  b'\breve _"Larry" |
+  \mark "Twinkle" e''8 s4.. \bar "|."
+@}
+@end example
+
+@lilypond[quote,staffsize=26]
+\include "reference-points.ly"
+
+\new Staff \with {
+  \printRefpoint ##f #'all-grobs
+} {
+  \override NoteHead.style = #'altdefault     % for breve
+
+  \time 4/2 g'2-> c''\fermata as'1^"Yogi" |
+  b'\breve _"Larry" |
+  \mark "Twinkle" e''8 s4.. \bar "|."
+}
+
+\layout {
+  \context {
+    \Score
+    \remove "Mark_engraver"
+  }
+  \context {
+    \Staff
+    \consists "Mark_engraver"
+  }
+}
+@end lilypond
+
+By overriding the @code{X-offset} or @code{Y-offset} value we can
+move grobs relative to their parents:
+
+@cindex @code{X-offset} property, example
+@cindex @code{Y-offset} property, example
+
+@example
+@{
+  \override Script.X-offset = 3               % fermata, accent
+  \override TextScript.X-offset = 2           % "Yogi", "Larry"
+  \override Stem.X-offset = -2
+  \override Score.RehearsalMark.Y-offset = 5  % "Twinkle"
+
+  \override NoteHead.style = #'altdefault     % for breve
+
+  \time 4/2 g'2-> c''\fermata as'1^"Yogi" |
+  b'\breve _"Larry" |
+  \mark "Twinkle" e''8 s4.. \bar "|."
+@}
+@end example
+
+@lilypond[quote,staffsize=26]
+\include "reference-points.ly"
+
+\new Staff \with {
+  \printRefpoint ##f #'all-grobs
+} {
+  \override Script.X-offset = 3               % fermata, accent
+  \override TextScript.X-offset = 2           % "Yogi", "Larry"
+  \override Stem.X-offset = -2
+  \override Score.RehearsalMark.Y-offset = 5  % "Twinkle"
+
+  \override NoteHead.style = #'altdefault     % for breve
+
+  \time 4/2 g'2-> c''\fermata as'1^"Yogi" |
+  b'\breve _"Larry" |
+  \mark "Twinkle" e''8 s4.. \bar "|."
+}
+
+\layout {
+  \context {
+    \Score
+    \remove "Mark_engraver"
+  }
+  \context {
+    \Staff
+    \consists "Mark_engraver"
+  }
+}
+@end lilypond
+
 @noindent
-Puesto que la longitud de las plicas y muchas otras propiedades
-relacionadas con la longitudes calculan siempre con relación al
-valor de la propiedad @code{staff-space}, su longitud también ve
-reducida su escala automáticamente.  Observe que esto afecta
-solamente a la escala vertical del ossia: la escala horizontal se
-determina por medio de la disposición de la música principal con
-el objeto de mantenerse en sincronía con ella, de forma que no
-resulte afectada por ninguno de estos cambios de tamaño.  Por
-supuesto, si la escala de toda la música principal se cambiase de
-esta forma, entonces el espaciado horizontal se vería afectado.
-Trataremos de esto más tarde en la sección sobre la disposición.
+Note that the @code{Flag} grob moved together with its @code{Stem}
+grob.
 
-Esto, en fin, completa la creación de un ossia.  Los tamaños y
-longitudes del resto de los objetos se pueden modificar de manera
-análoga.
+@warning{Changing @code{X-offset} or @code{Y-offset} doesn't
+always work as expected, see @rnotation{Aligning objects}.}
 
-Para cambios de escala pequeños, como en el ejemplo de arriba, el
-grosor de las diversas líneas dibujadas como divisorias, barras de
-corchea, reguladores, ligaduras, etc, no requieren normalmente
-ningún ajuste global.  Si el grosor de cualquier objeto de
-presentación en particular necesita ajustarse, se puede hacer
-mejor mediante la sobreescritura de su propiedad @code{thickness}.
-Anteriormente mostramos un ejemplo de cambio de grosor en las
-ligaduras, en @ref{Properties of layout objects}.
-El grosor de todos los objetos trazados (es decir, aquellos que no
-se producen a partir de una tipografía) se pueden cambiar de la
-misma forma.
+@cindex @code{X-extent} property
+@cindex @code{Y-extent} property
+
+Now, let's explain another pair of properties: @code{X-extent} and
+@code{Y-extent}.  Each of them is a pair of numbers (internally,
+LilyPond calls this an @dfn{interval}), and they store a grob's
+dimensions relative to its reference point.  For example,
+@code{X-extent} equal to (@w{-1} .@tie{}4) means that the left
+edge of the grob is 1@tie{}staff space to the left of its
+reference point, and the right edge is 4@tie{}staff spaces to the
+right from reference point, for a total width of 4@tie{}- @w{(-1)}
+= 4 +@tie{}1 = 5@tie{}staff spaces.  Both numbers in an extent may
+be positive; for example, (2 .@tie{}3) is a valid extent: it means
+that the whole grob is on the right of its reference point, and
+the width of the grob is 3@tie{}- 2 =@tie{}1 staff space.
+Similarly, both numbers can be negative; these situations are
+quite unusual but won't give LilyPond headaches.  The most common
+situation (at least for @code{X-extent}) is that the first number
+is@tie{}0, which means that the reference point is on the left
+edge of the grob.
+
+The previous example demonstrates this nicely: both the accent's
+and the fermata's left edge is left of the reference point; the
+same holds for the breve note head (we selected the
+@code{'altdefault} note head style to make this better visible).
+
+Now, suppose that we want to position a @code{RehearsalMark} grob
+so that its right edge is aligned with a bar line (by default,
+LilyPond horizontally centers the rehearsal mark).  With
+@code{X-offset} equal to zero (i.e., its reference point is
+aligned on the parent, which is equal to the bar line in this
+situation), the @code{RehearsalMark} grob is placed like this:
+
+@lilypond[quote,verbatim]
+{
+  \override Score.RehearsalMark.X-offset = 0
+  b4 b b b \mark "Twinkle" b b b b
+}
+@end lilypond
+
+@noindent
+So, we need to shift it.  Remember what the second number in
+@code{X-extent} means?  It's the position of a grob's right edge
+relative to its reference point.  If we subtract this value from
+zero, we'll get the x-offset we want:
+
+@lilypond[quote,verbatim]
+{
+  % value -10.4 found by trial and error
+  \override Score.RehearsalMark.X-offset = -10.4
+  b4 b b b \mark "Twinkle" b b b b
+}
+@end lilypond
+
+What if we wanted to center some grob on the reference point on
+its parent?  That's simple: calculate the displacement between a
+grob's reference point and the @emph{center} of its extent.  Some
+examples:
+
+@itemize
+@item @code{X-extent} = (-2 . 2)@*
+      @result{} @code{X-offset} = 0 - 0 = 0
+@item @code{X-extent} = (0 . 4)@*
+      @result{} @code{X-offset} = 0 - (0 + 0.5 *@tie{}4) = @w{-2}
+@item @code{X-extent} = (-2 . 4)@*
+      @result{} @code{X-offset} = 0 - ((0.5 * @w{-2}) + (0.5 * 4))
+                                = 0 - (@w{-1} +@tie{}2) = @w{-1}
+@end itemize
+
+There is already a function with a super-long name available that
+can do these calculations for us:
+
+@example
+\override @var{GrobName}.X-offset =
+  #ly:self-alignment-interface::x-aligned-on-self
+@end example
+
+@noindent
+and we only need to specify what alignment we want:
+
+@example
+\override @var{GrobName}.self-alignment-X = #RIGHT
+@end example
+
+This code tells the procedure to find the displacement between a
+grob's reference point and its right edge, and use it as the
+x-offset, which will result in the grob being right-aligned.
+
+So, if you change a grob's extent, you will affect how it will be
+aligned (because LilyPond will think that the grob's dimensions
+are different):
+
+@lilypond[quote,verbatim]
+{
+  \override Score.RehearsalMark.X-extent = #'(0 . 8)
+  \override Score.RehearsalMark.self-alignment-X = #RIGHT
+  b4 b b b \mark "Twinkle" b b b b
+}
+@end lilypond
+
+Also, if a grob's extent is empty (i.e., it's not an interval
+pair), procedures like @code{x-aligned-on-self} won't have any
+information about a grob's dimensions, so they won't be able to
+calculate an offset (they'll just return value@tie{}0).  In other
+words, a grob with an empty extent can only be @q{aligned} on its
+reference point because there's no other information that can be
+used for alignment:
+
+@lilypond[quote,verbatim]
+{
+  \override Score.RehearsalMark.X-extent = ##f
+  b4 b b b \mark "Twinkle" b b b b
+}
+@end lilypond
+
+Notice that an empty extent and a zero extent result in the same
+positioning:
+
+@lilypond[quote,verbatim]
+{
+  \override Score.RehearsalMark.X-extent = #'(0 . 0)
+  b4 b b b \mark "Twinkle" b b b b
+}
+@end lilypond
+
+However, an empty extent (or a zero extent, or any other extent)
+doesn't prevent us from placing the grob at any location we want
+-- we just can't use alignment procedures for that.  We can still
+specify any offset we want, and it will work as usual:
+
+@lilypond[quote,verbatim]
+{
+  \override Score.RehearsalMark.X-extent = ##f
+  \override Score.RehearsalMark.X-offset = -10.4
+  b4 b b b \mark "Twinkle" b b b b
+}
+@end lilypond
+
+Now, there is one more thing to keep in mind: a grob's parent has
+its own dimensions, too, and we need to take them into account.
+For example, if we write
+
+@lilypond[quote,verbatim]
+{ a'1 }
+\addlyrics {
+  \override LyricText.X-offset =
+    #ly:self-alignment-interface::x-aligned-on-self
+  \override LyricText.self-alignment-X = #CENTER
+  nn
+}
+@end lilypond
+
+@noindent
+the @code{LyricText} grob will be centered, but @emph{on the
+reference point of its parent} (i.e., the center of the syllable
+will be aligned to the reference point of the note head).  If we
+want the center of the @code{LyricText} grob to be aligned with
+the center of its parent @code{NoteHead} grob, we have to use a
+different procedure: @code{aligned-on-x-parent}.  It works very
+similar to @code{x-aligned-on-self}, but in addition to
+calculating an offset based on a grob's own extent, it also uses
+the grob's parent extent and computes positions relative to the
+center of the extent:
+
+@lilypond[quote,verbatim]
+{ a'1 }
+\addlyrics {
+  \override LyricText.X-offset =
+    #ly:self-alignment-interface::aligned-on-x-parent
+  \override LyricText.self-alignment-X = #CENTER
+  nn
+}
+@end lilypond
 
 
-@need 1500
 @node Placement of objects
 @section Colocación de los objetos
-
-
-@node Automatic behavior
-@subsection Comportamiento automático
-
-@cindex dentro del pentagrama, objetos
-@cindex fuera del pentagrama, objetos
-@cindex objetos dentro del pentagrama
-@cindex objetos fuera del pentagrama
 
 Hay ciertos objetos en notación musical que pertenecen al
 pentagrama y otros cuyo lugar se sitúa fuera del pentagrama.
@@ -1903,6 +2222,16 @@ entre cabezas, plicas y alteraciones en acordes de notas muy
 juntas, normalmente se evitan automáticamente.  Hay instrucciones
 y sobreescrituras que pueden modificar este comportamiento
 automático, como veremos en breve.
+
+
+
+@node Automatic behavior
+@subsection Comportamiento automático
+
+@cindex dentro del pentagrama, objetos
+@cindex fuera del pentagrama, objetos
+@cindex objetos dentro del pentagrama
+@cindex objetos fuera del pentagrama
 
 Entre los objetos que pertenecen al exterior de la pauta se
 encuentran cosas como las marcas de ensayo, las marcas de texto y
@@ -2869,9 +3198,13 @@ consulte
 @rnotationnamed{Flexible vertical spacing within systems, Espaciado vertical flexible dentro de los sistemas}.
 
 
-@need 1500
 @node Collisions of objects
 @section Colisiones de objetos
+
+The tips and tricks covered in this section are applications and
+extensions of previous parts of this manual.  In particular, you
+should be comfortable with the concepts of @dfn{extents},
+@dfn{offsets}, and @dfn{alignments}, @pxref{Offsets and alignments}.
 
 
 @node Moving objects
@@ -2941,7 +3274,7 @@ contra el que se está colocando.  Observe que es el valor de
 usa; el valor de @code{padding} del objeto que ya está colocado se
 ignora.  Los espacios intermedios especificados mediante
 @code{padding} se pueden aplicar a todos los objetos que
-contemplan el interface @code{side-position-interface}.
+contemplan la interfaz @code{side-position-interface}.
 
 En lugar de con @code{padding}, la colocación de los grupos de
 alteraciones se controla con @code{right-padding}.  Esta propiedad
@@ -2958,8 +3291,8 @@ efecto sobre la colocación de las alteraciones.
 
 La propiedad @code{staff-padding} está estrechamente relacionada
 con la propiedad @code{padding}: @code{padding} controla la
-separación mínima entre cualquier objeto que contemple el
-interface @code{side-position-interface} y el objeto más cercano
+separación mínima entre cualquier objeto que contemple la
+interfaz @code{side-position-interface} y el objeto más cercano
 (generalmente la nota o las líneas del pentagrama);
 @code{staff-padding} se aplica sólo a los objetos que siempre se
 sitúan fuera del pentagrama: controla la separación mínima entre
@@ -2989,7 +3322,7 @@ intermedia mayor (o menor).
 Esta propiedad se puede usar para alinear el objeto a la
 izquierda, a la derecha, o centrarlo con respecto al punto de
 referencia del objeto «padre».  Se puede usar con todos los
-objetos que contemplan el interface
+objetos que contemplan la interfaz
 @code{self-alignment-interface}.  En general son objetos que
 contienen texto.  Los valores son @code{LEFT}, @code{RIGHT} o
 @code{CENTER}.  De forma alternativa se puede especificar un valor
@@ -3009,7 +3342,7 @@ longitud total del propio texto.
 @cindex extra-spacing-width, propiedad
 
 Esta propiedad está disponible para todos los objetos que
-contemplan el interface @code{item-interface}.  Toma dos números,
+contemplan la interfaz @code{item-interface}.  Toma dos números,
 el primero se suma al límite izquierdo y el segundo se suma al
 límite derecho.  Los números negativos desplazan el límite a la
 izquierda y los positivos a la derecha, por lo que para ensanchar
@@ -3023,7 +3356,7 @@ sólo toma nota del primer número (el borde izquierdo).
 
 @cindex staff-position, propiedad
 
-@code{staff-position} es una propiedad del interface
+@code{staff-position} es una propiedad de la interfaz
 @code{staff-symbol-referencer-interface}, que está contemplado por
 los objetos que se colocan con relación al pentagrama.  Especifica
 la posición vertical del objeto con relación a la tercera línea
@@ -3073,7 +3406,7 @@ apretadas entre sí.
 @cindex force-hshift, propiedad
 
 La propiedad @code{force-hshift} es una propiedad de una
-@code{NoteColumn} (realmente lo es del interface
+@code{NoteColumn} (realmente lo es de la interfaz
 @code{note-column-interface}).  Modificarlo permite mover una
 columna de notas en situaciones donde las columnas de notas se
 superponen.  Observe que no tiene efecto sobre las columnas de
@@ -4123,10 +4456,9 @@ y borrando la primera plica (con su corchete) hacia arriba en esa
 voz, da la impresión de que la ligadura se cruza entre las voces:
 
 @funindex \omit
-@cindex Stem, example of removing
-@cindex Flag, example of removing
+@cindex Stem (plica), ejemplo de eliminación
+@cindex Flag (corchete), ejemplo de eliminación
 @cindex @code{\omit}, example
-@cindex example of @code{\omit}
 
 @lilypond[quote,verbatim]
 <<
@@ -4711,7 +5043,9 @@ variable, al principio de su archivo de código de entrada.
 Los siguientes son los archivos más útiles que se encuentran en
 @file{ly/}:
 
-@multitable @columnfractions .4 .6
+@indentedblock
+@raggedright
+@multitable @columnfractions .42 .53
 @headitem Archivo
   @tab Contenido
 @item @file{ly/engraver-init.ly}
@@ -4725,10 +5059,12 @@ Los siguientes son los archivos más útiles que se encuentran en
 @item @file{ly/spanner-init.ly}
   @tab Definiciones de las instrucciones predefinidas relacionadas con los objetos de extensión
 @end multitable
+@end raggedright
+@end indentedblock
 
 Otros ajustes (como las definiciones de las instrucciones de
 marcado) se almacenan como archivos @file{.scm} (de Scheme).  El
-lenguaje de programación Scheme se utiliza para proporcionar un
+lenguaje de programación Scheme se utiliza para proporcionar una
 interfaz programable en el funcionamiento interno de LilyPond.
 Cualquier explicación adicional sobre estos archivos se encuentra
 por el momento fuera del ámbito de este manual, porque se
@@ -4766,7 +5102,7 @@ interesarle son:
 Aunque es posible hacer muchas cosas con las instrucciones
 @code{\override} y @code{\tweak} , tenemos una forma incluso más
 poderosa de modificar el funcionamiento de LilyPond, a través de
-un interface programable hacia las operaciones internas de
+una interfaz programable hacia las operaciones internas de
 LilyPond.  Se puede incorporar código escrito en el lenguaje de
 programación Scheme, directamente en el mecanismo de
 funcionamiento de LilyPond.  Por supuesto, para hacer esto se
@@ -4811,5 +5147,5 @@ posición dentro del pentagrama.
 @end lilypond
 
 Se pueden encontrar ejemplos adicionales que muestran la
-utilización de estos interfaces programables, en
+utilización de estas interfaces programables, en
 @rextendnamed{Callback functions, Funciones de callback}.
