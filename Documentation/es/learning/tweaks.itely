@@ -234,19 +234,18 @@ que sean fáciles de entender, para ilustrar el formato y la
 utilización de estas instrucciones.
 
 Las expresiones principales de LilyPond son elementos musicales
-como notas y duraciones, así como cadenas y elementos de marcado.  Las expresiones
-más específicas como símbolos y listas se
-procesan en el @q{modo de Scheme}, que se invoca por medio del
-prefijo @samp{#} escrito antes del valor.  A special case are
-numbers, which must be prefixed with @samp{#} only if used as
-arguments to a markup function (i.e., within
-@code{\markup}).@footnote{Note, however, that for LilyPond a
-number @emph{must} start with a digit or a minus sign followed by
-a digit if not in Scheme mode.  In other words, @samp{0.2} or
-@samp{-0.2} are valid numbers, while @samp{.2} or @samp{-.2} are
-not.  If really necessary you can write @samp{#.2} or @samp{#-.2}
-instead -- Scheme supports a much broader range of number
-representations.}
+como notas y duraciones, así como cadenas y elementos de marcado.
+Las expresiones más específicas como símbolos y listas se procesan
+en el @q{modo de Scheme}, que se invoca por medio del prefijo
+@samp{#} escrito antes del valor.  A special case are numbers,
+which must be prefixed with @samp{#} only if used as arguments to
+a markup function (i.e., within @code{\markup}).@footnote{Note,
+however, that for LilyPond a number @emph{must} start with a digit
+or a minus sign followed by a digit if not in Scheme mode.  In
+other words, @samp{0.2} or @samp{-0.2} are valid numbers, while
+@samp{.2} or @samp{-.2} are not.  If really necessary you can
+write @samp{#.2} or @samp{#-.2} instead -- Scheme supports a much
+broader range of number representations.}
 
 Para ver más información acerca del
 modo de Scheme, consulte @rextendnamed{LilyPond Scheme syntax, Sintaxis del Scheme de LilyPond}.
@@ -280,9 +279,10 @@ que se sobreescribe de nuevo o se encuentra una instrucción
 @code{\revert}.  La instrucción @code{\revert} tiene la siguiente
 sintaxis y ocasiona que el valor de la propiedad se devuelva a su
 valor predeterminado original; observe que no es a su valor previo
-si se han utilizado varias instrucciones @code{\override}.@footnote{The behaviour of
-@code{\revert} can be changed by using @code{\temporary
-\override}; see @rextend{Intermediate substitution functions}.}
+si se han utilizado varias instrucciones
+@code{\override}.@footnote{The behaviour of @code{\revert} can be
+changed by using @code{\temporary \override}; see
+@rextend{Intermediate substitution functions}.}
 
 @example
 \revert @var{Contexto}.@var{ObjetoDePresentación}.@var{propiedad-de-presentación}
@@ -364,12 +364,13 @@ momento musical:
 @funindex \offset
 
 Las últimas instrucciones de trucaje que tenemos en LilyPond son
-@code{\tweak} y @code{\offset}.  Se deben utilizar cuando varios objetos tienen
-lugar en el mismo momento musical pero solo queremos cambiar las
-propiedades de algunos de ellos, como una sola nota dentro de un
-acorde.  El uso de @code{\override} para la sobreescritura
-afectaría a todas las notas del acorde, mientras que @code{\tweak}
-afecta solamente al siguiente elemento del flujo de entrada.
+@code{\tweak} y @code{\offset}.  Se deben utilizar cuando varios
+objetos tienen lugar en el mismo momento musical pero solo
+queremos cambiar las propiedades de algunos de ellos, como una
+sola nota dentro de un acorde.  El uso de @code{\override} para la
+sobreescritura afectaría a todas las notas del acorde, mientras
+que @code{\tweak} afecta solamente al siguiente elemento del flujo
+de entrada.
 
 Note that @code{\offset} can be used as an replacement for
 @code{\override}, too; it also has more syntax forms.  See
@@ -399,11 +400,12 @@ objetos de presentación del tipo especificado que ocurren en el
 mismo momento musical que la propia instrucción de sobreescritura
 @code{\override}.
 
-Las instrucciones @code{\tweak} y @code{\offset} operan de una forma distinta.  Actúan
-sobre el elemento inmediatamente siguiente dentro del flujo de
-entrada.  En sus formas más sencillas, son efectivos solamente sobre
-objetos que se crean directamente a partir del elemento siguiente,
-en esencia las cabezas y las articulaciones.
+Las instrucciones @code{\tweak} y @code{\offset} operan de una
+forma distinta.  Actúan sobre el elemento inmediatamente siguiente
+dentro del flujo de entrada.  En sus formas más sencillas, son
+efectivos solamente sobre objetos que se crean directamente a
+partir del elemento siguiente, en esencia las cabezas y las
+articulaciones.
 
 Así pues, volviendo a nuestro ejemplo, el tamaño de la nota
 intermedia se cambiaría de la siguiente forma:
@@ -443,21 +445,23 @@ a numeric value.  There are more restrictions to that what can be
 changed; again, please refer to @rnotation{The offset command},
 for more details.
 
-Observe que la sintaxis de @code{\tweak} y @code{\offset} no es igual que la de
-@code{\override}.  El contexto no se debe especificar; de hecho,
-generaría un error hacerlo.  Tanto el contexto como el objeto de
-presentación están implícitos por el siguiente elemento del flujo
-de entrada.  Observe también que no debe haber un signo igual. Así
-que la sintaxis de las instrucciones @code{\tweak} y @code{\offset} en su forma
-sencilla es:
+Observe que la sintaxis de @code{\tweak} y @code{\offset} no es
+igual que la de @code{\override}.  El contexto no se debe
+especificar; de hecho, generaría un error hacerlo.  Tanto el
+contexto como el objeto de presentación están implícitos por el
+siguiente elemento del flujo de entrada.  Observe también que no
+debe haber un signo igual. Así que la sintaxis de las
+instrucciones @code{\tweak} y @code{\offset} en su forma sencilla
+es:
 
 @example
 \tweak @var{propiedad-de-presentación} @var{valor}
 \offset @var{propiedad-de-presentación} @var{valor}
 @end example
 
-@code{\tweak} y @code{\offset} también se pueden usar para modificar
-solo una de una serie de articulaciones, como se muestra aquí:
+@code{\tweak} y @code{\offset} también se pueden usar para
+modificar solo una de una serie de articulaciones, como se muestra
+aquí:
 
 @cindex @code{color}, propiedad, ejemplo
 @cindex @code{\tweak}, ejemplo
@@ -469,10 +473,10 @@ a'4^"Black"
 @end lilypond
 
 @noindent
-Tanto la instrucción @code{\tweak} como @code{\offset} deben venir precedidan de
-una marca de articulación porque la propia expresión trucada debe
-aplicarse como una articulación.  En el caso de más de una
-sobreescritura de dirección (@samp{^} o @samp{_}), gana la
+Tanto la instrucción @code{\tweak} como @code{\offset} deben venir
+precedidan de una marca de articulación porque la propia expresión
+trucada debe aplicarse como una articulación.  En el caso de más
+de una sobreescritura de dirección (@samp{^} o @samp{_}), gana la
 sobreescritura situada más a la izquierda porque se aplica en
 último lugar.
 
@@ -481,10 +485,10 @@ sobreescritura situada más a la izquierda porque se aplica en
 
 Los objetos tales como plicas y alteraciones accidentales se crean
 más tarde, y no directamente a partir del evento que viene a
-continuación.  Aún es posible utilizar @code{\tweak} u @code{\offset} sobre tales
-objetos creados indirectamente mediante el nombrado explícito del
-objeto de presentación, siempre y cuando LilyPond pueda rastrear
-su origen hasta el evento original:
+continuación.  Aún es posible utilizar @code{\tweak} u
+@code{\offset} sobre tales objetos creados indirectamente mediante
+el nombrado explícito del objeto de presentación, siempre y cuando
+LilyPond pueda rastrear su origen hasta el evento original:
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 <\tweak Accidental.color "red"   cis''4
@@ -492,8 +496,8 @@ su origen hasta el evento original:
  g''>
 @end lilypond
 
-Esta forma extensa de las instrucciones @code{\tweak} y @code{\offset} se puede describir
-como
+Esta forma extensa de las instrucciones @code{\tweak} y
+@code{\offset} se puede describir como
 @example
 \tweak @var{ObjetoDePresentación}.@var{propiedad-de-presentación} @var{valor}
 \offset @var{ObjetoDePresentación}.@var{propiedad-de-presentación} @var{valor}
@@ -593,8 +597,9 @@ El prefijo @code{\once} funciona perfectamente para enfatizar
 notas únicas o acordes completos, pero no se puede usar para
 enfatizar una sola nota @emph{dentro} de un acorde.  Anteriormente
 vimos cómo se puede usar la instrucción @code{\tweak} para
-hacerlo, véase @ref{The tweak and offset commands}.  Pero @code{\tweak} no se puede usar con una
-función; ahí es donde entra la instrucción @code{\single}:
+hacerlo, véase @ref{The tweak and offset commands}.  Pero
+@code{\tweak} no se puede usar con una función; ahí es donde entra
+la instrucción @code{\single}:
 
 @lilypond[quote,verbatim]
 emphNoteHead = {
@@ -730,7 +735,10 @@ del objeto de presentación que pretende trucar, le resultará más
 fácil ir directamente al RFI y buscar allí.
 
 Esta página sobre las ligaduras de expresión dentro del manual RFI
-nos dice en primer lugar que los objetos @code{Slur} se crean por el grabador @code{Slur_engraver}.  A continuación relaciona los ajustes estándar.  Navegue por ellos buscando una propiedad que pudiera controlar el grosor de las ligaduras, y encontrará
+nos dice en primer lugar que los objetos @code{Slur} se crean por
+el grabador @code{Slur_engraver}.  A continuación relaciona los
+ajustes estándar.  Navegue por ellos buscando una propiedad que
+pudiera controlar el grosor de las ligaduras, y encontrará
 
 @example
 thickness (number)
@@ -743,7 +751,10 @@ thickness (number)
 
 Esto promete ser una buena opción para cambiar el grosor.  Nos
 dice que el valor de @code{thickness} es un simple @emph{número},
-que el valor predeterminado es 1.2, y este valor depende del grosor de las líneas del pentagrama, lo que significa (más o menos) que los pentagramas de tamaño menor tienen ligaduras más delgadas también.
+que el valor predeterminado es 1.2, y este valor depende del
+grosor de las líneas del pentagrama, lo que significa (más o
+menos) que los pentagramas de tamaño menor tienen ligaduras más
+delgadas también.
 
 Como dijimos con anterioridad, existen entre pocas y ninguna
 explicación en el RFI, pero ya tenemos información suficiente para
@@ -811,10 +822,11 @@ ligaduras están en el contexto @code{Voice}, por estar claramente
 asociados de manera estrecha con las líneas individuales de
 música, pero ¿podemos estar seguros?  Para averiguarlo, vayamos de
 nuevo al inicio de la página del RFI que describe las ligaduras
-(@code{Slur}), donde dice @q{Slur objects are created by the following engraver(s): @code{Slur_engraver}.}
-(«Los objetos de ligadura de expresión se crean por: el grabador
-@code{Slur_engraver}»).  Así pues, las ligaduras de expresión se crean en
-cualquier contexto en el que se encuentre el grabador
+(@code{Slur}), donde dice @q{Slur objects are created by the
+following engraver(s): @code{Slur_engraver}.}  («Los objetos de
+ligadura de expresión se crean por: el grabador
+@code{Slur_engraver}»).  Así pues, las ligaduras de expresión se
+crean en cualquier contexto en el que se encuentre el grabador
 @code{Slur_engraver}.  Siga el enlace a la página del grabador
 @code{Slur_engraver}.  Al final del todo, dice que el grabador
 @code{Slur_engraver} es parte de diez contextos de voz, incluido
@@ -1001,7 +1013,12 @@ propiedades de todos los objetos que lo llevan, entre ellos
 @code{LyricText}.
 
 Ahora vemos todas las propiedades ajustables por el usuario que
-controlan las tipografías, entre ellas @q{@code{font-shape} (symbol)}.  El valor entre paréntesis da el tipo de variable que se espera por parte de la propiedad; en este caso es un sýmbolo (de Scheme).  El manual documenta también los valores posibles, que son @code{upright} (recta), @code{italics} (cursiva) o @code{slanted} (inclinada).
+controlan las tipografías, entre ellas @q{@code{font-shape}
+(symbol)}.  El valor entre paréntesis da el tipo de variable que
+se espera por parte de la propiedad; en este caso es un sýmbolo
+(de Scheme).  El manual documenta también los valores posibles,
+que son @code{upright} (recta), @code{italics} (cursiva) o
+@code{slanted} (inclinada).
 
 Observará que @code{font-series} y @code{font-size} también se
 encuentran aquí relacionadas.  Esto inmediatamente hace que surja
@@ -1093,13 +1110,13 @@ propiedad debe ser del tipo correcto y obedecer las reglas de
 dicho tipo.  El tipo de la propiedad se muestra siempre entre
 paréntesis después del nombre de la propiedad en el RFI.  He aquí
 una lista de los tipos que podrá necesitar, junto con las reglas
-de dicho tipo, y algunos ejemplos.  Al usar una expresión de Scheme, debe escribir siempre un
-símbolo de almohadilla, @samp{#}, delante de estos
-valores cuando se introducen en la instrucción @code{\override},
-incluso si el propio valor ya comienza por @samp{#}.
-Solamente ofrecemos aquí ejemplos para constantes; si quiere
-calcular un valor usando Scheme, consulte @rextendnamed{Calculations in Scheme, Cálculos en
-Scheme}.
+de dicho tipo, y algunos ejemplos.  Al usar una expresión de
+Scheme, debe escribir siempre un símbolo de almohadilla, @samp{#},
+delante de estos valores cuando se introducen en la instrucción
+@code{\override}, incluso si el propio valor ya comienza por
+@samp{#}.  Solamente ofrecemos aquí ejemplos para constantes; si
+quiere calcular un valor usando Scheme, consulte
+@rextendnamed{Calculations in Scheme, Cálculos en Scheme}.
 
 @indentedblock
 @raggedright
@@ -1244,18 +1261,18 @@ implícito, @code{Voice}:
 Las barras de compás todavía se imprimen.  ¿Qué es lo que está
 mal?  Vuelva al RFI y mire de nuevo la página que ofrece las
 propiedades del objeto BarLine.  Al principio de la página dice
-@qq{Barline objects are created by the following engraver(s): Bar_engraver.} (los objetos
-Barline se crean por el grabador Bar_engraver).  Vaya a la página
-del grabador @code{Bar_engraver} siguiendo el enlace.  Al final da
-una lista de contextos en los que el grabador de líneas divisorias
-opera.  Todos ellos son del tipo @code{Staff}, y así la razón de
-que la instrucción @code{\override} no funcionara como
-esperábamos, es porque @code{Barline} no se encuentra en el
-contexto predeterminado @code{Voice}.  Si el contexto no se
-especifica correctamente, la instrucción simplemente no funciona.
-No se produce ningún mensaje de error, y no se registra nada en el
-archivo log de registro.  Vamos a intentar corregirlo escribiendo
-el contexto correcto:
+@qq{Barline objects are created by the following engraver(s):
+Bar_engraver.} (los objetos Barline se crean por el grabador
+Bar_engraver).  Vaya a la página del grabador @code{Bar_engraver}
+siguiendo el enlace.  Al final da una lista de contextos en los
+que el grabador de líneas divisorias opera.  Todos ellos son del
+tipo @code{Staff}, y así la razón de que la instrucción
+@code{\override} no funcionara como esperábamos, es porque
+@code{Barline} no se encuentra en el contexto predeterminado
+@code{Voice}.  Si el contexto no se especifica correctamente, la
+instrucción simplemente no funciona.  No se produce ningún mensaje
+de error, y no se registra nada en el archivo log de registro.
+Vamos a intentar corregirlo escribiendo el contexto correcto:
 
 @cindex BarLine, ejemplo de sobreescritura
 @cindex stencil, propiedad, ejemplo
@@ -1427,9 +1444,10 @@ consiste en que la línea divisoria blanca puede tapar o no tapar
 las líneas del pentagrama a las que cruza.  Podrá observar en
 algunos de los ejemplos que aparecen a continuación, que esto
 sucede de forma impredecible.  Los detalles sobre por qué esto
-ocurre así, y cómo controlarlo, se estudian en @rnotationnamed{Painting objects white, Pintar los
-objetos de blanco}; de momento estamos estudiando el color, por lo
-que le rogamos que acepte esta limitación por ahora).
+ocurre así, y cómo controlarlo, se estudian en
+@rnotationnamed{Painting objects white, Pintar los objetos de
+blanco}; de momento estamos estudiando el color, por lo que le
+rogamos que acepte esta limitación por ahora).
 
 La interfaz @code{grob-interface} especifica que la propiedad del
 color es una lista, pero no hay ninguna explicación sobre lo que
@@ -1437,9 +1455,9 @@ debe ir en esa lista.  La lista que requiere es realmente una
 lista de valores en unidades internas, pero para evitar tener que
 saber cuáles son, se ofrecen varias vías para la especificación de
 los colores.  La primera forma es utilizar uno de los colores
-@q{CSS} predefinidos que están relacionados en la @rnotationnamed{List of colors, Lista de
-colores}.  Para poner las líneas divisorias de color blanco,
-escribimos:
+@q{CSS} predefinidos que están relacionados en la
+@rnotationnamed{List of colors, Lista de colores}.  Para poner las
+líneas divisorias de color blanco, escribimos:
 
 @cindex BarLine, ejemplo de sobreescritura
 @cindex color, propiedad, ejemplo
@@ -1497,7 +1515,6 @@ whiteVar = "#FFFFFF"
   g,8 a16 b8 c d4 e16 |
   e8
 }
-
 @end lilypond
 
 @cindex rgb, colores
@@ -1540,11 +1557,12 @@ que pasamos anteriormente por alto.
 @code{x11-color}, de nuevo, lleva a cabo una asignación de nombres
 de color predefinidos a valores internos, pero ofrece muchas más
 alternativas que los nombres de CSS, como se ve en
-@rnotationnamed{List of colors, Lista de colores}).  Por ejemplo, el conjunto de colores de
-X11 incluye una completa gama de tonos de gris, cuyos nombres van
-desde el negro, @code{'grey0}, hasta el blanco, @code{'grey100},
-en pasos de@tie{}1.  Vamos a ilustrar esto estableciendo todos los
-objetos de nuetro ejemplo en distintos tonos de gris:
+@rnotationnamed{List of colors, Lista de colores}).  Por ejemplo,
+el conjunto de colores de X11 incluye una completa gama de tonos
+de gris, cuyos nombres van desde el negro, @code{'grey0}, hasta el
+blanco, @code{'grey100}, en pasos de@tie{}1.  Vamos a ilustrar
+esto estableciendo todos los objetos de nuetro ejemplo en
+distintos tonos de gris:
 
 @cindex StaffSymbol, ejemplo de sobreescritura
 @cindex TimeSignature, ejemplo de sobreescritura
@@ -2294,10 +2312,10 @@ notación.  El ejemplo siguiente muestra esta acomodación
 Ya hemos visto cómo las instrucciones @code{\voiceXXX} afectan a
 la dirección de las ligaduras de expresión y de unión,
 digitaciones y todo lo demás que dependa de la dirección de las
-plicas (véase @ref{Explicitly instantiating voices}).  Cuando se escribe música
-polifónica, estas instrucciones son esenciales para que puedan
-distinguirse varias líneas melódicas entrelazadas.  Pero
-ocasionalmente puede ser necesario sobreescribir este
+plicas (véase @ref{Explicitly instantiating voices}).  Cuando se
+escribe música polifónica, estas instrucciones son esenciales para
+que puedan distinguirse varias líneas melódicas entrelazadas.
+Pero ocasionalmente puede ser necesario sobreescribir este
 comportamiento automático.  Se puede hacer por secciones de música
 completas o incluso para una nota individual.  La propiedad que
 controla este comportamiento es la propiedad de @code{direction}
@@ -3041,9 +3059,10 @@ entre sí.  Comenzaremos con la letra.
 
 La letra se encuentra en el interior de un sistem, y por tanto las
 instrucciones para aplicarle el espaciado estarán en
-@rnotationnamed{Flexible vertical spacing within systems, Espaciado vertical flexible dentro de los sistemas}.  Allí
-se dice que el texo son líneas del tipo @qq{no-pauta} y por tanto
-la instrucción para cambiar su espaciado hará referencia a la
+@rnotationnamed{Flexible vertical spacing within systems,
+Espaciado vertical flexible dentro de los sistemas}.  Allí se dice
+que el texo son líneas del tipo @qq{no-pauta} y por tanto la
+instrucción para cambiar su espaciado hará referencia a la
 propiedad @code{nonstaff}.  Para separarlas del pentagrama al que
 pertenecen (la pauta superior) usaremos la propiedad
 @code{relatedstaff}.  Para separarlas de la línea inferior
@@ -3196,9 +3215,10 @@ o @code{PianoStaff}) se controla con las variables de espaciado
 del @code{StaffGrouper}. El espaciado de los pentagramas no
 agrupados (como @code{Lyrics} y @code{Staff}) se controla con las
 variables del @code{VerticalAxisGroup}.  Para ver más detalles,
-consulte
-@rnotationnamed{Flexible vertical spacing paper variables, Variables de espaciado de paper verticales flexibles} y
-@rnotationnamed{Flexible vertical spacing within systems, Espaciado vertical flexible dentro de los sistemas}.
+consulte @rnotationnamed{Flexible vertical spacing paper
+variables, Variables de espaciado de paper verticales flexibles} y
+@rnotationnamed{Flexible vertical spacing within systems,
+Espaciado vertical flexible dentro de los sistemas}.
 
 
 @node Collisions of objects
@@ -3384,18 +3404,19 @@ voces.
 Dentro de una voz, todas las notas que se producen en el mismo
 moemtno se agrupan en una columna de notas, y se crea un objeto
 @code{NoteColumn} para controlar el posicionamiento horizonal de
-dicho grupo de notas (véase @qq{Columnas de nota} en @ref{Explicitly instantiating voices}).  Si @emph{y sólo si} dos o más columnas de nota
-dentro de un solo contexto de pauta, las dos con las plicas en la
-misma dirección, aparecen en el mismo momento musical, los valores
-de sus propiedades @code{horizontal-shift} se usan para asignarles
-una puntuación y las columnas con puntuaciones más altas se
-desplazan progresivamente para evitar las colisiones entre las
-cabezas de las notas.  Esta propiedad se establece con las
-instrucciones @code{\voiceXXX} y se pueden sobreescribir
-directamente con una instrucción @code{\override} o, de forma más
-común con las instrucciones @code{\shiftOn}.  Observe que esta
-propiedad se usa para @emph{calificar} las columnas de nota o para
-aplicar desplazamientos: no especifica la magnitud del
+dicho grupo de notas (véase @qq{Columnas de nota} en
+@ref{Explicitly instantiating voices}).  Si @emph{y sólo si} dos o
+más columnas de nota dentro de un solo contexto de pauta, las dos
+con las plicas en la misma dirección, aparecen en el mismo momento
+musical, los valores de sus propiedades @code{horizontal-shift} se
+usan para asignarles una puntuación y las columnas con
+puntuaciones más altas se desplazan progresivamente para evitar
+las colisiones entre las cabezas de las notas.  Esta propiedad se
+establece con las instrucciones @code{\voiceXXX} y se pueden
+sobreescribir directamente con una instrucción @code{\override} o,
+de forma más común con las instrucciones @code{\shiftOn}.  Observe
+que esta propiedad se usa para @emph{calificar} las columnas de
+nota o para aplicar desplazamientos: no especifica la magnitud del
 desplazamiento, que se va incrementando progresivamente en pasos
 basándolse en la anchura de las cabezas de nota para cada
 puntuación.  Los pasos son normalmente de la mitad de la anchura
@@ -3416,12 +3437,13 @@ superponen.  Observe que no tiene efecto sobre las columnas de
 nota que no se superponen.  Se especifica en unidades adecuadas a
 una columna de notas, por ejemplo la anchura de la cabeza de la
 nota de la primera voz.  Se debe usar en situaciones complejas
-donde las instrucciones @code{\shiftOn} normales (véase @ref{Explicitly instantiating voices}) no resuelven el conflicto entre las notas de forma
-satisfactoria.  Es preferible a la propiedad @code{extra-offset}
-para este propósito porque no hay necesidad de averiguar la
-distancia en espacios de pentagrama, y mover las notas dentro o
-fuera de una @code{NoteColumn} afecta a otras acciones como a la
-fusión entre cabezas de nota.
+donde las instrucciones @code{\shiftOn} normales (véase
+@ref{Explicitly instantiating voices}) no resuelven el conflicto
+entre las notas de forma satisfactoria.  Es preferible a la
+propiedad @code{extra-offset} para este propósito porque no hay
+necesidad de averiguar la distancia en espacios de pentagrama, y
+mover las notas dentro o fuera de una @code{NoteColumn} afecta a
+otras acciones como a la fusión entre cabezas de nota.
 
 @end itemize
 
@@ -3750,8 +3772,8 @@ ya se ha seleccionado, y en este caso la propiedad
 @code{positions} no tiene ningún efecto.  Sin embargo, las
 ligaduras de unión, expresión y fraseo @emph{se pueden} colocar y
 conformar de manera muy exacta cuando se necesita.  Para aprender
-la manera de hacerlo, consulte @rnotationnamed{Modifying ties and slurs, Modificación de ligaduras de
-unión y de expresión}.
+la manera de hacerlo, consulte @rnotationnamed{Modifying ties and
+slurs, Modificación de ligaduras de unión y de expresión}.
 
 Presentamos otro ejemplo.  Vemos que la barra choca con las
 ligaduras:
@@ -3976,11 +3998,11 @@ también está fundida con la corchea de su misma altura.  Todo lo
 demás está en una sola voz, así que lo más fácil es introducir
 estas tres voces adicionales, en el momento en que se necesiten y
 de forma temporal.  Si ha olvidado cómo hacerlo, lea las secciones
-@ref{I'm hearing voices} y @ref{Explicitly instantiating voices}.  Aquí tomamos la
-decisión de utilizar voces instanciadas explícitamente para el
-pasaje polifónico, dado que LilyPond es más probable que pueda
-evitar las colisiones si todas las voces se instancian
-explícitamente de esta forma.
+@ref{I'm hearing voices} y @ref{Explicitly instantiating voices}.
+Aquí tomamos la decisión de utilizar voces instanciadas
+explícitamente para el pasaje polifónico, dado que LilyPond es más
+probable que pueda evitar las colisiones si todas las voces se
+instancian explícitamente de esta forma.
 
 Vamos a comenzar introduciendo las notas como dos variables y
 disponiendo la estructura de pentagramas en un bloque Score, y
@@ -4178,11 +4200,12 @@ en distintas voces?  Aquí es donde debemos volver a buscar ayuda
 en el manual de Referencia de la notación. Al buscar la palabra
 @qq{merge} (mezcla) en el índice de la Referencia de la notación
 llegamos rápidamente a las instrucciones para mezclar notas con
-distinta cabeza y con o sin puntillo, en @rnotationnamed{Collision resolution, Resolución de las
-colisiones}.  En nuestro ejemplo tenemos que fusionar ambos tipos
-de nota en el transcurso de la sección polifónica del compás 3;
-por tanto, en virtud de la información que aparece en la
-Referencia de la Notación, escribimos
+distinta cabeza y con o sin puntillo, en @rnotationnamed{Collision
+resolution, Resolución de las colisiones}.  En nuestro ejemplo
+tenemos que fusionar ambos tipos de nota en el transcurso de la
+sección polifónica del compás 3; por tanto, en virtud de la
+información que aparece en la Referencia de la Notación,
+escribimos
 
 @example
 \mergeDifferentlyHeadedOn
@@ -5103,8 +5126,8 @@ LilyPond.  Se puede incorporar código escrito en el lenguaje de
 programación Scheme, directamente en el mecanismo de
 funcionamiento de LilyPond.  Por supuesto, para hacer esto se
 necesitan al menos unos conocimientos básicos de programación en
-Scheme, y damos una introducción en el @rextendnamed{Scheme tutorial, Tutorial de
-Scheme}.
+Scheme, y damos una introducción en el @rextendnamed{Scheme
+tutorial, Tutorial de Scheme}.
 
 Como ejemplo que ilustra una de las muchas posibilidades, en lugar
 de dar a una propiedad un valor constante, se puede establecer al
