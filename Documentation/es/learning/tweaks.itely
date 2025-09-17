@@ -1138,14 +1138,14 @@ quiere calcular un valor usando Scheme, consulte
   @tab un número entero positivo
   @tab @code{3}, @code{-1}
 @item lista
-  @tab Una secuencia de constantes o símbolos separados por espacios,
+  @tab una secuencia de constantes o símbolos separados por espacios,
   encerrado entre paréntesis
   y precedido de un apóstrofo o comilla simple
   @tab @code{#'(left-edge staff-bar)},@*
        @code{#'(1)}, @code{#'()},@*
        @code{#'(1.0 0.25 0.5)}
 @item marcado
-  @tab Cualquier elemento válido de marcado de texto
+  @tab cualquier elemento válido de marcado de texto
   @tab @code{\markup @{ \italic "cresc." @}},@*
        @code{"gaita"}
 @item momento
@@ -1155,7 +1155,7 @@ quiere calcular un valor usando Scheme, consulte
 @item número
   @tab cualquier valor positivo o negativo, posiblemente decimal
   @tab @code{3}, @code{-2.45}
-@item Pareja@*(de números)
+@item pareja@*(de números)
   @tab Dos números separados por la secuencia @q{espacio},
        @samp{.}, @q{espacio}, encerrado entre paréntesis y
        precedido de un apóstrofo
@@ -1206,8 +1206,8 @@ líneas divisorias normalmente se insertan automáticamente. ¿Cómo
 hacemos para que no se impriman?
 
 Antes de enredarnos con esto, recordemos que las propiedades de
-los objetos se agrupan en lo que hemos llamado @emph{interfaces}
-(véase @ref{Properties found in interfaces}).  Esto es simplemente
+los objetos se agrupan en lo que hemos llamado @dfn{interfaces}
+(@pxref{Properties found in interfaces}).  Esto es simplemente
 agrupar las propiedades que se pueden usar juntas para trucar un
 objeto gráfico: si una de ellas se necesita para un objeto,
 también las otras.  Así, ciertos objetos usan las propiedades de
@@ -1216,6 +1216,8 @@ interfaces que contienen las propiedades que un determinado grob
 necesita se encuentran relacionadas en el manual RFI al final de
 la página que describe dicho grob, y esas propiedades se pueden
 ver mirando dichas interfaces.
+
+@c Hasta aquí
 
 Hemos explicado cómo encontrar información sobre los grobs en
 @ref{Properties of layout objects}.  Usando el mismo
