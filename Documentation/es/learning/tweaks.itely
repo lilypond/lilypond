@@ -18,13 +18,8 @@ extremadamente configurable; prácticamente todos los fragmentos de
 la salida se pueden cambiar.
 
 
-@need 1500
 @node Tweaking basics
 @section Elementos de trucaje
-
-
-@node Introduction to tweaks
-@subsection Introducción al trucaje
 
 El @q{Trucaje} es un término de LilyPond que denota los diversos
 métodos que el usuario tiene a su disposición para modificar el
@@ -42,8 +37,8 @@ tiempo mostraremos la forma de construir dichas instrucciones para
 que pueda aprender cómo desarrollar sus propios trucos.
 
 Antes de comenzar con este capítulo, quizá quiera echar un vistazo
-a la sección @ref{Contexts and engravers}, pues los Contextos, los
-Grabadores y las Propiedades que se contienen en ellos son
+a la sección @ref{Contexts and engravers}, pues los contextos, los
+grabadores y las propiedades que se contienen en ellos son
 fundamentales para comprender y construir los trucos.
 
 @node Objects and interfaces
@@ -53,7 +48,7 @@ fundamentales para comprender y construir los trucos.
 @cindex grob
 @cindex objeto de extensión
 @cindex interfaz
-@cindex propiedades de objetos
+@cindex propiedad, de objetos
 @cindex objeto, propiedades de
 @cindex layout (disposición), objeto de
 @cindex objeto de disposición (layout)
@@ -63,7 +58,7 @@ interna del programa LilyPond, por lo que en primer lugar
 introduciremos algunos términos que se usan para describir dichas
 operaciones y estructuras internas.
 
-El término @q{Objeto} es un término genérico que se usa para
+@dfn{Objeto} es un término genérico que se usa para
 referirse a la multitud de estructuras internas que LilyPond
 construye durante el procesado de un archivo de entrada.  Así,
 cuando se encuentra una instrucción como @code{\new Staff}, se
@@ -85,7 +80,7 @@ que representan elementos de notación sobre la salida impresa como
 cabezas de notas, plicas, ligaduras de expresión y de unión,
 digitaciones, claves, etc. reciben el nombre de @q{Objetos de
 presentación}, a menudo conocidos como @q{Objetos gráficos}, o
-abreviadamente @q{Grobs}.  Aún son objetos en el sentido genérico
+abreviadamente @dfn{Grobs}.  Aún son objetos en el sentido genérico
 que hemos mencionado, y también todos ellos tienen propiedades
 asociadas, como su posición, tamaño, color,etc.
 
@@ -95,7 +90,7 @@ alta y baja, y muchos otros objetos gráficos no están situados en
 un solo lugar: tienen un punto de inicio, un punto de final, y
 quizá otras propiedades relacionadas con su forma.  Los objetos
 con una forma extendida como estos, reciben el nombre de «Objetos
-de extensión» o @q{Spanners}.
+de extensión» o @dfn{Spanners}.
 
 Los «spanners» no se pueden trucar después de haberse creado.
 Ello incluye tanto a @code{StaffSymbol} como a
@@ -108,11 +103,11 @@ Es más, existen objetos gráficos @q{abstractos} que no impriman
 nada por sí mismos, sino que más bien recopilan, posicionan y
 gestionan a otros objetos gráficos.  Los ejemplos usuales son
 @code{DynamicLineSpanner}, @code{BreakAlignment},
-@code{NoteColumn}, @code{VerticalAxisGroup},
-@code{NonMusicalPaperColumn} y similares.  Más tarde veremos cómo
+@code{NoteColumn}, @code{VerticalAxisGroup} o
+@code{NonMusicalPaperColumn}.  Más tarde veremos cómo
 se usan algunos de ellos.
 
-Aún falta por explicar qué son los @q{Interfaces}.  Muchos
+Aún falta por explicar qué son los @dfn{Interfaces}.  Muchos
 objetos, incluso aunque son bastante diferentes, comparten
 funcionalidades que se deben procesar de la misma manera.  Por
 ejemplo, todos los objetos gráficos tienen un color, un tamaño,
@@ -134,8 +129,8 @@ objetos que vamos a utilizar en este capítulo.
 
 @cindex nomenclatura, convenciones de, para objetos
 @cindex nomenclatura, convenciones de, para propiedades
-@cindex objetos, convenciones de nomenclatura
-@cindex propiedades, convenciones de nomenclatura
+@cindex objeto, convenciones de nomenclatura
+@cindex propiedad, convenciones de nomenclatura
 
 Ya hemos visto ciertas convenciones de nomenclatura de objetos, en la
 sección @ref{Contexts and engravers}.  En este lugar, para más fácil
@@ -147,29 +142,31 @@ alfabético en mayúsculas, y @q{aaa} para cualquier número de
 caracteres alfabéticos en minúscula.  Otros caracteres se utilizan
 literalmente como están.
 
-@multitable @columnfractions .33 .33 .33
+@indentedblock
+@multitable {Propiedades de objetos de presentación} {@code{Aaaa} o @code{AaaaAaaaAaaa}} {@code{break-aligned-interface}}
 @headitem Objeto o tipo de propiedad
   @tab Convención de nomenclatura
   @tab Ejemplos
 @item Contextos
-  @tab Aaaa o AaaaAaaaAaaa
-  @tab Staff, GrandStaff
+  @tab @code{Aaaa} o @code{AaaaAaaaAaaa}
+  @tab @code{Staff}, @code{GrandStaff}
 @item Objetos de presentación
-  @tab Aaaa o AaaaAaaaAaaa
-  @tab Slur, NoteHead
+  @tab @code{Aaaa} o @code{AaaaAaaaAaaa}
+  @tab @code{Slur}, @code{NoteHead}
 @item Grabadores
-  @tab Aaaa_aaa_engraver
-  @tab Clef_engraver, Note_heads_engraver
+  @tab @code{Aaaa_aaa_engraver}
+  @tab @code{Clef_engraver},@* @code{Note_heads_engraver}
 @item Interfaces
-  @tab aaa-aaa-interface
-  @tab grob-interface, break-aligned-interface
+  @tab @code{aaa-aaa-interface}
+  @tab grob@code{grob-interface},@* @code{break-aligned-interface}
 @item Propiedades de contextos
-  @tab aaa o aaaAaaaAaaa
-  @tab alignAboveContext, skipBars
+  @tab @code{aaa} o @code{aaaAaaaAaaa}
+  @tab @code{alignAboveContext}, @code{skipBars}
 @item Propiedades de objetos de presentación
-  @tab aaa o aaa-aaa-aaa
-  @tab direction, beam-thickness
+  @tab @code{aaa} o @code{aaa-aaa-aaa}
+  @tab @code{direction},@* @code{beam-thickness}
 @end multitable
+@end indentedblock
 
 Como podremos ver en breve, las propiedades de distintos tipos de
 objeto se modifican por parte de diferentes instrucciones; así pues,
@@ -179,6 +176,7 @@ a partir de sus nombres.
 @morerefs
 Referencia de la notación:
 @rnotationnamed{Modifying properties, Modificar las propiedades}.
+@endmorerefs
 
 
 @node Tweaking methods
@@ -186,14 +184,11 @@ Referencia de la notación:
 
 @cindex trucaje, métodos de
 
-@strong{La instrucción \override}
+Este apartado trata de las instrucciones de trucaje más importantes.
 
 
 @node The override command
 @unnumberedsubsubsec La instrucción @code{\override}
-
-@cindex override, instrucción
-@cindex override (sobreescritura), sintaxis de
 
 @funindex \override
 
@@ -216,12 +211,11 @@ Veamos cómo se hace.
 La sintaxis genérica de esta instrucción es:
 
 @example
-\override @var{Contexto}.@var{ObjetoDePresentación}.@var{propiedad-de-presentación} =
-#@var{valor}
+\override @var{Contexto}.@var{ObjetoDePresentación}.@var{propiedad-de-presentación} = @var{valor}
 @end example
 
 @noindent
-Esto establecerá la propiedad de nombre
+Esto establece la propiedad de nombre
 @var{propiedad-de-presentación} del objeto de presentación con el
 nombre @var{ObjetoDePresentación}, que es miembro del contexto
 @var{Contexto}, al valor @var{valor}.
@@ -234,16 +228,27 @@ los ejemplos siguientes.  Veremos más tarde cuándo se debe
 especificar.
 
 Las últimas secciones tratan de forma exhaustiva las propiedades y
-sus valores, véase @ref{Types of properties}.  Pero en esta
+sus valores, @pxref{Types of properties}.  Pero en esta
 sección usaremos sólo unas cuantas propiedades y valores sencillos
 que sean fáciles de entender, para ilustrar el formato y la
 utilización de estas instrucciones.
 
 Las expresiones principales de LilyPond son elementos musicales
 como notas y duraciones, así como cadenas y elementos de marcado.  Las expresiones
-más específicas como números, símbolos y listas se
+más específicas como símbolos y listas se
 procesan en el @q{modo de Scheme}, que se invoca por medio del
-prefijo @samp{#} escrito antes del valor.  Para ver más información acerca del
+prefijo @samp{#} escrito antes del valor.  A special case are
+numbers, which must be prefixed with @samp{#} only if used as
+arguments to a markup function (i.e., within
+@code{\markup}).@footnote{Note, however, that for LilyPond a
+number @emph{must} start with a digit or a minus sign followed by
+a digit if not in Scheme mode.  In other words, @samp{0.2} or
+@samp{-0.2} are valid numbers, while @samp{.2} or @samp{-.2} are
+not.  If really necessary you can write @samp{#.2} or @samp{#-.2}
+instead -- Scheme supports a much broader range of number
+representations.}
+
+Para ver más información acerca del
 modo de Scheme, consulte @rextendnamed{LilyPond Scheme syntax, Sintaxis del Scheme de LilyPond}.
 
 @code{\override} es la instrucción de uso más común dentro del
@@ -251,8 +256,8 @@ trucaje, y durante la mayor parte del resto de este capítulo
 presentaremos ejemplos de cómo se usa.  A continuación hay un
 ejemplo sencillo para cambiar el color de una cabeza:
 
-@cindex color, propiedad, ejemplo
-@cindex NoteHead, ejemplo de sobreescritura
+@cindex @code{color}, propiedad, ejemplo
+@cindex @code{NoteHead}, ejemplo de sobreescritura
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
@@ -268,8 +273,6 @@ ejemplo sencillo para cambiar el color de una cabeza:
 @node The revert command
 @unnumberedsubsubsec La instrucción @code{\revert}
 
-@cindex revert, instrucción
-
 @funindex \revert
 
 Una vez sobreescrita, la propiedad retiene su nuevo valor hasta
@@ -277,7 +280,9 @@ que se sobreescribe de nuevo o se encuentra una instrucción
 @code{\revert}.  La instrucción @code{\revert} tiene la siguiente
 sintaxis y ocasiona que el valor de la propiedad se devuelva a su
 valor predeterminado original; observe que no es a su valor previo
-si se han utilizado varias instrucciones @code{\override}.
+si se han utilizado varias instrucciones @code{\override}.@footnote{The behaviour of
+@code{\revert} can be changed by using @code{\temporary
+\override}; see @rextend{Intermediate substitution functions}.}
 
 @example
 \revert @var{Contexto}.@var{ObjetoDePresentación}.@var{propiedad-de-presentación}
@@ -289,8 +294,8 @@ Una vez más, igual que @var{Contexto} dentro de la instrucción
 Aquí devolvemos el color de la cabeza al valor predeterminado para
 las dos últimas notas:
 
-@cindex color, propiedad, ejemplo
-@cindex NoteHead, ejemplo de sobreescritura
+@cindex @code{color}, propiedad, ejemplo
+@cindex @code{NoteHead}, ejemplo de sobreescritura
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
@@ -319,8 +324,8 @@ se está aplicando otra instrucción @code{\override} de
 sobreescritura).  Utilizando el mismo ejemplo, podemos cambiar el
 color de una sola nota de la siguiente manera:
 
-@cindex color, propiedad, ejemplo
-@cindex NoteHead, ejemplo de sobreescritura
+@cindex @code{color}, propiedad, ejemplo
+@cindex @code{NoteHead}, ejemplo de sobreescritura
 
 @lilypond[quote,verbatim]
 \relative {
@@ -351,46 +356,36 @@ momento musical:
 }
 @end lilypond
 
-@node The overrideProperty command
-@unnumberedsubsubsec La instrucción @code{\overrideProperty}
 
-@cindex overrideProperty, instrucción
-
-@funindex \overrideProperty
-
-Hay otra forma para la instrucción de sobreescritura,
-@code{\overrideProperty}, que ocasionalmente es necesaria.  La
-mencionamos aquí con un propósito de exhaustividad, pero para ver
-más detalles consulte @rextendnamed{Difficult tweaks, Trucos difíciles}.
-@c Maybe explain in a later iteration  -td
-
-
-@node The tweak command
-@unnumberedsubsubsec La instrucción @code{\tweak}
-
-@cindex tweak, instrucción
+@node The tweak and offset commands
+@unnumberedsubsubsec Las instrucciones @code{\tweak} y @code{\offset}
 
 @funindex \tweak
+@funindex \offset
 
-La última instrucción de trucaje que está disponible es
-@code{\tweak}.  Se debe utilizar cuando varios objetos tienen
+Las últimas instrucciones de trucaje que tenemos en LilyPond son
+@code{\tweak} y @code{\offset}.  Se deben utilizar cuando varios objetos tienen
 lugar en el mismo momento musical pero solo queremos cambiar las
 propiedades de algunos de ellos, como una sola nota dentro de un
 acorde.  El uso de @code{\override} para la sobreescritura
 afectaría a todas las notas del acorde, mientras que @code{\tweak}
 afecta solamente al siguiente elemento del flujo de entrada.
 
+Note that @code{\offset} can be used as an replacement for
+@code{\override}, too; it also has more syntax forms.  See
+@rnotation{The offset command}, for all the details.
+
 He aquí un ejemplo.  Suponga que queremos cambiar el tamaño de la
 cabeza de la nota intermedia (el Mi) en un acorde de Do mayor.  En
 primer lugar, veamos lo que haría @code{\once \override}:
 
-@cindex font-size, propiedad, ejemplo
-@cindex NoteHead, ejemplo de sobreescritura
+@cindex @code{font-size}, propiedad, ejemplo
+@cindex @code{NoteHead}, ejemplo de sobreescritura
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   <c' e g>4
-  \once \override NoteHead.font-size = #-3
+  \once \override NoteHead.font-size = -3
   <c e g>4
   <c e g>4
 }
@@ -404,41 +399,67 @@ objetos de presentación del tipo especificado que ocurren en el
 mismo momento musical que la propia instrucción de sobreescritura
 @code{\override}.
 
-La instrucción @code{\tweak} opera de una forma distinta.  Actúa
+Las instrucciones @code{\tweak} y @code{\offset} operan de una forma distinta.  Actúan
 sobre el elemento inmediatamente siguiente dentro del flujo de
-entrada.  En su forma más sencilla es efectivo solamente sobre
+entrada.  En sus formas más sencillas, son efectivos solamente sobre
 objetos que se crean directamente a partir del elemento siguiente,
 en esencia las cabezas y las articulaciones.
 
 Así pues, volviendo a nuestro ejemplo, el tamaño de la nota
 intermedia se cambiaría de la siguiente forma:
 
-@cindex font-size, propiedad, ejemplo
+@cindex @code{font-size}, propiedad, ejemplo
 @cindex @code{\tweak}, ejemplo
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   <c' e g>4
-  <c \tweak font-size #-3 e g>4
+  <c \tweak font-size -3 e g>4
 }
 @end lilypond
 
-Observe que la sintaxis de @code{\tweak} no es igual que la de
+Let's now try to change the vertical position of the
+@code{\breathe} symbol.  By default, LilyPond computes a vertical
+distance from the middle line automatically.  If we would like to
+move it up by two units, say, @code{\offset} is the right command.
+With @code{\tweak} it would be necessary to find the correct
+position manually by trial and error.
+
+@cindex @code{\offset}, example
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  c4
+  \breathe
+  c4
+  \offset Y-offset 2 \breathe
+  c2
+  \tweak Y-offset 4 \breathe
+}
+@end lilypond
+
+Obviously, @code{\offset} only works for values that actually have
+a numeric value.  There are more restrictions to that what can be
+changed; again, please refer to @rnotation{The offset command},
+for more details.
+
+Observe que la sintaxis de @code{\tweak} y @code{\offset} no es igual que la de
 @code{\override}.  El contexto no se debe especificar; de hecho,
 generaría un error hacerlo.  Tanto el contexto como el objeto de
 presentación están implícitos por el siguiente elemento del flujo
 de entrada.  Observe también que no debe haber un signo igual. Así
-que la sintaxis de la instrucción @code{\tweak} en su forma
+que la sintaxis de las instrucciones @code{\tweak} y @code{\offset} en su forma
 sencilla es:
 
 @example
-\tweak @var{propiedad-de-presentación} #@var{valor}
+\tweak @var{propiedad-de-presentación} @var{valor}
+\offset @var{propiedad-de-presentación} @var{valor}
 @end example
 
-Una instrucción @code{\tweak} también se puede usar para modificar
-sólo una de una serie de articulaciones, como se muestra aquí:
+@code{\tweak} y @code{\offset} también se pueden usar para modificar
+solo una de una serie de articulaciones, como se muestra aquí:
 
-@cindex color, propiedad, ejemplo
+@cindex @code{color}, propiedad, ejemplo
 @cindex @code{\tweak}, ejemplo
 
 @lilypond[quote,fragment,ragged-right,verbatim]
@@ -448,19 +469,19 @@ a'4^"Black"
 @end lilypond
 
 @noindent
-Observe que la instrucción @code{\tweak} debe venir precedida de
+Tanto la instrucción @code{\tweak} como @code{\offset} deben venir precedidan de
 una marca de articulación porque la propia expresión trucada debe
 aplicarse como una articulación.  En el caso de más de una
-sobreescritura de dirección (@code{^} o @code{_}), gana la
+sobreescritura de dirección (@samp{^} o @samp{_}), gana la
 sobreescritura situada más a la izquierda porque se aplica en
 último lugar.
 
-@cindex @code{\tweak}, Accidental
-@cindex @code{\tweak}, specific layout object
+@cindex @code{\tweak}, alteración accidental
+@cindex @code{\tweak}, objeto de presentación específico
 
 Los objetos tales como plicas y alteraciones accidentales se crean
 más tarde, y no directamente a partir del evento que viene a
-continuación.  Aún es posible utilizar @code{\tweak} sobre tales
+continuación.  Aún es posible utilizar @code{\tweak} u @code{\offset} sobre tales
 objetos creados indirectamente mediante el nombrado explícito del
 objeto de presentación, siempre y cuando LilyPond pueda rastrear
 su origen hasta el evento original:
@@ -471,10 +492,11 @@ su origen hasta el evento original:
  g''>
 @end lilypond
 
-Esta forma extensa de la instrucción @code{\tweak} se puede describir
+Esta forma extensa de las instrucciones @code{\tweak} y @code{\offset} se puede describir
 como
 @example
-\tweak @var{LayoutObject}.@var{layout-property} #@var{value}
+\tweak @var{ObjetoDePresentación}.@var{propiedad-de-presentación} @var{valor}
+\offset @var{ObjetoDePresentación}.@var{propiedad-de-presentación} @var{valor}
 @end example
 
 @cindex grupos especiales anidados
@@ -484,7 +506,7 @@ como
 @cindex grupo especial, corchete de
 @cindex tresillo, corchete de
 
-@funindex TupletBracket
+@cindex @code{TupletBracket}
 
 La instrucción @code{\tweak} también se debe usar para cambiar la
 apariencia de uno solo de un conjunto de grupos especiales
@@ -499,8 +521,8 @@ notas y el segundo especifica que el número del tresillo se debe
 imprimir en rojo sobre el corchete del primer tresillo corto.
 
 @cindex @code{\tweak}, ejemplo
-@cindex direction, propiedad, ejemplo
-@cindex color, propiedad, ejemplo
+@cindex @code{direction}, propiedad, ejemplo
+@cindex @code{color}, propiedad, ejemplo
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
@@ -518,15 +540,16 @@ Si los grupos anidados no comienzan en el mismo momento, su
 apariencia se puede modificar de la forma usual mediante
 instrucciones @code{\override}:
 
-@cindex text, propiedad, ejemplo
-@cindex tuplet-number, función, ejemplo
-@cindex transparent, propiedad, ejemplo
-@cindex TupletNumber, ejemplo de sobreescritura
+@cindex @code{text}, propiedad, ejemplo
+@cindex @code{tuplet-number}, función, ejemplo
+@cindex @code{transparent}, propiedad, ejemplo
+@cindex @code{TupletNumber}, ejemplo de sobreescritura
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
   \tuplet 3/2 { c'8[ c c] }
-  \once \override TupletNumber.text = #tuplet-number::calc-fraction-text
+  \once \override TupletNumber.text =
+    #tuplet-number::calc-fraction-text
   \tuplet 3/2 {
     c8[ c]
     c8[ c]
@@ -540,7 +563,11 @@ instrucciones @code{\override}:
 
 @morerefs
 Referencia de la notación:
-@rnotationnamed{The tweak command, La instrucción tweak}.
+@rnotation{Tweak and single},
+@rnotation{The offset command}
+@endmorerefs
+
+@c Hasta aquí
 
 @node The single prefix
 @unnumberedsubsubsec El prefijo @code{\single}
@@ -567,7 +594,7 @@ El prefijo @code{\once} funciona perfectamente para enfatizar
 notas únicas o acordes completos, pero no se puede usar para
 enfatizar una sola nota @emph{dentro} de un acorde.  Anteriormente
 vimos cómo se puede usar la instrucción @code{\tweak} para
-hacerlo, véase @ref{The tweak command}.  Pero @code{\tweak} no se puede usar con una
+hacerlo, véase @ref{The tweak and offset commands}.  Pero @code{\tweak} no se puede usar con una
 función; ahí es donde entra la instrucción @code{\single}:
 
 @lilypond[quote,verbatim]
@@ -596,11 +623,11 @@ de @code{\tweak}.
 
 @morerefs
 Manual de aprendizaje:
-@ref{The tweak command},
+@ref{The tweak and offset commands},
 @ref{Using variables for layout adjustments}.
+@endmorerefs
 
 
-@need 1500
 @node The Internals Reference manual
 @section Manual de referencia de funcionamiento interno
 
