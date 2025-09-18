@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 8892bd951e1705e116b36cf2243c061f74e73af9
+    Translation of GIT committish: 8677514240adc1b684c42680a624286f892486a6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -44,25 +44,25 @@ antes del archivo incluido con la instrucción @code{\include}.
 
 La música se puede disponer con una o dos voces por pentagrama
 fijando el valor de @code{TwoVoicesPerStaff} a @code{##f} o
-@code{##t} respectivamente.
+@code{##t}, respectivamente.
 
 A continuación aparece el archivo de entrada completo que produce
 un arreglo a cuatro voces SATB con letras individuales y
 acompañamiento de piano:
 
 @lilypond[verbatim, quote]
-  SopranoMusic = \relative { a'4\f a8 a a4 a }
-  SopranoLyrics = \lyricmode { Sop -- ra -- no ly -- rics }
-  AltoMusic = \relative { d'4\f d d d }
-  AltoLyrics = \lyricmode { Al -- to ly -- rics }
-  TenorMusic = \relative { a4\p a a a }
-  TenorLyrics = \lyricmode { Te -- nor ly -- rics }
-  BassMusic = \relative { c2\p c4 c }
-  BassLyrics = \lyricmode { Bass ly -- rics }
-  PianoRHMusic = \relative { c' e g c }
-  PianoDynamics = { s2\mp s4 s4 }
-  PianoLHMusic = \relative { c e g c }
-  \include "satb.ly"
+SopranoMusic = \relative { a'4\f a8 a a4 a }
+SopranoLyrics = \lyricmode { Sop -- ra -- no ly -- rics }
+AltoMusic = \relative { d'4\f d d d }
+AltoLyrics = \lyricmode { Al -- to ly -- rics }
+TenorMusic = \relative { a4\p a a a }
+TenorLyrics = \lyricmode { Te -- nor ly -- rics }
+BassMusic = \relative { c2\p c4 c }
+BassLyrics = \lyricmode { Bass ly -- rics }
+PianoRHMusic = \relative { c' e g c }
+PianoDynamics = { s2\mp s4 s4 }
+PianoLHMusic = \relative { c e g c }
+\include "satb.ly"
 @end lilypond
 
 La misma entrada se puede utilizar para producir una partitura con
@@ -72,49 +72,49 @@ su letra individual.
 
 
 @lilypond[verbatim, quote]
-  SopranoMusic = \relative { a'4\f a8 a a4 a }
-  SopranoLyrics = \lyricmode { Sop -- ra -- no ly -- rics }
-  AltoMusic = \relative { d'4\f d d d }
-  AltoLyrics = \lyricmode { Al -- to ly -- rics }
-  TenorMusic = \relative { a4\p a a a }
-  TenorLyrics = \lyricmode { Te -- nor ly -- rics }
-  BassMusic = \relative { c2\p c4 c }
-  BassLyrics = \lyricmode { Bass ly -- rics }
-  PianoRHMusic = \relative { c' e g c }
-  PianoDynamics = { s2\mp s4 s4 }
-  PianoLHMusic = \relative { c e g c }
-  TwoVoicesPerStaff = ##t
-  \include "satb.ly"
+SopranoMusic = \relative { a'4\f a8 a a4 a }
+SopranoLyrics = \lyricmode { Sop -- ra -- no ly -- rics }
+AltoMusic = \relative { d'4\f d d d }
+AltoLyrics = \lyricmode { Al -- to ly -- rics }
+TenorMusic = \relative { a4\p a a a }
+TenorLyrics = \lyricmode { Te -- nor ly -- rics }
+BassMusic = \relative { c2\p c4 c }
+BassLyrics = \lyricmode { Bass ly -- rics }
+PianoRHMusic = \relative { c' e g c }
+PianoDynamics = { s2\mp s4 s4 }
+PianoLHMusic = \relative { c e g c }
+TwoVoicesPerStaff = ##t
+\include "satb.ly"
 @end lilypond
 
-Cuando se establece el valor de @code{TwoVoicesPerStaff} a falso o
+Cuando se establece el valor de @code{TwoVoicesPerStaff} a @code{#f} (falso) o
 se deja como predeterminado, cualquiera de las variables musicales
 puede omitirse para producir arreglos con menos voces.  Aquí, por
 ejemplo, aparece la manera en que debe escribirse el archivo de
 entrada para un dúo de Soprano y Bajo:
 
 @lilypond[verbatim,quote]
-  SopranoMusic = \relative { c'' c c c }
-  SopranoLyrics = \lyricmode { High voice ly -- rics }
-  BassMusic = \relative { a a a a }
-  BassLyrics = \lyricmode { Low voice ly -- rics }
-  \include "satb.ly"
+SopranoMusic = \relative { c'' c c c }
+SopranoLyrics = \lyricmode { High voice ly -- rics }
+BassMusic = \relative { a a a a }
+BassLyrics = \lyricmode { Low voice ly -- rics }
+\include "satb.ly"
 @end lilypond
 
 Se puede añadir a cada una de las partes una segunda estrofa o una
 letra alternativa:
 
 @lilypond[verbatim, quote]
-  SopranoMusic = \relative { a'4 a a a }
-  SopranoLyricsOne = \lyricmode {
-    \set stanza = "1."
-    Words to verse one
-  }
-  SopranoLyricsTwo = \lyricmode {
-    \set stanza = "2."
-    Words to verse two
-  }
-  \include "satb.ly"
+SopranoMusic = \relative { a'4 a a a }
+SopranoLyricsOne = \lyricmode {
+  \set stanza = "1."
+  Words to verse one
+}
+SopranoLyricsTwo = \lyricmode {
+  \set stanza = "2."
+  Words to verse two
+}
+\include "satb.ly"
 @end lilypond
 
 Cuando las letras y las duraciones son las mismas para todas las
@@ -124,24 +124,24 @@ nueve estrofas.  El ejemplo sin acompañamiento que aparece a
 continuación tiene solamente tres estrofas.
 
 @lilypond[verbatim, quote]
-  SopranoMusic = \relative { a' a a a }
-  AltoMusic = \relative { f' f f f }
-  VerseOne = \lyricmode {
-    \set stanza = "1."
-    Words to verse one
-  }
-  VerseTwo = \lyricmode {
-    \set stanza = "2."
-    Words to verse two
-  }
-  VerseThree = \lyricmode {
-    \set stanza = "3."
-    Words to verse three
-  }
-  TenorMusic = \relative { a a a a }
-  BassMusic = \relative { f f f f }
-  TwoVoicesPerStaff = ##t
-  \include "satb.ly"
+SopranoMusic = \relative { a' a a a }
+AltoMusic = \relative { f' f f f }
+VerseOne = \lyricmode {
+  \set stanza = "1."
+  Words to verse one
+}
+VerseTwo = \lyricmode {
+  \set stanza = "2."
+  Words to verse two
+}
+VerseThree = \lyricmode {
+  \set stanza = "3."
+  Words to verse three
+}
+TenorMusic = \relative { a a a a }
+BassMusic = \relative { f f f f }
+TwoVoicesPerStaff = ##t
+\include "satb.ly"
 @end lilypond
 
 Puede ajustarse el valor de otras variables.  La tonalidad y la
@@ -149,35 +149,36 @@ indicación de compás se pueden modificar a partir de los ajustes
 predeterminados:
 
 @lilypond[verbatim, quote]
-  Key = \key a \major
-  Time = {
-    \time 5/4
-    \tempo "Allegro" 4 = 144
-  }
-  SopranoMusic = \relative { gis' gis gis gis gis }
-  AltoMusic = \relative { cis' cis cis cis cis }
-  VerseOne = \lyricmode { Words to this du -- et }
-  TwoVoicesPerStaff = ##t
-  \include "satb.ly"
+Key = \key a \major
+Time = {
+  \time 5/4
+  \tempo "Allegro" 4 = 144
+}
+SopranoMusic = \relative { gis' gis gis gis gis }
+AltoMusic = \relative { cis' cis cis cis cis }
+VerseOne = \lyricmode { Words to this du -- et }
+TwoVoicesPerStaff = ##t
+\include "satb.ly"
 @end lilypond
 
 Los nombres de instrumento y/o los nombres cortos de instrumento
 se pueden modificar también:
 
 @lilypond[verbatim,quote]
-  SopranoMusic = \relative { c'' c c c }
-  SopranoLyrics = \lyricmode { High voice ly -- rics }
-  SopranoInstrumentName = "Soprano 1"
-  SopranoShortInstrumentName = "S1"
-  AltoMusic = \relative { a' a a a }
-  AltoLyrics = \lyricmode { Low voice ly -- rics }
-  AltoInstrumentName = "Soprano 2"
-  AltoShortInstrumentName = "S2"
-  \include "satb.ly"
+SopranoMusic = \relative { c'' c c c }
+SopranoLyrics = \lyricmode { High voice ly -- rics }
+SopranoInstrumentName = "Soprano 1"
+SopranoShortInstrumentName = "S1"
+AltoMusic = \relative { a' a a a }
+AltoLyrics = \lyricmode { Low voice ly -- rics }
+AltoInstrumentName = "Soprano 2"
+AltoShortInstrumentName = "S2"
+\include "satb.ly"
 @end lilypond
 
+@noindent
 aunque en su lugar podría resultar más fácil usar la plantilla
-@code{ssaattbb.ly}, véase @ref{SSAATTBB template}.
+@code{ssaattbb.ly}. @pxref{SSAATTBB template}.
 
 Se puede añadir un discanto definiendo el valor de la variable
 @code{DescantMusic} y se puede añadir una letra para el discanto
@@ -200,7 +201,7 @@ Layout = \layout @{ ... @}
 @end example
 
 El conjunto completo de variables que pueden modificarse se pueden
-consultar en el archivo @file{ly/satb.ly}, véase @ref{Other sources of information}.
+consultar en el archivo @file{ly/satb.ly}, @pxref{Other sources of information}.
 
 @morerefs
 Manual de aprendizaje:
@@ -208,6 +209,7 @@ Manual de aprendizaje:
 @ref{Vocal ensembles templates},
 @ref{Extending the templates},
 @ref{Other sources of information}.
+@endmorerefs
 
 @knownissues
 El establecimiento de la variable @code{TwoVoicesPerStaff} tiene
@@ -223,7 +225,7 @@ esta sencilla plantilla incorporada.
 
 Todas las variables definidas para la plantilla SATB, con la
 excepción de las variables @code{VerseXxx} están asimismo
-disponibles para la plantilla SSAATTBB, véase @ref{SATB template}.  Además, la música y la letra de las voces primera y
+disponibles para la plantilla SSAATTBB, @pxref{SATB template}.  Además, la música y la letra de las voces primera y
 segunda en una cualquiera o en las cuatro partes se puede
 especificar dando valores a las variables @code{SopranoOneMusic},
 @code{SopranoTwoMusic}, etc., con las letras en
@@ -270,7 +272,7 @@ Las voces masculinas se pueden añadir de forma análoga.
 
 Para cambiar la disposición de forma que las voces de soprano en
 divisi utilicen un pentagrama compartido, sencillamente fijamos el
-valor de @code{SopranoTwoVoicesPerStaff} a ##t, dejando todos los
+valor de @code{SopranoTwoVoicesPerStaff} a @code{##t}, dejando todos los
 demás valores sin cambios, así:
 
 @lilypond[verbatim,quote]
@@ -294,6 +296,7 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 \include "ssaattbb.ly"
 @end lilypond
 
+@noindent
 o bien, para hacer que todas las voces emparejadas compartan un
 solo pentagrama, establezca @code{TwoVoicesPerStaff} al valor ##t:
 
@@ -319,8 +322,7 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 @end lilypond
 
 Es posible ver el conjunto completo de variables que se pueden
-cambiar examinando el archivo @file{ly/ssaattbb.ly}, véase
-@ref{Other sources of information}.
+cambiar examinando el archivo @file{ly/ssaattbb.ly}, @pxref{Other sources of information}.
 
 @morerefs
 Manual de aprendizaje:
@@ -328,6 +330,7 @@ Manual de aprendizaje:
 @ref{Vocal ensembles templates},
 @ref{Extending the templates},
 @ref{Other sources of information}.
+@endmorerefs
 
 @knownissues
 El valor de las distintas variables @code{...TwoVoicesPerStaff} se
@@ -337,8 +340,7 @@ valores distintos en tiempos diferentes.
 No son posibles arreglos de música coral a 8 partes más complejos,
 con esta sencilla plantilla incorporada.
 
-
-@need 1500
+@need 800
 @node Single staff templates
 @appendixsec Plantillas de pentagrama único
 
@@ -368,7 +370,7 @@ con esta sencilla plantilla incorporada.
 {snippets/single-staff-template-with-notes,-lyrics,-and-chords.ly}
 
 
-@need 1500
+@need 800
 @node Piano templates
 @appendixsec Plantillas de piano
 
@@ -392,7 +394,7 @@ con esta sencilla plantilla incorporada.
 {snippets/piano-template-with-centered-lyrics.ly}
 
 
-@need 1500
+@need 800
 @node String quartet templates
 @appendixsec Plantillas de cuarteto de cuerda
 
@@ -417,7 +419,7 @@ Debemos copiar en nuestra partitura el texto de las plantillas que
 se muestran más abajo, y editarlas alllí.  Si tiene una
 disposición coral SATB relativamente sencilla, quizá prefiera
 utilizar las plantillas incorporadas, que solo necesitan incluirse
-con la instrucción @code{\include}, véase @ref{Built-in templates}.
+con la instrucción @code{\include}, @pxref{Built-in templates}.
 
 
 @node SATB vocal score
@@ -463,7 +465,7 @@ con la instrucción @code{\include}, véase @ref{Built-in templates}.
 {snippets/anglican-psalm-template.ly}
 
 
-@need 1500
+@need 800
 @node Orchestral templates
 @appendixsec Plantillas orquestales
 
@@ -475,7 +477,7 @@ con la instrucción @code{\include}, véase @ref{Built-in templates}.
 {snippets/orchestra,-choir-and-piano-template.ly}
 
 
-@need 1500
+@need 800
 @node Ancient notation templates
 @appendixsec Plantillas para notación antigua
 
@@ -493,7 +495,7 @@ con la instrucción @code{\include}, véase @ref{Built-in templates}.
 {snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 
-@need 1500
+@need 800
 @node Other templates
 @appendixsec Otras plantillas
 
