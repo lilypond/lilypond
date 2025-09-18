@@ -229,7 +229,7 @@ especificar.
 
 Las últimas secciones tratan de forma exhaustiva las propiedades y
 sus valores, @pxref{Types of properties}.  Pero en esta
-sección usaremos sólo unas cuantas propiedades y valores sencillos
+sección usaremos solo unas cuantas propiedades y valores sencillos
 que sean fáciles de entender, para ilustrar el formato y la
 utilización de estas instrucciones.
 
@@ -652,17 +652,6 @@ presented, and which follows in the next subsections.
 @cindex grob, propiedades de un
 @cindex presentación, propiedades de los objetos de
 
-Suponga que tiene una partitura con una ligadura de expresión que
-para su gusto es demasiado fina y quiere trazarla un poco más
-gruesa. ¿Cómo debe proceder?  Ya sabe, por las afirmaciones
-anteriores acerca de la flexibilidad de LilyPond, que tal
-posibilidad existe, y seguramente piensa que una cierta
-instrucción de sobreescritura @code{\override} será necesaria.
-Pero ¿existe una propiedad de grosor para las ligaduras? y, si la
-hay, ¿cómo se puede modificar?  Aquí es donde interviene el Manual
-de Funcionamiento Interno.  Contiene toda la información que puede
-necesitar para construir ésta y todas las demás instrucciones
-@code{\override}, de sobreescritura.
 
 Una advertencia antes de dirigir nuestra mirada a la referencia de
 funcionamiento interno.  Éste es un documento de
@@ -671,7 +660,7 @@ explicación en él: su propósito es presentar la información de
 forma precisa y concisa.  Por tanto, podrá parecerle desalentador
 a primera vista.  ¡No se preocupe!  La guía y las explicaciones
 que presentamos aquí le permitirán extraer la información de la
-referencia de funcionamiento interno por sí mismo con tan sólo
+referencia de funcionamiento interno por sí mismo con tan solo
 algo de práctica.
 
 @cindex sobreescritura, ejemplo de
@@ -1792,8 +1781,6 @@ sin el @code{\set}).
 \set fontSize = -2
 @end example
 
-@c Hasta aquí
-
 Los dos enunciados producirían una reducción del tamaño de la
 tipografía en dos pasos a partir de su valor previo, donde cada
 paso reduce o aumenta el tamaño aproximadamente en un 12%.
@@ -2295,7 +2282,7 @@ c''2^"Text4" |
 Los pentagramas también se posicionan, de forma predeterminada,
 tan cerca unos de otros como sea posible (sujeto a una separación
 mínima).  Si las notas se proyectan muy lejos en dirección a un
-pentagrama adyacente, forzarán a alejarse a los pentagramas sólo
+pentagrama adyacente, forzarán a alejarse a los pentagramas solo
 si en caso contrario fuese a ocurrir un solapamiento de la
 notación.  El ejemplo siguiente muestra esta acomodación
 @q{nestling} de las notas sobre pentagramas adyacentes:
@@ -2427,8 +2414,6 @@ menciona el significado de cada una allí donde no es obvio.
 @end raggedright
 @end smallindentedblock
 
-@c Hasta aquí
-
 Las variantes neutras o normales de estas instrucciones están
 implementadas usando @code{\revert} y éstas @strong{no} pueden ir
 precedidas de @code{\once}.  Si quiere limitar el efecto de las
@@ -2439,7 +2424,7 @@ sobreescrituras explícitas.
 
 O bien, si un único objeto de presentación necesita forzarse hacia
 arriba o hacia abajo, pueden usarse los indicadores de dirección,
-@code{^} o @code{_}:
+@samp{^} o @samp{_}:
 
 @lilypond[quote,fragment,verbatim]
 a'4( g') c''( a') |
@@ -2465,8 +2450,8 @@ digitaciones aplicadas a notas sueltas.  Se muestra en el primer
 compás el comportamiento predeterminado, y en los dos compases
 siguiente el efecto de especificar @code{DOWN} y @code{UP}:
 
-@cindex Fingering, ejemplo de sobreescritura
-@cindex direction, propiedad, ejemplo
+@cindex @code{Fingering}, ejemplo de sobreescritura
+@cindex @code{direction}, propiedad, ejemplo
 
 @lilypond[quote,verbatim]
 \relative {
@@ -2485,7 +2470,7 @@ siguiente el efecto de especificar @code{DOWN} y @code{UP}:
 Sin embargo, la sobreescritura de la propiedad @code{direction} no
 es la forma más sencilla de especificar manualmente la digitación
 por encima o por debajo de las notas; suele ser preferible usar
-@code{_} o @code{^} en lugar de @code{-}, antes del número de la
+@samp{_} o @samp{^} en lugar de @samp{-}, antes del número de la
 digitación.  Este es el ejemplo anterior utilizando este método:
 
 @cindex fingering, ejemplo
@@ -2500,7 +2485,7 @@ digitación.  Este es el ejemplo anterior utilizando este método:
 @end lilypond
 
 La propiedad @code{direction} se ignora para los acordes, pero los
-prefijos direccionales @code{_} y @code{^} sí funcionan.  De forma
+prefijos direccionales @samp{_} y @samp{^} sí funcionan.  De forma
 predeterminada, las digitaciones se colocan automáticamente encima
 y debajo de las notas de un acorde, como se muestra aquí:
 
@@ -2529,6 +2514,8 @@ de digitación estén por encima o por debajo:
   <c^5 g^3 e^2 c_1>4
 }
 @end lilypond
+
+@cindex @code{fingeringOrientations} property
 
 Es posible ejercer un control aún mayor sobre la colocación de las
 digitaciones mediante la utilización de la instrucción @code{\set
@@ -2564,7 +2551,7 @@ Aquí podemos ver algunos ejemplos:
 @cindex fingering, ejemplo
 @cindex digitación, ejemplo
 @cindex @code{\set}, ejemplo de utilización
-@cindex fingeringOrientations, propiedad, ejemplo
+@cindex @code{fingeringOrientations}, propiedad, ejemplo
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
@@ -2635,9 +2622,8 @@ prioridad @code{outside-staff-priority} se defina en el
 de presentación.  De forma predeterminada se establece a @code{#f}
 para todos los objetos dentro-del-pentagrama, y a un valor
 numérico adecuado a cada objeto fuera-del-pentagrama cuando se
-crea el objeto.  La tabla siguiente presenta los valores numéricos
-predeterminados para algunos de los objetos fuera-del-pentagrama
-más comunes.
+crea el objeto.  Consulte @rnotation{Default values for
+outside-staff-priority} para ver una tabla exhaustiva.
 
 @cindex objetos de extensión
 
@@ -2655,42 +2641,6 @@ reguladores: en lugar de eso, tenemos que cambiar la
 al comienzo del objeto de extensión, que podría incluir varios
 reguladores o matices dinámicos encadenados.
 
-@multitable @columnfractions .3 .3 .3
-@headitem Objeto de presentación
-  @tab Prioridad
-  @tab Controla la posición de:
-@item @code{RehearsalMark}
-  @tab @code{1500}
-  @tab Letras de ensayo
-@item @code{MetronomeMark}
-  @tab @code{1000}
-  @tab Indicaciones metronómicas
-@item @code{VoltaBracketSpanner}
-  @tab @code{600}
-  @tab Cajetines de primera y segunda vez
-@item @code{TextScript}
-  @tab @code{450}
-  @tab Texto en elementos de marcado
-@item @code{MultiMeasureRestText}
-  @tab @code{450}
-  @tab Texto sobre silencios de compás completo
-@item @code{OttavaBracket}
-  @tab @code{400}
-  @tab Corchetes de octava alta y baja
-@item @code{TextSpanner}
-  @tab @code{350}
-  @tab Objetos de extensión de texto
-@item @code{DynamicLineSpanner}
-  @tab @code{250}
-  @tab Todas las indicaciones dinámicas
-@item @code{VoltaBracketSpanner}
-  @tab @code{100}
-  @tab Números de compás
-@item @code{TrillSpanner}
-  @tab @code{50}
-  @tab Trinos mantenidos
-@end multitable
-
 He aquí un ejemplo que muestra la situación predeterminada de
 algunos de ellos.
 
@@ -2700,8 +2650,8 @@ algunos de ellos.
 @funindex \startTextSpan
 @funindex \stopTextSpan
 
-@cindex TextSpanner, ejemplo de sobreescritura
-@cindex bound-details, propiedad, ejemplo
+@cindex @code{TextSpanner}, ejemplo de sobreescritura
+@cindex @code{bound-details}, propiedad, ejemplo
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 % set details for later TextSpanner
@@ -2725,9 +2675,7 @@ c''4\ff c'' \stopTextSpan |
 c'4 c' c' c' |
 @end lilypond
 
-Este ejemplo también muestra cómo crear textos con extensión (Text
-Spanners): textos con líneas extensoras por encima de una sección
-de música.  El extensor abarca desde la instrucción
+Este ejemplo también muestra cómo crear textos con extensión (@dfn{text spanners}): textos con líneas extensoras por encima de una sección de música.  El extensor abarca desde la instrucción
 @code{\startTextSpan} hasta la instrucción @code{\stopTextSpan}, y
 el formado del texto se define por medio de la instrucción
 @code{\override TextSpanner}.  Para ver más detalles, consulte
@@ -2737,11 +2685,11 @@ También muestra la manera de crear corchetes de octava alta y
 baja.
 
 @cindex trucar la situación de los números de compás
-@cindex números de compás, ajustar posición
+@cindex número de compás, ajustar posición
 @cindex trucar la situación de marcas metronómicas
 @cindex metrónomo, situación de las indicaciones de
 @cindex trucar la situación de las letras de ensayo
-@cindex ensayo, letras, trucar la colocación
+@cindex ensayo, letras de, trucar la colocación
 
 Si los valores predeterminados de @code{outside-staff-priority} no
 le ofrecen las colocaciones deseadas se puede sobreescribir la
@@ -2749,12 +2697,10 @@ prioridad de cualquiera de los objetos.  Suponga que quisiéramos
 que el corchete de octava estuviera situado por debajo del
 elemento extensor de texto en el ejemplo de arriba.  Todo lo que
 debemos hacer es localizar la prioridad de @code{OttavaBracket} en
-el RFI o en las tablas anteriores, y reducirlo a un valor inferior
-al de @code{TextSpanner}, recordando que @code{OttavaBracket} se
-crea dentro del contexto de @code{Staff}:
+la tabla @rnotation{Default values for outside-staff-priority} o en el RFI, y reducirlo a un valor inferior al de @code{TextSpanner}, recordando que @code{OttavaBracket} se crea dentro del contexto de @code{Staff}:
 
-@cindex TextSpanner, ejemplo de sobreescritura
-@cindex bound-details, propiedad, ejemplo
+@cindex @code{TextSpanner}, ejemplo de sobreescritura
+@cindex @code{bound-details}, propiedad, ejemplo
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 % set details for later text spanner
@@ -2787,9 +2733,11 @@ alojan de forma predeterminada dentro del contexto @code{Score};
 así pues, debe asegurarse de que utiliza el contexto adecuado
 cuando se sobreescriben sus propiedades.
 
-@cindex ligaduras y outside-staff-priority
-@cindex ligaduras y articulaciones
-@cindex articulaciones y ligaduras
+@cindex ligadura, y @code{outside-staff-priority}
+@cindex ligadura, y articulaciones
+@cindex articulación, y ligaduras
+
+@cindex @code{avoid-slur} property
 
 De forma predeterminada, las ligaduras de expresión están
 clasificadas como objetos dentro-del-pentagrama, pero con
@@ -2824,13 +2772,13 @@ emplear para controlar la situación vertical de los objetos
 individuales, aunque los resultados pueden no siempre ser
 deseables.  Suponga que quiere que @qq{Text3} se sitúe por encima
 de @qq{Text4} en el ejemplo bajo el epígrafe Comportamiento
-Automático de más arriba (véase @ref{Automatic behavior}).
+Automático de más arriba (@pxref{Automatic behavior}).
 Todo lo que debemos hacer es localizar la prioridad de
 @code{TextScript} en el RFI o en las tablas de arriba, y aumentar
 la prioridad de @qq{Text3} hasta un valor superior:
 
-@cindex TextScript, ejemplo de sobreescritura
-@cindex outside-staff-priority, propiedad, ejemplo
+@cindex @code{TextScript}, ejemplo de sobreescritura
+@cindex @code{outside-staff-priority}, propiedad, ejemplo
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 c''2^"Text1"
@@ -2847,12 +2795,12 @@ que realmente queremos hacer es posicionar todas las anotaciones a
 la misma distancia por encima del pentagrama?  Para hacerlo, vamos
 a necesitar claramente espaciar las notas en sentido horizontal
 para hacer sitio para el texto.  Esto se hace empleando la
-instrucción @code{textLengthOn}.
+instrucción @code{\textLengthOn}.
 
 @node The textLengthOn command
 @unnumberedsubsubsec La instrucción @code{\textLengthOn}
 
-@cindex notas, espaciar junto al texto
+@cindex nota, aumento de la anchura con el texto
 
 @funindex \textLengthOn
 @funindex \textLengthOff
@@ -2860,7 +2808,7 @@ instrucción @code{textLengthOn}.
 De forma predeterminada, el texto producido mediante marcado no
 ocupa ningún espacio horizontal en cuanto se refiere a la
 disposición de la música.  La instrucción @code{\textLengthOn}
-invierte este comportamiento, ocasionando que las notas resulten
+modifica este comportamiento, ocasionando que las notas resulten
 tan espaciadas como sea necesario para acomodar el texto:
 
 @lilypond[quote,fragment,ragged-right,verbatim]
@@ -2870,6 +2818,9 @@ c''2^"Text2" |
 c''2^"Text3"
 c''2^"Text4" |
 @end lilypond
+
+@funindex \markLengthOn
+@funindex \markLengthOff
 
 La instrucción para volver al comportamiento predeterminado es
 @code{\textLengthOff}.  De forma alternativa, se puede usar
@@ -2888,8 +2839,8 @@ mediante el establecimiento de la prioridad a @code{#f}.  He aquí
 un ejemplo que muestra cómo el texto de marcado interactúa con
 tales notas.
 
-@cindex TextScript, ejemplo de sobreescritura
-@cindex outside-staff-priority, propiedad, ejemplo
+@cindex @code{TextScript}, ejemplo de sobreescritura
+@cindex @code{outside-staff-priority}, propiedad, ejemplo
 
 @lilypond[quote,ragged-right,verbatim]
 \relative {
@@ -2919,7 +2870,7 @@ tales notas.
 
 @cindex trucar la colocación de los matices
 @cindex dinámica, trucar la colocación de las indicaciones de
-@cindex matices, trucar la colocación
+@cindex matiz, trucar la colocación
 
 Las indicaciones de matiz dinámico normalmente se colocarán por
 debajo del pentagrama, pero se pueden posicionar por encima con la
@@ -2965,36 +2916,20 @@ averiguar cómo hacerlo utilizando instrucciones @code{\override}.
 @unnumberedsubsubsec Escalado de un «Grob»
 
 @cindex grob, cambio de tamaño de un
-@cindex escala de los grobs
+@cindex escalado de los grobs
 
-En primer lugar debemos aprender cómo se especifica el tamaño de
-los grobs.  Todos los grobs tienen un punto de referencia definido
-dentro de ellos que se usa para colocarlos respecto a su objeto
-padre.  Entonces, este punto del grob se posiciona a una distancia
-horizontal, @code{X-offset}, y una distancia vertical,
-@code{Y-offset}, a partir de su padre.  La dimensión horizontal
-del objeto viene dada por una pareja de números, @code{X-extent},
-que dice dónde están los límites izquierdo y derecho respecto del
-punto de referencia.  La amplitud vertical se define de forma
-similar mediante una pareja de números, @code{Y-extent}.  Éstas
-son propiedades de todos los grobs que contemplan el
-@code{grob-interface}.
+In general, all grobs support the @code{grob-interface}, which
+contains, among other things, the properties @code{X-offset},
+@code{Y-offset}, @code{X-extent}, and @code{Y-extent}
+(@pxref{Offsets and alignments} for a thorough introduction).
 
-@cindex @code{extra-spacing-width}
+@cindex @code{extra-spacing-width}, propiedad
 
 De forma predeterminada, los objetos fuera-del-pentagrama reciben
-una anchura cero, de manera que pueden solaparse en la dirección
-horizontal.  Esto se hace mediante el truco de hacer que la
-dimensión más a la izquierda sea igual a infinito y que la
-dimensión más a la derecha sea igual a menos infinito,
+una anchura (o sea, una extensión horizontal) de cero, de manera que pueden solaparse en la dirección
+horizontal.  Esto se hace, por convención, posicionando el borde izquierdo del grob en el infinito y el derecho en menos infinito, 
 estableciendo el valor de @code{extra-spacing-width} a
-@code{'(+inf.0 . -inf.0)}.  Así, para asegurar que no se
-superponen en la dirección horizontal tendremos que sobreescribir
-este valor de @code{extra-spacing-width} para darles un poco de
-espacio adicional.  Las unidades son el espacio entre dos líneas
-del pentagrama, de forma que debería bastar mover el límite
-izquierdo media unidad a la izquierda y el límite derecho media
-unidad a la derecha:
+@code{'(+inf.0 .@tie{}-inf.0)}.  Así, para asegurar que los grobs no se superponen en la dirección horizontal tendremos que sobreescribir este valor de @code{extra-spacing-width} para darles un poco de espacio adicional.  Las unidades son el espacio entre dos líneas del pentagrama, de forma que debería bastar mover el límite izquierdo media unidad a la izquierda y el límite derecho media unidad a la derecha:
 
 @example
 \override DynamicText.extra-spacing-width = #'(-0.5 . 0.5)
@@ -3003,8 +2938,8 @@ unidad a la derecha:
 @noindent
 Veamos si funciona en nuestro ejemplo anterior:
 
-@cindex DynamicText, ejemplo de sobreescritura
-@cindex extra-spacing-width, propiedad, ejemplo
+@cindex @code{DynamicText}, ejemplo de sobreescritura
+@cindex @code{extra-spacing-width}, propiedad, ejemplo
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 \dynamicUp
@@ -3018,7 +2953,7 @@ Esto tiene un mejor aspecto, pero quizá habríamos preferido que
 las indicaciones de dinámica estuvieran alineadas sobre la misma
 línea de base en lugar de ir hacia arriba y hacia abajo con las
 notas.  La propiedad que lo hace es @code{staff-padding} (relleno
-de pentagrama) que se estudia en la sección dedicada a las
+de pentagrama), que se estudia en la sección dedicada a las
 colisiones (véase @ref{Collisions of objects}).
 
 @node Vertical spacing
@@ -3069,15 +3004,13 @@ La letra se encuentra en el interior de un sistem, y por tanto las
 instrucciones para aplicarle el espaciado estarán en
 @rnotationnamed{Flexible vertical spacing within systems,
 Espaciado vertical flexible dentro de los sistemas}.  Allí se dice
-que el texo son líneas del tipo @qq{no-pauta} y por tanto la
-instrucción para cambiar su espaciado hará referencia a la
-propiedad @code{nonstaff}.  Para separarlas del pentagrama al que
-pertenecen (la pauta superior) usaremos la propiedad
-@code{relatedstaff}.  Para separarlas de la línea inferior
-usaremos la propiedad @code{unrelatedstaff}.  Las partes vocales
-pertenecen a un grupo vertical @code{VerticalAxisGroup}, por lo
-que tenemos que ajustar sus propiedades.  Probémoslo y veamos si
-funciona.
+que el texo son líneas del tipo @q{no-pauta} y por tanto la
+instrucción para cambiar su espaciado hará referencia a una propiedad con la palabra @code{nonstaff} en el nombre.  La separación a partir de la línea inferior viene indicada por la palabra @code{unrelatedstaff}.  Las partes vocales pertenecen a un grupo vertical @code{VerticalAxisGroup}, por lo que tenemos que ajustar sus propiedades.  Probémoslo y veamos si funciona.
+
+@cindex @code{VerticalAxisGroup}
+@cindex @code{padding} sub-propiedad
+@cindex @code{nonstaff-relatedstaff-spacing}, propiedad
+@cindex @code{nonstaff-unrelatedstaff-spacing}, propiedad
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 <<
@@ -3114,17 +3047,18 @@ funciona.
 @end lilypond
 
 Bien: sí, funciona, pero quizá demasiado bien.  Cuando
-establecemos el @code{padding} (relleno) a 5, LilyPond añade 5
-espacios de pentagrama a la distancia entre los objetos, lo que es
-excesivo para nosotros en este caso.  Usaremos un valor de 2.
+establecemos el @code{padding} (relleno) a@tie{}5, LilyPond añade 5@tie{}espacios de pentagrama a la distancia entre los objetos, lo que es excesivo para nosotros en este caso.  Usaremos en su lugar un valor de@tie{}2.
+
+@cindex @code{StaffGrouper}
+@cindex @code{ChoirStaff} context
+@cindex @code{basic-distance} sub-property
+@cindex @code{staffgroup-staff-spacing} property
 
 A continuación, desplazaremos la música de piano para separarla de
-las partes vocales.  La música vocal es una @code{ChoirStaff} (un
+las partes vocales.  La música vocal es un @code{ChoirStaff} (un
 contexto de sistema coral), y por tanto tenemos que aumentar el
 espaciado entre ese grupo de pentagramas y el sistema de piano que
-se encuentra debajo.  Lo haremos cambiando la
-@code{basic-distance} (distancia básica) del @code{StaffGrouper}
-del @code{staffgroup-staff-spacing}.
+se encuentra debajo.  Lo haremos cambiando la sub-propiedad @code{basic-distance} (distancia básica) del grob @code{StaffGrouper} del @code{staffgroup-staff-spacing}.
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 <<
@@ -3163,10 +3097,9 @@ del @code{staffgroup-staff-spacing}.
 >>
 @end lilypond
 
-Muy bien.  Ahora, sólo nos queda el último requisito de hacer que
+Muy bien.  Ahora, solo nos queda el último requisito de hacer que
 los pentagramas de piano estén más juntos.  Para conseguirlo, de
-nuevo alteramos las propiedades del @code{StaffGrouper}, pero esta
-vez vamos a reducir tanto la @code{basic-distance} (distancia
+nuevo alteramos las propiedades del grob @code{StaffGrouper}, pero esta vez vamos a reducir tanto la @code{basic-distance} (distancia
 básica) como el @code{padding} (relleno).  Podemos hacerlo como se
 muestra a continuación.
 
@@ -3235,7 +3168,8 @@ Espaciado vertical flexible dentro de los sistemas}.
 The tips and tricks covered in this section are applications and
 extensions of previous parts of this manual.  In particular, you
 should be comfortable with the concepts of @dfn{extents},
-@dfn{offsets}, and @dfn{alignments}, @pxref{Offsets and alignments}.
+@dfn{offsets}, and @dfn{alignments}, @pxref{Offsets and
+alignments}.
 
 
 @node Moving objects
@@ -3261,12 +3195,11 @@ siguiente orden:
 @enumerate
 @item
 La @strong{dirección} de uno de los objetos que se superponen se
-puede cambiar usando las instrucciones predefinidas que están
-relacionadas arriba para los objetos dentro-del-pentagrama (véase
+puede cambiar usando las instrucciones predefinidas que se vieron anteriormente para los objetos dentro-del-pentagrama (véase
 @ref{Within-staff objects}).  Se pueden recolocar
 fácilmente las plicas, ligaduras de expresión y de unión, barras
 de corchea, indicaciones dinámicas, texto y grupos de valoración
-especial de esta forma.  La limitación es que sólo tiene la
+especial de esta forma.  La limitación es que solo tiene la
 posibilidad de elegir entre dos posiciones, y podría ser que
 ninguna de ellas sea la adecuada.
 
@@ -3274,18 +3207,15 @@ ninguna de ellas sea la adecuada.
 Las @strong{propiedades del objeto}, que LilyPond usa cuando está
 colocando los objetos de presentación, se pueden modificar usando
 la instrucción de sobreescritura @code{\override}.  Las ventadas
-de hacer cambios a este tipo de propiedad son: a) que algún otro
-objeto se moverá automáticamente si es necesario, para dejarle
-sitio, y b) una única sobreescritura se puede aplicar a todas las
-instancias del mismo tipo de objeto.  Entre tales propiedades se
-encuentran:
+de hacer cambios a este tipo de propiedad son: a)@tie{}que algún otro objeto se moverá automáticamente si es necesario, para dejarle
+sitio, y b)@tie{}una única sobreescritura se puede aplicar a todas las instancias del mismo tipo de objeto.  Entre tales propiedades se encuentran:
 
 @itemize
 
 @item
 @code{direction} (dirección)
 
-Ya se ha estudiado con cierto detalle: véase @ref{Within-staff objects}.
+Ya se ha estudiado con cierto detalle: @pxref{Within-staff objects}.
 
 @item
 @code{padding} (relleno),
@@ -3293,9 +3223,9 @@ Ya se ha estudiado con cierto detalle: véase @ref{Within-staff objects}.
 @code{staff-padding} (relleno de pentagrama)
 
 @cindex relleno
-@cindex padding, propiedad
-@cindex right-padding, propiedad
-@cindex staff-padding, propiedad
+@cindex @code{padding}, propiedad
+@cindex @code{right-padding}, propiedad
+@cindex @code{staff-padding}, propiedad
 
 Según un objeto se está colocando, el valor de su propiedad de
 relleno @code{padding} especifica el espacio intermedio que se
@@ -3309,14 +3239,14 @@ contemplan la interfaz @code{side-position-interface}.
 
 En lugar de con @code{padding}, la colocación de los grupos de
 alteraciones se controla con @code{right-padding}.  Esta propiedad
-se encuentra en el objeto @code{AccidentalPlacement} que, observe,
+se encuentra en el grob @code{AccidentalPlacement} que, observe,
 vive dentro del contexto de @strong{Staff}.  Durante el proceso
 tipográfico, las cabezas de las notas se componen tipográficamente
 en primer lugar, y después las alteraciones, si existen, se añaden
 a la izquierda de las cabezas utilizando la propiedad de relleno
 por la derecha @code{right-padding} para determinar la separación
 entre la alteración y la cabeza, y de las alteraciones entre sí.
-Así pues, sólo la propiedad de relleno por la derecha
+Así pues, solo la propiedad de relleno por la derecha
 @code{right-padding} del objeto @code{AccidentalPlacement} tiene
 efecto sobre la colocación de las alteraciones.
 
@@ -3325,7 +3255,7 @@ con la propiedad @code{padding}: @code{padding} controla la
 separación mínima entre cualquier objeto que contemple la
 interfaz @code{side-position-interface} y el objeto más cercano
 (generalmente la nota o las líneas del pentagrama);
-@code{staff-padding} se aplica sólo a los objetos que siempre se
+@code{staff-padding} se aplica solo a los objetos que siempre se
 sitúan fuera del pentagrama: controla la separación mínima entre
 dicho objeto y el pentagrama.  Observe que @code{staff-padding} no
 tiene ningún efecto sobre objetos que se posicionan respecto a la
@@ -3346,31 +3276,24 @@ objeto).  Se puede sobreescribir si se necesita una separación
 intermedia mayor (o menor).
 
 @item
-@code{self-alignment-X} (Auto-alineamiento en el eje X)
+@code{self-alignment-X} (auto-alineamiento en el eje X)
 
-@cindex self-alignment-X, propiedad
+@cindex @code{self-alignment-X}, propiedad
 
-Esta propiedad se puede usar para alinear el objeto a la
-izquierda, a la derecha, o centrarlo con respecto al punto de
-referencia del objeto «padre».  Se puede usar con todos los
-objetos que contemplan la interfaz
-@code{self-alignment-interface}.  En general son objetos que
-contienen texto.  Los valores son @code{LEFT}, @code{RIGHT} o
-@code{CENTER}.  De forma alternativa se puede especificar un valor
+Use esta propiedad para alinear el objeto a la izquierda, a la derecha, o centrarlo con respecto al punto de
+referencia del objeto «padre».  Se puede usar con todos los objetos que contemplan la interfaz @code{self-alignment-interface}.  En general son objetos que contienen texto.  Los valores son @code{LEFT}, @code{RIGHT} o @code{CENTER}.  De forma alternativa se puede especificar un valor
 numérico entre @w{@code{-1}} y @code{+1}, donde @w{@code{-1}} es
 alineado por la izquierda, @code{+1} es alineado por la derecha, y
 los números intermedios mueven el texto progresivamente desde
 alineado por la izquierda hasta alineado por la derecha.  Se
-pueden especificar valores numéricos mayores de @code{1} para
+pueden especificar valores numéricos mayores de@tie{}@code{1} para
 mover el texto incluso más lejos hacia la izquierda, o menos de
-@w{@code{-1}} para alejarlo más hacia la derecha.  Un cambio en
-@code{1} en el valor corresponde a un movimiento de la mitad de la
-longitud total del propio texto.
+@w{@code{-1}} para alejarlo más hacia la derecha.  Un cambio en@tie{}@code{1} en el valor corresponde a un movimiento de la mitad de la longitud total del propio texto.
 
 @item
 @code{extra-spacing-width} (anchura de separación adicional)
 
-@cindex extra-spacing-width, propiedad
+@cindex @code{extra-spacing-width}, propiedad
 
 Esta propiedad está disponible para todos los objetos que
 contemplan la interfaz @code{item-interface}.  Toma dos números,
@@ -3380,12 +3303,12 @@ izquierda y los positivos a la derecha, por lo que para ensanchar
 un objeto el primer número debe ser negativo y el segundo
 positivo.  Observe que no todos los objetos ostentan los dos
 números.  Por ejemplo, el objeto @code{Accidental} (alteración)
-sólo toma nota del primer número (el borde izquierdo).
+solo toma nota del primer número (el borde izquierdo).
 
 @item
 @code{staff-position} (posición de pentagrama)
 
-@cindex staff-position, propiedad
+@cindex @code{staff-position}, propiedad
 
 @code{staff-position} es una propiedad de la interfaz
 @code{staff-symbol-referencer-interface}, que está contemplado por
@@ -3397,12 +3320,12 @@ silencios multi-compás, ligaduras de unión y notas en distintas
 voces.
 
 @item
-@code{horizontal-shift}
+@code{horizontal-shift} (desplazamiento horizontal)
 
-@cindex horizontal-shift, propiedad
+@cindex @code{horizontal-shift}, propiedad
 @cindex nota, columna de
 @cindex nota, colisiones
-@cindex colisiones de notas
+@cindex colisión, de notas
 @cindex desplazamiento, instrucciones de
 @funindex \shiftOff
 @funindex \shiftOn
@@ -3410,17 +3333,17 @@ voces.
 @funindex \shiftOnnn
 
 Dentro de una voz, todas las notas que se producen en el mismo
-moemtno se agrupan en una columna de notas, y se crea un objeto
+moemtno se agrupan en una @dfn{columna de notas}, y se crea un objeto
 @code{NoteColumn} para controlar el posicionamiento horizonal de
 dicho grupo de notas (véase @qq{Columnas de nota} en
-@ref{Explicitly instantiating voices}).  Si @emph{y sólo si} dos o
-más columnas de nota dentro de un solo contexto de pauta, las dos
+@ref{Explicitly instantiating voices}).  Si @emph{y solo si} dos o
+más columnas de nota dentro de un solo contexto de pauta (@code{Staff}), las dos
 con las plicas en la misma dirección, aparecen en el mismo momento
 musical, los valores de sus propiedades @code{horizontal-shift} se
 usan para asignarles una puntuación y las columnas con
 puntuaciones más altas se desplazan progresivamente para evitar
 las colisiones entre las cabezas de las notas.  Esta propiedad se
-establece con las instrucciones @code{\voiceXXX} y se pueden
+establece con las instrucciones @code{\voice@var{XXX}} y se pueden
 sobreescribir directamente con una instrucción @code{\override} o,
 de forma más común con las instrucciones @code{\shiftOn}.  Observe
 que esta propiedad se usa para @emph{calificar} las columnas de
@@ -3435,18 +3358,14 @@ apretadas entre sí.
 @item
 @code{force-hshift} (forzar desplazamiento horizontal)
 
-@cindex force-hshift, propiedad
+@cindex @code{force-hshift}, propiedad
 
-La propiedad @code{force-hshift} es una propiedad de una
-@code{NoteColumn} (realmente lo es de la interfaz
-@code{note-column-interface}).  Modificarlo permite mover una
-columna de notas en situaciones donde las columnas de notas se
+La propiedad @code{force-hshift} forma parte de los grobs @code{NoteColumn} (realmente de la interfaz @code{note-column-interface}).  Modificarlo permite mover una columna de notas en situaciones donde las columnas de notas se
 superponen.  Observe que no tiene efecto sobre las columnas de
 nota que no se superponen.  Se especifica en unidades adecuadas a
 una columna de notas, por ejemplo la anchura de la cabeza de la
 nota de la primera voz.  Se debe usar en situaciones complejas
-donde las instrucciones @code{\shiftOn} normales (véase
-@ref{Explicitly instantiating voices}) no resuelven el conflicto
+donde las instrucciones @code{\shiftOn} normales (@pxref{Explicitly instantiating voices}) no resuelven el conflicto
 entre las notas de forma satisfactoria.  Es preferible a la
 propiedad @code{extra-offset} para este propósito porque no hay
 necesidad de averiguar la distancia en espacios de pentagrama, y
@@ -3464,15 +3383,15 @@ para el reposicionamiento se deben adivinar, a menudo por ensayo y
 error, para cada objeto individual y, puesto que el movimiento se
 hace después de que LilyPond ha colocado todos los demás objetos
 es usuario es responsable de evitar cualquier colisión que pudiera
-producirse.  Pero la dificultar principal con este enfoque es que
-los valores de reposicionado podrían tener que ser vueltos a
-calcular si la música se modifica más tarde.  Las propiedades que
-se pueden usar para este tipo de posicionamiento manual son:
+producirse.  Sin embargo la dificultar principal con este enfoque es que los valores de reposicionado podrían tener que ser vueltos a
+calcular si la música se modifica más tarde.  Las propiedades que se pueden usar para este tipo de posicionamiento manual son como sigue.
 
-@table @code
-@item extra-offset (desplazamiento adicional)
+@itemize
 
-@cindex extra-offset, propiedad
+@item
+@code{extra-offset} (desplazamiento adicional)
+
+@cindex @code{extra-offset}, propiedad
 
 Esta propiedad se aplica a cualquier objeto de presentación que
 contemple el @code{grob-interface}.  Toma una pareja de números
@@ -3484,9 +3403,9 @@ composición tipográfica de los objetos ha terminado, así que un
 objeto puede ser reposicionado a cualquier lugar sin afectar a
 ninguna otra cosa.
 
-@item positions (posiciones)
+@item @code{positions} (posiciones)
 
-@cindex positions, propiedad
+@cindex @code{positions}, propiedad
 
 Ésta es de la mayor utilidad para ajustar manualmente la
 inclinación y la altura de las barras de corchea, ligaduras de
@@ -3501,7 +3420,7 @@ para la ligadura y de forma predeterminada encuentra la ligadura
 que tiene @qq{mejor aspecto}.  Si la propiedad @code{positions} se
 ha sobreescrito, la ligadura que está más cerca de las posiciones
 que se han solicitado, se selecciona de la lista.
-@end table
+@end itemize
 
 @end enumerate
 
@@ -3509,25 +3428,27 @@ Un objeto en particular podría no tener todas estas propiedades.
 Es necesario ir al manual RFI para buscar qué propiedades se
 encuentran disponibles para el objeto en cuestión.
 
-
 Aquí presentamos una lista de los objetos que es más probable que
 estén implicados en colisiones, con el nombre del objeto que
 habría que buscar en el RFI para descubrir qué propiedades se
 deben usar para moverlos.
 
-@multitable @columnfractions .5 .5
-@headitem Tipo de objeto           @tab Nombre del objeto
-@item Articulaciones            @tab @code{Script}
-@item Barras                    @tab @code{Beam}
-@item Dinámica (verticalmente)  @tab @code{DynamicLineSpanner}
-@item Dinámica (horizontalmente)   @tab @code{DynamicText}
-@item Digitaciones                @tab @code{Fingering}
-@item Llamadas de ensayo y textuales   @tab @code{RehearsalMark}
-@item Ligaduras de expresión    @tab @code{Slur}
-@item Texto, por ejemplo @code{^"texto"}  @tab @code{TextScript}
-@item Ligaduras de unión        @tab @code{Tie}
-@item Grupos de valoración especial @tab @code{TupletBracket}
+@indentedblock
+@multitable {Llamadas de ensayo y textuales}{@code{DynamicLineSpanner}}
+@headitem Tipo de objeto            @tab Nombre del objeto
+@item articulaciones (p.ej. @samp{->}) @tab @code{Script}
+@item barras                        @tab @code{Beam}
+@item dinámica (verticalmente)      @tab @code{DynamicLineSpanner}
+@item dinámica (horizontalmente)    @tab @code{DynamicText}
+@item digitaciones                  @tab @code{Fingering}
+@item Letras o números de ensayo    @tab @code{RehearsalMark}
+@item marcas de texto               @tab @code{TextMark}
+@item ligaduras de expresión        @tab @code{Slur}
+@item texto (p.ej. @samp{^"texto"}) @tab @code{TextScript}
+@item ligaduras de unión            @tab @code{Tie}
+@item grupos de valoración especial @tab @code{TupletBracket}
 @end multitable
+@end indentedblock
 
 
 @node Fixing overlapping notation
@@ -3548,6 +3469,8 @@ que se superpone.
 La propiedad @code{padding} se puede ajustar para aumentar (o
 disminuir) la distancia entre símbolos impresos encima o debajo de
 las notas.
+
+@c Hasta aquí
 
 @cindex Script, ejemplo de sobreescritura
 @cindex padding, propiedad, ejemplo
@@ -4462,7 +4385,7 @@ lhMusic = \relative {
 @cindex ligar notas entre voces distintas
 
 El ejemplo siguiente muestra cómo conectar notas que están en
-distintas voces utilizando ligaduras de unión.  Normalmente sólo
+distintas voces utilizando ligaduras de unión.  Normalmente solo
 se pueden conectar mediante ligaduras de unión notas que estén en
 la misma voz.  Usando dos voces, con las notas ligadas en una de
 ellas:
@@ -4597,7 +4520,7 @@ para guardarlas.
 
 Supongamos que queremos realzar ciertas palabras de la letra de
 una canción imprimiéndolas en cursiva y negrita.  Las
-instrucciones @code{\italic} y @code{\bold} sólo funcionan dentro
+instrucciones @code{\italic} y @code{\bold} solo funcionan dentro
 de la letra de las canciones si están incluidas, junto con la
 palabra o palabras que se pretenden modificar, dentro de un
 @code{\markup}, lo que las hace tediosas de escribir. La necesidad
@@ -4960,7 +4883,7 @@ producir la salida que le gusta a mi profesor.  El comienzo de
 %\include "universidad.ily"
 @end example
 
-Este enfoque puede ser útil incluso si va a producir sólo un
+Este enfoque puede ser útil incluso si va a producir solo un
 conjunto de particellas.  Yo utilizo media docena de archivos de
 @q{hojas de estilo} para mis proyectos.  Comienzo todos los
 archivos de música con @code{\include "../global.ily"}, que
