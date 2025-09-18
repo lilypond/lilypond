@@ -506,9 +506,10 @@ class GLib(MesonPackage):
                 "-Dc_args=-D__USE_MINGW_ANSI_STDIO",
             ]
         return mingw_args + [
-            # Disable unused features and tests.
-            "-Dlibmount=disabled",
+            # Disable G_ENABLE_DEBUG as recommended by upstream.
+            "-Dglib_debug=disabled",
             "-Dtests=false",
+            # Disable unused xattr support that is not auto.
             "-Dxattr=false",
         ]
 

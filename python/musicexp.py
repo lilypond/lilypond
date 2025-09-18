@@ -21,12 +21,10 @@
 
 
 from fractions import Fraction
-import inspect
 import math
 import re
 import sys
 import utilities
-import warnings
 
 import lilylib as ly
 
