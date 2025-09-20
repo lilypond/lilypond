@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish: 9f53f5b5f32e89c8df0ed18de7440fd1dd20907c
+    Translation of GIT committish: 90e34f4b0393dd070482a3072ecd0f44de380180
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -25,7 +25,7 @@ esos trabajos sencillos.
 Para un proyecto polifacético como LilyPond, a veces es difícil saber
 por dónde empezar.  Además de las vías que se proponen más abajo,
 puede enviar un correo electrónico a la lista de correo
-@uref{https://lists.gnu.org/mailman/listinfo/lilypond-devel, lilypond-devel@@gnu.org},
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-devel, @code{lilypond-devel@@gnu.org}},
 y nosotros le ayudaremos a iniciarse.
 
 @end macro
@@ -44,9 +44,9 @@ navegar por la documentación en línea; en tales casos podría ser
 oportuno indicarles rutas neutras o agnósticas respecto a la
 versión, tales como
 @uref{https://lilypond.org/doc/latest/Documentation/notation/,
-@code{/latest/}} o
+@samp{/latest/}} o
 @uref{https://lilypond.org/doc/stable/Documentation/notation/,
-@code{/stable/}}, que se redireccionan automáticamente).
+@samp{/stable/}}, que se redireccionan automáticamente).
 
 @item
 Informar de fallos: ayude a los usuarios a crear @ref{Bug reports,Informes de
@@ -72,6 +72,7 @@ prueba de nuevas funcionalidades.  ¡Contribuya a estas discusiones!
 
 @end macro
 
+
 @macro helpusAdvanced
 @subheading Tareas de nivel avanzado
 
@@ -79,7 +80,7 @@ En general, estos trabajos requieren que usted tenga el
 código fuente y sea capaz de compilar LilyPond.
 
 @warning{Sugerimos a los colaboradores nuevos que sean usuarios de Windows
-o de MacOS X que @strong{no} traten de montar un entorno de desarrollo
+o de macOS que @strong{no} traten de montar un entorno de desarrollo
 por ellos mismos; en su lugar, utilice Lilydev como se explica en
 @rcontribnamed{Quick start,Inicio rápido}.}
 
