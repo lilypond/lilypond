@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: b3a311cd9a5a91c0243ff90835a445768e7f3e4c
+    Translation of GIT committish: 3662896dcab1111d5be82638e9a6d6de4e226985
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -51,18 +51,7 @@ lenguaje en los archivos de LilyPond.
 @subsection Cajón de arena de Scheme
 
 La instalación de LilyPond incluye también la de la implementación
-Guile de Scheme.  Sobre casi todos los sistemas puede experimentar
-en una @qq{caja de arena} de Scheme abriendo una ventana del
-terminal y tecleando @q{guile}.  En algunos sistemas, sobre todo
-en Windows, podría necesitar ajustar la variable de entorno
-@code{GUILE_LOAD_PATH} a la carpeta @code{../usr/share/guile/1.8}
-dentro de la instalación de LilyPond (para conocer la ruta
-completa a esta carpeta, consulte @rlearningnamed{Other sources of information, Otras fuentes de
-información}).  Como alternativa, los usuarios de Windows pueden
-seleccionar simplemente @q{Ejecutar} del menú Inicio e introducir
-@q{guile}.
-
-Sin embargo, está disponible un cajón de arena de Scheme listo
+Guile de Scheme.  Está disponible un cajón de arena de Scheme listo
 para funcionar con todo LilyPond cargado, con esta instrucción de
 la línea de órdenes:
 @example
@@ -151,8 +140,8 @@ LilyPond.
 @item Booleanos
 Los valores Booleanos son Verdadero y Falso.  Verdadero en Scheme es
 @code{#t} y Falso es @code{#f}.
-@funindex ##t
-@funindex ##f
+@funindex #t
+@funindex #f
 
 @item Números
 Los números se escriben de la forma normal, @code{1} es el número
@@ -524,7 +513,7 @@ manipular variables definidas fuera del procedimiento.
 Los procedimientos se definen en Scheme con @code{define}:
 
 @example
-(define (nombre-de-la-función arg1 arg2 ... argn)
+(define (nombre-de-la-función arg1 arg2 @dots{} argn)
  expresión-de-scheme-que-devuelve-un-valor)
 @end example
 
@@ -667,6 +656,8 @@ LilyPond.
 
 La manera más sencilla es utilizar el símbolo de
 almohadilla@tie{}@code{#} antes de una expresión de Scheme.
+
+@c FIXME: the following is way too technical
 
 Ahora bien, el código de entrada de LilyPond se estructura en
 elementos y expresiones, de forma parecida a cómo el lenguaje
@@ -826,6 +817,41 @@ Manual de extensión:
 @ref{LilyPond Scheme syntax}.
 @endmorerefs
 
+
+@node Debugging Scheme code
+@subsection Depuración del código de Scheme
+
+@cindex depuración, código de Scheme
+@cindex Scheme, depuración
+@cindex código fuente, ubicación en mensajes de error para código de Scheme
+@cindex error, mensaje, en código de Scheme
+@cindex línea, número, para mensaje de error en Scheme
+
+Cuando se están depurando programas de Scheme grandes, es de gran
+ayuda que si ocurre un error, podamos saber exactamente en qué
+línea del programa se ha producido dicho error.  Para habilitar
+que se muestren las ubicaciones del código fuente para los errores
+dentro del código de Scheme, LilyPond debe ejecutarse con la
+opción de línea de órdenes @option{-dcompile-@/scheme-@/code}.
+Como alternativa, tiene el mismo efecto escribir
+@code{#(ly:set-@/option 'compile-@/scheme-@/code)} en el inicio
+del archivo de entrada de LilyPond.
+
+Es más, para obtener aún más información acerca del error, puede
+usar la opción @option{-ddebug-@/eval} o escribir
+@code{#(debug-@/enable 'backtrace)} dentro del archivo.  Bajo este
+modo, si se produce un error, se imprime una prolija información
+de traza o @qq{backtrace}, que contiene información acerca de
+todas las llamadas de función que dieron lugar al evento
+problemático.
+
+@knownissues
+A causa de una limitación en la implementación de Guile, por el
+momento la opción @option{-dcompile-@/scheme-@/code} hace
+imposible compilar archivos de LilyPond que contengan más de unas
+pocas de miles de expresiones de Scheme.
+
+
 @node Input variables and Scheme
 @subsection Variables de entrada y Scheme
 
@@ -866,7 +892,7 @@ traLaLa = @{ c'4 d'4 @}
 se convierte internamente en una definición de Scheme:
 
 @example
-(define traLaLa @var{Valor Scheme de `@code{@dots{}}'})
+(define traLaLa @var{Valor Scheme de '@code{@dots{}}'})
 @end example
 
 Esto significa que las variables de LilyPond y las variables de
@@ -965,11 +991,6 @@ de un procedimiento:
 @{ c'4 @}
 @end example
 
-@knownissues
-
-No es posible mezclar variables de Scheme y de LilyPond con la
-opción @option{--safe}.
-
 
 @node Object properties
 @subsection Propiedades de los objetos
@@ -1008,6 +1029,7 @@ mientras que @code{veintiCuatro} es una variable.
 @c  LilyPond variable types.  I think this deserves a section all
 @c  its own
 
+
 @need 1500
 @node LilyPond compound variables
 @subsection Variables de LilyPond compuestas
@@ -1018,7 +1040,7 @@ mientras que @code{veintiCuatro} es una variable.
 
 Los desplazamientos bidimensionales (coordenadas X e Y) se
 almacenan como @emph{parejas}.  El @code{car} del desplazamiento
-es la coordenada X, y el @code{cdr} es la coordenada Y.
+es la coordenada@tie{}X, y el @code{cdr} es la coordenada@tie{}Y.
 
 @example
 \override TextScript.extra-offset = #'(1 . 2)
@@ -1093,6 +1115,140 @@ encuentre, y el valor es el valor de la propiedad.
 El procedimiento de Scheme @code{chain-assoc-get} se usa
 normalmente para obtener los valores de propiedades.
 
+@node LilyPond's box model
+@subsection El modelo de caja de LilyPond
+
+El modelo caja @q{clásico} para el texto (como el que se utiliza,
+por ejemplo, en @TeX{}), incluye las tres dimensiones @dfn{ancho},
+@dfn{alto}, and @dfn{profundo}: los glifos se ubican sobre una
+línea de base horizontal; la altura de un glifo es el tamaño
+vertical por encima de esta línea, la profundidad es el tamaño por
+debajo de esta línea, y el ancho comprende el tamaño horizontal
+del glifo.  LilyPond añade una cuarta dimensión, el
+@dfn{breapth},@footnote{Este nombre artificial se derivó de la
+palaba inglesa @q{breadth}, que siginifica aproximadamente lo
+mismo que @q{width} (ancho).} para extender el tamaño horizonal
+por la parte izquierda del @q{punto de referencia} del glifo,
+denotado con @q{(0,@tie{}0)} en la imagen que aparece a
+continuación.  La principal razón de ser de esta extensión es que
+muchos glifos como los calderones son horizontalmente simétricos
+(y también están unidos de forma simétrica centrados sobre una
+cabeza de nota), y el mejor punto de referencia para tales glifos
+es, por tanto, el punto medio horizontal.  Otros glifos como la
+alteración accidental de un cuarto de tono, que se muestra a la
+izquierda en la imagen, pueden tener también una cantidad
+considerable de @q{breapth}.
+
+@lilypond[quote]
+#(define-markup-command (point layout props x y xoff yoff)
+   (number? number? number? number?)
+   (interpret-markup
+    layout props
+    (make-overlay-markup
+     (list
+      (make-translate-markup
+       (cons x y)
+       (make-draw-circle-markup 0.4 0 #t))
+      (make-translate-markup
+       (cons (+ x xoff) (+ y yoff))
+       (make-concat-markup
+        (list "(" (number->string x) ", " (number->string y) ")")))))))
+
+\markup \scale #'(0.8 . 0.8) {
+  \overlay {
+    \scale #'(18 . 16) \with-color #(x11-color "gray80")
+      \musicglyph "accidentals.flatflat.slash"
+
+    \override #'((filled . #f)
+                 (thickness . 2))
+      \polygon #'((-9 . -10) (-9 . 29) (26 . 29) (26 . -10))
+
+    \translate #'(-15 . 0) \draw-line #'(47 . 0)
+    \translate #'(32 . 0) \arrow-head #X #RIGHT ##t
+    \translate #'(31 . -2) \italic "x"
+    \translate #'(0 . -15) \draw-line #'(0 . 50)
+    \translate #'(0 . 35) \arrow-head #Y #UP ##t
+    \translate #'(-2 . 34) \italic "y"
+
+    \point #0 #0 #0.5 #0.8
+    \point #-9 #-10 #0.5 #0.8
+    \point #26 #29 #-3 #1
+
+    \translate #'(-13.5 . -5.5) \rotate #90 \italic "depth"
+    \translate #'(-13.5 . 13) \rotate #90 \italic "height"
+    \translate #'(-8.5 . -12.2) \italic "breapth"
+    \translate #'(9 . -12.2) \italic "width"
+  }
+
+  \hspace #1
+
+  \overlay {
+    \scale #'(16 . 16) \with-color #(x11-color "gray80")
+      \musicglyph "custodes.mensural.u0"
+
+    \override #'((filled . #f)
+                 (thickness . 2))
+      \polygon #'((0 . -5.8) (0 . 32) (21 . 32) (21 . -5.8))
+
+    \translate #'(-6 . 0) \draw-line #'(50 . 0)
+    \translate #'(44 . 0) \arrow-head #X #RIGHT ##t
+    \translate #'(43 . -2) \italic "x"
+    \translate #'(0 . -11) \draw-line #'(0 . 49)
+    \translate #'(0 . 39) \arrow-head #Y #UP ##t
+    \translate #'(-2 . 38) \italic "y"
+
+    \point #0 #0 #0.5 #0.8
+    \point #0 #-5.8 #0.5 #0.8
+    \point #21 #32 #-3 #1
+
+    \translate #'(-4.5 . -3.7) \rotate #90 \italic "depth"
+    \translate #'(-4.5 . 15) \rotate #90 \italic "height"
+    \translate #'(7 . -8) \italic "width"
+  }
+}
+@end lilypond
+
+Como se muestra en el glifo de @q{custos} a la derecha de la
+imagen, la caja que se define para un glifo puede ser muy distinta
+de lo que realmente se imprime: LilyPond coloca el lado derecho
+del glifo del custos al final del pentagrama, haciendo que la
+larga línea de extensión se salga por el lado derecho, metiéndose
+dentro del margen.
+
+Este modelo de caja no se usa solo para los glifos musicales de
+LilyPond sino también para los elementos de marcado de cualquier
+tipo.  Tanto las dimensiones horizontales como las verticales se
+especifican con un @q{extent} o ámbito; usando la notación de
+Scheme, el glifo de la izquierda en la imagen anterior tiene unas
+dimensiones horizontales de @code{#'(-9 . 26)} y unas dimensiones
+verticales de @code{#'(-10 . 29)}.
+
+LilyPond también utiliza algunas extensiones sobre el modelo de
+caja para cubrir casos especiales.
+
+@itemize
+@item
+Si no queremos que una caja tome parte en el algoritmo de
+espaciado musical de LilyPond a lo largo de un determinado eje,
+tenemos que establecer las dimensiones de este eje al valor (que
+en otro contexto no tiene ningún sentido) @code{#'(+inf.0
+. -inf.0)} (desde infinito positivo hasta infinito negativo),
+también disponible como el símbolo @code{empty-interval}.
+
+@item
+Dentro de los elementos de marcado, el @dfn{espaciado} (que
+normalmente causa algún movimiento horizontal o vertical del
+siguiente objeto del marcado) también está configurado
+internamente como una caja: las dimensiones a lo largo del eje
+ortogonal están fijadas al valor @code{empty-interval} como un
+marcador, y un valor de espaciado@tie{}@var{s} está representado
+como las dimensiones @code{#'(0 . @var{s})}.  A diferencia de las
+cajas @q{normales}, el espaciado también puede ser negativo: por
+ejemplo, las dimensiones horizontales de la instrucción de marcado
+@code{\hspace #-4} son @code{#'(0 . -4)}.
+@end itemize
+
+
 @node Internal music representation
 @subsection Representación interna de la música
 
@@ -1151,11 +1307,356 @@ almacena dentro de la propiedad @code{element} de
 @rinternals{VoltaRepeatedMusic}, y las alternativas dentro de
 @code{elements}.
 
+
 @node Building complicated functions
 @section Construir funciones complicadas
 
 Esta sección explica cómo reunir la información necesaria para
 crear funciones musicales complicadas.
+
+
+@node A first approach (example)
+@subsection Una primera aproximación (ejemplo)
+
+@enumerate
+@item @b{El problema}
+
+Usando la entrada siguiente, el signo de @q{espressivo} (es decir,
+los dos reguladores pequeños) deberían hacerse más anchos, pero no
+más altos.
+
+@lilypond[verbatim,quote]
+{ f'\espressivo }
+@end lilypond
+
+@item @b{Soluciones posibles}
+
+@enumerate A
+@item crear un sello nuevo
+@item escalar el sello por omisión en la dirección del eje X
+@end enumerate
+
+@item @b{Comentarios sobre esta solución}
+
+La solución@tie{}A es factible.  Sin embargo, dará como resultado
+un esfuerzo de codificación mayor.  Por otro lado, la
+solución@tie{}B es más económica, aunque tiene la desventaja de
+que no imprime resultados aceptables en todos los casos (si bien
+usted podría no saberlo hasta después de haberlo intentado).
+
+@result{} elija la solución@tie{}B.
+
+@item @b{Codificación}
+
+@itemize
+@item
+Si quiere manipular el sello por omisión tendrá que encontrar
+información sobre él.
+
+El signo de espressivo es un grob del tipo @code{Script}.  Si
+buscamos esto en el IR (@rinternals{Script}), encontramos
+
+@example
+‘stencil’ (stencil):
+     ‘ly:script-interface::print’
+@end example
+
+Vamos a comprobar si es correcto.  PAra asegurarnos de que
+afectamos al grob correcto, vamos a emplear colores.  Existe una
+función predefinida para ello, véase @rinternals{Scheme
+functions}.
+
+@funindex stencil-with-color
+
+@example
+-- Function: stencil-with-color stencil color
+    Return a modified version of the given stencil that is
+    colored with the given color.  See ‘normalize-color’ for
+    possible color formats.
+@end example
+
+@funindex normalize-color
+
+@example
+-- Function: normalize-color color
+    Convert a color given in any of the supported formats into
+    a list of 4 numbers: R, G, B, A.  Possible formats are:
+    such a list of 4 numbers; a list of 3 numbers (transparency
+    defaults to 1.0); a CSS string (named color, or “#RRGGBB”,
+    or “#RRGGBBAA”, or “#RGB”, or “#RGBA”).
+@end example
+
+Usando un color con nombre (@samp{red}, rojo), ello da como
+resultado el siguiente código.
+
+@lilypond[verbatim,quote]
+colorDefaultStencil =
+\once \override Script.stencil =
+  % `lambda` starts a procedure; its argument is `grob`.
+  #(lambda (grob)
+     ;; With `let`, local variables are defined.
+     (let ((stil (ly:script-interface::print grob)))
+       ;; The procedure returns the colored default stencil.
+       (stencil-with-color stil red)))
+
+{ \colorDefaultStencil f'\espressivo }
+@end lilypond
+
+Estupendo, funciona.
+
+@item
+Esta clase de operación ( tomar un sello o propiedad por omisión y
+devolver una versión modificada del mismo) es muy común, y
+LilyPond aporta una función especial para ello:
+@code{grob-transformer}.
+
+@funindex grob-transformer
+
+@example
+-- Function: grob-transformer property func
+    Create an override value good for applying FUNC to either
+    pure or unpure values.  FUNC is called with the
+    respective grob as first argument and the default value
+    (after resolving all callbacks) as the second.
+@end example
+
+Vamos a probarla (el concepto de @q{pure} frente a @q{unpure} se
+explica más tarde, @pxref{Unpure-pure containers}; podemos
+ignorarlo por el momento).
+
+@lilypond[verbatim,quote]
+colorDefaultStencil =
+\once \override Script.stencil =
+  #(grob-transformer 'stencil
+     (lambda (grob orig)
+       (stencil-with-color orig red)))
+
+{ \colorDefaultStencil f'\espressivo }
+@end lilypond
+
+¡Éxito total!
+
+@item
+Para obtener un sello a diferente escala tenemos que usar
+
+@funindex ly:stencil-scale
+
+@example
+-- Function: ly:stencil-scale stil x y
+    Scale stencil STIL using the horizontal and vertical
+    scaling factors X and optional Y (defaulting to X).
+    Negative values flip or mirror STIL without changing its
+    origin; this may result in collisions unless it is
+    repositioned.
+@end example
+
+@noindent
+tomado del mismo capítulo en el manual de Referencia del
+Funcionamiento Interno.
+
+Resultado:
+
+@lilypond[verbatim,quote]
+scaleColorDefaultStencil =
+\once \override Script.stencil =
+  #(grob-transformer 'stencil
+     (lambda (grob orig)
+       (stencil-with-color
+        (ly:stencil-scale
+         orig
+         ;; 1 is the neutral element with ly:stencil-scale,
+         ;; i.e., scaling with '1 1' (for x- and y-axis)
+         ;; returns a visibly unchanged stencil.
+         2 1)
+        red)))
+
+{ \scaleColorDefaultStencil f'\espressivo }
+@end lilypond
+
+Aparte del color, parece ser la salida deseada.
+
+@item
+Sin embargo existen algunos problemas, como se puede ver en el
+ejemplo siguiente:
+
+@example
+@{ \scaleColorDefaultStencil f'_\espressivo ^\fermata @}
+@end example
+
+@lilypond[quote]
+scaleColorDefaultStencil =
+\once \override Script.stencil =
+  #(grob-transformer 'stencil
+     (lambda (grob orig)
+       (stencil-with-color
+        (ly:stencil-scale orig 2 1)
+        red)))
+
+{ \scaleColorDefaultStencil f'_\espressivo ^\fermata }
+@end lilypond
+
+@itemize @minus
+@item
+El calderón está a escala también.
+@item
+Es fastidioso tener que teclear la instrucción antes de la nota o
+notas y el @code{\espressivo} después de la nota.
+@end itemize
+
+La solución para ambos: ¡use @code{\tweak}!
+
+@lilypond[verbatim,quote]
+{
+  f'-\tweak stencil
+      #(grob-transformer 'stencil
+         (lambda (grob orig)
+           (stencil-with-color
+            (ly:stencil-scale orig 2 1)
+            red)))
+      _\espressivo
+    ^\fermata
+}
+@end lilypond
+
+Esto hace lo que queríamos aunque no es agradable teclear tanto;
+vamos a definir una variable y usarla para el trucaje.  Con algo
+de copiar y pegar obtenemos lo siguiente.
+
+@lilypond[verbatim,quote]
+#(define longer-script
+   (grob-transformer 'stencil
+     (lambda (grob orig)
+       (stencil-with-color
+        (ly:stencil-scale orig 2 1)
+        red))))
+
+{
+  f'-\tweak stencil #longer-script _\espressivo
+    ^\fermata
+}
+@end lilypond
+
+FUnciona correctamente, aunque los valores de escalado están
+codificados de forma rígida, y escribir repetidamente
+@code{-\tweak stencil #longer-script} aún resulta
+incómodo.
+
+Para corregirlo, vamos a introducir primero una serie de variables
+dentro de la función @code{longer-script} para los valores de
+escalado en x@tie{}e@tie{}y.
+
+@example
+#(define (longer-script x y)
+   (grob-transformer 'stencil
+     (lambda (grob orig)
+       (stencil-with-color
+        (ly:stencil-scale orig x y)
+        red))))
+@end example
+
+En segundo lugar, para reducir la cantidad de tecleo, definimos
+una función de evento, @pxref{Event functions}.  Los elementos
+dentro del primer grupo de paréntesis (@samp{(x-val y-val)}) son
+las variables de función, los elementos dentro del segundo
+paréntesis agrupan los respectivos tipos de variables (comprobamos
+para número dos veces; consulte @rnotation{Predefined type
+predicates} para ver todas las comprobaciones posibles).
+
+@funindex #@{ @dots{} #@}
+
+@example
+scaleEspr =
+#(define-event-function (x-val y-val) (number? number?)
+  #@{
+    \tweak stencil #(longer-script x-val y-val)
+    \espressivo
+  #@})
+
+@{ f'_\scaleEspr 2 1
+     ^\fermata @}
+@end example
+
+@lilypond[quote]
+#(define (longer-script x y)
+   (grob-transformer 'stencil
+     (lambda (grob orig)
+       (stencil-with-color
+        (ly:stencil-scale orig x y)
+        red))))
+
+scaleEspr =
+#(define-event-function (x-val y-val) (number? number?)
+  #{
+    \tweak stencil #(longer-script x-val y-val)
+    \espressivo
+  #})
+
+{ f'_\scaleEspr 2 1
+    ^\fermata }
+@end lilypond
+
+Correcto, ¡funciona como se esperaba! Observe el uso de @code{#@{
+@dots{} #@}}: dentro de esta construcción de Scheme, podemos usar
+sintaxis de LilyPond, y los argumentos de la función (como
+@var{x-val}) se expanden adecuadamente.  @xref{LilyPond code
+blocks}.
+
+@end itemize
+
+@item @b{El código terminado}
+
+Para terminar, vamos a poner algo de orden.
+
+@itemize @minus
+@item
+Solo queremos realizar un escalado en la dirección del eje X, por
+lo que codificamos de forma rígida el escalado en el eje Y dentro
+de la función de evento.
+@item
+Eliminar el color.
+@end itemize
+
+Al final, todo esto conduce al siguiente código.
+
+@lilypond[verbatim,quote]
+#(define (longer-script x y)
+   (grob-transformer 'stencil
+     (lambda (grob orig)
+       (ly:stencil-scale orig x y))))
+
+longEspressivo =
+#(define-event-function (x-val) (number?)
+  #{
+    \tweak stencil #(longer-script x-val 1)
+    \espressivo
+  #})
+
+{ f'^\longEspressivo #2 _\fermata }
+@end lilypond
+
+@emph{Voilà!}
+
+La principal ventaja de usar @code{grob-transformer} es que ya no
+nos tenemos que preocupar por el nombre concreto de la función de
+sello.  En el siguiente ejemplo rotamos 90 grados el sello de una
+ligadura de expresión y una barra; el hecho de que las funciones
+de sello se llamen respectivamente @code{ly:slur::print} y
+@code{ly:beam::print}, no nos preocupa.
+
+@lilypond[verbatim,quote]
+#(define rotate-90
+   (grob-transformer 'stencil
+     (lambda (grob orig)
+       (ly:stencil-rotate orig 90 0 0))))
+
+{ f'8( g')
+  f'8-\tweak stencil #rotate-90 ( g')
+  f'8[ g']
+  f'8-\tweak stencil #rotate-90 [ g'] }
+@end lilypond
+
+
+@end enumerate
 
 
 @node Displaying music expressions
@@ -1251,7 +1752,6 @@ caso, un evento @code{AbsoluteDynamicEvent} con una propiedad
 @code{articulations}.
 
 @funindex \void
-
 @code{\displayMusic} devuelve la música que imprime en la consola,
 y por ello se interpretará al tiempo que se imprime en la consola.
 Para evitar la interpretación, escriba @code{\void} antes de
@@ -1412,7 +1912,7 @@ elemento delante de la propiedad @code{articulations}.
 @example
 doubleSlur = #(define-music-function (note) (ly:music?)
          "Return: @{ note ( note ) @}.
-         `note' is supposed to be a single note."
+         `note` is supposed to be a single note."
          (let ((note2 (ly:music-deep-copy note)))
            (set! (ly:music-property note 'articulations)
                  (cons (make-music 'SlurEvent 'span-direction -1)
@@ -1479,7 +1979,7 @@ Para construir esta función, empezamos con
 
 @example
 (define (add-accent note-event)
-  "Add an accent ArticulationEvent to the articulations of `note-event',
+  "Add an accent ArticulationEvent to the articulations of `note-event`,
   which is supposed to be a NoteEvent expression."
   (set! (ly:music-property note-event 'articulations)
         (cons (make-music 'ArticulationEvent
@@ -1582,9 +2082,8 @@ musical (es cuestión de un poco de aderezo sintáctico y una
 declaración del tipo de su argumento).
 
 @example
-addAccent = #(define-music-function (note-event)
-                                     (ly:music?)
-  "Add an accent ArticulationEvent to the articulations of `note-event',
+addAccent = #(define-music-function (note-event) (ly:music?)
+  "Add an accent ArticulationEvent to the articulations of `note-event`,
   which is supposed to be a NoteEvent expression."
   (set! (ly:music-property note-event 'articulations)
         (cons (make-music 'ArticulationEvent
