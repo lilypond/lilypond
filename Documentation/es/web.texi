@@ -20,13 +20,13 @@
 
 @c Translators: Francisco Vila
 
-@c `Web' was born 2003-03-30 with this commit:
+@c 'Web' was born 2003-03-30 with this commit:
 @c Initial revision
 @c author: Han-Wen Nienhuys
 @c commit: d189a2119004c2f75da2020ea2ed36d817582fc5
 
 @c @macro copyrightDeclare
-@c Copyright @copyright{} 2003--2023 by the authors.
+@c Copyright @copyright{} 2003--2023 por los autores.
 @c @end macro
 
 @copying
@@ -38,12 +38,12 @@ Copyright @copyright{} 2003--2023 por los autores.
 This file documents the LilyPond website.
 
 @quotation
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.1
-or any later version published by the Free Software Foundation;
-with no Invariant Sections.
-A copy of the license is included in the section entitled ``GNU
-Free Documentation License''.
+Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License,
+Version 1.1 or any later version published by the Free Software
+Foundation; with no Invariant Sections.  A copy of the license is
+included in the section entitled ``GNU Free Documentation
+License''.
 @end quotation
 @end copying
 
@@ -52,20 +52,7 @@ Free Documentation License''.
 @c expected to be found in lilypond/ subdirectory.
 @dircategory GNU LilyPond: el tipografiador de música
 @direntry
-* Manual de aprendizaje de LilyPond: (lilypond-learning).  Comience por aquí.
-* Glosario musical: (music-glossary).                 Para usuarios de habla no inglesa.
-* LilyPond: (lilypond-notation).                      Referencia de la notación con LilyPond.
-* Fragmentos de código de LilyPond: (lilypond-snippets).         Consejos, trucos y ejemplos cortos.
-* Referencia de funcionamiento interno: (lilypond-internals).  Definiciones para la construcción de trucos.
-* Utilización del programa: (lilypond-usage). Instalación y ejecución de las aplicaciones.
-* Página web: (lilypond-web).    Vista previa de la nueva página.
-* lilypond: (lilypond-usage)Ejecutar LilyPond.      Invocar el programa LilyPond.
-* abc2ly: (lilypond-usage)Invocación de abc2ly.      Importación de ABC.
-* convert-ly: (lilypond-usage)Actualización de archivos mediante convert-ly. Versiones antiguas de LilyPond.
-* etf2ly: (lilypond-usage)Invocar etf2ly.      Importación de Finale.
-* lilypond-book: (lilypond-usage)LilyPond-book. Intergrar texto y música.
-* midi2ly: (lilypond-usage)Invocar midi2ly.    Importación de MIDI.
-* musicxml2ly: (lilypond-usage)Invocar musicxml2ly.  Importación de MusicXML.
+* Sitio web: (lilypond-web). Versión en Info de lilypond.org.
 @end direntry
 
 
@@ -192,7 +179,7 @@ e incluso
 @c TODO: generate this automatically, including RSS feed.
 @include en/web/news-headlines.itexi
 
-@ref{News, More news...}
+@ref{News, Más novedades...}
 
 @divEnd
 
@@ -220,6 +207,7 @@ e incluso
 @ref{Development, Manuales de @versionDevel}
 
 @subheading Novedades
+@c VO Pondings
 @divId{pondingsText}
 
 @divEnd
@@ -270,10 +258,6 @@ e incluso
 
 @contents
 
-@iftex
-@allowcodebreaks false
-@end iftex
-
 @c ****************** GENERAL STUFF FOR INFO ************
 @ignore
 Distributions will want to install lilypond.info in postinstall, doing:
@@ -282,7 +266,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
   * Prepend GNU for dir, must be unique.
 
-  * Do not list the `lilypond' node at toplevel, so that `info lilypond'
+  * Do not list the 'lilypond' node at toplevel, so that `info lilypond`
     goes to Top.
 
   * List all commands in direntry.
@@ -380,7 +364,7 @@ en las instrucciones que aparecen en la sección
 @end ifnothtml
 
 @include es/web/introduction.itexi
-@include en/web/download.itexi
+@include es/web/download.itexi
 @include es/web/manuals.itexi
 @include es/web/community.itexi
 

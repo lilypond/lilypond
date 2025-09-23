@@ -1,0 +1,248 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
+@ignore
+    Translation of GIT committish: 0286a40100bc611490b7ee91605c6dd422c54dfc
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@node Download
+@unnumbered Descarga
+
+@divClass{heading-center}
+@heading Descarga de LilyPond @versionStable
+@c VO Downloads for LilyPond versionStable
+
+@divEnd
+
+
+@divClass{link-headings}
+
+
+@divClass{column-center-top}
+@subheading Enlaces esenciales
+@c VO Essential links
+
+@subsubheading Para nuevos usuarios
+@c VO For new users
+
+@ref{Text input}: LilyPond es un sistema de grabado musical @strong{basado en
+texto}; se parece más a un lenguaje de programación que a un programa
+gráfico de edición de partituras.  Lea esto para comprender el manejo básico de LilyPond.
+
+@ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Manual de aprendizaje}}
+This gentle introduction to LilyPond shows how to install it
+and guides you through your first steps with the program.
+
+@subsubheading For users who upgrade from a previous version
+
+@ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Cambios}}
+What's new in LilyPond @versionStable{}.
+
+@ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Manual de utilización del programa}}
+Explains how to run @command{convert-ly} to effortlessly update
+existing input files written for older versions.
+
+@ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Manual de aprendizaje}}
+The installation method shown in the tutorial allows installing
+several versions of LilyPond in parallel seamlessly.
+
+@divEnd
+
+
+@divClass{column-left-top}
+@subheading GNU/Linux
+
+@subsubheading ¿Paquetes genéricos, o paquetes específicos de la distribución?
+@c VO Generic Packages or Distribution-Specific Packages?
+
+Muchas distribuciones incluyen a LilyPond dentro de sus
+repositorios normales de paquetes. Sin embargo, con frecuencia estos son significativamente más antiguos que la versión estable actual.  Si es su caso, le recomendamos encarecidamente utilice nuestros paquetes genéricos.
+
+@subsubheading Descarga de paquetes genéricos
+@c VO Downloads for Generic Packages
+
+@itemize
+@item
+@sourceimage{logo-linux,,}
+@downloadStableLinux
+@end itemize
+
+@divEnd
+
+
+
+@divClass{column-right-top}
+
+@subheading Windows
+
+@subsubheading Descarga de paquetes genéricos
+@c VO Downloads for Generic Packages
+
+These binaries work under current Windows versions (Windows 7
+and Windows 8 are not supported).
+
+@itemize
+@item
+@sourceimage{logo-windows,,}
+@downloadStableMingw
+@end itemize
+
+@divEnd
+
+
+
+@divClass{column-left-bottom}
+@subheading macOS
+
+@subsubheading Descarga de paquetes genéricos
+@c VO Downloads for Generic Packages
+
+These binaries work on macOS 10.15 (Catalina) and higher.
+For older macOS versions, please use MacPorts.
+
+@itemize
+@item
+@sourceimage{logo-macosx,,}
+@downloadStableDarwin
+@end itemize
+
+@subsubheading Instalación
+@c VO Using a Package Manager
+
+@itemize
+@item
+@sourceimage{logo-macports,,}
+@uref{https://www.macports.org/,MacPorts}, a package manager
+for macOS, has a @uref{https://ports.macports.org/port/lilypond/summary,
+LilyPond port}.
+
+@item
+@sourceimage{logo-homebrew,,}
+@uref{https://brew.sh/,Homebrew}, another package manager
+for macOS, has a @uref{https://formulae.brew.sh/formula/lilypond,
+LilyPond formula}.
+@end itemize
+
+@divEnd
+
+
+
+@divClass{column-right-bottom}
+@subheading For developers
+@c VO For developers
+
+@ref{Source}:
+for packagers
+
+@ref{Old downloads}:
+old versions
+
+@ref{Development}:
+latest unstable version
+
+@divEnd
+
+
+@divEnd @c link-headings
+
+
+
+@divClass{column-center-middle-color2}
+
+@subheading Licencia del software
+@c VO Software License
+
+LilyPond se hace público bajo la @ref{GPL, GNU General Public License}.
+@divEnd
+
+
+
+@divClass{column-center-bottom}
+@subheading Legalismos
+@c VO Legalese
+
+@divClass{legal}
+Se reconoce el copyright y la marca registrada de todos los logotipos
+e imágenes de productos.
+
+@logoLegalLinux
+
+@logoLegalMacOSX
+
+@logoLegalWindows
+
+@divEnd
+@divEnd
+
+
+
+@menu
+* Source::
+* Old downloads::
+* GPL::
+@end menu
+
+
+
+@node Source
+@unnumberedsec Código fuente
+
+@warning{@strong{No} recomendamos que intente compilar LilyPond por sí
+mismo; casi todas las necesidades del usuario se satisfacen mejor con
+la versión precompilada.}
+
+
+@divClass{column-center-top}
+
+@subheading Archivo comprimido de código fuente
+@c VO Source tarball
+
+@downloadStableSource{}
+@c @ downloadStableSource-es{} ?
+
+Compiling instructions are listed in @rcontrib{Compiling}.
+
+@divEnd
+
+
+
+
+@node Old downloads
+@unnumberedsec Descargas antiguas
+
+@divClass{column-center-top}
+@subheading Todas las versiones
+@c VO All versions
+
+To obtain the source and binaries for any release, visit our
+@uref{https://gitlab.com/lilypond/lilypond/-/releases,GitLab
+releases page} for versions since 2.23.6, or the previous
+@uref{https://lilypond.org/download/binaries/,download site} for
+earlier versions.
+
+@divEnd
+
+
+
+
+@node GPL
+@unnumberedsec GPL
+
+@divClass{column-center-top}
+@subheading Licencia del Software
+@c VO Software license
+
+GNU LilyPond está publicado bajo la Licencia General Pública de GNU.
+Se ofrece una introducción a esta licencia y a nuestros motivos para
+haberla elegido, en @ref{Freedom}.
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading GNU General Public License
+
+@include en/gpl.itexi
+
+@divEnd
