@@ -131,8 +131,8 @@ translations = {
         ' (split HTML)': ' (HTML seccionado)',
         ' (big HTML)': ' (HTML monolítico)',
         ' (PDF)': ' (PDF)',
-        ' (split HTML, Eng.)': ' (HTML seccionat, ingl.)',
-        ' (big HTML, Eng.)': ' (HTML monolític, ingl.)',
+        ' (split HTML, Eng.)': ' (HTML seccionado, ingl.)',
+        ' (big HTML, Eng.)': ' (HTML monolítico, ingl.)',
         ' (PDF, Eng.)': ' (PDF, ingl.)',
 
         'Regression tests for ': 'Pruebas de regresión para ',

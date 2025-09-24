@@ -31,22 +31,25 @@
 texto}; se parece más a un lenguaje de programación que a un programa
 gráfico de edición de partituras.  Lea esto para comprender el manejo básico de LilyPond.
 
-@ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Manual de aprendizaje}}
-This gentle introduction to LilyPond shows how to install it
-and guides you through your first steps with the program.
+@ifWebLinks{@manualStableLearningSplitNoName-es,@rlearningnamed{Top,Manual de aprendizaje}}
+Esta amable introducción a LilyPond le muestra
+cómo instalarlo y le orienta por los primeros pasos con el
+programa.
 
-@subsubheading For users who upgrade from a previous version
+@subsubheading Para los usuarios que se actualizan a partir de una versión anterior
 
-@ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Cambios}}
-What's new in LilyPond @versionStable{}.
+@ifWebLinks{@manualStableChangesSplitNoName-es,@rchangesnamed{Top,Cambios}}
+Qué hay de nuevo en LilyPond @versionStable{}.
 
-@ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Manual de utilización del programa}}
-Explains how to run @command{convert-ly} to effortlessly update
-existing input files written for older versions.
+@ifWebLinks{@manualStableUsageSplitNoName-es,@rprogramnamed{Top,Manual de utilización del programa}}
+Explica cómo ejecutar @command{convert-ly} para actualizar, sin
+esfuerzo, documentos de entrada existentes escritos para versiones
+anteriores.
 
-@ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Manual de aprendizaje}}
-The installation method shown in the tutorial allows installing
-several versions of LilyPond in parallel seamlessly.
+@ifWebLinks{@manualStableLearningSplitNoName-es,@rlearningnamed{Top,Manual de aprendizaje}}
+El procedimiento de instalación que se explica en el tutorial
+permite la instalación de varias versiones distintas de LilyPond
+al mismo tiempo, sin complicaciones.
 
 @divEnd
 
@@ -58,7 +61,10 @@ several versions of LilyPond in parallel seamlessly.
 @c VO Generic Packages or Distribution-Specific Packages?
 
 Muchas distribuciones incluyen a LilyPond dentro de sus
-repositorios normales de paquetes. Sin embargo, con frecuencia estos son significativamente más antiguos que la versión estable actual.  Si es su caso, le recomendamos encarecidamente utilice nuestros paquetes genéricos.
+repositorios normales de paquetes. Sin embargo, con frecuencia
+estos son significativamente más antiguos que la versión estable
+actual.  Si es su caso, le recomendamos encarecidamente utilice
+nuestros paquetes genéricos.
 
 @subsubheading Descarga de paquetes genéricos
 @c VO Downloads for Generic Packages
@@ -80,8 +86,8 @@ repositorios normales de paquetes. Sin embargo, con frecuencia estos son signifi
 @subsubheading Descarga de paquetes genéricos
 @c VO Downloads for Generic Packages
 
-These binaries work under current Windows versions (Windows 7
-and Windows 8 are not supported).
+Estos archivos se pueden ejecutar bajo versiones actuales de
+Windows (Windows 7 y Windows 8 no están contemplados).
 
 @itemize
 @item
@@ -99,8 +105,9 @@ and Windows 8 are not supported).
 @subsubheading Descarga de paquetes genéricos
 @c VO Downloads for Generic Packages
 
-These binaries work on macOS 10.15 (Catalina) and higher.
-For older macOS versions, please use MacPorts.
+Estos archivos binarios se pueden ejecutar sobre macOS 10.15
+(Catalina) o superior.  Para versiones de macOS más antiguas,
+utilice MacPorts.
 
 @itemize
 @item
@@ -114,15 +121,14 @@ For older macOS versions, please use MacPorts.
 @itemize
 @item
 @sourceimage{logo-macports,,}
-@uref{https://www.macports.org/,MacPorts}, a package manager
-for macOS, has a @uref{https://ports.macports.org/port/lilypond/summary,
-LilyPond port}.
+@uref{https://www.macports.org/,MacPorts}, un gestor de paquetes
+para macOS, tiene un
+@uref{https://ports.macports.org/port/lilypond/summary, port de LilyPond}.
 
 @item
-@sourceimage{logo-homebrew,,}
-@uref{https://brew.sh/,Homebrew}, another package manager
-for macOS, has a @uref{https://formulae.brew.sh/formula/lilypond,
-LilyPond formula}.
+@sourceimage{logo-homebrew,,} @uref{https://brew.sh/,Homebrew},
+otro gestor de paquete para macOS, tiene una
+@uref{https://formulae.brew.sh/formula/lilypond, fórmula de LilyPond}.
 @end itemize
 
 @divEnd
@@ -130,17 +136,17 @@ LilyPond formula}.
 
 
 @divClass{column-right-bottom}
-@subheading For developers
+@subheading Para desarrolladores
 @c VO For developers
 
 @ref{Source}:
-for packagers
+para los empaquetadores
 
 @ref{Old downloads}:
-old versions
+versiones anteriores
 
 @ref{Development}:
-latest unstable version
+la versión de desarrollo más reciente
 
 @divEnd
 
@@ -189,9 +195,9 @@ e imágenes de productos.
 @node Source
 @unnumberedsec Código fuente
 
-@warning{@strong{No} recomendamos que intente compilar LilyPond por sí
-mismo; casi todas las necesidades del usuario se satisfacen mejor con
-la versión precompilada.}
+@warning{@strong{no} recomendamos que intente compilar LilyPond
+por sí mismo; casi todas las necesidades del usuario se satisfacen
+mejor con la versión precompilada.}
 
 
 @divClass{column-center-top}
@@ -202,7 +208,8 @@ la versión precompilada.}
 @downloadStableSource{}
 @c @ downloadStableSource-es{} ?
 
-Compiling instructions are listed in @rcontrib{Compiling}.
+Las instrucciones de compilación se detallen en el apartado
+@rcontrib{Compiling}.
 
 @divEnd
 
@@ -216,11 +223,12 @@ Compiling instructions are listed in @rcontrib{Compiling}.
 @subheading Todas las versiones
 @c VO All versions
 
-To obtain the source and binaries for any release, visit our
-@uref{https://gitlab.com/lilypond/lilypond/-/releases,GitLab
-releases page} for versions since 2.23.6, or the previous
-@uref{https://lilypond.org/download/binaries/,download site} for
-earlier versions.
+Para obtener el código fuente y los archivos binarios
+correspondientes a cualquier versión, visite nuestra
+@uref{https://gitlab.com/lilypond/lilypond/-/releases,página de
+lanzamientos en GitLab} para versiones a desde la 2.23.6 en
+adelante, o el @uref{https://lilypond.org/download/binaries/,sitio
+de descargas} anterior para versiones más antiguas.
 
 @divEnd
 
@@ -234,9 +242,9 @@ earlier versions.
 @subheading Licencia del Software
 @c VO Software license
 
-GNU LilyPond está publicado bajo la Licencia General Pública de GNU.
-Se ofrece una introducción a esta licencia y a nuestros motivos para
-haberla elegido, en @ref{Freedom}.
+GNU LilyPond se hace público bajo la Licencia General Pública de
+GNU.  Ofrecemos una introducción a esta licencia y a los motivos
+que tenemos para haberla elegido, en la página @ref{Freedom}.
 
 @divEnd
 
