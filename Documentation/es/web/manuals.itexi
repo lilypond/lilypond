@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 7073ab2d033f82eb797d6fcefd3cd18c98fb3d63
+    Translation of GIT committish: ea8a5e51e348a0d0a260e73c799872a9cfdc8d5a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -25,6 +25,15 @@
 @end ifset
 
 @divEnd
+
+En general, los manuales de LilyPond manuals están en tres
+formatos: HTML seccionado, HTML monolítico y PDF.  El HTML
+seccionado es adecuado para la lectura en línea.  El HTML
+monolítico (que puede ser @emph{enorme}) contiene todo el
+manual en una sola página.  El PDF está disponible para su
+descarga y para usarlo fuera de línea.  Para obtener cada uno de
+los tres formatos, siga los enlaces con el texto @code{detalles
+de} y a continuación el nombre del manual.
 
 @divClass{link-headings}
 
@@ -137,6 +146,19 @@ número de tutoriales de vídeo en su blog que están indicados para
 nuevos usuarios.
 
 @item
+@uref{https://scheme-book.readthedocs.io, El lenguaje Scheme de
+LilyPond}: un tutorial externo para aprender Scheme, el lenguaje
+utilizado para programar LilyPond.  Se recomienda en caso de que
+sea un principiante absoluto en temas de programación.
+
+@item
+@uref{https://extending-lilypond.gitlab.io,Extender LilyPond}: un
+recurso de documentación externo sobre cómo extender el programa
+LilyPond con el lenguaje Scheme.  También contiene un tutorial de
+Scheme, recomendado si tiene cierta experiencia con la
+programación en algún otro lenguaje.
+
+@item
 @ref{Development}:
 manuales para la versión de desarrollo.
 
@@ -146,20 +168,6 @@ estos manuales están publicados bajo la Licencia de Documentación
 Libre de GNU.
 
 @end itemize
-
-@divEnd
-
-@divClass{column-center-bottom}
-@subheading Formatos de los manuales
-
-En general, los manuales de LilyPond manuals están en tres
-formatos: HTML seccionado, HTML monolítico y PDF.  El HTML
-seccionado es adecuado para la lectura en línea.  El HTML
-monolítico (algunos pueden ser muy grandes) contiene todo el
-manual en una sola página.  El PDF está disponible para su
-descarga y para usarlo fuera de línea.  Para obtener cada uno de
-los tres formatos, siga los enlaces con el texto @code{detalles
-de} y a continuación el nombre del manual.
 
 @divEnd
 
@@ -336,10 +344,8 @@ de desarrollo se debe añadir por separado.  Están almacenados dentro
 de @file{input/new/} en el árbol de código fuente de LilyPond.
 
 La lista de fragmentos de código para cada subsección del manual de
-Notación están enlazados también a partir de la sección @strong{Véase
-también}.
+Referencia de la Notación están enlazados también a partir de la sección @strong{Véase también}.
 @divEnd
-
 
 @divClass{column-right-bottom}
 
@@ -412,7 +418,7 @@ informar de los fallos, y desarrollo.
 
 @divClass{keep-bullets}
 @itemize
-@ref{Top,Web}
+@item @ref{Top,Web}
 @end itemize
 @divEnd
 
@@ -531,6 +537,12 @@ sólo están disponibles en @uref{https://lilypond.org}
 
 @divClass{keep-bullets}
 @itemize
+
+@item @uref{https://lilypond.org/doc/v2.22/Documentation/web/manuals.es.html,
+Documentación de LilyPond 2.22}
+
+@item @uref{https://lilypond.org/doc/v2.20/Documentation/web/manuals.es.html,
+Documentación de LilyPond 2.20}
 
 @item @uref{https://lilypond.org/doc/v2.18/Documentation/web/manuals.es.html,
 Documentación de LilyPond 2.18}
