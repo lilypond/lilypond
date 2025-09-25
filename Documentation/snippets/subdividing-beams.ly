@@ -14,30 +14,45 @@
   lsrtags = "rhythms"
 
   texidoc = "
-The beams of consecutive 16th (or shorter) notes are, by default, not
-subdivided.  That is, the beams of more than two stems stretch unbroken
-over entire groups of notes.  This behavior can be modified to subdivide
-the beams into sub-groups by setting the property @code{subdivideBeams}
-to true (@code{#t}).  When set, a number of beamlets between two
-consecutive stems are removed at intervals multiple beams will be
-subdivided at intervals to match the metric value of the subdivision.
-Properties @code{beamMinimumSubdivision} and
-@code{beamMaximumSubdivision} allow configuring limits of
-automatic beam subdivision: the minimum rhythmic interval at which to
-subdivide beams and the number of beamlets removed depending on the
-interval respectively.  If the numerator of
-@code{beamMaximumSubdivision} is not a power of@tie{}2, the
-smaller rhythmic intervals considered for subdivision are
-@code{beamMaximumSubdivision} divided by powers of@tie{}2 and
-stay greater than or equal to @code{beamMinimumSubdivision}.  If
-@code{beamMaximumSubdivision} < @code{beamMinimumSubdivision},
-then the depths of beam subdivision are limited to
-@code{beamMaximumSubdivision}, but not the frequency/intervals,
-therefore possibly deviating from the correct expected metric value.  If
-@code{respectIncompleteBeams} is set to true (@code{##t}), the depth of the
-subdivision (number of beams) reflects the longest possible subdivision interval
-within the remaining length of the beam from the current stem.  However, the
-last two stems of the beam are exempt from this rule.
+The beams of consecutive 16th (or shorter) notes are, by default,
+not subdivided.  That is, the beams of more than two stems stretch
+over the entire group of notes without a break.  This behavior can
+be modified to subdivide the beams into sub-groups by setting the
+property @code{subdivideBeams} to @code{#t}.  When set, beams are
+subdivided at (rhythmic) intervals to match the metric value of
+the subdivision.
+
+Using the properties @code{beamMinimumSubdivision} and
+@code{beamMaximumSubdivision} it is possible to configure the
+limits of automatic beam subdivision, namely the minimum and
+maximum rhythmic lengths at which beamlets are removed.  The
+default values are@tie{}@code{0} for the former and @code{+inf.0}
+for the latter, making LilyPond subdivide beams as much as
+possible.
+
+There are two special cases to consider.
+
+@itemize
+@item
+If the numerator of @code{beamMaximumSubdivision} is not a power
+of@tie{}2, the rhythmic lengths considered for subdivision are
+@code{beamMaximumSubdivision} divided by powers of@tie{}2 that
+stay greater than or equal to @code{beamMinimumSubdivision}.
+
+@item
+If @code{beamMaximumSubdivision} is smaller than
+@code{beamMinimumSubdivision}, the depth of beam subdivisions is
+limited by @code{beamMaximumSubdivision}, but not the frequency
+and rhythmic intervals, therefore possibly deviating from the
+correct, expected metric value.
+@end itemize
+
+If @code{respectIncompleteBeams} is set to @code{#t}, incomplete
+subdivisions with more than two stems are treated as an
+@q{extension} of the previous subdivision group, i.e., the length
+of the previous subdivision group gets extended to also cover the
+incomplete subdivision.  If set to @code{#f} (which is the
+default), a new subdivision group gets started instead.
 "
 
   doctitle = "Subdividing beams"
@@ -45,39 +60,45 @@ last two stems of the beam are exempt from this rule.
 
 
 \relative c'' {
-  c32[ c c c c c c c]
+  \time 1/4
 
+  <>^"default"
+  c32 c c c c c c c
+
+  <>^"with subdivision"
   \set subdivideBeams = ##t
-  c32[ c c c c c c c]
+  c32 c c c c c c c
 
-  % Set minimum beam subdivision interval to 1/8 just for this beam
+  <>^"min 1/8"
   \once \set beamMinimumSubdivision = #1/8
-  c32[ c c c c c c c]
+  c32 c c c c c c c
 
-  % Set maximum beam subdivision interval to 1/16 just for this beam
+  <>^"max 1/16"
   \once \set beamMaximumSubdivision = #1/16
-  c32[ c c c c c c c]
+  c32 c c c c c c c
 
-  % Set maximum beam subdivision interval to 3/8 just for this beam
+  <>^"max 3/8"
   \once \set beamMaximumSubdivision = #3/8
-  [ \repeat unfold 16 c64 ] r2.
+  \repeat unfold 16 c64
 
-  % Set maximum beam subdivision interval to 1/64 to limit subdivision depth,
-  % despite not being metrically correct
+  <>^"min 1/32, max 1/64"
+  % Set maximum beam subdivision interval to 1/64 to limit
+  % subdivision depth, despite not being metrically correct.
   \once \set beamMinimumSubdivision = #1/32
   \once \set beamMaximumSubdivision = #1/64
-  [ \repeat unfold 32 c128 ] r2.
+  \repeat unfold 32 c128
+  \break
 
-  % Shorten beam by 1/32
-  c32[ c c c c c c] r32
+  <>^"beams with incomplete subdivisions"
+  c32 c c c c c c r32
+  c32 c c c c r16.
 
-  % Shorten beam by 3/32
-  c32[ c c c c] r16.
-
-  % Respect the incomplete beams of the previous two examples
+  <>^\markup { "the same with"
+               \typewriter { "respectIncomplete=#t" } }
   \set respectIncompleteBeams = ##t
-  c32[ c c c c c c] r32
-  % no visual change here as last two stems are exempt from this
-  % special rule
-  c32[ c c c c] r16.
+  % The incomplete subgroup extends the completed subgroup.
+  c32 c c c c c c r32
+  % No visual change since we have only two stems in the
+  % incomplete subgroup.
+  c32 c c c c r16.
 }
