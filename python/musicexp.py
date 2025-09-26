@@ -1279,10 +1279,13 @@ class Paper(Base):
         self.right_margin = -1
         self.system_left_margin = -1
         self.system_right_margin = -1
+        # staff positioning
         self.system_distance = -1
         self.top_system_distance = -1
         self.indent = 0
         self.short_indent = 0
+        # other settings
+        self.first_page_number = 0
         self.instrument_names = []
 
     def print_length_field(self, printer, field, value):
@@ -1307,6 +1310,11 @@ class Paper(Base):
             printer.newline()
         printer.dump(r'\paper {')
         printer.newline()
+        if self.first_page_number > 0:
+            printer.dump('first-page-number = %s' % self.first_page_number)
+            printer.newline()
+            printer.dump('print-first-page-number = ##t')
+            printer.newline()
         self.print_length_field(printer, "paper-width", self.page_width)
         self.print_length_field(printer, "paper-height", self.page_height)
         self.print_length_field(printer, "top-margin", self.top_margin)

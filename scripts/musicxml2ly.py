@@ -260,7 +260,6 @@ credit_type_dict = {
     'arranger': 'arranger',
     'composer': 'composer',
     'lyricist': 'poet',
-    'page number': None,  # Ignored.
     'part name': 'instrument',  # Not ideal because it persists for the
                                 # whole document instead of a single page.
     'rights': 'copyright',
@@ -325,6 +324,22 @@ def extract_score_information(tree):
     no_type_count = 1
     for cred in credits:
         cred_type = cred.get_type()
+        if cred_type == 'page number':
+            # We only look at the first `<credit-words>` element.  Because
+            # LilyPond's mechanism to modify the appearance of page numbers
+            # is not done with `\markup` we cannot use any style attributes.
+            cw = cred.get_named_children('credit-words')
+            if cw:
+                page_number = cw[0].get_text()
+                try:
+                    pn = int(page_number)
+                    if pn > 1:
+                        globvars.paper.first_page_number = pn
+                except ValueError:
+                    ly.warning(_("cannot use non-integer page number '%s'")
+                               % page_number)
+            continue
+
         if cred_type:
             header_type = credit_type_dict.get(cred_type)
             if header_type is not None:
@@ -1899,8 +1914,28 @@ def musicxml_print_to_lily(el):
         if getattr(el, 'new-system', None) == 'yes':
             elts.append(musicexp.Break("break"))
 
-    if conversion_settings.convert_page_breaks:
-        if getattr(el, 'new-page', None) == 'yes':
+    if getattr(el, 'new-page', None) == 'yes':
+        # The solution to set arbitrary page numbers in LilyPond is
+        # non-trivial; see
+        #
+        #   https://lists.gnu.org/archive/html/lilypond-user/2025-08/msg00124.html
+        #
+        # for an example.  For this reason, we only support setting the page
+        # number at the very beginning of a piece.
+        #
+        # We use this as a fallback if the page number is not set in a
+        # `<credit>` element.
+        if globvars.paper.first_page_number == 0:
+            page_number = getattr(el, 'page-number', '0')
+            try:
+                pn = int(page_number)
+                if pn > 1 and el._when == 0:
+                    globvars.paper.first_page_number = pn
+            except ValueError:
+                ly.warning(_("cannot use non-integer page number '%s'")
+                           % page_number)
+
+        if conversion_settings.convert_page_breaks:
             elts.append(musicexp.Break("pageBreak"))
 
     child = el.get_maybe_exist_named_child("part-name-display")
