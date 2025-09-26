@@ -16,7 +16,7 @@
           Finally, we also test four CSS font sizes for &lt;words&gt; elements
           in bars 2 and 3.
 
-          The page number on the first page is set to 8 (and to 9 on the
+          The page number on the first page is set to 8 (and to 12 on the
           second page).</miscellaneous-field>
     </miscellaneous>
   </identification>
@@ -138,7 +138,7 @@
     </measure>
     <!--=======================================================-->
     <measure number="5" width="819">
-      <print new-page="yes" page-number="9"/>
+      <print new-page="yes" page-number="12"/>
       <note>
         <rest/>
         <duration>4</duration>
