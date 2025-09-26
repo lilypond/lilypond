@@ -4,8 +4,9 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">System and page breaks, given in
-          a &lt;print&gt; element</miscellaneous-field>
+      <miscellaneous-field name="description">A system break (after measure 1)
+          and a page break (after measure 2) using &lt;print&gt;
+          elements.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
