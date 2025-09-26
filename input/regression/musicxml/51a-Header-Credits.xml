@@ -14,6 +14,10 @@
           The following &lt;credit&gt; elements are present, with the given
           &lt;credit-type&gt; type.
 
+          – ‘page number’ (two &lt;credit&gt; elements, one at the top left for
+          page ‘2’ and another one at the top right for page ‘2a’ using
+          attribute ‘page="2"’; valign: top).
+
           – ‘rights’ (at the bottom; halign: center, justify: right, valign:
           bottom).
 
@@ -53,6 +57,20 @@
       <page-width>860</page-width>
     </page-layout>
   </defaults>
+  <credit>
+    <credit-type>page number</credit-type>
+    <credit-words default-x="40"
+                  default-y="630"
+                  font-size="12"
+                  valign="top">2</credit-words>
+  </credit>
+  <credit page="2">
+    <credit-type>page number</credit-type>
+    <credit-words default-x="800"
+                  default-y="630"
+                  font-size="12"
+                  valign="top">2a</credit-words>
+  </credit>
   <credit>
     <credit-type>rights</credit-type>
     <credit-words default-x="430"
