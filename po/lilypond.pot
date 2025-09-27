@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.25.28\n"
+"Project-Id-Version: lilypond 2.25.29\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
-"POT-Creation-Date: 2025-08-23 10:13+0200\n"
+"POT-Creation-Date: 2025-09-27 12:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1014,56 +1014,56 @@ msgstr ""
 msgid "Usage: %s"
 msgstr ""
 
-#: musicexp.py:517 musicexp.py:525
+#: musicexp.py:515 musicexp.py:523
 msgid "Language does not support microtones contained in the piece"
 msgstr ""
 
-#: musicexp.py:1147
+#: musicexp.py:1145
 #, python-format
 msgid "unable to set the music %(music)s for the repeat %(repeat)s"
 msgstr ""
 
-#: musicexp.py:1173
+#: musicexp.py:1171
 msgid "encountered tremolo repeat without body"
 msgstr ""
 
-#: musicexp.py:1180
+#: musicexp.py:1178
 msgid "encountered volta repeat without body"
 msgstr ""
 
 #. No `self.elements`!
-#: musicexp.py:1681
+#: musicexp.py:1679
 #, python-format
 msgid "Grace note with no following music: %s"
 msgstr ""
 
-#: musicexp.py:2117
+#: musicexp.py:2115
 msgid ""
 "Correct vertical positioning of trill pitch change accidental marks might "
 "fail and need manual fixing."
 msgstr ""
 
-#: musicexp.py:2392
+#: musicexp.py:2390
 #, python-format
 msgid "Invalid octave shift size found: %s. Using no shift."
 msgstr ""
 
-#: musicexp.py:3897
+#: musicexp.py:3913
 #, python-format
 msgid "Unable to convert alteration %s to a lilypond expression"
 msgstr ""
 
-#: musicexp.py:4110
+#: musicexp.py:4126
 msgid ""
 "Non-standard clef positions are not supported yet, using 'treble' instead"
 msgstr ""
 
-#: musicexp.py:4118
+#: musicexp.py:4134
 #, python-format
 msgid "Unsupported clef '%s', using 'treble' instead"
 msgstr ""
 
-#: musicexp.py:4749
+#: musicexp.py:4765
 msgid ""
 "Only up to 4 voices per staff are supported; expect wrong stem directions "
 "and collisions"
@@ -1074,51 +1074,51 @@ msgstr ""
 msgid "more than one child of class %s, all but the first will be ignored"
 msgstr ""
 
-#: musicxml.py:603
+#: musicxml.py:597
 msgid "Unable to interpret time signature! Falling back to 4/4."
 msgstr ""
 
-#: musicxml.py:675
+#: musicxml.py:669
 #, python-format
 msgid ""
 "Key alteration octave given for a non-existing alteration nr. %s, available "
 "numbers: %s!"
 msgstr ""
 
-#: musicxml.py:950
+#: musicxml.py:944
 #, python-format
 msgid "Encountered note at %s without type and duration (=%s)"
 msgstr ""
 
-#: musicxml.py:1072
+#: musicxml.py:1066
 msgid "cannot find suitable event"
 msgstr ""
 
-#: musicxml.py:1134
+#: musicxml.py:1128
 #, python-format
 msgid "Unable to find instrument for ID=%s\n"
 msgstr ""
 
 #. Only for verbose operation.
-#: musicxml.py:1534 musicxml.py:1538
+#: musicxml.py:1528 musicxml.py:1532
 msgid "Incomplete"
 msgstr ""
 
-#: musicxml.py:1536
+#: musicxml.py:1530
 msgid "Overfull"
 msgstr ""
 
-#: musicxml.py:1540
+#: musicxml.py:1534
 #, python-format
 msgid "%s measure? Expected: %s, difference: %s"
 msgstr ""
 
-#: musicxml.py:1868
+#: musicxml.py:1862
 #, python-format
 msgid "%s end seen without %s start"
 msgstr ""
 
-#: musicxml.py:2063
+#: musicxml.py:2058
 msgid "Found overlapping <direction> elements"
 msgstr ""
 
@@ -1140,14 +1140,14 @@ msgid ""
 msgstr ""
 
 #: abc2ly.py:1642 convert-ly.py:95 etf2ly.py:1231 lilypond-book.py:275
-#: midi2ly.py:1212 musicxml2ly.py:4799 main.cc:154
+#: midi2ly.py:1212 musicxml2ly.py:4815 main.cc:154
 msgid "show version number and exit"
 msgstr ""
 
 #. Bug in option parser: --output =foe is taken as an abbreviation
 #. for --output-format.
 #: abc2ly.py:1645 convert-ly.py:99 etf2ly.py:1227 lilypond-book.py:160
-#: midi2ly.py:1179 musicxml2ly.py:4779 main.cc:131
+#: midi2ly.py:1179 musicxml2ly.py:4795 main.cc:131
 msgid "show this help and exit"
 msgstr ""
 
@@ -1168,7 +1168,7 @@ msgid "suppress progress messages"
 msgstr ""
 
 #: abc2ly.py:1660 convert-ly.py:167 etf2ly.py:1241 lilypond-book.py:320
-#: midi2ly.py:1224 musicxml2ly.py:5012
+#: midi2ly.py:1224 musicxml2ly.py:5028
 #, python-format
 msgid "Report bugs via %s"
 msgstr ""
@@ -1212,14 +1212,14 @@ msgstr ""
 msgid "edit in place"
 msgstr ""
 
-#: convert-ly.py:113 musicxml2ly.py:4838
+#: convert-ly.py:113 musicxml2ly.py:4854
 msgid ""
 "Print log messages according to LOGLEVEL (NONE, ERROR, WARN, PROGRESS "
 "(default), DEBUG)"
 msgstr ""
 
 #: convert-ly.py:115 lilypond-book.py:198 lilypond-book.py:214
-#: musicxml2ly.py:4840 main.cc:142
+#: musicxml2ly.py:4856 main.cc:142
 msgid "LOGLEVEL"
 msgstr ""
 
@@ -1318,7 +1318,7 @@ msgid ""
 msgstr ""
 
 #: etf2ly.py:1233 lilypond-book.py:94 midi2ly.py:1184 midi2ly.py:1189
-#: musicxml2ly.py:4923 main.cc:136 main.cc:146
+#: musicxml2ly.py:4939 main.cc:136 main.cc:146
 msgid "FILE"
 msgstr ""
 
@@ -1420,7 +1420,7 @@ msgstr ""
 msgid "write snippet output files with the same base name as their source file"
 msgstr ""
 
-#: lilypond-book.py:268 midi2ly.py:1207 musicxml2ly.py:4805
+#: lilypond-book.py:268 midi2ly.py:1207 musicxml2ly.py:4821
 msgid "be verbose"
 msgstr ""
 
@@ -1658,128 +1658,128 @@ msgid ""
 "requested global staff size (%.2fmm=%.2fpt) is too %s, using %spt instead"
 msgstr ""
 
-#: musicxml2ly.py:467
+#: musicxml2ly.py:468
 #, python-format
 msgid ""
 "Encountered file created by %s, containing wrong beaming information. All "
 "beaming information in the MusicXML file will be ignored"
 msgstr ""
 
-#: musicxml2ly.py:496 musicxml2ly.py:499
+#: musicxml2ly.py:497 musicxml2ly.py:500
 #, python-format
 msgid "Unprocessed PartGroupInfo %s encountered"
 msgstr ""
 
-#: musicxml2ly.py:1005 musicxml2ly.py:1035 musicxml2ly.py:1119
+#: musicxml2ly.py:1006 musicxml2ly.py:1036 musicxml2ly.py:1120
 #, python-format
 msgid "ignoring unexpected %s"
 msgstr ""
 
-#: musicxml2ly.py:1183
+#: musicxml2ly.py:1184
 #, python-format
 msgid "adding repeat barline to lone %s"
 msgstr ""
 
-#: musicxml2ly.py:1440
+#: musicxml2ly.py:1441
 msgid "Ignoring double-note tremolo without end"
 msgstr ""
 
-#: musicxml2ly.py:1469
+#: musicxml2ly.py:1470
 msgid "Ignoring double-note tremolo without start"
 msgstr ""
 
-#: musicxml2ly.py:1487
+#: musicxml2ly.py:1488
 msgid "Strange tremolo note length encountered"
 msgstr ""
 
-#: musicxml2ly.py:1687
+#: musicxml2ly.py:1688
 msgid "Unable to extract key signature!"
 msgstr ""
 
-#: musicxml2ly.py:1722
+#: musicxml2ly.py:1723
 #, python-format
 msgid "unknown mode %s, expecting 'major' or 'minor' or a church mode!"
 msgstr ""
 
-#: musicxml2ly.py:1981
+#: musicxml2ly.py:1982
 #, python-format
 msgid "unknown span event %s"
 msgstr ""
 
-#: musicxml2ly.py:1995
+#: musicxml2ly.py:1996
 #, python-format
 msgid "unknown span type %s for %s"
 msgstr ""
 
-#: musicxml2ly.py:2088
+#: musicxml2ly.py:2089
 #, python-format
 msgid "empty <tremolo> element, setting value to %s"
 msgstr ""
 
-#: musicxml2ly.py:2698
+#: musicxml2ly.py:2701
 msgid "Empty metronome element"
 msgstr ""
 
-#: musicxml2ly.py:2766
+#: musicxml2ly.py:2769
 msgid "Invalid bpm value in metronome mark"
 msgstr ""
 
-#: musicxml2ly.py:2769
+#: musicxml2ly.py:2772
 msgid "Unknown metronome mark, ignoring"
 msgstr ""
 
 #. TODO: Implement the other (more complex) way for tempo marks.
-#: musicxml2ly.py:2781
+#: musicxml2ly.py:2784
 msgid ""
 "Metronome marks with complex relations (<metronome-note> in MusicXML) are "
 "not yet implemented."
 msgstr ""
 
-#: musicxml2ly.py:3102
+#: musicxml2ly.py:3105
 #, python-format
 msgid "Unable to convert chord type %s to lilypond."
 msgstr ""
 
-#: musicxml2ly.py:3604
+#: musicxml2ly.py:3624
 #, python-format
 msgid "Negative skip %s (from position %s to %s)"
 msgstr ""
 
-#: musicxml2ly.py:3702
+#: musicxml2ly.py:3722
 msgid "rests with lyrics are not supported yet"
 msgstr ""
 
-#: musicxml2ly.py:3742
+#: musicxml2ly.py:3762
 msgid "cannot change vertical position of lyrics within a part"
 msgstr ""
 
-#: musicxml2ly.py:4102
+#: musicxml2ly.py:4118
 #, python-format
 msgid "unexpected %s; expected %s or %s or %s"
 msgstr ""
 
-#: musicxml2ly.py:4173
+#: musicxml2ly.py:4189
 msgid "Not enough rests for multi-measure rest count"
 msgstr ""
 
-#: musicxml2ly.py:4376
+#: musicxml2ly.py:4392
 msgid "Encountered closing slur, but no slur is open"
 msgstr ""
 
-#: musicxml2ly.py:4477
+#: musicxml2ly.py:4493
 msgid "ignoring <accidental-mark> not attached to proper <ornaments> child"
 msgstr ""
 
-#: musicxml2ly.py:4727
+#: musicxml2ly.py:4743
 #, python-format
 msgid "Converting part '%s' (voice %s) to LilyPond expressions..."
 msgstr ""
 
-#: musicxml2ly.py:4765
+#: musicxml2ly.py:4781
 msgid "musicxml2ly [OPTION]... FILE"
 msgstr ""
 
-#: musicxml2ly.py:4766
+#: musicxml2ly.py:4782
 msgid ""
 "Convert FILE with MusicXML data to a LilyPond input file.\n"
 "\n"
@@ -1790,7 +1790,7 @@ msgid ""
 "also tried as input files.\n"
 msgstr ""
 
-#: musicxml2ly.py:4783
+#: musicxml2ly.py:4799
 #, python-format
 msgid ""
 "Copyright (c) 2005--2023 by\n"
@@ -1806,207 +1806,207 @@ msgid ""
 "information."
 msgstr ""
 
-#: musicxml2ly.py:4810
+#: musicxml2ly.py:4826
 msgid "--lxml is obsolete, ignoring"
 msgstr ""
 
-#: musicxml2ly.py:4811
+#: musicxml2ly.py:4827
 msgid "obsolete"
 msgstr ""
 
-#: musicxml2ly.py:4817
+#: musicxml2ly.py:4833
 msgid ""
 "input file is a compressed MusicXML file (by default, activate if file "
 "extension is .mxl)"
 msgstr ""
 
-#: musicxml2ly.py:4824
+#: musicxml2ly.py:4840
 msgid "convert pitches in relative mode (default)"
 msgstr ""
 
-#: musicxml2ly.py:4829
+#: musicxml2ly.py:4845
 msgid "convert pitches in absolute mode"
 msgstr ""
 
-#: musicxml2ly.py:4832
+#: musicxml2ly.py:4848
 msgid "LANG"
 msgstr ""
 
-#: musicxml2ly.py:4834
+#: musicxml2ly.py:4850
 msgid "use LANG for pitch names, e.g., 'deutsch' for note names in German"
 msgstr ""
 
-#: musicxml2ly.py:4846 musicxml2ly.py:4985
+#: musicxml2ly.py:4862 musicxml2ly.py:5001
 msgid "t[rue]/f[alse]"
 msgstr ""
 
-#: musicxml2ly.py:4849
+#: musicxml2ly.py:4865
 msgid ""
 "expect <octave-shift> end elements before the associated <note> (as in "
 "Finale). Default is f[alse]"
 msgstr ""
 
-#: musicxml2ly.py:4857
+#: musicxml2ly.py:4873
 msgid "do not convert directions (^, _ or -) for articulations, dynamics, etc."
 msgstr ""
 
-#: musicxml2ly.py:4864
+#: musicxml2ly.py:4880
 msgid "do not convert exact vertical positions of rests"
 msgstr ""
 
-#: musicxml2ly.py:4870
+#: musicxml2ly.py:4886
 msgid "ignore system breaks"
 msgstr ""
 
-#: musicxml2ly.py:4876
+#: musicxml2ly.py:4892
 msgid "ignore page breaks"
 msgstr ""
 
-#: musicxml2ly.py:4882
+#: musicxml2ly.py:4898
 msgid "ignore page margins"
 msgstr ""
 
-#: musicxml2ly.py:4888
+#: musicxml2ly.py:4904
 msgid ""
 "do not convert the exact page layout and breaks (shortcut for \"--nsb --npb "
 "--npm\" options)"
 msgstr ""
 
-#: musicxml2ly.py:4895
+#: musicxml2ly.py:4911
 msgid ""
 "ignore stem directions from MusicXML, use lilypond's automatic stemming "
 "instead"
 msgstr ""
 
-#: musicxml2ly.py:4899
+#: musicxml2ly.py:4915
 msgid "FACTOR"
 msgstr ""
 
-#: musicxml2ly.py:4904
+#: musicxml2ly.py:4920
 msgid ""
 "scale <dynamics> elements by a non-negative FACTOR; value 0 means to use "
 "lilypond's standard size for dynamics"
 msgstr ""
 
-#: musicxml2ly.py:4912
+#: musicxml2ly.py:4928
 msgid ""
 "use absolute font sizes in markup (default is to use font sizes based on "
 "score size)"
 msgstr ""
 
-#: musicxml2ly.py:4919
+#: musicxml2ly.py:4935
 msgid ""
 "do not convert beaming information, use lilypond's automatic beaming instead"
 msgstr ""
 
-#: musicxml2ly.py:4928
+#: musicxml2ly.py:4944
 msgid "set output filename to FILE, stdout if -"
 msgstr ""
 
-#: musicxml2ly.py:4934
+#: musicxml2ly.py:4950
 msgid "activate midi-block in .ly file"
 msgstr ""
 
-#: musicxml2ly.py:4937
+#: musicxml2ly.py:4953
 msgid "N"
 msgstr ""
 
-#: musicxml2ly.py:4942
+#: musicxml2ly.py:4958
 msgid ""
 "use <credit> information from page N to fill the fields of the \\header "
 "block. Default is value 1"
 msgstr ""
 
-#: musicxml2ly.py:4948
+#: musicxml2ly.py:4964
 msgid "TOPITCH"
 msgstr ""
 
-#: musicxml2ly.py:4951
+#: musicxml2ly.py:4967
 msgid "set pitch to transpose by the interval between pitch 'c' and TOPITCH"
 msgstr ""
 
-#: musicxml2ly.py:4956
+#: musicxml2ly.py:4972
 msgid "VALUE"
 msgstr ""
 
-#: musicxml2ly.py:4961
+#: musicxml2ly.py:4977
 msgid ""
 "shift durations and time signatures by VALUE; for example, value -1 doubles "
 "all durations, and value 1 halves them"
 msgstr ""
 
-#: musicxml2ly.py:4966
+#: musicxml2ly.py:4982
 msgid "BEATS/BEATTYPE"
 msgstr ""
 
-#: musicxml2ly.py:4971
+#: musicxml2ly.py:4987
 msgid "`--shift-meter` is obsolete and ignored, use `--shift-duration` instead"
 msgstr ""
 
-#: musicxml2ly.py:4973
+#: musicxml2ly.py:4989
 msgid "ignored; use `--shift-duration` instead"
 msgstr ""
 
-#: musicxml2ly.py:4977
+#: musicxml2ly.py:4993
 msgid "TABCLEFNAME"
 msgstr ""
 
-#: musicxml2ly.py:4980
+#: musicxml2ly.py:4996
 msgid "switch between two versions of tab clefs (\"tab\" and \"moderntab\")"
 msgstr ""
 
-#: musicxml2ly.py:4988
+#: musicxml2ly.py:5004
 msgid ""
 "control output of string numbers; value f[alse] disables them. Default is "
 "t[rue]"
 msgstr ""
 
-#: musicxml2ly.py:4996
+#: musicxml2ly.py:5012
 msgid ""
 "convert '<frame>' events to a separate FretBoards voice instead of markups"
 msgstr ""
 
-#: musicxml2ly.py:5002
+#: musicxml2ly.py:5018
 msgid "put top-level score into '\\book'"
 msgstr ""
 
-#: musicxml2ly.py:5008
+#: musicxml2ly.py:5024
 msgid "don't emit a LilyPond tagline"
 msgstr ""
 
-#: musicxml2ly.py:5125
+#: musicxml2ly.py:5141
 #, python-format
 msgid "unknown part in part-list: %s"
 msgstr ""
 
-#: musicxml2ly.py:5262
+#: musicxml2ly.py:5278
 msgid "Input is compressed, extracting raw MusicXML data from stdin"
 msgstr ""
 
-#: musicxml2ly.py:5278
+#: musicxml2ly.py:5294
 #, python-format
 msgid "Input file %s is compressed, extracting raw MusicXML data"
 msgstr ""
 
-#: musicxml2ly.py:5310
+#: musicxml2ly.py:5326
 msgid "Reading MusicXML from Standard input ..."
 msgstr ""
 
-#: musicxml2ly.py:5312
+#: musicxml2ly.py:5328
 #, python-format
 msgid "Reading MusicXML from %s ..."
 msgstr ""
 
-#: musicxml2ly.py:5344
+#: musicxml2ly.py:5360
 #, python-format
 msgid "Output to `%s'"
 msgstr ""
 
-#: musicxml2ly.py:5417
+#: musicxml2ly.py:5433
 msgid "requested dynamics scale factor must be non-negative, setting to 0"
 msgstr ""
 
-#: musicxml2ly.py:5478
+#: musicxml2ly.py:5494
 #, python-format
 msgid "Unable to find input file %s"
 msgstr ""
