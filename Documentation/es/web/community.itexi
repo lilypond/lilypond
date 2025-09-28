@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: e09932b9014300e2a622a98ffeb23d7b6451fdb5
+    Translation of GIT committish: a121368097d49ab012f65a36fca636f6456d3653
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -98,7 +98,8 @@ anteriores, noticias antiguas, etc.
 @node Contact
 @unnumberedsec Contacto
 
-@divClass{column-left-bottom}
+
+@divClass{column-left-top}
 @subheading Discusión y ayuda entre usuarios
 
 @subsubheading Lista de distribución de usuarios: @code{lilypond-user@@gnu.org}
@@ -112,15 +113,36 @@ ayuda.
 Suscripción e información sobre lilypond-user}
 
 @uref{https://lists.gnu.org/archive/html/lilypond-user/,
-Archivo 1 de la lista de usuarios}
+Archivo@tie{}1 de la lista de usuarios}
 @uref{http://www.mail-archive.com/lilypond-user@@gnu.org/,
-Archivo 2}
+Archivo@tie{}2}
 @end quotation
 
 @warning{Al formular preguntas, por favor, ¡utilice
 @ref{Tiny examples}!}
 
-@subsubheading El Repositorio de Fragmentos de Código de LilyPond
+@subsubheading Otros idiomas
+
+@quotation
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-es,
+Lista de distribución de correo en español}
+
+@uref{https://lilypondforum.de/,
+Foro alemán}
+
+@uref{https://lists.gnu.org/mailman/listinfo/lilypond-it,
+Lista de distribución de correo en italiano}
+
+@uref{https://groups.google.com/group/lilypond-brasil,
+Grupo de portugués}
+
+@uref{https://lilypond.community, Foro en francés}
+@end quotation
+@divEnd
+
+
+@divClass{column-right-top}
+@subheading El Repositorio de Fragmentos de Código de LilyPond
 
 El Repositorio de Fragmentos de Código de LilyPond es una gran
 colección de ejemplos remitidos por los usuarios, que se pueden
@@ -133,85 +155,6 @@ otros han escrito, y añada las suyas propias!
 
 Los ejemplos del LSR que son especialmente instructivos se
 incluyen en nuestra documentación oficial, en @ref{Snippets}.
-
-@subsubheading IRC
-
-Existe un cierto grado de apoyo a través de nuestro canal de IRC,
-
-@example
-@uref{irc://irc.libera.chat/lilypond, #lilypond@@irc.libera.chat}
-@end example
-
-Este canal no tiene unos archivos públicos, por lo que cualquier
-cuestión que pudiera ser de utilidad para los demás debiera
-preferentemente enviarse a una de las listas de correo.
-
-@html
-<form action="https://web.libera.chat"
-      method="get"
-      name="f_lily_irc"
-  <label>Nombre de IRC:
-    <input name="nick" type="text" size="15" value="">
-  </label>
-  <input name="Channel" type="hidden" value="lilypond">
-  <input type="submit" value="Unirse al canal de IRC #lilypond">
-</form>
-
-<script language="JavaScript" type="text/javascript">
-  var username = "web";
-  var lang = window.navigator.userLanguage ? window.navigator.userLanguage
-  : window.navigator.language;
-  username += '-' + lang.substr(0, 2);
-  username += '-' + navigator.appName.substr(0, 2);
-  username += navigator.appCodeName.replace (" ", "").substr(0, 2);
-  username += navigator.platform.replace (" ", "").replace("nux", "").replace("n32", "");
-  document.forms["f_lily_irc"].nick.value = username;
-</script>
-@end html
-
-@subsubheading Otros idiomas
-
-@quotation
-@uref{https://lists.gnu.org/mailman/listinfo/lilypond-es,
-Lista de correo en español}
-
-@uref{https://lilypondforum.de/,
-Foro alemán}
-
-@uref{https://groups.google.com/group/lilypond-brasil,
-Grupo de portugués}
-
-@uref{https://lists.gnu.org/mailman/listinfo/lilypond-user-fr,
-Lista de correo en francés}
-@end quotation
-@divEnd
-
-
-@divClass{column-right-top}
-@subheading El blog de LilyPond
-
-Lea el blog de nuestra comunidad, @q{Scores of Beauty}:
-
-@example
-@uref{https://lilypondblog.org}
-@end example
-
-@subsubheading Lista de correo de lanzamientos: @code{info-lilypond@@gnu.org}
-
-Esta lista de distribución de correo es una lista de sólo lectura y
-bajo tráfico, que envía notificaciones de los últimos lanzamientos.
-
-@quotation
-@uref{https://lists.gnu.org/mailman/listinfo/info-lilypond,
-Suscripción e información sobre info-lilypond}
-
-@uref{https://lists.gnu.org/archive/html/info-lilypond/,
-Archivo 1 de la lista info}
-@uref{http://www.mail-archive.com/info-lilypond@@gnu.org/,
-Archivo 2}
-@end quotation
-
-
 @divEnd
 
 
@@ -228,9 +171,9 @@ parches se pueden también enviar aquí.
 Suscripción e información sobre lilypond-devel}
 
 @uref{https://lists.gnu.org/archive/html/lilypond-devel/,
-Archivo 1 de la lista devel}
+Archivo@tie{}1 de la lista devel}
 @uref{http://www.mail-archive.com/lilypond-devel@@gnu.org/,
-Archivo 2}
+Archivo@tie{}2}
 @end quotation
 
 
@@ -244,26 +187,90 @@ aquí.  No envíe parches a esta lista.
 Suscripción e información sobre bug-lilypond}
 
 @uref{https://lists.gnu.org/archive/html/bug-lilypond/,
-Archivo 1 de la lista bug}
+Archivo@tie{}1 de la lista bug}
 @uref{http://www.mail-archive.com/bug-lilypond@@gnu.org/,
-Archivo 2}
+Archivo@tie{}2}
 @end quotation
 
-@warning{Antes de enviar un mensaje a la lista de fallos, lea
+@warning{antes de enviar un mensaje a la lista de fallos, lea
 nuestras indicaciones para elaborar @ref{Bug reports}.}
+@divEnd
 
 
-@subsubheading Lista de correo de traducciones: @code{translations@@lilynet.org}
+@divClass{column-left-top}
+@subheading Anuncios de lanzamientos
 
-Toda discusión sobre la traducción de los manuales de LilyPond se
-debe dirigir aquí.  No envíe parches a esta lista.
+@subsubheading Lista de correo de lanzamientos: @code{info-lilypond@@gnu.org}
+
+Esta lista de distribución de correo, de solo lectura y poco
+tráfico, recibe avisos de nuevos lanzamientos.
 
 @quotation
-@uref{https://lilypond-translations.3384276.n2.nabble.com/,
-Archivo de la lista de correo de traducción}
+@uref{https://lists.gnu.org/mailman/listinfo/info-lilypond,
+Suscripción e información sobre info-lilypond}
+
+@uref{https://lists.gnu.org/archive/html/info-lilypond/,
+Archivo@tie{}1 de la lista info}
+@uref{http://www.mail-archive.com/info-lilypond@@gnu.org/,
+Archivo@tie{}2}
 @end quotation
+@divEnd
+
+@divClass{column-right-bottom}
+@subheading IRC
+
+Se ofrece un cierto apoyo a través de nuestro canal de chat IRC,
+
+@example
+@uref{irc://irc.libera.chat/lilypond, #lilypond@@irc.libera.chat}
+@end example
+
+Este canal no tiene ningún archivo histórico público, por lo que
+cualquier pregunta que pueda ser de utilidad para otras personas
+sería mejor plantearla en una de las listas de distribución de
+correo.
+
+@html
+<form action="https://web.libera.chat"
+      method="get"
+      name="f_lily_irc"
+  <label>Usuario de IRC:
+    <input name="nick" type="text" size="15" value="">
+  </label>
+  <input name="Channel" type="hidden" value="lilypond">
+  <input type="submit" value="Unirme al chat de IRC de #lilypond">
+</form>
+
+<script language="JavaScript" type="text/javascript">
+  var username = "web";
+  var lang = window.navigator.userLanguage ? window.navigator.userLanguage
+  : window.navigator.language;
+  username += '-' + lang.substr(0, 2);
+  username += '-' + navigator.appName.substr(0, 2);
+  username += navigator.appCodeName.replace (" ", "").substr(0, 2);
+  username += navigator.platform.replace (" ", "").replace("nux", "").replace("n32", "");
+  document.forms["f_lily_irc"].nick.value = username;
+</script>
+@end html
+@divEnd
+
+@c Currently inactive and inaccessible
+
+@ignore
+
+@divClass{column-right-top}
+@subheading The LilyPond Blog
+
+Read our community blog, @q{Scores of Beauty}:
+
+@example
+@uref{https://lilypondblog.org}
+@end example
 
 @divEnd
+
+@end ignore
+
 
 @node Tiny examples
 @unnumberedsec Ejemplos mínimos
@@ -336,6 +343,13 @@ No utilice instrucciones @code{\override} ni @code{\set} a no ser
 que el bug se refiera a esas instrucciones en concreto.
 
 @item
+Utilice un adjunto de código cuando lo envíe a la lista de correo:
+muchos programas de correo no son capaces de manejar bien el
+código de LilyPond, alterando el orden de las líneas (lo que hace
+ilegible al código) o insertando caracteres de espacio no
+divisible (lo que hace incompilable al código).
+
+@item
 Opcionalmente, adjunte una imagen que muestre el resultado gráfico
 que desea.
 
@@ -401,7 +415,7 @@ Probablemente ya estamos al tanto de este bug.  Compruébelo aquí:
 @uref{https://gitlab.com/lilypond/lilypond/-/issues}
 @end example
 
-@warning{Le rogamos que @strong{NO} añada informes de fallos
+@warning{Le rogamos que @strong{no} añada informes de fallos
 directamente al sistema de seguimiento.  Una vez que un problema
 se ha añadido al sistema, ya puede añadir libremente más
 información a ese informe.}
@@ -415,9 +429,10 @@ información a ese informe.}
 Si ha descubierto un fallo que no está en la lista, ayúdenos
 elaborando un informe de fallo.
 
-@warning{Sólo aceptamos informes en forma de @ref{Tiny examples}.  Disponemos de recursos muy limitados, por lo que
-cualquier ejemplo que no sea mínimo va a ser rechazado.  ¡Casi
-todos los bugs se pueden demostrar con cuatro notas o menos!}
+@warning{Sólo aceptamos informes en forma de @ref{Tiny examples}.
+Disponemos de recursos muy limitados, por lo que cualquier ejemplo
+que no sea mínimo va a ser rechazado.  ¡Casi todos los bugs se
+pueden demostrar con cuatro notas o menos!}
 
 He aquí un ejemplo de un buen informe de fallo:
 
@@ -542,6 +557,7 @@ cualquier trabajo.
 @divEnd
 @divEnd
 
+
 @node Development
 @unnumberedsec Desarrollo
 
@@ -564,7 +580,8 @@ LilyPond, le pedimos encarecidamente que utilice la
 
 Existen dos conjuntos de lanzamientos para LilyPond: lanzamientos
 estables, y lanzamientos inestables de desarrollo.  Las versiones
-estables tienen un número de versión @q{menor} par (p.ej., 2.14, 2.16, 2.18).  Las versiones de desarrollo tienen un número
+estables tienen un número de versión @q{menor} par (p.ej., 2.14,
+2.16, 2.18).  Las versiones de desarrollo tienen un número
 @q{menor} de versión impar (p.ej., 2.15, 2.17, 2.19).
 
 @divEnd
@@ -591,11 +608,26 @@ pruebas querrán descargar el último archivo binario:
 
 @downloadDevelDarwin
 
+@uref{https://ports.macports.org/port/lilypond-devel/summary,
+Paquete de MacPorts}
+
 @downloadDevelMingw
 
 @downloadDevelSource-es
 
 @end quotation
+
+@c Can't use @ifWebLinks because it inserts an extra colon.
+Si no está seguro acerca de cómo instalar estos archivos binarios,
+lea el inicio del manual de
+@ifclear web_version
+@c I don't understand why this use of @rlearning produces "Learning Manual"
+@c and not just "Learning". --JeanAS
+@rlearningnamed{Top,Aprendizaje}.
+@end ifclear
+@ifset web_version
+@manualDevelLearningSplitNoName.
+@end ifset
 
 @divEnd
 
@@ -627,19 +659,32 @@ colaboradores.
 
 @itemize
 @item
-@item @uref{../../input/regression/collated-files.html, Pruebas de regresión}:
-Pruebas del lanzamiento actual.
-(@uref{../../input/regression/collated-files.pdf, versión PDF})
+@uref{../../input/regression/collated-files.html, Pruebas visuales de regresión}:
+Pruebas de regresión de esta versión que contienen información
+visual útil.  (@uref{../../input/regression/collated-files.pdf, versión PDF})
 
 @item
-@uref{../../input/regression/musicxml/collated-files.html, Pruebas de regresión de MusicXML}:
-las pruebas de MusicXML de la versión actual.
-(@uref{../../input/regression/musicxml/collated-files.pdf, versión PDF}).
+@uref{../../input/regression/midi/collated-files.html, Pruebas de regresión de MIDI}:
+Pruebas de regresión de esta versión relativas a la salida
+MIDI.  (@uref{../../input/regression/midi/collated-files.pdf, versión PDF})
 
 @item
-@uref{../../input/regression/abc2ly/collated-files.html, pruebas de abc2ly}:
-Las pruebas de abc2ly de esta versión.
-(@uref{../../input/regression/abc2ly/collated-files.pdf, versión en PDF})
+@uref{../../input/regression/other/collated-files.html,
+      Otras pruebas de regresión}:
+Pruebas de regresión de esta versión sin salida visual.
+(@uref{../../input/regression/other/collated-files.pdf, versión PDF})
+
+@item
+@uref{../../input/regression/musicxml/collated-files.html,
+      Pruebas de MusicXML}:
+Pruebas de MusicXML de esta versión (convertidas con @command{musicxml2ly}).
+(@uref{../../input/regression/musicxml/collated-files.pdf, versión PDF})
+
+@item
+@uref{../../input/regression/abc2ly/collated-files.html,
+      Pruebas de ABC}:
+Pruebas de notación ABC de esta versión (convertidas con @command{abc2ly}).
+(@uref{../../input/regression/abc2ly/collated-files.pdf, versión PDF})
 @end itemize
 
 @end ifclear
@@ -650,6 +695,10 @@ Las pruebas de abc2ly de esta versión.
 @itemize
 @item @regtestDevel-es (@regtestDevelPdf-es{})
 
+@item @regtestDevelMidi (@regtestDevelMidiPdf{})
+
+@item @regtestDevelOther (@regtestDevelOtherPdf{})
+
 @item @regtestDevelXml-es (@regtestDevelXmlPdf-es{})
 
 @item @regtestDevelAbc-es (@regtestDevelAbcPdf-es{})
@@ -659,6 +708,10 @@ Las pruebas de abc2ly de esta versión.
 
 @itemize
 @item @regtestStable-es (@regtestStablePdf-es{})
+
+@item @regtestStableMidi (@regtestStableMidiPdf{})
+
+@item @regtestStableOther (@regtestStableOtherPdf{})
 
 @item @regtestStableXml-es (@regtestStableXmlPdf-es{})
 
@@ -728,6 +781,13 @@ más recientes están en @url{https://lilypond.org}}
 @docLinkBig{Fragmentos,snippets,@manualDevelSnippetsBig-es}
 @tab
 @docLinkPdf{Fragmentos,snippets,@manualDevelSnippetsPdf-es}
+
+@item
+@docLink{Visual Index (PDF),ly-examples/visualindex.pdf,
+         @uref{@value{manualDevel}/ly-examples/visualindex.pdf,Visual Index (PDF)}}
+@tab
+@tab
+
 @end multitable
 
 @multitable @columnfractions .3 .3 .3
@@ -903,7 +963,11 @@ anuncios y registros de cambio antiguos.
 @subheading Anuncios
 
 Anuncios y noticias por versión:
-@uref{https://lilypond.org/doc/v2.16/Documentation/web/index#Lilypond-2_002e16_002e0-released_0021-August-24_002c-2012-1,v2.16},
+@uref{https://lilypond.org/doc/v2.24/Documentation/web/news,v2.24},
+@uref{https://lilypond.org/doc/v2.22/Documentation/web/news,v2.22},
+@uref{https://lilypond.org/doc/v2.20/Documentation/web/news,v2.20},
+@uref{https://lilypond.org/doc/v2.18/Documentation/web/index#Lilypond-2_002e18_002e0-released_0021-December-29_002c-2013,v2.18},
+@uref{https://lilypond.org/doc/v2.16/Documentation/web/index#Lilypond-2_002e16_002e0-released_0021-August-24_002c-2012,v2.16},
 @uref{https://lilypond.org/doc/v2.14/Documentation/web/index#LilyPond-2_002e14_002e0-released_0021-June-6_002c-2011,v2.14},
 @miscLink{announce-v2.12,v2.12},
 @miscLink{announce-v2.10,v2.10},
@@ -917,9 +981,12 @@ Anuncios y noticias por versión:
 @miscLink{ANNOUNCE-0.1,v0.1}
 
 Lista descriptiva de los cambios por versión:
-@uref{https://lilypond.org/doc/v2.18/Documentation/changes/index.html,v2.18},
-@uref{https://lilypond.org/doc/v2.16/Documentation/changes/index.html,v2.16},
-@uref{https://lilypond.org/doc/v2.14/Documentation/changes/index.html,v2.14},
+@uref{https://lilypond.org/doc/v2.24/Documentation/changes/,v2.24},
+@uref{https://lilypond.org/doc/v2.22/Documentation/changes/,v2.22},
+@uref{https://lilypond.org/doc/v2.20/Documentation/changes/,v2.20},
+@uref{https://lilypond.org/doc/v2.18/Documentation/changes/,v2.18},
+@uref{https://lilypond.org/doc/v2.16/Documentation/changes/,v2.16},
+@uref{https://lilypond.org/doc/v2.14/Documentation/changes/,v2.14},
 @uref{https://lilypond.org/doc/v2.12/Documentation/topdocs/NEWS,v2.12},
 @uref{https://lilypond.org/doc/v2.10/Documentation/topdocs/NEWS,v2.10},
 @uref{https://lilypond.org/doc/v2.8/Documentation/topdocs/NEWS,v2.8},
@@ -937,8 +1004,11 @@ Lista descriptiva de los cambios por versión:
 @divClass{column-center-middle-color3}
 @subheading Agradecimientos
 
-Gracias a los desarrolladores, colaboradores, cazadores de fallos
-y aportadores de sugerencias por
+Agradecimientos a los desarrolladores, colaboradores, cazadores de fallos
+y aportadores de sugerencias, por versión:
+@uref{https://lilypond.org/doc/v2.24/Documentation/web/authors,v2.24},
+@uref{https://lilypond.org/doc/v2.22/Documentation/web/authors,v2.22},
+@uref{https://lilypond.org/doc/v2.20/Documentation/web/authors,v2.20},
 @miscLink{THANKS-2.18,v2.18},
 @miscLink{THANKS-2.16,v2.16},
 @miscLink{THANKS-2.14,v2.14},
