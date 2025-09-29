@@ -1157,11 +1157,11 @@ class RepeatedMusic(Base):
 
         if self.tremolo_strokes is not None:
             # We can't use `\tweak` here.
-            printer.dump(r'\once \override Beam.gap-count = %s'
-                         % self.tremolo_strokes)
+            printer(r'\once \override Beam.gap-count = %s'
+                    % self.tremolo_strokes)
         if is_tremolo and self.color is not None:
-            printer.dump(r'\once \override Beam.color = %s'
-                         % color_to_ly(self.color))
+            printer(r'\once \override Beam.color = %s'
+                    % color_to_ly(self.color))
 
         if is_tremolo:
             printer(r'\repeat %s %s' % (self.repeat_type, self.repeat_count))
@@ -1207,16 +1207,16 @@ class Lyrics(Base):
 
     def print_ly(self, printer):
         (mode, no_melismata, lyrics) = self.lyrics_to_ly()
-        printer.dump(mode)
+        printer(mode)
         printer.newline()
 
-        printer.dump(no_melismata)
+        printer(no_melismata)
         printer.newline()
 
         printer.dump_lyrics(lyrics)
         printer.newline()
 
-        printer.dump('}')
+        printer('}')
         printer.newline()
 
     def ly_expression(self):
@@ -1231,7 +1231,7 @@ class Header(Base):
         self.header_fields[field] = value
 
     def format_header_strings(self, key, value, printer):
-        printer.dump(key + ' =')
+        printer(key + ' =')
 
         # If a header item contains a line break, it is segmented. The
         # substrings are formatted with the help of \markup, using
@@ -1242,25 +1242,25 @@ class Header(Base):
         else:
             if '\n' in value:
                 value = value.replace('"', '')
-                printer.dump(r'\markup \column {')
+                printer(r'\markup \column {')
                 substrings = value.split('\n')
                 for s in substrings:
                     printer.newline()
-                    printer.dump(r'\line { "' + s + '" }')
+                    printer(r'\line { "' + s + '" }')
                 printer.newline()
-                printer.dump('}')
+                printer('}')
                 printer.print_verbatim('\n')
             else:
-                printer.dump(value)
+                printer(value)
         printer.newline()
 
     def print_ly(self, printer):
-        printer.dump(r"\header {")
+        printer(r'\header {')
         printer.newline()
         for (k, v) in self.header_fields.items():
             if v:
                 self.format_header_strings(k, v, printer)
-        printer.dump("}")
+        printer('}')
         printer.print_verbatim('\n')
         printer.newline()
 
@@ -1290,7 +1290,7 @@ class Paper(Base):
 
     def print_length_field(self, printer, field, value):
         if value >= 0:
-            printer.dump(r"%s = %s\cm" % (field, value))
+            printer(r'%s = %s\cm' % (field, value))
             printer.newline()
 
     def get_longest_instrument_name(self):
@@ -1305,15 +1305,14 @@ class Paper(Base):
     def print_ly(self, printer):
         if (self.global_staff_size > 0
                 and self.global_staff_size != self.default_global_staff_size):
-            printer.dump('#(set-global-staff-size %s)' %
-                         self.global_staff_size)
+            printer('#(set-global-staff-size %s)' % self.global_staff_size)
             printer.newline()
-        printer.dump(r'\paper {')
+        printer(r'\paper {')
         printer.newline()
         if self.first_page_number > 0:
-            printer.dump('first-page-number = %s' % self.first_page_number)
+            printer('first-page-number = %s' % self.first_page_number)
             printer.newline()
-            printer.dump('print-first-page-number = ##t')
+            printer('print-first-page-number = ##t')
             printer.newline()
         self.print_length_field(printer, "paper-width", self.page_width)
         self.print_length_field(printer, "paper-height", self.page_height)
@@ -1341,10 +1340,10 @@ class Paper(Base):
                 printer, "short-indent", self.short_indent / char_per_cm)
 
         if not get_tagline():
-            printer.dump('tagline = ##f')
+            printer('tagline = ##f')
             printer.newline()
 
-        printer.dump('}')
+        printer('}')
         printer.print_verbatim('\n')
         printer.newline()
 
@@ -1364,19 +1363,19 @@ class Layout(Base):
 
     def print_ly(self, printer):
         if list(self.context_dict.items()):
-            printer.dump(r'\layout {')
+            printer(r'\layout {')
             printer.newline()
             for (context, defs) in self.context_dict.items():
-                printer.dump(r'\context {')
+                printer(r'\context {')
                 printer.newline()
-                printer.dump(r'\%s' % context)
+                printer(r'\%s' % context)
                 printer.newline()
                 for d in defs:
-                    printer.dump(d)
+                    printer(d)
                     printer.newline()
-                printer.dump('}')
+                printer('}')
                 printer.newline()
-            printer.dump('}')
+            printer('}')
             printer.print_verbatim('\n')
             printer.newline()
 
@@ -1806,7 +1805,7 @@ class Partial(Music):
 
     def print_ly(self, printer):
         if self.partial:
-            printer.dump(r"\partial %s" % self.partial.ly_expression())
+            printer(r'\partial %s' % self.partial.ly_expression())
 
 
 class BarLine(Music):
@@ -1877,13 +1876,13 @@ class Event(Music):
     # e.g., overrides
     def print_before_note(self, printer):
         if self.before_note:
-            printer.dump(self.before_note)
+            printer(self.before_note)
 
     # print something after the note to which an event is attached,
     # e.g., resetting
     def print_after_note(self, printer):
         if self.after_note:
-            printer.dump(self.after_note)
+            printer(self.after_note)
     pass
 
 
@@ -2002,14 +2001,14 @@ class SlurEvent(SpanEvent):
         command = {'dotted': r'\slurDotted',
                    'dashed': r'\slurDashed'}.get(self.line_type, '')
         if command and self.span_direction == -1:
-            printer.dump(command)
+            printer(command)
 
     def print_after_note(self, printer):
         # reset non-solid slur types!
         command = {'dotted': r'\slurSolid',
                    'dashed': r'\slurSolid'}.get(self.line_type, '')
         if command and self.span_direction == -1:
-            printer.dump(command)
+            printer(command)
 
     def direction_mod(self):
         return {1: '^', -1: '_', 0: ''}.get(self.force_direction, '')
@@ -2030,13 +2029,13 @@ class SlurEvent(SpanEvent):
                 if self.visible:
                     color = color_to_ly(self.color)
                     if color is not None:
-                        printer.dump(r'\tweak color %s' % color)
-                    printer.dump('%s%s' % (self.direction_mod(), val))
+                        printer(r'\tweak color %s' % color)
+                    printer('%s%s' % (self.direction_mod(), val))
                 else:
-                    printer.dump('%s%s%s' % (super().not_visible(),
-                                             self.direction_mod(), val))
+                    printer('%s%s%s' % (super().not_visible(),
+                                        self.direction_mod(), val))
             else:
-                printer.dump(val)
+                printer(val)
 
 
 class BeamEvent(SpanEvent):
@@ -2427,14 +2426,12 @@ class GlissandoEvent(SpanEvent):
                      "dotted": "dotted-line",
                      "wavy": "trill"}. get(self.line_type, None)
             if style:
-                printer.dump(
-                    r"\once \override Glissando.style = #'%s" % style)
+                printer(r"\once \override Glissando.style = #'%s" % style)
 
             if self.visible:
                 color = color_to_ly(self.color)
                 if color is not None:
-                    printer.dump(r'\once \override '
-                                 r'Glissando.color = %s' % color)
+                    printer(r'\once \override Glissando.color = %s' % color)
 
     def ly_expression(self):
         return {-1: r'\glissando',
@@ -2444,9 +2441,9 @@ class GlissandoEvent(SpanEvent):
         val = self.ly_expression()
         if val:
             if self.span_direction == -1:
-                printer.dump('%s%s' % (super().not_visible(), val))
+                printer('%s%s' % (super().not_visible(), val))
             else:
-                printer.dump(val)
+                printer(val)
 
 
 class TieEvent(Event):
@@ -2495,11 +2492,11 @@ class HairpinEvent(SpanEvent):
             if self.span_direction == -1:
                 color = color_to_ly(self.color)
                 if color is not None:
-                    printer.dump(r'\tweak color %s' % color)
-                printer.dump('%s%s' % (self.direction_mod(), val))
+                    printer(r'\tweak color %s' % color)
+                printer('%s%s' % (self.direction_mod(), val))
             else:
                 pre = '<>' if self.to_barline else ''
-                printer.dump('%s%s' % (pre, val))
+                printer('%s%s' % (pre, val))
 
 
 class DynamicsEvent(Event):
@@ -4009,8 +4006,8 @@ class KeySignatureChange(Music):
 
     def print_ly(self, printer):
         (left, right) = self.key_change_to_ly()
-        printer.dump(left)
-        printer.dump(right)
+        printer(left)
+        printer(right)
 
 
 class ShiftDurations(MusicWrapper):
@@ -4472,12 +4469,12 @@ class Break(Music):
 
     def print_ly(self, printer):
         if self.type:
-            printer.dump(r"\%s" % self.type)
+            printer(r'\%s' % self.type)
 
 
 class EmptyChord(Music):
     def print_ly(self, printer):
-        printer.dump("<>")
+        printer('<>')
 
 
 system_start_dict = {
@@ -4564,8 +4561,8 @@ class StaffGroup(Base):
 
         # Intention: I want to put the content of new StaffGroup in
         #            angled brackets (<< >>)
-        # printer.dump ("test") # test is printed twice at the end of a
-        #                       # staffgroup with two staves.
+        # printer ("test") # test is printed twice at the end of a
+        #                  # staffgroup with two staves.
         # printer ("test") # test is printed twice at the end of a
         #                  # staffgroup with two staves.
 
@@ -4579,26 +4576,26 @@ class StaffGroup(Base):
 
     def print_ly_context_mods(self, printer):
         if self.instrument_name or self.short_instrument_name:
-            printer.dump(r'\consists "Instrument_name_engraver"')
+            printer(r'\consists "Instrument_name_engraver"')
             printer.newline()
         if self.spanbar == 'Mensurstrich':
             printer('measureBarType = "-span|"')
             printer.newline()
         brack = system_start_dict.get(self.symbol, None)
         if brack:
-            printer.dump("systemStartDelimiter = #'%s" % brack)
+            printer("systemStartDelimiter = #'%s" % brack)
             printer.newline()
 
     def print_ly_overrides(self, printer):
         needs_with = self.needs_with() | (len(self.context_modifications) > 0)
         if needs_with:
-            printer.dump(r"\with {")
+            printer(r'\with {')
             printer.newline()
             self.print_ly_context_mods(printer)
             for m in self.context_modifications:
-                printer.dump(m)
+                printer(m)
                 printer.newline()
-            printer.dump("}")
+            printer('}')
 
     def print_chords(self, printer):
         try:
@@ -4608,12 +4605,12 @@ class StaffGroup(Base):
                         printer(r'\context ChordNames = "%s"' % chordnames)
                         transpose = get_transpose("string")
                         if transpose:
-                            printer.dump(transpose)
-                        printer.dump('{')
+                            printer(transpose)
+                        printer('{')
                         printer.newline()
-                        printer.dump(r'\%s' % chordnames)
+                        printer(r'\%s' % chordnames)
                         printer.newline()
-                        printer.dump('}')
+                        printer('}')
                         printer.newline()
         except TypeError:
             return
@@ -4626,12 +4623,12 @@ class StaffGroup(Base):
                         printer(r'\context FretBoards = "%s"' % fretboards)
                         transpose = get_transpose("string")
                         if transpose:
-                            printer.dump(transpose)
-                        printer.dump('{')
+                            printer(transpose)
+                        printer('{')
                         printer.newline()
-                        printer.dump(r'\%s' % fretboards)
+                        printer(r'\%s' % fretboards)
                         printer.newline()
-                        printer.dump('}')
+                        printer('}')
                         printer.newline()
         except TypeError:
             return
@@ -4641,9 +4638,9 @@ class StaffGroup(Base):
         self.print_fretboards(printer)
         if self.stafftype:
             if isinstance(self, Staff) and self.stafftype != 'PianoStaff':
-                printer.dump(r'\new %s = "%s"' % (self.stafftype, self.id))
+                printer(r'\new %s = "%s"' % (self.stafftype, self.id))
             else:
-                printer.dump(r'\new %s' % self.stafftype)
+                printer(r'\new %s' % self.stafftype)
         self.print_ly_overrides(printer)
         if self.stafftype:
             printer("<<")
@@ -4664,12 +4661,12 @@ class StaffGroup(Base):
                 printer.newline()
 
         if self.sound:
-            printer.dump(r'\set %s.midiInstrument = "%s"' %
-                         (self.stafftype, self.sound))
+            printer(r'\set %s.midiInstrument = "%s"'
+                    % (self.stafftype, self.sound))
             printer.newline()
         self.print_ly_contents(printer)
         if self.stafftype:
-            printer.dump(">>")
+            printer('>>')
             printer.newline()
 
 
@@ -4753,9 +4750,9 @@ class Staff(StaffGroup):
                     printer(r'\override Staff.BarLine.allow-span-bar = ##f')
                     printer.newline()
 
-            printer.dump(r"\mergeDifferentlyDottedOn")
+            printer(r'\mergeDifferentlyDottedOn')
             printer.newline()
-            printer.dump(r"\mergeDifferentlyHeadedOn")
+            printer(r'\mergeDifferentlyHeadedOn')
             printer.newline()
             n = 0
             nr_voices = len(voices)
@@ -4803,12 +4800,12 @@ class Staff(StaffGroup):
                 printer(r'\context %s = "%s"' % (self.voice_command, v))
                 transpose = get_transpose("string")
                 if transpose:
-                    printer.dump(transpose)
-                printer.dump('{')
+                    printer(transpose)
+                printer('{')
                 printer.newline()
-                printer.dump(r'%s\%s' % (voice_text, v))
+                printer(r'%s\%s' % (voice_text, v))
                 printer.newline()
-                printer.dump('}')
+                printer('}')
                 printer.newline()
                 for (l, stanza_id, placement) in lyrics:
                     printer(r'\new Lyrics')
@@ -4852,7 +4849,7 @@ class Staff(StaffGroup):
 
             self.stafftype = "PianoStaff"
             self.substafftype = "Staff"
-            # printer.dump ('test')
+            # printer ('test')
 
         if self.symbol != 'brace':
             brack = system_start_dict.get(self.symbol, None)
@@ -4872,18 +4869,18 @@ class TabStaff(Staff):
 
     def print_ly_overrides(self, printer):
         if self.string_tunings or self.tablature_format:
-            printer.dump(r"\with {")
+            printer(r'\with {')
             printer.newline()
             if self.string_tunings:
-                printer.dump("stringTunings = #`(")
+                printer('stringTunings = #`(')
                 for i in self.string_tunings:
-                    printer.dump(",%s" % i.lisp_expression())
-                printer.dump(")")
+                    printer(',%s' % i.lisp_expression())
+                printer(')')
                 printer.newline()
             if self.tablature_format:
-                printer.dump("tablatureFormat = #%s" % self.tablature_format)
+                printer('tablatureFormat = #%s' % self.tablature_format)
                 printer.newline()
-            printer.dump("}")
+            printer('}')
 
 
 class DrumStaff(Staff):
@@ -4894,9 +4891,9 @@ class DrumStaff(Staff):
 
     def print_ly_overrides(self, printer):
         if self.drum_style_table:
-            printer.dump(r"\with {")
-            printer.dump("drumStyleTable = #%s" % self.drum_style_table)
-            printer.dump("}")
+            printer(r'\with {')
+            printer('drumStyleTable = #%s' % self.drum_style_table)
+            printer('}')
 
 
 class RhythmicStaff(Staff):
@@ -4906,7 +4903,7 @@ class RhythmicStaff(Staff):
 
 # Test; see class Score / class Staff
 # def print_staffgroup_closing_brackets (self, printer):
-#       printer.dump ("test")
+#       printer ("test")
 
 
 class Score(Base):
@@ -4943,7 +4940,7 @@ class Score(Base):
 
     # Test; see class Score / class Staff
     # def print_staffgroup_closing_brackets (self, printer):
-    #     printer.dump ("test")
+    #     printer ("test")
 
     def print_ly(self, printer):
         """
@@ -4954,21 +4951,21 @@ class Score(Base):
         """
         self.create_midi = get_create_midi()
         if get_book():
-            printer.dump(r'\book {')
+            printer(r'\book {')
             printer.newline()
-        printer.dump(r"\score {")
+        printer(r'\score {')
         printer.newline()
         # prints opening <<:
-        printer.dump('<<')
+        printer('<<')
         printer.newline()
         if self.contents:
             self.contents.print_ly(printer)
-            # printer.dump ("test") # prints test once before the >> of the
-            #                       # score block, independent of the existence
-            #                       # of a staffgroup.
+            # printer ("test") # prints test once before the >> of the
+            #                  # score block, independent of the existence
+            #                  # of a staffgroup.
         # if StaffGroup == False: # True or False: nothing happens.
-        #    printer.dump ('>>')
-        printer.dump('>>')
+        #    printer ('>>')
+        printer('>>')
         printer.newline()
         # StaffGroup.print_staffgroup_closing_brackets(self, printer)
         #   # -> TypeError: unbound method print_staffgroup_closing_brackets()
@@ -4977,31 +4974,30 @@ class Score(Base):
         # print_staffgroup_closing_brackets(self, printer)
         #   # -> NameError: global name 'print_staffgroup_closing_brackets'
         #   #    is not defined.
-        printer.dump(r"\layout {}")
+        printer(r'\layout {}')
         printer.newline()
         # If the --midi option was not passed to musicxml2ly, that comments the
         # "midi" line
         if self.create_midi:
-            printer.dump("}")
+            printer('}')
             printer.newline()
-            printer.dump(r"\score {")
+            printer(r'\score {')
             printer.newline()
-            printer.dump(r"\unfoldRepeats \articulate {")
+            printer(r'\unfoldRepeats \articulate {')
             printer.newline()
             self.contents.print_ly(printer)
-            printer.dump("}")
+            printer('}')
             printer.newline()
         else:
-            printer.dump(
-                "% To create MIDI output, uncomment the following line:")
+            printer('% To create MIDI output, uncomment the following line:')
             printer.newline()
-            printer.dump("%")
-        printer.dump(r"\midi { \tempo 4 = " + self.tempo + " }")
+            printer('%')
+        printer(r'\midi { \tempo 4 = ' + self.tempo + ' }')
         printer.newline()
-        printer.dump("}")
+        printer('}')
         printer.newline()
         if get_book():
-            printer.dump('}')
+            printer('}')
             printer.newline()
 
 
