@@ -3633,7 +3633,7 @@ class LilyPondVoiceBuilder(musicexp.Base):
             b = musicexp.BarLine()
             self.add_barline(b, False)
 
-    def jumpto(self, moment, grace_skip=None):
+    def jump_forward(self, moment, grace_skip=None):
         current_end = self.end_moment
         diff = moment - current_end
         if diff > 0:
@@ -3676,7 +3676,7 @@ class LilyPondVoiceBuilder(musicexp.Base):
                 and self.begin_moment == starting_at):
             value = self.elements[at]
         else:
-            self.jumpto(starting_at)
+            self.jump_forward(starting_at)
             value = None
         return value
 
@@ -3970,10 +3970,10 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
                 starting_grace_skip = None
 
         if not is_chord and not is_after_grace:
-            voice_builder.jumpto(n._when, skip_grace_skip)
-            figured_bass_builder.jumpto(n._when)
-            chordnames_builder.jumpto(n._when)
-            fretboards_builder.jumpto(n._when)
+            voice_builder.jump_forward(n._when, skip_grace_skip)
+            figured_bass_builder.jump_forward(n._when)
+            chordnames_builder.jump_forward(n._when)
+            fretboards_builder.jump_forward(n._when)
 
         if isinstance(n, musicxml.Barline):
             (barlines, fermatas) = n.to_lily_object()
@@ -4005,9 +4005,9 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
                 voice_builder.add_command(a, False)
             continue
 
-        # Print bar checks between measures.  We do this after `jumpto()`
-        # calls so that a skip filling up the previous bar (if any) has
-        # already been emitted.
+        # Print bar checks between measures.  We do this after
+        # `jump_forward()` calls so that a skip filling up the previous bar
+        # (if any) has already been emitted.
         #
         # `_elements[0]` is always a `Measure` element that gets filtered
         # out above.
@@ -4343,7 +4343,7 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
         # if we have a figured bass, set its voice builder to the correct
         # position and insert the pending figures
         if pending_figured_bass:
-            figured_bass_builder.jumpto(n._when)
+            figured_bass_builder.jump_forward(n._when)
 
             for fb in pending_figured_bass:
                 # if a duration is given, use that, otherwise the one of the
@@ -4357,7 +4357,7 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
             pending_figured_bass = []
 
         if pending_chordnames:
-            chordnames_builder.jumpto(n._when)
+            chordnames_builder.jump_forward(n._when)
 
             for cn in pending_chordnames:
                 # Assign the duration of the EventChord
@@ -4366,7 +4366,7 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
             pending_chordnames = []
 
         if pending_fretboards:
-            fretboards_builder.jumpto(n._when)
+            fretboards_builder.jump_forward(n._when)
 
             for fb in pending_fretboards:
                 # Assign the duration of the EventChord
