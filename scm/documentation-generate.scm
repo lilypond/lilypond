@@ -285,11 +285,6 @@ This document is also available as a
        #:appendix #t
        #:name "Indices"
        #:text "
-@node Concept index
-@appendixsec Concept index
-
-@printindex cp
-
 @node Function index
 @appendixsec Function index
 
