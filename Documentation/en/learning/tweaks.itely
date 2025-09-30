@@ -2267,15 +2267,11 @@ the commonest.  The meaning of each is stated where it is not obvious.
 
 @smallindentedblock
 @raggedright
-@multitable {@code{\arpeggioArrowDown}} {@code{\arpeggioArrowUp}} {@code{\phrasingSlurNeutral}} {Arrow is at bottom, at top}
-@headitem Down/Left
-  @tab Up/Right
+@multitable {@code{\phrasingSlurDown}} {@code{\phrasingSlurUp}}{@code{\phrasingSlurNeutral}} {Text entered as spanner is}
+@headitem Down
+  @tab Up
   @tab Revert
   @tab Effect
-@item @code{\arpeggioArrowDown}
-  @tab @code{\arpeggioArrowUp}
-  @tab @code{\arpeggioNormal}
-  @tab Arrow is at bottom, at top, or no arrow
 @item @code{\dotsDown}
   @tab @code{\dotsUp}
   @tab @code{\dotsNeutral}
@@ -2312,7 +2308,7 @@ the commonest.  The meaning of each is stated where it is not obvious.
 @end raggedright
 @end smallindentedblock
 
-The neutral/normal variants of these commands are implemented
+The @q{neutral} variants of these commands are implemented
 using @code{\revert} and these may @strong{not} be
 preceded by @code{\once}.  If you wish to limit the
 effect of the other commands (which are implemented using
