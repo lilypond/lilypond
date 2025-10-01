@@ -58,7 +58,6 @@
         <type>16th</type>
         <beam number="1">begin</beam>
         <beam number="2">begin</beam>
-        <beam number="3">begin</beam>
       </note>
       <note>
         <grace slash="no"/>
@@ -70,7 +69,6 @@
         <type>16th</type>
         <beam number="1">continue</beam>
         <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
       </note>
       <note>
         <grace slash="no"/>
@@ -82,7 +80,6 @@
         <type>16th</type>
         <beam number="1">continue</beam>
         <beam number="2">continue</beam>
-        <beam number="3">continue</beam>
       </note>
       <note>
         <grace slash="no"/>
@@ -94,7 +91,6 @@
         <type>16th</type>
         <beam number="1">end</beam>
         <beam number="2">end</beam>
-        <beam number="3">end</beam>
       </note>
       <direction>
         <direction-type>
