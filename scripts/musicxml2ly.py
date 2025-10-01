@@ -24,7 +24,7 @@
 
 # `musicxml2ly` converts MusicXML input files (currently supporting a subset
 # of version 4.0) to output files containing LilyPond source code.  This is
-# done in three phases.
+# roughly done in three phases, with multiple passes over the input.
 #
 # 1.  Use Python's `xml.dom.minidom` API to parse the MusicXML file and
 #     convert all data structures of the XML tree to a class hierarchy based
@@ -32,24 +32,35 @@
 #     These classes can be found in file `musicxml.py` (providing module
 #     `musicxml`).
 #
+# 1a. More passes are done to assign durations and starting points to
+#     `Xml_node` elements (function `Part.interpret`), then splitting the
+#     data into single voices (function `Part.extract_voices`).
+#
 # 2.  Extract the global paper and score information from the `Xml_node`
 #     tree (see function `convert` in `musicxml2ly.py`).
 #
 # 3a. Walk over the `Xml_node` tree and extract all music (voices, staves,
-#     parts, etc.), reordering and mapping the tree data as necessary (see
-#     step 3a).  The central function is `musicxml_voice_to_lily_voice`,
-#     filling up instances of the `LilyPondVoiceBuilder` class.  This
-#     happens in file `musicxml2ly.py`; it is the most complicated part of
-#     the conversion since MusicXML is a representation of *how to draw* a
-#     score, making it non-trivial to convert its elements to the semantic
-#     input (in most cases) needed by LilyPond.
+#     parts, etc.), reordering and mapping the tree data as necessary.  The
+#     central function is `musicxml_voice_to_lily_voice`, filling up
+#     instances of the `LilyPondVoiceBuilder` class.  This happens in file
+#     `musicxml2ly.py`; it is the most complicated part of the conversion
+#     since MusicXML is a representation of *how to draw* a score, making it
+#     non-trivial to convert its elements to the semantic input (in most
+#     cases) needed by LilyPond.  Sometimes, we have to rely on heuristic
+#     guesses, which is awkward but probably unavoidable.  The function
+#     populates four 'streams' in parallel: voices, figured bass,
+#     chordnames, and fretboard elements, with most work done for voices.
+#     Eventually, lyrics get extracted, too.
 #
-# 3b. Function `musicxml_voice_to_lily_voice` and all functions eventually
-#     called by it map `Xml_node` tree elements to corresponding output
-#     classes that contain information how to print them.  The source code
-#     formatting is done by class `Output_printer`, and output class names
-#     have either the same name as `Xml_node` tree classes or the word
-#     `Event` appended to it.  These classes can be found in file
+# 3b. The voices get further refined by 'folding' them, that is, putting
+#     tremolos, tuplets, and repeats (in this order) into wrappers so that
+#     they can be properly mapped to braced groups in LilyPond.
+#
+# 3c. Finally, the elements in the 'streams' are printed to the output file;
+#     each class normally contains information how to print itself.  The
+#     source code formatting is done by class `Output_printer`, and output
+#     class names have either the same name as `Xml_node` tree classes or
+#     the word `Event` appended to it.  These classes can be found in file
 #     `musicexp.py` (providing module `musicexp`), together with classes
 #     `Paper` and `Layout` to print global paper and score information.
 
