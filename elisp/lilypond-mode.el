@@ -688,7 +688,7 @@ command."
 	    (progn
 	      (if (string-equal name "Midi")
 		  (progn
-		    (setq command (concat lilypond-midi-command " " (lilypond-string-current-midi)))
+		    (setq command (concat lilypond-midi-command " \"" (lilypond-string-current-midi) "\""))
 		    (if (lilypond-kill-midi)
 			(setq job-string nil)))) ; either stop or start playing
 	      (if (string-equal name "MidiAll")
