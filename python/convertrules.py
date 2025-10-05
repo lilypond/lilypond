@@ -5548,6 +5548,8 @@ timeSignatureFraction -> timeSignature
 """)
 def conv(s):
     s = re.sub(r'\btimeSignatureFraction\s*=', r'timeSignature =', s)
+    s = re.sub(r'(\\unset\s+[A-Z][a-zA-Z]+\s*\.\s*)?timeSignatureFraction\b',
+               r'\1timeSignature', s)
     return s
 
 
