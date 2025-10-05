@@ -310,9 +310,9 @@ class Duration:
 
         return dur_str
 
-    def print_ly(self, outputter):
-        dur_str = self.ly_expression(self.factor / outputter.duration_factor())
-        outputter.print_duration_string(dur_str)
+    def print_ly(self, printer):
+        dur_str = self.ly_expression(self.factor / printer.duration_factor())
+        printer.print_duration_string(dur_str)
 
     def __repr__(self):
         return self.ly_expression()
@@ -756,8 +756,8 @@ class Pitch:
             s += self.absolute_pitch()
         return s
 
-    def print_ly(self, outputter, pitch_mods=''):
-        outputter('%s%s' % (self.ly_expression(), pitch_mods))
+    def print_ly(self, printer, pitch_mods=''):
+        printer('%s%s' % (self.ly_expression(), pitch_mods))
 
 
 class Base:
@@ -834,8 +834,8 @@ class MusicWrapper(Music):
     def contains(self, elem):
         return self == elem or self.element.contains(elem)
 
-    def print_ly(self, func):
-        self.element.print_ly(func)
+    def print_ly(self, printer):
+        self.element.print_ly(printer)
 
 
 class ModeChangingMusicWrapper(MusicWrapper):
@@ -843,9 +843,9 @@ class ModeChangingMusicWrapper(MusicWrapper):
         MusicWrapper.__init__(self)
         self.mode = 'notemode'
 
-    def print_ly(self, func):
-        func(r'\%s' % self.mode)
-        MusicWrapper.print_ly(self, func)
+    def print_ly(self, printer):
+        printer(r'\%s' % self.mode)
+        MusicWrapper.print_ly(self, printer)
 
 
 class RelativeMusic(MusicWrapper):
@@ -853,7 +853,7 @@ class RelativeMusic(MusicWrapper):
         MusicWrapper.__init__(self)
         self.basepitch = None
 
-    def print_ly(self, func):
+    def print_ly(self, printer):
         global previous_pitch
         global relative_pitches
         prev_relative_pitches = relative_pitches
@@ -861,9 +861,9 @@ class RelativeMusic(MusicWrapper):
         previous_pitch = self.basepitch
         if not previous_pitch:
             previous_pitch = Pitch()
-        func(r'\relative %s%s' % (pitch_generating_function(previous_pitch),
-                                  previous_pitch.absolute_pitch()))
-        MusicWrapper.print_ly(self, func)
+        printer(r'\relative %s%s' % (pitch_generating_function(previous_pitch),
+                                     previous_pitch.absolute_pitch()))
+        MusicWrapper.print_ly(self, printer)
         relative_pitches = prev_relative_pitches
 
 
@@ -883,25 +883,25 @@ class TimeScaledMusic(MusicWrapper):
         self.force_direction = 0
         self.visible = True
 
-    def print_ly(self, func):
+    def print_ly(self, printer):
         if self.display_bracket is None:
-            func(r"\tweak TupletBracket.stencil ##f")
+            printer(r"\tweak TupletBracket.stencil ##f")
         elif self.display_bracket == "curved":
-            func(r"\tweak TupletBracket.tuplet-slur ##t")
+            printer(r"\tweak TupletBracket.tuplet-slur ##t")
 
         color = color_to_ly(self.color)
         if color is not None:
-            func(r'\tweak TupletNumber.color %s' % color)
+            printer(r'\tweak TupletNumber.color %s' % color)
         font_size = get_font_size(self.font_size, command=False)
         if font_size is not None:
-            func(r'\tweak TupletNumber.font-size %s' % font_size)
+            printer(r'\tweak TupletNumber.font-size %s' % font_size)
 
         dir = {
             -1: r'\tweak TupletBracket.direction #DOWN',
             1: r'\tweak TupletBracket.direction #UP'
         }.get(self.force_direction, '')
         if dir:
-            func(dir)
+            printer(dir)
 
         base_number_function = {
             None: "#f",
@@ -930,13 +930,13 @@ class TimeScaledMusic(MusicWrapper):
 
         if self.display_type == "actual" and self.normal_type:
             base_duration = self.normal_type.lisp_expression()
-            func(r"\tweak TupletNumber.text")
-            func("#(tuplet-number::append-note-wrapper %s %s)"
-                 % (base_number_function, base_duration))
+            printer(r"\tweak TupletNumber.text")
+            printer("#(tuplet-number::append-note-wrapper %s %s)"
+                    % (base_number_function, base_duration))
         # TODO: Implement this using actual_type and normal_type!
         elif self.display_type == "both":
             if self.display_number is None:
-                func(r"\tweak TupletNumber.stencil ##f")
+                printer(r"\tweak TupletNumber.stencil ##f")
             elif self.display_number == "both":
                 den_duration = self.normal_type.lisp_expression()
                 # If we don't have an actual type set, use the normal duration!
@@ -945,32 +945,32 @@ class TimeScaledMusic(MusicWrapper):
                 else:
                     num_duration = den_duration
                 if self.display_denominator or self.display_numerator:
-                    func(r"\tweak TupletNumber.text")
-                    func("#(tuplet-number::non-default-fraction-with-notes "
-                         "%s %s %s %s)"
-                         % (self.display_denominator,
-                            den_duration,
-                            self.display_numerator,
-                            num_duration))
+                    printer(r"\tweak TupletNumber.text")
+                    printer("#(tuplet-number::non-default-fraction-with-notes "
+                            "%s %s %s %s)"
+                            % (self.display_denominator,
+                               den_duration,
+                               self.display_numerator,
+                               num_duration))
                 else:
-                    func(r"\tweak TupletNumber.text")
-                    func("#(tuplet-number::fraction-with-notes %s %s)"
-                         % (den_duration, num_duration))
+                    printer(r"\tweak TupletNumber.text")
+                    printer("#(tuplet-number::fraction-with-notes %s %s)"
+                            % (den_duration, num_duration))
         else:
             if self.display_number is None:
-                func(r"\tweak TupletNumber.stencil ##f")
+                printer(r"\tweak TupletNumber.stencil ##f")
             elif self.display_number == "both":
-                func(r"\tweak TupletNumber.text #%s" %
-                     base_number_function)
+                printer(r"\tweak TupletNumber.text #%s"
+                        % base_number_function)
 
         if not self.visible:
-            func(r'\tweak TupletBracket.transparent ##t')
-            func(r'\tweak TupletNumber.transparent ##t')
-        func(r'\tuplet')
-        func.print_verbatim(' %d/%d' % (self.denominator, self.numerator))
-        func.add_factor(Fraction(self.numerator, self.denominator))
-        MusicWrapper.print_ly(self, func)
-        func.revert()
+            printer(r'\tweak TupletBracket.transparent ##t')
+            printer(r'\tweak TupletNumber.transparent ##t')
+        printer(r'\tuplet')
+        printer.print_verbatim(' %d/%d' % (self.denominator, self.numerator))
+        printer.add_factor(Fraction(self.numerator, self.denominator))
+        MusicWrapper.print_ly(self, printer)
+        printer.revert()
 
 
 class NestedMusic(Music):
@@ -4014,9 +4014,9 @@ class ShiftDurations(MusicWrapper):
     def __init__(self):
         MusicWrapper.__init__(self)
 
-    def print_ly(self, func):
-        func(r' \shiftDurations %d 0' % get_shift_durations())
-        MusicWrapper.print_ly(self, func)
+    def print_ly(self, printer):
+        printer(r' \shiftDurations %d 0' % get_shift_durations())
+        MusicWrapper.print_ly(self, printer)
 
 
 class TimeSignatureChange(Music):
