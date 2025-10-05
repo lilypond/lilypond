@@ -913,9 +913,6 @@ class Note(Measure_element):
         log = self.get_duration_log()
         return (log, len(self['dot'])) if log is not None else None
 
-    def get_factor(self):
-        return 1
-
     def initialize_duration(self):
         from musicexp import Duration
         # If the note has no Type child return None.  In that case, use the

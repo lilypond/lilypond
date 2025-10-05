@@ -23,7 +23,7 @@
 
           The wedge ends at or right before the final bar line (i.e., the
           &lt;direction&gt; element ending the wedge comes after the last
-          &lt;note &gt; element).</miscellaneous-field>
+          &lt;note&gt; element).</miscellaneous-field>
     </miscellaneous>
   </identification>
   <defaults/>

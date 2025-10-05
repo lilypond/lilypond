@@ -4648,8 +4648,8 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
     ly_voice = group_repeats(ly_voice)
 
     seq_music = musicexp.SequentialMusic()
-
     seq_music.elements = ly_voice
+
     for k, v in lyrics.items():
         ev = musicexp.Lyrics()
         ev.lyrics_syllables = v[0]
@@ -5082,27 +5082,27 @@ def print_voice_definitions(printer, part_list, voices):
         nv_dict = voices.get(part_id, {})
         for (name, voice) in nv_dict.items():
             k = music_xml_voice_name_to_lily_name(part_id, name)
-            printer.dump('%s =' % k)
+            printer('%s =' % k)
             voice.ly_voice.print_ly(printer)
             printer.newline()
             if voice.chordnames:
                 cnname = music_xml_chordnames_name_to_lily_name(part_id, name)
-                printer.dump('%s =' % cnname)
+                printer('%s =' % cnname)
                 voice.chordnames.print_ly(printer)
                 printer.newline()
             for l in voice.lyrics_order:
                 lname = music_xml_lyrics_name_to_lily_name(part_id, name, l)
-                printer.dump('%s =' % lname)
+                printer('%s =' % lname)
                 voice.lyrics_dict[l].print_ly(printer)
                 printer.newline()
             if voice.figured_bass:
                 fbname = music_xml_figuredbass_name_to_lily_name(part_id, name)
-                printer.dump('%s =' % fbname)
+                printer('%s =' % fbname)
                 voice.figured_bass.print_ly(printer)
                 printer.newline()
             if voice.fretboards:
                 fbdname = music_xml_fretboards_name_to_lily_name(part_id, name)
-                printer.dump('%s =' % fbdname)
+                printer('%s =' % fbdname)
                 voice.fretboards.print_ly(printer)
                 printer.newline()
 
@@ -5272,11 +5272,11 @@ def print_ly_preamble(printer, filename):
     printer.print_verbatim(
         '% automatically converted by musicxml2ly from ' + filename)
     printer.newline()
-    printer.dump(r'\pointAndClickOff')
+    printer(r'\pointAndClickOff')
     printer.newline()
     if options.midi:
         printer.newline()
-        printer.dump(r'\include "articulate.ly"')
+        printer(r'\include "articulate.ly"')
         printer.newline()
     printer.newline()
 
@@ -5398,18 +5398,18 @@ def convert(filename, options):
     elif re.match(r".*\.ly", options.output_name):
         options.output_name = os.path.splitext(options.output_name)[0]
 
-    # defs_ly_name = options.output_name + '-defs.ly'
     if options.output_name == "-":
         output_ly_name = 'Standard output'
     else:
         output_ly_name = options.output_name + '.ly'
     ly.progress(_("Output to `%s'") % output_ly_name, True)
+
     printer = musicexp.Output_printer()
-    # ly.progress(_("Output to `%s'") % defs_ly_name, True)
     if options.output_name == "-":
         printer.set_file(sys.stdout)
     else:
         printer.set_file(open(output_ly_name, 'w', encoding='utf-8'))
+
     print_ly_preamble(printer, filename)
     print_ly_additional_definitions(printer)
     print_ly_additional_macros(printer)
@@ -5422,7 +5422,7 @@ def convert(filename, options):
     print_voice_definitions(printer, part_list, voices)
 
     printer.newline()
-    printer.dump("% The score definition")
+    printer("% The score definition")
     printer.newline()
     score.print_ly(printer)
     printer.newline()
