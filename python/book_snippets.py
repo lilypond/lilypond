@@ -1054,12 +1054,13 @@ class MusicXMLFileSnippet (LilypondFileSnippet):
         else:
             xmlfilename = path + '.xml'
         if os.path.exists(xmlfilename):
+            cmd = 'diff -u %s - ' % xmlfilename
             diff_against_existing = self.filter_pipe(
-                self.get_contents(), 'diff -u %s - ' % xmlfilename)
+                self.get_contents(), cmd).decode('utf-8')
             if diff_against_existing:
                 ly.warning(_("%s: duplicate filename but different contents of original file,\n\
 printing diff against existing file.") % xmlfilename)
-                sys.stderr.write(diff_against_existing.decode('utf-8'))
+                sys.stderr.write(diff_against_existing)
         else:
             out = open(xmlfilename, 'wb')
             out.write(self.get_contents())
@@ -1075,7 +1076,7 @@ printing diff against existing file.") % xmlfilename)
             if diff_against_existing:
                 ly.warning(_("%s: duplicate filename but different contents of converted lilypond file,\n\
 printing diff against existing file.") % filename)
-                sys.stderr.write(diff_against_existing.decode('utf-8'))
+                sys.stderr.write(diff_against_existing)
         else:
             out = open(filename, 'w', encoding='utf-8')
             out.write(self.full_ly())
