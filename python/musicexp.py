@@ -1761,7 +1761,7 @@ class ArpeggioChordEvent(ChordEvent):
         self.arpeggio_min_pitch = 1000
         self.arpeggio_max_pitch = -1000
 
-    def offset(self, printer):
+    def position_offset(self, printer):
         min_pitch = 1000
         max_pitch = -1000
         for e in self.elements:
@@ -1789,7 +1789,7 @@ class ArpeggioChordEvent(ChordEvent):
             color = color_to_ly(self.arpeggio_color)
             if color is not None:
                 printer(r'\tweak color %s' % color)
-            self.offset(printer)
+            self.position_offset(printer)
 
             printer(r'\arpeggio')
 
