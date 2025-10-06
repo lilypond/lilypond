@@ -206,22 +206,8 @@ depth-first through MUSIC."
 (define (make-time-signature-set music)
   "Set context properties for a time signature."
   (let* ((spec (ly:music-property music 'time-signature))
-         (complex? (and spec (not (number-pair? spec))))
          (structure (ly:music-property music 'beat-structure)))
-    (list (if complex? ; \once \override Timing.TimeSignature.stencil = ...
-              (context-spec-music
-               (make-music 'OverrideProperty
-                           'once #t
-                           'pop-first #t
-                           'symbol 'TimeSignature
-                           'grob-property 'stencil
-                           'grob-value
-                           (lambda (grob)
-                             (grob-interpret-markup
-                              grob (make-compound-meter-markup spec))))
-               'Timing)
-              (make-music 'Music))
-          (context-spec-music
+    (list (context-spec-music
            (make-apply-context
             (lambda (context)
               (let* ((time-signature-settings

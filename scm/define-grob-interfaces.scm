@@ -782,7 +782,6 @@ When the denominator is a note, @code{note-@/flag-@/style} and
 placement.
 "
  '(denominator-style
-   fraction
    nested-fraction-mixed
    nested-fraction-orientation
    nested-fraction-relative-font-size
@@ -791,7 +790,8 @@ placement.
    note-head-style
    note-staff-position
    senza-misura-stencil
-   style))
+   style
+   time-signature))
 
 (ly:add-interface
  'trill-spanner-interface

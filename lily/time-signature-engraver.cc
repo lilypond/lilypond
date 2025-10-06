@@ -79,15 +79,11 @@ Time_signature_engraver::process_music ()
         = make_item ("TimeSignature", event_ ? to_scm (event_) : SCM_EOL);
 
       // check value before setting to respect overrides
-      SCM fraction_sym = ly_symbol2scm ("fraction");
-      if (scm_is_null (get_property (time_signature_, fraction_sym)))
+      SCM tsig_sym = ly_symbol2scm ("time-signature");
+      if (scm_is_null (get_property (time_signature_, tsig_sym)))
         {
-          set_property (time_signature_, fraction_sym,
-                        Lily::time_signature_2_fraction (spec));
+          set_property (time_signature_, tsig_sym, spec);
         }
-
-      // TODO: Override TimeSignature.stencil for complex meters here instead of
-      // in make-time-signature-set.
 
       if (scm_is_null (last_spec_))
         {

@@ -397,8 +397,6 @@ up-stem voice note is taken instead.  This is used by
 @rinternals{note-collision-interface}.")
      (forced-spacing ,number? "Spacing forced between grobs, used in
 various ligature engravers.")
-     (fraction ,number-pair? "Numerator and denominator of a time
-signature object.")
      (french-beaming ,boolean? "Use French beaming style for this
 stem.  The stem stops at the innermost beams.")
      (fret-diagram-details ,symbol-key-alist? "An alist of detailed grob
@@ -1045,7 +1043,7 @@ If not a number, align on the object's reference point.")
      (self-alignment-Y ,number? "Like @code{self-alignment-X} but for
 the Y@tie{}axis.")
      (senza-misura-stencil ,ly:stencil? "The symbol to print when
-@code{TimeSignature@/.fraction} is not set.  Overriding
+@code{TimeSignature@/.time-signature} is not set.  Overriding
 @code{TimeSignature@/.stencil} circumvents this.")
      (shape ,symbol? "This setting determines what shape a grob
 has.  Valid choices depend on the @code{stencil} callback reading
@@ -1333,6 +1331,8 @@ There is a distinction between exact and inexact values for
 gets further tuned to make the tie avoid staff lines.  An inexact
 value is taken as the precise vertical offset without further
 adjustments.")
+     (time-signature ,time-signature? "A time-signature specification.  See
+the @code{\\time} command.")
      (to-barline ,boolean? "If true, the spanner will stop at the bar
 line just before it would otherwise stop.")
      (toward-stem-shift ,number? "Amount by which scripts are shifted

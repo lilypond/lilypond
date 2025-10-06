@@ -1,15 +1,15 @@
-\version "2.25.6"
+\version "2.25.30"
 
 \header {
   texidoc = "@code{\\senzaMisuraTimeSignatureX} and
 @code{\\senzaMisuraTimeSignatureOff} control the creation of an X sign when
-@code{TimeSignature@/.fraction} is not set.  The middle bar of the middle staff
-should contain an X-shaped sign and a quarter note."
+@code{TimeSignature@/.time-signature} is not set.  The middle bar of the middle
+staff should contain an X-shaped sign and a quarter note."
 }
 
 music = \fixed c' {
   d1
-  \once \override Staff.TimeSignature.fraction = ##f
+  \once \override Staff.TimeSignature.time-signature = ##f
   \time 1/4
   d4
   \time 2/2

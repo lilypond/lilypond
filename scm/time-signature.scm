@@ -17,14 +17,14 @@
 
 (define-public (ly:time-signature::print grob)
   "Print routine for time signatures."
-  (let ((fraction (ly:grob-property grob 'fraction #f)))
-    (if fraction
+  (let ((spec (ly:grob-property grob 'time-signature #f)))
+    (if spec
         (let* ((style (ly:grob-property grob 'style 'default))
                (proc (assoc-get style time-signature-style-markup-procedures))
                (fraction-markup
                 (if (procedure? proc)
-                    (proc fraction)
-                    (make-glyph-time-signature-markup style fraction))))
+                    (proc spec)
+                    (make-glyph-time-signature-markup style spec))))
           (grob-interpret-markup grob fraction-markup))
         (ly:grob-property grob 'senza-misura-stencil))))
 

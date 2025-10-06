@@ -8,7 +8,7 @@
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.28"
+@c \version "2.25.30"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 @c Translation checkers: Valentin Villenave, François Martin, Xavier Scheuer
@@ -1294,11 +1294,12 @@ D'autres dénominateurs inusuels peuvent s'utiliser pour ajouter un point
 d'augmentation à la note présentée ; toutefois, et afin de bénéficier
 des fonctionnalités présentées de part et d'autre, l'utilisation d'une
 fraction conventionnelle pour @code{\time} associée à une dérogation à
-@code{TimeSignature@/.fraction} est fotement recommandée en pareil cas.
+@code{TimeSignature@/.time-signature} est fotement recommandée en pareil
+cas.
 
 @lilypond[quote,verbatim,fragment]
 \override Timing.TimeSignature.denominator-style = #'note
-\once \override Timing.TimeSignature.fraction = #'(2 . 8/3)
+\once \override Timing.TimeSignature.time-signature = #'(2 . 8/3)
 \time 6/8
 c''8 8 8 8 8 8
 @end lilypond

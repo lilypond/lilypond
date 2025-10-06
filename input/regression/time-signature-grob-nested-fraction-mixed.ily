@@ -1,4 +1,4 @@
-\version "2.25.25"
+\version "2.25.30"
 
 \layout {
   \context {
@@ -13,15 +13,15 @@
 }
 
 testMeasure = {
-  \once \override Timing.TimeSignature.fraction = #'(5/2 . 4)
+  \once \override Timing.TimeSignature.time-signature = #'(5/2 . 4)
   \time 1/4
   s4
 
-  \once \override Timing.TimeSignature.fraction = #'(2 . 8/3)
+  \once \override Timing.TimeSignature.time-signature = #'(2 . 8/3)
   \time 1/4
   s4
 
-  \once \override Timing.TimeSignature.fraction = #'(1/2 . 3/4)
+  \once \override Timing.TimeSignature.time-signature = #'(1/2 . 3/4)
   \time 1/4
   s4
 
