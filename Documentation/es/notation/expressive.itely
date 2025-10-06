@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 663181a3779d50a01212ef3091a03a7b9a714308
+    Translation of GIT committish: b22569ea33c9c9a6a26e17624d79449bffa81b22
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 @c \version "2.21.0"
 
 @node Expressive marks
-@section Expresiones
+@chapter Expresiones
 
 @lilypondfile[quote]{snippets/expressive-headword.ly}
 
@@ -19,7 +19,7 @@ crear en un a partitura.
 
 
 @node Expressive marks attached to notes
-@subsection Expresiones adosadas a las notas
+@section Expresiones adosadas a las notas
 
 Esta sección explica cómo crear marcas expresivas que están
 aplicadas a notas: articulaciones, ornamentos y matices.  También
@@ -27,7 +27,7 @@ se tratan los métodos para crear las nuevas marcas dinámicas.
 
 
 @node Articulations and ornamentations
-@unnumberedsubsubsec Articulaciones y ornamentos
+@subsection Articulaciones y ornamentos
 
 
 @cindex @q{abierta}, articulación
@@ -148,7 +148,9 @@ se tratan los métodos para crear las nuevas marcas dinámicas.
 @cindex símbolo, segno
 @cindex trino
 @cindex varcoda
-@cindex @'organo, marca de pedal
+@cindex @q{coda}, símbolo, variante
+@cindex @q{bachschleifer}, articulación
+@cindex articulation, bachschleifer
 
 @funindex \accent
 @funindex \marcato
@@ -196,6 +198,7 @@ se tratan los métodos para crear las nuevas marcas dinámicas.
 @funindex \segno
 @funindex \coda
 @funindex \varcoda
+@funindex \bachschleifer
 
 @funindex -
 
@@ -217,13 +220,18 @@ La lista de los posibles valores de @code{@var{nombre}} está en
 }
 @end lilypond
 
-@cindex marcato
-@cindex tenuto
-@cindex staccatissimo
-@cindex acento
-@cindex picado
-@cindex staccato
-@cindex portato
+@cindex @q{marcato}, articulación
+@cindex articulación marcato
+@cindex @q{tenuto}, articulación
+@cindex articulación tenuto
+@cindex @q{staccatissimo}, articulación
+@cindex articulación staccatissimo
+@cindex @q{accent}, articulación
+@cindex articulación accent
+@cindex @q{staccato}, articulación
+@cindex articulación staccato
+@cindex @q{portato}, articulación
+@cindex articulación portato
 
 
 Algunas de estas articulaciones tienen abreviaturas que facilitan
@@ -248,26 +256,76 @@ encuentran definidas en el archivo @file{scm/script.scm}.  Las
 articulaciones y ornamentos se pueden colocar manualmente por encima o
 por debajo del pentagrama; véase @ref{Direction and placement}.
 
-Las articulaciones son objetos @code{Script}.  Sus propiedades se
-describen de forma más completa en @rinternals{Script}.
+@funindex \atLeft
+@funindex \atRight
 
-Se pueden aplicar articulaciones a los silencios normales y
-multi-compás, además de a las notas.  La aplicación de una
-articulación a un silencio multi-compás crea un objeto
-@code{MultiMeasureRestScript}.
+@cindex bachschleifer
+@cindex ornament, horizontally
+@cindex horizontal ornament
+
+The @code{bachschleifer} is positioned to the left of the @code{NoteHead}.
+This ornament may have ledger lines.
+
+@lilypond[verbatim,quote]
+{
+  \autoBeamOff
+  b'8 g''\bachschleifer
+  e'' c'''\bachschleifer
+}
+@end lilypond
+
+It is also possible to position common articulations and ornamentations to the
+left or right of a note head by overriding their @code{side-axis} and, if
+necessary, the @code{direction} property.  The convenience functions
+@code{\atLeft} or @code{\atRight} take care of this.
+
+@lilypond[verbatim,quote]
+{
+  \set fingeringOrientations = #'(left)
+  \set stringNumberOrientations = #'(left down)
+  <
+   c'-3\5_\rightHandFinger #1 \atLeft \mordent
+   g'^\rightHandFinger #2
+   c''-1\2^\rightHandFinger #3 \atRight \prall
+   e'' ^\rightHandFinger #4
+  >2^\tenuto
+}
+@end lilypond
+
+@predefined
+@code{\atLeft},
+@code{\atRight}.
+@endpredefined
+
+The type of grob that an articulation creates depends on what it
+is attached to.
+
+@itemize @bullet
+@item
+On notes or ordinary rests, articulations create @code{Script}
+objects.
+@item
+On multi-measure rests, articulations create
+@code{MultiMeasureRestScript} objects.
+@item
+On @code{\caesura}, articulations create @code{CaesuraScript}
+objects.
+@end itemize
 
 @lilypond[verbatim,quote,fragment]
-\override Script.color = #red
-\override MultiMeasureRestScript.color = #blue
+\override Score.Script.color = #(universal-color 'vermillion)
+\override Score.MultiMeasureRestScript.color = #(universal-color 'blue)
+\override Score.CaesuraScript.color = #(universal-color 'orange)
 a'2\fermata r\fermata
 R1\fermata
+g'2 \caesura \fermata f'2
 @end lilypond
 
 Además de articulaciones, se pueden adjuntar textos y elementos de
-marcado a las notas.  Véase @ref{Text scripts}.
+marcado a las notas.  @xref{Text scripts}.
 
 Para ver más información acerca de la ordenación de los elementos
-Script y TextScript que se adjuntan a las notas, consulte
+@code{Script} y @code{TextScript} que se adjuntan a las notas, consulte
 @rlearningnamed{Placement of objects, Colocación de los objetos}.
 
 @snippets
@@ -286,8 +344,11 @@ Script y TextScript que se adjuntan a las notas, consulte
 @cindex vertical, orden de las inscripciones
 @cindex ordenación vertical de las inscripciones
 @cindex inscripción, ordenación vertical
+@funindex script-priority
+@anchor{Controlling the vertical ordering of scripts}
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/controlling-the-vertical-ordering-of-scripts.ly}
+@xref{Default values for script-priority}.
 
 @cindex grupeto de retardación, ornamento
 @cindex retardación, grupeto de, ornamento
@@ -320,17 +381,22 @@ Fragmentos de código:
 @rlsr{Expressive marks}.
 
 Referencia de funcionamiento interno:
+@rinternals{CaesuraScript},
+@rinternals{MultiMeasureRestScript},
 @rinternals{Script},
 @rinternals{TextScript}.
+@endmorerefs
 
 
 @node Dynamics
-@unnumberedsubsubsec Matices dinámicos
+@subsection Matices dinámicos
 
 @cindex dinámica
 @cindex matices absolutos
 @cindex matices
 @cindex absolutos, matices
+
+@funindex \ppppp
 @funindex \pppp
 @funindex \ppp
 @funindex \pp
@@ -374,9 +440,9 @@ pentagrama; para ver más detalles, consulte @ref{Direction and placement}.
 @cindex decrescendo
 @cindex diminuendo
 
-@funindex @sortas{<B} \<
-@funindex @sortas{>B} \>
-@funindex @sortas{!B} \!
+@funindexpost \<
+@funindexpost \>
+@funindexpost \!
 @funindex \cr
 @funindex \decr
 @funindex \endcr
@@ -438,16 +504,56 @@ anterior.
 @cindex varios matices sobre una nota
 @cindex matices, varios sobre una nota
 @cindex dinámica, varias indicaciones sobre una nota
+@funindex \after
+Often, marks like @notation{crescendo} or @notation{decrescendo} should
+begin or end at some point of time during a sustained note. This can
+be achieved with @code{\after}, which can also be used to create
+delayed articulations or text scripts:
 
-Se requieren silencios espaciadores para tipografiar varias
+@lilypond[verbatim,quote]
+<<
+  \relative {
+    \after 2 \< c'1
+    d4\f\> e f g
+    \after 2. \pp c,1
+    \after 2. \fermata e
+    \after 2. ^"Fine." f
+  }
+  \relative {
+    \repeat unfold 12 c'4
+    c c c c\fermata
+    c c c c
+  }
+>>
+@end lilypond
+
+Multiple instances of @code{\after} can be used para tipografiar varias
 indicaciones dinámicas sobre una sola nota.  Esto es útil
-especialmente para añadir un @notation{crescendo} y un
-@notation{decrescendo} a la misma nota:
+especialmente para añadir un crescendo y un decrescendo a la misma nota:
 
 @lilypond[verbatim,quote]
 \relative {
-  c''4\< c\! d\> e\!
-  << f1 { s4 s4\< s4\> s4\! } >>
+  c''4\< d\! e\> c\!
+  \after 4 \< \after 2\> \after 2. \! f1
+  \textLengthOn
+  \after 4 \> \after 2. ^"hush!" c1
+  g4\pp
+}
+@end lilypond
+
+@cindex empty chord
+@cindex chord, empty
+@funindex <>
+If the first in such a sequence of marks on a single note is supposed
+to coincide with the onset of the note, it is convenient to attach
+it to an empty chord @code{<>}. This way, all marks can be entered
+in their natural visual order:
+
+@lilypond[verbatim,quote]
+{
+  <>\< \after 4 \> \after 2 \! c'1
+  % easier to write and read than:
+  \after 4 \> \after 2 \! c'1\<
 }
 @end lilypond
 
@@ -455,7 +561,7 @@ especialmente para añadir un @notation{crescendo} y un
 
 @funindex \espressivo
 
-Se puede usar la instrucción @code{\espressivo} para indicar un
+También se puede usar la instrucción @code{\espressivo} para indicar un
 crescendo y un decrescendo sobre la misma nota.  Sin embargo,
 advierta que esta indicación está implementada como una
 articulación, no como una expresión dinámica.
@@ -464,12 +570,13 @@ articulación, no como una expresión dinámica.
 \relative {
   c''2 b4 a
   g1\espressivo
+  \after 2. \espressivo c
 }
 @end lilypond
 
 @funindex \cresc
 @funindex \decresc
-@funindex @sortas{dimB} \dim
+@funindexpost \dim
 Las indicaciones de crescendo textuales se inician con
 @code{\cresc}.  Los decrescendos textuales se inician con
 @code{\decresc} o con @code{\dim}.  Se trazan líneas extensoras
@@ -552,6 +659,38 @@ piano.
 >>
 @end lilypond
 
+@warning{Even if there is only a single absolute dynamic mark like
+@code{@bs{}p} in a score, LilyPond always creates @emph{two}
+objects for it, a @code{DynamicText} and a
+@code{DynamicLineSpanner} object, and the properties to control
+the dynamic mark are shared between these two objects.  For
+example, the size can be changed with the
+@code{DynamicText.font-size} property, while the vertical position
+is controlled by @code{DynamicLineSpanner.Y-offset}.
+
+As a consequence, code like
+
+@example
+@bs{}tweak font-size 5 @bs{}p
+@end example
+
+@noindent
+works but
+
+@example
+@bs{}tweak Y-offset 5 @bs{}p
+@end example
+
+@noindent
+does not.  You have to say
+
+@example
+@bs{}tweak DynamicLineSpanner.Y-offset 5 @bs{}p
+@end example
+
+@noindent
+instead.}
+
 @predefined
 @code{\dynamicUp},
 @code{\dynamicDown},
@@ -576,6 +715,10 @@ piano.
 @cindex longitud mínima, regulador
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/setting-the-minimum-length-of-hairpins.ly}
+
+@cindex hairpin, aligning ends to @code{NoteColumn} directions
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/aligning-the-ends-of-hairpins-to-notecolumn-directions.ly}
 
 @cindex regulador, desplazar extremos
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -607,6 +750,16 @@ piano.
 @funindex \textLengthOn
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/vertically-aligned-dynamics-and-textscripts.ly}
+
+@cindex vertical alignment, dynamics, breaking
+@cindex alignment, breaking vertical, dynamics
+@cindex dynamics, breaking vertical alignment
+@cindex text script, breaking vertical alignment
+@cindex alignment, breaking vertical, text scripts
+@cindex breaking vertical alignment of dynamics
+@funindex \breakDynamicSpan
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/breaking-vertical-alignment-of-dynamics-and-textscripts.ly}
 
 @cindex matiz, línea de extensión, ocultar
 @cindex ocultar, línea de extensión de matiz
@@ -648,10 +801,11 @@ Referencia de funcionamiento interno:
 @rinternals{Hairpin},
 @rinternals{DynamicLineSpanner},
 @rinternals{Dynamics}.
+@endmorerefs
 
 
 @node New dynamic marks
-@unnumberedsubsubsec Indicaciones dinámicas nuevas
+@subsection Indicaciones dinámicas nuevas
 
 @cindex indicaciones dinámicas nuevas
 @cindex dinámicas, indicaciones, nuevas
@@ -703,15 +857,10 @@ sfzp = #(make-dynamic-script "sfzp")
 
 En general @code{make-dynamic-script} toma cualquier objeto de
 marcado como argumento.  La fuente tipográfica de matices sólo
-contiene los caracteres @code{f, m, p, r, s} y @code{z}, por lo
-que si se desea obtener una indicación dinámica que incluya texto
-normal o signos de puntuación, es necesario utilizar instrucciones
+contiene los caracteres @code{f}, @code{m}, @code{p}, @code{r}, @code{s}, @code{z} y @code{n}; por lo que si se desea obtener una indicación dinámica que incluya texto normal o signos de puntuación, es necesario utilizar instrucciones
 de marcado que devuelvan los ajustes de la familia de fuente
 tipográfica y su codificación a las del texto normal, por ejemplo
-@code{\normal-text}.  El interés de la utilización de
-@code{make-dynamic-script} en lugar de un elemento de marcado
-corriente está en asegurar la alineación vertical de los objetos
-de marcado y reguladores que se aplican a la misma cabeza de nota.
+@code{\normal-text}.  El uso de @code{make-dynamic-script} en lugar de un elemento de marcado corriente asegura la alineación vertical de los objetos de marcado y reguladores que se aplican a la misma cabeza de nota.
 
 @lilypond[verbatim,quote]
 roundF = \markup { \center-align \concat {
@@ -776,10 +925,11 @@ Extender LilyPond:
 
 Fragmentos de código:
 @rlsr{Expressive marks}.
+@endmorerefs
 
 
 @node Expressive marks as curves
-@subsection Expresiones como curvas
+@section Expresiones como curvas
 
 Esta sección explica cómo crear varias marcas expresivas de forma
 curva: ligaduras de expresión y de fraseo, respiraciones, caídas y
@@ -787,7 +937,7 @@ elevaciones de tono.
 
 
 @node Slurs
-@unnumberedsubsubsec Ligaduras de expresión
+@subsection Ligaduras de expresión
 
 @funindex @sortas{(A} (
 @funindex @sortas{)A} )
@@ -824,8 +974,7 @@ encima o por debajo de las notas; véase
 @cindex ligadura de expresión, varias
 @cindex ligadura de expresión, simultáneas
 
-@c exception: don't use `@sortas' here since some entries for `\=' are
-@c autogenerated (thus missing `@sortas')
+@c some entries for '\=' are auto-generated; don't use @funindexpost
 @funindex \=
 
 Debe tenerse cuidado con las ligaduras de expresión simultáneas o
@@ -873,10 +1022,9 @@ el continuo:
 }
 @end lilypond
 
-@cindex ligadura de expresión, mitad continua y mitad discontinua
-
 @funindex \slurHalfDashed
 @funindex \slurHalfSolid
+@cindex ligadura de expresión, mitad continua y mitad discontinua
 
 También se puede hacer que las ligaduras de expresión sean
 semi-discontinuas (la primera mitad discontinua y la segunda mitad
@@ -895,8 +1043,8 @@ discontinua):
 }
 @end lilypond
 
-@cindex ligadura de expresión, definir patrones de discontinuidad
 @funindex \slurDashPattern
+@cindex ligadura de expresión, definir patrones de discontinuidad
 @cindex patrón de discontinuidad, ligadura de expresión
 
 Se pueden definir patrones de discontinuidad para las ligaduras de
@@ -905,9 +1053,9 @@ expresión:
 @lilypond[verbatim,quote]
 \relative {
   c'4( e g2)
-  \slurDashPattern #0.7 #0.75
+  \slurDashPattern 0.7 0.75
   g4( e c2)
-  \slurDashPattern #0.5 #2.0
+  \slurDashPattern 0.5 2.0
   c4( e g2)
   \slurSolid
   g4( e c2)
@@ -930,6 +1078,11 @@ expresión:
 
 
 @snippets
+
+@cindex slur, adjusting start and end
+@cindex adjusting start and end, slur
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/adjusting-slur-positions-vertically.ly}
 
 @cindex ligadura de expresión, doble, para acordes legato
 @cindex doble ligadura de expresión para acordes legato
@@ -964,17 +1117,18 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{Slur}.
+@endmorerefs
 
 
 @node Phrasing slurs
-@unnumberedsubsubsec Ligaduras de fraseo
+@subsection Ligaduras de fraseo
 
 @cindex ligadura de fraseo
 @cindex marca de fraseo
 @cindex fraseo, ligadura de
 @cindex fraseo, marca de
-@funindex @sortas{(B} \(
-@funindex @sortas{)B} \)
+@funindexpost \(
+@funindexpost \)
 
 Las @notation{ligaduras de fraseo} (o marcas de fraseo) que
 indican una frase musical se escriben usando las instrucciones
@@ -1035,11 +1189,10 @@ el continuo:
 }
 @end lilypond
 
-@cindex fraseo, ligadura de, mitad continua y mitad discontinua
-@cindex ligadura de fraseo mitad continua y mitad discontinua
-
 @funindex \phrasingSlurHalfDashed
 @funindex \phrasingSlurHalfSolid
+@cindex fraseo, ligadura de, mitad continua y mitad discontinua
+@cindex ligadura de fraseo mitad continua y mitad discontinua
 
 Se puede hacer también que las ligaduras de fraseo sean
 semi-discontinuas (la primera mitad discontinua y la segunda mitad
@@ -1058,10 +1211,10 @@ mitad discontinua):
 }
 @end lilypond
 
+@funindex \phrasingSlurDashPattern
 @cindex fraseo, ligadura de, definir patrones de discontinuidad
 @cindex ligadura de fraseo, definir patrones de discontinuidad
 
-@funindex \phrasingSlurDashPattern
 
 Se pueden definir patrones de discontinuidad para las ligaduras de
 fraseo:
@@ -1069,9 +1222,9 @@ fraseo:
 @lilypond[verbatim,quote]
 \relative {
   c'4\( e g2\)
-  \phrasingSlurDashPattern #0.7 #0.75
+  \phrasingSlurDashPattern 0.7 0.75
   g4\( e c2\)
-  \phrasingSlurDashPattern #0.5 #2.0
+  \phrasingSlurDashPattern 0.5 2.0
   c4\( e g2\)
   \phrasingSlurSolid
   g4\( e c2\)
@@ -1109,20 +1262,25 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{PhrasingSlur}.
+@endmorerefs
 
 
 @node Breath marks
-@unnumberedsubsubsec Marcas de respiración
+@subsection Marcas de respiración
 
 @cindex respiraciones
 @cindex pausa, marcas de
 @funindex \breathe
 
-Las respiraciones se introducen utilizando @code{\breathe}:
+Las respiraciones (acortando la nota anterior para tomar aire) se introducen utilizando @code{\breathe}:
 
 @lilypond[verbatim,quote]
-{ c''2. \breathe d''4 }
+\fixed c'' { c2. \breathe d4 }
 @end lilypond
+
+@noindent
+For a short break in sound that is not taken away from the
+previous note, @pxref{Caesuras}.
 
 A diferencia de otras marcas de expresión, los símbolos de
 respiración no están asociados con la nota anterior, sino que son
@@ -1130,45 +1288,40 @@ eventos independientes.  Por ello, todas las marcas de expresión
 que están adjuntas a la nota anterior, cualquier corchete recto
 que indique barrado manual, y cualquier paréntesis que indique
 ligaduras de expresión y de fraseo, deben escribirse antes de
-@code{\breathe}.
+@code{\breathe}.  @code{\breathe} does not accept articulations itself, but
+@pxref{Caesuras}.
 
 Las marcas de respiración dan por terminadas las barras
-automáticas; para sobreescribir este comportamiento, consulte
-@ref{Manual beams}.
+automáticas; para sobreescribir este comportamiento, @pxref{Manual beams}.
 
 @lilypond[verbatim,quote]
-\relative { c''8 \breathe d e f g2 }
+\fixed c'' { c8 \breathe d e f g2 }
 @end lilypond
-
-Están contemplados los indicadores musicales para las marcas de
-respiración en la notación antigua, o divisiones.  Para ver más
-detalles, consulte @ref{Divisiones}.
-
-@snippets
 
 @cindex respiración, cambiar símbolo de  marca de
 @cindex modificar símbolo de marca de respiración
+@cindex check mark
 @cindex símbolo, cambiar, marca de respiración
-@funindex BreathingSign
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/changing-the-breath-mark-symbol.ly}
-
 @cindex marca de pulso
 
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/using-a-tick-as-the-breath-mark-symbol.ly}
+The @code{breathMarkType} context property controls which of
+several predefined breath marks the @code{\breathe} command
+creates.  @xref{List of breath marks}.
 
-@cindex caesura
-@cindex cesura
+@lilypond[verbatim,quote]
+\fixed c'' {
+  \set breathMarkType = #'tickmark
+  c2. \breathe d4
+}
+@end lilypond
 
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/inserting-a-caesura.ly}
 
 @morerefs
 Glosario musical:
 @rglos{caesura}.
 
 Referencia de la notación:
+@ref{Caesuras},
 @ref{Divisiones}.
 
 Fragmentos de código:
@@ -1178,10 +1331,11 @@ Referencia de funcionamiento interno:
 @rinternals{BreathingEvent},
 @rinternals{BreathingSign},
 @rinternals{Breathing_sign_engraver}.
+@endmorerefs
 
 
 @node Falls and doits
-@unnumberedsubsubsec Caídas y elevaciones
+@subsection Caídas y elevaciones
 
 @cindex fall (caída de tono)
 @cindex doit (elevación de tono)
@@ -1198,12 +1352,12 @@ intervalo de alturas sobre el que se extiende la caída o elevación
 
 @lilypond[verbatim,quote]
 \relative c'' {
-  c2\bendAfter #+4
-  c2\bendAfter #-4
-  c2\bendAfter #+6.5
-  c2\bendAfter #-6.5
-  c2\bendAfter #+8
-  c2\bendAfter #-8
+  c2\bendAfter 4
+  c2\bendAfter -4
+  c2\bendAfter 6.5
+  c2\bendAfter -6.5
+  c2\bendAfter 8
+  c2\bendAfter -8
 }
 @end lilypond
 
@@ -1219,17 +1373,18 @@ Glosario musical:
 
 Fragmentos de código:
 @rlsr{Expressive marks}.
+@endmorerefs
 
 
 @node Expressive marks as lines
-@subsection Expresiones como líneas
+@section Expresiones como líneas
 
 Esta sección explica cómo crear diversas marcas de expresión que
 siguen un camino lineal: glissandi, arpegios y trinos.
 
 
 @node Glissando
-@unnumberedsubsubsec Glissando
+@subsection Glissando
 
 @cindex glissando
 @funindex \glissando
@@ -1267,26 +1422,24 @@ Un glissando puede conectar notas de un pentagrama a otro:
 
 Un glissando puede conectar las notas dentro de un acorde.  Si se
 necesita hacer algo que no sea una conexión de una nota con otra
-entre los dos acordes, las conexiones entre las notas vienen
-definidas por medio de @code{\glissandoMap}, donde las notas de un
-acorde se suponen numeradas, empezando en cero, en el orden en que
-aparecen en el código de entrada del archivo @file{.ly}.
+entre los dos acordes, las conexiones entre las notas se definen estableciendo @code{\glissandoMap} a una lista de Scheme.  The elements are pairs of
+integers; each pair @var{(x . y)} creates a glissando line from the
+@var{x}-th note of the first chord to the @var{y}-th note of the second
+chord.  Notes are numbered from zero in the order in which they appear
+in the input @file{.ly} file.  Not all notes need be part in a
+glissando.
 
 @lilypond[verbatim,quote]
 \relative {
-  <c' e>1\glissando g' |
-  <c, e>1\glissando |
-  <g' b> |
+  <c' e>2\glissando g'
+  <c, e>\glissando <g' b>
   \break
   \set glissandoMap = #'((0 . 1) (1 . 0))
-  <c, g'>1\glissando |
-  <d a'> |
+  <c, g'>\glissando <d a'>
   \set glissandoMap = #'((0 . 0) (0 . 1) (0 . 2))
-  c1\glissando |
-  <d f a> |
-  \set glissandoMap = #'((2 . 0) (1 . 0) (0 . 1))
-  <f d a'>1\glissando |
-  <c c'> |
+  c\glissando <d f a>
+  \set glissandoMap = #'((2 . 2) (0 . 0))
+  <f d a'>\glissando <c f c'>
 }
 @end lilypond
 
@@ -1305,11 +1458,13 @@ detalles, consulte @ref{Line styles}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/adding-timing-marks-to-long-glissandi.ly}
 
+@anchor{Making glissandi breakable}
 @cindex divisible, glissando
 @cindex glissando, divisible
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/making-glissandi-breakable.ly}
 
+@anchor{Extending glissandi across repeats}
 @cindex glissando, a través de repetición
 @cindex repetición, y glissandos
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -1327,14 +1482,15 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{Glissando}.
+@endmorerefs
 
 @knownissues
-La impresión de texto sobre la línea (como @notation{gliss.}) no
+La impresión de texto sobre la línea (como @notation{gliss.})@: no
 está contemplada.
 
 
 @node Arpeggio
-@unnumberedsubsubsec Arpegio
+@subsection Arpegio
 
 @cindex arpegio
 @cindex acorde quebrado
@@ -1373,7 +1529,7 @@ Se pueden escribir distintos tipos de acordes arpegiados.
 @end lilypond
 
 Estas instrucciones predefinidas modifican internamente la
-propiedad @code{'arpeggio-direction}; véanse sus definiciones
+propiedad @code{arpeggio-direction}; véanse sus definiciones
 completas en el archivo @file{ly/property-init.ly}.
 
 @cindex arpegiado, acorde, símbolos especiales
@@ -1404,17 +1560,16 @@ Se pueden crear símbolos especiales de arpegio @emph{con corchete}:
 @end lilypond
 
 Estas instrucciones predefinidas sobreescriben internamente la
-propiedad @code{'stencil} del objeto @code{Arpeggio}, y puede
-también adaptar su @code{'X-extent} (esto es, la dimensión
+propiedad @code{stencil} del objeto @code{Arpeggio}, y puede
+también adaptar su @code{X-extent} (esto es, la dimensión
 horizontal que le supone no colisionar con otros objetos).
 
 Las propiedades de discontinuidad del paréntesis del arpegio se
-controlan mediante la propiedad @code{'dash-definition}, que se
-describe en @ref{Slurs}.
+controlan mediante la propiedad @code{dash-definition} (@pxref{Slurs}).
 
 Los acordes arpegiados se pueden desarrollar explícitamente
-utilizando @notation{ligaduras de unión}.  Véase
-@ref{Ties}.
+utilizando @notation{ligaduras de unión}. Para más información, @pxref{Ties}.
+
 
 @predefined
 @code{\arpeggio},
@@ -1433,9 +1588,6 @@ utilizando @notation{ligaduras de unión}.  Véase
 @cindex pautas, arpegio entre
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/creating-cross-staff-arpeggios-in-a-piano-staff.ly}
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/creating-cross-staff-arpeggios-in-other-contexts.ly}
 
 @cindex arpegio, entre voces
 @cindex voces, arpegio entre
@@ -1460,6 +1612,7 @@ Referencia de funcionamiento interno:
 @rinternals{Arpeggio},
 @rinternals{Slur},
 @rinternals{PianoStaff}.
+@endmorerefs
 
 @knownissues
 Las instrucciones predefinidas como @code{\arpeggioArrowUp}
@@ -1503,7 +1656,7 @@ paréntesis no funciona para los arpegios de pentagrama cruzado;
 
 
 @node Trills
-@unnumberedsubsubsec Trinos
+@subsection Trinos
 
 @cindex trino
 @funindex \trill
@@ -1643,4 +1796,10 @@ Fragmentos de código:
 @rlsr{Expressive marks}.
 
 Referencia de funcionamiento interno:
-@rinternals{TrillSpanner}.
+@rinternals{TrillSpanner},
+@rinternals{TrillPitchHead},
+@rinternals{TrillPitchAccidental},
+@rinternals{TrillPitchParentheses},
+@rinternals{TrillPitchGroup},
+@rinternals{Pitched_trill_engraver}.
+@endmorerefs

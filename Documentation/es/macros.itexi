@@ -320,6 +320,10 @@ Para la versión de LilyPond @version{}
 @ref{\TEXT\,,\DISPLAY\,snippets-big-page,Fragmentos de código}
 @end macro
 
+@macro rlsrsnippet{PREFIX,TEXT}
+@ref{\PREFIX\ - \TEXT\,,\TEXT\,snippets-big-page,Fragmentos de código}
+@end macro
+
 @macro rinternals{TEXT}
 @ref{\TEXT\,,,internals-big-page,Referencia de Funcionamiento Interno}
 @end macro
@@ -417,6 +421,10 @@ Para la versión de LilyPond @version{}
 @ref{\TEXT\,,\DISPLAY\,snippets,Fragmentos de código}
 @end macro
 
+@macro rlsrsnippet{PREFIX,TEXT}
+@ref{\PREFIX\ - \TEXT\,,\TEXT\,snippets,Fragmentos de código}
+@end macro
+
 @macro rinternals{TEXT}
 @ref{\TEXT\,,,internals,Referencia de Funcionamiento Interno}
 @end macro
@@ -507,6 +515,10 @@ Para la versión de LilyPond @version{}
 
 @macro rlsrnamed{TEXT,DISPLAY}
 @ref{\TEXT\,,\DISPLAY\,lilypond-snippets,Fragmentos de código}
+@end macro
+
+@macro rlsrsnippet{PREFIX,TEXT}
+@ref{\PREFIX\ - \TEXT\,,\TEXT\,lilypond-snippets,Fragmentos de código}
 @end macro
 
 @macro rinternals{TEXT}
@@ -606,6 +618,10 @@ Para la versión de LilyPond @version{}
 
 @macro rlsrnamed{TEXT,DISPLAY}
 @ref{\TEXT\,,\DISPLAY\,snippets,Fragmentos de código}
+@end macro
+
+@macro rlsrsnippet{PREFIX,TEXT}
+@ref{\PREFIX\ - \TEXT\,,\TEXT\,snippets,Fragmentos de código}
 @end macro
 
 @macro rinternals{TEXT}

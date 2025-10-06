@@ -1281,6 +1281,17 @@ notas.
 @lilypondfile[noindent]{en/included/note-head-style.ly}
 
 
+@node Accidental glyph sets
+@appendixsec Accidental glyph sets
+
+@cindex glyph set, accidental
+@cindex accidental glyph set
+
+The following sets of accidental glyphs are available.
+
+@lilypondfile[noindent]{en/included/accidental-glyph-set.ly}
+
+
 @node Clef styles
 @appendixsec Estilos de clave
 
@@ -2731,6 +2742,97 @@ f^\varcoda e,_\varcoda b'\varcoda
 
 @end multitable
 
+
+@need 1000
+@node List of breath marks
+@appendixsec List of breath marks
+
+@cindex breath mark symbol, list
+
+@multitable @columnfractions .22 .25 .25 .25
+
+@item
+@code{'chantquarterbar}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'chantquarterbar
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'chanthalfbar}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'chanthalfbar
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'chantfullbar}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'chantfullbar
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'chantdoublebar}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'chantdoublebar
+b4 4 \breathe 4
+@end lilypond
+
+@item
+@code{'comma}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'comma
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'varcomma}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'varcomma
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'tickmark}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'tickmark
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'upbow}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'upbow
+b4 4 \breathe 4
+@end lilypond
+
+@item
+@code{'outsidecomma}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'outsidecomma
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'caesura}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'caesura
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'curvedcaesura}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'curvedcaesura
+b4 4 \breathe 4
+@end lilypond
+@tab
+@code{'spacer}
+@lilypond[notime,relative=2]
+\set breathMarkType = #'spacer
+b4 4 \breathe 4
+@end lilypond
+
+@end multitable
+
+
+@need 1000
+@node Percussion notes
+@appendixsec Notas de percusión
+
 @cindex abierto, high hat
 @cindex agogó
 @cindex bajo
@@ -2785,9 +2887,6 @@ f^\varcoda e,_\varcoda b'\varcoda
 @cindex tom tom medio
 @cindex triángulo
 @cindex vibraslap
-
-@node Percussion notes
-@appendixsec Notas de percusión
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -3130,6 +3229,58 @@ f^\varcoda e,_\varcoda b'\varcoda
 @end lilypond
 
 @end multitable
+
+@node List of bar lines
+@appendixsec List of bar lines
+
+Each system following shows the appearance of a particular bar
+type at the beginning, middle, and end of a line.
+
+For more information, @pxref{Bar lines} and @ref{Automatic bar
+lines}.
+
+@cindex bar line, list
+
+@lilypondfile{en/included/bar-lines.ly}
+
+
+@node Default values for outside-staff-priority
+@appendixsec Default values for @code{outside-staff-priority}
+
+@funindex outside-staff-priority
+
+The following table shows the default @code{outside-staff-priority} of
+all outside-staff grobs.  Objects with smaller values are placed closer
+to the staff.
+
+@include en/outside-staff-priorities.tely
+
+
+@node Default values for script-priority
+@appendixsec Default values for @code{script-priority}
+
+@funindex script-priority
+
+The following table shows the default @code{script-priority} of
+all script-related grobs (starting with an uppercase letter) and
+script names (starting with a lowercase letter).  Objects with
+smaller values are placed closer to the staff.
+
+The @code{Fingering}, @code{StringNumber}, and @code{StrokeFinger}
+grobs, if part of a chord, add the vertical position of the
+associated note head to get the final priority value.  The
+@code{script-priority} values of other scripts part of a chord
+stay unmodified.
+
+For scripts not part of a chord, the current event position is
+added instead.  This means that for scripts with the same
+@code{script-priority} value, the first one attached to a note
+head gets the lowest priority value.
+
+Grobs not listed here (and which are related to scripts) get 200
+as the default @code{script-priority} value.
+
+@include en/script-priorities.tely
 
 
 @node Technical glossary
@@ -3480,6 +3631,69 @@ modificaciones de contexto dentro de un bloque @code{\layout} o
 @code{\with}.
 
 @include en/context-mod-identifiers.tely
+
+@node Naming conventions
+@appendixsec Naming conventions
+
+Naming conventions are used so that it is easier to keep the
+nature of an object in mind.
+
+@c Superset of the table in the Learning Manual. --JeanAS
+@raggedright
+@multitable @columnfractions .33 .33 .33
+@headitem Object/property type
+  @tab Naming convention
+  @tab Examples
+@item Keywords
+  @tab @code{aaaa}
+  @tab @code{\score}, @code{\addlyrics}
+@item Music functions and shortcuts
+  @tab @code{aaaa} or @code{aaaaAaaaAaaa}
+  @tab @code{\time}, @code{\stemUp}
+@item Markup functions
+  @tab @code{aaaa} or @code{aaaa-aaaa-aaaa}
+  @tab @code{\bold}, @code{\with-dimensions}
+@item Paper variables
+  @tab @code{aaaa} or @code{aaaa-aaaa-aaaa}
+  @tab @code{indent}, @code{page-breaking}
+@item Music expressions
+  @tab @code{Aaaa} or @code{AaaaAaaaAaaa}
+  @tab @code{NoteEvent}, @code{SequentialMusic}
+@item Music classes
+  @tab @code{aaaa} or @code{aaaa-aaaa-aaaa}
+  @tab @code{note-event}, @code{rhythmic-event}
+@item Music properties
+  @tab @code{aaaa} or @code{aaaa-aaaa-aaaa}
+  @tab @code{force-accidental}, @code{iterator-ctor}
+@item Contexts
+  @tab @code{Aaaa} or @code{AaaaAaaaAaaa}
+  @tab @code{Staff}, @code{GrandStaff}
+@item Context properties
+  @tab @code{aaaa} or @code{aaaaAaaaAaaa}
+  @tab @code{stanza}, @code{instrumentName}
+@item Engravers
+  @tab @code{Aaaa_engraver} or @code{Aaaa_aaaa_aaaa_engraver}
+  @tab @code{Clef_engraver}, @code{Note_heads_engraver}
+@item Layout Objects
+  @tab @code{Aaaa} or @code{AaaaAaaaAaaa}
+  @tab @code{Slur}, @code{NoteHead}
+@item Layout Object Properties
+  @tab @code{aaa} or @code{aaa-aaa-aaa}
+  @tab @code{direction}, @code{beam-thickness}
+@item Interfaces
+  @tab @code{aaa-aaa-interface}
+  @tab @code{grob-interface}, @code{break-aligned-interface}
+@item Scheme functions defined in Guile
+  @tab @code{aaaa} or @code{aaaa-aaaa-aaaa}
+  @tab @code{map}, @code{for-each}
+@item Scheme functions defined in LilyPond
+  @tab @code{ly:aaaa} or @code{ly:aaaa-aaaa-aaaa} or
+  @code{aaaa} or @code{aaaa-aaaa-aaaa}
+  @footnote{For historical reasons, some but not all of the functions
+  defined by LilyPond start with the @code{ly:} prefix.}
+  @tab @code{ly:round-filled-box}, @code{music-map}
+@end multitable
+@end raggedright
 
 
 @node Predefined type predicates

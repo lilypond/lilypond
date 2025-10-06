@@ -1631,7 +1631,7 @@ de la partitura.
 Cuando las fuentes han sido instaladas y detectadas, se pueden
 seleccionar usando los métodos que se describen en
 @ref{Single entry fonts} y en
-@ref{Entire document fonts}.  Dado que
+@ref{Changing fonts}.  Dado que
 imprime la lista completa de las fuentes tipográficas disponibles
 en el archivo de registro de la consola, puede ser de utilidad la
 instrucción @code{#(ly:font-config-display-fonts)} para verificar
@@ -1812,7 +1812,7 @@ Aunque es fácil cambiar entre las fuentes tipográficas
 preconfiguradas, también es posible usar otras fuentes, como se
 explica en las siguientes secciones:
 @ref{Single entry fonts} y
-@ref{Entire document fonts}.
+@ref{Changing fonts}.
 
 @morerefs
 Referencia de la notación:
@@ -1866,7 +1866,7 @@ lilypond -dshow-available-fonts
 @morerefs
 Referencia de la notación:
 @ref{Fonts explained},
-@ref{Entire document fonts}.
+@ref{Changing fonts}.
 
 Fragmentos de código:
 @rlsr{Text}.
@@ -1876,8 +1876,8 @@ Fragmentos de código:
 @c @file{lily/font-config-scheme.cc}.
 
 
-@node Entire document fonts
-@unnumberedsubsubsec Fuentes tipográficas del documento completo
+@node Changing fonts
+@subsection Cambiar las fuentes tipográficas
 
 Se pueden cambiar las fuentes tipográficas que se usan como
 tipografías predeterminadas en las familias @emph{romana},

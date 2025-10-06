@@ -1885,7 +1885,7 @@ ligeramente en que debe ir seguida de una expresión musical:
 Todas las instrucciones descritas en esta sección, descansan en
 realidad en la propiedad interna @code{skipBars}, que se establece
 dentro del contexto de @code{Score} como se explica en
-@ref{The set command}.
+@ref{Set and unset}.
 
 @predefined
 @code{\compressEmptyMeasures},
@@ -1911,7 +1911,7 @@ dentro del contexto de @code{Score} como se explica en
 Referencia de la notación:
 @ref{Using break-visibility},
 @ref{Full measure rests},
-@ref{The set command}.
+@ref{Set and unset}.
 
 Referencia de funcionamiento interno:
 @rinternals{MultiMeasureRest},

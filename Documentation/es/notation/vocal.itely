@@ -3500,6 +3500,54 @@ Referencia de la notación:
 @ref{Formatting text}.
 
 
+@node Phrase bar lines in hymn tunes
+@subsection Phrase bar lines in hymn tunes
+
+@funindex \caesura
+@cindex bar line, in hymns
+@cindex caesura bar line, in hymns
+@cindex phrase bar line, in hymns
+
+The @code{\caesura} command can be configured to create phrase bar
+lines that interact well with other automatic bar lines
+(@pxref{Automatic bar lines}).
+
+In the following examples, the source code for the tune in
+@file{old-hundredth-example.ly} uses @code{\caesura} between
+poetic lines and @code{\fine} at the end.  There are no
+@code{\fermata} or @code{\bar} commands; those symbols appear in
+the output because of the caesura configuration.
+
+@cite{The Boston Handel and Haydn Society Collection of Church
+Music} (1830) has a thick bar after each phrase.  For this tune,
+it also has fermatas over the bar lines:
+
+@lilypond[verbatim,quote,line-width=158\mm]
+\layout {
+  \context {
+    \Score
+    caesuraType = #'((bar-line . ".")
+                     (scripts . (fermata)))
+    fineBarType = ".."
+  }
+}
+\include "old-hundredth-example.ly"
+@end lilypond
+
+J.S. James' @cite{Original Sacred Harp} (1911) has a thick bar
+when a line is broken in mid-measure at the end of a phrase.
+
+@lilypond[verbatim,quote,line-width=158\mm]
+\layout {
+  \context {
+    \Score
+    caesuraType = #'((underlying-bar-line . "x-."))
+    fineBarType = ".."
+  }
+}
+\include "old-hundredth-example.ly"
+@end lilypond
+
 @node Partial measures in hymn tunes
 @unnumberedsubsubsec Compases parciales en melodías de himno
 
