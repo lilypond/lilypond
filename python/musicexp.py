@@ -1418,6 +1418,7 @@ class ChordEvent(NestedMusic):
         self.after_grace_elements = None
         self.grace_elements = None
         self.grace_type = None
+        self.when = 0
 
     def append_grace(self, element):
         if element:

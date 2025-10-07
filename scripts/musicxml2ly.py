@@ -3663,6 +3663,7 @@ class LilyPondVoiceBuilder(musicexp.Base):
             skip.grace_skip = grace_skip
 
             evc = musicexp.ChordEvent()
+            evc.when = current_end
             evc.elements.append(skip)
             self.add_music(evc, diff, False)
 
@@ -4268,6 +4269,7 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
         ev_chord = voice_builder.last_event_chord(n._when)
         if not ev_chord:
             ev_chord = musicexp.ChordEvent()
+            ev_chord.when = n._when
             if voice_builder.multi_measure_count:
                 voice_builder.multi_measure_ev_chord = ev_chord
                 voice_builder.multi_measure_rest = main_event
