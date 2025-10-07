@@ -1418,7 +1418,9 @@ class ChordEvent(NestedMusic):
         self.after_grace_elements = None
         self.grace_elements = None
         self.grace_type = None
+        # For handling `<direction>` elements containing `<offset>`.
         self.when = 0
+        self.offset_elements = []
 
     def append_grace(self, element):
         if element:
@@ -1727,6 +1729,19 @@ class ChordEvent(NestedMusic):
 
         if staff_changes:
             staff_changes[0].print_ly(printer)
+
+        for (e, offset) in self.offset_elements:
+            dur = Duration.from_fraction(offset)
+            # Also take care of tuplet timing.
+            printer(r'\after %s '
+                    % dur.ly_expression(dur.factor
+                                        / printer.duration_factor()))
+            # Temporarily reset the offset so that the event's normal
+            # printing routine kicks in.
+            orig_offset = e.offset
+            e.offset = 0
+            e.print_ly(printer)
+            e.offset = orig_offset
 
         # Print all overrides and other settings for articulations or
         # ornaments that need to be inserted before the chord.
@@ -2085,6 +2100,10 @@ class BeamEvent(SpanEvent):
 
 
 class PedalEvent(SpanEvent):
+    def __init__(self):
+        SpanEvent.__init__(self)
+        self.offset = 0
+
     def wait_for_note(self):
         if self.span_direction == 1:
             return False
@@ -2099,6 +2118,9 @@ class PedalEvent(SpanEvent):
     # is not possible in general.  For this reason we ignore the `placement`
     # attribute.
     def ly_expression(self):
+        if self.offset:
+            return ''
+
         res = []
 
         color = color_to_ly(self.color)
@@ -2131,6 +2153,7 @@ class TextSpannerEvent(SpanEvent):
         self.start_stop = False  # for single-note spanners
         self.mxl_ornament = None
         self.accidental_marks = []  # for trill spanners
+        self.offset = 0
 
     def direction_mod(self):
         return {1: '^', -1: '_', 0: ''}.get(self.force_direction, '')
@@ -2286,6 +2309,9 @@ class TextSpannerEvent(SpanEvent):
         return ret
 
     def print_ly(self, printer):
+        if self.offset:
+            return ''
+
         (tweaks, val) = self.text_spanner_to_ly()
 
         if val:
@@ -2309,6 +2335,7 @@ class DynamicsSpannerEvent(SpanEvent):
         self.text_elements = None
         self.mxl_ornament = None
         self.type = None
+        self.offset = 0
 
     def wait_for_note(self):
         if self.span_direction == -1:
@@ -2356,6 +2383,9 @@ class DynamicsSpannerEvent(SpanEvent):
         return (tweaks, val)
 
     def print_ly(self, printer):
+        if self.offset:
+            return ''
+
         if self.span_direction == -1:
             (tweaks, val) = self.dynamics_spanner_to_ly()
             not_visible = super().not_visible()
@@ -2372,6 +2402,10 @@ class DynamicsSpannerEvent(SpanEvent):
 
 
 class BracketSpannerEvent(SpanEvent):
+    def __init__(self):
+        SpanEvent.__init__(self)
+        self.offset = 0
+
     # Ligature brackets use prefix notation for the start.
     def wait_for_note(self):
         if self.span_direction == -1:
@@ -2383,6 +2417,9 @@ class BracketSpannerEvent(SpanEvent):
         return {1: r'\]', -1: r'\['}.get(self.span_direction, '')
 
     def print_ly(self, printer):
+        if self.offset:
+            return ''
+
         val = self.bracket_to_ly()
         if val:
             if self.span_direction == -1:
@@ -2412,6 +2449,10 @@ class BracketSpannerEvent(SpanEvent):
 
 
 class OctaveShiftEvent(SpanEvent):
+    def __init__(self):
+        SpanEvent.__init__(self)
+        self.offset = 0  # Intentionally set to be always zero.
+
     def wait_for_note(self):
         if self.span_direction == 1 and get_ottavas_end_early() == 't':
             return True
@@ -2435,6 +2476,8 @@ class OctaveShiftEvent(SpanEvent):
         return value
 
     def ly_expression(self):
+        # Intentionally no code to handle `self.offset`.
+
         value = []
 
         dir = self.ly_octave_shift_indicator()
@@ -2507,7 +2550,9 @@ class TieEvent(Event):
 
 class HairpinEvent(SpanEvent):
     def __init__(self):
+        SpanEvent.__init__(self)
         self.to_barline = False
+        self.offset = 0
 
     def set_span_type(self, type):
         self.span_type = {'crescendo': 1,
@@ -2527,6 +2572,9 @@ class HairpinEvent(SpanEvent):
         return self.hairpin_to_ly()
 
     def print_ly(self, printer):
+        if self.offset:
+            return ''
+
         val = self.hairpin_to_ly()
         if val:
             if self.span_direction == -1:
@@ -2546,6 +2594,7 @@ class DynamicsEvent(Event):
         self.force_direction = 0
         self.font_size_scale = 1.0
         self.to_barline = False
+        self.offset = 0
 
     def wait_for_note(self):
         return True
@@ -2554,6 +2603,9 @@ class DynamicsEvent(Event):
         return {1: '^', -1: '_', 0: '-'}.get(self.force_direction, '-')
 
     def ly_expression(self):
+        if self.offset:
+            return ''
+
         res = []
         if self.type:
             # TODO: This is a temporary solution because LilyPond ignores a
@@ -2581,6 +2633,7 @@ class MarkEvent(Event):
         Event.__init__(self)
         self.text_elements = None
         self.force_direction = None
+        self.offset = 0
 
     def wait_for_note(self):
         return False
@@ -2593,6 +2646,9 @@ class MarkEvent(Event):
             return ''
 
     def print_ly(self, print):
+        if self.offset:
+            return ''
+
         dir = {1: '#UP',
                -1: '#DOWN'}.get(self.force_direction, '')
         if dir:
@@ -2605,6 +2661,7 @@ class TextMarkEvent(Event):
         Event.__init__(self)
         self.text_elements = None
         self.force_direction = None
+        self.offset = 0
 
     def wait_for_note(self):
         return False
@@ -2617,6 +2674,9 @@ class TextMarkEvent(Event):
             return ''
 
     def print_ly(self, print):
+        if self.offset:
+            return ''
+
         dir = {1: '#UP',
                -1: '#DOWN'}.get(self.force_direction, '')
         if dir:
@@ -2902,6 +2962,7 @@ class TextEvent(Event):
         self.text_elements = None
         self.force_direction = None
         self.to_barline = False
+        self.offset = 0
 
     def wait_for_note(self):
         r""" This is problematic: LilyPond markup like `^"text"` requires
@@ -2916,6 +2977,9 @@ class TextEvent(Event):
         return {1: '^', -1: '_', 0: '-'}.get(self.force_direction, '-')
 
     def ly_expression(self):
+        if self.offset:
+            return ''
+
         text_markup = text_to_ly(self.text_elements)
         if text_markup:
             # TODO: This is a temporary solution because text at the end of
@@ -3246,8 +3310,12 @@ class MarkupEvent(ShortArticulationEvent):
     def __init__(self):
         ArticulationEvent.__init__(self)
         self.contents = None
+        self.offset = 0
 
     def ly_expression(self):
+        if self.offset:
+            return ''
+
         res = []
         if self.contents:
             color = color_to_ly(self.color)
@@ -4362,6 +4430,7 @@ class TempoMark(Music):
         self.parentheses = False
         self.enclosure = None
         self.visible = True
+        self.offset = 0
 
     def wait_for_note(self):
         return False
@@ -4430,6 +4499,9 @@ class TempoMark(Music):
         return text_to_ly(text_elements, r'\normal-text')
 
     def print_ly(self, printer):
+        if self.offset:
+            return ''
+
         dir = {-1: '#DOWN',
                1: '#UP'}.get(self.force_direction, '')
         if dir:
