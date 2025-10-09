@@ -50,6 +50,16 @@ def minidom_demarshal_text_to_int(node):
     return int(text)
 
 
+def minidom_demarshal_text_to_force_int(node):
+    text = ''.join([n.data for n in node.childNodes
+                    if n.nodeType == node.TEXT_NODE])
+    try:
+        return int(text)
+    except ValueError:
+        pass
+    return int(float(text))
+
+
 def minidom_demarshal_text_to_int_or_float(node):
     text = ''.join([n.data for n in node.childNodes
                     if n.nodeType == node.TEXT_NODE])
@@ -453,11 +463,15 @@ class Credit(Xml_node):
 
 
 class Duration(Music_xml_node):
-    minidom_demarshal_to_value = minidom_demarshal_text_to_int
+    # While non-integer values are technically allowed, we don't support
+    # them (using only integers is also recommended by the specification).
+    minidom_demarshal_to_value = minidom_demarshal_text_to_force_int
 
 
 class Offset(Music_xml_node):
-    minidom_demarshal_to_value = minidom_demarshal_text_to_int
+    # As with `<duration>`, values are recommended to be integers.  However,
+    # non-integer values have been seen in the wild.
+    minidom_demarshal_to_value = minidom_demarshal_text_to_int_or_float
 
 
 class Hash_text(Music_xml_node):
@@ -1665,7 +1679,10 @@ class Part(Music_xml_node):
                     self.trace_slurs(n, slurs)
 
                 if 'offset' in n:
-                    n._offset = Fraction(n['offset'], 4) * factor
+                    # The standard recommends integers; however, non-integer
+                    # values have been seen in the wild.  We thus increase
+                    # the resolution by 4.
+                    n._offset = Fraction(int(n['offset'] * 4), 16) * factor
 
                 # Use main note duration for chord notes.
                 if dur > 0 and 'chord' in n:
