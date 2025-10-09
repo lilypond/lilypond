@@ -456,6 +456,10 @@ class Duration(Music_xml_node):
     minidom_demarshal_to_value = minidom_demarshal_text_to_int
 
 
+class Offset(Music_xml_node):
+    minidom_demarshal_to_value = minidom_demarshal_text_to_int
+
+
 class Hash_text(Music_xml_node):
     def dump(self, indent=''):
         ly.debug_output(self._data.strip())
@@ -1660,6 +1664,9 @@ class Part(Music_xml_node):
                 if 'notations' in n:
                     self.trace_slurs(n, slurs)
 
+                if 'offset' in n:
+                    n._offset = Fraction(n['offset'], 4) * factor
+
                 # Use main note duration for chord notes.
                 if dur > 0 and 'chord' in n:
                     now = last_moment
@@ -2085,16 +2092,13 @@ class Part(Music_xml_node):
 
                         # Condition (2).
                         if prev_staff == staff:
-                            prev_offset_elem = prev_n.get_named_child('offset')
                             prev_offset = 0
-                            if prev_offset_elem is not None:
-                                prev_offset = float(
-                                    prev_offset_elem.get_text())
+                            if 'offset' in prev_n:
+                                prev_offset = prev_n['offset']
 
-                            offset_elem = n.get_named_child('offset')
                             offset = 0
-                            if offset_elem is not None:
-                                offset = float(offset_elem.get_text())
+                            if 'offset' in n:
+                                offset = n['offset']
 
                             # Condition (3).
                             if prev_offset == offset:
@@ -2209,12 +2213,14 @@ class DirType(Music_xml_node):
 
 class Direction(Measure_element):
     max_occurs_by_child = {
+        'offset': 1,
         'staff': 1,
         'voice': 1,
     }
 
     def __init__(self):
         Measure_element.__init__(self)
+        self._offset = None
         # For chaining with another `<direction>` element.
         self.prev = None
         self.next = None
@@ -2268,8 +2274,13 @@ class Grace(Music_xml_node):
 
 class Harmony(Music_xml_node):
     max_occurs_by_child = {
+        'offset': 1,
         'staff': 1,
     }
+
+    def __init__(self):
+        Music_xml_node.__init__(self)
+        self._offset = None
 
 
 class Hash_comment(Music_xml_node):
@@ -2435,6 +2446,7 @@ class_dict = {
     'notehead': Notehead,
     'octave': Octave,
     'octave-shift': Octave_shift,
+    'offset': Offset,
     'ornaments': Ornaments,
     'part': Part,
     'part-group': Part_group,
