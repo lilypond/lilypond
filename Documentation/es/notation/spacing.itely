@@ -1083,6 +1083,9 @@ página 1 esté en el lado derecho.
 @node Miscellaneous paper variables
 @unnumberedsubsubsec Variables de @code{\paper} diversas
 
+@node paper variables concerning headers and markups
+@subsection @code{\paper} variables concerning headers and markups
+
 @table @code
 
 @item page-spacing-weight
