@@ -2935,10 +2935,10 @@ def musicxml_direction_to_lily(n):
         maybe_dashes_stop_index = None
         maybe_dynamics_spanner = None
 
-        n = i
+        nc = i
         state = 'words'
-        while n < num_children:
-            elem = dirtype_children[n]
+        while nc < num_children:
+            elem = dirtype_children[nc]
             name = elem.get_name()
 
             # We use `None` as the default so that we can check whether the
@@ -2960,7 +2960,7 @@ def musicxml_direction_to_lily(n):
                 if name == 'words':
                     pass
                 elif name == 'dynamics':
-                    n = maybe_dashes_stop_index + 1
+                    nc = maybe_dashes_stop_index + 1
                     break
                 else:
                     break
@@ -3029,7 +3029,7 @@ def musicxml_direction_to_lily(n):
                             state = 'dashes-start'
                     elif elem.type == 'stop':
                         state = 'dashes-stop'
-                        maybe_dashes_stop_index = n
+                        maybe_dashes_stop_index = nc
                         if elem.paired_with is not None:
                             paired = elem.paired_with.spanner_event
                             if type(paired) == musicexp.DynamicsSpannerEvent:  # nopep8
@@ -3046,7 +3046,7 @@ def musicxml_direction_to_lily(n):
                 needed_additional_definitions.append(enclosure)
 
             elements.append((elem, attributes.copy()))
-            n += 1
+            nc += 1
 
         if state == 'words':
             if directive:
@@ -3059,7 +3059,7 @@ def musicxml_direction_to_lily(n):
             if event:
                 event.force_direction = dir
                 res.append(event)
-            i = n
+            i = nc
             continue
 
         # At this point, the `attributes` array is up to date since the
