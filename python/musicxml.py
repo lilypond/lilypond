@@ -2123,12 +2123,20 @@ class Part(Music_xml_node):
                                             '<direction> elements'))
                                 offset += 1  # Arbitrary choice.
 
-                            if prev_offset > offset:
-                                n.next = prev_n
-                                prev_n.prev = n
-                            else:
-                                prev_n.next = n
-                                n.prev = prev_n
+                            # If the two elements aren't wedges, 'chain'
+                            # them, and make the element's offset on the
+                            # right equal to the one on the left so that
+                            # LilyPond uses the same moment for both.
+                            if (not (prev_first_child.get_name() == 'wedge'
+                                     and first_child.get_name() == 'wedge')):
+                                if prev_offset > offset:
+                                    n.next = prev_n
+                                    prev_n.prev = n
+                                    prev_n._offset = n._offset
+                                else:
+                                    prev_n.next = n
+                                    n.prev = prev_n
+                                    n._offset = prev_n._offset
 
                 if n.voice_id:
                     voices[n.voice_id].add_element(n)

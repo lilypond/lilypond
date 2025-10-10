@@ -3065,6 +3065,14 @@ def musicxml_direction_to_lily(n):
         if elements:
             event = state_dict[state](elements)
             if event:
+                try:
+                    # Get correct values for 'chained' `<direction>`
+                    # elements.
+                    event.offset = event.mxl_event._parent._parent._offset
+                except AttributeError:
+                    event.offset = n._offset
+                if event.offset is not None:
+                    event.offset += n._when
                 event.force_direction = dir
                 res.append(event)
             i = nc
@@ -3077,6 +3085,16 @@ def musicxml_direction_to_lily(n):
             event = musicxml_spanner_to_lily_event(entry)
             # TODO: Use `attributes`.
             if event:
+                # Don't apply `<offset>` to ottavation, which is always tied
+                # to a note (or rest).  Consequently, a horizontal shift is
+                # just a layout correction, which we ignore.
+                if not isinstance(event, musicexp.OctaveShiftEvent):
+                    try:
+                        event.offset = event.mxl_event._parent._parent._offset
+                    except AttributeError:
+                        event.offset = n._offset
+                    if event.offset is not None:
+                        event.offset += n._when
                 if event.span_direction == -1:
                     event.force_direction = dir
                 res.append(event)
@@ -3090,6 +3108,12 @@ def musicxml_direction_to_lily(n):
             event = dir_type_func(entry)
             # TODO: Use `attributes`.
             if event:
+                try:
+                    event.offset = event.mxl_event._parent._parent._offset
+                except AttributeError:
+                    event.offset = n._offset
+                if event.offset is not None:
+                    event.offset += n._when
                 event.force_direction = dir
                 res.append(event)
 
@@ -4148,7 +4172,11 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
                     pedal_is_line = new_pedal_is_line
 
                 for direction in musicxml_direction_to_lily(n):
-                    if direction.wait_for_note():
+                    # Don't wrap `<direction>` elements with a non-zero
+                    # `<offset>` child into a `ChordEvent` element.  We need
+                    # them in the main list so that function
+                    # `link_offset_elements` finds them easily.
+                    if direction.wait_for_note() and not direction.offset:
                         voice_builder.add_dynamics(direction)
                     else:
                         voice_builder.add_command(direction)
@@ -4736,6 +4764,16 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
     # written out.
     ce = musicexp.ChordEvent()
     voice_builder.add_music(ce, 0)
+
+    last_voice_elem = voice._elements[len(voice._elements) - 1]
+    music_length = last_voice_elem._when
+    if (hasattr(last_voice_elem, '_duration')
+            and last_voice_elem._duration is not None):
+        music_length += last_voice_elem._duration
+
+    voice_builder.link_offset_elements(music_length)
+    chordnames_builder.link_offset_elements(music_length)
+    fretboards_builder.link_offset_elements(music_length)
 
     ly_voice = group_tremolos(voice_builder.elements, tremolo_events)
     ly_voice = group_tuplets(ly_voice, tuplet_events)
