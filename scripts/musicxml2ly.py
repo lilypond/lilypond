@@ -3692,6 +3692,91 @@ class LilyPondVoiceBuilder(musicexp.Base):
             value = None
         return value
 
+    def find_chord_event_for_offset(self, dir_idx, dir_pos, music_length):
+        limit = len(self.elements) - 1  # Ignore last dummy `ChordEvent`.
+        i = dir_idx
+
+        # Get a start element for the search.
+        while i < limit:
+            if isinstance(self.elements[i], musicexp.ChordEvent):
+                break
+            i += 1
+        if i == limit:
+            i = dir_idx - 1
+            while i >= 0:
+                if isinstance(self.elements[i], musicexp.ChordEvent):
+                    break
+                i -= 1
+            if i == -1:
+                ly.warning(_('cannot apply <offset> '
+                             'because there are no notes or rests'))
+                return (None, 0)
+
+        # Find the `ChordEvent` element that has the smallest non-negative
+        # offset to the `<direction>` element with the applied `<offset>`
+        # value.
+        ce_idx = i
+        offset = dir_pos - self.elements[ce_idx].when
+
+        if offset < 0:
+            i = dir_idx - 1
+            while i >= 0:
+                if isinstance(self.elements[i], musicexp.ChordEvent):
+                    new_ce_idx = i
+                    new_offset = dir_pos - self.elements[i].when
+                    if new_offset >= 0:
+                        new_ce = self.elements[new_ce_idx]
+                        return ((new_ce, new_offset))
+                    ce_idx = new_ce_idx
+                    offset = new_offset
+                i -= 1
+
+            ly.warning(_('too large negative <offset> value; '
+                         'aligning to start of music instead'))
+            return(self.elements[ce_idx], 0)
+        else:
+            i = ce_idx + 1
+            while i < limit:
+                if isinstance(self.elements[i], musicexp.ChordEvent):
+                    new_ce_idx = i
+                    new_offset = dir_pos - self.elements[i].when
+                    if new_offset < 0:
+                        ce = self.elements[ce_idx]
+                        return ((ce, offset))
+                    ce_idx = new_ce_idx
+                    offset = new_offset
+                i += 1
+
+            ce = self.elements[ce_idx]
+            if ce.when + offset >= music_length:
+                ly.warning(_('too large <offset> value; '
+                             'aligning to almost the end of music instead'))
+                # We use 1/32 before the end of music as an ad-hoc value to
+                # position the `<direction>` element.
+                offset = music_length - ce.when - Fraction(1, 32)
+            return (ce, offset)
+
+    def link_offset_elements(self, music_length):
+        # Before calling this function, the `offset` field of a direction
+        # element contains (absolute) moments.  After calling, the field
+        # holds a positive time offset relative to the `ChordEvent` element
+        # to which the direction element gets added (in the
+        # `offset_elements` array).
+        for i, el in enumerate(self.elements):
+            try:
+                if not el.offset:
+                    continue
+            except AttributeError:
+                continue
+
+            # `<offset>` elements are infrequent, and if they occur, their
+            # values are small in the normal case.  We thus don't get
+            # quadratic behaviour in searching for the nearest `ChordEvent`
+            # element as implemented here.
+            (ce, offset) = \
+                self.find_chord_event_for_offset(i, el.offset, music_length)
+            ce.offset_elements.append((el, offset))
+
 
 class VoiceData:
     def __init__(self):
