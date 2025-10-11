@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+   Translation of GIT committish: 126af3d0c486475bc66ae306c28efb66c8205bd7
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2347,15 +2347,11 @@ signification est précisée.
 
 @smallindentedblock
 @raggedright
-@multitable {@code{\arpeggioArrowDown}} {@code{\arpeggioArrowUp}} {@code{\phrasingSlurNeutral}} {Arrow is at bottom, at top}
-@headitem Bas/Gauche
-  @tab Haut/Droite
+@multitable {@code{\phrasingSlurDown}} {@code{\phrasingSlurUp}}{@code{\phrasingSlurNeutral}} {Text entered as spanner is}
+@headitem Bas
+  @tab Haut
   @tab Annulation
   @tab Effet
-@item @code{\arpeggioArrowDown}
-  @tab @code{\arpeggioArrowUp}
-  @tab @code{\arpeggioNormal}
-  @tab Flèche en bas, en haut, ou pas de flèche
 @item @code{\dotsDown}
   @tab @code{\dotsUp}
   @tab @code{\dotsNeutral}
@@ -2393,12 +2389,12 @@ signification est précisée.
 @end raggedright
 @end smallindentedblock
 
-Les variantes @code{\@var{xxx}Neutral} et @code{\@var{xxx}Normal} de ces
-commandes sont implémentées à l'aide de @code{\revert} ; elles
-@strong{ne doivent pas} être précédées de @code{\once}. Pour limiter les
-effets des autres commandes prédéfinies (fonctionnant à base de
-@code{\override}) à une seule note, il faut les faire précéder d'un
-@code{\once}, comme pour toute dérogation.
+Les variantes @code{\@var{xxx}Neutral} de ces commandes sont
+implémentées à l'aide de @code{\revert} ; elles @strong{ne doivent pas}
+être précédées de @code{\once}. Pour limiter les effets des autres
+commandes prédéfinies (fonctionnant à base de @code{\override}) à une
+seule note, il faut les faire précéder d'un @code{\once}, comme pour
+toute dérogation.
 
 Dans le cas où un seul objet de rendu doit déroger à la règle, LilyPond
 dispose des indicateurs de positionnement @samp{^} et @samp{_} :

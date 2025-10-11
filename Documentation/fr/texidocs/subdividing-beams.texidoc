@@ -1,9 +1,9 @@
-%% Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+%% Translation of GIT committish: 126af3d0c486475bc66ae306c28efb66c8205bd7
   texidocfr = "
-Les ligatures d'une succession de notes de durée inférieure à la double
-croche ne sont pas subdivisées par défaut. Autrement dit, tous les
-traits de ligature (deux ou plus) seront continus. Ce comportement peut
-être modifié afin de diviser la ligature en sous-groupes grâce à la
+Les ligatures d'une succession de notes de durée inférieure ou égale à
+la double croche ne sont pas subdivisées par défaut. Autrement dit, tous
+les traits de ligature (deux ou plus) seront continus. Ce comportement
+peut être modifié afin de diviser la ligature en sous-groupes grâce à la
 propriété @code{subdivideBeams}. Lorsqu'elle est activée, un certain
 nombre de traits de ligature entre deux hampes est supprimé à des
 intervalles correspondant à la durée de sous-groupe souhaitée.
@@ -12,22 +12,33 @@ Les propriétés @code{beamMinimumSubdivision} et
 @code{beamMaximumSubdivision} permettent de configurer les
 limites de la subdivision automatique des ligatures : l'intervalle
 rythmique minimum auquel subdiviser et le nombre de tronçons supprimés
-selon cet intervalle. Lorsque le nombre fourni en numérateur à
-@code{beamMaximumSubdivision} n'est pas une puissance de 2, la
-plus petite durée pour subdiviser sera de
-@code{beamMaximumSubdivision} divisé par une puissance de 2 tout
-en restant supérieur ou égal à @code{beamMinimumSubdivision}.
-Dès lors que @code{beamMaximumSubdivision} est inférieur à
-@code{beamMinimumSubdivision}, la profondeur de subdivision se
-limite à @code{beamMaximumSubdivision} mais pas la fréquence ou
-l'intervalle, ce qui peut dévier de la valeur métrique à laquelle on est
-en droit de s'attendre.
+selon cet intervalle. Leur valeur par défaut est respectivement
+de @code{0} et @code{+inf.0}, ce qui demandera à LilyPond de subdiviser
+le plus possible.
 
-Lorsque la propriété @code{respectIncompletBeams} est activée, la
-profondeur de la subdivision (le nombre de traits de ligature)
-correspond à la durée la plus longue de sous-groupe possible à partir de
-la hampe considérée. Les deux dernières hampes de la ligature sont
-toutefois exclues de cette règle.
+Certains cas particulier doivent être pris en considération.
+
+@itemize
+@item
+Lorsque le nombre fourni en numérateur à @code{beamMaximumSubdivision}
+n'est pas une puissance de 2, la plus petite durée pour subdiviser sera
+de @code{beamMaximumSubdivision} divisé par une puissance de 2 tout en
+restant supérieur ou égal à @code{beamMinimumSubdivision}.
+
+@item
+Dès lors que @code{beamMaximumSubdivision} est inférieur à
+@code{beamMinimumSubdivision}, la profondeur de subdivision se limite à
+@code{beamMaximumSubdivision} mais pas la fréquence ou l'intervalle, ce
+qui peut dévier de la valeur métrique à laquelle on est en droit de
+s'attendre.
+@end itemize
+
+Lorsque la propriété @code{respectIncompletBeams} est activée, les
+subdivisions incomplètes à plus de deux hampes sont considérées comme
+« extension » du sous-groupe précédent, autrement dit, le groupe de
+subdivision précédente sera étendu pour couvrir aussi la subdivision
+incomplète. Lorsqu'elle est désactivée, ce qui est le cas par défaut,
+une nouvelle subdivision est alors entamée.
 "
 
   doctitlefr = "Subdivision des ligatures"
