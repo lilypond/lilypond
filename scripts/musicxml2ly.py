@@ -5387,6 +5387,9 @@ def convert(filename, options):
     parts = tree.get_typed_children(musicxml.Part)
     (voices, staff_info) = get_all_voices(parts)
 
+    if musicxml.have_stem_directions:
+        needed_additional_definitions.append('stem-directions')
+
     score = None
     mxl_pl = tree.get_maybe_exist_typed_child(musicxml.Part_list)
     if mxl_pl:

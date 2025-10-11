@@ -3404,8 +3404,8 @@ class StemEvent(Event):
         self.is_stemlet = False
 
     stem_value_dict = {
-        'down': r'\once \stemDown',
-        'up': r'\once \stemUp',
+        'down': r'\D',
+        'up': r'\U',
         'double': None,  # TODO: Implement
         'none': r'\tweak Stem.transparent ##t'
     }

@@ -41,6 +41,8 @@ from dllist import dllist
 starting_grace_lengths = {}
 max_starting_grace_length = 0
 
+have_stem_directions = False
+
 
 def minidom_demarshal_text_to_int(node):
     text = ''.join([n.data for n in node.childNodes
@@ -822,6 +824,9 @@ class Stem(Music_xml_node):
         # Only catch 'up' and 'down' with the command-line option.
         if convert_stem_directions or value == 'none':
             event.value = value
+            if value == 'down' or value == 'up':
+                global have_stem_directions
+                have_stem_directions = True
 
         if (event.value is not None
                 or event.color is not None

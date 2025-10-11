@@ -515,4 +515,9 @@ forBarLine =
   \\caesura
 }
 """,
+
+    "stem-directions": """\
+D = \\tweak Stem.direction #DOWN \\etc
+U = \\tweak Stem.direction #UP \\etc
+""",
 }
