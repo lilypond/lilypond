@@ -420,7 +420,7 @@ interrogación@tie{}@code{?} después del nombre de la nota.
 @cindex alteración en nota ligada
 @cindex ligadura, alteraciones y
 
-Las alteraciones sobre notas unidas por ligadura sólo se imprimen
+Las alteraciones sobre notas unidas por ligadura solo se imprimen
 al comienzo de un sistema:
 
 @lilypond[verbatim,quote,fragment,ragged-right]
@@ -1820,7 +1820,7 @@ en los dos pentagramas.
 Es el comportamiento de composición tipográfica predeterminado.
 Corresponde a la práctica común del s. XVIII: las alteraciones
 accidentales se recuerdan hasta el final del compás en el que
-aparecen y sólo en la misma octava.  Así, en el ejemplo siguiente,
+aparecen y solo en la misma octava.  Así, en el ejemplo siguiente,
 no se imprimen becuadros antes del Si natural en el segundo compás
 ni en el último Do:
 
@@ -1891,7 +1891,7 @@ Como resultado, las alteraciones de una voz no se cancelan en las
 otras voces, lo que con frecuencia lleva a un resultado no
 deseado: en el ejemplo siguiente, es difícil determinar si el
 segundo La se debe tocar natural o sostenido.  Por tanto, la
-opción @code{voice} se debe usar sólo si las voces se van a leer
+opción @code{voice} se debe usar solo si las voces se van a leer
 individualmente por músicos distintos.  Si el pentagrama va a
 utilizarse por parte de un solo músico (p.ej., un director, o en
 una partitura de piano), entonces se deben usar en su lugar los
@@ -2927,7 +2927,7 @@ musicB = {
 @funindex no-reset
 
 Es el mismo que @code{default} pero con alteraciones que duran
-@q{para siempre} y no sólo dentro del mismo compás:
+@q{para siempre} y no solo dentro del mismo compás:
 
 @lilypond[quote]
 musicA = {
@@ -3057,7 +3057,7 @@ Referencia de funcionamiento interno:
 
 @knownissues
 Las notas simultáneas no se tienen en cuenta para la determinación
-automática de las alteraciones accidentales; sólo se consideran
+automática de las alteraciones accidentales; solo se consideran
 las notas anteriores y la armadura de la tonalidad.  Puede ser
 necesario forzar las alteraciones accidentales con
 with@tie{}@code{!} o@tie{}@code{?} cuando la misma nota, con el
@@ -3211,7 +3211,7 @@ facilidad si cumplen con sus propias posibilidades.
 
 Los ámbitos se presentan al comienzo de la pieza junto a la clave
 inicial.  El rango se especifica gráficamente mediante dos cabezas
-de nota que representan a las notas inferior y superior.  Sólo se
+de nota que representan a las notas inferior y superior.  Solo se
 imprimen alteraciones si no forman parte de la armadura de la
 tonalidad.
 

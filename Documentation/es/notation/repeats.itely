@@ -23,7 +23,7 @@ siguientes tipos de repetición:
 La repetición de la música no se imprime de forma desarrollada,
 sino que se indica encerrándola entre barras de repetición.  Si el
 salto de la repetición se encuentra al comienzo de una pieza, la
-barra de repetición sólo se imprime al final del fragmento.  Se
+barra de repetición solo se imprime al final del fragmento.  Se
 imprimen una serie de finales alternativos (volte) de izquierda a
 derecha indicados mediante corchetes.  Ésta es la notación
 estándar para las repeticiones con finales alternativos.
@@ -384,7 +384,7 @@ Referencia de funcionamiento interno:
 @cindex repetición, y glissando
 
 Las ligaduras de expresión que abarcan desde un bloque
-@code{\repeat} hasta un bloque @code{\alternative} sólo funcionan
+@code{\repeat} hasta un bloque @code{\alternative} solo funcionan
 para la casilla de primera vez.  La apariencia visual de una
 ligadura de expresión que se continúa introduciéndose en otras
 casillas de repetición puede simularse con @code{\repeatTie} si la
@@ -447,7 +447,7 @@ situaciones.
 @funindex repeatCommands
 @funindex start-repeat
 
-@warning{Estos métodos sólo se utilizan para realizar
+@warning{Estos métodos solo se utilizan para realizar
 construcciones de repetición poco usuales, y pueden tener un
 comportamiento distinto al esperado.  En casi todas las
 situaciones, se deben crear las repeticiones utilizando la

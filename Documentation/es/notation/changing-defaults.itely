@@ -2959,10 +2959,9 @@ para @code{padding} y @code{minimum-distance} (definidos en
 predeterminados si no se han fijado (cero para las dos claves).
 La definición de una propiedad o variable como una lista-A (de
 cualquier tamaño) siempre reinicia todos los valores de clave no
-establecidos a sus valores predeterminados si no se han fijado.
-Ano ser que este sea el resultado deseado, es más seguro
-actualizar los valores de clave individualmente con una
-declaración anidada.
+establecidos a sus valores predeterminados si no se han fijado.  A
+no ser que este sea el resultado deseado, es más seguro actualizar
+los valores de clave individualmente con una declaración anidada.
 
 @warning{Las declaraciones anidadas no funcionan para las listas-A
 de propiedades de contexto (como @code{beamExceptions},

@@ -417,7 +417,7 @@ firstHarmonic = {
 
 Observe que la instrucción @code{\harmonic} se debe adjuntar
 siempre a notas individuales (posiblemente dentro de un acorde) en
-lugar de a acordes completos. Sólo tiene sentido para armónicos
+lugar de a acordes completos. Solo tiene sentido para armónicos
 sobre una cuerda abierta en el duodécimo traste.  Cualquier otro
 armónico debe estar calculado por parte de LilyPond.  Se puede
 conseguir esto indicando el traste en que debe rozar la cuerda el
@@ -1476,7 +1476,7 @@ Los diagramas de traste predefinidos están en el archivo
 se almacenan tomando como base las notas de un acorde y el valor
 de @code{stringTunings} que se está utilizando en cada momento.
 @file{predefined-@/guitar-@/fretboards.ly} contiene diagramas de
-traste predefinidos sólo para @code{guitar-@/tuning}.  Los diagramas
+traste predefinidos solo para @code{guitar-@/tuning}.  Los diagramas
 de traste predefinidos se pueden añadir para otros instrumentos u
 otras afinaciones siguiendo los ejemplos que aparecen en
 @file{predefined-@/guitar-@/fretboards.ly}.
@@ -1857,7 +1857,7 @@ el cálculo automático con instrucciones predefinidas:
 A veces el calculador de trastes es incapaz de encontrar un
 diagrama aceptable.  Esto se puede remediar generalmente mediante
 la asignación manual de una nota a una cuerda.  En muchos casos
-sólo hay que colocar manualmente una nota sobre una cuerda; el
+solo hay que colocar manualmente una nota sobre una cuerda; el
 resto de las notas se situará en el lugar adecuado por parte del
 contexto @code{FretBoards}.
 
@@ -2011,7 +2011,7 @@ guitarra están suficientemente cubiertos en la sección general
 sobre ajustes de instrumentos de trastes, pero hay algunos más de
 los que merece la pena hablar aquí.  De forma ocasional, los
 usuarios quieren crear documentos del tipo de cancioneros que
-tengan sólo la letra de las canciones con indicaciones de acordes
+tengan solo la letra de las canciones con indicaciones de acordes
 sobre ella.  Dado que LilyPond es un tipografiador de música, no
 se recomienda para documentos que no tienen notación musical.  Una
 alternativa mejor es un procesador de texto, editor de texto o,

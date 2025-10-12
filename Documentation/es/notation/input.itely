@@ -1447,22 +1447,22 @@ Aquí aparece una lista de todos los procedimientos predefinidos
 disponibles para su uso con @code{\if} y @code{\unless}.
 
 @indentedblock
-@multitable {@code{\should-print-page-numbers-global}} {Es la primera página en la parte de libro?}
+@multitable {@code{\should-print-page-numbers-global}} {¿Es la primera página en la parte de libro?}
 
 @headitem Sintaxis                     @tab  Condición que se comprueba
-@item @code{\on-first-page}            @tab  Es la primera página del libro?
-@item @code{\on-last-page}             @tab  Es la última página del libro?
-@item @code{\on-first-page-of-part}    @tab  Es la primera página en la parte de libro?
-@item @code{\on-last-page-of-part}     @tab  Es la última página en la parte de libro?
-@item @code{\on-page @var{n}}          @tab  Está en la página número @var{n}?
-@item @code{\single-page}              @tab  El libro entero cabe en una sola página?
-@item @code{\should-print-page-numbers-global} @tab Imprimir números de página en el libro?
+@item @code{\on-first-page}            @tab  ¿Es la primera página del libro?
+@item @code{\on-last-page}             @tab  ¿Es la última página del libro?
+@item @code{\on-first-page-of-part}    @tab  ¿Es la primera página en la parte de libro?
+@item @code{\on-last-page-of-part}     @tab  ¿Es la última página en la parte de libro?
+@item @code{\on-page @var{n}}          @tab  ¿Está en la página número @var{n}?
+@item @code{\single-page}              @tab  ¿El libro entero cabe en una sola página?
+@item @code{\should-print-page-numbers-global} @tab ¿Imprimir números de página en el libro?
   @footnote{@code{\should-@/print-@/page-@/numbers-@/global} puede ser diferente de
   @code{\should-@/print-@/page-@/number} para la primera página dentro del libro,
   dependiento del valor de @code{print-@/first-@/page-@/number} del bloque
   @code{\paper}.}
-@item @code{\should-print-page-number} @tab Imprimir el número de la página actual?
-@item @code{\should-print-all-headers} @tab Es @code{print-all-headers} verdadero?
+@item @code{\should-print-page-number} @tab ¿Imprimir el número de la página actual?
+@item @code{\should-print-all-headers} @tab ¿Es @code{print-all-headers} verdadero?
 
 @end multitable
 @end indentedblock

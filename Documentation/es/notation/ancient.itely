@@ -146,7 +146,7 @@ que difieren del estilo predeterminado solamente en ciertos
 detalles: algunas cabezas de nota (Baroque) y el silencio de negra
 (classical).
 
-Sólo el estilo mensural tiene alternativas para todos los aspectos
+Solo el estilo mensural tiene alternativas para todos los aspectos
 de la notación.  Así, no existen silencios ni corchetes en los
 estilos gregorianos, pues estos símbolos no se usan en la notación
 del canto llano, y el estilo Petrucci no posee corchetes ni
@@ -226,7 +226,7 @@ recto sobre la ligadura:
 @end lilypond
 
 Están disponibles otros tres estilos de ligaduras: el @q{Vaticana} para
-canto gregoriano, el @q{Mensural} para música mensural (sólo están
+canto gregoriano, el @q{Mensural} para música mensural (solo están
 contempladas las ligaduras mensurales blancas para la música
 mensural, y con ciertas limitaciones), y @q{Kievan} para los melismas del canto kievano.  Para usar cualquiera de
 estos estilos, se debe sustituir el grabador predeterminado
@@ -285,7 +285,7 @@ línea siguiente, ayudando al intérprete con los saltos de línea
 durante la ejecución.
 
 Las custodias se utilizaron mucho en la notación musical hasta el
-siglo XVII.  En nuestros días, sobreviven sólo en algunas formas
+siglo XVII.  En nuestros días, sobreviven solo en algunas formas
 particulares de notación musical como las ediciones contemporáneas
 de canto gregoriano como la @emph{Editio Vaticana}.  Hay distintos
 glifos para el custos que se utilizan en las diferentes
@@ -718,7 +718,7 @@ Referencia de la notación:
 
 Utilice la propiedad @code{style} del elemento gráfico
 @code{Flag} para seleccionar los corchetes de estilo antiguo.
-Aparte del estilo de corchete por defecto @code{default}, sólo
+Aparte del estilo de corchete por defecto @code{default}, solo
 está contemplado el estilo @code{mensural}
 
 @lilypond[quote,fragment,ragged-right,verbatim]
@@ -1346,7 +1346,7 @@ que indica la estructura de la música gregoriana en frases y
 secciones.  El significado musical de @emph{divisio minima},
 @emph{divisio maior} y @emph{divisio maxima} se podrían
 caracterizar como una pausa corta, media y larga
-(respectivamente).  El signo de @emph{finalis} no sólo
+(respectivamente).  El signo de @emph{finalis} no solo
 marca el final de un canto, sino que se usa también con frecuencia
 dentro de un único canto antifonal o responsorial para marcar el
 final de cada una de las secciones.
@@ -1645,7 +1645,7 @@ uno de los generadores de dirección @code{\descendens} o
 
 Hay una tercera categoría de símbolos que se hace a partir de un
 pequeño número de símbolos que tienen un significado especial
-(que, por cierto, casi siempre se conocen sólo vagamente): el
+(que, por cierto, casi siempre se conocen solo vagamente): el
 @emph{quilisma}, el @emph{oriscus} y el @emph{strophicus}.  Todos
 ellos se producen anteponiendo al nombre de la nota el modificador
 correspondiente, @code{\quilisma}, @code{\oriscus} o
@@ -1679,7 +1679,7 @@ Además de los símbolos de nota, LilyPond define también las instrucciones @co
 @code{\IIJ}, que producen los caracteres correspondientes,
 p.ej. para utilizarlos en la letra, como marcas de sección, etc.
 Estas instrucciones utilizan caracteres de Unicode especiales y
-sólo funcionan si se usa una fuente tipográfica que los contemple.
+solo funcionan si se usa una fuente tipográfica que los contemple.
 
 @c neume table
 

@@ -856,7 +856,7 @@ sfzp = #(make-dynamic-script "sfzp")
 @end lilypond
 
 En general @code{make-dynamic-script} toma cualquier objeto de
-marcado como argumento.  La fuente tipográfica de matices sólo
+marcado como argumento.  La fuente tipográfica de matices solo
 contiene los caracteres @code{f}, @code{m}, @code{p}, @code{r}, @code{s}, @code{z} y @code{n}; por lo que si se desea obtener una indicación dinámica que incluya texto normal o signos de puntuación, es necesario utilizar instrucciones
 de marcado que devuelvan los ajustes de la familia de fuente
 tipográfica y su codificación a las del texto normal, por ejemplo

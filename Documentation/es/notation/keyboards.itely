@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 7930d8777ef2142c5189a5b9d8c8a163dff24529
+    Translation of GIT committish: b22569ea33c9c9a6a26e17624d79449bffa81b22
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -11,7 +11,7 @@
 @c \version "2.21.0"
 
 @node Keyboard and other multi-staff instruments
-@section Teclados y otros instrumentos de varios pentagramas
+@chapter Teclados y otros instrumentos de varios pentagramas
 
 @lilypondfile[quote]{snippets/keyboard-headword.ly}
 
@@ -25,14 +25,14 @@ ellos no tienen teclado.
 
 
 @node Common notation for keyboards
-@subsection Notación común para instrumentos de teclado
+@section Notación común para instrumentos de teclado
 
 Esta sección trata aspectos de notación que pueden aparecer en
 casi todos los instrumentos de teclado.
 
 
 @node References for keyboards
-@unnumberedsubsubsec Referencias para teclados
+@subsection Referencias para teclados
 
 @cindex piano, pentagramas de
 @cindex pentagrama, de piano
@@ -125,10 +125,11 @@ Referencia de funcionamiento interno:
 
 Fragmentos de código:
 @rlsr{Keyboards}.
+@endmorerefs
 
 
 @node Changing staff manually
-@unnumberedsubsubsec Cambiar de pentagrama manualmente
+@subsection Cambiar de pentagrama manualmente
 
 @cindex manual, cambio de pentagrama
 @cindex pentagrama, cambios manuales de
@@ -220,7 +221,7 @@ voces se cruzan de un pentagrama a otro:
   \new Staff = "up" {
     \voiceOne
     % Make space for fingering in the cross-staff voice
-    \once\override DynamicLineSpanner.staff-padding = #4
+    \once\override DynamicLineSpanner.staff-padding = 4
     e''2\p\< d''\>
     c''1\!
   }
@@ -264,6 +265,7 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{Beam},
 @rinternals{ContextChange}.
+@endmorerefs
 
 @knownissues
 El mecanismo para evitar las colisiones de barras de corchea no
@@ -272,7 +274,7 @@ un cambio de pauta.  En este caso, utilice barras manuales.
 
 
 @node Changing staff automatically
-@unnumberedsubsubsec Cambiar de pentagrama automáticamente
+@subsection Cambiar de pentagrama automáticamente
 
 @cindex cambio automático de pentagrama
 @cindex automático, cambio de pentagrama
@@ -370,6 +372,8 @@ Referencia de la notación:
 
 Fragmentos de código:
 @rlsr{Keyboards}.
+@endmorerefs
+
 
 @knownissues
 @cindex acorde, división entre pentagramas con @code{\autoChange}
@@ -384,7 +388,7 @@ construcción del acorde.
 
 
 @node Staff-change lines
-@unnumberedsubsubsec Líneas de cambio de pentagrama
+@subsection Líneas de cambio de pentagrama
 
 @cindex seguimiento de voz
 @cindex pentagrama, cambio
@@ -458,6 +462,7 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{Note_head_line_engraver},
 @rinternals{VoiceFollower}.
+@endmorerefs
 
 
 @snippets
@@ -478,11 +483,6 @@ Referencia de funcionamiento interno:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/cross-staff-stems.ly}
 
-Por el momento no se puede especificar este grabador por su nombre
-entre comillas, sino prefijando el nombre con un símbolo de
-almohadilla (@code{#}), a causa de la manera en que está
-implementado.
-
 @cindex cruzado, pentagrama, corchete de arpegio
 @cindex arpegio, corchete de pentagrama cruzado
 @cindex corchete, de pentagrama cruzado
@@ -496,17 +496,18 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{Stem}.
+@endmorerefs
 
 
 @node Piano
-@subsection Piano
+@section Piano
 
 Esta sección trata de aspectos de la notación directamente
 relacionados con el piano.
 
 
 @node Piano pedals
-@unnumberedsubsubsec Pedales de piano
+@subsection Pedales de piano
 
 @cindex piano, pedales de
 @cindex pedal, de piano
@@ -555,9 +556,6 @@ encuentran también en el vibráfono y en la celesta.
 @cindex mantenimiento, pedal, estilo de
 
 @funindex pedalSustainStyle
-@funindex mixed
-@funindex @sortas{bracketA} bracket
-@funindex text
 
 Existen tres estilos de indicaciones de pedal: textual, corchete y
 mixta.  El pedal derecho y el pedal de una corda utilizan el
@@ -605,10 +603,11 @@ Referencia de funcionamiento interno:
 @rinternals{UnaCordaEvent},
 @rinternals{PianoPedalBracket},
 @rinternals{Piano_pedal_engraver}.
+@endmorerefs
 
 
 @node Accordion
-@subsection Acordeón
+@section Acordeón
 
 @cindex acordeón
 
@@ -617,7 +616,7 @@ acordeón.
 
 
 @node Discant symbols
-@unnumberedsubsubsec Símbolos de Discanto
+@subsection Símbolos de Discanto
 
 @cindex acordeón, signo de discanto
 @cindex discanto, signo de, del acordeón
@@ -649,16 +648,17 @@ disponibles en
 @morerefs
 Fragmentos de código:
 @rlsr{Keyboards}.
+@endmorerefs
 
 
 @node Harp
-@subsection Arpa
+@section Arpa
 
 Esta sección trata sobre asuntos de notación específicos del arpa.
 
 
 @node References for harps
-@unnumberedsubsubsec Referencias para notación de arpa
+@subsection Referencias para notación de arpa
 @cindex arpa
 @cindex bisbiglando
 
@@ -687,10 +687,11 @@ Referencia de la notación:
 @ref{Glissando},
 @ref{Arpeggio},
 @ref{Harmonics}.
+@endmorerefs
 
 
 @node Harp pedals
-@unnumberedsubsubsec Pedales de arpa
+@subsection Pedales de arpa
 
 @cindex arpa, pedal
 @cindex arpa, diagrama de pedal
@@ -714,6 +715,8 @@ c''!1_\markup \concat \vcenter {
   [ C \natural ] }
 @end lilypond
 
+@funindex \harp-pedal
+
 o mediante diagramas de pedal:
 
 @lilypond[quote,verbatim,fragment]
@@ -733,3 +736,4 @@ símbolo de pedal se rodea por una elipse.
 Referencia de la notación:
 @ref{Text scripts},
 @ref{Instrument-specific markup}.
+@endmorerefs
