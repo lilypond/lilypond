@@ -1,22 +1,22 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 663181a3779d50a01212ef3091a03a7b9a714308
+    Translation of GIT committish: b22569ea33c9c9a6a26e17624d79449bffa81b22
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.2"
+@c \version "2.17.30"
 
 @need 1500
 @node Percussion
-@section Percusión
+@chapter Percusión
 
 
 @node Common notation for percussion
-@subsection Notación común para percusión
+@section Notación común para percusión
 
 La notación rítmica se emplea primordialmente para la percusión y
 la batería, pero también se puede utilizar para mostrar los
@@ -24,7 +24,7 @@ valores rítmicos una melodía.
 
 
 @node References for percussion
-@unnumberedsubsubsec Referencias para percusión
+@subsection Referencias para percusión
 
 @c TODO add more references.
 
@@ -50,10 +50,11 @@ Referencia de la notación:
 
 Fragmentos de código:
 @rlsr{Percussion}.
+@endmorerefs
 
 
 @node Basic percussion notation
-@unnumberedsubsubsec Notación básica de percusión
+@subsection Notación básica de percusión
 
 @cindex percusión
 @cindex batería
@@ -119,10 +120,11 @@ Archivos de inicio:
 
 Fragmentos de código:
 @rlsr{Percussion}.
+@endmorerefs
 
 
 @node Drum rolls
-@unnumberedsubsubsec Redobles
+@subsection Redobles
 
 Los redobles se indican mediante tres barras cruzadas en la plica.
 Para las negras o notas más largas, las tres barras se muestran
@@ -164,10 +166,11 @@ Referencia de la notación:
 
 Fragmentos de código:
 @rlsr{Percussion}.
+@endmorerefs
 
 
 @node Pitched percussion
-@unnumberedsubsubsec Percusión afinada
+@subsection Percusión afinada
 
 Ciertos instrumentos de percusión de altura determinada (p.ej.: el
 xilófono, el vibráfono y los timbales) se escriben usando
@@ -180,10 +183,11 @@ Referencia de la notación:
 
 Fragmentos de código:
 @rlsr{Percussion}.
+@endmorerefs
 
 
 @node Percussion staves
-@unnumberedsubsubsec Pautas de percusión
+@subsection Pautas de percusión
 
 @cindex percusión
 @cindex batería
@@ -234,13 +238,17 @@ han predefinido las siguientes variables:
 Es la opción por defecto.  Se usa para tipografiar una batería
 típica sobre pentagrama:
 
-@lilypond[quote,line-width=10.0\cm]
+@lilypond[quote,line-width=12.0\cm]
 nam = \lyricmode {
-  cymc cyms cymr hh hhc hho hhho hhp
-  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl }
+  cymc cyms cymr
+  hh hhc hho hhho hhp hhs
+  cb hc bd sn ss
+  tomh tommh tomml toml tomfh tomfl }
 mus = \drummode {
-  cymc cyms cymr hh hhc hho hhho hhp \break
-  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl s16 }
+  cymc cyms cymr \break
+  hh hhc hho hhho hhp hhs \break
+  cb hc bd sn ss \break
+  tomh tommh tomml toml tomfh tomfl }
 \score {
   << \new DrumStaff \with {
        \remove Bar_engraver
@@ -254,7 +262,8 @@ mus = \drummode {
     \context {
       \Score
       \override LyricText.font-family = #'typewriter
-      \override BarNumber.transparent =##T
+      \override LyricText.font-features = #'("-liga")
+      \override BarNumber.transparent = ##t
     }
   }
 }
@@ -271,13 +280,17 @@ Inventado por el percusionista francés Dante Agostini en 1965,
 esta notación se emplea normalmente en Francia pero también en
 muchos otros lugares.
 
-@lilypond[quote,line-width=10.0\cm]
+@lilypond[quote,line-width=12.0\cm]
 nam = \lyricmode {
-  cymc cyms cymr hh hhc hho hhho hhp
-  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl }
+  cymc cyms cymr
+  hh hhc hho hhho hhp hhs
+  cb hc bd sn ss
+  tomh tommh tomml toml tomfh tomfl }
 mus = \drummode {
-  cymc cyms cymr hh hhc hho hhho hhp \break
-  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl s16 }
+  cymc cyms cymr \break
+  hh hhc hho hhho hhp hhs \break
+  cb hc bd sn ss \break
+  tomh tommh tomml toml tomfh tomfl }
 \score {
   << \new DrumStaff \with {
        \remove Bar_engraver
@@ -292,7 +305,44 @@ mus = \drummode {
     \context {
       \Score
       \override LyricText.font-family = #'typewriter
-      \override BarNumber.transparent =##T
+      \override LyricText.font-features = #'("-liga")
+      \override BarNumber.transparent = ##t
+    }
+  }
+}
+@end lilypond
+
+@item weinberg-drums-style
+Basado en el trabajo de Norman Weinberg, publicado en sus
+@emph{Guidelines for Drumset Notation} (Guía de la notación de batería).
+
+@lilypond[quote,line-width=12.0\cm]
+nam = \lyricmode {
+  cymc cymr cymra cymch
+  hh hhc hho hhho hhp hhs
+  cb bd bda ss sn rb
+  tomh tommh tomml toml tomfh tomfl }
+mus = \drummode {
+  cymc cymr cymra cymch \break
+  hh hhc hho hhho hhp hhs \break
+  cb bd bda ss sn rb \break
+  tomh tommh tomml toml tomfh tomfl }
+\score {
+  << \new DrumStaff \with {
+       \remove Bar_engraver
+       \remove Time_signature_engraver
+       \hide Stem
+       \override Stem.Y-extent = ##f
+       drumStyleTable = #weinberg-drums-style
+     } \mus
+     \new Lyrics \nam
+  >>
+  \layout {
+    \context {
+      \Score
+      \override LyricText.font-family = #'typewriter
+      \override LyricText.font-features = #'("-liga")
+      \override BarNumber.transparent = ##t
     }
   }
 }
@@ -311,8 +361,8 @@ mus = \drummode { timh ssh timl ssl cb s16 }
     \remove Time_signature_engraver
     \hide Stem
     \override Stem.Y-extent = ##f
-    \override StaffSymbol.line-count = #2
-    \override StaffSymbol.staff-space = #2
+    \override StaffSymbol.line-count = 2
+    \override StaffSymbol.staff-space = 2
     \override VerticalAxisGroup.minimum-Y-extent = #'(-3.0 . 4.0)
     drumStyleTable = #timbales-style
   } \mus
@@ -335,10 +385,10 @@ mus = \drummode { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
     \remove Bar_engraver
     \remove Time_signature_engraver
     drumStyleTable = #congas-style
-    \override StaffSymbol.line-count = #2
+    \override StaffSymbol.line-count = 2
 
     %% this sucks; it will lengthen stems.
-    \override StaffSymbol.staff-space = #2
+    \override StaffSymbol.staff-space = 2
     \hide Stem
     \override Stem.Y-extent = ##f
   } \mus
@@ -360,11 +410,11 @@ mus = \drummode { boh boho bohm ssh bol bolo bolm ssl s16 }
   \new DrumStaff \with {
     \remove Bar_engraver
     \remove Time_signature_engraver
-    \override StaffSymbol.line-count = #2
+    \override StaffSymbol.line-count = 2
     drumStyleTable = #bongos-style
 
     %% this sucks; it will lengthen stems.
-    \override StaffSymbol.staff-space = #2
+    \override StaffSymbol.staff-space = 2
     \hide Stem
     \override Stem.Y-extent = ##f
   } \mus
@@ -380,21 +430,39 @@ Para tipografiar toda clase de percusiones simples sobre pautas de
 una línea:
 
 @lilypond[quote,ragged-right]
-nam = \lyricmode { tri trio trim gui guis guil cb cl tamb cab mar hc }
-mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
+namI = \lyricmode { tri4 trio trim gui guis guil }
+musI = \drummode { tri4 trio trim gui guis guil s16 }
 
 <<
   \new DrumStaff \with{
     \remove Bar_engraver
     drumStyleTable = #percussion-style
-    \override StaffSymbol.line-count = #1
+    \override StaffSymbol.line-count = 1
     \remove Time_signature_engraver
     \hide Stem
     \override Stem.Y-extent = ##f
-  } \mus
+  } \musI
   \new Lyrics {
     \override LyricText.font-family = #'typewriter
-    \nam
+    \namI
+  }
+>>
+
+namII = \lyricmode { cb4 cl tamb cab mar hc }
+musII = \drummode { cb4 cl tamb cab mar hc s16 }
+
+<<
+  \new DrumStaff \with{
+    \remove Bar_engraver
+    drumStyleTable = #percussion-style
+    \override StaffSymbol.line-count = 1
+    \remove Time_signature_engraver
+    \hide Stem
+    \override Stem.Y-extent = ##f
+  } \musII
+  \new Lyrics {
+    \override LyricText.font-family = #'typewriter
+    \namII
   }
 >>
 @end lilypond
@@ -416,10 +484,11 @@ Archivos instalados:
 
 Fragmentos de código:
 @rlsr{Percussion}.
+@endmorerefs
 
 
 @node Custom percussion staves
-@unnumberedsubsubsec Pautas de percusión personalizadas
+@subsection Pautas de percusión personalizadas
 
 @cindex percusión, personalizada
 @funindex drumStyleTable
@@ -428,36 +497,52 @@ Se pueden definir estilos de percusión personalizados, a los que
 después puede establecerse la propiedad @code{drumStyleTable}.
 Las notaciones existentes se pueden redefinir como una lista de
 asociación en la que cada entrada debe estar compuesta de cuatro
-elementos: un nombre, el estilo de cabezas de nota (o
-@code{default}), un símbolo de articulación si es necesario (o
-@code{#f} en caso contrario), y la posición de la cabeza sobre la
-pauta.  Dicha lista se debe entonces convertir a una tabla de hash
-de Scheme usando la función @code{alist->hash-table}.
+elementos: un nombre, el estilo de cabezas de nota (o @samp{()}
+para indicar @code{default}), un símbolo de articulación si es
+necesario (o @code{#f} en caso contrario), y la posición de la
+cabeza sobre la pauta.  Dicha lista se debe entonces convertir a
+una tabla de hash de Scheme usando la función
+@code{alist->hash-table}.
 
+La entrada para una articulación puede ser el símbolo del nombre
+de una inscripción, o bien una pareja, donde el primer elemento es
+el símbolo del nombre de una inscripción, y el segundo un
+indicador de dirección forzada para la inscripción.
+
+[En el ejemplo siguiente, observe el uso de la abreviatura de
+cuasi-notación (@samp{`}) al principio de la expresión de Scheme
+en lugar de la abreviatura estándar de comilla (@samp{'}), que
+habilita a la abreviatura de no-comilla (@samp{,}) a evaluar el
+elemento que le precede.]
+
+@funindex \open
 @funindex \halfopen
 @funindex \stopped
 @cindex half-open high hat
 @cindex high hat, half open
 @cindex pedal high hat
 @cindex high hat, pedal
+@cindex pedal splash high hat
+@cindex high hat, pedal splash
 
 @lilypond[quote,verbatim]
-#(define mydrums '(
-         (bassdrum        default   #f           -1)
-         (snare           default   #f           0)
-         (hihat           cross     #f           1)
-         (halfopenhihat   cross     halfopen     1)
-         (pedalhihat      xcircle   stopped      2)
-         (lowtom          diamond   #f           3)))
+#(define mydrums `(
+         (bassdrum        ()        #f               -1)
+         (snare           ()        #f               0)
+         (hihat           cross     #f               1)
+         (halfopenhihat   cross     halfopen         1)
+         (pedalhihat      xcircle   stopped          2)
+         (splashhihat     xcircle   (open . ,DOWN)   2)
+         (lowtom          diamond   #f               3)))
 
-up = \drummode { hh8 hh hhho hhho hhp4 hhp }
+up = \drummode { hh8 hh hhho hhho hhp4 hhs }
 down = \drummode { bd4 sn bd toml8 toml }
 
-\new DrumStaff <<
-  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
-  \new DrumVoice { \voiceOne \up }
-  \new DrumVoice { \voiceTwo \down }
->>
+\new DrumStaff \with { drumStyleTable = #(alist->hash-table mydrums) }
+  <<
+    \new DrumVoice { \voiceOne \up }
+    \new DrumVoice { \voiceTwo \down }
+  >>
 @end lilypond
 
 @funindex drumPitchNames
@@ -503,25 +588,25 @@ completo de notaciones con su propia sintaxis de entrada, su
 propia notación personalizada y la salida MIDI correspondiente.
 
 @lilypond[quote,verbatim]
-drumPitchNames.dbass      = #'dbass
-drumPitchNames.dba        = #'dbass  % 'db is in use already
-drumPitchNames.dbassmute  = #'dbassmute
-drumPitchNames.dbm        = #'dbassmute
-drumPitchNames.do         = #'dopen
-drumPitchNames.dopenmute  = #'dopenmute
-drumPitchNames.dom        = #'dopenmute
-drumPitchNames.dslap      = #'dslap
-drumPitchNames.ds         = #'dslap
-drumPitchNames.dslapmute  = #'dslapmute
-drumPitchNames.dsm        = #'dslapmute
+drumPitchNames.dbass     = #'dbass
+drumPitchNames.dba       = #'dbass  % 'db is in use already
+drumPitchNames.dbassmute = #'dbassmute
+drumPitchNames.dbm       = #'dbassmute
+drumPitchNames.do        = #'dopen
+drumPitchNames.dopenmute = #'dopenmute
+drumPitchNames.dom       = #'dopenmute
+drumPitchNames.dslap     = #'dslap
+drumPitchNames.ds        = #'dslap
+drumPitchNames.dslapmute = #'dslapmute
+drumPitchNames.dsm       = #'dslapmute
 
 #(define djembe-style
-  '((dbass      default  #f         -2)
-    (dbassmute  default  stopped    -2)
-    (dopen      default  #f          0)
-    (dopenmute  default  stopped     0)
-    (dslap      default  #f          2)
-    (dslapmute  default  stopped     2)))
+  '((dbass       ()   #f        -2)
+    (dbassmute   ()   stopped   -2)
+    (dopen       ()   #f        0)
+    (dopenmute   ()   stopped   0)
+    (dslap       ()   #f        2)
+    (dslapmute   ()   stopped   2)))
 
 midiDrumPitches.dbass     = g
 midiDrumPitches.dbassmute = fis
@@ -534,7 +619,7 @@ test = \drummode { dba4 do ds dbm dom dsm }
 
 \score {
   \new DrumStaff \with {
-    \override StaffSymbol.line-count = #3
+    \override StaffSymbol.line-count = 3
     instrumentName = "Djembé "
     drumStyleTable = #(alist->hash-table djembe-style)
     drumPitchTable = #(alist->hash-table midiDrumPitches)
@@ -548,16 +633,20 @@ test = \drummode { dba4 do ds dbm dom dsm }
 @end lilypond
 
 @morerefs
+Archivos instalados:
+@file{ly/drumpitch-init.ly}.
+
 Fragmentos de código:
 @rlsr{Percussion}.
 
 Referencia de funcionamiento interno:
 @rinternals{DrumStaff},
 @rinternals{DrumVoice}.
+@endmorerefs
 
 
 @node Ghost notes
-@unnumberedsubsubsec Notas fantasma
+@subsection Notas fantasma
 
 @cindex percusión, nota fantasma
 @cindex percusión, nota muerta
@@ -583,8 +672,8 @@ falsas, se pueden crear utilizando la instrucción
     <<
       {
         hh8[ 8] <hh sn> hh16
-        \parenthesize sn  hh
-        \parenthesize sn  hh8 <hh sn> hh
+        \parenthesize sn hh
+        \parenthesize sn hh8 <hh sn> hh
       } \\
       {
         bd4 r4 bd8 8 r8 bd
@@ -600,3 +689,4 @@ Referencia de la notación:
 
 Fragmentos de código:
 @rlsr{Percussion}.
+@endmorerefs
