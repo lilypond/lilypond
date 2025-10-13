@@ -849,15 +849,17 @@ make a numbered time signature instead."
                                   (number->string (cdr fraction))))
          (make-compound-meter-markup fraction))))
 
-(define-public (make-c-time-signature-markup fraction)
+(define-public (make-c-time-signature-markup spec)
   "Make markup for the @q{C} time signature style."
-  (let ((n (car fraction))
-        (d (cdr fraction)))
-    ;; check specific fractions to avoid warnings when no glyph exists
-    (if (or (and (= n 2) (= d 2))
-            (and (= n 4) (= d 4)))
-        (make-glyph-time-signature-markup 'C fraction)
-        (make-compound-meter-markup fraction))))
+  (if (number-pair? spec)
+      (let ((n (car spec))
+            (d (cdr spec)))
+        ;; check specific fractions to avoid warnings when no glyph exists
+        (if (or (and (= n 2) (= d 2))
+                (and (= n 4) (= d 4)))
+            (make-glyph-time-signature-markup 'C spec)
+            (make-compound-meter-markup spec)))
+      (make-compound-meter-markup spec)))
 
 
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -866,9 +868,12 @@ make a numbered time signature instead."
 (add-simple-time-signature-style 'numbered
                                  make-compound-meter-markup)
 (add-simple-time-signature-style 'single-number
-                                 (lambda (fraction)
-                                   (make-compound-meter-markup
-                                    (car fraction))))
+                                 (lambda (spec)
+                                   (if (number-pair? spec)
+                                       (make-override-markup
+                                        '(denominator-style . none)
+                                        (make-compound-meter-markup spec))
+                                       (make-compound-meter-markup spec))))
 (add-simple-time-signature-style 'C
                                  make-c-time-signature-markup)
 (add-simple-time-signature-style 'default
