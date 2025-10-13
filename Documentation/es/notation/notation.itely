@@ -12,7 +12,7 @@
 
 @part Musical notation
 
-@include en/notation/pitches.itely
+@include es/notation/pitches.itely
 @include en/notation/rhythms.itely
 @include es/notation/expressive.itely
 @include en/notation/repeats.itely
