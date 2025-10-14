@@ -7,8 +7,11 @@
       <miscellaneous-field name="description">A note can be the end of one
           slur and the start of a new slur.  Also, in MusicXML, nested slurs
           are possible like in the second measure where one slur goes over all
-          four notes, and another slur goes from the second to the third
-          note.</miscellaneous-field>
+          four notes, and another slur goes from the second to the third note.
+
+          The third bar demonstrates a cross-voice slur starting at the first
+          beat in the lower voice and ending on the third beat in the upper
+          voice.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -134,6 +137,66 @@
         <notations>
           <slur number="1" type="stop"/>
         </notations>
+      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="3">
+      <note>
+        <rest/>
+        <duration>2</duration>
+        <voice>1</voice>
+        <type>half</type>
+      </note>
+      <note>
+        <pitch>
+          <step>A</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <notations>
+          <slur number="1" type="stop"/>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+      </note>
+      <backup>
+        <duration>4</duration>
+      </backup>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>2</voice>
+        <type>quarter</type>
+        <notations>
+          <slur number="1" placement="below" type="start"/>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>2</voice>
+        <type>quarter</type>
+      </note>
+      <note>
+        <rest/>
+        <duration>2</duration>
+        <voice>2</voice>
+        <type>half</type>
       </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>
