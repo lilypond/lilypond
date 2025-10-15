@@ -59,6 +59,10 @@ def musicxml_duration_to_log(dur):
             'long': -2}.get(dur, 0)
 
 
+def round_to_two_digits(val):
+    return round(val * 100) / 100
+
+
 # Examples:
 #
 #   r'"foo  \"bar  baz\"  urgh"'  ->  [r'"foo  \"bar  baz\"  urgh"']

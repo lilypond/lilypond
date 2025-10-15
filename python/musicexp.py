@@ -1361,10 +1361,12 @@ class Paper(Base):
                        * 13) / self.page_width
         if self.indent != 0:
             self.print_length_field(
-                printer, "indent", self.indent / char_per_cm)
+                printer, "indent",
+                utilities.round_to_two_digits(self.indent / char_per_cm))
         if self.short_indent != 0:
             self.print_length_field(
-                printer, "short-indent", self.short_indent / char_per_cm)
+                printer, "short-indent",
+                utilities.round_to_two_digits(self.short_indent / char_per_cm))
 
         if not get_tagline():
             printer('tagline = ##f')

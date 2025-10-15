@@ -118,10 +118,6 @@ needed_additional_definitions = []
 additional_macros = {}
 
 
-def round_to_two_digits(val):
-    return round(val * 100) / 100
-
-
 def extract_paper_information(score_partwise):
     early_return_val = None
     if not options.tagline:
@@ -162,10 +158,10 @@ def extract_paper_information(score_partwise):
         return early_return_val
 
     def tenths_to_cm(txt):
-        return round_to_two_digits(float(txt) * one_tenth_in_mm / 10)
+        return utilities.round_to_two_digits(float(txt) * one_tenth_in_mm / 10)
 
     def tenths_to_staff_space(txt):
-        return round_to_two_digits(float(txt) / 10)
+        return utilities.round_to_two_digits(float(txt) / 10)
 
     def set_paper_variable(varname, parent, element_name, mode='absolute'):
         el = parent.get_maybe_exist_named_child(element_name)
