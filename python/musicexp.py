@@ -2077,7 +2077,7 @@ class SlurEvent(SpanEvent):
                 if self.visible:
                     color = color_to_ly(self.color)
                     if color is not None:
-                        printer(r'\tweak color %s' % color)
+                        printer(r'-\tweak color %s' % color)
                     printer('%s%s' % (self.direction_mod(), val))
                 else:
                     printer('%s%s%s' % (super().not_visible(),
@@ -2580,7 +2580,7 @@ class HairpinEvent(SpanEvent):
             if self.span_direction == -1:
                 color = color_to_ly(self.color)
                 if color is not None:
-                    printer(r'\tweak color %s' % color)
+                    printer(r'-\tweak color %s' % color)
                 printer('%s%s' % (self.direction_mod(), val))
             else:
                 pre = '<>' if self.to_barline else ''
@@ -2616,12 +2616,12 @@ class DynamicsEvent(Event):
 
             color = color_to_ly(self.color)
             if color is not None:
-                res.append(r'\tweak color %s' % color)
+                res.append(r'-\tweak color %s' % color)
 
             font_size = get_font_size(self.font_size, command=False,
                                       scale=self.font_size_scale)
             if font_size is not None:
-                res.append(r'\tweak font-size %s' % font_size)
+                res.append(r'-\tweak font-size %s' % font_size)
 
             res.append(r'%s\%s' % (self.direction_mod(), self.type))
 
@@ -3007,10 +3007,10 @@ class ArticulationEvent(Event):
         res = []
         color = color_to_ly(self.color)
         if color is not None:
-            res.append(r'\tweak color %s' % color)
+            res.append(r'-\tweak color %s' % color)
         font_size = get_font_size(self.font_size, command=False)
         if font_size is not None:
-            res.append(r'\tweak font-size %s' % font_size)
+            res.append(r'-\tweak font-size %s' % font_size)
 
         res.append(r'%s\%s' % (self.direction_mod(), self.type))
 
@@ -3080,13 +3080,13 @@ class OrnamentEvent(ArticulationEvent):
 
         color = color_to_ly(self.color)
         if color is not None:
-            tweaks.append(r'\tweak color %s' % color)
+            tweaks.append(r'-\tweak color %s' % color)
         else:
             color = '"#000000"'
 
         font_size = get_font_size(self.font_size, command=False)
         if font_size is not None:
-            tweaks.append(r'\tweak font-size %s' % font_size)
+            tweaks.append(r'-\tweak font-size %s' % font_size)
 
         # `<accidental-mark>` elements get mapped to the LilyPond markup
         # command `\ornament` for 'simple' cases (i.e., there is at most one
@@ -3226,8 +3226,8 @@ class OrnamentEvent(ArticulationEvent):
             else:
                 ornament = '##f'
 
-            tweaks.append(r'\tweak parent-alignment-X #CENTER')
-            tweaks.append(r'\tweak self-alignment-X #CENTER')
+            tweaks.append(r'-\tweak parent-alignment-X #CENTER')
+            tweaks.append(r'-\tweak self-alignment-X #CENTER')
             command = r'\markup \accs-ornament'
             args = (r'{ %s } %s { %s }'
                     % (' '.join(above), ornament, ' '.join(below)))
@@ -3254,7 +3254,7 @@ class ShortArticulationEvent(ArticulationEvent):
         if self.type:
             color = color_to_ly(self.color)
             if color is not None:
-                res.append(r'\tweak color %s' % color)
+                res.append(r'-\tweak color %s' % color)
             font_size = get_font_size(self.font_size, command=False)
             if font_size is not None:
                 res.append(r'\tweak font-size %s' % font_size)
@@ -3320,10 +3320,10 @@ class MarkupEvent(ShortArticulationEvent):
         if self.contents:
             color = color_to_ly(self.color)
             if color is not None:
-                res.append(r'\tweak color %s' % color)
+                res.append(r'-\tweak color %s' % color)
             font_size = get_font_size(self.font_size, command=False)
             if font_size is not None:
-                res.append(r'\tweak font-size %s' % font_size)
+                res.append(r'-\tweak font-size %s' % font_size)
 
             res.append(r"%s\markup { %s }"
                        % (self.direction_mod(), self.contents))
@@ -3350,15 +3350,15 @@ class AccidentalMarkEvent(MarkupEvent):
 
         # Accidental marks should be horizontally centered on the note
         # head.
-        res.append(r'\tweak parent-alignment-X #CENTER')
-        res.append(r'\tweak self-alignment-X #CENTER')
+        res.append(r'-\tweak parent-alignment-X #CENTER')
+        res.append(r'-\tweak self-alignment-X #CENTER')
 
         color = color_to_ly(self.color)
         if color is not None:
-            res.append(r'\tweak color %s' % color)
+            res.append(r'-\tweak color %s' % color)
         font_size = get_font_size(self.font_size, command=False)
         if font_size is not None:
-            res.append(r'\tweak font-size %s' % font_size)
+            res.append(r'-\tweak font-size %s' % font_size)
 
         res.append(r"%s\markup %s" % (self.direction_mod(), contents))
 
@@ -3698,7 +3698,7 @@ class BendEvent(ArticulationEvent):
         if self.alter is not None:
             color = color_to_ly(self.color)
             if color is not None:
-                res.append(r'\tweak color %s' % color)
+                res.append(r'-\tweak color %s' % color)
 
             res.append(r'-\bendAfter #%s' % self.alter)
 
