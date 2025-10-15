@@ -1270,18 +1270,18 @@ class Paper(Base):
         self.default_global_staff_size = 20
         self.global_staff_size = self.default_global_staff_size
         # page size
-        self.page_width = -1
-        self.page_height = -1
+        self.page_width = -1000
+        self.page_height = -1000
         # page margins
-        self.top_margin = -1
-        self.bottom_margin = -1
-        self.left_margin = -1
-        self.right_margin = -1
-        self.system_left_margin = -1
-        self.system_right_margin = -1
+        self.top_margin = -1000
+        self.bottom_margin = -1000
+        self.left_margin = -1000
+        self.right_margin = -1000
+        self.system_left_margin = -1000
+        self.system_right_margin = -1000
         # staff positioning
-        self.system_distance = -1
-        self.top_system_distance = -1
+        self.system_distance = -1000
+        self.top_system_distance = -1000
         self.indent = 0
         self.short_indent = 0
         # other settings
@@ -1291,6 +1291,14 @@ class Paper(Base):
     def print_length_field(self, printer, field, value):
         if value >= 0:
             printer(r'%s = %s\cm' % (field, value))
+            printer.newline()
+
+    def print_alist_field(self, printer, field, value):
+        if value >= 0:
+            # We only set the `basic-distance` field of the alist:
+            # `musicxml2ly` doesn't activate ragged bottom output, which
+            # means that the distances get stretched or squeezed anyway.
+            printer(r'%s.basic-distance = %s' % (field, value))
             printer.newline()
 
     def get_longest_instrument_name(self):
@@ -1323,10 +1331,29 @@ class Paper(Base):
         self.print_length_field(printer, "right-margin", self.right_margin)
         # TODO: What's the corresponding setting for system_left_margin and
         #        system_right_margin in LilyPond?
-        self.print_length_field(
-            printer, "between-system-space", self.system_distance)
-        self.print_length_field(
-            printer, "page-top-space", self.top_system_distance)
+
+        # The `<system-distance>` element gives the distance "from the
+        # bottom line of the previous system to the top line of the current
+        # system".  LilyPond, however, takes the measure between the
+        # vertical centers of the staves.  We thus add one staff height.
+        #
+        # Note that in MusicXML you can change the system-to-system distance
+        # anywhere, which doesn't make sense for LilyPond.  Consequently,
+        # `<system-distance>` children of `<print>` are ignored, which
+        # unfortunately reduces the usefulness of the value.
+        self.print_alist_field(printer, 'system-system-spacing',
+                               self.system_distance + 4)
+
+        # `<top-system-distance>` is similar to `<system-distance>` and thus
+        # of limited use only.  In particular, it gets ignored on the first
+        # page because it doesn't take top markup into account.
+        #
+        # In MusicXML, the value "is measured from the page's top margin to
+        # the top line of the first system".  We thus add half a staff
+        # height.
+        self.print_alist_field(printer, 'top-system-spacing',
+                               self.top_system_distance + 2)
+
         # TODO: Compute the indentation with the instrument name lengths
 
         # TODO: font width ?

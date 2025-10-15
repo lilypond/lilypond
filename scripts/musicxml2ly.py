@@ -164,10 +164,17 @@ def extract_paper_information(score_partwise):
     def tenths_to_cm(txt):
         return round_to_two_digits(float(txt) * one_tenth_in_mm / 10)
 
-    def set_paper_variable(varname, parent, element_name):
+    def tenths_to_staff_space(txt):
+        return round_to_two_digits(float(txt) / 10)
+
+    def set_paper_variable(varname, parent, element_name, mode='absolute'):
         el = parent.get_maybe_exist_named_child(element_name)
         if el:
-            setattr(globvars.paper, varname, tenths_to_cm(el.get_text()))
+            if mode == 'absolute':
+                val = tenths_to_cm(el.get_text())
+            else:
+                val = tenths_to_staff_space(el.get_text())
+            setattr(globvars.paper, varname, val)
 
     pagelayout = defaults.get_maybe_exist_named_child('page-layout')
     if pagelayout:
@@ -189,9 +196,10 @@ def extract_paper_information(score_partwise):
         if sl:
             set_paper_variable("system_left_margin", sl, 'left-margin')
             set_paper_variable("system_right_margin", sl, 'right-margin')
-        set_paper_variable("system_distance", systemlayout, 'system-distance')
-        set_paper_variable("top_system_distance",
-                           systemlayout, 'top-system-distance')
+        set_paper_variable('system_distance', systemlayout,
+                           'system-distance', mode='relative')
+        set_paper_variable('top_system_distance', systemlayout,
+                           'top-system-distance', mode='relative')
 
     stafflayout = defaults.get_named_children('staff-layout')
     for sl in stafflayout:
