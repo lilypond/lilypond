@@ -2072,6 +2072,8 @@ def musicxml_spanner_to_lily_event(mxl_event, attributes=None,
 
             if dir is None:
                 dir = attributes.get('placement', None)
+            if dir is None and name == 'slur':
+                dir = attributes.get('orientation', None)
             if dir is not None:
                 ev.force_direction = musicxml_direction_to_indicator(dir)
 
