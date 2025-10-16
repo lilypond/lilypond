@@ -15,7 +15,7 @@
 @include es/notation/pitches.itely
 @include en/notation/rhythms.itely
 @include es/notation/expressive.itely
-@include en/notation/repeats.itely
+@include es/notation/repeats.itely
 @include en/notation/simultaneous.itely
 @include en/notation/staff.itely
 @include es/notation/editorial.itely
