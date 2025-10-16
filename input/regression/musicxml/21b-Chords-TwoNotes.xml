@@ -4,9 +4,12 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">Some subsequent
-          (identical) two-note chords.  In the second bar, the chords are tied
-          (top note, bottom note, both notes).</miscellaneous-field>
+      <miscellaneous-field name="description">Some subsequent (identical)
+          two-note chords.  In the second bar, the chords are tied (top note,
+          bottom note, both notes).  In the third bar, the unnatural directions
+          of the ties are enforced with the ‘placement’ attribute (between
+          chords one and two) and the ‘orientation’ attribute (between chords
+          three and four)</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -197,6 +200,109 @@
         <pitch>
           <step>F</step>
           <octave>4</octave>
+        </pitch>
+        <duration>960</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <notations>
+          <tied type="stop"/>
+        </notations>
+      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="2">
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>960</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <notations>
+          <tied type="start" placement="above"/>
+        </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>960</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <notations>
+          <tied type="start" placement="below"/>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>960</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <notations>
+          <tied type="stop"/>
+        </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>960</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <notations>
+          <tied type="stop"/>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>960</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <notations>
+          <tied type="start" orientation="over"/>
+        </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>960</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <notations>
+          <tied type="start" orientation="under"/>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>960</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <notations>
+          <tied type="stop"/>
+        </notations>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>D</step>
+          <octave>5</octave>
         </pitch>
         <duration>960</duration>
         <voice>1</voice>

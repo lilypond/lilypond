@@ -2082,10 +2082,12 @@ def musicxml_direction_to_indicator(direction):
     return {"above": 1,
             "upright": 1,
             "up": 1,
+            "over": 1,
 
             "below": -1,
             "downright": -1,
             "down": -1,
+            "under": -1,
             "inverted": -1}.get(direction, 0)
 
 
@@ -4456,6 +4458,13 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
                 tie = musicexp.TieEvent()
                 tie.color = getattr(mxl_tie, 'color', None)
                 tie.visible = note_visible
+                if options.convert_directions:
+                    dir = getattr(mxl_tie, 'placement', None)
+                    if dir is None:
+                        dir = getattr(mxl_tie, 'orientation', None)
+                    if dir is not None:
+                        tie.force_direction = \
+                            musicxml_direction_to_indicator(dir)
                 main_event.add_associated_event(tie)
                 if not grace:
                     is_tied = True

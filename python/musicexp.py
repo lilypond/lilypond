@@ -2447,6 +2447,13 @@ class GlissandoEvent(SpanEvent):
 
 
 class TieEvent(Event):
+    def __init__(self):
+        Event.__init__(self)
+        self.force_direction = 0
+
+    def direction_mod(self):
+        return {1: '^', -1: '_', 0: ''}.get(self.force_direction, '')
+
     def pre_chord_ly(self):
         return ''
 
@@ -2458,7 +2465,7 @@ class TieEvent(Event):
         color = color_to_ly(self.color)
         if color is not None:
             res.append(r'\tweak color %s' % color)
-        res.append('~')
+        res.append('%s~' % self.direction_mod())
         return ' '.join(res)
 
     def ly_expression(self):
