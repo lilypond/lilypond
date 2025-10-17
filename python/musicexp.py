@@ -3081,6 +3081,7 @@ class OrnamentEvent(ArticulationEvent):
         self.note_font_size = None
         self.accidental_marks = []
         self.force_direction = 1
+        self.y_pos = None  # For positioning of accidental marks.
 
     def ly_expression(self, general_case=False):
         tweaks = []
@@ -3121,14 +3122,25 @@ class OrnamentEvent(ArticulationEvent):
             a_value = accidental_values_dict.get(a.get_text(), None)
             if a_value is None:
                 continue
-
             # Color and font size gets inherited from `<note>` (if not part of a
             # spanner).
             a_color = color_to_ly(getattr(a, 'color', self.note_color))
             a_font_size = get_font_size(getattr(a, 'font-size',
                                                 self.note_font_size),
                                         command=False)
-            a_placement = getattr(a, 'placement', 'above')
+
+            # Do a simple check of the position relative to the base glyph
+            # if the 'placement' attribute is missing and 'default-y' is
+            # present.
+            have_y_pos = False
+            if self.y_pos is not None:
+                mark_y_pos = getattr(a, 'default-y', None)
+                if mark_y_pos is not None:
+                    a_placement = \
+                        'above' if mark_y_pos > self.y_pos else 'below'
+                    have_y_pos = True
+            if not have_y_pos:
+                a_placement = getattr(a, 'placement', 'above')
 
             # Similar to normal accidentals, give brackets precedence over
             # parentheses.

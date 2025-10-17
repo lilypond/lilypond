@@ -2232,7 +2232,7 @@ def musicxml_string_event(mxl_event, note_color=None, note_font_size=None):
     return ev
 
 
-# This is for `<accidental-mark>` childs of `<notations>`.
+# This is for `<accidental-mark>` children of `<notations>`.
 def musicxml_accidental_mark(mxl_event, note_color=None, note_font_size=None):
     ev = musicexp.AccidentalMarkEvent()
     ev.contents = mxl_event.get_text()
@@ -2424,6 +2424,7 @@ def musicxml_articulation_to_lily_event(mxl_event, note_color=None,
             ev.note_color = note_color
             ev.note_font_size = note_font_size
             ev.type = tmp_tp
+            ev.y_pos = getattr(mxl_event, 'default-y', None)
         else:
             ev = tmp_tp[0]()
             ev.type = tmp_tp[1]
