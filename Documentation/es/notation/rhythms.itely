@@ -399,7 +399,7 @@ añadir factores usando expresiones de Scheme que se evalúan a un
 número o a una duración musical como @code{*#(ly:music-length
 @var{music})}.  Esto es muy útil para escalar una duración de
 @samp{1} y que una nota o silencio multicompás se estire hasta una
-longitur derivada de una variable musical.
+longitud derivada de una variable musical.
 
 La adición de un factor no afectará a la apariencia de las notas o
 silencios que se producen, pero la duración alterada se usará para
@@ -1152,10 +1152,11 @@ Los silencios multicompás no intervienen en la detección de
 colisiones de silencios.
 
 @node Caesuras
-@subsection Caesuras
+@subsection Cesuras
 
 @cindex caesura
-@cindex pause mark
+@cindex cesura
+@cindex marca de pausa
 @funindex \caesura
 
 La instrucción @code{\caesura} obedece a un silencio no medido:
@@ -1571,7 +1572,7 @@ o bien use una sobreescritura @code{\override} explícita:
 @cindex repetición, primera y segunda vez, e indicación de compás
 @cindex compás, indicación, y casillas de repetición de primera y segunda vez
 
-Si hay más deun pentagrama, y una indicación de compás está al
+Si hay más de un pentagrama, y una indicación de compás está al
 comienzo de una casilla de repetición de primera vez pero no en la
 de segunda vez, es necesario ayudar a LilyPond a sincronizar la
 situación añadiendo una indicación de compás explícita pero
@@ -3627,7 +3628,7 @@ el elemento de barra, pero hay que dejar espacio para él.  Si se
 fija el valor de @var{span-bar} a @code{#t} hace lo mismo que el
 glifo para la mitad de la línea.  Se se fija a @code{#f}, se omite
 la barra extendida, y si se fija a @code{""} (la cadena vacía) se
-produce una barra extendida de anchura nula.  He aquí algunso
+produce una barra extendida de anchura nula.  He aquí algunos
 ejemplos:
 
 @lilypond[quote,verbatim]
@@ -3651,7 +3652,7 @@ ejemplos:
 }
 @end lilypond
 
-EN los saltos de línea, en lugar de usar @var{span-bar}, los tipos
+En los saltos de línea, en lugar de usar @var{span-bar}, los tipos
 de barra de compás referenciados por @var{eol-bar} y @var{bol-bar}
 se usan para determinar qué barra de extensión imprimir.  En el
 contexto de un grupo de pautas, si @var{eol-bar} y @var{bol-bar}
@@ -3808,7 +3809,7 @@ etc.
 @end lilypond
 
 Después de un salto de línea, las barras de compás nunca están
-alineadas a la derecha.  Para las barras en medio del pentagramay
+alineadas a la derecha.  Para las barras en medio del pentagrama
 alineadas a la derecha, el punto de ancla (usado para alinear
 @code{BarNumber}, @code{RehearsalMark}, etc.) se mueve de forma
 correspondiente.
