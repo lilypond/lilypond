@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 5674d4570d0e76e37e87ba72dbb586a571ad5841
+    Translation of GIT committish: b22569ea33c9c9a6a26e17624d79449bffa81b22
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -9,10 +9,9 @@
 
 @c \version "2.20.0"
 
-@c Translation status: post-GDP
 
 @node Simultaneous notes
-@section Notas simultáneas
+@chapter Notas simultáneas
 
 @lilypondfile[quote,ragged-right,line-width=16\cm]{snippets/simultaneous-headword.ly}
 
@@ -23,19 +22,19 @@ pentagrama.
 
 
 @node Single voice
-@subsection Una voz única
+@section Una voz única
 
 Esta sección trata de la notas simultáneas dentro de la misma voz.
 
 
 @node Chorded notes
-@unnumberedsubsubsec Notas en acorde
+@subsection Notas en acorde
 
 @cindex acorde
 @cindex paréntesis en ángulo
 
-@funindex @sortas{<A} <
-@funindex @sortas{>A} >
+@funindex <
+@funindex >
 @funindex <...>
 
 Un acorde se forma encerrando un conjunto de notas entre @code{<}
@@ -138,6 +137,7 @@ Referencia de la notación:
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
+@endmorerefs
 
 @knownissues
 Los acordes que contienen más de dos alturas en el mismo espacio
@@ -162,11 +162,11 @@ Culsters o racimos; véase @ref{Clusters}.
 
 
 @node Chord repetition
-@unnumberedsubsubsec Repetición de acordes
+@subsection Repetición de acordes
 
 @cindex acordes, repetición de
 @cindex repetición, con @code{q}
-@cindex @code{q}, repetición de acordes
+@cindex @code{q} (repetición de acordes)
 
 Para reducir el tecleo, se puede usar una abreviatura de
 repetición del acorde anterior.  El símbolo de repetición de
@@ -262,10 +262,15 @@ Referencia de la notación:
 
 Archivos de inicio:
 @file{ly/chord-repetition-init.ly}.
+@endmorerefs
 
 
 @node Simultaneous expressions
-@unnumberedsubsubsec Expresiones simultáneas
+@subsection Expresiones simultáneas
+
+@funindex <<
+@funindex >>
+@funindex << ... >>
 
 Una o más expresiones musicales encerradas entre ángulos dobles se
 entienden como simultáneas.  Si la primera expresión comienza con
@@ -345,7 +350,7 @@ otros efectos no deseados (consulte también
 
 
 @node Clusters
-@unnumberedsubsubsec Racimos (clusters)
+@subsection Racimos (clusters)
 
 @cindex cluster
 @cindex racimo (cluster)
@@ -365,6 +370,36 @@ clusters, incluso al mismo tiempo.  En tal caso, no se hace ningún
 intento de evitar automáticamente las colisiones entre clusters y
 notas normales.
 
+
+Están contemplados los siguientes estilos de cluster: @code{ramp},
+@code{leftsided-stairs}, @code{rightsided-stairs} y
+@code{centered-stairs}.
+
+@lilypond[verbatim,quote,noragged-right]
+fragment = { <e' d''>4 <g' a'> <e' a'> r }
+
+{
+  \omit Staff.Clef
+  \omit Staff.TimeSignature
+
+  <>^\markup \typewriter "ramp"
+  \override ClusterSpanner.style = #'ramp
+  \makeClusters \fragment
+
+  <>_\markup \typewriter "leftsided-stairs"
+  \override ClusterSpanner.style = #'leftsided-stairs
+  \makeClusters \fragment
+
+  <>^\markup \typewriter "rightsided-stairs"
+  \override ClusterSpanner.style = #'rightsided-stairs
+  \makeClusters \fragment
+
+  <>_\markup \typewriter "centered-stairs"
+  \override ClusterSpanner.style = #'centered-stairs
+  \makeClusters \fragment
+}
+@end lilypond
+
 @morerefs
 Glosario musical:
 @rglos{cluster}.
@@ -376,6 +411,7 @@ Referencia de funcionamiento interno:
 @rinternals{ClusterSpanner},
 @rinternals{ClusterSpannerBeacon},
 @rinternals{Cluster_spanner_engraver}.
+@endmorerefs
 
 @knownissues
 Los clusters sólo tienen un buen aspecto cuando abarcan un mínimo
@@ -391,19 +427,21 @@ Los clusters no producen ninguna salida MIDI.
 
 
 @node Multiple voices
-@subsection Varias voces
+@section Varias voces
 
 Esta sección trata las notas simultáneas en varias voces o varios
 pentagramas.
 
 
 @node Single-staff polyphony
-@unnumberedsubsubsec Polifonía en un solo pentagrama
+@subsection Polifonía en un solo pentagrama
 
 @cindex pentagrama único, polifonía de
 @cindex polifonía, en un solo pentagrama
 @cindex voz
 @cindex letra, asignada a una voz
+
+@subsubheading Instanciar las voces explícitamente
 
 @funindex \voiceOne
 @funindex \voiceTwo
@@ -411,8 +449,6 @@ pentagramas.
 @funindex \voiceFour
 @funindex Voice
 @funindex \oneVoice
-
-@subsubsubheading Instanciar las voces explícitamente
 
 La estructura básica necesaria para obtener varias voces
 independientes en un mismo pentagrama se ilustra en el ejemplo
@@ -439,7 +475,11 @@ respectivas se desplazan también automáticamente para evitar las
 colisiones.  La instrucción @code{\oneVoice} (una voz) devuelve
 todos los ajustes de las voces al estado neutro predeterminado.
 
-@subsubsubheading Pasajes polifónicos temporales
+Observe que @code{Voice} es un contexto del nivel inferior
+(@pxref{Bottom-level contexts - voices}).  Dentro de
+@code{TabStaff} se debe usar en su lugar @code{TabVoice}.
+
+@subsubheading Pasajes polifónicos temporales
 
 Se puede crear un pasaje polifónico temporal con la construcción
 siguiente:
@@ -486,15 +526,61 @@ voz antes, durante y después de la sección polifónica:
 Aquí, las instrucciones @code{\voiceOne} y @code{\voiceTwo} son
 necesarias para definir los ajustes de cada voz.
 
-@subsubsubheading La construcción de la doble barra invertida
+@noindent
+In @code{TabStaff} one needs to use @code{TabVoice}.
+
+Si la misma música debe aparecer en @code{Staff} @emph{y} en
+@code{TabStaff} se puede usar el contexto general @code{Bottom}
+(@pxref{Bottom-level contexts - voices}).
+
+@lilypond[quote,verbatim]
+mus =
+\relative
+  \new Bottom = "melody" {
+    a'4
+    <<
+      {
+        \voiceOne
+        g f
+      }
+      \new Bottom {
+        \voiceTwo
+        d2
+      }
+    >>
+    \oneVoice
+    e4
+  }
+
+<<
+  \new Staff \mus
+  \new Lyrics \lyricsto "melody" {
+    This is my song.
+  }
+>>
+
+<<
+  \new TabStaff \mus
+  \new Lyrics \lyricsto "melody" {
+    This is my song.
+  }
+>>
+@end lilypond
+
+@subsubheading La construcción de la doble barra invertida
+
+@funindex << ... \\ ... >>
+@funindex @sortas{@bs{}@bs{}} \\
 
 La construcción @code{<< @{@dots{}@} \\ @{@dots{}@} >>}, en que
 las dos expresiones (o más) están separadas por doble barra
 invertida, se comporta de forma distinta a la construcción similar
 sin las dobles barras: @emph{todas} las expresiones dentro de esta
-construcción se asignan a contextos @code{Voice} nuevos.  Estos
-contextos @code{Voice} nuevos se crean implícitamente y reciben
-los nombres fijos @code{"1"}, @code{"2"}, etc.
+construcción se asignan a contextos @code{Bottom} nuevos del tipo
+actual, normalmente @code{Voice} o @code{TabVoice}
+(@pxref{Bottom-level contexts - voices}).  Estos contextos
+@code{Bottom} nuevos se crean implícitamente y reciben los nombres
+fijos @code{"1"}, @code{"2"}, etc.
 
 El primer ejemplo podría haberse tipografiado de la manera
 siguiente:
@@ -531,10 +617,11 @@ aparición de silencios duplicados.
 
 En todas las partituras excepto las más simples, se recomienda
 crear contextos @code{Voice} explícitos como aparece explicado en
-@rlearningnamed{Contexts and engravers, Contextos y grabadores} y en @rlearningnamed{Explicitly instantiating voices, Voces
+@rlearningnamed{Contexts and engravers, Contextos y grabadores} y
+en @rlearningnamed{Explicitly instantiating voices, Voces
 explícitas}.
 
-@subsubsubheading Orden de las voces
+@subsubheading Orden de las voces
 
 Al escribir varias voces en el archivo de entrada, utilice el
 orden siguiente:
@@ -594,9 +681,9 @@ utilidad la instrucción @code{\voices}:
 
 
 @warning{No se pueden crear letras ni elementos de extensión (como
-ligaduras, reguladores, etc.) que se crucen de una voz a otra.}
+ligaduras, reguladores, etc.@:) que se crucen de una voz a otra.}
 
-@subsubsubheading Duraciones idénticas
+@subsubheading Duraciones idénticas
 
 En el caso especial en que queremos tipografiar fragmentos de
 música que discurre en paralelo y con las mismas duraciones, se
@@ -634,10 +721,11 @@ Referencia de la notación:
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
+@endmorerefs
 
 
 @node Voice styles
-@unnumberedsubsubsec Estilos de voz
+@subsection Estilos de voz
 
 @cindex voz, estilo
 @cindex estilo, voz
@@ -681,10 +769,11 @@ Manual de aprendizaje:
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
+@endmorerefs
 
 
 @node Collision resolution
-@unnumberedsubsubsec Resolución de las colisiones
+@subsection Resolución de las colisiones
 
 @cindex mezclar notas
 @cindex nota, colisiones de
@@ -920,6 +1009,7 @@ Referencia de funcionamiento interno:
 @rinternals{NoteColumn},
 @rinternals{NoteCollision},
 @rinternals{RestCollision}.
+@endmorerefs
 
 @cindex colisión, ignorar
 
@@ -944,7 +1034,10 @@ tienen también distinto puntillo, no están claros.
 
 
 @node Merging rests
-@unnumberedsubsubsec Combinación de silencios
+@subsection Combinación de silencios
+
+@cindex combinad silencios
+@cindex silencio, combinar
 
 Al usar más de una voz, es frecuente combinar los silencios que
 aparecen en las dos partes.  Esto puede hacerse mediante el uso
@@ -975,11 +1068,11 @@ voiceB = \relative { fis'4 r g2 | R1 | }
 @end lilypond
 
 Al establecer el valor de la propiedad de contexto
-@code{suspendRestMerging} a @code{##t} podemos desactivar
+@code{suspendRestMerging} a @code{#t} podemos desactivar
 temporalmente la combinación de silencios.
 
 @node Automatic part combining
-@unnumberedsubsubsec Combinación automática de las partes
+@subsection Combinación automática de las partes
 
 @cindex automática, combinación de partes
 @cindex partes, combinación automática
@@ -1148,7 +1241,8 @@ instrumentOne = \relative c' {
   \partCombineAutomatic e2^"auto" e |
   \partCombineChords e'2^"chord" e |
   \partCombineAutomatic c2^"auto" c |
-  \partCombineApart c2^"apart" \once \partCombineChords e^"chord once" |
+  \partCombineApart c2^"apart"
+    \once \partCombineChords e^"chord once" |
   c2 c |
 }
 instrumentTwo = \relative {
@@ -1168,7 +1262,7 @@ instrumentTwo = \relative {
 @end lilypond
 
 
-@subsubsubheading Uso de \partCombine con letra
+@subsubheading Uso de @code{\partCombine} con letra
 
 @cindex @code{\partCombine} y letra
 
@@ -1204,6 +1298,7 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{PartCombineMusic},
 @rinternals{Voice}.
+@endmorerefs
 
 @knownissues
 Todas las funciones @code{\partCombine@dots{}} admiten
@@ -1226,7 +1321,7 @@ los que se incluye la impresión incorrecta de marcas de @qq{Solo}
 o de @qq{Unison}.
 
 @code{\partCombine} conserva todos los elementos extensos
-(ligaduras, reguladores, etc.) dentro del mismo contexto
+(ligaduras, reguladores, etc.@:) dentro del mismo contexto
 @code{Voice} de forma que si uno cualquiera de estos elementos
 extensos inicia o termina en un contexto @code{Voice} diferente,
 puede no imprimirse o hacerlo incorrectamente.
@@ -1239,15 +1334,42 @@ significa que si se produce un cambio a un contexto @code{Voice}
 que tenga un nombre distinto, se ignorarán los eventos dentro del
 contexto @code{Voice} que tiene el nombre distinto.
 
-Consulte también el apartado
-@emph{Advertencias y problemas conocidos} en la sección
-@ref{Default tablatures} al utilizar @code{\partCombine}
-con tablaturas, y la @emph{Nota} de @ref{Automatic beams} al
-utilizar barrado automático.
+A causa de que @code{\partCombine} es una funcionalidad en dos
+pasos, se debe tener cuidado de no confundir las dos fases.  Por
+ejemplo, este código
+
+@example
+uno = @{ e''2 \tag #'score f''
+             \tag #'part fis'' g''1 @}
+dos = @{ e''2 d'' g'1 @}
+
+\removeWithTag #'score \partCombine \uno \dos
+@end example
+
+@noindent
+no funciona porque el primer paso no sabe que estamos eliminando
+música etiquetada, por lo que la información que registra no es
+consistente con la música cuando llega el momento de la segunda
+fase.  Si queremos usar @code{\partCombine} con filtrados,
+repeticiones desplegadasu otras transformaciones, tenemos que
+hacer la transformación primero para que la música se encuentre en
+su forma definitiva antes de la primera fase, por ejemplo,
+
+@example
+...
+\partCombine
+  \removeWithTag #'score \uno
+  \removeWithTag #'score \dos
+@end example
+
+Consulte también el apartado @emph{Advertencias y problemas
+conocidos} en la sección @ref{Default tablatures} al utilizar
+@code{\partCombine} con tablaturas, y la @emph{Nota} de
+@ref{Automatic beams} al utilizar barrado automático.
 
 
 @node Writing music in parallel
-@unnumberedsubsubsec Escribir música en paralelo
+@subsection Escribir música en paralelo
 
 @cindex escribir música en paralelo
 @cindex música intercalada
@@ -1364,3 +1486,4 @@ Manual de aprendizaje:
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
+@endmorerefs
