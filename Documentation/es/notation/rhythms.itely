@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: e416220b4a9afbb2cd8e3b752993591786cf40fb
+    Translation of GIT committish: 13838f7ee2e6a20914c47cd824a581a65c4be6fb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -10,7 +10,7 @@
 @c \version "2.25.28"
 
 @node Rhythms
-@section Duraciones
+@chapter Duraciones
 
 @lilypondfile[quote]{snippets/rhythms-headword.ly}
 
@@ -19,32 +19,28 @@ las barras y los compases.
 
 
 @node Writing rhythms
-@subsection Escritura de las duraciones (valores rítmicos)
+@section Escritura de las duraciones (valores rítmicos)
 
 
 @node Durations
-@unnumberedsubsubsec Duración de las notas
+@subsection Duración de las notas
 
 @cindex duración, de las notas
 @cindex nota, duración de
 @cindex longitud, de las notas
 @cindex nota, longitud de
 
+The durations of notes are entered using numbers and dots.  The number
+entered is based on the reciprocal value of the length of the note.  For
+example, a quarter note is designated using the numerical value of
+@code{4} as it is a 1/4 note, a half note using @code{2}, an eighth
+using @code{8} and so on.  Durations as short as @code{1024} notes can be
+entered but shorter values, while possible, can only be entered as
+beamed notes.  Also see @ref{Beams}.
+
 @funindex \longa
 @funindex \breve
 @funindex \maxima
-
-La duración de las notas se introduce mediante números y
-puntos. El número que se escribe está basado en el valor recíproco
-de la longitud de la nota. Respecto a la redonda, esto es el
-número de veces que dicha nota cabe en una redonda.  Por ejemplo,
-una negra se escribe usando un @code{4} (puesto que es 1/4 de
-redonda), mientras que una blanca se escribe con un @code{2} (por
-ser 1/2 de redonda), una corchea se escribe como @code{8} y así
-sucesivamente.  Se pueden especificar duraciones tan cortas como
-1/1024 de redonda (sin nombre en español) pero cualquier valor más
-corto, aunque sea posible, solo se puede introducir como grupos de
-notas unidas por una barra.  Véase también @ref{Beams}.
 
 Para notas mayores de la redonda se deben usar las instrucciones
 @code{\longa} (que es una breve doble) y @code{\breve}. Se puede
@@ -192,6 +188,7 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{Dots},
 @rinternals{DotColumn}.
+@endmorerefs
 
 @knownissues
 @c Deliberately duplicated in Durations and Rests.  -gp
@@ -203,7 +200,7 @@ silencio de 1/1024 de redonda (sin nombre en español) hasta el de
 
 
 @node Tuplets
-@unnumberedsubsubsec Grupos especiales
+@subsection Grupos especiales
 
 @cindex grupo especial
 @cindex tresillo
@@ -232,7 +229,7 @@ normalmente tienen@tie{}2:
 @end lilypond
 
 @cindex agrupación de grupes especiales
-@noindent
+
 Si se están escribiendo pasajes con muchos grupos de valoración
 especial, resulta fastidioso tener que escribir una instrucción
 @code{\tuplet} distinta para cada grupo.  Es posible especificar
@@ -274,8 +271,7 @@ Los grupos pueden anidarse unos dentro de otros:
 
 @noindent
 La modificación de los grupos especiales anidados que comienzan en
-el mismo instante musical se debe hacer con @code{\tweak}; véase
-@ref{The tweak command}.
+el mismo instante musical se debe hacer con @code{\tweak}; @pxref{Tweak and single}.
 
 @cindex ligadura de grupo especial
 @cindex grupo especial, ligadura
@@ -348,10 +344,14 @@ imprimir un grupo especial (ni un corchete) se explica también en
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/controlling-tuplet-bracket-visibility.ly}
 
+@cindex tuplet bracket, note head side
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{snippets/printing-tuplet-brackets-on-the-note-head-side.ly}
+
 @cindex barra, grupo especial, cortar línea
 @cindex grupo de valoración especial, barra, cortar línea
 @funindex Forbid_line_break_engraver
-@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/permitting-line-breaks-within-beamed-tuplets.ly}
 
 
@@ -369,7 +369,7 @@ Referencia de la notación:
 @ref{Visibility of objects},
 @ref{Time administration},
 @ref{Scaling durations},
-@ref{The tweak command},
+@ref{Tweak and single},
 @ref{Polymetric notation}.
 
 Fragmentos de código:
@@ -379,10 +379,11 @@ Referencia de funcionamiento interno:
 @rinternals{TupletBracket},
 @rinternals{TupletNumber},
 @rinternals{TimeScaledMusic}.
+@endmorerefs
 
 
 @node Scaling durations
-@unnumberedsubsubsec Escalar las duraciones
+@subsection Escalar las duraciones
 
 @cindex escala, duración
 @cindex duración, escalado de
@@ -466,6 +467,7 @@ Referencia de la notación:
 
 Fragmentos de código:
 @rlsr{Rhythms}.
+@endmorerefs
 
 @knownissues
 El cálculo de la posición dentro de un compás debe tener en
@@ -478,7 +480,7 @@ ejecución y el tipografiado se detendrán en ese punto sin indicar
 ningún error.
 
 @node Ties
-@unnumberedsubsubsec Ligaduras de unión
+@subsection Ligaduras de unión
 
 @cindex ligadura de unión
 
@@ -487,6 +489,12 @@ ningún error.
 Una ligadura de unión conecta dos notas adyacentes de la misma
 altura.  La ligadura en efecto extiende la longitud de una nota.
 
+Ties that connect notes to nothing are called @dfn{laissez vibrer}
+articulation; @pxref{Laissez vibrer} for the @code{\laissezVibrer}
+command.  Ties that connect nothing to notes (as needed in seconda
+volta sections, for example), can be entered with the @code{\repeatTie}
+command; @pxref{Repeat tie}.
+
 @warning{No deben confundirse las ligaduras de unión con las
 @emph{ligaduras de expresión}, que indican articulación, ni con
 las @emph{ligaduras de fraseo}, que indican el fraseo musical.
@@ -494,16 +502,8 @@ Una ligadura de unión es tan sólo una manera de extender la
 duración de una nota, algo parecido a lo que hace el puntillo.}
 
 Se introduce una ligadura de unión escribiendo el símbolo de la
-tilde curva (@code{~}) después de la primera de cada pareja de
-notas que se quieren unir.  Esto indica que la nota se une a la
-siguiente, que debe tener la misma altura.
-
-@lilypond[quote,verbatim]
-{ a'2~ 4~ 16 r r8 }
-@end lilypond
-
-Las ligaduras de unión pueden hacer uso de la interpretación
-@q{última altura explícita} para las duraciones aisladas:
+tilde curva (@samp{~}) después de la primera de cada pareja de
+notas que se quieren unir.  Esto indica que la nota se une a la siguiente, que debe tener la misma altura.  Observe que las ligaduras de unión pueden hacer uso de la interpretación @q{última altura explícita} para las duraciones aisladas:
 
 @lilypond[quote,verbatim]
 { a'2~ 4~ 16 r r8 }
@@ -544,31 +544,38 @@ dentro del acorde.
 }
 @end lilypond
 
+@anchor{Repeat tie}
+@cindex alternative ending, with ties
+@cindex repeat, with ties
 @cindex repetición, ligaduras de unión en
+@cindex tie, alternative endings
+@cindex tie, in repeats
 @cindex ligadura de unión, repetición y
+@cindex tie, from nothing
 @cindex primera y segunda vez, corchetes y ligaduras en
 @cindex ligadura de unión, corchetes de primera y segunda vez
 
 @funindex \repeatTie
 
-Cuando la segunda vez de una repetición comienza con una nota ligada,
+When a tie continues into alternative endings,
 es necesario especificar la ligadura repetida como sigue:
 
 @lilypond[quote,verbatim]
 \relative {
   \repeat volta 2 { c'' g <c e>2~ }
   \alternative {
-    % First alternative: following note is tied normally
-    { <c e>2. r4 }
-    % Second alternative: following note has a repeated tie
-    { <c e>2\repeatTie d4 c }
+    % the following note is tied normally
+    \volta 1 { <c e>2. r4 }
+    % the following note has a repeated tie
+    \volta 2 { <c e>2\repeatTie d4 c }
   }
 }
 @end lilypond
 
+@anchor{Laissez vibrer}
 @cindex laissez vibrer
 @cindex ligadura laissez vibrer
-
+@cindex tie, to nothing
 @funindex \laissezVibrer
 
 Las ligaduras @notation{L.v.} (@notation{laissez vibrer}, dejar
@@ -625,9 +632,9 @@ Se pueden especificar patrones de discontinuidad personalizados:
 
 @lilypond[quote, verbatim]
 \relative c' {
-  \tieDashPattern #0.3 #0.75
+  \tieDashPattern 0.3 0.75
   c2~ 2
-  \tieDashPattern #0.7 #1.5
+  \tieDashPattern 0.7 1.5
   c2~ 2
   \tieSolid
   c2~ 2
@@ -641,15 +648,19 @@ ver más información acerca de los patrones de discontinuidad
 complejos, consulte los fragmentos de código bajo
 @ref{Slurs}.
 
+@cindex whiteout
+@cindex grob, and whiteout
+@cindex overwriting grob
+@cindex grob, overwriting
 Sobreescriba las propiedades de disposición @var{whiteout} y
 @var{layer} de los objetos que puedan causar una discontinuidad en
 las ligaduras de unión.
 
 @lilypond[verbatim,quote,ragged-right]
 \relative {
-  \override Tie.layer = #-2
-  \override Staff.TimeSignature.layer = #-1
-  \override Staff.KeySignature.layer = #-1
+  \override Tie.layer = -2
+  \override Staff.TimeSignature.layer = -1
+  \override Staff.KeySignature.layer = -1
   \override Staff.TimeSignature.whiteout = ##t
   \override Staff.KeySignature.whiteout = ##t
   b'2 b~
@@ -706,6 +717,7 @@ Referencia de funcionamiento interno:
 @rinternals{LaissezVibrerTieColumn},
 @rinternals{TieColumn},
 @rinternals{Tie}.
+@endmorerefs
 
 @knownissues
 Un cambio de pentagrama cuando hay una ligadura activa no
@@ -717,14 +729,14 @@ preferible una ligadura de expresión.
 
 
 @node Writing rests
-@subsection Escritura de silencios
+@section Escritura de silencios
 
 Los silencios se escriben como parte de la música dentro de las
 expresiones musicales.
 
 
 @node Rests
-@unnumberedsubsubsec Silencios
+@subsection Silencios
 
 @cindex silencio
 @cindex silencios, indicar duraciones
@@ -732,8 +744,7 @@ expresiones musicales.
 @cindex longa, silencio de
 @cindex breve, silencio de
 
-@funindex \rest
-@funindex r
+@cindex @code{r} (rest)
 @funindex \maxima
 @funindex \longa
 @funindex \breve
@@ -768,6 +779,7 @@ solo compás así como para muchos compases, y se tratan en
 @ref{Full measure rests}.
 
 @cindex silencio, especificar la posición vertical
+@funindex \rest
 
 Para especificar explícitamente la posición vertical de un
 silencio, escriba una nota seguida de @code{\rest}.  Se colocará
@@ -803,6 +815,7 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{Rest}.
+@endmorerefs
 
 @knownissues
 @c Deliberately duplicated in Durations and Rests.  -gp
@@ -813,7 +826,7 @@ redonda (sin nombre en español) hasta la máxima (8 redondas).
 
 
 @node Invisible rests
-@unnumberedsubsubsec Silencios invisibles
+@subsection Silencios invisibles
 
 @cindex desplazamiento
 @cindex silencio invisible
@@ -821,12 +834,14 @@ redonda (sin nombre en español) hasta la máxima (8 redondas).
 @cindex nota de espaciado
 @cindex silencio de separación
 
-@funindex s
+@cindex @code{s} (invisible rest)
 @funindex \skip
 
-Un silencio invisible (también conocido como @q{skip} o
-desplazamiento) se puede introducir como una nota con el
-nombre@tie{}@code{s}:
+There are two forms of invisible rests: the @dfn{spacer rest}
+named@tie{}@samp{s}, and the @code{\skip} command.  The spacer
+rest is a note that does not produce output.  Like any other note
+or rest, its duration sets the default duration of following
+notes.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -841,10 +856,8 @@ Los silencios de separación sólo están disponible en el modo de
 notas y en el modo de acordes.  En otras situaciones, por ejemplo,
 cuando se introduce la letra, se usa la instrucción @code{\skip}
 para producir un desplazamiento de una cierta magnitud temporal.
-@code{\skip} requiere una duración explícita, pero se ignora si
-las sílabas de la letra toman sus duraciones de las notas de una
-melodía asociada, a través de @code{\addlyrics} o de
-@code{\lyricsto}.
+The @code{\skip} command accepts either an explicit duration or a piece of music as an argument and skips the duration of the argument.  The duration of the @code{\skip} se ignora si las sílabas de la letra toman sus duraciones de las notas de una
+melodía asociada, a través de @code{\addlyrics} o de @code{\lyricsto}.
 
 @lilypond[quote,verbatim]
 <<
@@ -859,31 +872,55 @@ melodía asociada, a través de @code{\addlyrics} o de
 >>
 @end lilypond
 
-Dado que @code{\skip} es una instrucción, no afecta a las
-duraciones por omisión de las notas siguientes, a diferencia
-de@tie{}@code{s}.
+When the argument to @code{\skip} is music, the default duration
+of the following note is implicitly set by the last note of the
+argument.  However, to preserve backward compatibility with the
+legacy implementation of @code{\skip}, a numeric duration argument
+does not affect the duration of the subsequent note.
 
 @lilypond[quote,verbatim]
 <<
   {
-    \repeat unfold 8 { a'4 }
+    \repeat unfold 12 { a'4 }
   }
   {
     a'4 \skip 2 a' |
+    a'4 \skip { a'8 a' a' a' } a' a' |
     s2 a'
   }
 >>
 @end lilypond
 
-Un silencio de separación produce implícitamente contextos
-@code{Staff} y @code{Voice} si no existe ninguno, igual que las
-notas y los silencios normales:
+The @code{\skip} command preserves the effect of an enclosing
+@code{unfoldRepeats} command, unlike the @code{skip-@/of-@/length}
+Scheme function.
 
-@lilypond[quote,verbatim]
-{ s1 s s }
+@lilypond[verbatim,quote]
+MyCadenza = \fixed c' {
+  \repeat volta 2 {
+    d8 e f g g4 f4
+  }
+}
+
+music = <<
+  \new Staff {
+    \MyCadenza
+    c'1
+  }
+  \new Staff {
+    #(skip-of-length MyCadenza)
+    c'1
+  }
+  \new Staff {
+    \skip \MyCadenza
+    c'1
+  }
+>>
+
+\unfoldRepeats \music
 @end lilypond
 
-@code{\skip} tan sólo desplaza un tiempo musical; no produce
+La instrucción @code{\skip} tan sólo desplaza un tiempo musical; no produce
 ninguna salida, de ninguna clase.
 
 @lilypond[quote,verbatim]
@@ -904,10 +941,16 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{SkipMusic}.
+@endmorerefs
 
+@knownissues
+Because duration and music arguments to the @code{\skip} command
+affect the duration of subsequent music differently, it is good
+practice to provide an explicit duration for the music immediately
+following the command.
 
 @node Full measure rests
-@unnumberedsubsubsec Silencios de compás completo
+@subsection Silencios de compás completo
 
 @cindex multicompás, silencios
 @cindex compás, completo, silencios de
@@ -917,7 +960,7 @@ Referencia de funcionamiento interno:
 @cindex silencio, de redonda para un compás completo
 
 @funindex \compressMMRests
-@funindex R
+@cindex @code{R} (full-measure rest)
 
 Los silencios de uno o más compases completos se introducen como
 notas con el nombre @code{R} en mayúscula.  Su duración se escribe
@@ -991,8 +1034,10 @@ Se pueden añadir elementos de marcado a los silencios multicompás.
 }
 @end lilypond
 
-@warning{Los elementos de marcado y articulaciones que se añaden a
-un silencio multicompás son objetos del tipo
+@funindex MultiMeasureRestText
+@funindex MultiMeasureRestScript
+
+@warning{Los elementos de marcado y articulaciones que se añaden a los silencios multicompás son objetos del tipo
 @code{MultiMeasureRestText} y @code{MultiMeasureRestScript}, no
 @code{TextScript} y @code{Script}.  Las sobreescrituras de
 propiedades deben ir dirigidas hacia el objeto correcto, o se
@@ -1000,12 +1045,12 @@ ignorarán.  Véase el ejemplo siguiente:}
 
 @lilypond[quote,verbatim,fragment]
 % This fails, as the wrong object name is specified
-\override TextScript.padding = #5
+\override TextScript.padding = 5
 \override Script.color = #blue
 R1^"wrong"
 R1\fermata
 % This is the correct object name to be specified
-\override MultiMeasureRestText.padding = #5
+\override MultiMeasureRestText.padding = 5
 \override MultiMeasureRestScript.color = #blue
 R1^"right"
 R1\fermata
@@ -1068,51 +1113,189 @@ Referencia de funcionamiento interno:
 @rinternals{MultiMeasureRestNumber},
 @rinternals{MultiMeasureRestScript},
 @rinternals{MultiMeasureRestText}.
-
-@cindex digitación, y silencios multicompás
-@cindex multicompás, silencios, digitaciones y
+@endmorerefs
 
 @knownissues
+@cindex fingering, and multi-measure rest
+@cindex multi-measure rest, and fingerings
+
 En las digitaciones encima de silencios multicompás
 (p. ej., @code{R1*10-4}), la cifra de la digitación
 puede chocar con el número del compás.
 
-@cindex condensar silencios
-@cindex silencio normal, condensar
+@cindex condensing rests
+@cindex rest, condensing ordinary
+
+There is no way to automatically condense multiple ordinary rests
+into a single multi-measure rest.
 
 No hay ninguna forma de condensar automáticamente muchos silencios
 en un solo silencio multicompás.
 
 @cindex silencio, colisiones de
 
-Los silencios multicompás no toman parte en las colisiones de
-silencios.
+Multi-measure rests do not take part in rest collisions.
+
+
+@node Caesuras
+@subsection Caesuras
+
+@cindex caesura
+@cindex pause mark
+@funindex \caesura
+
+The @code{\caesura} command calls for unmetered silence:
+typically, a short break in sound that does not shorten the
+previous note.
+
+@lilypond[verbatim,quote]
+\fixed c'' { c2. \caesura d4 }
+@end lilypond
+
+@noindent
+In chants and hymns, @code{\caesura} can serve more generally as a
+phrase division; for more information, see the references at the
+end of this section.  For a break in sound that shortens the
+previous note, @pxref{Breath marks}.
+
+Articulations may follow @code{\caesura} to indicate the relative
+duration or significance of the break; these create
+@code{CaesuraScript} grobs.
+
+@lilypond[verbatim,quote]
+\fixed c'' { c2. \caesura \fermata d4 }
+@end lilypond
+
+By default, @code{\caesura} creates a @code{BreathingSign} grob.
+The @code{breath} element of the @code{caesuraType} context
+property controls which of several predefined signs
+@code{\caesura} creates.  @xref{List of breath marks}.
+
+@lilypond[verbatim,quote]
+\fixed c'' {
+  \set Score.caesuraType = #'((breath . curvedcaesura))
+  c2. \caesura d4
+}
+@end lilypond
+
+To designate one or more @code{CaesuraScript} grobs to be created
+as a normal part of an unarticulated caesura, set the
+@code{scripts} element of the @code{caesuraType} context property.
+(Additional scripts can still be attached as articulations.)  In
+conjunction with the @code{breath} element, the scripts listed in
+the @code{script} element attach to the @code{BreathingSign};
+otherwise, if a @code{BarLine} is present, they attach to it.
+
+The @code{caesuraTypeTransform} context property can be set to a
+Scheme function to enable a degree of automatic adaptation.  The
+@code{at-@/bar-@/line-@/substitute-@/caesura-@/type} function
+generator supports styles where the notation differs at a bar
+line.
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  \set Score.caesuraType =
+    #'((breath . spacer)
+       (scripts . (outsidecomma)))
+  \set Score.caesuraTypeTransform =
+    #(at-bar-line-substitute-caesura-type
+      '((scripts . (fermata))))
+  c'2. \caesura d'4
+  b1 \caesura
+  a1
+}
+@end lilypond
+
+
+@predefined
+@code{\caesura}.
+@endpredefined
+
+
+@snippets
+
+@cindex fermata, on bar line
+@funindex \caesura
+@funindex \fermata
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{snippets/positioning-opposing-fermatas-on-a-bar-line.ly}
+
+
+@morerefs
+Music Glossary:
+@rglos{caesura}.
+
+Notation Reference:
+@ref{Breath marks},
+@ref{Divisiones},
+@ref{Kievan bar lines},
+@ref{Phrase bar lines in hymn tunes}.
+
+Snippets:
+@rlsr{Expressive marks}.
+
+Internals Reference:
+@rinternals{BreathingSign},
+@rinternals{Caesura_engraver},
+@rinternals{CaesuraEvent},
+@rinternals{CaesuraScript},
+@rinternals{Tunable context properties}.
+@endmorerefs
 
 
 @need 1500
 @node Displaying rhythms
-@subsection Impresión de las duraciones
+@section Impresión de las duraciones
 
 
 @node Time signature
-@unnumberedsubsubsec Indicación de compás
+@subsection Indicación de compás
 
 @cindex Indicación de compás
 @cindex medida
 
 @funindex \time
 
-La indicación de compás se establece como sigue:
+To set a basic time signature, use the @code{\time} command with
+the fraction as argument.
 
 @lilypond[quote,verbatim,fragment]
-\time 2/4 c''2
-\time 3/4 c''2.
+\time 2/4
+c''2
+
+\time 3/4
+c''2.
 @end lilypond
 
-Se estudian los cambios de indicación de compás en el medio de un
-compás en @ref{Upbeats}.
+@noindent
+Fractional time signatures and denominators longer than a whole
+note require Scheme syntax.
 
-@cindex compás, visibilidad de la indicación de
+@lilypond[quote,verbatim,fragment]
+\time #'(5/2 . 4)
+c''2 r8
+
+\override Timing.TimeSignature.denominator-style = #'note
+\time #'(2 . 1/2)
+f''\breve c''
+@end lilypond
+
+Other unusual denominators may be used to add augmentation dots in
+the number-over-note style; however, to benefit the most from
+features covered elsewhere, using a conventional fraction for
+@code{\time} and overriding @code{TimeSignature@/.fraction} is
+recommended in such cases.
+
+@lilypond[quote,verbatim,fragment]
+\override Timing.TimeSignature.denominator-style = #'note
+\once \override Timing.TimeSignature.fraction = #'(2 . 8/3)
+\time 6/8
+c''8 8 8 8 8 8
+@end lilypond
+
+Mid-measure time signature changes are covered in @ref{Upbeats}.
+
+@cindex time signature, visibility
 
 La indicación de compás se imprime al comienzo de una pieza y
 siempre que hay un cambio de compás.  Si se produce un cambio al
@@ -1164,7 +1347,6 @@ Las indicaciones de compás de la música mensural se tratan en
 @cindex compás, indicación de, ajustes predeterminados
 @cindex autobarrado, propiedades para indicaciones de compás
 @cindex barrado, propiedades predefinidas para el compás
-@funindex \overrideTimeSignatureSettings
 
 Además de ajustar la indicación de compás que se imprime, la
 instrucción @code{\time} establece también los valores de las
@@ -1214,6 +1396,8 @@ con el mismo valor del tipo de compás:
 }
 @end lilypond
 
+@funindex \overrideTimeSignatureSettings
+
 @code{\overrideTimeSignatureSettings} toma cuatro argumentos:
 
 @enumerate
@@ -1223,13 +1407,12 @@ con el mismo valor del tipo de compás:
 tipo de compás al que se aplican estos valores.
 
 @item
-@code{@var{beatBase}}, una fracción que contiene el
-numerador y denominador de la unidad de medida básica de ese tipo
-de compás.
+@code{@var{beatBase}}, the musical length corresponding to one
+unit of @var{beatStructure}.
 
 @item
-@code{@var{beatStructure}}, una lista de Scheme que indica la
-estructura de los pulsos del compás, en unidades del momento base.
+@code{@var{beatStructure}}, una lista de Scheme que describe la
+longitud de cada pulso del compás en unidades de @var{beatBase}.
 
 @item
 @code{@var{beamExceptions}}, una lista-A que contiene cualesquiera
@@ -1264,11 +1447,7 @@ tipo de compás se pueden restaurar a los valores originales:
 }
 @end lilypond
 
-Se pueden establecer diferentes valores de las propiedades
-predeterminadas del tipo de compás para los distintos pentagramas
-moviendo el @code{Timing_translator} y el
-@code{Default_bar_line_engraver} del contexto @code{Score} al
-contexto @code{Staff}.
+Se pueden establecer diferentes valores de las propiedades predeterminadas del tipo de compás para los distintos pentagramas by enabling polymetric notation (@pxref{Polymetric notation}).
 
 @lilypond[quote, verbatim]
 \score {
@@ -1293,14 +1472,7 @@ contexto @code{Staff}.
      }
   >>
   \layout {
-    \context {
-      \Score
-      \remove Timing_translator
-    }
-    \context {
-      \Staff
-      \consists Timing_translator
-    }
+    \enablePolymeter
   }
 }
 @end lilypond
@@ -1328,6 +1500,7 @@ Glosario musical:
 
 Referencia de la notación:
 @ref{Mensural time signatures},
+@ref{Polymetric notation},
 @ref{Setting automatic beam behavior},
 @ref{Time administration}.
 
@@ -1340,10 +1513,70 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{TimeSignature},
 @rinternals{Timing_translator}.
+@endmorerefs
+
+
+@knownissues
+@code{\numericTimeSignature} and @code{\defaultTimeSignature} have no effect when used in a
+@code{MensuralStaff}. To use these modern time signatures in a @code{MensuralStaff}, either
+select them already when creating the context:
+
+@lilypond[quote,verbatim]
+\new MensuralStaff \with { \numericTimeSignature } {
+  c'1
+}
+@end lilypond
+
+@noindent
+or use an explicit @code{\override}:
+
+@lilypond[quote,verbatim]
+\new MensuralStaff {
+  \time 2/2
+  c'1
+  \override MensuralStaff.TimeSignature.style = #'numbered
+  \time 2/2
+  c'
+  \override MensuralStaff.TimeSignature.style = #'default
+  \time 2/2
+  c'
+}
+@end lilypond
+
+@cindex volta repeat, and time signatures
+@cindex time signature, and volta repeats
+
+If there is more than a single staff, and a time signature starts
+a prima volta but not the seconda volta, it is necessary to help
+LilyPond synchronize this situation by adding an explicit but
+invisible time signature in the seconda volta.
+
+@lilypond[quote,verbatim]
+music = {
+  \repeat volta 2 {
+    \time 2/4 c'2 |
+    \alternative {
+      \volta 1 {
+        \time 3/8 d'4. |
+        \time 2/4 c'2 | }
+      \volta 2 {
+        \once \omit Staff.TimeSignature
+        \time 2/4 c'2 |
+      }
+    }
+  }
+  \time 3/8 c'4. |
+}
+
+<<
+  \new Staff \music
+  \new Staff \music
+>>
+@end lilypond
 
 
 @node Metronome marks
-@unnumberedsubsubsec Indicaciones metronómicas
+@subsection Indicaciones metronómicas
 
 @cindex tempo
 @cindex pulsos por minuto
@@ -1358,6 +1591,18 @@ Es muy sencillo escribir una indicación metronómica básica:
   \tempo 4 = 120
   c'2 d
   e4. d8 c2
+}
+@end lilypond
+
+The stated rate does not have to be an integer, but it must be an
+exact number.
+
+@lilypond[verbatim,quote]
+tempoI = 100
+\fixed c' {
+  \tempo 4 = #(* tempoI 2/3)
+  e2 e4 d
+  c2 g2
 }
 @end lilypond
 
@@ -1403,6 +1648,21 @@ En general, el texto puede ser cualquier objeto de marcado:
 }
 @end lilypond
 
+A particularly useful markup command is @code{\rhythm}, which
+prints a rhythmic pattern.  @xref{Markup for music and musical symbols}.
+
+@lilypond[verbatim,quote]
+\relative {
+  \tempo \markup {
+    Swing
+    \hspace #0.4
+    \rhythm { 8[ 8] } = \rhythm { \tuplet 3/2 { 4 8 } }
+  }
+  b8 g' c, d ees d16 ees d c r8
+}
+@end lilypond
+
+
 Se puede escribir una indicación metronómica entre paréntesis sin
 ninguna indicación textual, escribiendo una cadena vacía en la
 entrada:
@@ -1418,25 +1678,40 @@ entrada:
 @funindex \markLengthOff
 
 En una particella de un instrumento con períodos de silencio
-largos (véase @ref{Full measure rests}), en ocasiones se
-suceden muy cerca distintas indicaciones de tempo.  La instrucción
-@code{\markLengthOn} aporta un espacio horizontal adicional para
-evitar que las indicaciones de tempo se superpongan, y
-@code{\markLengthOff} restablece el comportamiento predeterminado
-de ignorar las indicaciones de tempo para el espaciado horizontal.
+largos (@pxref{Full measure rests}) it happens quite frequently that
+tempo indications, rehearsal marks, and text marks sometimes
+follow each other closely.  The command @code{\markLengthOn}
+provides extra horizontal (and vertical) space to prevent such
+marks from horizontal overlapping, often causing unwanted vertical
+stacking.  Use @code{\markLengthOff} to restore the default
+behavior of ignoring these marks for the horizontal spacing
+algorithm.
 
 @lilypond[verbatim,quote]
 \compressMMRests {
   \markLengthOn
   \tempo "Molto vivace"
   R1*12
-  \tempo "Meno mosso"
+  \mark \default \tempo "Allegretto ma non troppo"
   R1*16
+  \mark \default \tempo "Tranquillo"
+  R1*2
   \markLengthOff
-  \tempo "Tranquillo"
-  R1*20
+  \mark \default \tempo "Tempo I"
+  R1 R1 \break
+
+  \markLengthOff
+  \tempo "Molto vivace"
+  R1*12
+  \mark \default \tempo "Allegretto ma non troppo"
+  R1*16
+  \mark \default \tempo "Tranquillo"
+  R1*2
+  \mark \default \tempo "Tempo I"
+  R1 R1
 }
 @end lilypond
+
 
 @snippets
 
@@ -1478,19 +1753,21 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno::
 @rinternals{MetronomeMark}.
+@endmorerefs
 
 
 @node Upbeats
-@unnumberedsubsubsec Anacrusas
+@subsection Anacrusas
 
 @cindex anacrusa
-@cindex parte al alzar
+@cindex irregular measure
+@cindex measure, irregular
 @cindex compás parcial
 @cindex parcial, compás
 @cindex compás de anacrusa
 @cindex compás, indicación de, en medio de un compás
+@cindex upbeat
 
-@funindex measurePosition
 @funindex \partial
 
 Los compases parciales como las @emph{anacrusas} o partes @emph{al
@@ -1512,6 +1789,9 @@ música que precede al primer compás.
 }
 @end lilypond
 
+@cindex measure position
+@cindex position, in measure
+
 Cuando se usa @code{\partial} después del comienzo de la
 partitura, @code{@var{duración}} es la longitud @emph{restante}
 del compás actual.  No crea un nuevo compás con numeración.
@@ -1520,7 +1800,7 @@ del compás actual.  No crea un nuevo compás con numeración.
 \relative {
   \set Score.barNumberVisibility = #all-bar-numbers-visible
   \override Score.BarNumber.break-visibility =
-	    #end-of-line-invisible
+              #end-of-line-invisible
   \time 9/8
   d''4.~ 4 d8 d( c) b | c4.~ 4. \bar "||"
   \time 12/8
@@ -1537,7 +1817,7 @@ usarse sola.
 \relative {
   \set Score.barNumberVisibility = #all-bar-numbers-visible
   \override Score.BarNumber.break-visibility =
-	    #end-of-line-invisible
+              #end-of-line-invisible
   \time 6/8
   \partial 8
   e'8 | a4 c8 b[ c b] |
@@ -1549,9 +1829,8 @@ usarse sola.
 }
 @end lilypond
 
-La instrucción @code{\partial} fija la propiedad
-@code{Timing.measurePosition}, que un número racional que indica
-cuánto tiempo ha transcurrido dentro del compás actual.
+For technical reasons, the argument to @code{\partial} cannot be a
+zero-length duration (like @code{\partial 4*0}).
 
 @morerefs
 Glosario musical:
@@ -1565,10 +1844,11 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{Timing_translator}.
+@endmorerefs
 
 
 @node Unmetered music
-@unnumberedsubsubsec Música sin compasear
+@subsection Música sin compasear
 
 @cindex cadencia
 @cindex cadencia, barras
@@ -1591,24 +1871,11 @@ Referencia de funcionamiento interno:
 @funindex \cadenzaOn
 @funindex \cadenzaOff
 
-En la música medida se insertan líneas divisorias y se calculan
-los números de compás automáticamente.  En música sin metro (es
-decir, cadencias), esto no es deseable y se puede @q{desactivar}
-usando la instrucción @code{\cadenzaOn}, para despúes
-@q{reactivarlo} en el lugar adecuado usando @code{\cadenzaOff}.
-
-@lilypond[verbatim,quote]
-\relative c'' {
-  c4 d e d
-  \cadenzaOn
-  c4 c d8[ d d] f4 g4.
-  \cadenzaOff
-  \bar "|"
-  d4 e d c
-}
-@end lilypond
-
-La numeración de compases se continúa al final de la cadencia.
+In music such as cadenzas, it may be desirable to disable
+automatic measure demarcation and all that it entails: numbering
+bars, resetting accidentals, etc.  Music between @code{\cadenzaOn}
+and @code{\cadenzaOff} does not count toward the length of a
+measure.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -1616,32 +1883,33 @@ La numeración de compases se continúa al final de la cadencia.
   \override Score.BarNumber.break-visibility = #all-visible
   c4 d e d
   \cadenzaOn
-  c4 c d8[ d d] f4 g4.
+  c4 cis d8[ d d] f4 g4.
   \cadenzaOff
-  \bar "|"
   d4 e d c
 }
 @end lilypond
 
-Al insertar una instrucción @code{\bar} dentro de una cadencia no
-se inicia un compás nuevo, incluso aunque se imprima una línea
-divisoria.  Así pues, las alteraciones accidentales (cuyo efecto
-se suele suponer que permanece hasta el final del compás) serán
-válidas aún después de la línea divisoria que se imprime por parte
-de @code{\bar}.  Si se quieren imprimir alteraciones accidentales
-posteriores tendrán que insertarse manualmente alteraciones
-forzadas o de cortesía, véase @ref{Accidentals}.
+To divide an unmetered passage into irregular measures,
+temporarily re-enable timing and use @code{\partial} to create a
+tiny measure.  The @code{\bar} command alone does not start a new
+measure.
 
 @lilypond[verbatim,quote]
+cadenzaMeasure = {
+  \cadenzaOff
+  \partial 1024 s1024
+  \cadenzaOn
+}
+
 \relative c'' {
+  % Show all bar numbers
+  \override Score.BarNumber.break-visibility = #all-visible
   c4 d e d
   \cadenzaOn
-  cis4 d cis d
-  \bar "|"
-  % First cis is printed without alteration even if it's after a \bar
-  cis4 d cis! d
+  c4 cis \bar "!" d8[ d d] \cadenzaMeasure f4 g4.
+  \cadenzaMeasure
   \cadenzaOff
-  \bar "|"
+  d4 e d c
 }
 @end lilypond
 
@@ -1667,6 +1935,43 @@ Para cambiar esto, traslade el @code{Timing_translator} del
 contexto @code{Score} al contexto @code{Staff}, véase
 @ref{Polymetric notation}.
 
+@cindex cadenza, line breaks
+@cindex cadenza, page breaks
+@cindex unmetered music, line breaks
+@cindex unmetered music, page breaks
+@cindex break, in unmetered music
+@cindex line break, cadenzas
+@cindex page break, cadenzas
+@cindex line break, unmetered music
+@cindex page break, unmetered music
+
+Within a cadenza section, automatic breaks are disabled: since there
+is no metric, it is not possible to determine automatically where
+they would be appropriate.  Therefore, in a long cadenza passage,
+you must insert possible break points at appropriate places using
+the @code{\allowBreak} command or other solutions in @ref{Line
+breaking}.
+
+@lilypond[verbatim,quote]
+\relative {
+  c'4 f g c, d f g c
+  \cadenzaOn
+  c4 cis8
+  \allowBreak
+  d[ cis c cis]
+  \allowBreak
+  d[ f g a]
+  \allowBreak
+  ais[ g f g]
+  \allowBreak
+  d4 f8
+  \allowBreak
+  d[ cis] c4
+  \allowBreak
+  a8[ c] g4
+}
+@end lilypond
+
 @predefined
 @code{\cadenzaOn},
 @code{\cadenzaOff}.
@@ -1684,30 +1989,12 @@ Referencia de la notación:
 
 Fragmentos de código:
 @rlsr{Rhythms}.
+@endmorerefs
 
-@cindex cadencia, saltos de línea en
-@cindex cadencia, saltos de página en
-@cindex sin medida, música, saltos de línea en
-@cindex sin medida, música, saltos de página en
-@cindex salto, en música sin medida
-@cindex salto, de línea, cadencias
-@cindex salto, de página, cadencias
-@cindex salto, de línea, música sin medida
-@cindex salto, de página, música sin medida
-
-@knownissues
-Sólo se insertan saltos de línea y de página automáticamente en
-las líneas divisorias, por lo que es necesario insertar
-manualmente líneas divisorias @q{invisibles} en fragmentos largos
-de música sin medir para permitir los saltos:
-
-@example
-\bar ""
-@end example
 
 
 @node Polymetric notation
-@unnumberedsubsubsec Notación polimétrica
+@subsection Notación polimétrica
 
 @c This section necessarily uses \set
 @c This is acceptable  -td
@@ -1726,7 +2013,7 @@ Está contemplada la notación polimétrica, ya sea explícitamente o
 mediante la modificación manual de la indicación visible del
 compás y/o el escalado de la duración de las notas.
 
-@subsubsubheading Pentagramas con distintas indicaciones de compás y compases de igual longitud
+@subsubheading Pentagramas con distintas indicaciones de compás y compases de igual longitud
 
 Establezca una indicación de compás común para cada pentagrama, y
 fije @code{timeSignature} a la fracción deseada.  Luego
@@ -1771,22 +2058,13 @@ las duraciones afecta a las reglas de barrado automático.
 >>
 @end lilypond
 
-@subsubsubheading Pentagramas con distintas indicaciones de compás y longitudes de compás distintas
+@subsubheading Pentagramas con distintas indicaciones de compás y longitudes de compás distintas
 
-Se puede dar a cada pentagrama su propia indicación de compás
-independiente trasladando los grabadores @code{Timing_translator}
-y @code{Default_bar_line_engraver} al contexto de @code{Staff}.
+Se puede dar a cada pentagrama su propia indicación de compás independiente as soon as @code{\enablePolymeter} is placed in the @code{\layout} block.
 
 @lilypond[quote,verbatim]
 \layout {
-  \context {
-    \Score
-    \remove Timing_translator
-  }
-  \context {
-    \Staff
-    \consists Timing_translator
-  }
+  \enablePolymeter
 }
 
 % Now each staff has its own time signature.
@@ -1813,11 +2091,79 @@ y @code{Default_bar_line_engraver} al contexto de @code{Staff}.
 >>
 @end lilypond
 
+To have just one polymetric score, include @code{\enablePolymeter}
+in a @code{\layout} block inside the @code{\score} block.
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff { c''1 1 }
+    \new Staff { c'2 d' g'2~ 2 }
+  >>
+}
+
+\score {
+  \layout {
+    \enablePolymeter
+  }
+  <<
+    \new Staff { \time 4/4 c''1 1 }
+    \new Staff { \time 2/4 c'2 d' g'2~ 2 }
+  >>
+}
+@end lilypond
+
+When using polymeter, all staves should include a @code{\time}
+command if their meter is not the default 4/4.  This is true even
+for special staves without actual staff lines, such as
+@code{Dynamics} contexts, since the placement of certain spanners
+like hairpins is synchronized with bar lines.
+
+@c no verbatim on purpose
+@lilypond[quote]
+\layout {
+  \enablePolymeter
+}
+
+upper = { c'1 | d' | f' }
+lower = { c'4 4 8 8 | 4 2 | 2 4 | 4 4 4 }
+dynamics = { s2. s2.\p\< s\> s\! }
+
+<<
+ \new Staff { \time 4/4 \upper }
+  \new PianoStaff <<
+    \new Staff { \time 3/4 \lower }
+    \new Dynamics { <>-"No \\time" \dynamics }
+    \new Staff { \time 3/4 \lower }
+    \new Dynamics { <>-"With \\time" \time 3/4 \dynamics }
+    \new Staff { \time 3/4 \lower }
+  >>
+>>
+@end lilypond
+
+In order to use this feature with MIDI output, also include
+@code{\enablePolymeter} in a @code{\midi} block.
+
+@quotation
+@verbatim
+\layout {
+  \enablePolymeter
+}
+
+\midi {
+  \enablePolymeter
+}
+@end verbatim
+@end quotation
+
+
+@subsubheading Compound time signatures
+
 @funindex \compoundMeter
 @cindex compuesto, indicación de compás
 @cindex compás, compuesto, indicación de
 
-@subsubsubheading Indicaciones de compás compuesto
+@subsubheading Indicaciones de compás compuesto
 
 Se crean usando la función @code{\compoundMeter}.  La sintaxis es:
 
@@ -1871,6 +2217,7 @@ Referencia de funcionamiento interno:
 @rinternals{TimeSignature},
 @rinternals{Timing_translator},
 @rinternals{Staff}.
+@endmorerefs
 
 @knownissues
 Aunque las notas que se producen en el mismo momento
@@ -1878,27 +2225,9 @@ en distintos pentagramas se colocan en la misma posición
 horizontal, las barras de compás en cada pauta pueden hacer que el espaciado de notas sea menos regular
 según cada tipo de compás.
 
-La utilización de un bloque @code{midi} con notación polimétrica
-puede causar advertencias inesperadas de comprobación de compás.
-En este caso traslade el @code{Timing_translator} del
-contexto de @code{Score} al contexto de @code{Staff} dentro del
-bloque @code{midi}.
-
-@lilypond[verbatim]
-\midi {
-  \context {
-    \Score
-    \remove Timing_translator
-  }
-  \context {
-     \Staff
-     \consists Timing_translator
-  }
-}
-@end lilypond
 
 @node Automatic note splitting
-@unnumberedsubsubsec División automática de las notas
+@subsection División automática de las notas
 
 @cindex nota, división de
 @cindex división, de notas
@@ -1986,6 +2315,7 @@ Referencia de funcionamiento interno:
 @rinternals{Rest_engraver},
 @rinternals{Completion_rest_engraver},
 @rinternals{Forbid_line_break_engraver}.
+@endmorerefs
 
 @knownissues
 Por consistencia con el comportamiento anterior, las notas y
@@ -1998,7 +2328,7 @@ escala que las duraciones de las notas originales de la entrada.
 
 
 @node Showing melody rhythms
-@unnumberedsubsubsec Mostrar los ritmos de la melodía
+@subsection Mostrar los ritmos de la melodía
 
 @cindex melodía, mostrar el ritmo
 @cindex ritmo, de la melodía, mostrar
@@ -2100,15 +2430,18 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{RhythmicStaff},
 @rinternals{Pitch_squash_engraver}.
+@endmorerefs
 
 
-@need 1500
 @node Beams
-@subsection Barras
+@section Barras
+
+LilyPond provides two different possibilities for entering beams:
+automatic and manual input, which can be also mixed.
 
 
 @node Automatic beams
-@unnumberedsubsubsec Barras automáticas
+@subsection Barras automáticas
 
 De manera predeterminada, las barras de corchea se insertan
 automáticamente:
@@ -2116,9 +2449,6 @@ automáticamente:
 @cindex barra, manual
 @cindex manual, barra
 @cindex barra, reglas personalizadas
-
-@funindex \autoBeamOn
-@funindex \autoBeamOff
 
 @lilypond[quote,verbatim]
 \relative c'' {
@@ -2131,6 +2461,9 @@ Cuando estas decisiones automáticas no son lo bastante buenas, se
 pueden escribir los barrados de forma explícita; véase
 @ref{Manual beams}.  Las barras @emph{se deben} introducir
 manualmente si se quieren extender por encima de los silencios.
+
+@funindex \autoBeamOn
+@funindex \autoBeamOff
 
 Si no se necesita el barrado automático, se puede desactivar con
 @code{\autoBeamOff} y activarse con @code{\autoBeamOn}:
@@ -2164,17 +2497,13 @@ automáticos predeterminados; véase
 @code{\autoBeamOn}.
 @endpredefined
 
-@cindex barra, en saltos de línea
-@cindex línea, barras en saltos de
-@cindex barra, en ángulo
-@cindex doblada, barra
-@funindex breakable
-
 
 @snippets
 
+@anchor{Beams across line breaks}
 @cindex barra, salto de línea
 @cindex línea, salto, barra
+@funindex breakable
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/beams-across-line-breaks.ly}
 
@@ -2208,6 +2537,7 @@ Referencia de funcionamiento interno:
 @rinternals{BeamForbidEvent},
 @rinternals{beam-interface},
 @rinternals{unbreakable-spanner-interface}.
+@endmorerefs
 
 @knownissues
 Las propiedades de una barra vienen determinadas al
@@ -2218,7 +2548,7 @@ se ha completado no tendrá efecto hasta que inicie la
 
 
 @node Setting automatic beam behavior
-@unnumberedsubsubsec Establecer el comportamiento de las barras automáticas
+@subsection Establecer el comportamiento de las barras automáticas
 
 @cindex barra, y letra
 @cindex letra, y barras
@@ -2249,7 +2579,8 @@ tipo de compás en curso, la colocación de las barras está
 determinada por los valores de @code{beatBase} y
 @code{beatStructure}.
 
-@subsubsubheading Barrado basado en @code{beatBase} y @code{beatStructure}
+
+@subsubheading Barrado basado en @code{beatBase} y @code{beatStructure}
 
 De forma predeterminada, las reglas de @code{beamExceptions} están
 definidas para los compases más comunes, y así las reglas de
@@ -2347,7 +2678,7 @@ pentagrama:
 \time 7/8
 % rhythm 3-1-1-2
 % Change applied to Voice by default --  does not work correctly
-% Because of autogenerated voices, all beating will
+% Because of auto-generated voices, all beating will
 % be at beatBase #1/8
 \set beatStructure = 3,1,1,2
 << \relative {a'8 a a a16 a a a a8 a} \\ \relative {f'4. f8 f f f} >>
@@ -2374,9 +2705,9 @@ compatible con el nuevo valor de @code{beatBase}.
 De forma predeterminada @code{beatBase} está fijado a una unidad
 más que el denominador del compás.  Todas las excepciones a este
 valor predeterminado están en
-@file{scm/time-signature-settings.scm}.
+@file{scm/time-@/signature-@/settings.scm}.
 
-@subsubsubheading Barrado basado en @code{beamExceptions}
+@subsubheading Barrado basado en @code{beamExceptions}
 
 Las reglas de autobarrado especiales (distintas de terminar una
 barra sobre un pulso) están definidas en la propiedad
@@ -2410,8 +2741,8 @@ conocer los ajustes de barrado actuales para poder especificar un
 patrón de barrado nuevo.}
 
 Cuando cambia el compás, se fijan los valores predeterminados de
-@code{Timing.beatBase}, @code{Timing.beatStructure} y
-@code{Timing.beamExceptions}.  Un ajuste en el tipo de compás da
+@code{Timing@/.beatBase}, @code{Timing@/.beatStructure} y
+@code{Timing@/.beamExceptions}.  Un ajuste en el tipo de compás da
 como resultado un reinicio de los ajustes de barrado automático
 para el contexto @code{Timing} al comportamiento predeterminado.
 
@@ -2484,7 +2815,7 @@ numerador:
 }
 @end lilypond
 
-@subsubsubheading Cómo funciona el barrado automático
+@subsubheading Cómo funciona el barrado automático
 
 Cuando se habilita el barrado automático, la colocación de las
 barras de corchea automáticas viene determinada por las
@@ -2517,7 +2848,7 @@ terminar las barras al final de los pulsos.
 
 @end itemize
 
-En las reglas anteriores, el tipo de barra @emph{beam-type} es la
+En las reglas anteriores, el tipo de barra @emph{beam type} es la
 duración de la nota más breve dentro del grupo unido por una
 barra.
 
@@ -2574,6 +2905,7 @@ Referencia de funcionamiento interno:
 @rinternals{Beam},
 @rinternals{BeamForbidEvent},
 @rinternals{beam-interface}.
+@endmorerefs
 
 @knownissues
 Si una partitura termina mientras una barra de corchea automática
@@ -2621,7 +2953,7 @@ barrado automático para una indicación de compás se describe en
       3/4               % timeSignature
       #1/8              % beatBase
       1,5               % beatStructure
-      #'()		% beamExceptions
+      #'()              % beamExceptions
     \time 3/4
     \repeat unfold 6 { a'8 }
   }
@@ -2634,13 +2966,13 @@ barrado automático para una indicación de compás se describe en
 
 
 @node Manual beams
-@unnumberedsubsubsec Barras manuales
+@subsection Barras manuales
 
 @cindex barra, manual
 @cindex manual, barra
 
-@funindex @sortas{]A} ]
-@funindex @sortas{[A} [
+@funindex ]
+@funindex [
 
 En ciertos casos puede ser preciso sobreescribir el algoritmo de
 barrado automático.  Por ejemplo, el barrador automático no
@@ -2707,10 +3039,10 @@ grupo como un todo.
 \relative a' {
   a8[ r16 f g a]
   a8[ r16
-  \set stemLeftBeamCount = #2
-  \set stemRightBeamCount = #1
+  \set stemLeftBeamCount = 2
+  \set stemRightBeamCount = 1
   f16
-  \set stemLeftBeamCount = #1
+  \set stemLeftBeamCount = 1
   g16 a]
 }
 @end lilypond
@@ -2730,6 +3062,19 @@ grupo como un todo.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/beam-nibs.ly}
 
+@cindex beam-like flags
+@cindex flag, beam-like
+@cindex stacked flags
+@cindex flag, stacked
+@cindex straight flags, modern
+@cindex flag, modern straight
+@cindex straight flags, old
+@cindex flag, old straight
+@funindex \flagStyleStacked
+@funindex \flagStyleDefault
+@lilypondfile[verbatim,ragged-right,texidoc,doctitle]
+{snippets/using-alternative-flag-styles.ly}
+
 
 @morerefs
 Referencia de la notación:
@@ -2745,10 +3090,11 @@ Referencia de funcionamiento interno:
 @rinternals{Beam_engraver},
 @rinternals{beam-interface},
 @rinternals{Stem_engraver}.
+@endmorerefs
 
 
 @node Feathered beams
-@unnumberedsubsubsec Barras progresivas
+@subsection Barras progresivas
 
 @cindex barra, progresiva
 @cindex progresiva, barras
@@ -2768,7 +3114,7 @@ Si queremos que la colocación de las notas y el sonido de la
 salida MIDI refleje el @emph{ritardando} o @emph{accelerando}
 indicado por la barra progresiva, las notas se deben agrupar como
 una expresión musical delimitada por llaves y precedida de una
-instrucción @code{featheredDurations} que especifica la razón
+instrucción @code{\featherDurations} que especifica la razón
 entre las duraciones de la primera y la última notas dentro del
 grupo.
 
@@ -2809,6 +3155,7 @@ notas de una forma sólo aproximada, pero la salida MIDI es exacta.
 @morerefs
 Fragmentos de código:
 @rlsr{Rhythms}.
+@endmorerefs
 
 @knownissues
 La instrucción @code{\featherDurations} sólo funciona con
@@ -2816,13 +3163,57 @@ fragmentos musicales muy breves, y cuando los números de la
 fracción son pequeños.
 
 
+@node Slashed beams
+@subsection Slashed beams
+
+@cindex beam, slashed
+@cindex slashed beam
+
+Slashed beams are printed by using the special stencil procedure
+@code{beam::slashed-stencil}.  The slash may be printed at the left or right
+side of the beam and is further customizable by overrides of the @code{details}
+subproperties @code{over-beam-height}, @code{slash-slope}, @code{slash-side},
+@code{slash-stem-fraction}, @code{slash-thickness}, and
+@code{slash-X-positions}.
+Note that those subproperties negotiate with each other to get a pleasing
+output, i.e., changing one of them may have impact on others.
+
+@lilypond[verbatim,quote]
+mus = \repeat unfold 4 a16
+
+{
+  \override TextScript.rotation = #'(15 1 0)
+  \override Beam.stencil = #beam::slashed-stencil
+  \mus
+  <>^"slash-side" %% default: LEFT
+  \once \override Beam.details.slash-side = #RIGHT
+  \mus
+  <>^"over-beam-height" %% default: 0.75
+  \once \override Beam.details.over-beam-height = #1.5
+  \mus
+  <>^"slash-slope" %% default: 2
+  \once \override Beam.details.slash-slope = #1.0
+  \mus
+  <>^"slash-stem-fraction" %% default: 0.3
+  \once \override Beam.details.slash-stem-fraction = #0.6
+  \mus
+  <>^"slash-thickness" %% default: 0.1
+  \once \override Beam.details.slash-thickness = #0.2
+  \mus
+  <>^"slash-X-positions" %% default: (-0.5 . 1)
+  \once \override Beam.details.slash-X-positions = #'(-1 . 2)
+  \mus
+}
+@end lilypond
+
+
 @need 1500
 @node Bars
-@subsection Compases
+@section Compases
 
 
 @node Bar lines
-@unnumberedsubsubsec Barras de compás
+@subsection Barras de compás
 
 @cindex barra, de compás
 @cindex línea, divisorias
@@ -2834,52 +3225,36 @@ fracción son pequeños.
 
 @funindex \bar
 
-Las líneas divisorias delimitan a los compases pero también se
-pueden usar para indicar las repeticiones.  Normalmente, las
+Las líneas divisorias se usan para delimitar a los compases y las secciones, y para indicar repetición.  Normalmente, las
 líneas divisorias normales se insertan de manera automática en la
-salida impresa en lugares que están basados en el compás actual.
+salida impresa en lugares que están de acuerdo con el compás actual.  Various commands insert other kinds of bar lines automatically as part of their effect (see @ref{Automatic bar lines}).
 
-Las barras de compás sencillas insertadas automáticamente se
-pueden cambiar por otros tipos con la instrucción @code{\bar}.
-Por ejemplo, se suele poner una doble barra de cierre al final de
-la pieza:
+A bar line inserted automatically can be changed to another type
+with the @code{\bar} command:
 
 @lilypond[quote,verbatim]
-\relative { e'4 d c2 \bar "|." }
+\relative { e'4 d c2 \bar "!" }
 @end lilypond
 
-No deja de ser válida la última nota de un compás si no termina
-sobre la línea divisoria automática: se supone que la nota se
-prolonga sobre el compás siguiente.  Pero una secuencia larga de
+La última nota de un compás no tiene por qué terminar sobre la línea divisoria automática: se supone que la nota se prolonga sobre el compás siguiente.  Pero una secuencia larga de
 dichos compases prolongados puede hacer que la música aparezca
 comprimida o incluso que se salga de la página.  Esto es a causa
 de que los saltos de línea automáticos solamente se producen al
 final de compases completos, es decir, cuando todas las notas han
 finalizado antes de que el compás termine.
 
-@warning{Una duración incorrecta puede hacer que se trate de
-evitar la producción de saltos de línea, dando como resultado una
-línea de música con una compresión exagerada o música que se sale
-de la página.}
+@warning{Una duración incorrecta puede inhibir los saltos de línea, dando como resultado una línea de música con una compresión exagerada o música que se sale de la página.}
 
 @cindex línea, salto
 @cindex línea, divisoria, invisible
 @cindex compás, barras, invisibles
+@funindex \allowBreak
 
 También se permiten saltos de línea en las barras insertadas
 manualmente incluso dentro de compases incompletos.  Para permitir
 un salto de línea donde no hay ninguna línea divisoria visible,
-utilice lo siguiente:
-
-@example
-\bar ""
-@end example
-
-@noindent
-De esta manera se insertará una barra invisible de compás y se
-hará posible el salto de línea en este punto, sin forzarlo. No se
-incrementa el contador de los números de compás.  Para forzar un
-salto de línea, consulte @ref{Line breaking}.
+utilice @code{\allowBreak}; @pxref{Line
+breaking}.
 
 @cindex manuales, líneas divisorias
 @cindex manuales, barras de compás
@@ -2893,26 +3268,27 @@ insertado automáticamente en dicho lugar.  Cuando no coinciden con
 el final de un compás, se inserta la línea especificada en ese
 punto en la salida impresa.
 
-Observe que las líneas divisorias manuales son puramente visuales.
+Las líneas divisorias manuales son puramente visuales.
 No afectan a ninguna de las propiedades que una barra normal
-afectaría, como a los números de compás, alteraciones, saltos de
-línea, etc.  No afectan tampoco al cálculo y colocación de las
+afectaría, como a los números de compás o las alteraciones.  No afectan tampoco al cálculo y colocación de las
 líneas divisorias subsiguientes.  Cuando una divisoria se coloca
 manualmente donde ya existe una divisoria normal, los efectos de
 la línea original no se alteran.
 
-Están disponibles para su inserción manual dos tipos de líneas
-divisorias simples y cinco tipos de doble barra:
+@c TODO: "There are N of these and M of these and ..." is material
+@c for an appendix.
+
+Están disponibles para su inserción manual varios tipos de líneas divisorias simples y dobles:
 
 @lilypond[quote,verbatim]
 \relative {
   f'1 \bar "|"
   f1 \bar "."
-  g1 \bar "||"
+  g1 \bar "||"     % see \section
   a1 \bar ".|"
   b1 \bar ".."
   c1 \bar "|.|"
-  d1 \bar "|."
+  d1 \bar "|."     % see \fine
   e1
 }
 @end lilypond
@@ -2929,7 +3305,7 @@ así como la barra de puntos y la discontinua:
 @end lilypond
 
 @noindent
-y nueve tipos de barra de repetición:
+y varios tipos de barra de repetición:
 
 @lilypond[quote,verbatim]
 \relative {
@@ -2946,33 +3322,38 @@ y nueve tipos de barra de repetición:
 }
 @end lilypond
 
-Además se puede imprimir una línea divisoria como una marca corta:
+@cindex bar line, short
+@cindex bar line, tick
+@cindex short bar line
+@cindex tick bar line
+
+Ticks and short bar lines are also available; however, in the
+context of Gregorian chant, using @code{\divisioMinima} and
+@code{\divisioMaior} is preferable (@pxref{Divisiones}).
 
 @lilypond[quote,fragment,verbatim]
-f'1 \bar "'" g'1
+f'1 \bar "'"
+g1 \bar ","
+a1
 @end lilypond
 
-Sin embargo, dado que las mencionadas marcas se utilizan
-usualmente en el canto gregoriano, es preferible en este caso
-utilizar @code{\divisioMinima}, que se describe en la sección
-@ref{Divisiones} dentro de Canto gregoriano.
-
-LilyPond contempla la notación del canto kievano y ofrece una
-línea divisoria especial kievana:
-
+LilyPond supports Kievan notation and provides a special Kievan
+bar line:
 @lilypond[quote,fragment,verbatim]
 f'1 \bar "k"
 @end lilypond
-
 Pueden verse más detalles de esta notación explicados en
 @ref{Typesetting Kievan square notation}.
 
+@cindex @q{segno} sign, bar line
+@cindex bar line, segno
+@cindex segno bar line
+@cindex sign, segno, bar line
 @cindex @q{segno}, signo de
 @cindex signo, @q{segno}
 
-Para los símbolos de segno en línea, existen tres tipos de barras
-de compás que se diferencian en su comportamiento en los saltos de
-línea:
+There are various in-staff segno signs which differ in their
+behavior at line breaks:
 
 @lilypond[quote,verbatim]
 \fixed c' {
@@ -3001,9 +3382,7 @@ línea:
 Aunque se pueden insertar manualmente barras de compás con
 significado de repeticiones, no se reconocen como repeticiones por
 parte de LilyPond.  Las secciones repetidas se introducen mejor
-utilizando las diversas instrucciones de repetición (véase
-@ref{Repeats}), que imprimen automáticamente las barras
-correspondientes.
+utilizando las diversas instrucciones de repetición (@pxref{Repeats}), que imprimen automáticamente las barras correspondientes, which can be customized (@pxref{Automatic bar lines}).
 
 Además se puede especificar @code{".|:-||"}, que equivale a
 @code{".|:"} excepto en los saltos de línea, en que produce una
@@ -3073,10 +3452,8 @@ existen seis variantes diferentes:
 }
 @end lilypond
 
-Además, existe una instrucción @code{\inStaffSegno} que crea una
-barra de compás con símbolo de segno, situada en conjunción con
-una línea de repetición adecuada si se utiliza con una instrucción
-@code{\repeat volta}, véase @ref{Normal repeats}.
+Many of the repeat and segno bar lines above can be inserted
+automatically by @code{\repeat} commands (@pxref{Repeats}).
 
 @funindex \defineBarLine
 @cindex compás, definir línea de
@@ -3092,34 +3469,176 @@ Se pueden definir tipos nuevos de líneas divisorias con
 @end example
 
 @noindent
-Además de @var{bartype} (la cadena de caracteres que se usará
-después para referirnos a la nueva línea divisoria), admite tres
-valores: los dos primeros determinan la apariencia de la línea
-divisoria cuando se produce en el salto de línea, en cuyo caso los
-glifos dados primero y segundo se imprimen respectivamente al
-@var{final} del sistema y al @var{principio} del siguiente.  El
-tercer glifo proporcionado solamente es de relevancia en sistemas
-de más de un pentagrama (véase @ref{Grouping staves}), donde
-se usa como una barra de extensión, que se imprime entre los
-pentagramas.
+Briefly, the @var{bar-type} argument specifies the bar line glyph to
+use in the middle of a staff line, and also serves as the name by
+which this bar line type is referenced.  The other arguments
+specify the bar line glyph to use at the end or beginning of a line,
+or in the span between multiple staves.  Setting any of @var{eol-bar},
+@var{bol-bar}, or @var{span-bar} to @code{#t} means to use the same bar
+line type specified by @var{bar-type} for the corresponding
+position.  Setting them to @code{#f} means to print no bar line in
+the corresponding position.
 
-Las variables de @code{\defineBarLine} pueden incluir la cadena de
-caracteres @q{vacía} @code{""}, que equivale a imprimir una línea
-divisoria invisible.  También se puede establecer al valor falso
-@code{#f} que no imprime línea divisoria alguna.
-
-Después de la definición, la nueva línea divisoria se puede
-utilizar mediante @code{\bar} @var{tipo_de_barra}.
-
-Actualmente están disponibles diez elementos de barra de compás:
+In more detail, the @var{bar-type} argument is a string that serves a
+dual purpose: It specifies the bar line glyph to be printed when it
+occurs in the middle of a staff line; and it identifies the bar line
+object that can be invoked with @code{\bar @var{bar-type}}.  It must
+have the form @var{midglyph} or
+@var{midglyph}@code{-}@var{annotation} (with a literal hyphen),
+where @var{annotation} is an arbitrary string, and @var{midglyph} is a
+string each of whose characters is the name of one of the predefined
+bar line elements listed below.  The resulting bar line glyph to be used in
+the middle of a line is the concatenation of these elements.  For
+example, a @var{bar-type} of either @code{";|"} or @code{";|-other"}
+specifies a compound bar line consisting of a dotted line (@samp{;})
+paired with a solid line (@samp{|}):
 
 @lilypond[quote,verbatim]
-\defineBarLine ":" #'("" ":" "")
-\defineBarLine "=" #'("=" "" "")
-\defineBarLine "[" #'("" "[" "")
-\defineBarLine "]" #'("]" "" "")
+\defineBarLine ";|" #'(#t #t #t)
+\defineBarLine ";|-other" #'(#f #f #f)
+\fixed c' {
+   \bar ";|" a1 \bar ";|" b1 \bar ";|-other" c'1 \bar ";|-other"
+}
+@end lilypond
+
+@noindent
+The @var{annotation} (@samp{other} in the second example above) is
+used to distinguish this bar type from others with the same
+@var{midglyph} but different line break or multi-staff behavior.
+(By convention, the string specified in @var{eol-bar} is often
+used as the annotation, so we might have named the second example
+@samp{";|-f"}.)
+
+The arguments @var{eol-bar} and @var{bol-bar} specify the bar line
+to be printed at the end of the line and beginning of the next
+line, when @code{\bar @var{bar-type}} occurs at a line break.
+@var{bol-bar} also applies when @code{\bar @var{bar-type}} is used
+at the beginning of a score.  The format of these arguments is the
+same as that of @var{bar-type}.  The string of bar line elements
+specifies the bar line glyph to print at the corresponding line
+position.  In addition, either of these arguments can be @code{#t}
+as a shorthand for copying the value of @var{bar-type}; or
+@code{#f} to print no bar line.  For example, all of the bar line
+types in this example print a dotted-solid line pair in the middle
+of a staff line, but have different behavior at ends or beginnings
+of lines:
+
+@lilypond[quote,verbatim,line-width=80]
+%   dotted-solid everywhere
+\defineBarLine  ";|"  #'( #t #t #t)
+%   solid-bold at EOL, solid-solid at BOL
+\defineBarLine  ";|-A" #'( "|."  "||"  #f )
+%   dotted-solid at EOL, nothing at BOL
+\defineBarLine  ";|-B" #'( #t  #f  #f )
+%   nothing at EOL, dotted-solid at BOL
+\defineBarLine  ";|-C" #'( #f  #t  #f )
+\relative c'' {
+  \bar ";|"  \textMark "\";|\""
+  a1  \bar ";|-A"
+  a1  \bar ";|-A"  \textEndMark "\";|-A\""  \break
+  b1  \bar ";|-B" b \bar ";|-B"  \textEndMark "\";|-B\""  \break
+  c1  \bar ";|-C" c \bar ";|-C"  \textEndMark "\";|-C\""   \break
+  d1  \bar ";|" \textEndMark "\";|\""
+}
+@end lilypond
+
+Note: The @var{eol-bar} or @var{bol-bar} strings may be names of
+previously defined bar line types.  In a single staff context, it
+does not matter: the bar line elements in the given string are
+used regardless of any features of the defined bar line named by
+the string.  In particular, any annotation is ignored in this
+context.  However, in a multi-staff system it is important that
+@var{eol-bar} and @var{bol-bar} refer to previously defined bar
+line types (including @var{bar-type} itself), or be @code{#t} or
+@code{#f}. This is explained in more detail below.
+
+The argument @var{span-bar} has an effect only in multi-staff
+systems (@pxref{Grouping staves}), where it specifies what to
+print between grouped staves.  This argument should be a string of
+bar line elements, of the same length as @var{bar-type} or
+shorter.  (Extra elements are ignored.)  Each element will be
+printed in line with the corresponding element of @var{bar-type}.
+A space character (@samp{ }) can be used to omit a bar line
+element but leave space for it.  Setting @var{span-bar} to @code{#t}
+makes it the same as the mid-line glyph.  Setting it to @code{#f}
+omits the span bar, and setting it to @code{""} (an empty string)
+makes a zero-width span bar.  Here are some examples:
+
+@lilypond[quote,verbatim]
+\defineBarLine  ";|!-A"  #'(#t #t "!|")
+\defineBarLine  ";|!-B"  #'(#t #t " !|")
+\defineBarLine  ";|!-C"  #'(#t #t #t)
+\defineBarLine  ";|!-D"  #'(#t #t #f)
+\fixed c' {
+  \new StaffGroup <<
+    \new Staff {
+      a1 \bar ";|!-A"
+      b  \bar ";|!-B"
+      c' \bar ";|!-C"
+      d' \bar ";|!-D"
+      e'
+    }
+    \new Staff {
+      a1 b c' d' e'
+    }
+  >>
+}
+@end lilypond
+
+At line breaks, instead of using @var{span-bar}, the bar line
+types referenced by @var{eol-bar} and @var{bol-bar} are used to
+determine the span bar to print.  In the context of a staff group,
+if @var{eol-bar} and @var{bol-bar} do not refer to defined bar
+line types, LilyPond issues a warning, and no span bar is printed
+at line breaks.  It is allowed for @var{eol-bar} or @var{bol-bar}
+to be @code{#f}, in which case no span bar is printed at the
+corresponding line position.  These arguments can also be
+@code{#t}, or equivalently, equal to @var{bar-type}, in which case
+the current @var{span-bar} does determine the span bar to print at
+the corresponding line position:
+
+@lilypond[quote,verbatim]
+\defineBarLine  "!|-t"  #'(#t #t #t)
+\defineBarLine  "|!-t"  #'(#t #t #t)
+\defineBarLine  ";|!-bad"  #'("|!" "!|" #t)  % fails at line breaks
+\defineBarLine  ";|!-good" #'("!|-t" "|!-t" #t)
+\relative c'' {
+  \new StaffGroup <<
+    \new Staff {
+      \bar ";|!-good"
+      a1 \bar ";|!-good"
+      % \bar ";|!-bad"     % "WARNING: No span bar glyph defined..."
+      b1 \bar ";|!-good"
+    }
+    \new Staff {
+      a1 b1
+    }
+  >>
+}
+@end lilypond
+
+Note: If @var{span-bar} is a string, it should contain @emph{only}
+bar line elements, or space (@samp{ }), and not an annotation such
+as allowed in the other arguments.  If @var{span-bar} contains an
+annotation, LilyPond issues a warning.  The one exception is that
+it may be equal to @var{bar-type}, in which case no warning is
+issued even if @var{bar-type} includes an annotation.
+
+All the available bar line elements are shown below.  Most also
+have predefined bar types (for arguments to @code{\bar}) that
+reference them individually.  Some elements are primarily intended
+to be combined with others and so do not have predefined
+individual bar types.
+
+@lilypond[quote,verbatim]
+\defineBarLine ":" #'(#f #t #f)
+\defineBarLine "=" #'(#t #f #t)
+\defineBarLine "[" #'(#f #t #f)
+\defineBarLine "]" #'(#t #f #f)
 
 \new Staff {
+  s1 \bar "'"
+  s1 \bar ","
   s1 \bar "|"
   s1 \bar "."
   s1 \bar "!"
@@ -3134,80 +3653,10 @@ Actualmente están disponibles diez elementos de barra de compás:
 }
 @end lilypond
 
-La línea divisoria @code{"="} proporciona la barra de doble
-extensión, usada en combinación con el símbolo de segno.  No se
+La línea divisoria @code{"="} produce una barra de doble
+extensión para usarla en combinación con el símbolo de segno.  No se
 recomienda usarla como una doble línea divisoria fina aislada;
-para ello es casi siempre preferible @code{\bar} @var{"||"}.
-
-El signo @code{"-"} inicia anotaciones a las barras de compás, que
-son útiles para distinguir entre aquellas que tienen idéntica
-apariencia pero distinto comportamiento en los saltos de línea y/o
-diferentes barras de extensión.  La parque que sigue al signo
-@code{"-"} no se usa para construir la barra de compás.
-
-@lilypond[quote,verbatim]
-\defineBarLine "||-dashedSpan" #'("||" "" "!!")
-
-\new StaffGroup <<
-  \new Staff \relative c'' {
-    c1 \bar "||"
-    c1 \bar "||-dashedSpan"
-    c1
-  }
-  \new Staff \relative c'' {
-    c1
-    c1
-    c1
-  }
->>
-@end lilypond
-
-Además, el carácter del espacio en blanco @code{" "} sirve como
-contenedor para definir barras de extensión correctamente
-alineadas a las barras principales:
-
-@lilypond[quote,verbatim]
-\defineBarLine ":|.-wrong" #'(":|." "" "|.")
-\defineBarLine ":|.-right" #'(":|." "" " |.")
-
-\new StaffGroup <<
-  \new Staff \relative c'' {
-    c1 \bar ":|.-wrong"
-    c1 \bar ":|.-right"
-    c1
-  }
-  \new Staff \relative c'' {
-    c1
-    c1
-    c1
-  }
->>
-@end lilypond
-
-Los nuevos tipos de línea divisoria definidos mediante el uso de
-@code{\defineBarLine} pueden, a su vez, utilizarse dentro de una
-@emph{segunda} definición de línea divisoria.  Tales definiciones
-@q{anidadas} hacen posible usar glifos personalizados en lugares
-en los que no sería posible hacerlo de otra forma, como en el
-extremo final de los sistemas:
-
-@lilypond[quote,verbatim]
-\defineBarLine "||-dashEverywhere" #'("!!" "!!" "!!")
-\defineBarLine "||-advancedDashSpan" #'("||-dashEverywhere" "" "!!")
-
-\new StaffGroup <<
-  \new Staff \relative c'' {
-    c1 \bar "||"
-    c1 \bar "||-advancedDashSpan"
-    c1 \bar "||-advancedDashSpan"
-  }
-  \new Staff \relative c'' {
-    c1
-    c1
-    c1
-  }
->>
-@end lilypond
+para ello es casi siempre preferible @code{\bar "||"}.
 
 Si se necesitan elementos adicionales, LilyPond provee una forma
 sencilla de definirlos.  Para ver más información sobre cómo
@@ -3234,23 +3683,58 @@ pentagramas de un @code{StaffGroup}, @code{PianoStaff} o
 >>
 @end lilypond
 
+
 @cindex predeterminada, línea divisoria, cambiar
 @cindex línea divisoria predeterminada, cambiar
 
-@funindex whichBar
 @funindex measureBarType
 @funindex \bar
 @funindex bartype
 
-La instrucción @samp{\bar @var{tipo de barra}} es una forma corta
-de hacer @samp{\set Timing.whichBar = @var{tipo de barra}}.
-Cuando @code{whichBar} se establece con el valor de una cadena, se
-crea una línea divisoria de ese tipo.
+The bar type used for automatically inserted measure bar lines is
+@code{"|"}.  This may be changed at any time with @samp{\set
+Timing@/.measureBarType = @var{bartype}}.
 
-El tipo de barra predeterminado que se usa para las líneas
-divisorias insertadas automáticamente es @code{"|"}.  Se puede
-cambiar en cualquier momento con @samp{\set Timing.measureBarType
-= @var{tipo de barra}}.
+It is also possible to set different types of bar lines in a score with multiple
+staves, using one of the possible commands or properties explained below
+(@pxref{Automatic bar lines}).
+Of course this may lead to a mismatch of bar lines and span bars, due to their
+different width.
+
+Usually bar lines are left-aligned (disregarding colon signs as in repeat bar
+lines).  To get them right-aligned the command
+
+@example
+[\once] \override @var{Context}.BarLine.right-justified = ##t
+@end example
+
+@noindent
+needs to be applied, where @var{Context} is a context suitable for multiple
+staves, like @var{Score}, @var{StaffGroup}, @var{Grandstaff}, etc.
+
+@lilypond[quote,verbatim]
+\new StaffGroup
+  <<
+    \new Staff = "a" {
+      b1  b b
+      <<
+        { \textMark "BarLines right-justified" b b }
+        \new Staff \with { alignAboveContext = "b" }
+        {
+          \override StaffGroup.BarLine.right-justified = ##t
+          b
+          \section
+        }
+      >>
+    }
+    \new Staff = "b" { b \section }
+    \new Staff = "c" { b b \section b b b \section }
+  >>
+@end lilypond
+
+After a line-break bar lines are never right-aligned.  For mid-line and
+right-aligned bar lines the anchor-point (used to align @code{BarNumber},
+@code{RehearsalMark}, etc.) moves acordingly.
 
 @morerefs
 Referencia de la notación:
@@ -3268,10 +3752,166 @@ Referencia de funcionamiento interno:
 @rinternals{BarLine} (creada al nivel de @code{Staff} (pentagrama)),
 @rinternals{SpanBar} (a través de los pentagramas),
 @rinternals{Timing_translator} (para las propiedades del contador de tiempo Timing).
+@endmorerefs
+
+
+@node Automatic bar lines
+@subsection Automatic bar lines
+
+@cindex automatic bar line
+@cindex bar line, automatic
+
+Various commands other than @code{\bar} can also create bar lines
+as part of their effect.  The bar lines created in these cases can
+be changed by setting context properties.  If a property is set to
+@code{'()} or is unset, it is ignored; otherwise, the value must
+be a predefined bar type or one previously defined with the
+@code{\defineBarLine} command (@pxref{Bar lines}).
+
+Multiple reasons for creating different automatic bar lines may
+apply at the same time.  Conflicts are resolved in part by
+providing properties for predetermined combinations and in part by
+a priority scheme.  The table below presents the available
+properties in order of increasing priority.
+
+@quotation
+@table @code
+
+@item underlyingRepeatBarType
+@cindex bar line, double
+@cindex bar line, underlying repeat
+@cindex double bar line
+@cindex repeat bar line, underlying
+@cindex underlying repeat bar line
+@funindex \codaMark
+@funindex \inStaffSegno
+@funindex \repeat segno
+@funindex \repeat volta
+@funindex \segnoMark
+
+Used at points of repetition or departure where no bar line would
+otherwise appear.  This is expected when repeated sections are not
+aligned to measures.  Several commands employ this bar type:
+@code{\codaMark}, @code{\inStaffSegno}, @code{\repeat segno},
+@code{\repeat volta}, and @code{\segnoMark}.
+
+@item caesuraType underlying-bar-line
+@cindex bar line, caesura
+@cindex bar line, phrase
+@cindex caesura bar line
+@cindex phrase bar line
+@funindex \caesura
+
+Used at @code{\caesura}; @pxref{Phrase bar lines in hymn tunes}.
+
+@item measureBarType
+@cindex bar line, default
+@cindex bar line, measure
+@cindex bar line, single
+@cindex default bar line
+@cindex measure line
+@cindex single bar line
+
+Used at a measure boundary.
+
+@item caesuraType bar-line
+@cindex bar line, caesura
+@cindex bar line, phrase
+@cindex caesura bar line
+@cindex phrase bar line
+@funindex \caesura
+
+Used at @code{\caesura}; @pxref{Phrase bar lines in hymn tunes}.
+
+@item sectionBarType
+@cindex bar line, double
+@cindex bar line, section
+@cindex double bar line
+@cindex section bar line
+@funindex \section
+
+Used at a section break created by @code{\section}.
+
+@item fineBarType
+@cindex bar line, final
+@cindex final bar line
+@funindex \fine
+
+Used at @code{\fine}.
+
+@item doubleRepeatBarType
+@itemx doubleRepeatSegnoBarType
+@itemx endRepeatBarType
+@itemx endRepeatSegnoBarType
+@itemx fineSegnoBarType
+@itemx fineStartRepeatSegnoBarType
+@itemx segnoBarType
+@itemx startRepeatBarType
+@itemx startRepeatSegnoBarType
+@cindex bar line, repeat
+@cindex bar line, segno
+@cindex repeat bar line
+@cindex segno bar line
+@funindex \inStaffSegno
+@funindex \repeat segno
+@funindex \repeat volta
+@funindex \segnoMark
+
+Only one of these bar types is used at a time; which one is used
+depends on the structure of the piece.
+
+Properties with @code{startRepeat} or @code{endRepeat} in the name
+are used at the start or end of a repeated section created by
+@code{\repeat volta}, and properties with @code{doubleRepeat} in
+the name are used where the end of one repeated section and the
+start of another coincide.
+
+Properties with @code{segno} in the name are used at an in-staff
+segno, which can be created by @code{\repeat segno} or
+@code{\segnoMark} when the @code{segnoStyle} property is set to
+@code{bar-line}, or created by @code{\inStaffSegno}.
+
+Properties with @code{fine} in the name are used at @code{\fine}.
+
+@end table
+@end quotation
+
+Priority applies independently to beginning-, middle-, and
+end-of-line bar lines, allowing a lower-priority bar line to
+appear where higher-priority bar types have no glyphs defined
+(@pxref{Bar lines}).
+
+@lilypond[quote,verbatim]
+\fixed c' {
+  c1 \section \break
+  \repeat volta 2 d1
+}
+@end lilypond
+
+
+@snippets
+
+@cindex repeat, double, style for volta
+@cindex volta, double repeat style
+@cindex style, double repeat for volta
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/setting-the-double-repeat-default-for-volte.ly}
+
+@morerefs
+Notation Reference:
+@ref{Bar lines},
+@ref{Repeats}.
+
+Snippets:
+@rlsr{Rhythms}.
+
+Internals Reference:
+@rinternals{Repeat_acknowledge_engraver}.
+@endmorerefs
 
 
 @node Bar numbers
-@unnumberedsubsubsec Numeración de compases
+@subsection Numeración de compases
 
 @cindex compás, números de
 @cindex número, de compás
@@ -3284,11 +3924,11 @@ almacena en la propiedad @code{currentBarNumber}, que normalmente
 se actualiza automáticamente para cada compás.  También se puede
 establecer manualmente:
 
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,line-width=15\cm]
 \relative c' {
   c1 c c c
   \break
-  \set Score.currentBarNumber = #50
+  \set Score.currentBarNumber = 50
   c1 c c c
 }
 @end lilypond
@@ -3298,30 +3938,18 @@ establecer manualmente:
 @funindex barNumberVisibility
 @funindex BarNumber
 
-Los números de compás se pueden tipografiar a intervalos regulares
-en vez de al principio de cada línea.  Para hacerlo se debe
-sobreescribir el comportamiento predeterminado de forma que se
-puedan imprimir en otros lugares.  Esto viene controlado por la
-propiedad @code{break-visibility} de @code{BarNumber}.  Toma tres
-valores que se pueden fijar al valor @code{#t} o @code{#f} para
-especificar si el número de compás correspondiente es visible o
-no.  El orden de los tres valores es @code{visible al final de la
-línea}, @code{visible en mitad de la línea}, @code{visible al
-principio de la línea}.  En el ejemplo siguiente se imprimen los
+El comportamiento predeterminado de imprimir solo números de compás al comienzo de cada línea se puede modificar  a través de la propiedad @code{break-visibility} de @code{BarNumber}.  Toma tres valores que se pueden fijar al valor @code{#t} o @code{#f} para especificar si el número de compás correspondiente es visible o no.  El orden de los tres valores es @code{visible al final de la línea}, @code{visible en mitad de la línea}, @code{visible al principio de la línea}.  En el ejemplo siguiente se imprimen los
 números de compás en todos los sitios posibles:
 
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,line-width=15\cm]
 \relative c' {
   \override Score.BarNumber.break-visibility = ##(#t #t #t)
-  \set Score.currentBarNumber = #11
-  % Permit first bar number to be printed
-  \bar ""
+  \set Score.currentBarNumber = 11
   c1 | c | c | c |
   \break
   c1 | c | c | c |
 }
 @end lilypond
-
 
 @snippets
 
@@ -3336,13 +3964,21 @@ números de compás en todos los sitios posibles:
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/printing-bar-numbers-with-changing-regular-intervals.ly}
 
+@cindex bar number, broken measure
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{snippets/printing-bar-numbers-for-broken-measures.ly}
+
+@cindex bar number, modulo bar number
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{snippets/printing-bar-numbers-using-modulo-bar-number-visible.ly}
+
 @cindex compás, número de, formato
 @cindex número de compás, formato de
 @cindex estilo, número de compás
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/printing-bar-numbers-inside-boxes-or-circles.ly}
 
-@c XXX also included in `repeats.itely'
+@c XXX also included in `repeats.itely`
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/alternative-bar-numbering.ly}
 
@@ -3356,6 +3992,9 @@ números de compás en todos los sitios posibles:
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/removing-bar-numbers-from-a-score.ly}
 
+@cindex bar number, centered
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/measure-centered-bar-numbers.ly}
 
 @morerefs
 Fragmentos de código:
@@ -3363,12 +4002,17 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{BarNumber},
-@rinternals{Bar_number_engraver}.
+@rinternals{CenteredBarNumber},
+@rinternals{CenteredBarNumberLineSpanner},
+@rinternals{Bar_number_engraver},
+@rinternals{Centered_bar_number_align_engraver}.
+@endmorerefs
 
+@knownissues
 @cindex número de compás, colisión
 @cindex colisión, del número de compás
 
-@knownissues
+
 Los números de compás pueden colisionar con el corchete
 @code{StaffGroup}, si hay uno en la parte de arriba.  Para
 solucionarlo, se puede usar la propiedad de relleno @code{padding}
@@ -3378,14 +4022,13 @@ más información.
 
 
 @node Bar and bar number checks
-@unnumberedsubsubsec Comprobación de compás y de número de compás
+@subsection Comprobación de compás y de número de compás
 
 @cindex compás, comprobación de
 @cindex número de compás, comprobación de
 @cindex compás, comprobación
 @cindex compás, número, comprobación
 
-@funindex barCheckSynchronize
 @funindex |
 
 Las comprobaciones de compás ayudan a detectar errores en las
@@ -3463,7 +4106,7 @@ el que está copiando.  Esto se puede comprobar con
 @code{\barNumberCheck}, por ejemplo:
 
 @verbatim
-\barNumberCheck #123
+\barNumberCheck 123
 @end verbatim
 
 @noindent
@@ -3473,10 +4116,11 @@ compás actual) no es el 123 en el momento de la compilación.
 @morerefs
 Fragmentos de código:
 @rlsr{Rhythms}.
+@endmorerefs
 
 
 @node Rehearsal marks
-@unnumberedsubsubsec Llamadas de ensayo
+@subsection Llamadas de ensayo
 
 @cindex ensayo, letras de
 @cindex letras de ensayo
@@ -3494,7 +4138,7 @@ Para imprimir una letra de ensayo, utilice la orden @code{\mark}.
 }
 @end lilypond
 
-@funindex @sortas{defaultB} \default
+@funindexpost \default
 
 @noindent
 La letra de ensayo se incrementa automáticamente si usa
@@ -3507,7 +4151,7 @@ El valor que se utilizará se almacena dentro de la propiedad
 \relative c'' {
   c1 \mark \default
   c1 \mark \default
-  c1 \mark #8
+  c1 \mark 8
   c1 \mark \default
   c1 \mark \default
 }
@@ -3531,7 +4175,7 @@ de un círculo).
   \set Score.rehearsalMarkFormatter = #format-mark-box-alphabet
   c1 \mark \default
   c1 \mark \default
-  c1 \mark #8
+  c1 \mark 8
   c1 \mark \default
   c1 \mark \default
 }
@@ -3539,8 +4183,8 @@ de un círculo).
 
 @cindex ensayo, letra de, formato
 @cindex ensayo, letra de, estilo
-@cindex estilo, de la letra de ensayo
-@cindex formato, de la letra de ensayo
+@cindex estilo, letra de ensayo
+@cindex formato, letra de ensayo
 @cindex letra de ensayo, estilo
 @cindex letra de ensayo, formato
 @cindex marca de ensayo, estilo
@@ -3573,46 +4217,47 @@ de una función que produce un número encerrado en una caja.
 @end lilypond
 
 El archivo @file{scm/translation-functions.scm} contiene las
-definiciones de @code{format-mark-letters} (el formato por
-omisión), @code{format-mark-box-letters},
-@code{format-mark-numbers} y @code{format-mark-box-numbers}.  Se
+definiciones de @code{format-@/mark-@/letters} (el formato por
+omisión), @code{format-@/mark-@/box-@/letters},
+@code{format-@/mark-@/numbers} y @code{format-@/mark-@/box-@/numbers}.  Se
 pueden usar éstos como inspiración para otras funciones de
 formateo.
 
-Podemos utilizar @code{format-mark-barnumbers},
-@code{format-mark-box-barnumbers} y
-@code{format-mark-circle-barnumbers} para obtener números de
+Podemos utilizar @code{format-@/mark-@/barnumbers},
+@code{format-@/mark-@/box-@/barnumbers} y
+@code{format-@/mark-@/circle-@/barnumbers} para obtener números de
 compás en lugar de números o letras secuenciales.
 
-Se pueden especificar otros estilos de letra de ensayo de forma
-manual:
+For common tweaks to the positioning of rehearsal marks,
+@pxref{Formatting text}.  For more precise control, consider
+@code{break-alignable-interface} (@pxref{Aligning objects}).
 
-@example
-\mark "A1"
-@end example
+The file @file{scm/translation-functions.scm} contains
+the definitions of @code{format-mark-numbers} and
+@code{format-mark-letters}.  They can be used as inspiration for
+other formatting functions.
 
-@noindent
-Observe que @code{Score.rehearsalMarkFormatter} no afecta a las marcas que
-se especifican de esta forma.  Sin embargo, es posible aplicar un
-elemento @code{\markup} a la cadena.
+@snippets
 
-@example
-\mark \markup @{ \box A1 @}
-@end example
+@c Also in 'Text marks'.
+@cindex mark, on every staff
+@funindex Mark_engraver
+@funindex Staff_collecting_engraver
+@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
+{snippets/printing-marks-on-every-staff.ly}
 
-@cindex @q{segno}, signo
-@cindex signo, segno
-@cindex @q{coda}, signo
-@cindex signo, coda
-@cindex D.S. al Fine
-@cindex calderón
-@cindex musical, glifo
-@cindex glifo, musicales
 
-@funindex \musicglyph
+@morerefs
+Notation Reference:
+@ref{The Emmentaler font},
+@ref{Formatting text},
+@ref{Aligning objects},
+@ref{Music notation inside markup},
+@ref{Metronome marks},
+@ref{Section labels}.
 
-Los glifos musicales (como el segno) se pueden imprimir dentro de
-un elemento @code{\mark}
+Installed Files:
+@file{scm/translation-functions.scm}.
 
 @lilypond[quote,verbatim]
 \relative c' {
@@ -3623,55 +4268,179 @@ un elemento @code{\mark}
 }
 @end lilypond
 
-@noindent
-Consulte @ref{The Emmentaler font} para ver una lista de los
-símbolos que se pueden imprimir con @code{\musicglyph}.
+Broken measures are numbered in parentheses.
 
-Para ver formas comunes de trucar la colocación de las letras de
-ensayo, consulte @ref{Formatting text}.  Para un control más
-preciso, consulte @code{break-alignable-interface} en la sección
-@ref{Aligning objects}.
+@lilypond[verbatim,quote]
 
-El archivo @file{scm/translation-functions.scm} contiene las
-definiciones de @code{format-mark-numbers} y de
-@code{format-mark-letters}.  Se pueden utilizar como inspiración
-para escribir otras funciones de formateo.
+\layout {
+  \context {
+    \Staff
+    \consists Measure_counter_engraver
+  }
+}
+
+\relative c' {
+  \time 6/8
+  \key e \minor
+  r4 a8 b c dis
+  \startMeasureCount
+  e8 b e g8. fis32 e dis8
+  e8 b e \break g8. fis32 e dis8
+  e8 b e g8. fis32 e dis8
+  \stopMeasureCount
+  b'4. r
+}
+@end lilypond
+
+Compressed multi-measure rests receive special treatment: the
+full measure range is shown.
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Staff
+    \consists Measure_counter_engraver
+  }
+  \context {
+    \Voice
+    \override MultiMeasureRestNumber.direction = #DOWN
+  }
+}
+
+\compressMMRests {
+  \key e \minor
+  \startMeasureCount
+  \new CueVoice {
+    b4.( e'8) b8 r e' r
+  }
+  R1*2
+  \stopMeasureCount
+  g'2\> fis'2\!
+}
+@end lilypond
+
+Measure counters honor alternative numbering styles.  If the style
+is @code{numbers-@/with-@/letters}, they render best with a textual font.
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Score
+    alternativeNumberingStyle = #'numbers-with-letters
+  }
+  \context {
+    \Staff
+    \consists Measure_counter_engraver
+    \override MeasureCounter.Y-offset = 6
+    \override MeasureCounter.font-encoding = #'latin1
+    \override MeasureCounter.font-size = 1
+  }
+}
+
+\relative c' {
+  \startMeasureCount
+  \repeat volta 2 {
+    c8 d e f c d e f
+  }
+  \alternative {
+    { e4 d c b }
+    { g'4 g c2 }
+  }
+  \bar "|."
+  \stopMeasureCount
+}
+@end lilypond
+
+@predefined
+@code{\startMeasureCount},
+@code{\stopMeasureCount}.
+@endpredefined
 
 @morerefs
-Referencia de la notación:
-@ref{The Emmentaler font},
-@ref{Formatting text},
-@ref{Aligning objects}.
+Notation Reference:
+@ref{Modifying context plug-ins},
+@ref{Compressing empty measures},
+@ref{Breaks},
+@ref{Bar numbers}.
 
-Archivos de inicio:
-@file{scm/translation-functions.scm}.
+Internals Reference:
+@rinternals{Measure_counter_engraver},
+@rinternals{MeasureCounter},
+@rinternals{measure-counter-interface}.
+@endmorerefs
 
-Fragmentos de código:
-@rlsr{Rhythms}.
 
-Referencia de funcionamiento interno:
-@rinternals{AdHocMarkEvent},
-@rinternals{RehearsalMark},
-@rinternals{RehearsalMarkEvent}.
+@node Section divisions
+@subsection Section divisions
+
+@cindex bar line, double
+@cindex bar line, section
+@cindex double bar line
+@cindex section bar line
+@funindex \section
+
+The @code{\section} command marks a point where one section of
+music ends and another begins.  It does not have to be followed by
+more music: it may also be used to emphasize that the written end
+of the music is not the end of the piece, such as at a @emph{D.C.}
+instruction or where one movement continues into the next without
+a break.  @code{\section} normally creates a double bar line, but
+its effect can depend on other notation, e.g., repeat bar lines.
+
+@cindex bar line, final
+@cindex final bar line
+@funindex \fine
+
+The @code{\fine} command ends the piece, normally with a final bar
+line.  It is not limited to use at the written end of the music:
+it may also appear inside @code{\repeat} (@pxref{Al-fine repeats}).
+
+A section can optionally be named with @code{\sectionLabel}
+(@pxref{Section labels}).
+
+@lilypond[quote,verbatim]
+\fixed c' {
+  f1
+  \section
+  \sectionLabel "Refrain"
+  g1
+  a1
+  \fine
+}
+@end lilypond
+
+For details on interactions of @code{\fine} and @code{\section}
+bar lines with other types of bar lines, and options for changing
+their appearance, @pxref{Automatic bar lines}.
+
+@morerefs
+Music Glossary:
+@rglos{fine}.
+
+Notation Reference:
+@ref{Automatic bar lines},
+@ref{Divisiones},
+@ref{Al-fine repeats},
+@ref{Section labels}.
+
+Internals Reference:
+@rinternals{FineEvent},
+@rinternals{SectionEvent}.
+@endmorerefs
 
 
 @need 1500
 @node Special rhythmic concerns
-@subsection Asuntos rítmicos especiales
+@section Asuntos rítmicos especiales
 
 
 @node Grace notes
-@unnumberedsubsubsec Notas de adorno
+@subsection Notas de adorno
 
 @cindex ornamento
 @cindex mordente
-@cindex appoggiatura
-@cindex acciaccatura
 
 @funindex \grace
-@funindex \slashedGrace
-@funindex \acciaccatura
-@funindex \appoggiatura
 
 Los mordentes y notas de adorno son ornamentos musicales, impresos
 en un tipo más pequeño y no ocupan ningún tiempo lógico adicional
@@ -3683,6 +4452,12 @@ en el compás.
   \grace { b16 c16 } a2)
 }
 @end lilypond
+
+@cindex appoggiatura
+@cindex acciaccatura
+@funindex \slashedGrace
+@funindex \acciaccatura
+@funindex \appoggiatura
 
 Hay otros tres tipos posibles de notas de adorno; la
 @emph{acciaccatura} o mordente de una nota (una nota de adorno sin
@@ -3827,6 +4602,7 @@ luego se revierte.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/redefining-grace-note-global-defaults.ly}
 
+@anchor{Positioning grace notes with floating space}
 @cindex adorno, nota, y espaciado estricto
 @cindex estricto, espaciado, notas de adorno y
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -3855,15 +4631,16 @@ Referencia de funcionamiento interno:
 @rinternals{Grace_auto_beam_engraver},
 @rinternals{Grace_engraver},
 @rinternals{Grace_spacing_engraver}.
+@endmorerefs
 
 
 @knownissues
 @cindex acciaccatura, de varias notas
 @cindex adorno, sincronización de notas de
 
-Una @i{acciaccatura} de varias notas con una barra se imprime sin
+Una @dfn{acciaccatura} de varias notas con una barra se imprime sin
 tachar, y tiene exactamente la misma apariencia que una
-@i{appoggiatura} de varias notas con barra.
+@dfn{appoggiatura} de varias notas con barra.
 
 @c TODO Add link to LSR snippet to add slash when available
 
@@ -3929,7 +4706,7 @@ Véase @ref{Scaling durations}.
 
 
 @node Aligning to cadenzas
-@unnumberedsubsubsec Alinear con una cadenza
+@subsection Alinear con una cadenza
 
 @cindex cadenza (cadencia)
 @cindex cadenza (cadencia), alinear a
@@ -3967,25 +4744,47 @@ MyCadenza = \relative {
 >>
 @end lilypond
 
+Another solution is to use the @code{\skip} command.
+
+@lilypond[verbatim,quote]
+MyCadenza = \fixed c' {
+  \repeat volta 2 {
+    d8 e f g g4 f4
+  }
+}
+
+music = <<
+  \new Staff {
+    \MyCadenza
+    c'1
+  }
+  \new Staff {
+    \skip \MyCadenza
+    c'1
+  }
+>>
+
+\unfoldRepeats \music
+@end lilypond
+
 @morerefs
 Glosario musical:
 @rglos{cadenza}.
 
 Fragmentos de código:
 @rlsr{Rhythms}.
+@endmorerefs
 
 
 @node Time administration
-@unnumberedsubsubsec Gestión del tiempo
+@subsection Gestión del tiempo
 
 @cindex tiempo, administración
 @cindex tiempo, control del (dentro de la partitura)
 @cindex música sin medida
 @cindex medida, música sin
 
-@funindex currentBarNumber
-@funindex measurePosition
-@funindex measureLength
+@funindex Timing
 
 El tiempo está administrado por el @code{Timing_translator}, que
 de forma predeterminada vive en el contexto de @code{Score}.  Se
@@ -4000,56 +4799,63 @@ pista del tiempo dentro de la partitura.
 
 @cindex compás, número de
 @cindex número de compás
+@cindex measure position
+@cindex position, in measure
 
 @table @code
 @item currentBarNumber
+@funindex currentBarNumber
 El número de compás en curso.  Para ver un ejemplo que muestra el
 uso de esta propiedad, consulte @ref{Bar numbers}.
 
 @item measureLength
+@funindex measureLength
 La longitud de los compases dentro de la indicación actual de
 compás.  Para un 4/4 esto es@tie{}1, y para el 6/8 es 3/4.  Su
 valor determina cuándo se insertan las líneas divisorias y cómo
 se generan las barras automáticas.
 
 @item measurePosition
-El punto en que nos encontramos dentro del compás.  Esta cantidad
-se reinicia sustrayendo @code{measureLength} cada vez que se
-alcanza o se excede @code{measureLength}.  Cuando eso ocurre, se
-incrementa @code{currentBarNumber}.
+@funindex measurePosition
+This internal property is the current point in the current
+measure.  When it reaches @code{measureLength}, it is reset to
+zero and @code{currentBarNumber} is incremented.
+@code{measurePosition} should not be set explicitly, but may be
+changed with the @code{\partial} command.
 
 @item timing
-Si tiene un valor verdadero, las variables anteriores se
-actualizan a cada paso de tiempo.  Cuando tiene un valor falso, el
-grabador se queda en el compás actual indefinidamente.
+@funindex timing
+
+Si tiene el valor @code{#t}, las variables anteriores se
+actualizan a cada paso de tiempo.  Cuando tiene el valor @code{#f}, las variables anteriores conservan su valor actual indefinidamente.
 
 @end table
 
+@funindex \partial
+
 La cuenta del tiempo se puede cambiar estableciendo el valor de
-cualquiera de estas variables explícitamente.  En el siguiente
+cualquiera de estas variables.  En el siguiente
 ejemplo, se imprime la indicación de compás predeterminada 4/4,
-pero @code{measureLength} tiene está ajustado a 5/4.  En los 4/8
-hasta el tercer compás, la posición @code{measurePosition} se
-adelanta en 1/8 hasta 5/8, acortando ese compás en 1/8.  Entonces,
-la siguiente línea divisoria cae en 9/8 en vez de hacerlo en 5/4.
+pero @code{measureLength} está ajustado a 5/4.  En los 4/8
+hasta el tercer compás, the @code{\partial} command advances the measure position to leave only 5/8 remaining, acortando ese compás en 1/8.  La siguiente línea divisoria cae en 9/8 en vez de hacerlo en 5/4.
 
 @lilypond[quote,verbatim]
-\new Voice \relative {
+\fixed c' {
+  \override Score.BarNumber.break-visibility = #all-visible
   \set Timing.measureLength = #5/4
-  c'1 c4 |
-  c1 c4 |
-  c4 c
-  \set Timing.measurePosition = \musicLength 8*5
-  b4 b b8 |
-  c4 c1 |
+  c1 c4
+  c1 c4
+  c4 c \partial 8*5 b4 b b8
+  c4 c1
 }
 @end lilypond
 
 @noindent
-Como lo ilustra el ejemplo, @code{ly:make-moment n/m} construye
-una duración de la fracción n/m de una redonda.  Por ejemplo,
-@code{ly:make-moment 1/8} es una duración de una corchea y
-@code{ly:make-moment 7/16} es la duración de siete semicorcheas.
+Como lo ilustra el ejemplo, @code{\musicLength @var{music}}
+computes the musical length of the given music.  For example,
+@code{\musicLength 8} is the length of an eighth note and
+@code{\musicLength @{8. 8 8@}} is the length of seven sixteenth
+notes.
 
 @morerefs
 Referencia de la notación:
@@ -4062,3 +4868,4 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{Timing_translator},
 @rinternals{Score}.
+@endmorerefs
