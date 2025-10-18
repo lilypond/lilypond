@@ -463,7 +463,7 @@ I: a due,
 F: à deux,
 D: ?,
 NL: ?,
-DK: ?,
+DK: a 2,
 S: ?,
 FI: kahdelle.
 
@@ -543,7 +543,7 @@ I: acciaccatura,
 F: acciaccature, appoggiature brève,
 D: Zusammenschlag,
 NL: samenslag,
-DK: ?,
+DK: kort forslag,
 S: ?,
 FI: ?.
 
@@ -681,7 +681,7 @@ I: al niente,
 F: al niente, en mourant,
 D: ?,
 NL: ?,
-DK: ?,
+DK: al niente,
 S: ?,
 FI: häviten olemattomiin.
 
@@ -728,7 +728,7 @@ I: alla breve,
 F: alla breve, à la brève,
 D: Allabreve, alla breve
 NL: ?,
-DK: ?,
+DK: alla breve,
 S: ?,
 FI: ?.
 
@@ -847,7 +847,7 @@ I: ambitus,
 F: ambitus, tessiture,
 D: Ambitus,
 NL: ambitus,
-DK: ambitus,
+DK: ambitus, toneomfang
 S: ambitus,
 FI: ambitus, ääniala, soitinala.
 
@@ -1108,7 +1108,7 @@ I: articolazione,
 F: articulation,
 D: Artikulation,
 NL: articulatie,
-DK: ?,
+DK: artikulation,
 S: ?,
 FI: artikulaatio, ilmaisu.
 
@@ -1493,7 +1493,7 @@ I: parentesi quadra,
 F: crochet,
 D: ?,
 NL: ?,
-DK: ?,
+DK: kantet parentes,
 S: ?,
 FI: sulkumerkki.
 
@@ -1678,7 +1678,7 @@ I: cesura,
 F: césure,
 D: Zäsur,
 NL: ?,
-DK: ?,
+DK: cæsur,
 S: ?,
 FI: välimerkki.
 
@@ -2109,7 +2109,7 @@ I: cluster,
 F: cluster,
 D: Cluster,
 NL: ?,
-DK: ?,
+DK: cluster,
 S: ?,
 FI: klusteri, cluster.
 
@@ -2186,7 +2186,7 @@ I: Periodo di pratica comune,
 F: musique classique moderne,
 D: Kunstmusik,
 NL: ?,
-DK: ?,
+DK: kunstmusik,
 S: ?,
 FI: ?.
 
@@ -2206,7 +2206,7 @@ I: tempo semplice,
 F: mesure à 4/4,
 D: ?,
 NL: ?,
-DK: ?,
+DK: 4/4-takt,
 S: ?,
 FI: C-merkintä.
 
@@ -2263,7 +2263,7 @@ I: tempo composto,
 F: mesure composée,
 D: Dreiertakt,
 NL: ?,
-DK: ?,
+DK: sammensat taktart,
 S: ?,
 FI: kolmijakoinen tahtilaji.
 
@@ -2284,7 +2284,7 @@ I: tempo misto,
 F: temps composé,
 D: zusammengesetzte Taktart,
 NL: ?,
-DK: ?,
+DK: sammensat takt,
 S: ?,
 FI: yhdistetty tahtilajiosoitus.
 
@@ -2326,7 +2326,7 @@ I: intonazione reale,
 F: tonalité de concert, en ut,
 D: Kammerton,
 NL: ?,
-DK: ?,
+DK: ikke-transponerende,
 S: ?,
 FI: konserttikorkeus.
 
@@ -2592,7 +2592,7 @@ I: custos, guida,
 F: guidon,
 D: Notenzeiger, Custos,
 NL: ?,
-DK: ?,
+DK: custos,
 S: ?,
 FI: vihje.
 
@@ -2686,7 +2686,7 @@ I: dal niente,
 F: partant de rien,
 D: aus dem Nichts, dal niente,
 NL: ?,
-DK: ?,
+DK: dal niente,
 S: ?,
 FI: tyhjästä ilmaantuen.
 
@@ -3004,7 +3004,7 @@ I: diminuzione,
 F: diminution,
 D: Diminution,
 NL: ?,
-DK: ?,
+DK: diminution,
 S: ?,
 FI: aika-arvojen tihennys.
 
@@ -3024,7 +3024,7 @@ I: ?,
 F: direct,
 D: Weiser, Zeiger,
 NL: ?,
-DK: ?,
+DK: custos,
 S: ?,
 FI: suora.
 
@@ -3098,7 +3098,7 @@ I: divisio,
 F: division,
 D: Divisio,
 NL: ?,
-DK: ?,
+DK: divisio,
 S: ?,
 FI: jäsennysmerkki.
 
@@ -3134,7 +3134,7 @@ I: portamento indeterminato verso l'alto/l'acuto,
 F: saut,
 D: Glissando zu unbestimmter Tonhöhe,
 NL: ?,
-DK: ?,
+DK: glissando stigende til udefineret tonehøjde,
 S: ?,
 FI: nousu.
 
@@ -3349,7 +3349,7 @@ I: indicazione di tempo doppia/polimetrica,
 F: mesure composée, métrique composée,
 D: zusammengesetzte Taktart,
 NL: ?,
-DK: ?,
+DK: sammensat taktart,
 S: ?,
 FI: kaksois-aika-arvomerkintä.
 
@@ -3436,7 +3436,7 @@ I: dinamica,
 F: nuances,
 D: Dynamik, Lautstärke,
 NL: ?,
-DK: ?,
+DK: dynamik,
 S: ?,
 FI: äänen voimakkuusvaihtelu, dynamiikka.
 
@@ -3531,7 +3531,7 @@ I: elisione,
 F: élision,
 D: Elision,
 NL: ?,
-DK: ?,
+DK: elision, sammentrækning,
 S: ?,
 FI: tavujen yhdistäminen yhteen ääneen.
 
@@ -3673,7 +3673,7 @@ I: linea di estensione,
 F: ligne d'extension [de mélisme, de basse chiffrée, etc.],
 D: Fülllinie,
 NL: ?,
-DK: ?,
+DK: melismelinje,
 S: ?,
 FI: pidennysviiva.
 
@@ -3801,7 +3801,7 @@ I: portamento indeterminato verso il basso/il grave,
 F: chute,
 D: Glissando zu unbestimmter Tonhöhe nach unten,
 NL: ?,
-DK: ?,
+DK: glissando faldende til udefineret tonehøjde,
 S: ?,
 FI: lasku.
 
@@ -3822,7 +3822,7 @@ I: travatura convergente/divergente,
 F: ligature en soufflet, lien de croches en soufflet,
 D: gespreizter Balken,
 NL: ?,
-DK: ?,
+DK: udspredte bjælker, fjerformede bjælker,
 S: ?,
 FI: kiilapalkki.
 
@@ -4007,7 +4007,7 @@ I: armonico,
 F: flageolet,
 D: Flageolett,
 NL: ?,
-DK: ?,
+DK: flageolet,
 S: ?,
 FI: flageolet-ääni.
 
@@ -4106,7 +4106,7 @@ I: partitura senza i righi vuoti,
 F: partition à la française,
 D: Orchesterpartitur ohne leere Systeme,
 NL: ?,
-DK: ?,
+DK: partitur uden tomme systemer,
 S: ?,
 FI: partituuri ilman tyhjiä nuottiviivastoja.
 
@@ -4132,7 +4132,7 @@ I: rigo temporaneo,
 F: portée à la française,
 D: zeitweiliges Notensystem,
 NL: ?,
-DK: ?,
+DK: midlertidigt system, ossia-noder,
 S: ?,
 FI: karsittu nuotinnus.
 
@@ -4512,7 +4512,7 @@ I: armonici,
 F: flageolet, sons harmoniques,
 D: Flageolett-Töne,
 NL: ?,
-DK: ?,
+DK: flageolettoner,
 S: ?,
 FI: harmoniset äänet, huiluäänet.
 
@@ -4583,7 +4583,7 @@ I: emiolia, (rarely hemiola or emiola),
 F: hémiole,
 D: Hemiole,
 NL: ?,
-DK: ?,
+DK: hæmiol,
 S: ?,
 FI: hemioli, 3/2 -suhde.
 
@@ -4633,7 +4633,7 @@ I: ?,
 F: clef de basse haute,
 D: hoher Bassschlüssel,
 NL: ?,
-DK: ?,
+DK: høj basnøgle,
 S: ?,
 FI: ?.
 
@@ -4700,7 +4700,7 @@ I: metrica dell'inno,
 F: ?,
 D: Silbenanzahl,
 NL: ?,
-DK: ?,
+DK: stavelsesantal,
 S: ?,
 FI: säkeiden tavumäärät.
 
@@ -4742,7 +4742,7 @@ I: accordo di settima dominante incompleto,
 F: accord de septième de dominante incomplet,
 D: verkürzter Dominantseptakkord,
 NL: ?,
-DK: ?,
+DK: ufuldstændig dominantseptimakkord,
 S: ?,
 FI: ?.
 
@@ -4840,7 +4840,7 @@ I: rivolto,
 F: renversement,
 D: Umkehrung,
 NL: ?,
-DK: ?,
+DK: omvending,
 S: ?,
 FI: käännös.
 
@@ -4978,7 +4978,7 @@ I: laissez vibrer,
 F: laissez vibrer,
 D: Laissez vibrer, schwingen lassen,
 NL: ?,
-DK: ?,
+DK: laissez vibrer, lad klinge ud,
 S: ?,
 FI: antaa väristä.
 
@@ -5116,7 +5116,7 @@ I: ligatura,
 F: ligature,
 DE: Ligatur,
 NL: ?,
-DK: ?,
+DK: ligatur,
 S: ?,
 FI: ligatuura.
 
@@ -5181,7 +5181,7 @@ I: loco,
 F: loco,
 D: loco,
 NL: ?,
-DK: ?,
+DK: loco,
 S: ?,
 FI: kirjoitetussa äänenkorkeudessa.
 
@@ -5247,7 +5247,7 @@ I: legatura del testo,
 F: ligature de mots,
 D: Textbindung,
 NL: ?,
-DK: ?,
+DK: tekstsammenbinding,
 S: ?,
 FI: sidonta sanoituksessa.
 
@@ -5266,7 +5266,7 @@ I: testo,
 F: paroles,
 D: Liedtext, Gesangstext,
 NL: liedtekst,
-DK: ?,
+DK: sangtekst,
 S: ?,
 FI: sanoitus.
 
@@ -5319,7 +5319,7 @@ I: maxima,
 F: maxima, maxime,
 D: Maxima,
 NL: ?,
-DK: ?,
+DK: maxima,
 S: ?,
 FI: maxima.
 
@@ -5429,7 +5429,7 @@ I: melisma,
 F: mélisme, vocalise,
 D: Melisma,
 NL: melisma,
-DK: ?,
+DK: melisme,
 S: ?,
 FI: melisma, laulettavan tavun sävelkuvio.
 
@@ -5451,7 +5451,7 @@ I: linea del melisma,
 F: trait de mélisme, trait de tenue,
 D: Fülllinie,
 NL: ?,
-DK: ?,
+DK: melismelinje,
 S: ?,
 FI: melismaviiva.
 
@@ -5478,7 +5478,7 @@ I: notazione mensurale,
 F: notation mensurale,
 D: Mensuralnotation,
 NL: ?,
-DK: ?,
+DK: mensuralnotation,
 S: ?,
 FI: mensuraalinuotinnus.
 
@@ -5529,7 +5529,7 @@ I: indicazione mensurale,
 F: signe de mensuration,
 D: Mensurzeichen,
 NL: ?,
-DK: ?,
+DK: mensurtegn,
 S: ?,
 FI: ?.
 
@@ -5641,7 +5641,7 @@ I: ?,
 F: ?,
 D: Mensurstrich,
 NL: ?,
-DK: ?,
+DK: mensurstreg,
 S: ?,
 FI: ?.
 
@@ -5871,7 +5871,7 @@ I: mezzo,
 F: mezzo,
 D: mezzo, etwas,
 NL: ?,
-DK: ?,
+DK: mezzo,
 S: ?,
 FI: kohtalaisen, melko.
 
@@ -6175,7 +6175,7 @@ I: nota di volta,
 F: tons voisins,
 D: ?,
 NL: ?,
-DK: ?,
+DK: nabotoner,
 S: ?,
 FI: ?.
 
@@ -6393,7 +6393,7 @@ I: segno di ottava,
 F: indication d'octave,
 D: Oktavierungszeichen,
 NL: ?,
-DK: ?,
+DK: oktaveringstegn,
 S: ?,
 FI: oktaavamerkki.
 
@@ -6791,7 +6791,7 @@ I: polimetria,
 F: polymétrie,
 D: Polymetrie,
 NL: ?,
-DK: ?,
+DK: polymetrik,
 S: ?,
 FI: monia tahtiosoituksia sisältävä.
 
@@ -6817,7 +6817,7 @@ I: polimetrico,
 F: polymétrique,
 D: polymetrisch,
 NL: ?,
-DK: ?,
+DK: polymetrisk,
 S: ?,
 FI: monia tahtiosoituksia yhtäaikaa tai peräkkäin sisältävä.
 
@@ -6837,7 +6837,7 @@ I: tempo polimetrico,
 F: métrique polymétrique,
 D: zusammengesetzte Taktart,
 NL: ?,
-DK: ?,
+DK: sammensat taktart,
 S: ?,
 FI: vaihtelevan tahtiosoitusmerkintä.
 
@@ -6923,7 +6923,7 @@ I: proporzione,
 F: proportion,
 D: Proportio,
 NL: ?,
-DK: ?,
+DK: proportion,
 S: ?,
 FI: suhde.
 
@@ -7071,7 +7071,7 @@ I: qualità (?),
 F: qualité [d'accord ou d'intervalle],
 D: Modus (Dur oder Moll),
 NL: ?,
-DK: ?,
+DK: modus (dur eller mol),
 S: ?,
 FI: laatu.
 
@@ -7161,7 +7161,7 @@ I: quarto di tono,
 F: quart de ton,
 D: Viertelton,
 NL: kwart toon,
-DK: ?,
+DK: kvarttone,
 S: kvartston,
 FI: neljännessävelaskel.
 
@@ -7426,7 +7426,7 @@ I: scordatura,
 F: à cordes ravallées,
 D: Skordatur,
 NL: ?,
-DK: ?,
+DK: scordatura, omstemning,
 S: ?,
 FI: epätavallinen viritys.
 
@@ -7633,7 +7633,7 @@ I: simile,
 F: simile, de façon identique,
 D: simile, gleichartig,
 NL: ?,
-DK: ?,
+DK: simile,
 S: ?,
 FI: samoin.
 
@@ -7700,7 +7700,7 @@ I: tempo semplice,
 F: mesure binaire,
 D: grader Takt,
 NL: ?,
-DK: ?,
+DK: lige takt,
 S: ?,
 FI: kaksijakoinen tahtiosoitus.
 
@@ -8047,7 +8047,7 @@ I: stringendo,
 F: stringendo, en accélérant,
 D: stringendo,
 NL: ?,
-DK: ?,
+DK: stringendo, accelerando,
 S: ?,
 FI: kiihdyttäen, nopeuttaen.
 
@@ -8169,7 +8169,7 @@ I: sul Sol,
 F: sur la corde de sol,
 D: auf G, auf der G-Saite,
 NL: ?,
-DK: ?,
+DK: sul G, på G-strengen,
 S: ?,
 FI: G-kielellä.
 
@@ -8600,7 +8600,7 @@ I: strumento traspositore,
 F: instrument transpositeur,
 D: transponierende Instrumente,
 NL: ?,
-DK: ?,
+DK: transponerende instrument,
 S: ?,
 FI: transponoitava soitin.
 
@@ -8843,7 +8843,7 @@ I: gruppi irregolari,
 F: N-olet,
 D: N-tole,
 NL: Antimetrische figuur,
-DK: ?,
+DK: n-tol, irregulære nodeværdier,
 S: ?,
 FI: ?.
 
@@ -8953,7 +8953,7 @@ I: volta,
 F: volta, fois,
 D: volta-Klammer, Wiederholungsklammer,
 NL: ?,
-DK: ?,
+DK: volte,
 S: ?,
 FI: yksi kertauksen maaleista.
 
@@ -8974,7 +8974,7 @@ I: ?,
 F: ?,
 D: Vokalwechsel,
 NL: ?,
-DK: ?,
+DK: vokalskifte,
 S: ?,
 FI: ?.
 
