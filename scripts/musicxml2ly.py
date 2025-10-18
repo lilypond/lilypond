@@ -2241,6 +2241,25 @@ def musicxml_accidental_mark(mxl_event, note_color=None, note_font_size=None):
     return ev
 
 
+def musicxml_delayed_inverted_turn_event(mxl_event, note_color=None,
+                                         note_font_size=None):
+    return musicxml_delayed_turn_event(mxl_event, note_color,
+                                       note_font_size, inverted=True)
+
+
+def musicxml_delayed_turn_event(mxl_event, note_color=None,
+                                note_font_size=None, inverted=False):
+    ev = musicexp.DelayedTurnEvent()
+    if inverted:
+        ev.type = ("scripts.reverseturn", "reverseturn")
+    else:
+        ev.type = ("scripts.turn", "turn")
+    ev.color = getattr(mxl_event, 'color', note_color)
+    ev.font_size = getattr(mxl_event, 'font-size', note_font_size)
+    ev.duration = mxl_event._parent._parent._parent._duration
+    return ev
+
+
 # Translate articulations, ornaments, and other notations into
 # `ArticulationEvent` and similar objects.  Possible values:
 #
@@ -2261,8 +2280,8 @@ articulations_dict = {
     # "brass-bend": "?",
     "breath-mark": musicxml_breath_mark_to_lily_event,
     "caesura": musicxml_caesura_to_lily_event,
-    # "delayed-inverted-turn": "?",
-    # "delayed-turn": "?",
+    "delayed-inverted-turn": musicxml_delayed_inverted_turn_event,
+    "delayed-turn": musicxml_delayed_turn_event,
     "detached-legato": (musicexp.ShortArticulationEvent, "_"),  # or "portato"
     "doit": musicxml_doit_to_lily_event,
     # "double-tongue": "?",

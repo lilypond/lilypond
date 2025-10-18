@@ -1610,8 +1610,12 @@ class ChordEvent(NestedMusic):
                        if isinstance(e, RhythmicEvent)
                        and not isinstance(e, NoteEvent)]
 
+        delayed_turn_events = [e for e in self.elements
+                               if isinstance(e, DelayedTurnEvent)]
+
         other_events = [e for e in self.elements
-                        if not isinstance(e, (RhythmicEvent, StaffChange))]
+                        if not isinstance(
+                            e, (RhythmicEvent, StaffChange, DelayedTurnEvent))]
 
         harmonic_note_events = [e for e in note_events
                                 if isinstance(e, HarmonicNoteEvent)]
@@ -1706,6 +1710,8 @@ class ChordEvent(NestedMusic):
             touch.harmonic_type = ['diamond']
             touch.harmonic_visible = None
 
+        # All preparations are done; we can now start with printing.
+
         if self.after_grace_elements:
             printer(r'\afterGrace {')
 
@@ -1742,6 +1748,9 @@ class ChordEvent(NestedMusic):
             e.offset = 0
             e.print_ly(printer)
             e.offset = orig_offset
+
+        for e in delayed_turn_events:
+            e.print_ly(printer)
 
         # Print all overrides and other settings for articulations or
         # ornaments that need to be inserted before the chord.
@@ -3238,6 +3247,28 @@ class OrnamentEvent(ArticulationEvent):
         dir = self.direction_mod()
         (tweaks, command, args) = self.ly_expression()
 
+        for t in tweaks:
+            printer(t)
+        printer("%s%s" % (dir, command))
+        printer(args)
+
+
+class DelayedTurnEvent(OrnamentEvent):
+    def __init__(self):
+        OrnamentEvent.__init__(self)
+        self.duration = None
+
+    def print_ly(self, printer):
+        dir = self.direction_mod()
+        (tweaks, command, args) = self.ly_expression()
+
+        # We position the delayed turn in the middle between the current and
+        # the next note.
+        dur = Duration.from_fraction(self.duration / 2)
+        # Also take care of tuplet timing.
+        printer(r'\after %s '
+                % dur.ly_expression(dur.factor
+                                    / printer.duration_factor()))
         for t in tweaks:
             printer(t)
         printer("%s%s" % (dir, command))
