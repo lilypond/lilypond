@@ -1797,7 +1797,14 @@ minor.
 @node chord grid
 @section chord grid
 
-F: grille d'accords.
+ES: ?,
+I: ?,
+F: grille d'accords,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
 
 Chord grids notate chords in a visual way by placing them in
 squares.  They are used for jazz music, mainly in France.
@@ -7649,8 +7656,14 @@ TODO: Where else could I refer the reader?
 @node simile mark
 @section simile mark
 
-E: see below,
+ES: ?,
+I: ?,
+F: ?,
 D: Faulenzer (colloquial).
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
 
 Symbol to indicate a percent repeat, the repetition of a musical
 expression on a single staff, as opposed to the more usual definition
