@@ -599,25 +599,60 @@ expressions, wherever they appear.
 
 @item
 @cindex variable
-A variable, such as
+A variable or a nested structure of Scheme association lists
+(alists).
+
 @example
-foo = @{ c4 d e d @}
+foo = @{ c4 d e d @}       % normal variable
+"Horn 3" = @{ c4 d e d @}  % quoted variable
+verse.1 = @{ c4 d e d @}   % nested alist
 @end example
 
-This can be used later on in the file by entering @code{\foo}.
-The name of a variable should not contain (ASCII) numbers,
-multiple underscores, multiple dashes or space characters.
-All other characters Unicode provides are allowed, for example
-Latin, Greek, Chinese or Cyrillic.  Non-adjacent single
-underscores and dashes are allowed, too.
-In other words, variable names like @code{HornIII} or
-@code{αβγXII} work.
+@noindent
+Variables can be used later on in the file by prepending them with a
+backslash.
 
-Any combination of characters is allowed if the variable name
-is enclosed in double quotation marks.  In this case backslashes
-and double quotation marks need to be escaped with
-backslashes (not that you actually should use them).
+@example
+\foo
+\"Horn 3"
+\verse.1
+@end example
+
+The name of a variable should not contain (ASCII) numbers,
+multiple adjacent underscores, multiple adjacent dashes, or space
+characters.  All other characters Unicode provides are allowed,
+for example Latin, Greek, Chinese, or Cyrillic.  Non-adjacent
+single underscores and dashes are allowed, too.  In other words,
+variable names like @code{HornIII} or @code{Скрипка-II} work.
+
+Any combination of characters is allowed if the variable name is
+enclosed in double quotation marks (not that you actually should
+use such a name).@footnote{For this case the standard LilyPond
+rules for strings apply: backslashes and double quotation marks
+within the doublequotes need to be escaped with backslashes.}
 Examples: @code{"foo bar"}, @code{"a-b-c"}, @code{"Horn 3"}.
+
+Nested alists provide a means to partially circumvent the
+abovementioned restriction of variable names not containing a
+number.  A nested alist is a valid variable name followed by one
+or more sets of a dot and a key.  In @code{mus.violin.1 = @{ a1
+@}} we have a variable called @code{mus}, which has an alist with
+a key called @code{violin}, which in turn has a key called
+@code{1}, which is eventually assigned the value @code{@{ a1 @}}.
+In @code{"1.2"."3.4".5} the variable name is @code{"1.2"} and the
+keys are @code{"3.4"} and @code{5} -- such rather illegible
+constructs might be useful for programmatically generated variable
+names.
+
+Neither a variable name nor a key in a nested alist is allowed to
+be a note name.  If necessary, enclose those in double quotation
+marks, or better, change the offending name or key.
+
+For technical reasons, accessing nested alists might fail under
+some circumstances.  In particular, they cannot be accessed at
+top-level (i.e., outside of a music block).  If @command{lilypond}
+aborts with the error @q{bad expression type}, replace the nested
+alist with a normal or quoted variable.
 
 @end itemize
 
