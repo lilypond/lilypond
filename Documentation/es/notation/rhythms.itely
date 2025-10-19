@@ -1303,7 +1303,7 @@ puntillos en el estilo @q{nota sobre nota}; sin embargo, para
 aprovechar al máximo las posibilidades que se explican en el lugar
 oportuno, en tales casos se recomienda usar una fracción
 convencional para @code{\time} y sobreescribir
-@code{TimeSignature@/.fraction}.
+@code{TimeSignature@/.time-signature}.
 
 @lilypond[quote,verbatim,fragment]
 \override Timing.TimeSignature.denominator-style = #'note
