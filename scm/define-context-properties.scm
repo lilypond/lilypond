@@ -51,7 +51,7 @@
 on the same note in different octaves may be horizontally staggered
 if in different voices.")
      (additionalBassStrings ,list? "The additional tablature bass-strings, which
-will not get a seprate line in TabStaff.  It is a list of the pitches of each
+will not get a separate line in @code{TabStaff}.  It is a list of the pitches of each
 string (starting with the lowest numbered one).")
      (additionalPitchPrefix ,string? "Text with which to prefix
 additional pitches within a chord name.")
@@ -115,7 +115,7 @@ The current bar number.
 
 @end table
 
-The procedure returns a pair of booleans.  The first states whether an extra
+The procedure returns a pair of Booleans.  The first states whether an extra
 natural should be added.  The second states whether an accidental should be
 printed.  @code{(#t . #f)} does not make sense.
 
@@ -175,7 +175,7 @@ for bars 2, 4, 6, etc.
 If bar numbers 1, 4, 7, etc., should be enabled, @var{n}@tie{}(the modulo)
 must be set to@tie{}3 and @var{m}@tie{}(the division remainder) to@tie{}1.
 @end table")
-     (beamExceptions ,list? "An alist of exceptions to autobeam rules
+     (beamExceptions ,list? "An alist of exceptions to auto-beam rules
 that normally end on beats.")
      (beamHalfMeasure ,boolean? "Whether to allow a beam to begin
 halfway through the measure in triple time, which could look like 6/8.")
@@ -582,7 +582,7 @@ Parameters: The context, a list of note events, a list of
 tabstring events, and the fretboard grob if a fretboard is desired.")
      (nullAccidentals ,boolean? "The @code{Accidental_engraver}
 generates no accidentals for notes in contexts were this is set.
-In addition to supressing the printed accidental, this option removes
+In addition to suppressing the printed accidental, this option removes
 any effect the note would have had on accidentals in other voices.")
 
 
@@ -601,7 +601,7 @@ translator during music interpretation.")
 a repeated section for a page turn to be allowed within that section.")
      (pageTurnMinimumRestLength ,musical-length-as-number? "Minimum length of a
 rest for a page turn to be allowed.")
-     (partCombineForced ,symbol? "Override for the partCombine
+     (partCombineForced ,symbol? "Override for the @code{\\partCombine}
 decision.  Can be @code{apart}, @code{chords}, @code{unisono},
 @code{solo1}, or @code{solo2}.")
      (partCombineTextsOnNote ,boolean? "Print part-combine texts only on
@@ -673,7 +673,7 @@ unclear whether to treat incomplete beams specially or not in beam
 subdivision is the correct way of valid notation. The default value
 of false is said to be the correct option, although beam subdivision
 as if this property is true is not unpopular.")
-     (restNumberThreshold ,number? "If a multimeasure rest has more
+     (restNumberThreshold ,number? "If a multi-measure rest has more
 measures than this, a number is printed.")
      (restrainOpenStrings ,boolean? "Exclude open strings from the
 automatic fret calculator.")
@@ -699,9 +699,9 @@ each note head relative to the tonic (q.v.@:) of the scale.")
      (shortInstrumentName ,markup? "See @code{instrumentName}.")
      (shortVocalName ,markup? "Name of a vocal line, short version.")
      (skipBars ,boolean? "If set to @code{#t}, then skip the empty bars
-that are produced by multimeasure notes and rests.  These bars will
+that are produced by multi-measure notes and rests.  These bars will
 not appear on the printed output.  If not set (the default),
-multimeasure notes and rests expand into their full length, printing
+multi-measure notes and rests expand into their full length, printing
 the appropriate number of empty bars so that synchronization with other
 voices is preserved.
 
@@ -752,9 +752,9 @@ of the pitches of each string (starting with the lowest numbered
 one).")
      (strokeFingerOrientations ,list? "See
 @code{fingeringOrientations}.")
-     (subdivideBeams ,boolean? "If set, beams of mulitple stems may be
+     (subdivideBeams ,boolean? "If set, beams of multiple stems may be
 subdivided by omitting a number of beamlets, dependent on
-@code{beamMaximumSubdivision}, between beats at mulitiples of
+@code{beamMaximumSubdivision}, between beats at multiples of
 @code{beamMinimumSubdivision}.")
      (suggestAccidentals ,boolean-or-symbol? "If set to @code{#t},
 accidentals are typeset as suggestions above the note.  Setting it to
@@ -947,7 +947,7 @@ the first segno, 1@tie{}from the first to the second segno,
 2@tie{}from the second to the third segno, etc.")
      (slurMelismaBusy ,boolean? "Signal if a slur is present.")
      (stavesFound ,grob-list? "A list of all staff-symbols found.")
-     (stringFretFingerList ,list? "A list containg three entries.
+     (stringFretFingerList ,list? "A list containing three entries.
 In @code{TabVoice} and @code{FretBoards} they determine the string, fret and
 finger to use")
 

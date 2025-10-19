@@ -5887,7 +5887,7 @@ font.  In this case it gets replaced by a glyph with @var{style] set to
                                 (get-glyph-name-candidates count 'default))
                                stil-cand)))
                      ;; Return false for a string-null-candidate, will be
-                     ;; filtered lateron.
+                     ;; filtered later on.
                      ;; If duration-log of the MMR-glyph is zero move it up by
                      ;; one staff-space
                      (if (string-null? cand)
@@ -5926,7 +5926,7 @@ font.  In this case it gets replaced by a glyph with @var{style] set to
                   mmr-number-stil
                   (- mmr-stil-x-center mmr-number-stil-x-center)
                   X)
-                 ;; Ugh, hardcoded
+                 ;; Ugh, hard-coded
                  (if (> length expand-limit) 0 0.8)))))
     mmr-stil))
 
@@ -6228,7 +6228,7 @@ Set @var{arg} in subscript.
 \\markup { \\concat { H \\sub 2 O } }
 @end lilypond
 
-Ssee also @code{\\super}."
+See also @code{\\super}."
   (ly:stencil-translate-axis
    (interpret-markup
     layout
@@ -6367,7 +6367,7 @@ Print a page number reference.
 the page number, and @var{default} the value to display when @var{label} is not
 found.
 
-If the current book or bookpart is set to use roman numerals for page numbers,
+If the current book or book part is set to use roman numerals for page numbers,
 the reference will be formatted accordingly -- in which case the @var{gauge}'s
 width may require additional tweaking."
   (let* ((gauge-stencil (interpret-markup layout props gauge))
@@ -6543,7 +6543,7 @@ The width of the line is given by the @code{line-width} property.
 
 Each @code{(@var{key} . @var{value})} pair of the @var{replacements} alist
 specifies what should be replaced; @var{key} gets replaced by @var{value}.
-Note the quasiquoting syntax with a backquote in the second example.
+Note the quasi-quoting syntax with a backquote in the second example.
 
 @lilypond[verbatim,quote]
 \\markup \\replace #'((\"2nd\" . \"Second\"))

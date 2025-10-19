@@ -21,7 +21,7 @@
 ;; TODO: should link back into user manual.
 
 (define (mm-rest-child-list music)
-  "Generate events for multimeasure rests,
+  "Generate events for multi-measure rests,
 to be used by the sequential-iterator"
   (ly:set-origin! (list (make-music 'BarCheckEvent)
                         (make-music 'MultiMeasureRestEvent

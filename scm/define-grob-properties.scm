@@ -1626,7 +1626,7 @@ grobs.")
      (slur ,ly:grob? "A pointer to a @code{Slur} object.")
      (spacing ,ly:grob? "The spacing spanner governing this section.")
      (space-increment ,ly:dimension? "The amount by which the total duration
-of a multimeasure rest affects horizontal spacing.  Each doubling of the
+of a multi-measure rest affects horizontal spacing.  Each doubling of the
 duration adds @code{space-increment} to the length of the bar.")
      (spacing-wishes ,ly:grob-array? "An array of note spacing or staff spacing
 objects.")
@@ -1651,7 +1651,8 @@ results, use @code{LEFT} and @code{RIGHT}.")
      (tuplet-number ,ly:grob? "The number for a bracket.")
      (tuplets ,ly:grob-array? "An array of smaller tuplet brackets.")
 
-     (vertical-alignment ,ly:grob? "The VerticalAlignment in a System.")
+     (vertical-alignment ,ly:grob? "The @code{VerticalAlignment} in a
+@code{System}.")
      (vertical-skyline-elements ,ly:grob-array? "An array of grobs
 used to create vertical skylines.")
 
@@ -1766,8 +1767,8 @@ a head may be affected by the left and/@/or right neighbour head.
 @code{context-info} holds for each head such information about the left and
 right neighbour, encoded as a bit mask.")
 
-     (deminutum ,boolean? "Is this neume deminished?")
-     (descendens ,boolean? "Is this neume of descendent type?")
+     (deminutum ,boolean? "Is this neume diminished?")
+     (descendens ,boolean? "Is this neume of descendant type?")
 
      (flexa-height ,ly:dimension? "The height of a flexa shape in a ligature
 grob (in @code{staff-space} units).")
