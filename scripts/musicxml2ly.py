@@ -2297,8 +2297,8 @@ articulations_dict = {
     # "handbell": "?",
     # "harmon-mute": "?",
     # "harmonic": handled by `NoteEvent`,
-    # "haydn": "?",
     # "heel": "?",
+    "haydn": "haydnturn",
     # "hole": "?",
     "inverted-mordent": ("scripts.prall", "prall"),
     "inverted-turn": ("scripts.reverseturn", "reverseturn"),
@@ -2311,13 +2311,13 @@ articulations_dict = {
     # "plop": "?",
     "pluck": musicxml_pluck_event,
     # "pull-off": "?",
-    # "schleifer": "?",
+    "schleifer": (musicexp.NoDirectionArticulationEvent, "bachschleifer"),
     # "scoop": "?",
     # "shake": "?",
     # "smear": "?",
     "snap-pizzicato": "snappizzicato",
-    # "soft-accent": "?",
-    # "spiccato": "?",
+    "soft-accent": "espressivo",
+    "spiccato": (musicexp.ShortArticulationEvent, "!"),  # same as next
     "staccatissimo": (musicexp.ShortArticulationEvent, "!"),  # or "staccatissimo"
     "staccato": (musicexp.ShortArticulationEvent, "."),  # or "staccato"
     "stopped": (musicexp.ShortArticulationEvent, "+"),  # or "stopped"
