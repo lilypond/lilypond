@@ -4068,8 +4068,8 @@ queremos.
 Siempre se recomienda fijar el valor de la propiedad
 @code{uniform-@/stretching} de @code{SpacingSpanner} a @code{#t}
 si estamos usando @code{proportional@/Notation@/Duration}.  Por
-ejemplo, omitirlo hace que los silencios de separación consuma una
-cantidad incorrecta de espacio horizontal.
+ejemplo, omitirlo hace que los silencios de separación consuman
+una cantidad incorrecta de espacio horizontal.
 
 El @code{SpacingSpanner} es un grob abstracto que reside en el
 contexto de @code{Score}. Como con nuestros ajustes de
