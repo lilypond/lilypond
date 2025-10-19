@@ -11,7 +11,8 @@
 @c \version "2.25.3"
 
 @node Vocal music
-@section Música vocal
+@anchor{Specialist notation} @c retain old label
+@chapter Música vocal
 
 @lilypondfile[quote]{snippets/vocal-headword.ly}
 
@@ -21,14 +22,14 @@ correspondiente.
 
 
 @node Common notation for vocal music
-@subsection Notación común para música vocal
+@section Notación común para música vocal
 
 Esta sección se ocupa de las cuestiones comunes a la mayoría de
 los tipos de música vocal.
 
 
 @node References for vocal music
-@unnumberedsubsubsec Referencias para música vocal
+@subsection Referencias para música vocal
 
 Esta sección indica dónde encontrar los detalles de las cuestiones
 de notación que pueden surgir en cualquier tipo de música vocal.
@@ -76,7 +77,7 @@ Fragmentos de código:
 @rlsr{Vocal music}.
 
 @node Entering lyrics
-@unnumberedsubsubsec Introducir la letra
+@subsection Introducir la letra
 
 @cindex letra
 @cindex letra, introducir
@@ -208,7 +209,7 @@ Fragmentos de código:
 
 
 @node Aligning lyrics to a melody
-@unnumberedsubsubsec Alineación de la letra a una melodía
+@subsection Alineación de la letra a una melodía
 
 @cindex letra, alineación a una melodía
 @funindex associatedVoice
@@ -343,7 +344,7 @@ Referencia de funcionamiento interno:
 
 
 @node Automatic syllable durations
-@unnumberedsubsubsec Duración automática de las sílabas
+@subsection Duración automática de las sílabas
 
 @cindex sílaba, duración automática de
 @cindex letra, y melodías
@@ -512,7 +513,7 @@ Referencia de la notación:
 
 
 @node Manual syllable durations
-@unnumberedsubsubsec Duración manual de las sílabas
+@subsection Duración manual de las sílabas
 
 En ciertas músicas vocales complejas puede ser deseable colocar la
 letra de forma completamente independiente de las notas.  En este
@@ -591,7 +592,7 @@ Referencia de funcionamiento interno:
 
 
 @node Multiple syllables to one note
-@unnumberedsubsubsec Varias sílabas sobre una nota
+@subsection Varias sílabas sobre una nota
 
 @funindex _
 @cindex ligadura, en la letra
@@ -626,7 +627,7 @@ Referencia de funcionamiento interno:
 
 
 @node Multiple notes to one syllable
-@unnumberedsubsubsec Varias notas sobre una sílaba
+@subsection Varias notas sobre una sílaba
 
 @cindex melisma
 @cindex melismata
@@ -837,7 +838,7 @@ se deben insertar manualmente con un doble guión bajo.
 
 
 @node Extenders and hyphens
-@unnumberedsubsubsec Líneas de extensión y guiones
+@subsection Líneas de extensión y guiones
 
 @cindex melisma
 @cindex extensora, línea
@@ -886,7 +887,7 @@ Referencia de funcionamiento interno:
 
 
 @node Gradual changes of vowel
-@unnumberedsubsubsec Cambios de vocal graduales
+@subsection Cambios de vocal graduales
 
 @cindex vocal, transición de
 
@@ -929,13 +930,13 @@ Referencia de funcionamiento interno:
 
 @need 1500
 @node Techniques specific to lyrics
-@subsection Técnicas específicas para la letra
+@section Técnicas específicas para la letra
 
 @c TODO this whole section is to be reorganised
 
 
 @node Working with lyrics and variables
-@unnumberedsubsubsec Trabajar con letra y variables
+@subsection Trabajar con letra y variables
 
 @cindex lyrics, using variables
 
@@ -1017,7 +1018,7 @@ Referencia de funcionamiento interno:
 
 
 @node Placing lyrics vertically
-@unnumberedsubsubsec Posicionamiento vertical de la letra
+@subsection Posicionamiento vertical de la letra
 
 @cindex posicionamiento, de la letra
 @cindex letra, posicionamiento
@@ -1153,7 +1154,7 @@ Referencia de la notación:
 
 
 @node Placing syllables horizontally
-@unnumberedsubsubsec Colocación horizontal de las sílabas
+@subsection Colocación horizontal de las sílabas
 
 @cindex espaciado, de la letra
 @cindex letra, aumentar la separación
@@ -1234,7 +1235,7 @@ Para hacer que el texto evite también las líneas divisorias, use
 @end example
 
 @node Lyrics and repeats
-@unnumberedsubsubsec Letra y repeticiones
+@subsection Letra y repeticiones
 
 @cindex repetición, y letra
 @cindex letra, repetición
@@ -1657,7 +1658,7 @@ Referencia de la notación:
 
 
 @node Divisi lyrics
-@unnumberedsubsubsec Letras en divisi
+@subsection Letras en divisi
 
 @cindex dividida, letra
 @cindex letra dividida
@@ -1742,7 +1743,7 @@ debemos usar es el pasaje polifónico temporal, véase la sección
 
 
 @node Polyphony with shared lyrics
-@unnumberedsubsubsec Polifonía con letras compartidas
+@subsection Polifonía con letras compartidas
 
 @funindex NullVoice
 @cindex polifonía, letra compartida
@@ -1833,11 +1834,11 @@ words = \lyricmode { la __ la __ }
 
 @need 1500
 @node Stanzas
-@subsection Versos
+@section Versos
 
 
 @node Adding stanza numbers
-@unnumberedsubsubsec Añadir números de verso
+@subsection Añadir números de verso
 
 @cindex verso, número de
 
@@ -1895,7 +1896,7 @@ stanzaOneThree = \lyricmode {
 @end lilypond
 
 @node Adding dynamics marks to stanzas
-@unnumberedsubsubsec Añadir expresiones dinámicas a los versos
+@subsection Añadir expresiones dinámicas a los versos
 
 Los versos que difieren en su sonoridad se pueden especificar
 escribiendo una indicación dinámica antes de cada verso.  En
@@ -1922,7 +1923,7 @@ text = {
 @end lilypond
 
 @node Adding singers' names to stanzas
-@unnumberedsubsubsec Añadir el nombre de los cantantes a los versos
+@subsection Añadir el nombre de los cantantes a los versos
 
 @cindex cantante, nombre del
 @cindex nombre del cantante
@@ -1946,13 +1947,13 @@ definir una versión abreviada como @code{shortVocalName}.
 
 
 @node Stanzas with different rhythms
-@unnumberedsubsubsec Versos con ritmos distintos
+@subsection Versos con ritmos distintos
 
 Con frecuencia, los distintos versos de una canción encajan de
 formas ligeramente diferentes con la misma melodía.  Estas
 variaciones se pueden capturar con el uso de @code{\lyricsto}.
 
-@subsubheading Ignorar los melismas
+@subheading Ignorar los melismas
 
 Existe la posibilidad de que el texto tenga un melisma en un
 verso, pero varias sílabas en otro.  Una solución es hacer que la
@@ -1987,7 +1988,7 @@ A diferencia de casi todas las instrucciones @code{\set},
 @code{\once}.  Es necesario utilizar @code{\set} y @code{\unset}
 para delimitar la letra en que se quieren ignorar los melismas.
 
-@subsubheading Aplicar sílabas a notas de adorno
+@subheading Aplicar sílabas a notas de adorno
 
 @cindex adorno, letra y notas de
 @cindex letra, sobre notas de adorno
@@ -2041,7 +2042,7 @@ al comienzo mismo de una pieza, se recomienda usar un bloque
 >>
 @end lilypond
 
-@subsubheading Cambio a una melodía alternativa
+@subheading Cambio a una melodía alternativa
 
 @funindex associatedVoice
 @cindex melodía alternativa, cambio a una
@@ -2119,7 +2120,7 @@ esperado.  Esto es por razones técnicas, y no es un fallo.}
 
 
 @node Printing stanzas at the end
-@unnumberedsubsubsec Imprimir los versos al final
+@subsection Imprimir los versos al final
 
 En ocasiones es conveniente tener un verso ajustado a la música, y
 el resto añadido en forma de estrofa al final de la pieza.  Esto
@@ -2165,7 +2166,7 @@ its fleece was white as snow.
 
 
 @node Printing stanzas at the end in multiple columns
-@unnumberedsubsubsec Imprimir los versos al final en varias columnas
+@subsection Imprimir los versos al final en varias columnas
 
 Cuando una pieza tiene muchos versos, a menudo se imprimen en
 varias columnas a lo largo de toda la página. Con frecuencia un
@@ -2240,11 +2241,11 @@ Referencia de funcionamiento interno:
 
 @need 1500
 @node Songs
-@subsection Canciones
+@section Canciones
 
 
 @node References for songs
-@unnumberedsubsubsec Referencias para canciones
+@subsection Referencias para canciones
 
 Por lo general, las canciones se escriben sobre tres pentagramas
 con la melodía del cantante en el pentagrama superior y dos
@@ -2311,7 +2312,7 @@ Fragmentos de código:
 @rlsr{Vocal music}.
 
 @node Lead sheets
-@unnumberedsubsubsec Hojas guía de acordes
+@subsection Hojas guía de acordes
 
 Se pueden imprimir hojas guía de acordes combinando partes vocales
 y el @q{modo de acordes}; esta sintaxis se explica en
@@ -2329,7 +2330,7 @@ Referencia de la notación:
 
 
 @node Choral
-@subsection Música coral
+@section Música coral
 
 @cindex anthem
 @cindex canción, a varias voces
@@ -2342,7 +2343,7 @@ canciones por partes, los oratorios, etc.
 
 
 @node References for choral
-@unnumberedsubsubsec Referencias para música coral
+@subsection Referencias para música coral
 
 La notación de música coral se realiza normalmente sobre dos, tres
 o cuatro pentagramas dentro de un grupo de pautas
@@ -2426,7 +2427,7 @@ Referencia de funcionamiento interno:
 @rinternals{PianoStaff}.
 
 @node Score layouts for choral
-@unnumberedsubsubsec Disposiciones de la partitura para música coral
+@subsection Disposiciones de la partitura para música coral
 
 La música coral que contiene cuatro pentagramas, con o sin
 acompañamiento de piano, se suele disponer con dos sistemas por
@@ -2539,7 +2540,7 @@ Referencia de la notación:
 
 
 @node Opera and stage musicals
-@subsection Ópera y musicales
+@section Ópera y musicales
 
 
 @cindex @'opera
@@ -2592,7 +2593,7 @@ musical de las partituras de ópera y de musicales.
 
 
 @node References for opera and stage musicals
-@unnumberedsubsubsec Referencias para ópera y musicales
+@subsection Referencias para ópera y musicales
 
 @cindex orquestal, música
 @cindex ensemble, música de
@@ -2665,7 +2666,7 @@ Snippets:
 
 
 @node Character names
-@unnumberedsubsubsec Nombres de los personajes
+@subsection Nombres de los personajes
 
 @cindex personaje, nombre
 @cindex nombres, de personaje
@@ -2758,7 +2759,7 @@ Referencia de la notación:
 @ref{Text markup commands}.
 
 @node Musical cues
-@unnumberedsubsubsec Guías musicales
+@subsection Guías musicales
 
 @cindex guía, musicales
 @cindex musical, guía
@@ -2894,7 +2895,7 @@ para extraer e insertar las notas citadas.
 
 
 @node Spoken music
-@unnumberedsubsubsec Música hablada
+@subsection Música hablada
 
 @cindex parlato
 @cindex Sprechgesang
@@ -2912,7 +2913,7 @@ con la cabeza en forma de cruz, como se muestra en
 @c add "lyrics independents of notes" ref
 
 @node Dialogue over music
-@unnumberedsubsubsec Diálogos encima de la música
+@subsection Diálogos encima de la música
 
 Los diálogos sobre la música se imprimen normalmente por encima de
 los pentagramas en un estilo inclinado, con el comienzo de cada
@@ -2995,7 +2996,7 @@ Referencia de funcionamiento interno:
 
 
 @node Chants psalms and hymns
-@subsection Cánticos salmos e himnos
+@section Cánticos salmos e himnos
 
 @cindex cántico
 @cindex salmo
@@ -3010,7 +3011,7 @@ similares, y se estudian en esta sección.
 
 
 @node References for chants and psalms
-@unnumberedsubsubsec Referencias para cánticos y salmos
+@subsection Referencias para cánticos y salmos
 
 El tipografiado del canto gregoriano en distintos estilos de
 notación antigua se describe en @ref{Ancient notation}.
@@ -3024,7 +3025,7 @@ Snippets:
 
 
 @node Setting a chant
-@unnumberedsubsubsec Preparar un cántico
+@subsection Preparar un cántico
 
 La preparación moderna de los cánticos utiliza notación moderna
 con un número variable de elementos tomados de la notación
@@ -3337,7 +3338,7 @@ Referencia de la notación:
 
 
 @node Pointing a psalm
-@unnumberedsubsubsec Puntuación de un salmo
+@subsection Puntuación de un salmo
 
 El texto de un salmo anglicano se suele imprimir en versos
 separados debajo del canto.
@@ -3501,7 +3502,7 @@ Referencia de la notación:
 
 
 @node Phrase bar lines in hymn tunes
-@subsection Phrase bar lines in hymn tunes
+@section Phrase bar lines in hymn tunes
 
 @funindex \caesura
 @cindex bar line, in hymns
@@ -3549,7 +3550,7 @@ when a line is broken in mid-measure at the end of a phrase.
 @end lilypond
 
 @node Partial measures in hymn tunes
-@unnumberedsubsubsec Compases parciales en melodías de himno
+@subsection Compases parciales en melodías de himno
 
 Con frecuencia las melodías de himno comienzan y terminan cada
 línea de música con compases parciales de forma que cada línea de
@@ -3566,7 +3567,7 @@ cada línea.
 
 
 @node Ancient vocal music
-@subsection Música vocal antigua
+@section Música vocal antigua
 
 Está contemplada la música vocal en estilo de tipografía antiguo,
 como se explica en @ref{Ancient notation}.

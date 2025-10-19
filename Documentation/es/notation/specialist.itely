@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 3fa99142fdc38cee6972e76edb37c052f029fe1b
+    Translation of GIT committish: b22569ea33c9c9a6a26e17624d79449bffa81b22
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -9,16 +9,8 @@
 
 @c \version "2.16.0"
 
-@node Specialist notation
-@chapter Notación especializada
 
-Este capítulo explica cómo crear notación musical para instrumentos de
-un tipo específico o dentro de estilos específicos.
-
-La música orquestal y la de grupos menores no se estudian en
-ningún apartado distinto; sin embargo, varias nociones que son con
-frecuencia útiles en las partituras orquestales pueden verse en
-@ref{References for opera and stage musicals}.
+@part Notación especializada
 
 @include es/notation/vocal.itely
 @include es/notation/keyboards.itely
