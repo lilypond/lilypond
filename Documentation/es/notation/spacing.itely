@@ -1447,7 +1447,6 @@ se puede modificar de tres formas:
 
 @item
 @funindex set-global-staff-size
-
 Para establecer globalmente el tamaño del pentagrama para todas
 las partituras de un archivo, utilice @code{set-global-staff-size}:
 
@@ -1477,7 +1476,6 @@ pentagrama para cada bloque @code{\book}:
 
 @item
 @funindex layout-set-staff-size
-
 Para fijar el tamaño del pentagrama para una sola partitura dentro
 de un libro, use @code{layout-set-staff-size} dentro del bloque
 @code{\layout} de dicha partitura:
@@ -1542,7 +1540,7 @@ las líneas del pentagrama, que son también relativamente más
 gruesas.  Los tamaños de glifo recomendados se relacionan en la
 tabla siguiente:
 
-@multitable @columnfractions .15 .2 .22 .2
+@multitable @columnfractions .15 .2 .22 .5
 
 @item @b{nombre de la fuente} @tab @b{altura del pentagrama (pt)} @tab @b{altura del pentagrama (mm)} @tab @b{usos}
 @item feta11 @tab 11.22 @tab 3.9 @tab partituras de bolsillo
@@ -1778,8 +1776,8 @@ se quieren evitar los saltos de página automáticos, deben usarse
 las instrucciones @code{\autoBreaksOff} y @code{\autoBreaksOn}.
 Los saltos manuales no están afectados por estas instrucciones.
 Observe que el hecho de inhibir los saltos de línea automáticos
-puede hacer que la música se extienda sobre el margen derecho
-cuandoquiera que no cabe completamente dentro de una sola línea.
+puede hacer que la música se extienda sobre el margen derecho si
+no cabe completamente dentro de una sola línea.
 
 Los saltos automáticos de línea (no de página) se pueden habilitar
 sobre líneas divisorias individuales mediante el uso de
@@ -2734,7 +2732,7 @@ Referencia de funcionamiento interno:
 @node Spacing of non-staff lines
 @subsection Espaciado de las líneas que no son pautas
 
-Las @emph{Líneas que no son pautas}, tales como @code{Lyrics},
+Las @emph{líneas que no son pautas}, tales como @code{Lyrics},
 @code{ChordNames}, etc., son contextos cuyos objetos de
 presentación se imprimen como pentagramas (es decir, en líneas
 horizontales dentro de los sistemas).  Específicamente, las líneas
@@ -2891,11 +2889,11 @@ escritura de notas conforme el ejemplo se vuelve más complicado.
 Consulte @ref{Breaks}.
 
 Utilizando instrucciones @code{\break} explícitas, la música se
-divide líneas de cinco compases cada una.  El espaciado vertical
-proviene de los ajustes predeterminados de LilyPond pero el punto
-de origen vertical de cada sistema se fija explícitamente usando
-el par @code{Y-offset} en el atributo
-@code{line-break-system-details} del grob (objeto gráfico)
+divide en líneas de cinco compases cada una.  El espaciado
+vertical proviene de los ajustes predeterminados de LilyPond pero
+el punto de origen vertical de cada sistema se fija explícitamente
+usando el par @code{Y-offset} en el atributo
+@code{line-break-system-details} del grob
 @code{NonMusicalPaperColumn}:
 
 @lilypond[verbatim,quote,staffsize=16]
@@ -3476,7 +3474,7 @@ Fragmentos de código:
 
 
 @node Adjusting horizontal spacing for specific layout objects
-@section Adjusting horizontal spacing for specific layout objects
+@section Ajuste del espaciado horizontal para objetos de disposición específicos
 
 Además de los parámetros de uso general del algoritmo
 predeterminado de espaciamiento que se aplican a todos los
@@ -3514,7 +3512,7 @@ los silencios, que forman el material musica principal junto con
 esos objetos que están enlazados a ellos lógicamente (alteraciones
 accidentales, articulaciones, plicas, puntillos, etc.) son todos
 parte de @q{columnas musicales} (representadas por objetos
-gráficos del tipo @code{NoteColumn}).  El @dfn{materia
+gráficos del tipo @code{NoteColumn}).  El @dfn{material
 introductorio}, como las claves, indicaciones de compás y líneas
 divisorias, se agrupa en @q{columnas no musicales} (representadas
 por objetos gráficos del tipo @code{NonMusicalPaperColumn}).  En
@@ -3608,8 +3606,6 @@ la propiedad @code{BreakAlignment@/.break@/-align@/-orders}).
 @cindex break-align symbol
 @cindex symbol, break-align
 @funindex space-alist
-
-@c HASTA AQUÍ
 
 La distancia entre dos elementos adyacentes de la misma columna no
 musical viene controlada por el valor de la propiedad
@@ -3964,10 +3960,10 @@ veinteavo de redonda; también son posibles valores como
 ¿Cómo seleccionamos la duración correcta de referencia para
 pasarla a @code{proportionalNotationDuration}?  Normalmente
 mediante un proceso de ensayo y error, comenzando con una duración
-cercana a la más rápida (o más breve) duración de la pieza.  Las
-duraciones de referencia más pequeñas aplican un espaciado más
-suelto; las duraciones de referencia más largas aplican un
-espaciado más apretado.
+cercana a la más rápida (o más breve) de la pieza.  Las duraciones
+de referencia más pequeñas aplican un espaciado más suelto; las
+duraciones de referencia más largas aplican un espaciado más
+apretado.
 
 @lilypond[quote,verbatim,ragged-right]
 rhythm = { c2 16 16 16 16 \tuplet 5/4 { 16 16 16 16 16 } }
@@ -4072,8 +4068,8 @@ queremos.
 Siempre se recomienda fijar el valor de la propiedad
 @code{uniform-@/stretching} de @code{SpacingSpanner} a @code{#t}
 si estamos usando @code{proportional@/Notation@/Duration}.  Por
-ejemplo, omitirlo hace que los silencios de separación consumna
-una cantidad de espacio horizontal incorrecta.
+ejemplo, omitirlo hace que los silencios de separación consuma una
+cantidad incorrecta de espacio horizontal.
 
 El @code{SpacingSpanner} es un grob abstracto que reside en el
 contexto de @code{Score}. Como con nuestros ajustes de
