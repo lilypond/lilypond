@@ -1478,7 +1478,7 @@ réglages particuliers pour les différentes portées d'un regroupement --
      }
   >>
   \layout {
-    \enablePolymeter
+    \enablePerStaffTiming
   }
 }
 @end lilypond
@@ -2055,12 +2055,12 @@ ligature automatique.
 @c VO Different time signatures with unequal-length measures
 
 Il arrive aussi que chaque portée ait sa propre métrique. Vous y
-parviendrez en insérant l'instruction @code{\enablePolymeter} dans le
+parviendrez en insérant l'instruction @code{\enablePerStaffTiming} dans le
 bloc @code{\layout}.
 
 @lilypond[quote,verbatim]
 \layout {
-  \enablePolymeter
+  \enablePerStaffTiming
 }
 
 % Now each staff has its own time signature.
@@ -2088,7 +2088,7 @@ bloc @code{\layout}.
 @end lilypond
 
 Lorsqu'un seul morceau est polymétrique, l'instruction
-@code{\enablePolymeter} sera placée dans la section @code{\layout} du
+@code{\enablePerStaffTiming} sera placée dans la section @code{\layout} du
 bloc @code{\score} considéré.
 
 @lilypond[verbatim,quote]
@@ -2101,7 +2101,7 @@ bloc @code{\score} considéré.
 
 \score {
   \layout {
-    \enablePolymeter
+    \enablePerStaffTiming
   }
   <<
     \new Staff { \time 4/4 c''1 1 }
@@ -2120,7 +2120,7 @@ synchronisé sur les barres de mesure.
 @c no verbatim on purpose
 @lilypond[quote]
 \layout {
-  \enablePolymeter
+  \enablePerStaffTiming
 }
 
 upper = { c'1 | d' | f' }
@@ -2145,11 +2145,11 @@ qu'elle est libellée dans le bloc @code{\midi}.
 @quotation
 @verbatim
 \layout {
-  \enablePolymeter
+  \enablePerStaffTiming
 }
 
 \midi {
-  \enablePolymeter
+  \enablePerStaffTiming
 }
 @end verbatim
 @end quotation

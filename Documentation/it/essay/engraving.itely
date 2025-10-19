@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.8"
+@c \version "2.25.30"
 
 @c Translators: Tommaso Gordini
 @c Translation checkers: Federico Bruni
@@ -1075,7 +1075,7 @@ musicale più complesso:
 
 @lilypond[quote]
 \layout {
-  \enablePolymeter
+  \enablePerStaffTiming
 }
 
 \new PianoStaff <<

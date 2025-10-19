@@ -1,4 +1,4 @@
-\version "2.23.14"
+\version "2.25.30"
 
 \header {
   texidoc = "In this case, the compound time signature has a CENTER
@@ -21,7 +21,7 @@ arrow should point there."
     \override TimeSignature.break-align-anchor-alignment = #RIGHT
   }
 
-  \enablePolymeter
+  \enablePerStaffTiming
 }
 
 \fixed c' <<

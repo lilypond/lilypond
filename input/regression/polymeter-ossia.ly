@@ -1,4 +1,4 @@
-\version "2.25.5"
+\version "2.25.30"
 
 #(ly:set-option 'warning-as-error #t)
 
@@ -11,7 +11,7 @@ with the staff in 3/4 time (apart from its grace note) and end after
 }
 
 \layout {
-  \enablePolymeter
+  \enablePerStaffTiming
 
   \context {
     \Staff

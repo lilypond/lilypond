@@ -1,11 +1,11 @@
-\version "2.25.21"
+\version "2.25.30"
 
 \header {
-  texidoc = "@code{\\partial} works with polymetric staves."
+  texidoc = "@code{\\partial} works with per-staff timing."
 }
 
 \layout {
-  \enablePolymeter
+  \enablePerStaffTiming
 }
 
 %% Weird beaming should make this test more sensitive to regressions in

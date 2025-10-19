@@ -87,9 +87,9 @@ context @var{to} is accepted as a child by all contexts that also accept
 	  module)
 	 (ly:parser-error (G_ "Not in an output definition")))))
 
-enablePolymeter =
+enablePerStaffTiming =
 #(define-void-function () ()
-  (_i "Enable polymetry.
+  (_i "Enable polymeter with unaligned measures.
 
 This function moves the timing management from @code{Score} to @code{Staff}-like
 contexts.  This is done by removing the @code{Timing_@/translator} from

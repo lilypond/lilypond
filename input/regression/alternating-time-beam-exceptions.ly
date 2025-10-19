@@ -1,4 +1,4 @@
-\version "2.25.28"
+\version "2.25.30"
 
 \header {
   texidoc = "The beat structure and beaming exceptions for a component of a
@@ -9,7 +9,7 @@ strictly alternating time signature are the same as when it appears alone."
 
 \layout {
   indent = 0
-  \enablePolymeter
+  \enablePerStaffTiming
 }
 
 \fixed c' <<

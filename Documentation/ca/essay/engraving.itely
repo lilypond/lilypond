@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.7"
+@c \version "2.25.30"
 
 @c Translator: Walter Garcia-Fontes
 
@@ -1094,7 +1094,7 @@ considerem un exemple musical més complicat:
 
 @lilypond[quote]
 \layout {
-  \enablePolymeter
+  \enablePerStaffTiming
 }
 
 \new PianoStaff <<

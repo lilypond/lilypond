@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.8"
+@c \version "2.25.30"
 
 
 @node Music engraving
@@ -1042,7 +1042,7 @@ consider a more complicated musical example:
 
 @lilypond[quote]
 \layout {
-  \enablePolymeter
+  \enablePerStaffTiming
 }
 
 \new PianoStaff <<

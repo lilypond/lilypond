@@ -1,4 +1,4 @@
-\version "2.25.5"
+\version "2.25.30"
 
 #(ly:set-option 'warning-as-error #t)
 
@@ -13,7 +13,7 @@ usual."
 }
 
 \layout {
-  \enablePolymeter
+  \enablePerStaffTiming
 
   \context {
     \Staff

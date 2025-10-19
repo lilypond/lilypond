@@ -1,12 +1,12 @@
-\version "2.23.7"
+\version "2.25.30"
 
 \header {
-  texidoc = "The @code{\enablePolymeter} command turns on polymetric
-notation, making time signatures independent between staves."
+  texidoc = "The @code{\enablePerStaffTiming} command makes @code{measureLength}
+and other timing properties independent between staves."
 }
 
 \layout {
-  \enablePolymeter
+  \enablePerStaffTiming
 }
 
 <<

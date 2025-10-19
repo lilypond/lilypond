@@ -1496,7 +1496,7 @@ notation}).
      }
   >>
   \layout {
-    \enablePolymeter
+    \enablePerStaffTiming
   }
 }
 @end lilypond
@@ -2093,11 +2093,11 @@ las duraciones afecta a las reglas de barrado automático.
 
 Se puede dar a cada pentagrama su propia indicación de compás
 independiente en el momento en que se escriba
-@code{\enablePolymeter} dentro del bloque @code{\layout}.
+@code{\enablePerStaffTiming} dentro del bloque @code{\layout}.
 
 @lilypond[quote,verbatim]
 \layout {
-  \enablePolymeter
+  \enablePerStaffTiming
 }
 
 % Now each staff has its own time signature.
@@ -2125,7 +2125,7 @@ independiente en el momento en que se escriba
 @end lilypond
 
 Para tener solo una partitura polimétrica, escriba
-@code{\enablePolymeter} en un bloque @code{\layout} dentro del
+@code{\enablePerStaffTiming} en un bloque @code{\layout} dentro del
 bloque @code{\score}.
 
 @lilypond[verbatim,quote]
@@ -2138,7 +2138,7 @@ bloque @code{\score}.
 
 \score {
   \layout {
-    \enablePolymeter
+    \enablePerStaffTiming
   }
   <<
     \new Staff { \time 4/4 c''1 1 }
@@ -2157,7 +2157,7 @@ como los reguladores se sincroniza con las barras de compás.
 @c no verbatim on purpose
 @lilypond[quote]
 \layout {
-  \enablePolymeter
+  \enablePerStaffTiming
 }
 
 upper = { c'1 | d' | f' }
@@ -2177,16 +2177,16 @@ dynamics = { s2. s2.\p\< s\> s\! }
 @end lilypond
 
 Para poder usar esta funcionalidad con la salida MIDI, escriba
-también @code{\enablePolymeter} dentro del bloque @code{\midi}.
+también @code{\enablePerStaffTiming} dentro del bloque @code{\midi}.
 
 @quotation
 @verbatim
 \layout {
-  \enablePolymeter
+  \enablePerStaffTiming
 }
 
 \midi {
-  \enablePolymeter
+  \enablePerStaffTiming
 }
 @end verbatim
 @end quotation

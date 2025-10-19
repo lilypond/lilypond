@@ -5555,9 +5555,11 @@ def conv(s):
 
 @rule((2, 25, 30), r"""
 TimeSignature.fraction -> TimeSignature.time-signature
+enablePolymeter -> enablePerStaffTiming
 """)
 def conv(s):
     s = re.sub(r'(TimeSignature\s*\.\s*)fraction\b', r'\1time-signature', s)
+    s = re.sub(r'\benablePolymeter\b', r'enablePerStaffTiming', s)
     return s
 
 

@@ -1,4 +1,4 @@
-\version "2.23.14"
+\version "2.25.30"
 
 \header {
   texidoc = "The ``average'' anchor of a diverse group of
@@ -21,7 +21,7 @@ next."
     \override TimeSignature.break-align-anchor-alignment = #-0.75
   }
 
-  \enablePolymeter
+  \enablePerStaffTiming
 }
 
 \fixed c' <<

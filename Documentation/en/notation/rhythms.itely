@@ -1437,7 +1437,7 @@ established for different staves by enabling polymetric notation
      }
   >>
   \layout {
-    \enablePolymeter
+    \enablePerStaffTiming
   }
 }
 @end lilypond
@@ -2022,11 +2022,11 @@ affect the auto-beaming rules.
 @subsubheading Different time signatures with unequal-length measures
 
 Each staff can be given its own independent time signature as soon
-as @code{\enablePolymeter} is placed in the @code{\layout} block.
+as @code{\enablePerStaffTiming} is placed in the @code{\layout} block.
 
 @lilypond[quote,verbatim]
 \layout {
-  \enablePolymeter
+  \enablePerStaffTiming
 }
 
 % Now each staff has its own time signature.
@@ -2053,7 +2053,7 @@ as @code{\enablePolymeter} is placed in the @code{\layout} block.
 >>
 @end lilypond
 
-To have just one polymetric score, include @code{\enablePolymeter}
+To have just one polymetric score, include @code{\enablePerStaffTiming}
 in a @code{\layout} block inside the @code{\score} block.
 
 @lilypond[verbatim,quote]
@@ -2066,7 +2066,7 @@ in a @code{\layout} block inside the @code{\score} block.
 
 \score {
   \layout {
-    \enablePolymeter
+    \enablePerStaffTiming
   }
   <<
     \new Staff { \time 4/4 c''1 1 }
@@ -2084,7 +2084,7 @@ like hairpins is synchronized with bar lines.
 @c no verbatim on purpose
 @lilypond[quote]
 \layout {
-  \enablePolymeter
+  \enablePerStaffTiming
 }
 
 upper = { c'1 | d' | f' }
@@ -2104,16 +2104,16 @@ dynamics = { s2. s2.\p\< s\> s\! }
 @end lilypond
 
 In order to use this feature with MIDI output, also include
-@code{\enablePolymeter} in a @code{\midi} block.
+@code{\enablePerStaffTiming} in a @code{\midi} block.
 
 @quotation
 @verbatim
 \layout {
-  \enablePolymeter
+  \enablePerStaffTiming
 }
 
 \midi {
-  \enablePolymeter
+  \enablePerStaffTiming
 }
 @end verbatim
 @end quotation

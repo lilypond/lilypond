@@ -1,4 +1,4 @@
-\version "2.23.14"
+\version "2.25.30"
 
 \header {
   texidoc = "When a group of break-aligned items agree on the position
@@ -16,7 +16,7 @@ point to the stated point relative to the compound time signature."
     \override TextMark.self-alignment-X = #CENTER
   }
 
-  \enablePolymeter
+  \enablePerStaffTiming
 }
 
 #(define-markup-command (test-mark layout props arg)
