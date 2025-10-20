@@ -19,4 +19,4 @@
 @include es/notation/simultaneous.itely
 @include es/notation/staff.itely
 @include es/notation/editorial.itely
-@include en/notation/text.itely
+@include es/notation/text.itely

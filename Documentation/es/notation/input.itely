@@ -11,7 +11,7 @@
 @c \version "2.25.27"
 
 
-@part General input and output
+@part Entrada y salida generales
 
 @node Input modes
 @anchor{General input and output} @c retain old label
@@ -5045,7 +5045,7 @@ presentar información musical en forma de texto.
 
 
 @node Displaying LilyPond notation
-@section Displaying LilyPond notation
+@section Mostrar la notación de LilyPond
 
 @funindex \displayLilyMusic
 La impresión textual de una expresión musical en notación de

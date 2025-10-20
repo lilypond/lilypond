@@ -1146,7 +1146,7 @@ que la página@tie{}1 esté en el lado derecho.
 
 
 @node paper variables concerning headers and markups
-@subsection @code{\paper} variables concerning headers and markups
+@subsection Variables de @code{\paper} relativas a los encabezamientos y marcados
 
 @table @code
 
@@ -1220,7 +1220,7 @@ página y el campo @code{instrument} del bloque @code{\header}
 sobre la misma línea.
 
 @node paper variables for debugging
-@subsection @code{\paper} variables for debugging
+@subsection Variables de @code{\paper} para la depuración
 
 @funindex debug-beam-scoring
 @funindex debug-slur-scoring
