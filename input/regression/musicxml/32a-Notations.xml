@@ -4,7 +4,7 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">All &lt;notation&gt; elements
+      <miscellaneous-field name="description">Most &lt;notation&gt; elements
           defined in MusicXML.  The lyrics show the notation assigned to each
           note.
 
@@ -49,6 +49,20 @@
           <fermata type="upright"/>
         </notations>
         <lyric number="1"><text>fermata</text></lyric>
+        <lyric number="2"><text>upright</text></lyric>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step><octave>5</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <notations>
+          <fermata type="inverted"/>
+        </notations>
+        <lyric number="1"><text>fermata</text></lyric>
+        <lyric number="2"><text>inverted</text></lyric>
       </note>
       <note>
         <pitch>
@@ -76,19 +90,6 @@
         <lyric number="1"><text>angled</text></lyric>
         <lyric number="2"><text>fermata</text></lyric>
       </note>
-      <note>
-        <pitch>
-          <step>C</step><octave>5</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-        <notations>
-          <fermata>square</fermata>
-        </notations>
-        <lyric number="1"><text>square</text></lyric>
-        <lyric number="2"><text>fermata</text></lyric>
-      </note>
     </measure>
     <!--=======================================================-->
     <measure number="2">
@@ -100,9 +101,9 @@
         <voice>1</voice>
         <type>quarter</type>
         <notations>
-          <fermata type="inverted"/>
+          <fermata>square</fermata>
         </notations>
-        <lyric number="1"><text>inverted</text></lyric>
+        <lyric number="1"><text>square</text></lyric>
         <lyric number="2"><text>fermata</text></lyric>
       </note>
       <note>
@@ -176,7 +177,7 @@
           <accidental-mark placement="above">double-sharp</accidental-mark>
         </notations>
         <lyric number="1"><text>accidental</text></lyric>
-        <lyric number="2"><text>mark</text></lyric>
+        <lyric number="2"><text>mark ↑</text></lyric>
       </note>
       <barline location="right">
         <bar-style>light-light</bar-style>
@@ -187,8 +188,10 @@
             accent | strong-accent | staccato | tenuto |
             detached-legato | staccatissimo | spiccato |
             scoop | plop | doit | falloff | breath-mark |
-            caesura | stress | unstress | other-articulation -->
+            caesura | stress | unstress | soft-accent |
+            other-articulation -->
     <measure number="3">
+      <print new-system="yes"/>
       <note>
         <pitch>
           <step>C</step><octave>5</octave>
@@ -294,6 +297,7 @@
     </measure>
     <!--=======================================================-->
     <measure number="5">
+      <print new-system="yes"/>
       <note>
         <pitch>
           <step>C</step><octave>5</octave>
@@ -384,10 +388,17 @@
         <lyric number="2"><text>stress</text></lyric>
       </note>
       <note>
-        <rest/>
+        <pitch>
+          <step>C</step><octave>5</octave>
+        </pitch>
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
+        <notations>
+          <articulations><soft-accent/></articulations>
+        </notations>
+        <lyric number="1"><text>soft</text></lyric>
+        <lyric number="2"><text>accent</text></lyric>
       </note>
       <barline location="right">
         <bar-style>light-light</bar-style>
@@ -396,14 +407,16 @@
 
     <!-- Ornaments:
          trill-mark | turn | delayed-turn | inverted-turn |
-         shake | wavy-line | mordent | inverted-mordent |
-         schleifer | tremolo | other-ornament),
-         accidental-mark
+         delayed-inverted-turn | vertical-turn |
+         inverted-vertical-turn | shake | wavy-line | mordent |
+         inverted-mordent | schleifer | tremolo | haydn |
+         other-ornament, accidental-mark
 
          Test cases for various tremolo options are in a separate
          unit test file
          -->
     <measure number="7">
+      <print new-system="yes"/>
       <note>
         <pitch>
           <step>C</step><octave>5</octave>
@@ -468,10 +481,55 @@
         <voice>1</voice>
         <type>quarter</type>
         <notations>
+          <ornaments><delayed-inverted-turn/></ornaments>
+        </notations>
+        <lyric number="1"><text>delayed</text></lyric>
+        <lyric number="2"><text>inverted</text></lyric>
+        <lyric number="3"><text>turn</text></lyric>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step><octave>5</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <notations>
+          <ornaments><vertical-turn/></ornaments>
+        </notations>
+        <lyric number="1"><text>vertical</text></lyric>
+        <lyric number="2"><text>turn</text></lyric>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step><octave>5</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <notations>
+          <ornaments><inverted-vertical-turn/></ornaments>
+        </notations>
+        <lyric number="1"><text>inverted</text></lyric>
+        <lyric number="2"><text>vertical</text></lyric>
+        <lyric number="3"><text>turn</text></lyric>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step><octave>5</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <notations>
           <ornaments><shake/></ornaments>
         </notations>
         <lyric number="1"><text>shake</text></lyric>
       </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="9">
+      <print new-system="yes"/>
       <note>
         <pitch>
           <step>C</step><octave>5</octave>
@@ -514,9 +572,6 @@
         </notations>
         <lyric number="1"><syllabic>end</syllabic><text>line</text></lyric>
       </note>
-    </measure>
-    <!--=======================================================-->
-    <measure number="9">
       <note>
         <pitch>
           <step>C</step><octave>5</octave>
@@ -529,6 +584,9 @@
         </notations>
         <lyric number="1"><text>mordent</text></lyric>
       </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="10">
       <note>
         <pitch>
           <step>C</step><octave>5</octave>
@@ -566,9 +624,22 @@
         </notations>
         <lyric number="1"><text>tremolo</text></lyric>
       </note>
+      <note>
+        <pitch>
+          <step>C</step><octave>5</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <notations>
+          <ornaments><haydn/></ornaments>
+        </notations>
+        <lyric number="1"><text>haydn</text></lyric>
+      </note>
     </measure>
     <!--=======================================================-->
-    <measure number="10">
+    <measure number="11">
+      <print new-system="yes"/>
       <note>
         <pitch>
           <step>C</step><octave>5</octave>
@@ -648,8 +719,10 @@
          thumb-position | fingering | pluck | double-tongue |
          triple-tongue | stopped | snap-pizzicato | fret |
          string | hammer-on | pull-off | bend | tap | heel |
-         toe | fingernails | other-technical -->
-    <measure number="11">
+         toe | fingernails | hole | arrow | handbell |
+         brass-bend | flip | smear | open | half-muted |
+         harmon-mute | golpe | other-technical -->
+    <measure number="12">
       <note>
         <pitch>
           <step>C</step><octave>5</octave>
@@ -707,7 +780,8 @@
       </note>
     </measure>
     <!--=======================================================-->
-    <measure number="12">
+    <measure number="13">
+      <print new-system="yes"/>
       <note>
         <pitch>
           <step>A</step><octave>5</octave>
@@ -801,7 +875,7 @@
       </note>
     </measure>
     <!--=======================================================-->
-    <measure number="13">
+    <measure number="14">
       <note>
         <pitch>
           <step>G</step><octave>3</octave>
@@ -935,7 +1009,8 @@
       </note>
     </measure>
     <!--=======================================================-->
-    <measure number="14">
+    <measure number="15">
+      <print new-system="yes"/>
       <note>
         <pitch>
           <step>C</step><octave>5</octave>
@@ -1034,7 +1109,7 @@
       </note>
     </measure>
     <!--=======================================================-->
-    <measure number="15">
+    <measure number="16">
       <note>
         <pitch>
           <step>C</step><octave>5</octave>
@@ -1099,7 +1174,8 @@
       </note>
     </measure>
     <!--=======================================================-->
-    <measure number="16">
+    <measure number="17">
+      <print new-system="yes"/>
       <note>
         <pitch>
           <step>C</step><octave>5</octave>
@@ -1153,7 +1229,7 @@
       </note>
     </measure>
     <!--=======================================================-->
-    <measure number="17">
+    <measure number="18">
       <note>
         <pitch>
           <step>C</step><octave>5</octave>
@@ -1212,7 +1288,8 @@
       </note>
     </measure>
     <!--=======================================================-->
-    <measure number="18">
+    <measure number="19">
+      <print new-system="yes"/>
       <note>
         <pitch>
           <step>C</step><octave>5</octave>
@@ -1272,7 +1349,7 @@
       </note>
     </measure>
     <!--=======================================================-->
-    <measure number="19">
+    <measure number="20">
       <note>
         <pitch>
           <step>C</step><octave>5</octave>
@@ -1330,7 +1407,8 @@
       </note>
     </measure>
     <!--=======================================================-->
-    <measure number="20">
+    <measure number="21">
+      <print new-system="yes"/>
       <note>
         <pitch>
           <step>C</step><octave>5</octave>
@@ -1351,9 +1429,25 @@
         <voice>1</voice>
         <type>quarter</type>
         <notations>
-          <technical><toe substitution="yes"/></technical>
+          <technical><toe/></technical>
         </notations>
         <lyric number="1"><text>toe</text></lyric>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step><octave>5</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <notations>
+          <technical>
+            <heel/>
+            <toe substitution="yes"/>
+          </technical>
+        </notations>
+        <lyric number="1"><text>heel-toe</text></lyric>
+        <lyric number="2"><text>subst.</text></lyric>
       </note>
       <note>
         <pitch>
@@ -1368,12 +1462,6 @@
         <lyric number="1"><text>finger-</text></lyric>
         <lyric number="2"><text>nails</text></lyric>
       </note>
-      <note>
-        <rest/>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-      </note>
       <barline location="right">
         <bar-style>light-light</bar-style>
       </barline>
@@ -1381,7 +1469,7 @@
 
     <!-- Dynamics, attached to notes or rests by putting them inside
          <notations> tags -->
-    <measure number="21">
+    <measure number="22">
       <note>
         <rest measure="yes"/>
         <duration>4</duration>
@@ -1393,7 +1481,8 @@
       </note>
     </measure>
     <!--=======================================================-->
-    <measure number="22">
+    <measure number="23">
+      <print new-system="yes"/>
       <note>
         <pitch>
           <step>C</step><octave>5</octave>
@@ -1434,7 +1523,7 @@
     </measure>
 
     <!-- General tests: multiple notations, directions, etc. -->
-    <measure number="23">
+    <measure number="24">
       <note>
         <pitch>
           <step>G</step>
