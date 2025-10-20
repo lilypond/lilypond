@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 2eaeb5aaf92eb307dae3b36e742da7d8b680e373
+    Translation of GIT committish: b22569ea33c9c9a6a26e17624d79449bffa81b22
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -11,7 +11,7 @@
 @c \version "2.18.0"
 
 @node Unfretted string instruments
-@section Instrumentos de cuerda sin trastes
+@chapter Instrumentos de cuerda sin trastes
 
 @lilypondfile[quote]
 {snippets/unfretted-headword.ly}
@@ -26,7 +26,7 @@ principalmente instrumentos de cuerda orquestales.
 
 
 @node Common notation for unfretted strings
-@subsection Notación común para cuerdas sin trastes
+@section Notación común para cuerdas sin trastes
 
 Hay poca notación especializada para los instrumentos de cuerdas
 sin trastes.  La notación de la música se realiza en un solo
@@ -35,7 +35,7 @@ voces para algunos pasajes en dobles cuerdas o en divisi.
 
 
 @node References for unfretted strings
-@unnumberedsubsubsec Referencias para cuerdas sin trastes
+@subsection Referencias para cuerdas sin trastes
 
 La mayor parte de la notación que resulta de utilidad para las
 cuerdas orquestales y otros instrumentos de arco se estudia en
@@ -44,12 +44,12 @@ otras partes del manual:
 @itemize
 
 @item
-Las indicaciones textuales como @qq{pizz.} y @qq{arco} se añaden como
-texto simple: véase @ref{Text scripts}.
+Las indicaciones textuales como @qq{pizz.} y @qq{arco} se añaden
+como texto simple: véase @ref{Text scripts}.
 
 @item
-Las digitaciones, entre ellas la indicación de pulgar, se describen en
-@ref{Fingering instructions}.
+Las digitaciones, entre ellas la indicación de pulgar, se
+describen en @ref{Fingering instructions}.
 
 @item
 Se pueden añadir números de cuerda (en general como números
@@ -57,9 +57,9 @@ romanos para los instrumentos de cuedra frotada) como se explica
 en @ref{String number indications}.
 
 @item
-Las dobles cuerdas se indican normalmente escribiendo un acorde, véase
-@ref{Chorded notes}.  Hay otras indicaciones que se pueden añadir para
-la interpretación de acordes, véase @ref{Arpeggio}.
+Las dobles cuerdas se indican normalmente escribiendo un acorde,
+véase @ref{Chorded notes}.  Hay otras indicaciones que se pueden
+añadir para la interpretación de acordes, véase @ref{Arpeggio}.
 
 @item
 Hay plantillas para cuarteto de cuerda en
@@ -80,10 +80,11 @@ Referencia de la notación:
 
 Fragmentos de código:
 @rlsr{Unfretted strings}.
+@endmorerefs
 
 
 @node Bowing indications
-@unnumberedsubsubsec Indicaciones de arco
+@subsection Indicaciones de arco
 
 @funindex \upbow
 @funindex \downbow
@@ -141,14 +142,13 @@ Referencia de la notación:
 @ref{Articulations and ornamentations},
 @ref{String number indications},
 @ref{Slurs}.
+@endmorerefs
 
 
 @node Harmonics
-@unnumberedsubsubsec Armónicos
+@subsection Armónicos
 
-@funindex \harmonic
-
-@strong{@i{Armónicos naturales}}
+@subsubheading Armónicos naturales
 
 @cindex nota, cabeza de, forma de rombo
 @cindex rombo, cabezas en forma de
@@ -181,14 +181,11 @@ círculo que indica que se debe tocar como armónico:
 d''2^\flageolet d''_\flageolet
 @end lilypond
 
-Se puede hacer un círculo de menor tamaño, véase la lista de
-fragmentos de código en
-@ref{References for unfretted strings}.
-
-@strong{@i{Armónicos artificiales}}
+@subsubheading Armónicos artificiales
 
 @cindex artificiales, armónicos
 @cindex armónicos artificiales
+@funindex \harmonic
 
 La notación de los armónicos artificiales se realiza con dos
 notas, una con una cabeza normal que indica la posición donde se
@@ -216,15 +213,27 @@ Glosario musical:
 Referencia de la notación:
 @ref{Special note heads},
 @ref{References for unfretted strings}.
+@endmorerefs
+
+@knownissues
+Si queremos centrar un armónico sobre una redonda, podemos hacer
+que forme parte de un acorde.
+
+@lilypond[verbatim,quote]
+{
+  << { d''1\harmonic } \\ { a'1 } >>
+  <a' d''\harmonic>1
+}
+@end lilypond
 
 
 @node Snap (Bartok) pizzicato
-@unnumberedsubsubsec Snap (Bartók) pizzicato
+@subsection Pizzicato Snap o de Bartók
 
 @cindex pizzicato, Bartók
 @cindex pizzicato, snap
-@cindex Bartók pizzicato
-@cindex snap pizzicato
+@cindex Bartók, pizzicato
+@cindex snap, pizzicato
 
 El @notation{snap pizzicato} (conocido también como @qq{pizzicato
 de Bartók}) es un tipo de pizzicato en el que la cuerda se pulsa
