@@ -2327,6 +2327,29 @@ def musicxml_delayed_turn_event(mxl_event, note_color=None,
     return ev
 
 
+def musicxml_toe_heel_event(mxl_event, type, note_color=None,
+                            note_font_size=None):
+    globvars.layout_information.set_context_item(
+        'Voice', "toeHeelStyle = #'standard")
+    ev = musicexp.ArticulationWithSubstitutionEvent()
+    ev.type = type
+    ev.substitution = getattr(mxl_event, 'substitution', 'no') == 'yes'
+    ev.color = getattr(mxl_event, 'color', note_color)
+    ev.font_size = getattr(mxl_event, 'font-size', note_font_size)
+
+    return ev
+
+
+def musicxml_toe_event(mxl_event, note_color=None, note_font_size=None):
+    return musicxml_toe_heel_event(mxl_event, "toe",
+                                   note_color, note_font_size)
+
+
+def musicxml_heel_event(mxl_event, note_color=None, note_font_size=None):
+    return musicxml_toe_heel_event(mxl_event, "heel",
+                                   note_color, note_font_size)
+
+
 # Translate articulations, ornaments, and other notations into
 # `ArticulationEvent` and similar objects.  Possible values:
 #
@@ -2364,8 +2387,8 @@ articulations_dict = {
     # "handbell": "?",
     # "harmon-mute": "?",
     # "harmonic": handled by `NoteEvent`,
-    # "heel": "?",
     "haydn": "haydnturn",
+    "heel": musicxml_heel_event,
     # "hole": "?",
     "inverted-mordent": ("scripts.prall", "prall"),
     "inverted-turn": ("scripts.reverseturn", "reverseturn"),
@@ -2394,7 +2417,7 @@ articulations_dict = {
     # "tap": "?",
     "tenuto": (musicexp.ShortArticulationEvent, "-"),  # or "tenuto"
     "thumb-position": "thumb",
-    # "toe": "?",
+    "toe": musicxml_toe_event,
     "turn": ("scripts.turn", "turn"),
     "tremolo": musicxml_tremolo_to_lily_event,  # only the single-note symbol
     "trill-mark": ("scripts.trill", "trill"),

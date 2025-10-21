@@ -1472,11 +1472,67 @@ class ChordEvent(NestedMusic):
                     return True
             return False
 
+        # Check for toe-heel substitutions and modify the `type` fields
+        # in `elements` accordingly.
+        def collect_toe_heels(elements, direction):
+            toe_heel_events = []
+            have_substitution = False
+            prefix = 'r' if direction == 1 else 'l'
+
+            for ev in elements:
+                if not isinstance(ev, ArticulationWithSubstitutionEvent):
+                    continue
+
+                # if not ev.visible:
+                #     continue
+
+                # We collect `<toe>` and `<heel>` elements without
+                # `placement` attribute together with elements that have
+                # `placement="above"`.
+                if ev.force_direction is None:
+                    force_direction = 1
+                else:
+                    force_direction = ev.force_direction
+                if force_direction != direction:
+                    continue
+
+                # `\rtoe` and siblings ignore direction modifiers.
+                ev.force_direction = None
+
+                # We support a single toe-heel substitution; any other toe
+                # or heel element afterwards is ignored.
+                if have_substitution:
+                    ev.type = None
+                    continue
+                else:
+                    # This creates `\lheel`, for example.
+                    ev.type = prefix + ev.type
+                    toe_heel_events.append(ev)
+
+                if ev.substitution:
+                    have_substitution = True
+
+            if not toe_heel_events:
+                return
+
+            # Modify last two elements.  Ignore substitution if we have only
+            # a single one.
+            #
+            # We don't support separate setting of color and font size of
+            # the right element.
+            if have_substitution and len(toe_heel_events) > 1:
+                left = toe_heel_events[-2].type
+                right = toe_heel_events[-1].type[1:]
+                toe_heel_events[-1].type = None
+                # This creates `\rtoeheel`, for example.
+                toe_heel_events[-2].type = left + right
+
         # Combine multiple `<fingering>` or `<pluck>` elements of a note
         # into a single fingering instruction, with its elements
         # concatenated horizontally.  An alternate fingering gets enclosed
         # in parentheses, a substitution fingering is connected with an
-        # overtie to the previous fingering.
+        # overtie to the previous fingering.  Modify the `type` fields
+        # accordingly.
         def collect_fingerings(note_event, direction, pluck):
             fingering_events = []
             have_substitution = False
@@ -1623,6 +1679,9 @@ class ChordEvent(NestedMusic):
 
         harmonic_note_events = [e for e in note_events
                                 if isinstance(e, HarmonicNoteEvent)]
+
+        collect_toe_heels(other_events, -1)
+        collect_toe_heels(other_events, 1)
 
         for x in note_events:
             collect_fingerings(x, -1, False)
@@ -3018,14 +3077,16 @@ class ArticulationEvent(Event):
 
     def ly_expression(self):
         res = []
-        color = color_to_ly(self.color)
-        if color is not None:
-            res.append(r'-\tweak color %s' % color)
-        font_size = get_font_size(self.font_size, command=False)
-        if font_size is not None:
-            res.append(r'-\tweak font-size %s' % font_size)
 
-        res.append(r'%s\%s' % (self.direction_mod(), self.type))
+        if self.type:
+            color = color_to_ly(self.color)
+            if color is not None:
+                res.append(r'-\tweak color %s' % color)
+            font_size = get_font_size(self.font_size, command=False)
+            if font_size is not None:
+                res.append(r'-\tweak font-size %s' % font_size)
+
+            res.append(r'%s\%s' % (self.direction_mod(), self.type))
 
         return ' '.join(res)
 
@@ -3309,6 +3370,12 @@ class ShortArticulationEvent(ArticulationEvent):
             res.append(r'%s%s' % (self.direction_mod(), self.type))
 
         return ' '.join(res)
+
+
+class ArticulationWithSubstitutionEvent(ArticulationEvent):
+    def __init__(self):
+        ArticulationEvent.__init__(self)
+        self.substitution = False
 
 
 class NoDirectionArticulationEvent(ArticulationEvent):
