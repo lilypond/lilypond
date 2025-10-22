@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 705639d3f985c813576c75bd73f850224e80cc7b
+    Translation of GIT committish: b22569ea33c9c9a6a26e17624d79449bffa81b22
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -75,6 +75,8 @@ Referencia de la notación:
 
 Fragmentos de código:
 @rlsr{Vocal music}.
+@endmorerefs
+
 
 @node Entering lyrics
 @subsection Introducir la letra
@@ -206,6 +208,7 @@ Referencia de funcionamiento interno:
 
 Fragmentos de código:
 @rlsr{Text}.
+@endmorerefs
 
 
 @node Aligning lyrics to a melody
@@ -320,10 +323,9 @@ forma independiente de las notas.  Esto es útil si el texto de los
 distintos versos se corresponde con las notas de maneras
 diferentes, pero las duraciones requeridas no están disponibles en
 un contexto de música.  Para ver más detalles, consulte
-@ref{Manual syllable durations}.  Esta técnica también es
-útil cuando se quiere preparar un diálogo encima de la música;
-para ver ejemplos que lo muestran, consulte
-@ref{Dialogue over music}.
+@ref{Manual syllable durations}.  Esta técnica también es útil
+cuando se quiere preparar un diálogo encima de la música; para ver
+ejemplos que lo muestran, consulte @ref{Dialogue over music}.
 
 @end itemize
 
@@ -341,6 +343,7 @@ Referencia de la notación:
 
 Referencia de funcionamiento interno:
 @rinternals{Lyrics}.
+@endmorerefs
 
 
 @node Automatic syllable durations
@@ -510,6 +513,7 @@ Referencia de la notación:
 @ref{Extenders and hyphens},
 @ref{Keeping contexts alive},
 @ref{Placing lyrics vertically}.
+@endmorerefs
 
 
 @node Manual syllable durations
@@ -589,12 +593,14 @@ Referencia de la notación:
 Referencia de funcionamiento interno:
 @rinternals{Lyrics},
 @rinternals{Voice}.
+@endmorerefs
 
 
 @node Multiple syllables to one note
 @subsection Varias sílabas sobre una nota
 
 @funindex _
+@funindex ~
 @cindex ligadura, en la letra
 @cindex espacio, en la letra
 @cindex comillas, en la letra
@@ -613,7 +619,8 @@ ligadura de texto.
   }
   \addlyrics
   {
-    \override LyricHyphen.minimum-distance = #1.0 % Ensure hyphens are visible
+    % Ensure hyphens are visible
+    \override LyricHyphen.minimum-distance = 1.0
     Che_in ques -- ta_e_in quel -- l'al -- tr'on -- da
   }
   \addlyrics { "Che in" ques -- "ta e in" quel -- l'al -- tr'on -- da }
@@ -624,6 +631,7 @@ ligadura de texto.
 @morerefs
 Referencia de funcionamiento interno:
 @rinternals{LyricCombineMusic}.
+@endmorerefs
 
 
 @node Multiple notes to one syllable
@@ -700,8 +708,7 @@ melismas.
 @item
 Se considera que las notas forman un melisma cuando se unen
 manualmente mediante barra, siempre y cuando el barrado automático
-esté desactivado.  Véase
-@ref{Setting automatic beam behavior}.
+esté desactivado.  Véase @ref{Setting automatic beam behavior}.
 
 @lilypond[quote,verbatim]
 <<
@@ -831,6 +838,7 @@ Referencia de la notación:
 
 Referencia de funcionamiento interno:
 @rinternals{Tunable context properties}.
+@endmorerefs
 
 @knownissues
 No se crean automáticamente líneas extensoras bajo los melismas;
@@ -843,14 +851,17 @@ se deben insertar manualmente con un doble guión bajo.
 @cindex melisma
 @cindex extensora, línea
 @cindex línea de extensión
+@funindex __
 
 @c TODO cf Multiple notes to one syllable; should this be merged in?
 
 @c leave this as samp. -gp
 Los melismas se indican mediante una línea horizontal centrada
 entre una sílaba y la siguiente.  Esta línea recibe el nombre de
-línea de extensión, y se escribe como @samp{ __ } (fíjese en los
-espacios antes y después de los dos guiones bajos).
+línea de extensión, y se escribe manualmente como @samp{ __ }
+(fíjese en los espacios antes y después de los dos guiones bajos).
+También se pueden crear líneas de extensión automáticamente
+fijando el valor de @code{autoExtenders} a @code{#t}.
 
 @warning{Los melismas se indican en la partitura con líneas
 extensoras, que se escriben con un doble guión bajo; pero también
@@ -860,6 +871,7 @@ sueltos; de forma predeterminada éstos no producen la impresión de
 una línea de extensión.}
 
 @cindex guion
+@funindex --
 
 @c leave this as samp. -gp
 Los guiones centrados se escriben como @samp{ -- } entre sílabas
@@ -884,12 +896,14 @@ situaciones.
 Referencia de funcionamiento interno:
 @rinternals{LyricExtender},
 @rinternals{LyricHyphen}.
+@endmorerefs
 
 
 @node Gradual changes of vowel
 @subsection Cambios de vocal graduales
 
 @cindex vocal, transición de
+@funindex \vowelTransition
 
 Las transiciones de vocal (cambios graduales de una vocal o de una
 consonante mantenida), que pueden venir indicadas por flechas
@@ -926,6 +940,7 @@ GLosario musical:
 
 Referencia de funcionamiento interno:
 @rinternals{VowelTransition}.
+@endmorerefs
 
 
 @need 1500
@@ -1015,6 +1030,7 @@ Referencia de la notación:
 Referencia de funcionamiento interno:
 @rinternals{LyricCombineMusic},
 @rinternals{Lyrics}.
+@endmorerefs
 
 
 @node Placing lyrics vertically
@@ -1046,10 +1062,21 @@ debajo del contexto Staff:
 }
 @end lilypond
 
-Se puede colocar la letra sobre el pentagrama usando uno de los
-dos métodos disponibles: el más sencillo (y preferible) es usar la
-misma sintaxis que se ha visto más arriba y especificar
-explícitamente la posición de la letra:
+@funindex alignAboveContext
+@funindex alignBelowContext
+
+Se puede colocar la letra sobre un pentagrama usando uno de los
+dos métodos disponibles.  El más sencillo (y preferible) es usar
+la misma sintaxis que se ha visto más arriba y especificar
+explícitamente la posición de la letra.
+
+El argumento de @code{alignAboveContext} es el nombre de un
+contexto de @code{Staff} o uno de sus hermanos (no funciona si se
+usa @code{Voice}).
+
+Use @code{alignBelowContext} para posicionar la letra debajo de la
+pauta. Normalmente esto solo es necesario para forzar la
+alineación entre la letra y una pauta que no es la predeterminada.
 
 @lilypond[quote,verbatim]
 \score {
@@ -1139,6 +1166,10 @@ plantillas del Manual de Aprendizaje, véase
 
 @snippets
 
+@cindex letra, separada, en una línea única
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/arranging-separate-lyrics-on-a-single-line.ly}
+
 @cindex letra, espaciado versión 2.12
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
@@ -1151,6 +1182,7 @@ Manual de aprendizaje:
 Referencia de la notación:
 @ref{Context layout order},
 @ref{Creating and referencing contexts}.
+@endmorerefs
 
 
 @node Placing syllables horizontally
@@ -1165,7 +1197,7 @@ la propiedad @code{minimum-distance} de @code{LyricSpace}.
 @lilypond[verbatim,quote,ragged-right]
 \relative c' {
   c c c c
-  \override Lyrics.LyricSpace.minimum-distance = #1.0
+  \override Lyrics.LyricSpace.minimum-distance = 1.0
   c c c c
 }
 \addlyrics {
@@ -1191,7 +1223,7 @@ ajuste la propiedad dentro del bloque @code{\layout}.
   \layout {
     \context {
       \Lyrics
-      \override LyricSpace.minimum-distance = #1.0
+      \override LyricSpace.minimum-distance = 1.0
     }
   }
 }
@@ -1342,11 +1374,11 @@ secciones paralelas:
     \new Lyrics \lyricsto "melody" {
       Not re -- peat -- ed.
       <<
-	{ The first time words. }
-	\new Lyrics {
-	  \set associatedVoice = "melody"
-	  Sec -- ond time words.
-	}
+        { The first time words. }
+        \new Lyrics {
+          \set associatedVoice = "melody"
+          Sec -- ond time words.
+        }
       >>
     }
   >>
@@ -1361,24 +1393,24 @@ Se pueden añadir más estrofas de una manera similar:
     \new Staff {
       \new Voice = "singleVoice" {
         \relative {
-	  a'4 a a a
-	  \repeat volta 3 { b4 b b b }
+          a'4 a a a
+          \repeat volta 3 { b4 b b b }
           c4 c c c
-	}
+        }
       }
     }
     \new Lyrics \lyricsto "singleVoice" {
       Not re -- peat -- ed.
       <<
-        { The first time words.	}
-	\new Lyrics {
-	  \set associatedVoice = "singleVoice"
-	  Sec -- ond time words.
-	}
-	\new Lyrics {
-	  \set associatedVoice = "singleVoice"
-	  The third time words.
-	}
+        { The first time words. }
+        \new Lyrics {
+          \set associatedVoice = "singleVoice"
+          Sec -- ond time words.
+        }
+        \new Lyrics {
+          \set associatedVoice = "singleVoice"
+          The third time words.
+        }
       >>
       The end sec -- tion.
     }
@@ -1401,32 +1433,34 @@ Para posicionarlos correctamente utilice @code{alignBelowContext}:
     \new Staff {
       \new Voice = "melody" {
         \relative {
-	  a'4 a a a
-	  \repeat volta 3 { b4 b b b }
+          a'4 a a a
+          \repeat volta 3 { b4 b b b }
           c4 c c c
-	}
+        }
       }
     }
     \new Lyrics = "firstVerse" \lyricsto "melody" {
       Not re -- peat -- ed.
       <<
-        { The first time words.	}
-	\new Lyrics = "secondVerse"
+        { The first time words. }
+        \new Lyrics = "secondVerse"
         \with { alignBelowContext = "firstVerse" } {
-	  \set associatedVoice = "melody"
-	  Sec -- ond time words.
-	}
-	\new Lyrics = "thirdVerse"
+          \set associatedVoice = "melody"
+          Sec -- ond time words.
+        }
+        \new Lyrics = "thirdVerse"
         \with { alignBelowContext = "secondVerse" } {
-	  \set associatedVoice = "melody"
-	  The third time words.
-	}
+          \set associatedVoice = "melody"
+          The third time words.
+        }
       >>
       The end sec -- tion.
     }
     \new Voice = "harmony" {
       \relative {
-        f'4 f f f \repeat volta 2 { g8 g g4 g2 } a4 a8. a16 a2
+        f'4 f f f
+        \repeat volta 3 { g8 g g4 g2 }
+        a4 a8. a16 a2
       }
     }
   >>
@@ -1461,7 +1495,10 @@ expande correctamente tanto la música como la letra.
         \relative {
           a'4 a a a
           \repeat volta 2 { b4 b }
-          \alternative { { b b } { b c } }
+          \alternative {
+            \volta 1 { b b }
+            \volta 2 { b c }
+          }
         }
       }
     }
@@ -1469,7 +1506,10 @@ expande correctamente tanto la música como la letra.
       \lyricsto "melody" {
         Not re -- peat -- ed.
         \repeat volta 2 { Re -- peat -- }
-        \alternative { { ed twice. } { ed twice. } }
+        \alternative {
+          \volta 1 { ed twice. }
+          \volta 2 { ed twice. }
+        }
       }
     }
   >>
@@ -1506,7 +1546,10 @@ número que se escribe a continuación.}
       \new Voice = "melody" {
         \relative {
           \repeat volta 2 { b'4 b }
-          \alternative { { b b } { b c } }
+          \alternative {
+            \volta 1 { b b }
+            \volta 2 { b c }
+          }
           c4 c
         }
       }
@@ -1558,7 +1601,10 @@ alternativos e insertar saltos manuales.
         \relative {
           \set melismaBusyProperties = #'()
           \repeat volta 2 { b'4 b ~}
-          \alternative { { b b } { b \repeatTie c } }
+          \alternative {
+            \volta 1 { b b }
+            \volta 2 { b \repeatTie c }
+          }
           \unset melismaBusyProperties
           c4 c
         }
@@ -1568,8 +1614,8 @@ alternativos e insertar saltos manuales.
       \lyricsto "melody" {
         \repeat volta 2 { Here's a __ }
         \alternative {
-          { \skip 1 verse }
-          { \skip 1 sec }
+          \volta 1 { \skip 1 verse }
+          \volta 2 { \skip 1 sec }
         }
         ond one.
       }
@@ -1595,7 +1641,10 @@ instrucciones @code{\skip} manualmente, como se vio antes.
       \new Voice = "melody" {
         \relative {
           \repeat volta 2 { b'4 b ~}
-          \alternative { { b b } { b \repeatTie c } }
+          \alternative {
+            \volta 1 { b b }
+            \volta 2 { b \repeatTie c }
+          }
           c4 c
         }
       }
@@ -1629,7 +1678,10 @@ insertarlos manualmente.
       \new Voice = "melody" {
         \relative {
           \repeat volta 2 { b'4 b ~}
-          \alternative { { b b } { b \repeatTie c } }
+          \alternative {
+            \volta 1 { b b }
+            \volta 2 { b \repeatTie c }
+          }
           c4 c
         }
       }
@@ -1655,6 +1707,7 @@ insertarlos manualmente.
 Referencia de la notación:
 @ref{Keeping contexts alive},
 @ref{Repeats}.
+@endmorerefs
 
 
 @node Divisi lyrics
@@ -1675,9 +1728,8 @@ letra:
     \new Voice = "melody" {
       \relative c' {
         \set melismaBusyProperties = #'()
-        \slurDown
         \slurDashed
-        e4 e8 ( e ) c4 c |
+        e4 e8( e) c4 c |
         \unset melismaBusyProperties
         c
       }
@@ -1686,7 +1738,7 @@ letra:
       They shall not o -- ver -- come
     }
     \new Lyrics \lyricsto "melody" {
-      We will _
+      We will _ rock you, yeah
     }
   >>
 }
@@ -1831,8 +1883,7 @@ words = \lyricmode { la __ la __ }
 >>
 @end lilypond
 
-
-@need 1500
+@need 1000
 @node Stanzas
 @section Versos
 
@@ -1865,15 +1916,12 @@ por ejemplo en el caso de una repetición con letras
 diferentes:
 
 @lilypond[quote,ragged-right,verbatim]
-leftbrace = \markup {
-  \override #'(font-encoding . fetaBraces)
-  \lookup "brace80"
-}
-
 stanzaOneOne = \lyricmode {
   \set stanza = \markup {
-    \column { \vspace #.33 "1. "}
-    \leftbrace
+    \column {
+      \vspace #.2
+      \line { "1." \left-brace #30 }
+    }
   }
   Child, you’re mine and I love you.
   Lend thine ear to what I say.
@@ -1945,7 +1993,6 @@ definir una versión abreviada como @code{shortVocalName}.
 }
 @end lilypond
 
-
 @node Stanzas with different rhythms
 @subsection Versos con ritmos distintos
 
@@ -1953,7 +2000,7 @@ Con frecuencia, los distintos versos de una canción encajan de
 formas ligeramente diferentes con la misma melodía.  Estas
 variaciones se pueden capturar con el uso de @code{\lyricsto}.
 
-@subheading Ignorar los melismas
+@subsubheading Ignorar los melismas
 
 Existe la posibilidad de que el texto tenga un melisma en un
 verso, pero varias sílabas en otro.  Una solución es hacer que la
@@ -1988,11 +2035,10 @@ A diferencia de casi todas las instrucciones @code{\set},
 @code{\once}.  Es necesario utilizar @code{\set} y @code{\unset}
 para delimitar la letra en que se quieren ignorar los melismas.
 
-@subheading Aplicar sílabas a notas de adorno
+@subsubheading Aplicar sílabas a notas de adorno
 
 @cindex adorno, letra y notas de
 @cindex letra, sobre notas de adorno
-
 
 De forma predeterminada, las notas de adorno (p.ej. insertadas por
 medio de @code{\grace}) no pueden recibirla asignación de sílabas
@@ -2027,7 +2073,7 @@ Como ocurre con @code{associatedVoice}, @code{includeGraceNotes}
 se tiene que establecer al menos una sílaba antes de la que se va
 a colocar bajo una nota de adorno.  En caso de una nota de adorno
 al comienzo mismo de una pieza, se recomienda usar un bloque
-@code{\with} o @code{\context}:
+@code{\with} o @code{\context} dentro de @code{\layout}:
 
 @lilypond[verbatim,ragged-right,quote]
 <<
@@ -2042,7 +2088,7 @@ al comienzo mismo de una pieza, se recomienda usar un bloque
 >>
 @end lilypond
 
-@subheading Cambio a una melodía alternativa
+@subsubheading Cambio a una melodía alternativa
 
 @funindex associatedVoice
 @cindex melodía alternativa, cambio a una
@@ -2062,7 +2108,7 @@ establecimiento de la propiedad @code{associatedVoice}:
         \voiceOne
         \tuplet 3/2 {
           % show associations clearly.
-          \override NoteColumn.force-hshift = #-3
+          \override NoteColumn.force-hshift = -3
           f8 f g
         }
       }
@@ -2126,42 +2172,51 @@ En ocasiones es conveniente tener un verso ajustado a la música, y
 el resto añadido en forma de estrofa al final de la pieza.  Esto
 se puede conseguir escribiendo los versos adicionales dentro de
 una sección @code{\markup} fuera del bloque Score principal de la
-partitura.  Tenga en cuenta que existen dos formas distintas de
-forzar los saltos de línea al utilizar @code{\markup}.
+partitura.  Tenga en cuenta que existen varias maneras diferentes
+de forzar los saltos de línea al usar @code{\markup}.  Para
+introducir una cadena completa podemos usar @code{\string-lines}
+con saltos de línea @code{\n} insertados manualmente o saltos
+automáticos como los que aparecen al usar @code{\wordwrap-string}.
+Si se usa este código de formateo interior, se recomiendo una
+combinación de líneas y columnas introducidas con @code{\line} y
+@code{\column}.
 
 @lilypond[ragged-right,verbatim,quote]
 melody = \relative {
-e' d c d | e e e e |
-d d e d | c1 |
-}
+  e' d c d | e e e e |
+  d d e d | c1 | }
 
 text = \lyricmode {
-\set stanza = "1." Ma- ry had a lit- tle lamb,
-its fleece was white as snow.
-}
+  \set stanza = "1."
+  Ma- ry had a lit- tle lamb,
+  its fleece was white as snow. }
 
 \score {
   <<
     \new Voice = "one" { \melody }
     \new Lyrics \lyricsto "one" \text
   >>
-  \layout { }
 }
-\markup {
-  \column {
-    \line { Verse 2. }
-    \line { All the children laughed and played }
-    \line { To see a lamb at school. }
-  }
-}
-\markup {
-  \wordwrap-string "
-  Verse 3.
+
+\markup \column \string-lines
+  "Verse 2. \n Everywhere that Mary went \n The lamb was sure to go."
+
+\markup \column \string-lines
+  "Verse 3.
+   All the children laughed and played,
+   To see a lamb at school."
+
+\markup \column {
+  \line \italic { Verse 4. }
+  \line { And so the teacher turned it out, }
+  \line { But still it lingered near. } }
+
+\markup \wordwrap-string "
+  Verse 5.
 
   Mary took it home again,
 
   It was against the rule."
-}
 @end lilypond
 
 
@@ -2193,16 +2248,18 @@ text = \lyricmode {
 
 \markup {
   \fill-line {
-    \hspace #0.1 % moves the column off the left margin;
-     % can be removed if space on the page is tight
-     \column {
+    % moves the column off the left margin;
+    % can be removed if space on the page is tight
+    \hspace #0.1
+    \column {
       \line { \bold "2."
         \column {
           "This is verse two."
           "It has two lines."
         }
       }
-      \combine \null \vspace #0.1 % adds vertical spacing between verses
+      % adds vertical spacing between verses
+      \combine \null \vspace #0.1
       \line { \bold "3."
         \column {
           "This is verse three."
@@ -2210,7 +2267,8 @@ text = \lyricmode {
         }
       }
     }
-    \hspace #0.1 % adds horizontal spacing between columns;
+    % adds horizontal spacing between columns
+    \hspace #0.1
     \column {
       \line { \bold "4."
         \column {
@@ -2218,7 +2276,8 @@ text = \lyricmode {
           "It has two lines."
         }
       }
-      \combine \null \vspace #0.1 % adds vertical spacing between verses
+      % adds vertical spacing between verses
+      \combine \null \vspace #0.1
       \line { \bold "5."
         \column {
           "This is verse five."
@@ -2226,8 +2285,9 @@ text = \lyricmode {
         }
       }
     }
-  \hspace #0.1 % gives some extra space on the right margin;
-  % can be removed if page space is tight
+    % gives some extra space on the right margin;
+    % can be removed if page space is tight
+    \hspace #0.1
   }
 }
 @end lilypond
@@ -2237,6 +2297,7 @@ text = \lyricmode {
 Referencia de funcionamiento interno:
 @rinternals{LyricText},
 @rinternals{StanzaNumber}.
+@endmorerefs
 
 
 @need 1500
@@ -2310,6 +2371,8 @@ Referencia de la notación:
 
 Fragmentos de código:
 @rlsr{Vocal music}.
+@endmorerefs
+
 
 @node Lead sheets
 @subsection Hojas guía de acordes
@@ -2327,6 +2390,7 @@ y el @q{modo de acordes}; esta sintaxis se explica en
 @morerefs
 Referencia de la notación:
 @ref{Chord notation}.
+@endmorerefs
 
 
 @node Choral
@@ -2368,9 +2432,10 @@ otros temas sobre música coral:
 @item
 Hay una introducción a la creación de partituras vocales SATB en
 el Manual de aprendizaje, véase
-@rlearningnamed{Four-part SATB vocal score, Partitura vocal a cuatro voces SATB}.  También existe
-una plantilla incorporada que simplifica la introducción de música
-vocal SATB, véase see @rlearningnamed{Built-in templates, Plantillas incorporadas}.
+@rlearningnamed{Four-part SATB vocal score, Partitura vocal a cuatro voces SATB}.
+También existe una plantilla incorporada que simplifica la
+introducción de música vocal SATB, véase see
+@rlearningnamed{Built-in templates, Plantillas incorporadas}.
 
 
 @item
@@ -2425,6 +2490,8 @@ Referencia de funcionamiento interno:
 @rinternals{ChoirStaff},
 @rinternals{Lyrics},
 @rinternals{PianoStaff}.
+@endmorerefs
+
 
 @node Score layouts for choral
 @subsection Disposiciones de la partitura para música coral
@@ -2522,6 +2589,7 @@ Referencia de la notación:
 Referencia de funcionamiento interno:
 @rinternals{VerticalAxisGroup},
 @rinternals{StaffGrouper}.
+@endmorerefs
 
 
 @snippets
@@ -2537,13 +2605,13 @@ Referencia de funcionamiento interno:
 @morerefs
 Referencia de la notación:
 @ref{Expressive marks as lines}.
+@endmorerefs
 
 
 @node Opera and stage musicals
 @section Ópera y musicales
 
-
-@cindex @'opera
+@cindex opera
 @cindex vocal, partitura
 @cindex partitura, general
 @cindex musical, teatro
@@ -2663,6 +2731,7 @@ Referencia de la notación:
 
 Snippets:
 @rlsr{Vocal music}.
+@endmorerefs
 
 
 @node Character names
@@ -2757,6 +2826,8 @@ Manual de aprendizaje:
 Referencia de la notación:
 @ref{Text},
 @ref{Text markup commands}.
+@endmorerefs
+
 
 @node Musical cues
 @subsection Guías musicales
@@ -2883,6 +2954,7 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{CueVoice}.
+@endmorerefs
 
 @knownissues
 @code{\cueDuring} inserta automáticamente un contexto
@@ -2993,6 +3065,7 @@ Referencia de la notación:
 
 Referencia de funcionamiento interno:
 @rinternals{LyricText}.
+@endmorerefs
 
 
 @node Chants psalms and hymns
@@ -3022,6 +3095,7 @@ Referencia de la notación:
 
 Snippets:
 @rlsr{Vocal music}.
+@endmorerefs
 
 
 @node Setting a chant
@@ -3048,9 +3122,13 @@ stemOff = { \hide Staff.Stem }
 
 Los cánticos con frecuencia omiten las líneas divisorias o
 utilizan barras de compás recortadas o discontinuas para indicar
-pausas en la música.  Para omitir todas las barras de compás de
-todos los pentagramas, suprima completamente el grabador de
-barras:
+pausas en la música.  Para preparar un cántico sin metro musical,
+@pxref{Unmetered music}.  Para retener todos los efectos de una
+indicación de compás pero inhabilitando las barras de compás
+automáticas, fije @code{measureBarType} al valor @code{'()}.  Si
+no hay líneas divisorias normales, puede que queramos tomar
+medidas para controlar el espaciado horizontal; @pxref{Line
+breaking}.
 
 @lilypond[verbatim,quote]
 \score {
@@ -3058,14 +3136,14 @@ barras:
     \new Staff {
       \relative {
         a'4 b c2 |
-        a4 b c2 |
+        a4 b c2 | \section
         a4 b c2 |
       }
     }
     \new Staff {
       \relative {
         a'4 b c2 |
-        a4 b c2 |
+        a4 b c2 | \section
         a4 b c2 |
       }
     }
@@ -3073,57 +3151,16 @@ barras:
   \layout {
     \context {
       \Staff
-      \remove Bar_engraver
+      measureBarType = #'()
+      forbidBreakBetweenBarLines = ##f
     }
   }
 }
 @end lilypond
 
-Las líneas divisorias también se pueden quitar pentagrama a
-pentagrama:
-
-@lilypond[verbatim, quote]
-\score {
-  \new ChoirStaff <<
-    \new Staff
-    \with { \remove Bar_engraver } {
-      \relative {
-        a'4 b c2 |
-        a4 b c2 |
-        a4 b c2 |
-      }
-    }
-    \new Staff {
-      \relative {
-        a'4 b c2 |
-        a4 b c2 |
-        a4 b c2 |
-      }
-    }
-  >>
-}
-@end lilypond
-
-Para suprimir las líneas divisorias sólo de una sección de música,
-trátela como si fuera una cadencia.  Si la sección es larga,
-podría necesitar insertar líneas divisorias @qq{mudas} con
-@code{\bar ""} para indicar dónde se debe producir el salto de
-línea.
-
-@lilypond[verbatim,quote]
-\relative a' {
-  a4 b c2 |
-  \cadenzaOn
-  a4 b c2
-  a4 b c2
-  \bar ""
-  a4 b c2
-  a4 b c2
-  \cadenzaOff
-  a4 b c2 |
-  a4 b c2 |
-}
-@end lilypond
+@noindent
+Las líneas divisorias también se pueden modificar pentagrama a
+pentagrama, @pxref{Modifying context plug-ins}
 
 Los silencios o pausas en los cánticos pueden indicarse mediante
 barras de compás modificadas.
@@ -3136,6 +3173,7 @@ barras de compás modificadas.
   a4 b c2
   \bar "'"
   a4 b c2
+  \bar ","
   a4 b c2
   \bar ";"
   a4 b c2
@@ -3151,27 +3189,6 @@ moderna.  Este ejemplo utiliza una marca @code{\breathe}
 modificada:
 
 @lilypond[verbatim,quote]
-divisioMinima = {
-  \once \override BreathingSign.stencil = #ly:breathing-sign::divisio-minima
-  \once \override BreathingSign.Y-offset = #0
-  \breathe
-}
-divisioMaior = {
-  \once \override BreathingSign.stencil = #ly:breathing-sign::divisio-maior
-  \once \override BreathingSign.Y-offset = #0
-  \breathe
-}
-divisioMaxima = {
-  \once \override BreathingSign.stencil = #ly:breathing-sign::divisio-maxima
-  \once \override BreathingSign.Y-offset = #0
-  \breathe
-}
-finalis = {
-  \once \override BreathingSign.stencil = #ly:breathing-sign::finalis
-  \once \override BreathingSign.Y-offset = #0
-  \breathe
-}
-
 \score {
   \relative {
     g'2 a4 g
@@ -3186,7 +3203,12 @@ finalis = {
   \layout {
     \context {
       \Staff
-      \remove Bar_engraver
+      \remove Caesura_engraver
+      \consists Divisio_engraver
+      \EnableGregorianDivisiones
+      caesuraType = #'((breath . chantquarterbar))
+      measureBarType = #'()
+      forbidBreakBetweenBarLines = ##f
     }
   }
 }
@@ -3207,9 +3229,10 @@ frecuencia omiten la clave también.
   \layout {
     \context {
       \Staff
-      \remove Bar_engraver
       \remove Time_signature_engraver
       \remove Clef_engraver
+      measureBarType = #'()
+      forbidBreakBetweenBarLines = ##f
     }
   }
 }
@@ -3227,8 +3250,8 @@ la página.
 
 @lilypond[verbatim,quote]
 SopranoMusic = \relative {
-  g'1 | c2 b | a1 | \bar "||"
-  a1 | d2 c | c b | c1 | \bar "||"
+  g'1 | c2 b | a1 |
+  a1 | d2 c | c b | c1 |
 }
 
 AltoMusic = \relative {
@@ -3248,6 +3271,8 @@ BassMusic =  \relative {
 
 global = {
   \time 2/2
+  \skip 1*3 \section
+  \skip 1*4 \fine
 }
 
 % Use markup to center the chant on the page
@@ -3285,7 +3310,9 @@ global = {
       \layout {
         \context {
           \Score
-          \override SpacingSpanner.base-shortest-duration = \musicLength 2
+          \override SpacingSpanner.base-shortest-duration =
+            \musicLength 2
+          fineBarType = "||"
         }
         \context {
           \Staff
@@ -3335,6 +3362,7 @@ Referencia de la notación:
 @ref{Typesetting Gregorian chant},
 @ref{Unmetered music},
 @ref{Visibility of objects}.
+@endmorerefs
 
 
 @node Pointing a psalm
@@ -3363,11 +3391,9 @@ símbolo de comprobación de compás, la barra vertical, @code{|}.
 \markup {
   \fill-line {
     \column {
-      \left-align {
-        \line { O come let us sing | unto the | Lord : let }
-        \line { us heartily rejoice in the | strength of | our }
-        \line { sal- | -vation. }
-      }
+      \line { O come let us sing | unto the | Lord : let }
+      \line { us heartily rejoice in the | strength of | our }
+      \line { sal- | -vation. }
     }
   }
 }
@@ -3384,13 +3410,9 @@ tick = \markup {
 \markup {
   \fill-line {
     \column {
-      \left-align {
-        \line { O come let us sing \tick unto the \tick Lord : let }
-        \line {
-          us heartily rejoice in the \tick strength of \tick our
-        }
-        \line { sal \tick vation. }
-      }
+      \line { O come let us sing \tick unto the \tick Lord : let }
+      \line { us heartily rejoice in the \tick strength of \tick our }
+      \line { sal \tick vation. }
     }
   }
 }
@@ -3412,15 +3434,9 @@ tick = \markup {
 \markup {
   \fill-line {
     \column {
-      \left-align {
-        \line {
-          O come let us sing \tick unto \dot the \tick Lord : let
-        }
-        \line {
-          us heartily rejoice in the \tick strength of \tick our
-        }
-        \line { sal \tick vation. }
-      }
+      \line { O come let us sing \tick unto \dot the \tick Lord : let }
+      \line { us heartily rejoice in the \tick strength of \tick our }
+      \line { sal \tick vation. }
     }
   }
 }
@@ -3441,15 +3457,11 @@ tick = \markup {
 \markup {
   \fill-line {
     \column {
-      \left-align {
-        \line { Today if ye will hear his voice * }
-        \line {
-          \concat { \bold hard en }
-          | not your | hearts : as in the pro-
-        }
-        \line { vocation * and as in the \bold day of tempt- | }
-        \line { -ation | in the | wilderness. }
-      }
+      \line { Today if ye will hear his voice * }
+      \line { \concat { \bold hard en } |
+              not your | hearts : as in the pro- }
+      \line { vocation * and as in the \bold day of tempt- | }
+      \line { -ation | in the | wilderness. }
     }
   }
 }
@@ -3465,21 +3477,11 @@ tick = \markup {
 \markup {
   \fill-line {
     \column {
-      \left-align {
-        \line {
-          O come let us \concat {
-            si \combine \tick ng
-          }
-          | unto the | Lord : let
-        }
-        \line {
-          us heartily \concat {
-            rejo \combine \tick ice
-          }
-          in the | strength of | our
-        }
-        \line { sal- | -vation. }
-      }
+      \line { O come let us \concat { si \combine \tick ng } |
+              unto the | Lord : let }
+      \line { us heartily \concat { rejo \combine \tick ice }
+              in the | strength of | our }
+      \line { sal- | -vation. }
     }
   }
 }
@@ -3499,29 +3501,31 @@ Manual de aprendizaje:
 Referencia de la notación:
 @ref{Fonts},
 @ref{Formatting text}.
+@endmorerefs
 
 
 @node Phrase bar lines in hymn tunes
-@section Phrase bar lines in hymn tunes
+@subsection Barras de frase en himnos
 
 @funindex \caesura
-@cindex bar line, in hymns
-@cindex caesura bar line, in hymns
-@cindex phrase bar line, in hymns
+@cindex barra de compás, en himnos
+@cindex barra de compás, cesura, en himnos
+@cindex fraseo, barra de compás, en himnos
 
-The @code{\caesura} command can be configured to create phrase bar
-lines that interact well with other automatic bar lines
-(@pxref{Automatic bar lines}).
+Se puede configurar la instrucción @code{\caesura} para crear
+líneas divisorias de fraseo que interactúan bien con las otras
+líneas divisorias automáticas (@pxref{Automatic bar lines}).
 
-In the following examples, the source code for the tune in
-@file{old-hundredth-example.ly} uses @code{\caesura} between
-poetic lines and @code{\fine} at the end.  There are no
-@code{\fermata} or @code{\bar} commands; those symbols appear in
-the output because of the caesura configuration.
+En los ejemplos siguientes, el código fuente de la melodía de
+@file{old-hundredth-example.ly} usa @code{\caesura} entre los
+versos de la letra y @code{\fine} al final.  No hay ninguna
+instrucción @code{\fermata} ni @code{\bar}; estos símbolos
+aparecen en el resultado a causa de la configuración de la cesura.
 
 @cite{The Boston Handel and Haydn Society Collection of Church
-Music} (1830) has a thick bar after each phrase.  For this tune,
-it also has fermatas over the bar lines:
+Music} (1830) tiene una línea divisoria gruesa después de cada
+frase.  Para esta melodía, también tiene calderones sobre las
+líneas divisorias:
 
 @lilypond[verbatim,quote,line-width=158\mm]
 \layout {
@@ -3535,8 +3539,9 @@ it also has fermatas over the bar lines:
 \include "old-hundredth-example.ly"
 @end lilypond
 
-J.S. James' @cite{Original Sacred Harp} (1911) has a thick bar
-when a line is broken in mid-measure at the end of a phrase.
+@cite{Original Sacred Harp} de J.S. James (1911) tiene una línea
+divisoria gruesa cuando se salta de línea a mitad del compás al
+final de una frase.
 
 @lilypond[verbatim,quote,line-width=158\mm]
 \layout {
@@ -3580,3 +3585,4 @@ como se explica en @ref{Ancient notation}.
 @morerefs
 Referencia de la notación:
 @ref{Ancient notation}.
+@endmorerefs
