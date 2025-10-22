@@ -3345,7 +3345,7 @@ def musicxml_figured_bass_to_lily(n):
     return res
 
 
-def musicxml_lyrics_to_text(lyrics, ignoremelismata):
+def musicxml_lyrics_to_text(lyrics):
     # TODO: Handle `print-object`.
     continued = False
     extended = None
@@ -3461,15 +3461,7 @@ def musicxml_lyrics_to_text(lyrics, ignoremelismata):
         text = r'\markup %s' % text
 
     if continued and text:
-        if options.convert_beaming:
-            if ignoremelismata == "on":
-                return r' \set ignoreMelismata = ##t %s' % text
-            elif ignoremelismata == "off":
-                return r' %s %s \unset ignoreMelismata' % (text, hyphen)
-            else:
-                return r' %s %s' % (text, hyphen)
-        else:
-            return r' %s %s' % (text, hyphen)
+        return r' %s %s' % (text, hyphen)
     if continued:
         return hyphen
 
@@ -3817,7 +3809,7 @@ def extract_lyrics(voice, lyric_key, lyrics_dict):
                                      ' lyrics within a part'))
                         placement_warning = True
 
-                text = musicxml_lyrics_to_text(lyric, None)
+                text = musicxml_lyrics_to_text(lyric)
 
         action = 'store'
 
