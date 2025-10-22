@@ -1198,19 +1198,22 @@ class Lyrics(Base):
         self.placement = None
 
     def lyrics_to_ly(self):
-        mode = r'\lyricmode {'
         no_melismata = r'\set ignoreMelismata = ##t'
+        include_grace_nodes = r'\set includeGraceNotes = ##t'
         lyrics = ''
         for l in self.lyrics_syllables:
             lyrics += l
-        return (mode, no_melismata, lyrics)
+        return (no_melismata, include_grace_nodes, lyrics)
 
     def print_ly(self, printer):
-        (mode, no_melismata, lyrics) = self.lyrics_to_ly()
-        printer(mode)
+        (no_melismata, include_grace_notes, lyrics) = self.lyrics_to_ly()
+
+        printer(r'\lyricmode {')
         printer.newline()
 
         printer(no_melismata)
+        printer.newline()
+        printer(include_grace_notes)
         printer.newline()
 
         printer.dump_lyrics(lyrics)
