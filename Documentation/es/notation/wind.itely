@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 663181a3779d50a01212ef3091a03a7b9a714308
+    Translation of GIT committish: b22569ea33c9c9a6a26e17624d79449bffa81b22
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -11,7 +11,7 @@
 @c \version "2.19.16"
 
 @node Wind instruments
-@section Instrumentos de viento
+@chapter Instrumentos de viento
 
 @lilypondfile[quote]{snippets/wind-headword.ly}
 
@@ -20,14 +20,14 @@ escribir para instrumentos de viento.
 
 
 @node Common notation for wind instruments
-@subsection Notación común para instrumentos de viento
+@section Notación común para instrumentos de viento
 
 Esta sección trata la notación común para casi todos los
 instrumentos de viento.
 
 
 @node References for wind instruments
-@unnumberedsubsubsec Referencias para instrumentos de viento
+@subsection Referencias para instrumentos de viento
 
 @cindex viento, instrumento de
 
@@ -105,10 +105,11 @@ Referencia de la notación:
 
 Fragmentos de código:
 @rlsr{Winds}.
+@endmorerefs
 
 
 @node Fingerings
-@unnumberedsubsubsec Digitaciones
+@subsection Digitaciones
 
 Todos los instrumentos de viento aparte del trombón requieren el
 uso de los distintos dedos para producir cada nota.  En los
@@ -118,6 +119,7 @@ algunos ejemplos de digitaciones.
 Se pueden producir diagramas de posiciones para instrumentos de
 viento madera,como se describe en
 @ref{Woodwind diagrams}.
+
 
 @snippets
 
@@ -144,16 +146,17 @@ Referencia de la notación:
 
 Fragmentos de código:
 @rlsr{Winds}.
+@endmorerefs
 
 
 @node Bagpipes
-@subsection Gaita
+@section Gaita
 
 Esta sección trata de la notación común para gaita.
 
 
 @node Bagpipe definitions
-@unnumberedsubsubsec Definiciones para la gaita
+@subsection Definiciones para la gaita
 
 @cindex gaita
 @cindex gaita escocesa de highland
@@ -197,22 +200,23 @@ comience la música siempre con @code{\hideKeySignature} (ocultar
 armadura). Si, por algún motivo, quiere mostrar la armadura, puede
 usar @code{\showKeySignature} en su lugar.
 
-Alguna música moderna utiliza digitaciones cruzadas sobre el Do y
-el Fa para bemolizar estas notas.  Se puede indicar esto mediante
-@code{c-flat} o @code{f-flat}. De forma parecida, el sol agudo
-piobaireachd se puede escribir @code{g-flat} cuando aparece en
-música ligera.
+Alguna música moderna utiliza digitaciones cruzadas sobre
+el@tie{}Do y el@tie{}Fa para bemolizar estas notas.  Se puede
+indicar esto mediante @code{c-flat} o @code{f-flat}. De forma
+parecida, el sol agudo @emph{Piobaireachd} se puede escribir
+@code{g-flat} cuando aparece en música ligera.
 
 @morerefs
 Fragmentos de código:
 @rlsr{Winds}.
+@endmorerefs
 
 
 @node Bagpipe example
-@unnumberedsubsubsec Ejemplo de música de gaita
+@subsection Ejemplo de música de gaita
 
 @cindex gaita, ejemplo de
-@cindex Amazing Grace, ejemplo de gaita
+@cindex @q{Amazing Grace}, ejemplo de gaita
 
 La conocida melodía Amazing Grace tiene este aspecto en notación
 de gaita.
@@ -257,16 +261,18 @@ de gaita.
 @morerefs
 Fragmentos de código:
 @rlsr{Winds}.
+@endmorerefs
+
 
 @node Woodwinds
-@subsection Instrumentos de viento madera
+@section Instrumentos de viento madera
 
 Esta sección estudia la notación específica para instrumentos de
 viento madera.
 
 
 @node Woodwind diagrams
-@subsubsection Diagramas de posiciones para viento madera
+@subsection Diagramas de posiciones para viento madera
 
 Se pueden utilizar diagramas de posiciones para los instrumentos
 de viento madera para indicar la digitación que usar al tocar
@@ -297,113 +303,121 @@ c''1^\markup {
 @end lilypond
 
 Las llaves pueden estar abiertas, parcialmente cubiertas, con el
-anillo pulsado o totalmente apretadas:
+anillo pulsado o totalmente apretadas.  Se puede especificar el
+ángulo de las llaves parcialmante tapadas:
 
-@lilypond[verbatim,quote,fragment]
-\textLengthOn
-c''1^\markup {
-  \center-column {
-    "one quarter"
+@lilypond[verbatim,quote]
+\markup \override #'(baseline-skip . 22) \column {
+  \override #'(baseline-skip . 2.5) \fill-line {
+    ""
+    \raise #1.2 \center-column { "one" "quarter" }
+    \raise #1.2 \center-column { "one" "half" }
+    \raise #1.2 \center-column { "three" "quarter" }
+    "ring"
+    "full"
+    \raise #1.2 \center-column { "one half," "vertical" }
+    ""
+  }
+  \fill-line {
+    ""
     \woodwind-diagram #'flute #'((cc . (one1q))
                                  (lh . ())
                                  (rh . ()))
-  }
-}
-
-c''1^\markup {
-  \center-column {
-    "one half"
     \woodwind-diagram #'flute #'((cc . (one1h))
                                  (lh . ())
                                  (rh . ()))
-  }
-}
-
-c''1^\markup {
-  \center-column {
-    "three quarter"
     \woodwind-diagram #'flute #'((cc . (one3q))
                                  (lh . ())
                                  (rh . ()))
-  }
-}
-
-c''1^\markup {
-  \center-column {
-    "ring"
     \woodwind-diagram #'flute #'((cc . (oneR))
                                  (lh . ())
                                  (rh . ()))
-  }
-}
-
-c''1^\markup {
-  \center-column {
-    "full"
     \woodwind-diagram #'flute #'((cc . (oneF two))
                                  (lh . ())
                                  (rh . ()))
+    \override #'(woodwind-diagram-details . ((fill-angle . 90)))
+    \woodwind-diagram #'flute #'((cc . (one1h))
+                                 (lh . ())
+                                 (rh . ()))
+    ""
   }
 }
 @end lilypond
 
-Los trinos se indican mediante llaves sombreadas:
+Los trinos se indican mediante llaves sombreadas, o en modo no
+gráfico, bien como texto rodeado de un círculo (por omisión) o
+bien como texto sombreado:
 
-@lilypond[verbatim,quote,fragment]
-c''1^\markup {
-  \woodwind-diagram #'bass-clarinet
-                    #'((cc . (threeT four))
-                       (lh . ())
-                       (rh . (b fis)))
+@lilypond[verbatim,quote]
+\markup {
+  \override #'(baseline-skip . 20)
+  \override #'(line-width . 50)
+  \column {
+    \fill-line {
+      ""
+      "standard"
+      "circled"
+      "shaded"
+      ""
+    }
+    \fill-line {
+      ""
+      \woodwind-diagram #'bass-clarinet
+                        #'((cc . (threeT four))
+                           (lh . ())
+                           (rh . (b fis)))
+      \override #'(graphical . #f)
+      \woodwind-diagram #'bass-clarinet
+                        #'((cc . (threeT four))
+                           (lh . ())
+                           (rh . (b fisT)))
+      \override #'(graphical . #f)
+      \override #'(woodwind-diagram-details
+                   . ((text-trill-circled . #f)))
+      \woodwind-diagram #'bass-clarinet
+                        #'((cc . (threeT four))
+                           (lh . ())
+                           (rh . (b fisT)))
+      ""
+    }
+  }
 }
 @end lilypond
 
 Es posible imprimir una amplia variedad de trinos:
 
-@lilypond[verbatim,quote,fragment]
-\textLengthOn
-c''1^\markup {
-  \center-column {
-    "one quarter to ring"
-    \woodwind-diagram #'flute #'((cc . (one1qTR))
-                                 (lh . ())
-                                 (rh . ()))
-  }
-}
-
-c''1^\markup {
-  \center-column {
-    "ring to shut"
-    \woodwind-diagram #'flute #'((cc . (oneTR))
-                                 (lh . ())
-                                 (rh . ()))
-  }
-}
-
-c''1^\markup {
-  \center-column {
-    "ring to open"
-    \woodwind-diagram #'flute #'((cc . (oneRT))
-                                 (lh . ())
-                                 (rh . ()))
-  }
-}
-
-c''1^\markup {
-  \center-column {
-    "open to shut"
-    \woodwind-diagram #'flute #'((cc . (oneT))
-                                 (lh . ())
-                                 (rh . ()))
-  }
-}
-
-c''1^\markup {
-  \center-column {
-    "one quarter to three quarters"
-    \woodwind-diagram #'flute #'((cc . (one1qT3q))
-                                 (lh . ())
-                                 (rh . ()))
+@lilypond[verbatim,quote]
+\markup {
+  \override #'(baseline-skip . 22)
+  \column {
+    \override #'(baseline-skip . 2.5) \fill-line {
+      ""
+      \center-column { "one quarter" "to ring" }
+      \center-column { "ring" "to shut" }
+      \center-column { "ring" "to open" }
+      \center-column { "open" "to shut" }
+      \center-column { "one quarter to" "three quarters" }
+      ""
+    }
+    \fill-line {
+      ""
+      \woodwind-diagram #'flute #'((cc . (one1qTR))
+                                   (lh . ())
+                                   (rh . ()))
+      \woodwind-diagram #'flute #'((cc . (oneTR))
+                                   (lh . ())
+                                   (rh . ()))
+      \woodwind-diagram #'flute #'((cc . (oneRT))
+                                   (lh . ())
+                                   (rh . ()))
+      \woodwind-diagram #'flute #'((cc . (oneT))
+                                   (lh . ())
+                                   (rh . ()))
+      \woodwind-diagram #'flute #'((cc . (one1qT3q))
+                                   (lh . ())
+                                   (rh . ()))
+      ""
+    }
   }
 }
 @end lilypond
@@ -417,17 +431,14 @@ aunque no se pueden mostrar en la salida de música impresa.
 Es posible crear diagramas nuevos, aunque requiere conocimientos
 de Scheme y quizá no esté al alcance de todos los usuarios.  Los
 patrones de los diagramas están en
-@file{scm/define-woodwind-diagrams.scm} y en
-@file{scm/display-woodwind-diagrams.scm}.
-
-@predefined
-@endpredefined
+@file{scm/define-@/woodwind-@/diagrams.scm} y en
+@file{scm/display-@/woodwind-@/diagrams.scm}.
 
 
 @snippets
 
 @cindex viento, instrumento, diagrama, lista
-@cindex list of woodwind diagrams
+@cindex lista de diagramas de viento
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/woodwind-diagrams-listing.ly}
 
@@ -439,7 +450,7 @@ patrones de los diagramas están en
 {snippets/changing-the-size-of-woodwind-diagrams.ly}
 
 @cindex viento, instrumento, diagrama, lista de claves
-@cindex list of keys in woodwind diagrams
+@cindex lista de llaves en diagramas de viento
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/woodwind-diagrams-key-lists.ly}
 
@@ -455,3 +466,4 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{TextScript},
 @rinternals{instrument-specific-markup-interface}.
+@endmorerefs
