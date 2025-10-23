@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 1edb8b3c857fa9c993164123e6f707cad5afb07b
+    Translation of GIT committish: 7ac0dd1495161592599f5fdf9bb1233b3d588a02
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -174,7 +174,7 @@ Para la versión de LilyPond @version{}
 @c   ***** Headings in a doc subsection *****
 
 @macro predefined
-@subsubheading Instrucciones predefinidas
+@subheading Instrucciones predefinidas
 @raggedright
 @end macro
 
@@ -184,7 +184,8 @@ Para la versión de LilyPond @version{}
 
 
 @macro snippets
-@subsubheading Fragmentos de código seleccionados
+@need 1000
+@subheading Fragmentos de código seleccionados
 @end macro
 
 
@@ -192,7 +193,7 @@ Para la versión de LilyPond @version{}
 @c unwanted extra vertical space in the PDF output.
 
 @macro morerefs
-@subsubheading Véase también
+@subheading Véase también
 @c @ raggedright @c temporarily do not open an environment here, breaks doc build of Spanish docs until every file includes endmorerefs
 @end macro
 
@@ -202,7 +203,7 @@ Para la versión de LilyPond @version{}
 
 
 @macro knownissues
-@subsubheading Advertencias y problemas conocidos
+@subheading Advertencias y problemas conocidos
 @end macro
 
 
@@ -644,8 +645,11 @@ Para la versión de LilyPond @version{}
   <a class="clickable" href="ly-examples/\IMAGE-FILE\.png">
     <img src="ly-examples/\IMAGE-FILE\-small.png" alt="\IMAGE-FILE\">
   </a>
-  <p style="text-align: center">
-    (pulse para ver una imagen más grande)
+  <p style="text-align: left">
+    (pulse en la imagen para ampliar)
+    <span style="float: right">
+      <a href="ly-examples/\IMAGE-FILE\.ly">código fuente</a>
+    </span>
   </p>
 </div>
 @end html

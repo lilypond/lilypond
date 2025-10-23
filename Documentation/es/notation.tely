@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 15de2c8874262c2c0a9f2cc3beee5070c766dde4
+    Translation of GIT committish: aaa70bea926dc216d914172dfcd0d2df73484f25
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -29,6 +29,10 @@ lector está familiarizado con el material que hay en
 Copyright @copyright{} 1998--2023 por los autores.
 @end macro
 
+@dircategory LilyPond -- the music typesetter
+@direntry
+* Notation: (lilypond-notation).        Notation reference.
+@end direntry
 
 @set FDL
 @include es/macros.itexi
@@ -44,79 +48,80 @@ Copyright @copyright{} 1998--2023 por los autores.
 @ifnottex
 
 @menu
-Musical notation
+Notación musical
 
-* Pitches::               Writing and display the pitches of notes.
-* Rhythms::               Writing and displaying the durations of notes.
-* Expressive marks::      Adding expression to notes.
-* Repeats::               Repeat music.
-* Simultaneous notes::    More than one note at once.
-* Staff notation::        Displaying staves.
-* Editorial annotations:: Special notation to increase legibility.
-* Text::                  Adding text to scores.
+* Pitches::               Escritura e impresión de la alturas.
+* Rhythms::               Escritura e impresión de las duraciones.
+* Expressive marks::      Añadir expresión a las notas.
+* Repeats::               Repetición de la música.
+* Simultaneous notes::    Más de una nota al mismo tiempo.
+* Staff notation::        Imprimir los pentagramas.
+* Editorial annotations:: Notación especial para mejorar la legibilidad.
+* Text::                  Añadir texto a las partituras.
 
-Specialist notation
+Notación especializada
 
-* Vocal music::           Lyrics, operas, and more.
+* Vocal music::           Letra, óperas y mucho más.
 * Keyboard and other multi-staff instruments::
-                          Piano, harp, etc.
+                          Piano, arpa, etc.
 * Unfretted string instruments::
-                          Violin and friends.
+                          El violín y sus amigos.
 * Fretted string instruments::
-                          Guitar, Lute, etc.
-* Percussion::            Drums and friends.
-* Wind instruments::      Woodwinds, brass, and more.
-* Chord notation::        Chords and figured bass.
-* Contemporary music::    Also graphical notation.
-* Ancient notation::      Mensural music, Gregorian and Kievan chant, etc.
-* World music::           Non-Western music
+                          Guitarra, Laúd, etc.
+* Percussion::            Los tambores y sus amigos.
+* Wind instruments::      Viento madera, viento metal y mucho más.
+* Chord notation::        Acordes y bajo cifrado.
+* Contemporary music::    También notación gráfica.
+* Ancient notation::      Música mensural, canto gragoriano y kievano, etc.
+* World music::           Música no occidental.
 
-General input and output
+Entrada y salida generales
 
-* Input modes::           Note mode, Lyrics mode, Markup mode, etc.
-* Input structure::       How a LilyPond input file looks like.
-* Titles and headers::    Also footnotes, table of contents, etc.
+* Input modes::           Modo de notas, modo de letra, modo de marcado, etc.
+* Input structure::       Qué aspecto tiene un archivo de entrada de LilyPond.
+* Titles and headers::    También notas al pie, índice general, etc.
 * Working with input files::
-                          Including files, tagging music, and more.
-* Controlling output::    Music extraction and skipping, output formats,
-                            embedding files in PDF, etc.
-* Creating MIDI output::  Notation support, dynamics, instruments, channels,
-                            and more.
+                          Inclusión de archivos, etiquetado de la música y mucho más.
+* Controlling output::    Extracción y saltado, formatos de salida,
+                            incrustación de archivos en el PDF, etc.
+* Creating MIDI output::  Soporte para la notación, dinámica, instrumentos, canales,
+                            y mucho más.
 * Extracting musical information::
-                          Displaying LilyPond data structures.
+                          Impresión de las estructuras de datos de LilyPond.
 
-Spacing issues
+Problemas de espaciado
 
-* Page layout::           Paper size, fixed and vertical spacing,
-                            @code{\paper} variables.
-* Score layout::          Staff size, the @code{\layout} block.
-* Breaks::                Line and page breaking.
-* Vertical spacing::      Spacing and positioning of vertical staves
-                            and systems.
-* Horizontal spacing::    Spacing sections, strict note spacing, and more.
+* Page layout::           Tamaño del papel, espaciado fijo y vertical,
+                            variables de @code{\paper}.
+* Score layout::          Tamaño del pentagrama, el bloque @code{\layout}.
+* Breaks::                Saldos de línea y de página.
+* Vertical spacing::      Espaciado y posicionamiento vertical de las pautas
+                            y los sistemas.
+* Horizontal spacing::    Secciones de espaciado, espaciado estricto de las notas,
+                            y mucho más.
 * Fitting music onto fewer pages::
-                          Displaying and changing vertical spacing.
+                          Mostrar y alterar el espaciado vertical.
 
-Changing defaults
+Cambiar los ajustes por omisión
 
-* Tuning output::         A first overview.
+* Tuning output::         Una vista general.
 * Interpretation contexts::
-                          Creating and referencing contexts, and more.
+                          Crear y hacer referencia a contextos y mucho más.
 * Explaining the Internals Reference::
-                          How to find descriptions for grobs, properties,
-                          engravers, and more.
+                          Cómo encontrar las definiciones de los grobs, propiedades,
+                          grabadores, y mucho más.
 * Modifying properties::  @code{\set}, @code{\override}, @code{\tweak}, etc.
 * Useful concepts and properties::
-                          How grobs and their properties are classified.
+                          Cómo se clasifican los grobs y sus propiedades.
 
-Appendices
+Apéndices
 
-* Markup commands::       Detailed description of all markup commands.
+* Markup commands::       Descripción detallada de todas las instrucciones de marcado.
 * Notation manual tables::
-                          Tables and charts.
-* Cheat sheet::           Summary of LilyPond syntax.
+                          Tablas y cuadros.
+* Cheat sheet::           Resumen de la sintaxis de LilyPond.
 * GNU Free Documentation License::
-                          License of this document.
+                          Licencia de este documento.
 * Index of commands and concepts::
 @end menu
 
@@ -142,7 +147,7 @@ Appendices
 
 
 @node Index of commands and concepts
-@appendix Índice
+@appendix Índice de instrucciones y conceptos
 
 Además de todas las instrucciones y palabras clave de LilyPond,
 este índice es una lista de términos musicales y las palabras que

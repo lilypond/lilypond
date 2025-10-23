@@ -794,7 +794,7 @@ Se proveen los siguientes sufijos para los nombres ingleses de las notas.
 Los dastgahs pueden tener muchas afinaciones; se ha convertido en
 algo común nombrar las afinaciones según dastgahs representativos
 que las usan.  Se proveen las siguientes afinaciones persas para
-su oso como el segundo argumento de la instrucción @code{\key}.
+su uso como el segundo argumento de la instrucción @code{\key}.
 Observe que en la práctica no todas las afinaciones se usan en
 todas las tonalidades.
 
@@ -851,16 +851,16 @@ siguiente forma.
 @subsection Armaduras de tonalidad persas
 
 De forma predeterminada, el orden de las alteraciones en las
-armaduras de tonalidad persas es tal que los bemoles aparecen
-seguidos por los korons, y después los sostenidos seguidos por los
+armaduras de tonalidad persas es tal que los bemoles van seguidos
+de los korons, y después los sostenidos seguidos por los soris
 (después vendrían los dobles bemoles, y luego los dobles
 sostenidos).
 
 Se puede seleccionar un orden alternativo, similar al que se usa
 en @file{turkish-makam.ly}.  Aquí, el orden es bemoles o korons (o
-dobles bemoles), después sostenidos o soris (o dobles sostenidos).
-En otras palabras, los korons y los soris se tratan de igual
-manera que los bemoes y los sostenidos, respectivamente.
+dobles bemoles), después sostenidos o soris (o dobles
+sostenidos). En otras palabras, los korons y los soris se tratan
+de igual manera que los bemoles y los sostenidos, respectivamente.
 
 @lilypond[verbatim,quote]
 \include "persian.ly"

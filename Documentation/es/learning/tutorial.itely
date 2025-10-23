@@ -422,7 +422,7 @@ Referencia de la notación:
 @rnotationnamed{Writing rests, Escritura de silencios},
 @rnotationnamed{Time signature, Indicación de compás},
 @rnotationnamed{Clef, Clave}.
-
+endmorerefs
 
 @node Working on input files
 @subsection Trabajar sobre los archivos de entrada

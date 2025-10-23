@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 8677514240adc1b684c42680a624286f892486a6
+    Translation of GIT committish: 3bd2cf9507986d1bb2b22da4b07ffafe9e5b3c9f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2411,15 +2411,11 @@ menciona el significado de cada una allí donde no es obvio.
 
 @smallindentedblock
 @raggedright
-@multitable {@code{\arpeggioArrowDown}} {@code{\arpeggioArrowUp}} {@code{\phrasingSlurNeutral}} {La flecha está abajo}
-@headitem Abajo o Izquierda
-  @tab Arriba o Derecha
+@multitable {@code{\phrasingSlurDown}} {@code{\phrasingSlurUp}}{@code{\phrasingSlurNeutral}} {Dirección del desplazamiento}
+@headitem Abajo
+  @tab Arriba
   @tab Revertir
   @tab Efecto
-@item @code{\arpeggioArrowDown}
-  @tab @code{\arpeggioArrowUp}
-  @tab @code{\arpeggioNormal}
-  @tab La flecha está abajo, arriba o no hay flecha
 @item @code{\dotsDown}
   @tab @code{\dotsUp}
   @tab @code{\dotsNeutral}
@@ -2456,7 +2452,7 @@ menciona el significado de cada una allí donde no es obvio.
 @end raggedright
 @end smallindentedblock
 
-Las variantes neutras o normales de estas instrucciones están
+Las variantes @q{neutras} de estas instrucciones están
 implementadas usando @code{\revert} y éstas @strong{no} pueden ir
 precedidas de @code{\once}.  Si quiere limitar el efecto de las
 otras instrucciones (que están implementadas usando

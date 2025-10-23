@@ -4352,12 +4352,46 @@ Referencia de la notación:
 Archivos instalados:
 @file{scm/translation-functions.scm}.
 
-@lilypond[quote,verbatim]
+Fragmentos de código:
+@rlsr{Rhythms}.
+
+Referencia de funcionamiento interno:
+@rinternals{AdHocMarkEvent},
+@rinternals{RehearsalMark},
+@rinternals{RehearsalMarkEvent}.
+@endmorerefs
+
+
+@node Measure counts
+@subsection Cuentas de compases
+
+@cindex compás, contador
+
+Las cuentas de compases son una forma de numerar compases
+consecutivos, por ejemplo como ayuda para que los músicos lleven
+la cuenta durante las repeticiones desplegadas.  El uso de esta
+funcionalidad requiere que se añada el grabador
+@code{Measure_counter_engraver} a un tipo de contexto, normalmente
+@code{Staff} o @code{Score}.
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Staff
+    \consists Measure_counter_engraver
+  }
+}
+
 \relative c' {
-  c1 \mark \markup { \musicglyph "scripts.segno" }
-  c1 \mark \markup { \musicglyph "scripts.coda" }
-  c1 \mark \markup { \musicglyph "scripts.ufermata" }
-  c1
+  \time 6/8
+  \key e \minor
+  r4 a8 b c dis
+  \startMeasureCount
+  \repeat unfold 3 {
+    e8 b e g8. fis32 e dis8
+  }
+  \stopMeasureCount
+  b'4. r
 }
 @end lilypond
 
