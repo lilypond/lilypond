@@ -1847,8 +1847,8 @@ def draw_arpeggio =
   z3 = 1/2 [z2, z4];
   x4 = 2/8 staff_space;
   y4 = rthin;
-
   z5 = 2 [z1, (width / 2, height / 2)];
+
   z6 = z2l + 1/2 rthin * sw;
   z7 = z4l + 1/2 rthin * sw + 1/2 rthin * se;
   z8 = 2 [z6, (width / 2, height / 2)];
@@ -1929,6 +1929,7 @@ def draw_arpeggio_arrow =
   set_char_box (0, width#, 0, height#);
 
   alpha := -40;
+
   nw = dir (alpha + 180);
   ne = dir (alpha + 90);
   se = dir alpha;
@@ -1948,7 +1949,8 @@ def draw_arpeggio_arrow =
 
   pickup pencircle scaled vround (0.5 rthin);
 
-  bot z10 = (0.5 w, 0);
+  % Make arrow as tall as the arpeggio wiggle.
+  bot z10 = (0.5 w, ypart (overshoot * se) - .5 rthin);
   lft z11 = (0.5 w - hround (0.8 w), 0.8 h);
   rt z12 = (0.5 w + hround (0.8 w), 0.8 h);
 
