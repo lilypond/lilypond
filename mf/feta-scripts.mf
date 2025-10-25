@@ -1938,6 +1938,7 @@ def draw_arpeggio_arrow =
   penpos1 (rthin, alpha + 90);
   penpos2 (5/4 rthick, alpha);
   penpos3 (5/4 rthick, 0);
+  penpos9 (rthin, alpha + 90);
 
   z1 = (width / 2, height) - overshoot * se; % numbering is consistent
                                              % with the arpeggio symbol
@@ -1964,7 +1965,7 @@ def draw_arpeggio_arrow =
   before_right := (z12 + 0.25 rthin * nw)
                   -- (z3 + (0, -0.25 rthin / cosd (angle (nw))));
   after_right := z3r{up}
-                 .. z9{z1r - z9}
+                 .. z9r{z1 - z9}
                  -- z1r;
   (u_right, v_right) = before_right intersectiontimes after_right;
 
