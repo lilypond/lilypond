@@ -143,7 +143,6 @@
         (script-stencil . (feta . ("halfopen" . "halfopen")))
         (side-axis . ,Y)
         (direction . ,UP)))
-
     (halfopenvertical
      . (
         (avoid-slur . outside)
@@ -151,7 +150,6 @@
         (script-stencil . (feta . ("halfopenvertical" . "halfopenvertical")))
         (side-axis . ,Y)
         (direction . ,UP)))
-
     (haydnturn
      . (
         (script-stencil . (feta . ("haydnturn" . "haydnturn")))
@@ -159,7 +157,13 @@
         (avoid-slur . inside)
         (side-axis . ,Y)
         (direction . ,UP)))
-
+    (heelcircle
+     . (
+        (script-stencil . (feta . ("pedalheelcircle" . "pedalheelcircle")))
+        (padding . 0.20)
+        (avoid-slur . around) ;guessing?
+        (side-axis . ,Y)
+        (direction . ,UP)))
     (henzelongfermata
      . (
         (script-stencil . (feta . ("dhenzelongfermata" . "uhenzelongfermata")))
@@ -169,7 +173,6 @@
         (script-priority . 175)
         (side-axis . ,Y)
         (direction . ,UP)))
-
     (henzeshortfermata
      . (
         (script-stencil . (feta . ("dhenzeshortfermata" . "uhenzeshortfermata")))
@@ -179,6 +182,7 @@
         (script-priority . 175)
         (side-axis . ,Y)
         (direction . ,UP)))
+
 
     (ictus
      . (

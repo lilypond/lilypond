@@ -469,6 +469,7 @@ emmentaler_glyphsets = [
         "scripts.upedaltoe",
         "scripts.dpedalheel",
         "scripts.upedalheel",
+        "scripts.pedalheelcircle",
 
         "scripts.arpeggio",
         "scripts.arpeggio.arrow.1",

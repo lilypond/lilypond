@@ -1378,49 +1378,67 @@ fet_beginchar ("right toe", "dpedaltoe");
 fet_endchar;
 
 
-fet_beginchar ("flageolet", "flageolet");
-  save height, width, thickness, superness;
+def draw_circle (expr breapth, width, depth, height, thickness) =
+  save thick;
 
-  height# = 3/15 staffsize#;
-  width# = height#;
-  thickness# = 1.25 * blot_diameter#;
-  define_pixels (height, width);
-  define_whole_blacker_pixels (thickness);
+  thick# := thickness;
+  define_whole_blacker_pixels (thick);
 
-  set_char_box (width# / 2, width# / 2, height# / 2, height# / 2);
+  set_char_box (breapth, width, depth, height);
 
-  penpos1 (thickness, 90);
-  penpos2 (thickness, 180);
-  penpos3 (thickness, 270);
-  penpos4 (thickness, 0);
+  penpos1 (thick, 90);
+  penpos2 (thick, 180);
+  penpos3 (thick, 270);
+  penpos4 (thick, 0);
 
-  x1 = 0;
+  x1 = (w - b) / 2;
   y1r = h;
   x4r = w;
-  x2r = -x4r;
-  y2 = 0;
+  x2r = -b;
+  y2 = (h - d) / 2;
   y4 = y2;
   x3 = x1;
-  y3r = -y1r;
+  y3r = -d;
 
   penlabels (1, 2, 3, 4);
 
   % mf doesn't handle pixel dropouts in outline objects, so we use
   % `draw' if not called by mpost
   if known miterlimit:
-    penstroke z1e
-              .. z2e
-              .. z3e
-              .. z4e
-              .. cycle;
+    fill z1r
+         .. z2r
+         .. z3r
+         .. z4r
+         .. cycle;
+    unfill z1l
+           .. z2l
+           .. z3l
+           .. z4l
+           .. cycle;
   else:
-    pickup pencircle scaled thickness;
+    pickup pencircle scaled thick;
     draw z1
          .. z2
          .. z3
          .. z4
          .. cycle;
   fi;
+enddef;
+
+
+% Use the same hight as the heel.
+fet_beginchar ("pedal heel circle", "pedalheelcircle");
+  save dim;
+  dim# := (0.5 + 2/3) * .5 staff_space#;
+
+  draw_circle (dim#, dim#, 0, 2 dim#, 1.5 linethickness#);
+fet_endchar;
+
+
+fet_beginchar ("flageolet", "flageolet");
+  draw_circle (1/10 staffsize#, 1/10 staffsize#,
+               1/10 staffsize#, 1/10 staffsize#,
+               1.25 * blot_diameter#)
 fet_endchar;
 
 
