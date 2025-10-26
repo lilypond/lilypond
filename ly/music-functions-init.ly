@@ -469,33 +469,43 @@ set to @var{expected-value} in that very context: being set in an enclosing
 context is insufficient.  If @var{expected-value} is @code{\\default}, check
 that the property is unset in that context.
 
-If @var{property-path} does not name a context, @code{Bottom} is implied.
+If @var{property-path} does not name a context, the check occurs in the current
+context.
 
 Print a warning if the requested context is not visible looking upward from the
 current context or if the state of the property in the requested context is
-unexpected.")
+unexpected.
+
+Caveat: Like some other context-specific commands, a context given in
+@var{property-path} is ignored in certain cases, such as inside @code{\\with}.")
      (let ((input-location (*location*))
-           (p (check-context-path property-path)))
+           ;; Break from the pattern of using 'Bottom as the default context.
+           ;; Instead, the current context is the default.  Most commands that
+           ;; address a specific context will create it if it doesn't exist, but
+           ;; this one doesn't.
+           (p (check-context-path property-path '() #:default #f)))
        (if p
            (let ((ctx-name (car p))
                  (prop-name (cadr p)))
-             (define (check start-ctx)
-               (let ((ctx (ly:context-find start-ctx ctx-name)))
-                 (if ctx
-                     (let ((actual-value
-                            (ly:context-property ctx prop-name
-                                                 #:default dummy
-                                                 #:search-ancestors? #f)))
-                       (when (not (equal? actual-value expected-value))
-                         (ly:input-warning input-location
-                                           (G_ "~a.~a is ~a; expected ~a")
-                                           (ly:context-name ctx) prop-name
-                                           (filter-value actual-value)
-                                           (filter-value expected-value))))
-                     (ly:input-warning input-location
-                                       (G_ "cannot find context: ~a")
-                                       ctx-name))))
-             (make-music 'ApplyContext 'procedure check))
+             (define (check ctx)
+               (let ((actual-value
+                      (ly:context-property ctx prop-name
+                                           #:default dummy
+                                           #:search-ancestors? #f)))
+                 (when (not (equal? actual-value expected-value))
+                   (ly:input-warning input-location
+                                     (G_ "~a.~a is ~a; expected ~a")
+                                     (ly:context-name ctx) prop-name
+                                     (filter-value actual-value)
+                                     (filter-value expected-value)))))
+             (define m (make-music 'ApplyContext 'procedure check))
+             ;; In Global context, create a Score; but otherwise, don't create
+             ;; any new contexts, just search upward.
+             (descend-to-context
+              (if ctx-name
+                  (ascend-to-context m ctx-name)
+                  m)
+              'Score))
            (make-music 'Music)))))
 
 crossStaff =

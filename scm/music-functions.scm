@@ -508,11 +508,16 @@ respectively."
             location)
            #f)))))
 
-(define*-public (check-context-path path #:optional location)
+(define*-public (check-context-path path
+                                    #:optional location
+                                    #:key (default 'Bottom))
   "Check a context property path specification @var{path}, a symbol
 list (or a single symbol), for validity and possibly complete it.
 Returns the completed specification, or @code{#f} when rising an
-error (using optionally @var{location})."
+error (using optionally @var{location}).
+
+The @code{#:default @var{default}} option specifies the context name to return
+when @var{path} does not include one.  The default is @code{'Bottom}."
   (let* ((path (if (symbol? path) (list path) path)))
     ;; A Guile 1.x bug specific to optargs precludes moving the
     ;; defines out of the let
@@ -523,7 +528,7 @@ error (using optionally @var{location})."
       (not (property? s)))
     (define (check c p) (c p))
     (or (case (length path)
-          ((1) (and (property? (car path)) (cons 'Bottom path)))
+          ((1) (and (property? (car path)) (cons default path)))
           ((2) (and (unspecial? (car path)) (property? (cadr path)) path))
           (else #f))
         (begin
@@ -679,6 +684,12 @@ making it possible to @code{\\revert} to any previous value afterwards."
               (if (ly:context-mod? mods)
                   (ly:get-context-mods mods)
                   mods)))
+    cm))
+
+(define*-public (ascend-to-context m context #:optional id mods)
+  "Like @code{context-spec-music}, but only ascending."
+  (let ((cm (context-spec-music m context id mods)))
+    (ly:music-set-property! cm 'search-direction UP)
     cm))
 
 (define*-public (descend-to-context m context #:optional id mods)
