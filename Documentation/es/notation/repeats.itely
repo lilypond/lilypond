@@ -382,7 +382,7 @@ music = \repeat volta 3 {
 @end lilypond
 
 Cuando se despliega un @code{\repeat}, puede ser deseable no solo
-filtrat toda la música que no es específica de los finales
+filtrar toda la música que no es específica de los finales
 alternativos, sino también añadir la música que no estaba presente
 en la forma plegada.  La instrucción @code{\unfolded} designa la
 música que queremos que se ignore hasta que se despliegue el

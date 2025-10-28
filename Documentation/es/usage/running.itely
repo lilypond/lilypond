@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 3297465e768cd0d8f283b5896b6540f12deab5e1
+    Translation of GIT committish: 8677514240adc1b684c42680a624286f892486a6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.17.6"
 
 
 @node Running lilypond
@@ -40,14 +40,76 @@ existen algunos programas complementarios @q{de apoyo} (como
 Al hablar de la @q{línea de órdenes}, nos referimos a la consola
 del sistema operativo.  Los usuarios de Windows posiblemente estén
 más familiarizados con los términos @q{ventana de MS-DOS} o
-@q{línea de comandos}; Los usuarios de MacOS@tie{}X puede que
-estén más familiarizados con los términos @q{terminal} o
-@q{consola}.
+@q{línea de comandos}; Los usuarios de macOS puede que estén más
+familiarizados con los términos @q{terminal} o @q{consola}.
 
 La descripción del uso de esta parte de los sistemas operativos se
 sale del ámbito de este manual; le rogamos que consulte otros
 documentos sobre este tema si no le resulta familiar la línea de
 órdenes.
+
+Se debe usar una consola que lea y escriba Unicode en la
+codificación UTF-8.  Hoy en día este es el estándar en los
+sistemas operativos del tipo Unix, entre ellos macOS y GNU/Linux.
+Sobre Windows, se puede seleccionar UTF-8 eligiendo una página de
+códigos adecuada: llamamos a
+
+@example
+chcp 65001
+@end example
+
+@noindent
+una vez en la línea de órdenes antes de ejecutar
+@command{lilypond.exe}.  Consulte en Internet cómo activar
+permanentemente UTF-8 para la consola de Windows.@footnote{Por
+ejemplo @uref{https://stackoverflow.com/a/57134096/1276195} da una
+respuesta bastante exhaustiva.}
+
+
+@node The PATH environment variable
+@unnumberedsubsec La variable de entorno @env{PATH}
+
+[Se puede saltar esta sección si usa un gestor de paquetes como
+MacPorts para instalar LilyPond; @env{PATH} ya debería estar
+correctamente configurada.]
+
+A lo largo de los manuales de LilyPond, los ejemplos muestran
+simplemente @command{lilypond} como el programa que hay que
+ejecutar.  Sin embargo, esto solo funciona si la variable de
+entorno @env{PATH} está ajustada de manera que esté incluido del
+archivo binario ejecutable de LilyPond.
+
+Suponiendo que ha descomprimido un paquete binario de LilyPond
+para la versión @version{} en un directorio @file{/home/yo}, el
+directorio que se añade a la variable @env{PATH} es
+
+@example
+/home/yo/lilypond-@version{}/bin
+@end example
+
+@noindent
+En Windows, un directorio típico sería
+
+@example
+C:\Users\yo\lilypond-@version{}\bin
+@end example
+
+Consulte la documentación de su sistema operativo (o busque en
+Internet) sobre cómo modificar la variable @env{PATH}.  En caso de
+que está eactualizando una versión antigua de LilyPond, debería
+asegurarse de que el directorio del archivo binario antiguo de
+LilyPond se elimina de @env{PATH}; cuando todo esté hecho, puede
+comprobar con una llamada a @code{lilypond --version} si se
+encuentra la versión correcta sobre la línea de órdenes.
+
+Si, por cualquier motivo, no es posible o adecuado configurar la
+variable @env{PATH}, o si tiene más de una versión de LilyPond
+instaladas en paralelo, use la ruta completa al archivo binario,
+por ejemplo
+
+@example
+/home/yo/lilypond-@version{}/bin/lilypond music.ly
+@end example
 
 
 @node Invoking LilyPond
@@ -65,6 +127,9 @@ en primer lugar con la extensión @file{.ly}.  Para leer la entrada
 desde stdin, utilice un guión (@code{-}) en sustitución de
 @var{archivo}.
 
+@warning{En versiones de Windows anteriores a Windows 10 1903,
+LilyPond no puede manejar nombres de archivo Unicode.}
+
 Cuando se procesa @file{archivo.ly}, la salida resultante por
 defecto es el archivo @file{archivo.pdf}.  Se pueden especificar
 varios archivos; cada uno de ellos se procesará de forma
@@ -75,21 +140,7 @@ Scheme.}.
 
 Si @file{archivo.ly} contiene más de un bloque @code{\score}, el
 resto de las partituras se obtiene como salida en archivos
-numerados, empezando por @file{archivo-1.pdf}.  además, el valor
-de @code{output-suffix} (sufijo de salida) se inserta entre el
-nombre base y el número.  Por ejemplo, si @file{archivo.ly}
-contiene
-
-@example
-#(define output-suffix "violin")
-\score @{ @dots{} @}
-#(define output-suffix "cello")
-\score @{ @dots{} @}
-@end example
-
-@noindent
-La salida consiste en los archivos @file{filename-violin.pdf} y
-@file{filename-cello-1.pdf}.
+numerados, empezando por @file{archivo-1.pdf}.
 
 
 @subsubheading Uso de LilyPond con las posibilidades básicas del shell
@@ -113,9 +164,7 @@ También puede ser útil redireccionar la salida de consola
 
 @example
 lilypond file.ly 1> salida_estandar.txt
-
 lilypond file.ly 2> error_estandar.txt
-
 lilypond file.ly &> todo.txt
 @end example
 
@@ -123,7 +172,7 @@ lilypond file.ly &> todo.txt
 Estas instrucciones redireccionan la salida @q{normal}, solo los
 @q{errores} o @q{todo}, respectivamente, hacia un archivo de
 texto.  Consulte la documentación de su shell concreto, Command
-(Windows), las aplicaciones Terminal o Console (MacOS X) para
+(Windows), las aplicaciones Terminal o Console (macOS) para
 comprobar si el redireccionamiento de la salida está contemplado o
 si la sintaxis es distinta.
 
@@ -139,7 +188,7 @@ find . -name '*.ly' -exec lilypond '@{@}' \;
 @end example
 
 @noindent
-También debe funcionar para los usarios de MacOS@tie{}X.
+También debe funcionar para los usarios de macOS.
 
 Un usuario de Windows haría lo siguiente:
 
@@ -178,6 +227,16 @@ forfiles /s /p "C:\Documentos\Mis Partituras" /M *.ly /c "cmd /c lilypond @@file
 @cindex opciones, línea de órdenes
 @cindex opciones
 
+Tenga en cuenta que los argumentos de opción que contengan
+espacios deben ir entrecomillados.  Por ejemplo, para escribir la
+salida de LilyPond hacia un archivo llamado @samp{fulanito
+menganito}, el usuario debe añadir @code{-o "fulanito menganito"}
+(o @code{--output="fulanito menganito"}) a los argumentos de la
+línea de órdenes de @command{lilypond}.  Las comillas dobles
+encerrando estos argumentos, funcionan con casi todos los
+intérpretes de línea de órdenes tanto en Windows como en sistemas
+operativos del tipo Unix (entre ellos macOS).
+
 Están contempladas las siguientes opciones:
 
 @table @asis
@@ -189,16 +248,16 @@ Véase @ref{Advanced command-line options for LilyPond}.
 @cindex expresiones de Scheme, evaluación
 
 @item @code{-e}, @code{--evaluate=}@var{expresión}
-Evaluar la @var{expresión} de Scheme antes de analizar los
-archivos @file{.ly}.  Se pueden pasar varias opciones @option{-e},
-que se evalúan en secuencia.
+Evaluar la expresión @var{expresión} de Scheme antes de analizar
+los archivos @file{.ly}.  Se pueden pasar varias opciones
+@option{-e}, que se evalúan en secuencia.
 
 La expresión se evalúa en el módulo @code{guile-user}, de manera
 que si quiere usar una definición como @code{(define-public a 42)}
 como @var{expresión}, debe utilizar
 
 @example
-lilypond -e '(define-public a 42)'
+lilypond -e "(define-public a 42)"
 @end example
 
 @noindent
@@ -211,15 +270,11 @@ en la línea de órdenes, e incluir
 @noindent
 al principio del archivo @file{.ly}.
 
-@warning{Los usuarios de Windows deben utilizar comillas dobles en
-lugar de apóstrofos simples.}
-
 @item @code{-E}, @code{--eps}
 Generar archivos EPS.
 
-Esta opción equivale a establecer las opciones de la línea de
-órdenes de LilyPond a @code{--ps} y
-@code{-dlilypond-book-output}.
+Esta opción equivale a especificar @code{-dseparate-page-formats=eps
+-dtall-page-formats=eps}.
 
 @cindex salida, formato
 @cindex formato, salida
@@ -234,8 +289,8 @@ Ejemplo: @code{lilypond -fpng archivo.ly}
 El SVG usa internamente un backend específico, y por tanto no se
 puede obtener dentro de la misma ejecución que otros formatos; el
 uso de @w{@code{-fsvg}} o de @code{--svg} son en realidad
-equivalentes al empleo de la opción @code{-dbackend=svg}.  Véase
-@ref{Advanced command-line options for LilyPond}.
+equivalentes al empleo de la opción @code{-dbackend=svg}.
+@xref{Advanced command-line options for LilyPond}.
 
 @item @code{-h}, @code{--help}
 Mostrar un resumen de las formas de utilización.
@@ -294,11 +349,25 @@ funcionalidad @code{chroot}. Concretamente, Windows no la contempla.]
 
 Ejecutar @command{lilypond} en una jaula de chroot.
 
-La opción @option{--jail} (jaula) proporciona una alternativa más
-flexible a la opción @option{-dsafe} cuando el proceso de
-tipografía de LilyPond está disponible a través de un servidor web
-o cuando LilyPond ejecuta instrucciones enviadas por fuentes
-externas (véase @ref{Advanced command-line options for LilyPond}).
+La opción @option{--jail} (jaula) can be used for security cuando
+el proceso de tipografía de LilyPond está disponible a través de
+un servidor web o cuando LilyPond ejecuta instrucciones enviadas
+por fuentes externas (@pxref{Advanced command-line options for
+LilyPond}).  Dado que LilyPond proporciona la capsidad de ejecutar
+programas de Guile, es esencial en estos escenarios ejecutarlo
+dentro de un cajón de arena de forma que el archivo que se está
+compilando no produzca un desastre en el sistema, por ejemplo con
+
+@example
+% esto es demasiado peligroso como para escribirlo correctamente
+#(s ystem "rm -rf /")
+% esto es malicioso pero no tan destructivo
+@{ c4^$(ly:gulp-file "/etc/passwd") @}
+@end example
+
+@option{--jail} es una forma de conseguir el efecto de un cajón de
+arena.  Otra forma es ejecutar LilyPond dentro de un contenedor
+Docker.
 
 La opción @option{--jail} funciona cambiando la raíz de
 @command{lilypond} a @var{jaula} justo antes de comenzar el
@@ -357,8 +426,8 @@ posiblemente usando @command{sudo}.  También es una práctica
 recomendable limitar el número de segundos de tiempo de CPU que
 LilyPond puede usar (p.ej., usando @command{ulimit@tie{}-t}), y,
 si su sistema operativo lo contempla, el tamaño de la memoria que
-se puede reservar.  Véase también @ref{LilyPond in chroot jail}.
-
+se puede reservar.  @xref{LilyPond in chroot jail} para más
+información.
 @end table
 
 @cindex loglevel
@@ -421,8 +490,8 @@ predeterminada.
 
 La utilización de este valor equivale a fijar las opciones de la
 línea de órdenes del Scheme de LilyPond a
-@code{-dmusic-@/font-@/encodings=@/'#f'} y
-@code{-dgs-@/never-@/embed-@/fonts=@/'#f'}.
+@code{-dmusic-@/font-@/encodings=@/"#f"} y
+@code{-dgs-@/never-@/embed-@/fonts=@/"#f"}.
 
 @item TeX
 Producir archivos que están optimizados para su inclusión dentro
@@ -430,8 +499,8 @@ de documentos de pdf@TeX{}, Lua@TeX{} o Xe@TeX{}.
 
 La utilización de este valor equivale a fijar las opciones de la
 línea de órdenes del Scheme de LilyPond a
-@code{-dmusic-@/font-@/encodings=@/'#t'} y
-@code{-dgs-@/never-@/embed-@/fonts=@/'#f'}.
+@code{-dmusic-@/font-@/encodings=@/"#t"} y
+@code{-dgs-@/never-@/embed-@/fonts=@/"#f"}.
 
 @item TeX-GS
 Si queremos incluir más de un PDF generado por LilyPond dentro de
@@ -440,8 +509,8 @@ generado por TeX con Ghostscript.
 
 La utilización de este valor equivale a fijar las opciones de la
 línea de órdenes del Scheme de LilyPond a
-@code{-dmusic-@/font-@/encodings=@/'#t'} y
-@code{-dgs-@/never-@/embed-@/fonts=@/'#t'}.
+@code{-dmusic-@/font-@/encodings=@/"#t"} y
+@code{-dgs-@/never-@/embed-@/fonts=@/"#t"}.
 
 @end table
 
@@ -488,8 +557,8 @@ Generar archivos SVG para cada página.  Esta opción equivale a
 Mostrar la información de la versión.
 
 @item @code{-V}, @code{--verbose}
-Ser prolijo: mostrar las rutas completas de todos los archivos que se
-leen, y dar información cronométrica.
+Ser prolijo: mostrar las rutas completas de todos los archivos que
+se leen, y dar información cronométrica.
 
 @item @code{-w}, @code{--warranty}
 Mostrar la garantía con que viene GNU LilyPond (¡no viene con
@@ -502,9 +571,9 @@ Mostrar la garantía con que viene GNU LilyPond (¡no viene con
 @unnumberedsubsec Opciones avanzadas de línea de órdenes para LilyPond
 
 La opción @option{-d} es la interfaz de la línea de órdenes a la
-función de Scheme de LilyPond @code{ly:set-option}.  Esto
-significa que todas las opciones que se relacionan aquí pueden
-establecerse también dentro de los propios archivos @file{.ly}.
+función de Scheme de LilyPond @code{ly:set-option}.  Esto significa
+que todas las opciones que se relacionan aquí pueden establecerse
+también dentro de los propios archivos @file{.ly}.
 
 @table @asis
 
@@ -527,16 +596,15 @@ equivale a
 @noindent
 dentro de un archivo de entrada de LilyPond.
 
-Si no se proporciona el @var{valor}, usar @code{#t} como valor (lo
-que puede producir resultados extraños cuando el tipo esperado
-para el @var{valor} no es booleano).  Se puede añadir el prefijo
-@code{no-} a la @var{opción} para @q{desactivar} una opción,
-aportando @code{#f} como valor. Por ejemplo,
+Si no se proporciona el @var{valor}, usar @code{#t} como valor.
+Se puede añadir el prefijo @code{no-} a la @var{opción} para
+@q{desactivar} una opción, aportando @code{#f} como valor. Por
+ejemplo,
 
 @cindex apuntar y pulsar, línea de órdenes
 
 @example
--dpoint-and-click='#f'
+-dpoint-and-click="#f"
 @end example
 
 @noindent
@@ -558,13 +626,14 @@ pueden leer usando la función @code{ly:get-option}.
 
 @item @code{anti-alias-factor} @var{número}
 Generar el gráfico a mayor resolución (usando el factor
-@var{número}) y reducir la escala para evitar el pixelado en las
-imágenes PNG.  Predeterminado: @code{1.0}.
+@var{número}, which must be a positive integer @leq{}@tie{}8) y
+reducir la escala para evitar el pixelado en las imágenes PNG.
+Predeterminado: @code{1}.
 
 @item @code{aux-files} @var{bool}
-Si @var{bool} es @code{#t}, crear archivos @file{.tex},
-@file{.texi} y @file{.count} cuando se usa con la opción de
-backend @code{eps}.  Predeterminado: @code{#t}.
+Si @var{bool} es @code{#t}, crear archivos @file{.tex}, @file{.texi} y
+@file{.count}. Esta opción existe principalmente para usarla por parte
+de @command{lilypond-book}.  Predeterminado: @code{#f}.
 
 @item @code{backend} @var{símbolo}
 Usar @var{símbolo} como backend para la salida de LilyPond.  Los
@@ -584,6 +653,10 @@ datos PS resultantes se post-procesan mediante el guión
 @code{ps2pdf} de Ghostscript, que también efectúa subconjuntos de
 fuentes de manera predeterminada.
 
+@item cairo
+Crea una salida de gráficos a través de la biblioteca Cairo.  Este
+@emph{backend} puede producir salidas PS, EPS, PDF, PNG y SVG.
+
 @item svg
 Gráficos vectoriales escalables.  Por cada página de la salida, se
 crea un solo archivo @code{SVG}.  Los glifos musicales se
@@ -593,9 +666,7 @@ visor de SVG necesita que las fuentes de texto correspondientes
 estén disponibles para la correcta representación tanto del texto
 como de la letra. Se recomienda no utilizar @q{alias} ni
 @q{listas} de fuentes tipográficas por si el visor de SVG no es
-capaz de manejarlas.  Al usar archivos de fuente abierta para la
-web @emph{Web Open Font Format} (WOFF), es necesario indicar la
-opción @code{-dsvg-woff}
+capaz de manejarlas.
 
 @end table
 
@@ -603,18 +674,47 @@ opción @code{-dsvg-woff}
 Si @var{bool} es @code{#t}, extraer fragmentos de música de la
 partitura.  Requiere que la función @code{clip-regions} esté
 definida dentro del bloque @code{\layout}.  Véase
-@rnotationnamed{Extracting fragments of music, Extracción de fragmentos de música}.  No se extrae ningún
-fragmento si se usa con la opción @option{-dno-print-pages}.
-Predetermiadno: @code{#f}.
+@rnotationnamed{Extracting fragments of music, Extracción de
+fragmentos de música}.  No se extrae ningún fragmento si se usa
+con la opción @option{-dno-print-pages}.  Predeterminado:
+@code{#f}.
+
+@item @code{compile-scheme-code} @var{bool}
+Usar el compilador Guile para ejecutar código de Scheme, en lugar
+del evaluador.  Para más información, véase
+@rextend{Debugging Scheme code}.
 
 @item @code{crop} @var{bool}
-Si @var{bool} es @code{#t}, incorporar toda la música con sus
-títulos y encabezamientos, sin márgenes, en un archivo de salida
-de @q{una sola página}. Predeterminado: @code{#f}.
+Si @var{bool} es @code{#t}, se crea un segundo archivo PDF (con la
+extensión @file{.cropped.pdf}), junto con una copia de él en
+formato imagen de matriz de puntos (con la extensión
+@file{.cropped.png}).  Esta salida incluye toda la música y los
+títulos de cabecera, sin los márgenes, en una sola imagen,
+posiblemente muy alta.  Si se establece la opción @option{--eps} o
+@option{--ps}, se produce un archivo EPS recortado (con la
+extensión @file{.cropped.eps}) en lugar de un PDF recortado.
+Predeterminado: @code{#f}.
+
+De acuerdo con el funcionamiento de LilyPond, las dimensiones del
+archivo de salida que se crea siempre se redondean a un número
+entero de puntos grandes de PostScript; esto puede producir una
+pequeña cantidad de espacio en blanco en el margen derecho.  Para
+evitarlo, establezca la variable de papel @code{line-width} a un
+número entero de puntos grandes como @code{450\bp}.
+
+Observe que por el momento esta opción no se adapta demasiado bien
+a la salida multisistema porque el espacio vertical entre los
+sistemas se elimina.
 
 @item @code{datadir}
 Prefijo de los archivos de datos.  Esta opción es de solo lectura;
 su establecimiento no tiene ningún efecto.
+
+@item @code{debug-eval} @var{bool}
+Si @var{bool} es @code{#t}, usar el evaluador depurador de Scheme,
+que imprime trazas con números de línea cuando hay errores.
+Predeterminado: @code{#f}, o @code{#t} cuando se usa
+@code{--verbose}.
 
 @item @code{debug-skylines} @var{bool}
 Si @var{bool} es @code{#t}, efectuar una depuración de las líneas
@@ -635,6 +735,21 @@ Rellenar el borde izquierdo de la caja contenedora (bounding box)
 del EPS de salida en @var{número} milímetros.  Predeterminado:
 @code{#f} (que significa que no se rellena la caja contenedora).
 
+@item @code{first} @var{cadena}
+Mostrar solo la música que tenga una longitud dada por
+@var{cadena} al principio.  Esto es equivalente a
+
+@example
+showFirstLength = @var{cadena}
+@end example
+
+@noindent
+si se escribe al principio del archivo de entrada.  Si están
+fijadas tanto @option{-dfirst} como @code{showFirstLength}, la
+opción de la línea de órdenes tiene prioridad.  Véase
+@rnotationnamed{Extracting fragments of music,
+Extracción de fragmentos de música}.  Predeterminado: @code{#f}.
+
 @item @code{font-export-dir} @var{cadena}
 Fijar el directorio para la exportación de fuentes tipográficas
 como archivos de PostScript a @var{cadena}.  Esto es de utilidad
@@ -643,7 +758,8 @@ e incrustar más tarde las fuentes con Ghostscript como se ve más
 abajo.
 
 @example
-$ lilypond -dfont-export-dir=fontdir -dgs-never-embed-fonts foo.ly
+$ lilypond -dfont-export-dir=fontdir \
+           -dgs-never-embed-fonts foo.ly
 $ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
      -sOutputFile=foo.embedded.pdf foo.pdf fontdir/*.font.ps
 @end example
@@ -653,14 +769,14 @@ Nota: a diferencia de @code{font-ps-resdir}, este método no puede
 empotrar las fuentes CID con Ghostscript 9.26 y posteriores.
 
 @noindent
-Nota: de la misma manera que @code{font-ps-resdir}, esta opción se
+Nota: de forma parecida a @code{font-ps-resdir}, esta opción se
 salta las fuentes TrueType porque el empotrado de fuentes TrueType
-produce un desbaratamiento de los caracteres.  Para evitar este
-dessbaratabiento, use @code{gs-never-embed-fonts}, pues a pesar de
-su nombre esta opción empotra las fuentes TrueType.
+puede producir un desbaratamiento de los caracteres.  Para evitar
+este dessbaratabiento, use @code{gs-never-embed-fonts}, pues a
+pesar de su nombre esta opción empotra las fuentes TrueType.
 
 @noindent
-Predeterminado: @code{#f} (que significa no exportar).
+Predeterminado: @code{#f} (que significa no exportar el directorio).
 
 @item @code{font-ps-resdir} @var{cadena}
 Fijar el directorio (como @var{cadena}) para construir un
@@ -670,14 +786,15 @@ primero un PDF sin las fuentes empotradas y empotrar las fuentes
 más tarde con Ghostscript como se ve más abajo.
 
 @example
-$ lilypond -dfont-ps-resdir=resdir -dgs-never-embed-fonts foo.ly
+$ lilypond -dfont-ps-resdir=resdir \
+           -dgs-never-embed-fonts foo.ly
 $ gs -q -dBATCH -dNOPAUSE -sDEVICE=pdfwrite \
      -I resdir -I resdir/Font \
      -sOutputFile=foo.embedded.pdf foo.pdf
 @end example
 
 @noindent
-Nota: es mejor no especificar el directorio que contiene el nombre
+Nota: es mejor no especificar un directorio que contenga el nombre
 @file{Resource} porque este tiene un significado especial al
 especificarlo con la opción @code{-I} para Ghostscript.
 
@@ -686,14 +803,15 @@ Nota: a diferencia de @code{font-export-dir}, este método puede
 empotrar fuentes CID con Ghostscript 9.26 y posteriores.
 
 @noindent
-Nota: de igual manera que @code{font-export-dir}, esta opción se
+Nota: de forma parecida a @code{font-export-dir}, esta opción se
 salta las fuentes TrueType porque el empotrado tardío de fuentes
-TrueType causa un desbaratamiento de los caracteres.  Para evitar
-el desbaratamiento, use @code{gs-never-embed-fonts}, ya que este
-empotra las fuentes TrueType a pesar de su nombre.
+TrueType puede causar un desbaratamiento de los caracteres.  Para
+evitar el desbaratamiento, use @code{gs-never-embed-fonts}, ya que
+este empotra las fuentes TrueType a pesar de su nombre.
 
 @noindent
-Predeterminado: @code{#f} (que significa no construir).
+Predeterminado: @code{#f} (que significa no crear subconjuntos en
+el directorio).
 
 @item @code{gs-load-fonts} @var{bool}
 Si @var{bool} es @code{#t}, cargar fuentes a través de
@@ -718,7 +836,7 @@ solamente tipos de letra TrueType y ningún otro formato de fuente.
 Predeterminado: @code{#f}.
 
 @item @code{help} @var{bool}
-Si @var{bool} es @code{#t}, mostrar esta ayuda.
+Si @var{bool} es @code{#t}, mostrar una pantalla de ayuda y salir.
 Predeterminado: @code{#f}.
 
 @item @code{include-book-title-preview} @var{bool}
@@ -732,14 +850,31 @@ los archivos EPS de cada uno de los sistemas.  Predeterminado:
 
 @item @code{include-settings} @var{cadena}
 Incluir el archivo @var{cadena} de ajustes globales, que se
-incluye antes de que la partitura se procese Predeterminado:
-@code{#f} (que significa que no se incluye ningún archivo de
-ajustes globales).
+incluye antes de que la partitura se procese.  Esta opción se
+puede pasar más de una vez para incluir varios
+archivos. Predeterminado: sin establecer (que significa que no se
+incluye ningún archivo de ajustes globales).
 
 @item @code{job-count} @var{número}
-Procesar en paralelo, utilizando @var{número} tareas.
+Procesar en paralelo, utilizando el @var{número} de tareas
+especificado (siendo @var{número} un entero positivo).
 Predeterminado: @code{#f} (que significa que no se hace ningún
 procesado paralelo).
+
+@item @code{last} @var{cadena}
+Mostrar solamente la música con una duración dada por el valor de
+@var{cadena} al final.  Esto es equivalente a
+
+@example
+showLastLength = @var{cadena}
+@end example
+
+@noindent
+si se escribe al principio del archivo de entrada.  Si están
+establecidos tanto @option{-dlast} como @code{showLastLength},
+tiene prioridad la opción de la línea de órdenes.  Véase
+@rnotationnamed{Extracting fragments of music,
+Extracción de fragmentos de música}.  Predeterminado: @code{#f}.
 
 @item @code{log-file} @var{cadena}
 Redirigir la salida hacia el archivo de registro
@@ -748,52 +883,70 @@ ningún archivo de registro).
 
 @item @code{max-markup-depth} @var{número}
 Fijar la profundidad máxima del árbol de marcado al valor
-@var{número}.  Si un elemento de marcado tiene más niveles,
-suponer que no va a finalizar por sí mismo, imprimir un mensaje de
-advertencia y devolver un elemento de marcado nulo en su lugar.
-Predeterminado: @code{1024}.
+@var{número} (being a non-negative integer).  Si un elemento de
+marcado tiene más niveles, suponer que no va a finalizar por sí
+mismo, imprimir un mensaje de advertencia y devolver un elemento
+de marcado nulo en su lugar.  Predeterminado: @code{1024}.
 
 @item @code{midi-extension} @var{cadena}
-Fijar la extensión de archivo predeterminada para los archivos MIDI de
-salida a @file{.@var{cadena}}.  Predeterminado: @code{"midi"}.
+Fijar la extensión de archivo predeterminada para los archivos
+MIDI de salida a @file{.@var{cadena}}.  Predeterminado:
+@code{"midi"}.
 
 @item @code{music-strings-to-paths} @var{bool}
 Si @var{bool} es @code{#t}, converir las cadenas de texto a
 trayectos cuando los glifos pertenecen a una fuente musical.
 Predeterminado: @code{#f}.
 
-@item @code{paper-size} @var{extra-quoted-string}
-Establecer el tamaño predeterminado de papel a
-@var{extra-quoted-string}.  Observe que la cadena se debe encerrar
-dentro de comillas con prefijo de escape. Predeterminado:
-@code{"\"a4\""}.
+@item @code{paper-size} @var{cadena}
+Fijar el tamaño del papel a @var{cadena}.  Predeterminado:
+@code{"a4"}.
 
-@item @code{pixmap-format} @var{symbol}
+@item @code{pixmap-format} @var{cadena}
 Establecer el formato de salida de Ghostscript para las imágenes
-de matriz de puntos a @var{symbol}.  Predeterminado:
-@code{png16m}.
+de matriz de puntos a @var{cadena}.  Predeterminado:
+@code{"png16m"}.
 
-@item @code{point-and-click} @var{bool}
-Si @var{bool} es @code{#t}, añadir enlaces de @q{apuntar y pulsar}
-links a las salidas de PDF y SVG.  Véase @ref{Point and click}.
-Predeterminado: @code{#t}.
+@item @code{png-width} @var{altura}
+@itemx @code{png-height} @var{anchura}
+Para la salida PNG, fijar la anchura y la altura (en píxeles) del
+archivo de imagen creado.  Si falta una de las opciones, la otra
+dimensión se calcula de acuerdo a la caja circundante EPS,
+reteniendo la relación de aspecto.  Tanto @var{altura} como
+@var{anchura} deben ser números enteros no negativos.
+
+Además de @option{--png}, se deben usar @option{--eps},
+@option{-dcrop} o @option{-dpreview} para conseguir un escalado
+adecuado sin que haya recorte.
+
+La opción @option{-dresolution} se ignora.
+
+Observe que hay un bug en las versiones de Ghostscript hasta la
+9.52 para estas dos opciones: produce imágenes PNG vacías si la
+altura es más grande que la anchura.
+
+Predeterminado: @code{0} tanto para @var{anchura} como para
+@var{altura} (que significa que las dos dimensiones se derivan a
+partir de la caja circundante de EPS).
+
+@item @code{point-and-click} @var{valor}
+Si @var{valor} es @code{#t}, añadir enlaces de @q{apuntar y
+pulsar} a las salidas de PDF y SVG.  Hay más valores de opción
+posibles; @pxref{Point and click}.  Predeterminado: @code{#t}.
 
 @item @code{preview} @var{bool}
 Si @var{bool} es @code{#t}, crear imágenes de vista previa además
 de la salida normal.  Predeterminado: @code{#f}.
 
-Esta opción está contemplada por todos los @q{back-ends}
-(@code{pdf}, @code{png}, @code{ps}, @code{eps} y @code{svg}),
-excepto @code{scm}.  Para un nombre de archivo de entrada
-@var{archivo} y un backend @var{formato}, genera un archivo de
-salida, con el nombre
-@file{@var{archivo}@code{.preview.}@var{formato}}, que contiene
-los títulos y el primer sistema de la música.  Si se están
-utilizando bloques @code{\book} o @code{\bookpart}, aparecen en la
-salida los títulos de @code{\book}, @code{\bookpart} o
-@code{\score}, incluido el primer sistema de cada bloque
-@code{\score} si la variable de @code{\paper}
-@code{print-all-headers} está fijada al valor @code{#t}.
+Para un nombre de archivo de entrada @var{archivo} y el formato de
+salida @var{fmt}, genera un archivo de salida, con el nombre
+@file{@var{file}@code{.preview.}@var{fmt}}, que contiene los
+títulos y el primer sistema de la música.  Si se están utilizando
+bloques @code{\book} o @code{\bookpart}, aparecen en la salida los
+títulos de @code{\book}, @code{\bookpart} o @code{\score},
+incluido el primer sistema de cada bloque @code{\score} si la
+variable de @code{\paper} @code{print-all-headers} está fijada al
+valor @code{#t}.
 
 Para suprimir la salida usual, utilice las opciones
 @option{-dprint-pages} o @option{-dno-print-pages} según sus
@@ -813,6 +966,12 @@ sintáctico.  Si se establece al valor @code{#f}, detenerse cuando
 se produzca algún error e imprimir una traza de la pila.
 Predeterminado: @code{#t}.
 
+@item @code{read-file-list} @var{bool}
+Si @var{bool} es @code{#t}, manejar todos los argumentos de
+archivo en la línea de órdenes como listas de archivos de entrada
+de LilyPond que procesar, con un archivo de entrada por cada línea
+en dichas listas.  Predeterminado: @code{#f}.
+
 @item @code{relative-includes} @var{bool}
 Cuando se procesa una instrucción @code{\include}, buscar el
 archivo de inclusión en una ruta relativa al archivo actual si
@@ -822,46 +981,8 @@ archivo según una ruta relativa al archivo raíz.  Predeterminado:
 
 @item @code{resolution} @var{número}
 Fijar la resolución para generar imágenes de matriz de puntos
-@code{PNG} a @var{número} ppp.  Predeterminado: @code{101}.
-
-@item @code{safe} @var{#f}
-No confiar en la entrada @code{.ly}.
-
-Cuando el servicio de tipografía está disponible a través de un
-servidor web, @b{SE DEBEN} pasar las opciones @code{-dsafe} o
-@option{--jail}.  La opción @code{-dsafe} evita que el código de
-Scheme empotrado pueda producir un desastre, p.ej.:
-
-@example
-% demasiado peligroso para escribirlo correctamente
-#(s ystem "rm -rf /")
-% malicioso pero no destructivo
-@{ c4^$(ly:gulp-file "/etc/passwd") @}
-@end example
-
-La opción @option{-dsafe} funciona evaluando las expresiones de
-Scheme en línea dentro de un módulo seguro especial.  Deriva del
-módulo @file{safe-r5rs} de Guile, pero además añade unas cuantas
-funciones de la API de LilyPond que están relacionadas en
-@file{scm/safe-lily.scm}.
-
-Además, el modo seguro prohíbe las directivas @code{\include} y
-desactiva la utilización de barras invertidas en las cadenas de
-@TeX{}.  Asimismo, no es posible importar variables de LilyPond dentro
-de Scheme cuando se está en modo seguro.
-
-La opción @option{-dsafe} @emph{no} detecta la sobreutilización de
-recursos, por lo que aún es posible hacer que el programa se
-cuelgue indefinidamente, por ejemplo suministrando estructuras de
-datos cíclicas en el backend.  Por ello, si está usando LilyPond
-en un servidor web accesible públicamente, el proceso se debe
-limitar tanto en el uso de memoria como de CPU.
-
-El modo seguro evita que se puedan compilar muchos fragmentos de
-código útiles.
-
-La opción @option{--jail} es una alternativa más segura aún, pero
-requiere más trabajo para su configuración.  Véase @ref{Basic command-line options for LilyPond}.
+@code{PNG} a @var{número} ppp (que debe ser un número positivo).
+Predeterminado: @code{101}.
 
 @item @code{separate-log-files} @var{bool}
 Para los archivos de entrada @file{archivo1.ly},
@@ -869,12 +990,30 @@ Para los archivos de entrada @file{archivo1.ly},
 los archivos @file{archivo1.log}, @file{archivo2.log}, @dots{}, si
 @var{bool} es @code{#t}.  Predeterminado: @code{#f}.
 
+@item @code{separate-page-formats} @var{cadena}
+Lista de formatos separados por comas (@code{svg}, @code{pdf},
+@code{png} o @code{eps}) para usarlos para las imágenes de página
+separadas en @code{lilypond-book}.  @xref{Other programs}.
+Predeterminado: @code{#f}.
+
 @item @code{show-available-fonts} @var{bool}
 Si @var{bool} es @code{#t}, imprimir un listado de los nombres de
 fuente tipográfica disponibles tal y como los proporciona la
 biblioteca fontconfig.  Al final de esta lista, LilyPond presenta
 los ajustes de configuración del propio fontconfig.
 Predeterminado: @code{#f}.
+
+@item @code{staff-size} @var{número}
+Fijar el tamaño global del pentagrama en @var{número} puntos (que
+debe ser un número positivo).  Esto es equivalente a
+
+@example
+#(set-global-staff-size @var{número})
+@end example
+
+@noindent
+si se escribe al comienzo del archivo de entrada.  Predeterminado:
+20@dmn{pt}.
 
 @item @code{strip-output-dir} @var{bool}
 Si @var{bool} es @code{#t}, no utilizar la parte del directorio
@@ -894,19 +1033,20 @@ muy significativa a la calidad de la impresión y causa grandes
 incrementos en el tamaño del archivo PDF.  Predeterminado:
 @code{#f}.
 
-@item @code{svg-woff} @var{bool}
-Esta opción es necesaria al usar archivos de fuente abierta para
-la Web, Web Open Font Format (WOFF) con el backend @code{svg}.  Si
-@var{bool} es @code{#t}, se crea un solo archivo SVG para cada
-página de salida.  Aparte de los glifos musicales propios de
-LilyPond, no se incluye ninguna otra información de fuente
-tipográfica.  Todo visor de SVG necesita, por ello, tener las
-fuentes disponibles para la representación correcta tanto del
-texto como de la letra.  Asimismo se recomienda no usar alias de
-fuentes ni listas, por si el visor de SVG no es capaz de
-manejarlos.  Predeterminado: @code{#f}.
+@item @code{tall-page-formats} @var{cadena}
+Lista de formatos separados por comas (@code{svg}, @code{pdf},
+@code{png} o @code{eps}) que usar para la imagen de @q{página
+larga} en @code{lilypond-book}.  @xref{Other programs}.
+Predeterminado: @code{#f}.
 
-@item @code{verbose}
+@item @code{use-paper-size-for-page} @var{bool}
+Si @var{bool} es @code{#t}, cada página se fija al tamaño del
+papel, posiblemente recortanfo partes que se salen de la página.
+Si se establece a @code{#f} se redimensiona la página según sea
+necesario de forma que todo el contenido esté incluido.
+Predeterminado: @code{#t}.
+
+@item @code{verbose} @var{bool}
 Nivel de verbosidad.  Esta es una opción de solo lectura; su
 establecimiento no tiene ningún efecto.
 
@@ -916,6 +1056,7 @@ advertencia y de @q{error de programación} a errores.
 Predeterminado: @code{#f}.
 
 @end table
+
 
 @node Environment variables
 @unnumberedsubsec Variables de entorno
@@ -930,12 +1071,12 @@ Predeterminado: @code{#f}.
 @table @code
 
 @item LILYPOND_DATADIR
-Especifica un directorio en el que los mensajes de localización y
-de datos se buscan de forma predeterminada, sobreescribiendo las
+Especifica un directorio en el que los mensajes de localización y de
+datos se buscan de forma predeterminada, sobreescribiendo las
 ubicaciones definidas en tiempo de compilación o computadas
-dinámicamente en tiempo de ejecución (véase
-@ref{Relocation}).  El directorio debe contener
-subdirectorios llamados @file{ly}, @file{ps}, @file{tex}, etc.
+dinámicamente en tiempo de ejecución (@pxref{Relocation}).  El
+directorio debe contener subdirectorios llamados @file{ly}, @file{ps},
+@file{tex}, etc.
 
 @item LILYPOND_LOCALEDIR
 Espcificar el directorio en que están los archivos específicos de
@@ -959,12 +1100,12 @@ nivel de registro explícito (es decir, sin opción de línea de
 
 @item LILYPOND_GC_YIELD
 Una variable, como porcentaje, que ajusta el comportamiento de la
-administración de memoria.  Con valores más altos, el programa usa
-más memoria; con valores más bajos, usa más tiempo de CPU.  El
-valor predeterminado es @code{70}.
+administración de memoria.  Un valor más alto significa que el
+programa usa más memoria; con valores más bajos, usa más tiempo de
+CPU.  El valor predeterminado es @code{70}.
 
 @item TMPDIR
-Esto especifica el directorio temporal en GNU/Linux y Mac.  EL
+Esto especifica el directorio temporal en GNU/Linux y macOS.  El
 predeterminado es @file{/tmp}.  Es el directorio en que se guardan
 los archivos intermedios (tales como archivos de PostScript)
 durante la compilación.  La sobreescritura de esta variable podría
@@ -976,6 +1117,7 @@ predeteminado.  Ejemplo: @code{TMPDIR=~/foo}.
 
 @node Relocation
 @unnumberedsubsec Reubicación del programa
+
 @cindex reubicación
 
 Casi todos los programas dentro del mundo Unix utilizan
@@ -993,7 +1135,7 @@ manual y para plataformas que vienen con gestores de paquetes
 estandarizados, puede producir algunos problemas allí donde los
 mencionados gestores no son tan comunes o no se utilizan por
 defecto.  Son ejemplos típicos de este tipo de plataformas Windows
-y MacOS, donde los usuarios dan por sentado que todo lo que viene
+y macOS, donde los usuarios dan por sentado que todo lo que viene
 con la aplicación se puede ubicar en cualquier lugar.
 
 La solución habitual a este problema es que el programa contemple
@@ -1117,7 +1259,7 @@ para @code{relocdir}, puesto que no tiene razón de ser).
 
 @item
 Si @code{relocdir} existe, procesar todos los archivos de este
-directorio como se describe en @ref{Relocation files}.
+directorio (@pxref{Relocation files}).
 
 @end enumerate
 
@@ -1172,8 +1314,8 @@ chown lily /mnt/lilyloop/lilyhome
 y DIR será @code{/lilyhome}.
 
 @item Cree un gran árbol de directorios dentro de la jaula copiando los
-archivos necesarios, como se muestra en el guión de ejemplo que aparece
-más abajo.
+archivos necesarios, como se muestra en el guión de ejemplo que
+aparece más abajo.
 
 Puede usar @code{sed} para crear los archivos de copia necesarios
 para un ejecutable dado:
@@ -1309,8 +1451,8 @@ archivo de entrada, los mensajes tienen la forma siguiente:
 @var{línea de entrada problemática}
 @end example
 
-Se inserta un salto de línea en la línea problemática para indicar la
-columna en que se encontró el error. Por ejemplo,
+Se inserta un salto de línea en la línea problemática para indicar
+la columna en que se encontró el error. Por ejemplo,
 
 @example
 prueba.ly:2:19: error: no es una duración: 5
@@ -1334,7 +1476,7 @@ mensaje varias veces.  Los diagnósticos producidos en un estado
 @q{tardío} (como las comprobaciones de compás) también podrían
 emitirse más de una vez.
 
-Se ofrece más información sobre los errores en la sección @ref{Common errors}.
+@xref{Common errors} para más información sobre los errores.
 
 
 @node Common errors
@@ -1366,9 +1508,10 @@ antes de o justo al final del compás.
 saltos de línea, lo que llevaría a una sola línea de música muy
 comprimida o que se salga de la página.}
 
-La duración incorrecta se puede encontrar fácilmente si se utilizan
-comprobaciones de compás, véase @rnotationnamed{Bar and bar number checks, Comprobación de compás y de
-número de compás}.
+La duración incorrecta se puede encontrar fácilmente si se
+utilizan comprobaciones de compás, véase
+@rnotationnamed{Bar and bar number checks,
+Comprobación de compás y de número de compás}.
 
 Si realmente queremos tener una serie de estos compases con notas
 solapadas, debemos insertar una línea divisoria invisible donde
@@ -1452,19 +1595,20 @@ insertando
 
 @noindent
 al comienzo.  Para ver más detalles, consulte @qq{Espaciado de las
-líneas que no son pautas} en @rnotationnamed{Flexible vertical spacing within systems, Espaciado vertical flexible
-dentro de los sistemas}.
+líneas que no son pautas} en
+@rnotationnamed{Flexible vertical spacing within systems,
+Espaciado vertical flexible dentro de los sistemas}.
 
 
 @node Error message unexpected new
 @unnumberedsubsec Mensaje de error Unexpected @code{\new}
 
 Un bloque @code{\score} debe contener una @emph{única} expresión
-musical.  Si en vez de ello contiene varias instrucciones @code{\new
-Staff}, @code{\new StaffGroup} o contextos similares introducidos con
-@code{\new} sin que se hayan encerrado entre llaves curvas, @code{@{
-@dots{} @}}, o dobles paréntesis en ángulo, @code{<< @dots{}  >>},
-así:
+musical.  Si en vez de ello contiene varias instrucciones
+@code{\new Staff}, @code{\new StaffGroup} o contextos similares
+introducidos con @code{\new} sin que se hayan encerrado entre
+llaves curvas, @code{@{ @dots{} @}}, o dobles paréntesis en
+ángulo, @code{<< @dots{}  >>}, así:
 
 @example
 \score @{
@@ -1544,3 +1688,4 @@ que otra con @code{\voiceOne}, y casos semejantes).
 @rlearningnamed{Real music example, Ejemplos reales de música},
 @rnotationnamed{Single-staff polyphony, Polifonía en un solo pentagrama},
 @rnotationnamed{Collision resolution, Resolución de las colisiones}.
+@endmorerefs

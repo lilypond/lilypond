@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 57617f931023d96645723d8139579e09948942f1
+    Translation of GIT committish: a89ce825110cd72128b4d88c277c3e561215f38f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -56,8 +56,9 @@ Cada uno de los editores puede puede tener una sintaxis distinta
 para abrir un archivo en una línea y columna específicas.  Para la
 conveniencia del usuario, LilyPond incorpora instrucciones ya
 preparadas para varios editores, relacionados en
-@file{scm/editor.scm}.  Esto significa que puede limitarse a
-escribir el nombre del binario del editor, p. ej.:
+@file{scripts/lilypond-invoke-editor.py}.  Esto significa que
+puede limitarse a escribir el nombre del binario del editor,
+p. ej.:
 
 @example
 export LYEDITOR=atom
@@ -72,11 +73,10 @@ atom %(file)s:%(line)s:%(column)s
 donde @code{%(file)s}, @code{%(line)s} y @code{%(column)s} se
 sustituyen por el archivo, la línea y la columna respectivamente.
 
-Para usar un editor que no está relacionado en
-@file{scm/editor.scm}, debe encontrar su sintaxis específica y
-asignar la instrucción al completo que corresponde a
-@code{LYEDITOR}.  He aquí un ejemplo para el editor Visual Studio
-Code:
+Para usar un editor que no está relacionado en el guion, debe
+encontrar su sintaxis específica y asignar la instrucción al
+completo que corresponde a @code{LYEDITOR}.  He aquí un ejemplo
+para el editor Visual Studio Code:
 
 @example
 export LYEDITOR="code --goto %(file)s:%(line)s:%(column)s"
@@ -88,67 +88,15 @@ Debe añadir la línea @code{(server-start)} a su archivo
 objeto del PDF abrirá una nueva ventana de Emacs.}
 
 
-@node Using Xpdf for point and click
-@unnumberedsubsubsec Uso de Xpdf
-@cindex Xpdf
+@node Using GNOME for point and click
+@unnumberedsubsubsec Uso de GNOME para apuntar y pulsar
 
-Para Xpdf sobre Unix, lo siguiente debe estar presente en
-@file{xpdfrc}.  En Unix, este archivo se encuentra o bien en
-@file{/etc/xpdfrc} o como @file{$HOME/.xpdfrc}.
+@c This likely also works with KDE, no?
 
-@example
-urlCommand     "lilypond-invoke-editor %s"
-@end example
-
-Si está usando Ubuntu, probablemente la versión de Xpdf instalada
-en su sistema efectúe paradas abruptas en cada documento PDF: este
-estado se viene prolongando desde hace varios años y se debe a la
-falta de correspondencia entre bibliotecas.  Lo mejor que puede
-hacer en vez de ello es instalar un paquete @samp{xpdf}
-actualizado y el paquete @samp{libpoppler} correspondiente
-procedente de Debian.  Una vez haya comprobado que funciona, puede
-usar
-
-@example
-sudo apt-mark hold xpdf
-@end example
-
-@noindent
-con el objeto de evitar que Ubuntu lo sobreescriba con la
-siguiente @q{actualización} de su paquete defectuoso.
-
-
-@node Using GNOME 2 for point and click
-@unnumberedsubsubsec Uso de GNOME 2
-
-Para usar GNOME 2 (y los visores de documentos PDF integrados en
-él), el conjuro para informar al sistema acerca de la URI
-@samp{textedit:} es:
-
-@smallexample
-gconftool-2 -t string -s /desktop/gnome/url-handlers/textedit/command "lilypond-invoke-editor %s"
-gconftool-2 -s /desktop/gnome/url-handlers/textedit/needs_terminal false -t bool
-gconftool-2 -t bool -s /desktop/gnome/url-handlers/textedit/enabled true
-@end smallexample
-
-Después de esta invocación,
-
-@example
-gnome-open textedit:///etc/issue:1:0:0
-@end example
-
-@noindent
-debería llamar a @file{lilypond-invoke-editor} para abrir
-archivos.
-
-@node Using GNOME 3 for point and click
-@unnumberedsubsubsec Uso de GNOME 3
-
-En GNOME 3, las URIs se manejan por parte de la capa @q{gvfs} en
-vez de por @q{gconf}.  Debe crear un archivo en un directorio
-local como @file{/tmp} con el nombre
-@file{lilypond-invoke-editor.desktop} y que tenga el siguiente
-contenido:
+En GNOME, las URIs se tratan por medio de archivos @q{.desktop}.
+Cree un archivo en un diresctorio local como @file{/tmp} con el
+nombre @file{lilypond-@/invoke-@/editor.desktop} y que tenga el
+contenido siguiente.
 
 @example
 [Desktop Entry]
@@ -172,7 +120,7 @@ xdg-mime default lilypond-invoke-editor.desktop x-scheme-handler/textedit
 Tras esta invocación,
 
 @example
-gnome-open textedit:///etc/issue:1:0:0
+xdg-open textedit:///etc/issue:1:0:0
 @end example
 @noindent
 debería llamar a @file{lilypond-invoke-editor} para abrir
@@ -183,10 +131,10 @@ archivos.
 @unnumberedsubsubsec Configuración adicional para Evince
 @cindex Evince
 
-Si @code{gnome-open} funciona, pero Evince aún rehúsa abrir
-enlaces de Apuntar y pulsar a causa de permisos denegados, quizá
-tenga que cambiar el perfil de Apparmor de Evince, que controla el
-tipo de acciones que se le permite realizar a Evince.
+Si @code{xdg-open} funciona, pero Evince aún rehúsa abrir enlaces
+de Apuntar y pulsar a causa de permisos denegados, quizá tenga que
+cambiar el perfil de Apparmor de Evince, que controla el tipo de
+acciones que se le permite realizar a Evince.
 
 Para Ubuntu, el proceso es editar el archivo
 @file{/etc/apparmor.d/local/usr.bin.evince} y añadir al final las
@@ -318,10 +266,9 @@ Línea de órdenes:
 
 @example
 lilypond \
-  -e"(ly:set-option 'point-and-click '(note-event dynamic-event))" \
+  -dpoint-and-click="(note-event dynamic-event)" \
   example.ly
 @end example
-
 
 @end itemize
 
@@ -378,7 +325,7 @@ mismo orden:
 
 @example
 filetype off
-set runtimepath+=/usr/local/share/lilypond/current/vim/
+set runtimepath+=/usr/local/share/lilypond/@version{}/vim/
 filetype on
 syntax on
 @end example
@@ -407,7 +354,7 @@ herramientas incluidas en la distribución que permiten hacerlo.
 Existen otras herramientas que producen código de entrada de
 LilyPond, como por ejemplo secuenciadores con interfaz gráfico y
 convertidores de XML.  Consulte el
-@uref{https://@/lilypond@/.org,website} para ver más detalles.
+@uref{https://@/lilypond@/.org,sitio web} para ver más detalles.
 
 Son programas distintos a @command{lilypond} propiamente dicho, y
 se ejecutan desde la línea de órdenes; consulte
@@ -422,10 +369,10 @@ están}.  Se agradecerá el envío de parches correctores, pero los
 informes de fallo casi con certeza no se resolverán a medio plazo.
 
 @menu
-* Invoking midi2ly::             Importar archivos MIDI.
-* Invoking musicxml2ly::         Importar archivos MusicXML.
-* Invoking abc2ly::              Importar archivos ABC.
-* Invoking etf2ly::              Importar archivos de Finale.
+* Invoking midi2ly::     Importar archivos MIDI.
+* Invoking musicxml2ly:: Importar archivos MusicXML.
+* Invoking abc2ly::      Importar archivos ABC.
+* Invoking etf2ly::      Importar archivos de Finale.
 * Other formats::
 @end menu
 
@@ -449,8 +396,8 @@ directo.
 
 @command{midi2ly} convierte las pistas en contextos de
 @rinternals{Staff}) y los canales en contextos de
-@rinternals{Voice}.  Se utiliza el modo relativo para las alturas, y
-las duraciones se escriben solamente cuando es necesario.
+@rinternals{Voice}.  Se utiliza el modo relativo para las alturas,
+y las duraciones se escriben solamente cuando es necesario.
 
 Es posible grabar un archivo MIDI usando un teclado digital y
 convertirlo después a @file{.ly}.  Sin embargo, los intérpretes
@@ -468,8 +415,8 @@ midi2ly [@var{opción}]@dots{} @var{archivo_midi}
 
 Observe que al decir @q{línea de órdenes}, queremos decir la línea
 de órdenes del sistema operativo.  Consulte
-@ref{Converting from other formats} para ver más información
-sobre esto.
+@ref{Converting from other formats} para ver más información sobre
+esto.
 
 @command{midi2ly} contempla las siguientes opciones:
 
@@ -502,13 +449,13 @@ Cuantizar el inicio de las notas a @var{DURACIÓN}.
 Permitir duraciones de grupos especiales @var{DURACIÓN}*@var{NUMERADOR}/@var{DENOMINADOR}.
 
 @item -v, --verbose
-Ser prolijo en comentarios.
+Ser prolijo.
 
 @item -V, --version
 Imprimir el número de la versión.
 
 @item -w, --warranty
-Presentar la garantía y el  copyright.
+Presentar la garantía y el copyright.
 
 @item -x, --text-lyrics
 Tratar todos los textos como letra de la canción.
@@ -522,124 +469,171 @@ fraseo o indicaciones de pedal.
 
 
 @node Invoking musicxml2ly
-@subsection Invocar @command{musicxml2ly}
+@subsection Invocar @code{musicxml2ly}
 
 @cindex MusicXML
 
-@uref{http://@/www.@/musicxml@/.org/,MusicXML} es un
-dialecto del XML para representar notación musical.
+@uref{https://www.w3.org/2021/06/musicxml40/,MusicXML} es un
+dialecto del XML para representar notación musical.  Es el
+estándar de facto para el intercambio de partituras entre
+programas de notación.  Sin embargo, algunos de sus elementos son
+de nivel bastante bajo y están más bien orientados a los gráficos,
+lo que hace que no sea trivial (incluso imposible a veces)
+convertidlos automáticamente a LilyPond.
 
-@command{musicxml2ly} extrae las notas, articulaciones, estructura
-de la partitura y letra de archivos de MusicXML @q{que estén
-dividos en partes}, y los escribe en un archivo @file{.ly}.  Se
-ejecuta desde de la línea de órdenes como sigue:
+El guion de Python @command{musicxml2ly} extrae las notas,
+articulaciones, estructura de la partitura y letra de archivos de
+MusicXML @q{que estén dividos en partes}, y los escribe en un
+archivo @file{.ly}.  Se ejecuta desde de la línea de órdenes como
+sigue:
 
 @example
-musicxml2ly [@var{opción}]@dots{} @var{archivo.xml}
+musicxml2ly [@var{opción}]@dots{} @var{archivo}
 @end example
 
 Observe que por @q{línea de órdenes}, nos referimos a la línea de
-órdenes del sistema operativo.  Consulte @ref{Converting from other formats}, para obtener más información acerca de esto.
+órdenes del sistema operativo.  Consulte
+@ref{Converting from other formats}, para obtener más información
+acerca de esto.
 
-Si el nombre de archivo proporcionado es @file{-} en lugar de
-@var{archivo.xml}, @command{musicxml2ly} lee toda la entrada
-directamente a partir de la entrada estándar.
+De manera predeterminada, @command{musicxml2ly} elimina la
+extensión del @var{archivo} y añade @file{.ly} al final para
+construir el nombre del archivo de salida.  Si @var{archivo} es
+@q{@file{-}}, el archivo lee en su lugar a partir de la entrada
+estándar (y escribe a la salida estándar).
 
-@command{musicxml2ly} contempla las siguientes opciones:
+Si no se encuentra el archivo con el nombre @file{@var{archivo}},
+se intentan usar como archivos de entrada
+@file{@var{archivo}.xml}, @file{@var{archivo}.musicxml} y
+@file{@var{archivo}.mxl}.
+
+@command{musicxml2ly} contempla las siguientes opciones.
 
 @table @code
 @item -a, --absolute
-convertir las alturas en modo absoluto.
+Convertir las alturas en modo absoluto.
+
+@item --book
+Poner la partitura del nivel superior dentro de un bloque
+@code{\book @{ ... @}}.  Esto puede ser de utilidad para el
+procesado posterior con @command{lilypond-book}.
+
+@item --cp, --credit-page=@var{n}
+Especificar la página a partir de la cual LilyPond debe tomar los
+datos de @code{<credit>} para cumplimentar el bloque
+@code{\header}.  Para eliminar el tratamiento de los elementos de
+@code{<credit>}para el valor@tie{}0.  El valor por omisión
+es@tie{}1, es decir, tomar los datos de la primera página.
+
+@item --ds, --dynamics-scale=@var{factor}
+Escalar los elementos @code{<dynamics>} en un factor no negativo
+@var{factor}; el valor de 0 significa usar el tamao estándar de
+LilyPond para los matices dinámicos.  Esta opción puede ser
+necesaria para los archivos MusicXML que usan una fuente
+tipográfica para la música como @q{Maestro}, en la que el tamaño
+de los símbolos de matiz dinámico como @q{f} o @q{p} difieren
+mucho de los glifos de la fuente @q{Emmentaler} de LilyPond.
 
 @item --fb --fretboards
-convierte los eventos @code{<frame>} en una voz independiente de
-diagramas de trastes en lugar de elementos de marcado.
+Convertir los eventos @code{<frame>} en una voz independiente de
+diagramas de trastes @code{FretBoard} en lugar de elementos de
+marcado.
 
 @item -h, --help
-mostrar un resumen de la utilización y las opciones.
+Imprimir un resumen de la utilización y todas las opciones de la
+línea de órdenes disponibles.
 
-@item -l, --language=IDIOMA
-utilizar IDIOMA para los nombres de las notas,
-p.ej. @code{español} para los nombres de las notas en español.
+@item -l, --language=@var{idioma}
+Usar @var{idioma} para los nombres de las notas,
+p.ej. @code{deutsch} para los nombres de las notas en alemán.  Los
+valores permitidos son los idiomas de entrada de notas
+contemplados por LilyPond, véase
+@rnotation{Note names in other languages}.
 
-@item --loglevel=@var{LOGLEVEL}
-fijar el grado en que la salida es prolija al valor dado en
-@var{LOGLEVEL}.  Los valores posibles son @code{NONE} (ninguno),
-@code{ERROR} (errores), @code{WARN} (advertencias),
-@code{PROGRESS} (avance; predeterminado) y @code{DEBUG}
-(depuración).
-
-@item --lxml
-usar el paquete de Python lxml.etree para el análisis de XML; usa
-menos memoria y tiempo de CPU.
+@item --loglevel=@var{nivel}
+Establecer nivel de registro al valor @var{nivel}.  Los valores
+posibles son @code{NONE} (ninguno), @code{ERROR} (error),
+@code{WARN} (advertencias), @code{PROGRESS} (progreso) (que es el
+valor predeterminado), y @code{DEBUG} (depuración).
 
 @item -m, --midi
-activar el bloque midi dentro del archivo @var{.ly}.
+Activar el bloque MIDI dentro del archivo de salida de LilyPond.
 
 @item --nb, --no-beaming
-no convertir la información de las barras, en vez de ello usar el
+No convertir la información de las barras, en vez de ello usar el
 barrado automático de LilyPond.
 
 @item --nd, --no-articulation-directions
-no convertir las direcciones (@code{^}, @code{_} o @code{-}) para
+No convertir las direcciones (@samp{^}, @samp{_} o @samp{-}) para
 las articulaciones, dinámica, etc.
 
-@item --nrp, --no-rest-positions
-no convertir las posiciones verticales exactas de los silencios.
-
-@item --nsb, --no-system-breaks
-ignorar los saltos de sistema.
+@item --npb, --no-page-breaks
+Ignorar los saltos de página.
 
 @item --npl, --no-page-layout
-no convertir la disposición exacta de la página y los saltos (es
-una forma compacta equivalente a las opciones @code{--nsb}
-@code{--npb} @code{--npm}).
-
-@item --npb, --no-page-breaks
-ignorar los saltos de página.
+No convertir la disposición exacta de la página y los saltos (es
+una forma compacta equivalente a las opciones @option{--nsb}
+@option{--npb} @option{--npm}).
 
 @item --npm, --no-page-margins
-ignorar los márgenes de la página.
+Ignorar los márgenes de la página.
+
+@item --nrp, --no-rest-positions
+No convertir las posiciones verticales exactas de los silencios.
+
+@item --nsb, --no-system-breaks
+Ignorar los saltos de sistema.
 
 @item --nsd, --no-stem-directions
-ignorar las direcciones de las plicas a partir del MusicXML, y en
-su lugar utilizar las plicas de dirección automática de LilyPond.
+Ignorar las direcciones de las plicas a partir del archivo
+MusicXML, y en su lugar utilizar las plicas de dirección
+automática de LilyPond.
 
-@item -o, --output=@var{ARCHIVO}
-fijar el nombre del archivo de salida como @var{ARCHIVO}. Si
-@var{ARCHIVO} es @file{-}, la salida se imprime sobre stdout, la
-salida estándar.  Si no se proporciona ninguno, en su lugar se usa
-@var{archivo_xml.ly}.
+@item --nt, --no-tagline
+No producir una @emph{tagline} o línea de etiqueta de LilyPond (en
+la parte inferior de la primera página).
+
+@item -o, --output=@var{archivo}
+Fijar el nombre del archivo de salida como @var{archivo}. Si
+@var{archivo} es @q{@file{-}}, la salida se imprime sobre stdout, la
+salida estándar.
+
+@item --oe, --ottavas-end-early=t[rue]/f[alse]
+Esperar elementos de final @code{<octave-shift>} antes de la
+@code{<note>} asociada (como en el programa de edición de
+partituras @q{Finale}) si el valor es @samp{t} (o @code{true}).
+El valor por omisión es @samp{f} (o @code{false}).
 
 @item -r, --relative
-convertir las alturas en modo relativo (predeterminado).
+Convertir las alturas en modo relativo (predeterminado).
 
-@item --transpose=NOTA_DESTINO
-transporte que efectuar, entendido como el intervalo entre la nota
-@code{c} y @var{NOTA_DESTINO}.
-
-@item --sm, --shift-meter=BEATS/BEATTYPE
-cambiar la longitud o duración de las notas como una función de
-una indicación de compás dada para hacer que la partitura parezca
-más rápida o más lenta, (p.ej. @code{4/4} o @code{2/2}).
-
-@item --tc, --tab-clef=TABCLEFNAME
-alternar entre las dos versiones de claves de tablatura
-(@code{tab} y @code{moderntab}).
+@item --sm, --shift-duration=@var{valor}
+Desplazar la longitud o duración de las notas y las indicaciones
+de compás en @var{valor}; por ejemplo, el valor@tie{}-1 dobla
+todas las duraciones, y el valor@tie{}1 las reduce a la mitad.
 
 @item --sn --string-numbers=t[rue]/f[alse]
-desactivar el símbolo del número de cuerda con
-@code{--string-numbers} @code{false}.  Lo predeterminado es
-@code{true}.
+Controlar la salida de los números de las cuerdas; el valor
+@samp{f} (o @code{false}) los desactiva.  Lo predeterminado es
+@samp{t} (o @code{true}).
+
+@item --tc, --tab-clef=@var{nombre-de-la-clave-de-tablatura}
+Alternar entre las dos versiones de claves de tablatura.  Los
+valores posibles para @var{nombre-de-la-clave-de-tablatura} son
+@code{tab} (el predeterminado) y @code{moderntab}.
+
+@item --transpose=@var{nota-destino}
+Transporte que efectuar, entendido como el intervalo entre la nota
+@q{c} y @var{nota-destino}.
 
 @item -v, --verbose
-ser prolijo.
+Ser prolijo.
 
-@item -v, --version
-mostrar la información de la versión y salir.
+@item --version
+Mostrar la información de la versión y salir.
 
 @item -z, --compressed
-el archivo de entrada es un archivo MusicXML comprimido en zip.
+El archivo de entrada es un archivo MusicXML comprimido en zip.
 @end table
 
 
@@ -737,8 +731,8 @@ etf2ly [@var{opción}]@dots{} @var{archivo_etf}
 
 Observe que por @q{línea de órdenes}, nos referimos a la línea de
 órdenes del sistema operativo.  Consulte
-@ref{Converting from other formats}, para obtener más
-información acerca de esto.
+@ref{Converting from other formats}, para obtener más información
+acerca de esto.
 
 @command{etf2ly} contempla las siguientes opciones:
 
@@ -784,7 +778,8 @@ distintos del método automatizado con @command{lilypond-book}.
 Además de @code{lilypond-book} para integrar la salida de
 LilyPond, existe un programa alternativo que puede utilizarse si
 se emplea Lua@TeX{}, llamado
-@uref{https://github.com/jperon/lyluatex/blob/master/README.en.md,lyluatex}.
+@uref{https://github.com/jperon/lyluatex/blob/master/README.md,lyluatex}.
+
 
 @node OpenOffice and LibreOffice
 @subsection OpenOffice y LibreOffice
@@ -803,61 +798,116 @@ OpenOffice. También deben funcionar las versiones
 antiguas. Incluso se ha comprobado que funciona con OpenOffice 2.4
 sin ningún problema.
 
+@node ly2video
+@subsection @command{ly2video}
+
+@cindex @command{ly2video}
+@cindex score, creating videos
+@cindex videos, with scrolling score
+@cindex MIDI, synchronized video
+
+Usando el guion de Python
+@uref{https://github.com/aspiers/ly2video,@command{ly2video}} se
+pueden crear vídeos que contienen una partitura que se desplaza
+horizontalmente sincronizada con un renderizado de audio de la
+música, generado por el MIDI.  También es posible sincronizar el
+vídeo de la notación de música que se desplaza con una pista de
+audio de la música grabada previamente, como una interpretación en
+vivo, incluso si el audio usa un tempo rubato o no es exactamente
+metronómica.
+
 
 @node Other programs
 @subsection Otros programas
 
-Otros programas capaces de manejra los formatos @file{PNG},
-@file{EPS} o @file{PDF} deberían usar @code{lilypond} en vez de
-@code{lilypond-book}.  Cada archivo de salida de LilyPond debe
-crearse individualmente y añadirse al documento; consulte la
-documentación del programa correspondiente acerca de la manera de
-insertar archivos desde otras fuentes.
+Cuando se integran partituras de LilyPond dentro de documentos en
+otros programas, tiene que clonar o imitar la forma en que
+@command{lilypond-book} llama a @command{lilypond}.
 
-Para reducir el espacio vacío alrededor de la partitura de
-LilyPond, utilice las siguientes opciones:
+Aquí estudiamos cómo crear imágenes @file{PNG} para su uso con
+formatos online similares al HTML, e imágenes en @file{PDF} y
+@file{EPS} para formatos de impresión similares a @file{PDF}.
+
+Los documentos PDF se formatean habitualmente teniendo en cuenta
+la impresión.  Esto significa que las piezas de música extensas
+pueden ocupar varias páginas.  Para funcionar de este modo,
+invoque a @command{lilypond} como
+
+@example
+lilypond -dseparate-page-formats=pdf archivo.ly
+@end example
+
+@noindent
+Esto crea @file{archivo-1.pdf}, @file{archivo-2.pdf}, @dots{},
+cada uno con una única página.
+
+Para insertar las imágenes dentro de un archivo de PostScript,
+puede crear archivos @file{EPS}, usando
+@code{-dseparate-page-formats=eps}.  En este caso, quizá quiera
+también especificar @code{-dno-gs-load-fonts -dinclude-eps-fonts},
+pues en caso contrario los archivos @file{EPS} no se generarán si
+se copian a otro sistema.
+
+Los documentos HTML no se imprimen, por lo que normalmente no hay
+que preocuparse por la división de las imágenes de música en los
+saltos de página, y podemos usar una sola imagen (posiblemente muy
+alta) para representar una partitura larga.  Esto se puede
+conseguir con
+
+@example
+lilypond -dtall-page-formats=png miarchivo.ly
+@end example
+
+@noindent
+dando como resultado una imagen @file{miarchivo.png} que tiene
+todas las páginas de @file{miarchivo.ly} apiladas verticalmente.
+
+La especificación de @code{-dseparate-page-formats} o de
+@code{-dtall-page-formats} suprime el modo de salida estándar
+(archivo único con varias páginas) y la opción @code{--formats}
+asociada.  Ambas opciones aceptan una lista separada por comas de
+formatos, y se pueden especificar juntas, por ejemplo
+
+@example
+lilypond -dseparate-page-formats=eps,pdf -dtall-page-formats=png,svg miarchivo.ly
+@end example
+
+Para reducir los márgenes alrededor de la música, pase la opción
+@code{-dno-use-paper-size-for-page} para recortar el espacio en
+blanco que está alrededor.  Los ajustes de papel siguientes
+eliminan los números de página y otros elementos al pie de la
+página que aumentan su tamaño.
 
 @example
 \paper@{
   indent=0\mm
-  line-width=120\mm
   oddFooterMarkup=##f
   oddHeaderMarkup=##f
   bookTitleMarkup = ##f
   scoreTitleMarkup = ##f
 @}
 
-@var{@dots{} music @dots{}}
+@var{@dots{} música @dots{}}
 @end example
 
-@noindent
-Para producir imágenes @file{EPS}:
+Los aapartados anteriores tratan la manera en que las páginas se
+vuelcan sobre archivos de salida, pero para la música integrada en
+textos, a menudo no queremos páginas completas (incluyendo
+posiblemente los números de página, márgenes, etc.), sino líneas
+de música.  Esto se consigue incluyendo
+@file{lilypond-book-preamble.ly} antes de un fragmento de música.
+Ello crea un bloque @code{\score} del nivel más alto formando
+líneas de música en lugar de páginas.
 
-@example
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts miarchivo.ly
-@end example
 
-@noindent
-Para producir imágenes @file{PNG}:
-
-@example
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png miarchivo.ly
-@end example
-
-@noindent
-Para producir imágenes @file{PNG} con transparencia:
-
-@example
-lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts -dpixmap-format=pngalpha --png miarchivo.ly
-@end example
-
-@cindex fragments, music
-@cindex quoting, music fragments
-@cindex music fragments, quoting
+@cindex fragmentoa, música
+@cindex citar, fragmentos de música
+@cindex música, fragmentos, citar
 
 Si necesita citar muchos fragmentos de una partitura grande,
 también puede usar la funcionalidad clip-systems de recorte de
-sistemas, véase @rnotationnamed{Extracting fragments of music, Extracción de fragmentos de música}.
+sistemas, véase @rnotationnamed{Extracting fragments of music,
+Extracción de fragmentos de música}.
 
 
 @node Independent includes
@@ -866,8 +916,8 @@ sistemas, véase @rnotationnamed{Extracting fragments of music, Extracción de f
 Algunos usuarios han producido archivos que se pueden incluir con
 la instrucción @code{\include} en LilyPond para producir ciertos
 efectos, y aquellos que se relacionan más abajo forman parte de la
-distribución de LilyPond.  Véase también
-@rnotationnamed{Working with input files, Trabajar sobre los archivos de entrada}.
+distribución de LilyPond.  Véase también @rnotationnamed{Working
+with input files, Trabajar sobre los archivos de entrada}.
 
 
 @node MIDI articulation

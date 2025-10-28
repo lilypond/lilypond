@@ -197,7 +197,7 @@ Referencia de funcionamiento interno:
 @c Deliberately duplicated in Durations and Rests.  -gp
 No existe un límite fundamental para las duraciones de los
 silencios (tanto para el más largo como para el más corto), pero
-el número de glifos es limitado: sólo se pueden imprimir desde el
+el número de glifos es limitado: solo se pueden imprimir desde el
 silencio de 1/1024 de redonda (sin nombre en español) hasta el de
 @code{\maxima} (8 redondas).
 
@@ -493,16 +493,17 @@ ningún error.
 Una ligadura de unión conecta dos notas adyacentes de la misma
 altura.  La ligadura en efecto extiende la longitud de una nota.
 
-Ties that connect notes to nothing are called @dfn{laissez vibrer}
-articulation; @pxref{Laissez vibrer} for the @code{\laissezVibrer}
-command.  Ties that connect nothing to notes (as needed in seconda
-volta sections, for example), can be entered with the @code{\repeatTie}
-command; @pxref{Repeat tie}.
+Las ligaduras que no se unen a nada se conocen como la
+articulacion @dfn{laissez vibrer} (dejar vibrar); @pxref{Laissez
+vibrer} para la instrucción @code{\laissezVibrer}.  Las ligaduras
+que conectan @q{nada} a notas (como a veces es necesario en la
+casilla de segunda vez en una repetición), se pueden introducir
+con la instrucción @code{\repeatTie}; @pxref{Repeat tie}.
 
 @warning{No deben confundirse las ligaduras de unión con las
 @emph{ligaduras de expresión}, que indican articulación, ni con
 las @emph{ligaduras de fraseo}, que indican el fraseo musical.
-Una ligadura de unión es tan sólo una manera de extender la
+Una ligadura de unión es tan solo una manera de extender la
 duración de una nota, algo parecido a lo que hace el puntillo.}
 
 Se introduce una ligadura de unión escribiendo el símbolo de la
@@ -729,11 +730,11 @@ Referencia de funcionamiento interno:
 @endmorerefs
 
 @knownissues
-Un cambio de pentagrama cuando hay una ligadura activa no
-producirá una ligadura inclinada.
+Un cambio de pentagrama cuando hay una ligadura activa no produce
+una ligadura inclinada.
 
 Los cambios de clave o de octava durante una ligadura de unión no
-están bien definidos realmente.  En estos casos puede ser
+están realmente bien definidos.  En estos casos puede ser
 preferible una ligadura de expresión.
 
 
@@ -862,7 +863,7 @@ siguientes.
 
 @cindex letra, desplazamiento de
 
-Los silencios de separación sólo están disponible en el modo de
+Los silencios de separación solo están disponible en el modo de
 notas y en el modo de acordes.  En otras situaciones, por ejemplo,
 cuando se introduce la letra, se usa la instrucción @code{\skip}
 para producir un desplazamiento de una cierta magnitud temporal.
@@ -935,7 +936,7 @@ music = <<
 \unfoldRepeats \music
 @end lilypond
 
-La instrucción @code{\skip} tan sólo desplaza un tiempo musical;
+La instrucción @code{\skip} tan solo desplaza un tiempo musical;
 no produce ninguna salida, de ningún tipo.
 
 @lilypond[quote,verbatim]
@@ -1838,7 +1839,7 @@ del compás actual.  No crea un nuevo compás con numeración.
 }
 @end lilypond
 
-La instrucción @code{\partial} es @emph{necesaria} cuando cambia
+La instrucción @code{\partial} @emph{es necesaria} cuando cambia
 la indicación de compás en medio de un compás, pero también puede
 usarse sola.
 
@@ -2771,7 +2772,7 @@ discernir la longitud del compás).  He aquí un ejemplo sencillo:
 @warning{Un valor de @code{beamExceptions} debe ser una lista de
 excepciones @emph{completa}.  Esto es, toda excepción que se tenga
 que aplicar debe estar incluida en este ajuste.  No es posible
-añadir, eliminar o cambiar sólo una de las excepciones.  Aunque
+añadir, eliminar o cambiar solo una de las excepciones.  Aunque
 esto puede parecer engorroso, significa que no es necesario
 conocer los ajustes de barrado actuales para poder especificar un
 patrón de barrado nuevo.}
@@ -3067,7 +3068,7 @@ barras estableciendo las propiedades @code{stemLeftBeamCount} y
 dibujarán en los lados izquierdo y derecho, respectivamente, de la
 nota siguiente.  Si cualquiera de estas dos propiedades está
 ajustada a un valor, dicho valor se usará una sola vez, y luego se
-borrará.  En este ejemplo, el último Fa se imprime con sólo una
+borrará.  En este ejemplo, el último Fa se imprime con solo una
 barra en el lado izquierdo, es decir, la barra de corchea del
 grupo como un todo.
 
@@ -3182,7 +3183,7 @@ tempo constante.
 
 @noindent
 El espaciado en la salida impresa representa las duraciones de las
-notas de una forma sólo aproximada, pero la salida MIDI es exacta.
+notas de una forma solo aproximada, pero la salida MIDI es exacta.
 
 @predefined
 @code{\featherDurations}.
@@ -3194,7 +3195,7 @@ Fragmentos de código:
 @endmorerefs
 
 @knownissues
-La instrucción @code{\featherDurations} sólo funciona con
+La instrucción @code{\featherDurations} solo funciona con
 fragmentos musicales muy breves, y cuando los números de la
 fracción son pequeños.
 
@@ -4252,7 +4253,7 @@ El valor que se utilizará se almacena dentro de la propiedad
 La letra@tie{}@q{I} se salta de acuerdo con las tradiciones de
 grabado.  Si quiere incluir la letra @q{I}, use una de las
 instrucciones siguientes, según el estilo de marcas de ensayo que
-desee (sólo letras, letras dentro de un rectángulo o letras dentro
+desee (solo letras, letras dentro de un rectángulo o letras dentro
 de un círculo).
 
 @example
@@ -4804,7 +4805,7 @@ los desplazamientos, incluso si la parte visual usa
 contrario se imprime una fea ligadura que conecta a la nota de
 adorno invisible con la nota siguiente.
 
-Las secciones de adorno sólo se deben usar dentro de expresiones
+Las secciones de adorno solo se deben usar dentro de expresiones
 de música secuenciales.  No están contemplados el anidado ni la
 yuxtaposición de secciones de adorno, y podría producir caídas u
 otros errores.

@@ -2055,7 +2055,7 @@ sin alterar por omisión, pero se puede fijar con la variable
 
 
 @node One-line page breaking
-@subsection Saltos de página del tipo una-línea
+@subsection Saltos de página de línea única
 
 @funindex ly:one-line-breaking
 
@@ -2073,12 +2073,12 @@ deja sin cambios.
 
 
 @node One-line-auto-height page breaking
-@subsection Saltos de página del tipo una-línea-altura-automática
+@subsection Saltos de página del tipo línea única con altura automática
 
 @funindex ly:one-line-auto-height-breaking
 
 La función @code{ly:one-line-auto-height-breaking} funciona igual
-que @code{ly:one-line-breaking} excepro que la altura de la página
+que @code{ly:one-line-breaking} excepto que la altura de la página
 se modifica automáticamente para hacerse corresponder con la
 altura de la música.  De forma específica, la variable
 @code{paper-height} del bloque @code{\paper} se ajusta de tal

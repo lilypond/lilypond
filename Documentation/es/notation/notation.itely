@@ -10,7 +10,7 @@
 @c \version "2.16.0"
 
 
-@part Musical notation
+@part Notación musical
 
 @include es/notation/pitches.itely
 @include es/notation/rhythms.itely

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 8c1840ca28a05b3dad8d595e04d03779ba0a286a
+    Translation of GIT committish: 8677514240adc1b684c42680a624286f892486a6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -28,11 +28,11 @@ tener en cuenta cuando se escriben archivos de LilyPond.
 LilyPond puede hacer que ciertos errores se hagan más fáciles (o
 más difíciles) de encontrar.
 
-@item ¿Qué ocurre si quiere compartir sus archivos con otras personas?
-De hecho, ¿y si quiere alterar sus propios archivos después de
-algunos años?  Algunos archivos de LilyPond se comprenden a
-primera vista; otros pueden tenerle rascándose la cabeza durante
-una hora.
+@item ¿Qué ocurre si quiere compartir sus archivos con otras
+personas?  De hecho, ¿y si quiere alterar sus propios archivos
+después de algunos años?  Algunos archivos de LilyPond se
+comprenden a primera vista; otros pueden tenerle rascándose la
+cabeza durante una hora.
 
 @item ¿Qué ocurre si quiere actualizar su archivo de LilyPond para
 poderlo usar con una versión más reciente del programa?
@@ -73,13 +73,15 @@ entrada}.  Esto hará que la búsqueda de problemas dentro de los
 archivos de entrada sea mucho más sencilla.
 
 @item
-@strong{Inserte barras de
-@rnotationnamed{Bar and bar number checks, Comprobación de compás y de número de compás} así como
-códigos de @rnotationnamed{Octave checks, Comprobación de octava}}.  La inclusión de
-códigos de comprobación de estos tipos será de ayuda para
-localizar los errores mucho más rápidamente.  La frecuencia con
-que añadir las comprobaciones dependerá de la complejidad de la
-música que se está componiendo tipográficamente.  Para
+@strong{Inserte comprobaciones de compás, comprobaciones de
+números de compás y comprobaciones de octava} (véase
+@rnotationnamed{Bar and bar number checks,
+Comprobación de compás y de número de compás} y
+@rnotationnamed{Octave checks, Comprobación de octava}).  La
+inclusión de códigos de comprobación de estos tipos será de ayuda
+para localizar los errores mucho más rápidamente.  La frecuencia
+con que añadir las comprobaciones dependerá de la complejidad de
+la música que se está componiendo tipográficamente.  Para
 composiciones sencillas, las comprobaciones añadidas en ciertos
 puntos estratégicos dentro de la música pueden ser suficientes,
 pero para música más compleja, con muchas voces y/o pentagramas,
@@ -94,7 +96,8 @@ sencilla la navegación por el archivo de entrada, especialmente si
 más tarde se hace necesario alterar algo, o si estamos pasando los
 archivos de entrada a otra persona.
 
-@item @strong{Escriba las duraciones explícitamente} al comienzo de las
+@item
+@strong{Escriba las duraciones explícitamente} al comienzo de las
 @q{secciones}.  Por ejemplo, si especifica @code{c4 d e f} al
 principio de una frase (en lugar de sólo @code{c d e f}) se puede
 ahorrar problemas si reelabora la música más tarde.
@@ -150,8 +153,10 @@ sobreescrituras dentro del bloque @code{\layout}:
 @end example
 
 Esto no crea un contexto nuevo, sino que se aplicará en el momento
-de crear uno.  Véase también @rlearningnamed{Saving typing with variables and functions, Ahorrar tecleo mediante
-variables y funciones} y @rlearningnamed{Style sheets, Hojas de estilo}.
+de crear uno.  Véase también
+@rlearningnamed{Saving typing with variables and functions,
+Ahorrar tecleo mediante variables y funciones} y
+@rlearningnamed{Style sheets, Hojas de estilo}.
 
 @end itemize
 
@@ -164,12 +169,13 @@ Si está introduciendo música a partir de una partitura existente
 
 @itemize
 
-@item Introduzca en LilyPond un sistema del manuscrito, o copia física,
-de cada vez (pero mantenga la práctica de escribir un compás por
-línea de texto), y compruebe cada sistema cuando lo haya
-terminado.  Puede usar las propiedades @code{showLastLength} o
-@code{showFirstLength} para acelerar el proceso (véase
-@rnotationnamed{Skipping corrected music, Saltar la música corregida}).
+@item Introduzca en LilyPond un sistema del manuscrito, o copia
+física, de cada vez (pero mantenga la práctica de escribir un
+compás por línea de texto), y compruebe cada sistema cuando lo
+haya terminado.  Puede usar las propiedades @code{showLastLength}
+o @code{showFirstLength} para acelerar el proceso (véase
+@rnotationnamed{Skipping corrected music, Saltar la música
+corregida}).
 
 @item Defina @code{mBreak = @{ \break @}} e inserte @code{\mBreak}
 dentro del archivo de entrada donde el manuscrito tenga un saldo
@@ -179,9 +185,9 @@ revisar su partitura podrá definir @code{mBreak = @{ @}} para
 quitar todos esos saltos de línea.  Así permitirá a LilyPond
 colocar los saltos donde éste lo estime más oportuno.
 
-@item Al escribir una parte para un instrumento transpositor dentro de
-una variable, se recomienda que las notas estén envueltas dentro
-de
+@item Al escribir una parte para un instrumento transpositor
+dentro de una variable, se recomienda que las notas estén
+envueltas dentro de
 
 @example
 \transpose c altura-natural @{@dots{}@}
@@ -216,11 +222,12 @@ estructura clara en los archivos de LilyPond:
 
 @itemize
 
-@item @strong{Utilice un identificador para cada voz}, con un mínimo de
-estructura dentro de la definición.  La estructura de la sección
-@code{\score} es la que cambiará con mayor probabilidad; por
-contra, es extremadamente improbable que cambie la definición de
-@code{violin} en versiones nuevas de LilyPond.
+@item @strong{Utilice un identificador para cada voz},
+con un mínimo de estructura dentro de la definición.  La
+estructura de la sección @code{\score} es la que cambiará con
+mayor probabilidad; por contra, es extremadamente improbable que
+cambie la definición de @code{violin} en versiones nuevas de
+LilyPond.
 
 @example
 violin = \relative @{
@@ -337,7 +344,7 @@ requieren instrucciones difíciles para montarlas (como los
 proyectos de @code{lilypond-book}). La complejidad y flexibilidad
 de los Makefiles varía enormemente según las necesidades y la
 habilidad de los autores.  El programa GNU Make viene instalado en
-las distribuciones de GNU/Linux y en MacOS X, y también existe
+las distribuciones de GNU/Linux y en macOS, y también existe
 para Windows.
 
 Consulte el @strong{Manual de GNU Make} para ver todos los
@@ -347,11 +354,11 @@ capaz de hacer.
 
 Las instrucciones que definen las reglas en un archivo de make
 difieren en función de la plataforma; por ejemplo, las distintas
-formas de GNU/Linux y MacOS usan @code{bash}, mientras que Windows
-usa @code{cmd}.  Observeque en MacOS X, tenemos que configurar el
+formas de GNU/Linux y macOS usan @code{bash}, mientras que Windows
+usa @code{cmd}.  Observeque en macOS, tenemos que configurar el
 sistema para que utilice el intérprete de órdenes. A continuación
 presentamos algunos makefiles de ejemplo, con versiones tanto para
-GNU/Linux/MacOS como para Windows.
+GNU/@/Linux/@/macOS como para Windows.
 
 El primer ejemplo es para una obra orquestal en cuatro movimientos
 con la estructura de directorios siguiente:
@@ -373,7 +380,7 @@ Sinfonia/
 |-- Particellas/
 |   |-- sinfonia-cello.ly
 |   |-- sinfonia-trompa.ly
-|   |-- sinfonia-oboes.ly
+|   |-- sinfonia-oboe.ly
 |   |-- sinfonia-viola.ly
 |   |-- sinfonia-violinUno.ly
 |   `-- sinfonia-violinDos.ly
@@ -392,8 +399,8 @@ están en el directorio @code{Notas}:
 
 @example
 %%% principio del archivo "sinfonia-cello.ly"
-\include ../definicionesSinf.ily
-\include ../Notas/cello.ily
+\include "../definicionesSinf.ily"
+\include "../Notas/cello.ily"
 @end example
 
 El makefile tendrá los objetivos de @code{partitura} (la pieza
@@ -403,7 +410,7 @@ completa de los movimientos individuales) y @code{particellas}
 @code{archivo} que produce un tarball de los archivos fuente,
 adecuado para compartirlo a través de la web o por correo
 electrónico.  A continuación presentamos el makefile para
-GNU/Linux o MacOS X.  Se debe guardar con el nombre exacto
+GNU/Linux o macOS.  Se debe guardar con el nombre exacto
 @code{Makefile} el el directorio superior del proyecto:
 
 @warning{Cuando se define un objetivo o una regla de patrón, las
@@ -412,38 +419,49 @@ espacios.}
 
 @example
 # nombre principal de los archivos de salida
-nombre = sinfonia
-# determinar cuántos procesadores existen
-CPU_CORES=`cat /proc/cpuinfo | grep -m1 "cpu cores" | sed s/".*: "//`
+nombre := sinfonia
 # La instrucción para ejecutar lilypond
 LILY_CMD = lilypond -ddelete-intermediate-files \
-                    -dno-point-and-click -djob-count=$(CPU_CORES)
+                    -dno-point-and-click
 
 # Los sufijos utilizados en este Makefile.
 .SUFFIXES: .ly .ily .pdf .midi
 
-# Los archivos de entrada y salida se buscan dentro de los directorios relacionados en
-# la variable VPATH.  Todos esllos son subdirectorios del directorio
-# en curso (dado por la variable de GNU make `CURDIR').
+.DEFAULT_GOAL := score
+
+PDFDIR := PDF
+MIDIDIR := MIDI
+
+# Los archivos de entrada y salida se buscan dentro de los
+# directorios relacionados en la variable VPATH.  Todos ellos son
+# subdirectorios del directorio en curso (dado por la variable de
+# GNU make `CURDIR`).
 VPATH = \
   $(CURDIR)/Partituras \
-  $(CURDIR)/PDF \
   $(CURDIR)/Particellas \
-  $(CURDIR)/Notas
+  $(CURDIR)/Notas \
+  $(CURDIR)/$(PDFDIR) \
+  $(CURDIR)/$(MIDIDIR)
 
-# La regla de patrón para crear archivos PDF y MIDI a partir de un archivo de entrada LY.
-# Los archivos de salida .pdf se colocan en el subdirectorio `PDF', y los archivos
-# .midi van al subdirectorio `MIDI'.
-%.pdf %.midi: %.ly
-        $(LILY_CMD) $<; \           # esta línea comienza con un salto de tabulación
-        if test -f "$*.pdf"; then \
-            mv "$*.pdf" PDF/; \
-        fi; \
-        if test -f "$*.midi"; then \
-            mv "$*.midi" MIDI/; \
-        fi
+# La regla de patrón para crear archivos PDF y MIDI a partir de un
+# archivo de entrada LY.  Los archivos de salida .pdf se colocan
+# en el subdirectorio `PDF`, y los archivos .midi van al
+# subdirectorio `MIDI`.
+%.pdf %.midi: %.ly | $(PDFDIR) $(MIDIDIR)
+	$(LILY_CMD) $<            # esta línea comienza con un tab
+	mv "$*.pdf" $(PDFDIR)/    # esta línea comienza con un tab
+	mv "$*.midi" $(MIDIDIR)/  # esta línea comienza con un tab
 
-notas = \
+
+$(PDFDIR):
+	mkdir $(PDFDIR)
+
+$(MIDIDIR):
+	mkdir $(MIDIDIR)
+
+common := symphonyDefs.ily
+
+notas := \
   cello.ily \
   trompa.ily \
   oboe.ily \
@@ -452,39 +470,39 @@ notas = \
   violinDos.ily
 
 # Dependencias de los movimientos.
-$(nombre)I.pdf: $(nombre)I.ly $(notas)
-$(nombre)II.pdf: $(nombre)II.ly $(notas)
-$(nombre)III.pdf: $(nombre)III.ly $(notas)
-$(nombre)IV.pdf: $(nombre)IV.ly $(notas)
+$(nombre)I.pdf: $(nombre)I.ly $(notas) $(common)
+$(nombre)II.pdf: $(nombre)II.ly $(notas) $(common)
+$(nombre)III.pdf: $(nombre)III.ly $(notas) $(common)
+$(nombre)IV.pdf: $(nombre)IV.ly $(notas) $(common)
 
 # Dependencias de la partitura completa.
-$(nombre).pdf: $(nombre).ly $(notas)
+$(nombre).pdf: $(nombre).ly $(notas) $(common)
 
 # Dependencias de las particellas.
-$(nombre)-cello.pdf: $(nombre)-cello.ly cello.ily
-$(nombre)-trompa.pdf: $(nombre)-trompa.ly trompa.ily
-$(nombre)-oboes.pdf: $(nombre)-oboes.ly oboe.ily
-$(nombre)-viola.pdf: $(nombre)-viola.ly viola.ily
-$(nombre)-violinUno.pdf: $(nombre)-violinUno.ly violinUno.ily
-$(nombre)-violinDos.pdf: $(nombre)-violinDos.ly violinDos.ily
+$(nombre)-cello.pdf: $(nombre)-cello.ly cello.ily $(common)
+$(nombre)-trompa.pdf: $(nombre)-trompa.ly trompa.ily $(common)
+$(nombre)-oboes.pdf: $(nombre)-oboe.ly oboe.ily $(common)
+$(nombre)-viola.pdf: $(nombre)-viola.ly viola.ily $(common)
+$(nombre)-violinUno.pdf: $(nombre)-violinUno.ly violinUno.ily $(common)
+$(nombre)-violinDos.pdf: $(nombre)-violinDos.ly violinDos.ily $(common)
 
-# Teclee `make partitura' para generer la partitura completa de los cuatro
-# movimientos como un archivo único.
+# Teclee `make partitura` para generer la partitura completa de
+# los cuatro movimientos como un archivo único.
 .PHONY: partitura
 partitura: $(nombre).pdf
 
-# Teclee `make particellas' para generar todas las particellas.
-# Teclee `make fulanito.pdf' para generar la particella del instrumento `fulanito'.
-# Ejemplo: `make sinfonia-cello.pdf'.
+# Teclee `make particellas` para generar todas las particellas.
+# Teclee `make fulanito.pdf` para generar la particella del
+# instrumento `fulanito`.  Ejemplo: `make sinfonia-cello.pdf`.
 .PHONY: particellas
 particellas: $(nombre)-cello.pdf \
        $(nombre)-violinUno.pdf \
        $(nombre)-violinDos.pdf \
        $(nombre)-viola.pdf \
-       $(nombre)-oboes.pdf \
+       $(nombre)-oboe.pdf \
        $(nombre)-trompa.pdf
 
-# Teclee `make movimientos' para generar los archivos de los
+# Teclee `make movimientos` para generar los archivos de los
 # cuatro movimientos de forma separada.
 .PHONY: movimientos
 movimientos: $(nombre)I.pdf \
@@ -494,11 +512,6 @@ movimientos: $(nombre)I.pdf \
 
 all: partitura particellas movimientos
 
-archivo:
-        tar -cvvf stamitz.tar \       # esta línea comienza con un salto de tabulación
-        --exclude=*pdf --exclude=*~ \
-        --exclude=*midi --exclude=*.tar \
-        ../Stamitz/*
 @end example
 
 
@@ -520,38 +533,47 @@ C:\Archivos de programa\GnuWin32\bin
 El makefile en sí debe modificarse para que maneje distintas
 instrucciones del shell y para que pueda tratar con los espacios
 que aparecen en el nombre de algunos directorios del sistema
-predeterminados. El objetivo @code{archivo} se elimina porque
-Windows no tiene la instrucción @code{tar}, y Windows tiene
-también una extensión predeterminada distinta para los archivos
-MIDI.
+predeterminados. Windows tiene también una extensión
+predeterminada distinta para los archivos MIDI.
 
 
 @example
 ## VERSIÓN PARA WINDOWS
 ##
-nombre = sinfonia
-LILY_CMD = lilypond -ddelete-intermediate-files \
-                    -dno-point-and-click \
-                    -djob-count=$(NUMBER_OF_PROCESSORS)
+nombre := sinfonia
+LILY_CMD := lilypond -ddelete-intermediate-files \
+                    -dno-point-and-click
 
 #obtener el nombre 8.3 de CURDIR (rodeo para los espacios en PATH)
-workdir = $(shell for /f "tokens=*" %%b in ("$(CURDIR)") \
+workdir := $(shell for /f "tokens=*" %%b in ("$(CURDIR)") \
           do @@echo %%~sb)
 
 .SUFFIXES: .ly .ily .pdf .mid
 
-VPATH = \
+.DEFAULT_GOAL := score
+
+PDFDIR := PDF
+MIDIDIR := MIDI
+
+VPATH := \
   $(workdir)/Partituras \
-  $(workdir)/PDF \
   $(workdir)/Particellas \
-  $(workdir)/Notas
+  $(workdir)/Notas \
+  $(workdir)/$(PDFDIR) \
+  $(workdir)/$(MIDIDIR)
 
-%.pdf %.mid: %.ly
-        $(LILY_CMD) $<      # esta línea comienza con un salto de tabulación
-        if exist "$*.pdf"  move /Y "$*.pdf"  PDF/ # comienzo con tab
-        if exist "$*.mid" move /Y "$*.mid" MIDI/  # comienzo con tab
+%.pdf %.mid: %.ly | $(PDFDIR) $(MIDIDIR)
+        $(LILY_CMD) $<			# esta línea comienza con un tab
+        move /Y "$*.pdf"  $(PDFDIR)/	# comienzo con tab
+        move /Y "$*.mid" $(MIDIDIR)/	# comienzo con tab
 
-notas = \
+$(PDFDIR):
+    mkdir $(PDFDIR)/
+
+$(MIDIDIR):
+    mkdir $(MIDIDIR)/
+
+notas := \
   cello.ily \
   cifras.ily \
   trompa.ily \
@@ -561,19 +583,21 @@ notas = \
   violinUno.ily \
   violinDos.ily
 
-$(nombre)I.pdf: $(nombre)I.ly $(notas)
-$(nombre)II.pdf: $(nombre)II.ly $(notas)
-$(nombre)III.pdf: $(nombre)III.ly $(notas)
-$(nombre)IV.pdf: $(nombre)IV.ly $(notas)
+common := symphonyDefs.ily
 
-$(nombre).pdf: $(nombre).ly $(notas)
+$(nombre)I.pdf: $(nombre)I.ly $(notas) $(common)
+$(nombre)II.pdf: $(nombre)II.ly $(notas) $(common)
+$(nombre)III.pdf: $(nombre)III.ly $(notas) $(common)
+$(nombre)IV.pdf: $(nombre)IV.ly $(notas) $(common)
 
-$(nombre)-cello.pdf: $(nombre)-cello.ly cello.ily
-$(nombre)-trompa.pdf: $(nombre)-trompa.ly trompa.ily
-$(nombre)-oboes.pdf: $(nombre)-oboes.ly oboe.ily
-$(nombre)-viola.pdf: $(nombre)-viola.ly viola.ily
-$(nombre)-violinUno.pdf: $(nombre)-violinUno.ly violinUno.ily
-$(nombre)-violinDos.pdf: $(nombre)-violinDos.ly violinDos.ily
+$(nombre).pdf: $(nombre).ly $(notas) $(common)
+
+$(nombre)-cello.pdf: $(nombre)-cello.ly cello.ily $(common)
+$(nombre)-trompa.pdf: $(nombre)-trompa.ly trompa.ily $(common)
+$(nombre)-oboes.pdf: $(nombre)-oboes.ly oboe.ily $(common)
+$(nombre)-viola.pdf: $(nombre)-viola.ly viola.ily $(common)
+$(nombre)-violinUno.pdf: $(nombre)-violinUno.ly violinUno.ily $(common)
+$(nombre)-violinDos.pdf: $(nombre)-violinDos.ly violinDos.ily $(common)
 
 .PHONY: partitura
 partitura: $(nombre).pdf
@@ -653,7 +677,7 @@ archivo:
         ../MiProyecto/*
 @end example
 
-HACER: conseguir que funcione en Windows
+@c HACER: conseguir que funcione en Windows
 
 El makefile anterior no funciona en Windows.  Una alternativa para
 los usuarios de Windows sería crear un archivo de lotes sencillo
@@ -679,4 +703,5 @@ copy salida\miproyecto.pdf MiProyecto.pdf
 @morerefs
 Manual de utilización del programa:
 @ref{Command-line usage},
-@ref{lilypond-book}
+@ref{lilypond-book}.
+@endmorerefs

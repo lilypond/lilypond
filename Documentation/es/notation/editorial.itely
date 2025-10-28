@@ -30,14 +30,15 @@ situados dentro del pentagrama.
 @subsection Seleccionar el tamaño de la tipografía para la notación
 
 @cindex fuente tipográfica (de notación), tamaño
-@cindex selección del tamaño de la fuente tipográfica (de notación)
+@cindex selección del tamaño de fuente (de notación)
 @cindex notación, tamaño de la fuente
 @cindex notas, cabeza de
 
-@funindex fontSize
-@funindex font-size
-@funindex magnification->font-size
-@funindex magstep
+@warning{@* Para los tamaños de fuente del texto @ref{Selecting font and font size}.@*
+Para el tamaño de la pauta, véase @ref{Setting the staff size}.@*
+Para las notas guía, véase @ref{Formatting cue notes}.@*
+Para los pentagramas de ossia, véase @ref{Ossia staves}.}
+
 @funindex \magnifyMusic
 
 Para modificar el tamaño de la notación sin cambiar el tamaño del
@@ -67,9 +68,11 @@ provisional para solventar un fallo del programa.  Consulte el
 apartado de @qq{Problemas y advertencias conocidos} al final de
 esta sección.
 
+@funindex \normalsize
+
 Si una figura con un tamaño normal de cabeza se mezcla con otra
 más pequeña, el tamaño de la menor podría necesitar reiniciarse
-(con @w{@samp{\once@tie{}\normalsize}}) para que las plicas y las
+(con @code{\once \normalsize}) para que las plicas y las
 alteraciones accidentales mantengan una buena alineación:
 
 @c Chopin Prelude op.28 no.8
@@ -80,11 +83,17 @@ alteraciones accidentales mantengan una buena alineación:
   \new Voice \relative {
     \voiceOne
     \magnifyMusic 0.63 {
-      \override Score.SpacingSpanner.spacing-increment = #(* 1.2 0.63)
-      \once \normalsize cis'32( cis' gis b a fis \once \normalsize d d'
-      \once \normalsize cis, cis' gis b a gis \once \normalsize fis fis'
-      \once \normalsize fis, fis' ais, cis b gis \once \normalsize eis eis'
-      \once \normalsize a, a' bis, d cis b \once \normalsize gis gis')
+      \override Score.SpacingSpanner.spacing-increment =
+        #(* 1.2 0.63)
+
+      \once \normalsize cis'32( cis' gis b a fis
+        \once \normalsize d d'
+      \once \normalsize cis, cis' gis b a gis
+        \once \normalsize fis fis'
+      \once \normalsize fis, fis' ais, cis b gis
+        \once \normalsize eis eis'
+      \once \normalsize a, a' bis, d cis b
+        \once \normalsize gis gis')
     }
   }
   \new Voice \relative {
@@ -104,12 +113,14 @@ tipo cadencial o en casos como los de los ejemplos anteriores.
 Establecer el valor de @code{\magnifyMusic} a 0.63 duplica las
 dimensiones del contexto @code{CueVoice}.
 
-@warning{La instrucción @code{@bs{}magnifyMusic} @i{no} debe
+@warning{La instrucción @code{@bs{}magnifyMusic} @emph{no} debe
 utilizarse si se está cambiando el tamaño del pentagrama al mismo
-tiempo.  Consulte @ref{Setting the staff size}.}
+tiempo.  @xref{Setting the staff size}.}
 
 
 @subsubheading Cambiar el temaño de los objetos individuales
+
+@funindex font-size
 
 Un objeto de presentación individual se puede cambiar de tamaño
 usando las instrucciones @code{\tweak} u @code{\override} para
@@ -128,6 +139,8 @@ ajustar su propiedad @code{font-size}:
 }
 @end lilypond
 
+@funindex font-interface
+
 El valor predeterminado de @code{font-size} para cada objeto de
 presentación está relacionado en el Manual de Referencia de
 funcionamiento interno.  La propiedad @code{font-size} solamente
@@ -137,19 +150,18 @@ especificado @code{font-size} en la lista de
 @q{Ajustes@tie{}estándar} del objeto, su valor es 0.  Véase
 @rinternals{All layout objects}.
 
-The default @code{font-size} value for each layout object is
-listed in the Internals Reference.  The @code{font-size} property
-can only be set for layout objects that support the
-@code{font-interface} layout interface.  If @code{font-size} is
-not specified in the object's @q{Standard@tie{}settings} list, its
-value is 0.  See @rinternals{All layout objects}.
-
 
 @subsubheading Comprensión de la propiedad @code{fontSize}
 
+@funindex fontSize
+
 La propiedad de contexto @code{fontSize} ajusta el tamaño relativo
 de todos los elementos de notación basados en glifos dentro de un
-contexto:
+contexto.@footnote{Observe las palabras @q{basado en glifos}: una
+plica, por ejemplo, no es un glifo sino que se construye
+directamente por parte de LilyPond con líneas y curvas; por lo
+tanto, no resulta afectado.  Lo mismo vale para objetos similares
+como ligaduras o barras de corchea.}
 
 @lilypond[verbatim,quote]
 \relative {
@@ -169,6 +181,8 @@ El valor predeterminado de @code{fontSize} es 0; la adición de 6 a
 cualquier valor de @code{fontSize} duplica el tamaño impreso de
 los glifos, y la sustracción de 6 reduce el tamaño a la mitad.
 Cada paso aumenta el tamaño en un 12% aproximadamente.
+
+@funindex magnification->font-size
 
 La función de Scheme @code{magnification->font-size} se provee por
 conveniencia, pues las unidades logarítmicas de la propiedad
@@ -197,8 +211,8 @@ explicado anteriormente.  Para cambiar la escala del tamaño de
 todo, incluida la pauta, véase
 @ref{Setting the staff size}.
 
-Siempre que se establece el valor de la @i{propiedad de contexto}
-@code{fontSize}, su valor se añade al valor de la @i{propiedad de
+Siempre que se establece el valor de la @emph{propiedad de contexto}
+@code{fontSize}, su valor se añade al valor de la @emph{propiedad de
 objeto gráfico} @code{font-size} para los objetos de presentación
 individuales, antes de que se imprima cualquiera de los glifos.
 Esto puede causar confusión cuando se fija el valor de las
@@ -266,8 +280,8 @@ Los cambios en el tamaño de la fuente se obtienen por medio del
 escalado del tamaño del diseño que se encuentra más cerca del
 tamaño deseado.  El tamaño estándar para la tipografía (para
 @w{@code{font-size = 0}}) depende de la altura estándar del
-pentagrama.  Para un pentagrama de 20 puntos, se selecciona una
-fuente de 11 puntos.
+pentagrama.  Para un pentagrama de 20@dmn{pt}, se selecciona una
+fuente de 11@dmn{pt}.
 
 
 @predefined
@@ -330,17 +344,19 @@ instrucciones @code{\newSpacingSection}, y/o las instrucciones
 
 @funindex \finger
 
-Las instrucciones de digitación se pueden introducir usando
-@samp{@var{nota}-@var{dígito}}:
+LilyPond provee dos grabadores para el manejo de las indicaciones
+de digitaición.  En ambos casos, las instrucciones de digitación
+se pueden introducir usando @samp{@var{nota}-@var{dígito}}:
 
 @itemize
 @item
-The first engraver is @code{Fingering_engraver}, which takes care
-of fingering instructions that are outside of chord constructs
-(i.e., outside of @code{<...>}).  The order of fingering given in
-the input code is directly reflected in the output, and the
-fingering markup is always stacked vertically within a single
-column above or below the note or chord.
+El primer grabador es @code{Fingering_engraver}, que se ocupa de
+las indicaciones de digitación que están fuera de las
+construcciones de acorde (es decir, fuera de @code{<...>}).  El
+orden en que las digitaciones aparecen en el código de entrada se
+refleja directamente en la salida, y el marcado de digitaciones
+siempre se apila de forma vertical dentro de una columna única
+encima o debajo de la nota o acorde.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -349,8 +365,10 @@ column above or below the note or chord.
 }
 @end lilypond
 
-Para los cambios de dedo se pueden usar elementos de marcado de
-texto o de cadenas de caracteres.
+@funindex \finger
+
+Si quiere textos de marcado o cadenas de caracteres para la
+digitación, use en su lugar la instrucción @code{\finger}.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -359,8 +377,11 @@ texto o de cadenas de caracteres.
 @end lilypond
 
 @item
-@cindex @q{pulgar}, digitación
-@cindex digitación, pulgar
+@cindex acorde, digitación
+El segundo grabador es @code{New_fingering_engraver}, que maneja
+instrucciones de digitación, articulaciones y cabezas de nota de
+armónicos dentro de los acordes (es decir, dentro de
+@code{<...>}).
 
 @lilypond[verbatim,quote]
 \relative {
@@ -369,8 +390,8 @@ texto o de cadenas de caracteres.
 @end lilypond
 @end itemize
 
-@cindex @q{thumb} fingering
-@cindex fingering, thumb
+@cindex digitación de pulgar
+@cindex pulgar, digitación
 @funindex \thumb
 
 Puede usar la digitación de pulgar para indicar que una nota se
@@ -380,12 +401,13 @@ debe tocar con el pulgar (p.ej. en música de violoncello).
 \relative { <a'_\thumb a'-3>2 <b_\thumb b'-3> }
 @end lilypond
 
-@cindex digitación de acordes
-@cindex digitación, instrucciones de, para acordes
-@cindex acorde, digitación de
-
 Las indicaciones de digitación se pueden situar manualmente encima
 o debajo del pentagrama, véase @ref{Direction and placement}.
+
+Consulte la sección siguiente para ver ejemplos de fragmentos de
+código que muestran cómo controlar la posición de las indicaciones
+de digitación.
+
 
 @snippets
 
@@ -425,21 +447,21 @@ Referencia de funcionamiento interno:
 
 
 @node Gliding fingers
-@subsection Gliding fingers
+@subsection Deslizamientos de dedo
 
-@cindex fingering, glide
-@cindex gliding fingering
-@cindex fingering, line between
-@cindex shift, fingering
-@cindex line, between fingerings
+@cindex digitación, deslizamiento
+@cindex deslizamiento en la digitación
+@cindex digitación, línea entre
+@cindex cambio, digitación
+@cindex línea, entre digitaciones
 @funindex \glide
 
-For stringed instruments a gliding finger is often indicated by a
-line connecting the same finger to be used for notes played at
-different positions on the same string.  This line is initiated
-with @code{\glide} entered before a @code{Fingering} and ends with
-the next occurrence of the same finger.  The line may be printed in
-various styles.
+En los instrumentos de cuerda se suele indicar el deslizamiento de
+un dedo mediante una línea que conecta el mismo dedo usado para
+notas que están en distintos lugares de la cuerda.  Esta línea se
+inicia con @code{\glide} escrito antes de la digitación con
+@code{Fingering} y termina con la siguiente ocurrencia del mismo
+dedo.  La línea se puede imprimir en varios estilos diferentes.
 
 @lilypond[verbatim,quote]
 mus = {
@@ -480,8 +502,8 @@ mus = {
 }
 @end lilypond
 
-If @code{style} is set to @code{'bow} the direction of the bow may be adjusted
-using direction modifiers.
+Si se establece @code{style} a @code{'bow} la dirección del arco
+puede ajustarse usando modificadores de dirección.
 
 @lilypond[verbatim,quote]
 {
@@ -503,8 +525,10 @@ using direction modifiers.
 }
 @end lilypond
 
-If the @code{Finger_glide_engraver} is moved to @code{Staff} context
-@code{Fingering} grobs from different @code{Voice} contexts may be connected.
+Si se traslada el grabador @code{Finger_glide_engraver} al
+contexto de @code{Staff}, se puedne conectar entre sí los objetos
+gráficos del tipo @code{Fingering} de distintos contextos
+@code{Voice}.
 
 @lilypond[verbatim,quote]
 \score {
@@ -541,9 +565,10 @@ If the @code{Finger_glide_engraver} is moved to @code{Staff} context
 }
 @end lilypond
 
-To connect different fingers or multiple instances of the same finger set the
-@code{id} property with @code{\=} taking a non-negative integer or a symbol or
-@code{\tweak} the @code{text} property.
+Para conectar distintos dedos o apariciones diversas del mismo
+dedo, establezca la propiedad @code{id} con @code{\=} y
+escribiendo un número no negativo o un símbolo, o haga un truco
+con @code{\tweak} sobre la propiedad @code{text}.
 
 @lilypond[verbatim,quote]
 {
@@ -575,8 +600,9 @@ To connect different fingers or multiple instances of the same finger set the
 
 @cindex Arrastre
 
-The @code{FingerGlideSpanner} may also connect string numbers indicating to
-play on the same string, or stroke fingers indicating an @dfn{Arrastre}.
+El objeto de extensión @code{FingerGlideSpanner} también puede
+conectar números de cuerda indicando que se toque sobre la misma
+cuerda, o pulsar los dedos indicando un @dfn{Arrastre}.
 
 @lilypond[verbatim,quote]
 {
@@ -618,13 +644,13 @@ play on the same string, or stroke fingers indicating an @dfn{Arrastre}.
 
 
 @morerefs
-Music Glossary:
+Glosario musical:
 @rglos{arrastre}.
 
-Notation Reference:
+Referencia de la notación:
 @ref{Direction and placement}.
 
-Internals Reference:
+Referencia de funcionamiento interno:
 @rinternals{FingerGlideEvent},
 @rinternals{finger-glide-event},
 @rinternals{Finger_glide_engraver},
@@ -728,7 +754,7 @@ d''
 e''
 @end lilypond
 
-@cindex CSS, códis de color
+@cindex CSS, códigos de color
 @cindex color, códigos de CSS
 
 Además de un conjunto limitado de colores sencillos que están
@@ -737,7 +763,7 @@ normales} dentro de @ref{List of colors}), se puede introducir
 cualquier color como una cadena de caracteres.  Dicha cadena puede
 ser un nombre predefinido de color al estilo de
 @uref{https://www.w3.org/Style/CSS/, CSS}, o un código de color
-hexadecimal con el carácter @code{#} como prefijo (@emph{dentro}
+hexadecimal con el carácter @samp{#} como prefijo (@emph{dentro}
 de las comillas):
 
 @lilypond[verbatim,quote,fragment]
@@ -756,12 +782,12 @@ g'8 \huge r4 a'16 f'
 Si dicho color incluye un canal alfa para la semitransparencia
 mediante el uso de un código de ocho caracteres del tipo
 @var{"#RRGGBBAA"} o su forma abreviada @var{"#RGBA"}, se usará en
-la salida de SVG pero no en la salida de PostScript/PDF.  En el
+la salida de SVG pero no en la salida de PostScript o PDF.  En el
 ejemplo anterior, el silencio es semitransparente solo si el
 código se compila con el backend de SVG, como se explica en
 @ref{Alternative output formats}.
 
-@cindex color de x11
+@cindex color, de X11
 @funindex x11-color
 
 De manera completamente distinta, se puede acceder al rango de
@@ -799,20 +825,20 @@ predeterminado que se devuelve es el negro.
 }
 @end lilypond
 
-@cindex color blind
+@cindex color, ceguera
 @funindex universal-color
 
-LilyPond also supports a @uref{https://jfly.uni-koeln.de/color,
-set of eight color names} that is unambiguous to both color-blind
-and non-color-blind people.  Use @code{universal-@/color} to access
-them.
+LilyPond contempla también un
+@uref{https://jfly.uni-koeln.de/color, conjunto de ocho nombres de
+colores} no ambiguos para personas con ceguera a los colores o sin
+ella.  Use @code{universal-@/color} para acceder a ellos.
 
 @lilypond[verbatim,quote]
 \markup \with-color #(universal-color 'vermillion) vermillion
 @end lilypond
 
 @cindex color, RGB
-@cindex RGB color
+@cindex RGB, color
 
 @funindex rgb-color
 
@@ -871,24 +897,24 @@ colores de CSS, como aparece detallado en @ref{List of colors}.
 
 Las notas de un acorde no se pueden colorear individualmente con
 @code{\override}; en su lugar utilice @code{\tweak} o su
-equivalente @code{\single\override} antes de la nota respectiva.
-Consulte @ref{Tweak and single} para ver más detalles.
+equivalente @code{\single\override} antes de la nota respectiva,  @pxref{Tweak and single}.
 
 
 @node Staff highlights
-@subsection Staff highlights
+@subsection Resaltados en el pentagrama
 
-@cindex staff, highlight
-@cindex highlight, staff
+@cindex pentagrama, resaltado
+@cindex resaltado, pentagrama
 @funindex \staffHighlight
 @funindex \stopStaffHighlight
 
 
-For analytical or pedagogical purposes, it may be useful to
-@qq{highlight} musical passages, for example in order to show
-local tonality.  This can be done using the @code{\staffHighlight}
-command, which expects a color.  For all ways to enter colors,
-@pxref{Coloring objects}.  The highlight is terminated using
+Para un propósito de análisis o pedagógico, puede ser de utilidad
+@qq{resaltar} pasajes musicales, por ejemplo para mostrar una
+región tonal.  Esto se puede hacer usando la instrucción
+@code{\staffHighlight}, que recibe un color como argumento.  Para
+conocer todas las formas de introducir colores, @pxref{Coloring
+objects}.  El resaltado se finaliza usando
 @code{\stopStaffHighlight}.
 
 @lilypond[verbatim,quote]
@@ -902,11 +928,12 @@ command, which expects a color.  For all ways to enter colors,
 }
 @end lilypond
 
-If there are consecutive highlights, it is not necessary to write
-@code{\stopStaffHighlight}, as @code{\staffHighlight} also implicitly
-terminates the current highlight, if any.  Similarly, it is not
-necessary to add @code{\stopStaffHighlight} at the end of the piece.
-This is particularly handy if every measure is to be highlighted.
+Si hay varios resaltados seguidos, no es necesario escibir
+@code{\stopStaffHighlight}, porque @code{\staffHighlight} también
+termina implícitamente el resaltado en curso, si hay uno.  De
+forma similar, no es necesario escibir @code{\stopStaffHighlight}
+al final de la pieza.  Esto es especialmente práctico si se
+quieren resaltar todos y cada uno de los compases.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -920,7 +947,7 @@ This is particularly handy if every measure is to be highlighted.
 }
 @end lilypond
 
-By default, staves are highlighted separately.
+De forma predeterminada, los pentagramas se resaltan por separado.
 
 @lilypond[verbatim,quote]
 music = {
@@ -939,14 +966,14 @@ music = {
 >>
 @end lilypond
 
-
-However, several staves can be highlighted together by moving
-@code{Staff_highlight_engraver} to a higher context than
-@code{Staff} (or @code{RhythmicStaff}, or similar).  This is done
-using the @code{\consists} and @code{\remove} commands;
-@xref{Modifying context plug-ins} for more information.  For
-example, if the engraver is moved to @code{Score}, the highlights
-are shared by all staves.
+Sin embargo, se pueden resaltar varios pentagramas al mismo tiempo
+trasladando el grabador @code{Staff_highlight_engraver} a un
+contexto más elevado que @code{Staff} (o @code{RhythmicStaff}, o
+similar).  Esto se hace usando las instrucciones @code{\consists}
+y @code{\remove}; @xref{Modifying context plug-ins} para más
+información.  Por ejemplo, si el grabador se traslada a
+@code{Score}, los resaltados se comparten por parte de todos los
+pentagramas.
 
 
 @lilypond[verbatim,quote]
@@ -977,8 +1004,9 @@ music = {
 >>
 @end lilypond
 
-@code{Staff_highlight_engraver} may also be moved to intermediate
-contexts such as @code{StaffGroup}.
+También se puede trasladar el grabador
+@code{Staff_highlight_engraver} a contextos de nivel intermedio
+como @code{StaffGroup}.
 
 @lilypond[verbatim,quote]
 music = {
@@ -1000,8 +1028,9 @@ music = {
 >>
 @end lilypond
 
-The @code{StaffHighlight.shorten-pair} property may be used to
-tweak the horizontal start and end of the highlight span.
+Se puede usar la propiedad @code{StaffHighlight.shorten-pair} para
+trucar el comienso y final horizontales del objeto de extensión
+del resaldado.
 
 @lilypond[verbatim,quote]
 {
@@ -1018,11 +1047,11 @@ tweak the horizontal start and end of the highlight span.
 @endpredefined
 
 @morerefs
-Notation Reference:
+Referencia de la notación:
 @ref{Coloring objects},
 @ref{Modifying context plug-ins}.
 
-Internals Reference:
+Referencia de funcionamiento interno:
 @rinternals{StaffHighlight},
 @rinternals{staff-highlight-interface},
 @rinternals{Staff_highlight_engraver},
@@ -1031,9 +1060,10 @@ Internals Reference:
 @endmorerefs
 
 @knownissues
-The behavior of highlights may not be what is expected at start
-repeat bar lines.  The @code{shorten-pair} property demonstrated
-above can be used to work around this issue.
+El comportamiento de los resaltados puede no ser el esperado en
+las barras de inicio de una repetición.  Se puede usar la
+propiedad @code{shorten-pair} mostrada anteriormente para resolver
+el problema.
 
 @lilypond[verbatim,quote]
 {
@@ -1047,10 +1077,10 @@ above can be used to work around this issue.
 
 
 @node Brackets for optional material
-@subsection Brackets for optional material
+@subsection Corchetes para material optativo
 
-Optional additional material can be enclosed in brackets that pass
-through the staff.
+El material adicional optativo se puede encerrar entre corchetes
+que pasan a lo largo de todo el pentagrama.
 
 @lilypond[verbatim,quote]
 {
@@ -1060,9 +1090,10 @@ through the staff.
 }
 @end lilypond
 
-The note positions that the bracket encompasses can be overridden.
-The endpoints of the interval are measured in staff spaces from
-the center of the staff to the center of the note.
+Se pueden sobreescribir las posiciones de las notas que el
+corchete encierra.  Los puntos extremos del intervalo se miden en
+espacios de pentagrama a partir de la línea central hasta el
+centro de la nota.
 
 @lilypond[verbatim,quote]
 {
@@ -1075,9 +1106,9 @@ the center of the staff to the center of the note.
 }
 @end lilypond
 
-@cindex matter, optional
-@cindex optional material
-@cindex optional passage
+@cindex contenido opcional
+@cindex opcional, material
+@cindex optional, pasaje
 @funindex \startOptionalMaterial
 @funindex \stopOptionalMaterial
 
@@ -1087,10 +1118,10 @@ the center of the staff to the center of the note.
 @endpredefined
 
 @morerefs
-Snippets:
+Fragmentos de código:
 @rlsr{Editorial annotations}.
 
-Internals Reference:
+Referencia de funcionamiento interno:
 @rinternals{Optional_material_bracket_engraver},
 @rinternals{OptionalMaterialBracket},
 @rinternals{optional-material-bracket-interface}.
@@ -1109,21 +1140,19 @@ Internals Reference:
 @funindex \parenthesize
 
 Los objetos se pueden encerrar entre paréntesis anteponiendo
-@code{\parenthesize} al evento musical.  Si se aplica a un acorde,
-encierra cada nota dentro de un par de paréntesis.  También se
-pueden poner entre paréntesis las notas individuales de un acorde.
+@code{\parenthesize} al evento musical.
 
 @lilypond[verbatim,quote]
 \relative {
   c''2 \parenthesize d
-  c2 \parenthesize <c e g>
-  c2 <c \parenthesize e g>
+  c2 \tweak Parentheses.font-size 2 \parenthesize <c e g>
+  c2 <c e \parenthesize g>
 }
 @end lilypond
 
 Los objetos que no son notas también se pueden poner entre
-paréntesis.  Para las articulaciones se necesita un guión antes de
-la instrucción @code{\parenthesize}.
+paréntesis.  Para las articulaciones se necesita un signo menos
+antes de la instrucción @code{\parenthesize}.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -1132,8 +1161,9 @@ la instrucción @code{\parenthesize}.
 }
 @end lilypond
 
-To parenthesize a group of notes in a chord, use a parallel music
-construct @code{<< @dots{} >>}.
+Para encerrar entre paréntesis un grupo de notas dentro de un
+acorde, use la construcción de música en paralelo @code{<< @dots{}
+>>}.
 
 @lilypond[verbatim,quote]
 \new Voice \relative c {
@@ -1145,7 +1175,8 @@ construct @code{<< @dots{} >>}.
 }
 @end lilypond
 
-In tablature specify @code{NoteColumn} to parenthesize the chord.
+En una tablatura especificamos @code{NoteColumn} para encerrar el
+acorde entre paréntesis.
 
 @lilypond[verbatim,quote]
 \new TabVoice {
@@ -1155,13 +1186,15 @@ In tablature specify @code{NoteColumn} to parenthesize the chord.
 }
 @end lilypond
 
-This second form of the @code{\parenthesize} command involves
-a grob path: either @code{\parenthesize @var{ContextName}.@var{GrobName}}
-or just @code{\parenthesize @var{GrobName}} (the latter implying
-the bottommost context, typically @code{Voice}).  This should be
-added before the musical moment, like a @code{\once \override}.
-This form makes it possible to parenthesize grobs that are only
-caused indirectly by events.
+Esta segunda forma de la instrucción @code{\parenthesize} implica
+el uso de una ruta de objetos gráficos: o bien @code{\parenthesize
+@var{ContextName}.@var{GrobName}} o simplemente
+@code{\parenthesize @var{GrobName}} (este último implica al
+contexto de nivel inferior, normalmente @code{Voice}).  Se debe
+añadir antes del momento musical, como una sobreescritura
+@code{\once \override}.  Esta forma hace posible encerrar entre
+paréntesis elementos gráficos que solo se originan indirectamente
+a partir de eventos.
 
 @lilypond[verbatim,quote]
 \new Staff \relative <<
@@ -1297,12 +1330,13 @@ melody = \relative do'' {
 De manera predeterminada, los nombres de nota se imprimen en el
 mismo idioma que se ha usado para la entrada de la música; sin
 embargo, la propiedad @code{printNotesLanguage} permite
-seleccionar cualquier otro idioma disponible (véase @ref{Note names in other languages}).  A través de la propiedad
+seleccionar cualquier otro idioma disponible (véase
+@ref{Note names in other languages}).  A través de la propiedad
 @code{printAccidentalNames} se determina si las alteraciones se
 imprimen o no.
 
 Estableciendo tanto la mencionada propiedad a un símbolo, como la
-propiedad @code{printOctaveNames} al valor @code{##t} (verdadero),
+propiedad @code{printOctaveNames} al valor @code{#t} (verdadero),
 se pueden obtener nombres de notas de una manera muy similar a la
 sintaxis de entrada de LilyPond.  Para un resultado más general,
 es posible conseguir nombres de nota @q{científicos}.
@@ -1395,11 +1429,12 @@ de esta funcionalidad es la explicación de la notación.
 }
 @end lilypond
 
-Existen dos funciones musicales, @code{balloonGrobText} y
-@code{balloonText}; el primero se usa como @code{\once\override}
-para adjuntar un texto a cualquier grob, y el último se usa como
-@code{\tweak}, normalmente dentro de acordes, para adjuntar un
-texto a una nota individual.
+Existen dos funciones musicales, @code{balloonText} y
+@code{balloonGrobText}; el primero se usa como @code{\tweak}, pero
+solo dentro de acordes, para adjuntar un texto a una nota
+individual. del acorde, y el último se usa como @code{\once
+\override}, para adjuntar un texto a cualquier grob y en cualquier
+lugar.
 
 Los textos de globo no influyen en el espaciado de las notas, pero
 esto puede cambiarse:
@@ -1417,8 +1452,9 @@ esto puede cambiarse:
 }
 @end lilypond
 
-The default behavior for the attachment point of the line on the
-frame and the alignment of the balloon text is demonstrated below.
+El comportamiento predeterminado del punto de inserción de la
+línea en el marco y el alineamiento del texto del globo, se
+muestran más abajo.
 
 @lilypond
 \new Voice \with {
@@ -1435,12 +1471,14 @@ frame and the alignment of the balloon text is demonstrated below.
 }
 @end lilypond
 
-The default calculation of the attachment point can be overruled
-using the @code{X-attachment} and @code{Y-attachment} properties,
-which take values between -1 and 1, with the limits corresponding
-to the left (resp.@: bottom) and right (resp.@: top) of the frame.
-Alignment of the text is controlled by @code{text-alignment-X} and
-@code{text-alignment-Y}, which have a similar form.
+El cálculo por omisión del punto de inserción se puede imponer
+usando las propiedades @code{X-attachment} y @code{Y-attachment},
+que toman valores entre -1@tie{}y@tie{}1, con límites que
+corresponden al extremo izquierdo (respectivamente@: la parte
+inferior) y el derecho (respectivamente@: la parte superior) del
+marco.  La alineación del texto se controla mediante
+@code{text-alignment-X} y @code{text-alignment-Y}, que tienen una
+forma similar.
 
 @lilypond[verbatim,quote]
 \new Voice \with {

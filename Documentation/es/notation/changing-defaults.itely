@@ -132,7 +132,7 @@ Archivos instalados:
 @endmorerefs
 
 @node Score - the master of all contexts
-@subsection @code{Score}: El contexto maestro
+@subsection @code{Score}: el contexto maestro
 
 @funindex Score
 @funindex Global

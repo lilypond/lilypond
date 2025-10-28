@@ -229,9 +229,10 @@ de referencia independientemente del @code{\relative} exterior.
 }
 @end lilypond
 
-To use absolute mode inside of @code{\relative}, put the absolute
-music inside @code{\fixed c @{ @dots{}@tie{}@}} and the absolute
-pitches will not affect the octaves of the relative music:
+Para usar el modo absoluto dentro de @code{\relative}, escriba la
+música absoluta dentro de @code{\fixed c @{ @dots{}@tie{}@}} y las
+alturas absolutas no afectarán a las octavas de la música
+relativa:
 
 @lilypond[verbatim,quote]
 \relative {
@@ -3159,11 +3160,11 @@ forget = #(define-music-function (music) (ly:music?) #{
 @end lilypond
 
 @node Alternate accidental glyphs
-@subsection Alternate accidental glyphs
+@subsection Glifos de alteración alternativos
 
-@cindex alternate accidental glyph
-@cindex accidental, alternate glyphs
-@cindex glyph, alternate accidentals
+@cindex alteración, glifos alternativos
+@cindex accidental, alteración, glifos alternativos
+@cindex glifo, alteración, alternativos
 
 Los sistemas de notación de la música antigua y no occidentales
 tienen sus propios sistemas de alteraciones accidentales.  Los
