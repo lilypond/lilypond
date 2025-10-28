@@ -1022,7 +1022,7 @@ artic_tbl = {
     'T': '^\\trill',
     'H': '^\\fermata',
     'u': '^\\upbow',
-    'K': '^\\ltoe',
+    'K': '^\\vartoe',       # 'K' doesn't exist in v1.6
     'k': '^\\accent',
     'M': '^\\tenuto',
     '~': '^"~" ',

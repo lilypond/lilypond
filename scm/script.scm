@@ -157,6 +157,13 @@
         (avoid-slur . inside)
         (side-axis . ,Y)
         (direction . ,UP)))
+    (heel
+     . (
+        (script-stencil . (feta . ("upedalheel" . "upedalheel")))
+        (padding . 0.20)
+        (avoid-slur . around) ;guessing?
+        (side-axis . ,Y)
+        (direction . ,UP)))
     (heelcircle
      . (
         (script-stencil . (feta . ("pedalheelcircle" . "pedalheelcircle")))
@@ -417,6 +424,13 @@
         (script-priority . -50)
         (side-axis . ,Y)
         (side-relative-direction . ,DOWN)))
+    (toe
+     . (
+        (script-stencil . (feta . ("dpedaltoe" . "dpedaltoe")))
+        (padding . 0.20)
+        (avoid-slur . around) ;guessing?
+        (side-axis . ,Y)
+        (direction . ,UP)))
     (trill
      . (
         (script-stencil . (feta . ("trill" . "trill")))
@@ -471,6 +485,20 @@
         (quantize-position . #t)
         (padding . 0.20)
         (avoid-slur . ignore)
+        (side-axis . ,Y)
+        (direction . ,UP)))
+    (varheel
+     . (
+        (script-stencil . (feta . ("dpedalheel" . "dpedalheel")))
+        (padding . 0.20)
+        (avoid-slur . around) ;guessing?
+        (side-axis . ,Y)
+        (direction . ,UP)))
+    (vartoe
+     . (
+        (script-stencil . (feta . ("upedaltoe" . "upedaltoe")))
+        (padding . 0.20)
+        (avoid-slur . around) ;guessing?
         (side-axis . ,Y)
         (direction . ,UP)))
     (verylongfermata
