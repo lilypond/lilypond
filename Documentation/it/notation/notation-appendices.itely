@@ -2586,10 +2586,11 @@ f^\henzelongfermata e,_\henzelongfermata b'\henzelongfermata
 @funindex \flageolet
 @funindex \open
 @funindex \halfopen
-@funindex \lheel
-@funindex \rheel
-@funindex \ltoe
-@funindex \rtoe
+@funindex \heel
+@funindex \varheel
+@funindex \heelcircle
+@funindex \toe
+@funindex \vartoe
 @funindex \snappizzicato
 @funindex \stopped
 @funindex -+
@@ -2651,25 +2652,30 @@ f^\open e,_\open b'\open
 f^\halfopen e,_\halfopen b'\halfopen
 @end lilypond
 @tab
-@code{\lheel}
+@code{\heel}
 @lilypond[notime,relative=2]
-f^\lheel e,_\lheel b'\lheel
+f^\heel e,_\heel b'\heel
 @end lilypond
 @tab
-@code{\rheel}
+@code{\varheel}
 @lilypond[notime,relative=2]
-f^\rheel e,_\rheel b'\rheel
+f^\varheel e,_\varheel b'\varheel
 @end lilypond
 @tab
-@code{\ltoe}
+@code{\heelcircle}
 @lilypond[notime,relative=2]
-f^\ltoe e,_\ltoe b'\ltoe
+f^\heelcircle e,_\heelcircle b'\heelcircle
 @end lilypond
 
 @item
-@code{\rtoe}
+@code{\toe}
 @lilypond[notime,relative=2]
-f^\rtoe e,_\rtoe b'\rtoe
+f^\toe e,_\toe b'\toe
+@end lilypond
+@tab
+@code{\vartoe}
+@lilypond[notime,relative=2]
+f^\vartoe e,_\vartoe b'\vartoe
 @end lilypond
 @tab
 @code{\snappizzicato}
@@ -2681,7 +2687,8 @@ f^\snappizzicato e,_\snappizzicato b'\snappizzicato
 @lilypond[notime,relative=2]
 f^\stopped e,_\stopped b'\stopped
 @end lilypond
-@tab
+
+@item
 @code{\thumb}
 @lilypond[notime,relative=2]
 f^\thumb e,_\thumb b'\thumb

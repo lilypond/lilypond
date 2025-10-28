@@ -83,10 +83,11 @@
 @funindex \downbow
 @funindex \flageolet
 @funindex \thumb
-@funindex \lheel
-@funindex \rheel
-@funindex \ltoe
-@funindex \rtoe
+@funindex \heel
+@funindex \varheel
+@funindex \heelcircle
+@funindex \toe
+@funindex \vartoe
 @funindex \open
 @funindex \halfopen
 @funindex \stopped
