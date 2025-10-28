@@ -1309,7 +1309,9 @@ def draw_heel =
 
   radius# := .5 staff_space#;
 
-  set_char_box (radius#, radius#, radius#, 2/3 staff_space#);
+  set_char_box (radius#, radius#, 0, radius# + 2/3 staff_space#);
+
+  define_pixels (radius);
 
   thickness := hround (1.5 linethickness);
 
@@ -1318,11 +1320,11 @@ def draw_heel =
   rt x1 = b;
   top y1 = h;
 
-  x2 =x1;
-  y2 = 0;
+  x2 = x1;
+  y2 = radius;
 
   x3 = 0;
-  bot y3 = -d;
+  bot y3 = 0;
 
   pat := top z3{right}
          .. lft z2{up}
@@ -1346,16 +1348,17 @@ fet_endchar;
 
 fet_beginchar ("right heel", "dpedalheel");
   draw_heel;
-  y_mirror_char;
+  currentpicture := currentpicture yscaled -1 shifted (0, h);
 fet_endchar;
 
 
+% Use the same height as the heel.
 def draw_toe =
   save ht, wd, thickness;
 
   thickness := 1.5 linethickness;
-  ht# := 1.5 staff_space#;
-  wd# := 1/3 ht#;
+  ht# := (0.5 + 2/3) * staff_space#;
+  wd# := 0.5 staff_space#;
   define_pixels (ht, wd);
 
   set_char_box (wd#, wd#, 0, ht#);
@@ -1371,7 +1374,7 @@ fet_endchar;
 
 fet_beginchar ("right toe", "dpedaltoe");
   draw_toe;
-  y_mirror_char;
+  currentpicture := currentpicture yscaled -1 shifted (0, h);
 fet_endchar;
 
 
