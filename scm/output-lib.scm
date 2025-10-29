@@ -1826,23 +1826,6 @@ visible, just that they exist."
         (when (ly:grob? span-bar)
           (ly:grob-suicide! script))))))
 
-(define-public (ly:script-interface::calc-direction grob)
-  (define (get-direction grob)
-    (let ((dir-src (ly:grob-object grob 'direction-source #f)))
-      (if (and (ly:grob? dir-src) (grob::is-live? dir-src))
-          (* (ly:grob-property dir-src 'direction)
-             (ly:grob-property grob 'side-relative-direction 1))
-          ;; This might be a script attached to a skip in a Dynamics context
-          ;; between two piano staves, for example.  Some scripts have differing
-          ;; glyphs depending on their direction, so we still pass a non-CENTER
-          ;; direction for downstream code, but we pick it silently because it
-          ;; can be useful, and let the user write an explicit direction
-          ;; specifier if the result does not fit.
-          CENTER)))
-  (let ((dir (get-direction grob)))
-    (ly:grob-property grob 'positioning-done)
-    dir))
-
 (define-public (script-interface::calc-x-offset grob)
   (if (zero? (ly:grob-property grob 'side-axis Y))
       (ly:side-position-interface::x-aligned-side grob)
@@ -1945,7 +1928,6 @@ surrounding note columns."
      (variant ly:unpure-call)
      (variant ly:pure-call))))
 
-
 (define-public (ly:script-interface::calc-direction grob)
 "Usually the @code{'direction} of an articulation is set in
 @code{default-script-alist}. If the @code{'direction} is not specified there and
@@ -1959,7 +1941,6 @@ For horizontally placed scripts we simply provide @code{LEFT} as a fallback
 value.
 
 As a last resort @code{CENTER} is returned."
-
   (define (get-direction grob)
     (if (eqv? (ly:grob-property grob 'side-axis) X)
         (let* ((par-Y (ly:grob-parent grob Y)))
