@@ -2057,17 +2057,6 @@ is created instead of a segno mark.")
        (make-music 'SegnoMarkEvent 'label num)
        (make-music 'SegnoMarkEvent)))
 
-settingsFrom =
-#(define-scheme-function (ctx music)
-   ((symbol?) ly:music?)
-   (_i "Translate layout instructions into a context modification.
-
-This function takes the layout instruction events from @var{music} (i.e.,
-@code{\\set}, @code{\\unset}, @code{\\override}, @code{\\revert}), optionally
-restricted to those applying to context type @var{ctx}, and returns
-a context modification duplicating their effect.")
-   (context-mod-from-music m ctx))
-
 shape =
 #(define-music-function (offsets item) (list? key-list-or-music?)
    (_i "Offset control points of @var{item} by @var{offsets}.
