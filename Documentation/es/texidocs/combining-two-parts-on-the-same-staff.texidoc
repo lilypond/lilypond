@@ -1,20 +1,20 @@
-%% Translation of GIT committish: 0c00cd98e81b27325bed5891b950fe7f0f0ebe5d
+%% Translation of GIT committish: dd3effab28ad30698ef1fe8ff57ff79230d2a003
   texidoces = "
-La herramienta de combinación de partes (instrucción
+La herramienta de combinación de partes (o sea, la instrucción
 @code{\\partCombine}) permite la combinación de varias partes
 diferentes sobre el mismo pentagrama.  Las indicaciones textuales
-tales como @qq{solo} o @qq{a2} se añaden de forma predeterminada; para
-quitarlas, sencillamente establezca la propiedad
-@code{printPartCombineTexts} al valor @qq{falso}.  Para partituras
-vocales (como himnos), no hay necesidad de añadir los textos @qq{solo}
-o @qq{a2}, por lo que se deben desactivar.  Sin embargo, podría ser
-mejor no usarlo si hay solos, porque éstos no se indicarán.  En tales
-casos podría ser preferible la notación polifónica estándar.
+tales como @qq{solo} o @qq{a2} se añaden de forma predeterminada;
+para quitarlas, sencillamente establezca la propiedad
+@code{printPartCombineTexts} al valor @code{#f}.  Para partituras
+vocales (como himnos), no hay necesidad de añadir los textos
+@qq{solo} o @qq{a2}, por lo que se deben desactivar.  Sin embargo,
+podría ser mejor no usarlos si hay solos, porque éstos no se
+indicarán.  En tales casos podría ser preferible la notación
+polifónica estándar.
 
 Este fragmento de código presenta las tres formas en que se pueden
 imprimir dos partes sobre un solo pentagrama: polifonía estándar,
 @code{\\partCombine} sin textos, y @code{\\partCombine} con
 textos.
-
 "
   doctitlees = "Combinar dos partes sobre el mismo pentagrama"

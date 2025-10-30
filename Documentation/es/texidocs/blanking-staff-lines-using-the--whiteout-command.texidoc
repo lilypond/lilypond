@@ -1,10 +1,9 @@
-%% Translation of GIT committish: 85559b2545524db25e44ef7360aff31cbc85e191
+%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
   texidoces = "
 La instrucción @code{\\whiteout} intercala un rectángulo blanco
 debajo de un elemento de marcado.  Este rectángulo blanco no tapa
 a ningún otro objeto gráfico, puesto que las líneas del pentagrama
 están en una capa inferior a la de la mayor parte de los otros
 objetos.
-
 "
   doctitlees = "Poner en blanco las líneas del pentagrama utilizando la instrucción \\whiteout"

@@ -1,20 +1,18 @@
-%% Translation of GIT committish: ff9ca62acddb818b7788d7818a5c7eb0ddb6cdcb
+%% Translation of GIT committish: 3103776eff283e358d36b123823dab8bc2dbeb44
   texidoces = "
 A veces, en las partituras orquestales se dejan en silencio
 instrumentos individuales o grupos de ellos durante un período de
-tiempo, y sus pentagramas correspondientes se pueden suprimir durante
-ese tiempo (con @code{\\removeEmptyStaves}).
+tiempo, y sus pentagramas correspondientes se pueden suprimir
+durante ese tiempo (con @code{\\removeEmptyStaves}).
 
+Cuando vuelven a sonar, con frecuencia se prefiere mostrar
+@emph{todos los instrumentos del grupo}.  Esto se puede hacer
+añadiendo el grabador @code{Keep_alive_together_engraver} en el
+contexto agrupador (p.ej.: un GrandStaff o un StaffGroup).
 
-Cuando vuelven a sonar, con frecuencia se prefiere mostrar todos los
-instrumentos del grupo.  Esto se puede hacer añadiendo el grabador
-@code{Keep_alive_together_engraver} en el contexto agrupador (p.ej.:
-un GrandStaff o un StaffGroup)
-
-
-En este ejemplo, los violines están en silencio durante los sistemas
-segundo y tercero.  Solo el violín primero suena en el último compás,
-pero se muestra también el pentagrama del violín segundo.
-
+En este ejemplo, los violines están en silencio durante los
+sistemas segundo y tercero.  Solo el violín primero suena en el
+último compás, pero se muestra también el pentagrama del violín
+segundo.
 "
   doctitlees = "Mostrar un sistema GrandStaff completo si sigue con vida uno solo de sus pentagramas"

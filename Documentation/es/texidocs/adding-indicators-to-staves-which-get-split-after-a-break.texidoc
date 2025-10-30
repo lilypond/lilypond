@@ -1,11 +1,11 @@
-%% Translation of GIT committish: 0bed3bc9d8ad506e51c02faf95715e584e4bc335
+%% Translation of GIT committish: 491e95842b461c363686dfde53b640144362ead5
   texidoces = "
 Este fragmento de código define las instrucciones
-@code{\\splitStaffBarLine}, @code{convUpStaffBarLine} y
-@code{convDownStaffBarLine}, que añaden flechas en las sobre una línea
-divisoria, para denotar que cada una de las voces que comparten un
-pentagrama continúan en su propio pentagrama en el siguiente sistema,
-o que las voces así divididas se recombinan.
+@code{\\splitStaffBarLine}, @code{\\convUpStaffBarLine} y
+@code{\\convDownStaffBarLine}, que añaden flechas en las sobre una
+línea divisoria para denotar que cada una de las voces que
+comparten un pentagrama continúan en su propio pentagrama en el
+siguiente sistema, o que las voces así divididas se recombinan.
 
 "
-  doctitlees = "Añadir indicadoes a los pentagramas que se dividen después de un salto de línea"
+  doctitlees = "Añadir indicadores a los pentagramas que se dividen después de un salto de línea"

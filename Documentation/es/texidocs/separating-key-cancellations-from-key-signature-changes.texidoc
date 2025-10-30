@@ -1,19 +1,41 @@
-%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+%% Translation of GIT committish: dd3effab28ad30698ef1fe8ff57ff79230d2a003
   texidoces = "
 De forma predeterminada, las alteraciones accidentales que se usan
-para las cancelaciones en las armaduras se colocan adyacentes a las
-que se usan para los cambios de tonalidad.  Este comportamiento se
-puede cambiar sobreescribiendo la propiedad @code{'break-align-orders}
-del objeto gráfico @code{BreakAlignment}.
+para las cancelaciones en las armaduras se colocan adyacentes a
+las que se usan para los cambios de tonalidad.  Este
+comportamiento se puede cambiar sobreescribiendo la propiedad
+@code{break-align-orders} del objeto gráfico
+@code{BreakAlignment}.
 
+El valor de @code{break-align-orders} es un vector de
+longitud@tie{}3, con listas entrecomilladas cuyos elementos con
+objetos que se pueden dividir en un salto.  Cada lista describe el
+orden predeterminado de material preliminar al final, en medio y
+al comienzo de una línea, respectivamente.  Solo nos interesa
+cambiar el comportamiento en el medio de la línea.
 
-El valor de @code{'break-align-orders} es un vector de longitud 3, con
-listas entrecomilladas cuyos elementos con objets que se pueden
-dividir en un salto.  Este ejemplo solo modifica la segunda lista,
-moviendo @code{key-cancellation} antes de @code{staff-bar};
-modificando la segunda lista, el comportamiento de alineación de los
-saltos solo cambia en la mitad de un sistema, no al principio ni al
-final.
+Si busca la definición de @code{break-align-orders} en la
+Referencia de funcionamiento interno de LilyPond (véase el objeto
+gráfico
+@uref{https://lilypond.org/doc/v2.22/Documentation/internals/breakalignment,@code{BreakAlignment}}),
+verá el orden siguiente en el segundo elemento:
 
+@verbatim
+...
+staff-bar
+key-cancellation
+key-signature
+...
+@end verbatim
+
+Queremos modificar eso, trasladando @code{key-cancellation} a
+antes de @code{staff-bar}.  Para que esto ocurra, usamos la
+función @code{grob-transformer}, que nos da acceso al vector
+oricinal como segundo argumento de la función lambda, llamada aquí
+@var{orig} (no necesitamos el primer argumento, @var{grob}).
+Devolvemos un nuevo vector, sin ningún cambio en los elementos
+primero y último.  Para el elemento central, en primer lugar
+eliminamos @code{key-cancellation} de la lista, y después lo
+añadimos de nuevo antes de @code{staff-bar}.
 "
   doctitlees = "Separar las cancelaciones de tonalidad de los cambios de armadura"

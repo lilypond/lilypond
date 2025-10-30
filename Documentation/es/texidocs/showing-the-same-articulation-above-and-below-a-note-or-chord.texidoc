@@ -1,22 +1,25 @@
-%% Translation of GIT committish: 00f0ca84dbb015617f8ce36dd13db59bbfef8f11
+%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
   texidoces = "
 De forma predeterminada, LilyPond no permite poner la misma
-articulación (p.ej., un acento, un calderón, un círculo de armónico,
-etc.) encima y debajo de la nota.  Por ejemplo, c4_\\fermata^\\fermata
-imprime solamente el calderón inferior.  El calderón superior
-sencillamente se ignora.  Sin embargo, se pueden adosar inscripciones
-(de igual forma que las digitaciones) dentro de un acorde, lo que
-significa que es posible tener tantas articulaciones como se desee.
-Este enfoque tiene la ventaja de que ignora la plica y posiciona la
-articulación de forma relativa a la cabeza de la nota.  Puede verse
-esto en el caso de los flageolets (indicaciones de armónico) que
-aparecen en el fragmento de código.  Para recrear el comportamiento de
-las inscripciones fuera del acorde, se requiere 'add-stem-support.
-Así, la solución consiste en escribir la nota como un acorde y añadir
-las articulaciones dentro de los paréntesis en ángulo <...>.  La
-dirección siempre será hacia arriba, pero podemos retocar esto por
-medio de una instrucción \\tweak: @code{<c-\\tweak dirección
-#DOWN-\\fermata^\\fermata>}
+articulación (p.ej., un acento, un calderón, un círculo de
+armónico, etc.) encima y debajo de la nota.  Por ejemplo,
+@code{c4_\\fermata^\\fermata} imprime solamente el calderón
+inferior.  El calderón superior sencillamente se ignora.
+
+Sin embargo, se pueden adosar inscripciones (de igual forma que
+las digitaciones) dentro de un acorde, lo que significa que es
+posible tener tantas articulaciones como se desee. Este enfoque
+tiene la ventaja de que ignora la plica y posiciona la
+articulación de forma relativa a la cabeza de la nota.  Puede
+verse esto en el caso de los flageolets (indicaciones de armónico)
+que aparecen en el fragmento de código.  Para recrear el
+comportamiento de las inscripciones fuera del acorde, se requiere
+@code{'add-stem-support}.
+
+La solución consiste en escribir la nota como un acorde y añadir
+las articulaciones dentro de los paréntesis en ángulo
+@code{<...>}, usando los modificadores de dirección @code{^} y
+@code{_} según corresponda.
 
 "
   doctitlees = "Imprimir la misma articulación encima y debajo de la misma nota o acorde"

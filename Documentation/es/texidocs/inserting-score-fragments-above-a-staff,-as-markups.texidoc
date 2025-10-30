@@ -1,8 +1,7 @@
-%% Translation of GIT committish: 262abf17c7827e88e3d509100c43920c8e225bec
+%% Translation of GIT committish: b7fb9ba58f06ce1f360a7e4ae78870f35069b0a1
   texidoces = "
-La instrucción @code{\\markup} es muy versátil.  En este fragmento de
-código, contiene un bloque @code{\\score} con una partitura completa
-en lugar de textos u otras marcas.
-
+La instrucción @code{\\markup} es muy versátil.  En este fragmento
+de código, contiene un bloque @code{\\score} con una partitura
+completa en lugar de textos u otras marcas.
 "
-  doctitlees = "Insertar fragmentos de partituras sobre del pentagrama como elementos de marcado"
+  doctitlees = "Insertar fragmentos de partituras sobre el pentagrama, como elementos de marcado"

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 0c00cd98e81b27325bed5891b950fe7f0f0ebe5d
+%% Translation of GIT committish: 40a6ee3c77d89a24d34b13790442cdcc95f59d7a
   doctitlees = "Posicionar los silencios multicompás"
   texidoces = "
 A diferencia de los silencios normales, no existe una instrucción
@@ -6,8 +6,8 @@ predefinida para modificar la posición predeterminada de un
 símbolo de silencio multicompás sobre el pentagrama, adjuntándolo
 a una nota, independientemente de cuál sea su forma.  Sin embargo,
 en la música polifónica los silencios multicompás de las voces de
-numeración par e impar están separados verticalmente.  La
-colocación de los silencios multicompás se puede controlar como se
-ve a continuación:
+numeración par e impar están separados verticalmente.
 
+La colocación de los silencios multicompás se puede controlar como
+se ve a continuación:
 "

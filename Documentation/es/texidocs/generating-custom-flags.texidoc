@@ -1,4 +1,4 @@
-%% Translation of GIT committish: ff9ca62acddb818b7788d7818a5c7eb0ddb6cdcb
+%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
   texidoces = "
 La propiedad @code{stencil} del grob @code{Flag} (el objeto gráfico corchete)
 se puede fijar a una función de Scheme personalizada que genere el

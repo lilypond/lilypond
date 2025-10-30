@@ -1,21 +1,20 @@
-%% Translation of GIT committish: 262abf17c7827e88e3d509100c43920c8e225bec
+%% Translation of GIT committish: b7fb9ba58f06ce1f360a7e4ae78870f35069b0a1
   texidoces = "
 Este fragmento de código muestra el uso del grabador
 @code{Measure_counter_engraver} para numerar grupos de compases
-sucesivos.  Se puede numerar cualquier período de compases tanto si
-tiene repeticiones como si no.
+sucesivos.  Se puede numerar cualquier período de compases tanto
+si tiene repeticiones como si no.
 
 Se debe añadir el grabador al contexto adecuado.  Aquí se usa un
 contexto @code{Staff}; otra posibilidad sería un contexto
 @code{Dynamics}.
 
-El contador se inicia con @code{\\startMeasureCount} y finaliza con
-@code{\\stopMeasureCount}.  La numeración comienza con @code{1}, de
-forma predeterminada, pero se puede modificar este comportamiento
-sobreescribiendo la propiedad @code{count-from}.
+El contador se inicia con @code{\\startMeasureCount} y finaliza
+con @code{\\stopMeasureCount}.  La numeración comienza con@tie{}1,
+de forma predeterminada, pero se puede modificar este
+comportamiento sobreescribiendo la propiedad @code{count-from}.
 
-Cuando un compás se extiende más allá de un salto de línea, el número
-aparece dos veces, la segunda vez entre paréntesis.
-
+Cuando un compás se extiende más allá de un salto de línea, el
+número aparece dos veces, la segunda vez entre paréntesis.
 "
   doctitlees = "Numerar grupos de compases"

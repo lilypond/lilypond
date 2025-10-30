@@ -1,14 +1,13 @@
-%% Translation of GIT committish: 069c8e54d8eaf449262a180674330b31c8c723d9
+%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
   texidoces = "
 Las abreviaturas se encuentran definidas dentro del archivo
 @file{ly/script-init.ly}, donde las variables @code{dashHat},
-@code{dashPlus}, @code{dashDash}, @code{dashBang}, @code{dashLarger},
-@code{dashDot} y @code{dashUnderscore} reciben valores
-predeterminados.  Se pueden modificar estos valores predeterminados
-para las abreviaturas. Por ejemplo, para asociar la abreviatura
-@code{-+} (@code{dashPlus}) con el símbolo del semitrino en lugar del
-símbolo predeterminado +, asigne el valor @code{trill} a la variable
-@code{dashPlus}:
-
+@code{dashPlus}, @code{dashDash}, @code{dashBang},
+@code{dashLarger}, @code{dashDot} y @code{dashUnderscore} reciben
+valores predeterminados.  Se pueden modificar estos valores
+predeterminados para las abreviaturas. Por ejemplo, para asociar
+la abreviatura @code{-+} (@code{dashPlus}) con el símbolo del
+@emph{semitrino} en lugar del símbolo predeterminado @emph{+},
+asigne el valor @code{\\trill} a la variable @code{dashPlus}:
 "
   doctitlees = "Modificar los valores predeterminados para la notación abreviada de las articulaciones"

@@ -1,45 +1,45 @@
-%% Translation of GIT committish: 66944d2d921889a3c45ef0db23171a9f48a46825
+%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
   texidoces = "
 Al trabajar con los callbacks de un grob, puede ser de mucha ayuda
 entender el árbol genealógico de un grob.  La mayor parte de los
 grobs tienen padres que influyen en el posicionamiento del grob.
-los padres X e Y influyen en las posiciones horizontal y vertical del
-grob, respectivamente.  Además, cada pade puede tener padres a su vez.
+los padres X e Y influyen en las posiciones horizontal y vertical
+del grob, respectivamente.  Además, cada pade puede tener padres a
+su vez.
 
+Por desgracia, existen varios aspectos de la genealogía de un grob
+que pueden llevar a confusión:
 
-Por desgracia, existen varios aspectos de la genealogía de un grob que
-pueden llevar a confusión:
-
-
-* Los tipos de padre que tiene un grob pueden depender del
-contexto.
-
-* Para ciertos grobs, los padres X e Y son el mismo.
-
-* Un \"ancestro\" concreto puede estar relacionado con un grob de
+@itemize
+@item
+Los tipos de padre que tiene un grob pueden depender del contexto.
+@item
+Para ciertos grobs, los padres X e Y son el mismo.
+@item
+Un @emph{ancestro} concreto puede estar relacionado con un grob de
 más de una manera.
+@item
+El concepto de @emph{generaciones} es engañoso.
+@end itemize
 
-* El concepto de \"generaciones\" es engañoso.
-
-
-Por ejemplo, el grob @code{System} puede ser tanto un padre (sobre el
-lado Y) como un abuelo (dos veces en el lado X) de un grob
+Por ejemplo, el grob @code{System} puede ser tanto un padre (sobre
+el lado Y) como un abuelo (dos veces en el lado X) de un grob
 @code{VerticalAlignment}.
 
-
-Este macro imprime, en la consola, una representación textual de la
-genealogía de un grob.
-
+Este macro imprime, en la consola, una representación textual de
+la genealogía de un grob.
 
 Cuando se llama de esta forma:
 
-@code{@{ \\once \\override NoteHead.before-line-breaking =
-#display-ancestry c @}}
+@verbatim
+{ \\once \\override NoteHead.before-line-breaking = #display-ancestry c }
+@end verbatim
 
 Se genera la siguiente salida:
 
-
-@code{NoteHead X,Y: NoteColumn
+@verbatim
+NoteHead
+X,Y: NoteColumn
      X: PaperColumn
         X,Y: System
      Y: VerticalAxisGroup
@@ -48,7 +48,7 @@ Se genera la siguiente salida:
         Y: VerticalAlignment
            X: NonMusicalPaperColumn
               X,Y: System
-           Y: System}
-
+           Y: System
+@end verbatim
 "
   doctitlees = "Imprimir el árbol genealógico de un grob"

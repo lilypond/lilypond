@@ -1,18 +1,22 @@
-%% Translation of GIT committish: 069c8e54d8eaf449262a180674330b31c8c723d9
+%% Translation of GIT committish: 40a6ee3c77d89a24d34b13790442cdcc95f59d7a
   doctitlees = "Grabado manual de las ligaduras"
   texidoces = "
-Se pueden grabar a mano las ligaduras modificando la propiedad
-@code{tie-configuration} del objeto @code{TieColumn}. El primer número
-indica la distancia a partir de la tercera línea del pentagrama en
-espacios de pentagrama, y el segundo número indica la dirección (1 =
-hacia arriba, -1 = hacia abajo).
+Se puede grabar a mano una ligadura modificando la propiedad
+@code{staff-position} (un desplazamiento) del objeto gráfico
+@code{Tie}; si hay más de una ligadura en el mismo momento
+musical, se pueden ajustar manualmente cambiando la propiedad
+@code{tie-configuration} del objeto @code{TieColumn}.
 
-Observe que LilyPond distingue entre valores exactos e inexactos para
-el primer número. Si se está usando un valor exacto (p.ej., un entero
-o una fracción como @code{(/ 4 5)}), el valor sirve como una posición
-vertical aproximada que después se ajusta por parte de LilyPond para
-que la ligadura evite las líneas del pentagrama. Si se usa un valor
-inexacto, como un número de coma flotante, se toma como la posición
-vertical sin más ajustes posteriores.
+El desplazamiento indica la distancia a partir de la tercera línea
+del pentagrama en espacios de pentagrama, y la dirección puede ser
+1 (hacia arriba) o -1 (hacia abajo).
 
+Observe que LilyPond distingue entre valores exactos e inexactos
+para el primer número. Si se está usando un valor exacto (p.ej.,
+un entero o una fracción como @code{(/ 4 5)}), el valor sirve como
+una posición vertical aproximada que después se ajusta por parte
+de LilyPond para que la ligadura evite las líneas del
+pentagrama. Si se usa un valor inexacto, como un número de coma
+flotante, se toma como la posición vertical precisa sin más
+ajustes posteriores.
 "

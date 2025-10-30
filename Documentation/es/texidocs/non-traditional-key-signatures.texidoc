@@ -1,25 +1,30 @@
-%% Translation of GIT committish: 0c00cd98e81b27325bed5891b950fe7f0f0ebe5d
+%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
   doctitlees = "Armaduras de tonalidad no tradicionales"
   texidoces = "
 La muy utilizada instrucción @code{\\key} establece la propiedad
-@code{keyAlterations} dentro del contexto @code{Staff}. Para crear
-armaduras de tonalidad no estándar, ajuste esta propiedad
-directamente.
+@code{keyAlterations} dentro del contexto @code{Staff}.
 
-El formato de esta instrucción es una lista:
+Para crear armaduras de tonalidad no estándar, ajuste esta
+propiedad directamente. El formato de esta instrucción es una
+lista:
 
-@code{\\set Staff.keyAlterations = #`(((octava . paso) . alteración)
-((octava . paso) . alteración) ...)}
+@verbatim
+\\set Staff.keyAlterations =
+  #`(((octava . paso) . alteración) ((octava . paso) . alteración) ...)
+@end verbatim
 
-donde, para cada elemento dentro de la lista, @code{octava} especifica
-la octava (siendo@tie{}cero la octava desde el Do@tie{}central hasta
-el Si por encima), @code{paso} especifica la nota dentro de la octava
-(cero@tie{}significa@tie{}Do y 6@tie{}significa@tie{}Si), y
-@code{alteración} es @code{,SHARP ,FLAT ,DOUBLE-SHARP} etc.
+donde, para cada elemento dentro de la lista, @code{octava}
+especifica la octava (siendo@tie{}cero la octava desde el
+Do@tie{}central hasta el Si por encima), @code{paso} especifica la
+nota dentro de la octava (cero@tie{}significa@tie{}Do y
+6@tie{}significa@tie{}Si), y @code{alteración} es @code{,SHARP
+,FLAT ,DOUBLE-SHARP} etc.
 
 De forma alternativa, el uso del formato más conciso @code{(paso
-. alteración)} para cada elemento de la lista especifica que la misma
-alteración debe estar en todas las octavas. Para escalas microtonales
-en las que un @qq{sostenido} no son 100 cents, @code{alteración} se
-refiere a la proporción de un tono entero de 200 cents.
+. alteración)} para cada elemento de la lista especifica que la
+misma alteración debe estar en todas las octavas.
+
+Para escalas microtonales en las que un @qq{sostenido} no son 100
+cents, @code{alteración} se refiere a la proporción de un tono
+entero de 200 cents.
 "

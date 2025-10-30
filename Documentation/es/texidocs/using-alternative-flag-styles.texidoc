@@ -1,10 +1,33 @@
-%% Translation of GIT committish: 1010f574a85b40fb70e0b31136e7eb788e4946be
+%% Translation of GIT committish: b3198a544f0461445c2b67eef2fb77938927a14a
   texidoces = "
-Se pueden imprimir estilos alternativos del corchete o gancho de las
-corcheas y figuras menores, mediante la sobreescritura de la propiedad
-@code{stencil} del objeto @code{Flag}.  Son valores válidos
-@code{modern-straight-flag} y @code{old-straight-flag} y 
-@code{flat-flag}.
 
+Se pueden imprimir formas alternativos del corchete o gancho de
+las corcheas y figuras menores, mediante la sobreescritura de la
+propiedad @code{stencil} del objeto @code{Flag}.  LilyPond
+porporciona las siguientes funciones: @code{modern-straight-flag},
+@code{old-straight-flag} y @code{flat-flag}.  Utilice
+@code{\\revert} para recuperar la forma predeterminada.
+
+Para obtener corchetes más compactos o apilados verticalmente,
+llame a la instrucción @code{\\flagStyleStacked}, que se puede
+anular después con @code{\\flagStyleDefault}.
+
+La sobreescritura de la forma de @code{Flag} no modifica la manera
+en que los corchetes se posicionan verticalmente.  Esto se nota
+especialmente en los corchetes rectos: LilyPond no ajusta
+dinámicamente los huecos verticales entre los corchetes
+individuales de la misma forma que con las barras de corchea.  Una
+posible solución para armonizar la apariencia es sustituir los
+corchetes planos por medias barras, como se ve en el segundo
+pentagrama; sin embargo, esto no se puede hacer automáticamente.
+En el código de este fragmento, las medias barras se escriben con
+el prefijo @code{@@}, por ejemplo @code{@@c8}.
+
+Tenga en cuenta que las medias barras @emph{no} son objetos
+gráficos del tipo @code{Flag}.  Esto significa, particularmente,
+que la modificación de las propiedades de @code{Flag} no van a
+tener ningún efecto sobre ellos (tendríamos que usar en su lugar
+las propiedades del objeto @code{Beam}), y las propiedades para su
+objeto @code{Stem} asociado se comportarán también como barras.
 "
   doctitlees = "Uso de estilos alternativos para los corchetes"

@@ -1,24 +1,24 @@
-%% Translation of GIT committish: db22ad98af264b424e36b161c23fed43111b5c8a
+%% Translation of GIT committish: 40a6ee3c77d89a24d34b13790442cdcc95f59d7a
   doctitlees = "Trucaje de las propiedades de clave"
   texidoces = "
-La modificación del glifo de la clave, su posición o su octavación, no
-cambian 'per se' la posición de las siguientes notas del pentagrama.
-Para conseguir armaduras de tonalidad sobre las líneas del pentagrama
-adecuadas, también debe especificarse @code{middleCClefPosition}, con
-valores positivos o negativos que mueven el @code{Do central} hacia
-arriba o hacia abajo, respectivamente, en relación con la línea
-central del pentagrama (usualmente la tercera).
+La modificación del glifo de la clave, su posición o su
+octavación, no cambian 'per se' la posición de las siguientes
+notas del pentagrama.  Para conseguir armaduras de tonalidad sobre
+las líneas del pentagrama adecuadas, también debe especificarse
+@code{middleCClefPosition}, con valores positivos o negativos que
+mueven el @emph{Do@tie{}central} hacia arriba o hacia abajo,
+respectivamente, en relación con la línea central del pentagrama
+(usualmente la tercera).
 
-Por ejemplo, la instrucción @code{\\clef \"treble_8\"} equivale a un
-ajuste de @code{clefGlyph}, @code{clefPosition} (que controla la
-posición vertical de la clave sobre el pentagrama),
+Por ejemplo, la instrucción @code{\\clef \"treble_8\"} equivale a
+un ajuste de @code{clefGlyph}, @code{clefPosition} (que controla
+la posición vertical de la clave sobre el pentagrama),
 @code{middleCPosition} y @code{clefTransposition}.  Se imprime una
-clave cada vez que se modifica cualquiera de las propiedades excepto
-@code{middleCPosition}.
+clave cada vez que se modifica cualquiera de las propiedades
+excepto @code{middleCPosition}.
 
-Los siguientes ejemplos muestran las posibilidades cuando se ajustan
-estas propiedades manualmente.  En la primera línea, los cambios
-manuales preservan el posicionamiento relativo estándar de las claves
-y las notas, pero no lo hacen en la segunda línea.
-
+Los siguientes ejemplos muestran las posibilidades cuando se
+ajustan estas propiedades manualmente.  En la primera línea, los
+cambios manuales preservan el posicionamiento relativo estándar de
+las claves y las notas, pero no lo hacen en la segunda línea.
 "

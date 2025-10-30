@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
   texidoces = "
 De forma predeterminada, las líneas divisorias en los grupos
-StaffGroup, PianoStaff o GrandStaff se conectan entre los pentagramas.
-Se puede alterar este comportamiento pentagrama a pentagrama.
-
+StaffGroup, PianoStaff o GrandStaff se conectan entre los
+pentagramas, es decir, se imprime un SpanBar.  Se puede alterar
+este comportamiento pentagrama a pentagrama.
 "
-  doctitlees = "Quitar las barras de compás entre los pentagramas de un StaffGroup PianoStaff o GrandStaff"
+  doctitlees = "Quitar las barras de compás entre los pentagramas de un StaffGroup, PianoStaff o GrandStaff"

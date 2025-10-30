@@ -1,23 +1,25 @@
-%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
   doctitlees = "Aplicar estilos de cabeza según la nota de la escala"
   texidoces = "
-La propiedad @code{shapeNoteStyles} se puede usar para definir varios
-estilos de cabezas de nota para cada grado de la escala (según esté
-establecido por la armadura o por la propiedad @code{tonic}).  Esta
-propiedad requiere un conjunto de símbolos, que pueden ser puramente
-arbitrarios (se permiten expresiones geométricas como @code{triangle},
-triángulo, @code{cross}, aspas, y @code{xcircle}, círculo con aspas) o
-basados en una antigua tradición americana de grabado (ciertos nombres
-de nota latinos trambién se permiten).
+La propiedad @code{shapeNoteStyles} se puede usar para definir
+varios estilos de cabezas de nota para cada grado de la escala
+(según esté establecido por la armadura o por la propiedad
+@code{tonic}).
 
-Dicho esto, para imitar antiguos cancioneros americanos, existen varios
-estilos predefinidos de cabezas de nota disponibles a través de
-instrucciones de abreviatura como @code{\\aikenHeads} o
+Esta propiedad requiere un conjunto de símbolos, que pueden ser
+puramente arbitrarios (se permiten expresiones geométricas como
+@code{triangle}, triángulo, @code{cross}, aspas, y @code{xcircle},
+círculo con aspas) o basados en una antigua tradición americana de
+grabado (ciertos nombres de nota latinos trambién se permiten).
+
+Dicho esto, para imitar antiguos cancioneros americanos, existen
+varios estilos predefinidos de cabezas de nota disponibles a
+través de instrucciones de abreviatura como @code{\\aikenHeads} o
 @code{\\sacredHarpHeads}.
 
-Este ejemplo muestra distintas formas de obtener cabezas de notas con forma,
-y muestra la capacidad de transportar una melodía sin perder la
-correspondencia entre las funciones armónicas y los estilos de cabezas de
-nota.
+Este ejemplo muestra distintas formas de obtener cabezas de notas
+con forma, y muestra la capacidad de transportar una melodía sin
+perder la correspondencia entre las funciones armónicas y los
+estilos de cabezas de nota.
 
 "

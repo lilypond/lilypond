@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+%% Translation of GIT committish: 966df7910364689c2923dc40345e2cf33a98ba23
   texidoces = "
 De forma predeterminada, los corchetes de primera y segunda vez se
-trazan encima de los finales alternativos completos, pero es posible
-acortartlos estableciendo un valor cierto para
-@code{voltaSpannerDuration}.  En el ejemplo siguiente, el corchete
-sólo dura un compás, que corresponde a una duración de 3/4.
-
+trazan encima de los finales alternativos completos, pero es
+posible acortartlos sobreescribiendo el valor de
+@code{VoltaBracket.musical-length}.  En el ejemplo siguiente, el
+corchete sólo dura un compás, que corresponde a una duración de
+3/4.
 "
   doctitlees = "Acortar los corchetes de primera y segunda vez"

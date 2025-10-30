@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+%% Translation of GIT committish: b7fb9ba58f06ce1f360a7e4ae78870f35069b0a1
   texidoces = "
 El primer pentagrama vacío también se puede suprimir de la
 partitura estableciendo la propiedad @code{remove-first} de

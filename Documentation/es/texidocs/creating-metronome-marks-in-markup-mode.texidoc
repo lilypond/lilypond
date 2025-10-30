@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 3ac792f8d1b45c06362d4dc82483ce446ef1a504
+%% Translation of GIT committish: 54de673adf1137d72225d68f26f59fd01a0aec30
   texidoces = "
 Se pueden crear indicaciones metronómicas nuevas en modo de
 marcado, pero no cambian el tempo en la salida MIDI.

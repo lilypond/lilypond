@@ -1,8 +1,7 @@
-%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+%% Translation of GIT committish: 40a6ee3c77d89a24d34b13790442cdcc95f59d7a
   texidoces = "
-Existen tres estilos distintos de repeticiones dobles para la primera
-y segunda vez, que se pueden ajustar utilizando
+Existen tres estilos distintos de repeticiones dobles para la
+primera y segunda vez, que se pueden ajustar utilizando
 @code{doubleRepeatBarType}.
-
 "
   doctitlees = "Establecer el tipo de repetición doble predeterminado para la primera y segunda vez"

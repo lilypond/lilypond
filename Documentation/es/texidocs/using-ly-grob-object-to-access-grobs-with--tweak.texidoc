@@ -1,34 +1,27 @@
-%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
   texidoces = "
-Se puede acceder \"lateralmente\" a algunos grobs desde dentro de la
-función de callback de otro grob.  Éstos se encuentran relacionados
-normalmente como \"layout objects\" (objetos de presentación) en la
-sección \"Internal properties\" (propiedades internas) de un
-interface de grob.  Se usa la función ly:grob-object para
-acceder a estos grobs.
+Se puede acceder \"lateralmente\" a algunos grobs desde dentro de
+la función de callback de otro grob.  Éstos se encuentran
+relacionados normalmente como \"layout objects\" (objetos de
+presentación) en la sección \"Internal properties\" (propiedades
+internas) de un interface de grob.  Se usa la función
+ly:grob-object para acceder a estos grobs.
 
+Se presentan más abajo como ejemplo algunas formas de addecer a
+grobs desde dentro de una función de callback de NoteHead, pero la
+técnica no se limita a las cabezas de nota.  Sin embargo, la
+función de callback de NoteHead es especialmente importante,
+porque es la función de callback implícita que utiliza la
+instrucción @code{\\tweak}.
 
-Se presentan más abajo como ejemplo algunas formas de addecer a grobs
-desde dentro de una función de callback de NoteHead, pero la técnica
-no se limita a las cabezas de nota.  Sin embargo, la función de
-callback de NoteHead es especialmente importante, porque es la función
-de callback implícita que utiliza la instrucción @code{\\tweak}.
-
-
-La función de ejemplo que se define abajo (\"display-grobs\") no es
-probablemente tan útil, pero muestra que se está accediendo
+La función de ejemplo que se define abajo (\"display-grobs\") no
+es probablemente tan útil, pero muestra que se está accediendo
 efectivamente a los grobs.
-
 
 Salida de ejemplo de la consola:
 
-
-@example
---------------------
-#-Grob Accidental -
-#-Grob Arpeggio -
-#-Grob Stem -
-@end example
-
+@code{#<Grob Accidental >}@*
+@code{()}@*
+@code{#<Grob Stem >}
 "
   doctitlees = "Utilizar ly:grob-object para acceder a los grobs con \\tweak"

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 0c00cd98e81b27325bed5891b950fe7f0f0ebe5d
+%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
   doctitlees = "Transportar música con el menor número de alteraciones"
   texidoces = "
 Este ejemplo utiliza código de Scheme para forzar las
@@ -6,25 +6,16 @@ modificaciones enarmónicas de las notas, y así tener el menor
 número de alteraciones accidentales. En este caso se aplican las
 siguientes reglas:
 
-@itemize
-@item
 Se quitan las dobles alteraciones
 
-@item
 Si sostenido -> Do
 
-@item
 Mi sistenido -> Fa
 
-@item
 Do bemol -> Si
 
-@item
 Fa bemol -> Mi
-
-@end itemize
 
 De esta forma se selecciona el mayor número de notas enarmónicas
 naturales.
-
 "

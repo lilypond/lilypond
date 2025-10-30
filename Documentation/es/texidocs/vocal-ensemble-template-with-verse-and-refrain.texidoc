@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+%% Translation of GIT committish: a6cec1b212a35d7673117417d31abb285fff028c
   texidoces = "
-Esta plantilla crea una partitura que comienza con una estrofa para
-solista y continúa con un estribillo a dos voces.  también muestra el
-uso de silencios de separación dentro de la variable @code{\global}
-para definir cambios de compás (y otros elementos que son comunes a
-todas las partes) a lo largo de toda la partitura.
-
+Esta plantilla crea una partitura que comienza con una estrofa
+para solista y continúa con un estribillo a dos voces.  también
+muestra el uso de silencios de separación dentro de la variable
+@code{\global} para definir cambios de compás (y otros elementos
+que son comunes a todas las partes) a lo largo de toda la
+partitura.
 "
   doctitlees = "Estrofa para solista y estribillo a dos voces"

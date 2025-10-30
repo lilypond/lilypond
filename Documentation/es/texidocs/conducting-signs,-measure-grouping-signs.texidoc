@@ -1,27 +1,28 @@
-%% Translation of GIT committish: 00f0ca84dbb015617f8ce36dd13db59bbfef8f11
+%% Translation of GIT committish: f59c863a90111137c0437b08e0bc5a021d7cea0c
   texidoces = "
-La agrupación de pulsos dentro de un compás está controlada por la
-propiedad de contexto @code{beatStructure}.  Hay establecidos valores
-de @code{beatStructure} para muchos tipos de compases en
-@code{scm/time-signature-settings.scm}.  Los valores de
-@code{beatStructure} se pueden cambiar o establecer con @code{\\set}.
-Como alternativa, se puede usar @code{\\time} para establecer tanto el
-compás como la estructura de pulsos.  Para ello, especificamos la
-agrupación interna de los pulsos del compás como una lista de números
-(en la sintaxis de Scheme) antes de la indicación de compás.
+Las propiedades de contexto controlan el agrupamiento de los
+pulsos dentro de un compás: @code{beatStructure} lists the length
+of each beat in units of @code{beatBase}.  Hay establecidos
+valores de @code{beatStructure} para muchos tipos de compases en
+@code{scm/time-signature-settings.scm}.  Estas propiedades se
+pueden cambiar o establecer con @code{\\set}.
 
+Como alternativa, @code{\\time} acepta opcionalmente una
+estructura de pulsos para usarla de forma predeterminada.
 @code{\\time} se aplica al contexto @code{Timing}, por lo que no
-restablece los valores de @code{beatStructure} ni de @code{beatBase}
-que se establezcan en otros contextos de nivel inferior, como
-@code{Voice}.
+restablece los valores de @code{beatStructure} ni de
+@code{beatBase} que se establezcan en otros contextos de nivel
+inferior, como @code{Voice}.
 
-Si el grabador @code{Measure_grouping_engraver} está incluido en uno
-de los contextos de presentación, se imprimirán signos de agrupación
-de pulsos.  Estos símbolos facilitan la lectura de música moderna
-rítmicamente compleja.  En este ejemplo, el compás de 9/8 se agrupa
-según dos patrones distintos utilizando los dos métodos, mientras que
-el compás de 5/8 se agrupa de acuerdo con el ajuste predeterminado que
-está en @code{scm/time-signature-settings.scm}:
-
+Si el grabador @code{Measure_grouping_engraver} está incluido en
+uno de los contextos de presentación, se imprimirán signos de
+agrupación de pulsos.  Estos símbolos facilitan la lectura de
+música moderna rítmicamente compleja.  En este ejemplo, el compás
+de 9/8 se agrupa según dos patrones distintos utilizando los dos
+métodos, mientras que el compás de 5/8 se agrupa de acuerdo con el
+ajuste predeterminado que está en
+@code{scm/time-signature-settings.scm}.  Para el compás de 4/4 hay
+que fijar explícitamente @code{beatBase} a corcheas para que se
+muestre el patrón irregular del compás.
 "
   doctitlees = "Símbolos de dirección y símbolos de agrupación de compás"

@@ -1,12 +1,11 @@
-%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+%% Translation of GIT committish: d97807f876f0c826b85efa8296d0d26527e370be
   texidoces = "
 Se pueden establecer las propiedades de los diagramas de
 posiciones de acordes por medio de @code{'fret-diagram-details}.
-Para los diagramas de posiciones de FretBoard, se aplican los
-overrides (sobreescrituras) al objeto @code{FretBoards.FretBoard}.
-Como @code{Voice}, @code{FretBoards} es un contexto del nivel
-inferior, y por tanto se puede omitir su nombre en la
-sobreescritura de propiedades.
-
+Para los diagramas de posiciones de @code{FretBoard}, se aplican
+los overrides (sobreescrituras) al objeto
+@code{FretBoards.FretBoard}.  Como @code{Voice}, @code{FretBoards}
+es un contexto del nivel inferior, y por tanto se puede omitir su
+nombre en la sobreescritura de propiedades.
 "
   doctitlees = "Personalizar los diagramas de posiciones"

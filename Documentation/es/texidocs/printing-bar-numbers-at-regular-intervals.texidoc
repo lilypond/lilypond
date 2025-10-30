@@ -1,9 +1,8 @@
-%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+%% Translation of GIT committish: 40a6ee3c77d89a24d34b13790442cdcc95f59d7a
   texidoces = "
 Se pueden imprimir los números de compás a intervalos regulares
 mediante el establecimiento de la propiedad
 @code{barNumberVisibility}.  Aquí los números de compás se
 imprimen a cada dos compases excepto al final de la línea.
-
 "
   doctitlees = "Imprimir números de compás a intervalos regulares"

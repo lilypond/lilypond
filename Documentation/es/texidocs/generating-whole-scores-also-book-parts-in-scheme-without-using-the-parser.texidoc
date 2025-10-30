@@ -1,33 +1,41 @@
-%% Translation of GIT committish: 00f0ca84dbb015617f8ce36dd13db59bbfef8f11
+%% Translation of GIT committish: 3103776eff283e358d36b123823dab8bc2dbeb44
   texidoces = "
-Internamente, una partitura de lilypond no es más que una expresión de
-Scheme, generada por el analizador sintáctico de lilypond.  Usando
-Scheme, también podemos generar automáticamente una partitura sin
-ningún archivo de entrada.  Si tenemos la expresión musical en Scheme,
-se puede generar la partitura simplemente llamando a (scorify-music
-music parser) sobre la música.  Así se genera un objeto partitura,
-para el que podemos entonces fijar un bloque layout personalizado con
-(let* ((layout (ly:output-def-clone $defaultlayout))) ; modificamos el
-layout aquí, y después lo asignamos: (ly:score-add-output-def! score
-layout) )
+Internamente, una partitura de LilyPond no es más que una
+expresión de Scheme, generada por el analizador sintáctico de
+LilyPond.  Usando Scheme, también podemos generar automáticamente
+una partitura sin ningún archivo de entrada.  Si tenemos la
+expresión musical en Scheme, se puede generar la partitura
+simplemente llamando a
 
+@verbatim
+(scorify-music music)
+@end verbatim
 
-Finalmente, todo lo que tenemos que hacer es pasar esta partitura a
-lilypond para que realice la composición tipográfica.  Este fragmento
-de código define las funciones @code{(add-score parser score)},
-@code{(add-text parser text)} y @code{(add-music parser music)} para
-pasar una partitura completa, elementos de marcado o algo de música a
-lilypond para su composición tipográfica.
+sobre la música.  Así se genera un objeto partitura, para el que
+podemos entonces fijar un bloque layout personalizado con
+
+@verbatim
+(let* ((layout (ly:output-def-clone $defaultlayout)))
+   ; modificamos el layout aquí, y después lo asignamos:
+   (ly:score-add-output-def! score layout)
+  )
+@end verbatim
+
+Finalmente, todo lo que tenemos que hacer es pasar esta partitura
+a lilypond para que realice la composición tipográfica.  Este
+fragmento de código define las funciones @code{(add-score score)},
+@code{(add-text text)} y @code{(add-music music)} para pasar una
+partitura completa, elementos de marcado o algo de música a
+LilyPond para su composición tipográfica.
 
 Este fragmento de código también funciona para la tipografía de
 partituras dentro de un bloque @code{\\book @{...@}}, así como
-partituras normales del nivel superior jerárquico.  Para conseguirlo,
-cada una de las partituras destinadas a su tipografiado se añaden al
-final de una lista de partituras del nivel superior jerárquico y se
-modifica el toplevel-book-handler (que es una función de Scheme que se
-llama para procesar un libro una vez que se ha cerrado el bloque
-@code{\\book@{..@}}) para insertar todas las partituras así
-coleccionadas al libro.
-
+partituras normales del nivel superior jerárquico.  Para
+conseguirlo, cada una de las partituras destinadas a su
+tipografiado se añaden al final de una lista de partituras del
+nivel superior jerárquico y se modifica el toplevel-book-handler
+(que es una función de Scheme que se llama para procesar un libro
+una vez que se ha cerrado el bloque @code{\\book@{..@}}) para
+insertar todas las partituras así coleccionadas al libro.
 "
   doctitlees = "Generación de partituras completas y partes de libro en Scheme sin usar el analizador sintáctico"

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 06e7d00a2bd52124489bdd8e106199da225bebb6
+%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
   texidoces = "
 Se puede insertar códico PostScript directamente dentro de un
 bloque @code{\\markup}.

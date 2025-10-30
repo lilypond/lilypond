@@ -1,20 +1,19 @@
-%% Translation of GIT committish: 0c00cd98e81b27325bed5891b950fe7f0f0ebe5d
+%% Translation of GIT committish: dd3effab28ad30698ef1fe8ff57ff79230d2a003
   texidoces = "
-El fragmento de código @qq{Plantilla de cuarteto de cuerda} produce un
-resultado satisfactorio para el cuarteto, pero ¿y si tenemos que
-imprimir las particellas? Esta nueva plantilla muestra cómo usar la
-funcionalidad @code{\\tag} (etiqueta) para dividir fácilmente una
-pieza en particellas indicviduales.
+El fragmento de código @qq{Plantilla de cuarteto de cuerda}
+produce un resultado satisfactorio para el cuarteto, pero ¿y si
+tenemos que imprimir las particellas? Esta nueva plantilla muestra
+cómo usar la funcionalidad @code{\\tag} (etiqueta) para dividir
+fácilmente una pieza en particellas indicviduales.
 
 Tenemos que dividir esta plantilla en archivos independientes; los
 nombres de archivo están dentro de los comentarios al principio de
 cada archivo. @file{piece.ly} contiene todas las definiciones de
 música. Los otros archivos (@file{score.ly}, @file{vn1.ly},
-@file{vn2.ly}, @file{vla.ly} y @file{vlc.ly}) producen la particella
-correspondiente.
+@file{vn2.ly}, @file{vla.ly} y @file{vlc.ly}) producen la
+particella correspondiente.
 
-¡No olvide quitar los comentarios que hemos especificado cuando use
-los archivos independientes!
-
+¡No olvide quitar los comentarios que hemos especificado cuando
+use los archivos independientes!
 "
   doctitlees = "Plantilla de cuarteto de cuerda con particellas independientes"

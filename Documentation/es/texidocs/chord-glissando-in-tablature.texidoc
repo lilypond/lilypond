@@ -1,9 +1,10 @@
-%% Translation of GIT committish: ff9ca62acddb818b7788d7818a5c7eb0ddb6cdcb
+%% Translation of GIT committish: 54de673adf1137d72225d68f26f59fd01a0aec30
   texidoces = "
-Los deslizamientos para acordes se indican por omisión tanto en el contexto
-@code{Staff} como en @code{TabStaff}.  Los números de cuerda son
-necesarios para TabStaff porque los cálculos de cuerda automáticos son
-diferentes para los acordes y para notas sueltas.
+Los deslizamientos para acordes se indican por omisión tanto en el
+contexto @code{Staff} como en @code{TabStaff}.
 
+Los números de cuerda son necesarios para TabStaff porque los
+cálculos de cuerda automáticos son diferentes para los acordes y
+para notas sueltas.
 "
   doctitlees = "Glissando de acordes en tablatura"

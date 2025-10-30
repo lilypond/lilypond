@@ -1,9 +1,9 @@
-%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+%% Translation of GIT committish: c4a70f7fa0f887cb6950a7d3bceb1fda6281b65a
   texidoces = "
-Cuando se alinean los números de compás, pueden aparecer problemas de
-superposición con los corchetes de sistema.  Este fragmento de código
-lo resuelve dejando alineados a la derecha los números de compás
-después de un salto de línea.
+Cuando se alinean los números de compás, pueden aparecer problemas
+de superposición con los corchetes de sistema.
 
+Este fragmento de código lo resuelve dejando alineados a la
+derecha el primer número de compás después de un salto de línea.
 "
   doctitlees = "Números de compás alineados a la izquierda de forma consistente"

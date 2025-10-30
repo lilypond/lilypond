@@ -1,8 +1,7 @@
-%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
   texidoces = "
-Los cambios de dinámica con estilo de texto (como cresc. y dim.)
-se imprimen con una línea intermitente que muestra su alcance.
-Esta línea se puede suprimir de la siguiente manera:
-
+Los cambios de dinámica con estilo de texto (como @emph{cresc.} y
+@emph{dim.})  se imprimen con una línea intermitente que muestra
+su alcance.  Esta línea se puede suprimir de la siguiente manera:
 "
   doctitlees = "Ocultar la línea de extensión de las expresiones textuales de dinámica"

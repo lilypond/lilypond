@@ -1,9 +1,12 @@
-%% Translation of GIT committish: 942f957aae58fdc7252d6bc2b548a28e9fadc666
+%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
   texidoces = "
-LilyPond puede alterar la dirección de la plica de las notas que van
-en la tercera línea de un pentagrama de forma que siga la melodía,
-mediante la adición del grabador @code{Melody_engraver} al contexto
-Voice.
+LilyPond puede alterar la dirección de la plica de las notas que
+van en la tercera línea de un pentagrama de forma que siga la
+melodía, mediante la adición del grabador @code{Melody_engraver}
+al contexto Voice.
 
+Se puede usar la propiedad de contexto
+@code{suspendMelodyDecisions} para desactivar este comportamiento
+localmente.
 "
   doctitlees = "Cambiar la dirección de la plica de las notas de la tercera línea automáticamente, basado en la melodía"

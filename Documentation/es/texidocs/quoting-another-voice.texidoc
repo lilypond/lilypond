@@ -1,16 +1,17 @@
-%% Translation of GIT committish: 0c00cd98e81b27325bed5891b950fe7f0f0ebe5d
+%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
   texidoces = "
-La propiedad @code{quotedEventTypes} determina los tipos de eventos
-musicales que resultan citados.  El valor predeterminado es
-@code{(note-event rest-event tie-event beam-event tuplet-span-event)},
-que significa que sólo aparecen en la expresión @code{\\quoteDuring}
-las notas, silencios, ligaduras, barras y grupos especiales.  En el
-ejemplo siguiente, el silencio de semicorchea no aparece en el
-fragmento citado porque @code{rest-event} no está dentro de los
+La propiedad @code{quotedEventTypes} determina los tipos de
+eventos musicales que resultan citados.  El valor predeterminado
+es @code{(note-event rest-event tie-event beam-event
+tuplet-span-event)}, que significa que sólo aparecen en la
+expresión @code{\\quoteDuring} las notas, silencios, ligaduras,
+barras y grupos especiales.
+
+En el ejemplo siguiente, el silencio de semicorchea no aparece en
+el fragmento citado porque @code{rest-event} no está dentro de los
 @code{quotedEventTypes}.
 
 Para ver una lista de los tipos de evento, consulte la sección
 @qq{Music classes} de la Referencia de funcionamiento interno.
-
 "
   doctitlees = "Citar otra voz"

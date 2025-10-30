@@ -1,20 +1,46 @@
-%% Translation of GIT committish: 0c00cd98e81b27325bed5891b950fe7f0f0ebe5d
+%% Translation of GIT committish: bc7f0fc97ecf9411ecea83a041b759939ab56df6
   texidoces = "
-Las barras de semicorchea, o de figuras más breves, no se subdividen
-de forma predeterminada.  Esto es, las tres (o más) barras se amplían
-sin romperse sobre grupos completos de notas.  Este comportamiento se
-puede modificar para subdividir las barras en subgrupos mediante el
-establecimiento de la propiedad @code{subdivideBeams}.  Cuando está
-activada, las barras se subdividen a intervalos definidos por el valor
-actual de @code{beatBase} mediante la reducción de las barras
-repetidas a una sola entre los subgrupos.  Observe que el valor
-predeterminado de @code{beatBase} es uno más que el denominador del
-tipo de compás actual, si no se fija explícitamente.  Se debe ajustar
-a una fracción que da la duración del subgrupo de barras utilizando la
-función @code{ly:make-moment}, como se ve en este fragmento de código.
-Asimismo, cuando se modifica @code{beatBase}, se debería cambiar
-también @code{beatStructure} para que corresponda al @code{beatBase}
-nuevo:
+Las barras de semicorchea, o de figuras más breves, no se
+subdividen de forma predeterminada.  Esto es, las barras de más de
+dos plicas se amplían sobre el grupo completo de notas, sin
+dividirse.  Este comportamiento se puede modificar para subdividir
+las barras en subgrupos mediante el establecimiento de la
+propiedad @code{subdivideBeams} al valor @code{#t}.  Cuando está
+activada, las barras se subdividen a intervalos definidos por el
+valor actual de la subivisión.
 
+Usando las propiedades @code{beamMinimumSubdivision} y
+@code{beamMaximumSubdivision} se pueden configurar los límites de
+la subdivisión automática de las barras, concretamente las
+duraciones mínima y máxima en que las barras secundarios se
+eliminan.  Los valores por omisión son@tie{}@code{0} para la
+primera y @code{+inf.0} para la segunda, haciendo que LilyPond
+subdivida las barras tanto como sea posible.
+
+Existen dos casos especiales que tener en cuenta.
+
+@itemize
+@item
+Si el numerador de @code{beamMaximumSubdivision} no es una
+potencia de@tie{}2, las duraciones candidatas a la subdivisión son
+@code{beamMaximumSubdivision} dividido por las potencias de@tie{}2
+que sean mayores o iguales que @code{beamMinimumSubdivision}.
+
+@item
+Si @code{beamMaximumSubdivision} es menor que
+@code{beamMinimumSubdivision}, la profundidad de las subdivisiones
+de las barras está limitada por @code{beamMaximumSubdivision},
+pero no la frecuencia y los intervalos rítmicos, desviándose por
+tanto, posiblemente, de las longitudes correctas o
+esperadas.
+@end itemize
+
+Si @code{respectIncompleteBeams} se fija al valor @code{#t}, las
+subdivisiones incompletas con más de dos plicas se tratan como una
+@q{extensión} del grupo de subdivisión previo, es decir, la
+duración del grupo de subdivisión anterior se extiende para que
+comprenda también la subdivisión incompleta.  Si en vez de ello se
+fija a @code{#f} (que es lo predeterminado), se inicia un grupo de
+subdivisión nuevo.
 "
   doctitlees = "Subdivisión de barras"

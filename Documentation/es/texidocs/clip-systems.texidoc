@@ -1,26 +1,21 @@
-%% Translation of GIT committish: 0c00cd98e81b27325bed5891b950fe7f0f0ebe5d
+%% Translation of GIT committish: 286dba1c7815801ef035d887d8ca3f495999307a
   texidoces = "
-Este código muestra cómo recortar (extraer) fragmentos a partir de una
-partitura completa.
+Este código muestra cómo recortar (extraer) fragmentos a partir de
+una partitura completa.
 
 Este archivo tiene que procesarse de forma separada con la opción
-@option{-dclip-systems}; la página de fragmentos de código podría no
-mostrar el resultado adecuadamente.
+@option{-dclip-systems}; la página de fragmentos de código podría
+no mostrar el resultado adecuadamente. La salida consiste en
+archivos con los nombres
+@samp{@emph{base}-from-@emph{start}-to-@emph{end}[-@emph{count}].eps}.
 
-La salida consiste en archivos con los nombres
-@samp{base-from-inicio-to-final[-número].eps}.
-
-
-Si se incluyen los comienzos y finales de los sistemas, incluyen las
-dimensiones del grob del sistema, por ejemplo los nombres de
+Si se incluyen los comienzos y finales de los sistemas, incluyen
+las dimensiones del grob del sistema, por ejemplo los nombres de
 instrumento.
-
 
 Las notas de adorno en el punto final de la región no se incluyen.
 
-
-Las regiones pueden abarcar varios sistemas.  En este caso, se generan
-varios archivos EPS.
-
+Las regiones pueden abarcar varios sistemas.  En este caso, se
+generan varios archivos EPS.
 "
   doctitlees = "Recorte de sistemas"

@@ -1,9 +1,9 @@
-%% Translation of GIT committish: ff9ca62acddb818b7788d7818a5c7eb0ddb6cdcb
+%% Translation of GIT committish: 491e95842b461c363686dfde53b640144362ead5
   texidoces = "
 La disposición «mensurstriche» en que las líneas divisorias no
 están dibujadas sobre los pentagramas, sino entre ellos, se puede
-conseguir con un @code{StaffGroup} en vez de un @code{ChoirStaff}.
-La línea divisoria sobre los pentagramas se borra usando @code{\\hide}.
-
+conseguir fijando @code{measureBarType} al valor @code{\"-span|\"}
+y usando un contexto de agrupamiento que admita barras extendidas,
+como @code{StaffGroup}.
 "
   doctitlees = "Disposición Mensurstriche (líneas divisorias entre pentagramas)"

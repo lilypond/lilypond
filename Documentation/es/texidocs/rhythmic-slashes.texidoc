@@ -1,18 +1,11 @@
-%% Translation of GIT committish: 00f0ca84dbb015617f8ce36dd13db59bbfef8f11
+%% Translation of GIT committish: c4a70f7fa0f887cb6950a7d3bceb1fda6281b65a
   texidoces = "
-En las hojas guía de acordes o lead-sheets @qq{sencillas}, a veces no
-se imprime realmente ninguna nota, y en su lugar se hace una notación
-que tiene solamente @qq{patrones rítmicos} y acordes encima de los
-compases, dando la estructura de la canción song. Tal funcionalidad es
-útil, por ejemplo, al crear o transcribir la estructura de una canción
-y también si se quieren compartir las hojas guía con guitarristas o
-músicos de jazz.  La forma estándar en que está contemplada esta
-funcionalidad empleando @code{\\repeat percent} no es adecuada aquí
-porque el primer compás tendría que ser una nota o silencio normales.
-Este ejemplo muestra dos soluciones al problema, redefiniendo los
-silencios normales para que se impriman como barras inclinadas (si la
-duración de cada pulso no es una negra, sustituiremos el @code{r4} que
-aparece en las definiciones con un silencio de la duración adecuada).
-
+En las hojas guía de acordes o lead-sheets @qq{sencillas}, a veces
+no se imprime realmente ninguna nota, y en su lugar se hace una
+notación que tiene solamente @qq{patrones rítmicos} y acordes
+encima de los compases, dando la estructura de la canción
+song. Tal funcionalidad es útil, por ejemplo, al crear o
+transcribir la estructura de una canción y también si se quieren
+compartir las hojas guía con guitarristas o músicos de jazz.
 "
   doctitlees = "Barras rítmicas"

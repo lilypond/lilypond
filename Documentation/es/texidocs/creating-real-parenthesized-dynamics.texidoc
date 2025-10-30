@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 00f0ca84dbb015617f8ce36dd13db59bbfef8f11
+%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
   texidoces = "
 Aunque la manera más fácil de añadir paréntesis a una indicación
 de dinámica es utilizar un bloque @code{\\markup}, este método

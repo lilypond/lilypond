@@ -1,11 +1,26 @@
-%% Translation of GIT committish: 2eaeb5aaf92eb307dae3b36e742da7d8b680e373
+%% Translation of GIT committish: c2d1f48601e9589fd38feeb57aa7cf04792a7e5d
   texidoces = "
-Se puede controlar con precisión la colocación de los números de
-digitación.  Para que se tenga en cuenta la orientación de las
-digitaciones, se debe utilizar dentro de una construcción de acorde <>
-aunque sea una sola nota.  Se puede establecer la orientación para los
-números de cuerda y las digitaciones de la mano derecha de una forma
-similar.
 
+Se puede controlar con precisión la colocación de los números de
+digitación usando la propiedad @code{fingeringOrientation}.  Para
+que se tenga en cuenta la orientación de las digitaciones, la
+instrucción de digitación se debe utilizar dentro de una
+construcción de acorde (@code{<...>}) aunque sea una sola nota.
+Se puede controlar la orientación para los números de cuerda y las
+digitaciones de la mano derecha de una forma similar usando las
+propiedades @code{stringNumberOrientation} y
+@code{strokeFingerOrientation}, respectivamente.
+
+Estas propiedades se pueden establecer a una lista de entre uno y
+tres valores.  Controlan si las digitaciones se pueden situar por
+encima (si aparece @code{up} en la lista), por debajo (si aparece
+@code{down}), a la izquierda (si aparece @code{left}), o a la
+derecha (si aparece @code{right}).  Por contra, si una
+localización no aparece en la lista, no se coloca ninguna
+digitadión en ese lugar. LilyPond admite esas restricciones y
+trata de encontrar la mejor ubicación para las digitaciones de las
+notas de los acordes siguientes.  Observe que @code{left} y
+@code{right} se excluyen mutuamente (las digitaciones se pueden
+colocar en un lado o en el otro, no en los dos).
 "
   doctitlees = "Controlar la colocación de las digitaciones de acordes"

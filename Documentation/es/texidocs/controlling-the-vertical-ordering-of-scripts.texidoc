@@ -1,15 +1,31 @@
-%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+%% Translation of GIT committish: 6a05e78d735e8f2d7744d85dc01f1d557f750bb9
   texidoces = "
 El orden vertical que ocupan las inscripciones gráficas está
-controlado con la propiedad @code{'script-priority}. Cuanto más
+controlado con la propiedad @code{script-priority}. Cuanto más
 bajo es este número, más cerca de la nota se colocará. En este
-ejemplo, el @code{TextScript} (el sostenido) tiene primero la
-prioridad más baja, por lo que se sitúa en la posición más baja en
-el primer ejemplo. En el segundo, el @code{Script} (el semitrino)
-es el que la tiene más baja, por lo que se sitúa en la parte
-interior. Cuando dos objetos tienen la misma prioridad, el orden
-en que se introducen determina cuál será el que aparece en primer
-lugar.
+ejemplo, el @code{TextScript} (el símbolo del @emph{sostenido})
+tiene primero la prioridad más baja, por lo que se sitúa en la
+posición más baja en el primer ejemplo. En el segundo, el
+@code{Script} (el símbolo del @emph{semitrino}) es el que la tiene
+más baja, por lo que se sitúa en la parte interior. Cuando dos
+objetos tienen la misma prioridad, el orden en que se introducen
+determina cuál será el que aparece en primer lugar.
 
+Observe que para los objetos gráficos @code{Fingering},
+@code{StringNumber} y @code{StrokeFinger}, si se usan dentro de un
+acorde, el orden vertical también viene determinado por la
+posición vertical de la cabeza de la nota asociada, que se añade a
+(o, dependiendo de la dirección, se sustrae de) el valor
+@code{script-priority} del objeto gráfico.  Esto nos asegura que
+para las digitaciones que están por encima de un acorde, la nota
+inferior está asociada con la digitación inferior (y viceversa
+para la otra dirección); no importa si escribimos las notas del
+acorde de arriba a abajo o de abajo a arriba.
+
+De manera predeterminada, las inscripciones de carácter menos
+técnico se sitúan más cerca de la cabeza de la nota; el orden es
+más o menos: articulación, armónico, digitación, digitación de la
+mano derecha, número de cuerda, calderón, indicaciones de arco, e
+inscripción de texto.
 "
   doctitlees = "Controlar la ordenación vertical de las inscripciones"

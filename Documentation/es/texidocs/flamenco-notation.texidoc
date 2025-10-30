@@ -1,37 +1,34 @@
-%% Translation of GIT committish: 2eaeb5aaf92eb307dae3b36e742da7d8b680e373
+%% Translation of GIT committish: 3103776eff283e358d36b123823dab8bc2dbeb44
   texidoces = "
-Para la guitarra flamenca se utilizan ciertos elementos de notación
-especiales:
-
+Para la guitarra flamenca se utilizan ciertos elementos de
+notación especiales:
 
 @itemize
-
-@item un símbolo para indicar un golpe sobre la caja de la guitarra
-con el nudillo del dedo anular
-
-@item una flecha para indicar la dirección de los rasgueos
-
-@item distintas legras para las digitaciones (@qq{p}: pulgar, @qq{i}:
+@item
+un símbolo para indicar un @emph{golpe} sobre la caja de la
+guitarra con el nudillo del dedo anular
+@item
+una flecha para indicar la dirección de los rasgueos
+@item
+distintas letras para las digitaciones (@qq{p}: pulgar, @qq{i}:
 índice, @qq{m}: medio, @qq{a}: anular y @qq{x}: meñique)
-
-@item Rasgueados de 3 y cautro dedos: hacia arriba con todos los dedos
+@item
+@emph{rasgueados} de 3 y 4 dedos: hacia arriba con todos los dedos
 y terminando con arriba y abajo con el índice
-
-@item abanicos: rasgueos en serie con el pulgar, hacia abajo y el
-meñique y el índice hacia arriba (hay también un abanico 2 en el que
-los dedos medio y anular se usan en lugar del meñique)
-
-@item alza púa: pulsaciones rápidas con el pulgar
-
+@item
+@emph{abanicos}: rasgueos en serie con el pulgar, hacia abajo y el
+meñique y el índice hacia arriba (hay también un @emph{abanico 2}
+en el que los dedos medio y anular se usan en lugar del meñique)
+@item
+@emph{alza púa}: pulsaciones rápidas con el pulgar
 @end itemize
 
+Casi todas las figuras utilizan flechas combinadas con
+digitaciones; con los abanicos y los rasgueados, las notas se
+imprimen con cabeza sólo en el primer acorde.
 
-Casi todas las figuras utilizan flechas combinadas con digitaciones;
-con los abanicos y los rasgueados, las notas se imprimen con cabeza
-sólo en el primer acorde.
-
-Este fragmento de código contiene código de tipo cabecera que se puede
-copiar como @file{flamenco.ly} e incluirse en los documentos fuente.
-
+Este fragmento de código contiene código de tipo cabecera que se
+puede copiar como @file{flamenco.ly} e incluirse en los documentos
+fuente.
 "
   doctitlees = "Notación del flamenco"

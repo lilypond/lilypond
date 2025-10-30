@@ -6,7 +6,7 @@
 @afourpaper
 
 @ignore
-    Translation of GIT committish: 69f0ec479a6ade46d0a227755bb02562112c6743
+    Translation of GIT committish: 7ed05e90ee2da3f08ed6ea5f1cc7c4e96601760b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -16,7 +16,6 @@
 @c Translators: Han-Wen Nienhuys
 
 @macro manualIntro
-
 This document shows a selected set of LilyPond snippets from the
 @uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}
 (LSR).  It is in the public domain.
@@ -43,7 +42,12 @@ or figure for each example to see the corresponding input file.
 Copyright @copyright{} 1999--2023 by the authors.
 @end macro
 
-@include es/macros.itexi
+@dircategory LilyPond -- the music typesetter
+@direntry
+* Snippets: (lilypond-snippets).        Tricks, tips, and examples.
+@end direntry
+
+@include en/macros.itexi
 
 @c `@lyprefix` must be redefined for every included snippet section
 @c to provide a proper node name and menu prefix.
@@ -101,8 +105,6 @@ Other collections
 @end ifnottex
 
 @contents
-
-@allowcodebreaks false
 
 @c Please take care of naming every .itely
 @c with an existing tag name.

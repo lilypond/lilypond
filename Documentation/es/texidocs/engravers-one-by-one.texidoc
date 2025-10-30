@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 13dc8b9c722a1f8bb0dab36f8f9352c0e66ff92a
+%% Translation of GIT committish: 491e95842b461c363686dfde53b640144362ead5
   texidoces = "
 Del problema central de la notación, esto es, crear un determinado
 símbolo, se encargan los «plugins» o complementos añadidos.  Cada
-uno de los complementos se conoce como un grabador. En este
-ejemplo, los grabadores se van activando uno por uno, en el orden
-siguiente:
+uno de los complementos se conoce como un @emph{grabador}. En este
+ejemplo, algunos grabadores se van activando uno por uno, en el
+orden siguiente:
 
 - cabeza de las notas,
 
@@ -18,11 +18,10 @@ siguiente:
 
 - alteraciones, líneas divisorias, indicación del compás, y armadura.
 
-Los grabadores se encuentran agrupados. Por ejemplo, las cabezas de
-nota, ligaduras de expresión, barras de corchea, etc. forman un
+Los grabadores se encuentran agrupados. Por ejemplo, las cabezas
+de nota, ligaduras de expresión, barras de corchea, etc. forman un
 contexto de voz, @code{Voice}. Los grabadores de la armadura,
-alteraciones, líneas de compás, etc. forman un contexto de pentagrama,
-@code{Staff}.
-
+alteraciones, líneas de compás, etc. forman un contexto de
+pentagrama, @code{Staff}.
 "
   doctitlees = "Los grabadores, uno por uno"

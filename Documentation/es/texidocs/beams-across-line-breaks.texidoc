@@ -1,8 +1,11 @@
-%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+%% Translation of GIT committish: c972d00ecf20f49fc330d883b87bea651876404c
   texidoces = "
-Normalmente están prohibidos los saltos de línea si las barras
-atraviesan las líneas divisorias.  Se puede cambiar este
-comportamiento como se muestra aquí:
+Normalmente LilyPond rehúsa insertar un salto de línea automático
+si las barra atraviesa la línea divisoria.  Se puede cambiar este
+comportamiento by setting the @code{Beam.breakable} property to
+@code{#t}.
 
+Esta propiedad no afecta a los saltos manuales insertados con
+instrucciones como @code{\\break}.
 "
   doctitlees = "Barras que atraviesan saltos de línea"

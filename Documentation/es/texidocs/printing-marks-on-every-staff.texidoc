@@ -1,8 +1,7 @@
-%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
+%% Translation of GIT committish: c4a70f7fa0f887cb6950a7d3bceb1fda6281b65a
   texidoces = "
-Aunque normalmente las marcas de ensayo textuales sólo se imprimen
-sobre el pentagrama superior, también se pueden imprimir en otro
-pentagrama cualquiera.
-
+Aunque normalmente las marcas de ensayo y textuales solo se
+imprimen sobre el pentagrama superior, también se pueden imprimir
+en otro pentagrama cualquiera.
 "
   doctitlees = "Imprimir marcas de ensayo en cualquier pentagrama"
