@@ -794,6 +794,10 @@ element for each time signature contains entries for @code{beatBase},
 @code{beatStructure}, and @code{beamExceptions}.")
      (timing ,boolean? "Keep administration of measure length,
 position, bar number, etc.?  Switch off for cadenzas.")
+     (toeHeelStyle ,symbol? "The style for the glyph shape and behaviour of
+@code{\\rtoe} and siblings.  Possible values are @code{default},
+@code{standard}, @code{reversed}, @code{circleheels}, and @code{below}.  If not
+set (the default), use value @code{default}.")
      (tonic ,ly:pitch? "The tonic of the current scale.")
      (topLevelAlignment ,boolean? "If true, the @var{Vertical_align_engraver}
 will create a @var{VerticalAlignment}; otherwise, it will create a

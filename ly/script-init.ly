@@ -37,15 +37,12 @@ heel = #(make-articulation 'heel)
 heelcircle = #(make-articulation 'heelcircle)
 henzelongfermata = #(make-articulation 'henzelongfermata)
 henzeshortfermata = #(make-articulation 'henzeshortfermata)
-lheel = #(make-articulation 'lheel)
 lineprall = #(make-articulation 'lineprall)
 longfermata = #(make-articulation 'longfermata)
-ltoe = #(make-articulation 'ltoe)
 marcato = #(make-articulation 'marcato
             'midi-extra-velocity 40)
 mordent = #(make-articulation 'mordent)
 open = #(make-articulation 'open)
-
 portato = #(make-articulation 'portato
             'midi-length
             (lambda (len context)
@@ -56,8 +53,6 @@ prallmordent = #(make-articulation 'prallmordent)
 prallprall = #(make-articulation 'prallprall)
 prallup = #(make-articulation 'prallup)
 reverseturn = #(make-articulation 'reverseturn)
-rheel = #(make-articulation 'rheel)
-rtoe = #(make-articulation 'rtoe)
 segno = #(make-articulation 'segno)
 shortfermata = #(make-articulation 'shortfermata)
 signumcongruentiae = #(make-articulation 'signumcongruentiae)
@@ -89,6 +84,12 @@ varheel = #(make-articulation 'varheel)
 vartoe = #(make-articulation 'vartoe)
 verylongfermata = #(make-articulation 'verylongfermata)
 veryshortfermata = #(make-articulation 'veryshortfermata)
+
+% These articulations can be styled via the `Toe_heel_engraver`.
+rheel = #(make-articulation 'rheel)
+rtoe = #(make-articulation 'rtoe)
+lheel = #(make-articulation 'lheel)
+ltoe = #(make-articulation 'ltoe)
 
 % code char abbreviations
 dashHat = \marcato

@@ -412,6 +412,7 @@ multiple voices on the same staff."
   \consists Finger_glide_engraver
 
   \consists Script_engraver
+  \consists Toe_heel_engraver
   \consists Script_column_engraver
   \consists Rhythmic_column_engraver
   \consists Note_spacing_engraver
@@ -596,6 +597,7 @@ it with a different one.  Often used with @code{\\stopStaff} and
   \consists Bar_engraver
   \consists Piano_pedal_engraver
   \consists Script_engraver
+  \consists Toe_heel_engraver
   \consists Dynamic_engraver
   \consists Dynamic_align_engraver
   \consists Text_engraver

@@ -2433,3 +2433,42 @@ adapted for typesetting within a chord grid.")))
    (properties-read . ())
    (properties-written . ())
    (description . "Aligns @code{Script} horizontally")))
+
+
+(define (Toe_heel_engraver context)
+  (make-engraver
+   (listeners
+    ((articulation-event engraver event)
+     (let ((articulation-type (ly:event-property event 'articulation-type)))
+       (when articulation-type
+         (let ((selector (case articulation-type
+                           ((rtoe) first)
+                           ((ltoe) second)
+                           ((rheel) third)
+                           ((lheel) fourth)
+                           (else #f))))
+           (when selector
+             (let* ((toe-heel-style (ly:context-property
+                                     context 'toeHeelStyle 'default))
+                    (toe-heel-entry (assoc-get
+                                     toe-heel-style toe-heel-styles))
+                    (art-dir (selector toe-heel-entry))
+                    (tweaks (ly:event-property event 'tweaks)))
+               (ly:event-set-property!
+                event 'articulation-type (car art-dir))
+               ;; Enforce direction so that `^` and friends are
+               ;; ignored (including user tweaks).
+               (ly:event-set-property!
+                event 'tweaks (append
+                               tweaks
+                               (list (cons 'direction (cdr art-dir))))))))))))))
+
+(ly:register-translator
+ Toe_heel_engraver 'Toe_heel_engraver
+ '((grobs-created . ())
+   (events-accepted . (articulation-event))
+   (properties-read . (toeHeelStyle))
+   (properties-written . ())
+   (description . "Read the @code{toeHeelStyle} context property and use it to
+style @code{\\rtoe} and its siblings, based on the data in the
+@code{toe-heel-styles} alist.")))

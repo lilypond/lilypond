@@ -520,3 +520,28 @@
         (side-axis . ,Y)
         (direction . ,UP)))
     ))
+
+
+;; The style entries describe the articulation and direction used by `\rtoe`,
+;; `\ltoe`, `\rheel`, and `\lheel` (in this order).
+(define-public toe-heel-styles
+  `((default . ((toe . ,UP)
+                (vartoe . ,DOWN)
+                (varheel . ,UP)
+                (heel . ,DOWN)))
+    (standard . ((toe . ,UP)
+                 (toe . ,DOWN)
+                 (heel . ,UP)
+                 (heel . ,DOWN)))
+    (reversed . ((vartoe . ,UP)
+                 (toe . ,DOWN)
+                 (heel . ,UP)
+                 (varheel . ,DOWN)))
+    (circleheels . ((vartoe . ,UP)
+                    (toe . ,DOWN)
+                    (heelcircle . ,UP)
+                    (heelcircle . ,DOWN)))
+    (below . ((toe . ,DOWN)
+              (vartoe . ,DOWN)
+              (varheel . ,DOWN)
+              (heel . ,DOWN)))))
