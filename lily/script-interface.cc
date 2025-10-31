@@ -111,6 +111,7 @@ side-relative-direction
 slur
 slur-padding
 staff-position
+toe-heel-style
 toward-stem-shift
 toward-stem-shift-in-column
                )");

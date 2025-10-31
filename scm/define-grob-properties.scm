@@ -1647,6 +1647,8 @@ results, use @code{LEFT} and @code{RIGHT}.")
 
      (tie ,ly:grob? "A pointer to a @code{Tie} object.")
      (ties ,ly:grob-array? "A grob array of @code{Tie} objects.")
+     (toe-heel-style ,symbol? "The style used for toe and heel glyphs of a
+@code{Script} grob.")
      (tremolo-flag ,ly:grob? "The tremolo object on a stem.")
      (tuplet-number ,ly:grob? "The number for a bracket.")
      (tuplets ,ly:grob-array? "An array of smaller tuplet brackets.")

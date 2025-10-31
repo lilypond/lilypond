@@ -2461,7 +2461,18 @@ adapted for typesetting within a chord grid.")))
                (ly:event-set-property!
                 event 'tweaks (append
                                tweaks
-                               (list (cons 'direction (cdr art-dir))))))))))))))
+                               (list (cons 'direction (cdr art-dir))))))))))))
+
+   (acknowledgers
+    ;; NB 'script-interface is currently used in
+    ;; AccidentalSuggestion, CaesuraScript, DynamicText,
+    ;; MultiMeasureRestScript and Script, thus we use
+    ;; 'ledgered-grob-interface (used for Script and Custos).
+    ((ledgered-grob-interface engraver grob source-engraver)
+     (let ((toe-heel-style
+            (ly:context-property context 'toeHeelStyle 'default)))
+       (when (grob::has-interface grob 'script-interface)
+         (ly:grob-set-property! grob 'toe-heel-style toe-heel-style)))))))
 
 (ly:register-translator
  Toe_heel_engraver 'Toe_heel_engraver

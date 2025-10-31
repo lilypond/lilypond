@@ -545,3 +545,28 @@
               (vartoe . ,DOWN)
               (varheel . ,DOWN)
               (heel . ,DOWN)))))
+
+;; Construct an alist with elements of the form `(articulation-name-symbol
+;; . glyph-name-string)` for quick access.
+(define (make-toe-heel-glyphs style-alist script-alist)
+  (let* ((articulation-list (delete-duplicates
+                             (flatten-list (map (lambda (style)
+                                                  (map (lambda (entry)
+                                                         (car entry))
+                                                       (cdr style)))
+                                                style-alist))))
+         (script-entries (map
+                          (lambda (articulation)
+                            (assoc-get articulation script-alist))
+                          articulation-list))
+         (glyph-list (map
+                      (lambda (entry)
+                        ;; We assume that for the glyphs we are interested in,
+                        ;; 'up' and 'down' versions are the same.
+                        (string-append "scripts."
+                                       (caddr (assoc 'script-stencil entry))))
+                      script-entries)))
+    (fold acons '() articulation-list glyph-list)))
+
+(define-public toe-heel-glyphs (make-toe-heel-glyphs
+                                toe-heel-styles default-script-alist))

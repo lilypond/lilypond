@@ -2017,9 +2017,35 @@ As a last resort @code{CENTER} is returned."
           (apply ly:stencil-add fake-ledgers))
         empty-stencil)))
 
+;; For `\rtoeheel` and siblings.
+(define-public (toe-heel-subst-stencil grob left right)
+  "Construct a stencil for a toe-heel substitution."
+  (let* ((style (ly:grob-property grob 'toe-heel-style 'default))
+         (style-entry (assoc-get style toe-heel-styles))
+         (left-idx (case left ((rtoe) 0) ((ltoe) 1) ((rheel) 2) ((lheel) 3)))
+         (right-idx (case right ((rtoe) 0) ((ltoe) 1) ((rheel) 2) ((lheel) 3)))
+         (left-style (list-ref style-entry left-idx))
+         (right-style (list-ref style-entry right-idx))
+         (left-articulation (car left-style))
+         (right-articulation (car right-style))
+         (dir (cdr left-style)) ; the same for left and right
+         (left-glyph (assoc-get left-articulation toe-heel-glyphs))
+         (right-glyph (assoc-get right-articulation toe-heel-glyphs))
+         ;; Check direction prefixes of glyph names (after the starting
+         ;; 'scripts.') to decide whether kerning is needed.
+         (need-kerning (eqv? (string-ref left-glyph 8)
+                             (string-ref right-glyph 8))))
+    (grob-interpret-markup
+     grob
+     ((if (eqv? dir UP) make-overtie-markup make-undertie-markup)
+      (make-concat-markup
+       (list (make-musicglyph-markup left-glyph)
+             (make-hspace-markup (if need-kerning 0.1 0))
+             (make-musicglyph-markup right-glyph)))))))
+
+
 (define-public (ly:script-interface::print grob)
 "The @code{stencil} of a script grob."
-
   (define (pick-name name-entry)
     (if (not (pair? name-entry))
         name-entry

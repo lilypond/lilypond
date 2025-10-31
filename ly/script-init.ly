@@ -91,6 +91,19 @@ rtoe = #(make-articulation 'rtoe)
 lheel = #(make-articulation 'lheel)
 ltoe = #(make-articulation 'ltoe)
 
+rtoeheel = \tweak stencil #(lambda (grob)
+                             (toe-heel-subst-stencil grob 'rtoe 'rheel))
+           \rtoe
+ltoeheel = \tweak stencil #(lambda (grob)
+                             (toe-heel-subst-stencil grob 'ltoe 'lheel))
+           \ltoe
+rheeltoe = \tweak stencil #(lambda (grob)
+                             (toe-heel-subst-stencil grob 'rheel 'rtoe))
+           \rheel
+lheeltoe = \tweak stencil #(lambda (grob)
+                             (toe-heel-subst-stencil grob 'lheel 'ltoe))
+           \lheel
+
 % code char abbreviations
 dashHat = \marcato
 dashPlus = \stopped
