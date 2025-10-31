@@ -74,8 +74,8 @@ centered between the staves; see @ref{Dynamics}.
 
 @item Fingerings are indicated with @ref{Fingering instructions}.
 
-@item Organ pedal indications are inserted as articulations, see
-@ref{List of articulations}.
+@item Organ pedal indications are inserted as articulations,
+@pxref{Organ pedal marks} and @ref{List of articulations}.
 
 @item Vertical grid lines can be shown with @ref{Grid lines}.
 
@@ -567,6 +567,113 @@ Internals Reference:
 @rinternals{PianoPedalBracket},
 @rinternals{Piano_pedal_engraver}.
 @endmorerefs
+
+
+@node Organ
+@section Organ
+
+@cindex organ
+
+This section discusses notation issues that relate to the (church)
+organ.
+
+
+@node Organ pedal marks
+@subsection Organ pedal marks
+
+@cindex organ pedal mark
+@cindex @q{toe} pedal mark
+@cindex @q{heel} pedal mark
+
+@cindex pedal mark, organ
+@cindex pedal mark, toe
+@cindex pedal mark, heel
+
+@funindex \rtoe
+@funindex \ltoe
+@funindex \rheel
+@funindex \lheel
+@funindex toeHeelStyle
+
+Mostly in organ method books you can find marks that indicate how
+to use the toe and heel of the left and right foot while playing
+the pedal.  Depending on the style of the book, different glyphs
+are used for such marks.  In almost all cases, however, the pedal
+marks above the staff are for the right foot, and the marks below
+the staff are for the left foot.
+
+The main commands to print such marks are @code{\rtoe},
+@code{\ltoe}, @code{\rheel}, and @code{\lheel}.  Use
+@code{toeHeelStyle} context property to select the pedal mark
+style.  Available options are as follows.
+
+@indentedblock
+@table @code
+@item default
+The default at start-up, mainly for backward compatibility.
+@item standard
+The most common scheme in use today; the shapes are identical
+above and below the staff.
+@item reversed
+The glyph @q{tips} point to the staff.
+@item circleheels
+Use a circle glyph for the heel.
+@item below
+This is for the rare cases where the pedal is notated in the same
+staff as the left hand, which makes it necessary that marks for
+both the left and right foot are below the staff.
+@end table
+@end indentedblock
+
+@funindex \rtoeheel
+@funindex \ltoeheel
+@funindex \rheeltoe
+@funindex \lheeltoe
+
+For toe-heel and heel-toe substitutions the commands
+@code{\rtoeheel}, @code{\ltoeheel}, @code{\rheeltoe}, and
+@code{\lheeltoe} are provided.
+
+@lilypond[verbatim,quote]
+music = { g'4_\rtoe g'\rheel g'\rtoeheel g'\rheeltoe |
+          e'4\ltoe e'\lheel e'\ltoeheel e'\lheeltoe \bar "||" }
+
+{
+  \music            % #'default
+  \set toeHeelStyle = #'standard \music
+  \set toeHeelStyle = #'reversed \music
+  \set toeHeelStyle = #'circleheels \music
+  \set toeHeelStyle = #'below \music
+}
+@end lilypond
+
+@code{\rtoe} and siblings look similar to other articulation
+commands like @code{\flageolet} or @code{\prall}, and they are
+indeed @code{Script} grobs.  However, they ignore direction
+changes (i.e., @samp{^}, @samp{_}, and @code{\tweak direction} are
+ignored).  This is due to the @code{Toe_heel_engraver}, which is
+enabled by default.  The idea behind this decision is separation
+of content and representation, letting a style control the
+position of the marks.
+
+@funindex \toe
+@funindex \vartoe
+@funindex \heel
+@funindex \varheel
+@funindex \heelcircle
+
+If the need arises to position pedal marks individually above or
+below the staff, use the standard articulation commands
+@code{\toe}, @code{\vartoe}, @code{\heel}, @code{\varheel}, and
+@code{\heelcircle}.
+
+@lilypond[verbatim,quote]
+{
+  f'2\toe f'2\vartoe |
+  f'2\heel f'2\varheel |
+  f'1\heelcircle
+}
+@end lilypond
 
 
 @node Accordion

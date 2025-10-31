@@ -5563,6 +5563,24 @@ def conv(s):
     return s
 
 
+@rule((2, 25, 31), r"""
+Warn if \rtoe, \rheel, \ltoe, or \lheel is used with a direction modifier
+""")
+def conv(s):
+    if re.search(r'[_^]\s*\\([rl]toe|[rl]heel)', s):
+        stderr_write(NOT_SMART
+                     % _(r'toe and heel marks with direction modifiers'))
+        stderr_write(_(r"""
+\rtoe, \ltoe, \rheel, and \lheel now ignore them.  Three possible solutions:
+  - use the `toeHeelStyle` context property to style the pedal mark commands
+    instead of specifying explicit directions (preferred)
+  - use normal articulations \toe, \vartoe, \heel, or \varheel
+  - remove `Toe_heel_engraver`
+"""))
+        stderr_write(UPDATE_MANUALLY)
+    return s
+
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

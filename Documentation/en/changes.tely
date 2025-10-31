@@ -679,7 +679,68 @@ The @code{FingerGlideSpanner} may now connect @code{StringNumber} and
 }
 @end lilypond
 
-@item @code{NoteName} grobs are now horizontally centered by default.
+@item
+A new engraver, @code{Toe_heel_engraver} (enabled by default)
+listens to the context variable @code{toeHeelStyle} to provide
+styling options for the commands @code{\rtoe}, @code{\ltoe},
+@code{\rheel}, and @code{\lheel}.
+
+@lilypond[verbatim,quote]
+music = { f'4\rtoe f'4\rheel f'4\ltoe f'4\lheel \bar "||" }
+
+{
+  \music            % #'default
+  \set toeHeelStyle = #'standard    \music
+  \set toeHeelStyle = #'reversed    \music
+  \set toeHeelStyle = #'below       \music
+  \set toeHeelStyle = #'circleheels \music
+}
+@end lilypond
+
+If the engraver is enabled, these commands no longer behave like
+normal @code{Script} grobs since they ignore direction changes
+(i.e., @samp{^}, @samp{_}, and @code{\tweak direction} are
+ignored).  If the need arises to position pedal marks
+individually, the new, standard articulation commands @code{\toe},
+@code{\vartoe}, @code{\heel}, @code{\varheel}, and
+@code{\heelcircle} (accessing the new glyph
+@code{scripts@/.pedalheelcircle}) should be used instead.
+
+@lilypond[verbatim,quote]
+{
+  f'2\toe f'2\vartoe |
+  f'2\heel f'2\varheel |
+  f'1\heelcircle
+}
+@end lilypond
+
+Removing the engraver makes @code{\rtoe} and siblings behave as in
+previous LilyPond versions.
+
+@item
+Directly related to the previous item are four new,
+articulation-like commands to indicate toe-heel and heel-toe
+substitutions, @code{\ltoeheel}, @code{\rtoeheel},
+@code{\lheeltoe}, and @code{\rheeltoe}.  They are influenced by
+the @code{Toe_heel_engraver} in the same way as @code{\rtoe} and
+siblings.  Toe and heel glyphs have been harmonized in size to
+make these substitution marks look good.
+
+@lilypond[verbatim,quote]
+music = { f'4\rtoeheel f'4\rheeltoe
+          f'4\ltoeheel f'4\lheeltoe \bar "||" }
+
+{
+  \music            % #'default
+  \set toeHeelStyle = #'standard    \music
+  \set toeHeelStyle = #'reversed    \music
+  \set toeHeelStyle = #'below       \music
+  \set toeHeelStyle = #'circleheels \music
+}
+@end lilypond
+
+@item
+@code{NoteName} grobs are now horizontally centered by default.
 
 @end itemize
 
