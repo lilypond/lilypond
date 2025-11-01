@@ -1,0 +1,15 @@
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+Se pueden alinear los extremos de los reguladores con los puntos
+izquierdo, central o derecho de los objetos gráficos
+@code{NoteColumn} por medio de la sobreescritura de la propiedad
+@code{endpoint-alignments}, que es una pareja de números que
+representan los extremos izquierdo y derecho de un regulador.  Se
+espera que los @code{endpoint-alignments} sean direcciones (-1, 0
+o@tie{}1).  Cualquier otro valor se transforma acompañado de una
+advertencia.  La derecha de un regulador que termina en un
+silencio no resulta afectada, terminando siempre en el borde
+izquierdo del silencio.
+"
+
+  doctitlees = "Alinear los extremos de los reguladores con las direcciones de @code{NoteColumn}"

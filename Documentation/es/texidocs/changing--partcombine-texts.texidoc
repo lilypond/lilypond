@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 00f0ca84dbb015617f8ce36dd13db59bbfef8f11
+  texidoces = "
+Al utilizar la posibilidad de combinación automática de partes, se
+puede modificar el texto que se imprime para las secciones de solo
+y de unísono:
+
+"
+  doctitlees = "Cambiar los textos de @code{\\partCombine}"

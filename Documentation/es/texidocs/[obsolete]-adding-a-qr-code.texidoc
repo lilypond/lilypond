@@ -1,0 +1,21 @@
+%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+  texidoces = "
+Este fragmento de código nos permite dibujar un código QR, por
+ejemplo para ofrecer un enlace a la web del autor o el editor de
+la música.
+
+La propia codificación de la URL en un código QR no se hace aquí
+(esto solo traza el código QR a partir de una matriz de valores
+\"negros\" o \"blancos\"), pero véase el código de un pequeño
+programa en Python que puede usar para evitar tener que rellenar
+cada pequeño cuadrado si es blanco o negro.
+
+@emph{Este fragmento está obsoleto a partir de LilyPond 2.25.3,
+que añade una instrucción de marcado @code{\\qr-code} que toma
+directamente una URL en lugar de una matriz de valores \"negros\"
+y \"blancos\".  Se usa como @code{\\markup \\qr-code #10
+\"https://lilypond.org\"}.}
+
+"
+
+  doctitlees = "[OBSOLETO] Añadir un código QR"

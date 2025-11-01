@@ -6,4 +6,4 @@ a ningún otro objeto gráfico, puesto que las líneas del pentagrama
 están en una capa inferior a la de la mayor parte de los otros
 objetos.
 "
-  doctitlees = "Poner en blanco las líneas del pentagrama utilizando la instrucción \\whiteout"
+  doctitlees = "Poner en blanco las líneas del pentagrama utilizando la instrucción @code{\\whiteout}"

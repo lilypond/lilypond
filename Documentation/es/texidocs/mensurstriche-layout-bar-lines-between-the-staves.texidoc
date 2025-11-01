@@ -6,4 +6,4 @@ conseguir fijando @code{measureBarType} al valor @code{\"-span|\"}
 y usando un contexto de agrupamiento que admita barras extendidas,
 como @code{StaffGroup}.
 "
-  doctitlees = "Disposición Mensurstriche (líneas divisorias entre pentagramas)"
+  doctitlees = "Disposición @emph{Mensurstriche} (líneas divisorias entre pentagramas)"

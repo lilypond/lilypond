@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+Los elementos de extensión de compases son una forma alternativa
+de imprimir corchetes anotados.  A diferencia de los corchetes
+horizontales, estos se extienden entre dos líneas divisorias en
+lugar de hacerlo entre dos notas.  El texto se imprime en el
+centro del corchete.
+"
+
+  doctitlees = "Corchete que abarca varios compases"

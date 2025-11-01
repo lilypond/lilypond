@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+El arco del ligado ascendente o de entrada (hammer-on) y
+descendente o de salida (pull-off) apunta hacia arriba en las
+voces uno y tres y hacia abajo en las voces dos y cuatro:
+"
+
+  doctitlees = "Indicaciones de @emph{hammer on} y @emph{pull off} usando voces"

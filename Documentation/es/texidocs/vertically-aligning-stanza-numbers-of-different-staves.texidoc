@@ -1,0 +1,9 @@
+%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+  texidoces = "
+Puede ocurrir que los números de estrofa no estén alineados
+verticalmente si los versos están adjuntos a distinto pentagrama.
+Para corregirlo, seobreescriba la propiedad
+@code{self-alignment-X} del objeto gráfico @code{LyricText}.
+"
+
+  doctitlees = "Alineación vertical de los números de estrofa de diferentes pentagramas"

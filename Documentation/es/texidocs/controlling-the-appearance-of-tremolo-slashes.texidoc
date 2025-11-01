@@ -1,0 +1,39 @@
+%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+  texidoces = "
+Usando diversas propiedades del objeto gráfico @code{StemTremolo}
+es posible controlar la apariencia de las barras de trémolo.
+
+@itemize
+@item
+La propiedad @code{slope} fija la inclinación de las barras de trémolo.
+
+@item
+La propiedad @code{shape} determina si las barras de trémolo
+tienen forma de rectángulo (valor @code{rectangle}) o de barras de
+corchea pequeñas (valor @code{beam-like}).
+
+@item
+La propiedad @code{style} fija la inclinación y la forma
+dependiendo de si la nota tiene corchete, barra o solo plica.
+Esto existe en contraste con las dos propiedades anteriores, que
+cambian la inclinación y la forma incondicionalmente.  Hay dos
+estilos definidos.
+
+@itemize
+@item
+@code{default}: las barras para los corchetes de plica hacia abajo
+son más largos y más inclinados que las barras para los corchetes
+de plica hacia arriba; las barras de trémolo sobre notas barradas
+tienen una forma rectangular y son paralelas a la barra de
+corchea.
+
+@item
+@code{constant}: todas las barras de trémolo tienen forma de barra
+de corchea y tienen la misma inclinación excepto para los
+corchetes de plica hacia abajo.
+
+@end itemize
+
+@end itemize
+"
+  doctitlees = "Controlar el aspecto de las barras de trémolo"

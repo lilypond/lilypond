@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+Se pueden cambiar las líneas divisorias predeterminadas cuando se
+redefinen en un contexto de partitura.
+"
+
+  doctitlees = "Cambiar las líneas divisorias predeterminadas"

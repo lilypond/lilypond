@@ -1,0 +1,13 @@
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+El ecualizador predeterminado de MIDI se puede sustituir fijando
+la propiedad @code{instrumentEqualizer} en el contexto
+@code{Score} a un procedimiento de Scheme definido por el usuario
+que usa un nombre de instrumento MIDI como argumento junto a un
+par de fracciones que indican los vloúmenes mínimo y máximo,
+respectivamente, que aplicar a ese instrumento.
+
+El ejemplo siguiente fija los volúmenes mínimo y máximo de la
+flauta y el clarinete, respectivamente.
+"
+  doctitlees = "Reemplazo de la ecualización predeterminada de instrumentos MIDI"

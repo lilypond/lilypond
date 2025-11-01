@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+Por omisión, el número de compás (@code{BarNumber}) de un compás
+dividido no se repite al comienzo de la línea siguiente.  Use
+@code{first-bar-number-invisible-save-broken-bars} para
+@code{barNumberVisibility} para tener un @code{BarNumber}
+encerrado entre paréntesis en ese caso.
+"
+
+  doctitlees = "Impresión de números de compás para compases divididos"

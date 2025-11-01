@@ -1,0 +1,16 @@
+%%  Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+
+De manera predeterminada, las indicaciones de ámbito o tesitura se
+sitúan a la izquierda de la clave.  La función
+@code{\\ambitusAfter} permite cambiar esta colocación.  La
+sintaxis es @code{\\ambitusAfter grob-interface} (consulte
+@uref{http://lilypond.org/doc/v2.22/Documentation/internals/graphical-object-interfaces,Interfaces
+de los objetos gráficos} para ver una lista de los valores
+posibles para @code{grob-interface}.)
+
+Un caso de utilización bastante común es imprimir la indicación de
+texitura entre la armadura de la clave y la indicación de compás.
+"
+
+  doctitlees = "Indicación de tesitura después de la armadura"

@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+  texidoces = "
+De forma predeterminada, los elementos de marcado no aparecen en
+la tablatura.
+
+Para ahcer que aparezcan, solo hay que usar la instrucción
+@code{\\revert TabStaff.TextScript.stencil}
+"
+
+  doctitlees = "Insertar elementos de marcado en una tablatura"

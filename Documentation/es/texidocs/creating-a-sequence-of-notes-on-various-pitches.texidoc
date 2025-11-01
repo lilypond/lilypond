@@ -2,7 +2,7 @@
   texidoces = "
 En una música que tenga muchas apariciones de la misma secuencia
 de notas a distintas alturas, podría ser de utilidad la siguiente
-función musical.  Admite una nota, de la que sólo se utiliza su
+función musical.  Admite una nota, de la que solo se utiliza su
 altura.  Las funciones de apoyo en Scheme se han tomado prestadas
 del documento de \"Consejos y trucos\"de la versión 2.10 del
 manual.

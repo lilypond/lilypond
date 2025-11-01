@@ -14,4 +14,4 @@ instrucciones de principio y fin de repetición se pueden añadir como
 elementos de lista independientes:
 
 "
-  doctitlees = "Elementos de marcado para el texto de las casillas de repetición usando repeatCommands"
+  doctitlees = "Elementos de marcado para el texto de las casillas de repetición usando @code{repeatCommands}"

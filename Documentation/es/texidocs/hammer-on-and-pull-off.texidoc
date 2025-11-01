@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+Se pueden obtener ligados ascendentes o de entrada y ligados
+descendentes o de salida (hammer-on y pull-off) usando ligaduras
+de expresión.
+"
+
+  doctitlees = "Ligados ascendentes y descendentes (@emph{hammer on} y @emph{pull off})"

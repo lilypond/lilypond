@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+La función toma como argumento por omisión @code{Tie.stencil},
+calculando el resultado en función de las dimensiones de este
+valor por omision.
+
+Es posible un trucado adicional sobreescribiendo
+@code{Tie.details.height-limit} o con @code{\\shape}.  También es
+posible cambiar la definición personalizada sobre la marcha.
+"
+
+  doctitlees = "Ligaduras planas"

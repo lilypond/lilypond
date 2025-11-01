@@ -1,0 +1,33 @@
+%% Translation of GIT committish: 709a5683c94b57676ecddf1c5bb347a6c7d1f417
+  texidoces = "
+Los objetos de texto se escriben como simples cadenas de texto
+entrecomilladas, o como bloques @code{\\markup} que pueden aceptar
+una amplia variedad de enriquecimientos de formato de texto y
+gráficos.
+
+Los bloques de marcado de texto se pueden usar:
+
+@itemize
+@item
+dentro de cualquier objeto @code{TextScript} (adjunto a notas con @code{-},
+@code{^} o @code{_}),
+@item
+cualquier marca @code{TextMark} escrita con la palabra clave @code{\\textMark}, o con la instrucción @code{\\textEndMark}, u otros objetos similares como 
+MetronomeMark escrito con la instrucción @code{\\tempo},
+@item
+como bloques de marcado autosuficientes, introducidos en el nivel superior jerárquico fuera de cualquier bloque
+@code{\\score},
+@item
+dentro de cualquier definición dentro del bloque @code{\\header}  (p.ej. título,
+subtítulo, autor) o dentro de variables definidas dentro del bloque
+@code{\\paper} tales como @code{evenHeaderMarkup} para los números de página.
+@end itemize
+
+@code{\\markup} se puede además usar para la letra de las
+canciones, en los nombres de acorde, y como matices de dinámica.
+De hecho, es posible usar @code{\\markup} para personalizar la
+apariencia de prácticamente cualquier objeto, como se muestra en
+este ejemplo usando varios métodos.
+"
+
+  doctitlees = "Acerca de la ubicuidad de los objetos de marcado"

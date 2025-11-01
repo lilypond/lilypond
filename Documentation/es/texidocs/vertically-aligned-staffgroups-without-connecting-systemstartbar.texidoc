@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+Este fragmento muestra cómo conseguir @code{StaffGroups} alineados
+verticalmente con un @code{SystemStartBar} por cada
+@code{StaffGroup}, pero sin conectarlos entre sí.
+"
+
+  doctitlees = "Grupos de pentagramas alineados verticalmente sin barra inicial de conexión"

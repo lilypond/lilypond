@@ -5,4 +5,4 @@ indicar la división de voces cuando no hay plicas que puedan ofrecer
 esta información. Se suele encontrar en la música coral.
 
 "
-  doctitlees = "Uso de arpeggioBracket para hacer más visible un divisi"
+  doctitlees = "Uso de @code{arpeggioBracket} para hacer más visible un @emph{divisi}"

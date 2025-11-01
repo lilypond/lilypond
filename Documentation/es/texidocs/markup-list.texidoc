@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+El texto que se extiende sobra más de una página se introduce con
+la instrucción @code{\\markuplist}.
+"
+
+  doctitlees = "Objetos de lista de marcados"

@@ -1,0 +1,20 @@
+%% Translation of GIT committish: 709a5683c94b57676ecddf1c5bb347a6c7d1f417
+  texidoces = "
+Los nombres de acorde se generan a partir de una lista de alturas.
+Las funciones que construyen estos nombres se pueden personalizar.
+
+Aquí se muestran acordes que siguen el libro de Ignatzek
+(pp. 17-18, 1995), empleado por omisión desde LilyPond 1.7.20,
+comparados con una notación alternativa de acordes de @emph{Jazz}
+y la notación del libro de Harald Banter (1987).  En este último
+se usa una fuente más pequeña porque las indicaciones tienden a
+ser bastante largas.
+
+Esto refleja el mecanismo usado originalmente en antiguas
+versiones de LilyPond (anteriore a la 1.7); al no haberse
+mantenido adecuadamente, hay funcionalidades que se han perdido
+(principalmente listas de excepciones de acrodes) y se han
+introducido algunos bugs.
+"
+
+  doctitlees = "Nombres alternativos de acordes"

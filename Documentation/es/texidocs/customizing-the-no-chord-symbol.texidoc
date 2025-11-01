@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+Por omisión, los silencios en un contexto @code{ChordNames}
+producen la impresión del símbolo @qq{N.C.}.  Este elemento de
+marcado se puede personalizar.
+"
+
+  doctitlees = "Personalización del símbolo de Sin Acorde"

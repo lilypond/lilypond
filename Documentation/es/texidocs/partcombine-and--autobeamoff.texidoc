@@ -1,0 +1,20 @@
+%% Translation of GIT committish: 00f0ca84dbb015617f8ce36dd13db59bbfef8f11
+  texidoces = "
+Puede ser difícil comprender la función de @code{\\autoBeamOff}
+cuando se usa con @code{\\partCombine}. Puede ser preferible usar
+
+@code{\\set Staff.autoBeaming = ##f}
+
+en su lugar, para asegurarnos de que el barrado automático se
+desactiva para todo el pentagrama.  Úselo en un lugar de la
+partitura en el que no esté aún activo ninguna barra generada por
+el algoritmo de barrado automático.
+
+Internamente, @code{\\partCombine} funciona con cuatro voces:
+plica arriba cuando hay una sola voz, plica abajo con la otra,
+combinadas, y una sola voz.  Para poder usar @code{\\autoBeamOff}
+con el objeto de detener todo el barrado automático cuando se usa
+con @code{\\partCombine}, es necesario hacer @emph{cuatro}
+llamadas a @code{\\autoBeamOff}.
+"
+  doctitlees = "@code{Partcombine} y @code{\\autoBeamOff}"

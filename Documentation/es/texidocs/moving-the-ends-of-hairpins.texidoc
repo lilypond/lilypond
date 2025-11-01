@@ -1,0 +1,14 @@
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+Se pueden desplazar los extremos de los reguladores fijando la
+propiedad @code{shorten-pair} del objeto @code{Hairpin}.  Los
+valores positivos mueven los extremos hacia la derecha, los
+negativos hacia la izquierda.  A diferencia de la propiedad
+@code{minimum-length}, esta propiedad afecta solo a la apariencia
+del regulador; no ajusta el espaciado horizontal (incluida la
+posición de los matices circundantes).  Este método es así
+adecuado para el ajuste fino de un regulador dentro del espacio de
+que dispone.
+"
+
+  doctitlees = "Desplazar los extremos de un regulador"

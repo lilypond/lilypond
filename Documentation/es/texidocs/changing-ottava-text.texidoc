@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+Internamente, @code{\\ottava} fija las propiedades
+@code{ottavation} (por ejemplo para @code{8va} o @code{8vb}) y
+@code{middleCPosition}.  Para sobreescribir el texto del corchete,
+fije @code{ottavation} después de invocar a @code{\\ottava}.
+
+Un texto breve es especialmente útil cuando se usa una indicación
+corta de octava.
+"
+
+  doctitlees = "Cambiar el texto de las indicaciones de octava alta y baja"

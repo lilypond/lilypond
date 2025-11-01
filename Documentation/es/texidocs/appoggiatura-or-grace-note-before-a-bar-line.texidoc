@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+De manera predeterminada, las apoyaturas y las notas de adorno que
+están en el primer pulso de un compás se imprimen después de la
+línea divisoria.  Sin embargo, se pueden imprimir antes de ella
+con solo añadir una barra de compás invisible y después otra
+visible, como se muestra en el ejemplo.
+"
+
+  doctitlees = "Apoyatura o nota de adorno antes de la línea divisoria"

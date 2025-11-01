@@ -64,7 +64,7 @@ Copyright @copyright{} 1999--2023 by the authors.
 @end macro
 
 
-@lilyTitlePage{Snippets}
+@lilyTitlePage{Fragmentos de código}
 
 
 @c maybe generate/update @menu and @includes automatically? --jm

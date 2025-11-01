@@ -1,9 +1,0 @@
-%% Translation of GIT committish: 8ffecf6be17c6ec2ff87cf31873121a8cce29b09
-  texidoces = "
-De forma predeterminada, la instrucción @code{\\mark} centra los
-objetos sobre la barra de compás.  Este comportamiento se puede
-modificar para que la alineación se haga a la derecha o a la
-izquierda.
-
-"
-  doctitlees = "Alineamiento de objetos creados con la instrucción \\mark "

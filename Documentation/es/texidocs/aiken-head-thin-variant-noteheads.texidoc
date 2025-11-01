@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+Las notas blancas de tipo Aiken se vuelven algo difíciles de leer
+con tamaños de pentagrama pequeños, especialmente con líneas
+adicionales.  Al perder el espacio vacío del interior pueden
+parecer más bien figuras negras.
+"
+
+  doctitlees = "Cabezas de nota tipo Aiken, variante delgada"

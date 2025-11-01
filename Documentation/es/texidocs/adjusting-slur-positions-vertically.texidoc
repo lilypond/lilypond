@@ -1,0 +1,21 @@
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+
+Usando @code{\\override Slur.positions} es posible fijar la
+posición vertical de los puntos de inicio y de fin de una ligadura
+de expresión a valores absolutos (o mejor dicho, forzar al
+algoritmo de ligaduras de LilyPond para que tenga en cuenta estos
+valores según se desee).  En muchos casos, esto implica bastante
+ensayo y error hasta que se encuentran unos valores aceptables.
+Porblablemente habrá probado la instrucción @code{\\offset} solo
+para comprobar que no funciona con las ligaduras de expresión,
+sino que emite una advertencia en su lugar.
+
+El código de este fragmento nos permite trucar las posiciones de
+comienzo y final especificando cambios @emph{relativos}, de manera
+parecida a @code{\\offset}.
+
+La sintaxis es: @code{\\offsetPositions #'(@var{dy1} . @var{dy2})}
+"
+
+  doctitlees = "Ajustar las posiciones de las ligaduras verticalmente"

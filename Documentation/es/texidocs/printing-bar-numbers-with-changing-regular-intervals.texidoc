@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+Usando la función de contexto @code{set-bar-number-visibility}, se
+pueden cambiar los intervalos de numeración de los compases.
+"
+
+  doctitlees = "Impresión de los números de compás con intervalos regulares variables"

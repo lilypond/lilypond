@@ -1,0 +1,13 @@
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+A veces es mejor usar plicas que parten del pentagrama superior
+para crear acordes de pentagrama cruzado, porque no hay problemas
+con evitar las colisiones con las barras automáticas.  Si las
+plicas que parten del pentagrama inferior se usaran en el ejemplo
+siguiente, sería necesario cambiar los ajustes de previsión de las
+colisiones de barras automáticas de forma que no detectara
+colisiones entre pentagramas usando @code{\\override
+Staff.Beam.collision-voice-only = ##t}
+"
+
+  doctitlees = "Solución de problemas de acordes y barras que cruzan el pentagrama"

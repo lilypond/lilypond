@@ -3,7 +3,7 @@
 La propiedad @code{quotedEventTypes} determina los tipos de
 eventos musicales que resultan citados.  El valor predeterminado
 es @code{(note-event rest-event tie-event beam-event
-tuplet-span-event)}, que significa que sólo aparecen en la
+tuplet-span-event)}, que significa que solo aparecen en la
 expresión @code{\\quoteDuring} las notas, silencios, ligaduras,
 barras y grupos especiales.
 

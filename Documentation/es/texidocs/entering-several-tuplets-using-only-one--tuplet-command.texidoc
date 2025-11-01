@@ -1,0 +1,16 @@
+%% Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+  texidoces = "
+La propiedad @code{tupletSpannerDuration} establece cuánto tiempo
+debe durar cada uno de los tresillos contenidos dentro de los
+corchetes después de la instrucción @code{\\tuplet}.  Muchos
+tresillos consecutivos se pueden entonces escribir dentro de una
+sola instrucción @code{\\tuplet}, ahorrando algo de tecleo.
+
+Hay formas de fijar @code{tupletSpannerDuration} aparte de usar
+una instrucción @code{\\set}.  La instrucción @code{\\tupletSpan}
+lo fija a una duración dada, o la borra cuando se especifica en su
+lugar una duración @code{\\default}.  Otra forma es usar un
+argumento opcional con @code{\\tuplet}.
+"
+
+  doctitlees = "Escribir varios tresillos con una sola instrucción @code{\\tuplet}"

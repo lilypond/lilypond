@@ -1,7 +1,7 @@
 %% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
   doctitlees = "Cambiar el número del grupo especial"
   texidoces = "
-De forma predeterminada sólo se imprime sobre el corchete de grupo
+De forma predeterminada solo se imprime sobre el corchete de grupo
 el numerador del grupo especial, o sea, el numerador del argumento
 de la instrucción @code{\\tuplet}.
 

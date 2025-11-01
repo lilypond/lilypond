@@ -1,0 +1,22 @@
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+Si el resto de dividir el @code{BarNumber} en curso entre el
+primer argumento del @code{modulo-bar-number-visible} es igual al
+segundo argumento, entonces imprimir el @code{BarNumber}.
+
+Es útil para imprimir el @code{BarNumber} a ciertas distancias,
+p.ej.:
+
+@itemize
+@item
+@code{(modulo-bar-number-visible 3 2)} -> imprime 2,5,8
+@item
+@code{(modulo-bar-number-visible 4 2)} -> imprime 2,6,10
+@item
+@code{(modulo-bar-number-visible 3 1)} -> imprime 3,5,7
+@item
+@code{(modulo-bar-number-visible 5 2)} -> imprime 2,7,12
+@end itemize
+"
+
+  doctitlees = "Impresión de los números de compás usando @code{modulo-bar-number-visible}"

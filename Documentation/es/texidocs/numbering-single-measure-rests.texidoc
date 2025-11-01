@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+Los silencios de varios compases muestran su duración con un
+número excepto los que tienen un solo compás.  Esto se puede
+cambiar fijando el valor de @code{restNumberThreshold}.
+"
+
+  doctitlees = "Numerar silencios seguidos de un compás"

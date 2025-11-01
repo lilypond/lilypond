@@ -17,4 +17,4 @@ esto, se mueve @code{TimeSignature} a una capa por encima de
 @code{StaffSymbol} se mueve a una capa por encima de
 @code{TimeSignature} de manera que no resulte enmascarada.
 "
-  doctitlees = "Uso de la propiedad whiteout"
+  doctitlees = "Uso de la propiedad @code{whiteout}"

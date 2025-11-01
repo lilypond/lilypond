@@ -1,0 +1,11 @@
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+Este fragmento es una demostración de una instrucción que imprime
+calderones encima y debajo de la línea divisoria al mismo tiempo.
+Si no hay ninguna barra de compás, añade una doble barra.
+Semánticamente, la instrucción codifica una cesura más larga de lo
+normal, lo que se puede considerar un mal uso dependiendo de la
+situación.
+"
+
+  doctitlees = "Colocar calderones opuestos sobre la barra de compás"

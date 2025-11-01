@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+LilyPond contempla armaduras de tonalidad personalizadas.  En este
+ejemplo se muestra una armadura de Re menor con un rango ampliado
+de bemoles impresos.
+"
+
+  doctitlees = "Creación de armaduras de clave personalizadas"

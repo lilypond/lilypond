@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 207f198e0d7065196ca0f8e0f5ee7ac51c9a2c96
+  texidoces = "
+Si queremos personalizar la posición y/o el número de puntos en
+las barras de repetición, podemos definir líneas divisorias
+personalizadas o redefinir la manera en que se dibujan los
+símbolos de repetición.  Este fragmento presenta la manera de
+hacerlo; puede ser de ayuda especialmente cuando se usa un
+pentagrama con posiciones de línea personalizadas, como se muestra
+en el fragmento.
+"
+
+  doctitlees = "Personalizar la posición y el número de puntos en las líneas divisorias de repetición"

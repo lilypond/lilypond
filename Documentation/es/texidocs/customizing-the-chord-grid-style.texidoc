@@ -1,0 +1,31 @@
+%%  Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+Se pueden definir divisiones personalizadas de los cuadrados de
+acordes a través de las propiedades
+@code{measure-division-lines-alist} y
+@code{measure-division-chord-placement-alist} de
+@code{ChordSquare}.  Ambas son listas de asociación.  Sus claves
+de asociación son divisiones de compás, concretamente listas que
+dan la fracción del compás que representa cada acorde (o silencio
+o separación).  De forma más precisa, una lista-A de divisiones de
+compases consta de números positivos exactos que suman la unidad,
+por ejemplo @code{'(1/2 1/4 1/4)}.  El requisito de la exactitud
+implica que p.ej. @code{1/2} es válido pero no @code{0.5}.
+
+Los valores de @code{measure-division-lines-alist} son listas de
+líneas, que están representadas como @code{(@var{x1} @var{y1}
+@var{x2} @var{y2})}.  La línea comienza en el punto
+@code{(@var{x1} . @var{y1})} y finaliza en @code{(@var{x2}
+. @var{y2})}.  Las coordenadas se expresan en la escala
+[-1,@tie{}1] relativa a las dimensiones del cuadrado.
+
+Los valores en @code{measure-division-chord-placement-alist} son
+listas de pares @code{(@var{x} . @var{y})} que dan la ubicación de
+los compases respectivos..
+
+Este ejemplo define un estilo de rejilla de acordes peculiar que
+tiene una regla para los compases divididos en tres partes
+iguales.
+"
+
+  doctitlees = "Personalización del estilo de las rejillas de acordes"

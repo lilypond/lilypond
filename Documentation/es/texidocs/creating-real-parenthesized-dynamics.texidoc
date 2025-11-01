@@ -6,13 +6,12 @@ tiene un inconveniente: los objetos que se crean se comportarán
 como elementos de marcado de texto y no como indicaciones
 dinámicas.
 
-Sin embargo, es posible crear un objeto similar utilizando el código
-de Scheme equivalente (como se explica en la Referencia de la
-notación), en combinación con la función
-@code{make-dynamic-script}. De esta forma, el elemento de marcado se
-tratará como una indicación dinámica, y por tanto seguirá siendo
-compatible con instrucciones como @code{\\dynamicUp} o
+Sin embargo, es posible crear un objeto similar utilizando el
+código de Scheme equivalente (como se explica en la Referencia de
+la notación), en combinación con la función
+@code{make-dynamic-script}. De esta forma, el elemento de marcado
+se tratará como una indicación dinámica, y por tanto seguirá
+siendo compatible con instrucciones como @code{\\dynamicUp} o
 @code{\\dynamicDown}.
-
 "
-  doctitlees = "Crear indicaciones dinámicas \"verdaderas\"entre paréntesis"
+  doctitlees = "Crear indicaciones dinámicas \"verdaderas\" entre paréntesis"

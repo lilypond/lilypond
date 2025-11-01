@@ -1,0 +1,13 @@
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+Se pueden añadir indicaciones de marcado de texto a los corchetes
+de análisis por medio de la propiedad @code{text} del objeto
+gráfico @code{HorizontalBracketText}.  Si se quieren añadir textos
+diferentes al corchetes que comienzan en el mismo tiempo, es
+necesario usar la instrucción @code{\\tweak}.
+
+El texto del corchete se encierra entre paréntesis después de un
+salto de línea.
+"
+
+  doctitlees = "Corchetes de análisis con etiquetas"

@@ -4,7 +4,7 @@ Las indicaciones de ámbito o tesitura indican rangos de alturas para
 las voces.
 
 
-Las alteraciones accidentales sólo se muestran si no forman parte de
+Las alteraciones accidentales solo se muestran si no forman parte de
 la armadura de tonalidad. Los objetos gráficos @code{AmbitusNoteHead}
 también tienen líneas adicionales.
 

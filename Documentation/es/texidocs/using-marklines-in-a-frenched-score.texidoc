@@ -1,0 +1,14 @@
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+El uso de contextos @code{MarkLine} (como en
+@uref{https://lsr.di.unimi.it/LSR/Item?id=1010,LSR1010}) dentro de
+una partitura @emph{a la francesa} puede ser problemático si se
+quitan todos los pentagramas entre dos @code{MarkLine} del mismo
+sistema. Se puede usar el grabador
+@code{Keep_alive_together_engraver} dentro de cada
+@code{StaffGroup} para mantener la @code{MarkLine} viva solo en la
+medida en que los otros pentagramas del grupo permanezcan vivos
+también.
+"
+
+  doctitlees = "Uso de marcas separadoras en las partituras @emph{a la francesa}"

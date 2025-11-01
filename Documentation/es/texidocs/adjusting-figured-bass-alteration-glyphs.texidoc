@@ -1,0 +1,15 @@
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+De forma predeterminada, en el bajo cifrado se usan glifos
+diseñados espcialmente para @code{6\\\\}, @code{7\\\\} y
+@code{9\\\\}.  De forma similar, se usan de forma predeterminada
+glifos diseñados especialmente para los símbolos @code{2\\+},
+@code{4\\+} y @code{5\\+}, si aparece un signo más después del
+número.
+
+Para cambiarlo, pase una lista-A a
+@code{figuredBassPlusStrokedAlist} y establezca el glifo en
+cuestión a @code{#f} o no lo especifique en absoluto.
+"
+
+  doctitlees = "Ajustar los glifos de las alteraciones en el bajo cifrado"

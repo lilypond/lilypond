@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+A veces se requieren acordes con digitación ampliada o estirada.
+Sin embargo, si no se especifica lo contrario, la propiedad de
+contexto @code{maximumFretStretch} viene establecida a @code{4},
+lo que puede dar lugar a una advertencia \"No hay ninguna cuerda
+para la nota ...\" y la nota se omite.  Podemos fijar
+@code{maximumFretStretch} a un valor adecuado o asignar
+explícitamente números de cuerda para todas las notas del acorde.
+"
+
+  doctitlees = "Acordes con digitaciones ampliadas para diagramas de trastes y tablaturas"

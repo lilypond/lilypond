@@ -1,7 +1,0 @@
-%% Translation of GIT committish: 00f0ca84dbb015617f8ce36dd13db59bbfef8f11
-  texidoces = "
-Para hacer más pequeño el círculo de @code{\\flageolet} (armónico)
-utilice el siguiente truco.
-
-"
-  doctitlees = "Cambiar el tamaño de la marca de \\flageolet"

@@ -1,0 +1,34 @@
+%% Translation of GIT committish: 32cd4b7fa952f810c94a2296f3dad0fa85f0eb5d
+  texidoces = "
+Las barras recortadas al principio y al final de las barras, junto
+con las barras unidas a notas sueltas que parecen corchetes
+planos, son posibles con una combinación de
+@code{stemLeftBeamCount}, @code{stemRightBeamCount} e indicadores
+de barra @code{[]} pareados.
+
+Para imitar los corchetes planos hacia la derecha sobre notas
+sueltas, indicadores de barra @code{[]} pareados y fije el valor
+de @code{stemLeftBeamCount} a cero.  En cambio, para imitar
+corchetes planos hacia la izquierda sobre notas sueltas, fije el
+valor de @code{stemRightBeamCount} a cero (línea uno).
+
+Para las barras recortadas hacia la derecha al final de una serie
+de noras barradas, fije el valor de @code{stemRightBeamCount} a un
+valor positivo.  Por su parte, para barras recortadas hacia la
+derecha al comienzo de una serie de notas barradas, fije
+@code{stemLeftBeamCount} (línea dos).
+
+A veces tiene sentido que una nota suelta entre dos silencios
+lleve dos barras recortadas, hacia la derecha y hacia la
+izquierda.  Esto se hace escribiendo solamente indicadores de
+barrado @code{[]} pareados (línea tres).
+
+Observe que @code{\\set stemLeftBeamCount} siempre equivale a
+@code{\\once \\set}.  En otras palabras, los ajustes para el
+número de barras no son @qq{persistentes}, o sea que la pareja de
+barras recortadas unidas a la semicorchea aislada del último
+ejemplo no tiene nada que ver con la instrucción @code{\\set} de
+la barra anterior.
+"
+
+  doctitlees = "Barras recortadas"

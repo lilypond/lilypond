@@ -1,0 +1,9 @@
+%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+  texidoces = "
+Para imprimir @code{ChordNames} seguidos que solo difieren en la
+nota del bajo como nota barrada y de bajo, use el grabador
+definido aquí.  El comportamiento se puede controlar en detalle
+por medio de la propiedad de contexto @code{chordChanges}.
+"
+
+  doctitlees = "Imprimir @code{ChordNames} con la misma fundamental y diferente bajo como nota barrada y de bajo"

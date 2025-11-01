@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+  texidoces = "
+Cualquiera que sea la opción elegida para el control de la
+visibilidad del corchete de los tresillos, mostrará u ocultará el
+corchete independientemenre de su ubicación (en el lado de la
+plica o en el lado de la cabeza).  Sin embargo, cuando se coloca
+el corchete del lado de la cabeza, algunos autores recomiendan
+imprimir siempre el corchete de tresillo.  Se puede usar la opción
+@code{visible-over-note-heads} para obtener esto.
+"
+
+  doctitlees = "Imrpesión de corchetes de tresillo en el lado de la cabeza de la nota"
