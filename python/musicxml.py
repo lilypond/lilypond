@@ -1449,7 +1449,7 @@ class Musicxml_voice:
 
             lyrics = e['lyric']
             if not self._has_lyrics:
-                self.has_lyrics = len(lyrics) > 0
+                self._has_lyrics = len(lyrics) > 0
 
             for l in lyrics:
                 nr = getattr(l, 'number', None)

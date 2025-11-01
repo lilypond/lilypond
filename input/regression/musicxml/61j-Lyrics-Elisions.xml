@@ -15,7 +15,10 @@
           being in italic and overriding the color with blue), with a green
           undertie between the first and second syllable and an empty
           &lt;elision&gt; element between the second and third syllable, causing
-          an application-specific elision glyph.</miscellaneous-field>
+          an application-specific elision glyph.
+
+          None of the &lt;lyric&gt; elements has the ‘number’ attribute
+          set.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -49,7 +52,7 @@
         <duration>4</duration>
         <voice>1</voice>
         <type>whole</type>
-        <lyric number="1">
+        <lyric>
           <text>a</text>
         </lyric>
       </note>
@@ -64,7 +67,7 @@
         <duration>4</duration>
         <voice>1</voice>
         <type>whole</type>
-        <lyric number="1">
+        <lyric>
           <text>b c</text>
         </lyric>
       </note>
@@ -79,7 +82,7 @@
         <duration>4</duration>
         <voice>1</voice>
         <type>whole</type>
-        <lyric number="1">
+        <lyric>
           <text>d</text>
           <elision>‿</elision>
           <text>e</text>
@@ -96,7 +99,7 @@
         <duration>4</duration>
         <voice>1</voice>
         <type>whole</type>
-        <lyric number="1" color="#FF0000">
+        <lyric color="#FF0000">
           <text>f</text>
           <elision color="#00FF00">‿</elision>
           <text color="#0000FF" font-style="italic">g</text>
