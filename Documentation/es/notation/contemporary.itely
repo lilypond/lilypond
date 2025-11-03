@@ -144,10 +144,10 @@ solamente entre los pentagramas) se estudian en @ref{Grouping staves}.
 @node Graphical notation
 @section Notación gráfica
 
-@cindex duration line
-@cindex note continuation
-@cindex line, indicating duration
-@cindex continuation, of notes
+@cindex duración, línea
+@cindex nota, continuación
+@cindex línea, indicando duración
+@cindex continuación, de notas
 
 @funindex \-
 

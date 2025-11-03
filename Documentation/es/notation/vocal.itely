@@ -953,7 +953,7 @@ Referencia de funcionamiento interno:
 @node Working with lyrics and variables
 @subsection Trabajar con letra y variables
 
-@cindex lyrics, using variables
+@cindex letra, usar variables
 
 Se pueden crear variables que contienen letra, pero la letra se
 debe introducir en el modo de letra:
@@ -2611,7 +2611,7 @@ Referencia de la notación:
 @node Opera and stage musicals
 @section Ópera y musicales
 
-@cindex opera
+@cindex @'opera
 @cindex vocal, partitura
 @cindex partitura, general
 @cindex musical, teatro

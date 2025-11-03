@@ -178,9 +178,10 @@ para estos estilos.  Si nos satisfacen estos valores
 predeterminados, podemos a continuación introducir directamente
 las notas sin la necesidad de preocuparnos de los detalles sobre
 cómo personalizar un contexto.  Véase uno de los contextos
-predefinidos @code{VaticanaScore}, @code{VaticanaVoice}, @code{VaticanaStaff},
-@code{MensuralVoice}, @code{MensuralStaff}, @code{PetrucciStaff},
-@code{PetrucciVoice}, @code{KievanVoice} y @code{KievanStaff}.
+predefinidos @code{VaticanaScore}, @code{VaticanaVoice},
+@code{VaticanaStaff}, @code{MensuralVoice}, @code{MensuralStaff},
+@code{PetrucciStaff}, @code{PetrucciVoice}, @code{KievanVoice} y
+@code{KievanStaff}.
 
 @morerefs
 Glosario musical:
@@ -225,14 +226,16 @@ recto sobre la ligadura:
 }
 @end lilypond
 
-Están disponibles otros tres estilos de ligaduras: el @q{Vaticana} para
-canto gregoriano, el @q{Mensural} para música mensural (solo están
-contempladas las ligaduras mensurales blancas para la música
-mensural, y con ciertas limitaciones), y @q{Kievan} para los melismas del canto kievano.  Para usar cualquiera de
-estos estilos, se debe sustituir el grabador predeterminado
+Están disponibles otros tres estilos de ligaduras: el @q{Vaticana}
+para canto gregoriano, el @q{Mensural} para música mensural (solo
+están contempladas las ligaduras mensurales blancas para la música
+mensural, y con ciertas limitaciones), y @q{Kievan} para los
+melismas del canto kievano.  Para usar cualquiera de estos
+estilos, se debe sustituir el grabador predeterminado
 @code{Ligature_@/bracket_@/engraver} por uno de los grabadores
-especializados en ligaduras del contexto @code{Voice}. For more information, @pxref{White mensural ligatures},
-@ref{Gregorian square neume ligatures}, and @ref{Kievan melismata}.
+especializados en ligaduras del contexto @code{Voice}. Para más
+información, @pxref{White mensural ligatures}, @ref{Gregorian
+square neume ligatures}, and @ref{Kievan melismata}.
 
 @morerefs
 Glosario musical:
@@ -276,7 +279,7 @@ nota\]}.
 @subsection Custos
 
 @cindex custos
-@cindex custodes
+@cindex custodes (custodias)
 
 Un @emph{custos} (en plural: @emph{custodias}, que en latín
 significa @qq{guarda}) es un símbolo que aparece al final de una
@@ -468,8 +471,9 @@ inferior hasta la superior.
 @end lilypond
 
 Se puede forzar manualmente la composición tipográfica de un glifo
-de clave sobre cualquier línea seleccionada arbitrariamente; @pxref{Clef}.  Para ver el abanico completo de las
-claves posibles, @pxref{Clef styles}.
+de clave sobre cualquier línea seleccionada arbitrariamente;
+@pxref{Clef}.  Para ver el abanico completo de las claves
+posibles, @pxref{Clef styles}.
 
 @morerefs
 Glosario musical:
@@ -510,7 +514,8 @@ exactamente igual que las indicaciones de compás) están
 contemplados de forma limitada.  Los glifos están configurados de
 forma fija para determinadas fracciones de tiempo.  En otras
 palabras, para obtener un símbolo de mensuración determinado con
-la instrucción @code{\time @var{n}/@var{m}}, se tienen que escoger @var{n} y@tie{}@var{m} según la siguiente tabla
+la instrucción @code{\time @var{n}/@var{m}}, se tienen que escoger
+@var{n} y@tie{}@var{m} según la siguiente tabla
 
 @lilypond[quote]
 \markup \column {
@@ -910,7 +915,8 @@ limitada.
 
 Para grabar ligaduras mensurales blancas, reemplace el grabador
 @code{Ligature_@/bracket_@/engraver} por el grabador
-@code{Mensural_@/ligature_@/engraver} en el bloque layout del contexto @code{Voice}:
+@code{Mensural_@/ligature_@/engraver} en el bloque layout del
+contexto @code{Voice}:
 
 @example
 \layout @{
@@ -925,29 +931,29 @@ Para grabar ligaduras mensurales blancas, reemplace el grabador
 @funindex PetrucciStaff
 @funindex PetrucciVoice
 
-In the following, we use a @code{PetrucciStaff} context, which
-does this replacement, among other settings, approximating the
-mensural typesetting of Ottaviano Petrucci's @cite{Harmonices
-Musices Odhecaton} (Venice, 1501).  The accompanying voice context
-is called @code{PetrucciVoice}.
+En el ejemplo siguiente, usamos un contexto @code{PetrucciStaff},
+que lleva a cabo esta sustitución, entre otras configuraciones,
+asemejándose a la tipografía mensural del @cite{Harmonices Musices
+Odhecaton} de Ottaviano Petrucci (Venecia, 1501).  El contexto de
+la voz que lo acompaña se llama @code{PetrucciVoice}.
 
 No existe ningún lenguaje de entrada adicional para describir la
 forma de una ligadura mensural blanca.  Más bien la forma se
-determina exclusivamente a partir de las alturas y las duraciones de las
-notas comprendidas.  Si bien este enfoque podría hacer que un
-usuario con poca experiencia tardase un tiempo en acostumbrarse a
-él, tiene la gran ventaja de que toda la información musical de la
-ligadura se conoce internamente.  Esto no se requiere solamente
+determina exclusivamente a partir de las alturas y las duraciones
+de las notas comprendidas.  Si bien este enfoque podría hacer que
+un usuario con poca experiencia tardase un tiempo en acostumbrarse
+a él, tiene la gran ventaja de que toda la información musical de
+la ligadura se conoce internamente.  Esto no se requiere solamente
 para una salida MIDI correcta, sino que también permite la
 transcripción automática de las ligaduras.
 
-@cindex flexa, in mensural ligatures
-@cindex mensural ligature, flexa
+@cindex flexa, en ligaduras mensurales
+@cindex mensural, ligadura, flexa
 
 En algunos lugares, dos notas consecutivas se pueden representar
 bien como dos cuadrados, bien como un paralelogramo oblicuo (forma
-de @dfn{flexa}).  En tales casos la forma por omisión es dos cuadrados,
-pero puede requerirse una flexa fijando la propiedad
+de @dfn{flexa}).  En tales casos la forma por omisión es dos
+cuadrados, pero puede requerirse una flexa fijando la propiedad
 @code{ligature-flexa} de la @emph{segunda} cabeza.  El ancho de
 una flexa se puede fijar mediante la propiedad @code{flexa-width}
 de la cabeza.
@@ -989,22 +995,23 @@ la siguiente apariencia:
 }
 @end lilypond
 
-There are also cases where a stem is not required to unambiguously
-encode the note length, but is also not forbidden:
+También hay casos en los que no se necesita una plica para
+registrar la duración de la nota de forma no ambigua, pero tampoco
+está prohibido:
 
 @itemize
 @item
-an initial breve (with a lower pitch than the next note) may or
-may not have a downward left stem;
+una breve inicial (con una altura más baja que la nota siguiente)
+puede tener, o no, una plica a la izquierda y hacia abajo;
 @item
-a maxima may or may not have a downward right stem;
+una maxima puede o no tener una plica a la derecha y hacia abajo;
 @item
-a final longa (with a lower pitch than the previous note) may or
-may not have a right stem.
+una longa final (con una altura más baja que la nota anterior)
+puede o no tener una plica a la derecha.
 @end itemize
 
 @noindent
-Here is an example that demonstrates this tweaking.
+He aquí un ejemplo que muestra este trucaje.
 
 @lilypond[quote,ragged-right,verbatim]
 \new PetrucciStaff \relative {
@@ -1075,12 +1082,13 @@ Referencia de la notación:
 @funindex VaticanaScore
 
 Los contextos predefinidos @code{VaticanaScore},
-@code{VaticanaVoice}, @code{VaticanaStaff} y
-@code{VaticanaLyrics} se pueden utilizar para grabar una pieza de
-canto gregoriano en el estilo de la Editio Vaticana.  Estos
-contextos establecen a unos valores iniciales adecuados todas las
-propiedades relevantes de los contextos y de los objetos gráficos.  Puede inmediatamente comenzar a escribir el canto en
-sí, como lo demuestra el siguiente fragmento.
+@code{VaticanaVoice}, @code{VaticanaStaff} y @code{VaticanaLyrics}
+se pueden utilizar para grabar una pieza de canto gregoriano en el
+estilo de la Editio Vaticana.  Estos contextos establecen a unos
+valores iniciales adecuados todas las propiedades relevantes de
+los contextos y de los objetos gráficos.  Puede inmediatamente
+comenzar a escribir el canto en sí, como lo demuestra el siguiente
+fragmento.
 
 @lilypond[quote,ragged-right,verbatim,staffsize=23]
 \new VaticanaScore {
@@ -1327,15 +1335,15 @@ Referencia de funcionamiento interno:
 @node Divisiones
 @subsection Divisiones
 
-@cindex bar line, in Gregorian chant
+@cindex barra de compás, en canto gregoriano
 @cindex divisio
 @cindex divisiones
-@cindex final bar line, in Gregorian chant
+@cindex barra final, en canto gregoriano
 @cindex finalis
-@cindex phrase bar line, in Gregorian chant
-@cindex section bar line, in Gregorian chant
-@cindex short bar line, in Gregorian chant
-@cindex tick bar line, in Gregorian chant
+@cindex barra de frase, en canto gregoriano
+@cindex barra de sección, en canto gregoriano
+@cindex barra corta, en canto gregoriano
+@cindex barra de raya, en canto gregoriano
 
 En la notación del canto gregoriano no existen silencios, sino
 @ref{Divisiones}.
@@ -1674,12 +1682,13 @@ una nota.
 @funindex \responsum
 @funindex \versus
 
-Además de los símbolos de nota, LilyPond define también las instrucciones @code{\versus},
-@code{\responsum}, @code{\ij}, @code{\iij}, @code{\IJ} y
-@code{\IIJ}, que producen los caracteres correspondientes,
-p.ej. para utilizarlos en la letra, como marcas de sección, etc.
-Estas instrucciones utilizan caracteres de Unicode especiales y
-solo funcionan si se usa una fuente tipográfica que los contemple.
+Además de los símbolos de nota, LilyPond define también las
+instrucciones @code{\versus}, @code{\responsum}, @code{\ij},
+@code{\iij}, @code{\IJ} y @code{\IIJ}, que producen los caracteres
+correspondientes, p.ej. para utilizarlos en la letra, como marcas
+de sección, etc.  Estas instrucciones utilizan caracteres de
+Unicode especiales y solo funcionan si se usa una fuente
+tipográfica que los contemple.
 
 @c neume table
 
@@ -2644,13 +2653,13 @@ propiedad @code{direction} del objeto @code{Stem}.
 @cindex kievano, alteraciones de
 
 El estilo @code{kievan} para las alteraciones accidentales se
-selecciona con la propiedad @code{alteration-glyph-name-alist} del grob
-@code{Accidental}.  El estilo @code{kievan} provee unos signos de
-sostenido y de bemol diferentes del estilo predeterminado.  No
-esiste el becuadro en la notación kievana.  El símbolo del
-sostenido no se utiliza en la música sinodal pero puede aparecer
-en manuscritos más antiguos.  Se ha incluido principalmente a
-efectos de compatibilidad.
+selecciona con la propiedad @code{alteration-glyph-name-alist} del
+grob @code{Accidental}.  El estilo @code{kievan} provee unos
+signos de sostenido y de bemol diferentes del estilo
+predeterminado.  No esiste el becuadro en la notación kievana.  El
+símbolo del sostenido no se utiliza en la música sinodal pero
+puede aparecer en manuscritos más antiguos.  Se ha incluido
+principalmente a efectos de compatibilidad.
 
 @lilypond[quote,fragment,notime,verbatim]
 \clef "kievan-do"
@@ -2678,16 +2687,16 @@ Referencia de la notación:
 @funindex \caesura
 @funindex \fine
 @funindex \section
-@cindex bar line, in Kievan chant
-@cindex caesura bar line, in Kievan chant
-@cindex final bar line, in Kievan chant
-@cindex phrase bar line, in Kievan chant
-@cindex section bar line, in Kievan chant
+@cindex barra de compás, en canto kievano
+@cindex caesura, barra de compás, en canto kievano
+@cindex final, barra de compás, en canto kievano
+@cindex frase, barra de compás, en canto kievano
+@cindex sección, barra de compás, en canto kievano
 
-In a @code{KievanStaff}, there are no measures, but the
-@code{\caesura} command creates a phrase bar line, and the
-@code{\section} and @code{\fine} commands create a special section
-bar line.
+En una pauta del tipo @code{KievanStaff} no hay compases, pero la
+instrucción @code{\caesura} crea una barra de frase, y las
+instrucciones @code{\section} y @code{\fine} crean una barra
+especial de sección.
 
 @lilypond[quote,verbatim]
 \new KievanStaff {
@@ -2714,17 +2723,17 @@ Las notas que están dentro de un melisma del canto kievano se
 suelen colocar a poca distancia entre sí y cada melisma está
 separado de los demás por un espacio vacío.  Esto se hace para
 permitir al cantor la identificación rápida de las estructuras
-melódicas del @emph{canto Znamenny}.  En LilyPond, los melismas se tratan
-como ligaduras y el especiado está implementado por el grabador
-@code{Kievan_ligature_engraver}.
+melódicas del @emph{canto Znamenny}.  En LilyPond, los melismas se
+tratan como ligaduras y el especiado está implementado por el
+grabador @code{Kievan_ligature_engraver}.
 
 @funindex Ligature_bracket_engraver
 @funindex Kievan_ligature_engraver
 
 Cuando se usan los contextos @code{KievanVoice} y
 @code{KievanStaff}, se habilita el grabador
-@code{Kievan_@/ligature_@/engraver} de forma predeterminada.  En otros
-contextos, se puede invocar sustituyendo el grabador
+@code{Kievan_@/ligature_@/engraver} de forma predeterminada.  En
+otros contextos, se puede invocar sustituyendo el grabador
 @code{Ligature_@/bracket_@/engraver} por
 @code{Kievan_@/ligature_@/engraver} en el bloque layout:
 
@@ -2916,11 +2925,11 @@ Bar_engraver del contexto de pentagrama Staff.  Una vez más, en
 vez de ello podemos usar @code{\hide BarLine} si se necesita
 ocasionalmente una barra de compás.
 
-The predefined staff contexts for ancient music allow line breaks
-without bar lines.  You can extend this behavior to all other
-contexts with @code{\set Score@/.forbidBreakBetweenBarLines = ##f}
-or to particular staves with @code{\set
-Staff@/.forbidBreakBetweenBarLines = ##f}.
+Los contextos de pauta predefinidos para música antigua permiten
+saltos de línea sin barras de compás.  Se puede extender este
+comportamiento al resto de los contextos con @code{\set
+Score@/.forbidBreakBetweenBarLines = ##f} o a pautas específicas
+con @code{\set Staff@/.forbidBreakBetweenBarLines = ##f}.
 
 Un tipo de transcripción muy común es el canto de recitativo, en
 el que la nota repetida se indica con una breve.  Se puede tratar
@@ -2958,7 +2967,11 @@ salto de línea.  Si es el caso, una alternativa sería añadir notas
 ocultas a la partitura, en combinación con cambios en la
 visibilidad de las plicas:
 
-En ciertos estilos de transcripción, se usan plicas de forma ocasional, por ejemplo para indicar la transición a partir de un recitativo monotónico a un gesto melódico fijo.  En estos casos podemos usar the @code{Stem_engraver} and manually @code{\omit Stem} and @code{\undo \omit Stem}.
+En ciertos estilos de transcripción, se usan plicas de forma
+ocasional, por ejemplo para indicar la transición a partir de un
+recitativo monotónico a un gesto melódico fijo.  En estos casos
+podemos usar el grabador @code{Stem_engraver} y hacer manualmente
+@code{\omit Stem} y @code{\undo \omit Stem}.
 
 @lilypond[quote,verbatim,ragged-right]
 chant = \relative {

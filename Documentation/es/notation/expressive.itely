@@ -733,7 +733,7 @@ en su lugar.}
 
 @cindex Ferneyhough, regulador de
 @cindex regulador de Ferneyhough
-@cindex regulador acampanados
+@cindex regulador, acampanado
 @cindex acampanado, regulador
 @cindex regulador de tipo constante
 @cindex constante, regulador de tipo
@@ -823,7 +823,7 @@ moltoF = \markup { molto \dynamic f }
 }
 @end lilypond
 
-@cindex dinámicas indicaciones editoriales
+@cindex dinámicas, indicaciones editoriales
 @cindex dinámicas, indicaciones entre paréntesis
 @cindex editoriales, indicaciones dinámicas
 @funindex \bracket
@@ -1086,8 +1086,8 @@ expresión:
 
 @snippets
 
-@cindex slur, adjusting start and end
-@cindex adjusting start and end, slur
+@cindex ligadura de expresión, ajsutar comienzo y final
+@cindex ajustar comienzo y final, ligadura de expresión
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/adjusting-slur-positions-vertically.ly}
 

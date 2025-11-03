@@ -544,7 +544,8 @@ myChords = \chordmode {
 @c @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 @c {snippets/adding-bar-lines-to-chordnames-context.ly}
 
-@cindex lead sheet
+@cindex lead sheet (hoja guía de acordes)
+@cindex hoja guía de acordes (lead sheet)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/simple-lead-sheet.ly}
 

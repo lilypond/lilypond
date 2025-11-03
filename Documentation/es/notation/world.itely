@@ -56,7 +56,7 @@ nombres de nota italianos.  Para ver más detalles, consulte
 @cindex makamlar
 @cindex maqam
 @cindex Turquía, música clásica
-@cindex Otomana, música clásica
+@cindex otomana, música clásica
 @cindex @'arabe, maqam
 @cindex persa, makam
 @cindex turco, makam
@@ -69,8 +69,8 @@ en divisiones de 1/9 de tono.  Se siguen usando las notas del
 pentagrama occidental, pero con alteraciones accidentales que
 están definidas de forma inequívoca en el archivo
 @file{turkish-makam.ly}.  Para ver más información sobre la música
-clásica turca y los makamlar, consulte
-@ref{Turkish classical music}.
+clásica turca y los @emph{makamlar}, consulte @ref{Turkish
+classical music}.
 
 También están disponibles otros archivos de inicio relacionados,
 @file{hel-arabic.ly} and @file{makam.ly}.
@@ -249,7 +249,7 @@ Fragmentos de código:
 @node Arabic key signatures
 @subsection Armaduras de tonalidad árabes
 
-@cindex Arabic key signatures
+@cindex @'arabe, armadura de tonalidad
 
 
 Además de las armaduras de tonalidad mayores y menores, LilyPond
@@ -586,6 +586,7 @@ la música clásica de Turquía.
 @cindex otomana, música
 @cindex coma, intervalos de
 @cindex makam
+@cindex maqam
 @cindex makamlar
 
 La música clásica de Turquía se desarrolló en el imperio Otomano
@@ -613,7 +614,7 @@ notas y las alteraciones se dan en
 
 Las notas en la música clásica de Turquía tienen tradicionalmente
 nombres únicos, y la base de las alturas sobre divisiones de 1/9
-de tono significan que los makamlar utilizan un conjunto de
+de tono significan que los @emph{makamlar} utilizan un conjunto de
 intervalos completamente diferente de las escalas y modos
 occidentales.
 
@@ -643,9 +644,9 @@ Referencia de la notación:
 @subsection Armaduras de tonalidad de la música turca
 
 LilyPond da soporte a más de 200 definiciones de armaduras de
-makam (mucho más de las que se utilizan en la música clásica
-turca), teniendo cada makam su propia tónica o finalis (conocida
-en turco como @q{karar}).
+@emph{makam} (mucho más de las que se utilizan en la música
+clásica turca), teniendo cada @emph{makam} su propia tónica o
+finalis (conocida en turco como @q{karar}).
 
 Es importante tener en cuenta la nota finalis de cada maqam.  He
 aquí un ejemplo en el que @var{g} es la tónica predeterminada y

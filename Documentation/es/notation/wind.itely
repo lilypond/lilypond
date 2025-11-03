@@ -134,8 +134,8 @@ viento madera,como se describe en
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/fingering-symbols-for-wind-instruments.ly}
 
-@cindex fingering chart
-@cindex chart, fingering
+@cindex digitación, diagrama de
+@cindex diagrama, de digitación
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/recorder-fingering-chart.ly}
 
@@ -159,7 +159,7 @@ Esta sección trata de la notación común para gaita.
 @subsection Definiciones para la gaita
 
 @cindex gaita
-@cindex gaita escocesa de highland
+@cindex gaita escocesa de Highlands
 @cindex mordentes
 @cindex nota de adorno
 @funindex \taor

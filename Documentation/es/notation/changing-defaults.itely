@@ -241,9 +241,9 @@ línea.  La salida de MIDI conserva las alturas sin modificación.
 
 @item TabStaff (pauta de tablatura)
 @funindex TabStaff 
-Contexto para generar tablaturas.  It accepts only @code{TabVoice}
-contexts and handles the line spacing, the tablature clef, etc.,
-properly.
+Contexto para generar tablaturas.  Solo acepta contextos
+@code{TabVoice} y maneja adecuadamente el espaciado de líneas, la
+clave de tablatura, etc.
 
 @item DrumStaff (pauta de percusión)
 @funindex DrumStaff
@@ -252,8 +252,9 @@ contextos @code{DrumVoice}.
 
 @item VaticanaStaff (pauta de Vaticana)
 @funindex VaticanaStaff
-A kind of @code{Staff} for typesetting Gregorian chant in a
-notational style approximating @cite{Editio Vaticana}.
+Un tipo de @code{Staff} para la tipografía de canto gragoriano en
+un estilo de notación que se asemeja al de la @cite{Editio
+Vaticana}.
 
 @item MensuralStaff (pauta de notación mensural)
 @funindex MensuralStaff
@@ -621,8 +622,8 @@ Para ver más detalles sobre la asociación de letra y música,
 
 Las propiedades de todos los contextos de un tipo en particular se
 pueden modificar dentro de un bloque @code{\layout} (con una
-sintaxis diferente), @pxref{Changing all contexts of the same
-type}.  Esta construcción también ofrece una forma de mantener las
+sintaxis diferente), @pxref{Changing all contexts of the same type}.
+Esta construcción también ofrece una forma de mantener las
 instrucciones de disposición separadas del contenido musical.  Si
 se va a modificar un solo contexto, debe usarse un bloque
 @code{\with}, véase @ref{Changing just one specific context}.
@@ -2003,7 +2004,7 @@ un grob.
 
 @cindex propiedad, modificar
 @cindex modificar propiedades
-@cindex cambiar propiedades
+@cindex cambiar, propiedades
 @cindex contexto, propiedades de
 @cindex modificar contextos
 @funindex \set
@@ -2409,7 +2410,8 @@ otra, dentro del mismo acorde:
 \relative { c'-\tweak thickness 5 ( d e f) }
 @end lilypond
 
-Tweaking a whole chord tweaks all the contained notes:
+El truco efectuado sobre un acorde se aplica a todas las notas que
+contiene:
 
 @lilypond[verbatim,quote]
 { \tweak color #red <c'' e''>4 }
@@ -2461,9 +2463,9 @@ music expressions, Presentación de las expresiones musicales}.
 Esto puede ser de utilidad en la determinación de lo que puede
 modificarse por medio de una instrucción @code{\tweak}.
 
-@cindex properties
+@cindex propiedades
 @funindex \single
-@cindex changing properties
+@cindex cambiar, propiedades
 
 La instrucción @code{\single} toma una o más instrucciones
 @code{\override} (que se pretende que tengan efecto en un momento
@@ -2645,7 +2647,7 @@ primer compás para que cubran todo el tamaño de los acordes.  Los
 arpegios se amplían en medio espacio de pentagrama hacia arriba y
 hacia abajo.  También se muestra la misma operación efectuada
 sobre el primer acorde con una sobreescritura normal de la
-propiedad the @code{positions}.  Este método no es en absoluto
+propiedad @code{positions}.  Este método no es en absoluto
 expresivo de la acción de @q{ampliar en medio espacio de
 pentagrama}, porque los extremos se tienen que especificar
 mediante coordenadas absolutas, no relativas.  Además, se
@@ -2973,28 +2975,28 @@ como listas-A.}
 @node Useful concepts and properties
 @chapter Conceptos y propiedades útiles
 
-This section discusses various common layout issues and the
-tweaking methods related to them.
+Esta sección se ocupa de varios problemas comunes de disposición y
+los métodos de trucaje relacionados.
 
 @morerefs
-Learning Manual:
+Manual de aprendizaje:
 @rlearning{Tweaking output},
 @rlearning{Other sources of information}.
 
-Notation Reference:
+Referencia de la notación:
 @ref{Explaining the Internals Reference},
 @ref{Modifying properties}.
 
-Extending LilyPond:
+Manual de extensión del programa:
 @rextend{Interfaces for programmers}.
 
-Installed Files:
+Archivos instalados:
 @file{scm/define-grobs.scm}.
 
-Snippets:
+Fragmentos de código:
 @rlsr{Tweaks and overrides}.
 
-Internals Reference:
+Referencia de funcionamiento interno:
 @rinternals{All layout objects}.
 @endmorerefs
 
@@ -3023,17 +3025,17 @@ acentos).
 
 @c TODO Add table showing these
 
-@cindex forced vertical direction of grobs
-@cindex vertical direction, forced, of grobs
-@cindex vertical direction, default, of grobs
-@cindex position, vertical, of grobs
-@cindex grob, vertical position
-@cindex direction, up (@code{^})
-@cindex direction, down (@code{_})
-@cindex direction, default (@code{-})
-@cindex up direction (@code{^})
-@cindex down direction (@code{_})
-@cindex default vertical direction (@code{-})
+@cindex forzada, dirección vertical, de grobs
+@cindex vertical, dirección, forzada, de grobs
+@cindex vertical, dirección, predeterminada, de grobs
+@cindex posición, vertical, de grobs
+@cindex grob, posición vertical
+@cindex dirección, hacia arriba (@code{^})
+@cindex dirección, hacia abajo (@code{_})
+@cindex dirección, predeterminada (@code{-})
+@cindex arriba, dirección (@code{^})
+@cindex abajo, dirección (@code{_})
+@cindex predeterminada, dirección vertical (@code{-})
 
 @funindex -
 @funindex ^
@@ -3133,19 +3135,19 @@ Referencia de la notación:
 @node Distances and measurements
 @section Distancias y medidas
 
-@cindex distance, absolute
-@cindex distance, scaled
+@cindex distancia, absoluta
+@cindex distancia, escalada
 
-@cindex dimension units
-@cindex measuring units
-@cindex units, of measuring
+@cindex dimensión, undades
+@cindex medida, unidades
+@cindex unidades, de medida
 
-@cindex millimeter (mm)
-@cindex centimeter (cm)
-@cindex inch (in)
-@cindex point (pt)
-@cindex big point (bp)
-@cindex point, big (bp)
+@cindex milímetros (mm)
+@cindex centímetros (cm)
+@cindex pulgadas (in)
+@cindex puntos (pt)
+@cindex puntos, grandes (bp)
+@cindex grandes, puntos (bp)
 
 @funindex \mm
 @funindex \cm
@@ -3254,13 +3256,14 @@ Scheme que da las posiciones de los límites inferior y superior:
 
 Esto especifica una caja circundante para @var{arg} con su límite
 izquierdo en -5, su límite derecho en 10, el inferior en -3 y el
-superior e 15, todos ellos medidos a partir del punto de
+superior en 15, todos ellos medidos a partir del punto de
 referencia del objeto en unidades de espacios de pentagrama.
 
-For more information on how such boxes are defined, including the
-formal definition of horizontal and vertical space as set up by
-the @code{\hspace} and @code{\vspace} markup commands, see
-@rextend{LilyPond's box model}.
+Para más información sobre la forma en que se definen estos
+rectángulos, incluida la definición formal del espacio horizontal
+y vertical según se establece por las instrucciones de marcado
+@code{\hspace} y @code{\vspace}, véase @rextendnamed{LilyPond's box
+model, El modelo de caja de LilyPond}.
 
 @morerefs
 Referencia de la notación: @ref{Other markup commands}
@@ -3271,9 +3274,10 @@ Referencia de la notación: @ref{Other markup commands}
 
 
 @node Spanners
-@section Spanners
+@section Objetos de extensión (spanners)
 
-@cindex spanner
+@cindex spanner (objeto de extensión)
+@cindex objeto, de extensión (spanner)
 
 Muchos objetos de la notación musical se extienden a lo largo de
 varias notas o incluso varios compases.  Son ejemplos las
@@ -3871,8 +3875,8 @@ a' a'
 @cindex sobreescritura de un objeto
 @cindex objeto, sobreescritura de
 @cindex grob, sobreescritura de
-@cindex whiteout
-@cindex grob, and whiteout
+@cindex whiteout (circundado en blanco)
+@cindex grob, y circundado en blanco (whiteout)
 
 Todo objeto de presentación tiene una propiedad de color que de
 forma predeterminada está establecida a @code{black} (negro).  Si
@@ -4491,16 +4495,20 @@ example shows the difference:
 @cindex alineación a un objeto
 @funindex break-align-symbols
 
-Rehearsal marks, text marks, bar numbers, and more generally all objects
-with @rinternals{break-alignable-interface}, collectively referred to
-as @qq{break-alignable objects}, may be aligned with notation objects
-such as bar lines, key signatures, time signatures, and generally any
-object with @rinternals{break-aligned-interface}.  To be more precise,
-break-aligned items have a @code{break-@/align-@/symbol} property, providing
-symbols that can be used as @q{anchor points} for other objects via the
-@code{break-@/align-@/symbols} property.  See
-@rinternals{break-alignment-interface}, for a complete list of
-available symbols.
+Las llamadas de ensayo y de texto, los números de compás, y de
+forma más general todos los objetos con la interfaz
+@rinternals{break-alignable-interface}, a los cuales nos referimos
+colectivamente como @qq{objetos alineables en el salto de línea},
+se pueden alinear con objetos de notación tales como líneas
+divisorias, armaduras de tonalidad, indicaciones de compás y de
+forma general con cualquier objeto que tenga la interfaz
+@rinternals{break-aligned-interface}.  Para ser más exactos, los
+elementos break-aligned (alineados con el salto) tienen una
+propiedad @code{break-@/align-@/symbol}, que aporta símbolos que
+se pueden usar como @q{puntos de anclaje} para otros objetos por
+medio de la propiedad @code{break-@/align-@/symbols}.  Consulte
+@rinternals{break-alignment-interface} para ver una lista completa
+de los símbolos disponibles.
 
 Cada tipo de objeto tiene su propio punto de referencia
 predeterminado, con el que se alinean las marcas de ensayo:
@@ -4681,7 +4689,7 @@ tipográfica Emmentaler se puede pasar a la instrucción de marcado
 @code{\musicglyph}: véase @ref{The Emmentaler font}.
 
 Se pueden insertar en línea tanto imágenes en formato @file{EPS}
-como instrucciones de Postscript usando las instrucciones de
+como instrucciones de PosrtScript usando las instrucciones de
 marcado @code{\epsfile} y @code{\postscript} respectivamente;
 véase @ref{Graphical markup}.
 
@@ -4740,9 +4748,9 @@ cuatro puntos de control.  El primer y cuarto puntos de control
 son exactamente los puntos extremos de comienzo y de final de la
 curva.  Los dos puntos de control intermedios definen la forma.
 Se pueden encontrar en la web animaciones que muestran cómo se
-traza la curva, pero la descripción y la imagen siguiente puede ser de ayuda.
-La curva comienza a partir del primer punto de control
-dirigiéndose directamente hacia el segundo, curvándose
+traza la curva, pero la descripción y la imagen siguiente puede
+ser de ayuda.  La curva comienza a partir del primer punto de
+control dirigiéndose directamente hacia el segundo, curvándose
 progresivamente para dirigirse hacia el tercero y continuando la
 curva hacia el cuarto, llegando a éste en viaje directo desde el
 tercer punto de control.  La curva está contenida enteramente

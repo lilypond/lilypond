@@ -598,11 +598,11 @@ con @code{\tweak} sobre la propiedad @code{text}.
 }
 @end lilypond
 
-@cindex Arrastre
+@cindex arrastre
 
 El objeto de extensión @code{FingerGlideSpanner} también puede
 conectar números de cuerda indicando que se toque sobre la misma
-cuerda, o pulsar los dedos indicando un @dfn{Arrastre}.
+cuerda, o pulsar los dedos indicando un @dfn{arrastre}.
 
 @lilypond[verbatim,quote]
 {

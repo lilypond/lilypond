@@ -519,7 +519,7 @@ relacionados con el piano.
 @cindex sostenuto, pedal
 @cindex una corda
 @cindex tre corde
-@cindex sos.
+@cindex sost.
 @cindex U.C.
 
 @funindex \sustainOn
@@ -532,7 +532,7 @@ relacionados con el piano.
 En general, los pianos tienen tres pedales que alteran la forma de
 producir el sonido: el pedal de mantenimiento (pedal
 @notation{derecho} o pedal @notation{forte}), el pedal
-@notation{sostenuto} (@notation{sos.}, pedal central) y el pedal
+@notation{sostenuto} (@notation{sost.}, pedal central) y el pedal
 @notation{una corda} (@notation{U.C.}, pedal izquierdo).  Los
 pedales de mantenimiento como el pedal derecho del piano se
 encuentran también en el vibráfono y en la celesta.

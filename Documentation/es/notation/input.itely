@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: b22569ea33c9c9a6a26e17624d79449bffa81b22
+    Translation of GIT committish: 8ce0d94e2f1660e91f147ce6007a64ad3e2bea2b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -380,10 +380,10 @@ especificación del bloque @code{\header}.
 @}
 @end example
 
-@cindex variable, and @code{\book}
-@cindex variable, and @code{\bookpart}
-@cindex @code{\book}, and variables
-@cindex @code{\bookpart}, and variables
+@cindex variable, y @code{\book}
+@cindex variable, y @code{\bookpart}
+@cindex @code{\book}, y variables
+@cindex @code{\bookpart}, y variables
 
 Por principio de diseño, no se pueden definir variables dentro de
 un bloque @code{\book} o @code{\bookpart} (por cierto, lo mismo
@@ -641,25 +641,65 @@ escritos.
 
 @item
 @cindex variable
-Una variable, como
+Una variable o una estructura anidada de listas de asociación de
+Scheme (listas-A)
+
 @example
-fulano = @{ c4 d e d @}
+fulano = @{ c4 d e d @}    % variable normal
+"Horn 3" = @{ c4 d e d @}  % variable entre comillas
+verse.1 = @{ c4 d e d @}   % variable anidada
 @end example
 
-Esto se puede utilizar más tarde en el archivo escribiendo
-@code{\fulano}.  El nombre de una variable no puede contener
-números (ASCII), más de una barra baja seguida, más de un signo
-menos o espacios.  Todos los demás caracteres que ofrece Unicode
-están permitidos, por ejemplo latín, griego, chino o cirílico.
-También se permiten varias barras bajas únicas y signos menos no
-seguidos.  En otras palabras, funcionan los nombres de variable
-como @code{TrompaIII} o @code{αβγXII}.
+@noindent
+Las variables se pueden usar más tarde en el archivo
+anteponiéndolas por una barra invertida.
+
+@example
+\foo
+\"Horn 3"
+\verse.1
+@end example
+
+El nombre de una variable no puede contener números (ASCII), más
+de una barra baja seguida, varios signos menos seguidos, ni
+espacios.  Todos los demás caracteres que ofrece Unicode están
+permitidos, por ejemplo latín, griego, chino o cirílico.  También
+se permiten varias barras bajas únicas y signos menos no seguidos.
+En otras palabras, funcionan los nombres de variable como
+@code{TrompaIII} o @code{Скрипка-II}.
 
 Se permite cualquier combinación de caracteres si el nombre de la
-variable está entre dobles comillas.  En este caso, las barras
-invertidas y las comillas dobles se tienen que escapar con barras
-invertidas (aunque no es recomendable).  Ejemplos: @code{"fulano
+variable está entre dobles comillas (aunque no es
+recomendable).@footnote{En este caso se aplican las reglas
+estándar para las cadenas de caracteres: las barras invertidas y
+las comillas dobles dentro de comillas dobles se tienen que
+escapar con barras invertidas.}  Ejemplos: @code{"fulano
 mengano"}, @code{"a-b-c"}, @code{"Trompa 3"}.
+
+Las listas-A anidadas ofrecen un medio para rodear parcialmente la
+restricción mencionada anteriormente de nombres de variable que no
+contengan un número.  Una lista-A anidada es un nombre de variable
+válido seguido por uno o más conjuntos de un punto y una clave.
+En @code{mus.violin.1 = @{ a1 @}} tenemos una variable llamada
+@code{mus}, que tiene una lista de asociación con una clave
+llamada @code{violin}, que a su vez tiene una clave llamada
+@code{1}, a la cual se asigna finalmente el valor @code{@{ a1 @}}.
+En @code{"1.2"."3.4".5} el nombre de la variable es @code{"1.2"} y
+las claves son @code{"3.4"} y @code{5}. Estas construcciones son
+bastante ilegibles pero pueden ser útiles para generar nombres de
+variables programáticamente.
+
+Ni un nombre de variable ni una clave dentro de una lista anidada
+pueden tener el nombre de una nota.  Si es necesario, enciérrelas
+entre comillas dobles, o mejor aún cambie la clave o el nombre
+conflictivos.
+
+Por razones técnicas, acceder a listas-A anidadas puede fallar
+bajo ciertas circunstancias.  Concretamente, no se puede acceder a
+ellas en el nivel jerárquico superior (esto es, fuera de un bloque
+de música).  Si la orden @command{lilypond} abrta con el error
+@q{bad expression type}, sustituya la lista-A anidada con una
+variable normal o entrecomillada.
 
 @end itemize
 
@@ -1113,10 +1153,10 @@ Archivos de inicio:
 @node Default layout of headers and footers
 @subsection Disposición predeterminada de las cabeceras y pies de página
 
-@cindex page header
-@cindex page footer
-@cindex header, page
-@cindex footer, page
+@cindex página, encabezamiento
+@cindex página, pie
+@cindex encabezamiento, página
+@cindex pie, página
 
 Las @dfn{cabeceras} y los @dfn{pies} de página son líneas de
 texto que aparecen en la parte más alta y en la más baja de las
@@ -1663,7 +1703,7 @@ anotando.
 
 @subsubheading Notas al pie basadas en eventos
 
-@cindex Nota al pie, basada en eventos
+@cindex nota al pie, basada en eventos
 
 Una nota al pie se adjunta a un objeto de presentación causado
 directamente por el evento que corresponde a @var{música}, con la
@@ -1743,7 +1783,7 @@ sintaxis es:
 
 @subsubheading Notas al pie basadas en tiempo
 
-@cindex Nota al pie, basada en tiempo
+@cindex nota al pie, basada en tiempo
 
 Si el objeto de presentación que recibe la nota al pie está
 causado @emph{indirectamente} por un evento (como un objeto
@@ -1896,7 +1936,7 @@ Se muestran más ejemplos de marcas personalizadas en
 @node Footnotes in stand-alone text
 @subsection Notas al pie en texto independiente
 
-@cindex nota al pie en texto independiente
+@cindex nota al pie, en texto independiente
 
 Se utilizan dentro de un elemento de marcado fuera de cualquier
 expresión musical.  No se traza una línea hasta el punto de
@@ -2048,7 +2088,7 @@ anotación.
 @node Creating in-notes
 @section Creación de notas interiores
 
-@cindex in-note
+@cindex nota, interior
 
 Las notas interiores funcionan como las notas al pie en el sentido
 de que sirven para anotar la música, pero se diferencian en que se
@@ -2447,7 +2487,7 @@ Archivos de inicio:
 @section Inclusión de archivos de LilyPond
 
 @funindex \include
-@cindex including files
+@cindex inclusión de archivos
 
 Un proyecto grande se puede dividir en varios archivos.  Para
 referirse a otro archivo, utilice
@@ -2563,9 +2603,9 @@ y en @file{principal.ly} escriba
 
 Los archivos que se incluyen en muchas partituras se pueden poner
 en el directorio de LilyPond @file{../ly} (la localización de este
-directorio depende de la instalación: véase @rlearningnamed{Other
-sources of information, Otras fuentes de información}).  Estos
-archivos se pueden incluir sencillamente por su nombre en un
+directorio depende de la instalación: véase
+@rlearningnamed{Other sources of information, Otras fuentes de información}).
+Estos archivos se pueden incluir sencillamente por su nombre en un
 enunciado @code{\include}.  De esta forma se incluyen los archivos
 dependientes del idioma como @file{espanol.ly}.
 
@@ -2707,7 +2747,8 @@ o de
 @end example
 
 @code{\keepWithTag #'(@var{nombre1} @var{nombre2}@dots{})}
-  @tab Se incluye la música no etiquetada y la música etiquetada con el nombre o nombres de etiqueta dados; se excluye la música
+  @tab Se incluye la música no etiquetada y la música etiquetada con el
+nombre o nombres de etiqueta dados; se excluye la música
 etiquetada con cualquier otro nombre de etiqueta.
 
 @item
@@ -3155,7 +3196,7 @@ sobre todas las notas tal y como se introducen.
 @node Using global settings
 @subsection Uso de ajustes globales
 
-@cindex include settings
+@cindex inclusión de ajustes
 
 Se pueden incluir ajustes globales a partir de un archivo
 distinto:
@@ -3228,8 +3269,11 @@ donde
 debe devolver @code{#t}.
 
 @item @code{@var{@dots{}música@dots{}}}
-@tab Código normal de entrada de LilyPond, que usa @samp{$} (en aquellos lugares donde solo se admiten construcciones de LilyPond) o @samp{#} (para usarlo como un valor de Scheme o argumento de función musical o música dentro de listas de música) para referenciar argumentos
-(p.ej., @samp{#arg1}).
+@tab Código normal de entrada de LilyPond, que usa @samp{$} (en
+aquellos lugares donde solo se admiten construcciones de LilyPond)
+o @samp{#} (para usarlo como un valor de Scheme o argumento de
+función musical o música dentro de listas de música) para
+referenciar argumentos (p.ej., @samp{#arg1}).
 @end multitable
 @end indentedblock
 
@@ -3239,7 +3283,8 @@ musicales son:
 
 @itemize @w{}
 @item boolean?
-@item cheap-list?  @emph{(usar en lugar de }@q{list?}@emph{ para un procesamiento más rápido)}
+@item cheap-list?  @emph{(usar en lugar de }@q{list?}@emph{ para un
+procesamiento más rápido)}
 @item ly:duration?
 @item ly:music?
 @item ly:pitch?
@@ -3541,8 +3586,8 @@ simpleAccompaniment =
 @subsection Codificación del texto
 
 @cindex UTF-8
-@cindex text encoding
-@cindex encoding, of text
+@cindex texto, codificación
+@cindex codificación, de texto
 
 LilyPond usa el conjunto de caracteres definido por el consorcio
 Unicode y la norma ISO/IEC 10646.  Define un nombre único y un
@@ -3709,10 +3754,10 @@ especiales:
 }
 @end lilypond
 
-@cindex replacing strings, automatically
-@cindex automatic replacement, of strings
-@cindex string, automatic replacement
-@cindex global replacement, automatic, of strings
+@cindex sustitución, de cadenas, automática
+@cindex automática, sustitución, de cadenas
+@cindex cadena, sustitución automática
+@cindex global, sustitución automática de cadenas
 
 También podemos hacer nuestros propios alias, ya sea de forma
 global,
@@ -4508,8 +4553,8 @@ dos veces en la salida MIDI.
 @node Using MIDI instruments
 @section Uso de los instrumentos MIDI
 
-@cindex instrument name
-@cindex MIDI, instrument
+@cindex instrumento, nombre
+@cindex MIDI, instrumento
 @funindex midiInstrument
 
 Los instrumentos MIDI se establecen usando la propiedad
@@ -4777,9 +4822,10 @@ derecha.
 
 @item Staff.midiBalance
 @funindex midiBalance
-@cindex stereo balance, in MIDI
-@cindex MIDI, stereo balance
-@cindex balance, in MIDI
+@cindex estéreo
+@cindex balance estéreo, en MIDI
+@cindex MIDI, balance estéreo
+@cindex balance, en MIDI
 @cindex MIDI, balance
 
 Equilibrio estéreo de un canal MIDI.  De forma similar a la
@@ -4790,8 +4836,8 @@ distribución de las propias señales estéreo.
 
 @item Staff.midiExpression
 @funindex midiExpression
-@cindex expression, in MIDI
-@cindex MIDI, expression
+@cindex expresión, en MIDI
+@cindex MIDI, expresión
 
 Nivel de expresión (como una fracción del nivel máximo disponible)
 que se aplica a un canal MIDI.  Un dispositivo MIDI combina el
@@ -4813,8 +4859,8 @@ El rango de los niveles de expresión se extiende desde 0.0
 
 @item Staff.midiReverbLevel
 @funindex midiReverbLevel
-@cindex reverb, in MIDI
-@cindex MIDI, reverb
+@cindex reverberación, en MIDI
+@cindex MIDI, reverberación
 
 El nivel de reverberación (cono una fracción del máximo nivel
 disponible) que se aplica a un canal MIDI.  Esta propiedad acepta
@@ -4822,8 +4868,8 @@ números entre 0.0 (sin reverberación) y 1.0 (efecto máximo).
 
 @item Staff.midiChorusLevel
 @funindex midiChorusLevel
-@cindex chorus level, in MIDI
-@cindex MIDI, chorus level
+@cindex chorus, nivel, en MIDI
+@cindex MIDI, chorus, nivel
 
 Nivel del efecto Chorus (como una fracción del máximo nivel
 disponible) que se aplica a un canal MIDI.  Esta propiedad acepta
@@ -4933,7 +4979,7 @@ efecto de acortamiento de las notas.}
 @node The swing script
 @subsection El script @file{swing}
 
-@cindex @code{swing.ly} script
+@cindex @code{swing.ly}, script
 
 El script o guion @file{swing} aporta funciones adicionales que
 permiten tocar duraciones regulares con un ritmo desigual.  El

@@ -978,8 +978,8 @@ notas.
 @node Accidental glyph sets
 @appendixsec Conjuntos de glifos de alteraciones accidentales
 
-@cindex glyph set, accidental
-@cindex accidental glyph set
+@cindex glifo, conjunto, alteración
+@cindex alteración, conjunto de glifos
 
 Están disponibles los siguientes conjuntos de glifos para
 alteraciones accidentales.
@@ -1037,7 +1037,7 @@ como las cifras de cambio de octava, @pxref{Clef}.
 @cindex clave, bajo
 @cindex bajo, clave
 @cindex clave, F
-@cindex F clave
+@cindex F, clave
 @cindex clave, sub-bajo
 @cindex sub-bajo, clave
 @multitable @columnfractions .3 .18 .34 .18
@@ -2227,12 +2227,13 @@ f^\haydnturn e,_\haydnturn b'\haydnturn
 @funindex \henzeshortfermata
 @funindex \henzelongfermata
 @cindex fermata
-@cindex fermata, short
-@cindex short fermata
-@cindex fermata, long
-@cindex long fermata
-@cindex fermata, Henze
-@cindex Henze fermata
+@cindex calderón
+@cindex calderón, corto
+@cindex calderón, largo
+@cindex corto, calderón
+@cindex largo, calderón
+@cindex calderón, Henze
+@cindex Henze, calderón
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -3138,7 +3139,7 @@ con su nombre, se pueden cambiar utilizando @code{\override} y
 Véase también más abajo acerca de los objetos mutables.
 
 @cindex interfaz
-@funindex interfaz, de grob
+@cindex interfaz, de grob
 @cindex interfaz, de objeto gráfico
 
 @item interfaz
@@ -3164,11 +3165,11 @@ un proceso que se llama @dfn{análisis léxico}.  El analizador
 léxico de LilyPond convierte el flujo obtenido a partir de un
 archivo de entrada @file{.ly} en un flujo descompuesto en tokens
 más apto para la siguiente fase del procesado: el análisis
-sintáctico (véase @dfn{parser} más adelante).  El analizador léxico de LilyPond
-está construido con el programa @command{flex} a partir del
-archivo de lexer @file{lily/lexer.ll} que contiene las reglas
-léxicas.  Este archivo es parte del código fuente y no se incluye
-dentro de la instalación binaria de LilyPond.
+sintáctico (véase @dfn{parser} más adelante).  El analizador
+léxico de LilyPond está construido con el programa @command{flex}
+a partir del archivo de lexer @file{lily/lexer.ll} que contiene
+las reglas léxicas.  Este archivo es parte del código fuente y no
+se incluye dentro de la instalación binaria de LilyPond.
 
 @cindex objetos mutables
 @cindex propiedades mutables
@@ -3193,8 +3194,8 @@ estructuras de datos asociados con un bloque de salida.  Se crean
 instancias para los bloques midi, layout y paper.
 
 
-@cindex parser
-@cindex analizador sintáctico
+@cindex parser (analizador sintáctico)
+@cindex analizador sintáctico (parser)
 @cindex @command{bison}, programa
 @cindex gramática, de LilyPond
 @cindex BNF
@@ -3260,7 +3261,7 @@ LilyPond utiliza las siguientes variables del analizador sintáctico, entre otra
 @end itemize
 
 @cindex prob
-@cindex property object
+@cindex objeto, de propiedades
 
 @item prob (objeto de propiedades)
 Los OBjetos de PRopiedades, o abreviadamente @dfn{probs}, son
@@ -3273,7 +3274,7 @@ formateado de los grobs del sistema y los bloques de títulos
 durante el proceso de disposición de la página.
 
 @cindex smob
-@cindex objeto de Scheme
+@cindex objeto, de Scheme
 
 @item smob (objeto de Scheme)
 Los @dfn{Smobs}, u OBjetos de ScheMe, forman parte del mecanismo
@@ -3302,7 +3303,7 @@ comienzo y final (como un crescendo largo que se extiende a lo
 largo de tres sistemas, o las líneas del pentagrama, que siempre
 se extienden a lo largo de la partitura completa).
 
-Técnicamente, los objetos de extensión se definen como objetjos
+Técnicamente, los objetos de extensión se definen como objetos
 gráficos que tienen la interfaz @code{spanner-@/interface}; en la
 parte C++ de LilyPond, son instancias de la subclase
 @code{Spanner} de la clase @code{Grob}.  Los extremos izquierdo y
@@ -3325,7 +3326,7 @@ Las instancias de la clase @code{Stencil} contienen la información
 necesaria para imprimir un objeto tipográfico, un @dfn{stencil} o
 sello.  Es un smob simple que contiene una caja de confinamiento,
 que a su vez define las dimensiones vertical y horizontal del
-objeto, y una expresión de Scheme que imprime el objeto cuendo se
+objeto, y una expresión de Scheme que imprime el objeto cuando se
 evalúa.  Los stencils o sellos se pueden combinar para formar
 sellos más complejos definidos por un árbol de expresiones de
 Scheme, que a su vez está formado a partir de las expresiones de
@@ -3447,7 +3448,9 @@ sencillo retener en la cabeza la naturaleza de un bojeto.
 @item Funciones de Scheme definidas dentro de LilyPond
   @tab @code{ly:aaaa} o @code{ly:aaaa-aaaa-aaaa} or
   @code{aaaa} o @code{aaaa-aaaa-aaaa}
-  @footnote{Por razones históricas, algunas pero no todas las funciones definidas por LilyPond comienzan con el prefijo @code{ly:} .}
+  @footnote{Por razones históricas, algunas pero no todas las
+   funciones definidas por LilyPond comienzan con el prefijo
+   @code{ly:} .}
   @tab @code{ly:round-filled-box}, @code{music-map}
 @end multitable
 @end raggedright

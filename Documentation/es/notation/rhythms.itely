@@ -348,7 +348,7 @@ imprimir un grupo especial (ni un corchete) se explica también en
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/controlling-tuplet-bracket-visibility.ly}
 
-@cindex tuplet bracket, note head side
+@cindex grupo especial, corchete, del lado de la cabeza
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/printing-tuplet-brackets-on-the-note-head-side.ly}
 
@@ -554,13 +554,12 @@ dentro del acorde.
 @end lilypond
 
 @anchor{Repeat tie}
-@cindex alternative ending, with ties
-@cindex repeat, with ties
-@cindex repetición, ligaduras de unión en
-@cindex tie, alternative endings
-@cindex tie, in repeats
+@cindex alternativo, final, con ligaduras de unión
+@cindex repetición, con ligadura de unión
+@cindex ligadura de unión, finales alternativos
+@cindex ligadura de unión, en repeticiones
 @cindex ligadura de unión, repetición y
-@cindex tie, from nothing
+@cindex ligadura de unión, desde nada
 @cindex primera y segunda vez, corchetes y ligaduras en
 @cindex ligadura de unión, corchetes de primera y segunda vez
 
@@ -1134,8 +1133,8 @@ Referencia de funcionamiento interno:
 @endmorerefs
 
 @knownissues
-@cindex fingering, and multi-measure rest
-@cindex multi-measure rest, and fingerings
+@cindex digitación, y silencios multicompás
+@cindex multicompás, silencios, y digitación
 
 En las digitaciones encima de silencios multicompás
 (p. ej., @code{R1*10-4}), la cifra de la digitación
@@ -3099,16 +3098,15 @@ grupo como un todo.
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/beam-nibs.ly}
 
-@cindex beam-like flags
-@cindex flag, beam-like
-@cindex stacked flags
-@cindex flag, stacked
-@cindex straight flags, modern
-@cindex flag, modern straight
-@cindex straight flags, old
-@cindex flag, old straight
-@funindex \flagStyleStacked
-@funindex \flagStyleDefault
+@cindex corchetes, tipo barra
+@cindex apilados, corchetes
+@cindex corchete, apilado
+@cindex recto, corchete, moderno
+@cindex corchete, moderno recto
+@cindex recto, corchete, antiguo
+@cindex corchete, antiguo recto
+@funindex \corcheteStyleStacked
+@funindex \corcheteStyleDefault
 @lilypondfile[verbatim,ragged-right,texidoc,doctitle]
 {snippets/using-alternative-flag-styles.ly}
 
@@ -3370,10 +3368,10 @@ y varios tipos de barra de repetición:
 }
 @end lilypond
 
-@cindex bar line, short
-@cindex bar line, tick
-@cindex short bar line
-@cindex tick bar line
+@cindex barra de compás, corta
+@cindex barra de compás, de raya
+@cindex corta, barra de compás
+@cindex raya, barra de compás
 
 También están disponibles líneas cortas y de tipo coma, aunque en
 el contexto del canto gregoriano es preferible usar
@@ -3395,12 +3393,10 @@ f'1 \bar "k"
 Pueden verse más detalles de esta notación explicados en
 @ref{Typesetting Kievan square notation}.
 
-@cindex @q{segno} sign, bar line
-@cindex bar line, segno
-@cindex segno bar line
-@cindex sign, segno, bar line
-@cindex @q{segno}, signo de
-@cindex signo, @q{segno}
+@cindex @q{segno}, barra de compás
+@cindex barra de compás, segno
+@cindex signo, barra de compás
+
 
 Hay varios símbolos de segno dentro del compás que se diferencian
 en su comportamiento en los saltos de línea:
@@ -3837,8 +3833,8 @@ Referencia de funcionamiento interno:
 @node Automatic bar lines
 @subsection Automatic bar lines
 
-@cindex automatic bar line
-@cindex bar line, automatic
+@cindex automática, barra de compás
+@cindex barra de compás, automática
 
 Varias instrucciones aparte de @code{\bar} pueden también crear
 barras de compás como parte de su efecto.  Las barras de compás
@@ -3903,16 +3899,16 @@ Usado en la frontera normal de un compás.
 @cindex frase, barra de compás
 @funindex \caesura
 
-USado en @code{\caesura}; @pxref{Phrase bar lines in hymn tunes}.
+Usado en @code{\caesura}; @pxref{Phrase bar lines in hymn tunes}.
 
 @item sectionBarType
-@cindex bar line, double
-@cindex bar line, section
-@cindex double bar line
-@cindex section bar line
+@cindex barra de compás, doble
+@cindex barra de compás, sección
+@cindex doble, barra de compás
+@cindex sección, barra de compás
 @funindex \section
 
-Used at a section break created by @code{\section}.
+Usado en un salto de sección creado por @code{\section}.
 
 @item fineBarType
 @cindex barra de compás, final
@@ -4056,11 +4052,11 @@ números de compás en todos los sitios posibles:
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/printing-bar-numbers-with-changing-regular-intervals.ly}
 
-@cindex bar number, broken measure
+@cindex número de compás, dividido
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/printing-bar-numbers-for-broken-measures.ly}
 
-@cindex bar number, modulo bar number
+@cindex número de compás, módulo
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/printing-bar-numbers-using-modulo-bar-number-visible.ly}
 
@@ -4970,9 +4966,10 @@ La cuenta del tiempo se puede cambiar estableciendo el valor de
 cualquiera de estas variables.  En el siguiente ejemplo, se
 imprime la indicación de compás predeterminada 4/4, pero
 @code{measureLength} está ajustado a 5/4.  En los 4/8 hasta el
-tercer compás, the @code{\partial} command advances the measure
-position to leave only 5/8 remaining, acortando ese compás en 1/8.
-La siguiente línea divisoria cae en 9/8 en vez de hacerlo en 5/4.
+tercer compás, la instrucción @code{\partial} avanza la posición
+del compás para dejar un resto de solo 5/8, acortando ese compás
+en 1/8.  La siguiente línea divisoria cae en 9/8 en vez de hacerlo
+en 5/4.
 
 @lilypond[quote,verbatim]
 \fixed c' {

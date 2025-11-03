@@ -222,7 +222,7 @@ forfiles /s /p "C:\Documentos\Mis Partituras" /M *.ly /c "cmd /c lilypond @@file
 @node Basic command-line options for LilyPond
 @unnumberedsubsec Opciones básicas de la línea de órdenes para LilyPond
 
-@cindex Invoca a @command{lilypond}
+@cindex invocar a @command{lilypond}
 @cindex opciones de la línea de órdenes para @command{lilypond}
 @cindex opciones, línea de órdenes
 @cindex opciones
@@ -514,9 +514,9 @@ línea de órdenes del Scheme de LilyPond a
 
 @end table
 
-@cindex PS (Postscript), salida
-@cindex Postscript (PS), salida
-@cindex salida, PS (Postscript)
+@cindex PS (PosrtScript), salida
+@cindex PosrtScript (PS), salida
+@cindex salida, PS (PosrtScript)
 
 @item --ps
 Generar PostScript.

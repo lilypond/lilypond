@@ -496,10 +496,10 @@ Referencia de funcionamiento interno:
 @node Segno repeat structure
 @subsection Estructura de las repeticiones de Segno
 
-@cindex @q{coda} sign, with repeats
-@cindex @q{segno} sign, with repeats
-@cindex sign, coda, with repeats
-@cindex sign, segno, with repeats
+@cindex @q{coda}, signo, con repeticiones
+@cindex @q{segno} signo, con repeticiones
+@cindex signo, coda, con repeticiones
+@cindex signo, segno, con repeticiones
 @funindex \repeat segno
 
 @code{\repeat segno} se diferencia de @code{\repeat volta} solo en
@@ -703,13 +703,11 @@ Referencia de funcionamiento interno:
 
 @funindex \codaMark
 @funindex \segnoMark
-@cindex @q{segno} sign, bar line
-@cindex @q{segno} sign, with repeats
-@cindex bar line, segno
-@cindex repeat, with segno
-@cindex segno bar line
-@cindex sign, segno, bar line
-@cindex sign, segno, with repeats
+@cindex barra de compás, segno
+@cindex repetición, con segno
+@cindex segno, barra de compás
+@cindex signo, barra de compás
+@cindex signo, con repeticiones
 
 Las indicaciones de llamada y retorno que crea la instrucción
 @code{\repeat segno} son ajustables en ciertos aspectos.

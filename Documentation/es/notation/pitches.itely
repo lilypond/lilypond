@@ -260,8 +260,8 @@ relativa:
 @code{\chordmode}.
 
 @funindex \transpose
-@cindex relative octave entry, and transposition
-@cindex transposition, and relative octave entry
+@cindex relativa, octava, escritura y transposición
+@cindex transposición, y escritura de octava relativa
 
 La música que está dentro de un bloque @code{\transpose} es
 absoluta, a no ser que se incluya una instrucción
@@ -1381,7 +1381,7 @@ diferente.
 @node Key signature
 @subsection Armadura de la tonalidad
 
-@cindex Armadura de la tonalidad
+@cindex armadura de la tonalidad
 
 @funindex \key
 
@@ -3298,7 +3298,7 @@ tonalidad.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/changing-the-ambitus-gap.ly}
 
-@cindex ambitus, placement
+@cindex ambitus, colocación
 @funindex ambitusAfter
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/ambitus-after-key-signature.ly}
@@ -3459,9 +3459,9 @@ Referencia de funcionamiento interno:
 @cindex principiantes, música para
 @cindex fácil, notación, cabezas de nota de
 @cindex música para principiantes
-@cindex nota, cabezas de, estudio
-@cindex nota, cabezas de, notación simplificada
-@cindex nota, cabezas de, para practicar
+@cindex nota, cabeza de, estudio
+@cindex nota, cabeza de, notación simplificada
+@cindex nota, cabeza de, para practicar
 @cindex simplificada, notación
 
 @funindex \easyHeadsOn
@@ -3528,13 +3528,13 @@ Referencia de funcionamiento interno:
 @cindex Harmonia Sacra, cabezas de nota con forma
 @cindex Christian Harmony, cabezas de nota con forma
 @cindex Walker, cabezas de nota con forma
-@cindex nota, cabezas de, Aiken
-@cindex nota, cabezas de, arpa sacra
-@cindex nota, cabezas de, Southern Harmony
-@cindex nota, cabezas de, Funk
-@cindex nota, cabezas de, Harmonia Sacra
-@cindex nota, cabezas de, Christian Harmony
-@cindex nota, cabezas de, Walker
+@cindex nota, cabeza de, Aiken
+@cindex nota, cabeza de, arpa sacra
+@cindex nota, cabeza de, Southern Harmony
+@cindex nota, cabeza de, Funk
+@cindex nota, cabeza de, Harmonia Sacra
+@cindex nota, cabeza de, Christian Harmony
+@cindex nota, cabeza de, Walker
 
 @funindex \aikenHeads
 @funindex \aikenThinHeads
@@ -3656,8 +3656,8 @@ Referencia de funcionamiento interno:
 
 @cindex improvisación
 @cindex barradas, cabezas de nota
-@cindex nota, cabezas de, improvisación
-@cindex nota, cabezas de, barradas
+@cindex nota, cabeza de, improvisación
+@cindex nota, cabeza de, barradas
 
 @funindex \improvisationOn
 @funindex \improvisationOff

@@ -20,7 +20,7 @@ exclusivos de los instrumentos de cuerda con trastes.
 
 @cindex tablatura
 @cindex guitarra, tablatura de
-@cindex tablatura de banjo
+@cindex tablatura, de banjo
 @cindex banjo, tablatura de
 
 
@@ -95,11 +95,11 @@ c4\5 e\4 g2\3
 <c\5 e\4 g\3>1
 @end lilypond
 
-When fingerings and string indications are used together, their
-vertical placement can be controlled with the
-@code{script-priority} property, @pxref{Controlling the vertical
-ordering of scripts} and @ref{Default values for script-priority};
-the ordering in the source code has no influence.
+Cuando se usan indicaciones de cuerdas junto a digitaciones, se
+puede controlar su ubicación vertical con la propiedad
+@code{script-priority}, @pxref{Controlling the vertical ordering of scripts}
+y @ref{Default values for script-priority}; el orden en el código
+fuente no influye.
 
 @lilypond[verbatim,quote,fragment]
 \clef "treble_8"
@@ -287,11 +287,19 @@ puede cambiar fijando @code{restrainOpenStrings} al valor
 @cindex @code{q} (repetición de acordes)
 
 Las construcciones de acorde se pueden repetir mediante el símbolo
-de repetición de acordes @samp{q} (@pxref{Chord repetition}).  En combinación con las
-tablaturas, su comportamiento de eliminar números de cuerda y de
-dedos junto a otros eventos may lead to unwanted results, in particular different fret positions.  The command @code{\tabChordRepeats} keeps the fingering consistent across
-repetitions.  In the following example, the default fingering for this chord (without fingering indications) would be @q{gis} on 4th string, @q{b} on 3rd string, and @q{cis} on 2nd string.  As we use @code{b-0} in the input, @q{b} is on the second string, and @q{cis} moves to the 3rd string.  @code{\tabChordRepeats} allows
-to keep the same fingering in the following q chords:
+de repetición de acordes @samp{q} (@pxref{Chord repetition}).  En
+combinación con las tablaturas, su comportamiento de eliminar
+números de cuerda y de dedos junto a otros eventos puede llevar a
+resultados no deseados, sobre todo diferentes posiciones de los
+trastes.  La instrucción @code{\tabChordRepeats} conserva
+consistente la digitación de una repetición a otra.  En el
+siguiente ejemplo, la digitación predeterminada para este acorde
+(sin indicaciones de digitación) sería @q{sol sostenido} sobre la
+cuarta cuerda, @q{si} sobre la tercera, y @q{do sostenido} sobre
+la segunda.  Como usamos @code{b-0} en el código de entrada,
+@q{si} está en la segunda cuerda, y el @q{do sostenido} se
+traslada a la tercera cuerda.  @code{\tabChordRepeats} permite
+mantener la misma digitación en los slguientes acordes de q:
 
 @lilypond[quote,verbatim]
 guitar = \relative {
@@ -462,24 +470,28 @@ ratioHarmonics = {
 }
 @end lilypond
 
-@cindex string bending, in tablature
-@cindex tablature, and string bending
-@cindex bending, string, in tablature
+@cindex cuerda, curvatura, en tablatura
+@cindex tablatura, curvatura de cuerda
+@cindex curvatura, cuerda, en tablatura
 @funindex \preBend
 @funindex \bendHold
 @funindex \preBendHold
 @funindex \bendStartLevel
 
-String bendings can be added to tablature notation.
-A bending is introduced by appending @code{\^} to the note or chord to be bent;
-it terminates automatically at the next note or chord.
-Available are the following styles: the default prints a curve with an arrow
-head up or down, @code{'hold} a dashed horizontal line, @code{'pre-bend} a
-vertical line with an arrow head, and @code{'pre-bend-hold} a vertical line with
-an arrow head continued by a dashed line.
+Se pueden añadir estiramientos de cuerda o curvaturas de tono a la
+notación de tablatura.  Se escribe una curvatura añadiendo
+@code{\^} después de la nota o acorde que recibe la curvatura;
+termina automáticamente en la siguiente nota o acorde.  Están
+disponibles los siguientes estilos: el predeterminado imprime una
+curva con una punta de flecha hacia arriba o hacia abajo,
+@code{'hold} una línea discontinua horizontal, @code{'pre-bend}
+una línea vertical con punta de flecha, y @code{'pre-bend-hold}
+una línea vertical con flecha que se continúa con una línea
+discontinua.
 
-The commands @code{\bendHold}, @code{\preBend}, and
-@code{\preBendHold} are shortcuts for setting the bending style.
+Las instrucciones @code{\bendHold}, @code{\preBend} y
+@code{\preBendHold} son atajos para la selección del estilo de las
+curvaturas.
 
 @lilypond[verbatim,quote]
 bend-styles = {
@@ -521,9 +533,11 @@ bend-styles = {
 }
 @end lilypond
 
-Open strings are usually not bent.  To have them bent as well set the
-property @code{bend-me} to @code{#t}.  To exclude other notes from being bent
-set it to @code{#f}.
+Las cuerdas al aire normalmente no admiten la curvatura de tono.
+Para que se puede hacer curvatura con una cuerda al aire, se fija
+la propiedad @code{bend-me} al valor @code{#t}.  Para que otras
+notas queden excluidas de la curvatura, se fija al valor
+@code{#f}.
 
 @lilypond[verbatim,quote]
 mus = {
@@ -564,9 +578,10 @@ mus = {
 }
 @end lilypond
 
-For consecutive bendings the starting bend may need to have an appropriate
-setting for @code{details.successive-level}.  For convenience there is the
-function @code{bendStartLevel}, taking an integer.
+Para hacer varias curvaturas consecutivas, la primera puede
+necesitar un ajuste en @code{details.successive-level}.  Por
+conveniencia, existe la función @code{bendStartLevel}, que admite
+un número entero.
 
 @lilypond[verbatim,quote]
 printNext = -\tweak details.target-visibility ##t \etc
@@ -599,10 +614,12 @@ mus = {
 }
 @end lilypond
 
-Per default the @code{BendSpanner} ends at the following note or chord even
-if it is tied to the starting note or chord.  A single @code{NoteColumn} may be
-skipped by using @code{\skipNC}.  A group of @code{NoteColumn}s can be skipped
-by using @code{\skipNCs} at the beginning and @code{\endSkipNCs} at the end.
+Por omisión, el elemento de extensión de la curvatura
+@code{BendSpanner} termina en la siguiente nota o acorde incluso
+si está ligada a la nota o acorde inicial.  Se puede saltar una
+sola columna @code{NoteColumn} usando @code{\skipNC}.  Se puede
+saltar un grupo de columnas @code{NoteColumn} usando
+@code{\skipNCs} al principio y @code{\endSkipNCs} al final.
 
 
 @lilypond[verbatim,quote]
@@ -682,10 +699,10 @@ bends-with-ties-and-skips = {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/chord-glissando-in-tablature.ly}
 
-@cindex hammer on
-@cindex pull off
-@cindex tablatura, hammer on
-@cindex tablatura, pull off
+@cindex hammer on (deslizamiento de entrada)
+@cindex pull off (deslizamiento de salida)
+@cindex tablatura, hammer on (deslizamiento de entrada)
+@cindex tablatura, pull off (deslizamiento de salida)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/hammer-on-and-pull-off.ly}
 
@@ -1977,7 +1994,10 @@ más corto, como por ejemplo @code{RH}:
 RH = \rightHandFinger \etc
 @end example
 
-Most behaviors of right-hand fingerings (namely, the @code{StrokeFinger} object) may be set in the same way as ordinary fingerings: see @ref{Fingering instructions}.
+Casi todos los comprtamientos de las digitaciones de la mano
+derecha (concretamente el objeto @code{StrokeFinger}) se pueden
+establecer de la misma forma que las digitaciones ordinarias:
+véase @ref{Fingering instructions}.
 
 @snippets
 
@@ -2080,11 +2100,10 @@ más completa con un marcado de texto.
 
 Las notas tapadas (llamadas también @notation{notas muertas})
 están contempladas dentro de los pentagramas normales y de
-tablatura.  In the following example,
-such notes are shown with pitches in the normal staff, indicating
-the frets where they are dampened.  An alternative notation is to
-use empty strings instead.  In tablature notation, however, it
-doesn't make a difference.
+tablatura.  En el ejemplo siguiente, estas notas se muestran con
+alturas en la pauta normal, indicando los trastes donde están
+tapadas.  Una notación alternativa sería usar cuerdas vacías.  Sin
+embargo, en la notación de tablatura, no hay ninguna diferencia.
 
 @lilypond[quote,ragged-right,verbatim]
 music = \relative c' {
@@ -2209,7 +2228,7 @@ Fragmentos de código:
 @subsection Tablaturas de banjo
 
 @cindex banjo, tablatura de
-@cindex tablatura de banjo
+@cindex tablatura, de banjo
 
 LilyPond contempla el banjo de cinco cuerdas de una manera básica.
 Cuando haga tablaturas para banjo de cinco cuerdas, utilice la

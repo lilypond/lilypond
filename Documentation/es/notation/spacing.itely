@@ -168,8 +168,8 @@ Scheme.  El equivalente de Scheme del ejemplo anterior es:
 @}
 @end example
 
-@cindex predefined paper variables
-@cindex paper variable, predefined
+@cindex predefinido, variables de papel
+@cindex papel, variable, predefinida
 
 Por último, también se pueden predefinir variables del papel.
 
@@ -3499,7 +3499,7 @@ tipo de especiado que está en juego.
 @cindex elemento, musical
 @cindex elemento, no musical
 @cindex introductorio, material
-@cindex material introductorio
+@cindex material, introductorio
 
 @funindex NoteColumn
 @funindex NonMusicalPaperColumn
@@ -3603,8 +3603,8 @@ la propiedad @code{BreakAlignment@/.break@/-align@/-orders}).
 }
 @end lilypond
 
-@cindex break-align symbol
-@cindex symbol, break-align
+@cindex break-align, símbolo
+@cindex símbolo, break-align
 @funindex space-alist
 
 La distancia entre dos elementos adyacentes de la misma columna no
@@ -4217,12 +4217,11 @@ para ver más detalles consulte la sección siguiente,
 @section Mostrar el espaciado
 
 @funindex annotate-spacing
-@cindex spacing, display of layout
-@cindex debugging, vertical spacing
-@cindex vertical spacing, debugging
-@cindex layout, vertical, debugging
-@cindex show vertical layout
-@cindex display vertical layout
+@cindex espaciado, mostrar la disposición
+@cindex depuración, espaciado vertical
+@cindex vertical, espaciado, depuración
+@cindex disposición, vertical, depuración
+@cindex mostrar, disposición vertical
 
 Para presentar gráficamente las dimensiones de las variables de
 disposición vertical que pueden verse alteradas por el formato de

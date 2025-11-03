@@ -539,7 +539,7 @@ texto.
 }
 @end lilypond
 
-@cindex text, marca, debajo del pentagrama
+@cindex texto, marca, debajo del pentagrama
 
 Las marcas de texto se pueden imprimir debajo del pentagrama.
 
@@ -1284,7 +1284,7 @@ usando un valor numérico:
 @funindex \hspace
 @cindex marcado, relleno horizontal
 @cindex horizontal, relleno en marcado
-@cindex markup, horizontal movement
+@cindex marcado, desplazamiento horizontal
 
 Por último, las palabras y otros objetos se pueden desplazar
 horizontalmente si los hacemos preceder de @code{\hspace}.
@@ -1371,9 +1371,9 @@ de marcado:
 @end lilypond
 
 @funindex \vspace
-@cindex padding in markup, vertical
-@cindex vertical padding in markup
-@cindex markup, vertical movement
+@cindex relleno, en marcado, vertical
+@cindex vertical, relleno, en marcado
+@cindex marcado, desplazamiento vertical
 
 Observe que en general @emph{no} se puede usar @code{\vspace} para
 subir o bajar objetos arbitrarios dentro de un marcado
@@ -1491,8 +1491,8 @@ cualquier otra expresión de marcado:
 }
 @end lilypond
 
-@cindex text, line width
-@cindex markup text, line width
+@cindex texto, ancho de línea
+@cindex marcado, texto, ancho de línea
 
 @funindex line-width
 

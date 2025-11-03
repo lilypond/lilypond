@@ -1,8 +1,8 @@
 %% Translation of GIT committish: f59c863a90111137c0437b08e0bc5a021d7cea0c
   texidoces = "
 Las propiedades de contexto controlan el agrupamiento de los
-pulsos dentro de un compás: @code{beatStructure} lists the length
-of each beat in units of @code{beatBase}.  Hay establecidos
+pulsos dentro de un compás: @code{beatStructure} lista la longitud
+de cada pulso en unidades de @code{beatBase}.  Hay establecidos
 valores de @code{beatStructure} para muchos tipos de compases en
 @code{scm/time-signature-settings.scm}.  Estas propiedades se
 pueden cambiar o establecer con @code{\\set}.

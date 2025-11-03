@@ -2,8 +2,8 @@
   texidoces = "
 Normalmente LilyPond rehúsa insertar un salto de línea automático
 si las barra atraviesa la línea divisoria.  Se puede cambiar este
-comportamiento by setting the @code{Beam.breakable} property to
-@code{#t}.
+comportamiento por medio del establecimiento de la propiedad
+@code{Beam.breakable} al valor @code{#t}.
 
 Esta propiedad no afecta a los saltos manuales insertados con
 instrucciones como @code{\\break}.
