@@ -730,21 +730,39 @@ def extract_score_structure(part_list, staffinfo):
         if groupsymbol:
             group.symbol = groupsymbol.get_text()
 
-        groupbarline = el.get_maybe_exist_named_child('group-barline')
-        if groupbarline:
-            group.spanbar = groupbarline.get_text()
         return group
 
-    parts_groups = part_list.get_all_children()
+    part_groups = part_list.get_all_children()
 
-    # the start/end group tags are not necessarily ordered correctly and groups
-    # might even overlap, so we can't go through the children sequentially!
+    # `<part-group>` elements are not nested; they describe ranges instead:
+    # consider them as commands that switch on a feature while being active.
+    #
+    # * For staff delimiters this implies a cumulative effect.  However,
+    #   LilyPond only supports nested delimiters, which means that some
+    #   (hypothetical) MusicXML layouts cannot be realized.  For example,
+    #   group 1 can contain a bracket from staff 1 to 5, while group 2 holds
+    #   a brace from staff 2 to 6.  In LilyPond, the brace can only span
+    #   staff 2 to 5.
+    #
+    # * For bar lines this implies physical overwriting: A continuous bar
+    #   line always overwrites Mensurstriche.  In LilyPond, we implement bar
+    #   line handling by setting them staff by staff.
 
-    # 1) Replace all Score_part objects by their corresponding Staff objects,
-    #    also collect all group start/stop points into one PartGroupInfo object
+    # 1) Replace all `Score_part` objects by their corresponding `Staff`
+    #    objects, collect all start and stop points of groups that contain
+    #    `<group-symbol>`, and put this data into one `PartGroupInfo`
+    #    object.  Also extract `<group-barline>` information locally.
     staves = []
+    staff_idx = 0
+
+    barlines = []  # Elements: `[type, start_staff, end_staff]`.
+    barline_idx = 0
+    barline_ids = {}  # Mapping group IDs to `barlines` indices.
+
+    symbol_ids = set()
+
     group_info = PartGroupInfo()
-    for el in parts_groups:
+    for el in part_groups:
         if isinstance(el, musicxml.Score_part):
             if not group_info.is_empty():
                 staves.append(group_info)
@@ -752,15 +770,64 @@ def extract_score_structure(part_list, staffinfo):
             staff = read_score_part(el)
             if staff:
                 staves.append(staff)
+            staff_idx += 1
         elif isinstance(el, musicxml.Part_group):
+            number_attr = getattr(el, 'number', '1')
+
             if el.type == "start":
-                group_info.add_start(el)
+                group_symbol = el.get_maybe_exist_named_child('group-symbol')
+                if group_symbol:
+                    group_info.add_start(el)
+                    symbol_ids.add(number_attr)
+
+                group_barline = el.get_maybe_exist_named_child('group-barline')
+                barline_type = None
+                if group_barline:
+                    barline_type = group_barline.get_text()
+                if barline_type:
+                    barlines.append([barline_type, staff_idx, None])
+                    barline_ids[number_attr] = barline_idx
+                    barline_idx += 1
             elif el.type == "stop":
-                group_info.add_end(el)
+                if number_attr in symbol_ids:
+                    group_info.add_end(el)
+                    symbol_ids.remove(number_attr)
+
+                try:
+                    idx = barline_ids[number_attr]
+                    barlines[idx][2] = staff_idx
+                    del barline_ids[number_attr]
+                except KeyError:
+                    pass
+
     if not group_info.is_empty():
         staves.append(group_info)
 
-    # 2) Now, detect the groups:
+    # 2) Apply bar line settings to all `Staff` objects and convert them to
+    #    staff-to-staff values.
+    real_staves = [s for s in staves if isinstance(s, musicexp.Staff)]
+    for bl in barlines:
+        if bl[0] == 'Mensurstrich':
+            for idx in range(bl[1], bl[2] - 1):
+                if not real_staves[idx].barline:
+                    real_staves[idx].barline = False
+                real_staves[idx].spanbar_to_staff_below = True
+            if not real_staves[bl[2] - 1].barline:
+                real_staves[bl[2] - 1].barline = False
+        elif bl[0] == 'yes':
+            for idx in range(bl[1], bl[2] - 1):
+                real_staves[idx].barline = True
+                real_staves[idx].spanbar_to_staff_below = True
+            real_staves[bl[2] - 1].barline = True
+
+    # Normalize unset values to barline type 'no'.
+    for rs in real_staves:
+        if rs.barline is None:
+            rs.barline = True
+        if rs.spanbar_to_staff_below is None:
+            rs.spanbar_to_staff_below = False
+
+    # 3) Detect staff delimiter groups.
     group_starts = []
     pos = 0
     while pos < len(staves):
@@ -5386,12 +5453,6 @@ def update_score_setup(score_structure, part_list, voices, parts):
         part = score_structure.find_part(part_id)
         if part is not None:
             part.set_part_information(staves_info)
-
-    # Mark last (i.e., bottommost) `Staff` element.
-    contents = score_structure.contents
-    while type(contents) == musicexp.StaffGroup:  # nopep8
-        contents = contents.children[-1]
-    contents.is_last_staff = True
 
     sounds = []
     for part in parts:

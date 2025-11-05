@@ -4649,11 +4649,8 @@ class StaffGroup(Base):
         self.sound = None
         self.short_instrument_name = None
         self.symbol = None
-        self.spanbar = 'no'
-        self.connect_barlines = False
         self.children = []
         self.is_group = True
-        self.is_last_staff = False
         self.context_modifications = []
         # See the comment before function `format_staff_info` together with
         # function `update_score_setup` (both in file `musicxml2ly.py`) how
@@ -4695,21 +4692,8 @@ class StaffGroup(Base):
                 or self.short_instrument_name is not None):
             have_group_instrument_name = True
 
-        last_child = self.children[-1]
         for c in self.children:
             if c:
-                if c == last_child:
-                    # The bar line connection of a group's bottommost staff
-                    # depends on the parent's value.
-                    c.connect_barlines = self.connect_barlines
-                else:
-                    # Only if the parent's value isn't set to 'True' we
-                    # check `spanbar`.
-                    if self.connect_barlines:
-                        c.connect_barlines = True
-                    else:
-                        c.connect_barlines = (self.spanbar != 'no')
-
                 if not c.is_group and have_group_instrument_name:
                     c.have_group_instrument_name = True
                 c.print_ly(printer)
@@ -4723,7 +4707,6 @@ class StaffGroup(Base):
 
     def needs_with(self):
         needs_with = False
-        needs_with |= self.spanbar == 'Mensurstrich'
         needs_with |= self.instrument_name is not None
         needs_with |= self.short_instrument_name is not None
         needs_with |= (self.symbol is not None) and (self.symbol != "bracket")
@@ -4732,9 +4715,6 @@ class StaffGroup(Base):
     def print_ly_context_mods(self, printer):
         if self.instrument_name or self.short_instrument_name:
             printer(r'\consists "Instrument_name_engraver"')
-            printer.newline()
-        if self.spanbar == 'Mensurstrich':
-            printer('measureBarType = "-span|"')
             printer.newline()
         brack = system_start_dict.get(self.symbol, None)
         if brack:
@@ -4847,6 +4827,8 @@ class Staff(StaffGroup):
         self.voice_command = "Voice"
         self.substafftype = None
         self.sound = None
+        self.barline = None
+        self.spanbar_to_staff_below = None
 
     def needs_with(self):
         return False
@@ -4866,10 +4848,27 @@ class Staff(StaffGroup):
         part_len = len(self.part_information)
         # Ignore invalid range.
         if top > part_len or bottom > part_len or bottom < top:
-            top = bottom = 0
+            top = 0
+            bottom = part_len + 1
         # Normalize.
-        if top == 0 and bottom == part_len:
-            bottom = 0
+        if bottom == 0:
+            bottom = part_len + 1
+
+        # Compute staff-to-staff bar line settings for sub-staves.
+        barlines = []
+        mensurstrich = not self.barline and self.spanbar_to_staff_below
+        # Start with index 1 to fit the next loop.
+        barlines.append([None, None])
+        for i in range(1, part_len + 1):
+            if top <= i <= bottom:
+                # Connect barlines.
+                barlines.append([self.barline, True])
+            else:
+                barlines.append([self.barline, self.spanbar_to_staff_below])
+        # Adjust bar line connections.
+        if (bottom <= part_len):
+            barlines[bottom][1] = self.spanbar_to_staff_below
+        barlines[part_len][1] = self.spanbar_to_staff_below
 
         for i, [staff_id, voices] in enumerate(self.part_information, start=1):
             if i == top:
@@ -4892,18 +4891,12 @@ class Staff(StaffGroup):
                 printer(r'\context %s <<' % sub_staff_type)
             printer.newline()
 
-            # Check whether we have to interrupt the bar line connection.
-            # There is nothing to do if all bar lines are to be connected
-            # anyway, or if we are at the bottommost staff.
-            if not (self.connect_barlines
-                    or (self.is_last_staff and i == part_len)):
-                # Within a part, interrupt the bar line connection before
-                # and after the staves (if any) that have the staff group
-                # delimiter, and after the last staff.
-                if (((top or bottom) and not top <= i < bottom)
-                        or i == part_len):
-                    printer(r'\override Staff.BarLine.allow-span-bar = ##f')
-                    printer.newline()
+            if not barlines[i][0]:
+                printer(r'\set Staff.measureBarType = "-span|"')
+                printer.newline()
+            if not barlines[i][1]:
+                printer(r'\override Staff.BarLine.allow-span-bar = ##f')
+                printer.newline()
 
             printer(r'\mergeDifferentlyDottedOn')
             printer.newline()
@@ -4994,9 +4987,11 @@ class Staff(StaffGroup):
 
     def print_ly(self, printer):
         if self.part_information and len(self.part_information) > 1:
-            # The group delimiter and the bar line connection for a
-            # multi-staff part are not controlled by `<group-barline>` but by
-            # `<part-symbol>`.
+            # The group delimiter of a multi-staff part is not controlled by
+            # `<group-symbol>` but by `<part-symbol>`.  The bar line is
+            # continuous within the group delimiter if not overridden by
+            # `<group-barline>`.
+
             if self.barline_top or self.barline_bottom:
                 self.symbol = 'none'
             else:

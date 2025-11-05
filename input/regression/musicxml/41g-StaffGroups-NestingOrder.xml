@@ -30,9 +30,11 @@
     </scaling>
   </defaults>
   <part-list>
+    <part-group number="3" type="start">
+      <group-barline>no</group-barline>
+    </part-group>
     <part-group number="2" type="start">
       <group-symbol default-x="-20">brace</group-symbol>
-      <group-barline>no</group-barline>
     </part-group>
     <part-group number="1" type="start">
       <group-symbol default-x="-8">brace</group-symbol>
@@ -84,6 +86,7 @@
     </score-part>
     <part-group number="1" type="stop"/>
     <part-group number="2" type="stop"/>
+    <part-group number="3" type="stop"/>
   </part-list>
   <!--=========================================================-->
   <part id="P1">
