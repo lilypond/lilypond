@@ -959,7 +959,11 @@ class TimeScaledMusic(MusicWrapper):
         else:
             if self.display_number is None:
                 printer(r"\tweak TupletNumber.stencil ##f")
-            elif self.display_number == "both":
+            elif (self.display_number == "both"
+                  or not ((self.display_denominator is None
+                           or self.display_denominator == self.denominator)
+                          and (self.display_numerator is None
+                               or self.display_numerator == self.numerator))):
                 printer(r"\tweak TupletNumber.text #%s"
                         % base_number_function)
 

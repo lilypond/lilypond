@@ -8,7 +8,9 @@
           bar contains a 5:2 tuplet (with 16th notes) in the middle of a 3:2
           tuple (with eighth notes).  The second bar has a 5:2 tuplet at the
           beginning and at the end (with the tuplet number forced below) of a
-          3:2 tuple (with the bracket forced above).</miscellaneous-field>
+          3:2 tuple (with the bracket forced above).  The third bar changes the
+          &lt;divisions&gt; value and contains a triplet with eighths on the
+          last beat of another triplet with quarter notes.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -409,6 +411,94 @@
         <notations>
           <tuplet type="stop" number="1"/>
           <tuplet type="stop" number="2"/>
+        </notations>
+      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="3">
+      <attributes>
+        <divisions>108</divisions>
+      </attributes>
+      <note>
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>72</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>3</actual-notes>
+          <normal-notes>2</normal-notes>
+        </time-modification>
+        <notations>
+          <tuplet number="1" type="start" bracket="yes" show-number="actual"/>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>72</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <time-modification>
+          <actual-notes>3</actual-notes>
+          <normal-notes>2</normal-notes>
+        </time-modification>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>3</octave>
+        </pitch>
+        <duration>24</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <time-modification>
+          <actual-notes>9</actual-notes>
+          <normal-notes>4</normal-notes>
+        </time-modification>
+        <beam number="1">begin</beam>
+        <notations>
+          <tuplet number="2" type="start" bracket="no" show-number="actual">
+            <tuplet-actual>
+              <tuplet-number>3</tuplet-number>
+            </tuplet-actual>
+          </tuplet>
+        </notations>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>3</octave>
+        </pitch>
+        <duration>24</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <time-modification>
+          <actual-notes>9</actual-notes>
+          <normal-notes>4</normal-notes>
+        </time-modification>
+        <beam number="1">continue</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>3</octave>
+        </pitch>
+        <duration>24</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <time-modification>
+          <actual-notes>9</actual-notes>
+          <normal-notes>4</normal-notes>
+        </time-modification>
+        <beam number="1">end</beam>
+        <notations>
+          <tuplet number="2" type="stop"/>
+          <tuplet number="1" type="stop"/>
         </notations>
       </note>
       <barline location="right">
