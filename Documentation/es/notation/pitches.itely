@@ -116,9 +116,8 @@ Fragmentos de código:
 @subsection Escritura de octava relativa
 
 @cindex relativo
-@cindex relativas, especificación de octavas
-@cindex octava, introducción relativa
-@cindex relativa, especificación de la octava
+@cindex relativa, especificación de octava
+@cindex octava, escritura relativa
 @cindex octava, especificación relativa
 
 @funindex \relative
@@ -844,7 +843,7 @@ music = \relative { c' d e f }
 }
 @end lilypond
 
-@cindex transpositores, instrumentos
+@cindex transpositor, instrumento
 @cindex instrumentos transpositores
 
 @code{\transpose} también se puede usar para introducir notas
@@ -1157,18 +1156,18 @@ las notas.
 @node Clef
 @subsection Clave
 
-@cindex Sol, clave de
-@cindex Do, clave de
-@cindex Fa, clave de
-@cindex violín, clave de
-@cindex alto, clave de
-@cindex tenor, clave de
-@cindex bajo, clave de
+@cindex Sol, clave
+@cindex Do, clave
+@cindex Fa, clave
+@cindex violín, clave
+@cindex alto, clave
+@cindex tenor, clave
+@cindex bajo, clave
 @cindex francesa, clave
-@cindex soprano, clave de
-@cindex mezzosoprano, clave de
-@cindex barítono, clave de
-@cindex contrabajo, clave de
+@cindex soprano, clave
+@cindex mezzosoprano, clave
+@cindex barítono, clave
+@cindex contrabajo, clave
 @cindex clave
 @cindex antiguas, claves
 @cindex clave, antigua
@@ -1232,7 +1231,7 @@ Para emplear claves en las notas guía, véanse las instrucciones
 @cindex transposición, de octava, opcional
 @cindex octava, transposición, opcional
 @cindex coral, clave de tenor
-@cindex tenor, clave de, coral
+@cindex tenor, clave, coral
 
 Al añadir @code{_8} o @code{^8} al nombre de la clave, la clave se
 transpone una octava hacia abajo o hacia arriba, respectivamente,

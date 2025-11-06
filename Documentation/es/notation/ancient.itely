@@ -166,7 +166,7 @@ Glosario musical:
 
 @need 1500
 @node Ancient notation - common features
-@subsection Notación antigua -- funcionalidades comunes
+@section Notación antigua: funcionalidades comunes
 
 @node Predefined contexts
 @subsection Contextos predefinidos
@@ -2786,7 +2786,7 @@ Referencia de la notación:
 El espaciado horizontal de las ligaduras es mediocre.
 
 @node Working with ancient music - scenarios and solutions
-@subsection Trabajar con música antigua: escenarios y soluciones
+@section Trabajar con música antigua: escenarios y soluciones
 
 El trabajo con música antigua implica con frecuencia tareas
 adicionales que difieren considerablemente de la notación moderna

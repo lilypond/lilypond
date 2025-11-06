@@ -103,7 +103,7 @@ d ~ d
 c128
 @end lilypond
 
-@item @var{note}@code{'}
+@item @var{nota}@code{'}
 @tab subir una octava
 @tab
 @lilypond[inline,relative=2,notime]
@@ -112,7 +112,7 @@ c128
 a a'
 @end lilypond
 
-@item @var{note}@code{,}
+@item @var{nota}@code{,}
 @tab bajar una octava
 @tab
 @lilypond[inline,relative=2,notime]

@@ -1641,8 +1641,8 @@ mus = { b1 \bar "|."}
 @node Line breaking
 @section Saltos de línea
 
-@cindex salto, línea, manual
-@cindex salto, línea
+@cindex salto de línea, manual
+@cindex salto de línea
 
 Normalmente los saltos de línea se determinan automáticamente. Se
 eligen de forma que las líneas no aparezcan demasiado apretadas ni
@@ -1809,7 +1809,7 @@ pero afecta solo a la última línea de la pieza.
 @}
 @end example
 
-@cindex salto, de línea, a intervalos
+@cindex salto de línea, a intervalos
 @cindex música de cuatro compases por línea
 
 Para saltos de línea a intervalos regulares utilice @code{\break}
@@ -1842,9 +1842,9 @@ compases, y solo en dichos lugares:
 
 @snippets
 
-@cindex voz, adicional, para la gestión de los saltos
+@cindex voz adicional, para la gestión de los saltos
 @cindex adicional, voz, para gestionar saltos
-@cindex salto, de página, gestión con una voz adicional
+@cindex salto de página, gestión con una voz adicional
 @cindex línea, salto, gestión con una voz adicional
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/using-an-extra-voice-for-breaks.ly}
@@ -3813,8 +3813,8 @@ Referencia de funcionamiento interno:
 @node Line width
 @section Longitud de la línea
 
-@cindex salto, de página
-@cindex página, saltos de
+@cindex salto de página
+@cindex página, salto de
 
 @funindex indent
 @funindex line-width

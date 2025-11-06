@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: b22569ea33c9c9a6a26e17624d79449bffa81b22
+    Translation of GIT committish: 7f24b1d60e74d61de8e9c980da04a8f9064b9829
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -30,43 +30,28 @@ se tratan los métodos para crear las nuevas marcas dinámicas.
 @subsection Articulaciones y ornamentos
 
 
-@cindex @q{abierta}, articulación
-@cindex @q{acento}, articulación
-@cindex @q{acro arriba}, indicación de arco
+@cindex @q{bachschleifer}, articulación
 @cindex @q{coda de variante}, signo
 @cindex @q{coda}, signo
-@cindex @q{down pralltriller}, ornamento
-@cindex @q{down-bow}, indicación de arco
+@cindex @q{coda}, símbolo, variante
 @cindex @q{espressivo}, articulación
 @cindex @q{flageolet}, armónicos
-@cindex @q{grupeto circular barrado}, ornamento
-@cindex @q{grupeto circular invertido}, ornamento
-@cindex @q{grupeto circular}, ornamento
-@cindex @q{grupeto de Haydn}, ornamento
 @cindex @q{marcato}, articulación
-@cindex @q{mordente ascendente}, ornamento
-@cindex @q{mordente descendente}, ornamento
-@cindex @q{mordente}, ornamento
-@cindex @q{nota tapada}, articulación
 @cindex @q{portato}, articulación
-@cindex @q{pralltriller, ascendente}, ornamento
-@cindex @q{pralltriller, descendente}, ornamento
-@cindex @q{pralltriller, largo}, ornamento
+@cindex @q{pralltriller}, ascendente, ornamento
+@cindex @q{pralltriller}, descendente, ornamento
+@cindex @q{pralltriller}, largo, ornamento
 @cindex @q{pralltriller}, ornamento
-@cindex @q{pulgar}, digitación
-@cindex @q{punta}, marca de pedal
 @cindex @q{segno}, signo
-@cindex @q{semi abierta}, articulación
-@cindex @q{semitrino ascendente}, ornamento
-@cindex @q{semitrino}, ornamento
 @cindex @q{signum congruentiae}, ornamento
-@cindex @q{snappizzicato}, sign
+@cindex @q{snappizzicato}, articulación
 @cindex @q{staccatissimo}, articulación
 @cindex @q{staccato}, articulación
-@cindex @q{talón}, marca de pedal
 @cindex @q{tenuto}, articulación
 @cindex Henze, calderón de
+@cindex abierta, articulación
 @cindex abierto, high hat
+@cindex acento, articulación
 @cindex arco abajo
 @cindex arco arriba
 @cindex armónico, flageolet
@@ -81,19 +66,22 @@ se tratan los métodos para crear las nuevas marcas dinámicas.
 @cindex articulación, staccatissimo
 @cindex articulación, staccato
 @cindex articulación, tenuto
+@cindex articulation, bachschleifer
 @cindex calderón
 @cindex calderón corto
 @cindex calderón de Henze
 @cindex calderón largo
 @cindex coda
-@cindex coda de variante
-@cindex coda de variante, símbolo
 @cindex corto, calderón
 @cindex digitación de pulgar
 @cindex espressivo
 @cindex fermata o calderón
 @cindex flageolet
 @cindex grupeto
+@cindex grupeto circular barrado, ornamento
+@cindex grupeto circular invertido, ornamento
+@cindex grupeto circular, ornamento
+@cindex grupeto de Haydn, ornamento
 @cindex guión
 @cindex high hat, abierto
 @cindex high hat, pedal
@@ -103,12 +91,16 @@ se tratan los métodos para crear las nuevas marcas dinámicas.
 @cindex indicación de pulgar
 @cindex largo, calderón
 @cindex mordente
+@cindex mordente ascendente, ornamento
+@cindex mordente descendente, ornamento
 @cindex mordente, ascendente
 @cindex mordente, circular
 @cindex mordente, circular, cruzado
 @cindex mordente, circular, de Haydn
 @cindex mordente, circular, inverso
 @cindex mordente, descendente
+@cindex mordente, ornamento
+@cindex nota tapada, articulación
 @cindex nota, abierta
 @cindex nota, tapada
 @cindex ornamentación
@@ -133,12 +125,15 @@ se tratan los métodos para crear las nuevas marcas dinámicas.
 @cindex pedal, indicación, talón
 @cindex pedal, indicación, órgano
 @cindex pie, indicación de
+@cindex pulgar, digitación
+@cindex punta, marca de pedal
 @cindex segno
+@cindex semi abierta, articulación
 @cindex semi abierto, high hat
 @cindex semitrino
-@cindex semitrino, ascendente
-@cindex semitrino, descendente
-@cindex semitrino, doble
+@cindex semitrino ascendente, ornamento
+@cindex semitrino descendente, ornamento
+@cindex semitrino doble
 @cindex signo, coda
 @cindex signo, coda de variación
 @cindex signo, segno
@@ -146,11 +141,9 @@ se tratan los métodos para crear las nuevas marcas dinámicas.
 @cindex símbolo, coda
 @cindex símbolo, coda variante
 @cindex símbolo, segno
+@cindex talón, marca de pedal
 @cindex trino
 @cindex varcoda
-@cindex @q{coda}, símbolo, variante
-@cindex @q{bachschleifer}, articulación
-@cindex articulation, bachschleifer
 
 @funindex \accent
 @funindex \marcato
@@ -743,22 +736,22 @@ en su lugar.}
 {snippets/printing-hairpins-in-various-styles.ly}
 
 @cindex vertical, matices, alineación
-@cindex alineación vertical, matices
+@cindex alineación vertical de matices
 @cindex matiz, alineación vertical
 @cindex vertical, inscripciones, alineación
 @cindex texto, alineación vertical de inscripciones de
-@cindex alineación vertical de inscripciones de texto
+@cindex alineación vertical de textos
 @funindex DynamicLineSpanner
 @funindex \textLengthOn
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/vertically-aligned-dynamics-and-textscripts.ly}
 
-@cindex vertical alignment, dynamics, breaking
-@cindex alignment, breaking vertical, dynamics
-@cindex dynamics, breaking vertical alignment
-@cindex text script, breaking vertical alignment
-@cindex alignment, breaking vertical, text scripts
-@cindex breaking vertical alignment of dynamics
+@cindex vertical, matices, alineación, romper
+@cindex alineación vertical de matices, romper
+@cindex matiz, alineación vertical, romper
+@cindex texto, romper alineación vertical
+@cindex alineación vertical de textos, romper
+@cindex romper la alineación vertical de matices
 @funindex \breakDynamicSpan
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/breaking-vertical-alignment-of-dynamics-and-textscripts.ly}

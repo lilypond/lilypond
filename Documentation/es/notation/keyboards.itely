@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: b22569ea33c9c9a6a26e17624d79449bffa81b22
+    Translation of GIT committish: 087bcd83212f3ef7207497ef132e420f0d1d94ca
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -79,7 +79,7 @@ de los dos pentagramas; véase @ref{Dynamics}.
 @ref{Fingering instructions}.
 
 @item Las indicaciones de pedal de órgano se insertan como
-articulaciones, véase @ref{List of articulations}.
+articulaciones, @pxref{Organ pedal marks} y @ref{List of articulations}.
 
 @item Las líneas verticales de rejilla se pueden mostrar como se
 describe en @ref{Grid lines}.
@@ -604,6 +604,119 @@ Referencia de funcionamiento interno:
 @rinternals{PianoPedalBracket},
 @rinternals{Piano_pedal_engraver}.
 @endmorerefs
+
+
+@node Organ
+@section Órgano
+
+@cindex @'organo
+
+En esta sección se discuten los problemas de notación relativos al
+órgano de tubos.
+
+
+@node Organ pedal marks
+@subsection Indicaciones de pedal de órgano
+
+@cindex pedal de órgano, indicaciones
+@cindex @q{punta}, indicación de pedal
+@cindex @q{talón}, indicación de pedal
+
+@cindex pedal, indicación de punta
+@cindex pedal, indicación de talón
+
+@funindex \rtoe
+@funindex \ltoe
+@funindex \rheel
+@funindex \lheel
+@funindex toeHeelStyle
+
+En las partituras para órgano, especialmente en los métodos de
+enseñanza, podemos encontrar indicaciones sobre cómo usar la punta
+y el talón de los pies izquierdo y derecho cuando se toca el
+pedalero.  Dependiendo del estilo del libro, se usan distintos
+glifos para estas indicaciones.  Sin embargo, casi siempre las
+indicaciones de pedal por encima del pentagrama son para el pie
+derecho, y las que están por debajo son para el pie izquierdo.
+
+Las instrucciones principales para imprimir estas marcas son
+@code{\rtoe}, @code{\ltoe}, @code{\rheel} y @code{\lheel}.  Use la
+propiedad de contexto @code{toeHeelStyle} para seleccionar el
+estilo de las marcas de pedal.  Las opciones disponibles aparecen
+a continuación.
+
+@indentedblock
+@table @code
+@item default
+El ajuste por omisión durante el arranque, especialmente por
+compatibilidad hacia atrás.
+@item standard
+El esquema maś común que se usa actualmente; las formas son
+iguales por encima y por debajo del pentagrama.
+@item reversed
+La @q{punta} del glifo apunta hacia el pentagrama.
+@item circleheels
+Usar un glifo circular para el talón.
+@item below
+Este es para las raras ocasiones en que la notación del pedal se
+hace en la misma pauta que la mano izquierda, lo que hace
+necesario que las marcas de los pies izquierdo y derecho estén por
+debajo del pentagrama.
+@end table
+@end indentedblock
+
+@funindex \rtoeheel
+@funindex \ltoeheel
+@funindex \rheeltoe
+@funindex \lheeltoe
+
+Para las sustituciones @emph{toe-heel} (punta-talón) y
+@emph{heel-toe} (talón-punta) están las instrucciones
+@code{\rtoeheel}, @code{\ltoeheel}, @code{\rheeltoe} y
+@code{\lheeltoe}.
+
+@lilypond[verbatim,quote]
+music = { g'4_\rtoe g'\rheel g'\rtoeheel g'\rheeltoe |
+          e'4\ltoe e'\lheel e'\ltoeheel e'\lheeltoe \bar "||" }
+
+{
+  \music            % #'default
+  \set toeHeelStyle = #'standard \music
+  \set toeHeelStyle = #'reversed \music
+  \set toeHeelStyle = #'circleheels \music
+  \set toeHeelStyle = #'below \music
+}
+@end lilypond
+
+@code{\rtoe} y sus instrucciones hermanas tienen una apariencia
+similar a otras instrucciones de articulación como
+@code{\flageolet} o @code{\prall}, y por supuesto son objetos
+gráficos del tipo @code{Script}.  Sin embargo, ignoran los cambios
+de dirección @samp{^}, @samp{_} y @code{\tweak direction}.  Esto
+es debido al grabador @code{Toe_heel_engraver}, que está activado
+por defecto.  La idea que se encuentra detrás de esta decisión es
+la separación del contenido y su representación, dejando que un
+estilo sea el que controla la posición de las marcas.
+
+@funindex \toe
+@funindex \vartoe
+@funindex \heel
+@funindex \varheel
+@funindex \heelcircle
+
+Si surge la necesidad de posicionar las indicaciones de pedal
+individuales por encima o por debajo de la pauta, use las
+instrucciones estándar de articulación @code{\toe},
+@code{\vartoe}, @code{\heel}, @code{\varheel} y
+@code{\heelcircle}.
+
+@lilypond[verbatim,quote]
+{
+  f'2\toe f'2\vartoe |
+  f'2\heel f'2\varheel |
+  f'1\heelcircle
+}
+@end lilypond
 
 
 @node Accordion

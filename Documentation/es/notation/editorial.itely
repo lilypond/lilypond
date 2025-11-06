@@ -737,7 +737,6 @@ Referencia de funcionamiento interno:
 @cindex coloreada, nota
 @cindex colorear notas
 @cindex nota coloreada
-@cindex with-color
 
 @funindex color
 @funindex \with-color
@@ -1077,10 +1076,10 @@ el problema.
 
 
 @node Brackets for optional material
-@subsection Corchetes para material optativo
+@subsection Corchetes para material opcional
 
-El material adicional optativo se puede encerrar entre corchetes
-que pasan a lo largo de todo el pentagrama.
+El material adicional opcional se puede encerrar entre corchetes
+que atraviesan todo el pentagrama.
 
 @lilypond[verbatim,quote]
 {

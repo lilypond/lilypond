@@ -12,7 +12,7 @@ msgstr ""
 "PO-Revision-Date: 2012-04-26 17:37+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
-"Language: \n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2950,7 +2950,7 @@ msgstr "Pentagrama único"
 
 #. @appendixsubsec in Documentation/learning/templates.itely
 msgid "Notes only"
-msgstr "Sólo notas"
+msgstr "solo notas"
 
 #. @appendixsubsec in Documentation/learning/templates.itely
 msgid "Notes and lyrics"
@@ -5356,7 +5356,7 @@ msgstr "no es efectivo por sí solo"
 #. Documentation/notation/changing-defaults.itely:2523 (comment)
 #. Documentation/notation/changing-defaults.itely:2536 (comment)
 msgid "effective only when both overrides are present"
-msgstr "es efectivo sólo cuando las dos sobreescrituras están presentes"
+msgstr "es efectivo solo cuando las dos sobreescrituras están presentes"
 
 #. Documentation/notation/changing-defaults.itely:2912 (comment)
 msgid "Remove bar line at the end of the current line"
@@ -7290,7 +7290,7 @@ msgid "Klavírní předlohy"
 msgstr ""
 
 #. @appendixsubsec in Documentation/cs/learning/templates.itely
-msgid "Klavírní sólo"
+msgid "Klavírní solo"
 msgstr ""
 
 #. @appendixsubsec in Documentation/cs/learning/templates.itely
@@ -7332,7 +7332,7 @@ msgid "SATB s příslušnými prostředími"
 msgstr ""
 
 #. @appendixsubsec in Documentation/cs/learning/templates.itely
-msgid "Sólový zpěv a dvojhlasný refrén"
+msgid "solový zpěv a dvojhlasný refrén"
 msgstr ""
 
 #. @node in Documentation/cs/learning/templates.itely
@@ -8059,7 +8059,7 @@ msgstr "Establecer el barrado predeterminado para todos los pentagramas"
 
 #. Documentation/snippets/beam-endings-in-score-context.ly:63 (comment)
 msgid "Modify beaming for just this staff"
-msgstr "Modificar el barrado sólo para este pentagrama"
+msgstr "Modificar el barrado solo para este pentagrama"
 
 #. Documentation/snippets/beam-endings-in-score-context.ly:68 (comment)
 msgid "Inherit beaming from Score context"
@@ -8067,7 +8067,7 @@ msgstr "Heredar el barrado del contexto Score"
 
 #. Documentation/snippets/beam-endings-in-score-context.ly:74 (comment)
 msgid "Modify beaming for this voice only"
-msgstr "Modificar el barrado sólo para esta voz"
+msgstr "Modificar el barrado solo para esta voz"
 
 #. Documentation/snippets/beam-grouping-in-7-8-time.ly:57 (comment)
 msgid "rhythm 2-3-2"
@@ -8085,15 +8085,15 @@ msgstr ""
 
 #. Documentation/snippets/book-parts.ly:33 (comment)
 msgid "Copyright header field only on book first page."
-msgstr "Campo de cabecera Copyright sólo en la primera página del libro"
+msgstr "Campo de cabecera Copyright solo en la primera página del libro"
 
 #. Documentation/snippets/book-parts.ly:37 (comment)
 msgid "Part tagline header field only on each part last page."
-msgstr "Cebecera de lína de pie de la parte sólo en la última página de cada parte"
+msgstr "Cabecera de línea de pie de la parte solo en la última página de cada parte"
 
 #. Documentation/snippets/book-parts.ly:41 (comment)
 msgid "Tagline header field only on book last page."
-msgstr "Campo de cabecera Tagline sólo en la última página del libro"
+msgstr "Campo de cabecera Tagline solo en la última página del libro"
 
 #. Documentation/snippets/book-parts.ly:48 (comment)
 msgid "book header, which is inherited by the first bookpart"
@@ -8784,7 +8784,7 @@ msgstr "pa"
 
 #. Documentation/snippets/engravers-one-by-one.ly:112 (comment)
 msgid "setup for Request->Element conversion. Guru-only"
-msgstr "Sólo para gurús: tinglado para la conversión Request->Element"
+msgstr "solo para gurús: tinglado para la conversión Request->Element"
 
 #. Documentation/snippets/engravers-one-by-one.ly:115 (variable)
 #. Documentation/snippets/engravers-one-by-one.ly:213 (variable)
@@ -9379,7 +9379,7 @@ msgstr "moverlas a la derecha medio espacio de pentagrama"
 
 #. Documentation/snippets/grid-lines--emphasizing-rhythms-and-notes-synchronization.ly:42 (comment)
 msgid "hides staff and notes so that only the grid lines are visible"
-msgstr "ocultar pentagrama y notas para que sólo se vea la rejilla"
+msgstr "ocultar pentagrama y notas para que solo se vea la rejilla"
 
 #. Documentation/snippets/grid-lines--emphasizing-rhythms-and-notes-synchronization.ly:49 (comment)
 msgid "dummy notes to force regular note spacing"
@@ -9509,7 +9509,7 @@ msgstr "semppG"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:109 (comment)
 msgid "Solution 6: Dynamic with explicit alignment. This has only effect"
-msgstr "Solución 6: indicación dinámica con alineación explícita. ¡Sólo tiene efecto "
+msgstr "Solución 6: indicación dinámica con alineación explícita. ¡solo tiene efecto "
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:110 (comment)
 msgid "if one sets X-offset!"
@@ -9996,7 +9996,7 @@ msgstr "... para que cubran todos los elementos hasta la nota siguiente"
 
 #. Documentation/snippets/modifying-tuplet-bracket-length.ly:34 (comment)
 msgid "...or to cover just whitespace"
-msgstr "... o para cubrir sólo el espacio vacio"
+msgstr "... o para cubrir solo el espacio vacio"
 
 #. Documentation/snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly:27 (variable)
 #. Documentation/snippets/vocal-ensemble-template-with-automatic-piano-reduction.ly:91 (variable)
@@ -11051,7 +11051,7 @@ msgstr "a las barras de pauta cruzada son de pauta cruzada, pero no deben estar 
 
 #. Documentation/snippets/stem-cross-staff-engraver.ly:90 (comment)
 msgid "other stems just because of that."
-msgstr "otras plicas sólo por este motivo."
+msgstr "otras plicas solo por este motivo."
 
 #. Documentation/snippets/stem-cross-staff-engraver.ly:94 (comment)
 msgid "Create stem spans for cross-staff stems"
@@ -11602,7 +11602,7 @@ msgstr "\\override NoteHead #'before-line-breaking = #display-grobs"
 
 #. Documentation/snippets/using-ly-grob-object-to-access-grobs-with--tweak.ly:113 (comment)
 msgid "or just for one:"
-msgstr "o sólo para una:"
+msgstr "o solo para una:"
 
 #. Documentation/snippets/using-postscript-to-generate-special-note-head-shapes.ly:32 (variable)
 msgid "parallelogram"

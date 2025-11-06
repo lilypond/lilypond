@@ -753,7 +753,7 @@ expresiones musicales.
 @cindex longa, silencio de
 @cindex breve, silencio de
 
-@cindex @code{r} (rest)
+@cindex @code{r} (silencio)
 @funindex \maxima
 @funindex \longa
 @funindex \breve
@@ -976,7 +976,7 @@ continuación de esta instrucción.
 @cindex silencio, de redonda para un compás completo
 
 @funindex \compressMMRests
-@cindex @code{R} (full-measure rest)
+@cindex @code{R} (silencio de compás completo)
 
 Los silencios de uno o más compases completos se introducen como
 notas con el nombre @code{R} en mayúscula.  Su duración se escribe

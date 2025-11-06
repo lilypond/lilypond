@@ -345,7 +345,7 @@ va seguido de una segunda o una cuarta, es equivalente a
 
 @funindex /
 @cindex bajo de los acordes
-@cindex acordes, bajo de
+@cindex acorde, bajo de
 
 Se pueden especificar notas añadidas en el bajo (colocar en el
 bajo una nota distinta de la fundamental del acorde) mediante la
@@ -799,7 +799,7 @@ se usa cuando el acorde está alterado.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/adding-bar-lines-to-chordnames-context.ly}
 
-@cindex volta, repetición de, debajo de los acordes
+@cindex volta, repetición, debajo de los acordes
 @cindex acorde, repetición de volta, por debajo
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/volta-below-chords.ly}
@@ -1088,7 +1088,7 @@ Fragmentos de código:
 
 
 @node Entering figured bass
-@subsection Introducir el bajo cifrado
+@subsection Escritura del bajo cifrado
 
 Se usa @code{\figuremode} para cambiar el modo de entrada al modo
 de cifras.  @xref{Input modes} para más información sobre los

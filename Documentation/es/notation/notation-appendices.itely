@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: b22569ea33c9c9a6a26e17624d79449bffa81b22
+    Translation of GIT committish: 7f24b1d60e74d61de8e9c980da04a8f9064b9829
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2083,48 +2083,45 @@ f^\tenuto e,_\tenuto b'\tenuto
 @node Ornament scripts
 @appendixsubsec Indicaciones de adornos
 
-@funindex \prall
-@funindex \prallup
-@funindex \pralldown
-@funindex \upprall
-@funindex \downprall
-@funindex \prallprall
-@funindex \lineprall
-@funindex \prallmordent
-@funindex \mordent
-@funindex \upmordent
 @funindex \downmordent
-@funindex \trill
-@funindex \turn
+@funindex \downprall
+@funindex \haydnturn
+@funindex \lineprall
+@funindex \mordent
+@funindex \prall
+@funindex \pralldown
+@funindex \prallmordent
+@funindex \prallprall
+@funindex \prallup
 @funindex \reverseturn
 @funindex \slashturn
-@funindex \haydnturn
-@cindex @q{grupeto circular barrado}, ornamento
-@cindex @q{grupeto circular de Haydn}, ornamento
-@cindex @q{grupeto circular invertido}, ornamento
-@cindex @q{grupeto circular}, ornamento
-@cindex @q{mordente descendente}, ornamento
-@cindex @q{mordente, ascendente}, ornamento
-@cindex @q{mordente, descendente}, ornamento
-@cindex @q{mordente}, ornamento
-@cindex @q{semitrino ascendente}, ornamento
-@cindex @q{semitrino descendente}, ornamento
-@cindex @q{semitrino, ascendente}, ornamento
-@cindex @q{semitrino, descendente}, ornamento
-@cindex @q{semitrino, largo}, ornamento
-@cindex @q{semitrino}, ornamento
-@cindex @q{trino}, ornamento
+@funindex \trill
+@funindex \turn
+@funindex \upmordent
+@funindex \upprall
+@cindex grupeto circular barrado, ornamento
+@cindex grupeto circular de Haydn, ornamento
+@cindex grupeto circular invertido, ornamento
+@cindex grupeto circular, ornamento
+@cindex mordente descendente, ornamento
+@cindex mordente ascendente, ornamento
+@cindex mordente, ornamento
 @cindex ornamento, grupeto circular
 @cindex ornamento, grupeto circular de Haydn
 @cindex ornamento, grupeto circular invertido
 @cindex ornamento, mordente
-@cindex ornamento, mordente, descendente
 @cindex ornamento, mordente, ascendente
+@cindex ornamento, mordente, descendente
 @cindex ornamento, semitrino
 @cindex ornamento, semitrino, ascendente
 @cindex ornamento, semitrino, descendente
 @cindex ornamento, semitrino, largo
 @cindex ornamento, trino
+@cindex semitrino ascendente, ornamento
+@cindex semitrino descendente, ornamento
+@cindex semitrino largo, ornamento
+@cindex semitrino, ornamento
+@cindex trino, ornamento
 
 @multitable @columnfractions .22 .25 .25 .25
 
