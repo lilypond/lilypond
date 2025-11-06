@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 40a6ee3c77d89a24d34b13790442cdcc95f59d7a
+%% Translation of GIT committish: cd3e2b0177d366d0a25b4c7628b26455e52175cd
   texidoces = "
 Ésta es una plantilla bastante avanzada, para un conjunto de
-jazz. Observe que la notación de todos los instrumentos está en
+jazz. Observe que la notación de todos los instrumentos usa
 @code{\\key c \\major} (Do mayor). Esto se refiere al tono de
 concierto; la armadura se transporta automáticamente si la música está
 dentro de una sección @code{\\transpose}.

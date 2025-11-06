@@ -1,12 +1,13 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: cd3e2b0177d366d0a25b4c7628b26455e52175cd
   texidoces = "
 Los símbolos de registración de acordeón están disponibles como
 elementos de @code{\\markup} y como eventos musicales
 autocontenidos (pues los cambios de registro tienden a ocurrir
 entre eventos de música).  Los registros del bajo no están
 demasiado estandarizados.  Las instrucciones existentes están
-disponibles en el apartado 'Símbolos de acordeón' en la Referencia
-de la notación.
+disponibles en el apartado
+@uref{https://lilypond.org/doc/v2.24/Documentation/notation/accordion#discant-symbols,@q{Símbolos de acordeón}
+en la Referencia de la notación}.
 "
 
   doctitlees = "Símbolos de registración de acordeón"

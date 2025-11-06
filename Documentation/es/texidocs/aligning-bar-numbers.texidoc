@@ -1,11 +1,14 @@
-%% Translation of GIT committish: 40a6ee3c77d89a24d34b13790442cdcc95f59d7a
+%% Translation of GIT committish: fbf390d05408c5b842a22c122da734c54f92ca12
   texidoces = "
-Los números de compás se alinean de forma predeterminada por la
-derecha con su objeto padre. Éste es por lo general el borde
-izquierdo de una línea o, si los números se imprimen dentro de la
-línea, el lado izquierdo de una línea divisoria.  Los números
-también se pueden situar directamente sobre la barra de compás o
-alineados por la izquierda con ella.
+
+La alineación predeterminada de los números de compás depende de
+su posición: al comienzo de un pentagrama, los números se alinean
+por la derecha; en cualquier otra posición, se alinean por la
+izquierda.  Usando la función de Scheme
+@code{break-alignment-list}, se puede cambiar esto; los tres
+argumentos de la función son la alineación para las posiciones al
+final de la línea, en la parte media de la línea y al principio de
+la línea (en este orden).
 
 "
   doctitlees = "Alineación de los números de compás"

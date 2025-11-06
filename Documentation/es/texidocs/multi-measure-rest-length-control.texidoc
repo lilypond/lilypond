@@ -1,9 +1,9 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: 1bf2403e1cd7038a1e7ea62da560af601e3694fc
   texidoces = "
-Los silencios de varios compases tienen una longitud que
-concuerda con su duración total, que está bajo el control de
-@code{MultiMeasureRest.space-increment}.  Observe que el valor
-predeterminado es @code{2.0}.
+Los silencios de varios compases tienen una longitud que concuerda
+con su duración total, que está bajo el control de la propiedad
+@code{space-increment} del grob @code{MultiMeasureRest}; su valor
+predeterminado es@tie{}2.
 "
 
   doctitlees = "Control de la anchura de un silencio multicompás"

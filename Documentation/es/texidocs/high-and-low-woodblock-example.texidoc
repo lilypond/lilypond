@@ -1,9 +1,10 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: aa4f229bc77265d2deaa36055c5845cd682823fe
   texidoces = "
-  Dos cajas chinas, escritas como 'wbh' (@emph{high woodblock}) y
-'wbl' (@emph{low woodblock}).  La longitud de la línea divisoria
-se ha alterado con una instrucción \\override para que no sea
-demasiado corta.  Las posiciones de las dos líneas de la pauta se tienen que definir explícitamente también.
+Dos cajas chinas, escritas como @q{wbh} (@emph{high woodblock}) y
+@q{wbl} (@emph{low woodblock}).  La longitud de la línea divisoria
+se ha alterado con una instrucción @code{\\override} para que no
+sea demasiado corta.  Las posiciones de las dos líneas de la pauta
+se tienen que definir explícitamente también.
 "
 
   doctitlees = "Ejemplo de cajas chinas grave y aguda"

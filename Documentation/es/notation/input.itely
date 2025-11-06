@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 8ce0d94e2f1660e91f147ce6007a64ad3e2bea2b
+    Translation of GIT committish: 9e1da77702d0f3bf5ca406c9697350e5dbf29fe6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2714,18 +2714,29 @@ poner en archivos separados que se incluyen más tarde, véase
 @subsection Uso de etiquetas
 
 @funindex \tag
+@cindex tag
+
+La instrucción @code{\tag} marca una expresión musical con un
+nombre.
+
+@example
+\tag #'fulano @{ ... @}
+@end example
+
+@noindent
+Las expresiones etiquetadas de esta manera se pueden tratar de una
+forma muy conveniente como un todo.
+
+
+@subsubheading Mantenimiento y eliminación de música etiquetada
+
 @funindex \keepWithTag
 @funindex \removeWithTag
-@cindex etiqueta
 @cindex mantener música etiquetada
 @cindex quitar música etiquetada
 
-La instrucción @code{\tag #'@var{parteA}} marca una expresión
-musical con el nombre @var{parteA}.  Las expresiones etiquetadas
-de esta manera se pueden seleccionar o filtrar más tarde por su
-nombre, usando bien @code{\keepWithTag #'@var{nombre}} o bien
-@code{\removeWithTag #'@var{nombre}}.  El resultado de la
-aplicación de estos filtros a la música etiquetada es como sigue:
+La instrucción @code{\keepWithTag} selecciona música etiquetada.
+En cambio, @code{\removeWithTag} excluye la música etiquetada.
 
 @indentedblock
 @multitable @columnfractions .55 .45
@@ -2778,23 +2789,23 @@ Música etiquetada no precedida de @code{\keepWithTag} ni de
 
 Los argumentos de las instrucciones @code{\tag},
 @code{\keepWithTag} y @code{\removeWithTag} deben ser un símbolo o
-lista de símbolos (como @code{#'score} o @code{#'(violinI
-violinII}), seguida de una expresión musical.  Si @emph{y solo si}
+una lista de símbolos (como @code{#'score} o @code{#'(violinI
+violinII)}, seguida de una expresión musical.  Si @emph{y solo si}
 los símbolos son identificadores de LilyPond válidos (caracteres
 alfabéticos solamente, sin números, guiones bajos ni guiones
-normales) que no puedan confundirse con notas, la porción
+normales y que no puedan confundirse con notas), el prefijo
 @code{#'} se puede omitir y, como abreviatura, una lista de
-símbolos puede usar el separador de coma, es decir: @code{\tag
+símbolos puede usar el separador de coma.  Por ejemplo, @code{\tag
 #'(violinI violinII)} se puede escribir como @code{\tag
-violinI,violinII}.  Lo mismo vale para @code{\keepWithTag} y
-@code{\removeWithTag}.  Las instrucciones de etiquetado son
-funciones musicales, por lo que no se pueden usar para filtrar
-elementos que no son expresiones musicales, tales como bloques
-@code{\book} o @code{\score}.
+violinI,violinII}.  Lo mismo vale para los argumentos de
+@code{\keepWithTag} y @code{\removeWithTag}.  Las instrucciones de
+etiquetado son funciones musicales, por lo que no se pueden usar
+para filtrar elementos que no son expresiones musicales, tales
+como bloques @code{\book} o @code{\score}.
 
 En el ejemplo siguiente vemos dos versiones de una pieza musical,
 una que muestra trinos con la notación usual y otra con los
-trinos expandidos explícitamente:
+trinos expandidos explícitamente.
 
 @lilypond[verbatim,quote]
 music = \relative {
@@ -2813,7 +2824,7 @@ music = \relative {
 @end lilypond
 
 @noindent
-De forma alternativa, a veces es más fácil excluir secciones de música:
+De forma alternativa, a veces es más fácil excluir secciones de música.
 
 @lilypond[verbatim,quote]
 music = \relative {
@@ -2824,12 +2835,10 @@ music = \relative {
  }
 
 \score {
-  \removeWithTag #'expand
-  \music
+  \removeWithTag #'expand \music
 }
 \score {
-  \removeWithTag #'trills
-  \music
+  \removeWithTag #'trills \music
 }
 @end lilypond
 
@@ -2838,8 +2847,8 @@ music = \relative {
 @cindex @code{\tag}, and quoting music
 
 Si las etiquetas marcan alternativas que tienen una duración no
-nula, las alternativas son normalmente simultáneas como concepto,
-en cuyo caso es mejor poner las alternativas dentro de una
+nula, las alternativas son normalmente simultáneas como concepto.
+En este caso es mejor poner las alternativas dentro de una
 expresión musical simultánea de manera que la expresión musical
 tenga la misma duración sin importar qué etiquetas se están
 reteniendo.  Esto es importante especialmente si está usando
@@ -2883,9 +2892,10 @@ textos, etc., anteponiendo
 -\tag #'@var{mi-etiqueta}
 @end example
 
-a una articulación.  Por ejemplo, esto define una nota con una
-indicación opcional de digitación y una nota con una anotación
-condicional:
+@noindent
+a una articulación.  Por ejemplo, lo siguiente define una nota con
+una indicación opcional de digitación y una nota con una anotación
+condicional.
 
 @example
 c1-\tag #'finger ^4
@@ -2894,17 +2904,18 @@ c1-\tag #'warn ^"¡Ojo!"
 
 Se pueden poner varias etiquetas sobre expresiones con varias
 entradas de @code{\tag}, o combinando varias etiquetas en una
-lista de símbolos:
+lista de símbolos.
 
 @lilypond[quote,verbatim]
 music = \relative c'' {
-  \tag #'a \tag #'both { a4 a a a }
-  \tag #'(b both) { b4 b b b }
+  \tag AA \tag AB { a4 a a a }
+  \tag BB,both { b4 b b b }
 }
+
 <<
-\keepWithTag #'a \music
-\keepWithTag #'b \music
-\keepWithTag #'both \music
+  \keepWithTag AA \music
+  \keepWithTag BB \music
+  \keepWithTag AB \music
 >>
 @end lilypond
 
@@ -2915,95 +2926,92 @@ instrucción @code{\removeWithTag} con una lista de etiquetas.
 
 @lilypond[verbatim,quote]
 music = \relative c'' {
-  \tag #'A { a4 a a a }
-  \tag #'B { b4 b b b }
-  \tag #'C { c4 c c c }
-  \tag #'D { d4 d d d }
+  \tag AA { a4 a a a }
+  \tag BB { b4 b b b }
+  \tag CC { c4 c c c }
+  \tag DD { d4 d d d }
 }
+
 \new Voice {
-  \removeWithTag #'B
-  \removeWithTag #'C
-  \music
-  \removeWithTag #'(B C)
-  \music
+  \removeWithTag BB \removeWithTag CC \music
+  \removeWithTag BB,CC \music
 }
 @end lilypond
 
 El uso de dos o más filtros @code{\keepWithTag} sobre una sola
 expresión musical produce la eliminación de @emph{todas} las
-secciones etiquetadas.  El primer filtro quita todas excepto la
-que se nombra, y cualquier filtro posterior elimina el resto.
-Usando una sola instrucción @code{\keepWithTag} con una lista de
-varias etiquetas se suprimirán solamente las secciones etiquetadas
-que no aparezcan especificadas en la lista.
+secciones etiquetadas, que no es lo que queremos: el primer filtro
+quita todas excepto la que se nombra, y cualquier filtro posterior
+elimina el resto.  En su lugar, use una sola instrucción
+@code{\keepWithTag} con una lista de varias etiquetas para
+suprimir todas las secciones etiquetadas que no aparezcan
+especificadas en la lista.  Como ejemplo, el código siguiente
+imprime música etiquetada con @var{violinI} y @var{violinII} pero
+no la etiquetada con @var{viola} ni @var{cello}.
 
 @lilypond[verbatim,quote]
 music = \relative c'' {
-  \tag #'violinI { a4 a a a }
-  \tag #'violinII { b4 b b b }
-  \tag #'viola { c4 c c c }
-  \tag #'cello { d4 d d d }
+  \tag violinI { a4 a a a }
+  \tag violinII { b4 b b b }
+  \tag viola { c4 c c c }
+  \tag cello { d4 d d d }
 }
 
 \new Staff {
-  \keepWithTag #'(violinI violinII)
-  \music
+  \keepWithTag violinI,violinII \music
 }
 @end lilypond
-
-@noindent
-will print @code{\tag}s @var{violinI} and @var{violinII} but not
-@var{viola} or @var{cello}.
 
 @cindex grupos de etiquetas
 @funindex \tagGroup
 
 Aunque @code{\keepWithTag} es útil para el manejo de @emph{un
 solo} conjunto de alternativas, la eliminación de música
-etiquetada con otras etiquetas @emph{no relacionadas} es
-problemática si se utilizan para más de un propósito.  En ese caso
-pueden declararse @q{grupos de etiquetas}:
+etiquetada con otras etiquetas no relacionadas es problemática si
+se utilizan para más de un propósito.  En ese caso las etiquetas
+se pueden agrupar con @code{\tagGroup}.  El código siguiente
 
 @example
-\tagGroup #'(violinI violinII viola cello)
+\tagGroup violinI,violinII,viola,cello
 @end example
 
 @noindent
-Ahora todas las etiquetas pertenecen a un solo @q{grupo de
-etiquetas}.  Observe que las etiquetas individuales no pueden ser
-miembros de más de un @emph{grupo de etiquetas}.
+sitúa las cuatro etiquetas en un solo grupo de etiquetas.  Como
+resultado, un código como el siguiente
 
 @example
-\keepWithTag #'violinI @dots{}
+\keepWithTag violinI @dots{}
 @end example
 
 @noindent
-mostrará solamente la música etiquetada a partir del grupo de
-etiquetas de @code{violinI} y cualquier fragmento musical
-etiquetado con una de las @emph{otras} etiquetas resultará
-suprimido.
+ahora mostrará solamente la música etiquetada a partir del grupo
+de etiquetas @code{violinI} y cualquier fragmento musical
+etiquetado con una de las otras etiquetas resultará suprimido,
+como muestra el ejemplo siguiente.
 
 @lilypond[verbatim,quote]
+\tagGroup violinI,violinII
+\tagGroup original,arranged
+
 music = \relative {
-  \tagGroup #'(violinI violinII)
-  \tagGroup #'(viola cello)
-  \tag #'violinI { c''4^"violinI" c c c }
-  \tag #'violinII { a2 a }
-  \tag #'viola { e8 e e2. }
-  \tag #'cello { d'2 d4 d }
-  \tag #'other { f^"other" f f f }
+  \tag violinI { c''4^"violinI" c c c }
+  \tag violinII { a2 a }
+  \tag original { e8 e e2. }
+  \tag arranged { d'2 d4 d }
+  \tag other { f^"other" f f f }
   R1^"untagged"
 }
 
 \new Voice {
-  \keepWithTag #'violinI
-  \music
+  \keepWithTag violinI \music
 }
 @end lilypond
 
-Al usar la instrucción @code{\keepWithTag} solo son visibles las
-etiquetas de los grupos de aquellas etiquetas se se incluyen en la
-instrucción.
+Observe que las etiquetas individuales no pueden ser miembros de
+más de un grupo de etiquetas.
+
+
+@subsubheading Añadir contenido antes y después de la música etiquetada
 
 @funindex \pushToTag
 @funindex \appendToTag
@@ -3015,24 +3023,32 @@ dentro de una expresión musical existente.  Podemos usar
 delante o al final de los @code{elements} de diversas
 construcciones musicales.  Los lugares contemplados son
 
+@indentedblock
 @table @asis
-@item Música secuencial y simultánea
-Si ha etiquetado una construcción completa @code{@{@dots{}@}} o
+@item música secuencial y simultánea
+Si etiqueta una construcción completa @code{@{@dots{}@}} o
 @code{<<@dots{}>>}, puede añadir expresiones musicales por delante
 o por detrás.
-@item Acordes
-Si ha etiquetado un acorde @code{<@dots{}>}, puede añadir notas
+@item acordes
+Si etiqueta un acorde @code{<@dots{}>}, puede añadir notas
 por delante o bien por detrás, o articulaciones para el acorde
 completo.
-@item Notas y silencios
-Si ha etiquetado una nota (también dentro de un acorde) o un
-silencio, puede añadir articulaciones por delante o por detrás de
-las articulaciones existentes.  Observe que para añadir otras
-@emph{notas}, en cambio, tiene que poner la nota dentro de un
-acorde y etiquetar el @emph{acorde}.  Observe también que no se
-puede etiquetar una sola @emph{articulación} y añadirla porque no
-es inherentemente una lista.  En lugar de ello, etiquete la nota.
+@item notas y silencios
+Si etiqueta una nota (también dentro de un acorde) o un silencio,
+puede añadir articulaciones por delante o por detrás de las
+articulaciones existentes.  Observe que para añadir otras notas,
+en cambio, tiene que poner la nota dentro de un acorde y etiquetar
+el @emph{acorde}.
+
+Observe también que no se puede etiquetar una sola articulación y
+añadirla porque no es inherentemente una lista.  En lugar de ello,
+etiquete la nota.
 @end table
+@end indentedblock
+
+Las dos instrucciones toman una etiqueta, el material en el que
+separar en cada aparición de la etiqueta, y la expresión
+etiquetada.
 
 @lilypond[verbatim,quote]
 music = { \tag #'here { \tag #'here <<c''>> } }
@@ -3047,9 +3063,8 @@ music = { \tag #'here { \tag #'here <<c''>> } }
 }
 @end lilypond
 
-Las dos instrucciones admiten una etiqueta, el material que
-dividir en cada ocurrencia de la etiqueta, y la expresión
-etiquetada.
+
+@subsubheading Etiquetado dentro de elementos de marcado
 
 @funindex \keep-with-tag
 @funindex \remove-with-tag
@@ -3057,22 +3072,22 @@ etiquetada.
 @funindex \append-to-tag
 
 La instrucción @code{\tag} también se puede usar dentro de
-entornos @code{\markup}.  Están disponibles también las
-instrucciones @code{\keep-with-tag}, @code{\remove-with-tag},
-@code{\push-to-tag} y @code{\append-to-tag} y se comportan como
-sus instrucciones correspondientes para expresiones musicales.
+entornos @code{\markup}.  LilyPond aporta las instrucciones de
+marcado @code{\keep-with-tag}, @code{\remove-with-tag},
+@code{\push-to-tag} y @code{\append-to-tag} de forma análoga a las
+instrucciones correspondientes para expresiones musicales.
 
 @lilypond[verbatim,quote]
 test = \markup {
-  \tag #'a a
-  \tag #'b b
-  \tag #'c c
+  \tag #'AA a
+  \tag #'BB b
+  \tag #'CC c
 }
 
-\markup { \keep-with-tag #'b \test }
-\markup { \remove-with-tag #'b \test }
-\markup { \push-to-tag #'c pre \test }
-\markup { \append-to-tag #'c post \test }
+\markup { \keep-with-tag #'BB \test }
+\markup { \remove-with-tag #'BB \test }
+\markup { \push-to-tag #'CC pre \test }
+\markup { \append-to-tag #'CC post \test }
 @end lilypond
 
 Las instrucciones musicales como @code{\keepWithTag} y
@@ -3094,10 +3109,11 @@ music = \relative {
 @funindex \appendToTagMarkup
 
 También es posible añadir algo al principio y al final del
-@code{\markup} de objetos musicales.  No se pueden usar
-@code{\pushToTag} ni @code{\appendToTag} porque solo insertan
-música, así que necesitamos @code{\pushToTagMarkup} y
-@code{\appendToTagMarkup} para insertar elementos de marcado.
+@code{\markup} de objetos musicales.  Sin embargo, no se pueden
+usar @code{\pushToTag} ni @code{\appendToTag} porque solo insertan
+música, así que necesitamos las instrucciones
+@code{\pushToTagMarkup} y @code{\appendToTagMarkup} para insertar
+elementos de marcado.
 
 @lilypond[verbatim,quote]
 music = \relative {
@@ -3110,7 +3126,7 @@ music = \relative {
 }
 @end lilypond
 
-El filtrado de etieutas también funciona para música empotrada
+El filtrado de etiquetas también funciona para música empotrada
 dentro de bloques @code{\score} en instrucciones de marcado.
 
 @lilypond[verbatim,quote]
@@ -3128,26 +3144,21 @@ music = \relative {
 
 @funindex \tag-list
 
-Tenga cuidado con el uso de etiquetas con listas de marcado. Las
-funciones de filtrado funcionan como se espera
+El uso de etiquetas con listas de marcado requiere un cuidado
+especial.  Aunque las funciones de filtrado funcionan como se
+espera, no es así con instrucciones como @code{\push-to-tag} y
+@code{\append-to-tag}.
 
 @lilypond[verbatim,quote]
 \markup {
   \remove-with-tag #'test { a \tag #'test { b c } d }
 }
-@end lilypond
-
-@noindent
-pero las instrucciones como @code{\push-to-tag} y
-@code{\append-to-tag} tienen algunos problemas.
-
-@lilypond[verbatim,quote]
 \markup {
   \push-to-tag #'test "twice" { a \tag #'test { b c } d }
 }
 @end lilypond
 
-El motivo de este comportamiento es que LilyPond cambia
+El motivo de este comportamiento es que LilyPond resuelve
 
 @example
 \tag #'test @{ b c @}
@@ -3185,12 +3196,27 @@ Referencia de la notación:
 Al llamar a @code{\relative} sobre una expresión musical obtenida
 mediante el filtrado de música con las instrucciones
 @code{\keepWithTag} o @code{\removeWithTag}, podría ocurrir que
-cambiaran las relaciones de octava, dado que solo se tendrán en
+cambiaran las relaciones de octava, dado que solo se tienen en
 cuenta las alturas de las notas que efectivamente permanecen en la
 expresión filtrada.  La aplicación de @code{\relative} en primer
 lugar, antes de @code{\keepWithTag} o de @code{\removeWithTag},
 evita este peligro porque en este caso @code{\relative} actúa
 sobre todas las notas tal y como se introducen.
+
+Incluso si se usan grupos de etiquetas, las instrucciones como
+@code{\keepWithTag} no son conmutativas.  Un código como el
+siguiente
+
+@example
+\keepWithTag violinI,original \someMusic
+@end example
+
+@noindent
+no produce la misma salida que
+
+@example
+\keepWithTag violinI \keepWithTag original \someMusic
+@end example
 
 
 @node Using global settings
@@ -4851,7 +4877,7 @@ automática).
 
 @c Issue 4059 contains an attached snippet which shows how this might
 @c be done, but this is too large and complex for the NR, even as a
-@c referenced snippet.  It could be added to the LSR.
+@c referenced snippet.  It could be added to the LilyPond Wiki.
 
 El rango de los niveles de expresión se extiende desde 0.0
 (ninguna expresión, lo que significa un volumen nulo) hasta 1.0

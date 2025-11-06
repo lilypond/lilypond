@@ -1,16 +1,16 @@
-%% Translation of GIT committish: 40a6ee3c77d89a24d34b13790442cdcc95f59d7a
+%% Translation of GIT committish: 1bf2403e1cd7038a1e7ea62da560af601e3694fc
   texidoces = "
 Los valores predeterminados para las notas de adorno están
 almacenados en los identificadores siguientes.
 
-@verbatim
+@example
 startGraceMusic
 stopGraceMusic
 startAcciaccaturaMusic
 stopAcciaccaturaMusic
 startAppoggiaturaMusic
 stopAppoggiaturaMusic
-@end verbatim
+@end example
 
 Todos ellos están definidos en el archivo @file{ly/grace-init.ly}.
 Redefiniéndolos se pueden obtener otros efectos.

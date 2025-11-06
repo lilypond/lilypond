@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c vim: foldmethod=marker
 @ignore
-    Translation of GIT committish: b22569ea33c9c9a6a26e17624d79449bffa81b22
+    Translation of GIT committish: d7e42f37c3c945ebff36b1c4bcb6c5da5051caa5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -371,7 +371,7 @@ Glosario musical:
 @rglos{custos}.
 
 Fragmentos de código:
-@rlsr{Ancient notation}.
+@rlsrnamed{Ancient notation,Notación de la música antigua}.
 
 Referencia de funcionamiento interno:
 @rinternals{Custos}.
@@ -488,7 +488,7 @@ Archivos instalados:
 @file{scm/parser-clef.scm}.
 
 Fragmentos de código:
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Alturas}.
 
 Referencia de funcionamiento interno:
 @rinternals{Clef_engraver},
@@ -792,7 +792,7 @@ Referencia de la notación:
 @ref{Rests}.
 
 Fragmentos de código:
-@rlsr{Ancient notation}.
+@rlsrnamed{Ancient notation,Notación de la música antigua}.
 @endmorerefs
 
 @knownissues
@@ -1482,7 +1482,7 @@ Referencia de la notación:
 @ref{Articulations and ornamentations}.
 
 Fragmentos de código:
-@rlsr{Ancient notation}.
+@rlsrnamed{Ancient notation,Notación de la música antigua}.
 
 Referencia de funcionamiento interno:
 @rinternals{Episema},
@@ -1529,7 +1529,7 @@ Referencia de funcionamiento interno:
 @rinternals{Divisio}.
 
 Fragmentos de código:
-@rlsr{Ancient notation}.
+@rlsrnamed{Ancient notation,Notación de la música antigua}.
 @endmorerefs
 
 
@@ -2817,8 +2817,10 @@ original los silencios y la nota o notas iniciales (incluso con
 las claves originales).  Esto recibe el nombre de @emph{incipit}.
 La instrucción @code{\incipit} usa el valor de @code{indent} del
 pentagrama principal para fijar el espacio horizontal que ocupa el
-incipit, y @code{incipit-width} para establecer la anchura del
-pentagrama del propio incipit.
+incipit junto al nombre del instrumento, y @code{incipit-width}
+para establecer la anchura del pentagrama del propio incipit.  Un
+argumento opcional indica cuánto debe desplazarse el incipit hacia
+la izquierda.
 
 @lilypond[verbatim,quote,ragged-right]
 \score {
@@ -2826,7 +2828,7 @@ pentagrama del propio incipit.
     \new Voice = Tenor {
       \set Staff.instrumentName = "Tenor"
       \override Staff.InstrumentName.self-alignment-X = #RIGHT
-      \incipit { \clef "mensural-c4" \key f \major r\breve r1 c'1 }
+      \incipit #1 { \clef "mensural-c4" \key f \major r\breve r1 c'1 }
       \clef "treble_8"
       \key f \major
       R1 r2 c'2 |
@@ -2880,7 +2882,7 @@ compás.
 @c This simple setup will take care of the
 @c TODO Add text about lyrics to the lowest line, to be placed
 @c outside the StaffGroup.
-@c from lsr and -user
+@c from LilyPond Wiki and -user
 @c TBC
 
 @c @morerefs

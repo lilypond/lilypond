@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: ea8a5e51e348a0d0a260e73c799872a9cfdc8d5a
+    Translation of GIT committish: d4d13c8b46ca5922c2d32657833c589d6c04e534
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -794,16 +794,25 @@ aprender de otros tipógrafos y hacer nuestra propia edición.
 
 @item
 @uref{https://www.baroquemusic.it/, baroquemusic.it}, iniciado en
-2005, recoge más de 800 partituras de música barroca.  El archivo
+2005, recoge más de 1300 partituras de música barroca.  El archivo
 comprende partituras generales, particellas y archivos MIDI,
 distribuidos bajo una licencia Creative Commons y disponible
 solamente a suscriptores.
+
+@emph{[Esta página web cierra a finales de 2025 por defunción
+de la persona que lo mantenía.]}
 
 @item
 @uref{https://partitura.org/, Partitura Organum} es una colección
 en aumento de piezas para órgano dentro del Dominio Público,
 tipografiadas mediante LilyPond y distribuidas bajo una licencia
 Creative Commons.
+
+@item
+@uref{https://bayanguru.org/, Bayanguru} ofrece partituras
+seleccionadas para
+@uref{https://en.wikipedia.org/wiki/Bayan_(accordion), Bayan} (un
+tipo de acordeón de botons cromático) bajo licencia GPLv3.
 
 @item
 @uref{https://clairnote.org/, Clairnote} ofrece partituras en la
@@ -835,6 +844,12 @@ la galería de ejemplo que se muestra en la sección @ref{Examples}.
 @uref{https://github.com/nsceaux/nenuvar, Nicolas Sceaux}:
 partituras de música barroda tipografiada con LilyPond por uno de
 sus desarrolladores.
+
+@item
+@uref{https://github.com/volodymyrprokopyuk/bayanguru, Bayanguru}:
+archivos de código fuente de la biblioteca de partituras
+Bayanguru.
+
 
 @end itemize
 @divEnd

@@ -1,16 +1,16 @@
-%% Translation of GIT committish: 40a6ee3c77d89a24d34b13790442cdcc95f59d7a
+%% Translation of GIT committish: cd3e2b0177d366d0a25b4c7628b26455e52175cd
   texidoces = "
 Se puede utilizar la propiedad
 @code{systemStartDelimiterHierarchy} para crear grupos de
-pentagramas anidados de forma más compleja. La instrucción
-@code{\\set StaffGroup.systemStartDelimiterHierarchy} toma una
-lista alfabética del número de pentagramas producidos. Se puede
-proporcionar antes de cada pentagrama un delimitador de comienzo
-de sistema. Se debe encerrar entre corchetes y admite tantos
-pentagramas como encierren las llaves. Se pueden omitir los
-elementos de la lista, pero el primer corchete siempre abarca
-todos los pentagramas. Las posibilidades son
-@code{SystemStartBar}, @code{SystemStartBracket},
+pentagramas anidados de forma más compleja. La propiedad
+@code{systemStartDelimiterHierarchy} del contexto
+@code{StaffGroup} toma una lista alfabética del número de
+pentagramas producidos. Se puede proporcionar antes de cada
+pentagrama un delimitador de comienzo de sistema. Se debe encerrar
+entre corchetes y admite tantos pentagramas como encierren las
+llaves. Se pueden omitir los elementos de la lista, pero el primer
+corchete siempre abarca todos los pentagramas. Las posibilidades
+son @code{SystemStartBar}, @code{SystemStartBracket},
 @code{SystemStartBrace} y @code{SystemStartSquare}.
 
 "

@@ -1,15 +1,15 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: cd3e2b0177d366d0a25b4c7628b26455e52175cd
   texidoces = "
-La propiedad @code{quotedEventTypes} determina los tipos de
-eventos musicales que resultan citados.  El valor predeterminado
-es @code{(note-event rest-event tie-event beam-event
-tuplet-span-event)}, que significa que solo aparecen en la
-expresión @code{\\quoteDuring} las notas, silencios, ligaduras,
+La propiedad de contexto @code{quotedEventTypes} determina los
+tipos de eventos musicales que resultan citados.  El valor
+predeterminado es @code{(note-event rest-event tie-event
+beam-event tuplet-span-event)}, que significa que solo aparecen en
+la expresión @code{\\quoteDuring} las notas, silencios, ligaduras,
 barras y grupos especiales.
 
 En el ejemplo siguiente, el silencio de semicorchea no aparece en
-el fragmento citado porque @code{rest-event} no está dentro de los
-@code{quotedEventTypes}.
+el fragmento citado porque @code{rest-event} no aparece dentro del
+valor redefinido de @code{quotedEventTypes}.
 
 Para ver una lista de los tipos de evento, consulte la sección
 @qq{Music classes} de la Referencia de funcionamiento interno.

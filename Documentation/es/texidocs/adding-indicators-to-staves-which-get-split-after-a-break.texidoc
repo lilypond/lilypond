@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 491e95842b461c363686dfde53b640144362ead5
+%% Translation of GIT committish: 29da2ba3dc40958f48fd41eb2b183feacc2ea58a
   texidoces = "
 Este fragmento de código define las instrucciones
 @code{\\splitStaffBarLine}, @code{\\convUpStaffBarLine} y
@@ -6,6 +6,13 @@ Este fragmento de código define las instrucciones
 línea divisoria para denotar que cada una de las voces que
 comparten un pentagrama continúan en su propio pentagrama en el
 siguiente sistema, o que las voces así divididas se recombinan.
+
+Observe que la implementación de este fragmento de código traza
+unas flechas sin dimensiones en el margen derecho.  Para la
+impresión formal, esto no produce ningún problema.  Sin embargo,
+es necesario aumentar las dimensiones de la caja circundante en el
+sentido horizontal si se procesa el código como imagen para evitar
+el recorte, como se muestra abajo.
 
 "
   doctitlees = "Añadir indicadores a los pentagramas que se dividen después de un salto de línea"

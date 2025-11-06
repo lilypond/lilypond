@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: b22569ea33c9c9a6a26e17624d79449bffa81b22
+    Translation of GIT committish: f5d488bdce69146bbfc7390a16960c5d8275f367
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -79,7 +79,7 @@ Referencia de la notación:
 @ref{Arpeggio}.
 
 Fragmentos de código:
-@rlsr{Unfretted string instruments}.
+@rlsrnamed{Unfretted string instruments,Instrumentos de cuerda sin trastes}.
 @endmorerefs
 
 

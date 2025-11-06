@@ -1,6 +1,7 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: aa4f229bc77265d2deaa36055c5845cd682823fe
   texidoces = "
-Dos campanas diferentes, escritas con 'cb' (cencerro) y 'rb' (campana, ridebell).
+Dos campanas diferentes, escritas con @q{cb} (cencerro) y @q{rb}
+(campana, ridebell).
 "
 
   doctitlees = "Ejemplo de cencerro y campana"

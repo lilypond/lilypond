@@ -1,4 +1,4 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: cd3e2b0177d366d0a25b4c7628b26455e52175cd
   texidoces = "
 Para añadir un enlace al sello de un objeto gráfico, podemos usar
 @code{add-link} tal y como se define aquí.  Funciona con
@@ -11,7 +11,7 @@ Limitación: funciona solamente para PDF.
 
 Los objetos enlazados se colorean con una instrucción aparte.
 Observe que los enlaces no se muestran y no funcionan al pulsarlos
-desde dentro del LSR.
+desde dentro de este Wiki por razones técnicas.
 
 "
   doctitlees = "Añadir enlaces a los objetos"

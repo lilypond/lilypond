@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: cd3e2b0177d366d0a25b4c7628b26455e52175cd
   texidoces = "
 A veces queremos poner la letra que corresponde a distintos
 personajes sobre una sola línea, por ejemplo allí donde el texto
 alterna rápidamente.  Este fragmento muestra cómo puede hacerse
-con @code{\\override
-VerticalAxisGroup.nonstaff-nonstaff-spacing.minimum-distance =
-##f}.
+ajustando la propiedad @code{nonstaff-nonstaff-spacing} del objeto
+gráfico @code{VerticalAxisGroup}.
+
 "
   doctitlees= "Disposición de distintas letras en la misma línea"

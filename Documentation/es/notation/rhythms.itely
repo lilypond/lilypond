@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 7037b9e19fcbd86ffcabfdb1c880b68735a628ec
+    Translation of GIT committish: 9a2f072694412a33f4ae756af409e4c51fed1a03
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -186,7 +186,7 @@ Referencia de la notación:
 @ref{Proportional notation}.
 
 Fragmentos de código:
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Duraciones}.
 
 Referencia de funcionamiento interno:
 @rinternals{Dots},
@@ -377,7 +377,7 @@ Referencia de la notación:
 @ref{Polymetric notation}.
 
 Fragmentos de código:
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Duraciones}.
 
 Referencia de funcionamiento interno:
 @rinternals{TupletBracket},
@@ -470,7 +470,7 @@ Referencia de la notación:
 @ref{Polymetric notation}.
 
 Fragmentos de código:
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Duraciones}.
 @endmorerefs
 
 @knownissues
@@ -718,8 +718,8 @@ Referencia de la notación:
 @ref{Automatic note splitting}.
 
 Fragmentos de código:
-@rlsr{Expressive marks},
-@rlsr{Rhythms}.
+@rlsrnamed{Expressive marks,Marcas de expresión},
+@rlsrnamed{Rhythms,Duraciones}.
 
 Referencia de funcionamiento interno:
 @rinternals{LaissezVibrerTie},
@@ -820,7 +820,7 @@ Referencia de la notación:
 @ref{Full measure rests}.
 
 Fragmentos de código:
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Duraciones}.
 
 Referencia de funcionamiento interno:
 @rinternals{Rest}.
@@ -952,7 +952,7 @@ Referencia de la notación:
 @ref{Visibility of objects}.
 
 Fragmentos de código:
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Duraciones}.
 
 Referencia de funcionamiento interno:
 @rinternals{SkipMusic}.
@@ -1123,7 +1123,7 @@ Referencia de la notación:
 @ref{Text scripts}.
 
 Fragmentos de código:
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Duraciones}.
 
 Referencia de funcionamiento interno:
 @rinternals{MultiMeasureRest},
@@ -1250,7 +1250,7 @@ Referencia de la notación:
 @ref{Phrase bar lines in hymn tunes}.
 
 Fragmentos de código:
-@rlsr{Expressive marks}.
+@rlsrnamed{Expressive marks,Marcas de expresión}.
 
 Referencia de funcionamiento interno:
 @rinternals{BreathingSign},
@@ -1532,7 +1532,7 @@ Archivos instalados:
 @file{scm/time-signature-settings.scm}.
 
 Fragmentos de código:
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Duraciones}.
 
 Referencia de funcionamiento interno:
 @rinternals{TimeSignature},
@@ -1778,7 +1778,7 @@ Referencia de la notación:
 @ref{Full measure rests}.
 
 Fragmentos de código:
-@rlsr{Staff notation}.
+@rlsrnamed{Staff notation,Notación de los pentagramas}.
 
 Referencia de funcionamiento interno::
 @rinternals{MetronomeMark}.
@@ -1869,7 +1869,7 @@ Referencia de la notación:
 @ref{Grace notes}.
 
 Fragmentos de código:
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Duraciones}.
 
 Referencia de funcionamiento interno:
 @rinternals{Timing_translator}.
@@ -2019,7 +2019,7 @@ Referencia de la notación:
 @ref{Accidentals}.
 
 Fragmentos de código:
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Duraciones}.
 @endmorerefs
 
 
@@ -2246,7 +2246,7 @@ Referencia de la notación:
 @ref{Scaling durations}.
 
 Fragmentos de código:
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Duraciones}.
 
 Referencia de funcionamiento interno:
 @rinternals{TimeSignature},
@@ -2342,7 +2342,7 @@ Manual de aprendizaje:
 @rlearningnamed{Adding and removing engravers, Añadir y eliminar grabadores}.
 
 Fragmentos de código:
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Duraciones}.
 
 Referencia de funcionamiento interno:
 @rinternals{Note_heads_engraver},
@@ -2460,7 +2460,7 @@ notas individuales con la función musical @code{\reduceChords}:
 
 @morerefs
 Fragmentos de código:
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Duraciones}.
 
 Referencia de funcionamiento interno:
 @rinternals{RhythmicStaff},
@@ -2563,7 +2563,7 @@ Archivos instalados:
 @file{scm/auto-beam.scm}.
 
 Fragmentos de código:
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Duraciones}.
 
 Referencia de funcionamiento interno:
 @rinternals{Auto_beam_engraver},
@@ -2934,7 +2934,7 @@ Archivos de inicio:
 @file{scm/time-signature-settings.scm}.
 
 Fragmentos de código:
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Duraciones}.
 
 Referencia de funcionamiento interno:
 @rinternals{Auto_beam_engraver},
@@ -3117,7 +3117,7 @@ Referencia de la notación:
 @ref{Grace notes}.
 
 Fragmentos de código:
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Duraciones}.
 
 Referencia de funcionamiento interno:
 @rinternals{Beam},
@@ -3189,7 +3189,7 @@ notas de una forma solo aproximada, pero la salida MIDI es exacta.
 
 @morerefs
 Fragmentos de código:
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Duraciones}.
 @endmorerefs
 
 @knownissues
@@ -3821,7 +3821,7 @@ Archivos instalados:
 @file{scm/bar-line.scm}.
 
 Fragmentos de código:
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Duraciones}.
 
 Referencia de funcionamiento interno:
 @rinternals{BarLine} (creada al nivel de @code{Staff} (pentagrama)),
@@ -3984,7 +3984,7 @@ Referencia de la notación:
 @ref{Repeats}.
 
 Fragmentos de código:
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Duraciones}.
 
 Referencia de funcionamiento interno:
 @rinternals{Repeat_acknowledge_engraver}.
@@ -4086,7 +4086,7 @@ números de compás en todos los sitios posibles:
 
 @morerefs
 Fragmentos de código:
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Duraciones}.
 
 Referencia de funcionamiento interno:
 @rinternals{BarNumber},
@@ -4203,7 +4203,7 @@ compás actual) no es el 123 en el momento de la compilación.
 
 @morerefs
 Fragmentos de código:
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Duraciones}.
 @endmorerefs
 
 
@@ -4350,7 +4350,7 @@ Archivos instalados:
 @file{scm/translation-functions.scm}.
 
 Fragmentos de código:
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Duraciones}.
 
 Referencia de funcionamiento interno:
 @rinternals{AdHocMarkEvent},
@@ -4750,7 +4750,7 @@ Archivos de inicio:
 @file{ly/grace-init.ly}.
 
 Fragmentos de código:
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Duraciones}.
 
 Referencia de funcionamiento interno:
 @rinternals{GraceMusic},
@@ -4899,7 +4899,7 @@ Glosario musical:
 @rglos{cadenza}.
 
 Fragmentos de código:
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Duraciones}.
 @endmorerefs
 
 
@@ -4995,7 +4995,7 @@ Referencia de la notación:
 @ref{Unmetered music}.
 
 Fragmentos de código:
-@rlsr{Rhythms}.
+@rlsrnamed{Rhythms,Duraciones}.
 
 Referencia de funcionamiento interno:
 @rinternals{Timing_translator},

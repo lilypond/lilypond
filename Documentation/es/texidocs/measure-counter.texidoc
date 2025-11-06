@@ -1,8 +1,0 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
-  texidoces = "
-Este fragmento de código proporciona una solución alternativa a la
-producción de contadores de compás utilizando repeticiones
-transparentes de tipo porcentaje.
-
-"
-  doctitlees = "Contador de compases"

@@ -1,6 +1,6 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: aa4f229bc77265d2deaa36055c5845cd682823fe
   texidoc = "
-Ejemplo de pandereta, escrito como 'tamb'
+Ejemplo de pandereta, escrito como @q{tamb}.
 "
 
   doctitle = "Ejemlo de pandereta"

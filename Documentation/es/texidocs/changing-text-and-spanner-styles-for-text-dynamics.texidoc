@@ -1,4 +1,4 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: 1bf2403e1cd7038a1e7ea62da560af601e3694fc
   texidoces = "
 Se puede modificar el texto empleado para los @emph{crescendos} y
 @emph{decrescendos} modificando las propiedades de contexto
@@ -6,8 +6,9 @@ Se puede modificar el texto empleado para los @emph{crescendos} y
 
 El estilo de la línea de extensión se puede cambiar modificando la
 propiedad @code{'style} de @code{DynamicTextSpanner}.  El valor
-predeterminado es @code{'dashed-line} (línea discontinua), y entre
-otros valores posibles se encuentran @code{'line} (línea),
-@code{'dotted-line} (línea de puntos) y @code{'none} (nada):
+predeterminado es @code{dashed-line} (línea discontinua), y entre
+otros valores posibles se encuentran @code{line} (línea),
+@code{dotted-line} (línea de puntos) y @code{none} (nada):
+
 "
   doctitlees = "Cambiar el texto y los estilos de objeto de extensión para las indicaciones dinámicas textuales"

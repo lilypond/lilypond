@@ -1,11 +1,10 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: 1bf2403e1cd7038a1e7ea62da560af601e3694fc
   texidoces = "
-Al establecer la propiedad @code{'strict-grace-spacing} hacemos que
-las columnas musicales para las notas de adorno sean @q{flotantes}, es
-decir, desacopladas de las notas que no son de adorno: primero se
-aplica el espaciado de las notas normales, y luego se ponen las
-columnas musicales de las notas de adorno a la izquierda de las
-columnas musicales de las notas principales.
-
+Al establecer la propiedad @code{strict-grace-spacing} hacemos
+que las columnas musicales para las notas de adorno sean
+@q{flotantes}, es decir, desacopladas de las notas que no son de
+adorno: primero se aplica el espaciado de las notas normales, y
+luego se ponen las columnas musicales de las notas de adorno a la
+izquierda de las columnas musicales de las notas principales.
 "
   doctitlees = "Posicionamiento de las notas de adorno con espacio flotante"

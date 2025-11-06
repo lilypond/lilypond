@@ -1,13 +1,17 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: 9c7cce2e12f0730684dcf6fe737eed69170674a3
   texidoces = "
-A veces es mejor usar plicas que parten del pentagrama superior
-para crear acordes de pentagrama cruzado, porque no hay problemas
-con evitar las colisiones con las barras automáticas.  Si las
-plicas que parten del pentagrama inferior se usaran en el ejemplo
-siguiente, sería necesario cambiar los ajustes de previsión de las
-colisiones de barras automáticas de forma que no detectara
-colisiones entre pentagramas usando @code{\\override
-Staff.Beam.collision-voice-only = ##t}
+A veces es mejor usar plicas que parten del @q{otro} pentagrama
+para crear acordes de pentagrama cruzado y así engañar al detector
+de colisiones de plicas de LilyPond.  En el siguiente fragmento de
+código, si se hubieran usado las plicas que provienen del
+pentagrama inferior, habría sido necesario usar explícitamente
+
+@example
+\\override Staff.Beam.collision-voice-only = ##t
+@end example
+
+de forma que LilyPond no mueva las plicas.
+
 "
 
   doctitlees = "Solución de problemas de acordes y barras que cruzan el pentagrama"

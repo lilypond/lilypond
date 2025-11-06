@@ -1,10 +1,11 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: cd3e2b0177d366d0a25b4c7628b26455e52175cd
   texidoces = "
-En las tablaturas, normalmente la primera cuerda se imprime en la
-parte de arrib.  Si queremos que esté en la parte de abajo, hay
-que cambiar la propiedad de contexto @code{stringOneTopmost}.
-Para un ajuste al nivel del contexto, se puede hacer también esta
-asignacion dentro del bloque @code{layout}.
+En las tablaturas, la primera cuerda se imprime normalmente en la
+parte de arriba.  Si queremos que esté en la parte de abajo, hay
+que cambiar la propiedad de contexto @code{stringOneTopmost} al
+valor @code{#f}. Para un ajuste al nivel del contexto, se puede
+hacer también esta asignacion dentro del bloque @code{\\layout}.
+
 "
 
   doctitlees = "Hacer que @code{TabStaff} imprima la cuerda superior en la parte de abajo"

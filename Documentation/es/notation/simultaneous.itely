@@ -136,7 +136,7 @@ Referencia de la notación:
 @ref{Multiple voices}.
 
 Fragmentos de código:
-@rlsr{Simultaneous notes}.
+@rlsrnamed{Simultaneous notes,Notas simultáneas}.
 @endmorerefs
 
 @knownissues
@@ -405,7 +405,7 @@ Glosario musical:
 @rglos{cluster}.
 
 Fragmentos de código:
-@rlsr{Simultaneous notes}.
+@rlsrnamed{Simultaneous notes,Notas simultáneas}.
 
 Referencia de funcionamiento interno:
 @rinternals{ClusterSpanner},
@@ -720,7 +720,7 @@ Referencia de la notación:
 @ref{Stems}.
 
 Fragmentos de código:
-@rlsr{Simultaneous notes}.
+@rlsrnamed{Simultaneous notes,Notas simultáneas}.
 @endmorerefs
 
 
@@ -768,7 +768,7 @@ Manual de aprendizaje:
 @rlearningnamed{Other sources of information, Otras fuentes de información}.
 
 Fragmentos de código:
-@rlsr{Simultaneous notes}.
+@rlsrnamed{Simultaneous notes,Notas simultáneas}.
 @endmorerefs
 
 
@@ -1003,7 +1003,7 @@ Manual de aprendizaje:
 @rlearningnamed{Real music example, Ejemplos reales de música}.
 
 Fragmentos de código:
-@rlsr{Simultaneous notes}.
+@rlsrnamed{Simultaneous notes,Notas simultáneas}.
 
 Referencia de funcionamiento interno:
 @rinternals{NoteColumn},
@@ -1293,7 +1293,7 @@ Referencia de la notación:
 @ref{Writing parts}.
 
 Fragmentos de código:
-@rlsr{Simultaneous notes}.
+@rlsrnamed{Simultaneous notes,Notas simultáneas}.
 
 Referencia de funcionamiento interno:
 @rinternals{PartCombineMusic},
@@ -1485,5 +1485,5 @@ Manual de aprendizaje:
 @rlearningnamed{Organizing pieces with variables, Organizar las piezas mediante variables}
 
 Fragmentos de código:
-@rlsr{Simultaneous notes}.
+@rlsrnamed{Simultaneous notes,Notas simultáneas}.
 @endmorerefs

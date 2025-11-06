@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 6a05e78d735e8f2d7744d85dc01f1d557f750bb9
+%% Translation of GIT committish: 4f16fa98fd258f08e64203c793028ea3e363b1c0
   texidoces = "
 El orden vertical que ocupan las inscripciones gráficas está
 controlado con la propiedad @code{script-priority}. Cuanto más

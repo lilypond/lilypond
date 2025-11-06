@@ -1,4 +1,4 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: cd3e2b0177d366d0a25b4c7628b26455e52175cd
   texidoces = "
 Si LilyPond no cree que haya sitio suficiente para un guión separador
 de sílabas, lo omitirá.  Se puede sobreescribir este comportamiento

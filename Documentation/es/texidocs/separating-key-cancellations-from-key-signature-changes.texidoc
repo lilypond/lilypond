@@ -1,4 +1,4 @@
-%% Translation of GIT committish: dd3effab28ad30698ef1fe8ff57ff79230d2a003
+%% Translation of GIT committish: 298041c62dfc4f5674fc7ee18f45b7dbd2653add
   texidoces = "
 De forma predeterminada, las alteraciones accidentales que se usan
 para las cancelaciones en las armaduras se colocan adyacentes a
@@ -17,7 +17,7 @@ cambiar el comportamiento en el medio de la línea.
 Si busca la definición de @code{break-align-orders} en la
 Referencia de funcionamiento interno de LilyPond (véase el objeto
 gráfico
-@uref{https://lilypond.org/doc/v2.22/Documentation/internals/breakalignment,@code{BreakAlignment}}),
+@uref{https://lilypond.org/doc/v2.24/Documentation/internals/breakalignment,@code{BreakAlignment}}),
 verá el orden siguiente en el segundo elemento:
 
 @verbatim

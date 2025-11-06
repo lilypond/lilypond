@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: e57447fe9c53034c997759bff512fa0130b3a6ee
   texidoces = "
 La función @code{\\partCombine} toma dos expresiones musicales,
 cada una de las cuales contiene una parte o voz, y las distribuye
@@ -9,6 +9,8 @@ combinan en una voz común.  Las voces que devuelve
 presentación de la manera usual.  Aquí definimos extensiones de
 @code{\\partCombine} para facilitar la inclusión de cuatro voces
 dentro del mismo pentagrama.
+
+La versión original se puede escribir de la siguiente forma.
 
 @verbatim
 soprano = { d'4 | cis'  b  e'  d'8 cis' | cis'2 b }
@@ -25,6 +27,8 @@ bass = { fis8 gis | a4 gis g fis | eis fis b,2 }
   \\partCombineDown \\tenor \\bass
 >>
 @end verbatim
+
+Y aquí está el fragmento en su versión extendida.
 "
 
   doctitlees = "Dos pares de @code{\\partCombine} en un solo pentagrama"

@@ -1,16 +1,16 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: 506860610ae036509ff2629736fb24bd92dde75e
   texidoces = "
 Con frecuencia es más fácil gestionar la información de los saltos
 de línea y de página manteniéndola separada de la música, por
 medio de la introducción de una vos adicional que contiene
 solamente silencios de separacion junto a las instrucciones
-@code{\\break}, @code{pageBreak} y otras informaciones de
+@code{\\break}, @code{\\pageBreak} y otras informaciones de
 disposición.
 
 Este patrón se hace especialmente útil cuando se está
 sobreescribiendo la propiedad @code{line-break-system-details} y
-las otras útiles pero largas propiedades de
-@code{NonMusicalPaperColumnGrob}.
+las otras útiles pero largas propiedades del objeto gráfico
+@code{NonMusicalPaperColumn}.
 "
 
   doctitlees = "Uso de una voz adicional para los saltos de línea y de página"

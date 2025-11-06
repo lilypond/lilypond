@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish: 90e34f4b0393dd070482a3072ecd0f44de380180
+    Translation of GIT committish: 9a2f072694412a33f4ae756af409e4c51fed1a03
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -59,8 +59,8 @@ indicaciones de @rcontribnamed{Documentation suggestions,Sugerencias
 para la documentación}.
 
 @item
-El Repositorio de Fragmentos de Código (LSR): elabore y arregle
-fragmentos de código siguiendo las directrices que aparecen en
+El Wiki de LilyPond: elabore y arregle fragmentos de código
+siguiendo las directrices que aparecen en
 @rcontribnamed{Adding and editing snippets,Añadir y editar fragmentos de código}.
 
 @item

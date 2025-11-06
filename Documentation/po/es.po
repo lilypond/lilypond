@@ -2950,7 +2950,7 @@ msgstr "Pentagrama único"
 
 #. @appendixsubsec in Documentation/learning/templates.itely
 msgid "Notes only"
-msgstr "solo notas"
+msgstr "Solo notas"
 
 #. @appendixsubsec in Documentation/learning/templates.itely
 msgid "Notes and lyrics"
@@ -7290,7 +7290,7 @@ msgid "Klavírní předlohy"
 msgstr ""
 
 #. @appendixsubsec in Documentation/cs/learning/templates.itely
-msgid "Klavírní solo"
+msgid "Klavírní sólo"
 msgstr ""
 
 #. @appendixsubsec in Documentation/cs/learning/templates.itely
@@ -7332,7 +7332,7 @@ msgid "SATB s příslušnými prostředími"
 msgstr ""
 
 #. @appendixsubsec in Documentation/cs/learning/templates.itely
-msgid "solový zpěv a dvojhlasný refrén"
+msgid "Sólový zpěv a dvojhlasný refrén"
 msgstr ""
 
 #. @node in Documentation/cs/learning/templates.itely
@@ -8784,7 +8784,7 @@ msgstr "pa"
 
 #. Documentation/snippets/engravers-one-by-one.ly:112 (comment)
 msgid "setup for Request->Element conversion. Guru-only"
-msgstr "solo para gurús: tinglado para la conversión Request->Element"
+msgstr "Solo para gurús: tinglado para la conversión Request->Element"
 
 #. Documentation/snippets/engravers-one-by-one.ly:115 (variable)
 #. Documentation/snippets/engravers-one-by-one.ly:213 (variable)
@@ -9509,7 +9509,7 @@ msgstr "semppG"
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:109 (comment)
 msgid "Solution 6: Dynamic with explicit alignment. This has only effect"
-msgstr "Solución 6: indicación dinámica con alineación explícita. ¡solo tiene efecto "
+msgstr "Solución 6: indicación dinámica con alineación explícita. ¡Solo tiene efecto "
 
 #. Documentation/snippets/horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly:110 (comment)
 msgid "if one sets X-offset!"
@@ -9996,7 +9996,7 @@ msgstr "... para que cubran todos los elementos hasta la nota siguiente"
 
 #. Documentation/snippets/modifying-tuplet-bracket-length.ly:34 (comment)
 msgid "...or to cover just whitespace"
-msgstr "... o para cubrir solo el espacio vacio"
+msgstr "... o para cubrir solo el espacio vacío"
 
 #. Documentation/snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly:27 (variable)
 #. Documentation/snippets/vocal-ensemble-template-with-automatic-piano-reduction.ly:91 (variable)

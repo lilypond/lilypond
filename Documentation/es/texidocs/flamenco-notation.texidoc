@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 3103776eff283e358d36b123823dab8bc2dbeb44
+%% Translation of GIT committish: 506860610ae036509ff2629736fb24bd92dde75e
   texidoces = "
 Para la guitarra flamenca se utilizan ciertos elementos de
 notación especiales:
@@ -28,7 +28,7 @@ digitaciones; con los abanicos y los rasgueados, las notas se
 imprimen con cabeza solo en el primer acorde.
 
 Este fragmento de código contiene código de tipo cabecera que se
-puede copiar como @file{flamenco.ly} e incluirse en los documentos
+puede copiar como @code{flamenco.ly} e incluirse en los documentos
 fuente.
 "
   doctitlees = "Notación del flamenco"

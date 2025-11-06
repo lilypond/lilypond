@@ -1,9 +1,9 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: 1bf2403e1cd7038a1e7ea62da560af601e3694fc
   texidoces = "
 Este ejemplo proporciona una función para tipografiar un regulador
 con texto por debajo, como @qq{molto} o @qq{poco}.  El texto
 añadido cambia la dirección de acuerdo con la del regulador.  El
-objeto Hairpin está alineado con DynamicText.
+objeto Hairpin está alineado con un objeto gráfico DynamicText.
 
 El ejemplo ilustra también cómo modificar la manera en que se
 imprime normalmente un objeto, utilizando código de Scheme.

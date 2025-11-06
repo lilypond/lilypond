@@ -1,8 +1,9 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: 1bf2403e1cd7038a1e7ea62da560af601e3694fc
   texidoces = "
-Cuando se produce un cambio de clave, el símbolo de clave se imprime a
-un tamaño menor que la clave inicial.  Esto se puede ajustar con
-@code{full-size-change}.
+Cuando se produce un cambio de clave, el símbolo de clave se
+imprime a un tamaño menor que la clave inicial.  Esto se puede
+ajustar estableciendo el valor de la propiedad de contexto
+@code{full-size-change} a @code{#t}.
 
 "
   doctitlees = "Mantener el tamaño del símbolo en los cambios de clave"

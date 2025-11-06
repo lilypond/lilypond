@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: cd3e2b0177d366d0a25b4c7628b26455e52175cd
   texidoces = "
 Cuando se usan ligados ascendentes o de entrada (@emph{hammer-on}
 en inglés) o tirones de salida (@emph{pull-off} en inglés) con
@@ -7,4 +7,4 @@ notas en acorde, se dibuja un solo arco.  Sin embargo son posibles
 a @code{#t}.
 "
 
-  doctitlees = "Indicaciones de ligado ascendente y descendente (@emph{hammer on} y @emph{pull off}) usando acordes"
+  doctitlees = "Indicaciones de ligado ascendente y descendente (@emph{hammer-on} y @emph{pull-off}) usando acordes"

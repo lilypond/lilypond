@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: ea8a5e51e348a0d0a260e73c799872a9cfdc8d5a
+    Translation of GIT committish: 9a2f072694412a33f4ae756af409e4c51fed1a03
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -136,7 +136,7 @@ referencia sobre el trucaje.
 Versiones estables anteriores y versión actual como un archivo comprimido.
 
 @item
-@uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository (el almacén de fragmentos de código de LilyPond)}:
+@uref{https://wiki.lilypond.community, el Wiki de LilyPond}:
 ejemplos, consejos y trucos creados por los usuarios.
 
 @item
@@ -331,20 +331,23 @@ su lectura antes de afrontar proyectos grandes.
 @divClass{column-left-top}
 @subheading Fragmentos
 
-Este manual presenta un conjunto seleccionado de fragmentos de código
-de LilyPond extraídos del
-@uref{https://lsr@/.di@/.unimi@/.it,Repositorio de fragmentos de
-código de LilyPond} (LSR).  Todos los fragmentos se encuentran en el
-dominio público.
+Este manual presenta un conjunto seleccionado de fragmentos de
+código de LilyPond extraídos del
+@uref{https://wiki.lilypond.community, Wiki de LilyPond}, sucesor
+del Repositorio de fragmentos de código de LilyPond} (LSR).  Todos
+los fragmentos se encuentran en el dominio público.
 
-Observe que este documento no es un subconjunto estricto del LSR.  El
-LSR ejecuta una versión estable de LilyPond por lo que cualquier
-fragmento de código que muestre funcionalidades nuevas de una versión
-de desarrollo se debe añadir por separado.  Están almacenados dentro
-de @file{input/new/} en el árbol de código fuente de LilyPond.
+Observe que este documento no es un subconjunto estricto del Wiki,
+que contiene (principalmente) fragmentos de código válidos para la
+versión estable actual de LilyPond.  Cualquier fragmento de código
+que muestre funcionalidades nuevas de una versión de desarrollo se
+debe añadir por separado; Estos se almacenan dentro del directorio
+@file{Documentation/@/snippets/@/new/} en el árbol de código
+fuente de LilyPond.
 
-La lista de fragmentos de código para cada subsección del manual de
-Referencia de la Notación están enlazados también a partir de la sección @strong{Véase también}.
+La lista de fragmentos de código para cada subsección del manual
+de Referencia de la Notación están enlazados también a partir de
+la sección @strong{Véase también}.
 @divEnd
 
 @divClass{column-right-bottom}

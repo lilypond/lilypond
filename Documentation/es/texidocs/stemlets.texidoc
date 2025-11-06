@@ -1,18 +1,18 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: 61b32ff2340073b2d9600a20fdedf65d58be720b
   texidoces = "
 En ciertas convenciones notacionales se permite que las barras se
 extiendan por encima de los silencios.  Dependiendo de nuestras
-preferencias, estas barras pueden presentar pequeñas plicas para
-que el ojo aprecie más fácilmente el ritmo, y en algunos casos de
-música moderna el propio silencio se omite y permanecen solamente
-las pequeñas plicas sin cabeza.
+preferencias, estas barras pueden presentar pequeñas plicas o
+@q{stemlets} para que el ojo aprecie más fácilmente el ritmo, y en
+algunos casos de música moderna el propio silencio se omite y
+permanecen solamente las pequeñas plicas sin cabeza.
 
 Este fragmento de código muestra una progresión a partir de la
 notación tradicional, pasando por barras sobre silencios y plicas
 sobre los silencios, hasta las plicas solamente.  Las pequeñas
 plicas o Stemlets se generan sobreescribiendo la propiedad
-@code{'stemlet-length} del objeto @code{Stem}, mientras que los
-silencios quedan ocultos estableciendo @code{'transparent = ##t}.
+@code{stemlet-length} del objeto @code{Stem}, y los silencios se
+ocultan usando @code{\\hide}.
 
 Algunos elementos de @code{\\markup} se incluyen en la fuente para
 imprimir títulos sobre cada estilo de notación.

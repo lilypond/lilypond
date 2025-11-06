@@ -369,7 +369,7 @@ Archivos instalados:
 @file{scm/script.scm}.
 
 Fragmentos de código:
-@rlsr{Expressive marks}.
+@rlsrnamed{Expressive marks,Marcas de expresión}.
 
 Referencia de funcionamiento interno:
 @rinternals{CaesuraScript},
@@ -789,7 +789,7 @@ Referencia de la notación:
 @ref{Controlling MIDI dynamics}.
 
 Fragmentos de código:
-@rlsr{Expressive marks}.
+@rlsrnamed{Expressive marks,Marcas de expresión}.
 
 Referencia de funcionamiento interno:
 @rinternals{DynamicText},
@@ -925,7 +925,7 @@ Extender LilyPond:
 @rextendnamed{Markup construction in Scheme, Construcción de elementos de marcado en Scheme}.
 
 Fragmentos de código:
-@rlsr{Expressive marks}.
+@rlsrnamed{Expressive marks,Marcas de expresión}.
 @endmorerefs
 
 
@@ -1114,7 +1114,7 @@ Referencia de la notación:
 @ref{Phrasing slurs}.
 
 Fragmentos de código:
-@rlsr{Expressive marks}.
+@rlsrnamed{Expressive marks,Marcas de expresión}.
 
 Referencia de funcionamiento interno:
 @rinternals{Slur}.
@@ -1259,7 +1259,7 @@ Referencia de la notación:
 @ref{Slurs}.
 
 Fragmentos de código:
-@rlsr{Expressive marks}.
+@rlsrnamed{Expressive marks,Marcas de expresión}.
 
 Referencia de funcionamiento interno:
 @rinternals{PhrasingSlur}.
@@ -1328,7 +1328,7 @@ Referencia de la notación:
 @ref{Divisiones}.
 
 Fragmentos de código:
-@rlsr{Expressive marks}.
+@rlsrnamed{Expressive marks,Marcas de expresión}.
 
 Referencia de funcionamiento interno:
 @rinternals{BreathingEvent},
@@ -1375,7 +1375,7 @@ Glosario musical:
 @rglos{doit}.
 
 Fragmentos de código:
-@rlsr{Expressive marks}.
+@rlsrnamed{Expressive marks,Marcas de expresión}.
 @endmorerefs
 
 
@@ -1483,7 +1483,7 @@ Referencia de la notación:
 @ref{Line styles}.
 
 Fragmentos de código:
-@rlsr{Expressive marks}.
+@rlsrnamed{Expressive marks,Marcas de expresión}.
 
 Referencia de funcionamiento interno:
 @rinternals{Glissando}.
@@ -1611,7 +1611,7 @@ Archivos instalados:
 @file{ly/property-init.ly}.
 
 Fragmentos de código:
-@rlsr{Expressive marks}.
+@rlsrnamed{Expressive marks,Marcas de expresión}.
 
 Referencia de funcionamiento interno:
 @rinternals{Arpeggio},
@@ -1798,7 +1798,7 @@ Referencia de la notación:
 @ref{Grace notes}.
 
 Fragmentos de código:
-@rlsr{Expressive marks}.
+@rlsrnamed{Expressive marks,Marcas de expresión}.
 
 Referencia de funcionamiento interno:
 @rinternals{TrillSpanner},

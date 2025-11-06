@@ -1,4 +1,4 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: 29da2ba3dc40958f48fd41eb2b183feacc2ea58a
   doctitlees = "Armaduras de tonalidad no tradicionales"
   texidoces = "
 La muy utilizada instrucción @code{\\key} establece la propiedad
@@ -8,23 +8,23 @@ Para crear armaduras de tonalidad no estándar, ajuste esta
 propiedad directamente. El formato de esta instrucción es una
 lista:
 
-@verbatim
+@example
 \\set Staff.keyAlterations =
-  #`(((octava . paso) . alteración) ((octava . paso) . alteración) ...)
-@end verbatim
+  #`(((@var{octava} . @var{paso}) . @var{alteración}) ((@var{octava} . @var{paso}) . @var{alteración}) ...)
+@end example
 
-donde, para cada elemento dentro de la lista, @code{octava}
+donde, para cada elemento dentro de la lista, @var{octava}
 especifica la octava (siendo@tie{}cero la octava desde el
-Do@tie{}central hasta el Si por encima), @code{paso} especifica la
+Do@tie{}central hasta el Si por encima), @var{paso} especifica la
 nota dentro de la octava (cero@tie{}significa@tie{}Do y
-6@tie{}significa@tie{}Si), y @code{alteración} es @code{,SHARP
-,FLAT ,DOUBLE-SHARP} etc.
+6@tie{}significa@tie{}Si), y @var{alteración} es @code{SHARP},
+@code{FLAT} o @code{DOUBLE-SHARP}, etc., precedido de una coma.
 
-De forma alternativa, el uso del formato más conciso @code{(paso
-. alteración)} para cada elemento de la lista especifica que la
-misma alteración debe estar en todas las octavas.
+De forma alternativa, podemos usar el formato más conciso
+@code{(@var{paso} . @var{alteración})} para cada elemento de la
+lista si se usa la misma alteración en todas las octavas.
 
 Para escalas microtonales en las que un @qq{sostenido} no son 100
-cents, @code{alteración} se refiere a la proporción de un tono
+cents, @var{alteración} se refiere a la proporción de un tono
 entero de 200 cents.
 "

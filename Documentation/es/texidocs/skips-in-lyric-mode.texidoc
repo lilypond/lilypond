@@ -1,6 +1,6 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: cd3e2b0177d366d0a25b4c7628b26455e52175cd
   texidoces = "
-La sintaxis @code{s} para los silencios de desplazamiento solamente
+La sintaxis @samp{s} para los silencios de desplazamiento solamente
 está disponible en los modos de nota y de acorde.  En otras
 situaciones, por ejemplo al escribir la letra de las canciones, se
 recomienda usar la instrucción @code{\\skip}.

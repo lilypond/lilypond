@@ -1,16 +1,16 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: cd3e2b0177d366d0a25b4c7628b26455e52175cd
   texidoces = "
-Si se colocan sobre la misma posición notas de dos voces distintas con
-las plicas en la misma dirección, y ninguna de las voces tiene un
-desplazamiento o ambas tienen el mismo desplazamiento, aparece el
-mensaje de error @samp{advertencia: demasiadas columnas de notas en
-colisión; se ignora} aparece al compilar el archivo de LilyPond.  Este
-mensaje se puede evitar fijando la propiedad @code{'ignore-collision}
-del objero @code{NoteColumn} al valor @code{#t}.  Observe que esto no
-elimina solamente las advertencias, sino que hace que LilyPond deje de
-intentar resolver las colisiones en absoluto, por lo que pueden
-obtenerse resultados distintos de los esperados si no se usa con
-prudencia.
+Si se colocan sobre la misma posición notas de dos voces distintas
+con las plicas en la misma dirección, y ninguna de las voces tiene
+un desplazamiento o ambas tienen el mismo desplazamiento, aparece
+el mensaje de error @qq{advertencia: demasiadas columnas de notas
+en colisión; se ignora} aparece al compilar el archivo de
+LilyPond.  Este mensaje se puede evitar fijando la propiedad
+@code{ignore-collision} del objeto @code{NoteColumn} al valor
+@code{#t}.  Observe que esto no elimina solamente las
+advertencias, sino que hace que LilyPond deje de intentar resolver
+las colisiones en absoluto, por lo que pueden obtenerse resultados
+distintos de los esperados si no se usa con prudencia.
 
 "
   doctitlees = "Evitar las advertencias sobre columnas de notas que chocan"

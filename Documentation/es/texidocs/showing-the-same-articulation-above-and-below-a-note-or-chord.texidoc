@@ -1,8 +1,8 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: 1bf2403e1cd7038a1e7ea62da560af601e3694fc
   texidoces = "
 De forma predeterminada, LilyPond no permite poner la misma
-articulación (p.ej., un acento, un calderón, un círculo de
-armónico, etc.) encima y debajo de la nota.  Por ejemplo,
+articulación (un acento, un calderón, un círculo de armónico,
+etc.) encima y debajo de la nota.  Por ejemplo,
 @code{c4_\\fermata^\\fermata} imprime solamente el calderón
 inferior.  El calderón superior sencillamente se ignora.
 
@@ -14,7 +14,7 @@ articulación de forma relativa a la cabeza de la nota.  Puede
 verse esto en el caso de los flageolets (indicaciones de armónico)
 que aparecen en el fragmento de código.  Para recrear el
 comportamiento de las inscripciones fuera del acorde, se requiere
-@code{'add-stem-support}.
+@code{add-stem-support}.
 
 La solución consiste en escribir la nota como un acorde y añadir
 las articulaciones dentro de los paréntesis en ángulo

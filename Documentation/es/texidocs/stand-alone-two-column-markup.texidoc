@@ -1,7 +1,7 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: cd3e2b0177d366d0a25b4c7628b26455e52175cd
   texidoces = "
 Los textos independientes se pueden disponer en varias columnas
-utilizando instrucciones @code{\\markup}:
+utilizando instrucciones @code{\\markup}
 
 "
   doctitlees = "Elemento de marcado de texto independiente en dos columnas"

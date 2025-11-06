@@ -1,9 +1,0 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
-  texidoces = "
-Funciones postfijas para la creación de objetos de extensión de
-texto personalizados.  Los objetos de extensión deben comenzar en
-la primera nota del compás.  Hay que utilizar @code{-\\mycresc},
-en caso contrario el comienzo del eobjeto de extensión se asignará
-a la nota siguiente.
-"
-  doctitlees = "Objeto personalizado de extensión de texto de matices dinámicos, postfijo"

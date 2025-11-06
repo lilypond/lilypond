@@ -6,7 +6,7 @@
 @afourpaper
 
 @ignore
-    Translation of GIT committish: 7ed05e90ee2da3f08ed6ea5f1cc7c4e96601760b
+    Translation of GIT committish: ec28972fec8663e3f3fa35280cf0ef1f1970df5d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -17,25 +17,8 @@
 
 @macro manualIntro
 This document shows a selected set of LilyPond snippets from the
-@uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}
-(LSR).  It is in the public domain.
-
-We would like to address many thanks to Sebastiano Vigna for maintaining
-LSR web site and database, and the University of Milano for hosting LSR.
-
-Please note that this document is not an exact subset of LSR: some
-snippets come from @file{input/new} LilyPond sources directory, and
-snippets from LSR are converted through @command{convert-ly}, as LSR is
-based on a stable LilyPond version, and this document is for
-version @version{}.
-
-Snippets are grouped by tags; tags listed in the table of contents match
-a section of LilyPond notation manual.  Snippets may have several tags,
-and not all LSR tags may appear in this document.
-
-In the HTML version of this document, you can click on the file name
-or figure for each example to see the corresponding input file.
-
+@uref{https://wiki.lilypond.community, LilyPond Wiki}.  It is in
+the public domain.
 @end macro
 
 @macro copyrightDeclare
@@ -70,7 +53,10 @@ Copyright @copyright{} 1999--2023 by the authors.
 @c maybe generate/update @menu and @includes automatically? --jm
 @ifnottex
 @menu
+* Preface::
+
 Musical notation
+
 * Pitches::
 * Rhythms::
 * Expressive marks::
@@ -81,33 +67,84 @@ Musical notation
 * Text::
 
 Specialist notation
+
 * Vocal music::
-* Chord notation::
 * Keyboard and other multi-staff instruments::
-* Percussion::
-* Fretted string instruments::
 * Unfretted string instruments::
+* Fretted string instruments::
+* Percussion::
 * Wind instruments::
+* Chord notation::
+* Contemporary music::
 * Ancient notation::
 * World music::
 
 Other collections
+
+* Automatic notation::
+* Breaks::
+* Connecting notes::
 * Contexts and engravers::
-* Tweaks and overrides::
-* Paper and layout::
-* Titles::
-* Spacing::
+* Education::
+* Headword::
 * MIDI::
+* Non-music::
+* Paper and layout::
+* Preparing parts::
+* Real music::
+* Really cool::
+* Really simple::
+* Scheme::
+* Spacing::
+* Specific notation::
+* Symbols and glyphs::
 * Templates::
+* Titles::
+* Tweaks and overrides::
+* Workaround::
 @end menu
 
 @docMain
 @end ifnottex
 
+
 @contents
 
-@c Please take care of naming every .itely
-@c with an existing tag name.
+
+@node Preface
+@unnumbered Preface
+
+This document shows a selected set of LilyPond snippets from the
+@uref{https://wiki.lilypond.community, LilyPond Wiki}, the
+successor of the LilyPond Snippet Repository (LSR).
+
+We would like to address many thanks to Sebastiano Vigna for
+maintaining the LSR and Jean Abou Samra for maintaining the
+LilyPond Wiki!
+
+Please note that this document is not an exact subset of the
+LilyPond Wiki: some snippets come from the
+@file{Documentation/@/snippets/@/new/} LilyPond sources directory,
+and snippets from the Wiki are converted by @command{convert-ly},
+as the LilyPond Wiki is (mainly) based on a stable LilyPond
+version, and this document is for version @version{}.
+
+Snippets are grouped by
+@uref{https://wiki.lilypond.community/wiki/Special@/:Categories,
+LilyPond Wiki categories}, using the same chapter order as the
+Notation Reference (if possible).  Snippets may be tagged with
+several categories, which means that they may appear multiple
+times in this document.  Not all Wiki categories may be present
+here, though.
+
+For all snippets, the indentation of staves is set to zero.
+
+In the HTML version of this document, you can click on the file
+name or figure for each example to see the corresponding input
+file.
+
+
+@part Musical notation
 
 @include snippets/pitches.itely
 @include snippets/rhythms.itely
@@ -118,22 +155,43 @@ Other collections
 @include snippets/editorial-annotations.itely
 @include snippets/text.itely
 
+
+@part Specialist notation
+
 @include snippets/vocal-music.itely
-@include snippets/chords.itely
 @include snippets/keyboards.itely
-@include snippets/percussion.itely
-@include snippets/fretted-strings.itely
 @include snippets/unfretted-strings.itely
+@include snippets/fretted-strings.itely
+@include snippets/percussion.itely
 @include snippets/winds.itely
+@include snippets/chords.itely
+@include snippets/contemporary-notation.itely
 @include snippets/ancient-notation.itely
 @include snippets/world-music.itely
 
+
+@part Other collections
+
+@include snippets/automatic-notation.itely
+@include snippets/breaks.itely
+@include snippets/connecting-notes.itely
 @include snippets/contexts-and-engravers.itely
-@include snippets/tweaks-and-overrides.itely
-@include snippets/paper-and-layout.itely
-@include snippets/titles.itely
-@include snippets/spacing.itely
+@include snippets/education.itely
+@include snippets/headword.itely
 @include snippets/midi.itely
+@include snippets/non-music.itely
+@include snippets/paper-and-layout.itely
+@include snippets/preparing-parts.itely
+@include snippets/real-music.itely
+@include snippets/really-cool.itely
+@include snippets/really-simple.itely
+@include snippets/scheme.itely
+@include snippets/spacing.itely
+@include snippets/specific-notation.itely
+@include snippets/symbols-and-glyphs.itely
 @include snippets/template.itely
+@include snippets/titles.itely
+@include snippets/tweaks-and-overrides.itely
+@include snippets/workaround.itely
 
 @bye

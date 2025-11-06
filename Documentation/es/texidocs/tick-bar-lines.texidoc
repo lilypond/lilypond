@@ -1,8 +1,9 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: cd3e2b0177d366d0a25b4c7628b26455e52175cd
   texidoces = "
-Con frecuencia se usan barras de compás en forma de 'tick' o raya
-corta donde la línea divisoria se emplea solamente a efectos de
-coordinación y no se quiere implicar con ella ningún énfasis rítmico.
+Con frecuencia se usan barras de compás en forma de @q{Tick} o
+raya corta donde la línea divisoria se emplea solamente a efectos
+de coordinación y no se quiere implicar con ella ningún énfasis
+rítmico.
 
 "
   doctitlees = "Barras de compás en forma de raya corta"

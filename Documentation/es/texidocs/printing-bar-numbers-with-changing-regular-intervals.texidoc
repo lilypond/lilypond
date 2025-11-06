@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: 6f7a4f8fe0e6b95080adc1f386faddca3933d988
   texidoces = "
 Usando la función de contexto @code{set-bar-number-visibility}, se
 pueden cambiar los intervalos de numeración de los compases.

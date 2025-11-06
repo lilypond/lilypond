@@ -1,4 +1,4 @@
-%% Translation of GIT committish: c972d00ecf20f49fc330d883b87bea651876404c
+%% Translation of GIT committish: 2fe1293f4d3714be16bdee4399d0bc93b90fdb9f
   texidoces = "
 Normalmente LilyPond rehúsa insertar un salto de línea automático
 si las barra atraviesa la línea divisoria.  Se puede cambiar este

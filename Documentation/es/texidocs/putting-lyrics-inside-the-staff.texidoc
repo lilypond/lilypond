@@ -1,10 +1,11 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: cd3e2b0177d366d0a25b4c7628b26455e52175cd
   texidoces = "
 Se pueden mover las líneas de letra verticalmente para imprimirlas
 dentro del pentagrama.  Las letras se mueven con @code{\\override
-LyricText.extra-offset = #'(0 . @var{dy})} y hay instrucciones
+LyricText.extra-offset = #'(0 . @var{dy})}, y hay instrucciones
 similares para mover las líneas extensoras y los guiones.  El
-desplazamiento necesario se establece mediante un proceso de
-ensayo y error.
+mejor valor para el desplazamiento @var{dy} se debe buscar
+mediante un proceso de ensayo y error.
+
 "
   doctitlees = "Putting lyrics inside the staff"

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: b22569ea33c9c9a6a26e17624d79449bffa81b22
+    Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -74,7 +74,7 @@ Referencia de la notación:
 @ref{Score layouts for choral}.
 
 Fragmentos de código:
-@rlsr{Vocal music}.
+@rlsrnamed{Vocal music,Música vocal}.
 @endmorerefs
 
 
@@ -207,7 +207,7 @@ Referencia de funcionamiento interno:
 @rinternals{LyricText}.
 
 Fragmentos de código:
-@rlsr{Text}.
+@rlsrnamed{Text,Texto}.
 @endmorerefs
 
 
@@ -1169,6 +1169,7 @@ plantillas del Manual de Aprendizaje, véase
 @cindex letra, separada, en una línea única
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/arranging-separate-lyrics-on-a-single-line.ly}
+
 
 @morerefs
 Manual de aprendizaje:
@@ -2365,7 +2366,7 @@ Referencia de la notación:
 @ref{Stanzas}.
 
 Fragmentos de código:
-@rlsr{Vocal music}.
+@rlsrnamed{Vocal music,Música vocal}.
 @endmorerefs
 
 
@@ -2479,7 +2480,7 @@ Referencia de la notación:
 @ref{Single-staff polyphony}.
 
 Fragmentos de código:
-@rlsr{Vocal music}.
+@rlsrnamed{Vocal music,Música vocal}.
 
 Referencia de funcionamiento interno:
 @rinternals{ChoirStaff},
@@ -2725,7 +2726,7 @@ Referencia de la notación:
 @ref{Writing text}.
 
 Snippets:
-@rlsr{Vocal music}.
+@rlsrnamed{Vocal music,Música vocal}.
 @endmorerefs
 
 
@@ -2945,7 +2946,7 @@ Referencia de la notación:
 @ref{Using music functions}.
 
 Fragmentos de código:
-@rlsr{Vocal music}.
+@rlsrnamed{Vocal music,Música vocal}.
 
 Referencia de funcionamiento interno:
 @rinternals{CueVoice}.
@@ -3089,7 +3090,7 @@ Referencia de la notación:
 @ref{Ancient notation}.
 
 Snippets:
-@rlsr{Vocal music}.
+@rlsrnamed{Vocal music,Música vocal}.
 @endmorerefs
 
 

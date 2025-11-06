@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 3103776eff283e358d36b123823dab8bc2dbeb44
+%% Translation of GIT committish: fbf390d05408c5b842a22c122da734c54f92ca12
   texidoces = "
 Internamente, una partitura de LilyPond no es más que una
 expresión de Scheme, generada por el analizador sintáctico de
@@ -37,5 +37,10 @@ nivel superior jerárquico y se modifica el toplevel-book-handler
 (que es una función de Scheme que se llama para procesar un libro
 una vez que se ha cerrado el bloque @code{\\book@{..@}}) para
 insertar todas las partituras así coleccionadas al libro.
+
+Nota: por razones técnicas, solo se muestra el primer
+@code{\\book}, debido a que las otras instrucciones @code{\\book}
+crean archivos de salida adicionales.
+
 "
   doctitlees = "Generación de partituras completas y partes de libro en Scheme sin usar el analizador sintáctico"

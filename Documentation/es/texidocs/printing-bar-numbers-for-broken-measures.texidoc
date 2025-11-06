@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: 61b32ff2340073b2d9600a20fdedf65d58be720b
   texidoces = "
-Por omisión, el número de compás (@code{BarNumber}) de un compás
-dividido no se repite al comienzo de la línea siguiente.  Use
+Por omisión, el número de un compás que está dividido no se repite
+al comienzo de la línea siguiente.  Use
 @code{first-bar-number-invisible-save-broken-bars} para
 @code{barNumberVisibility} para tener un @code{BarNumber}
 encerrado entre paréntesis en ese caso.

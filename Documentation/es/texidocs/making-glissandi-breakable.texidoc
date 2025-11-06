@@ -1,4 +1,4 @@
-%% Translation of GIT committish: c972d00ecf20f49fc330d883b87bea651876404c
+%% Translation of GIT committish: cd3e2b0177d366d0a25b4c7628b26455e52175cd
   texidoces = "
 Normalmente, LilyPond rehúsa insertar un salto de línea automático
 en el punto en que un glissando cruza la barra de compás.  Este

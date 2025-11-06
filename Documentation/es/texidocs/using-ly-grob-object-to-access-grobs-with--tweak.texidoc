@@ -1,27 +1,30 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: 506860610ae036509ff2629736fb24bd92dde75e
   texidoces = "
-Se puede acceder \"lateralmente\" a algunos grobs desde dentro de
+Se puede acceder @qq{lateralmente} a algunos grobs desde dentro de
 la función de callback de otro grob.  Éstos se encuentran
-relacionados normalmente como \"layout objects\" (objetos de
-presentación) en la sección \"Internal properties\" (propiedades
+relacionados normalmente como @qq{layout objects} (objetos de
+presentación) en la sección @qq{Internal properties} (propiedades
 internas) de un interface de grob.  Se usa la función
-ly:grob-object para acceder a estos grobs.
+@code{ly:grob-object} para acceder a estos grobs.
 
 Se presentan más abajo como ejemplo algunas formas de addecer a
-grobs desde dentro de una función de callback de NoteHead, pero la
-técnica no se limita a las cabezas de nota.  Sin embargo, la
-función de callback de NoteHead es especialmente importante,
-porque es la función de callback implícita que utiliza la
-instrucción @code{\\tweak}.
+grobs desde dentro de una función de callback de @code{NoteHead},
+pero la técnica no se limita a las cabezas de nota.  Sin embargo,
+la función de callback de @code{NoteHead} es especialmente
+importante, porque es la función de callback implícita que utiliza
+la instrucción @code{\\tweak}.
 
-La función de ejemplo que se define abajo (\"display-grobs\") no
-es probablemente tan útil, pero muestra que se está accediendo
-efectivamente a los grobs.
+La salida de consola de la función de ejemplo que se muestra abajo
+(@code{display-grobs}) es como sigue.
 
-Salida de ejemplo de la consola:
+@verbatim
+--------------------
+#<Grob Accidental >
+()
+#<Grob Stem >
+@end verbatim
 
-@code{#<Grob Accidental >}@*
-@code{()}@*
-@code{#<Grob Stem >}
+Probablemente no es tan útil, pero muestra que efectivamente se
+puede acceder a los objetos gráficos.
 "
   doctitlees = "Utilizar ly:grob-object para acceder a los grobs con \\tweak"

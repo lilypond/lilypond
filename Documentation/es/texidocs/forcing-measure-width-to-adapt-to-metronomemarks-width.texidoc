@@ -1,9 +1,0 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
-  texidoces = "
-De forma predeterminada, las indicaciones metronómicas no influyen
-el espaciado horizontal.
-
-Esto se puede resolver por medio de una sencilla sobreescritura,
-como puede verse en la segunda mitad del ejemplo.
-"
-  doctitlees = "Forzar la anchura de los compases para que se adapten a la anchura de las indicaciones metronómicas"

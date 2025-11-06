@@ -1,9 +1,10 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: aa4f229bc77265d2deaa36055c5845cd682823fe
   doctitlees = "Evitar que se impriman becuadros cuando cambia la armadura"
   texidoces = "
 Cuando cambia la armadura de la tonalidad, se imprimen becuadros
 automáticamente para cancelar las alteraciones de las armaduras
-anteriores.  Esto se puede evitar estableciendo al valor @qq{falso} la
-propiedad @code{printKeyCancellation} del contexto @code{Staff}.
+anteriores.  Esto se puede evitar estableciendo la propiedad
+@code{printKeyCancellation} al valor @qq{#f} dentro del contexto
+@code{Staff}.
 
 "

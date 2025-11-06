@@ -1,4 +1,4 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: fbf390d05408c5b842a22c122da734c54f92ca12
   texidoces = "
 Se puede ajustar la posición vertical de una ligadura de
 expresión utilizando la propiedad @code{positions} del objeto
@@ -11,6 +11,8 @@ los valores de los parámetros.  Los valores positivos desplazan la
 ligadura hacia arriba, y son adecuados a notas que tienen las plicas
 hacia abajo.  Los valores negativos desplazan las ligaduras bajas aún
 más hacia abajo.
+
+Véase también @qq{Ajustar las posiciones de las ligaduras verticalmente}.
 
 "
   doctitlees = "Desplazar ligaduras de expresión verticalmente"

@@ -1,7 +1,11 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: cd3e2b0177d366d0a25b4c7628b26455e52175cd
   texidoces = "
-Las ligaduras @qq{laissez vibrer} (dejar vibrar) tienen un tamaño fijo.
-Se puede ajustar su formato usando @code{'tie-configuration}.
+Las ligaduras @qq{laissez vibrer} (dejar vibrar) tienen un tamaño
+fijo.  Se puede ajustar su posición usando la propiedad
+@code{tie-configuration}.
+
+Véase también el fragmento de código @qq{Ligaduras laissez vibrer
+largas}.
 
 "
   doctitlees = "Ligaduras @emph{laissez vibrer}"

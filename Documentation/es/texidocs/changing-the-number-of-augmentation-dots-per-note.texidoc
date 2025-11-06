@@ -1,7 +1,8 @@
-%% Translation of GIT committish: 40a6ee3c77d89a24d34b13790442cdcc95f59d7a
+%% Translation of GIT committish: fbf390d05408c5b842a22c122da734c54f92ca12
   texidoces = "
-La cantidad de puntillos de una nota se puede modificar
-independientemente de los puntillos que se escriben después de la nota.
+La cantidad de puntillos de una nota se puede sobreescribir
+mediante el establecimiento de la propiedad @code{dot-count} del
+objeto gráfico @code{Dots}.
 
 "
   doctitlees = "Modificar el número de puntillos de una nota"

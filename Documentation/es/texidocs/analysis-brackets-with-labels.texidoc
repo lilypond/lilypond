@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: cd3e2b0177d366d0a25b4c7628b26455e52175cd
   texidoces = "
 Se pueden añadir indicaciones de marcado de texto a los corchetes
 de análisis por medio de la propiedad @code{text} del objeto

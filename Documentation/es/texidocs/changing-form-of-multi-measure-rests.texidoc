@@ -1,10 +1,11 @@
-%% Translation of GIT committish: 40a6ee3c77d89a24d34b13790442cdcc95f59d7a
+%% Translation of GIT committish: 1bf2403e1cd7038a1e7ea62da560af601e3694fc
   doctitlees = "Cambiar la forma de los silencios multicompás"
   texidoces = "
-Si hay diez compases de silencio o menos, se imprime en el pentagrama
-una serie de silencios de breve y longa (conocidos en alemán como
-@qq{Kirchenpausen}, «silencios eclesiásticos»); en caso contrario se
-muestra una barra normal.  Este número predeterminado de diez se
-puede cambiar sobreescribiendo la propiedad @code{expand-limit}:
+Si hay diez compases de silencio o menos, se imprime en el
+pentagrama una serie de silencios de breve y longa (conocidos en
+alemán como @qq{Kirchenpausen}, «silencios eclesiásticos»); en
+caso contrario se muestra una barra gruesa y larga.  Este valor
+predeterminado de diez se puede cambiar sobreescribiendo la
+propiedad @code{expand-limit}:
 
 "

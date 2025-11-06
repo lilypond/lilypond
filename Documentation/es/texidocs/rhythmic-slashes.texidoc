@@ -1,11 +1,11 @@
-%% Translation of GIT committish: c4a70f7fa0f887cb6950a7d3bceb1fda6281b65a
+%% Translation of GIT committish: aa4f229bc77265d2deaa36055c5845cd682823fe
   texidoces = "
-En las hojas guía de acordes o lead-sheets @qq{sencillas}, a veces
-no se imprime realmente ninguna nota, y en su lugar se hace una
-notación que tiene solamente @qq{patrones rítmicos} y acordes
-encima de los compases, dando la estructura de la canción
-song. Tal funcionalidad es útil, por ejemplo, al crear o
-transcribir la estructura de una canción y también si se quieren
-compartir las hojas guía con guitarristas o músicos de jazz.
+En las hojas guía de acordes o @emph{lead-sheets} @qq{sencillas},
+a veces no se imprime realmente ninguna nota.  En su lugar se hace
+una notación que tiene solamente @qq{patrones rítmicos} y acordes
+encima de los compases para representar la estructura de la
+canción. Tal funcionalidad puede ser útil al crear o transcribir
+la estructura de una canción, o si se quieren compartir las hojas
+guía con guitarristas o músicos de jazz.
 "
   doctitlees = "Barras rítmicas"

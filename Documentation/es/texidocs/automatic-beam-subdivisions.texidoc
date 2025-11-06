@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 97dbf8674a9a73caf98695f648f9d39172537375
+%% Translation of GIT committish: 61b32ff2340073b2d9600a20fdedf65d58be720b
   texidoces = "
 Se pueden subdividir las barras automáticamente.  Estableciendo la
 propiedad @code{subdivideBeams}, las barras se subdividen en
 siempre que sea posible.  Se pueden limitar los intervalos y la
 profundidad de la subdivisión con las propiedades
-@code{beamMinimumSubdivision} y @code{beamMaximumSubdivision}
+@code{beamMinimumSubdivision} y @code{beamMaximumSubdivision},
 respectivamente.
 
 "

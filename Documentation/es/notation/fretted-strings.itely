@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: b22569ea33c9c9a6a26e17624d79449bffa81b22
+    Translation of GIT committish: 89716651b57c6b1a7eb763c9c88119f49419a9c3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -149,7 +149,7 @@ Referencia de la notación:
 @ref{Fingering instructions}.
 
 Fragmentos de código:
-@rlsr{Fretted string instruments}.
+@rlsrnamed{Fretted string instruments,Instrumentos de cuerda con trastes}.
 
 Referencia de funcionamiento interno:
 @rinternals{StringNumber},
@@ -722,7 +722,7 @@ Referencia de la notación:
 @ref{Glissando}.
 
 Fragmentos de código:
-@rlsr{Fretted string instruments}.
+@rlsrnamed{Fretted string instruments,Instrumentos de cuerda con trastes}.
 
 Referencia de funcionamiento interno:
 @rinternals{TabNoteHead},
@@ -983,7 +983,7 @@ Archivos instalados:
 @file{scm/tablature.scm}.
 
 Fragmentos de código:
-@rlsr{Fretted string instruments}.
+@rlsrnamed{Fretted string instruments,Instrumentos de cuerda con trastes}.
 
 Referencia de funcionamiento interno:
 @rinternals{Tab_note_heads_engraver},
@@ -1457,7 +1457,7 @@ Referencia de la notación:
 @ref{Instrument-specific markup}.
 
 Fragmentos de código:
-@rlsr{Fretted string instruments}.
+@rlsrnamed{Fretted string instruments,Instrumentos de cuerda con trastes}.
 
 Referencia de funcionamiento interno:
 @rinternals{fret-diagram-interface}.
@@ -1794,7 +1794,7 @@ Archivos de inicio:
 @file{ly/predefined-mandolin-fretboards.ly}.
 
 Fragmentos de código:
-@rlsr{Fretted string instruments}.
+@rlsrnamed{Fretted string instruments,Instrumentos de cuerda con trastes}.
 
 Referencia de funcionamiento interno:
 @rinternals {fret-diagram-interface}.
@@ -1955,7 +1955,7 @@ Referencia de la notación:
 @ref{Custom tablatures}.
 
 Fragmentos de código:
-@rlsr{Fretted string instruments}.
+@rlsrnamed{Fretted string instruments,Instrumentos de cuerda con trastes}.
 
 Referencia de funcionamiento interno:
 @rinternals {fret-diagram-interface}.
@@ -2021,7 +2021,7 @@ Referencia de la notación:
 @ref{Fingering instructions}.
 
 Fragmentos de código:
-@rlsr{Fretted string instruments}.
+@rlsrnamed{Fretted string instruments,Instrumentos de cuerda con trastes}.
 
 Referencia de funcionamiento interno:
 @rinternals{StrokeFinger}.
@@ -2078,8 +2078,8 @@ Referencia de la notación:
 @ref{Text spanners}.
 
 Fragmentos de código:
-@rlsr{Fretted string instruments},
-@rlsr{Expressive marks}.
+@rlsrnamed{Fretted string instruments,Instrumentos de cuerda con trastes},
+@rlsrnamed{Expressive marks,Marcas de expresión}.
 @endmorerefs
 
 
@@ -2156,7 +2156,7 @@ nota a un triángulo.
 
 @morerefs
 Fragmentos de código:
-@rlsr{Fretted string instruments}.
+@rlsrnamed{Fretted string instruments,Instrumentos de cuerda con trastes}.
 
 Referencia de la notación:
 @ref{Special note heads},
@@ -2220,7 +2220,7 @@ Referencia de la notación:
 @ref{Printing chord names}.
 
 Fragmentos de código:
-@rlsr{Fretted string instruments}.
+@rlsrnamed{Fretted string instruments,Instrumentos de cuerda con trastes}.
 @endmorerefs
 
 
@@ -2293,7 +2293,7 @@ Archivos de inicio:
 @file{ly/string-tunings-init.ly}
 
 Fragmentos de código:
-@rlsr{Fretted string instruments}.
+@rlsrnamed{Fretted string instruments,Instrumentos de cuerda con trastes}.
 @endmorerefs
 
 

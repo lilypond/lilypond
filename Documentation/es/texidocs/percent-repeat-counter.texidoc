@@ -1,8 +1,8 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: fbf390d05408c5b842a22c122da734c54f92ca12
   texidoces = "
 Las repeticiones de compases completos de más de dos repeticiones
-pueden llevar un contador si se activa la propiedad adecuada, como se
-ve en este ejemplo:
+pueden llevar impreso un contador si se ajusta el valor de la
+propiedad de contexto @code{countPercentRepeats}.
 
 "
   doctitlees = "Contador de repeticiones de tipo porcentaje"

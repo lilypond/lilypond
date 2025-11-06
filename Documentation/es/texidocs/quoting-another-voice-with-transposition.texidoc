@@ -1,11 +1,11 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: aa4f229bc77265d2deaa36055c5845cd682823fe
   texidoces = "
 Los pasajes citados tienen en cuenta la transposición de la fuente
-tanto como la del destino.  En este ejemplo, todos los instrumentos
-interpretan una nota con el sonido del Do central; el destino de un
-instrumento transpositor en Fa.  La parte de destino se puede
-transportar utilizando @code{\\transpose}.  En este caso las notas
-citadas permanecen sin cambios.
-
+tanto como la del destino.  En este ejemplo, todos los
+instrumentos interpretan una nota con el sonido del
+Do@tie{}central; el destino de un instrumento transpositor
+en@tie{}Fa.  La parte de destino se puede transportar utilizando
+@code{\\transpose}.  En este caso las notas citadas permanecen sin
+cambios.
 "
   doctitlees = "Citar otra voz con transposición"

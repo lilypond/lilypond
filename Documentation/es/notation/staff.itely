@@ -129,7 +129,7 @@ Referencia de la notación:
 @ref{Defining new contexts}.
 
 Fragmentos de código:
-@rlsr{Staff notation}.
+@rlsrnamed{Staff notation,Notación de los pentagramas}.
 
 Referencia de funcionamiento interno:
 @rinternals{Staff},
@@ -304,7 +304,7 @@ Referencia de la notación:
 @ref{Defining new contexts}.
 
 Fragmentos de código:
-@rlsr{Staff notation}.
+@rlsrnamed{Staff notation,Notación de los pentagramas}.
 
 Referencia de funcionamiento interno:
 @rinternals{Staff},
@@ -367,7 +367,7 @@ Referencia de la notación:
 @ref{Defining new contexts}.
 
 Fragmentos de código:
-@rlsr{Staff notation}.
+@rlsrnamed{Staff notation,Notación de los pentagramas}.
 
 Referencia de funcionamiento interno:
 @rinternals{StaffGroup},
@@ -630,7 +630,7 @@ Referencia de la notación:
 @ref{Clef}.
 
 Fragmentos de código:
-@rlsr{Staff notation}.
+@rlsrnamed{Staff notation,Notación de los pentagramas}.
 
 Referencia de funcionamiento interno:
 @rinternals{StaffSymbol},
@@ -790,7 +790,7 @@ Referencia de la notación:
 @ref{Hiding staves}.
 
 Fragmentos de código:
-@rlsr{Staff notation}.
+@rlsrnamed{Staff notation,Notación de los pentagramas}.
 
 Referencia de funcionamiento interno:
 @rinternals{StaffSymbol}.
@@ -1140,7 +1140,7 @@ Archivos instalados:
 @file{ly/engraver-init.ly}.
 
 Fragmentos de código:
-@rlsr{Staff notation}.
+@rlsrnamed{Staff notation,Notación de los pentagramas}.
 
 Referencia de funcionamiento interno:
 @rinternals{ChordNames},
@@ -1346,7 +1346,7 @@ Referencia de la notación:
 @ref{Modifying context plug-ins}.
 
 Fragmentos de código:
-@rlsr{Staff notation}.
+@rlsrnamed{Staff notation,Notación de los pentagramas}.
 
 Referencia de funcionamiento interno:
 @rinternals{InstrumentName},
@@ -1538,7 +1538,7 @@ Archivos de inicio:
 @file{scm/define-event-classes.scm}.
 
 Fragmentos de código:
-@rlsr{Staff notation}.
+@rlsrnamed{Staff notation,Notación de los pentagramas}.
 
 Referencia de funcionamiento interno:
 @rinternals{Music classes},
@@ -1860,7 +1860,7 @@ Referencia de la notación:
 @ref{Using tags}.
 
 Fragmentos de código:
-@rlsr{Staff notation}.
+@rlsrnamed{Staff notation,Notación de los pentagramas}.
 
 Referencia de funcionamiento interno:
 @rinternals{CueVoice},

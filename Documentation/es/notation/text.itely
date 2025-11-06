@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 7ac0dd1495161592599f5fdf9bb1233b3d588a02
+    Translation of GIT committish: a760e29edcd0367c259c05b92888783e6f4f45e5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -182,7 +182,7 @@ Ensayo sobre grabado musical automatizado:
 @ressaynamed{Flexible architecture, Arquitectura flexible}.
 
 Fragmentos de código:
-@rlsr{Text}.
+@rlsrnamed{Text,Texto}.
 @endmorerefs
 
 
@@ -254,7 +254,7 @@ Referencia de la notación:
 @ref{Articulations and ornamentations}.
 
 Fragmentos de código:
-@rlsr{Text}.
+@rlsrnamed{Text,Texto}.
 
 Referencia de funcionamiento interno:
 @rinternals{TextScript}.
@@ -367,8 +367,8 @@ Referencia de la notación:
 @ref{Formatting text}.
 
 Fragmentos de código:
-@rlsr{Text},
-@rlsr{Expressive marks}.
+@rlsrnamed{Text,Texto},
+@rlsrnamed{Expressive marks,Marcas de expresión}.
 
 Referencia de funcionamiento interno:
 @rinternals{TextSpanner}.
@@ -406,7 +406,7 @@ Referencia de la notación:
 @ref{Section divisions}.
 
 Fragmentos de código:
-@rlsr{Text}.
+@rlsrnamed{Text,Texto}.
 
 Referencia de funcionamiento interno:
 @rinternals{SectionLabel},
@@ -633,7 +633,7 @@ Referencia de la notación:
 @ref{The Emmentaler font}.
 
 Fragmentos de código:
-@rlsr{Text}.
+@rlsrnamed{Text,Texto}.
 
 Referencia de funcionamiento interno:
 @rinternals{TextMarkEvent},
@@ -713,7 +713,7 @@ Referencia de la notación:
 @ref{Multiple scores in a book}.
 
 Fragmentos de código:
-@rlsr{Text}.
+@rlsrnamed{Text,Texto}.
 
 Referencia de funcionamiento interno:
 @rinternals{TextScript}.
@@ -975,7 +975,7 @@ Archivos instalados:
 @file{scm/define-markup-commands.scm}.
 
 Fragmentos de código:
-@rlsr{Text}.
+@rlsrnamed{Text,Texto}.
 
 Referencia de funcionamiento interno:
 @rinternals{TextScript}.
@@ -1207,7 +1207,7 @@ Archivos de inicio:
 @file{scm/define-markup-commands.scm}.
 
 Fragmentos de código:
-@rlsr{Text}.
+@rlsrnamed{Text,Texto}.
 
 Referencia de funcionamiento interno:
 @rinternals{TextScript}.
@@ -1570,7 +1570,7 @@ Archivos de inicio:
 @file{scm/define-markup-commands.scm}.
 
 Fragmentos de código:
-@rlsr{Text}.
+@rlsrnamed{Text,Texto}.
 
 Referencia de funcionamiento interno:
 @rinternals{TextScript}.
@@ -1741,7 +1741,7 @@ Archivos de inicio:
 @file{scm/stencil.scm}.
 
 Fragmentos de código:
-@rlsr{Text}.
+@rlsrnamed{Text,Texto}.
 
 Referencia de funcionamiento interno:
 @rinternals{TextScript}.
@@ -1874,7 +1874,7 @@ Archivos de inicio:
 @file{scm/harp-pedals.scm}.
 
 Fragmentos de código:
-@rlsr{Text}.
+@rlsrnamed{Text,Texto}.
 
 Referencia de funcionamiento interno:
 @rinternals{TextScript}.
@@ -2201,7 +2201,7 @@ Referencia de la notación:
 @ref{Changing fonts}.
 
 Fragmentos de código:
-@rlsr{Text}.
+@rlsrnamed{Text,Texto}.
 @endmorerefs
 
 @c A source file gets never installed...

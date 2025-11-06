@@ -116,7 +116,7 @@ práctico de maneras que el anidado de @code{\repeat volta} o
 
 @morerefs
 Fragmentos de código:
-@rlsr{Repeats}.
+@rlsrnamed{Repeats,Repeticiones}.
 
 Referencia de funcionamiento interno:
 @rinternals{UnfoldedRepeatedMusic}.
@@ -484,7 +484,7 @@ Referencia de la notación:
 @ref{Section divisions}.
 
 Fragmentos de código:
-@rlsr{Repeats}.
+@rlsrnamed{Repeats,Repeticiones}.
 
 Referencia de funcionamiento interno:
 @rinternals{FineEvent},
@@ -688,7 +688,7 @@ Referencia de la notación:
 @ref{Simple repeats}.
 
 Fragmentos de código:
-@rlsr{Repeats}.
+@rlsrnamed{Repeats,Repeticiones}.
 
 Referencia de funcionamiento interno:
 @rinternals{CodaMark},
@@ -887,7 +887,7 @@ Archivos instalados:
 @file{ly/engraver-init.ly}.
 
 Fragmentos de código:
-@rlsr{Repeats}.
+@rlsrnamed{Repeats,Repeticiones}.
 
 Referencia de funcionamiento interno:
 @rinternals{VoltaBracket},
@@ -1182,7 +1182,7 @@ Referencia de la notación:
 @ref{Segno repeat appearance}.
 
 Fragmentos de código:
-@rlsr{Repeats}.
+@rlsrnamed{Repeats,Repeticiones}.
 
 Referencia de funcionamiento interno:
 @rinternals{CodaMark},
@@ -1315,7 +1315,7 @@ Glosario musical:
 @rglos{simile}.
 
 Fragmentos de código:
-@rlsr{Repeats}.
+@rlsrnamed{Repeats,Repeticiones}.
 
 Referencia de funcionamiento interno:
 @rinternals{RepeatSlash},
@@ -1433,5 +1433,5 @@ añade una barra de corchea a la plica de la nota.  Si
 
 @morerefs
 Fragmentos de código:
-@rlsr{Repeats}.
+@rlsrnamed{Repeats,Repeticiones}.
 @endmorerefs

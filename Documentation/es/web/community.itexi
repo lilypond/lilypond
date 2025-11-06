@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: a121368097d49ab012f65a36fca636f6456d3653
+    Translation of GIT committish: 9a2f072694412a33f4ae756af409e4c51fed1a03
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -138,23 +138,24 @@ Grupo de portugués}
 
 @uref{https://lilypond.community, Foro en francés}
 @end quotation
+
+No dude en ponerse en contacto con nosotros si quiere crear otro foro o lista de distribución de correo relacionada con LilyPond.
 @divEnd
 
 
 @divClass{column-right-top}
-@subheading El Repositorio de Fragmentos de Código de LilyPond
+@subheading El Wiki de LilyPond
 
-El Repositorio de Fragmentos de Código de LilyPond es una gran
+El Wiki de LilyPond, sucesor del Repositorio de Fragmentos de Código de LilyPond (LSR), es una gran
 colección de ejemplos remitidos por los usuarios, que se pueden
 copiar y usar libremente en sus propias obras.  ¡Vea las cosas que
 otros han escrito, y añada las suyas propias!
 
-@example
-@uref{https://lsr.di.unimi.it}
-@end example
+@indentedblock
+@uref{https://wiki.lilypond.community}
+@end indentedblock
 
-Los ejemplos del LSR que son especialmente instructivos se
-incluyen en nuestra documentación oficial, en @ref{Snippets}.
+Los ejemplos del Wiki de LilyPond que son especialmente instructivos se incluyen en nuestra documentación oficial, en @ref{Snippets}.
 @divEnd
 
 
@@ -221,37 +222,42 @@ Archivo@tie{}2}
 
 Se ofrece un cierto apoyo a través de nuestro canal de chat IRC,
 
-@example
+@indentedblock
 @uref{irc://irc.libera.chat/lilypond, #lilypond@@irc.libera.chat}
-@end example
+@end indentedblock
 
 Este canal no tiene ningún archivo histórico público, por lo que
 cualquier pregunta que pueda ser de utilidad para otras personas
 sería mejor plantearla en una de las listas de distribución de
 correo.
 
+@ifhtml
+@indentedblock
 @html
-<form action="https://web.libera.chat"
-      method="get"
-      name="f_lily_irc"
-  <label>Usuario de IRC:
-    <input name="nick" type="text" size="15" value="">
-  </label>
-  <input name="Channel" type="hidden" value="lilypond">
-  <input type="submit" value="Unirme al chat de IRC de #lilypond">
+<form id="chat">
+  <p>
+    <label>Usuario de IRC:
+      <input name="nick" type="text" size="15" value="">
+    </label>
+    <input type="submit" value="Unirme al chat de IRC de #lilypond">
+  </p>
 </form>
 
-<script language="JavaScript" type="text/javascript">
-  var username = "web";
-  var lang = window.navigator.userLanguage ? window.navigator.userLanguage
-  : window.navigator.language;
-  username += '-' + lang.substr(0, 2);
-  username += '-' + navigator.appName.substr(0, 2);
-  username += navigator.appCodeName.replace (" ", "").substr(0, 2);
-  username += navigator.platform.replace (" ", "").replace("nux", "").replace("n32", "");
-  document.forms["f_lily_irc"].nick.value = username;
+<script type="text/javascript">
+  var form = document.getElementById("chat");
+  var username = "guest";
+  username += String(Math.floor(Math.random() * 9000) + 1000);
+  form.nick.value = username;
+
+  form.onsubmit = function() {
+    window.open("https://web.libera.chat/?nick="
+                + this.nick.value + "#lilypond");
+    return true;
+  }
 </script>
 @end html
+@end indentedblock
+@end ifhtml
 @divEnd
 
 @c Currently inactive and inaccessible
@@ -594,7 +600,7 @@ Las instrucciones de Git y para la compilación están en la Guía
 del Colaborador.
 
 @quotation
-@uref{https://git.sv.gnu.org/gitweb/?p=lilypond.git, Repositorio Git de lilypond}
+@uref{https://git.sv.gnu.org/gitweb/?p=lilypond.git, Repositorio Git de LilyPond}
 @end quotation
 
 En general, los redactores de la documentación y los pilotos de

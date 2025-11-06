@@ -1,7 +1,8 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: 1bf2403e1cd7038a1e7ea62da560af601e3694fc
   texidoces = "
 Algunos compositores escriben dos @emph{ligaduras} cuando quieren
-acordes legato.  Esto se puede conseguir estableciendo
-@code{doubleSlurs}.
+acordes legato.  Esto se puede conseguir estableciendo la
+propiedad de contexto @code{doubleSlurs}.
+
 "
   doctitlees = "Utilizar ligaduras dobles para acordes legato"

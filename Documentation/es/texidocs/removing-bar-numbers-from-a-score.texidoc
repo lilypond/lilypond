@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 3103776eff283e358d36b123823dab8bc2dbeb44
+%% Translation of GIT committish: b755a07257fe4ce66ad58f95c15309bbe3d8230e
   texidoces = "
 Se pueden eliminar completamente los números de compás quitando el
 grabador @code{Bar_number_engraver} del contexto de @code{Score}.

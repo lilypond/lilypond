@@ -1,12 +1,28 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: 9c7cce2e12f0730684dcf6fe737eed69170674a3
   texidoces = "
-La función toma como argumento por omisión @code{Tie.stencil},
-calculando el resultado en función de las dimensiones de este
-valor por omision.
 
-Es posible un trucado adicional sobreescribiendo
-@code{Tie.details.height-limit} o con @code{\\shape}.  También es
-posible cambiar la definición personalizada sobre la marcha.
+Este fragmento de código aporta una función @code{flared-tie} para
+trazar una ligadura formada por líneas rectas.  Su objetivo es
+sustituir a la función predeterminada de trazado de la ligadura
+(esto es, servir como un argumento sustitutorio para la propiedad
+@code{stencil} del objeto gráfico @code{Tie}).
+
+El argumento de @code{flared-tie} es una lista de pare de
+coordenadas que especifican puntos adicionales entre el primero y
+el último para abarcar todas las líneas de la ligadura.  Los
+puntos primero y último son idénticos a los puntos de inicio y
+final de la ligadura, respectivamente.  Los valores de las
+coordenadas X@tie{}e@tie{}Y@tie son múltiplos de la longitud y la
+altura del rectángulo circundante (teniendo también en cuenta la
+dirección de la ligadura); por tanto, el primer punto tiene las
+coordenadas (0,0), y el último (1,0).
+
+La función @code{flare-tie} define una forma abreviada de
+especificar una ligadura plana.  Es posible efectuar un trucaje
+adicional de la forma mediante la sobreescritura de
+@code{Tie.details.height-limit} o con la función @code{\\shape}.
+
+También es posible cambiar la definición personalizada sobre la marcha.
 "
 
   doctitlees = "Ligaduras planas"

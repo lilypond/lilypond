@@ -17,7 +17,7 @@
 This Scheme-based snippet generates random notes. Use as
 
 @example
-\\randomNotes @var{n @var{from} @var{to} @var{dur}}
+\\randomNotes @var{n} @var{from} @var{to} @var{dur}
 @end example
 
 to generate @emph{n} random notes between pitches @emph{from} and

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 087bcd83212f3ef7207497ef132e420f0d1d94ca
+    Translation of GIT committish: f5d488bdce69146bbfc7390a16960c5d8275f367
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -124,7 +124,7 @@ Referencia de funcionamiento interno:
 @rinternals{PianoStaff}.
 
 Fragmentos de código:
-@rlsr{Keyboard and other multi-staff instruments}.
+@rlsrnamed{Keyboard and other multi-staff instruments,Teclados y otros instrumentos de varios pentagramas}.
 @endmorerefs
 
 
@@ -260,7 +260,7 @@ Referencia de la notación:
 @ref{Keeping contexts alive}.
 
 Fragmentos de código:
-@rlsr{Keyboard and other multi-staff instruments}.
+@rlsrnamed{Keyboard and other multi-staff instruments,Teclados y otros instrumentos de varios pentagramas}.
 
 Referencia de funcionamiento interno:
 @rinternals{Beam},
@@ -371,7 +371,7 @@ Referencia de la notación:
 @ref{Changing staff manually}.
 
 Fragmentos de código:
-@rlsr{Keyboard and other multi-staff instruments}.
+@rlsrnamed{Keyboard and other multi-staff instruments,Teclados y otros instrumentos de varios pentagramas}.
 @endmorerefs
 
 
@@ -457,7 +457,7 @@ posiciones verticales del comienzo y el final de la línea.
 
 @morerefs
 Fragmentos de código:
-@rlsr{Keyboard and other multi-staff instruments}.
+@rlsrnamed{Keyboard and other multi-staff instruments,Teclados y otros instrumentos de varios pentagramas}.
 
 Referencia de funcionamiento interno:
 @rinternals{Note_head_line_engraver},
@@ -492,7 +492,7 @@ Referencia de funcionamiento interno:
 
 @morerefs
 Fragmentos de código:
-@rlsr{Keyboard and other multi-staff instruments}.
+@rlsrnamed{Keyboard and other multi-staff instruments,Teclados y otros instrumentos de varios pentagramas}.
 
 Referencia de funcionamiento interno:
 @rinternals{Stem}.
@@ -589,7 +589,7 @@ Referencia de la notación:
 @ref{Ties}.
 
 Fragmentos de código:
-@rlsr{Keyboard and other multi-staff instruments}.
+@rlsrnamed{Keyboard and other multi-staff instruments,Teclados y otros instrumentos de varios pentagramas}.
 
 Referencia de funcionamiento interno:
 @rinternals{SustainPedal},
@@ -760,7 +760,7 @@ disponibles en
 
 @morerefs
 Fragmentos de código:
-@rlsr{Keyboard and other multi-staff instruments}.
+@rlsrnamed{Keyboard and other multi-staff instruments,Teclados y otros instrumentos de varios pentagramas}.
 @endmorerefs
 
 

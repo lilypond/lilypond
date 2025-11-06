@@ -1,9 +1,11 @@
-%% Translation of GIT committish: 3103776eff283e358d36b123823dab8bc2dbeb44
+%% Translation of GIT committish: 1bf2403e1cd7038a1e7ea62da560af601e3694fc
   texidoces = "
-Al añadir una marca de ensayo @code{mark} al final puede ocurrir que
-se pierda una indicación de grupo especial colocado al final.  Se
-puede solventar fijando @code{TupletBracket.full-length-to-extent}
-al valor @code{false}.
+A causa del
+@uref{https://gitlab.com/lilypond/lilypond/-/issues/2362,bug número 2362},
+al añadir una marca de ensayo @code{mark} al final puede ocurrir
+que se pierda una indicación de grupo especial colocado al final.
+Se puede solventar fijando
+@code{TupletBracket.full-length-to-extent} a @code{#f}.
 
 "
   doctitlees = "Evitar que una marca de ensayo final suprima el corchete de un grupo de valoración especial"

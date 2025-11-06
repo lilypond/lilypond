@@ -1,4 +1,4 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: 29da2ba3dc40958f48fd41eb2b183feacc2ea58a
   texidoces = "
 Es posible imprimir el número de versión de LilyPond dentro de un
 elemento de marcado.

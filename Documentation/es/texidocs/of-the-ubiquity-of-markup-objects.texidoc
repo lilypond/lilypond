@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 709a5683c94b57676ecddf1c5bb347a6c7d1f417
+%% Translation of GIT committish: 4f16fa98fd258f08e64203c793028ea3e363b1c0
   texidoces = "
 Los objetos de texto se escriben como simples cadenas de texto
 entrecomilladas, o como bloques @code{\\markup} que pueden aceptar

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: b22569ea33c9c9a6a26e17624d79449bffa81b22
+    Translation of GIT committish: 60cb08a01235cd28cfca069774e79da033d81d76
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -406,7 +406,7 @@ Archivos de inicio:
 @file{ly/paper-defaults-init.ly}.
 
 Fragmentos de código:
-@rlsr{Spacing}.
+@rlsrnamed{Spacingnotes,Espaciado}.
 @endmorerefs
 
 @knownissues
@@ -625,7 +625,7 @@ Archivos de inicio:
 @file{ly/paper-defaults-init.ly}.
 
 Fragmentos de código:
-@rlsr{Spacing}.
+@rlsrnamed{Spacingnotes,Espaciado}.
 @endmorerefs
 
 
@@ -877,7 +877,7 @@ Archivos de inicio:
 @file{ly/paper-defaults-init.ly}.
 
 Fragmentos de código:
-@rlsr{Spacing}.
+@rlsrnamed{Spacingnotes,Espaciado}.
 @endmorerefs
 
 
@@ -1211,7 +1211,7 @@ Archivos de inicio:
 @file{ly/paper-defaults-init.ly}.
 
 Fragmentos de código:
-@rlsr{Spacing}.
+@rlsrnamed{Spacingnotes,Espaciado}.
 @endmorerefs
 
 @knownissues
@@ -1424,7 +1424,7 @@ Referencia de la notación:
 @ref{Changing context default settings}.
 
 Fragmentos de código:
-@rlsr{Spacing}.
+@rlsrnamed{Spacingnotes,Espaciado}.
 @endmorerefs
 
 
@@ -1559,7 +1559,7 @@ Referencia de la notación:
 @ref{The Emmentaler font}.
 
 Fragmentos de código:
-@rlsr{Spacing}.
+@rlsrnamed{Spacingnotes,Espaciado}.
 @endmorerefs
 
 @knownissues
@@ -1856,7 +1856,7 @@ Referencia de la notación:
 @ref{The layout block}.
 
 Fragmentos de código:
-@rlsr{Spacing}.
+@rlsrnamed{Spacingnotes,Espaciado}.
 
 Referencia de funcionamiento interno:
 @rinternals{LineBreakEvent}.
@@ -1976,7 +1976,7 @@ Referencia de la notación:
 @ref{paper variables for page breaking}.
 
 Fragmentos de código:
-@rlsr{Spacing}.
+@rlsrnamed{Spacingnotes,Espaciado}.
 @endmorerefs
 
 @knownissues
@@ -2003,7 +2003,7 @@ página.
 
 @morerefs
 Fragmentos de código:
-@rlsr{Spacing}.
+@rlsrnamed{Spacingnotes,Espaciado}.
 @endmorerefs
 
 
@@ -2028,7 +2028,7 @@ cantidad de textos.  Se habilita utilizando:
 
 @morerefs
 Snippets:
-@rlsr{Spacing}.
+@rlsrnamed{Spacingnotes,Espaciado}.
 @endmorerefs
 
 
@@ -2188,7 +2188,7 @@ Referencia de la notación:
 @ref{paper variables for line breaking}.
 
 Fragmentos de código:
-@rlsr{Spacing}.
+@rlsrnamed{Spacingnotes,Espaciado}.
 @endmorerefs
 
 @knownissues
@@ -2201,7 +2201,7 @@ Notation Reference:
 @ref{Vertical spacing}.
 
 Fragmentos de código:
-@rlsr{Spacing}.
+@rlsrnamed{Spacingnotes,Espaciado}.
 @endmorerefs
 
 
@@ -2650,7 +2650,7 @@ Archivos de inicio:
 @file{scm/define-grobs.scm}.
 
 Fragmentos de código:
-@rlsr{Spacing}.
+@rlsrnamed{Spacingnotes,Espaciado}.
 
 Referencia de funcionamiento interno:
 @rinternals{VerticalAxisGroup}.
@@ -2721,7 +2721,7 @@ Archivos de inicio:
 @file{scm/define-grobs.scm}.
 
 Fragmentos de código:
-@rlsr{Spacing}.
+@rlsrnamed{Spacingnotes,Espaciado}.
 
 Referencia de funcionamiento interno:
 @rinternals{VerticalAxisGroup},
@@ -2796,7 +2796,7 @@ Archivos de inicio:
 @file{scm/define-grobs.scm}.
 
 Fragmentos de código:
-@rlsr{Spacing}.
+@rlsrnamed{Spacingnotes,Espaciado}.
 
 @c @lsr{spacing,page-spacing.ly},
 @c @lsr{spacing,alignment-vertical-spacing.ly}.
@@ -3096,7 +3096,7 @@ valores razonables.
 
 @morerefs
 Fragmentos de código:
-@rlsr{Spacing}.
+@rlsrnamed{Spacingnotes,Espaciado}.
 @endmorerefs
 
 
@@ -3188,7 +3188,7 @@ líneas adicionales.
 
 @morerefs
 Fragmentos de código:
-@rlsr{Spacing}.
+@rlsrnamed{Spacingnotes,Espaciado}.
 @endmorerefs
 
 
@@ -3304,7 +3304,7 @@ Ensayo sobre grabado musical automatizado:
 @ressaynamed{Optical spacing, Espaciado óptico}.
 
 Fragmentos de código:
-@rlsr{Spacing}.
+@rlsrnamed{Spacingnotes,Espaciado}.
 
 Referencia de funcionamiento interno:
 @rinternals{SpacingSpanner},
@@ -3380,7 +3380,7 @@ se cambien en una nueva sección de espaciado, por ejemplo:
 
 @morerefs
 Fragmentos de código:
-@rlsr{Spacing}.
+@rlsrnamed{Spacingnotes,Espaciado}.
 
 Referencia de funcionamiento interno:
 @rinternals{SpacingSpanner}.
@@ -3469,7 +3469,7 @@ de adorno:
 
 @morerefs
 Fragmentos de código:
-@rlsr{Spacing}.
+@rlsrnamed{Spacingnotes,Espaciado}.
 @endmorerefs
 
 
@@ -3865,7 +3865,7 @@ sencillamente ocupa su longitud horizontal natural.
 
 @morerefs
 Fragmentos de código:
-@rlsr{Spacing}.
+@rlsrnamed{Spacingnotes,Espaciado}.
 @endmorerefs
 
 
@@ -4194,7 +4194,7 @@ Referencia de la notación:
 @ref{New spacing section}.
 
 Fragmentos de código:
-@rlsr{Spacing}.
+@rlsrnamed{Spacingnotes,Espaciado}.
 @endmorerefs
 
 
@@ -4268,7 +4268,7 @@ Referencia de la notación:
 @ref{Setting the staff size}.
 
 Fragmentos de código:
-@rlsr{Spacing}.
+@rlsrnamed{Spacingnotes,Espaciado}.
 @endmorerefs
 
 
@@ -4401,5 +4401,5 @@ Referencia de la notación:
 @ref{Changing horizontal spacing globally}.
 
 Fragmentos de código:
-@rlsr{Spacing}.
+@rlsrnamed{Spacingnotes,Espaciado}.
 @endmorerefs

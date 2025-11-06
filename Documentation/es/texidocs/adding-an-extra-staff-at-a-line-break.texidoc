@@ -1,11 +1,10 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: fbf390d05408c5b842a22c122da734c54f92ca12
   texidoces = "
 Al añadir un pentagrama nuevo en un salto de línea, por desgracia
 se añade un espacio adicional al final de la línea antes del salto
 (reservado para hacer sitio a un cambio de armadura que de todas
-formas no se va a imprimir). La solución alternativa es añadir un
-ajuste para @code{Staff.explicitKeySignatureVisibility} como se
-muestra en el ejemplo.
-
+formas no se va a imprimir). La solución alternativa es establecer
+la propiedad @code{Staff.explicitKeySignatureVisibility} del
+objeto gráfico @code{Staff} como se muestra en el ejemplo.
 "
   doctitlees = "Añadir un pentagrama adicional en un salto de línea"

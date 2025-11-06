@@ -1,6 +1,8 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: cd3e2b0177d366d0a25b4c7628b26455e52175cd
   texidoces = "
-He aquí cómo rodear una nota con una circunferencia.
+Se puede trazar una circunferencia alrededor de la cabeza de una
+nota aportando una función de Scheme personalizada para
+sobreescribir temporalmente la propiedad @code{stencil}.
 
 "
   doctitlees = "Trazar circunferencias alrededor de la cabeza de las notas"

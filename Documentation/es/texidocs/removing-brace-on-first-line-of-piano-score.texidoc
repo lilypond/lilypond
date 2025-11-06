@@ -1,12 +1,13 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: cd3e2b0177d366d0a25b4c7628b26455e52175cd
   texidoces = "
 Este fragmento elimina la primera llave de un @code{PianoStaff} o
-un @code{GrandStaff}, junto con las claves.
+un @code{GrandStaff}, junto con las claves.  Puede ser útil cuando
+se está cortando y pegando la imagen de la partitura editada
+dentro de otra música existente.
 
-Puede ser útil cuando se está cortando y pegando la imagen de la
-partitura editada dentro de otra música existente.
+El código emplea @code{\\alterBroken} para ocultar el delimitador
+en forma de llave que aparece al principio.
 
-Usa @code{\\alterBroken}.
 "
 
   doctitlees = "Quitar la llave en el primer sistema de una partitura de piano"

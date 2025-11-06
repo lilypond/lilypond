@@ -1,4 +1,4 @@
-%% Translation of GIT committish: c972d00ecf20f49fc330d883b87bea651876404c
+%% Translation of GIT committish: e57447fe9c53034c997759bff512fa0130b3a6ee
   texidoces = "
 Se pueden crear arpegios que se cruzan entre pentagramas dentro de
 contextos distintos de @code{GrandStaff} y sus parientes derivados

@@ -156,7 +156,7 @@ Referencia de la notación:
 @ref{Manual beams}.
 
 Fragmentos de código:
-@rlsr{World music}.
+@rlsrnamed{World music,Músicas del mundo}.
 @endmorerefs
 
 
@@ -242,7 +242,7 @@ Archivos instalados:
 @file{ly/arabic.ly}
 
 Fragmentos de código:
-@rlsr{World music}.
+@rlsrnamed{World music,Músicas del mundo}.
 @endmorerefs
 
 
@@ -422,8 +422,8 @@ Archivos instalados:
 @file{ly/hel-arabic.ly}
 
 Fragmentos de código:
-@rlsr{World music},
-@rlsr{Pitches}.
+@rlsrnamed{World music,Músicas del mundo},
+@rlsrnamed{Pitches,Alturas}.
 
 Referencia de funcionamiento interno:
 @rinternals{KeySignature}.
@@ -473,7 +473,7 @@ Archivos instalados:
 @file{ly/arabic.ly}
 
 Fragmentos de código:
-@rlsr{World music}.
+@rlsrnamed{World music,Músicas del mundo}.
 @endmorerefs
 
 
@@ -516,7 +516,7 @@ Archivos instalados:
 @file{ly/arabic.ly}
 
 Fragmentos de código:
-@rlsr{World music}.
+@rlsrnamed{World music,Músicas del mundo}.
 @endmorerefs
 
 

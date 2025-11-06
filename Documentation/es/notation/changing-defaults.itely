@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: b22569ea33c9c9a6a26e17624d79449bffa81b22
+Translation of GIT committish: d2fe9aa327bdbb1f054fada72c54d266456fc45d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -65,7 +65,7 @@ Archivos de inicio:
 @file{ly/performer-init.ly}.
 
 Fragmentos de código:
-@rlsr{Contexts and engravers}.
+@rlsrnamed{Contexts and engravers,Contextos y grabadores}.
 
 Referencia de funcionamiento interno:
 @rinternals{Contexts},
@@ -2847,6 +2847,10 @@ idéntico a la ilustración correspondiente que aparece en
 }
 @end lilypond
 
+Consulte @rlsrsnippetnamed{Tweaks and overrides, Ajustar las posiciones de las ligaduras verticalmente}
+para ver una función de Scheme @code{\offsetPositions} que
+facilita el desplazamiento vertical de las ligaduras.
+
 
 @node Modifying alists
 @section Modificación de las listas-A
@@ -2994,7 +2998,7 @@ Archivos instalados:
 @file{scm/define-grobs.scm}.
 
 Fragmentos de código:
-@rlsr{Tweaks and overrides}.
+@rlsrnamed{Tweaks and overrides,Trucos y sobreescrituras}.
 
 Referencia de funcionamiento interno:
 @rinternals{All layout objects}.

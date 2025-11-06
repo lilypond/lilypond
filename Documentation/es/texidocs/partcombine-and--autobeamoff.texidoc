@@ -1,9 +1,11 @@
-%% Translation of GIT committish: a497dec9ad74bcd646e465cbd24b029d2ab17ac8
+%% Translation of GIT committish: 1bf2403e1cd7038a1e7ea62da560af601e3694fc
   texidoces = "
 Puede ser difícil comprender la función de @code{\\autoBeamOff}
 cuando se usa con @code{\\partCombine}. Puede ser preferible usar
 
-@code{\\set Staff.autoBeaming = ##f}
+@example
+\\set Staff.autoBeaming = ##f
+@end example
 
 en su lugar, para asegurarnos de que el barrado automático se
 desactiva para todo el pentagrama.  Úselo en un lugar de la

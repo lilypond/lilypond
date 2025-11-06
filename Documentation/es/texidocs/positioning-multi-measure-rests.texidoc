@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 40a6ee3c77d89a24d34b13790442cdcc95f59d7a
+%% Translation of GIT committish: aa4f229bc77265d2deaa36055c5845cd682823fe
   doctitlees = "Posicionar los silencios multicompás"
   texidoces = "
 A diferencia de los silencios normales, no existe una instrucción
@@ -8,6 +8,6 @@ a una nota, independientemente de cuál sea su forma.  Sin embargo,
 en la música polifónica los silencios multicompás de las voces de
 numeración par e impar están separados verticalmente.
 
-La colocación de los silencios multicompás se puede controlar como
-se ve a continuación:
+Este fragmento de código muestra la forma de controlar la
+colocación de los silencios multicompás.
 "

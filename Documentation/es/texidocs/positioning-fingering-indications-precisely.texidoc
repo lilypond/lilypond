@@ -1,9 +1,9 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: cd3e2b0177d366d0a25b4c7628b26455e52175cd
   texidoces = "
-Generalmente, las opciones disponibles para la digitación de los
-acordes funciona bien de forma predeterminada, pero si una de las
-indicaciones precisa colocarse de forma más exacta puede usarse el
-truco siguiente.  Esto es especialmente útil para corregir el
+Normalmente el posicionado semiautomático de las digitaciones
+dentro de un acorde funciona bien, pero si una de las indicaciones
+precisa colocarse de forma más exacta puede usarse el truco
+siguiente.  Esto es especialmente útil para corregir el
 posicionado cuando están presentes intervalos de segunda.
 
 "

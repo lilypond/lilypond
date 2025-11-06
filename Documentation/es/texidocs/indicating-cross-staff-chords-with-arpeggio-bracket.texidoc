@@ -1,4 +1,4 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
+%% Translation of GIT committish: cd3e2b0177d366d0a25b4c7628b26455e52175cd
   texidoces = "
 Un corchete de arpegio puede indicar que se tienen que tocar con
 la misma mano notas que están en dos pentagramas distintos. Para
@@ -7,6 +7,8 @@ símbolos de arpegio de pentagrama cruzado y los símbolos de
 arpegio se deben configurar a la forma de corchete en el contexto
 de @code{PianoStaff}.
 
-(Debussy, @emph{Les collines d'Anacapri,} c. 65)
+El ejemplo siguiente corresponde al compás@tie{}65 del preludio de
+Debussy @emph{Les collines d'Anacapri}.
+
 "
   doctitlees = "Indicar acordes de pentagrama cruzado con corchetes de arpegio"

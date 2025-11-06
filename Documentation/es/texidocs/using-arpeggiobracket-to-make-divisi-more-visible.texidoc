@@ -1,8 +1,0 @@
-%% Translation of GIT committish: b35da384a3367d8ee49a28f697c0ae8fb88b2e1e
-  texidoces = "
-El corchete de arpegios @code{arpeggioBracket} se puede usar para
-indicar la división de voces cuando no hay plicas que puedan ofrecer
-esta información. Se suele encontrar en la música coral.
-
-"
-  doctitlees = "Uso de @code{arpeggioBracket} para hacer más visible un @emph{divisi}"

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: b22569ea33c9c9a6a26e17624d79449bffa81b22
+    Translation of GIT committish: 89716651b57c6b1a7eb763c9c88119f49419a9c3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -108,7 +108,7 @@ Glosario musical:
 @rglos{Pitch names}.
 
 Fragmentos de código:
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Alturas}.
 @endmorerefs
 
 
@@ -342,7 +342,7 @@ Referencia de la notación:
 @ref{Octave checks}.
 
 Fragmentos de código:
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Alturas}.
 
 Referencia de funcionamiento interno:
 @rinternals{RelativeOctaveMusic}.
@@ -477,7 +477,7 @@ Referencia de la notación:
 @ref{Note names in other languages}.
 
 Fragmentos de código:
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Alturas}.
 
 Referencia de funcionamiento interno:
 @rinternals{Accidental_engraver},
@@ -677,7 +677,7 @@ Archivos instalados:
 @file{scm/define-note-names.scm}.
 
 Fragmentos de código:
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Alturas}.
 @endmorerefs
 
 
@@ -757,7 +757,7 @@ correcta.
 
 @morerefs
 Fragmentos de código:
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Alturas}.
 
 Referencia de funcionamiento interno:
 @rinternals{RelativeOctaveCheck}.
@@ -893,7 +893,7 @@ Referencia de la notación:
 @ref{Retrograde}.
 
 Fragmentos de código:
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Alturas}.
 
 Referencia de funcionamiento interno:
 @rinternals{TransposedMusic}.
@@ -1350,7 +1350,7 @@ Archivos instalados:
 @file{scm/parser-clef.scm}.
 
 Fragmentos de código:
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Alturas}.
 
 Referencia de funcionamiento interno:
 @rinternals{Clef_engraver},
@@ -1499,7 +1499,7 @@ Manual de aprendizaje:
 @rlearningnamed{Pitches and key signatures, Alturas y armaduras}.
 
 Fragmentos de código:
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Alturas}.
 
 Referencia de funcionamiento interno:
 @rinternals{KeyChangeEvent},
@@ -1624,7 +1624,7 @@ Referencia de la notación:
 @ref{Selecting font and font size}.
 
 Fragmentos de código:
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Alturas}.
 
 Referencia de funcionamiento interno:
 @rinternals{Ottava_spanner_engraver},
@@ -1736,7 +1736,7 @@ Referencia de la notación:
 @ref{Quoting other voices}, @ref{Transpose}.
 
 Fragmentos de código:
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Alturas}.
 @endmorerefs
 
 
@@ -3079,7 +3079,7 @@ musicB = {
 
 @morerefs
 Fragmentos de código:
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Alturas}.
 
 Referencia de funcionamiento interno:
 @rinternals{Accidental},
@@ -3307,7 +3307,7 @@ Glosario musical:
 @rglos{ambitus}.
 
 Fragmentos de código:
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Alturas}.
 
 Referencia de funcionamiento interno:
 @rinternals{Ambitus_engraver},
@@ -3433,7 +3433,7 @@ También existe una abreviatura similar para las formas en rombo:
 
 @morerefs
 Fragmentos de código:
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Alturas}.
 
 Referencia de la notación:
 @ref{Note head styles},
@@ -3504,7 +3504,7 @@ Referencia de la notación:
 @ref{Setting the staff size}.
 
 Fragmentos de código:
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Alturas}.
 
 Referencia de funcionamiento interno:
 @rinternals{note-event},
@@ -3637,7 +3637,7 @@ Para ver todos los estilos de formas de cabeza de nota, consulte
 
 @morerefs
 Fragmentos de código:
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Alturas}.
 
 Referencia de la notación:
 @ref{Note head styles}.
@@ -3687,7 +3687,7 @@ nota se crean así:
 
 @morerefs
 Fragmentos de código:
-@rlsr{Pitches}.
+@rlsrnamed{Pitches,Alturas}.
 
 Referencia de funcionamiento interno:
 @rinternals{Pitch_squash_engraver},

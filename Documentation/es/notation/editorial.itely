@@ -306,7 +306,7 @@ Installed Files:
 @file{ly/property-init.ly}.
 
 Fragmentos de código:
-@rlsr{Editorial annotations}.
+@rlsrnamed{Editorial annotations,Anotaciones editoriales}.
 
 Referencia de funcionamiento interno:
 @rinternals{font-interface}.
@@ -435,7 +435,7 @@ Referencia de la notación:
 @ref{Direction and placement}.
 
 Fragmentos de código:
-@rlsr{Editorial annotations}.
+@rlsrnamed{Editorial annotations,Anotaciones editoriales}.
 
 Referencia de funcionamiento interno:
 @rinternals{FingeringEvent},
@@ -719,7 +719,7 @@ Notation Reference:
 @ref{Hiding staves}.
 
 Fragmentos de código:
-@rlsr{Editorial annotations}.
+@rlsrnamed{Editorial annotations,Anotaciones editoriales}.
 
 Referencia de funcionamiento interno:
 @rinternals{Note_spacing_engraver},
@@ -874,7 +874,7 @@ Referencia de la notación:
 @ref{Tweak and single}.
 
 Fragmentos de código:
-@rlsr{Editorial annotations}.
+@rlsrnamed{Editorial annotations,Anotaciones editoriales}.
 @endmorerefs
 
 @cindex x11,  color de
@@ -1118,7 +1118,7 @@ centro de la nota.
 
 @morerefs
 Fragmentos de código:
-@rlsr{Editorial annotations}.
+@rlsrnamed{Editorial annotations,Anotaciones editoriales}.
 
 Referencia de funcionamiento interno:
 @rinternals{Optional_material_bracket_engraver},
@@ -1214,7 +1214,7 @@ a partir de eventos.
 
 @morerefs
 Fragmentos de código:
-@rlsr{Editorial annotations}.
+@rlsrnamed{Editorial annotations,Anotaciones editoriales}.
 
 Referencia de funcionamiento interno:
 @rinternals{Parenthesis_engraver},
@@ -1275,7 +1275,7 @@ Referencia de la notación:
 @ref{Direction and placement}.
 
 Fragmentos de código:
-@rlsr{Editorial annotations}.
+@rlsrnamed{Editorial annotations,Anotaciones editoriales}.
 
 Referencia de funcionamiento interno:
 @rinternals{Stem_engraver},
@@ -1498,7 +1498,7 @@ forma similar.
 
 @morerefs
 Fragmentos de código:
-@rlsr{Editorial annotations}.
+@rlsrnamed{Editorial annotations,Anotaciones editoriales}.
 
 Referencia de funcionamiento interno:
 @rinternals{Balloon_engraver},
@@ -1569,7 +1569,7 @@ de rejilla.
 
 @morerefs
 Fragmentos de código:
-@rlsr{Editorial annotations}.
+@rlsrnamed{Editorial annotations,Anotaciones editoriales}.
 
 Referencia de funcionamiento interno:
 @rinternals{Grid_line_span_engraver},

@@ -1,7 +1,8 @@
-%% Translation of GIT committish: 3103776eff283e358d36b123823dab8bc2dbeb44
+%% Translation of GIT committish: fbf390d05408c5b842a22c122da734c54f92ca12
   texidoces = "
-Se pueden seleccionar dos métodos alternativos para la numeración de
-compases, especiales para cuando hay repeticiones.
+Fijando la propiedad de contexto @code{alternativeNumberingStyle},
+se dispone de dos métodos alternativos adicionales para la
+numeración de compases dentro de las repeticiones.
 
 "
   doctitlees = "Numeración de compases alternativa"

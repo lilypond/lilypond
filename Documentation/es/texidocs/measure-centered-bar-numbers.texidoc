@@ -1,9 +1,9 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: 1bf2403e1cd7038a1e7ea62da560af601e3694fc
   texidoces = "
 Para las partituras de bandas sonoras, es una convención común
 centrar los números de compás entre las líneas divisorias.  Esto
 se consigue fijando la propiedad de contexto
-@code{centerBarNumbers} a un valor verdadero.  Cuando se usa esta
+@code{centerBarNumbers} a @code{#t}.  Cuando se usa esta
 sobreescritura, el tipo de objeto gráfico del número de compás es
 @code{CenteredBarNumber} y no @code{BarNumber}.
 

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: b22569ea33c9c9a6a26e17624d79449bffa81b22
+    Translation of GIT committish: f5d488bdce69146bbfc7390a16960c5d8275f367
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -85,7 +85,7 @@ Referencia de la notación:
 @ref{Input modes}.
 
 Fragmentos de código:
-@rlsr{Chord notation}.
+@rlsrnamed{Chord notation,Notación de los acordes}.
 @endmorerefs
 
 @knownissues
@@ -222,7 +222,7 @@ Referencia de la notación:
 @ref{Extended and altered chords}.
 
 Fragmentos de código:
-@rlsr{Chord notation}.
+@rlsrnamed{Chord notation,Notación de los acordes}.
 @endmorerefs
 
 @knownissues
@@ -385,7 +385,7 @@ Referencia de la notación:
 @ref{Common chord modifiers}.
 
 Fragmentos de código:
-@rlsr{Chord notation}.
+@rlsrnamed{Chord notation,Notación de los acordes}.
 @endmorerefs
 
 @knownissues
@@ -437,7 +437,7 @@ Referencia de la notación:
 @ref{Chorded notes}.
 
 Fragmentos de código:
-@rlsr{Chord notation}.
+@rlsrnamed{Chord notation,Notación de los acordes}.
 @endmorerefs
 
 
@@ -563,7 +563,7 @@ Referencia de la notación:
 @ref{Writing music in parallel}.
 
 Fragmentos de código:
-@rlsr{Chord notation}.
+@rlsrnamed{Chord notation,Notación de los acordes}.
 
 Referencia de funcionamiento interno:
 @rinternals{ChordNames},
@@ -600,7 +600,7 @@ para música de Jazz, propuesto por Klaus Ignatzek (véase
 bibliográficas}. Se pueden implementar otros sistemas de
 nomenclatura de acordes mediante funciones de Scheme, como se
 muestra en el fragmento de código @qq{Chord names alternative}
-dentro de la sección @rlsr{Chord notation}.)).  Hay una lista de
+dentro de la sección @rlsrnamed{Chord notation,Notación de los acordes}.)).  Hay una lista de
 notaciones comunes para acordes de jazz en la tabla de la sección
 @ref{Chord name chart}.
 
@@ -824,7 +824,7 @@ Archivos instalados:
 @file{ly/chord-modifiers-init.ly}.
 
 Fragmentos de código:
-@rlsr{Chord notation}.
+@rlsrnamed{Chord notation,Notación de los acordes}.
 @endmorerefs
 
 @knownissues
@@ -1083,7 +1083,7 @@ Glosario musical:
 @rglos{figured bass}.
 
 Fragmentos de código:
-@rlsr{Chord notation}.
+@rlsrnamed{Chord notation,Notación de los acordes}.
 @endmorerefs
 
 
@@ -1322,7 +1322,7 @@ fin de línea de continuación
 
 @morerefs
 Fragmentos de código:
-@rlsr{Chord notation}.
+@rlsrnamed{Chord notation,Notación de los acordes}.
 
 Referencia de funcionamiento interno:
 @rinternals{BassFigure},
@@ -1456,7 +1456,7 @@ cifrado con las subpropiedades @code{minimum-@/distance} y
 
 @morerefs
 Fragmentos de código:
-@rlsr{Chord notation}.
+@rlsrnamed{Chord notation,Notación de los acordes}.
 
 Referencia de funcionamiento interno:
 @rinternals{BassFigure},

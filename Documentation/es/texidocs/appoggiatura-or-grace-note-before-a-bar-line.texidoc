@@ -1,10 +1,18 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: 61b32ff2340073b2d9600a20fdedf65d58be720b
   texidoces = "
 De manera predeterminada, las apoyaturas y las notas de adorno que
 están en el primer pulso de un compás se imprimen después de la
-línea divisoria.  Sin embargo, se pueden imprimir antes de ella
-con solo añadir una barra de compás invisible y después otra
-visible, como se muestra en el ejemplo.
+línea divisoria.  En pentagramas sueltos, una posible solución
+para que se impriman antes de la línea divisoria es añadir una
+línea invisible y después la línea visible.
+
+Sin embargo, en sistemas de varios pentagramas, añadir una barra
+de compás invisible distorsiona el posicionamiento de los
+silencios de compás completo en las otras pautas; ya no estarían
+centrados sino desplazados ligeramente hacia la izquierda.  Una
+solución mejor para tales situaciones es usar la instrucción
+@code{\\afterGrace} command junto a la configuración apropiada de
+@code{afterGraceFraction}.
 "
 
   doctitlees = "Apoyatura o nota de adorno antes de la línea divisoria"

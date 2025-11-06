@@ -1,7 +1,8 @@
-%% Translation of GIT committish: 6df715923634c44a1080d70b51010360d8772ae0
+%% Translation of GIT committish: cd3e2b0177d366d0a25b4c7628b26455e52175cd
   texidoces = "
-Es posible usar el modo de marcado para dar formato a sílabas
-individuales dentro de la letra.
+Es posible usar la instrucción @code{\\markup} dentro de un bloque
+@code{\\lyricmode} para dar formato a las sílabas individuales
+dentro de la letra.
 
 "
   doctitlees = "Dar formato a sílabas de la letra"

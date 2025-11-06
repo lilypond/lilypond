@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 54de673adf1137d72225d68f26f59fd01a0aec30
+%% Translation of GIT committish: 4f16fa98fd258f08e64203c793028ea3e363b1c0
   texidoces = "
 Los deslizamientos para acordes se indican por omisión tanto en el
 contexto @code{Staff} como en @code{TabStaff}.

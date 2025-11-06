@@ -1,7 +1,11 @@
-%% Translation of GIT committish: c972d00ecf20f49fc330d883b87bea651876404c
+%% Translation of GIT committish: fbf390d05408c5b842a22c122da734c54f92ca12
   texidoces = "
 Añadiendo el grabador @code{Volta_engraver} al pentagrama deseado,
 las casillas de primera y segunda vez se pueden poner sobre pautas
 distintas a la del extremo superior de la partitura.
+
+Las instrucciones @code{\\repeat} y otras relacionadas deben estar
+presentes en todos los pentagramas.
+
 "
   doctitlees = "Casillas de primera y segunda vez en varios pentagramas"

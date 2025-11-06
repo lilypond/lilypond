@@ -1,4 +1,4 @@
-%% Translation of GIT committish: a497dec9ad74bcd646e465cbd24b029d2ab17ac8
+%% Translation of GIT committish: aa4f229bc77265d2deaa36055c5845cd682823fe
   texidoces = "
 Las cabezas de nota de notación fácil utilizan la propiedad
 @code{note-names} del objeto @code{NoteHead} para determinar lo que
