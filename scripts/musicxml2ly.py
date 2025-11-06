@@ -4207,6 +4207,8 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
             fretboards_builder.jump_forward(n._when)
 
         if isinstance(n, musicxml.Barline):
+            last_elem = voice_builder.elements[-1]
+
             (barlines, fermatas) = n.to_lily_object()
 
             if fermatas:
@@ -4216,6 +4218,33 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
                 for f in fermatas:
                     f_ev = musicxml_fermata_to_lily_event(f)
                     voice_builder.add_command(f_ev)
+
+            if barlines and isinstance(last_elem, conversion.Marker):
+                # Catch non-standard sequences like the following (which are
+                # normally put into a single `<barline>` element):
+                #
+                #   <barline><repeat direction="backward"/></barline>
+                #   <barline><ending type="stop"/></barline>
+                new_last_elem = None
+                if (isinstance(last_elem, conversion.RepeatMarker)
+                       and last_elem.direction == 1
+                       and isinstance(barlines[0], conversion.EndingMarker)
+                       and barlines[0].direction == 1):
+                    new_last_elem = \
+                        conversion.RepeatEndingMarker(last_elem, barlines[0])
+                elif (isinstance(last_elem, conversion.EndingMarker)
+                      and last_elem.direction == -1
+                      and isinstance(barlines[0], conversion.RepeatMarker)
+                      and barlines[0].direction == -1):
+                    new_last_elem = \
+                        conversion.RepeatEndingMarker(barlines[0], last_elem)
+
+                if new_last_elem:
+                    voice_builder.elements[-1] = new_last_elem
+                    figured_bass_builder.elements[-1] = new_last_elem
+                    chordnames_builder.elements[-1] = new_last_elem
+                    fretboards_builder.elements[-1] = new_last_elem
+                    continue
 
             curr_alterations = alterations.copy()
             for a in barlines:

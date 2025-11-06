@@ -5,7 +5,10 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">A repeat with volta brackets, also
-          showing chord names and figured bass.
+          showing chord names and figured bass.  As a specialty, the repeat at
+          the end of measure 2 is encoded as two successive &lt;barline&gt;
+          elements, holding a &lt;repeat&gt; child in the first and an
+          &lt;ending&gt; child in the second element.
 
           The &lt;figured-bass&gt; elements in this test don't have a
           &lt;duration&gt; child.</miscellaneous-field>
@@ -82,8 +85,10 @@
       </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>
-        <ending number="1" type="stop"/>
         <repeat direction="backward"/>
+      </barline>
+      <barline>
+        <ending type="stop" number="1"/>
       </barline>
     </measure>
     <!--=======================================================-->
