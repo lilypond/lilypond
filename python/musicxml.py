@@ -128,8 +128,11 @@ class Xml_node(object):
     def message(self, msg):
         ly.warning(msg + ':')
 
+        # We omit the top-level element since it is always the same (either
+        # `<score-partwise>` or `<score-timewise>`), not adding any useful
+        # information to the message.
         p = self
-        while p:
+        while (p and p.get_parent()):
             ly.progress('  In: <%s %s>' % (p._name, ' '.join(
                 ['%s=%s' % item for item in p._attribute_dict.items()])))
             p = p.get_parent()
