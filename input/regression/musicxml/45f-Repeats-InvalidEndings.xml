@@ -19,7 +19,11 @@
           Bar 6 starts a repeat, bar 7 start and ends a prima volta bracket, but
           the corresponding repeat bar is between bars 8 and 9, followed by a
           seconda volta bracket starting and ending in
-          bar 9.</miscellaneous-field>
+          bar 9.
+
+          Another invalid ‘pair’ is &lt;ending type="start"&gt; at the beginning
+          of bar 12 and &lt;ending type="discontinue"&gt; at the end of
+          bar 13.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -154,6 +158,44 @@
     </measure>
     <!--=======================================================-->
     <measure number="10">
+      <note>
+        <rest/>
+        <duration>4</duration>
+        <voice>1</voice>
+      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="11">
+      <note>
+        <rest/>
+        <duration>4</duration>
+        <voice>1</voice>
+      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="12">
+      <barline location="left">
+        <ending number="1" type="start"/>
+      </barline>
+      <note>
+        <rest/>
+        <duration>4</duration>
+        <voice>1</voice>
+      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="13">
+      <note>
+        <rest/>
+        <duration>4</duration>
+        <voice>1</voice>
+      </note>
+      <barline location="right">
+        <ending number="1" type="discontinue"/>
+      </barline>
+    </measure>
+    <!--=======================================================-->
+    <measure number="14">
       <note>
         <rest/>
         <duration>4</duration>

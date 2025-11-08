@@ -1288,6 +1288,16 @@ def group_repeats(music_list):
                     # Adjust `music_list_pos` for proper re-parsing.
                     music_list_pos = markers[0][1]
                     return False
+
+                if marker == '$':
+                    ly.warning(_('unexpected %s') % marker_id)
+                    del music_list[markers[curr][1][0]]
+                    del music_list[markers[curr][1][1]]
+
+                    # Adjust `music_list_pos` for proper re-parsing.
+                    music_list_pos = markers[0][1]
+                    return False
+
                 else:
                     ly.warning(_('adding repeat barline to lone %s')
                                % marker_id)
