@@ -1366,14 +1366,17 @@ class Paper(Base):
         # TODO: font width ?
         char_per_cm = (len(self.get_longest_instrument_name())
                        * 13) / self.page_width
-        if self.indent != 0:
-            self.print_length_field(
-                printer, "indent",
-                utilities.round_to_two_digits(self.indent / char_per_cm))
-        if self.short_indent != 0:
-            self.print_length_field(
-                printer, "short-indent",
-                utilities.round_to_two_digits(self.short_indent / char_per_cm))
+        if char_per_cm:
+            if self.indent != 0:
+                self.print_length_field(
+                    printer, "indent",
+                    utilities.round_to_two_digits(
+                        self.indent / char_per_cm))
+            if self.short_indent != 0:
+                self.print_length_field(
+                    printer, "short-indent",
+                    utilities.round_to_two_digits(
+                        self.short_indent / char_per_cm))
 
         if not get_tagline():
             printer('tagline = ##f')
