@@ -1766,12 +1766,16 @@ class Part(Music_xml_node):
             # partial.
             if is_first_measure:
                 is_first_measure = False
-                # upbeats are marked as implicit measures
-                if attributes_object and m.is_implicit():
+                # Upbeats should be marked explicitly with the 'implicit'
+                # attribute.  However, for the first measure we also support
+                # the case that this attribute is missing and a time
+                # signature is already set.
+                if attributes_object:
                     length = attributes_object.get_measure_length()
-                    measure_end = measure_start_moment + length
-                    if measure_end != now:
-                        m.partial = now
+                    if m.is_implicit() or isinstance(length, Fraction):
+                        measure_end = measure_start_moment + length
+                        if measure_end != now:
+                            m.partial = now
             previous_measure = m
 
         if senza_misura_mode and previous_senza_misura:

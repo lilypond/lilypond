@@ -5,8 +5,12 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">Measures can contain less notes
-          than the time signature says.  Here, the first and third measure
-          contain only two quarters instead of four.</miscellaneous-field>
+          than the time signature says.  At the very beginning this is usually
+          handled as an upbeat (even if the first measure is not tagged as
+          measure 0 or the ‘implicit’ attribute is missing).
+
+          Here, the first and third measure contain only two quarters instead of
+          four.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
