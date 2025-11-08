@@ -403,7 +403,7 @@ Beam::get_gaps (Grob *me, Grob *commonx)
   Real gap_length = from_scm<double> (get_property (me, "gap"), 0.0);
   Drul_array<Real> gap_lengths (gap_length, gap_length);
 
-  if ((Stem::duration_log (stems[0])) <= 0)
+  if (!stems.empty () && (Stem::duration_log (stems[0])) <= 0)
     {
       std::vector<Grob *> accs = get_accidentals (me);
 
