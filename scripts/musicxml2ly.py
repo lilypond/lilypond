@@ -1118,8 +1118,19 @@ def group_repeats(music_list):
 
                 if marker == '$':
                     # We have an implicit ending stop.
-                    start = markers[prev][1]
-                    markers[prev] = ['last ending', [start, len(music_list)]]
+                    start = markers[curr][1]
+                    stop = len(music_list)
+
+                    new_el = conversion.EndingMarker()
+                    new_el.direction = 1
+
+                    el = music_list[stop - 1]
+                    if (isinstance(el, musicexp.ChordEvent)
+                            and not el.elements):
+                        # Ignore empty chord at the end of input.
+                        stop -= 1
+                    music_list.insert(stop, new_el)
+                    markers[curr] = ['last ending', [start, stop]]
                     return True
 
                 if marker == 'ENDING STOP & REPEAT BACKWARD':
