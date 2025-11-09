@@ -2304,6 +2304,26 @@ class Grace(Music_xml_node):
     pass
 
 
+class Group_abbreviation(Music_xml_node):
+    pass
+
+
+class Group_abbreviation_display(Music_xml_node):
+    pass
+
+
+class Group_name(Music_xml_node):
+    pass
+
+
+class Group_name_display(Music_xml_node):
+    pass
+
+
+class Group_symbol(Music_xml_node):
+    pass
+
+
 class Harmony(Music_xml_node):
     max_occurs_by_child = {
         'offset': 1,
@@ -2464,6 +2484,11 @@ class_dict = {
     'figured-bass': FiguredBass,
     'glissando': Glissando,
     'grace': Grace,
+    'group-abbreviation': Group_abbreviation,
+    'group-abbreviation-display': Group_abbreviation_display,
+    'group-name': Group_name,
+    'group-name-display': Group_name_display,
+    'group-symbol': Group_symbol,
     'harmony': Harmony,
     'identification': Identification,
     'key-alter': KeyAlter,

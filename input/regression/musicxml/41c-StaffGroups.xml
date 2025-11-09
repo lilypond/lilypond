@@ -5,11 +5,11 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">A huge orchestra score with
-          28 parts and different kinds of nested, bracketed groups, using quite
+          25 parts and different kinds of nested, bracketed groups, using quite
           a small staff size.  Each part/group is assigned a name and an
-          abbreviation to be shown before the staff.  Also, most of the groups
-          show unbroken bar lines, while the bar lines are broken between the
-          groups.
+          abbreviation (if necessary) to be shown before the staff.  Also, most
+          groups show unbroken bar lines, while the bar lines are broken between
+          the groups.
 
           Both the harp and the organ are multi-staff parts; the latter also
           uses a &lt;part-symbol&gt; element to set up the brace delimiter (and
@@ -19,7 +19,7 @@
   </identification>
   <defaults>
     <scaling>
-      <millimeters>3</millimeters>
+      <millimeters>3.5</millimeters>
       <tenths>40</tenths>
     </scaling>
   </defaults>
@@ -28,6 +28,7 @@
       <group-symbol default-x="-8">bracket</group-symbol>
       <group-barline>yes</group-barline>
     </part-group>
+
     <score-part id="P1">
       <part-name>Piccolo</part-name>
       <part-abbreviation>Picc.</part-abbreviation>
@@ -39,49 +40,41 @@
     <part-group number="2" type="start">
       <group-name>Flute</group-name>
       <group-abbreviation>Fl.</group-abbreviation>
-      <group-symbol default-x="-16">square</group-symbol>
-      <group-barline>no</group-barline>
     </part-group>
     <score-part id="P2">
-      <part-name>1</part-name>
-      <part-abbreviation>1</part-abbreviation>
-      <score-instrument id="P2-I2">
+      <part-name>1, 2</part-name>
+      <part-name-display>
+        <display-text xml:space="preserve">1
+2</display-text>
+      </part-name-display>
+      <score-instrument id="P2-I1">
         <instrument-name>Flute 1</instrument-name>
       </score-instrument>
-    </score-part>
-    <score-part id="P3">
-      <part-name>2</part-name>
-      <part-abbreviation>2</part-abbreviation>
-      <score-instrument id="P3-I3">
+      <score-instrument id="P2-I2">
         <instrument-name>Flute 2</instrument-name>
       </score-instrument>
     </score-part>
     <part-group number="2" type="stop"/>
 
-    <part-group number="2" type="start">
-      <group-symbol default-x="-16">square</group-symbol>
-      <group-barline>yes</group-barline>
-    </part-group>
-    <score-part id="P4">
+    <score-part id="P3">
       <part-name>Oboe</part-name>
       <part-abbreviation>Ob.</part-abbreviation>
-      <score-instrument id="P4-I4">
+      <score-instrument id="P3-I1">
         <instrument-name>Oboe</instrument-name>
       </score-instrument>
     </score-part>
-    <score-part id="P5">
+    <score-part id="P4">
       <part-name>English Horn</part-name>
       <part-abbreviation>E. Hn.</part-abbreviation>
-      <score-instrument id="P5-I5">
+      <score-instrument id="P4-I1">
         <instrument-name>English Horn</instrument-name>
       </score-instrument>
     </score-part>
-    <part-group number="2" type="stop"/>
 
-    <score-part id="P6">
+    <score-part id="P5">
       <part-name>Clarinet in Eb</part-name>
       <part-abbreviation>Eb Cl.</part-abbreviation>
-      <score-instrument id="P6-I6">
+      <score-instrument id="P5-I1">
         <instrument-name>Clarinet in Eb</instrument-name>
       </score-instrument>
     </score-part>
@@ -89,29 +82,26 @@
     <part-group number="2" type="start">
       <group-name>Clarinet in Bb</group-name>
       <group-abbreviation>Bb Cl.</group-abbreviation>
-      <group-symbol default-x="-16">square</group-symbol>
-      <group-barline>no</group-barline>
     </part-group>
-    <score-part id="P7">
-      <part-name>1</part-name>
-      <part-abbreviation>1</part-abbreviation>
-      <score-instrument id="P7-I7">
+    <score-part id="P6">
+      <part-name>1, 2</part-name>
+      <part-name-display>
+        <display-text xml:space="preserve">1
+2</display-text>
+      </part-name-display>
+      <score-instrument id="P6-I1">
         <instrument-name>Clarinet in Bb 1</instrument-name>
       </score-instrument>
-    </score-part>
-    <score-part id="P8">
-      <part-name>2</part-name>
-      <part-abbreviation>2</part-abbreviation>
-      <score-instrument id="P8-I8">
+      <score-instrument id="P6-I2">
         <instrument-name>Clarinet in Bb 2</instrument-name>
       </score-instrument>
     </score-part>
     <part-group number="2" type="stop"/>
 
-    <score-part id="P9">
+    <score-part id="P7">
       <part-name>Bass Clarinet</part-name>
       <part-abbreviation>B. Cl.</part-abbreviation>
-      <score-instrument id="P9-I9">
+      <score-instrument id="P7-I1">
         <instrument-name>Bass Clarinet</instrument-name>
       </score-instrument>
     </score-part>
@@ -119,29 +109,26 @@
     <part-group number="2" type="start">
       <group-name>Bassoon</group-name>
       <group-abbreviation>Bsn.</group-abbreviation>
-      <group-symbol default-x="-16">square</group-symbol>
-      <group-barline>no</group-barline>
     </part-group>
-    <score-part id="P10">
-      <part-name>1</part-name>
-      <part-abbreviation>1</part-abbreviation>
-      <score-instrument id="P10-I10">
+    <score-part id="P8">
+      <part-name>1, 2</part-name>
+      <part-name-display>
+        <display-text xml:space="preserve">1
+2</display-text>
+      </part-name-display>
+      <score-instrument id="P8-I1">
         <instrument-name>Bassoon 1</instrument-name>
       </score-instrument>
-    </score-part>
-    <score-part id="P11">
-      <part-name>2</part-name>
-      <part-abbreviation>2</part-abbreviation>
-      <score-instrument id="P11-I11">
+      <score-instrument id="P8-I2">
         <instrument-name>Bassoon 2</instrument-name>
       </score-instrument>
     </score-part>
     <part-group number="2" type="stop"/>
 
-    <score-part id="P12">
+    <score-part id="P9">
       <part-name>Contrabassoon</part-name>
       <part-abbreviation>C. Bn.</part-abbreviation>
-      <score-instrument id="P12-I12">
+      <score-instrument id="P9-I1">
         <instrument-name>Contrabassoon</instrument-name>
       </score-instrument>
     </score-part>
@@ -156,19 +143,16 @@
       <group-name>Horn in F</group-name>
       <group-abbreviation>F Hn.</group-abbreviation>
       <group-symbol default-x="-16">square</group-symbol>
-      <group-barline>no</group-barline>
     </part-group>
-    <score-part id="P13">
+    <score-part id="P10">
       <part-name>1</part-name>
-      <part-abbreviation>1</part-abbreviation>
-      <score-instrument id="P13-I13">
+      <score-instrument id="P10-I1">
         <instrument-name>Horn in F 1</instrument-name>
       </score-instrument>
     </score-part>
-    <score-part id="P14">
+    <score-part id="P11">
       <part-name>2</part-name>
-      <part-abbreviation>2</part-abbreviation>
-      <score-instrument id="P14-I14">
+      <score-instrument id="P11-I1">
         <instrument-name>Horn in F 2</instrument-name>
       </score-instrument>
     </score-part>
@@ -178,19 +162,16 @@
       <group-name>Trumpet in C</group-name>
       <group-abbreviation>C Tpt.</group-abbreviation>
       <group-symbol default-x="-16">square</group-symbol>
-      <group-barline>no</group-barline>
     </part-group>
-    <score-part id="P15">
+    <score-part id="P12">
       <part-name>1</part-name>
-      <part-abbreviation>1</part-abbreviation>
-      <score-instrument id="P15-I15">
+      <score-instrument id="P12-I1">
         <instrument-name>Trumpet in C 1</instrument-name>
       </score-instrument>
     </score-part>
-    <score-part id="P16">
+    <score-part id="P13">
       <part-name>2</part-name>
-      <part-abbreviation>2</part-abbreviation>
-      <score-instrument id="P16-I16">
+      <score-instrument id="P13-I1">
         <instrument-name>Trumpet in C 2</instrument-name>
       </score-instrument>
     </score-part>
@@ -200,51 +181,47 @@
       <group-name>Trombone</group-name>
       <group-abbreviation>Tbn.</group-abbreviation>
       <group-symbol default-x="-16">square</group-symbol>
-      <group-barline>no</group-barline>
     </part-group>
-    <score-part id="P17">
+    <score-part id="P14">
       <part-name>1</part-name>
-      <part-abbreviation>1</part-abbreviation>
-      <score-instrument id="P17-I17">
+      <score-instrument id="P14-I1">
         <instrument-name>Trombone 1</instrument-name>
       </score-instrument>
     </score-part>
-    <score-part id="P18">
+    <score-part id="P15">
       <part-name>2</part-name>
-      <part-abbreviation>2</part-abbreviation>
-      <score-instrument id="P18-I18">
+      <score-instrument id="P15-I1">
         <instrument-name>Trombone 2</instrument-name>
       </score-instrument>
     </score-part>
     <part-group number="2" type="stop"/>
 
-    <score-part id="P19">
+    <score-part id="P16">
       <part-name>Tuba</part-name>
-      <part-abbreviation>Tuba</part-abbreviation>
-      <score-instrument id="P19-I19">
+      <score-instrument id="P16-I1">
         <instrument-name>Tuba</instrument-name>
       </score-instrument>
     </score-part>
     <part-group number="1" type="stop"/>
 
-    <score-part id="P20">
+    <score-part id="P17">
       <part-name>Timpani</part-name>
       <part-abbreviation>Timp.</part-abbreviation>
-      <score-instrument id="P20-I20">
+      <score-instrument id="P17-I1">
         <instrument-name>Timpani</instrument-name>
       </score-instrument>
     </score-part>
-    <score-part id="P21">
+    <score-part id="P18">
       <part-name>Percussion</part-name>
       <part-abbreviation>Perc.</part-abbreviation>
-      <score-instrument id="P21-M76">
+      <score-instrument id="P18-I1">
         <instrument-name>MIDI77</instrument-name>
       </score-instrument>
     </score-part>
-    <score-part id="P22">
+    <score-part id="P19">
       <part-name>Harp</part-name>
       <part-abbreviation>Hp.</part-abbreviation>
-      <score-instrument id="P22-I22">
+      <score-instrument id="P19-I1">
         <instrument-name>Harp</instrument-name>
       </score-instrument>
     </score-part>
@@ -253,10 +230,10 @@
       <group-symbol default-x="-8">bracket</group-symbol>
       <group-barline>no</group-barline>
     </part-group>
-    <score-part id="P23">
+    <score-part id="P20">
       <part-name>Organ</part-name>
       <part-abbreviation>Org.</part-abbreviation>
-      <score-instrument id="P23-I23">
+      <score-instrument id="P20-I1">
         <instrument-name>Organ</instrument-name>
       </score-instrument>
     </score-part>
@@ -271,45 +248,43 @@
       <group-name>Violin</group-name>
       <group-abbreviation>Vln.</group-abbreviation>
       <group-symbol default-x="-16">square</group-symbol>
-      <group-barline>no</group-barline>
     </part-group>
-    <score-part id="P24">
+    <score-part id="P21">
       <part-name>I</part-name>
-      <part-abbreviation>I</part-abbreviation>
-      <score-instrument id="P24-I24">
+      <score-instrument id="P21-I1">
         <instrument-name>Violin I</instrument-name>
       </score-instrument>
     </score-part>
-    <score-part id="P25">
+    <score-part id="P22">
       <part-name>II</part-name>
-      <part-abbreviation>II</part-abbreviation>
-      <score-instrument id="P25-I25">
+      <score-instrument id="P22-I1">
         <instrument-name>Violin II</instrument-name>
       </score-instrument>
     </score-part>
     <part-group number="2" type="stop"/>
 
-    <score-part id="P26">
+    <score-part id="P23">
       <part-name>Viola</part-name>
       <part-abbreviation>Vla.</part-abbreviation>
-      <score-instrument id="P26-I26">
+      <score-instrument id="P23-I1">
         <instrument-name>Viola</instrument-name>
       </score-instrument>
     </score-part>
-    <score-part id="P27">
+    <score-part id="P24">
       <part-name>Cello</part-name>
       <part-abbreviation>Vc.</part-abbreviation>
-      <score-instrument id="P27-I27">
+      <score-instrument id="P24-I1">
         <instrument-name>Cello</instrument-name>
       </score-instrument>
     </score-part>
-    <score-part id="P28">
+    <score-part id="P25">
       <part-name>Contrabass</part-name>
       <part-abbreviation>Cb.</part-abbreviation>
-      <score-instrument id="P28-I28">
+      <score-instrument id="P25-I1">
         <instrument-name>Contrabass</instrument-name>
       </score-instrument>
     </score-part>
+
     <part-group number="1" type="stop"/>
   </part-list>
   <!--=========================================================-->
@@ -328,6 +303,7 @@
         <clef>
           <sign>G</sign>
           <line>2</line>
+          <clef-octave-change>1</clef-octave-change>
         </clef>
         <transpose>
           <diatonic>0</diatonic>
@@ -455,50 +431,6 @@
       <attributes>
         <divisions>1</divisions>
         <key>
-          <fifths>0</fifths>
-          <mode>major</mode>
-        </key>
-        <time symbol="common">
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-      </attributes>
-      <note>
-        <pitch>
-          <step>E</step>
-          <octave>5</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-      </note>
-      <note>
-        <rest/>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-      </note>
-      <note>
-        <rest/>
-        <duration>2</duration>
-        <voice>1</voice>
-        <type>half</type>
-      </note>
-      <barline location="right">
-        <bar-style>light-heavy</bar-style>
-      </barline>
-    </measure>
-  </part>
-  <!--=========================================================-->
-  <part id="P5">
-    <measure number="1">
-      <attributes>
-        <divisions>1</divisions>
-        <key>
           <fifths>1</fifths>
           <mode>major</mode>
         </key>
@@ -542,7 +474,7 @@
     </measure>
   </part>
   <!--=========================================================-->
-  <part id="P6">
+  <part id="P5">
     <measure number="1">
       <attributes>
         <divisions>1</divisions>
@@ -590,7 +522,7 @@
     </measure>
   </part>
   <!--=========================================================-->
-  <part id="P7">
+  <part id="P6">
     <measure number="1">
       <attributes>
         <divisions>1</divisions>
@@ -639,56 +571,7 @@
     </measure>
   </part>
   <!--=========================================================-->
-  <part id="P8">
-    <measure number="1">
-      <attributes>
-        <divisions>1</divisions>
-        <key>
-          <fifths>2</fifths>
-          <mode>major</mode>
-        </key>
-        <time symbol="common">
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
-        <transpose>
-          <diatonic>-1</diatonic>
-          <chromatic>-2</chromatic>
-        </transpose>
-      </attributes>
-      <note>
-        <pitch>
-          <step>C</step>
-          <alter>1</alter>
-          <octave>5</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-      </note>
-      <note>
-        <rest/>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-      </note>
-      <note>
-        <rest/>
-        <duration>2</duration>
-        <voice>1</voice>
-        <type>half</type>
-      </note>
-      <barline location="right">
-        <bar-style>light-heavy</bar-style>
-      </barline>
-    </measure>
-  </part>
-  <!--=========================================================-->
-  <part id="P9">
+  <part id="P7">
     <measure number="1">
       <attributes>
         <divisions>1</divisions>
@@ -737,7 +620,7 @@
     </measure>
   </part>
   <!--=========================================================-->
-  <part id="P10">
+  <part id="P8">
     <measure number="1">
       <attributes>
         <divisions>1</divisions>
@@ -781,7 +664,7 @@
     </measure>
   </part>
   <!--=========================================================-->
-  <part id="P11">
+  <part id="P9">
     <measure number="1">
       <attributes>
         <divisions>1</divisions>
@@ -796,50 +679,7 @@
         <clef>
           <sign>F</sign>
           <line>4</line>
-        </clef>
-      </attributes>
-      <note>
-        <pitch>
-          <step>E</step>
-          <octave>3</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-      </note>
-      <note>
-        <rest/>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-      </note>
-      <note>
-        <rest/>
-        <duration>2</duration>
-        <voice>1</voice>
-        <type>half</type>
-      </note>
-      <barline location="right">
-        <bar-style>light-heavy</bar-style>
-      </barline>
-    </measure>
-  </part>
-  <!--=========================================================-->
-  <part id="P12">
-    <measure number="1">
-      <attributes>
-        <divisions>1</divisions>
-        <key>
-          <fifths>0</fifths>
-          <mode>major</mode>
-        </key>
-        <time symbol="common">
-          <beats>4</beats>
-          <beat-type>4</beat-type>
-        </time>
-        <clef>
-          <sign>F</sign>
-          <line>4</line>
+          <clef-octave-change>-1</clef-octave-change>
         </clef>
         <transpose>
           <diatonic>0</diatonic>
@@ -874,7 +714,7 @@
     </measure>
   </part>
   <!--=========================================================-->
-  <part id="P13">
+  <part id="P10">
     <measure number="1">
       <attributes>
         <divisions>1</divisions>
@@ -922,7 +762,7 @@
     </measure>
   </part>
   <!--=========================================================-->
-  <part id="P14">
+  <part id="P11">
     <measure number="1">
       <attributes>
         <divisions>1</divisions>
@@ -970,7 +810,7 @@
     </measure>
   </part>
   <!--=========================================================-->
-  <part id="P15">
+  <part id="P12">
     <measure number="1">
       <attributes>
         <divisions>1</divisions>
@@ -1014,7 +854,7 @@
     </measure>
   </part>
   <!--=========================================================-->
-  <part id="P16">
+  <part id="P13">
     <measure number="1">
       <attributes>
         <divisions>1</divisions>
@@ -1058,7 +898,7 @@
     </measure>
   </part>
   <!--=========================================================-->
-  <part id="P17">
+  <part id="P14">
     <measure number="1">
       <attributes>
         <divisions>1</divisions>
@@ -1102,7 +942,7 @@
     </measure>
   </part>
   <!--=========================================================-->
-  <part id="P18">
+  <part id="P15">
     <measure number="1">
       <attributes>
         <divisions>1</divisions>
@@ -1146,7 +986,7 @@
     </measure>
   </part>
   <!--=========================================================-->
-  <part id="P19">
+  <part id="P16">
     <measure number="1">
       <attributes>
         <divisions>1</divisions>
@@ -1190,7 +1030,7 @@
     </measure>
   </part>
   <!--=========================================================-->
-  <part id="P20">
+  <part id="P17">
     <measure number="1">
       <attributes>
         <divisions>1</divisions>
@@ -1234,7 +1074,7 @@
     </measure>
   </part>
   <!--=========================================================-->
-  <part id="P21">
+  <part id="P18">
     <measure number="1">
       <attributes>
         <divisions>1</divisions>
@@ -1257,7 +1097,6 @@
           <display-octave>5</display-octave>
         </unpitched>
         <duration>1</duration>
-        <instrument id="P21-M76"/>
         <voice>1</voice>
         <type>quarter</type>
       </note>
@@ -1279,7 +1118,7 @@
     </measure>
   </part>
   <!--=========================================================-->
-  <part id="P22">
+  <part id="P19">
     <measure number="1">
       <attributes>
         <divisions>1</divisions>
@@ -1358,7 +1197,7 @@
     </measure>
   </part>
   <!--=========================================================-->
-  <part id="P23">
+  <part id="P20">
     <measure number="1">
       <attributes>
         <divisions>1</divisions>
@@ -1471,7 +1310,7 @@
     </measure>
   </part>
   <!--=========================================================-->
-  <part id="P24">
+  <part id="P21">
     <measure number="1">
       <attributes>
         <divisions>1</divisions>
@@ -1515,7 +1354,7 @@
     </measure>
   </part>
   <!--=========================================================-->
-  <part id="P25">
+  <part id="P22">
     <measure number="1">
       <attributes>
         <divisions>1</divisions>
@@ -1559,7 +1398,7 @@
     </measure>
   </part>
   <!--=========================================================-->
-  <part id="P26">
+  <part id="P23">
     <measure number="1">
       <attributes>
         <divisions>1</divisions>
@@ -1603,7 +1442,7 @@
     </measure>
   </part>
   <!--=========================================================-->
-  <part id="P27">
+  <part id="P24">
     <measure number="1">
       <attributes>
         <divisions>1</divisions>
@@ -1647,7 +1486,7 @@
     </measure>
   </part>
   <!--=========================================================-->
-  <part id="P28">
+  <part id="P25">
     <measure number="1">
       <attributes>
         <divisions>1</divisions>

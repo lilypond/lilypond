@@ -750,8 +750,9 @@ def extract_score_structure(part_list, staffinfo):
 
     # 1) Replace all `Score_part` objects by their corresponding `Staff`
     #    objects, collect all start and stop points of groups that contain
-    #    `<group-symbol>`, and put this data into one `PartGroupInfo`
-    #    object.  Also extract `<group-barline>` information locally.
+    #    `<group-symbol>`, `<group-name>`, etc., and put this data into one
+    #    `PartGroupInfo` object.  However, exclude `<group-barline>` and
+    #    collect this information separately in a local array.
     staves = []
     staff_idx = 0
 
@@ -775,8 +776,12 @@ def extract_score_structure(part_list, staffinfo):
             number_attr = getattr(el, 'number', '1')
 
             if el.type == "start":
-                group_symbol = el.get_maybe_exist_named_child('group-symbol')
-                if group_symbol:
+                if any((isinstance(c, (musicxml.Group_name,
+                                       musicxml.Group_name_display,
+                                       musicxml.Group_abbreviation,
+                                       musicxml.Group_abbreviation_display,
+                                       musicxml.Group_symbol))
+                        for c in el._children)):
                     group_info.add_start(el)
                     symbol_ids.add(number_attr)
 
