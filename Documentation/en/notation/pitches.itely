@@ -235,7 +235,9 @@ pitches will not affect the octaves of the relative music:
 @funindex \chordmode
 @funindex \relative
 
-@code{\relative} has no effect on @code{\chordmode} blocks.
+@code{\relative} is not allowed inside of @code{\chordmode}
+blocks.  @code{\chordmode} blocks inside a @code{\relative} block
+remain unchanged.
 
 @lilypond[verbatim,quote]
 \new Staff {
@@ -245,8 +247,6 @@ pitches will not affect the octaves of the relative music:
   \chordmode { c1 }
 }
 @end lilypond
-
-@code{\relative} is not allowed inside of @code{\chordmode} blocks.
 
 @funindex \transpose
 @cindex relative octave entry, and transposition
