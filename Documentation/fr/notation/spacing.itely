@@ -1423,7 +1423,6 @@ modifier :
 
 @item
 @funindex set-global-staff-size
-
 La taille des portées peut se définir globalement pour toutes les
 partitions d'un même fichier à l'aide de @code{set-global-staff-size}.
 
@@ -1452,7 +1451,6 @@ pour les différents blocs @code{\book} :
 
 @item
 @funindex layout-set-staff-size
-
 La taille d'une partition particulière au sein d'un ouvrage se définit à
 l'aide d'un @code{layout-set-staff-size} placé dans le bloc
 @code{\layout} approprié :

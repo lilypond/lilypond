@@ -4704,7 +4704,6 @@ Three commands are provided:
 @itemize
 @item
 @funindex \tripletFeel
-
 @code{\tripletFeel} creates a triplet-feel swing.  It takes two
 arguments: the durations that should be affected by it (typically
 @code{8} for eighth notes), and then the music expression to which
@@ -4712,7 +4711,6 @@ it should be applied.
 
 @item
 @funindex \applySwing
-
 @code{\applySwing} takes an additional argument prior to the music
 expression: a @q{weight list} of @var{n} number ratios expressing the
 way regular notes should be played: for example, @code{#'(2 1)} indicates
@@ -4739,7 +4737,6 @@ may be obtained as follows:
 
 @item
 @funindex \applySwingWithOffset
-
 @code{\applySwingWithOffset} adds yet another argument between the
 @q{weight list} and the music expression: an offset length.  This
 command should be used when the music expression has to start

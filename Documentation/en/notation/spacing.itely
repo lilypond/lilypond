@@ -1338,7 +1338,6 @@ ways:
 
 @item
 @funindex set-global-staff-size
-
 To set the staff size globally for all scores in a file, use
 @code{set-global-staff-size}.
 
@@ -1367,7 +1366,6 @@ different @code{\book} blocks:
 
 @item
 @funindex layout-set-staff-size
-
 To set the staff size for a single score within a book, use
 @code{layout-set-staff-size} inside that score's @code{\layout}
 block:
