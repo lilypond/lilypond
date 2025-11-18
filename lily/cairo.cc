@@ -23,8 +23,6 @@
 
 #include "cpu-timer.hh"
 #include "dimensions.hh"
-#include "file-name.hh"
-#include "file-path.hh"
 #include "freetype.hh"
 #include "grob.hh"
 #include "international.hh"
@@ -39,6 +37,7 @@
 #include "output-def.hh"
 #include "pango-font.hh"
 #include "paper-book.hh"
+#include "point-and-click.hh"
 #include "prob.hh"
 #include "program-option.hh"
 #include "source-file.hh"
@@ -349,7 +348,7 @@ class Cairo_outputter : public Stencil_sink
   void url_link (std::string const &target, Real llx, Real lly, Real w, Real h,
                  bool relative);
   void textedit_link (Real llx, Real lly, Real w, Real h,
-                      std::string const &file, int line, int scol, int ecol);
+                      std::string const &origin);
   void grob_cause (SCM, SCM);
   void page_link (SCM target, SCM varx, SCM vary);
   void set_scale (SCM varx, SCM vary);
@@ -1084,14 +1083,11 @@ Cairo_outputter::png_file (SCM file_name, SCM factor, SCM background_color)
 
 void
 Cairo_outputter::textedit_link (Real llx, Real lly, Real w, Real h,
-                                std::string const &file, int line,
-                                int byte_count, int col)
+                                std::string const &origin)
 {
   /* stencil-interpret.cc passes the current offset as 1st grob-cause,
      so no need to get current offset. */
-  url_link (String_convert::form_string ("textedit://%s:%d:%d:%d",
-                                         file.c_str (), line, byte_count, col),
-            llx, lly, w, h, false);
+  url_link (origin, llx, lly, w, h, false);
 }
 
 void
@@ -1162,15 +1158,10 @@ Cairo_outputter::grob_cause (SCM offset, SCM grob_scm)
 
   if (is_list && !found_sym)
     return;
-  SCM location = get_property (ev, "origin");
-  Input *origin = unsmob<Input> (location);
-  if (!origin)
+
+  auto const origin = format_point_and_click_url (ev);
+  if (origin.empty ())
     return;
-
-  ssize_t line, chr, col, unused;
-  origin->get_counts (&line, &chr, &col, &unused);
-
-  File_name name (origin->file_string ());
 
   Offset off (from_scm<Offset> (offset));
   Interval x (grob->extent (grob, X_AXIS));
@@ -1179,10 +1170,7 @@ Cairo_outputter::grob_cause (SCM offset, SCM grob_scm)
     return;
 
   textedit_link (off[X_AXIS] + x[LEFT], off[Y_AXIS] + y[DOWN], x.length (),
-                 y.length (),
-                 String_convert::percent_encode (
-                   name.absolute (get_working_directory ()).to_string ()),
-                 int (line), int (chr), int (col));
+                 y.length (), origin);
 }
 
 //
