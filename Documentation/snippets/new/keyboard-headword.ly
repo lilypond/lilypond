@@ -1,7 +1,7 @@
 \version "2.25.6"
 
 \header {
-  lsrtags = "headword"
+  categories = "Headword"
 
   texidoc = "
 Keyboard headword

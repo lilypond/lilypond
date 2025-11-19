@@ -1,7 +1,7 @@
 \version "2.25.6"
 
 \header {
-  lsrtags = "chords, legacy-code"
+  categories = "Chords, Legacy code"
 
   texidoc = "
 Chord names are generated from a list of pitches.  The functions which

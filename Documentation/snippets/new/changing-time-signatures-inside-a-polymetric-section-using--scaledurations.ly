@@ -1,7 +1,8 @@
 \version "2.25.23"
 
 \header {
-  lsrtags = "contemporary-notation, contexts-and-engravers, rhythms, workaround"
+  categories = "Contemporary notation, Contexts and engravers, Rhythms,
+                Workaround"
 
   texidoc = "
 The @code{measureLength} property, together with

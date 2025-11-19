@@ -1,7 +1,7 @@
 \version "2.25.23"
 
 \header {
-  lsrtags = "rhythms, syntax-and-expressions"
+  categories = "Rhythms, Syntax and expressions"
 
   texidoc = "
 The property @code{tupletSpannerDuration} sets how long each of the

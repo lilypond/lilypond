@@ -1,7 +1,7 @@
 \version "2.25.22"
 
 \header {
-  lsrtags = "rhythms, tweaks-and-overrides"
+  categories = "Rhythms, Tweaks and overrides"
 
   texidoc = "
 Alternative shapes for flags on eighth and shorter notes can be displayed by

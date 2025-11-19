@@ -1,7 +1,7 @@
 \version "2.25.23"
 
 \header {
-  lsrtags = "rhythms"
+  categories = "Rhythms"
 
   texidoc = "
 The beams of consecutive 16th (or shorter) notes are, by default,

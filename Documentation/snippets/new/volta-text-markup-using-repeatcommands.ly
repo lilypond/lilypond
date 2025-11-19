@@ -1,7 +1,7 @@
 \version "2.25.4"
 
 \header {
-  lsrtags = "repeats, symbols-and-glyphs, text"
+  categories = "Repeats, Symbols and glyphs, Text"
 
   texidoc = "
 Though volte are best specified using @code{\\repeat volta}, the

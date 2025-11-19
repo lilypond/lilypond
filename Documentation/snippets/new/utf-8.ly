@@ -1,7 +1,7 @@
 \version "2.25.5"
 
 \header {
-  lsrtags = "text"
+  categories = "Text"
 
   texidoc = "
 Various scripts may be used for texts (like titles and lyrics) by

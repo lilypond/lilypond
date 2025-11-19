@@ -1,7 +1,7 @@
 \version "2.25.6"
 
 \header {
-  lsrtags = "text"
+  categories = "Text"
 
   texidoc = "
 Text objects are entered either as simple strings between double quotes

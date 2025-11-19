@@ -1,7 +1,7 @@
 \version "2.25.5"
 
 \header {
-  lsrtags = "text, tweaks-and-overrides"
+  categories = "Text, Tweaks and overrides"
 
   texidoc = "
 The default font families for text can be overridden."

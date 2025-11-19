@@ -1,7 +1,7 @@
 \version "2.25.6"
 
 \header {
-  lsrtags = "really-simple, vocal-music"
+  categories = "Really simple, Vocal music"
 
   texidoc = "
 Fonts can be changed independently for each stanza, including the font

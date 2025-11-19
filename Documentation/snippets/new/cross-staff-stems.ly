@@ -1,7 +1,8 @@
 \version "2.25.15"
 
 \header {
-  lsrtags = "contexts-and-engravers, staff-notation, tweaks-and-overrides"
+  categories = "Contexts and engravers, Staff notation, Tweaks and
+                overrides"
 
   texidoc = "
 This snippet shows how to use @code{Span_stem_engraver} and

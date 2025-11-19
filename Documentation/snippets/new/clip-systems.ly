@@ -1,7 +1,7 @@
 \version "2.25.13"
 
 \header {
-  lsrtags = "paper-and-layout"
+  categories = "Paper and layout"
 
   texidoc = "
 This code shows how to clip (extract) snippets from a full score.

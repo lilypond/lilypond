@@ -1,7 +1,7 @@
 \version "2.25.23"
 
 \header {
-  lsrtags = "repeats"
+  categories = "Repeats"
 
   texidoc = "
 By default, the volta brackets will be drawn over all of the
