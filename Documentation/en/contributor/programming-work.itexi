@@ -1534,7 +1534,7 @@ the snippets, and the regression tests.  This not only makes the
 necessary syntax changes, it also tests the @command{convert-ly}
 rules.
 
-The automatic updating is performed by moving to the top-level
+The automatic updating is performed by changing to the top-level
 source directory, then running:
 
 @example
@@ -1544,33 +1544,36 @@ scripts/auxiliar/update-with-convert-ly.sh
 If you did an out-of-tree build, pass in the relative path:
 
 @example
-LILYPOND_BUILD_DIR=../build-lilypond/ scripts/auxiliar/update-with-convert-ly.sh
+LILYPOND_BUILD_DIR=../build-lilypond/ \
+  scripts/auxiliar/update-with-convert-ly.sh
 @end example
 
 
 @node Manually update documentation
 @subsection Manually update documentation
 
-Where the convert-ly rule is not able to automatically update the inline
-LilyPond code in the documentation (i.e., if a NOT_SMART rule is used), the
-documentation must be manually updated.  The inline snippets that require
-changing must be changed in the English version of the docs and all
+Where the @command{convert-ly} rule is not able to automatically
+update the inline LilyPond code in the documentation (i.e., if a
+@code{NOT_SMART} rule is used), the documentation must be manually
+updated.  The inline snippets that require modification must be
+changed in the English version of the documentation and all
 translated versions.  If the inline code is not changed in the
-translated documentation, the old snippets will show up in the
-English version of the documentation.
+translated documentation, old snippets will show up instead.
 
-Where the convert-ly rule is not able to automatically update snippets
-in Documentation/snippets/, those snippets must be manually updated.
-Those snippets should be copied to Documentation/snippets/new.  The
-comments at the top of the snippet describing its automatic generation
-should be removed.  All translated texidoc strings should be removed.
-The comment @qq{% begin verbatim} should be removed.  The syntax of
-the snippet should then be manually edited.
+Where the @command{convert-ly} rule is not able to automatically
+update snippets in @file{Documentation/@/snippets/}, those
+snippets must be manually updated and copied to
+@file{Documentation/@/snippets/@/new}.  The comments at the top of
+the snippet describing its automatic generation should be removed.
+All translated texidoc strings should be removed.  The comment
+@samp{% begin verbatim} should be removed.  The syntax of the
+snippet should then be manually edited.
 
-Where snippets in Documentation/snippets are made obsolete, the snippet
-should be copied to Documentation/snippets/new.  The comments and
-texidoc strings should be removed as described above.  Then the body
-of the snippet should be changed to:
+Where snippets in @file{Documentation/snippets} are made obsolete,
+the snippet should be copied to
+@file{Documentation/@/snippets/@/new}.  The comments and texidoc
+strings should be removed as described above.  Then the body of
+the snippet should be changed to:
 
 @example
 \markup @{
@@ -1580,28 +1583,28 @@ of the snippet should be changed to:
 @end example
 
 @noindent
-where X.Y.Z is the version number for which the convert-ly rule was
-written.
+where @q{X.Y.Z} is the version number for which the
+@command{convert-ly} rule was written.
 
 Update the snippet files by running:
 
 @example
-scripts/auxiliar/makelsr.pl --no-lsr --dump=no --no-snippet-list
+scripts/auxiliar/makelsr.pl --no-lsr --no-snippet-list
 @end example
 
-Where the convert-ly rule is not able to automatically update regression
-tests, the regression tests in input/regression should be manually
-edited.
+Where the @command{convert-ly} rule is not able to automatically
+update regression tests, the regression tests in
+@file{input/@/regression/} should be manually edited.
 
-Although it is not required, it is helpful if the developer
-can write relevant material for inclusion in the Notation
-Reference.  If the developer does not feel qualified to write
-the documentation, a documentation editor will be able to
-write it from the regression tests.  In this case the developer
-should raise a new issue with the Type=Documentation tag containing
-a reference to the original issue number and/or the committish of
-the pushed patch so that the need for new documention is not
-overlooked.
+Although it is not required, it is helpful if the developer can
+write relevant material for inclusion in the Notation Reference.
+If the developer does not feel qualified to write the
+documentation, a documentation editor will be able to write it
+from the regression tests.  In this case the developer should
+raise a new issue in the tracker (setting the @q{Doc} label)
+containing a reference to the original issue number and/or the
+committish of the pushed patch so that the need for new
+documention is not overlooked.
 
 Any text that is added to or removed from the documentation should
 be changed only in the English version.

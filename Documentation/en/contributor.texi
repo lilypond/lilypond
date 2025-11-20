@@ -54,7 +54,7 @@ Copyright @copyright{} 2007--2023 by the authors.
 * Compiling::
 * Documentation work::
 * Website work::
-* LSR work::
+* LilyPond Wiki work::
 * Issues::
 * Regression tests::
 * Programming work::

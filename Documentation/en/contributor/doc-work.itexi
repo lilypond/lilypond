@@ -179,20 +179,22 @@ etc., as much as possible in examples shown in the main text of
 the manuals, as there would be far too many, equally useful,
 candidates.
 
-The correct way is to submit your example, with appropriate
-explanatory text and tags, to the LilyPond Snippet Repository
-(LSR).  Snippets that have the @qq{docs} tag can then be easily
-added as a @emph{selected snippet} in the documentation.  It will
-also appear automatically in the Snippets lists.
-@xref{Introduction to LSR}.
+The correct way is to add your example, with appropriate
+explanatory text and categories, to the LilyPond Wiki, the
+successor of the LilyPond Snippet Repository (LSR).  Snippets that
+have the @q{Included in the official documentation} category can
+then be easily added as a @emph{selected snippet} in the
+documentation.  It will also appear automatically in the
+@q{Snippets} manual.  @xref{Introduction to the LilyPond Wiki}.
 
-Snippets that @emph{don't} have the @qq{docs} tag will still be
-searchable and viewable within the LSR, but will be not be included in
-the Snippets list or be able to be included as part of the main
-documentation.
+Snippets that @emph{don't} have the @q{Included in the official
+documentation} category will still be searchable and viewable
+within the Wiki, but will be not be included in the Snippets list
+or be able to be included as part of the main documentation.
 
-Generally, any new snippets that have the @qq{docs} tag are more
-carefully checked for syntax and formatting.
+Generally, any new snippets that have the @q{Included in the
+official documentation} category are more carefully checked for
+syntax and formatting.
 
 @subheading Announcing your snippet
 
@@ -271,7 +273,7 @@ Many snippet files are part of the Notation Reference, and the
 Snippet List (SL), which holds all snippets, lives in
 @file{Documentation/} just like the manuals; its master file is
 called @file{snippets.tely}.  For information about how to modify
-the snippet files and SL, @pxref{LSR work}.
+the snippet files and SL, @pxref{LilyPond Wiki work}.
 
 
 @node Sectioning commands
@@ -484,7 +486,7 @@ Inspirational headwords are produced with:
 @end example
 
 @item
-LSR snippets are linked with:
+LilyPond Wiki snippets are linked with:
 
 @example
 @@lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -1244,9 +1246,9 @@ Dynamics may be manually placed above or below the staff, see
 @@ref@{Direction and placement@}.
 @end example
 
-Most tweaks should be added to the LSR and not placed directly in
-the @file{.itely} file.  In some cases, tweaks may be placed in
-the main text, but ask about this first.
+Most tweaks should be added to snippets in the LilyPond Wiki and
+not placed directly in the @file{.itely} file.  In some cases,
+tweaks may be placed in the main text, but ask about this first.
 
 Finally, you should assume that users know what the notation
 means; explaining musical concepts happens in the Music Glossary.
@@ -1593,9 +1595,10 @@ Music Glossary, the Internals Reference, and other NR sections are
 the main concern.  Check for potential additions.
 
 @item
-move LSR-worthy material into the LSR.  Add the snippet, delete
-the material from the @file{.itely} file, and replace it with a
-@code{@@lilypondfile} command.
+move material that makes sense if processed stand-alone into the
+LilyPond Wiki as a snippet, then delete the material from the
+@file{.itely} file and replace it with a @code{@@lilypondfile}
+command.
 
 @item
 check the examples and descriptions.  Do they still work?
@@ -1623,11 +1626,12 @@ easily-understandable examples is much harder than it looks.
 @subsubheading Tweaks
 
 In general, any @code{\set} or @code{\override} command should go
-in the @qq{selected snippets} section, which means that they should
-be added to the LSR and not to the @file{.itely} file.  For some
-cases, the command obviously belongs in the @qq{main text} (i.e.,
-not inside @code{@@predefined} or @code{@@morerefs} or whatever)
--- instrument names are a good example of this:
+in the @qq{selected snippets} section, which means that they
+should be added to the LilyPond Wiki and not to the @file{.itely}
+file.  For some cases, the command obviously belongs in the
+@qq{main text} (i.e., not inside @code{@@predefined} or
+@code{@@morerefs} or whatever) -- instrument names are a good
+example of this:
 
 @example
 \set Staff.instrumentName = "foo"
@@ -1640,7 +1644,7 @@ On the other side of this,
 @end example
 
 @noindent
-clearly belongs to the LSR.
+clearly belongs to a snippet in the LilyPond Wiki.
 
 One place where a documentation writer can profitably spend time
 writing or upgrading tweaks is creating code to deal with known
@@ -2441,7 +2445,7 @@ git rev-list HEAD | head -1
 @c contains a helper script which could be used to perform massive
 @c committish updates.
 
-Most of the changes in the LSR snippets included in the
+Most of the changes in LilyPond Wiki snippets included in the
 documentation concern the syntax, not the description inside
 @code{texidoc="..."}.  This implies that sometimes you will have
 to update only the committish of the matching @code{.texidoc} file
@@ -2455,7 +2459,7 @@ sed -i -r 's/[0-9a-z]@{40@}/@var{NEW-COMMITTISH}/' *.texidoc
 @end example
 
 @morerefs
-@ref{LSR work}.
+@ref{LilyPond Wiki work}.
 @endmorerefs
 
 
