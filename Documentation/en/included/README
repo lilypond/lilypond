@@ -3,7 +3,8 @@ Most of these examples are distinct snippets; files that are also included
 in the regression tests should be copied from `input/regression/` into this
 direction and listed here.
 
-- Anything from the LSR should be in `Documentation/snippets/`, though.
+- Anything from the LilyPond Wiki should be in `Documentation/snippets/`,
+  though.
 
 - `simple.ly` isn't large, but it is included from
   `scm/define-markup-commands.scm` and should not be removed.

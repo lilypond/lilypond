@@ -2016,8 +2016,9 @@ barring indications using a barré line.
 }
 @end lilypond
 
-A more sophisticated solution can be found in
-@url{https://lsr.di.unimi.it/LSR/Item?id=952,LSR snippet 952}.
+A more sophisticated solution can be found in this
+@url{https://wiki.lilypond.community/wiki/Guitar_barre, guitar
+barré snippet}.
 
 @morerefs
 Notation Reference:

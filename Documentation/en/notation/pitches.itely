@@ -3045,8 +3045,9 @@ simultaneously with different alterations, as in @code{<f! fis!>}.
 >>
 @end lilypond
 
-A more sophisticated solution is given in
-@url{https://lsr.di.unimi.it/LSR/Item?id=1172,LSR snippet 1172}.
+A more sophisticated solution is given in a
+@url{https://wiki.lilypond.community/wiki/Accidental_adjustments_for_single-voice_polyphony,
+LilyPond Wiki snippet}.
 
 In alternative endings, cautionary cancellation should be based on
 the previous @emph{played} measure, but it is based on the

@@ -4570,7 +4570,7 @@ sustained notes (not supported automatically by LilyPond).
 
 @c Issue 4059 contains an attached snippet which shows how this might
 @c be done, but this is too large and complex for the NR, even as a
-@c referenced snippet.  It could be added to the LSR.
+@c referenced snippet.  It could be added to the LilyPond Wiki.
 
 The expression level ranges from 0.0 (no expression, meaning zero
 volume) to 1.0 (full expression).

@@ -2793,7 +2793,7 @@ orientation aids that bar lines give.
 @c This simple setup will take care of the
 @c TODO Add text about lyrics to the lowest line, to be placed
 @c outside the StaffGroup.
-@c from lsr and -user
+@c from LilyPond Wiki and -user
 @c TBC
 
 @c @morerefs

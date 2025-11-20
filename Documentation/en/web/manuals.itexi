@@ -143,7 +143,7 @@ tweaks reference.
 previous stable versions and current as a compressed archive.
 
 @item
-@uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}:
+@uref{https://wiki.lilypond.community, LilyPond Wiki}:
 user-created examples, hints and tips.
 
 @item
@@ -334,14 +334,16 @@ attempting any large projects.
 @subheading Snippets
 
 This shows a selected set of LilyPond snippets from the
-@uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}
-(LSR).  All the snippets are in the public domain.
+@uref{https://wiki.lilypond.community, LilyPond Wiki}, the
+successor of the LilyPond Snippet Repository (LSR).  All the
+snippets are in the public domain.
 
-Please note that this document is not an exact subset of LSR.  LSR
-is running a stable LilyPond version, so any snippet which
-demonstrates new features of a development version must be added
-separately.  These are stored in @file{Documentation/snippets/new/} in the LilyPond
-source tree.
+Please note that this document is not an exact subset of the Wiki,
+which (mainly) contains snippets for the current stable LilyPond
+version.  Any snippet that demonstrates new features of a
+development version must be added separately; these are stored in
+the directory @file{Documentation/@/snippets/@/new/} in the
+LilyPond source tree.
 
 The list of snippets for each subsection of the Notation Reference
 is also linked from the @strong{See also} portion.

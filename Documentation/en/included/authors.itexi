@@ -33,8 +33,8 @@
     font...     (duh)
     doc...      (documentation and examples)
     bug...      (bug squad members)
-    support...  (building, distributions, editors,
-                 lilypond-book, LSR, but *not* answering emails)
+    support...  (building, distributions, editors, lilypond-book,
+                 LilyPond Wiki, but *not* answering emails)
     translations... (duh)
   We might add a "general" or "other" if there's something else.
 

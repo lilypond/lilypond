@@ -4581,7 +4581,8 @@ A multi-note beamed @dfn{acciaccatura} is printed without a slash,
 and looks exactly the same as a multi-note beamed
 @dfn{appoggiatura}.
 
-@c TODO Add link to LSR snippet to add slash when available
+@c TODO Add link to LilyPond Wiki snippet to add slash when
+@c      available
 
 Grace note synchronization can also lead to surprises.  Staff
 notation, such as key signatures, bar lines, etc., are also

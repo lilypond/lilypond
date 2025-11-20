@@ -133,23 +133,26 @@ Portuguese group}
 @uref{https://lists.gnu.org/mailman/listinfo/lilypond-es,
 Spanish mailing list}
 @end quotation
+
+Please contact us if you want to make us add another forum or
+mailing list related to LilyPond!
 @divEnd
 
 
 @divClass{column-right-top}
-@subheading LilyPond Snippet Repository
+@subheading LilyPond Wiki
 
-The LilyPond Snippet Repository is a large collection of
-user-submitted examples, which can freely be copied and used
-in your own works.  See what other people have written,
-and add your own!
+The LilyPond Wiki, successor of the LilyPond Snippet Repository
+(LSR), is a large collection of user-submitted examples that can
+be freely copied and used in your own works.  See what other
+people have written, and add your own!
 
-@example
-@uref{https://lsr.di.unimi.it}
-@end example
+@indentedblock
+@uref{https://wiki.lilypond.community}
+@end indentedblock
 
-Particularly instructive examples from LSR are included in our
-official documentation, in @ref{Snippets}.
+Particularly instructive examples from LilyPond Wiki are included
+in our official documentation, in @ref{Snippets}.
 @divEnd
 
 
@@ -581,7 +584,7 @@ Development versions have an odd-numbered @q{minor} version number
 Instructions for git and compiling are in the Contributor's Guide.
 
 @quotation
-@uref{https://git.sv.gnu.org/gitweb/?p=lilypond.git, lilypond git repository}
+@uref{https://git.sv.gnu.org/gitweb/?p=lilypond.git, LilyPond git repository}
 @end quotation
 
 Documentation writers and testers will generally want to download
