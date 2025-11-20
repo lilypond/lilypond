@@ -216,35 +216,40 @@ archive 2}
 
 Some level of support is provided on our IRC channel,
 
-@example
+@indentedblock
 @uref{irc://irc.libera.chat/lilypond, #lilypond@@irc.libera.chat}
-@end example
+@end indentedblock
 
 This channel has no public archive, so any question that may
 be useful for others would better be posted to one of the mailing lists.
 
+@ifhtml
+@indentedblock
 @html
-<form action="https://web.libera.chat"
-      method="get"
-      name="f_lily_irc"
-  <label>irc name:
-    <input name="nick" type="text" size="15" value="">
-  </label>
-  <input name="Channel" type="hidden" value="lilypond">
-  <input type="submit" value="Join #lilypond IRC Chat">
+<form id="chat">
+  <p>
+    <label>irc name:
+      <input name="nick" type="text" size="15" value="">
+    </label>
+    <input type="submit" value="Join #lilypond IRC Chat">
+  </p>
 </form>
 
-<script language="JavaScript" type="text/javascript">
-  var username = "web";
-  var lang = window.navigator.userLanguage ? window.navigator.userLanguage
-  : window.navigator.language;
-  username += '-' + lang.substr(0, 2);
-  username += '-' + navigator.appName.substr(0, 2);
-  username += navigator.appCodeName.replace (" ", "").substr(0, 2);
-  username += navigator.platform.replace (" ", "").replace("nux", "").replace("n32", "");
-  document.forms["f_lily_irc"].nick.value = username;
+<script type="text/javascript">
+  var form = document.getElementById("chat");
+  var username = "guest";
+  username += String(Math.floor(Math.random() * 9000) + 1000);
+  form.nick.value = username;
+
+  form.onsubmit = function() {
+    window.open("https://web.libera.chat/?nick="
+                + this.nick.value + "#lilypond");
+    return true;
+  }
 </script>
 @end html
+@end indentedblock
+@end ifhtml
 @divEnd
 
 @c Currently inactive and inaccessible
