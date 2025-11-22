@@ -1338,7 +1338,7 @@ un numero in sequenza. Tali sequenze numeriche ricominciano su ogni pagina
 contenente una nota.
 
 @item offset
-è una coppia di numeri come @samp{#(2 . 1)} che specificano la distanza
+è una coppia di numeri come @samp{#'(2 . 1)} che specificano la distanza
 orizzontale e verticale (X e Y@tie{}offset), in unità di spazio rigo, dal
 bordo dell'oggetto in cui il segno deve essere posizionato. Valori positivi
 degli offset vengono presi dal bordo in alto a destra, valori negativi

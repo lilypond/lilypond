@@ -1561,7 +1561,7 @@ variable @code{reset-@/footnotes-@/on-@/new-@/page} to @code{#f},
 
 
 @item offset
-is a number pair such as @samp{#(2 . 1)} specifying the X and
+is a number pair such as @samp{#'(2 . 1)} specifying the X and
 Y@tie{}offsets in units of staff spaces from the boundary of the
 object where the mark should be placed.  Positive values of the
 offsets are taken from the right/top edge, negative values from the

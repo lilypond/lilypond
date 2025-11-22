@@ -1174,7 +1174,7 @@ unten auf der Seite benützt wird.  Es kann ausgelassen werden
 eine aufsteigende Zahlenfolge erstellt.
 
 @item Verschiebung (offset)
-ist ein Zahlenpaar wie etwa @samp{#(2 . 1)}, das die X- und Y-Verschiebung
+ist ein Zahlenpaar wie etwa @samp{#'(2 . 1)}, das die X- und Y-Verschiebung
 vom Referenzpunkt aus angibt, wo das Zeichen gesetzt werden soll.
 
 @item Grob-Bezeichnung

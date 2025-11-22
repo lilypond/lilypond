@@ -1671,7 +1671,7 @@ de página estableciendo la variable
 
 
 @item desplazamiento
-es una pareja de números tal como @samp{#(2 . 1)} que especifica
+es una pareja de números tal como @samp{#'(2 . 1)} que especifica
 los desplazamientos en X y en Y en unidades de espacios de
 pentagrama a partir del límite del objeto en que se desea situar
 la marca.  Los valores de desplazamiento positivos se toman a

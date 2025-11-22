@@ -1352,7 +1352,7 @@ de forma automàtica.  Tals seqüències numèriques es reinicien en
 cada pàgina que conté una nota al peu.
 
 @item desplaçament
-és una parella de números tal com @samp{#(2 . 1)} que especifica
+és una parella de números tal com @samp{#'(2 . 1)} que especifica
 els desplaçaments en X i en Y en unitats d'espais de pentagrama a
 partir del límit de l'objecte en el qual es desitja situar la
 marca.  Els valors de desplaçament positius s'agafen a partir del

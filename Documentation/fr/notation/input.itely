@@ -1582,7 +1582,7 @@ peut être continue sur l'ouvrage en désactivant la variable
 concerning headers and markups}.
 
 @item décalage
-Une paire de nombres -- @samp{#(2 . 1)} par exemple -- spécifiant le
+Une paire de nombres -- @samp{#'(2 . 1)} par exemple -- spécifiant le
 décalage de la marque, en abscisse et en ordonnée, par rapport au point
 de référence. Des valeurs positives décalent vers la droite ou le haut,
 des valeurs négatives vers la gauche ou le bas ; des valeurs à zéro
