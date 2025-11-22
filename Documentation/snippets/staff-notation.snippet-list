@@ -37,6 +37,7 @@ print-chordnames-with-same-root-and-different-bass-as-slash-and-bass-note.ly
 putting-lyrics-inside-the-staff.ly
 quoting-another-voice.ly
 quoting-another-voice-with-transposition.ly
+reconciliating-bar-lines-thickness-when-staves-are-of-different-sizes-todo-duplicates-snippet-in-documentation-en-notation-spacing.itely.ly
 removing-brace-on-first-line-of-piano-score.ly
 removing-the-first-empty-line.ly
 setting-system-separators.ly
