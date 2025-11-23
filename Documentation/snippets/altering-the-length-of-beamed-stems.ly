@@ -16,11 +16,11 @@
   texidoc = "
 Stem lengths on beamed notes can be varied by overriding the
 @code{beamed-lengths} property of the @code{details} of the
-@code{Stem}.  If a single value is used as an argument, the length
-applies to all stems.  When multiple arguments are used, the first
-applies to eighth notes, the second to sixteenth notes and so on.  The
+@code{Stem}. If a single value is used as an argument, the length
+applies to all stems. When multiple arguments are used, the first
+applies to eighth notes, the second to sixteenth notes and so on. The
 final argument also applies to all notes shorter than the note length
-of the final argument.  Non-integer arguments may also be used.
+of the final argument. Non-integer arguments may also be used.
 "
 
   doctitle = "Altering the length of beamed stems"

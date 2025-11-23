@@ -15,7 +15,7 @@
 
   texidoc = "
 In some instances of complex polyphonic music, additional voices are
-necessary to prevent collisions between notes.  If more than four
+necessary to prevent collisions between notes. If more than four
 parallel voices are needed, additional voices can be added by defining
 a variable using the Scheme function @code{context-spec-music}.
 "

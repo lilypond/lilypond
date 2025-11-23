@@ -15,7 +15,7 @@
 
   texidoc = "
 This snippet defines the commands @code{\\splitStaffBarLine},
-@code{\\convUpStaffBarLine}, and @code{\\convDownStaffBarLine}.  These
+@code{\\convUpStaffBarLine}, and @code{\\convDownStaffBarLine}. These
 add arrows at a bar line to denote that several voices sharing a staff
 will each continue on a staff of their own in the next system, or that
 voices split in this way recombine.

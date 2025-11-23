@@ -14,8 +14,8 @@
   lsrtags = "really-simple, tweaks-and-overrides"
 
   texidoc = "
-With the @code{\\tweak} command, every grob can be tuned
-directly.  Here are some examples of available tweaks.
+With the @code{\\tweak} command, every grob can be tuned directly. Here
+are some examples of available tweaks.
 "
 
   doctitle = "Using the \\tweak command to tweak individual grobs"

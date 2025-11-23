@@ -15,7 +15,7 @@
 
   texidoc = "
 By default, bar lines in StaffGroup, PianoStaff, or GrandStaff groups
-are connected between the staves, i.e. a SpanBar is printed.  This
+are connected between the staves, i.e. a SpanBar is printed. This
 behaviour can be overridden on a staff-by-staff basis.
 "
 

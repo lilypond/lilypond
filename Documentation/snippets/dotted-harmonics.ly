@@ -14,7 +14,7 @@
   lsrtags = "real-music, tweaks-and-overrides, unfretted-strings"
 
   texidoc = "
-Artificial harmonics using @code{\\harmonic} do not show dots.  To
+Artificial harmonics using @code{\\harmonic} do not show dots. To
 override this behavior, set the context property @code{harmonicDots}.
 "
 

@@ -15,7 +15,7 @@
 
   texidoc = "
 The @code{quotedEventTypes} property determines the music event types
-which should be quoted.  The default value is
+which should be quoted. The default value is
 @code{(note-event rest-event tie-event beam-event tuplet-span-event)},
 which means that only the notes, rests, ties, beams and tuplets of the
 quoted voice will appear in the @code{\\quoteDuring} expression.

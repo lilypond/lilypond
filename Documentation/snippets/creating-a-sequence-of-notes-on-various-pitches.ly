@@ -15,8 +15,8 @@
 
   texidoc = "
 In music that contains many occurrences of the same sequence of notes
-at different pitches, the following music function may prove
-useful.  It takes a note, of which only the pitch is used.
+at different pitches, the following music function may prove useful. It
+takes a note, of which only the pitch is used.
 
 This example creates the rhythm used throughout @emph{Mars}, from
 Gustav Holst's @emph{The Planets}.

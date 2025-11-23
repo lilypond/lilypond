@@ -17,7 +17,7 @@
 The first empty staff can also be removed from the score by setting the
 @code{VerticalAxisGroup} property @code{remove-first}. This can be done
 globally inside the @code{\\layout} block, or locally inside the
-specific staff that should be removed.  In the latter case, you have to
+specific staff that should be removed. In the latter case, you have to
 specify the context (@code{Staff} applies only to the current staff) in
 front of the property.
 

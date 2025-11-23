@@ -16,7 +16,7 @@
   texidoc = "
 In order to make parts of a crescendo hairpin invisible, the following
 method is used: A white rectangle is drawn on top of the respective
-part of the crescendo hairpin, making it invisible.  The rectangle is
+part of the crescendo hairpin, making it invisible. The rectangle is
 defined as postscript code within a text markup.
 
 The markup command @code{with-dimensions} tells LilyPond to consider

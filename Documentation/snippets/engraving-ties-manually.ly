@@ -24,12 +24,11 @@ The offset indicates the distance from the center of the staff in half
 staff spaces, the direction can be either 1 (up) or -1 (down).
 
 Note that LilyPond makes a distinction between exact and inexact values
-for the offset.  If using an exact value (i.e., either an integer or a
+for the offset. If using an exact value (i.e., either an integer or a
 fraction like @code{(/ 4 5)}), the value serves as a rough vertical
 position that gets further tuned by LilyPond to make the tie avoid
-staff lines.  If using an inexact value like a floating point number,
-it is taken as the precise vertical position without further
-adjustments.
+staff lines. If using an inexact value like a floating point number, it
+is taken as the precise vertical position without further adjustments.
 "
 
   doctitle = "Engraving ties manually"

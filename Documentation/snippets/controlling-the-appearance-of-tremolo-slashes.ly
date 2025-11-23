@@ -28,10 +28,9 @@ rectangles (value @code{rectangle}) or like very small beams (value
 
 @item
 Property @code{style} sets both the slope and the shape depending on
-whether the note has flags, beams, or only a plain stem.  This is in
+whether the note has flags, beams, or only a plain stem. This is in
 contrast to the previous two properties, which change the slope and
-shape unconditionally.  There are two styles defined.
-
+shape unconditionally. There are two styles defined.
 @itemize
 @item
 @code{default}: slashes for down-stem flags are longer and more sloped

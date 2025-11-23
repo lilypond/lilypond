@@ -26,7 +26,7 @@ startAppoggiaturaMusic
 stopAppoggiaturaMusic
 @end verbatim
 
-They are defined in file @code{ly/grace-init.ly}.  By redefining them
+They are defined in file @code{ly/grace-init.ly}. By redefining them
 other effects may be obtained.
 "
 

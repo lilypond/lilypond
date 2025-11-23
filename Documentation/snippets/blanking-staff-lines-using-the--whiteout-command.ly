@@ -14,9 +14,9 @@
   lsrtags = "editorial-annotations, really-cool, text"
 
   texidoc = "
-The @code{\\whiteout} command underlays a markup with a white
-box.  Since staff lines are in a lower layer than most other grobs,
-this white box will not overlap any other grob.
+The @code{\\whiteout} command underlays a markup with a white box.
+Since staff lines are in a lower layer than most other grobs, this
+white box will not overlap any other grob.
 "
 
   doctitle = "Blanking staff lines using the \\whiteout command"

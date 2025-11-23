@@ -14,8 +14,8 @@
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
   texidoc = "
-Postfix functions for custom crescendo text spanners.  The spanners
-should start on the first note of the measure.  One has to use
+Postfix functions for custom crescendo text spanners. The spanners
+should start on the first note of the measure. One has to use
 @code{-\\mycresc}, otherwise the spanner start will rather be assigned
 to the next note.
 "

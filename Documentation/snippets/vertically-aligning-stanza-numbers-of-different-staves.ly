@@ -15,7 +15,7 @@
 
   texidoc = "
 It can happen that stanza numbers don't align vertically if the verses
-are attached to different staves.  To fix that, override the
+are attached to different staves. To fix that, override the
 @code{self-alignment-X} property of the @code{LyricText} grob.
 "
 

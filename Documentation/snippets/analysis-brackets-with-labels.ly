@@ -15,7 +15,7 @@
 
   texidoc = "
 Text markup may be added to analysis brackets through the @code{text}
-property of the @code{HorizontalBracketText} grob.  Adding different
+property of the @code{HorizontalBracketText} grob. Adding different
 texts to brackets beginning at the same time requires the
 @code{\\tweak} command.
 

@@ -17,8 +17,8 @@
 Using @code{\\override Slur.positions} it is possible to set the
 vertical position of the start and end points of a slur to absolute
 values (or rather, forcing LilyPond's slur algorithm to consider these
-values as desired).  In many cases, this means a lot of trial and error
-until good values are found.  You probably have tried the
+values as desired). In many cases, this means a lot of trial and error
+until good values are found. You probably have tried the
 @code{\\offset} command next just to find out that it doesn't work for
 slurs, emitting a warning instead.
 

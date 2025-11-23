@@ -14,7 +14,7 @@
   lsrtags = "contexts-and-engravers, pitches, staff-notation, tweaks-and-overrides"
 
   texidoc = "
-LilyPond supports custom key signatures.  In this example, print for D
+LilyPond supports custom key signatures. In this example, print for D
 minor with an extended range of printed flats.
 "
 

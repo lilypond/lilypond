@@ -16,7 +16,7 @@
   texidoc = "
 Sometimes it is better to use stems from the upper staff for creating
 cross-staff chords, because no problems with automatic beam collision
-avoidance then arise.  If the stems from the lower staff were used in
+avoidance then arise. If the stems from the lower staff were used in
 the following example, it would be necessary to change the automatic
 beam collision avoidance settings so that it doesn't detect collisions
 between staves using

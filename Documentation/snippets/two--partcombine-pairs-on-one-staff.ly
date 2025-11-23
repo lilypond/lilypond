@@ -16,11 +16,11 @@
   texidoc = "
 The @code{\\partCombine} function takes two music expressions each
 containing a part, and distributes them among four @code{Voice}s named
-@qq{two}, @qq{one}, @qq{solo}, and @qq{chords} depending on when and how
-the parts are merged into a common voice.  The voices output from
+@qq{two}, @qq{one}, @qq{solo}, and @qq{chords} depending on when and how the parts
+are merged into a common voice. The voices output from
 @code{\\partCombine} can have their layout properties adjusted in the
-usual way.  Here we define extensions of @code{\\partCombine} to make
-it easier to put four voices on a staff.
+usual way. Here we define extensions of @code{\\partCombine} to make it
+easier to put four voices on a staff.
 
 @verbatim
 soprano = { d'4 | cis'  b  e'  d'8 cis' | cis'2 b }

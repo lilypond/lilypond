@@ -15,20 +15,20 @@
 
   texidoc = "
 The placement of fingering numbers can be controlled precisely by using
-the property @code{fingeringOrientation}.  For fingering orientation to
+the property @code{fingeringOrientation}. For fingering orientation to
 apply, the fingering command must be used within a chord construct
-(@code{<...>}), even for single notes.  Orientation for string numbers
+(@code{<...>}), even for single notes. Orientation for string numbers
 and right-hand fingerings may be controlled in a similar way by using
 the properties @code{stringNumberOrientation} and
 @code{strokeFingerOrientation}, respectively.
 
-These properties can be set to a list of one to three values.  They
+These properties can be set to a list of one to three values. They
 control whether fingerings may be placed above (if @code{up} appears in
 the list), below (if @code{down} appears), to the left (if @code{left}
-appears), or to the right (if @code{right} appears).  Conversely, if a
-location is not listed, no fingering is placed there.  LilyPond takes
+appears), or to the right (if @code{right} appears). Conversely, if a
+location is not listed, no fingering is placed there. LilyPond takes
 these constraints and works out the best placement for the fingering of
-the notes of the following chords.  Note that @code{left} and
+the notes of the following chords. Note that @code{left} and
 @code{right} are mutually exclusive -- fingerings may be placed only on
 one side or the other, not both.
 "

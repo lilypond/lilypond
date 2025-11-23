@@ -14,7 +14,7 @@
   lsrtags = "real-music, staff-notation"
 
   texidoc = "
-The @code{\\markup} command is quite versatile.  In this snippet, it
+The @code{\\markup} command is quite versatile. In this snippet, it
 contains a @code{\\score} block instead of texts or marks.
 "
 

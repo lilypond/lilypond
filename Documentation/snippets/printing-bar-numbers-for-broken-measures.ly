@@ -15,7 +15,7 @@
 
   texidoc = "
 By default a @code{BarNumber} of a broken measure is not repeated at
-the beginning of the new line.  Use
+the beginning of the new line. Use
 @code{first-bar-number-invisible-save-broken-bars} for
 @code{barNumberVisibility} to get a parenthesized @code{BarNumber}
 there.

@@ -14,7 +14,7 @@
   lsrtags = "fretted-strings"
 
   texidoc = "
-Fret diagrams can be oriented in three ways.  By default the top string
+Fret diagrams can be oriented in three ways. By default the top string
 or fret in the different orientations will be aligned.
 "
 

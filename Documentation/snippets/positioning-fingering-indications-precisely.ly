@@ -16,7 +16,7 @@
   texidoc = "
 Generally the options available for positioning the fingering of chords
 work well by default, but if one of the indications needs to positioned
-more precisely the following tweak may be used.  This is particularly
+more precisely the following tweak may be used. This is particularly
 useful for correcting the positioning when intervals of a second are
 involved.
 "

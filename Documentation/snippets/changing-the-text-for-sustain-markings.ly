@@ -15,7 +15,7 @@
 
   texidoc = "
 @code{Staff.pedalSustainStrings} can be used to set the text used for
-pedal down and up.  Note that the only valid strings are those found in
+pedal down and up. Note that the only valid strings are those found in
 the list of pedal glyphs - the values used this snippet constitute an
 exhaustive list.
 "

@@ -15,8 +15,8 @@
 
   texidoc = "
 Two Woodblocks, entered with 'wbh' (high woodblock) and 'wbl' (low
-woodblock).  The length of the barline has been altered with an
-\\override command otherwise it would be too short.  The positions of
+woodblock). The length of the barline has been altered with an
+\\override command otherwise it would be too short. The positions of
 the two stafflines also have to be explicitly defined.
 "
 

@@ -15,7 +15,7 @@
 
   texidoc = "
 Custom text spanners can be defined and used with hairpin and text
-crescendos.  @code{\\<} and @code{\\>} produce hairpins by default,
+crescendos. @code{\\<} and @code{\\>} produce hairpins by default,
 @code{\\cresc} etc. produce text spanners by default.
 "
 

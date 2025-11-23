@@ -17,7 +17,7 @@
 Using property @code{NoteCollision.fa-merge-direction}, the direction
 of @qq{fa} shape note heads (@qq{fa}, @qq{faThin}, etc.) can be controlled
 independently of the stem direction if two voices with the same pitch
-and different stem directions are merged.  If this property is not set,
+and different stem directions are merged. If this property is not set,
 the @qq{down} glyph variant is used.
 "
 

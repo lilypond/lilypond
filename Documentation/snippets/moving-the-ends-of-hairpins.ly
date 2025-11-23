@@ -15,11 +15,11 @@
 
   texidoc = "
 The ends of hairpins may be offset by setting the @code{shorten-pair}
-property of the @code{Hairpin} object.  Positive values move endpoints
-to the right, negative to the left.  Unlike the @code{minimum-length}
+property of the @code{Hairpin} object. Positive values move endpoints
+to the right, negative to the left. Unlike the @code{minimum-length}
 property, this property only affects the appearance of the hairpin; it
 does not adjust horizontal spacing (including the position of bounding
-dynamics).  This method is thus suitable for fine-tuning a hairpin
+dynamics). This method is thus suitable for fine-tuning a hairpin
 within its allotted space.
 "
 

@@ -14,7 +14,7 @@
   lsrtags = "rhythms"
 
   texidoc = "
-New time signature styles can be defined.  The time signature in the
+New time signature styles can be defined. The time signature in the
 second measure should be upside down in both staves.
 "
 

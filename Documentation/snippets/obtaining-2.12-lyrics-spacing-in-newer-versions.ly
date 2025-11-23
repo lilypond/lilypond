@@ -14,7 +14,7 @@
   lsrtags = "vocal-music"
 
   texidoc = "
-The vertical spacing engine changed since version 2.14.  This can cause
+The vertical spacing engine changed since version 2.14. This can cause
 lyrics to be spaced differently.
 
 It is possible to set properties for @code{Lyric} and @code{Staff}

@@ -15,15 +15,14 @@
 
   texidoc = "
 The part combiner tool (i.e., the @code{\\partCombine} command) allows
-the combination of several different parts on the same staff.  Text
-directions such as @qq{solo} or @qq{a2} are added by default; to remove
-them, simply set the property @code{printPartCombineTexts} to
-@code{#f}.
+the combination of several different parts on the same staff. Text
+directions such as @qq{solo} or @qq{a2} are added by default; to remove them,
+simply set the property @code{printPartCombineTexts} to @code{#f}.
 
 For vocal scores (hymns), there is no need to add @qq{solo/a2} texts, so
-they should be switched off.  However, it might be better not to use
-them if there are any solos, as they won't be indicated.  In such
-cases, standard polyphonic notation may be preferable.
+they should be switched off. However, it might be better not to use
+them if there are any solos, as they won't be indicated. In such cases,
+standard polyphonic notation may be preferable.
 
 This snippet presents the three ways two parts can be printed on a same
 staff: standard polyphony, @code{\\partCombine} without texts, and

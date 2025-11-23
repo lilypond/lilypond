@@ -15,7 +15,7 @@
 
   texidoc = "
 Dynamics that occur at, begin on, or end on the same note will be
-vertically aligned.  To ensure that dynamics are aligned when they do
+vertically aligned. To ensure that dynamics are aligned when they do
 not occur on the same note, increase the @code{staff-padding} property
 of the @code{DynamicLineSpanner} object.
 "

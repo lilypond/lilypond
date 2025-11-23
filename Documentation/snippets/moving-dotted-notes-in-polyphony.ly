@@ -16,7 +16,7 @@
   texidoc = "
 When a dotted note in the upper voice is moved to avoid a collision
 with a note in another voice, the default is to move the upper note to
-the right.  This behaviour can be over-ridden by using the
+the right. This behaviour can be over-ridden by using the
 @code{prefer-dotted-right} property of @code{NoteCollision}.
 "
 

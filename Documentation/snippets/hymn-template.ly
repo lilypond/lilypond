@@ -15,7 +15,7 @@
 
   texidoc = "
 This code shows one way of setting out a hymn tune when each line
-starts and ends with a partial measure.  It also shows how to add the
+starts and ends with a partial measure. It also shows how to add the
 verses as stand-alone text under the music.
 "
 

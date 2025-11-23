@@ -16,9 +16,9 @@
   texidoc = "
 The snippet below produces a list of all possible keys and key settings
 for woodwind diagrams as defined in
-@code{scm/define-woodwind-diagrams.scm}.  The list will be displayed in
-the log file, but not in the music.  If output to the console is
-wanted, omit the @code{(current-error-port)} from the commands.
+@code{scm/define-woodwind-diagrams.scm}. The list will be displayed in
+the log file, but not in the music. If output to the console is wanted,
+omit the @code{(current-error-port)} from the commands.
 "
 
   doctitle = "Woodwind diagrams key lists"

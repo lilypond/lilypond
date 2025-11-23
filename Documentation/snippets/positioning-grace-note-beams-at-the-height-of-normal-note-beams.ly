@@ -15,8 +15,8 @@
 
   texidoc = "
 When notes are placed on ledger lines, their beams are usually centred
-on the stave.  Grace notes beams are shorter and grace notes on ledger
-lines may well have beams outside the stave.  You can override this
+on the stave. Grace notes beams are shorter and grace notes on ledger
+lines may well have beams outside the stave. You can override this
 beaming for grace notes.
 "
 

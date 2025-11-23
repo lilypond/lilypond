@@ -19,7 +19,7 @@ changed by modifying the context properties @code{crescendoText} and
 @code{decrescendoText}.
 
 The style of the spanner line can be changed by modifying the
-@code{'style} property of @code{DynamicTextSpanner}.  The default value
+@code{'style} property of @code{DynamicTextSpanner}. The default value
 is @code{'dashed-line}, and other possible values include @code{'line},
 @code{'dotted-line} and @code{'none}.
 "

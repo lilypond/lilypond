@@ -20,21 +20,21 @@ combination of @code{stemLeftBeamCount}, @code{stemRightBeamCount}, and
 paired @code{[]} beam indicators.
 
 For imitating right-pointing flat flags on lone notes, use paired
-@code{[]} beam indicators and set @code{stemLeftBeamCount} to
-zero.  For imitating left-pointing flat flags on lone notes, set
+@code{[]} beam indicators and set @code{stemLeftBeamCount} to zero. For
+imitating left-pointing flat flags on lone notes, set
 @code{stemRightBeamCount} to zero instead (line one).
 
 For right-pointing nibs at the end of a run of beamed notes, set
-@code{stemRightBeamCount} to a positive value.  For left-pointing nibs
+@code{stemRightBeamCount} to a positive value. For left-pointing nibs
 at the start of a run of beamed notes, set @code{stemLeftBeamCount}
 instead (line two).
 
 Sometimes it may make sense for a lone note surrounded by rests to
-carry both a left- and right-pointing nib.  Do this with paired
+carry both a left- and right-pointing nib. Do this with paired
 @code{[]} beam indicators alone (line three).
 
 Note that @code{\\set stemLeftBeamCount} is always equivalent to
-@code{\\once \\set}.  In other words, the beam count settings are not
+@code{\\once \\set}. In other words, the beam count settings are not
 @qq{sticky}, so the pair of nibs attached to the lone 16th note in the
 last example has nothing to do with the @code{\\set} command for the
 beam before.

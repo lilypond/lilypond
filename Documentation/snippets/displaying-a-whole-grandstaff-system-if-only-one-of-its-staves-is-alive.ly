@@ -19,7 +19,7 @@ silent for a while and their staves can be removed for that time (with
 @code{\\removeEmptyStaves}).
 
 When they play again it is often preferred to show the staves of
-@emph{all instruments of such a group}.  This can be done adding the
+@emph{all instruments of such a group}. This can be done adding the
 @code{Keep_alive_together_engraver} in the grouper (e.g., a GrandStaff
 or a StaffGroup).
 

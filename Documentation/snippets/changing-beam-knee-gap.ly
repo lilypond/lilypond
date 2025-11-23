@@ -15,8 +15,8 @@
 
   texidoc = "
 Kneed beams are inserted automatically when a large gap is detected
-between the note heads.  This behavior can be tuned through the
-@code{auto-knee-gap} property.  A kneed beam is drawn if the gap is
+between the note heads. This behavior can be tuned through the
+@code{auto-knee-gap} property. A kneed beam is drawn if the gap is
 larger than the value of @code{auto-knee-gap} plus the width of the
 beam object (which depends on the duration of the notes and the slope
 of the beam). By default @code{auto-knee-gap} is set to 5.5 staff

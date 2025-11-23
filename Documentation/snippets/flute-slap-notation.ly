@@ -16,7 +16,7 @@
   texidoc = "
 It is possible to indicate special articulation techniques such as a
 flute @qq{tongue slap} by replacing the note head with the appropriate
-glyph.  For that we can draw the accent-like note head with
+glyph. For that we can draw the accent-like note head with
 @code{\\markup}.
 "
 

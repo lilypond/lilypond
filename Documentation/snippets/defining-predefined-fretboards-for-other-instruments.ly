@@ -15,7 +15,7 @@
 
   texidoc = "
 Predefined fret diagrams can be added for new instruments in addition
-to the standards used for guitar.  This file shows how this is done by
+to the standards used for guitar. This file shows how this is done by
 defining a new string tuning and a few predefined fretboards for the
 Venezuelan @emph{cuatro}.
 
@@ -24,7 +24,7 @@ as reference points for the chord lookup, and displayed in the fret
 diagram and the @code{TabStaff}, but not the music.
 
 These fretboards are not transposable because they contain string
-information.  This is planned to be corrected in the future.
+information. This is planned to be corrected in the future.
 "
 
   doctitle = "Defining predefined fretboards for other instruments"

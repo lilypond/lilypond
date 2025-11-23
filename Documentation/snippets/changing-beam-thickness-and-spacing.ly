@@ -15,7 +15,7 @@
 
   texidoc = "
 To make beams thicker or thinner alter the @code{Beam.beam-thickness}
-property.  To adjust the spacing between beams alter the
+property. To adjust the spacing between beams alter the
 @code{Beam.length-fraction} property.
 "
 

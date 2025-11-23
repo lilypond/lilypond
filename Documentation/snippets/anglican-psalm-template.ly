@@ -16,8 +16,8 @@
   texidoc = "
 This template shows one way of setting out an Anglican psalm chant. It
 also shows how the verses may be added as stand-alone text under the
-music.  The two verses are coded in different styles to demonstrate
-more possibilities.
+music. The two verses are coded in different styles to demonstrate more
+possibilities.
 "
 
   doctitle = "Anglican psalm template"

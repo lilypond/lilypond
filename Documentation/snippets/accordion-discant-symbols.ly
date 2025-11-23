@@ -15,10 +15,10 @@
 
   texidoc = "
 This snippet has been obsoleted by predefined markup commands, see
-'Discant symbols' in the Notation Reference.  It's still useful as a
+'Discant symbols' in the Notation Reference. It's still useful as a
 simple demonstration of how to combine symbols: the placement of the
 symbols added with @code{\\markup} can be tweaked by changing the
-@code{\\translate-scaled} arguments.  @code{\\translate-scaled} is used
+@code{\\translate-scaled} arguments. @code{\\translate-scaled} is used
 here rather than @code{\\translate} in order to let the positioning of
 the symbol parts adapt to changes of @code{font-size}.
 "

@@ -16,17 +16,17 @@
   texidoc = "
 This snippet demonstrates the use of the
 @code{Measure_counter_engraver} to number groups of successive
-measures.  Any stretch of measures may be numbered, whether consisting
+measures. Any stretch of measures may be numbered, whether consisting
 of repetitions or not.
 
-The engraver must be added to the appropriate context.  Here, a
+The engraver must be added to the appropriate context. Here, a
 @code{Staff} context is used; another possibility is a @code{Dynamics}
 context.
 
 The counter is begun with @code{\\startMeasureCount} and ended with
-@code{\\stopMeasureCount}.  Numbering will start by default
-with@tie{}1, but this behavior may be modified by overriding the
-@code{count-from} property.
+@code{\\stopMeasureCount}. Numbering will start by default with@tie{}1,
+but this behavior may be modified by overriding the @code{count-from}
+property.
 
 When a measure extends across a line break, the number will appear
 twice, the second time in parentheses.

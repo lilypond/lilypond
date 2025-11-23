@@ -19,7 +19,7 @@ note. Default tuplet brackets end at the right edge of the final note
 of the tuplet; full-length tuplet brackets extend farther to the right,
 either to cover all the non-rhythmic notation up to the following note,
 or to cover only the whitespace before the next item of notation, be
-that a clef, time signature, key signature, or another note.  The
+that a clef, time signature, key signature, or another note. The
 example shows how to switch tuplets to full length mode and how to
 modify what material they cover.
 "

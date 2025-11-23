@@ -15,7 +15,7 @@
 
   texidoc = "
 If the note which ends a hairpin falls on a downbeat, the hairpin stops
-at the bar line immediately preceding.  This behavior can be controlled
+at the bar line immediately preceding. This behavior can be controlled
 by overriding the @code{'to-barline} property.
 "
 

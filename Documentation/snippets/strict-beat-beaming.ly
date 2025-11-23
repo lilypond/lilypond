@@ -15,7 +15,7 @@
 
   texidoc = "
 Beamlets can be set to point in the direction of the beat to which they
-belong.  The first beam avoids sticking out flags (the default); the
+belong. The first beam avoids sticking out flags (the default); the
 second beam strictly follows the beat.
 "
 

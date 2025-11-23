@@ -15,10 +15,10 @@
 
   texidoc = "
 Scores of large ensemble works often have bar numbers placed beneath
-the system, centered horizontally on the measure's extent.  This
-snippet shows how the @code{Measure_counter_engraver} may be used to
-simulate this notational practice.  Here, the engraver has been added
-to a @code{Dynamics} context.
+the system, centered horizontally on the measure's extent. This snippet
+shows how the @code{Measure_counter_engraver} may be used to simulate
+this notational practice. Here, the engraver has been added to a
+@code{Dynamics} context.
 
 This snippet presents a legacy method: starting from LilyPond 2.23.3,
 @code{\\set Score.centerBarNumbers = ##t} is enough.

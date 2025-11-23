@@ -15,8 +15,8 @@
 
   texidoc = "
 By default, LilyPond uses @code{DynamicLineSpanner} grobs to vertically
-align successive dynamic objects like hairpins and dynamic
-text.  However, this is not always wanted.  By inserting
+align successive dynamic objects like hairpins and dynamic text.
+However, this is not always wanted. By inserting
 @code{\\breakDynamicSpan}, which ends the alignment spanner
 prematurely, this vertical alignment can be avoided.
 "

@@ -16,7 +16,7 @@
   texidoc = "
 When adding a new staff at a line break, some extra space is
 unfortunately added at the end of the line before the break (to fit in
-a key signature change, which will never be printed anyway).  The
+a key signature change, which will never be printed anyway). The
 workaround is to add a setting of
 @code{Staff.explicitKeySignatureVisibility} as is shown in the example.
 "

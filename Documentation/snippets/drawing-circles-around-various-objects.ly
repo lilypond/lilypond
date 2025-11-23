@@ -15,9 +15,9 @@
 
   texidoc = "
 The @code{\\circle} markup command draws circles around various
-objects, for example fingering indications.  For other objects,
-specific tweaks may be required: this example demonstrates two
-strategies for rehearsal marks and measure numbers.
+objects, for example fingering indications. For other objects, specific
+tweaks may be required: this example demonstrates two strategies for
+rehearsal marks and measure numbers.
 "
 
   doctitle = "Drawing circles around various objects"

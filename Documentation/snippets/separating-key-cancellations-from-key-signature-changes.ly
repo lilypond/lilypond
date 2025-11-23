@@ -15,14 +15,14 @@
 
   texidoc = "
 By default, the accidentals used for key cancellations are placed
-adjacent to those for key signature changes.  This behavior can be
+adjacent to those for key signature changes. This behavior can be
 changed by overriding the @code{break-align-orders} property of the
 @code{BreakAlignment} grob.
 
 The value of @code{break-align-orders} is a vector of length@tie{}3,
-with quoted lists of breakable items as elements.  Each list describes
+with quoted lists of breakable items as elements. Each list describes
 the default order of prefatory matter at the end, in the middle, and at
-the beginning of a line, respectively.  We are only interested in
+the beginning of a line, respectively. We are only interested in
 changing the behaviour in the middle of a line.
 
 If you look up the definition of @code{break-align-orders} in
@@ -39,14 +39,13 @@ key-signature
 @end verbatim
 
 We want to change that, moving @code{key-cancellation} before
-@code{staff-bar}.  To make this happen we use the
+@code{staff-bar}. To make this happen we use the
 @code{grob-transformer} function, which gives us access to the original
 vector as the second argument of the lambda function, here called
-@var{orig} (we don't need the first argument,
-@var{grob}).  We return a new vector, with unchanged first and
-last elements.  For the middle element, we first remove
-@code{key-cancellation} from the list, then adding it again before
-@code{staff-bar}.
+@var{orig} (we don't need the first argument, @var{grob}). We
+return a new vector, with unchanged first and last elements. For the
+middle element, we first remove @code{key-cancellation} from the list,
+then adding it again before @code{staff-bar}.
 "
 
   doctitle = "Separating key cancellations from key signature changes"

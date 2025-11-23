@@ -15,7 +15,7 @@
 
   texidoc = "
 Normally, LilyPond refuses to automatically break a line at places
-where a beam crosses a bar line.  This behavior can be changed by
+where a beam crosses a bar line. This behavior can be changed by
 setting the @code{Beam.breakable} property to @code{#t}.
 
 This property does not affect manual breaks inserted with commands like

@@ -15,7 +15,7 @@
 
   texidoc = "
 A table of contents is included using
-@code{\\markuplist \\table-of-contents}.  The TOC items are added with
+@code{\\markuplist \\table-of-contents}. The TOC items are added with
 the @code{\\tocItem} command.
 "
 

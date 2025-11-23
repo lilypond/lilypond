@@ -15,7 +15,7 @@
 
   texidoc = "
 By default, lyrics syllables that start a melisma are left aligned on
-their note.  The alignment can be altered using the
+their note. The alignment can be altered using the
 @code{lyricMelismaAlignment} property.
 "
 

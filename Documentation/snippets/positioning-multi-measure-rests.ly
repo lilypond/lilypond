@@ -16,7 +16,7 @@
   texidoc = "
 Unlike ordinary rests, there is no predefined command to change the
 staff position of a multi-measure rest symbol of either form by
-attaching it to a note.  However, in polyphonic music multi-measure
+attaching it to a note. However, in polyphonic music multi-measure
 rests in odd-numbered and even-numbered voices are vertically
 separated.
 

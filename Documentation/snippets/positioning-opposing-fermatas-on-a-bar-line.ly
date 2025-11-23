@@ -15,10 +15,9 @@
 
   texidoc = "
 This snippet demonstrates a command that prints fermatas both above and
-below a bar line.  If there would not otherwise be a bar line, it adds
-a double bar line.  Semantically, the command codes a
-longer-than-normal caesura, which might be considered misuse depending
-on the situation.
+below a bar line. If there would not otherwise be a bar line, it adds a
+double bar line. Semantically, the command codes a longer-than-normal
+caesura, which might be considered misuse depending on the situation.
 "
 
   doctitle = "Positioning opposing fermatas on a bar line"

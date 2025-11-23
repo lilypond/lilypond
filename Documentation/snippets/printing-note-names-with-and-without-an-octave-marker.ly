@@ -15,7 +15,7 @@
 
   texidoc = "
 The @code{NoteNames} context can be used to print the text value of
-notes.  The @code{printOctaveNames} property turns on or off the
+notes. The @code{printOctaveNames} property turns on or off the
 representation of the octave of the note.
 "
 

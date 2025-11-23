@@ -15,7 +15,7 @@
 
   texidoc = "
 If LilyPond does not think there is space for a hyphen, it will be
-omitted.  The behaviour can be overridden with the
+omitted. The behaviour can be overridden with the
 @code{minimum-distance} property of @code{LyricHyphen}.
 "
 

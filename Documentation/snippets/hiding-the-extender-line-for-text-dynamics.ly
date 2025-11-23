@@ -15,7 +15,7 @@
 
   texidoc = "
 Text style dynamic changes (such as @emph{cresc.} and @emph{dim.}) are
-printed with a dashed line showing their extent.  This line can be
+printed with a dashed line showing their extent. This line can be
 suppressed in the following way:
 "
 

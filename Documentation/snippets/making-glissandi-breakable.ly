@@ -15,8 +15,8 @@
 
   texidoc = "
 Normally, LilyPond refuses to automatically break a line at places
-where a glissando crosses a bar line.  This behavior can be changed by
-setting the @code{Glissando.breakable} property to @code{#t}.  Also
+where a glissando crosses a bar line. This behavior can be changed by
+setting the @code{Glissando.breakable} property to @code{#t}. Also
 setting the @code{after-line-breaking} property to @code{#t} makes the
 glissando line continue after the break.
 

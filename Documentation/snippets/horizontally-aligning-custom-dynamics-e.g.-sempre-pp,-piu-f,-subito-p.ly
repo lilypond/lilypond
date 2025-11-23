@@ -15,7 +15,7 @@
 
   texidoc = "
 Some dynamic expressions involve additional text, like @qq{sempre
-@strong{pp}}.  Since dynamics are usually centered under the note, the
+@strong{pp}}. Since dynamics are usually centered under the note, the
 \\pp would be displayed way after the note it applies to.
 
 To correctly align the @qq{sempre @strong{pp}} horizontally so that it
@@ -25,30 +25,29 @@ is aligned as if it were only the \\pp, there are several approaches:
 @item
 Simply use @code{\\once\\override DynamicText.X-offset = #-9.2} before
 the note with the dynamics to manually shift it to the correct
-position.  Drawback: This has to be done manually each time you use
-that dynamic markup...
+position. Drawback: This has to be done manually each time you use that
+dynamic markup...
 @item
 Add some padding (@code{#:hspace 7.1}) into the definition of your
 custom dynamic mark so that after LilyPond center-aligns it, it is
-already correctly aligned.  Drawback: The padding really takes up that
+already correctly aligned. Drawback: The padding really takes up that
 space and does not allow any other markup or dynamics to be shown in
 that position.
 @item
-Shift the dynamic script
-@code{\\once\\override ... .X-offset = ...}.  Drawback:
-@code{\\once\\override} is needed for every invocation!
+Shift the dynamic script @code{\\once\\override ... .X-offset = ...}.
+Drawback: @code{\\once\\override} is needed for every invocation!
 @item
 Set the dimensions of the additional text to@tie{}0 (using
-@code{#:with-dimensions '(0 . 0) '(0 . 0)}).  Drawback: For LilyPond,
-@qq{sempre} has no extent now.  This means it might put other stuff
-there, causing collisions (which are not detected by LilyPond's
-collision detection algorithm!).  There also seems to be some spacing,
-so it is not exactly the same alignment as without the additional text.
+@code{#:with-dimensions '(0 . 0) '(0 . 0)}). Drawback: For LilyPond,
+@qq{sempre} has no extent now. This means it might put other stuff there,
+causing collisions (which are not detected by LilyPond's collision
+detection algorithm!). There also seems to be some spacing, so it is
+not exactly the same alignment as without the additional text.
 @item
 Add an explicit shift directly inside the scheme function for the
 dynamic script.
 @item
-Set an explicit alignment inside the dynamic script.  By default, this
+Set an explicit alignment inside the dynamic script. By default, this
 won't have any effect, only if one sets @code{X-offset}! Drawback: One
 needs to set @code{DynamicText.X-offset}, which will apply to all
 dynamic texts! Also, it is aligned at the right edge of the additional

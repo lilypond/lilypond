@@ -15,7 +15,7 @@
 
   texidoc = "
 In figured bass, specially designed glyphs for @code{6\\\\},
-@code{7\\\\}, and @code{9\\\\} are used by default.  Similarly,
+@code{7\\\\}, and @code{9\\\\} are used by default. Similarly,
 specially designed glyphs for symbols @code{2\\+}, @code{4\\+}, and
 @code{5\\+} are used by default if plus signs appear after the number.
 

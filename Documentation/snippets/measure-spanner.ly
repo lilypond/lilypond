@@ -14,9 +14,9 @@
   lsrtags = "editorial-annotations"
 
   texidoc = "
-Measure spanners are an alternate way to print annotated brackets.  As
+Measure spanners are an alternate way to print annotated brackets. As
 opposed to horizontal brackets, they extend between two bar lines
-rather than two notes.  The text is displayed in the center of the
+rather than two notes. The text is displayed in the center of the
 bracket.
 "
 

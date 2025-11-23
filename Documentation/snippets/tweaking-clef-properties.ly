@@ -15,7 +15,7 @@
 
   texidoc = "
 Changing the clef glyph, its position, or the ottavation does not
-change the position of subsequent notes on the staff.  To get key
+change the position of subsequent notes on the staff. To get key
 signatures on their correct staff lines, @code{middleCClefPosition}
 must also be specified, with positive or negative values moving
 @emph{middle@tie{}C} up or down respectively, relative to the staff's

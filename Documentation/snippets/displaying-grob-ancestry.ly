@@ -15,9 +15,9 @@
 
   texidoc = "
 When working with grob callbacks, it can be helpful to understand a
-grob's ancestry.  Most grobs have parents which influence the
-positioning of the grob.  X- and Y-parents influence the horizontal and
-vertical positions for the grob, respectively.  Additionally, each
+grob's ancestry. Most grobs have parents which influence the
+positioning of the grob. X- and Y-parents influence the horizontal and
+vertical positions for the grob, respectively. Additionally, each
 parent may have parents of its own.
 
 Unfortunately, there are several aspects of a grob's ancestry that can

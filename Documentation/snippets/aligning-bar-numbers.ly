@@ -16,7 +16,7 @@
   texidoc = "
 Bar numbers by default are right-aligned to their parent object. This
 is usually the left edge of a line or, if numbers are printed within a
-line, the left hand side of a bar line.  The numbers may also be
+line, the left hand side of a bar line. The numbers may also be
 positioned directly over the bar line or left-aligned to the bar line.
 "
 

@@ -14,9 +14,9 @@
   lsrtags = "contexts-and-engravers, specific-notation"
 
   texidoc = "
-The notation problem, creating a certain symbol, is handled by
-plugins.  Each plugin is called an @emph{engraver}. In this example,
-(some) engravers are switched on one by one, in the following order:
+The notation problem, creating a certain symbol, is handled by plugins.
+Each plugin is called an @emph{engraver}. In this example, (some)
+engravers are switched on one by one, in the following order:
 
 - note heads,
 

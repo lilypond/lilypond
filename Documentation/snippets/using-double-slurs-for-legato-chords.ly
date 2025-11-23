@@ -14,8 +14,8 @@
   lsrtags = "expressive-marks"
 
   texidoc = "
-Some composers write two @emph{slurs} when they want legato
-chords.  This can be achieved by setting @code{doubleSlurs}.
+Some composers write two @emph{slurs} when they want legato chords.
+This can be achieved by setting @code{doubleSlurs}.
 "
 
   doctitle = "Using double slurs for legato chords"

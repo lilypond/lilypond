@@ -16,8 +16,8 @@
   texidoc = "
 A glissando which extends into several @code{\\alternative} blocks can
 be simulated by adding a hidden grace note with a glissando at the
-start of each @code{\\alternative} block.  The grace note should be at
-the same pitch as the note which starts the initial glissando.  This is
+start of each @code{\\alternative} block. The grace note should be at
+the same pitch as the note which starts the initial glissando. This is
 implemented here with a music function which takes the pitch of the
 grace note as its argument.
 

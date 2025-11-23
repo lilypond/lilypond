@@ -15,9 +15,9 @@
 
   texidoc = "
 This short vertical line placed above the note is commonly used in
-baroque music.  Its meaning can vary, but generally indicates notes
-that should be played with more @qq{weight}.  The following example
-demonstrates how to achieve such a notation.
+baroque music. Its meaning can vary, but generally indicates notes that
+should be played with more @qq{weight}. The following example demonstrates
+how to achieve such a notation.
 "
 
   doctitle = "Vertical line as a baroque articulation mark"

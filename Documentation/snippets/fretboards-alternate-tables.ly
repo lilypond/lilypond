@@ -14,11 +14,11 @@
   lsrtags = "fretted-strings"
 
   texidoc = "
-Alternate fretboard tables can be created.  These would be used in
-order to have alternate fretboards for a given chord.
+Alternate fretboard tables can be created. These would be used in order
+to have alternate fretboards for a given chord.
 
 In order to use an alternate fretboard table, the table must first be
-created.  Fretboards are then added to the table.
+created. Fretboards are then added to the table.
 
 The created fretboard table can be blank, or it can be copied from an
 existing table.

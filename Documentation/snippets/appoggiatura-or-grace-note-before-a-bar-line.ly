@@ -15,7 +15,7 @@
 
   texidoc = "
 By default, appoggiaturas and grace notes that occur on the first beat
-of a measure are printed after the bar line.  They can however be
+of a measure are printed after the bar line. They can however be
 printed before, simply by adding an invisible BarLine and then the
 visible one, as demonstrated here.
 "

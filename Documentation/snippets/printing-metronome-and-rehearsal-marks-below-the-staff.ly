@@ -14,9 +14,9 @@
   lsrtags = "expressive-marks, rhythms, tweaks-and-overrides"
 
   texidoc = "
-By default, metronome and rehearsal marks are printed above the
-staff.  To place them below the staff simply set the @code{direction}
-property of @code{MetronomeMark} or @code{RehearsalMark} appropriately.
+By default, metronome and rehearsal marks are printed above the staff.
+To place them below the staff simply set the @code{direction} property
+of @code{MetronomeMark} or @code{RehearsalMark} appropriately.
 "
 
   doctitle = "Printing metronome and rehearsal marks below the staff"

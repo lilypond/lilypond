@@ -14,9 +14,9 @@
   lsrtags = "rhythms"
 
   texidoc = "
-Ties are sometimes used to write out arpeggios.  In this case, two tied
-notes need not be consecutive.  This can be achieved by setting the
-@code{tieWaitForNote} property to @code{#t}.  The same feature is also
+Ties are sometimes used to write out arpeggios. In this case, two tied
+notes need not be consecutive. This can be achieved by setting the
+@code{tieWaitForNote} property to @code{#t}. The same feature is also
 useful, for example, to tie a tremolo to a chord, but in principle, it
 can also be used for ordinary consecutive notes.
 "

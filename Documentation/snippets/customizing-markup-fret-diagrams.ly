@@ -15,7 +15,7 @@
 
   texidoc = "
 Fret diagram properties can be set through
-@code{'fret-diagram-details}.  For markup fret diagrams, overrides can
+@code{'fret-diagram-details}. For markup fret diagrams, overrides can
 be applied to the @code{Voice.TextScript} object or directly to the
 markup.
 "

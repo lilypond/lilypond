@@ -15,7 +15,7 @@
 
   texidoc = "
 This example uses some Scheme code to enforce enharmonic modifications
-for notes in order to have the minimum number of accidentals.  In this
+for notes in order to have the minimum number of accidentals. In this
 case, the following rules apply:
 
 Double accidentals should be removed

@@ -18,7 +18,7 @@ Whichever option you choose for controlling the tuplet bracket
 visibility, it will show or hide the tuplet bracket irrespectively of
 tuplet bracket placement (stem side or note head side). However, when
 placing the tuplet bracket on the note head side some authors recommend
-always printing the tuplet bracket.  The option
+always printing the tuplet bracket. The option
 @code{visible-over-note-heads} can be used to achieve this.
 "
 

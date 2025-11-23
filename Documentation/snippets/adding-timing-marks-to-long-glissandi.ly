@@ -15,8 +15,8 @@
 
   texidoc = "
 Skipped beats in very long glissandi are sometimes indicated by timing
-marks, often consisting of stems without noteheads.  Such stems can
-also be used to carry intermediate expression markings.
+marks, often consisting of stems without noteheads. Such stems can also
+be used to carry intermediate expression markings.
 
 If the stems do not align well with the glissando, they may need to be
 repositioned slightly.

@@ -14,7 +14,7 @@
   lsrtags = "paper-and-layout, staff-notation, tweaks-and-overrides"
 
   texidoc = "
-System separators can be inserted between systems.  Any markup can be
+System separators can be inserted between systems. Any markup can be
 used, but @code{\\slashSeparator} has been provided as a sensible
 default.
 "

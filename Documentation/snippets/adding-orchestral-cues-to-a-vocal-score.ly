@@ -15,15 +15,15 @@
 
   texidoc = "
 This shows one approach to simplify adding many orchestral cues to the
-piano reduction in a vocal score.  The music function @code{\\cueWhile}
+piano reduction in a vocal score. The music function @code{\\cueWhile}
 takes four arguments: the music from which the cue is to be taken, as
 defined by @code{\\addQuote}, the name to be inserted before the cue
 notes, then either @code{#UP} or @code{#DOWN} to specify either
 @code{\\voiceOne} with the name above the staff or @code{\\voiceTwo}
 with the name below the staff, and finally the piano music in parallel
-with which the cue notes are to appear.  The name of the cued
-instrument is positioned to the left of the cued notes. Many passages
-can be cued, but they cannot overlap each other in time.
+with which the cue notes are to appear. The name of the cued instrument
+is positioned to the left of the cued notes. Many passages can be cued,
+but they cannot overlap each other in time.
 "
 
   doctitle = "Adding orchestral cues to a vocal score"

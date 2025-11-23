@@ -16,7 +16,7 @@
   texidoc = "
 In accordance with traditional typesetting rules, a natural sign is
 printed before a sharp or flat if a previous double sharp or flat on
-the same note is canceled.  To change this behavior to contemporary
+the same note is canceled. To change this behavior to contemporary
 practice, set the @code{extraNatural} property to @code{f} in the
 @code{Staff} context.
 "

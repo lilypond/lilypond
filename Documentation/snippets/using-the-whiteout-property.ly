@@ -15,9 +15,9 @@
 
   texidoc = "
 Any graphical object can be printed over a white background to mask
-parts of objects that lie beneath.  This can be useful to improve the
+parts of objects that lie beneath. This can be useful to improve the
 appearance of collisions in complex situations when repositioning
-objects is impractical.  It is necessary to explicitly set the
+objects is impractical. It is necessary to explicitly set the
 @code{layer} property to control which objects are masked by the white
 background.
 

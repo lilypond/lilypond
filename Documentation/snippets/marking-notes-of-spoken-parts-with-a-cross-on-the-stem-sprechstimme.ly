@@ -14,8 +14,8 @@
   lsrtags = "contemporary-notation, editorial-annotations, vocal-music, workaround"
 
   texidoc = "
-This example shows how to put crosses on stems.  Mark the beginning of
-a spoken section with the @code{\\speakOn} keyword, and end it with the
+This example shows how to put crosses on stems. Mark the beginning of a
+spoken section with the @code{\\speakOn} keyword, and end it with the
 @code{\\speakOff} keyword.
 "
 
