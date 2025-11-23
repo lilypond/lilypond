@@ -17,7 +17,7 @@
 The layout of the major 7 can be tuned with @code{majorSevenSymbol}.
 "
 
-  doctitle = "chord name major7"
+  doctitle = "Chord name major7"
 } % begin verbatim
 
 

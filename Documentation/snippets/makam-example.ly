@@ -17,8 +17,8 @@
 Makam is a type of melody from Turkey using 1/9th-tone microtonal
 alterations.
 
-Consult the initialization file @samp{ly/makam.ly} for details of
-pitch names and alterations.
+Consult the initialization file @code{ly/makam.ly} for details of pitch
+names and alterations.
 "
 
   doctitle = "Makam example"

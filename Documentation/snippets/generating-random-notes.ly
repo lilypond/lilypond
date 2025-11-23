@@ -16,7 +16,7 @@
   texidoc = "
 This Scheme-based snippet generates random notes. Use as
 
-@code{\\randomNotes }@emph{@code{n}}@code{ }@emph{@code{from}}@code{ }@emph{@code{to}}@code{ }@emph{@code{dur}}
+@code{\\randomNotes @var{n} @var{from} @var{to} @var{dur}}
 
 to generate @emph{n} random notes between pitches @emph{from} and
 @emph{to}, with duration @emph{dur}.

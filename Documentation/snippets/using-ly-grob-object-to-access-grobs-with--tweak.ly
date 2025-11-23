@@ -14,25 +14,29 @@
   categories = "Scheme, Tweaks and overrides"
 
   texidoc = "
-Some grobs can be accessed “laterally” from within another grob's
-callback. These are usually listed as “layout objects” in the “Internal
-properties” section of a grob-interface. The function ly:grob-object is
-used to access these grobs.
+Some grobs can be accessed @qq{laterally} from within another grob's
+callback. These are usually listed as @qq{layout objects} in the @qq{Internal
+properties} section of a grob interface. The function
+@code{ly:grob-object} is used to access these grobs.
 
 Demonstrated below are some ways of accessing grobs from within a
-NoteHead callback, but the technique is not limited to NoteHeads.
-However, the NoteHead callback is particularly important, since it is
-the implicit callback used by the @code{\\tweak} command.
+@code{NoteHead} callback, but the technique is not limited to
+@code{NoteHead}s. However, the @code{NoteHead} callback is particularly
+important, since it is the implicit callback used by the @code{\\tweak}
+command.
 
-The example function defined below (\"display-grobs\") is probably not
-that useful, but it demonstrates that the grobs are indeed being
-accessed.
+The console output of the example function below (@code{display-grobs})
+is as follows.
 
-Example console output:
+@verbatim
+--------------------
+#<Grob Accidental >
+()
+#<Grob Stem >
+@end verbatim
 
-@code{#<Grob Accidental >}@*
-@code{()}@*
-@code{#<Grob Stem >}
+It is probably not that useful, but it demonstrates that the grobs are
+indeed being accessed.
 "
 
   doctitle = "Using ly:grob-object to access grobs with \\tweak"

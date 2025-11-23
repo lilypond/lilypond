@@ -27,7 +27,7 @@ changing the behaviour in the middle of a line.
 
 If you look up the definition of @code{break-align-orders} in
 LilyPond's Internal Reference (see the
-@uref{https://lilypond.org/doc/v2.22/Documentation/internals/breakalignment,@code{BreakAlignment}}
+@uref{https://lilypond.org/doc/v2.24/Documentation/internals/breakalignment,@code{BreakAlignment}}
 grob), you get the following order in the second element:
 
 @verbatim
@@ -90,5 +90,3 @@ music = { \key es \major d'1 \bar "||"
 { <>^\markup "cancellation first"
   \cancellationFirst
   \music }
-
-\paper { tagline = ##f }

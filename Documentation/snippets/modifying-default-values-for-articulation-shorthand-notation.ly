@@ -14,7 +14,7 @@
   categories = "Expressive marks"
 
   texidoc = "
-The shorthands are defined in @samp{ly/script-init.ly}, where the
+The shorthands are defined in @code{ly/script-init.ly}, where the
 variables @code{dashHat}, @code{dashPlus}, @code{dashDash},
 @code{dashBang}, @code{dashLarger}, @code{dashDot}, and
 @code{dashUnderscore} are assigned default values. The default values

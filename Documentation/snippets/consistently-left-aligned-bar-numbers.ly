@@ -54,11 +54,3 @@ consistentlyLeftAlignedBarNumbers = {
     }
   }
 >>
-
-\layout {
-  indent = #0
-  ragged-right = ##t
-  ragged-last = ##t
-}
-
-\paper { tagline = ##f }

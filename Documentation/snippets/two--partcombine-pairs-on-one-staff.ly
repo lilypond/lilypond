@@ -22,6 +22,8 @@ are merged into a common voice. The voices output from
 usual way. Here we define extensions of @code{\\partCombine} to make it
 easier to put four voices on a staff.
 
+The original version can be input as follows.
+
 @verbatim
 soprano = { d'4 | cis'  b  e'  d'8 cis' | cis'2 b }
 alto = { fis4 | e8 fis gis ais b4 b | b ais fis2 }
@@ -37,6 +39,8 @@ bass = { fis8 gis | a4 gis g fis | eis fis b,2 }
   \\partCombineDown \\tenor \\bass
 >>
 @end verbatim
+
+And here is the extended snippet.
 "
 
   doctitle = "Two \\partCombine pairs on one staff"

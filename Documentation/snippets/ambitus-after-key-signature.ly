@@ -14,12 +14,12 @@
   categories = "Pitches, Staff notation, Vocal music"
 
   texidoc = "
-By default, ambitus are positioned at the left of the clef.  The
-@code{\\ambitusAfter} function allows for changing this
-placement.  Syntax is @code{\\ambitusAfter grob-interface} (see
-@uref{http://lilypond.org/doc/v2.22/Documentation/internals/graphical-object-interfaces,Graphical
+By default, ambitus are positioned at the left of the clef. The
+@code{\\ambitusAfter} function allows for changing this placement.
+Syntax is @code{\\ambitusAfter @var{grob-interface}} (see
+@uref{http://lilypond.org/doc/v2.24/Documentation/internals/graphical-object-interfaces,Graphical
 Object Interfaces} for a list of possible values for
-@code{grob-interface}.)
+@var{grob-interface}.)
 
 A common use case is printing the ambitus between key signature and
 time signature.

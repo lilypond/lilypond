@@ -68,8 +68,8 @@ and the following systems, respectively.
   >>
 
   \layout {
-    ragged-right = ##t
     indent = 4\cm
     short-indent = 2\cm
+    line-width = 6.5\cm
   }
 }

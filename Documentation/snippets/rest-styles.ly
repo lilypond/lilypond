@@ -53,5 +53,4 @@ restsB = {
 
 \paper {
   indent = 0
-  tagline = ##f
 }

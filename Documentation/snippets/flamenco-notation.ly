@@ -41,7 +41,7 @@ Most figures use arrows in combination with fingering; with abanicos
 and rasgueados, noteheads are printed only for the first chord.
 
 This snippet contains some header-like code that can be copied as
-@samp{flamenco.ly} and included in source files.
+@code{flamenco.ly} and included in source files.
 "
 
   doctitle = "Flamenco notation"
