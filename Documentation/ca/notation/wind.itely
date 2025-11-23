@@ -110,7 +110,7 @@ Referència de la notació:
 @ref{Special note heads}.
 
 Fragments de codi:
-@rlsr{Winds}.
+@rlsr{Wind instruments}.
 
 
 @node Fingerings
@@ -137,7 +137,7 @@ Referència de la notació:
 @ref{Woodwind diagrams}.
 
 Fragments de codi:
-@rlsr{Winds}.
+@rlsr{Wind instruments}.
 
 
 @node Bagpipes
@@ -200,7 +200,7 @@ apareix a la música lleugera.
 
 @morerefs
 Fragments de codi:
-@rlsr{Winds}.
+@rlsr{Wind instruments}.
 
 
 @node Bagpipe example
@@ -251,7 +251,7 @@ gaita.
 
 @morerefs
 Fragments de codi:
-@rlsr{Winds}.
+@rlsr{Wind instruments}.
 
 @node Woodwinds
 @subsection Instruments de vent fusta
@@ -436,7 +436,7 @@ Fitxers d'inici:
 @file{scm/display-woodwind-diagrams.scm}.
 
 Fragmentos de código:
-@rlsr{Winds}.
+@rlsr{Wind instruments}.
 
 Referència de funcionament interno
 @rinternals{TextScript},

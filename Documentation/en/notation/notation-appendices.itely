@@ -46,7 +46,7 @@ The following commands can all be used with @code{\markuplist}.
 The following chart shows LilyPond's standard system for printing chord
 names, along with the pitches they represent.  Additional (unsupported)
 naming systems are also demonstrated in the @qq{Chord names alternative}
-snippet in @rlsr{Chords}, including the notation inspired
+snippet in @rlsr{Chord notation}, including the notation inspired
 by Harald Banter (1982) that was used by default in early LilyPond
 releases (up to version 1.7).
 

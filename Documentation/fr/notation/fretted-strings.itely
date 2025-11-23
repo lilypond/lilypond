@@ -146,7 +146,7 @@ Manuel de notation :
 @ref{Fingering instructions}.
 
 Morceaux choisis :
-@rlsrnamed{Fretted strings,Cordes frettées}.
+@rlsrnamed{Fretted string instruments,Cordes frettées}.
 
 Référence des propriétés internes :
 @rinternals{StringNumber},
@@ -700,7 +700,7 @@ Manuel de notation :
 @ref{Written-out repeats}.
 
 Morceaux choisis :
-@rlsrnamed{Fretted strings,Cordes frettées}.
+@rlsrnamed{Fretted string instruments,Cordes frettées}.
 
 Référence des propriétés internes :
 @rinternals{Beam},
@@ -950,7 +950,7 @@ Fichiers d'initialisation :
 @file{scm/tablature.scm}.
 
 Morceaux choisis :
-@rlsrnamed{Fretted strings, Cordes frettées}.
+@rlsrnamed{Fretted string instruments, Cordes frettées}.
 
 Référence des propriétés internes :
 @rinternalsnamed{Scheme functions, Fonctions Scheme},
@@ -1402,7 +1402,7 @@ La disposition graphique d'un diagramme d'accord peut être
 modifiée suivant les préférences de l'utilisateur grâce aux
 propriétés de l'interface @code{fret-diagram-interface}. Des
 détails se trouvent dans @rinternals{fret-diagram-interface}. Voir
-aussi @rlsrsnippetnamed{Fretted strings, Fret diagrams explained
+aussi @rlsrsnippetnamed{Fretted string instruments, Fret diagrams explained
 and developed, Construction et développement
 de diagrammes de fret} pour un exemple développé. Pour un
 diagramme d'accord, les propriétés de l'interface dépendent de
@@ -1425,7 +1425,7 @@ Manuel de notation :
 Markups spécifiques aux instruments (en anglais)}.
 
 Morceaux choisis :
-@rlsrnamed{Fretted strings, Cordes frettées}.
+@rlsrnamed{Fretted string instruments, Cordes frettées}.
 
 Référence des propriétés internes :
 @rinternals{fret-diagram-interface}.
@@ -1709,7 +1709,7 @@ La disposition graphique d'un diagramme d'accord peut être modifiée
 suivant les préférences de l'utilisateur grâce aux propriétés de
 l'interface @code{fret-diagram-interface}. Pour plus d'information,
 consultez @rinternals{fret-diagram-interface}. Voir aussi
-@rlsrsnippetnamed{Fretted strings, Fret diagrams explained and
+@rlsrsnippetnamed{Fretted string instruments, Fret diagrams explained and
 developed, Construction et développement de diagrammes de fret}
 pour un exemple développé. Pour un diagramme d'accord donné, les
 propriétés de l'interface dépendent de @code{FretBoards.FretBoard}.
@@ -1754,7 +1754,7 @@ Fichiers d'initialisation :
 @file{ly/predefined-mandolin-fretboards.ly}.
 
 Morceaux choisis :
-@rlsrnamed{Fretted strings, Cordes frettées}.
+@rlsrnamed{Fretted string instruments, Cordes frettées}.
 
 Référence des propriétés internes :
 @rinternals{fret-diagram-interface}.
@@ -1895,7 +1895,7 @@ plus d'information sur la propriété @code{stringTunings}.
 La disposition graphique d'un diagramme d'accord peut être modifiée
 suivant les préférences de l'utilisateur au travers des propriétés de
 l'interface @code{fret-diagram-interface}. Voir aussi
-@rlsrsnippetnamed{Fretted strings, Fret diagrams explained and
+@rlsrsnippetnamed{Fretted string instruments, Fret diagrams explained and
 developed, Construction et développement de diagrammes de fret}
 pour un exemple. Pour un diagramme d'accord @code{FretBoards} donné, les
 propriétés de l'interface dépendent de @code{FretBoards.FretBoard}.
@@ -1910,7 +1910,7 @@ Manuel de notation :
 @ref{Custom tablatures}.
 
 Morceaux choisis :
-@rlsrnamed{Fretted strings, Cordes frettées}.
+@rlsrnamed{Fretted string instruments, Cordes frettées}.
 
 Référence des propriétés internes :
 @rinternals{fret-diagram-interface}.
@@ -1974,7 +1974,7 @@ ordinaires -- voir @ref{Fingering instructions}.
 
 @morerefs
 Morceaux choisis :
-@rlsrnamed{Fretted strings, Cordes frettées}.
+@rlsrnamed{Fretted string instruments, Cordes frettées}.
 
 Référence des propriétés internes :
 @rinternals{StrokeFinger}.
@@ -2030,7 +2030,7 @@ Manuel de notation :
 @ref{Text spanners}.
 
 Morceaux choisis :
-@rlsrnamed{Fretted strings, Cordes frettées},
+@rlsrnamed{Fretted string instruments, Cordes frettées},
 @rlsrnamed{Expressive marks, Signes d'interprétation}.
 @endmorerefs
 
@@ -2111,7 +2111,7 @@ Manuel de notation :
 @ref{Note heads}.
 
 Morceaux choisis :
-@rlsrnamed{Fretted strings, Cordes frettées}.
+@rlsrnamed{Fretted string instruments, Cordes frettées}.
 @endmorerefs
 
 
@@ -2167,7 +2167,7 @@ Manuel de notation :
 @ref{Printing chord names}.
 
 Morceaux choisis :
-@rlsrnamed{Fretted strings, Cordes frettées}.
+@rlsrnamed{Fretted string instruments, Cordes frettées}.
 @endmorerefs
 
 
@@ -2238,7 +2238,7 @@ Fichiers d'initialisation :
 @file{ly/string-tunings-init.ly}.
 
 Morceaux choisis :
-@rlsrnamed{Fretted strings, Cordes frettées}.
+@rlsrnamed{Fretted string instruments, Cordes frettées}.
 @endmorerefs
 
 

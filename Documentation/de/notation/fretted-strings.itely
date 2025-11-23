@@ -123,7 +123,7 @@ Notationsreferenz:
 @ref{Fingering instructions}.
 
 Schnipsel:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Referenz der Interna:
 @rinternals{StringNumber},
@@ -466,7 +466,7 @@ Notationsreferenz:
 @ref{Glissando}.
 
 Schnipsel:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Referenz der Interna:
 @rinternals{TabNoteHead},
@@ -685,7 +685,7 @@ Installierte Dateien:
 @file{scm/tablature.scm}.
 
 Schnipsel:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Referenz der Interna:
 @rinternalsnamed{Scheme functions, Scheme-Funktionen},
@@ -1092,7 +1092,7 @@ Notationsreferenz:
 @ref{Instrument-specific markup}.
 
 Schnipsel:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Referenz der Interna:
 @rinternals{fret-diagram-interface}.
@@ -1413,7 +1413,7 @@ Installierte Dateien:
 @file{ly/predefined-mandolin-fretboards.ly}.
 
 Schnipsel:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Referenz der Interna:
 @rinternals {fret-diagram-interface}.
@@ -1570,7 +1570,7 @@ Notationsreferenz:
 @ref{Custom tablatures}.
 
 Schnipsel:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Referenz der Interna:
 @rinternals {fret-diagram-interface}.
@@ -1625,7 +1625,7 @@ RH=#rightHandFinger
 
 @morerefs
 Schnipsel:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Referenz der Interna:
 @rinternals{StrokeFinger}.
@@ -1676,7 +1676,7 @@ Notationsreferenz:
 @ref{Text spanners}.
 
 Schnipsel:
-@rlsr{Fretted strings},
+@rlsr{Fretted string instruments},
 @rlsr{Expressive marks}.
 
 
@@ -1760,7 +1760,7 @@ Notationsreferenz:
 @ref{Note head styles}.
 
 Schnipsel:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 
 @node Indicating power chords
@@ -1812,7 +1812,7 @@ Notationsreferenz:
 @ref{Printing chord names}.
 
 Schnipsel:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 
 @need 1500
@@ -1873,4 +1873,4 @@ Installierte Dateien:
 @file{ly/string-tunings-init.ly}.
 
 Schnipsel:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.

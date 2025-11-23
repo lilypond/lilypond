@@ -76,34 +76,35 @@ Molière ; veuillez nous en excuser.}
 @ifnottex
 @menu
 Notation musicale
-* Pitches::               Hauteurs
-* Rhythms::               Rythme
-* Expressive marks::      Signes d'interprétation
-* Repeats::               Répétitions et reprises
-* Simultaneous notes::    Notes simultanées
-* Staff notation::        Notation sur la portée
-* Editorial annotations:: Annotations éditoriales
-* Text::                  Texte
+* Pitches::                      Hauteurs
+* Rhythms::                      Rythme
+* Expressive marks::             Signes d'interprétation
+* Repeats::                      Répétitions et reprises
+* Simultaneous notes::           Notes simultanées
+* Staff notation::               Notation sur la portée
+* Editorial annotations::        Annotations éditoriales
+* Text::                         Texte
 
 Notation spécialisée
-* Vocal music::         Musique vocale
-* Chords::              Accords
-* Keyboards::           Claviers
-* Percussion::          Percussions
-* Fretted strings::     Cordes frettées
-* Unfretted strings::   Cordes non frettées
-* Winds::               Vents
-* Ancient notation::    Notations anciennes
-* World music::         Musiques du monde
+* Vocal music::                  Musique vocale
+* Chord notation::               Accords
+* Keyboard and other multi-staff instruments::
+                                 Claviers
+* Percussion::                   Percussions
+* Fretted string instruments::   Cordes frettées
+* Unfretted string instruments:: Cordes non frettées
+* Wind instruments::             Vents
+* Ancient notation::             Notations anciennes
+* World music::                  Musiques du monde
 
 Autres collections
-* Contexts and engravers:: Contextes et graveurs
-* Tweaks and overrides::   Affinages
-* Paper and layout::       Papier et mise en forme
-* Titles::                 Titrages
-* Spacing::                Espacements
-* MIDI::                   MIDI
-* Templates::              Canevas
+* Contexts and engravers::       Contextes et graveurs
+* Tweaks and overrides::         Affinages
+* Paper and layout::             Papier et mise en forme
+* Titles::                       Titrages
+* Spacing::                      Espacements
+* MIDI::                         MIDI
+* Templates::                    Canevas
 @end menu
 
 @docMain

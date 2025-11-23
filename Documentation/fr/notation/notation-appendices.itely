@@ -54,7 +54,7 @@ La liste suivante répertorie les noms des accords selon la dénomination
 standard de LilyPond ainsi que ce qu'ils représentent. D'autres systèmes
 de nommage, non pris en charge, sont indiqués dans le morceau choisi
 « Noms d'accords alternatifs » (@emph{chord-names-alternative}) dans
-@rlsrnamed{Chords,Accords}, qui inclut une notation inspirée par Harald
+@rlsrnamed{Chord notation,Accords}, qui inclut une notation inspirée par Harald
 Banter (1982) utilisée par défaut dans LilyPond jusqu’à sa version 1.7.
 
 @c The line width is a hack to allow space for instrument names

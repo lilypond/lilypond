@@ -83,7 +83,7 @@ Notation Reference:
 @ref{Special note heads}.
 
 Snippets:
-@rlsr{Winds}.
+@rlsr{Wind instruments}.
 @endmorerefs
 
 
@@ -122,7 +122,7 @@ Notation Reference:
 @ref{Woodwind diagrams}.
 
 Snippets:
-@rlsr{Winds}.
+@rlsr{Wind instruments}.
 @endmorerefs
 
 
@@ -181,7 +181,7 @@ music.
 
 @morerefs
 Snippets:
-@rlsr{Winds}.
+@rlsr{Wind instruments}.
 @endmorerefs
 
 
@@ -233,7 +233,7 @@ notation.
 
 @morerefs
 Snippets:
-@rlsr{Winds}.
+@rlsr{Wind instruments}.
 @endmorerefs
 
 
@@ -428,7 +428,7 @@ Installed Files:
 @file{scm/display-woodwind-diagrams.scm}.
 
 Snippets:
-@rlsr{Winds}.
+@rlsr{Wind instruments}.
 
 Internals Reference:
 @rinternals{TextScript},

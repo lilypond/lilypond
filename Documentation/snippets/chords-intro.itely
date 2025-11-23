@@ -1,7 +1,7 @@
-@node Chords
-@unnumbered Chords
+@node Chord notation
+@unnumbered Chord notation
 
-@set lyprefix Chords
+@set lyprefix Chord notation
 
 See also @rnotation{Chord notation}.
 

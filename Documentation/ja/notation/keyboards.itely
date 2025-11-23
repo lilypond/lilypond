@@ -118,7 +118,7 @@
 @rinternals{PianoStaff}
 
 コード断片集:
-@rlsr{Keyboards}
+@rlsr{Keyboard and other multi-staff instruments}
 
 
 @node Changing staff manually
@@ -249,7 +249,7 @@
 @ref{Keeping contexts alive}
 
 コード断片集:
-@rlsr{Keyboards}
+@rlsr{Keyboard and other multi-staff instruments}
 
 内部リファレンス:
 @rinternals{Beam},
@@ -353,7 +353,7 @@ music = {
 @ref{Changing staff manually}
 
 コード断片集:
-@rlsr{Keyboards}
+@rlsr{Keyboard and other multi-staff instruments}
 
 
 @knownissues
@@ -431,7 +431,7 @@ music = {
 
 @morerefs
 コード断片集:
-@rlsr{Keyboards}
+@rlsr{Keyboard and other multi-staff instruments}
 
 内部リファレンス:
 @rinternals{Note_head_line_engraver},
@@ -464,7 +464,7 @@ music = {
 
 @morerefs
 コード断片集:
-@rlsr{Keyboards}
+@rlsr{Keyboard and other multi-staff instruments}
 
 内部リファレンス:
 @rinternals{Stem}
@@ -556,7 +556,7 @@ music = {
 @ref{Ties}
 
 コード断片集:
-@rlsr{Keyboards}
+@rlsr{Keyboard and other multi-staff instruments}
 
 内部リファレンス:
 @rinternals{SustainPedal},
@@ -609,7 +609,7 @@ music = {
 
 @morerefs
 コード断片集:
-@rlsr{Keyboards}
+@rlsr{Keyboard and other multi-staff instruments}
 
 
 @node Harp

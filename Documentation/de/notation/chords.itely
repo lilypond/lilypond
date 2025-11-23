@@ -81,7 +81,7 @@ Notationsreferenz:
 @ref{Input modes}.
 
 Schnipsel:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 
 
 @knownissues
@@ -238,7 +238,7 @@ Notationsreferenz:
 @ref{Extended and altered chords}.
 
 Schnipsel:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 
 @knownissues
 
@@ -404,7 +404,7 @@ Notationsreferenz:
 @ref{Common chord modifiers}.
 
 Schnipsel:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 
 @knownissues
 
@@ -545,7 +545,7 @@ Notationsreferenz:
 @ref{Writing music in parallel}.
 
 Schnipsel:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 
 Referenz der Interna:
 @rinternals{ChordNames},
@@ -794,7 +794,7 @@ Installierte Dateien:
 @file{ly/chord-modifiers-init.ly}.
 
 Schnipsel:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 
 @knownissues
 Akkordsymbole werden von den Tonhöhenbezeichnungen innerhalb des
@@ -874,7 +874,7 @@ Glossar:
 @rglos{figured bass}.
 
 Schnipsel:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 
 
 @node Entering figured bass
@@ -1052,7 +1052,7 @@ End of continuation line
 
 @morerefs
 Schnipsel:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 
 Referenz der Interna:
 @rinternals{BassFigure},
@@ -1133,7 +1133,7 @@ es möglich, die Ziffern über oder unter dem System anzuzeigen:
 @end lilypond
 
 Schnipsel:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 
 Referenz der Interna:
 @rinternals{BassFigure},

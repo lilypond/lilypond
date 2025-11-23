@@ -146,7 +146,7 @@ Referència de la notació:
 @ref{Fingering instructions}.
 
 Fragments de codi:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Referència de funcionament intern:
 @rinternals{StringNumber},
@@ -506,7 +506,7 @@ Referencia de la notació:
 @ref{Glissando}.
 
 Fragments de codi:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Referència de funcionament intern:
 @rinternals{TabNoteHead},
@@ -766,7 +766,7 @@ Fitxers instal·lats:
 @file{scm/tablature.scm}.
 
 Fragments de codi:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Referència de funcionament intern:
 @rinternalsnamed{Scheme functions, Funcions de l'Scheme},
@@ -1224,7 +1224,7 @@ Referència de la notació:
 @ref{Instrument-specific markup}.
 
 Fragments de codi:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Referència de funcionament intern:
 @rinternals{fret-diagram-interface}.
@@ -1544,7 +1544,7 @@ Fitxers d'inici:
 @file{ly/predefined-mandolin-fretboards.ly}.
 
 Fragments de codi:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Referència de funcionament intern:
 @rinternals {fret-diagram-interface}.
@@ -1702,7 +1702,7 @@ Referència de la notació:
 @ref{Custom tablatures}.
 
 Fragments de codi:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Referència de funcionament intern:
 @rinternals {fret-diagram-interface}.
@@ -1756,7 +1756,7 @@ RH=#rightHandFinger
 
 @morerefs
 Fragments de codi:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Referència de funcionament intern:
 @rinternals{StrokeFinger}.
@@ -1803,7 +1803,7 @@ Referència de la notació:
 @ref{Text spanners}.
 
 Fragments de codi:
-@rlsr{Fretted strings},
+@rlsr{Fretted string instruments},
 @rlsr{Expressive marks}.
 
 
@@ -1878,7 +1878,7 @@ de palma mitjançant el canvi de la forma del cap de nota a un triangle.
 
 @morerefs
 Fragments de codi:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Referència de la notació:
 @ref{Special note heads},
@@ -1963,7 +1963,7 @@ Referència de la notació:
 @ref{Printing chord names}.
 
 Fragments de codi:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 
 @need 1500
@@ -2030,7 +2030,7 @@ Fitxers d'inici:
 @file{ly/string-tunings-init.ly}
 
 Fragments de codi:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 
 @need 1500

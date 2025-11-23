@@ -48,7 +48,7 @@ La siguiente tabla muestra el sistema estándar para imprimir los
 nombres de los acordes, junto a las notas que representa. Se
 muestran también otros sistemas de nomenclatura (no soportados) en
 el fragmento de código @qq{Chord names alternative} de la sección
-@rlsr{Chords}, incluida la notación inspirada por Harald Banter
+@rlsr{Chord notation}, incluida la notación inspirada por Harald Banter
 (1982) que se utilizaba de forma predeterminada en algunas de las
 primeras versiones de LilyPond (hasta la 1.7).
 

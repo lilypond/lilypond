@@ -75,7 +75,7 @@ Notation Reference:
 @ref{Input modes}.
 
 Snippets:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 @endmorerefs
 
 @knownissues
@@ -208,7 +208,7 @@ Notation Reference:
 @ref{Extended and altered chords}.
 
 Snippets:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 @endmorerefs
 
 @knownissues
@@ -368,7 +368,7 @@ Notation Reference:
 @ref{Common chord modifiers}.
 
 Snippets:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 @endmorerefs
 
 @knownissues
@@ -418,7 +418,7 @@ Notation Reference:
 @ref{Chorded notes}.
 
 Snippets:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 @endmorerefs
 
 
@@ -541,7 +541,7 @@ Notation Reference:
 @ref{Writing music in parallel}.
 
 Snippets:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 
 Internals Reference:
 @rinternals{ChordNames},
@@ -574,7 +574,7 @@ names and symbols displayed for chord names are customizable.
 The basic chord name layout is a system for Jazz music, proposed
 by Klaus Ignatzek (see @ressay{Literature list}).  (Other chord
 naming systems may be implemented through Scheme functions, as
-demonstrated by the @qq{Chord names alternative} snippet in @rlsr{Chords}.)
+demonstrated by the @qq{Chord names alternative} snippet in @rlsr{Chord notation}.)
 A list of common jazz chords notations may be found on the chart in
 @ref{Chord name chart}.
 @c FIXME: move the chord-names-alternative snippet to a new section. -vv
@@ -787,7 +787,7 @@ Installed Files:
 @file{ly/chord-modifiers-init.ly}.
 
 Snippets:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 @endmorerefs
 
 @knownissues
@@ -1044,7 +1044,7 @@ Music Glossary:
 @rglos{figured bass}.
 
 Snippets:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 @endmorerefs
 
 
@@ -1274,7 +1274,7 @@ end of continuation line
 
 @morerefs
 Snippets:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 
 Internals Reference:
 @rinternals{BassFigure},
@@ -1406,7 +1406,7 @@ with subproperties @code{minimum-@/distance} and @code{padding} of
 
 @morerefs
 Snippets:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 
 Internals Reference:
 @rinternals{BassFigure},

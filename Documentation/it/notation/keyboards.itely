@@ -118,7 +118,7 @@ Guida al funzionamento interno:
 @rinternals{PianoStaff}.
 
 Frammenti:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 @endmorerefs
 
 
@@ -249,7 +249,7 @@ Guida alla notazione:
 @ref{Keeping contexts alive}.
 
 Frammenti:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 
 Guida al funzionamento interno:
 @rinternals{Beam},
@@ -353,7 +353,7 @@ Guida alla notazione:
 @ref{Changing staff manually}.
 
 Frammenti:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 @endmorerefs
 
 
@@ -434,7 +434,7 @@ regolare velocemente le posizioni verticali di inizio e fine della linea.
 
 @morerefs
 Frammenti:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 
 Guida al funzionamento interno:
 @rinternals{Note_head_line_engraver},
@@ -470,7 +470,7 @@ Guida al funzionamento interno:
 
 @morerefs
 Frammenti:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 
 Guida al funzionamento interno:
 @rinternals{Stem}.
@@ -567,7 +567,7 @@ Guida alla notazione:
 @ref{Ties}.
 
 Frammenti:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 
 Guida al funzionamento interno:
 @rinternals{SustainPedal},
@@ -618,7 +618,7 @@ trova in @ref{Accordion registers}.
 
 @morerefs
 Frammenti:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 @endmorerefs
 
 

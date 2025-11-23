@@ -141,7 +141,7 @@ g1\4
 @ref{Fingering instructions}
 
 コード断片集:
-@rlsr{Fretted strings}
+@rlsr{Fretted string instruments}
 
 内部リファレンス:
 @rinternals{StringNumber},
@@ -508,7 +508,7 @@ ratioHarmonics = {
 @ref{Written-out repeats}
 
 コード断片集:
-@rlsr{Fretted strings}
+@rlsr{Fretted string instruments}
 
 内部リファレンス:
 @rinternals{TabNoteHead},
@@ -765,7 +765,7 @@ mus = \relative {
 @file{scm/tablature.scm}
 
 コード断片集:
-@rlsr{Fretted strings}
+@rlsr{Fretted string instruments}
 
 内部リファレンス:
 @rinternals{Tab_note_heads_engraver},
@@ -1226,7 +1226,7 @@ and color of dots.
 @ref{Instrument-specific markup}
 
 コード断片集:
-@rlsr{Fretted strings}
+@rlsr{Fretted string instruments}
 
 内部リファレンス:
 @rinternals{fret-diagram-interface}
@@ -1568,7 +1568,7 @@ mychords = \chordmode {
 @file{ly/predefined-mandolin-fretboards.ly}
 
 コード断片集:
-@rlsr{Fretted strings}
+@rlsr{Fretted string instruments}
 
 内部リファレンス:
 @rinternals {fret-diagram-interface}
@@ -1723,7 +1723,7 @@ property.
 @ref{Custom tablatures}
 
 コード断片集:
-@rlsr{Fretted strings}
+@rlsr{Fretted string instruments}
 
 内部リファレンス:
 @rinternals {fret-diagram-interface}
@@ -1780,7 +1780,7 @@ RH=#rightHandFinger
 
 @morerefs
 コード断片集:
-@rlsr{Fretted strings}
+@rlsr{Fretted string instruments}
 
 内部リファレンス:
 @rinternals{StrokeFinger}
@@ -1825,7 +1825,7 @@ LilyPond は楽譜譜刻プログラムなので、@c
 @ref{Text spanners}
 
 コード断片集:
-@rlsr{Fretted strings},
+@rlsr{Fretted string instruments},
 @rlsr{Expressive marks}
 
 
@@ -1898,7 +1898,7 @@ LilyPond は、符頭を三角形に変更することで、@c
 
 @morerefs
 コード断片集:
-@rlsr{Fretted strings}
+@rlsr{Fretted string instruments}
 
 記譜法リファレンス:
 @ref{Special note heads},
@@ -1956,7 +1956,7 @@ ChordsAndSymbols = {
 @ref{Printing chord names}
 
 コード断片集:
-@rlsr{Fretted strings}
+@rlsr{Fretted string instruments}
 
 
 @need 1500
@@ -2021,7 +2021,7 @@ music = {
 @file{ly/string-tunings-init.ly}
 
 コード断片集:
-@rlsr{Fretted strings}
+@rlsr{Fretted string instruments}
 
 
 @need 1500

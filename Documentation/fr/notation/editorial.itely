@@ -1090,7 +1090,7 @@ portée à partir de la ligne médiane.
 
 @morerefs
 Morceaux choisis :
-@rlsr{Editorial annotations}.
+@rlsrnamed{Editorial annotations, Annotations éditoriales}.
 
 Référence des propriétés internes :
 @rinternals{Optional_material_bracket_engraver},

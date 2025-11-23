@@ -72,34 +72,35 @@ Copyright @copyright{} 1999--2023 pels autors.
 @ifnottex
 @menu
 Notació musical
-* Pitches::                Altures
-* Rhythms::                Ritmes
-* Expressive marks::       Marques expressives
-* Repeats::                Repeticions
-* Simultaneous notes::     Notes simultànies
-* Staff notation::         Notació de pentagrama
-* Editorial annotations::  Notació editorial
-* Text::                   Text
+* Pitches::                      Altures
+* Rhythms::                      Ritmes
+* Expressive marks::             Marques expressives
+* Repeats::                      Repeticions
+* Simultaneous notes::           Notes simultànies
+* Staff notation::               Notació de pentagrama
+* Editorial annotations::        Notació editorial
+* Text::                         Text
 
 Notació especialitzada
-* Vocal music::            Música vocal
-* Chords::                 Acords
-* Keyboards::              Teclats
-* Percussion::             Percussió
-* Fretted strings::        Cordes amb trastos
-* Unfretted strings::      Cordes sense trastos
-* Winds::                  Vent
-* Ancient notation::       Notació antiga
-* World music::            Música del món
+* Vocal music::                  Música vocal
+* Chord notation::               Acords
+* Keyboard and other multi-staff instruments::
+                                 Teclats
+* Percussion::                   Percussió
+* Fretted string instruments::   Cordes amb trastos
+* Unfretted string instruments:: Cordes sense trastos
+* Wind instruments::             Vent
+* Ancient notation::             Notació antiga
+* World music::                  Música del món
 
 Altres col·leccions
-* Contexts and engravers:: Contextos i gravadors
-* Tweaks and overrides::   Ajustos i sobreescriptures
-* Paper and layout::       Paper i disposició
-* Titles::                 Títols
-* Spacing::                Espaiat
-* MIDI::                   MIDI
-* Templates::              Plantilles
+* Contexts and engravers::       Contextos i gravadors
+* Tweaks and overrides::         Ajustos i sobreescriptures
+* Paper and layout::             Paper i disposició
+* Titles::                       Títols
+* Spacing::                      Espaiat
+* MIDI::                         MIDI
+* Templates::                    Plantilles
 @end menu
 
 @docMain

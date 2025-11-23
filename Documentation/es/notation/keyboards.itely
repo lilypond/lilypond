@@ -124,7 +124,7 @@ Referencia de funcionamiento interno:
 @rinternals{PianoStaff}.
 
 Fragmentos de código:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 @endmorerefs
 
 
@@ -260,7 +260,7 @@ Referencia de la notación:
 @ref{Keeping contexts alive}.
 
 Fragmentos de código:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 
 Referencia de funcionamiento interno:
 @rinternals{Beam},
@@ -371,7 +371,7 @@ Referencia de la notación:
 @ref{Changing staff manually}.
 
 Fragmentos de código:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 @endmorerefs
 
 
@@ -457,7 +457,7 @@ posiciones verticales del comienzo y el final de la línea.
 
 @morerefs
 Fragmentos de código:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 
 Referencia de funcionamiento interno:
 @rinternals{Note_head_line_engraver},
@@ -492,7 +492,7 @@ Referencia de funcionamiento interno:
 
 @morerefs
 Fragmentos de código:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 
 Referencia de funcionamiento interno:
 @rinternals{Stem}.
@@ -589,7 +589,7 @@ Referencia de la notación:
 @ref{Ties}.
 
 Fragmentos de código:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 
 Referencia de funcionamiento interno:
 @rinternals{SustainPedal},
@@ -760,7 +760,7 @@ disponibles en
 
 @morerefs
 Fragmentos de código:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 @endmorerefs
 
 

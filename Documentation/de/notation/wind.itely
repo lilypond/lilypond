@@ -108,7 +108,7 @@ Notationsreferenz:
 @ref{Special note heads},
 
 Schnipsel:
-@rlsr{Winds}.
+@rlsr{Wind instruments}.
 
 
 @node Fingerings
@@ -135,7 +135,7 @@ Notationsreferenz:
 @ref{Woodwind diagrams}.
 
 Snippets:
-@rlsr{Winds}.
+@rlsr{Wind instruments}.
 
 
 @node Bagpipes
@@ -198,7 +198,7 @@ bzw. @code{f-flat}.  Gleicherweise kann das piobaireachd hohe g als
 
 @morerefs
 Schnipsel:
-@rlsr{Winds}.
+@rlsr{Wind instruments}.
 
 
 @node Bagpipe example
@@ -246,7 +246,7 @@ Dudelsack notiert.
 
 @morerefs
 Schnipsel:
-@rlsr{Winds}.
+@rlsr{Wind instruments}.
 
 
 @node Woodwinds
@@ -428,7 +428,7 @@ Installierte Dateien:
 @file{scm/display-woodwind-diagrams.scm}.
 
 Schnipsel:
-@rlsr{Winds}.
+@rlsr{Wind instruments}.
 
 Referenz der Interna:
 @rinternals{TextScript},

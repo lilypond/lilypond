@@ -134,7 +134,7 @@ Notationsreferenz:
 @ref{Tremolo repeats}.
 
 Schnipsel:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 
 Referenz der Interna:
 @rinternals{PianoStaff}.
@@ -251,7 +251,7 @@ Notationsreferenz:
 @ref{Keeping contexts alive}.
 
 Schnipsel:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 
 Referenz der Interna:
 @rinternals{Beam},
@@ -344,7 +344,7 @@ Notationsreferenz:
 @ref{Changing staff manually}.
 
 Schnipsel:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 
 @knownissues
 
@@ -402,7 +402,7 @@ Stimmenverlaufs ausgegeben werden:
 
 @morerefs
 Schnipsel:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 
 Referenz der Interna:
 @rinternals{Note_head_line_engraver},
@@ -437,7 +437,7 @@ mit Balken versieht, wenn es auf dem anderen nicht nötig wäre.
 
 @morerefs
 Schnipsel:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 
 Referenz der Interna:
 @rinternals{Stem}.
@@ -525,7 +525,7 @@ Notationsreferenz:
 @ref{Ties}.
 
 Schnipsel:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 
 Referenz der Interna:
 @rinternals{SustainPedal},
@@ -571,7 +571,7 @@ Anzahl an Symbolen wird benutzt um die Wechsel anzuzeigen.
 
 @morerefs
 Schnipsel:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 
 
 

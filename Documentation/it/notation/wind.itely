@@ -90,7 +90,7 @@ Guida alla notazione:
 @ref{Special note heads},
 
 Frammenti:
-@rlsr{Winds}.
+@rlsr{Wind instruments}.
 @endmorerefs
 
 
@@ -126,7 +126,7 @@ Guida alla notazione:
 @ref{Woodwind diagrams}.
 
 Frammenti:
-@rlsr{Winds}.
+@rlsr{Wind instruments}.
 @endmorerefs
 
 
@@ -185,7 +185,7 @@ Analogamente, il Sol alto del @qq{piobaireachd} può essere scritto come
 
 @morerefs
 Frammenti:
-@rlsr{Winds}.
+@rlsr{Wind instruments}.
 @endmorerefs
 
 
@@ -238,7 +238,7 @@ cornamusa.
 
 @morerefs
 Frammenti:
-@rlsr{Winds}.
+@rlsr{Wind instruments}.
 @endmorerefs
 
 
@@ -427,7 +427,7 @@ File installati:
 @file{scm/display-woodwind-diagrams.scm}.
 
 Frammenti:
-@rlsr{Winds}.
+@rlsr{Wind instruments}.
 
 Guida al funzionamento interno:
 @rinternals{TextScript},

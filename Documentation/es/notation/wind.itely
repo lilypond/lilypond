@@ -104,7 +104,7 @@ Referencia de la notación:
 @ref{Special note heads}.
 
 Fragmentos de código:
-@rlsr{Winds}.
+@rlsr{Wind instruments}.
 @endmorerefs
 
 
@@ -145,7 +145,7 @@ Referencia de la notación:
 @ref{Woodwind diagrams}.
 
 Fragmentos de código:
-@rlsr{Winds}.
+@rlsr{Wind instruments}.
 @endmorerefs
 
 
@@ -208,7 +208,7 @@ parecida, el sol agudo @emph{Piobaireachd} se puede escribir
 
 @morerefs
 Fragmentos de código:
-@rlsr{Winds}.
+@rlsr{Wind instruments}.
 @endmorerefs
 
 
@@ -260,7 +260,7 @@ de gaita.
 
 @morerefs
 Fragmentos de código:
-@rlsr{Winds}.
+@rlsr{Wind instruments}.
 @endmorerefs
 
 
@@ -461,7 +461,7 @@ Archivos de inicio:
 @file{scm/display-woodwind-diagrams.scm}.
 
 Fragmentos de código:
-@rlsr{Winds}.
+@rlsr{Wind instruments}.
 
 Referencia de funcionamiento interno:
 @rinternals{TextScript},

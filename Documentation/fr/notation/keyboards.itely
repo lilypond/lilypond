@@ -134,7 +134,7 @@ Manuel de notation :
 @ref{Writing music in parallel}.
 
 Morceaux choisis :
-@rlsrnamed{Keyboards, Claviers}.
+@rlsrnamed{Keyboard and other multi-staff instruments, Claviers}.
 
 Référence des propriétés internes :
 @rinternals{PianoStaff}.
@@ -269,7 +269,7 @@ Manuel de notation :
 @ref{Stems}.
 
 Morceaux choisis :
-@rlsrnamed{Keyboards,Claviers}.
+@rlsrnamed{Keyboard and other multi-staff instruments,Claviers}.
 
 Référence des propriétés internes :
 @rinternals{Beam},
@@ -376,7 +376,7 @@ Manuel de notation :
 @ref{Changing staff manually}.
 
 Morceaux choisis :
-@rlsrnamed{Keyboards, Claviers}.
+@rlsrnamed{Keyboard and other multi-staff instruments, Claviers}.
 @endmorerefs
 
 @knownissues
@@ -458,7 +458,7 @@ d'arrivée de cette ligne.
 
 @morerefs
 Morceaux choisis :
-@rlsrnamed{Keyboards, Claviers}.
+@rlsrnamed{Keyboard and other multi-staff instruments, Claviers}.
 
 Référence des propriétés internes :
 @rinternals{Note_head_line_engraver},
@@ -487,7 +487,7 @@ Référence des propriétés internes :
 
 @morerefs
 Morceaux choisis :
-@rlsrnamed{Keyboards, Claviers}.
+@rlsrnamed{Keyboard and other multi-staff instruments, Claviers}.
 
 Référence des propriétés internes :
 @rinternals{Stem}.
@@ -580,7 +580,7 @@ Manuel de notation :
 @ref{Ties}.
 
 Morceaux choisis :
-@rlsrnamed{Keyboards, Claviers}.
+@rlsrnamed{Keyboard and other multi-staff instruments, Claviers}.
 
 Référence des propriétés internes :
 @rinternals{Piano_pedal_engraver},
@@ -628,7 +628,7 @@ Une liste des différents symboles est disponible à l'annexe
 
 @morerefs
 Morceaux choisis :
-@rlsrnamed{Keyboards, Claviers}.
+@rlsrnamed{Keyboard and other multi-staff instruments, Claviers}.
 @endmorerefs
 
 

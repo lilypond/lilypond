@@ -107,7 +107,7 @@ Manuel de notation :
 @ref{Special note heads}.
 
 Morceaux choisis :
-@rlsrnamed{Winds,Vents}.
+@rlsrnamed{Wind instruments,Vents}.
 @endmorerefs
 
 
@@ -142,7 +142,7 @@ Manuel de notation :
 @ref{Woodwind diagrams}.
 
 Morceaux choisis :
-@rlsrnamed{Winds,Vents}.
+@rlsrnamed{Wind instruments,Vents}.
 @endmorerefs
 
 
@@ -206,7 +206,7 @@ ou un défilé, peut survenir un sol aigu, au doux nom de
 
 @morerefs
 Morceaux choisis :
-@rlsrnamed{Winds,Vents}.
+@rlsrnamed{Wind instruments,Vents}.
 @endmorerefs
 
 
@@ -258,7 +258,7 @@ Et voici en guise d'exemple, à quoi ressemble le chant populaire
 
 @morerefs
 Morceaux choisis :
-@rlsrnamed{Winds,Vents}.
+@rlsrnamed{Wind instruments,Vents}.
 @endmorerefs
 
 
@@ -457,7 +457,7 @@ Fichiers d'initialisation :
 @file{scm/display-woodwind-diagrams.scm}.
 
 Morceaux choisis :
-@rlsrnamed{Winds,Vents}.
+@rlsrnamed{Wind instruments,Vents}.
 
 Référence des propriétés internes :
 @rinternals{TextScript},

@@ -138,7 +138,7 @@ Notation Reference:
 @ref{Fingering instructions}.
 
 Snippets:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Internals Reference:
 @rinternals{StringNumber},
@@ -690,7 +690,7 @@ Notation Reference:
 @ref{Written-out repeats}.
 
 Snippets:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Internals Reference:
 @rinternals{TabNoteHead},
@@ -947,7 +947,7 @@ Installed Files:
 @file{scm/tablature.scm}.
 
 Snippets:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Internals Reference:
 @rinternals{Tab_note_heads_engraver},
@@ -1390,7 +1390,7 @@ The graphical layout of a fret diagram can be customized according
 to user preference through the properties of the
 @code{fret-diagram-interface}.  Details are found at
 @rinternals{fret-diagram-interface}; see @rlsrsnippet{Fretted
-strings, Fret diagrams explained and developed} for an exhaustive
+strings instruments, Fret diagrams explained and developed} for an exhaustive
 example.  For a fret diagram markup, the interface properties
 belong to @code{Voice.TextScript}.
 
@@ -1412,7 +1412,7 @@ Notation Reference:
 @ref{Instrument-specific markup}.
 
 Snippets:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Internals Reference:
 @rinternals{fret-diagram-interface}.
@@ -1700,7 +1700,7 @@ The graphical layout of a fret diagram can be customized according
 to user preference through the properties of the
 @code{fret-diagram-interface}.  Details are found at
 @rinternals{fret-diagram-interface}; see @rlsrsnippet{Fretted
-strings, Fret diagrams explained and developed} for an exhaustive
+string instruments, Fret diagrams explained and developed} for an exhaustive
 example.  For a predefined fret diagram, the interface properties
 belong to @code{FretBoards.FretBoard}.
 
@@ -1745,7 +1745,7 @@ Installed Files:
 @file{ly/predefined-mandolin-fretboards.ly}.
 
 Snippets:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Internals Reference:
 @rinternals {fret-diagram-interface}.
@@ -1888,7 +1888,7 @@ The graphical layout of a fret diagram can be customized according
 to user preference through the properties of the
 @code{fret-diagram-interface}.  Details are found at
 @rinternals{fret-diagram-interface}; see @rlsrsnippet{Fretted
-strings, Fret diagrams explained and developed} for an exhaustive
+string instruments, Fret diagrams explained and developed} for an exhaustive
 example.  For a @code{FretBoards} fret diagram, the interface
 properties belong to @code{FretBoards.FretBoard}.
 
@@ -1903,7 +1903,7 @@ Notation Reference:
 @ref{Custom tablatures}.
 
 Snippets:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Internals Reference:
 @rinternals {fret-diagram-interface}.
@@ -1968,7 +1968,7 @@ Notation Reference:
 @ref{Fingering instructions}.
 
 Snippets:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Internals Reference:
 @rinternals{StrokeFinger}.
@@ -2025,7 +2025,7 @@ Notation Reference:
 @ref{Text spanners}.
 
 Snippets:
-@rlsr{Fretted strings},
+@rlsr{Fretted string instruments},
 @rlsr{Expressive marks}.
 @endmorerefs
 
@@ -2102,7 +2102,7 @@ triangle shape.
 
 @morerefs
 Snippets:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Notation Reference:
 @ref{Special note heads},
@@ -2160,7 +2160,7 @@ Notation Reference:
 @ref{Printing chord names}.
 
 Snippets:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 @endmorerefs
 
 
@@ -2229,7 +2229,7 @@ Installed Files:
 @file{ly/string-tunings-init.ly}.
 
 Snippets:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 @endmorerefs
 
 

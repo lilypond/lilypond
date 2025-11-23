@@ -20,7 +20,7 @@
 Il grafico seguente mostra il sistema standard di LilyPond di rappresentazione
 dei nomi degli accordi, insieme alle altezze che li compongono.  Ulteriori
 sistemi di nomi (non supportati) sono illustrati nel frammento
-@qq{Chord names alternative} in @rlsr{Chords}, compresa la notazione ispirata
+@qq{Chord names alternative} in @rlsr{Chord notation}, compresa la notazione ispirata
 da Harald Banter (1982) che fu usata come predefinita nelle prime versioni di
 LilyPond (fino alla versione 1.7).
 

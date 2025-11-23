@@ -78,7 +78,7 @@
 @ref{Input modes}
 
 コード断片集:
-@rlsr{Chords}
+@rlsr{Chord notation}
 
 @knownissues
 
@@ -212,7 +212,7 @@ maj, maj7
 @ref{Extended and altered chords}
 
 コード断片集:
-@rlsr{Chords}
+@rlsr{Chord notation}
 
 @knownissues
 和音に付けるクオリティー修飾子は 1 つだけ
@@ -374,7 +374,7 @@ maj, maj7
 @ref{Common chord modifiers}
 
 コード断片集:
-@rlsr{Chords}
+@rlsr{Chord notation}
 
 @knownissues
 和音内では同じ度数の音を使えるのは 1 度のみです。@c
@@ -422,7 +422,7 @@ maj, maj7
 @ref{Chorded notes}
 
 コード断片集:
-@rlsr{Chords}
+@rlsr{Chord notation}
 
 
 @node Displaying chords
@@ -540,7 +540,7 @@ chordmusic = \relative {
 @ref{Writing music in parallel}
 
 コード断片集:
-@rlsr{Chords}
+@rlsr{Chord notation}
 
 内部リファレンス:
 @rinternals{ChordNames},
@@ -573,7 +573,7 @@ chordmusic = \relative {
 これは Klaus Ignatzek によって提唱されたものです
 (@ressay{Literature list} を参照してください)。@c
 (他のコード ネーム命名規則は Scheme 関数で実装することができます。
-コード断片集の @rlsr{Chords} にある
+コード断片集の @rlsr{Chord notation} にある
 @qq{Chord names alternative} に例があります。)
 一般的なジャズ音楽用のコード表記のリストは、@ref{Chord name chart} にあります。
 @c FIXME: move the chord-names-alternative snippet to a new section. -vv
@@ -796,7 +796,7 @@ chordmusic = \relative {
 @file{ly/chord-modifiers-init.ly}
 
 コード断片集:
-@rlsr{Chords}
+@rlsr{Chord notation}
 
 @knownissues
 コード ネームは、和音に含まれるピッチと
@@ -886,7 +886,7 @@ example, the vertical spacing of the figures may be set with
 @rglos{figured bass}
 
 コード断片集:
-@rlsr{Chords}
+@rlsr{Chord notation}
 
 
 @node Entering figured bass
@@ -1078,7 +1078,7 @@ example, the vertical spacing of the figures may be set with
 
 @morerefs
 コード断片集:
-@rlsr{Chords}
+@rlsr{Chord notation}
 
 内部リファレンス:
 @rinternals{BassFigure},
@@ -1170,7 +1170,7 @@ example, the vertical spacing of the figures may be set with
 
 @morerefs
 コード断片集:
-@rlsr{Chords}
+@rlsr{Chord notation}
 
 内部リファレンス:
 @rinternals{BassFigure},

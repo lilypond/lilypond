@@ -117,7 +117,7 @@ Internals Reference:
 @rinternals{PianoStaff}.
 
 Snippets:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 @endmorerefs
 
 
@@ -247,7 +247,7 @@ Notation Reference:
 @ref{Keeping contexts alive}.
 
 Snippets:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 
 Internals Reference:
 @rinternals{Beam},
@@ -351,7 +351,7 @@ Notation Reference:
 @ref{Changing staff manually}.
 
 Snippets:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 @endmorerefs
 
 
@@ -431,7 +431,7 @@ vertical start and end positions.
 
 @morerefs
 Snippets:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 
 Internals Reference:
 @rinternals{Note_head_line_engraver},
@@ -463,7 +463,7 @@ Internals Reference:
 
 @morerefs
 Snippets:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 
 Internals Reference:
 @rinternals{Stem}.
@@ -552,7 +552,7 @@ Notation Reference:
 @ref{Ties}.
 
 Snippets:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 
 Internals Reference:
 @rinternals{SustainPedal},
@@ -713,7 +713,7 @@ A complete list of all available accordion registers can be found in
 
 @morerefs
 Snippets:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 @endmorerefs
 
 

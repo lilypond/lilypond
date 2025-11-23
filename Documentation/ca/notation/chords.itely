@@ -86,7 +86,7 @@ Referència de la notació:
 @ref{Input modes}.
 
 Fragments de codi:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 
 @knownissues
 No es poden usar les abreviatures predefinides d'articulacions i
@@ -220,7 +220,7 @@ Referència de la notació:
 @ref{Extended and altered chords}.
 
 Fragments de codi:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 
 @knownissues
 Sols es pot usar un modificador per a cada acord, normalment sobre
@@ -374,7 +374,7 @@ Referencia de la notación:
 @ref{Common chord modifiers}.
 
 Fragments de codi:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 
 @knownissues
 Cada not sols pot estar present a l'acord un sol cop.  El que
@@ -501,7 +501,7 @@ Referència de la notació:
 @ref{Writing music in parallel}.
 
 Fragments de codi:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 
 Referència de funcionament intern:
 @rinternals{ChordNames},
@@ -752,7 +752,7 @@ Fitxers instal·lats:
 @file{ly/chord-modifier-init.ly}.
 
 Fragments de codi:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 
 @knownissues
 Els noms d'acord es determinen a partir de les notes que estan
@@ -837,7 +837,7 @@ Glossari musical:
 @rglos{figured bass}.
 
 Fragments de codi:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 
 
 @node Entering figured bass
@@ -1024,7 +1024,7 @@ Fin de línia de continuació
 
 @morerefs
 Fragments de codi:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 
 Referència de funcionament intern:
 @rinternals{BassFigure},
@@ -1115,7 +1115,7 @@ pot presentar a sobre o a sota del pentagrama.
 
 @morerefs
 Fragments de codi:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 
 Referència de funcionament intern:
 @rinternals{BassFigure},

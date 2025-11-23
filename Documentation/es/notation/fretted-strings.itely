@@ -149,7 +149,7 @@ Referencia de la notación:
 @ref{Fingering instructions}.
 
 Fragmentos de código:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Referencia de funcionamiento interno:
 @rinternals{StringNumber},
@@ -722,7 +722,7 @@ Referencia de la notación:
 @ref{Glissando}.
 
 Fragmentos de código:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Referencia de funcionamiento interno:
 @rinternals{TabNoteHead},
@@ -983,7 +983,7 @@ Archivos instalados:
 @file{scm/tablature.scm}.
 
 Fragmentos de código:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Referencia de funcionamiento interno:
 @rinternals{Tab_note_heads_engraver},
@@ -1435,7 +1435,8 @@ El aspecto gráfico de un diagrama de trastes se puede personalizar
 según las preferencias del usuario a través de las propiedades del
 interface @code{fret-diagram-interface}.  Los detalles están en
 @rinternals{fret-diagram-interface};  consulte @rlsrsnippet{Fretted
-strings, Fret diagrams explained and developed} para ver un ejemplo exhaustivo.  Para un marcado de diagrama
+string instruments, Fret diagrams explained and developed} para ver
+un ejemplo exhaustivo.  Para un marcado de diagrama
 de trastes, las propiedades del interface pertenecen a
 @code{Voice.TextScript}.
 
@@ -1456,7 +1457,7 @@ Referencia de la notación:
 @ref{Instrument-specific markup}.
 
 Fragmentos de código:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Referencia de funcionamiento interno:
 @rinternals{fret-diagram-interface}.
@@ -1747,7 +1748,9 @@ mychords = \chordmode {
 
 El aspecto gráfico de un diagrama de traste se puede personalizar
 según las preferencias del usuario a través de las propiedades del
-interface @code{fret-diagram-interface}; consulte @rlsrsnippet{Fretted strings, Fret diagrams explained and developed} para ver un ejemplo exhaustivo.  Para un diagrama de trastes
+interface @code{fret-diagram-interface}; consulte @rlsrsnippet{Fretted
+string instruments, Fret diagrams explained and developed} para ver un
+ejemplo exhaustivo.  Para un diagrama de trastes
 predefinido, las propiedades de interface pertenecen a
 @code{FretBoards.FretBoard}.
 
@@ -1791,7 +1794,7 @@ Archivos de inicio:
 @file{ly/predefined-mandolin-fretboards.ly}.
 
 Fragmentos de código:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Referencia de funcionamiento interno:
 @rinternals {fret-diagram-interface}.
@@ -1935,7 +1938,9 @@ dependen de la propiedad @code{stringTunings}, que tiene el mismo significado qu
 El aspecto gráfico de un diagrama de trastes se puede personalizar
 de acuerdo a las preferencias del usuario a través de las
 propiedades del interface @code{fret-diagram-interface}.  Los
-detalles están en @rinternals{fret-diagram-interface};  consulte @rlsrsnippet{Fretted strings, Fret diagrams explained and developed} para ver un ejemplo exhaustivo.  Para un
+detalles están en @rinternals{fret-diagram-interface};  consulte
+@rlsrsnippet{Fretted string instruments, Fret diagrams explained
+and developed} para ver un ejemplo exhaustivo.  Para un
 diagrama de @code{FretBoards}, las propiedades del interface
 pertenecen a @code{FretBoards.FretBoard}.
 
@@ -1950,7 +1955,7 @@ Referencia de la notación:
 @ref{Custom tablatures}.
 
 Fragmentos de código:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Referencia de funcionamiento interno:
 @rinternals {fret-diagram-interface}.
@@ -2016,7 +2021,7 @@ Referencia de la notación:
 @ref{Fingering instructions}.
 
 Fragmentos de código:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Referencia de funcionamiento interno:
 @rinternals{StrokeFinger}.
@@ -2073,7 +2078,7 @@ Referencia de la notación:
 @ref{Text spanners}.
 
 Fragmentos de código:
-@rlsr{Fretted strings},
+@rlsr{Fretted string instruments},
 @rlsr{Expressive marks}.
 @endmorerefs
 
@@ -2151,7 +2156,7 @@ nota a un triángulo.
 
 @morerefs
 Fragmentos de código:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Referencia de la notación:
 @ref{Special note heads},
@@ -2215,7 +2220,7 @@ Referencia de la notación:
 @ref{Printing chord names}.
 
 Fragmentos de código:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 @endmorerefs
 
 
@@ -2288,7 +2293,7 @@ Archivos de inicio:
 @file{ly/string-tunings-init.ly}
 
 Fragmentos de código:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 @endmorerefs
 
 

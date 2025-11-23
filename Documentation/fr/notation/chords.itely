@@ -84,7 +84,7 @@ Manuel de notation :
 @ref{Chorded notes}.
 
 Morceaux choisis :
-@rlsrnamed{Chords,Accords}.
+@rlsrnamed{Chord notation,Accords}.
 @endmorerefs
 
 @knownissues
@@ -218,7 +218,7 @@ Manuel de notation :
 @ref{Common chord modifiers}.
 
 Morceaux choisis :
-@rlsrnamed{Chords,Accords}.
+@rlsrnamed{Chord notation,Accords}.
 @endmorerefs
 
 @knownissues
@@ -372,7 +372,7 @@ Manuel de notation :
 @ref{Chord inversions and specific voicings}.
 
 Morceaux choisis :
-@rlsrnamed{Chords,Accords}.
+@rlsrnamed{Chord notation,Accords}.
 @endmorerefs
 
 @knownissues
@@ -422,7 +422,7 @@ Manuel de notation :
 @ref{Chorded notes}.
 
 Morceaux choisis :
-@rlsrnamed{Chords,Accords}.
+@rlsrnamed{Chord notation,Accords}.
 @endmorerefs
 
 
@@ -546,7 +546,7 @@ Manuel de notation :
 @ref{Writing music in parallel}.
 
 Morceaux choisis :
-@rlsrnamed{Chords,Accords}.
+@rlsrnamed{Chord notation,Accords}.
 
 Référence des propriétés internes :
 @rinternals{Bar_engraver},
@@ -792,7 +792,7 @@ Fichiers d'initialisation :
 @file{ly/chord-modifiers-init.ly}.
 
 Morceaux choisis :
-@rlsrnamed{Chords,Accords}.
+@rlsrnamed{Chord notation,Accords}.
 @endmorerefs
 
 @knownissues
@@ -1070,7 +1070,7 @@ Glossaire musicologique :
 @rglosnamed{figured bass, basse chifrée}.
 
 Morceaux choisis :
-@rlsrnamed{Chords,Accords}.
+@rlsrnamed{Chord notation,Accords}.
 @endmorerefs
 
 
@@ -1299,7 +1299,7 @@ terminaison d'une prolongation
 
 @morerefs
 Morceaux choisis :
-@rlsrnamed{Chords,Accords}.
+@rlsrnamed{Chord notation,Accords}.
 
 Référence des propriétés internes :
 @rinternals{BassFigure},
@@ -1431,7 +1431,7 @@ des sous-propriétés @code{minimum-@/distance} et @code{padding} de
 
 @morerefs
 Morceaux choisis :
-@rlsrnamed{Chords,Accords}.
+@rlsrnamed{Chord notation,Accords}.
 
 Référence des propriétés internes :
 @rinternals{BassFigure},

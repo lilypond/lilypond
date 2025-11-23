@@ -151,7 +151,7 @@ Guida alla notazione:
 @ref{Fingering instructions}.
 
 Frammenti:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Guida al funzionamento interno:
 @rinternals{StringNumber},
@@ -737,7 +737,7 @@ Guida alla notazione:
 @ref{Written-out repeats}.
 
 Frammenti:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Guida al funzionamento interno:
 @rinternals{TabNoteHead},
@@ -1008,7 +1008,7 @@ File installati:
 @file{scm/tablature.scm}.
 
 Frammenti:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Guida al funzionamento interno:
 @rinternals{Tab_note_heads_engraver},
@@ -1446,7 +1446,7 @@ Guida alla notazione:
 @ref{Instrument-specific markup}.
 
 Frammenti:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Guida al funzionamento interno:
 @rinternals{fret-diagram-interface}.
@@ -1763,7 +1763,7 @@ File installati:
 @file{ly/predefined-mandolin-fretboards.ly}.
 
 Frammenti:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Guida al funzionamento interno:
 @rinternals {fret-diagram-interface}.
@@ -1920,7 +1920,7 @@ Guida alla notazione:
 @ref{Custom tablatures}.
 
 Frammenti:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Guida al funzionamento interno:
 @rinternals {fret-diagram-interface}.
@@ -1985,7 +1985,7 @@ Guida alla notazione:
 @ref{Fingering instructions}.
 
 Frammenti:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Guida al funzionamento interno:
 @rinternals{StrokeFinger}.
@@ -2032,7 +2032,7 @@ Guida alla notazione:
 @ref{Text spanners}.
 
 Frammenti:
-@rlsr{Fretted strings},
+@rlsr{Fretted string instruments},
 @rlsr{Expressive marks}.
 @endmorerefs
 
@@ -2108,7 +2108,7 @@ una forma triangolare.
 
 @morerefs
 Frammenti:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 
 Guida alla notazione:
 @ref{Special note heads},
@@ -2167,7 +2167,7 @@ Guida alla notazione:
 @ref{Printing chord names}.
 
 Frammenti:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 @endmorerefs
 
 
@@ -2237,7 +2237,7 @@ File installati:
 @file{ly/string-tunings-init.ly}.
 
 Frammenti:
-@rlsr{Fretted strings}.
+@rlsr{Fretted string instruments}.
 @endmorerefs
 
 

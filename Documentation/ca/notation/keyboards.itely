@@ -128,7 +128,7 @@ Referència de funcionament intern:
 @rinternals{PianoStaff}.
 
 Fragments de codi:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 
 
 @node Changing staff manually
@@ -241,7 +241,7 @@ Referència de la notació:
 @ref{Keeping contexts alive}.
 
 Fragments de codi:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 
 Referència de funcionament intern:
 @rinternals{Beam},
@@ -349,7 +349,7 @@ Referència de la notació:
 @ref{Changing staff manually}.
 
 Fragments de codi:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 
 @knownissues
 @cindex acords, divisió entre pentagrames amb \autoChange
@@ -407,7 +407,7 @@ automàticament una línia que connecti les notes:
 
 @morerefs
 Fragments de codi:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 
 Referència de funcionament intern:
 @rinternals{Note_head_line_engraver},
@@ -451,7 +451,7 @@ a causa de com està implementat.
 
 @morerefs
 Fragments de codi:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 
 Referencia de funcionament intern:
 @rinternals{Stem}.
@@ -548,7 +548,7 @@ Referència de la notació:
 @ref{Ties}.
 
 Fragments de codi:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 
 Referència de funcionament intern:
 @rinternals{SustainPedal},
@@ -596,7 +596,7 @@ d'execució.
 
 @morerefs
 Fragments de codi:
-@rlsr{Keyboards}.
+@rlsr{Keyboard and other multi-staff instruments}.
 
 
 @node Harp

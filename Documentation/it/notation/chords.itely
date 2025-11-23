@@ -81,7 +81,7 @@ Guida alla notazione:
 @ref{Input modes}.
 
 Frammenti:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 @endmorerefs
 
 @knownissues
@@ -213,7 +213,7 @@ Guida alla notazione:
 @ref{Extended and altered chords}.
 
 Frammenti:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 @endmorerefs
 
 @knownissues
@@ -368,7 +368,7 @@ Guida alla notazione:
 @ref{Common chord modifiers}.
 
 Frammenti:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 @endmorerefs
 
 @knownissues
@@ -417,7 +417,7 @@ Guida alla notazione:
 @ref{Chorded notes}.
 
 Frammenti:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 @endmorerefs
 
 
@@ -537,7 +537,7 @@ Guida alla notazione:
 @ref{Writing music in parallel}.
 
 Frammenti:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 
 Guida al funzionamento interno:
 @rinternals{ChordNames},
@@ -572,7 +572,7 @@ Il formato fondamentale dei nomi degli accordi è un sistema per la musica
 Jazz, proposto da Klaus Ignatzek (vedi @ressaynamed{Literature list, Bibliografia}).  (Si possono
 implementare altri sistemi per i nomi degli accordi attraverso funzioni
 Scheme, come illustrato nel frammento @qq{Chord names alternative} in
-@rlsr{Chords}.)
+@rlsr{Chord notation}.)
 Un elenco dei comuni accordi jazz si trova nel @ref{Chord name chart}.
 
 @funindex \germanChords
@@ -793,7 +793,7 @@ File installati:
 @file{ly/chord-modifiers-init.ly}.
 
 Frammenti:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 @endmorerefs
 
 @knownissues
@@ -877,7 +877,7 @@ Glossario musicale:
 @rglosnamed{figured bass,basso continuo}.
 
 Frammenti:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 @endmorerefs
 
 
@@ -1072,7 +1072,7 @@ Fine della linea di continuazione
 
 @morerefs
 Frammenti:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 
 Guida al funzionamento interno:
 @rinternals{BassFigure},
@@ -1167,7 +1167,7 @@ visualizzato sopra o sotto il rigo.
 
 @morerefs
 Frammenti:
-@rlsr{Chords}.
+@rlsr{Chord notation}.
 
 Guida al funzionamento interno:
 @rinternals{BassFigure},

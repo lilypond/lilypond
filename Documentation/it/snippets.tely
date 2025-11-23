@@ -68,34 +68,35 @@ Copyright @copyright{} 1999--2023 degli autori.
 @ifnottex
 @menu
 Notazione musicale
-* Pitches::                Altezze
-* Rhythms::                Ritmi
-* Expressive marks::       Segni di espressione
-* Repeats::                Ripetizioni
-* Simultaneous notes::     Note simultanee
-* Staff notation::         Notazione del rigo
-* Editorial annotations::  Note editoriali
-* Text::                   Testo
+* Pitches::                      Altezze
+* Rhythms::                      Ritmi
+* Expressive marks::             Segni di espressione
+* Repeats::                      Ripetizioni
+* Simultaneous notes::           Note simultanee
+* Staff notation::               Notazione del rigo
+* Editorial annotations::        Note editoriali
+* Text::                         Testo
 
 Notazione specialistica
-* Vocal music::            Musica vocale
-* Chords::                 Accordi
-* Keyboards::              Tastiere
-* Percussion::             Percussioni
-* Fretted strings::        Strumenti a corde con tasti
-* Unfretted strings::      Strumenti a corde senza tasti
-* Winds::                  Strumenti aerofoni
-* Ancient notation::       Notazione antica
-* World music::            World music
+* Vocal music::                  Musica vocale
+* Chord notation::               Accordi
+* Keyboard and other multi-staff instruments::
+                                 Tastiere
+* Percussion::                   Percussioni
+* Fretted string instruments::   Strumenti a corde con tasti
+* Unfretted string instruments:: Strumenti a corde senza tasti
+* Wind instruments::             Strumenti aerofoni
+* Ancient notation::             Notazione antica
+* World music::                  World music
 
 Altre raccolte
-* Contexts and engravers:: Contesti e incisori
-* Tweaks and overrides::   Modifiche e sovrascritture
-* Paper and layout::       Foglio e formattazione
-* Titles::                 Titoli
-* Spacing::                Spaziatura
-* MIDI::                   MIDI
-* Templates::              Modelli
+* Contexts and engravers::       Contesti e incisori
+* Tweaks and overrides::         Modifiche e sovrascritture
+* Paper and layout::             Foglio e formattazione
+* Titles::                       Titoli
+* Spacing::                      Spaziatura
+* MIDI::                         MIDI
+* Templates::                    Modelli
 @end menu
 
 @docMain

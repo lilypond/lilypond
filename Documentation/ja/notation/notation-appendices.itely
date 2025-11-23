@@ -25,7 +25,7 @@
 ピッチと共に示しています。初期の LilyPond リリース (バージョン 1.7 まで) で@c
 デフォルトで用いられた Harald Banter (1982) から着想を得た記譜法を含む@c
 追加の (サポートされていない) 命名システムも、@c
-@rlsr{Chords} の @qq{Chord names alternative} スニペットで紹介します。
+@rlsr{Chord notation} の @qq{Chord names alternative} スニペットで紹介します。
 
 @c The line width is a hack to allow space for instrument names
 @lilypondfile[quote,line-width=15\cm]{en/included/chord-names-jazz.ly}
