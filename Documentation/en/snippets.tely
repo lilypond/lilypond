@@ -65,18 +65,33 @@ Specialist notation
 * Percussion::
 * Wind instruments::
 * Chord notation::
+* Contemporary music::
 * Ancient notation::
 * World music::
 
 Other collections
 
+* Automatic notation::
+* Breaks::
+* Connecting notes::
 * Contexts and engravers::
-* Tweaks and overrides::
-* Paper and layout::
-* Titles::
-* Spacing::
+* Education::
+* Headword::
 * MIDI::
+* Non-music::
+* Paper and layout::
+* Preparing parts::
+* Real music::
+* Really cool::
+* Really simple::
+* Scheme::
+* Spacing::
+* Specific notation::
+* Symbols and glyphs::
 * Templates::
+* Titles::
+* Tweaks and overrides::
+* Workaround::
 @end menu
 
 @docMain
@@ -140,18 +155,33 @@ file.
 @include snippets/percussion.itely
 @include snippets/winds.itely
 @include snippets/chords.itely
+@include snippets/contemporary-notation.itely
 @include snippets/ancient-notation.itely
 @include snippets/world-music.itely
 
 
 @part Other collections
 
+@include snippets/automatic-notation.itely
+@include snippets/breaks.itely
+@include snippets/connecting-notes.itely
 @include snippets/contexts-and-engravers.itely
-@include snippets/tweaks-and-overrides.itely
-@include snippets/paper-and-layout.itely
-@include snippets/titles.itely
-@include snippets/spacing.itely
+@include snippets/education.itely
+@include snippets/headword.itely
 @include snippets/midi.itely
+@include snippets/non-music.itely
+@include snippets/paper-and-layout.itely
+@include snippets/preparing-parts.itely
+@include snippets/real-music.itely
+@include snippets/really-cool.itely
+@include snippets/really-simple.itely
+@include snippets/scheme.itely
+@include snippets/spacing.itely
+@include snippets/specific-notation.itely
+@include snippets/symbols-and-glyphs.itely
 @include snippets/template.itely
+@include snippets/titles.itely
+@include snippets/tweaks-and-overrides.itely
+@include snippets/workaround.itely
 
 @bye

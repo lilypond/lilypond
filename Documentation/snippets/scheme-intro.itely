@@ -1,0 +1,8 @@
+@node Scheme
+@chapter Scheme
+
+@set lyprefix Scheme
+
+See also @rextend{Scheme tutorial} and @rextend{Interfaces for programmers}.
+
+@lysnippets
