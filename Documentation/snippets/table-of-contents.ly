@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "paper-and-layout"
+  categories = "Paper and layout"
 
   texidoc = "
 A table of contents is included using

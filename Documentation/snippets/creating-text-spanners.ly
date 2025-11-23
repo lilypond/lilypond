@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "expressive-marks, text, tweaks-and-overrides"
+  categories = "Expressive marks, Text, Tweaks and overrides"
 
   texidoc = "
 The @code{\\startTextSpan} and @code{\\stopTextSpan} commands allow the

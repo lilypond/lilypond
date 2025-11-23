@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "fretted-strings"
+  categories = "Fretted strings"
 
   texidoc = "
 Unlike glissandos, slides may go from an imprecise point of the

@@ -11,7 +11,7 @@
 \version "2.25.25"
 
 \header {
-  lsrtags = "fretted-strings, tweaks-and-overrides"
+  categories = "Fretted strings, Tweaks and overrides"
 
   texidoc = "
 Fret diagram properties can be set through

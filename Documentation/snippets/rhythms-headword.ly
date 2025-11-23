@@ -11,7 +11,7 @@
 \version "2.25.3"
 
 \header {
-  lsrtags = "headword"
+  categories = "Headword"
 
   texidoc = "
 Rhythms headword

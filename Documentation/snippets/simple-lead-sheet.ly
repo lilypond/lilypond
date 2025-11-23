@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "chords"
+  categories = "Chords"
 
   texidoc = "
 When put together, chord names, a melody, and lyrics form a lead sheet:

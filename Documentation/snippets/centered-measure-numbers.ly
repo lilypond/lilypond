@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "contexts-and-engravers, repeats, staff-notation"
+  categories = "Contexts and engravers, Repeats, Staff notation"
 
   texidoc = "
 Scores of large ensemble works often have bar numbers placed beneath

@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "pitches, staff-notation"
+  categories = "Pitches, Staff notation"
 
   texidoc = "
 Quotations take into account the transposition of both source and

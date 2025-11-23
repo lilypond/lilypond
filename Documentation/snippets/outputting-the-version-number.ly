@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "really-simple, scheme-language, text, titles"
+  categories = "Really simple, Scheme, Text, Titles"
 
   texidoc = "
 It is possible to print the version number of LilyPond in markup.

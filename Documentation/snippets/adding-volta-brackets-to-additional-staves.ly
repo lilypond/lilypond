@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "repeats"
+  categories = "Repeats"
 
   texidoc = "
 The @code{Volta_engraver} by default resides in the @code{Score}

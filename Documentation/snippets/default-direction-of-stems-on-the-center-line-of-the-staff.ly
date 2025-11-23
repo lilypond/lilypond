@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "editorial-annotations"
+  categories = "Editorial annotations"
 
   texidoc = "
 The default direction of stems on the center line of the staff is set

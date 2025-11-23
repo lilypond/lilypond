@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "really-cool, scheme-language, text, titles"
+  categories = "Really cool, Scheme, Text, Titles"
 
   texidoc = "
 With a little Scheme code, the current date can easily be added to a

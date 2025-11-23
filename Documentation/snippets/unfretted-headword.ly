@@ -11,7 +11,7 @@
 \version "2.25.18"
 
 \header {
-  lsrtags = "headword"
+  categories = "Headword"
 
   texidoc = "
 Unfretted headword

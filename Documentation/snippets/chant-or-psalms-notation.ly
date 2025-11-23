@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "ancient-notation, contexts-and-engravers, rhythms, specific-notation, vocal-music"
+  categories = "Ancient notation, Contexts and engravers, Rhythms,
+                Specific notation, Vocal music"
 
   texidoc = "
 This form of notation is used for Psalm chant, where verses aren't

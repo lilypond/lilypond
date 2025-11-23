@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "expressive-marks, vocal-music"
+  categories = "Expressive marks, Vocal music"
 
   texidoc = "
 The @code{arpeggioBracket} can be used to indicate the division of

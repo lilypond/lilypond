@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "specific-notation, workaround"
+  categories = "Specific notation, Workaround"
 
   texidoc = "
 Often it is easier to manage line and page-breaking information by

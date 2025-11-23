@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "expressive-marks, unfretted-strings"
+  categories = "Expressive marks, Unfretted strings"
 
   texidoc = "
 A snap-pizzicato (also known as @qq{Bartok pizzicato}) is a @qq{strong

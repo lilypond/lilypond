@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "fretted-strings"
+  categories = "Fretted strings"
 
   texidoc = "
 When automatic fretboards are used, barre indicators will be drawn

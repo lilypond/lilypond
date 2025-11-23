@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "editorial-annotations, fretted-strings, scheme-language, text, tweaks-and-overrides"
+  categories = "Editorial annotations, Fretted strings, Scheme, Text,
+                Tweaks and overrides"
 
   texidoc = "
 Make an extender line for string number indications, showing that a

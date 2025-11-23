@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "expressive-marks, staff-notation, tweaks-and-overrides"
+  categories = "Expressive marks, Staff notation, Tweaks and overrides"
 
   texidoc = "
 @code{NoteColumn} grobs can be skipped over by glissandi.

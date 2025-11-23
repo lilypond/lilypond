@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "rhythms"
+  categories = "Rhythms"
 
   texidoc = "
 A single tie may be engraved manually by changing the

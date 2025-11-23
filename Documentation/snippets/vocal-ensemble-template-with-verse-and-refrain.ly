@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "contexts-and-engravers, template, vocal-music"
+  categories = "Contexts and engravers, Template, Vocal music"
 
   texidoc = "
 This template creates a score that starts with a solo verse and

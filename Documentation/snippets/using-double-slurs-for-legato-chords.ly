@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "expressive-marks"
+  categories = "Expressive marks"
 
   texidoc = "
 Some composers write two @emph{slurs} when they want legato chords.

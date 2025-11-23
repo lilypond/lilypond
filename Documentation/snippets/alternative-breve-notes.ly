@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "expressive-marks, rhythms"
+  categories = "Expressive marks, Rhythms"
 
   texidoc = "
 Breve notes are also available with two vertical lines on each side of

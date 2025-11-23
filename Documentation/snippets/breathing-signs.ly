@@ -11,7 +11,7 @@
 \version "2.25.18"
 
 \header {
-  lsrtags = "expressive-marks, symbols-and-glyphs"
+  categories = "Expressive marks, Symbols and glyphs"
 
   texidoc = "
 Breathing signs are available in different tastes: commas (default),

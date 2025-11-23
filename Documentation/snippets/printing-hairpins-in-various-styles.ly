@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "expressive-marks"
+  categories = "Expressive marks"
 
   texidoc = "
 Hairpin dynamics may be created in a variety of styles.

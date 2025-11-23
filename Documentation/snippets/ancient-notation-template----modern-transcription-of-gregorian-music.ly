@@ -11,7 +11,7 @@
 \version "2.25.5"
 
 \header {
-  lsrtags = "ancient-notation, template, vocal-music"
+  categories = "Ancient notation, Template, Vocal music"
 
   texidoc = "
 This example demonstrates how to do modern transcription of Gregorian

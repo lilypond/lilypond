@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "pitches, tweaks-and-overrides"
+  categories = "Pitches, Tweaks and overrides"
 
   texidoc = "
 Stem lengths on beamed notes can be varied by overriding the

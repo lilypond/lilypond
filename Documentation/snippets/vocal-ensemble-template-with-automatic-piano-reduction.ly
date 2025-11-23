@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "automatic-notation, keyboards, template, vocal-music"
+  categories = "Automatic notation, Keyboards, Template, Vocal music"
 
   texidoc = "
 This template adds an automatic piano reduction to the standard SATB

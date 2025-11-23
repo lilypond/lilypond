@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "fretted-strings, tweaks-and-overrides"
+  categories = "Fretted strings, Tweaks and overrides"
 
   texidoc = "
 This snippet shows many possibilities for obtaining and tweaking fret

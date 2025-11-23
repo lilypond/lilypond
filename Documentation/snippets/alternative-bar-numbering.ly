@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "editorial-annotations, staff-notation, tweaks-and-overrides"
+  categories = "Editorial annotations, Staff notation, Tweaks and
+                overrides"
 
   texidoc = "
 Two alternative methods for bar numbering can be set, especially for

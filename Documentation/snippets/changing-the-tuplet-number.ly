@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "rhythms"
+  categories = "Rhythms"
 
   texidoc = "
 By default, only the numerator of the tuplet number is printed over the

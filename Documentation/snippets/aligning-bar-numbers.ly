@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "rhythms"
+  categories = "Rhythms"
 
   texidoc = "
 Bar numbers by default are right-aligned to their parent object. This

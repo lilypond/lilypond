@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "breaks, repeats, symbols-and-glyphs, workaround"
+  categories = "Breaks, Repeats, Symbols and glyphs, Workaround"
 
   texidoc = "
 If you want to place an exiting segno sign and add text like @qq{D.S. al

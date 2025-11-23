@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "fretted-strings, keyboards, percussion, real-music, template"
+  categories = "Fretted strings, Keyboards, Percussion, Real music,
+                Template"
 
   texidoc = "
 This is quite an advanced template, for a jazz ensemble. Note that all

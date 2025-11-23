@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "expressive-marks, rhythms, tweaks-and-overrides"
+  categories = "Expressive marks, Rhythms, Tweaks and overrides"
 
   texidoc = "
 By default, metronome and rehearsal marks are printed above the staff.

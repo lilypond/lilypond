@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "chords"
+  categories = "Chords"
 
   texidoc = "
 Accidentals and plus signs can appear before or after the numbers,

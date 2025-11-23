@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "chords, template, vocal-music"
+  categories = "Chords, Template, Vocal music"
 
   texidoc = "
 Here is a simple lead sheet template with melody, lyrics, chords and

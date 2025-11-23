@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "really-simple, text, vocal-music"
+  categories = "Really simple, Text, Vocal music"
 
   texidoc = "
 Horizontal alignment for lyrics can be set by overriding the

@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "simultaneous-notes"
+  categories = "Simultaneous notes"
 
   texidoc = "
 In some instances of complex polyphonic music, additional voices are

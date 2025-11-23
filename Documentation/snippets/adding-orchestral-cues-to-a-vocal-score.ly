@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "staff-notation, vocal-music"
+  categories = "Staff notation, Vocal music"
 
   texidoc = "
 This shows one approach to simplify adding many orchestral cues to the

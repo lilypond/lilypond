@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "specific-notation, winds"
+  categories = "Specific notation, Winds"
 
   texidoc = "
 The following music shows all of the woodwind diagrams currently

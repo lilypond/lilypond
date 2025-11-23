@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "rhythms, specific-notation, staff-notation, tweaks-and-overrides"
+  categories = "Rhythms, Specific notation, Staff notation, Tweaks and
+                overrides"
 
   texidoc = "
 Enclose the time signature in parentheses.

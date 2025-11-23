@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "pitches, tweaks-and-overrides"
+  categories = "Pitches, Tweaks and overrides"
 
   texidoc = "
 The following example shows how to force a natural sign before an

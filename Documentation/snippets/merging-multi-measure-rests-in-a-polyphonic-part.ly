@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "really-simple, rhythms, version-specific"
+  categories = "Really simple, Rhythms, Version-specific"
 
   texidoc = "
 When using multi-measure rests in a polyphonic staff, the rests will be

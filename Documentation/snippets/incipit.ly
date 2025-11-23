@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "ancient-notation, staff-notation"
+  categories = "Ancient notation, Staff notation"
 
   texidoc = "
 When transcribing mensural music, an incipit at the beginning of the

@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "expressive-marks"
+  categories = "Expressive marks"
 
   texidoc = "
 In a @code{PianoStaff}, it is possible to let an @emph{arpeggio} cross

@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "spacing"
+  categories = "Spacing"
 
   texidoc = "
 Page labels may be placed inside music or at top-level, and referred to

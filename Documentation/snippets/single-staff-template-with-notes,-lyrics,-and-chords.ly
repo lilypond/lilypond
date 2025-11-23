@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "chords, really-simple, template, vocal-music"
+  categories = "Chords, Really simple, Template, Vocal music"
 
   texidoc = "
 This template allows the preparation of a song with melody, words, and

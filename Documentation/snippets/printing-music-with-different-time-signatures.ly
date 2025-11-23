@@ -11,7 +11,8 @@
 \version "2.25.23"
 
 \header {
-  lsrtags = "contemporary-notation, percussion, real-music, really-cool, rhythms"
+  categories = "Contemporary notation, Percussion, Real music, Really
+                cool, Rhythms"
 
   texidoc = "
 In the following snippet, two parts have a completely different time

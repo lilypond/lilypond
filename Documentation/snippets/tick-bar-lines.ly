@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "staff-notation"
+  categories = "Staff notation"
 
   texidoc = "
 'Tick' bar lines are often used in music where the bar line is used

@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "rhythms, tweaks-and-overrides"
+  categories = "Rhythms, Tweaks and overrides"
 
   texidoc = "
 The space given to grace notes can be adjusted using the

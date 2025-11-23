@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "contemporary-notation, winds"
+  categories = "Contemporary notation, Winds"
 
   texidoc = "
 It is possible to indicate special articulation techniques such as a

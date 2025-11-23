@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "spacing, tweaks-and-overrides, workaround"
+  categories = "Spacing, Tweaks and overrides, Workaround"
 
   texidoc = "
 All @code{DynamicLineSpanner} objects (hairpins and dynamic texts) are

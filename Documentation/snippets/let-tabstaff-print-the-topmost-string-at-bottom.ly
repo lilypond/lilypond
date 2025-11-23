@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "fretted-strings, staff-notation"
+  categories = "Fretted strings, Staff notation"
 
   texidoc = "
 In tablatures usually the first string is printed topmost. If you want

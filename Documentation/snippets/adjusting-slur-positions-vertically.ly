@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "expressive-marks, scheme-language, tweaks-and-overrides"
+  categories = "Expressive marks, Scheme, Tweaks and overrides"
 
   texidoc = "
 Using @code{\\override Slur.positions} it is possible to set the

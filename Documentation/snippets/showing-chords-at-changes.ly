@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "chords"
+  categories = "Chords"
 
   texidoc = "
 By default, every chord entered is printed; this behavior can be

@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "tweaks-and-overrides"
+  categories = "Tweaks and overrides"
 
   texidoc = "
 The @code{NoteNames} context can be used to print the text value of

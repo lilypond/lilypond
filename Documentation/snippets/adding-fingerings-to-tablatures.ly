@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "fretted-strings, specific-notation"
+  categories = "Fretted strings, Specific notation"
 
   texidoc = "
 To add fingerings to tablatures, use a combination of @code{\\markup}

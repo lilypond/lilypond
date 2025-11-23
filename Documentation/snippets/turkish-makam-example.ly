@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "pitches, world-music"
+  categories = "Pitches, World music"
 
   texidoc = "
 This template uses the start of a well-known Turkish Saz Semai that is

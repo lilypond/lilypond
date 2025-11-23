@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "keyboards, specific-notation, symbols-and-glyphs"
+  categories = "Keyboards, Specific notation, Symbols and glyphs"
 
   texidoc = "
 Accordion register symbols are available as @code{\\markup} as well as

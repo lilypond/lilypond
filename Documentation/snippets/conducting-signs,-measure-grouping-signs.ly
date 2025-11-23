@@ -11,7 +11,7 @@
 \version "2.25.22"
 
 \header {
-  lsrtags = "rhythms"
+  categories = "Rhythms"
 
   texidoc = "
 Context properties control the grouping of beats within a measure:

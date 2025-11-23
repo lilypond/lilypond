@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "simultaneous-notes"
+  categories = "Simultaneous notes"
 
   texidoc = "
 When using the automatic part combining feature, the printed text for

@@ -11,7 +11,8 @@
 \version "2.25.23"
 
 \header {
-  lsrtags = "editorial-annotations, fretted-strings, text, tweaks-and-overrides"
+  categories = "Editorial annotations, Fretted strings, Text, Tweaks
+                and overrides"
 
   texidoc = "
 By default markups does not show in a tablature.

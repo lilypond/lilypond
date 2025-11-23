@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "expressive-marks, symbols-and-glyphs, tweaks-and-overrides"
+  categories = "Expressive marks, Symbols and glyphs, Tweaks and
+                overrides"
 
   texidoc = "
 A caesura is sometimes denoted by a double @qq{railtracks} breath mark

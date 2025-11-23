@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "text, vocal-music"
+  categories = "Text, Vocal music"
 
   texidoc = "
 By default, lyrics syllables that start a melisma are left aligned on

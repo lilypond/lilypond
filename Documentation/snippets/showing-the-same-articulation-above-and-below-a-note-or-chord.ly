@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "expressive-marks, tweaks-and-overrides, version-specific"
+  categories = "Expressive marks, Tweaks and overrides,
+                Version-specific"
 
   texidoc = "
 By default, LilyPond does not allow the same articulation (e.g., an

@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "headword"
+  categories = "Headword"
 
   texidoc = "
 Wind headword

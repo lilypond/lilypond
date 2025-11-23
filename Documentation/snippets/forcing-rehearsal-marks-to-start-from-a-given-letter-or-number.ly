@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "automatic-notation, preparing-parts, really-simple, rhythms"
+  categories = "Automatic notation, Preparing parts, Really simple,
+                Rhythms"
 
   texidoc = "
 This snippet demonstrates how to obtain automatic ordered rehearsal

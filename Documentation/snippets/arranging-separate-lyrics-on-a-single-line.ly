@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "paper-and-layout, vocal-music"
+  categories = "Paper and layout, Vocal music"
 
   texidoc = "
 Sometimes you may want to put lyrics for different performers on a

@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "chords, contexts-and-engravers, scheme-language, staff-notation"
+  categories = "Chords, Contexts and engravers, Scheme, Staff notation"
 
   texidoc = "
 To print subsequent @code{ChordNames} only differing in its bass note

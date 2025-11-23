@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "fretted-strings"
+  categories = "Fretted strings"
 
   texidoc = "
 Fret diagrams can be oriented in three ways. By default the top string

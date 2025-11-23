@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "keyboards, staff-notation, tweaks-and-overrides"
+  categories = "Keyboards, Staff notation, Tweaks and overrides"
 
   texidoc = "
 This snippet removes the first brace from a @code{PianoStaff} or a

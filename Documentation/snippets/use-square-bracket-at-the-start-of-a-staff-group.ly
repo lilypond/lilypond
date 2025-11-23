@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "contexts-and-engravers, staff-notation"
+  categories = "Contexts and engravers, Staff notation"
 
   texidoc = "
 The system start delimiter @code{SystemStartSquare} can be used by

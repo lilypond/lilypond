@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "breaks, staff-notation, tweaks-and-overrides"
+  categories = "Breaks, Staff notation, Tweaks and overrides"
 
   texidoc = "
 The first empty staff can also be removed from the score by setting the

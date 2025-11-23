@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "expressive-marks, tweaks-and-overrides"
+  categories = "Expressive marks, Tweaks and overrides"
 
   texidoc = "
 The visibility of spanners which end on the first note following a line

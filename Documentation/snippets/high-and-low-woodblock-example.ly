@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "percussion, preparing-parts, really-simple, rhythms, specific-notation"
+  categories = "Percussion, Preparing parts, Really simple, Rhythms,
+                Specific notation"
 
   texidoc = "
 Two Woodblocks, entered with 'wbh' (high woodblock) and 'wbl' (low

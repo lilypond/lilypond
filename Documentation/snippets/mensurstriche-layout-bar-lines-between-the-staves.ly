@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "ancient-notation, contexts-and-engravers, staff-notation, tweaks-and-overrides"
+  categories = "Ancient notation, Contexts and engravers, Staff
+                notation, Tweaks and overrides"
 
   texidoc = "
 @emph{Mensurstriche}, bar lines between but not through staves, can be

@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "midi, rhythms, tweaks-and-overrides"
+  categories = "Midi, Rhythms, Tweaks and overrides"
 
   texidoc = "
 To change the tempo in MIDI output without printing anything, make the

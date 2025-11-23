@@ -11,7 +11,7 @@
 \version "2.25.12"
 
 \header {
-  lsrtags = "rhythms, tweaks-and-overrides"
+  categories = "Rhythms, Tweaks and overrides"
 
   texidoc = "
 Sometimes, a time signature should not print the whole fraction (for

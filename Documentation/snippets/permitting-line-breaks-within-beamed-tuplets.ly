@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "rhythms, version-specific"
+  categories = "Rhythms, Version-specific"
 
   texidoc = "
 These artificial examples show how both manual and automatic line

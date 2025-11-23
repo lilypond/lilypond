@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "really-simple, rhythms"
+  categories = "Really simple, Rhythms"
 
   texidoc = "
 Tuplet brackets can be made to run to prefatory matter or the next

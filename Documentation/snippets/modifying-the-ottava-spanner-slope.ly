@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "pitches, staff-notation, tweaks-and-overrides"
+  categories = "Pitches, Staff notation, Tweaks and overrides"
 
   texidoc = "
 It is possible to change the slope of the Ottava spanner.

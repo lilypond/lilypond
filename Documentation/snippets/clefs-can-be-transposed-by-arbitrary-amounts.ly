@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "pitches"
+  categories = "Pitches"
 
   texidoc = "
 Clefs can be transposed by arbitrary amounts, not just by octaves.

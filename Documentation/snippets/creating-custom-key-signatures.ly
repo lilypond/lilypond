@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "contexts-and-engravers, pitches, staff-notation, tweaks-and-overrides"
+  categories = "Contexts and engravers, Pitches, Staff notation, Tweaks
+                and overrides"
 
   texidoc = "
 LilyPond supports custom key signatures. In this example, print for D

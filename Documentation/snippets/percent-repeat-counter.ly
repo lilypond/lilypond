@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "repeats"
+  categories = "Repeats"
 
   texidoc = "
 Measure repeats of more than two repeats can get a counter when the

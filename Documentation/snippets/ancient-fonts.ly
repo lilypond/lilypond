@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "ancient-notation, symbols-and-glyphs"
+  categories = "Ancient notation, Symbols and glyphs"
 
   texidoc = "
 Shown here are many of the symbols that are included in LilyPond's

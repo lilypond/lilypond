@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "pitches, version-specific, world-music"
+  categories = "Pitches, Version-specific, World music"
 
   texidoc = "
 Makam is a type of melody from Turkey using 1/9th-tone microtonal

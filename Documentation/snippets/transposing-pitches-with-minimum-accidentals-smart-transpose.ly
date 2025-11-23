@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "pitches, scheme-language, workaround"
+  categories = "Pitches, Scheme, Workaround"
 
   texidoc = "
 This example uses some Scheme code to enforce enharmonic modifications

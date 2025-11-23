@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "tweaks-and-overrides"
+  categories = "Tweaks and overrides"
 
   texidoc = "
 For film scores, a common convention is to center bar numbers within

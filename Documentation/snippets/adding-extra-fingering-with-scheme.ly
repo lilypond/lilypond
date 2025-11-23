@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "scheme-language"
+  categories = "Scheme"
 
   texidoc = "
 You can add additional elements to notes using @code{map-some-music}.

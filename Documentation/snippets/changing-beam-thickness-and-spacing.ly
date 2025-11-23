@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "tweaks-and-overrides"
+  categories = "Tweaks and overrides"
 
   texidoc = "
 To make beams thicker or thinner alter the @code{Beam.beam-thickness}

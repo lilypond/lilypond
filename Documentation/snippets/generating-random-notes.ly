@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "pitches, really-cool, scheme-language"
+  categories = "Pitches, Really cool, Scheme"
 
   texidoc = "
 This Scheme-based snippet generates random notes. Use as

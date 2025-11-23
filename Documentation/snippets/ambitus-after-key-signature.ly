@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "pitches, staff-notation, vocal-music"
+  categories = "Pitches, Staff notation, Vocal music"
 
   texidoc = "
 By default, ambitus are positioned at the left of the clef.  The

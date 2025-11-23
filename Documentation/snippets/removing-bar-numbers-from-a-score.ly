@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "contexts-and-engravers, rhythms"
+  categories = "Contexts and engravers, Rhythms"
 
   texidoc = "
 Bar numbers can be removed entirely by removing the

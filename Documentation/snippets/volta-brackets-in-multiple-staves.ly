@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "really-simple, repeats, staff-notation"
+  categories = "Really simple, Repeats, Staff notation"
 
   texidoc = "
 By adding the @code{Volta_engraver} to the relevant staff, volte can be

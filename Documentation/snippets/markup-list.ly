@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "text"
+  categories = "Text"
 
   texidoc = "
 Text that can spread over pages is entered with the @code{\\markuplist}

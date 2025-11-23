@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "percussion"
+  categories = "Percussion"
 
   texidoc = "
 Graphic symbols for percussion instruments are not natively supported;

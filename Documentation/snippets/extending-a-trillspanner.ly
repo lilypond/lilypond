@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "staff-notation, syntax-and-expressions, tweaks-and-overrides"
+  categories = "Staff notation, Syntax and expressions, Tweaks and
+                overrides"
 
   texidoc = "
 For @code{TrillSpanner}, the @code{minimum-length} property becomes

@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "editorial-annotations, tweaks-and-overrides"
+  categories = "Editorial annotations, Tweaks and overrides"
 
   texidoc = "
 Text markup may be added to analysis brackets through the @code{text}

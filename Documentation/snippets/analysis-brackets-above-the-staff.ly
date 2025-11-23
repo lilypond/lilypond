@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "editorial-annotations, really-simple, tweaks-and-overrides"
+  categories = "Editorial annotations, Really simple, Tweaks and
+                overrides"
 
   texidoc = "
 Simple horizontal analysis brackets are added below the staff by

@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "editorial-annotations, expressive-marks, scheme-language, staff-notation, tweaks-and-overrides"
+  categories = "Editorial annotations, Expressive marks, Scheme, Staff
+                notation, Tweaks and overrides"
 
   texidoc = "
 Creating fingerings larger than 5 is possible.

@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "expressive-marks"
+  categories = "Expressive marks"
 
   texidoc = "
 The ends of hairpins may be aligned to the @code{LEFT}, @code{CENTER}

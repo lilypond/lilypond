@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "chords"
+  categories = "Chords"
 
   texidoc = "
 By default, rests in a @code{ChordNames} context cause the @qq{N.C.}

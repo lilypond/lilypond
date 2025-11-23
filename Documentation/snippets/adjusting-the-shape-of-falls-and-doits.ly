@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "expressive-marks"
+  categories = "Expressive marks"
 
   texidoc = "
 The @code{shortest-duration-space} property may be tweaked to adjust

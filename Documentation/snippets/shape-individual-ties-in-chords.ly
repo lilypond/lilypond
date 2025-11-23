@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "staff-notation, tweaks-and-overrides"
+  categories = "Staff notation, Tweaks and overrides"
 
   texidoc = "
 To shape individual ties in chords use the method demonstrated below.

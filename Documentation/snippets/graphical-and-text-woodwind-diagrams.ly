@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "winds"
+  categories = "Winds"
 
   texidoc = "
 In many cases, the keys other than the central column can be displayed

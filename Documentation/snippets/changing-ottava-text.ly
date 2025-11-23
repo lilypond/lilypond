@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "pitches, text"
+  categories = "Pitches, Text"
 
   texidoc = "
 Internally, @code{\\ottava} sets the properties @code{ottavation} (for

@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "repeats, tweaks-and-overrides"
+  categories = "Repeats, Tweaks and overrides"
 
   texidoc = "
 Percent repeat counters can be shown at regular intervals by setting

@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "rhythms, tweaks-and-overrides"
+  categories = "Rhythms, Tweaks and overrides"
 
   texidoc = "
 If there are ten or fewer measures of rests, a series of longa and

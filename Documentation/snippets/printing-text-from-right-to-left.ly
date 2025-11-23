@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "editorial-annotations, text, workaround, world-music"
+  categories = "Editorial annotations, Text, Workaround, World music"
 
   texidoc = "
 It is possible to print text from right to left in a markup object, as

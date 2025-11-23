@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "real-music, tweaks-and-overrides, unfretted-strings"
+  categories = "Real music, Tweaks and overrides, Unfretted strings"
 
   texidoc = "
 Artificial harmonics using @code{\\harmonic} do not show dots. To

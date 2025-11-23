@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "ancient-notation, vocal-music"
+  categories = "Ancient notation, Vocal music"
 
   texidoc = "
 Using tags, it is possible to produce both mensural and modern notation

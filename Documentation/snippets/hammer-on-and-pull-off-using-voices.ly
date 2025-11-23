@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "editorial-annotations, fretted-strings"
+  categories = "Editorial annotations, Fretted strings"
 
   texidoc = "
 The arc of hammer-on and pull-off is upwards in voices one and three

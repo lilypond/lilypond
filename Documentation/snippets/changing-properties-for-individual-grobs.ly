@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "really-cool, scheme-language, tweaks-and-overrides"
+  categories = "Really cool, Scheme, Tweaks and overrides"
 
   texidoc = "
 The @code{\\applyOutput} command allows the tuning of any layout

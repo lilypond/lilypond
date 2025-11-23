@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "vocal-music"
+  categories = "Vocal music"
 
   texidoc = "
 If LilyPond does not think there is space for a hyphen, it will be

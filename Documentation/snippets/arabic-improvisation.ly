@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "world-music"
+  categories = "World music"
 
   texidoc = "
 For improvisations or @emph{taqasim} which are temporarily free, the

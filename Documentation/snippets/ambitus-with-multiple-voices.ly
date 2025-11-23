@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "pitches, vocal-music"
+  categories = "Pitches, Vocal music"
 
   texidoc = "
 Adding the @code{Ambitus_engraver} to the @code{Staff} context creates

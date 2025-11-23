@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "contemporary-notation, rhythms"
+  categories = "Contemporary notation, Rhythms"
 
   texidoc = "
 Beam nibs at the start and end of beams together with beams attached to

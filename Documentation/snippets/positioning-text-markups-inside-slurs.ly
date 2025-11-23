@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "editorial-annotations, expressive-marks, tweaks-and-overrides"
+  categories = "Editorial annotations, Expressive marks, Tweaks and
+                overrides"
 
   texidoc = "
 Text markups need to have the @code{outside-staff-priority} property

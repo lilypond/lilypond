@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "expressive-marks"
+  categories = "Expressive marks"
 
   texidoc = "
 Text style dynamic changes (such as @emph{cresc.} and @emph{dim.}) are

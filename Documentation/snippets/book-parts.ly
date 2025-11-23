@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "paper-and-layout"
+  categories = "Paper and layout"
 
   texidoc = "
 @code{\\bookpart} can be used to split a book into several parts. Each

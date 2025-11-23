@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "tweaks-and-overrides, vocal-music"
+  categories = "Tweaks and overrides, Vocal music"
 
   texidoc = "
 It can happen that stanza numbers don't align vertically if the verses

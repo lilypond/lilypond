@@ -11,7 +11,7 @@
 \version "2.25.1"
 
 \header {
-  lsrtags = "expressive-marks, tweaks-and-overrides"
+  categories = "Expressive marks, Tweaks and overrides"
 
   texidoc = "
 The vertical ordering of scripts is controlled with the

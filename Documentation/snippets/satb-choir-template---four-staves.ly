@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "template, vocal-music"
+  categories = "Template, Vocal music"
 
   texidoc = "
 This is a template for a SATB choir on four staves.

@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "fretted-strings"
+  categories = "Fretted strings"
 
   texidoc = "
 The direction of stems is controlled the same way in tablature as in

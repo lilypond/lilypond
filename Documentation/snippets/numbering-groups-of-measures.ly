@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "contexts-and-engravers, editorial-annotations, repeats, staff-notation"
+  categories = "Contexts and engravers, Editorial annotations, Repeats,
+                Staff notation"
 
   texidoc = "
 This snippet demonstrates the use of the

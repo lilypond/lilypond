@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "contexts-and-engravers"
+  categories = "Contexts and engravers"
 
   texidoc = "
 In orchestral scores sometimes single or groups of instruments are

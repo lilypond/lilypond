@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "staff-notation, symbols-and-glyphs, vocal-music"
+  categories = "Staff notation, Symbols and glyphs, Vocal music"
 
   texidoc = "
 This snippet defines the commands @code{\\splitStaffBarLine},

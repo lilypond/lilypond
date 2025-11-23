@@ -11,7 +11,7 @@
 \version "2.25.23"
 
 \header {
-  lsrtags = "editorial-annotations"
+  categories = "Editorial annotations"
 
   texidoc = "
 The appearance of grid lines can be changed by overriding some of their

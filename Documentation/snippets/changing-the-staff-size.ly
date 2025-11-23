@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "paper-and-layout, staff-notation, tweaks-and-overrides"
+  categories = "Paper and layout, Staff notation, Tweaks and overrides"
 
   texidoc = "
 Though the simplest way to resize staves is to use

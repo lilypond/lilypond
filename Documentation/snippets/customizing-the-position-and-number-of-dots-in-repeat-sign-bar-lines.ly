@@ -11,7 +11,7 @@
 \version "2.25.15"
 
 \header {
-  lsrtags = "scheme-language, symbols-and-glyphs"
+  categories = "Scheme, Symbols and glyphs"
 
   texidoc = "
 If you want to customize the position and/or number of dots in repeat

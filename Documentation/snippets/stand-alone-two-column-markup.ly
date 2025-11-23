@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "text"
+  categories = "Text"
 
   texidoc = "
 Stand-alone text may be arranged in several columns using

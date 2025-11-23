@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "repeats, staff-notation"
+  categories = "Repeats, Staff notation"
 
   texidoc = "
 Default bar lines can be changed when re-defined in a score context.

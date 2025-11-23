@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "contexts-and-engravers"
+  categories = "Contexts and engravers"
 
   texidoc = "
 This example demonstrates how the ambitus engraver may be defined on

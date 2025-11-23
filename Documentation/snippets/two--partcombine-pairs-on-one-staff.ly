@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "simultaneous-notes, staff-notation"
+  categories = "Simultaneous notes, Staff notation"
 
   texidoc = "
 The @code{\\partCombine} function takes two music expressions each

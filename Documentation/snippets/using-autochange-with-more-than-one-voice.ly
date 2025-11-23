@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "keyboards, pitches, staff-notation"
+  categories = "Keyboards, Pitches, Staff notation"
 
   texidoc = "
 Using @code{autochange} with more than one voice.

@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "rhythms, workaround"
+  categories = "Rhythms, Workaround"
 
   texidoc = "
 By default, appoggiaturas and grace notes that occur on the first beat

@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "automatic-notation, pitches"
+  categories = "Automatic notation, Pitches"
 
   texidoc = "
 In accordance with traditional typesetting rules, a natural sign is

@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "midi, scheme-language"
+  categories = "Midi, Scheme"
 
   texidoc = "
 The default MIDI instrument equalizer can be replaced by setting the

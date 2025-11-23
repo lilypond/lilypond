@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "chords, really-simple, template"
+  categories = "Chords, Really simple, Template"
 
   texidoc = "
 Want to prepare a lead sheet with a melody and chords? Look no further!

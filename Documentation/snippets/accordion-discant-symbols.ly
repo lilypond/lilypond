@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "keyboards, specific-notation, symbols-and-glyphs, workaround"
+  categories = "Keyboards, Specific notation, Symbols and glyphs,
+                Workaround"
 
   texidoc = "
 This snippet has been obsoleted by predefined markup commands, see

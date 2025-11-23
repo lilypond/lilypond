@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "pitches, staff-notation, vocal-music"
+  categories = "Pitches, Staff notation, Vocal music"
 
   texidoc = "
 Ambitus can be added per voice. In this case, the ambitus must be moved

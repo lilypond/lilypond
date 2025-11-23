@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "rhythms, simultaneous-notes, tweaks-and-overrides"
+  categories = "Rhythms, Simultaneous notes, Tweaks and overrides"
 
   texidoc = "
 Setting the @code{transparent} property will cause an object to be

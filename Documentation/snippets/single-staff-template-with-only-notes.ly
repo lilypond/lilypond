@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "really-simple, template"
+  categories = "Really simple, Template"
 
   texidoc = "
 This very simple template gives you a staff with notes, suitable for a

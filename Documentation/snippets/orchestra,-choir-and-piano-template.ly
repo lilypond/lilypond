@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "pitches, staff-notation, template, vocal-music"
+  categories = "Pitches, Staff notation, Template, Vocal music"
 
   texidoc = "
 This template demonstrates the use of nested @code{StaffGroup} and

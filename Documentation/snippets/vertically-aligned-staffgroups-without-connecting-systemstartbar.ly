@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "paper-and-layout, staff-notation, syntax-and-expressions"
+  categories = "Paper and layout, Staff notation, Syntax and
+                expressions"
 
   texidoc = "
 This snippet shows how to achieve vertically aligned @code{StaffGroups}

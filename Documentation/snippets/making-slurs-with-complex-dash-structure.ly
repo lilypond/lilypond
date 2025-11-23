@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "expressive-marks, rhythms"
+  categories = "Expressive marks, Rhythms"
 
   texidoc = "
 Slurs can be made with complex dash patterns by defining the

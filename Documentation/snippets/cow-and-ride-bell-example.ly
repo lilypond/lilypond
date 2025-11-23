@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "percussion, preparing-parts, really-simple, rhythms, specific-notation"
+  categories = "Percussion, Preparing parts, Really simple, Rhythms,
+                Specific notation"
 
   texidoc = "
 Two different bells, entered with 'cb' (cowbell) and 'rb' (ridebell).

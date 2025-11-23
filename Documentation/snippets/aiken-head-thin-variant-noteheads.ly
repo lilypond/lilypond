@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "pitches, specific-notation"
+  categories = "Pitches, Specific notation"
 
   texidoc = "
 Aiken head white notes get harder to read at smaller staff sizes,

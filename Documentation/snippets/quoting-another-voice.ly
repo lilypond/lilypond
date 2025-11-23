@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "staff-notation"
+  categories = "Staff notation"
 
   texidoc = "
 The @code{quotedEventTypes} property determines the music event types

@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "fretted-strings, rhythms"
+  categories = "Fretted strings, Rhythms"
 
   texidoc = "
 For guitar music, it is possible to show strum rhythms, along with

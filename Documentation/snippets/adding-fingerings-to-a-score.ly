@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "editorial-annotations, fretted-strings, really-simple"
+  categories = "Editorial annotations, Fretted strings, Really simple"
 
   texidoc = "
 Fingering instructions can be entered using a simple syntax.

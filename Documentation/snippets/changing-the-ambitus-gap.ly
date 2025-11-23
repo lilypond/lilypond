@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "pitches"
+  categories = "Pitches"
 
   texidoc = "
 It is possible to change the default gap between the ambitus noteheads

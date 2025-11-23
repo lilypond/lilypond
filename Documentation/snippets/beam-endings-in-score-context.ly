@@ -11,7 +11,7 @@
 \version "2.25.22"
 
 \header {
-  lsrtags = "rhythms"
+  categories = "Rhythms"
 
   texidoc = "
 Beam-ending rules specified in the @code{Score} context apply to all

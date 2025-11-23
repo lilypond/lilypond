@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "automatic-notation, pitches"
+  categories = "Automatic notation, Pitches"
 
   texidoc = "
 When the key signature changes, natural signs are automatically printed

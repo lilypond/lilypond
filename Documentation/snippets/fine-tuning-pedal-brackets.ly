@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "keyboards, tweaks-and-overrides"
+  categories = "Keyboards, Tweaks and overrides"
 
   texidoc = "
 The appearance of pedal brackets may be altered in different ways.

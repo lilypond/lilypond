@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "contemporary-notation, expressive-marks, symbols-and-glyphs"
+  categories = "Contemporary notation, Expressive marks, Symbols and
+                glyphs"
 
   texidoc = "
 In order to make parts of a crescendo hairpin invisible, the following

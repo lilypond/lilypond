@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "chords"
+  categories = "Chords"
 
   texidoc = "
 Custom divisions of chord squares can be defined through the

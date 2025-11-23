@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "rhythms, text"
+  categories = "Rhythms, Text"
 
   texidoc = "
 Using the @code{set-bar-number-visibility} context function, bar number

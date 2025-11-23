@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "text"
+  categories = "Text"
 
   texidoc = "
 Although rehearsal and text marks are normally only printed above the

@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "template, vocal-music"
+  categories = "Template, Vocal music"
 
   texidoc = "
 This code shows one way of setting out a hymn tune when each line

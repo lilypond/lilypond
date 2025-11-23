@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "keyboards, real-music"
+  categories = "Keyboards, Real music"
 
   texidoc = "
 An arpeggio bracket can indicate that notes on two different staves are

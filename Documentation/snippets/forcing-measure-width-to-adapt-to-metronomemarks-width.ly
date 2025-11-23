@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "staff-notation, workaround"
+  categories = "Staff notation, Workaround"
 
   texidoc = "
 By default, metronome marks do not influence horizontal spacing.

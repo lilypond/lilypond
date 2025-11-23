@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "expressive-marks, really-simple, text"
+  categories = "Expressive marks, Really simple, Text"
 
   texidoc = "
 Some dynamics may involve text indications (such as @qq{più forte} or

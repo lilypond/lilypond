@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "tweaks-and-overrides"
+  categories = "Tweaks and overrides"
 
   texidoc = "
 This snippet shows how to set a tuplet starting in a lower staff and

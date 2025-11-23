@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "contexts-and-engravers, editorial-annotations, paper-and-layout, specific-notation, staff-notation"
+  categories = "Contexts and engravers, Editorial annotations, Paper
+                and layout, Specific notation, Staff notation"
 
   texidoc = "
 To create blank staves, generate empty measures then remove the

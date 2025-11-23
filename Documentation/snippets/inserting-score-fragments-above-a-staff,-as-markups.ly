@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "real-music, staff-notation"
+  categories = "Real music, Staff notation"
 
   texidoc = "
 The @code{\\markup} command is quite versatile. In this snippet, it

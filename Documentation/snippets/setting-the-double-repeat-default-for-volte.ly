@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "repeats"
+  categories = "Repeats"
 
   texidoc = "
 There are three different styles of double repeats for volte, that can

@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "really-simple, template, vocal-music"
+  categories = "Really simple, Template, Vocal music"
 
   texidoc = "
 Here is a standard four-part SATB vocal score. With larger ensembles,

@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "editorial-annotations, pitches, really-cool"
+  categories = "Editorial annotations, Pitches, Really cool"
 
   texidoc = "
 It is possible to color note heads depending on their pitch and/or

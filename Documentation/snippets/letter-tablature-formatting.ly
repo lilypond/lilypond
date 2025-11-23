@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "fretted-strings, staff-notation"
+  categories = "Fretted strings, Staff notation"
 
   texidoc = "
 Tablature can be formatted using letters instead of numbers.

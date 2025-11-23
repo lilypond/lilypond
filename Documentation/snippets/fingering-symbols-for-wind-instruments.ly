@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "symbols-and-glyphs, winds"
+  categories = "Symbols and glyphs, Winds"
 
   texidoc = "
 Special symbols can be achieved by combining existing glyphs, which is

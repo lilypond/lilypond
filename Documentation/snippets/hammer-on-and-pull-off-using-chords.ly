@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "editorial-annotations, fretted-strings"
+  categories = "Editorial annotations, Fretted strings"
 
   texidoc = "
 When using hammer-on or pull-off with chorded notes, only a single arc

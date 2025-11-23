@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "editorial-annotations, scheme-language, tweaks-and-overrides"
+  categories = "Editorial annotations, Scheme, Tweaks and overrides"
 
   texidoc = "
 To add a link to a grob stencil you can use @code{add-link} as defined

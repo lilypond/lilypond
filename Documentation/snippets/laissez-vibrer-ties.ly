@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "connecting-notes, contemporary-notation, expressive-marks, fretted-strings, keyboards, specific-notation"
+  categories = "Connecting notes, Contemporary notation, Expressive
+                marks, Fretted strings, Keyboards, Specific notation"
 
   texidoc = "
 Laissez vibrer ties have a fixed size. Their formatting can be tuned

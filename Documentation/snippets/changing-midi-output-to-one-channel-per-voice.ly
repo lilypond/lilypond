@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "contexts-and-engravers, midi, real-music"
+  categories = "Contexts and engravers, Midi, Real music"
 
   texidoc = "
 When outputting MIDI, the default behavior is for each staff to

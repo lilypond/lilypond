@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "editorial-annotations"
+  categories = "Editorial annotations"
 
   texidoc = "
 Here is how to circle a note.

@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "specific-notation, symbols-and-glyphs, text, vocal-music"
+  categories = "Specific notation, Symbols and glyphs, Text, Vocal
+                music"
 
   texidoc = "
 This can be achieved by separating those syllables by tildes.

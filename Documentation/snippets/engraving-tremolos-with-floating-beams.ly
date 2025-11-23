@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "repeats, rhythms"
+  categories = "Repeats, Rhythms"
 
   texidoc = "
 If a tremolo's total duration is less than a quarter-note, or exactly a

@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "editorial-annotations"
+  categories = "Editorial annotations"
 
   texidoc = "
 Measure spanners are an alternate way to print annotated brackets. As

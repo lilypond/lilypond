@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "editorial-annotations, fretted-strings"
+  categories = "Editorial annotations, Fretted strings"
 
   texidoc = "
 Hammer-on and pull-off can be obtained using slurs.

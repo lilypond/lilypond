@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "preparing-parts, rhythms"
+  categories = "Preparing parts, Rhythms"
 
   texidoc = "
 Multi measure rests show their length by a number except for single

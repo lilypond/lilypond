@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "pitches, vocal-music"
+  categories = "Pitches, Vocal music"
 
   texidoc = "
 Ambitus indicate pitch ranges for voices.

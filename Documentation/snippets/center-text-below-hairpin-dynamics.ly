@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "expressive-marks, really-cool, scheme-language, text"
+  categories = "Expressive marks, Really cool, Scheme, Text"
 
   texidoc = "
 This example provides a function to typeset a hairpin (de)crescendo

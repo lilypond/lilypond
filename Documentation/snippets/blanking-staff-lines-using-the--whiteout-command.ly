@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "editorial-annotations, really-cool, text"
+  categories = "Editorial annotations, Really cool, Text"
 
   texidoc = "
 The @code{\\whiteout} command underlays a markup with a white box.

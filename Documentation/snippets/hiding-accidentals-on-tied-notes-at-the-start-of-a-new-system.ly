@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "pitches"
+  categories = "Pitches"
 
   texidoc = "
 This shows how to hide accidentals on tied notes at the start of a new

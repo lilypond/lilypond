@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "contexts-and-engravers, pitches"
+  categories = "Contexts and engravers, Pitches"
 
   texidoc = "
 LilyPond can alter the stem direction of the middle note on a staff so

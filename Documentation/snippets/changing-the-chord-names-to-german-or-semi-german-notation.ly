@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "chords, really-simple"
+  categories = "Chords, Really simple"
 
   texidoc = "
 The english naming of chords (default) can be changed to german

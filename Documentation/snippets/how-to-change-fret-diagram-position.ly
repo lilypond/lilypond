@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "fretted-strings, specific-notation, tweaks-and-overrides"
+  categories = "Fretted strings, Specific notation, Tweaks and
+                overrides"
 
   texidoc = "
 If you want to move the position of a fret diagram, for example, to

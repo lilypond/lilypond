@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "expressive-marks, text, workaround"
+  categories = "Expressive marks, Text, Workaround"
 
   texidoc = "
 Although the easiest way to add parentheses to a dynamic mark is to use

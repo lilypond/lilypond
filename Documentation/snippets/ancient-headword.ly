@@ -11,7 +11,7 @@
 \version "2.25.5"
 
 \header {
-  lsrtags = "headword"
+  categories = "Headword"
 
   texidoc = "
 Ancient headword

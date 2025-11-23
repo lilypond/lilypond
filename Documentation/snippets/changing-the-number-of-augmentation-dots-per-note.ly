@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "expressive-marks, rhythms"
+  categories = "Expressive marks, Rhythms"
 
   texidoc = "
 The number of augmentation dots on a single note can be changed

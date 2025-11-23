@@ -11,7 +11,7 @@
 \version "2.25.3"
 
 \header {
-  lsrtags = "template, vocal-music"
+  categories = "Template, Vocal music"
 
   texidoc = "
 This template shows one way of setting out an Anglican psalm chant. It

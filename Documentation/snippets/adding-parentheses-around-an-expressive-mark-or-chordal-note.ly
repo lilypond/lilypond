@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "expressive-marks, workaround"
+  categories = "Expressive marks, Workaround"
 
   texidoc = "
 The @code{\\parenthesize} function is a special tweak that encloses

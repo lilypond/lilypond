@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "ancient-notation, rhythms, symbols-and-glyphs, tweaks-and-overrides"
+  categories = "Ancient notation, Rhythms, Symbols and glyphs, Tweaks
+                and overrides"
 
   texidoc = "
 Rests may be used in various styles.

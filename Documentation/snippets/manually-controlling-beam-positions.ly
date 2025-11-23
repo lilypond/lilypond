@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "connecting-notes, rhythms, tweaks-and-overrides"
+  categories = "Connecting notes, Rhythms, Tweaks and overrides"
 
   texidoc = "
 Beam positions may be controlled manually, by overriding the

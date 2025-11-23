@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "contemporary-notation, scheme-language, staff-notation, tweaks-and-overrides"
+  categories = "Contemporary notation, Scheme, Staff notation, Tweaks
+                and overrides"
 
   texidoc = "
 The function takes the default @code{Tie.stencil} as an argument,

@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "vocal-music"
+  categories = "Vocal music"
 
   texidoc = "
 The vertical spacing engine changed since version 2.14. This can cause

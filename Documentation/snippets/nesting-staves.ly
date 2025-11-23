@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "contexts-and-engravers, preparing-parts, staff-notation, tweaks-and-overrides"
+  categories = "Contexts and engravers, Preparing parts, Staff
+                notation, Tweaks and overrides"
 
   texidoc = "
 The property @code{systemStartDelimiterHierarchy} can be used to make
