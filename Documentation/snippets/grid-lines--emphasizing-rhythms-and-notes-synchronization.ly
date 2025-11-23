@@ -11,7 +11,7 @@
 \version "2.25.23"
 
 \header {
-  lsrtags = "editorial-annotations"
+  categories = "Editorial annotations, Education"
 
   texidoc = "
 Regular vertical lines can be drawn between staves to show note

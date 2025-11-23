@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "midi, real-music, specific-notation"
+  categories = "Instrument-specific, Midi, Real music, Specific
+                notation"
 
   texidoc = "
 Problem: How to know which @code{midiInstrument} would be best for your

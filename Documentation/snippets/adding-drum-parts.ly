@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "percussion, preparing-parts, really-simple, rhythms, specific-notation"
+  categories = "Instrument-specific, Percussion, Preparing parts,
+                Really simple, Rhythms, Specific notation"
 
   texidoc = "
 Using the powerful pre-configured tools such as the @code{\\drummode}

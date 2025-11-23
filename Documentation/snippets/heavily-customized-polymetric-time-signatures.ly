@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "contemporary-notation, percussion, real-music, rhythms"
+  categories = "Contemporary notation, Education, Percussion, Real
+                music, Rhythms"
 
   texidoc = "
 Though the polymetric time signature shown was not the most essential

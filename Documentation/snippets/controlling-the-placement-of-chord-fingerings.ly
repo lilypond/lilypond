@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "chords, editorial-annotations, fretted-strings, keyboards, specific-notation"
+  categories = "Chords, Editorial annotations, Expressive marks,
+                Fretted strings, Keyboards, Specific notation"
 
   texidoc = "
 The placement of fingering numbers can be controlled precisely by using

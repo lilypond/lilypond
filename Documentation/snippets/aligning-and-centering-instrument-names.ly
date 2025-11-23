@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "paper-and-layout, text, titles"
+  categories = "Non-music, Paper and layout, Text, Titles"
 
   texidoc = "
 The horizontal alignment of instrument names is tweaked by changing the

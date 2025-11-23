@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "rhythms, tweaks-and-overrides"
+  categories = "Connecting notes, Rhythms, Tweaks and overrides"
 
   texidoc = "
 The default behavior of tuplet-bracket visibility is to print a bracket

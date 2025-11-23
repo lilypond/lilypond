@@ -11,7 +11,8 @@
 \version "2.25.23"
 
 \header {
-  lsrtags = "real-music, specific-notation, template"
+  categories = "Instrument-specific, Real music, Specific notation,
+                Template"
 
   texidoc = "
 A template to write a score for a diatonic accordion.

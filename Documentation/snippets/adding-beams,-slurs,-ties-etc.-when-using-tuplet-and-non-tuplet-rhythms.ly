@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  lsrtags = "expressive-marks, rhythms"
+  categories = "Connecting notes, Expressive marks, Rhythms"
 
   texidoc = "
 LilyPond syntax can involve many unusual placements for parentheses,
