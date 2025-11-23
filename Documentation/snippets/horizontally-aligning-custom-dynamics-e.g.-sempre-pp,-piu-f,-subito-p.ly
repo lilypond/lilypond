@@ -19,8 +19,8 @@ Some dynamic expressions involve additional text, like @qq{sempre
 @strong{pp}}. Since dynamics are usually centered under the note, the
 \\pp would be displayed way after the note it applies to.
 
-To correctly align the @qq{sempre @strong{pp}} horizontally so that it
-is aligned as if it were only the \\pp, there are several approaches:
+To correctly align the @qq{sempre @strong{pp}} horizontally so that it is
+aligned as if it were only the \\pp, there are several approaches:
 
 @itemize
 @item

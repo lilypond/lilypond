@@ -24,8 +24,8 @@ nail of the ring finger
 @item
 an arrow to indicate (the direction of) strokes
 @item
-different letters for fingering (@qq{p}: thumb, @qq{i}: index finger,
-@qq{m}: middle finger, @qq{a}: ring finger and @qq{x}: little finger)
+different letters for fingering (@qq{p}: thumb, @qq{i}: index finger, @qq{m}:
+middle finger, @qq{a}: ring finger and @qq{x}: little finger)
 @item
 3- and 4-finger @emph{rasgueados}; stroke upwards with all fingers,
 ending with an up- and down using the index finger

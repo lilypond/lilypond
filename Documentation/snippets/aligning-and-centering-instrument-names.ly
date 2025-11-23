@@ -25,7 +25,9 @@ and the following systems, respectively.
 } % begin verbatim
 
 
-\paper { left-margin = 3\cm }
+\paper {
+  left-margin = 3\cm
+}
 
 \score {
   \new StaffGroup <<

@@ -20,12 +20,10 @@ to control the appearance of tremolo slashes.
 @itemize
 @item
 Property @code{slope} sets the slope for tremolo slashes.
-
 @item
 Property @code{shape} determines whether tremolo slashes look like
 rectangles (value @code{rectangle}) or like very small beams (value
 @code{beam-like}).
-
 @item
 Property @code{style} sets both the slope and the shape depending on
 whether the note has flags, beams, or only a plain stem. This is in
