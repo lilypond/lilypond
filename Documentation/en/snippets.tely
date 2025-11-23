@@ -7,30 +7,8 @@
 
 @macro manualIntro
 This document shows a selected set of LilyPond snippets from the
-@uref{https://wiki.lilypond.community, LilyPond Wiki}, the
-successor of the LilyPond Snippet Repository (LSR).  It is in the
-public domain.
-
-We would like to address many thanks to Sebastiano Vigna for
-maintaining the LSR and Jean Abou Samra for maintaining the
-LilyPond Wiki!
-
-Please note that this document is not an exact subset of the
-LilyPond Wiki: some snippets come from the
-@file{Documentation/@/snippets/@/new/} LilyPond sources directory,
-and snippets from the Wiki are converted by @command{convert-ly},
-as the LilyPond Wiki is (mainly) based on a stable LilyPond
-version, and this document is for version @version{}.
-
-Snippets are grouped by
-@uref{https://wiki.lilypond.community/wiki/Special@/:Categories,
-Wiki categories}.  Snippets may be tagged with several categories,
-which means that they may appear multiple times in this document.
-Not all Wiki categories may be present here, though.
-
-In the HTML version of this document, you can click on the file name
-or figure for each example to see the corresponding input file.
-
+@uref{https://wiki.lilypond.community, LilyPond Wiki}.  It is in
+the public domain.
 @end macro
 
 @macro copyrightDeclare
@@ -65,7 +43,10 @@ Copyright @copyright{} 1999--2023 by the authors.
 @c maybe generate/update @menu and @includes automatically? --jm
 @ifnottex
 @menu
+* Preface::
+
 Musical notation
+
 * Pitches::
 * Rhythms::
 * Expressive marks::
@@ -76,17 +57,19 @@ Musical notation
 * Text::
 
 Specialist notation
+
 * Vocal music::
-* Chord notation::
 * Keyboard and other multi-staff instruments::
-* Percussion::
-* Fretted string instruments::
 * Unfretted string instruments::
+* Fretted string instruments::
+* Percussion::
 * Wind instruments::
+* Chord notation::
 * Ancient notation::
 * World music::
 
 Other collections
+
 * Contexts and engravers::
 * Tweaks and overrides::
 * Paper and layout::
@@ -99,10 +82,44 @@ Other collections
 @docMain
 @end ifnottex
 
+
 @contents
 
-@c Please take care of naming every .itely
-@c with an existing tag name.
+
+@node Preface
+@unnumbered Preface
+
+This document shows a selected set of LilyPond snippets from the
+@uref{https://wiki.lilypond.community, LilyPond Wiki}, the
+successor of the LilyPond Snippet Repository (LSR).
+
+We would like to address many thanks to Sebastiano Vigna for
+maintaining the LSR and Jean Abou Samra for maintaining the
+LilyPond Wiki!
+
+Please note that this document is not an exact subset of the
+LilyPond Wiki: some snippets come from the
+@file{Documentation/@/snippets/@/new/} LilyPond sources directory,
+and snippets from the Wiki are converted by @command{convert-ly},
+as the LilyPond Wiki is (mainly) based on a stable LilyPond
+version, and this document is for version @version{}.
+
+Snippets are grouped by
+@uref{https://wiki.lilypond.community/wiki/Special@/:Categories,
+LilyPond Wiki categories}, using the same chapter order as the
+Notation Reference (if possible).  Snippets may be tagged with
+several categories, which means that they may appear multiple
+times in this document.  Not all Wiki categories may be present
+here, though.
+
+For all snippets, the indentation of staves is set to zero.
+
+In the HTML version of this document, you can click on the file
+name or figure for each example to see the corresponding input
+file.
+
+
+@part Musical notation
 
 @include snippets/pitches.itely
 @include snippets/rhythms.itely
@@ -113,15 +130,21 @@ Other collections
 @include snippets/editorial-annotations.itely
 @include snippets/text.itely
 
+
+@part Specialist notation
+
 @include snippets/vocal-music.itely
-@include snippets/chords.itely
 @include snippets/keyboards.itely
-@include snippets/percussion.itely
-@include snippets/fretted-strings.itely
 @include snippets/unfretted-strings.itely
+@include snippets/fretted-strings.itely
+@include snippets/percussion.itely
 @include snippets/winds.itely
+@include snippets/chords.itely
 @include snippets/ancient-notation.itely
 @include snippets/world-music.itely
+
+
+@part Other collections
 
 @include snippets/contexts-and-engravers.itely
 @include snippets/tweaks-and-overrides.itely
