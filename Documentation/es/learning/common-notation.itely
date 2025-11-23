@@ -401,7 +401,7 @@ importantes.
 @end multitable
 @end indentedblock
 
-Consulte la @rnotation{Lista de articulaciones} para ver un
+Consulte la @rnotationnamed{List of articulations, Lista de articulaciones} para ver un
 listado exhaustivo.
 
 @lilypond[verbatim,quote]
