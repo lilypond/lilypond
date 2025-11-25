@@ -745,15 +745,24 @@ file, allowing you to learn from other typesetters and also make your
 own edition.
 
 @item
-@uref{https://www.baroquemusic.it/, baroquemusic.it}, started in 2005,
-collects over 800 scores of baroque music. The archive includes scores,
-separate parts and midi files, distributed with a Creative Commons
-license and available to subscribers only.
+@uref{https://www.baroquemusic.it/, baroquemusic.it}, started in
+2005, collects over 1300 scores of baroque music.  The archive
+includes scores, separate parts and midi files, distributed with a
+Creative Commons license and available to subscribers only.
+
+@emph{[This site will be closed in the end of 2025 because its
+maintainer died recently.]}
 
 @item
 @uref{https://partitura.org/, Partitura Organum} is a growing collection
 of organ pieces in the public domain, typeset by LilyPond and
 distributed under a Creative Commons license.
+
+@item
+@uref{https://bayanguru.org/, Bayanguru} provides selected sheet
+music for the
+@uref{https://en.wikipedia.org/wiki/Bayan_(accordion), Bayan} (a
+chromatic button accordion) under the GPLv3 license.
 
 @item
 @uref{https://clairnote.org/, Clairnote} offers free sheet music in
@@ -780,6 +789,11 @@ source files of the example gallery shown in @ref{Examples}.
 @item
 @uref{https://github.com/nsceaux/nenuvar, Nicolas Sceaux}: baroque music scores
 typeset with LilyPond by one of its developers.
+
+@item
+@uref{https://github.com/volodymyrprokopyuk/bayanguru, Bayanguru}:
+source files for the Bayanguru sheet music library.
+
 
 @end itemize
 @divEnd
