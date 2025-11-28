@@ -2539,22 +2539,33 @@ For lengthy scores, the variable definitions may be placed in
 separate files which are then included, see @ref{Including
 LilyPond files}.
 
+
 @node Using tags
 @subsection Using tags
 
 @funindex \tag
+@cindex tag
+
+The @code{\tag} command marks a music expression with a name.
+
+@example
+\tag #'foo @{ ... @}
+@end example
+
+@noindent
+Expressions tagged in this way can be conviently manipulated as a
+whole.
+
+
+@subsubheading Keeping and removing tagged music
+
 @funindex \keepWithTag
 @funindex \removeWithTag
-@cindex tag
 @cindex keeping tagged music
 @cindex removing tagged music
 
-The @code{\tag #'@var{partA}} command marks a music expression
-with the name @var{partA}.
-Expressions tagged in this way can be selected or filtered out by
-name later, using either @code{\keepWithTag #'@var{name}} or
-@code{\removeWithTag #'@var{name}}.  The result of applying these filters
-to tagged music is as follows:
+The command @code{\keepWithTag} selects tagged music.  On the
+other hand, @code{\removeWithTag} filters out tagged music.
 
 @indentedblock
 @multitable @columnfractions .55 .45
@@ -2604,22 +2615,25 @@ Tagged music not preceded by either@*
 @end multitable
 @end indentedblock
 
-The arguments of the @code{\tag}, @code{\keepWithTag} and
-@code{\removeWithTag} commands should be a symbol or list of
-symbols (such as @code{#'score} or @code{#'(violinI violinII}),
+The arguments of the @code{\tag}, @code{\keepWithTag}, and
+@code{\removeWithTag} commands should be a symbol or a list of
+symbols such as @code{#'score} or @code{#'(violinI violinII)},
 followed by a music expression.  If @emph{and only if} the symbols
 are valid LilyPond identifiers (alphabetic characters only, no
-numbers, underscores, or dashes) which cannot be confused with notes,
-the @code{#'} may be omitted and, as a shorthand, a list of symbols
-can use the comma separator: i.e., @code{\tag #'(violinI violinII)} can
-be written @code{\tag violinI,violinII}.  The same applies to
-@code{\keepWithTag} and @code{\removeWithTag}.  Tagging commands
-are music functions, thus they cannot be used to filter items that
-are not music expressions, such as @code{\book} or @code{\score} blocks.
+numbers, underscores, or dashes, and different from any note
+names), the @code{#'} prefix may be omitted and, as a shorthand, a
+list of symbols can use the comma separator.  For example,
+@code{\tag #'(violinI violinII)} can be written as @code{\tag
+violinI,violinII}.  The same applies to the arguments of
+@code{\keepWithTag} and @code{\removeWithTag}.
+
+Tagging commands are music functions, thus they cannot be used to
+filter items that are not music expressions, such as @code{\book}
+or @code{\score} blocks.
 
 In the following example, we see two versions of a piece of music,
 one showing trills with the usual notation, and one with trills
-explicitly expanded:
+explicitly expanded.
 
 @lilypond[verbatim,quote]
 music = \relative {
@@ -2638,7 +2652,8 @@ music = \relative {
 @end lilypond
 
 @noindent
-Alternatively, it is sometimes easier to exclude sections of music:
+Alternatively, it is sometimes easier to exclude sections of
+music.
 
 @lilypond[verbatim,quote]
 music = \relative {
@@ -2649,12 +2664,10 @@ music = \relative {
  }
 
 \score {
-  \removeWithTag #'expand
-  \music
+  \removeWithTag #'expand \music
 }
 \score {
-  \removeWithTag #'trills
-  \music
+  \removeWithTag #'trills \music
 }
 @end lilypond
 
@@ -2663,7 +2676,7 @@ music = \relative {
 @cindex @code{\tag}, and quoting music
 
 If tags mark alternatives that have non-zero duration, the
-alternatives are often conceptually simultaneous, in which case it
+alternatives are often conceptually simultaneous.  In this case it
 is best to put the alternatives in a simultaneous music expression
 so that the music expression has the same duration no matter which
 tags are retained.  This is especially important if you are using
@@ -2707,9 +2720,10 @@ prepending
 -\tag #'@var{your-tag}
 @end example
 
-to an articulation.  For example, this would define a note with a
-conditional fingering indication and a note with a conditional
-annotation:
+@noindent
+to an articulation.  For example, the following defines a note
+with a conditional fingering indication and a note with a
+conditional annotation.
 
 @example
 c1-\tag #'finger ^4
@@ -2718,17 +2732,18 @@ c1-\tag #'warn ^"Watch!"
 
 Multiple tags may be placed on expressions with multiple
 @code{\tag} entries, or by combining multiple tags into one symbol
-list:
+list.
 
 @lilypond[quote,verbatim]
 music = \relative c'' {
-  \tag #'a \tag #'both { a4 a a a }
-  \tag #'(b both) { b4 b b b }
+  \tag AA \tag AB { a4 a a a }
+  \tag BB,both { b4 b b b }
 }
+
 <<
-\keepWithTag #'a \music
-\keepWithTag #'b \music
-\keepWithTag #'both \music
+  \keepWithTag AA \music
+  \keepWithTag BB \music
+  \keepWithTag AB \music
 >>
 @end lilypond
 
@@ -2739,114 +2754,121 @@ with a list of tags.
 
 @lilypond[verbatim,quote]
 music = \relative c'' {
-  \tag #'A { a4 a a a }
-  \tag #'B { b4 b b b }
-  \tag #'C { c4 c c c }
-  \tag #'D { d4 d d d }
+  \tag AA { a4 a a a }
+  \tag BB { b4 b b b }
+  \tag CC { c4 c c c }
+  \tag DD { d4 d d d }
 }
+
 \new Voice {
-  \removeWithTag #'B
-  \removeWithTag #'C
-  \music
-  \removeWithTag #'(B C)
-  \music
+  \removeWithTag BB \removeWithTag CC \music
+  \removeWithTag BB,CC \music
 }
 @end lilypond
 
 Using two or more @code{\keepWithTag} filters on a single music
-expression will cause @emph{all} of the tagged sections to be removed.
-The first filter will remove all except the one named and any subsequent
-filters will remove the rest.  Using one @code{\keepWithTag} command
-with a list of multiple tags will only remove tagged sections that are
-not specified in that list.
+expression causes @emph{all} of the tagged sections to be removed,
+which is certainly not what you want: the first filter removes
+everything except the one named, and any subsequent filter removes
+the rest.  Instead, use one @code{\keepWithTag} command with a
+list of multiple tags to remove all tagged sections that are not
+specified in that list.  As an example, the following code prints
+music tagged with @var{violinI} and @var{violinII} but not tagged
+with @var{viola} or @var{cello}.
 
 @lilypond[verbatim,quote]
 music = \relative c'' {
-  \tag #'violinI { a4 a a a }
-  \tag #'violinII { b4 b b b }
-  \tag #'viola { c4 c c c }
-  \tag #'cello { d4 d d d }
+  \tag violinI { a4 a a a }
+  \tag violinII { b4 b b b }
+  \tag viola { c4 c c c }
+  \tag cello { d4 d d d }
 }
 
 \new Staff {
-  \keepWithTag #'(violinI violinII)
-  \music
+  \keepWithTag violinI,violinII \music
 }
 @end lilypond
-
-@noindent
-will print @code{\tag}s @var{violinI} and @var{violinII} but not
-@var{viola} or @var{cello}.
 
 @cindex tag groups
 @funindex \tagGroup
 
-While @code{\keepWithTag} is convenient when dealing with @emph{one} set
-of alternatives, the removal of music tagged with @emph{unrelated} tags
-is problematic when using them for more than one purpose.  In that case
-@q{groups} of tags can be declared:
+While @code{\keepWithTag} is convenient when dealing with
+@emph{one} set of alternatives, the removal of music tagged with
+unrelated tags is problematic when using them for more than one
+purpose.  In that case tags can be grouped with @code{\tagGroup}.
+The following code
 
 @example
-\tagGroup #'(violinI violinII viola cello)
+\tagGroup violinI,violinII,viola,cello
 @end example
 
 @noindent
-Now all the different tags belong to a single @q{tag group}.  Note that
-individual tags cannot be members of more than one @emph{tag group}.
+puts the four tags into a single tag group.  As a result, code
+like
 
 @example
-\keepWithTag #'violinI @dots{}
+\keepWithTag violinI @dots{}
 @end example
 
 @noindent
-will now only show music tagged from @code{violinI}'s tag group and any
-music tagged with one of the @emph{other} tags will removed.
+now only shows music tagged from @code{violinI}'s tag group; any
+music tagged with one of the other tags in the group is removed,
+as the following example demonstrates.
 
 @lilypond[verbatim,quote]
+\tagGroup violinI,violinII
+\tagGroup original,arranged
+
 music = \relative {
-  \tagGroup #'(violinI violinII)
-  \tagGroup #'(viola cello)
-  \tag #'violinI { c''4^"violinI" c c c }
-  \tag #'violinII { a2 a }
-  \tag #'viola { e8 e e2. }
-  \tag #'cello { d'2 d4 d }
-  \tag #'other { f^"other" f f f }
+  \tag violinI { c''4^"violinI" c c c }
+  \tag violinII { a2 a }
+  \tag original { e8 e e2. }
+  \tag arranged { d'2 d4 d }
+  \tag other { f^"other" f f f }
   R1^"untagged"
 }
 
 \new Voice {
-  \keepWithTag #'violinI
-  \music
+  \keepWithTag violinI \music
 }
 @end lilypond
 
-When using the @code{\keepWithTag} command, only tags from the tag
-groups of the tags given in the command are visible.
+Note that individual tags cannot be members of more than one tag
+group.
+
+
+@subsubheading Prepending and appending to tagged music
 
 @funindex \pushToTag
 @funindex \appendToTag
 @cindex splicing, into tagged music
 
-Sometimes you want to splice some music at a particular place in an
-existing music expression.  You can use @code{\pushToTag} and
-@code{\appendToTag} for adding material at the front or end of
-various music constructs.  The supported places are
+Sometimes you want to splice some music at a particular place in
+an existing music expression.  You can use @code{\pushToTag} and
+@code{\appendToTag} to add material at the front and end of
+various music constructs, respectively.  The supported places are
 
+@indentedblock
 @table @asis
-@item Sequential and simultaneous music
-If you tagged an entire @code{@{@dots{}@}} or @code{<<@dots{}>>}
+@item sequential and simultaneous music
+If you tag an entire @code{@{@dots{}@}} or @code{<<@dots{}>>}
 construct, you can add music expressions at its front or back.
-@item Chords
-If you tagged a chord @code{<@dots{}>}, you can either add notes
-at its front or back, or articulations for the whole chord.
-@item Notes and rests
-If you tagged a note (also inside of a chord) or a rest, you can
-add articulations to the front or back of its existing
-articulations.  Note that to add other @emph{notes}, you rather
-have to put the note inside of a chord and tag the @emph{chord}.
-Also note that you cannot tag a single @emph{articulation} and add
-to it since it isn't inherently a list.  Instead, tag the note.
+@item chords
+If you tag a chord @code{<@dots{}>}, you can either add notes at
+its front or back, or articulations for the whole chord.
+@item notes and rests
+If you tag a note (also inside of a chord) or a rest, you can add
+articulations to the front or back of its existing articulations.
+Note that to add other notes, you have to put the note inside of a
+chord and tag the @emph{chord} instead.
+
+Also note that you cannot tag a single articulation and add to it
+since it isn't inherently a list.  Instead, tag the note.
 @end table
+@end indentedblock
+
+Both commands get a tag, the material to splice in at every
+occurrence of the tag, and the tagged expression.
 
 @lilypond[verbatim,quote]
 music = { \tag #'here { \tag #'here <<c''>> } }
@@ -2861,30 +2883,31 @@ music = { \tag #'here { \tag #'here <<c''>> } }
 }
 @end lilypond
 
-Both commands get a tag, the material to splice in at every occurrence of
-the tag, and the tagged expression.
+
+@subsubheading Tagging within markups
 
 @funindex \keep-with-tag
 @funindex \remove-with-tag
 @funindex \push-to-tag
 @funindex \append-to-tag
 
-The @code{\tag} command can also be used in @code{\markup} environments.
-The commands @code{\keep-with-tag}, @code{\remove-with-tag}, @code{\push-to-tag}
-and @code{\append-to-tag} are also available and behave like their corresponding
-commands for music expressions.
+The @code{\tag} command can also be used within @code{\markup}.
+LilyPond provides markup commands @code{\keep-with-tag},
+@code{\remove-with-tag}, @code{\push-to-tag}, and
+@code{\append-to-tag} in analogy to the corresponding commands for
+music expressions.
 
 @lilypond[verbatim,quote]
 test = \markup {
-  \tag #'a a
-  \tag #'b b
-  \tag #'c c
+  \tag #'AA a
+  \tag #'BB b
+  \tag #'CC c
 }
 
-\markup { \keep-with-tag #'b \test }
-\markup { \remove-with-tag #'b \test }
-\markup { \push-to-tag #'c pre \test }
-\markup { \append-to-tag #'c post \test }
+\markup { \keep-with-tag #'BB \test }
+\markup { \remove-with-tag #'BB \test }
+\markup { \push-to-tag #'CC pre \test }
+\markup { \append-to-tag #'CC post \test }
 @end lilypond
 
 Music commands like @code{\keepWithTag} and @code{\removeWithTag}
@@ -2905,10 +2928,10 @@ music = \relative {
 @funindex \appendToTagMarkup
 
 It is also possible to push and append something to the
-@code{\markup} of musical objects.
-We cannot use @code{\pushToTag} and @code{\appendToTag} because they
-only insert some music, so we need  @code{\pushToTagMarkup}
-and @code{\appendToTagMarkup} to insert markup.
+@code{\markup} of musical objects.  However, we cannot use
+@code{\pushToTag} and @code{\appendToTag} because they only insert
+some music, so we need commands @code{\pushToTagMarkup} and
+@code{\appendToTagMarkup} to insert markup.
 
 @lilypond[verbatim,quote]
 music = \relative {
@@ -2939,26 +2962,20 @@ music = \relative {
 
 @funindex \tag-list
 
-Be careful with the usage of tags with lists of markup.
-The filter functions work as expected
+Tagging lists of markup need special attention.  While the filter
+functions work as expected, commands like @code{\push-to-tag} and
+@code{\append-to-tag} do not.
 
 @lilypond[verbatim,quote]
 \markup {
   \remove-with-tag #'test { a \tag #'test { b c } d }
 }
-@end lilypond
-
-@noindent
-but commands like @code{\push-to-tag} and @code{\append-to-tag}
-have problems.
-
-@lilypond[verbatim,quote]
 \markup {
   \push-to-tag #'test "twice" { a \tag #'test { b c } d }
 }
 @end lilypond
 
-The reason for this behavior is that LilyPond changes
+The reason for this behavior is that LilyPond resolves
 
 @example
 \tag #'test @{ b c @}
@@ -2994,13 +3011,27 @@ Notation Reference:
 @endmorerefs
 
 @knownissues
-Calling @code{\relative} on a music expression obtained by filtering
-music through @code{\keepWithTag} or @code{\removeWithTag} might cause
-the octave relations to change, as only the pitches actually
-remaining in the filtered expression will be considered.  Applying
-@code{\relative} first, before @code{\keepWithTag} or
-@code{\removeWithTag}, avoids this danger as @code{\relative} then
-acts on all the pitches as input.
+Calling @code{\relative} on a music expression obtained by
+filtering music through @code{\keepWithTag} or
+@code{\removeWithTag} might cause the octave relations to change,
+as only the pitches actually remaining in the filtered expression
+are considered.  Applying @code{\relative} first, before
+@code{\keepWithTag} or @code{\removeWithTag}, avoids this danger
+as @code{\relative} then acts on all the pitches as input.
+
+Even when using tag groups, commands like @code{\keepWithTag} are
+not commutative.  Code like
+
+@example
+\keepWithTag violinI,original \someMusic
+@end example
+
+@noindent
+does not produce the same output as
+
+@example
+\keepWithTag violinI \keepWithTag original \someMusic
+@end example
 
 
 @node Using global settings
