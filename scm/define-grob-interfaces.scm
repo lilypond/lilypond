@@ -550,7 +550,7 @@ depends on the type of item.
 The internal @code{passage-@/direction} property determines which
 break-@/visibility property is used in a given instance.
 
-See @rinternals{item-@/interface}."
+See @rinternals{item-interface}."
  '(break-visibility-passage-end
    break-visibility-passage-default
    break-visibility-passage-start
