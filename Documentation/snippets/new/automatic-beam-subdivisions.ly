@@ -8,7 +8,7 @@ Beams can be subdivided automatically.  By setting the property
 @code{subdivideBeams}, beams are subdivided whenever possible. The
 intervals and depth of subdivision can be limited with properties
 @code{beamMinimumSubdivision} and
-@code{beamMaximumSubdivision} respectively.
+@code{beamMaximumSubdivision}, respectively.
 "
 
   doctitle = "Automatic beam subdivisions"
@@ -21,8 +21,8 @@ intervals and depth of subdivision can be limited with properties
       {
         \voiceOne
         \set subdivideBeams = ##t
-        b32[ a g f c' b a g
-        b32^"subdivide beams" a g f c' b a g]
+        b32[^"subdivide beams" a g f c' b a g
+        b32 a g f c' b a g]
       }
       \new Voice {
         \voiceTwo
@@ -32,8 +32,10 @@ intervals and depth of subdivision can be limited with properties
     >>
     \oneVoice
     \once \set beamMinimumSubdivision = #1/8
-    b32^"beamMinimumSubdivision 1/8"[ a g f c' b a g]
+    b32^\markup \center-column { "beamMinimum-"
+                                 "Subdivision 1/8" } [ a g f c' b a g]
     \once \set beamMaximumSubdivision = #1/16
-    b32^"beamMaximumSubdivision 1/16"[ a g f c' b a g]
+    b32^\markup \center-column { "beamMaximum-"
+                                 "Subdivision 1/16" } [ a g f c' b a g]
   }
 }
