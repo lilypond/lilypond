@@ -427,6 +427,10 @@ sub title_to_filename {
   $s =~ tr[* /:?_;\\]
           [+\-\-\-\-\-\-\-];
 
+  # To have portable file names, all non-ASCII characters are
+  # translated, too.
+  $s =~ tr/\x00-\x7F/-/c;
+
   # Remove some problematic characters entirely.
   $s =~ s/[()"']+//g;
 
