@@ -1,4 +1,4 @@
-adding-beams,-slurs,-ties-etc.-when-using-tuplet-and-non-tuplet-rhythms.ly
+adding-beams,-slurs,-ties,-etc.,-when-using-tuplet-and-non-tuplet-rhythms.ly
 adding-drum-parts.ly
 adjusting-grace-note-spacing.ly
 aligning-bar-numbers.ly
@@ -15,7 +15,7 @@ changing-the-number-of-augmentation-dots-per-note.ly
 changing-the-tempo-without-a-metronome-mark.ly
 changing-the-tuplet-number.ly
 changing-time-signatures-inside-a-polymetric-section-using--scaledurations.ly
-chant-or-psalms-notation.ly
+chant-or-psalm-notation.ly
 compound-time-signatures.ly
 conducting-signs,-measure-grouping-signs.ly
 consistently-left-aligned-bar-numbers.ly
@@ -30,7 +30,7 @@ generating-custom-flags.ly
 guitar-strum-rhythms.ly
 heavily-customized-polymetric-time-signatures.ly
 high-and-low-woodblock-example.ly
-making-an-object-invisible-with-the-transparent-property.ly
+making-an-object-invisible-using-the--transparent--property.ly
 making-slurs-with-complex-dash-structure.ly
 manually-controlling-beam-positions.ly
 merging-multi-measure-rests-in-a-polyphonic-part.ly
@@ -59,7 +59,6 @@ printing-the-bar-number-for-the-first-measure.ly
 printing-tuplet-brackets-on-the-note-head-side.ly
 redefining-grace-note-global-defaults.ly
 removing-bar-numbers-from-a-score.ly
-removing-connecting-bar-lines-on-staffgroup,-pianostaff,-or-grandstaff.ly
 rest-styles.ly
 reverting-default-beam-endings.ly
 rhythmic-slashes.ly

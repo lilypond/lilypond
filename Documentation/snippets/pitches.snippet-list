@@ -14,7 +14,7 @@ clefs-can-be-transposed-by-arbitrary-amounts.ly
 coloring-notes-depending-on-their-pitch.ly
 creating-a-sequence-of-notes-on-various-pitches.ly
 creating-custom-key-signatures.ly
-direction-of-merged-fa-shape-note-heads.ly
+direction-of-merged--fa--shape-note-heads.ly
 force-a-cancellation-natural-before-accidentals.ly
 forcing-a-clef-symbol-to-be-displayed.ly
 generating-random-notes.ly
@@ -29,7 +29,7 @@ preventing-extra-naturals-from-being-automatically-added.ly
 preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly
 quoting-another-voice-with-transposition.ly
 separating-key-cancellations-from-key-signature-changes.ly
-transposing-pitches-with-minimum-accidentals-smart-transpose.ly
+transposing-pitches-with-minimum-accidentals--smart--transpose.ly
 turkish-makam-example.ly
 tweaking-clef-properties.ly
-using-autochange-with-more-than-one-voice.ly
+using--autochange-with-more-than-one-voice.ly

@@ -14,7 +14,8 @@ making-some-staff-lines-thicker-than-the-others.ly
 marking-notes-of-spoken-parts-with-a-cross-on-the-stem-sprechstimme.ly
 measure-counter.ly
 positioning-segno-and-coda-with-line-break.ly
+preventing-final-mark-from-removing-final-tuplet.ly
 printing-text-from-right-to-left.ly
-transposing-pitches-with-minimum-accidentals-smart-transpose.ly
+transposing-pitches-with-minimum-accidentals--smart--transpose.ly
 using-an-extra-voice-for-breaks.ly
 vertically-aligned-dynamics-and-textscripts.ly

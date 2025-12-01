@@ -7,7 +7,7 @@ aiken-head-thin-variant-noteheads.ly
 allowing-fingerings-to-be-printed-inside-the-staff.ly
 changing-a-single-notes-size-in-a-chord.ly
 changing-the-number-of-lines-in-a-staff.ly
-chant-or-psalms-notation.ly
+chant-or-psalm-notation.ly
 chord-name-exceptions.ly
 chord-name-major7.ly
 chords-with-stretched-fingering-for-fretboards-and-tabvoice.ly
@@ -18,7 +18,7 @@ cow-and-ride-bell-example.ly
 creating-blank-staves.ly
 custodes.ly
 demo-midiinstruments.ly
-direction-of-merged-fa-shape-note-heads.ly
+direction-of-merged--fa--shape-note-heads.ly
 embedding-native-postscript-in-a--markup-block.ly
 engravers-one-by-one.ly
 faking-a-hammer-in-tablatures.ly

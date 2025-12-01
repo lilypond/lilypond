@@ -4,6 +4,7 @@ adding-the-current-date-to-a-score.ly
 adjusting-slur-positions-vertically.ly
 center-text-below-hairpin-dynamics.ly
 changing-properties-for-individual-grobs.ly
+consistently-left-aligned-bar-numbers.ly
 creating-a-sequence-of-notes-on-various-pitches.ly
 creating-custom-dynamics-in-midi-output.ly
 creating-double-digit-fingerings.ly
@@ -12,14 +13,18 @@ displaying-grob-ancestry.ly
 drawing-boxes-around-grobs.ly
 drawing-circles-around-various-objects.ly
 flat-ties.ly
+generating-custom-flags.ly
 generating-random-notes.ly
 generating-whole-scores-also-book-parts-in-scheme-without-using-the-parser.ly
+numbers-as-easy-note-heads.ly
 outputting-the-version-number.ly
 overriding-articulations-by-type.ly
 print-chordnames-with-same-root-and-different-bass-as-slash-and-bass-note.ly
 replacing-default-midi-instrument-equalization.ly
+separating-key-cancellations-from-key-signature-changes.ly
 string-number-extender-lines.ly
 three-sided-box.ly
-transposing-pitches-with-minimum-accidentals-smart-transpose.ly
+transposing-pitches-with-minimum-accidentals--smart--transpose.ly
+user-defined-time-signatures.ly
 using-ly-grob-object-to-access-grobs-with--tweak.ly
 using-postscript-to-generate-special-note-head-shapes.ly

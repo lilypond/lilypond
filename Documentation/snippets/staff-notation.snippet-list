@@ -39,6 +39,7 @@ quoting-another-voice.ly
 quoting-another-voice-with-transposition.ly
 reconciliating-bar-lines-thickness-when-staves-are-of-different-sizes-todo-duplicates-snippet-in-documentation-en-notation-spacing.itely.ly
 removing-brace-on-first-line-of-piano-score.ly
+removing-connecting-bar-lines-on-staffgroup,-pianostaff,-or-grandstaff.ly
 removing-the-first-empty-line.ly
 setting-system-separators.ly
 shape-individual-ties-in-chords.ly
@@ -48,7 +49,7 @@ time-signature-in-parentheses.ly
 tweaking-clef-properties.ly
 two--partcombine-pairs-on-one-staff.ly
 use-square-bracket-at-the-start-of-a-staff-group.ly
-using-autochange-with-more-than-one-voice.ly
+using--autochange-with-more-than-one-voice.ly
 using-marklines-in-a-frenched-score.ly
 vertically-aligned-staffgroups-without-connecting-systemstartbar.ly
 volta-below-chords.ly

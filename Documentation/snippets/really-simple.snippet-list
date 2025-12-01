@@ -7,14 +7,11 @@ changing-stanza-fonts.ly
 changing-the-appearance-of-a-slur-from-solid-to-dotted-or-dashed.ly
 changing-the-chord-names-to-german-or-semi-german-notation.ly
 combining-dynamics-with-markup-texts.ly
-cow-and-ride-bell-example.ly
 forcing-rehearsal-marks-to-start-from-a-given-letter-or-number.ly
-high-and-low-woodblock-example.ly
 lyrics-alignment.ly
 merging-multi-measure-rests-in-a-polyphonic-part.ly
 modifying-tuplet-bracket-length.ly
 outputting-the-version-number.ly
-percussion-example.ly
 piano-template-simple.ly
 piano-template-with-centered-lyrics.ly
 piano-template-with-melody-and-lyrics.ly
@@ -25,8 +22,6 @@ single-staff-template-with-only-notes.ly
 skips-in-lyric-mode.ly
 skips-in-lyric-mode-2.ly
 string-quartet-template-simple.ly
-tam-tam-example.ly
-tambourine-example.ly
 using-the--tweak-command-to-tweak-individual-grobs.ly
 vocal-ensemble-template.ly
 volta-brackets-in-multiple-staves.ly
