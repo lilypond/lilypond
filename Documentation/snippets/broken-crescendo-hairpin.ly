@@ -29,7 +29,7 @@ Make sure the hairpin is in a lower layer than the text markup to draw
 the rectangle over the hairpin.
 "
 
-  doctitle = "Broken Crescendo Hairpin"
+  doctitle = "Broken crescendo hairpin"
 } % begin verbatim
 
 

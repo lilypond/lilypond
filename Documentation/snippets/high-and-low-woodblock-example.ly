@@ -21,7 +21,7 @@ woodblock). The length of the barline has been altered with an
 the two stafflines also have to be explicitly defined.
 "
 
-  doctitle = "High and Low woodblock example"
+  doctitle = "High and low woodblock example"
 } % begin verbatim
 
 

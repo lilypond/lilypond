@@ -17,7 +17,7 @@
 It is possible to change the slope of the Ottava spanner.
 "
 
-  doctitle = "Modifying the Ottava spanner slope"
+  doctitle = "Modifying the ottava spanner slope"
 } % begin verbatim
 
 

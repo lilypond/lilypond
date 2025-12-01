@@ -18,7 +18,7 @@ New time signature styles can be defined. The time signature in the
 second measure should be upside down in both staves.
 "
 
-  doctitle = "User defined time signatures"
+  doctitle = "User-defined time signatures"
 } % begin verbatim
 
 

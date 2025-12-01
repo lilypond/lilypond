@@ -23,7 +23,7 @@ Further tweaking is possible by overriding
 possible to change the custom-definition on the fly.
 "
 
-  doctitle = "Flat Ties"
+  doctitle = "Flat ties"
 } % begin verbatim
 
 

@@ -17,7 +17,7 @@
 This is a template for a SATB choir on four staves.
 "
 
-  doctitle = "SATB Choir template - four staves"
+  doctitle = "SATB choir template -- four staves"
 } % begin verbatim
 
 
