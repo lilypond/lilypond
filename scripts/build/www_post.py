@@ -32,26 +32,26 @@ import multiprocessing
 
 import postprocess_html
 
-parser = optparse.OptionParser()
-parser.add_option("--version", dest="version", action="store")
-parser.add_option("--target", dest="target", action="store")
-parser.add_option("--name", dest="name", action="store")
-parser.add_option("--dest-dir", dest="dest_dir", action="store", default="")
-parser.add_option("--job-count", dest="job_count", action="store", type="int", default=1)
 
-(options, args) = parser.parse_args()
+def parse_args():
+    parser = optparse.OptionParser()
+    parser.add_option("--version", dest="version", action="store")
+    parser.add_option("--target", dest="target", action="store")
+    parser.add_option("--name", dest="name", action="store")
+    parser.add_option("--dest-dir", dest="dest_dir", action="store", default="")
+    parser.add_option("--job-count", dest="job_count", action="store", type="int", default=1)
+    options, args = parser.parse_args()
+    if options.target not in ("online", "offline"):
+        sys.stderr.write("target must be 'online' or 'offline'")
+        sys.exit(2)
+    return options, args
 
-target_dir = args[0]
 
-if options.target not in ("online", "offline"):
-    sys.stderr.write("target must be 'online' or 'offline'")
-    sys.exit(2)
-
-# these redirection pages allow to go back to the documentation index
-# from HTML manuals/snippets page
-if os.path.isdir(os.path.join(target_dir, 'Documentation/')):
-    for f, contents in {
-        'index.html': '''<META HTTP-EQUIV="refresh" content="0;URL=Documentation/web/index.html">
+def write_redirection_pages(target_dir, options):
+    # these redirection pages allow to go back to the documentation index
+    # from HTML manuals/snippets page
+    if os.path.isdir(os.path.join(target_dir, 'Documentation/')):
+        redirection_html = '''<META HTTP-EQUIV="refresh" content="0;URL=Documentation/web/index.html">
     <html>
     <head>
     <title>Redirecting...</title>
@@ -59,30 +59,37 @@ if os.path.isdir(os.path.join(target_dir, 'Documentation/')):
     </head>
     <body>Redirecting to the documentation index...</body>
     </html>
-    ''',
-        'VERSION': options.version + '\n',
-    }.items():
-        open(os.path.join(target_dir, f), 'w',
-             encoding='utf-8').write(contents)
+    '''
 
-    # need this for content negotiation with documentation index
+        for f, contents in {
+            'index.html': redirection_html,
+            'VERSION': options.version + '\n',
+        }.items():
+            open(os.path.join(target_dir, f), 'w',
+                 encoding='utf-8').write(contents)
+
+        # need this for content negotiation with documentation index
     if options.target == 'online':
-        fp = open(os.path.join(target_dir, 'Documentation/.htaccess'), 'w', encoding='utf-8')
-        fp.write('#.htaccess\nDirectoryIndex index\n')
-        fp.close()
+            fp = open(os.path.join(target_dir, 'Documentation/.htaccess'), 'w', encoding='utf-8')
+            fp.write('#.htaccess\nDirectoryIndex index\n')
+            fp.close()
 
-html_files = []
-for root, dirs, files in os.walk(target_dir):
-    for f in files:
-        if f.endswith(".html"):
-            html_files.append(os.path.join(root, f))
 
-processor = postprocess_html.Processor(html_files)
-sys.stderr.write("Processing HTML pages for %s target...\n" % options.target)
+def get_all_html_files(target_dir):
+    html_files = []
+    for root, dirs, files in os.walk(target_dir):
+        for f in files:
+            if f.endswith(".html"):
+                html_files.append(os.path.join(root, f))
+    return html_files
 
-def consume(q):
+
+# This is the main worker function, potentially
+# running in multiple processes.  Note that this
+# has to be a top-level function to be picklable.
+def consume(queue, processor, options):
     while True:
-        todo = q.get()
+        todo = queue.get()
         if todo is None:
             break
         postprocess_html.process_html_files(
@@ -93,19 +100,33 @@ def consume(q):
             is_online=(options.target=="online"),
             dest_dir=options.dest_dir)
 
-todo_list = processor.todo_items()
-queue = multiprocessing.Queue()
 
-processes = []
-for _ in  range(0, options.job_count):
-    p = multiprocessing.Process(target=consume, args=(queue,))
-    p.start()
-    processes.append(p)
+def process_files(html_files, options):
+    processor = postprocess_html.Processor(html_files)
+    sys.stderr.write("Processing HTML pages for %s target...\n" % options.target)
 
-for t in todo_list:
-    queue.put(t)
-for _ in range(options.job_count):
-    queue.put(None)
+    todo_list = processor.todo_items()
+    queue = multiprocessing.Queue()
 
-for p in processes:
-    p.join()
+    processes = []
+    for _ in  range(0, options.job_count):
+        p = multiprocessing.Process(target=consume, args=(queue, processor, options))
+        p.start()
+        processes.append(p)
+
+    for t in todo_list:
+        queue.put(t)
+
+    for _ in range(options.job_count):
+        queue.put(None)
+
+    for p in processes:
+        p.join()
+
+
+if __name__ == '__main__':
+    (options, args) = parse_args()
+    target_dir = args[0]
+    write_redirection_pages(target_dir, options)
+    html_files = get_all_html_files(target_dir)
+    process_files(html_files, options)
