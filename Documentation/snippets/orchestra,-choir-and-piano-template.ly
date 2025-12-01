@@ -31,9 +31,6 @@ music for transposing instruments at concert pitch.
   short-indent = 1.5\cm  % add less space for shortInstrumentName
 }
 
-\header { tagline = ##f }
-
-
 fluteMusic = \relative c' { \key g \major g'1 b }
 
 % Pitches as written on a manuscript for Clarinet in A

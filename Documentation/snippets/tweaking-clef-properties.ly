@@ -94,5 +94,3 @@ line, they do not.
   \set Staff.middleCPosition = 0
   c'1
 }
-
-\paper { tagline = ##f }

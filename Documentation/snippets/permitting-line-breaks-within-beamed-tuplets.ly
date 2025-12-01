@@ -50,5 +50,3 @@ This feature only works with manually beamed tuplets.
   \tuplet 11/8 { a16[ b c d e f e d c b a] }
   \repeat unfold 28 a16 \bar "||"
 }
-
-\paper { tagline = ##f }

@@ -49,5 +49,3 @@ music = \relative c'' {
     \textMark \markup \typewriter "omit" \music
   }
 }
-
-\paper { tagline = ##f }

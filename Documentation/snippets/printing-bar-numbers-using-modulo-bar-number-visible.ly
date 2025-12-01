@@ -48,5 +48,3 @@ Useful to print the @code{BarNumber} at certain distances, p.e.:
   c1 | d | e | f \break
   g1 | e | d | c
 }
-
-\paper { tagline = ##f }

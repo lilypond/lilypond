@@ -43,5 +43,3 @@ there.
     #first-bar-number-invisible-and-no-parenthesized-bar-numbers
   es | d1 | c
 }
-
-\paper { tagline = ##f }

@@ -25,7 +25,6 @@ A short example taken from Stravinsky's @emph{L'histoire du Soldat}.
                    (snare      default #f -4)
                    (tambourine default #f  0)))
 
-\paper { tagline = ##f }
 
 global = {
   \time 3/8 s4.

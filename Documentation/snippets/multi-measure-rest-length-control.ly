@@ -30,4 +30,3 @@ that the default value is @code{2.0}.
   R1*2 R1*4 R1*64 R1*16
 }
 
-\paper { tagline = ##f }

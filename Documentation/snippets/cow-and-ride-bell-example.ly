@@ -21,8 +21,6 @@ Two different bells, entered with 'cb' (cowbell) and 'rb' (ridebell).
 } % begin verbatim
 
 
-\paper { tagline = ##f }
-
 #(define mydrums '((ridebell default #f  3)
                    (cowbell  default #f -2)))
 

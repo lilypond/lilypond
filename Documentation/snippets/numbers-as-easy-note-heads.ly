@@ -44,7 +44,6 @@ it sees.
 
 #(set-global-staff-size 26)
 
-\paper { tagline = ##f }
 
 \layout {
   ragged-right = ##t

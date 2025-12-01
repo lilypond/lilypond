@@ -73,5 +73,3 @@ is taken as the precise vertical position without further adjustments.
   \override TieColumn.tie-configuration = ##f
   <c e g>1~ <c e g>
 }
-
-\paper { tagline = ##f }

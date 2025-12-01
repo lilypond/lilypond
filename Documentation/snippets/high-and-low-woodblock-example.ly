@@ -24,8 +24,6 @@ the two stafflines also have to be explicitly defined.
 } % begin verbatim
 
 
-\paper { tagline = ##f }
-
 % These lines define the position of the woodblocks in the stave;
 % if you like, you can change it or you can use special note heads
 % for the woodblocks.

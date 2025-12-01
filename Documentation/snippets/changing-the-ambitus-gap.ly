@@ -52,5 +52,3 @@ and the line joining them.
   \override AmbitusLine.gap = 1.5
   c'4 g''
 }
-
-\paper { tagline = ##f }

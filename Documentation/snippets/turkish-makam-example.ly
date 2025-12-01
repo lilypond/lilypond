@@ -23,8 +23,6 @@ of Turkish music notation.
 } % begin verbatim
 
 
-\paper { tagline = ##f }
-
 % Initialize makam settings
 \include "turkish-makam.ly"
 

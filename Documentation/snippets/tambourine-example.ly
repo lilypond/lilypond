@@ -21,8 +21,6 @@ A tambourine example, entered 'tamb'
 } % begin verbatim
 
 
-\paper { tagline = ##f }
-
 #(define mydrums '((tambourine default #f 0)))
 
 \new DrumStaff \with { instrumentName = #"Tambourine" }
