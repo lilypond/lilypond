@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Rhythms, Version-specific"
+  categories = "Rhythms"
 
   texidoc = "
 These artificial examples show how both manual and automatic line

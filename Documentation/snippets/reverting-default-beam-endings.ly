@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Rhythms, Version-specific"
+  categories = "Rhythms"
 
   texidoc = "
 To typeset beams grouped @code{3-4-3-2} in 12/8 it is necessary first

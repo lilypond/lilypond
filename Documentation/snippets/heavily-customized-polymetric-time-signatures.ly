@@ -11,8 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Contemporary notation, Education, Percussion, Real
-                music, Rhythms"
+  categories = "Contemporary notation, Percussion, Real music, Rhythms"
 
   texidoc = "
 Though the polymetric time signature shown was not the most essential

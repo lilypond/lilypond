@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Rhythms"
+  categories = "Rhythms, Scheme"
 
   texidoc = "
 When left-aligning bar numbers, overlapping problems may occur with

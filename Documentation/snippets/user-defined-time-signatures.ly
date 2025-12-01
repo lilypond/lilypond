@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Rhythms"
+  categories = "Rhythms, Scheme"
 
   texidoc = "
 New time signature styles can be defined. The time signature in the

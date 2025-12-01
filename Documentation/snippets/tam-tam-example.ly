@@ -11,8 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Percussion, Preparing parts, Really simple, Rhythms,
-                Specific notation"
+  categories = "Percussion, Rhythms, Specific notation"
 
   texidoc = "
 A tam-tam example, entered with 'tt'

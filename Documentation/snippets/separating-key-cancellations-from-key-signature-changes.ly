@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Pitches, Tweaks and overrides"
+  categories = "Pitches, Scheme, Tweaks and overrides"
 
   texidoc = "
 By default, the accidentals used for key cancellations are placed

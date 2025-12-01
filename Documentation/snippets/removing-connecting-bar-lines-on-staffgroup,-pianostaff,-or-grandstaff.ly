@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Rhythms, Tweaks and overrides"
+  categories = "Staff notation, Tweaks and overrides"
 
   texidoc = "
 By default, bar lines in StaffGroup, PianoStaff, or GrandStaff groups

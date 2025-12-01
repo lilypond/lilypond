@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Rhythms, Tweaks and overrides"
+  categories = "Rhythms, Scheme, Tweaks and overrides"
 
   texidoc = "
 The @code{stencil} property of the @code{Flag} grob can be set to a

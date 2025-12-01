@@ -11,8 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Percussion, Preparing parts, Really simple, Rhythms,
-                Specific notation"
+  categories = "Percussion, Rhythms, Specific notation"
 
   texidoc = "
 Two different bells, entered with 'cb' (cowbell) and 'rb' (ridebell).
