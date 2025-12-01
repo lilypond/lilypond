@@ -18,7 +18,7 @@ FretBoards can be set to display only when the chord changes or at the
 beginning of a new line.
 "
 
-  doctitle = "ChordChanges for FretBoards"
+  doctitle = "Chord changes for FretBoards"
 } % begin verbatim
 
 

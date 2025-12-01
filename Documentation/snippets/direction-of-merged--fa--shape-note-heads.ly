@@ -21,7 +21,7 @@ and different stem directions are merged. If this property is not set,
 the @qq{down} glyph variant is used.
 "
 
-  doctitle = "Direction of merged 'fa' shape note heads"
+  doctitle = "Direction of merged @q{fa} shape note heads"
 } % begin verbatim
 
 

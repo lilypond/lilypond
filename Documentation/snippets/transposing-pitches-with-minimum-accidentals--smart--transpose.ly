@@ -18,20 +18,23 @@ This example uses some Scheme code to enforce enharmonic modifications
 for notes in order to have the minimum number of accidentals. In this
 case, the following rules apply:
 
-Double accidentals should be removed
-
-B sharp -> C
-
-E sharp -> F
-
-C flat -> B
-
-F flat -> E
+@itemize
+@item
+double accidentals should be removed
+@item
+b sharp → c
+@item
+e sharp → f
+@item
+c flat → b
+@item
+f flat → e
+@end itemize
 
 In this manner, the most natural enharmonic notes are chosen.
 "
 
-  doctitle = "Transposing pitches with minimum accidentals (\"Smart\" transpose)"
+  doctitle = "Transposing pitches with minimum accidentals (@qq{smart} transpose)"
 } % begin verbatim
 
 

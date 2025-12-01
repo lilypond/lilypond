@@ -25,7 +25,7 @@ a tie in a different voice, and blanking the first up-stem in that
 voice, the tie appears to cross voices.
 "
 
-  doctitle = "Making an object invisible with the 'transparent property"
+  doctitle = "Making an object invisible using the @q{transparent} property"
 } % begin verbatim
 
 

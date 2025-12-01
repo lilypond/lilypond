@@ -15,11 +15,11 @@
                 Specific notation, Vocal music"
 
   texidoc = "
-This form of notation is used for Psalm chant, where verses aren't
-always the same length.
+This form of notation is used for psalm chant, where verses aren't
+always of the same length.
 "
 
-  doctitle = "Chant or psalms notation"
+  doctitle = "Chant or psalm notation"
 } % begin verbatim
 
 

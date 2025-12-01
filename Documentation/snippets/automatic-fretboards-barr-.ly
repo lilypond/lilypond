@@ -22,7 +22,7 @@ automatic fretboard is created, no barre indicators will be included,
 because there is no way to identify where barres should be placed.
 "
 
-  doctitle = "Automatic Fretboards Barre"
+  doctitle = "Automatic fretboards barré"
 } % begin verbatim
 
 

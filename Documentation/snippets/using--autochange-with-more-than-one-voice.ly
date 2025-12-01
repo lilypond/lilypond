@@ -14,10 +14,11 @@
   categories = "Keyboards, Pitches, Staff notation"
 
   texidoc = "
-Using @code{autochange} with more than one voice.
+Here is a demonstration of how to use @code{\\autoChange} with more
+than one voice.
 "
 
-  doctitle = "Using autochange with more than one voice"
+  doctitle = "Using \\autoChange with more than one voice"
 } % begin verbatim
 
 
