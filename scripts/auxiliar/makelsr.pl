@@ -1005,13 +1005,13 @@ exit 0 if ($no_lsr && $no_new);
 #   from the `pandoc` converter, respectively.
 #
 #   Pre:
-#     * Convert `<samp>...</samp>` to `#samp#...#/samp#` since `pandoc`
+#     * Convert `<samp>...</samp>` to `~samp~...~/samp~` since `pandoc`
 #       would swallow these tags unprocessed otherwise (see
 #       https://github.com/jgm/pandoc/issues/11299); note that
 #       `pandoc`'s `raw_html` extension has no effect since the Texinfo
 #       writer ignores it).
 #     * Ditto for `<var>...</var>`.
-#     * Convert `&nbsp;` and U+00A0 to `##::##`.  Pandoc transforms a
+#     * Convert `&nbsp;` and U+00A0 to `~~::~~`.  Pandoc transforms a
 #       non-breakable space to `@ `; however, for our purposes `@tie{}`
 #       is better.  To avoid overlong output lines we do this temporary
 #       replacement before calling pandoc.
@@ -1024,9 +1024,9 @@ exit 0 if ($no_lsr && $no_new);
 #       has to be emitted as LilyPond strings.  This can't be done
 #       easily before calling pandoc (namely, to avoid too long Texinfo
 #       source code lines) because `"` can occur within HTML tags.
-#     * Convert `#samp#...#/samp#` to `@samp{...}`.
-#     * Convert `#var#...#/var#` to `@var{...}`.
-#     * Convert `##::##` to `@tie{}`.
+#     * Convert `~samp~...~/samp~` to `@samp{...}`.
+#     * Convert `~var~...~/var~` to `@var{...}`.
+#     * Convert `~~::~~` to `@tie{}`.
 #     * Replace `‘...’` (i.e., the quotes U+2018 and U+2019) with
 #       `@q{...}`.
 #     * Replace `“...”` (i.e., the quotes U+201C and U+201D) with
@@ -1045,18 +1045,18 @@ exit 0 if ($no_lsr && $no_new);
 sub wiki_to_texinfo {
   my ($s) = @_;
 
-  $s =~ s|<samp\h*>(.*?)</samp\h*>|#samp#$1#/samp#|sg;
-  $s =~ s|<var\h*>(.*?)</var\h*>|#var#$1#/var#|sg;
-  $s =~ s/(?:&nbsp;|\N{U+00A0})/##::##/g;
+  $s =~ s|<samp\h*>(.*?)</samp\h*>|~samp~$1~/samp~|sg;
+  $s =~ s|<var\h*>(.*?)</var\h*>|~var~$1~/var~|sg;
+  $s =~ s/(?:&nbsp;|\N{U+00A0})/~~::~~/g;
   $s =~ s/\[\[(.*?)\]\]/$1/sg;
 
   $s = pandoc->convert("mediawiki" => "texinfo", $s, "--columns=71");
 
   $s =~ s/\@node Top\n\@top Top\n\n//;
-  $s =~ s|#samp#(.*?)#/samp#|\@samp{$1}|sg;
-  $s =~ s|#var#(.*?)#/var#|\@var{$1}|sg;
+  $s =~ s|~samp~(.*?)~/samp~|\@samp{$1}|sg;
+  $s =~ s|~var~(.*?)~/var~|\@var{$1}|sg;
   $s =~ s/"/\\"/g;
-  $s =~ s/##::##/\@tie{}/g;
+  $s =~ s/~~::~~/\@tie{}/g;
   $s =~ s/\N{U+2018}(.*?)\N{U+2019}/\@q{$1}/sg;
   $s =~ s/\N{U+201C}(.*?)\N{U+201D}/\@qq{$1}/sg;
 
