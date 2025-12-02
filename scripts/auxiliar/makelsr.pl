@@ -1056,10 +1056,14 @@ sub postprocess_code_block {
 #     * Convert `~samp~...~/samp~` to `@samp{...}`.
 #     * Convert `~var~...~/var~` to `@var{...}`.
 #     * Convert `~~::~~` to `@tie{}`.
-#     * Replace `‘...’` (i.e., the quotes U+2018 and U+2019) with
-#       `@q{...}`.
-#     * Replace `“...”` (i.e., the quotes U+201C and U+201D) with
-#       `@qq{...}`.
+#     * Replace `‘...'` (i.e., the single-quote U+2018 and the
+#       apostrophe character) with `@q{...}` – it is a historical
+#       artifact that Pandoc maps U+2019, the other single-quote
+#       character, to the apostrophe (see
+#       https://github.com/jgm/pandoc/issues/11316).  For future
+#       compatibility, also handle U+2019.
+#     * Replace `“...”` (i.e., the double-quote characters U+201C and
+#       U+201D) with `@qq{...}`.
 #     * Replace `~example\n\n` and `\n\n~end example` with `@example\n`
 #       and `\n@end example`, respectively; for the code block
 #       inbetween, remove all `@code{...}` and `@*` decorations and
@@ -1100,7 +1104,7 @@ sub wiki_to_texinfo {
   $s =~ s|~var~(.*?)~/var~|\@var{$1}|sg;
   $s =~ s/"/\\"/g;
   $s =~ s/~~::~~/\@tie{}/g;
-  $s =~ s/\N{U+2018}(.*?)\N{U+2019}/\@q{$1}/sg;
+  $s =~ s/\N{U+2018}(.*?)[\N{U+2019}']/\@q{$1}/sg;
   $s =~ s/\N{U+201C}(.*?)\N{U+201D}/\@qq{$1}/sg;
 
   $s =~ s/
