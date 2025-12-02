@@ -1180,6 +1180,9 @@ space is fixed and half is shrinkable.
 
 Rules for this spacing are much more complicated than this.
 See [Wanske] page 126--134, [Ross] page 143--147.")
+     (space-increment ,ly:dimension? "The amount by which the total duration
+of a multi-measure rest affects horizontal spacing.  Each doubling of the
+duration adds @code{space-increment} to the length of the bar.")
      (space-to-barline ,boolean? "If set, the distance between a note
 and the following non-musical column will be measured to the bar line
 instead of to the beginning of the non-musical column.  If there is a
@@ -1625,9 +1628,6 @@ a spacing object.")
 grobs.")
      (slur ,ly:grob? "A pointer to a @code{Slur} object.")
      (spacing ,ly:grob? "The spacing spanner governing this section.")
-     (space-increment ,ly:dimension? "The amount by which the total duration
-of a multi-measure rest affects horizontal spacing.  Each doubling of the
-duration adds @code{space-increment} to the length of the bar.")
      (spacing-wishes ,ly:grob-array? "An array of note spacing or staff spacing
 objects.")
      (span-start ,boolean? "Is the note head at the start of a spanner?")
