@@ -34,12 +34,12 @@ there.
 }
 
 \relative c' {
-  c1 | d | e | f2 \bar "" \break
-  fis | g1 | e2 \bar "" \break
+  c1 | d | e | f2 \break
+  fis2 | g1 | e2 \break
   <>^"reenabled default"
   % back to default -
   % \unset Score.barNumberVisibility would do so as well
   \set Score.barNumberVisibility =
     #first-bar-number-invisible-and-no-parenthesized-bar-numbers
-  es | d1 | c
+  es2 | d1 | c
 }

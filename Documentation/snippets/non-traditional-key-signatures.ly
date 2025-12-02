@@ -21,22 +21,25 @@ property, in the @code{Staff} context.
 To create non-standard key signatures, set this property directly. The
 format of this command is a list:
 
-@verbatim
+@example
 \\set Staff.keyAlterations =
-  #`(((octave . step) . alter) ((octave . step) . alter) ...)
-@end verbatim
+  #`(((@var{octave . @var{step}) . @var{alter}) ((@var{octave} . @var{step}) . @var{alter}) ...)}
+@end example
 
-where, for each element in the list, @code{octave} specifies the octave
-(0 being the octave from middle C to the B above), @code{step}
-specifies the note within the octave (0 means C and 6 means B), and
-@code{alter} is @code{,SHARP ,FLAT ,DOUBLE-SHARP} etc.
+where, for each element in the list, @var{octave} specifies the
+octave (0@tie{}being the octave from middle@tie{}C to the B above),
+@var{step} specifies the note within the octave
+(0@tie{}means@tie{}C and 6@tie{}means@tie{}B), and @var{alter} is
+one of @code{SHARP}, @code{FLAT}, @code{DOUBLE-SHARP}, etc., preceded
+by a comma.
 
-Alternatively, using the more concise format for each item in the list
-@code{(step . alter)} specifies the same alteration holds in all
-octaves.
+Alternatively, you can use the more concise format
+@code{(@var{step} . @var{alter})} for each item in the list
+if the same alterations are used in all octaves.
 
-For microtonal scales where a @qq{sharp} is not 100 cents, @code{alter}
-refers to the alteration as a proportion of a 200-cent whole tone.
+For microtonal scales where a @qq{sharp} is not 100 cents,
+@var{alter} refers to the alteration as a proportion of a 200-cent
+whole tone.
 "
 
   doctitle = "Non-traditional key signatures"

@@ -15,19 +15,36 @@
 
   texidoc = "
 By default, appoggiaturas and grace notes that occur on the first beat
-of a measure are printed after the bar line. They can however be
-printed before, simply by adding an invisible BarLine and then the
-visible one, as demonstrated here.
+of a measure are printed after the bar line. A possible solution for
+single staves to print it before the bar line is to add an invisible
+bar line and then the visible one.
+
+In multi-staff systems, however, adding an invisible bar line distorts
+the positioning of full-bar rests in other staves; they are no longer
+centered but slightly shifted to the left. A better solution for such
+situations is to use the @code{\\afterGrace} command with setting
+@code{afterGraceFraction} appropriately.
 "
 
   doctitle = "Appoggiatura or grace note before a bar line"
 } % begin verbatim
 
 
-{
-  R1
-  %% default
-  \appoggiatura d''8 c''4 r2.
-  %% cheated
-  \appoggiatura { \bar "" d''8 \bar "|" } c''4 r2.
-}
+<<
+  {
+    \appoggiatura d''8 c''4 r2. |
+    \appoggiatura { \bar "" d''8 \bar "|" } |
+    c''4 r2.
+  }
+  { R1 | R1 }
+>>
+
+afterGraceFraction = 15/16
+
+<<
+  {
+    \appoggiatura d''8 c''4 \afterGrace r2. d''8( |
+    c''4) r2.
+  }
+  { R1 | R1 }
+>>

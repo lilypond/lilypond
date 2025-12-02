@@ -14,9 +14,9 @@
   categories = "Rhythms"
 
   texidoc = "
-Multi-measure rests have length according to their total duration which
-is under the control of @code{MultiMeasureRest.space-increment}. Note
-that the default value is @code{2.0}.
+Multi-measure rests have a length according to their total duration,
+which is under the control of the @code{space-increment} property of
+the @code{MultiMeasureRest} grob; its default value is@tie{}2.
 "
 
   doctitle = "Multi-measure rest length control"
@@ -24,9 +24,14 @@ that the default value is @code{2.0}.
 
 
 \relative c' {
+  \omit Staff.TimeSignature
   \compressEmptyMeasures
-  R1*2 R1*4 R1*64 R1*16
-  \override Staff.MultiMeasureRest.space-increment = 2.5
+
+  R1*2 R1*4 R1*64 R1*16 \break
+  \override MultiMeasureRest.space-increment = 5
   R1*2 R1*4 R1*64 R1*16
 }
 
+\layout {
+  ragged-right = ##t
+}

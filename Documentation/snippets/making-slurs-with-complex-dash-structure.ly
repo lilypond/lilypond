@@ -14,19 +14,22 @@
   categories = "Expressive marks, Rhythms"
 
   texidoc = "
-Slurs can be made with complex dash patterns by defining the
-@code{dash-definition} property. @code{dash-definition} is a list of
-@code{dash-elements}. A @code{dash-element} is a list of parameters
-defining the dash behavior for a segment of the slur.
+Slurs can be composed of complex dash patterns by setting the
+@code{dash-definition} property, which is a list of slur segments,
+which in turn are lists of parameters setting up the dash behavior of
+the given segment.
 
-The slur is defined in terms of the bezier parameter t which ranges
-from 0 at the left end of the slur to 1 at the right end of the slur.
-@code{dash-element} is a list
-@code{(start-t stop-t dash-fraction dash-period)}. The region of the
-slur from @code{start-t} to @code{stop-t} will have a fraction
-@code{dash-fraction} of each @code{dash-period} black.
-@code{dash-period} is defined in terms of staff spaces.
-@code{dash-fraction} is set to 1 for a solid slur.
+Slur segments are defined in terms of the Bézier
+parameter@tie{}@var{t}, which ranges from@tie{}0 at the left end
+of the slur to@tie{}1 at the right end of the slur. A slur segment has
+the form
+@code{(@var{start-t} @var{stop-t} @var{dash-fraction} @var{dash-period})}.
+In the segment spanning the range @var{start-t} to
+@var{stop-t}, the dash pattern is defined by the values of
+@var{dash-fraction} and @var{dash-period}.
+@var{dash-fraction} specifies how much of a dash period is black;
+if set to@tie{}1 you get a solid slur segment. The unit for
+@var{dash-period} is staff spaces.
 "
 
   doctitle = "Making slurs with complex dash structure"

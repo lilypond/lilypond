@@ -25,6 +25,8 @@ A short example taken from Stravinsky's @emph{L'histoire du Soldat}.
                    (snare      default #f -4)
                    (tambourine default #f  0)))
 
+U = \stemUp
+D = \stemDown
 
 global = {
   \time 3/8 s4.
@@ -35,23 +37,20 @@ global = {
 
 drumsA = {
   \context DrumVoice <<
-    { \global }
-    { \drummode {
-        \autoBeamOff
-        \stemDown sn8 \stemUp tamb s8 |
-        sn4 \stemDown sn4 |
-        \stemUp tamb8 \stemDown sn8 \stemUp sn16 \stemDown sn \stemUp sn8 |
-        \stemDown sn8 \stemUp tamb s8 |
-        \stemUp sn4 s8 \stemUp tamb
-      }
+    \global
+    \drummode {
+      \autoBeamOff
+      \D sn8 \U tamb s |
+      sn4 \D sn4 |
+      \U tamb8 \D sn \U sn16 \D sn \U sn8 |
+      \D sn8 \U tamb s |
+      \U sn4 s8 \U tamb
     }
   >>
 }
 
-drumsB = {
-  \drummode {
-    s4 bd8 s2*2 s4 bd8 s4 bd8 s8
-  }
+drumsB = \drummode {
+  s4 bd8 s2*2 s4 bd8 s4 bd8 s
 }
 
 \layout {
@@ -68,13 +67,10 @@ drumsB = {
       instrumentName = \markup \center-column {
         "Tambourine"
         "et"
-        "caisse claire s. timbre"
-        }
-  }
-  \drumsA
-  \new DrumStaff \with {
-    instrumentName = "Grosse Caisse"
-  }
-  \drumsB
+        "caisse claire s. timbre" }
+    } \drumsA
+    \new DrumStaff \with {
+      instrumentName = "Grosse Caisse"
+    }\drumsB
   >>
 }
