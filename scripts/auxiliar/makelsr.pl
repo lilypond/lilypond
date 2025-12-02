@@ -999,6 +999,29 @@ exit 0 if ($no_lsr && $no_new);
 
 
 # Function:
+#   Auxiliary function to convert example blocks to valid Texinfo
+#   syntax.
+#
+# Arguments:
+#   $s    String to be manipulated.
+#
+# Return:
+#   The manipulated string.
+#
+sub postprocess_code_block {
+  my ($s) = @_;
+
+  $s =~ s/ \@code\{ (.*?) \} /$1/xmg;
+  $s =~ s/\@ / /g;
+  $s =~ s/\@\*//g;
+
+  return '@example' . "\n"
+         . $s . "\n"
+         . '@end example';
+}
+
+
+# Function:
 #   Convert MediaWiki data into the Texinfo format.
 #
 #   We pre- and post-process the MediaWiki data sent to and received
@@ -1017,6 +1040,12 @@ exit 0 if ($no_lsr && $no_new);
 #       replacement before calling pandoc.
 #     * Remove Wiki links.  TODO: Shall we support links to doc
 #       snippets with `@xref` to the 'Snippets' manual?
+#     * Due to a bug (see https://github.com/jgm/pandoc/issues/11312)
+#       we have to handle code blocks with inline formatting by
+#       ourselves: we surround a series of lines starting with a space
+#       with `~example\n\n` and `\n\n~end example`, respectively.  The
+#       technique we use to skip `<pre>` blocks is described in
+#       https://stackoverflow.com/a/23589204/1276195
 #
 #   Post:
 #     * Remove unusable Texinfo node references to 'Top'.
@@ -1031,6 +1060,10 @@ exit 0 if ($no_lsr && $no_new);
 #       `@q{...}`.
 #     * Replace `“...”` (i.e., the quotes U+201C and U+201D) with
 #       `@qq{...}`.
+#     * Replace `~example\n\n` and `\n\n~end example` with `@example\n`
+#       and `\n@end example`, respectively; for the code block
+#       inbetween, remove all `@code{...}` and `@*` decorations and
+#       replace `@ ` with a plain space.
 #
 #   Note that we don't check whether there is a paragraph boundary
 #   between an opening and a closing HTML tag (ditto for `‘...’` and
@@ -1050,6 +1083,16 @@ sub wiki_to_texinfo {
   $s =~ s/(?:&nbsp;|\N{U+00A0})/~~::~~/g;
   $s =~ s/\[\[(.*?)\]\]/$1/sg;
 
+  $s =~ s/
+             (?: <pre> (?s) .*? <\/pre> )
+             (*SKIP)
+             (*FAIL)
+           |
+             ( (?: ^ [ ] .* \n )+ )
+         /
+           "~example\n\n" . $1 . "\n~end example\n"
+         /xmge;
+
   $s = pandoc->convert("mediawiki" => "texinfo", $s, "--columns=71");
 
   $s =~ s/\@node Top\n\@top Top\n\n//;
@@ -1059,6 +1102,15 @@ sub wiki_to_texinfo {
   $s =~ s/~~::~~/\@tie{}/g;
   $s =~ s/\N{U+2018}(.*?)\N{U+2019}/\@q{$1}/sg;
   $s =~ s/\N{U+201C}(.*?)\N{U+201D}/\@qq{$1}/sg;
+
+  $s =~ s/
+           ^ ~example \n
+           \n
+           ( (?s) .*? ) \n
+           \n ~end [ ] example
+         /
+           postprocess_code_block($1)
+         /xmge;
 
   return $s;
 }
