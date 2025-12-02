@@ -20,7 +20,8 @@ attaching it to a note. However, in polyphonic music multi-measure
 rests in odd-numbered and even-numbered voices are vertically
 separated.
 
-The positioning of multi-measure rests can be controlled as follows:
+This snippet shows how positioning of multi-measure rests can be
+controlled.
 "
 
   doctitle = "Positioning multi-measure rests"
@@ -28,9 +29,9 @@ The positioning of multi-measure rests can be controlled as follows:
 
 
 \relative c'' {
-  % Multi-measure rests by default are set under the fourth line
+  % Multi-measure rests by default are set under the fourth line.
   R1
-  % They can be moved using an override
+  % They can be moved using an override.
   \override MultiMeasureRest.staff-position = -2
   R1
   \override MultiMeasureRest.staff-position = 0
@@ -44,28 +45,27 @@ The positioning of multi-measure rests can be controlled as follows:
   \revert MultiMeasureRest.staff-position
   \break
 
-  % In two Voices, odd-numbered voices are under the top line
+  % In two Voices, odd-numbered voices are under the top line.
   << { R1 } \\ { a1 } >>
-  % Even-numbered voices are under the bottom line
+  % Even-numbered voices are under the bottom line.
   << { a1 } \\ { R1 } >>
-  % Multi-measure rests in both voices remain separate
+  % Multi-measure rests in both voices remain separate.
   << { R1 } \\ { R1 } >>
 
   % Separating multi-measure rests in more than two voices
-  % requires an override
+  % requires an override.
   << { R1 } \\ { R1 } \\
      \once \override MultiMeasureRest.staff-position = 0
      { R1 }
   >>
 
   % Using compressed bars in multiple voices requires another override
-  % in all voices to avoid multiple instances being printed
+  % in all voices to avoid multiple instances being printed.
   \compressMMRests
   <<
-   \revert MultiMeasureRest.direction
-    { R1*3 }
-    \\
-   \revert MultiMeasureRest.direction
+    \revert MultiMeasureRest.direction
+    { R1*3 } \\
+    \revert MultiMeasureRest.direction
     { R1*3 }
   >>
 }

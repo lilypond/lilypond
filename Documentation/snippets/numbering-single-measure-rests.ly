@@ -14,7 +14,7 @@
   categories = "Preparing parts, Rhythms"
 
   texidoc = "
-Multi measure rests show their length by a number except for single
+Multi-measure rests show their length by a number except for single
 measures. This can be changed by setting @code{restNumberThreshold}.
 "
 

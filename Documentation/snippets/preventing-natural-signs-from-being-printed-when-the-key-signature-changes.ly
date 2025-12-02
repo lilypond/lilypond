@@ -16,8 +16,8 @@
   texidoc = "
 When the key signature changes, natural signs are automatically printed
 to cancel any accidentals from previous key signatures. This may be
-prevented by setting to @code{f} the @code{printKeyCancellation}
-property in the @code{Staff} context.
+prevented by setting the @code{printKeyCancellation} property to
+@code{#f} in the @code{Staff} context.
 "
 
   doctitle = "Preventing natural signs from being printed when the key signature changes"

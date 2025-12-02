@@ -15,9 +15,9 @@
 
   texidoc = "
 If there are ten or fewer measures of rests, a series of longa and
-breve rests (called in German @qq{Kirchenpausen} - church rests) is
+breve rests (called in German @qq{Kirchenpausen} -- church rests) is
 printed within the staff; otherwise a simple line is shown. This
-default number of ten may be changed by overriding the
+default value of ten may be changed by overriding the
 @code{expand-limit} property.
 "
 

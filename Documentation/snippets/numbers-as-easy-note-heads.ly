@@ -42,8 +42,7 @@ it sees.
               (make-vector 7 (number->string (1+ delta)))))
         (ly:grob-set-property! grob 'note-names note-names))))))
 
-#(set-global-staff-size 26)
-
+#(set-global-staff-size 30)
 
 \layout {
   ragged-right = ##t

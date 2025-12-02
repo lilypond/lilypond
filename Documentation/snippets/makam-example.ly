@@ -14,7 +14,7 @@
   categories = "Pitches, Version-specific, World music"
 
   texidoc = "
-Makam is a type of melody from Turkey using 1/9th-tone microtonal
+Makam is a type of melody from Turkey using 1/9-tone microtonal
 alterations.
 
 Consult the initialization file @code{ly/makam.ly} for details of pitch
@@ -25,7 +25,6 @@ names and alterations.
 } % begin verbatim
 
 
-% Initialize makam settings
 \include "makam.ly"
 
 \relative c' {

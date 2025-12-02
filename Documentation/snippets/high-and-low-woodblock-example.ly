@@ -14,10 +14,10 @@
   categories = "Percussion, Rhythms, Specific notation"
 
   texidoc = "
-Two Woodblocks, entered with 'wbh' (high woodblock) and 'wbl' (low
-woodblock). The length of the barline has been altered with an
-\\override command otherwise it would be too short. The positions of
-the two stafflines also have to be explicitly defined.
+Two Woodblocks, entered with @q{wbh} (high woodblock) and @q{wbl} (low
+woodblock). The length of the bar line has been altered with an
+@code{\\override} command, otherwise it would be too short. The
+positions of the two staff lines also have to be explicitly defined.
 "
 
   doctitle = "High and low woodblock example"
@@ -50,7 +50,7 @@ woodstaff = {
 
   \drummode {
     \time 2/4
-    wbl8 16 16 8-> 8 |
+    wbh8 16 16 8-> 8 |
     wbl8 16 16-> ~ 16 16 r8 |
   }
 }

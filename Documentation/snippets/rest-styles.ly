@@ -50,7 +50,3 @@ restsB = {
   \override Staff.Rest.style = #'default
   <>^\markup \typewriter { default } \restsB \bar "" \break
 }
-
-\paper {
-  indent = 0
-}

@@ -14,9 +14,10 @@
   categories = "Staff notation, Tweaks and overrides"
 
   texidoc = "
-By default, bar lines in StaffGroup, PianoStaff, or GrandStaff groups
-are connected between the staves, i.e. a SpanBar is printed. This
-behaviour can be overridden on a staff-by-staff basis.
+By default, bar lines in @code{StaffGroup}, @code{PianoStaff}, or
+@code{GrandStaff} contexts are connected between the staves, i.e., a
+span bar is printed. This behaviour can be overridden on a
+staff-by-staff basis.
 "
 
   doctitle = "Removing connecting bar lines on StaffGroup, PianoStaff, or GrandStaff"

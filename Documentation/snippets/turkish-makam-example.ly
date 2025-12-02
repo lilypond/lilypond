@@ -14,21 +14,20 @@
   categories = "Pitches, World music"
 
   texidoc = "
-This template uses the start of a well-known Turkish Saz Semai that is
-familiar in the repertoire in order to illustrate some of the elements
-of Turkish music notation.
+This template uses the start of a well-known Turkish @emph{Saz Semai}
+that is familiar in the repertoire in order to illustrate some of the
+elements of Turkish music notation.
 "
 
   doctitle = "Turkish Makam example"
 } % begin verbatim
 
 
-% Initialize makam settings
 \include "turkish-makam.ly"
 
 \header {
-    title = "Hüseyni Saz Semaisi"
-    composer = "Lavtacı Andon"
+  title = "Hüseyni Saz Semaisi"
+  composer = "Lavtacı Andon"
 }
 
 \relative {

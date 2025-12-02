@@ -15,8 +15,8 @@
                 and overrides"
 
   texidoc = "
-LilyPond supports custom key signatures. In this example, print for D
-minor with an extended range of printed flats.
+LilyPond supports custom key signatures. In this example, print for
+D@tie{}minor with an extended range of shown flats.
 "
 
   doctitle = "Creating custom key signatures"
@@ -31,13 +31,14 @@ minor with an extended range of printed flats.
   \override KeySignature.sharp-positions = #'((-6 . 7))
   \override KeyCancellation.sharp-positions = #'((-6 . 7))
 
-  \override Clef.stencil = #
-  (lambda (grob)(grob-interpret-markup grob
-  #{ \markup\combine
-    \musicglyph "clefs.C"
-    \translate #'(-3 . -2)
-    \musicglyph "clefs.F"
-   #}))
+  \override Clef.stencil =
+    #(lambda (grob)
+        (grob-interpret-markup grob
+           #{ \markup\combine
+                \musicglyph "clefs.C"
+                \translate #'(-3 . -2)
+                  \musicglyph "clefs.F"
+           #}))
     clefPosition = #3
     middleCPosition = #3
     middleCClefPosition = #3

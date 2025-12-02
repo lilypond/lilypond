@@ -15,7 +15,7 @@
 
   texidoc = "
 Setting the property @code{'strict-grace-spacing} makes the musical
-columns for grace notes 'floating', i.e., decoupled from the non-grace
+columns for grace notes @q{floating}, i.e., decoupled from the non-grace
 notes: first the normal notes are spaced, then the (musical columns of
 the) graces are put left of the musical columns for the main notes.
 "

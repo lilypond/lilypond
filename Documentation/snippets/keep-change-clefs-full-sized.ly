@@ -14,7 +14,7 @@
   categories = "Pitches, Tweaks and overrides"
 
   texidoc = "
-When a clef is changed, the clef sign displayed is smaller than the
+When a clef changes, the clef sign displayed is smaller than the
 initial clef. This can be overridden with @code{full-size-change}.
 "
 

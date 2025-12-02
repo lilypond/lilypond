@@ -15,13 +15,13 @@
 
   texidoc = "
 If a tremolo's total duration is less than a quarter-note, or exactly a
-half-note, or between a half-note and a whole-note, it is normally
+half note, or between a half note and a whole note, it is normally
 typeset with all beams touching the stems. Certain engraving styles
 typeset some of these beams as centered floating beams that do not
 touch the stems. The number of floating beams in this type of tremolo
-is controlled with the @code{'gap-count} property of the @code{Beam}
+is controlled with the @code{gap-count} property of the @code{Beam}
 object, and the size of the gaps between beams and stems is set with
-the @code{'gap} property.
+the @code{gap} property.
 "
 
   doctitle = "Engraving tremolos with floating beams"

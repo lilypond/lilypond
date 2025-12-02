@@ -44,13 +44,14 @@ refers to the alteration as a proportion of a 200-cent whole tone.
 
 
 \include "arabic.ly"
+
 \relative do' {
   \set Staff.keyAlterations = #`((0 . ,SEMI-FLAT)
                                  (1 . ,SEMI-FLAT)
                                  (2 . ,FLAT)
                                  (5 . ,FLAT)
                                  (6 . ,SEMI-FLAT))
-%\set Staff.extraNatural = ##f
+  % \set Staff.extraNatural = ##f
   re reb \dwn reb resd
   dod dob dosd \dwn dob |
   dobsb dodsd do do |

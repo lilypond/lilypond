@@ -24,7 +24,6 @@ of @code{MetronomeMark} or @code{RehearsalMark} appropriately.
 
 
 \layout {
-  indent = 0
   ragged-right = ##f
 }
 

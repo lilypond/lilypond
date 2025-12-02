@@ -14,9 +14,9 @@
   categories = "Contemporary notation, Percussion, Real music, Rhythms"
 
   texidoc = "
-Though the polymetric time signature shown was not the most essential
+Though the polymetric time signature shown is not the most essential
 item here, it has been included to show the beat of this piece (which
-is the template of a real Balkan song!).
+is the template of a real Balkan song, by the way).
 "
 
   doctitle = "Heavily customized polymetric time signatures"
@@ -44,9 +44,7 @@ drum = \new DrumStaff \drummode {
 
 \new Staff \with {
   instrumentName = \markup { \concat { "B" \flat " Sop." } }
-}
-
-{
+} {
   \melody
   \drum
 }

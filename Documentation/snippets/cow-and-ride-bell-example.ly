@@ -14,7 +14,7 @@
   categories = "Percussion, Rhythms, Specific notation"
 
   texidoc = "
-Two different bells, entered with 'cb' (cowbell) and 'rb' (ridebell).
+Two different bells, entered with @q{cb} (cow bell) and @q{rb} (ride bell).
 "
 
   doctitle = "Cow and ride bell example"

@@ -14,7 +14,7 @@
   categories = "Pitches, Staff notation, Tweaks and overrides"
 
   texidoc = "
-It is possible to change the slope of the Ottava spanner.
+It is possible to change the slope of the ottava spanner.
 "
 
   doctitle = "Modifying the ottava spanner slope"

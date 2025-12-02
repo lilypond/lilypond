@@ -15,7 +15,7 @@
 
   texidoc = "
 The @code{stencil} property of the @code{Flag} grob can be set to a
-custom scheme function to generate the glyph for the flag.
+custom Scheme function to generate the glyph for the flag.
 "
 
   doctitle = "Generating custom flags"

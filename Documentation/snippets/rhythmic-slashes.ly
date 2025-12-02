@@ -14,10 +14,10 @@
   categories = "Rhythms, Tweaks and overrides"
 
   texidoc = "
-In @qq{simple} lead-sheets, sometimes no actual notes are written, instead
-only @qq{rhythmic patterns} and chords above the measures are notated
-giving the structure of a song. Such a feature is for example useful
-while creating/transcribing the structure of a song and also when
+In @qq{simple} lead-sheets, sometimes no actual notes are written.
+Instead, only @qq{rhythmic patterns} and chords above the measures are
+notated to represent the structure of a song. Such a feature can be
+useful while creating or transcribing the structure of a song, or when
 sharing lead sheets with guitarists or jazz musicians.
 "
 

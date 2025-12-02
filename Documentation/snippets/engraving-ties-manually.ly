@@ -20,8 +20,8 @@ there are multiple ties at the same musical moment, they can be
 adjusted manually by changing the @code{tie-configuration} property (a
 list of offset/direction pairs) of the @code{TieColumn} object.
 
-The offset indicates the distance from the center of the staff in half
-staff spaces, the direction can be either 1 (up) or -1 (down).
+The offset indicates the distance from the center of the staff in
+half-staff spaces, the direction can be either 1 (up) or -1 (down).
 
 Note that LilyPond makes a distinction between exact and inexact values
 for the offset. If using an exact value (i.e., either an integer or a

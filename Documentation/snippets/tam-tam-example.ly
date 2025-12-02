@@ -14,7 +14,7 @@
   categories = "Percussion, Rhythms, Specific notation"
 
   texidoc = "
-A tam-tam example, entered with 'tt'
+A tam-tam example, entered with @q{tt}.
 "
 
   doctitle = "Tam-tam example"

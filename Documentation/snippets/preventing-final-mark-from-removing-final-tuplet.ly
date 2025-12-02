@@ -39,6 +39,6 @@ tuplet marking. This can be overcome by setting
   \override TupletBracket.full-length-to-extent = ##f
 
   \time 1/8
-   \tuplet 3/2 8 { c'16 c' c' c' c' c' c' c' c' }
-   \tweak direction #DOWN \textEndMark "1234"
+  \tuplet 3/2 8 { c'16 c' c' c' c' c' c' c' c' }
+  \tweak direction #DOWN \textEndMark "1234"
 }

@@ -14,7 +14,7 @@
   categories = "Percussion, Rhythms, Specific notation"
 
   texidoc = "
-A tambourine example, entered 'tamb'
+A tambourine example, entered with @q{tamb}.
 "
 
   doctitle = "Tambourine example"
@@ -33,7 +33,7 @@ A tambourine example, entered 'tamb'
   \time 6/8
   tamb8. 16 8 8 8 8 |
   tamb4. 8 8 8 |
-  % the trick with the scaled duration and the shorter rest
+  % The trick with the scaled duration and the shorter rest
   % is neccessary for the correct ending of the trill-span!
   tamb2.*5/6 \startTrillSpan s8 \stopTrillSpan |
 }

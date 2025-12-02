@@ -22,7 +22,6 @@ Bar numbers can be removed entirely by removing the
 } % begin verbatim
 
 
-
 \layout {
   \context {
     \Score

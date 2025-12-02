@@ -18,12 +18,12 @@ Changing the clef glyph, its position, or the ottavation does not
 change the position of subsequent notes on the staff. To get key
 signatures on their correct staff lines, @code{middleCClefPosition}
 must also be specified, with positive or negative values moving
-@emph{middle@tie{}C} up or down respectively, relative to the staff's
-center line.
+@qq{middle@tie{}C} up or down respectively, relative to the staff's center
+line.
 
 For example, @code{\\clef \"treble_8\"} is equivalent to setting the
-@code{clefGlyph}, @code{clefPosition} (the vertical position of the
-clef itself on the staff), @code{middleCPosition}, and
+context properties @code{clefGlyph}, @code{clefPosition} (the vertical
+position of the clef itself on the staff), @code{middleCPosition}, and
 @code{clefTransposition}. Note that when any of these properties
 (except @code{middleCPosition}) are changed a new clef symbol is
 printed.

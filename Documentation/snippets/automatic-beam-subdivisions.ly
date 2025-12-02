@@ -18,7 +18,7 @@ Beams can be subdivided automatically.  By setting the property
 @code{subdivideBeams}, beams are subdivided whenever possible. The
 intervals and depth of subdivision can be limited with properties
 @code{beamMinimumSubdivision} and
-@code{beamMaximumSubdivision} respectively.
+@code{beamMaximumSubdivision}, respectively.
 "
 
   doctitle = "Automatic beam subdivisions"
