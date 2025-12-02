@@ -1771,7 +1771,7 @@ predefinido, las propiedades de interface pertenecen a
 @cindex supresión, acorde repetido
 @funindex chordChanges
 @lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
-{snippets/chordchanges-for-fretboards.ly}
+{snippets/chord-changes-for-fretboards.ly}
 
 @cindex trastes, tabla alternativa
 @cindex alternativa, tabla de trastes

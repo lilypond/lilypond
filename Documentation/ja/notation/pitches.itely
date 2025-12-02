@@ -848,7 +848,7 @@ musicInBflat = @{ e4 @dots{} @}
 @cindex transposition, pitches, @q{smart} (ピッチの@q{スマート} トランスポーズ)
 @cindex pitches, @q{smart} transposition (ピッチの@q{スマート} トランスポーズ)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
+{snippets/transposing-pitches-with-minimum-accidentals--smart--transpose.ly}
 
 @morerefs
 記譜法リファレンス:

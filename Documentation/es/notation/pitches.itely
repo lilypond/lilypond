@@ -881,7 +881,7 @@ Para ver más información sobre instrumentos transpositores, consulte
 @cindex transposición, alturas, @q{inteligente}
 @cindex altura, transposición @q{inteligente}
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
+{snippets/transposing-pitches-with-minimum-accidentals--smart--transpose.ly}
 
 
 @morerefs
@@ -3627,7 +3627,7 @@ determinar a partir del relativo mayor:
 @cindex note head, shape, merging
 @cindex shape note, merging
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/direction-of-merged-fa-shape-note-heads.ly}
+{snippets/direction-of-merged--fa--shape-note-heads.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/applying-note-head-styles-depending-on-the-step-of-the-scale.ly}

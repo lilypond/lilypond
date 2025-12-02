@@ -812,7 +812,7 @@ siehe auch @ref{Instrument transpositions}.
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
+{snippets/transposing-pitches-with-minimum-accidentals--smart--transpose.ly}
 
 @morerefs
 Notationsreferenz:

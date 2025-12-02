@@ -3273,7 +3273,7 @@ exemples qui suivent.
 @cindex psaume
 @cindex hymne
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/chant-or-psalms-notation.ly}
+{snippets/chant-or-psalm-notation.ly}
 
 @c XXX move this text into following snippet
 Cantiques et autres textes liturgiques peuvent être mis en forme avec

@@ -3198,7 +3198,7 @@ al primer dels següents fragments de codi.
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/chant-or-psalms-notation.ly}
+{snippets/chant-or-psalm-notation.ly}
 
 Els càntics i altres textos litúrgics poden disposar-se d'una
 forma més lliure, i possiblement usin elements de notació agafats

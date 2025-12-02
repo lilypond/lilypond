@@ -3211,7 +3211,7 @@ of the following snippets.
 @cindex hymn
 @cindex canticle
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/chant-or-psalms-notation.ly}
+{snippets/chant-or-psalm-notation.ly}
 
 @c XXX move this text into following snippet
 Canticles and other liturgical texts may be set more freely, and

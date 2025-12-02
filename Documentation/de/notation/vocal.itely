@@ -3045,7 +3045,7 @@ im ersten der folgenden Schnipsel.
 @snippets
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/chant-or-psalms-notation.ly}
+{snippets/chant-or-psalm-notation.ly}
 
 Cantica und andere liturgische Texte können freier gesetzt werdne,
 und können auch Elementer der Notation alter Musik benutzen.

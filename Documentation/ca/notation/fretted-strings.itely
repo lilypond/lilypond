@@ -1525,7 +1525,7 @@ predefinit, les propietats d'interfície pertanyen a
 {snippets/defining-predefined-fretboards-for-other-instruments.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
-{snippets/chordchanges-for-fretboards.ly}
+{snippets/chord-changes-for-fretboards.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/fretboards-alternate-tables.ly}

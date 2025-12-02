@@ -857,7 +857,7 @@ Pour plus d'information à ce sujet, consultez
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
+{snippets/transposing-pitches-with-minimum-accidentals--smart--transpose.ly}
 
 @morerefs
 Manuel de notation :
@@ -3549,7 +3549,7 @@ mineure, les degrés sont déterminés par rapport au relatif majeur :
 @cindex note profilée, fusion
 @cindex fusion de tête profilée
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/direction-of-merged-fa-shape-note-heads.ly}
+{snippets/direction-of-merged--fa--shape-note-heads.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/applying-note-head-styles-depending-on-the-step-of-the-scale.ly}

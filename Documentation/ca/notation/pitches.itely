@@ -816,7 +816,7 @@ Per veure més informació sobre instruments transpositors, consulteu
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
+{snippets/transposing-pitches-with-minimum-accidentals--smart--transpose.ly}
 
 @morerefs
 Referència de la notació:

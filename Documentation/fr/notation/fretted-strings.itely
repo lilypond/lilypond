@@ -1731,7 +1731,7 @@ propriétés de l'interface dépendent de @code{FretBoards.FretBoard}.
 @cindex suppression, accords répétés
 @funindex chordChanges
 @lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
-{snippets/chordchanges-for-fretboards.ly}
+{snippets/chord-changes-for-fretboards.ly}
 
 @cindex diagramme d'accord, table alternative
 @cindex alternatative, table de diagrammes d'accord

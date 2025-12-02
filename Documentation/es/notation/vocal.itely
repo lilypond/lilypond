@@ -3333,7 +3333,7 @@ el primero de los siguientes fragmentos de código.
 @cindex salmo
 @cindex himno
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/chant-or-psalms-notation.ly}
+{snippets/chant-or-psalm-notation.ly}
 
 @c XXX move this text into following snippet
 Los cánticos y otros textos litúrgicos pueden disponerse de una

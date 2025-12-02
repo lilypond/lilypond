@@ -847,7 +847,7 @@ si veda @ref{Instrument transpositions}.
 @cindex trasposizione, altezze, @qq{intelligente}
 @cindex altezze, trasposizione @qq{intelligente}
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
+{snippets/transposing-pitches-with-minimum-accidentals--smart--transpose.ly}
 
 @morerefs
 Guida alla notazione:

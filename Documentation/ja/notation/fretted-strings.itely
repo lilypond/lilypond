@@ -1545,7 +1545,7 @@ mychords = \chordmode {
 @cindex suppressing repeated chords (繰り返しの和音を抑制する)
 @funindex chordChanges
 @lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
-{snippets/chordchanges-for-fretboards.ly}
+{snippets/chord-changes-for-fretboards.ly}
 
 @cindex fretboard, alternate table (他のフレットボード テーブル)
 @cindex alternate fretboard table (他のフレットボード テーブル)

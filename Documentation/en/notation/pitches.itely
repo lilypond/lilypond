@@ -857,7 +857,7 @@ see @ref{Instrument transpositions}.
 @cindex transposition, pitches, @q{smart}
 @cindex pitches, @q{smart} transposition
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
+{snippets/transposing-pitches-with-minimum-accidentals--smart--transpose.ly}
 
 
 @morerefs
@@ -3546,7 +3546,7 @@ major:
 @cindex note head, shape, merging
 @cindex shape note, merging
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/direction-of-merged-fa-shape-note-heads.ly}
+{snippets/direction-of-merged--fa--shape-note-heads.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/applying-note-head-styles-depending-on-the-step-of-the-scale.ly}

@@ -1740,7 +1740,7 @@ le proprietà dell'interfaccia appartengono a @code{FretBoards.FretBoard}.
 @cindex sopprimere accordi ripetuti
 @funindex chordChanges
 @lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
-{snippets/chordchanges-for-fretboards.ly}
+{snippets/chord-changes-for-fretboards.ly}
 
 @cindex tastiera, tabella alternativa
 @cindex tabella alternativa, tastiera

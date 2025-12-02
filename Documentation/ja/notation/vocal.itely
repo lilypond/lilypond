@@ -3161,7 +3161,7 @@ global = {
 @cindex hymn (賛美歌)
 @cindex canticle (雅歌)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/chant-or-psalms-notation.ly}
+{snippets/chant-or-psalm-notation.ly}
 
 @c XXX move this text into following snippet
 雅歌や他の典礼書の設定はもっと自由度が高く、@c
