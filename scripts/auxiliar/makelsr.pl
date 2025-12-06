@@ -121,8 +121,8 @@ Use the LilyPond Wiki to regenerate LilyPond's 'snippets' directory.
                            LilyPond Wiki
   -j, --jobs=N           use N jobs for creating snippet files in
                            parallel (default: 1)
-  -l, --no-lsr           don't download snippets from the LilyPond Wiki
-                           to update the 'snippets' directory
+  -l, --no-lsr           don't use snippets from the LilyPond Wiki to
+                           update the 'snippets' directory
   -n, --no-new           don't use snippets from the 'new'
                            subdirectory to update the 'snippets'
                            directory
