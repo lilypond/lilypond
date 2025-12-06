@@ -331,8 +331,8 @@ incipit =
 is positioned before the main staff (as part of an @code{InstrumentName} grob)
 to indicate the music's original notation.
 
-In the special case that @var{incipit-music} has the form @code{\\new xxx
-@dots{}} where @samp{xxx} is a context type not accepted by
+In the special case that @var{incipit-music} has the form @code{\\new @var{xxx}
+@dots{}}, where @var{xxx} is a context type not accepted by
 @code{MensuralStaff}, it is taken directly.
 ")
   #{
@@ -347,32 +347,33 @@ In the special case that @var{incipit-music} has the form @code{\\new xxx
               (or (not (music-is-of-type? incipit-music 'context-specification))
                   (memq (ly:music-property incipit-music 'context-type)
                         (ly:context-def-lookup ms-def 'accepts)))
-           ;; either not a \new/\context or one acceptable by MensuralStaff
-              (set! incipit-music (context-spec-music incipit-music 'MensuralStaff)))
+              ;; either not a \new/\context or one acceptable by MensuralStaff
+              (set! incipit-music (context-spec-music incipit-music
+                                                      'MensuralStaff)))
          (set! (ly:music-property incipit-music 'property-operations)
                (append (ly:music-property incipit-music 'property-operations)
                        `((push InstrumentName ,align-x self-alignment-X)
                          (push InstrumentName ,align-y self-alignment-Y)
                          (assign instrumentName ,instrument-name))))
          (set! (ly:grob-property grob 'long-text)
-               #{ \markup
-                  \score {
-                      #incipit-music
-                      \layout {
-                          $(ly:grob-layout grob)
-                          indent-incipit-default = 15\mm
-                          line-width = #(primitive-eval
-                                         '(or (false-if-exception indent)
-                                              indent-incipit-default))
-                          indent = #(primitive-eval
-                                     '(or (false-if-exception (- line-width incipit-width))
-                                          (* 0.5 line-width)))
-                          ragged-right = ##f
-                          ragged-last = ##f
-                          system-count = 1
-                          }
-                      }
-                  #})
+               #{ \markup \score {
+                    #incipit-music
+                    \layout {
+                      $(ly:grob-layout grob)
+                      indent-incipit-default = 15\mm
+                      line-width = #(primitive-eval
+                                     '(or (false-if-exception indent)
+                                          indent-incipit-default))
+                      indent = #(primitive-eval
+                                 '(or (false-if-exception
+                                       (- line-width incipit-width))
+                                      (* 0.5 line-width)))
+                      ragged-right = ##f
+                      ragged-last = ##f
+                      system-count = 1
+                    }
+                  }
+               #})
          (set! (ly:grob-property grob 'self-alignment-Y) #f)
          ;; Do 'self-alignment-X RIGHT only for the first InstrumentName, which
          ;; actually is the incipit. Otherwise self-alignment-X for the
@@ -381,7 +382,7 @@ In the special case that @var{incipit-music} has the form @code{\\new xxx
            (if (and (pair? parts) (equal? grob (car parts)))
                (ly:grob-set-property! grob 'self-alignment-X RIGHT)))
          (system-start-text::print grob)))
-    #})
+  #})
 
 %% kievan
 kievanOn = {
