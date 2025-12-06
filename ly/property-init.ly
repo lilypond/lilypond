@@ -324,12 +324,14 @@ improvisationOff = {
 %% incipit
 
 incipit =
-#(define-music-function (incipit-music) (ly:music?)
+#(define-music-function (offset incipit-music) ((number? 0) ly:music?)
   (_i "Output @var{incipit-music} as an incipit.
 
 @var{incipit-music} is typeset within a @code{MensuralStaff} context; the result
 is positioned before the main staff (as part of an @code{InstrumentName} grob)
-to indicate the music's original notation.
+to indicate the music's original notation.  The optional argument @var{offset}
+specifies how much the incipit should be moved to the left (default value
+is@tie{}0).
 
 In the special case that @var{incipit-music} has the form @code{\\new @var{xxx}
 @dots{}}, where @var{xxx} is a context type not accepted by
@@ -356,14 +358,16 @@ In the special case that @var{incipit-music} has the form @code{\\new @var{xxx}
                          (push InstrumentName ,align-y self-alignment-Y)
                          (assign instrumentName ,instrument-name))))
          (set! (ly:grob-property grob 'long-text)
-               #{ \markup \score {
+               #{ \markup \pad-x-right #offset \score {
                     #incipit-music
                     \layout {
                       $(ly:grob-layout grob)
                       indent-incipit-default = 15\mm
+                      incipit-offset = #offset
                       line-width = #(primitive-eval
-                                     '(or (false-if-exception indent)
-                                          indent-incipit-default))
+                                     '(- (or (false-if-exception indent)
+                                             indent-incipit-default)
+                                         incipit-offset))
                       indent = #(primitive-eval
                                  '(or (false-if-exception
                                        (- line-width incipit-width))

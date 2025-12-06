@@ -2729,12 +2729,15 @@ same source.
 @funindex \incipit
 @cindex incipit, adding
 
-It is customary when transcribing mensural music into modern notation to place
-an indication of how the initial rests and note or notes of the original version
-appeared -- including the original clefs.  This is called an @dfn{incipit}.  The
-@code{\incipit} command uses the @code{indent} of the main staff to set the
-width occupied by the incipit, and @code{incipit-width} to set the width of the
-incipit staff.
+It is customary when transcribing mensural music into modern
+notation to place an indication of how the initial rests and note
+or notes of the original version appeared -- including the
+original clefs.  This is called an @dfn{incipit}.  The
+@code{\incipit} command uses the @code{indent} of the main staff
+to set the width occupied by the incipit together with the
+instrument name, and @code{incipit-width} to set the width of the
+incipit staff.  An optional argument indicates how much the
+incipit should be shifted to the left.
 
 @lilypond[verbatim,quote,ragged-right]
 \score {
@@ -2742,7 +2745,7 @@ incipit staff.
     \new Voice = Tenor {
       \set Staff.instrumentName = "Tenor"
       \override Staff.InstrumentName.self-alignment-X = #RIGHT
-      \incipit { \clef "mensural-c4" \key f \major r\breve r1 c'1 }
+      \incipit #1 { \clef "mensural-c4" \key f \major r\breve r1 c'1 }
       \clef "treble_8"
       \key f \major
       R1 r2 c'2 |

@@ -621,7 +621,8 @@ now be adjusted with the @code{volta-number-offset} property of
 @itemize
 
 @item
-Incipits may be printed with various context types.
+Incipits may now be printed with various context types.  It also
+got an optional argument to shift the incipit to the left.
 
 @lilypond[verbatim,quote]
 \score {
@@ -634,7 +635,7 @@ Incipits may be printed with various context types.
 
     \new Staff \with { instrumentName = "KievanStaff" }
       {
-        \incipit \new KievanStaff { c'4 d' }
+        \incipit #2 \new KievanStaff { c'4 d' }
         c'4 d' e' f' g'1
       }
     \new Staff
@@ -642,7 +643,8 @@ Incipits may be printed with various context types.
       {
         \incipit
           \new TabStaff
-            \with { \magnifyStaff 0.5 \override InstrumentName.font-size = 6 }
+            \with { \magnifyStaff 0.5
+                    \override InstrumentName.font-size = 6 }
             { c'4 d' }
         c'4 d' e' f' g'1
       }
