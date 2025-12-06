@@ -1580,17 +1580,20 @@ as demonstrated in the following example.
 
 @funindex \pad-markup
 @funindex \pad-x
+@funindex \pad-x-left
+@funindex \pad-x-right
 @funindex \pad-to-box
 @funindex \pad-around
 
-Some commands may require an increase in the padding around the text;
-this is achieved with some markup commands exhaustively described in
+Some commands may require increased padding around the text; this
+is achieved with some markup commands exhaustively described in
 @ref{Markup for text alignment}.
 
 @lilypond[quote,verbatim,line-width=14\cm]
 \markup \fill-line {
   \center-column {
-    \box "Charles Ives (1874 - 1954)"
+    \box \pad-x-left #3 "Charles Ives"
+    \box \pad-x-right #3 "(1874 - 1954)"
     \null
     \box \pad-markup #2 "THE UNANSWERED QUESTION"
     \box \pad-x #8 "A Cosmic Landscape"

@@ -3189,6 +3189,62 @@ Add padding @var{amount} around @var{arg} in the X@tie{}direction.
                      (interval-widen x amount)
                      y)))
 
+(define-markup-command (pad-x-left layout props amount arg)
+  (number? markup?)
+  #:category align
+  "
+@cindex padding text horizontally
+
+Add padding @var{amount} to the left of @var{arg} in the X@tie{}direction.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\box {
+    default
+  }
+  \\hspace #4
+  \\box {
+    \\pad-x-left #2 {
+      padded
+    }
+  }
+}
+@end lilypond"
+  (let* ((m (interpret-markup layout props arg))
+         (x (ly:stencil-extent m X))
+         (y (ly:stencil-extent m Y)))
+    (ly:make-stencil (ly:stencil-expr m)
+                     (cons (- (car x) amount) (cdr x))
+                     y)))
+
+(define-markup-command (pad-x-right layout props amount arg)
+  (number? markup?)
+  #:category align
+  "
+@cindex padding text horizontally
+
+Add padding @var{amount} to the right of @var{arg} in the X@tie{}direction.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\box {
+    default
+  }
+  \\hspace #4
+  \\box {
+    \\pad-x-right #2 {
+      padded
+    }
+  }
+}
+@end lilypond"
+  (let* ((m (interpret-markup layout props arg))
+         (x (ly:stencil-extent m X))
+         (y (ly:stencil-extent m Y)))
+    (ly:make-stencil (ly:stencil-expr m)
+                     (cons (car x) (+ (cdr x) amount))
+                     y)))
+
 (define-markup-command (put-adjacent layout props axis dir arg1 arg2)
   (integer? ly:dir? markup? markup?)
   #:category align

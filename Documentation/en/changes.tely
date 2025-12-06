@@ -259,6 +259,7 @@ in Emacs:
 
 @end itemize
 
+
 @node Notes for source compilation and packagers
 @unnumberedsec Notes for source compilation and packagers
 
@@ -612,7 +613,6 @@ now be adjusted with the @code{volta-number-offset} property of
 @code{VoltaBracket}.
 
 @end itemize
-
 
 
 @node Editorial annotation improvements
@@ -1064,7 +1064,14 @@ music = \relative {
 \markup { \keep-with-tag #'a \score { \music } }
 @end lilypond
 
+@item
+The two new markup commands @code{\pad-x-left} and
+@code{\pad-x-right} behave similar to @code{\pad-x} but apply
+horizontal padding on one side of the markup only.
+
+
 @end itemize
+
 
 @node New for specialist notation
 @unnumbered New for specialist notation
