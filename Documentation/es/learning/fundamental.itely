@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 8677514240adc1b684c42680a624286f892486a6
+    Translation of GIT committish: 2f16c1f8c6afa919c7e0a38f2dacab1e5dcea1e5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1570,7 +1570,7 @@ necesitamos, y que están en el orden correcto.  Para tipografiar
 piezas con notación especializada, es frecuente la modificación de
 contextos existentes o incluso definir unos completamente nuevos.
 
-Además de los contextos @code{Score,} @code{Staff} y @code{Voice},
+Además de los contextos @code{Score}, @code{Staff} y @code{Voice},
 hay contextos que se sitúan entre los niveles de partitura y de
 pentagrama para controlar los grupos de pentagramas, como los
 contextos @code{PianoStaff} y @code{ChoirStaff}.  También existen
@@ -1760,8 +1760,7 @@ función a partir del nombre (en inglés), y viceversa.
 
 @indentedblock
 @raggedright
-@multitable
-{@code{Forbid_line_break_engraver}} {engraves the five (by default) lines of the staff}
+@multitable {@code{Forbid_line_break_engraver}} {engraves the five (by default) lines of the staff}
 @headitem Grabador
   @tab Función
 @item @code{Accidental_engraver}
