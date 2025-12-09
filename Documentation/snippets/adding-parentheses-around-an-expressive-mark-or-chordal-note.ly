@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Expressive marks, Workaround"
+  categories = "Expressive marks"
 
   texidoc = "
 The @code{\\parenthesize} function is a special tweak that encloses

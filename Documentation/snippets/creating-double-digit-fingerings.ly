@@ -11,8 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Editorial annotations, Expressive marks, Scheme, Staff
-                notation, Tweaks and overrides"
+  categories = "Editorial annotations, Expressive marks"
 
   texidoc = "
 Creating fingerings larger than 5 is possible.

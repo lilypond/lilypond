@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Ancient notation, Expressive marks"
+  categories = "Ancient notation, Expressive marks, Scheme"
 
   texidoc = "
 This short vertical line placed above the note is commonly used in

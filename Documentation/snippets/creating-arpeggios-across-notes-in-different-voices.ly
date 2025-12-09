@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Expressive marks"
+  categories = "Contexts and engravers, Expressive marks"
 
   texidoc = "
 An @emph{arpeggio} can be drawn across notes in different voices on the

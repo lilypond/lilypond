@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Expressive marks, Staff notation, Tweaks and overrides"
+  categories = "Expressive marks, Tweaks and overrides"
 
   texidoc = "
 Skipped beats in very long glissandi are sometimes indicated by timing

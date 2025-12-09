@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Repeats"
+  categories = "Repeats, Scheme"
 
   texidoc = "
 Isolated percents can also be printed.

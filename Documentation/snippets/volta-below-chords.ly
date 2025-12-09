@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  categories = "Chords, Repeats, Staff notation"
+  categories = "Chords, Contexts and engravers, Repeats, Staff
+                notation"
 
   texidoc = "
 By adding the @code{Volta_engraver} to the relevant staff, volte can be
