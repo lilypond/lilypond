@@ -37,8 +37,8 @@ elements of Turkish music notation.
   \key a \huseyni
   \time 10/8
 
-  a'4 g'16 [fb] e8. [d16] d [c d e] c [d c8] bfc |
-  a16 [bfc a8] bfc c16 [d c8] d16 [e d8] e4 fb8 |
-  d4 a'8 a16 [g fb e] fb8 [g] a8. [b16] a16 [g] |
-  g4 g16 [fb] fb8. [e16] e [g fb e] e4 r8 |
+  a'4 g'16[ fb] e8.[ d16] d[ c d e] c[ d c8] bfc |
+  a16[ bfc a8] bfc c16[ d c8] d16[ e d8] e4 fb8 |
+  d4 a'8 a16[ g fb e] fb8[ g] a8.[ b16] a16[ g] |
+  g4 g16[ fb] fb8.[ e16] e[ g fb e] e4 r8 |
 }

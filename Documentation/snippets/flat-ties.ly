@@ -30,8 +30,7 @@ possible to change the custom-definition on the fly.
 %% http://lsr.di.unimi.it/LSR/Item?id=1031
 
 #(define ((flared-tie coords) grob)
-
-  (define (pair-to-list pair)
+   (define (pair-to-list pair)
      (list (car pair) (cdr pair)))
 
   (define (normalize-coords goods x y dir)
@@ -92,27 +91,19 @@ possible to change the custom-definition on the fly.
   \override Tie.height-limit = 4
   a'4~a
   a'4~a
-  <a,, c e a c e a c e>~ q
-
-  \break
+  <a,, c e a c e a c e>~ q \break
 
   a'4~a
   \once \override Tie.details.height-limit = 14
-  a4~a
-
-  \break
+  a4~a \break
 
   a4~a
   \once \override Tie.details.height-limit = 0.5
-  a4~a
-
-  \break
+  a4~a \break
 
   a4~a
   \shape #'((0 . 0) (0 . 0.4) (0 . 0.4) (0 . 0)) Tie
-  a4~a
-
-  \break
+  a4~a \break
 
   a4~a
   \once \override Tie.stencil =

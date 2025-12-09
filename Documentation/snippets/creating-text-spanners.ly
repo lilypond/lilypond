@@ -45,7 +45,6 @@ to modify its output.
   \override TextSpanner.bound-details.right.text =
     \markup { \draw-line #'(0 . -2) }
   \once \override TextSpanner.bound-details.right.padding = #-2
-
   a4 \startTextSpan
   b4 c
   a4 \stopTextSpan

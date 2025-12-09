@@ -27,7 +27,7 @@ Bar numbers can be removed entirely by removing the
     \Score
     \omit BarNumber
     % or:
-    %\remove "Bar_number_engraver"
+    % \remove "Bar_number_engraver"
   }
 }
 

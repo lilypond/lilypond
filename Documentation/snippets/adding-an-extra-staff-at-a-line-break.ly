@@ -41,7 +41,8 @@ workaround is to add a setting of
     c1 | c^"Fixed here" \break
     << { c1 | c }
        \new Staff {
-         \once \set Staff.explicitKeySignatureVisibility = #end-of-line-invisible
+         \once \set Staff.explicitKeySignatureVisibility =
+           #end-of-line-invisible
          \key f \major
          \once \omit Staff.TimeSignature
          c1 | c

@@ -31,9 +31,7 @@ piece.
       \new Staff {
         c1 | c
         <<
-          {
-            c1 | d
-          }
+          { c1 | d }
           \new Staff {
             \once \omit Staff.TimeSignature
             c1 | b

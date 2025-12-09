@@ -41,7 +41,6 @@ voices split in this way recombine.
         #:concat (#:draw-line (cons length 0)
                    #:arrow-head X RIGHT fill)))))
 
-
 splitStaffBarLineMarkup = \markup \with-dimensions #'(0 . 0) #'(0 . 0) {
   \combine
   \arrow-at-angle #45 #(sqrt 8) ##t

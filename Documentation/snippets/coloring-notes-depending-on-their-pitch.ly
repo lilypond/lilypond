@@ -24,7 +24,7 @@ to distinguish enharmonics.
 
 
 
-%Association list of pitches to colors.
+% Association list of pitches to colors.
 #(define color-mapping
    (list
     (cons (ly:make-pitch 0 0 NATURAL) (x11-color 'red))
@@ -44,7 +44,7 @@ to distinguish enharmonics.
     (cons (ly:make-pitch 0 5 SHARP) (x11-color 'blue))
     (cons (ly:make-pitch 0 6 FLAT) (x11-color 'blue))))
 
-%Compare pitch and alteration (not octave).
+% Compare pitch and alteration (not octave).
 #(define (pitch-equals? p1 p2)
    (and
     (= (ly:pitch-alteration p1) (ly:pitch-alteration p2))

@@ -14,10 +14,9 @@
   categories = "Staff notation, Workaround"
 
   texidoc = "
-By default, metronome marks do not influence horizontal spacing.
-
-This can be solved through a simple override, as shown in the second
-half of the example.
+By default, metronome marks do not influence horizontal spacing. This
+can be solved through a simple override, as shown in the second half of
+the example.
 "
 
   doctitle = "Forcing measure width to adapt to MetronomeMark's width"
