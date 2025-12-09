@@ -14,12 +14,12 @@
   categories = "Expressive marks, Vocal music"
 
   texidoc = "
-The @code{arpeggioBracket} can be used to indicate the division of
-voices where there are no stems to provide the information. This is
-often seen in choral music.
+The @code{\\arpeggioBracket} command can be used to indicate the
+division of voices where there are no stems to provide the information.
+This is often seen in choral music.
 "
 
-  doctitle = "Using arpeggioBracket to make divisi more visible"
+  doctitle = "Using \\arpeggioBracket to make divisi more visible"
 } % begin verbatim
 
 
@@ -49,5 +49,4 @@ often seen in choral music.
       }
     >>
   }
-  \layout { ragged-right = ##t }
 }

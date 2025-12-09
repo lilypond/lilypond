@@ -20,7 +20,7 @@ with a fermata sign positioned above. This snippet shows an optically
 pleasing combination of railtracks and fermata.
 "
 
-  doctitle = "Caesura (\"railtracks\") with fermata"
+  doctitle = "Caesura (@qq{railtracks}) with fermata"
 } % begin verbatim
 
 

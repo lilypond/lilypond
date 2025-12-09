@@ -20,7 +20,7 @@ should start on the first note of the measure. One has to use
 to the next note.
 "
 
-  doctitle = "Dynamics custom text spanner postfix"
+  doctitle = "Dynamics spanner with custom text"
 } % begin verbatim
 
 
@@ -43,5 +43,6 @@ mydecresc =
   c4-\mycresc "custom cresc" c4 c4 c4 |
   c4 c4 c4 c4 |
   c4-\mydecresc "custom decresc" c4 c4 c4 |
+  c4 c4 c4 c4 |
   c4 c4\! c4 c4
 }

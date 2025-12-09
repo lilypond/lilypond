@@ -12,8 +12,7 @@
 
 \header {
   categories = "Chords, Editorial annotations, Really simple,
-                Simultaneous notes, Specific notation, Tweaks and
-                overrides"
+                Simultaneous notes, Tweaks and overrides"
 
   texidoc = "
 Individual note heads in a chord can be modified with the

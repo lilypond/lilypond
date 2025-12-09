@@ -11,8 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Expressive marks, Tweaks and overrides,
-                Version-specific"
+  categories = "Expressive marks, Tweaks and overrides"
 
   texidoc = "
 Some dynamic expressions involve additional text, like @qq{sempre
@@ -56,14 +55,13 @@ text, not at the center of \\pp.
 @end itemize
 "
 
-  doctitle = "Horizontally aligning custom dynamics (e.g. \"sempre pp\", \"piu f\", \"subito p\")"
+  doctitle = "Horizontally aligning custom dynamics like @qq{più f}"
 } % begin verbatim
 
 
 \paper {
   ragged-right = ##f
-  indent = 2.5\cm
-  tagline = ##f
+  indent = 5\cm
 }
 
 % Solution 1: Using a simple markup with a particular halign value
@@ -128,26 +126,17 @@ semppMII =
                   #:dynamic "pp")))
 
 \new StaffGroup <<
-  \new Staff = "s" \with { instrumentName = \markup \column { Normal } }
-  <<
+  \new Staff \with { instrumentName = "standard" }
     \relative c'' {
       \key es \major
       c4\pp c\p c c | c\ff c c\pp c
     }
-  >>
-  \new Staff = "sMarkup" \with {
-    instrumentName = \markup \column { Normal markup }
-  }
-  <<
+  \new Staff \with {instrumentName = "normal markup" }
     \relative c'' {
       \key es \major
       c4-\semppMarkup c\p c c | c\ff c c-\semppMarkup c
     }
-  >>
-  \new Staff = "sK" \with {
-    instrumentName = \markup \column { Explicit shifting }
-  }
-  <<
+  \new Staff \with { instrumentName = "explicit shifting" }
     \relative c'' {
       \key es \major
       \once \override DynamicText.X-offset = #-9.2
@@ -156,45 +145,27 @@ semppMII =
       \once \override DynamicText.X-offset = #-9.2
       c4\semppK c
     }
-  >>
-  \new Staff = "sT" \with {
-    instrumentName = \markup \column { Right padding }
-  }
-  <<
+  \new Staff \with { instrumentName = "right padding" }
     \relative c'' {
       \key es \major
       c4\semppT c\p c c | c\ff c c\semppT c
     }
-  >>
-  \new Staff = "sM" \with {
-    instrumentName = \markup \column { Set dimension "to zero" }
-  }
-  <<
+  \new Staff \with { instrumentName = "set dimension to zero" }
     \relative c'' {
       \key es \major
       c4\semppM c\p c c | c\ff c c\semppM c
     }
-  >>
-  \new Staff = "sG" \with {
-    instrumentName = \markup \column { Shift inside dynamics}
-  }
-  <<
+  \new Staff \with { instrumentName = "shift inside dynamics" }
     \relative c'' {
       \key es \major
       c4\semppG c\p c c | c\ff c c\semppG c
     }
-  >>
-  \new Staff = "sMII" \with {
-    instrumentName = \markup \column { Alignment inside dynamics }
-  }
-  <<
+  \new Staff \with { instrumentName = "alignment inside dynamics" }
     \relative c'' {
       \key es \major
-      % Setting to ##f (false) gives the same result
-      \override DynamicText.X-offset = #0
+      \override DynamicText.X-offset = #-1
       c4\semppMII c\p c c | c\ff c c\semppMII c
     }
-  >>
 >>
 
 \layout { \override Staff.InstrumentName.self-alignment-X = #LEFT }

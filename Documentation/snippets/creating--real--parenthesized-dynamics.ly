@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Expressive marks, Text, Workaround"
+  categories = "Expressive marks, Scheme, Text, Workaround"
 
   texidoc = "
 Although the easiest way to add parentheses to a dynamic mark is to use
@@ -25,7 +25,7 @@ regarded as a dynamic, and therefore will remain compatible with
 commands such as @code{\\dynamicUp} or @code{\\dynamicDown}.
 "
 
-  doctitle = "Creating \"real\" parenthesized dynamics"
+  doctitle = "Creating @qq{real} parenthesized dynamics"
 } % begin verbatim
 
 

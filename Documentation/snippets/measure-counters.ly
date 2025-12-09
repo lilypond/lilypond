@@ -33,7 +33,7 @@ When a measure extends across a line break, the number will appear
 twice, the second time in parentheses.
 "
 
-  doctitle = "Numbering groups of measures"
+  doctitle = "Measure counters"
 } % begin verbatim
 
 
@@ -66,5 +66,3 @@ twice, the second time in parentheses.
   }
   \stopMeasureCount
 }
-
-\paper { tagline = ##f }
