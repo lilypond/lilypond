@@ -2723,6 +2723,10 @@ corresponding illustration at @ref{Modifying shapes}.
 }
 @end lilypond
 
+See @rlsrsnippet{Tweaks and overrides, Adjusting slur positions
+vertically} for an @code{\offsetPositions} Scheme function that
+eases the vertical shifting of slurs.
+
 
 @node Modifying alists
 @section Modifying alists
