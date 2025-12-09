@@ -39,7 +39,7 @@ line, they do not.
 
 
 {
-  % The default treble clef
+  % The default treble clef.
   \key f \major
   c'1
   % The standard bass clef
@@ -49,14 +49,14 @@ line, they do not.
   \set Staff.middleCClefPosition = 6
   \key g \major
   c'1
-  % The baritone clef
+  % The baritone clef.
   \set Staff.clefGlyph = "clefs.C"
   \set Staff.clefPosition = 4
   \set Staff.middleCPosition = 4
   \set Staff.middleCClefPosition = 4
   \key f \major
   c'1
-  % The standard choral tenor clef
+  % The standard choral tenor clef.
   \set Staff.clefGlyph = "clefs.G"
   \set Staff.clefPosition = -2
   \set Staff.clefTransposition = -7
@@ -64,7 +64,7 @@ line, they do not.
   \set Staff.middleCClefPosition = 1
   \key f \major
   c'1
-  % A non-standard clef
+  % A non-standard clef.
   \set Staff.clefPosition = 0
   \set Staff.clefTransposition = 0
   \set Staff.middleCPosition = -4
@@ -74,8 +74,7 @@ line, they do not.
 
   % The following clef changes do not preserve
   % the normal relationship between notes, key signatures
-  % and clefs:
-
+  % and clefs.
   \set Staff.clefGlyph = "clefs.F"
   \set Staff.clefPosition = 2
   c'1
@@ -89,8 +88,7 @@ line, they do not.
   \set Staff.clefPosition = 0
   c'1
 
-  % Return to the normal clef:
-
+  % Return to the normal clef.
   \set Staff.middleCPosition = 0
   c'1
 }

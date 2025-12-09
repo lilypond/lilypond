@@ -14,9 +14,9 @@
   categories = "Really simple, Rhythms, Vocal music"
 
   texidoc = "
-Although @code{s} skips cannot be used in @code{\\lyricmode} (it is
-taken to be a literal @qq{s}, not a space), double quotes (@code{\"\"}) or
-underscores (@code{_}) are available.
+Although @samp{s} skips cannot be used in @code{\\lyricmode} (it
+is taken to be a literal @qq{s}, not a space), double quotes (@code{\"\"})
+or underscores (@code{_}) are available.
 
 So for example:
 "

@@ -82,7 +82,3 @@ music = {
   \override StemTremolo.slope = -0.2
   \music
 }
-
-\paper {
-  indent = 0
-}

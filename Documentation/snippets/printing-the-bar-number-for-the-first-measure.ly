@@ -24,9 +24,8 @@ first measure and all subsequent measures.
 } % begin verbatim
 
 
-\layout {
-  indent = 0
-  ragged-right = ##t
+\paper {
+  line-width = 50\mm
 }
 
 \relative c' {

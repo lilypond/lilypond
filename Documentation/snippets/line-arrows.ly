@@ -14,8 +14,8 @@
   categories = "Expressive marks, Tweaks and overrides"
 
   texidoc = "
-Arrows can be applied to text-spanners and line-spanners (such as the
-Glissando).
+Arrows can be applied to text spanners and line spanners (such as
+glissandi).
 "
 
   doctitle = "Line arrows"

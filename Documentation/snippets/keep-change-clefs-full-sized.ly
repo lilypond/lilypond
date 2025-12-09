@@ -15,7 +15,8 @@
 
   texidoc = "
 When a clef changes, the clef sign displayed is smaller than the
-initial clef. This can be overridden with @code{full-size-change}.
+initial clef. This can be overridden by setting the context property
+@code{full-size-change} to @code{#t}.
 "
 
   doctitle = "Keep change clefs full-sized"

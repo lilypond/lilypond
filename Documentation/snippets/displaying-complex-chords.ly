@@ -23,7 +23,7 @@ with different accidentals.
 
 
 fixA = {
-  \once \override Stem.length = #11
+  \once \override Stem.length = #12
 }
 
 fixB = {

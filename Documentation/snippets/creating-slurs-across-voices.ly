@@ -15,12 +15,12 @@
                 music, Unfretted strings"
 
   texidoc = "
-In some situations, it may be necessary to create slurs between notes
-from different voices. The solution is to add invisible notes to one of
-the voices, using @code{\\hideNotes}.
+In some situations it is necessary to create slurs between notes from
+different voices. The solution is to add invisible notes to one of the
+voices, using @code{\\hideNotes}.
 
-This example is measure 235 of the Ciaconna from Bach's 2nd Partita for
-solo violin, BWV 1004.
+This example is measure 235 of the Ciaconna from Bach's second partita
+for solo violin, BWV 1004.
 "
 
   doctitle = "Creating slurs across voices"

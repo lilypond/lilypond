@@ -16,7 +16,7 @@
 
   texidoc = "
 Laissez vibrer ties have a fixed size. Their formatting can be tuned
-using @code{'tie-configuration}.
+using the @code{tie-configuration} property.
 "
 
   doctitle = "Laissez vibrer ties"

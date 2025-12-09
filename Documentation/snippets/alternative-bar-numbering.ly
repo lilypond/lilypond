@@ -38,13 +38,13 @@ music = \relative c' {
   \music
 }
 
-\markup \typewriter "'numbers"
+\markup \typewriter "numbers"
 {
   \set Score.alternativeNumberingStyle = #'numbers
   \music
 }
 
-\markup \typewriter "'numbers-with-letters"
+\markup \typewriter "numbers-with-letters"
 {
   \set Score.alternativeNumberingStyle = #'numbers-with-letters
   \music

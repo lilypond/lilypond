@@ -19,7 +19,7 @@ between the note heads. This behavior can be tuned through the
 @code{auto-knee-gap} property. A kneed beam is drawn if the gap is
 larger than the value of @code{auto-knee-gap} plus the width of the
 beam object (which depends on the duration of the notes and the slope
-of the beam). By default @code{auto-knee-gap} is set to 5.5 staff
+of the beam). By default, @code{auto-knee-gap} is set to 5.5 staff
 spaces.
 "
 
@@ -29,6 +29,6 @@ spaces.
 
 {
   f8 f''8 f8 f''8
-  \override Beam.auto-knee-gap = 6
+  \override Beam.auto-knee-gap = #6
   f8 f''8 f8 f''8
 }

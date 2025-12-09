@@ -14,9 +14,9 @@
   categories = "Expressive marks"
 
   texidoc = "
-Text style dynamic changes (such as @emph{cresc.} and @emph{dim.}) are
+Text-style dynamic changes (such as @emph{cresc.} and @emph{dim.}) are
 printed with a dashed line showing their extent. This line can be
-suppressed in the following way:
+suppressed as follows.
 "
 
   doctitle = "Hiding the extender line for text dynamics"

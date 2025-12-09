@@ -31,7 +31,7 @@ be hidden by enabling the callback.
 
 
 \paper {
-  ragged-right = ##t
+  line-width = 50\mm
 }
 
 \relative c'' {

@@ -14,7 +14,7 @@
   categories = "Expressive marks"
 
   texidoc = "
-The ends of hairpins may be aligned to the @code{LEFT}, @code{CENTER}
+The ends of hairpins may be aligned to the @code{LEFT}, @code{CENTER},
 or @code{RIGHT} of @code{NoteColumn} grobs by overriding the property
 @code{endpoint-alignments}, which is a pair of numbers representing the
 left and right ends of the hairpin. @code{endpoint-alignments} are

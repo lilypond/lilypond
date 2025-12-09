@@ -14,16 +14,14 @@
   categories = "Repeats, Staff notation"
 
   texidoc = "
-Default bar lines can be changed when re-defined in a score context.
+Default bar lines can be changed when re-defined in a @code{Score}
+context.
 "
 
   doctitle = "Changing the default bar lines"
 } % begin verbatim
 
 
-% http://lsr.di.unimi.it/LSR/Item?id=964
-%%=> http://lists.gnu.org/archive/html/lilypond-user/2014-03/msg00126.html
-%%=> http://lilypond.1069038.n5.nabble.com/Changing-the-default-end-repeat-bracket-tc169357.html
 
 \layout {
   \context {

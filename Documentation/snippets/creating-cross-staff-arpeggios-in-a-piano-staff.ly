@@ -14,7 +14,7 @@
   categories = "Expressive marks"
 
   texidoc = "
-In a @code{PianoStaff}, it is possible to let an @emph{arpeggio} cross
+In a @code{PianoStaff} it is possible to let an @emph{arpeggio} cross
 between the staves by setting the property
 @code{PianoStaff.connectArpeggios}.
 "

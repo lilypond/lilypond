@@ -17,7 +17,7 @@
 This example provides a function to typeset a hairpin (de)crescendo
 with some additional text below it, such as @qq{molto} or @qq{poco}. The
 added text will change the direction according to the direction of the
-hairpin. The Hairpin is aligned to DynamicText.
+hairpin. The Hairpin is aligned to a @code{DynamicText} grob.
 
 The example also illustrates how to modify the way an object is
 normally printed, using some Scheme code.
@@ -77,8 +77,6 @@ hairpinMolto =
 
 hairpinMore =
 \hairpinWithCenteredText \markup { \larger moltissimo }
-
-\layout { ragged-right = ##f }
 
 \relative c' {
   \hairpinMolto

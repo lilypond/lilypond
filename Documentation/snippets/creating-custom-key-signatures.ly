@@ -16,7 +16,7 @@
 
   texidoc = "
 LilyPond supports custom key signatures. In this example, print for
-D@tie{}minor with an extended range of shown flats.
+D@tie{}minor and D@tie{}major with an extended range of shown flats.
 "
 
   doctitle = "Creating custom key signatures"
@@ -27,7 +27,6 @@ D@tie{}minor with an extended range of shown flats.
   \override StaffSymbol.line-count = #8
   \override KeySignature.flat-positions = #'((-7 . 6))
   \override KeyCancellation.flat-positions = #'((-7 . 6))
-  % presumably sharps are also printed in both octaves
   \override KeySignature.sharp-positions = #'((-6 . 7))
   \override KeyCancellation.sharp-positions = #'((-6 . 7))
 
@@ -45,6 +44,6 @@ D@tie{}minor with an extended range of shown flats.
 }
 
 {
-  \key d\minor
-  f bes, f bes,
+  \key d\minor f bes, f bes, |
+  \key d\major fis b, fis b, |
 }

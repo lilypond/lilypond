@@ -16,7 +16,7 @@
   texidoc = "
 An @emph{arpeggio} can be drawn across notes in different voices on the
 same staff if the @code{Span_arpeggio_engraver} is added to the
-@code{Staff} context:
+@code{Staff} context.
 "
 
   doctitle = "Creating arpeggios across notes in different voices"

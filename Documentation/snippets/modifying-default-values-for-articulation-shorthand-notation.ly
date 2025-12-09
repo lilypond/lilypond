@@ -20,8 +20,8 @@ variables @code{dashHat}, @code{dashPlus}, @code{dashDash},
 @code{dashUnderscore} are assigned default values. The default values
 for the shorthands can be modified. For example, to associate the
 @code{-+} (@code{dashPlus}) shorthand with the @emph{trill} symbol
-instead of the default @emph{+} symbol, assign the value @code{\\trill}
-to the variable @code{dashPlus}:
+instead of the default @qq{+} symbol, assign the value @code{\\trill} to
+the variable @code{dashPlus}:
 "
 
   doctitle = "Modifying default values for articulation shorthand notation"

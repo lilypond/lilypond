@@ -15,9 +15,9 @@
 
   texidoc = "
 The vertical position of a slur can be adjusted using the
-@code{positions} property of @code{Slur}. The property has 2
-parameters, the first referring to the left end of the slur and the
-second to the right. The values of the parameters are not used by
+@code{positions} property of @code{Slur}. The property has
+2@tie{}parameters, the first referring to the left end of the slur and
+the second to the right. The values of the parameters are not used by
 LilyPond to make an exact movement of the slur - instead it selects
 what placement of the slur looks best, taking into account the
 parameter values. Positive values move the slur up, and are appropriate

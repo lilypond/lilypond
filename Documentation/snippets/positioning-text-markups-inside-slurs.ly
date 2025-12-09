@@ -16,7 +16,7 @@
 
   texidoc = "
 Text markups need to have the @code{outside-staff-priority} property
-set to false in order to be printed inside slurs.
+set to @code{#f} in order to be printed inside slurs.
 "
 
   doctitle = "Positioning text markups inside slurs"

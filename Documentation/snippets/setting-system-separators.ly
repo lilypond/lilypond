@@ -23,9 +23,10 @@ default.
 } % begin verbatim
 
 
+#(set-default-paper-size "a5")
+
 \paper {
   system-separator-markup = \slashSeparator
-  line-width = 120
   tagline = ##f
 }
 

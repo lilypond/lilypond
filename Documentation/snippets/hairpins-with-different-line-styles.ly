@@ -14,8 +14,9 @@
   categories = "Expressive marks, Tweaks and overrides"
 
   texidoc = "
-Hairpins can take any style from @code{line-interface} - dashed-line,
-dotted-line, line, trill or zigzag.
+Hairpins can take any style from @code{line-interface}:
+@code{dashed-line}, @code{dotted-line}, @code{line}, @code{trill}, or
+@code{zigzag}.
 "
 
   doctitle = "Hairpins with different line styles"

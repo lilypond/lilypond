@@ -14,7 +14,7 @@
   categories = "Expressive marks, Tweaks and overrides"
 
   texidoc = "
-Caesura marks can be created by overriding the @code{'text} property of
+Caesura marks can be created by overriding the @code{text} property of
 the @code{BreathingSign} object.
 
 A curved caesura mark is also available.

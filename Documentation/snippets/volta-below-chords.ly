@@ -16,7 +16,7 @@
 
   texidoc = "
 By adding the @code{Volta_engraver} to the relevant staff, volte can be
-put under chords.
+put below chords.
 "
 
   doctitle = "Volta below chords"

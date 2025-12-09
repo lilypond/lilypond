@@ -17,7 +17,7 @@
 Due to @uref{https://gitlab.com/lilypond/lilypond/-/issues/2362,issue
 #2362} the addition of a final @code{mark} can result in the loss of a
 final tuplet marking. This can be overcome by setting
-@code{TupletBracket.full-length-to-extent} to @code{false}.
+@code{TupletBracket.full-length-to-extent} to @code{#f}.
 "
 
   doctitle = "Preventing final mark from removing final tuplet"

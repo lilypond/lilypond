@@ -49,7 +49,6 @@ to modify its output.
   b4 c
   a4 \stopTextSpan
 
-  \set Staff.middleCPosition = #-13
   \override TextSpanner.dash-period = #10
   \override TextSpanner.dash-fraction = #0.5
   \override TextSpanner.thickness = #10

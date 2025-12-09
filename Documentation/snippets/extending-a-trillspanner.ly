@@ -15,9 +15,9 @@
                 overrides"
 
   texidoc = "
-For @code{TrillSpanner}, the @code{minimum-length} property becomes
-effective only if the @code{set-spacing-rods} procedure is called
-explicitly.
+For @code{TrillSpanner} grobs, the @code{minimum-length} property
+becomes effective only if the @code{set-spacing-rods} procedure is
+called explicitly.
 
 To do this, the @code{springs-and-rods} property should be set to
 @code{ly:spanner::set-spacing-rods}.

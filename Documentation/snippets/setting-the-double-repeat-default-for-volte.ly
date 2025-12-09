@@ -14,8 +14,8 @@
   categories = "Repeats"
 
   texidoc = "
-There are three different styles of double repeats for volte, that can
-be set using @code{doubleRepeatBarType}.
+There are different double repeat styles for volte that can be selected
+using the context property @code{doubleRepeatBarType}.
 "
 
   doctitle = "Setting the double repeat default for volte"

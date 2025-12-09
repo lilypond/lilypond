@@ -28,7 +28,7 @@ the @code{MultiMeasureRest} grob; its default value is@tie{}2.
   \compressEmptyMeasures
 
   R1*2 R1*4 R1*64 R1*16 \break
-  \override MultiMeasureRest.space-increment = 5
+  \override MultiMeasureRest.space-increment = 4
   R1*2 R1*4 R1*64 R1*16
 }
 

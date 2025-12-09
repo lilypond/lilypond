@@ -46,11 +46,10 @@ function called to process a book once a @code{\\book@{...@}} block is
 closed) is modified to insert all collected scores so far to the book.
 "
 
-  doctitle = "Generating whole scores (also book parts) in scheme without using the parser"
+  doctitle = "Generating whole scores (also book parts) in Scheme without using the parser"
 } % begin verbatim
 
 
-%%
 
 #(define-public (add-score score)
    (ly:parser-define! 'toplevel-scores

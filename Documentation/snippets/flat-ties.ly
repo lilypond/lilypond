@@ -19,15 +19,13 @@ The function takes the default @code{Tie.stencil} as an argument,
 calculating the result relying on the extents of this default.
 
 Further tweaking is possible by overriding
-@code{Tie.details.height-limit} or with @code{\\shape}. It's also
-possible to change the custom-definition on the fly.
+@code{Tie.details.height-limit} or with @code{\\shape}. It is also
+possible to change the custom definition on the fly.
 "
 
   doctitle = "Flat ties"
 } % begin verbatim
 
-
-%% http://lsr.di.unimi.it/LSR/Item?id=1031
 
 #(define ((flared-tie coords) grob)
    (define (pair-to-list pair)

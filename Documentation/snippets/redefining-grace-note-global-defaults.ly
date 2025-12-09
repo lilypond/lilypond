@@ -17,14 +17,14 @@
 The global defaults for grace notes are stored in the following
 identifiers.
 
-@verbatim
+@example
 startGraceMusic
 stopGraceMusic
 startAcciaccaturaMusic
 stopAcciaccaturaMusic
 startAppoggiaturaMusic
 stopAppoggiaturaMusic
-@end verbatim
+@end example
 
 They are defined in file @code{ly/grace-init.ly}. By redefining them
 other effects may be obtained.
