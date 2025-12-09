@@ -1038,8 +1038,8 @@ sub postprocess_code_block {
 #       non-breakable space to `@ `; however, for our purposes `@tie{}`
 #       is better.  To avoid overlong output lines we do this temporary
 #       replacement before calling pandoc.
-#     * Remove Wiki links.  TODO: Shall we support links to doc
-#       snippets with `@xref` to the 'Snippets' manual?
+#     * Replace Wiki links with quotation marks.  TODO: Shall we support
+#       links to doc snippets with `@xref` to the 'Snippets' manual?
 #     * Due to a bug (see https://github.com/jgm/pandoc/issues/11312)
 #       we have to handle code blocks with inline formatting by
 #       ourselves: we surround a series of lines starting with a space
@@ -1085,7 +1085,7 @@ sub wiki_to_texinfo {
   $s =~ s|<samp\h*>(.*?)</samp\h*>|~samp~$1~/samp~|sg;
   $s =~ s|<var\h*>(.*?)</var\h*>|~var~$1~/var~|sg;
   $s =~ s/(?:&nbsp;|\N{U+00A0})/~~::~~/g;
-  $s =~ s/\[\[(.*?)\]\]/$1/sg;
+  $s =~ s/\[\[(.*?)\]\]/\N{U+201C}$1\N{U+201D}/sg;
 
   $s =~ s/
              (?: <pre> (?s) .*? <\/pre> )
