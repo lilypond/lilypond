@@ -85,7 +85,6 @@ possible to change the custom-definition on the fly.
 
 \paper {
   ragged-right = ##f
-  tagline = ##f
 }
 
 \relative c' {

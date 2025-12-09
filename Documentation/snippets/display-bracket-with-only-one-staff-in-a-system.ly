@@ -48,5 +48,3 @@ property has to be set, as shown on the second system in the example.
     }
   >>
 }
-
-\paper { tagline = ##f }

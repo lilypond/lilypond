@@ -85,5 +85,4 @@ music = {
 
 \paper {
   indent = 0
-  tagline = ##f
 }

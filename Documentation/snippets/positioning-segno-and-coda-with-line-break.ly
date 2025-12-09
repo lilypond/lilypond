@@ -70,5 +70,3 @@ line.
     \fine
   }
 }
-
-\paper { tagline = ##f }

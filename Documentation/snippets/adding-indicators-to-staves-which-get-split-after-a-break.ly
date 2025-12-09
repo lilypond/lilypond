@@ -87,9 +87,6 @@ convUpStaffBarLine = {
   \break
 }
 
-
-\header { tagline = ##f }
-
 \paper {
   ragged-right = ##t
   short-indent = 10\mm

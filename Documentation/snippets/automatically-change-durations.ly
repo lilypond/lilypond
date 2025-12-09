@@ -27,7 +27,6 @@ number of dots to be added as a positive integer.
 
 \paper {
   indent = 0
-  tagline = ##f
 }
 
 music = \relative c'' { a1 b2 c4 d8 r }

@@ -27,8 +27,6 @@ normally printed, using some Scheme code.
 } % begin verbatim
 
 
-\paper { tagline = ##f }
-
 hairpinWithCenteredText =
 #(define-music-function (text) (markup?)
   #{

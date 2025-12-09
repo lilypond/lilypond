@@ -45,5 +45,4 @@ music = {
 
 \paper {
   line-width = 100\mm
-  tagline = ##f
 }

@@ -49,5 +49,3 @@ music = \relative c' {
   \set Score.alternativeNumberingStyle = #'numbers-with-letters
   \music
 }
-
-\paper { tagline = ##f }

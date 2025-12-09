@@ -32,7 +32,6 @@ be hidden by enabling the callback.
 
 \paper {
   ragged-right = ##t
-  tagline = ##f
 }
 
 \relative c'' {
