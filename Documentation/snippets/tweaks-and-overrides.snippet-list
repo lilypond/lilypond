@@ -11,8 +11,8 @@ analysis-brackets-above-the-staff.ly
 analysis-brackets-with-labels.ly
 asymmetric-slurs.ly
 breaking-vertical-alignment-of-dynamics-and-textscripts.ly
-caesura-railtracks-with-fermata.ly
-changing-a-single-notes-size-in-a-chord.ly
+caesura--railtracks--with-fermata.ly
+changing-a-single-note-s-size-in-a-chord.ly
 changing-beam-thickness-and-spacing.ly
 changing-form-of-multi-measure-rests.ly
 changing-properties-for-individual-grobs.ly
@@ -27,7 +27,6 @@ controlling-the-vertical-ordering-of-scripts.ly
 controlling-tuplet-bracket-visibility.ly
 creating-a-delayed-turn.ly
 creating-custom-key-signatures.ly
-creating-double-digit-fingerings.ly
 creating-text-spanners.ly
 cross-staff-chords---beaming-problems-workaround.ly
 cross-staff-stems.ly
@@ -39,8 +38,7 @@ displaying-grob-ancestry.ly
 dotted-harmonics.ly
 drawing-boxes-around-grobs.ly
 drawing-circles-around-various-objects.ly
-dynamics-custom-text-spanner-postfix.ly
-dynamics-text-spanner-postfix.ly
+dynamics-spanner-with-custom-text.ly
 extending-a-trillspanner.ly
 extending-glissandi-across-repeats.ly
 fine-tuning-pedal-brackets.ly
@@ -51,7 +49,7 @@ fret-diagrams-explained-and-developed.ly
 generating-custom-flags.ly
 glissandi-can-skip-grobs.ly
 hairpins-with-different-line-styles.ly
-horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly
+horizontally-aligning-custom-dynamics-like--pi--f-.ly
 how-to-change-fret-diagram-position.ly
 inserting-a-caesura.ly
 keep-change-clefs-full-sized.ly

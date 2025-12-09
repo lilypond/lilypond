@@ -7,7 +7,7 @@ analysis-brackets-above-the-staff.ly
 analysis-brackets-with-labels.ly
 applying-note-head-styles-depending-on-the-step-of-the-scale.ly
 blanking-staff-lines-using-the--whiteout-command.ly
-changing-a-single-notes-size-in-a-chord.ly
+changing-a-single-note-s-size-in-a-chord.ly
 changing-the-appearance-of-a-slur-from-solid-to-dotted-or-dashed.ly
 coloring-notes-depending-on-their-pitch.ly
 controlling-the-placement-of-chord-fingerings.ly
@@ -27,9 +27,8 @@ hammer-on-and-pull-off-using-chords.ly
 hammer-on-and-pull-off-using-voices.ly
 making-some-staff-lines-thicker-than-the-others.ly
 marking-notes-of-spoken-parts-with-a-cross-on-the-stem-sprechstimme.ly
-measure-counter.ly
+measure-counters.ly
 measure-spanner.ly
-numbering-groups-of-measures.ly
 positioning-fingering-indications-precisely.ly
 positioning-text-markups-inside-slurs.ly
 printing-text-from-right-to-left.ly
