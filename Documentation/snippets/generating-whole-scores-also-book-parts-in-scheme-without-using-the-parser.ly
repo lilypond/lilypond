@@ -44,6 +44,9 @@ this, each score scheduled for typesetting is appended to the list of
 top-level scores, and the top-level book handler (which is a Scheme
 function called to process a book once a @code{\\book@{...@}} block is
 closed) is modified to insert all collected scores so far to the book.
+
+Note: For technical reasons, only the first @code{\\book} is shown, as
+the other @code{\\book} commands create additional output files.
 "
 
   doctitle = "Generating whole scores (also book parts) in Scheme without using the parser"

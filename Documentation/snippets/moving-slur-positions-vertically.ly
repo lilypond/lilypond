@@ -23,6 +23,8 @@ what placement of the slur looks best, taking into account the
 parameter values. Positive values move the slur up, and are appropriate
 for notes with stems down. Negative values move downward slurs further
 down.
+
+See also @qq{Adjusting slur positions vertically}.
 "
 
   doctitle = "Moving slur positions vertically"

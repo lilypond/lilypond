@@ -25,47 +25,62 @@ To create blank staves, generate empty measures then remove the
 } % begin verbatim
 
 
-#(set-global-staff-size 20)
+#(set-global-staff-size 10)   % for the documentation
+% #(set-global-staff-size 20) % for letter and A4
 
-\score {
-  {
-    \repeat unfold 12 { s1 \break }
-  }
-  \layout {
-    indent = 0\in
-    \context {
-      \Staff
-      \remove "Time_signature_engraver"
-      \remove "Clef_engraver"
-      \remove "Bar_engraver"
+\book {
+  \score {
+    { \repeat unfold 12 { s1 \break } }
+
+    \layout {
+      indent = 0
+      \context {
+        \Staff
+        \remove "Time_signature_engraver"
+        \remove "Clef_engraver"
+        \remove "Bar_engraver"
+      }
+      \context {
+        \Score
+        \remove "Bar_number_engraver"
+      }
     }
-    \context {
-      \Score
-      \remove "Bar_number_engraver"
-    }
   }
-}
 
-% uncomment these lines for "letter" size
-%{
-\paper {
-  #(set-paper-size "letter")
-  ragged-last-bottom = ##f
-  line-width = 7.5\in
-  left-margin = 0.5\in
-  bottom-margin = 0.25\in
-  top-margin = 0.25\in
-}
-%}
+  % for the documentation
+  \paper {
+    #(set-paper-size "a6")
+    ragged-last-bottom = ##f
+    line-width = 90\mm
+    left-margin = 7.5\mm
+    bottom-margin = 5\mm
+    top-margin = 5\mm
+    tagline = ##f
+  }
 
-% uncomment these lines for "A4" size
-%{
-\paper {
-  #(set-paper-size "a4")
-  ragged-last-bottom = ##f
-  line-width = 180
-  left-margin = 15
-  bottom-margin = 10
-  top-margin = 10
+  % uncomment these lines for "letter" size
+  %{
+  \paper {
+    #(set-paper-size "letter")
+    ragged-last-bottom = ##f
+    line-width = 7.5\in
+    left-margin = 0.5\in
+    bottom-margin = 0.25\in
+    top-margin = 0.25\in
+    tagline = ##f
+   }
+  %}
+
+  % uncomment these lines for "A4" size
+  %{
+  \paper {
+    #(set-paper-size "a4")
+    ragged-last-bottom = ##f
+    line-width = 180\mm
+    left-margin = 15\mm
+    bottom-margin = 10\mm
+    top-margin = 10\mm
+    tagline = ##f
+  }
+  %}
 }
-%}

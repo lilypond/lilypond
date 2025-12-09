@@ -25,16 +25,10 @@ put below chords.
 
 \score {
   <<
-    \chords {
-      c1
-      c1
-    }
-    \new Staff \with {
-      \consists "Volta_engraver"
-    }
+    \chords { c1 c1 }
+    \new Staff \with { \consists "Volta_engraver" }
     {
-      \repeat volta 2 { c'1 }
-      \alternative { c' }
+      \repeat volta 2 { c'1 \alternative { c' } }
     }
   >>
   \layout {

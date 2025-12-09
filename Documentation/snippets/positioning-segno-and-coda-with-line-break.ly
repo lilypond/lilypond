@@ -25,48 +25,35 @@ line.
 } % begin verbatim
 
 
-%% Updating this snippet with convert-ly to 2.25. returns:
-%%
-%% "Not smart enough to convert music following \fine.
-%%
-%% Warning: \fine no longer enforces the end of the music.  If your piece
-%% has music following \fine that you want to exclude when it is
-%% unfolded, use \volta to exclude it.
-%% Please refer to the manual for details, and update manually."
-%%
-%% Alas, the use of \fine here is not problematic here --harm
-
-{
-  \relative c'' {
-    c4 c c c c c c c c c c c
-    \repeat segno 2 {
-      c4 c c c c c c c
-      \alternative {
-        \volta 1 {
-          c4 c c c c c c c c c c c
-          % If you don't use \break at Coda, use \noBreak here
-          % and after \bar "" below.
-          \noBreak
-          \section % double bar line
-          \cadenzaOn % pause bar count
-          \stopStaff % remove staff lines
-          % Increasing the unfold counter will expand the staff-free space
-          \repeat unfold 6 {
-            s1
-            \bar ""
-          }
-          % Place JumpScript where the staff would normally be.
-          \once \override Score.JumpScript.outside-staff-priority = ##f
-          \once \override Score.JumpScript.Y-offset = 0
-          \startStaff % resume bar count
-          \cadenzaOff % show staff lines again
+\relative c'' {
+  c4 c c c | c c c c |
+  \repeat segno 2 {
+    c4 c c c | c c c c |
+    \alternative {
+      \volta 1 {
+        c4 c c c | c c c c |
+        % If you don't use \break at Coda, use \noBreak here
+        % and after \bar "" below.
+        \noBreak
+        \section % double bar line
+        \cadenzaOn % pause bar count
+        \stopStaff % remove staff lines
+        % Increasing the unfold counter will expand the staff-free space
+        \repeat unfold 4 {
+          s1
+          \bar ""
         }
+        % Place JumpScript where the staff would normally be.
+        \once \override Score.JumpScript.outside-staff-priority = ##f
+        \once \override Score.JumpScript.Y-offset = 0
+        \startStaff % resume bar count
+        \cadenzaOff % show staff lines again
       }
     }
-    \sectionLabel "Coda"
-    % Show Coda on a new line
-    \break
-    \repeat unfold 8 { c4 c c c }
-    \fine
   }
+  \sectionLabel "Coda"
+  % Show Coda on a new line
+  \break
+  \repeat unfold 6 { c4 c c c }
+  \fine
 }

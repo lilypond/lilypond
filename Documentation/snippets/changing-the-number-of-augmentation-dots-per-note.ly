@@ -14,8 +14,8 @@
   categories = "Expressive marks, Rhythms"
 
   texidoc = "
-The number of augmentation dots on a single note can be changed
-independently of the dots placed after the note.
+The number of augmentation dots on a single note can be overridden by
+setting the @code{dot-count} property of the @code{Dots} grob.
 "
 
   doctitle = "Changing the number of augmentation dots per note"

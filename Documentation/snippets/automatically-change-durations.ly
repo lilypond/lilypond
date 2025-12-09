@@ -25,10 +25,6 @@ number of dots to be added as a positive integer.
 } % begin verbatim
 
 
-\paper {
-  indent = 0
-}
-
 music = \relative c'' { a1 b2 c4 d8 r }
 
 {

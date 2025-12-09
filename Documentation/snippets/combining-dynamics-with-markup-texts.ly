@@ -24,8 +24,9 @@ Some dynamics may involve text indications (such as @qq{più forte} or
 
 piuF = \markup { \italic più \dynamic f }
 
-\layout { ragged-right = ##f }
-
-\relative c'' {
-  c2\f c-\piuF
+\markup \with-true-dimensions % work around a cropping issue
+\score {
+  \relative c'' {
+    c2\f c-\piuF
+  }
 }

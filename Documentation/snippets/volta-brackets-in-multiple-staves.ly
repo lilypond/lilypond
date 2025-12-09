@@ -17,6 +17,8 @@
   texidoc = "
 By adding the @code{Volta_engraver} to the relevant staff, volte can be
 put over staves other than the topmost one in a score.
+
+@code{\\repeat} and related commands should be present in all staves.
 "
 
   doctitle = "Volta brackets in multiple staves"

@@ -15,8 +15,9 @@
                 overrides"
 
   texidoc = "
-Two alternative methods for bar numbering can be set, especially for
-when using repeated music.
+Setting the @code{alternativeNumberingStyle} context property, two
+additional methods are available for enumerating bar numbers in
+repeats.
 "
 
   doctitle = "Alternative bar numbering"

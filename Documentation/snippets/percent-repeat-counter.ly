@@ -14,8 +14,8 @@
   categories = "Repeats"
 
   texidoc = "
-Measure repeats of more than two repeats can get a counter when the
-convenient property is switched, as shown in this example:
+Measure repeats of more than two repeats are printed with a counter if
+the @code{countPercentRepeats} context property is set.
 "
 
   doctitle = "Percent repeat counter"

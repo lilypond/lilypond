@@ -24,19 +24,18 @@ the example.
 
 
 example = {
-  \tempo "Allegro"
+  R1
+  \tempo "Allegro molto"
   R1*6
-  \tempo "Rall."
+  \tempo "poco rit."
   R1*2
-  \tempo "A tempo"
+  \tempo "a tempo"
   R1*8
 }
 
 {
   \compressMMRests {
     \example
-    R1
-    R1
     \override Score.MetronomeMark.extra-spacing-width = #'(-3 . 0)
     \example
   }

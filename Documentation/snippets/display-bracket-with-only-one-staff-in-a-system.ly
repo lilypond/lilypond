@@ -14,11 +14,10 @@
   categories = "Staff notation, Tweaks and overrides"
 
   texidoc = "
-If there is only one staff in one of the staff types @code{ChoirStaff}
-or @code{StaffGroup}, by default the bracket and the starting bar line
-will not be displayed. This can be changed by overriding
-@code{collapse-height} to set its value to be less than the number of
-staff lines in the staff.
+If there is only one staff in a @code{ChoirStaff} or @code{StaffGroup}
+context, the bracket and the starting bar line will not be displayed by
+default. This can be changed by setting the @code{collapse-height}
+property to a value less than the number of staff lines in the staff.
 
 Note that in contexts such as @code{PianoStaff} and @code{GrandStaff}
 where the systems begin with a brace instead of a bracket, another

@@ -33,11 +33,13 @@ music = \relative c'' {
 
 \new Voice {
   \relative c' {
+    \override TextScript.staff-padding = #2.5
+
     \time 2/4
     \override TupletBracket.visible-over-note-heads = ##t
     \override Score.TextMark.non-musical = ##f
-    { \textMark \markup "default" \music }
+    <>^\markup "default" \music
     \override TupletBracket.bracket-visibility = #'if-no-beam
-    { \textMark \markup \typewriter "'if-no-beam" \music }
+    <>^\markup \typewriter "if-no-beam" \music
   }
 }

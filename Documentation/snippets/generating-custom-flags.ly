@@ -57,18 +57,18 @@ snippetexamplenotes =
 
 {
   \time 1/4
-  \textMark "Normal flags"
+  <>^"Normal flags"
   \snippetexamplenotes
 
-  \textMark "Custom flag: inverted"
+  <>_"Custom flag: inverted"
   \override Flag.stencil = #inverted-flag
   \snippetexamplenotes
 
-  \textMark "Custom flag: weight"
+  <>^"Custom flag: weight"
   \override Flag.stencil = #weight-flag
   \snippetexamplenotes
 
-  \textMark "Revert to normal"
+  <>_"Revert to normal"
   \revert Flag.stencil
   \snippetexamplenotes
 }

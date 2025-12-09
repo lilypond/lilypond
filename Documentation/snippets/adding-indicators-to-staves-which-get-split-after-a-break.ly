@@ -19,6 +19,12 @@ This snippet defines the commands @code{\\splitStaffBarLine},
 add arrows at a bar line to denote that several voices sharing a staff
 will each continue on a staff of their own in the next system, or that
 voices split in this way recombine.
+
+Note that the implementation in this snippet draws dimensionless arrows
+into the right margin. For normal printing, this doesn't cause
+problems. However, it is necessary to increase the bounding box
+horizontally if you render the code as an image to avoid cropping, as
+demonstrated below.
 "
 
   doctitle = "Adding indicators to staves which get split after a break"
@@ -87,8 +93,9 @@ convUpStaffBarLine = {
 }
 
 \paper {
-  ragged-right = ##t
+  indent = 10\mm
   short-indent = 10\mm
+  line-width = 8\cm
 }
 
 separateSopranos = {
@@ -145,46 +152,48 @@ bas = {
   \repeat unfold 4 c2
 }
 
-\score {
-  <<
-    \new ChoirStaff <<
-      \new Staff = up \with {
-        instrumentName = "SI SII"
-        shortInstrumentName = "SI SII"
-      } {
-        s1*4
-      }
+\markup \pad-x #3  % avoid cropping
+  \score {
+    <<
+      \new ChoirStaff <<
+        \new Staff = up \with {
+          instrumentName = "SI SII"
+          shortInstrumentName = "SI SII"
+        } {
+          s1*4
+        }
 
-      \new Staff = shared \with {
-        instrumentName = "S A"
-        shortInstrumentName = "S A"
-      } <<
-        \new Voice = sopI \sI
-        \new Voice = sopII \sII
-        \new Voice = altI \aI
-        \new Voice = altII \aII
-      >>
-      \new Lyrics \with {
-        alignBelowContext = up
-      }
-      \lyricsto sopII { e f g h }
-      \new Lyrics \lyricsto altI { a b c d e f g h i j k l }
+        \new Staff = shared \with {
+          instrumentName = "S A"
+          shortInstrumentName = "S A"
+        } <<
+          \new Voice = sopI \sI
+          \new Voice = sopII \sII
+          \new Voice = altI \aI
+          \new Voice = altII \aII
+        >>
+        \new Lyrics \with {
+          alignBelowContext = up
+        }
+        \lyricsto sopII { e f g h }
+        \new Lyrics \lyricsto altI { a b c d e f g h i j k l }
 
-      \new Staff = men \with {
-        instrumentName = "T B"
-        shortInstrumentName = "T B"
-      } <<
-        \clef F
-        \new Voice = ten \ten
-        \new Voice = bas \bas
+        \new Staff = men \with {
+          instrumentName = "T B"
+          shortInstrumentName = "T B"
+        } <<
+          \clef F
+          \new Voice = ten \ten
+          \new Voice = bas \bas
+        >>
+        \new Lyrics \lyricsto bas { a b c d e f g h i j k l }
       >>
-      \new Lyrics \lyricsto bas { a b c d e f g h i j k l }
     >>
-  >>
-  \layout {
-    \context {
-      \Staff \RemoveEmptyStaves
-      \override VerticalAxisGroup.remove-first = ##t
+
+    \layout {
+      \context {
+        \Staff \RemoveEmptyStaves
+        \override VerticalAxisGroup.remove-first = ##t
+      }
     }
-  }
 }

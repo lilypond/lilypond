@@ -34,18 +34,10 @@ context.
   }
 }
 
-%% example:
 {
   c'1
-  \repeat volta 2 { \repeat unfold 2 c' }
-  \repeat volta 2 { \repeat unfold 2 c' }
-  \alternative {
-    { c' }
-    {
-      %% v2.18 workaround
-      \once\override Score.VoltaBracket.shorten-pair = #'(1 . -1)
-      c'
-    }
-  }
+  \repeat volta 2 { c' c' }
+  \repeat volta 2 { c' c' \alternative { \volta 1 { c' }
+                                         \volta 2 { c' } } }
   \bar "|."
 }

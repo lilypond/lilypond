@@ -14,10 +14,12 @@
   categories = "Rhythms"
 
   texidoc = "
-Bar numbers by default are right-aligned to their parent object. This
-is usually the left edge of a line or, if numbers are printed within a
-line, the left-hand side of a bar line. The numbers may also be
-positioned directly over the bar line or left-aligned to the bar line.
+The default alignment of bar numbers depends on its position: at the
+beginning of a staff, bar numbers are right-aligned; at all other
+positions, they are left-aligned. Using Scheme function
+@code{break-alignment-list}, this can be changed; the three arguments
+of this function are the alignment for end-of-line, middle-of-line, and
+start-of-line position (in this order).
 "
 
   doctitle = "Aligning bar numbers"
@@ -31,11 +33,16 @@ positioned directly over the bar line or left-aligned to the bar line.
   \override Score.BarNumber.font-size = 2
   % Print a bar number every second measure
   \set Score.barNumberVisibility = #(every-nth-bar-number-visible 2)
-  c1 | c1
-  % Center-align bar numbers
-  \override Score.BarNumber.self-alignment-X = #CENTER
-  c1 | c1
-  % Left-align bar numbers
-  \override Score.BarNumber.self-alignment-X = #LEFT
-  c1 | c1
+
+  c1 | c1 | c1 | \break
+  c1 | c1 | c1 | \break
+
+  \override Score.BarNumber.self-alignment-X =
+    #(break-alignment-list CENTER RIGHT CENTER)
+  c1 | c1 | c1 | \break
+  c1 | c1 | c1 |
+}
+
+\paper {
+  line-width = 70\mm
 }
