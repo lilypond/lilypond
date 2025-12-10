@@ -21,11 +21,11 @@
 @cindex avaluar l'Scheme
 @cindex LISP
 
-El LilyPond s'utiliza el llenguatge de programació Scheme, tant
+El LilyPond s'utilitza el llenguatge de programació Scheme, tant
 com part de la sintaxi del codi d'entrada, com per servir de
 mecanisme intern que uneix els mòduls del programa entre sí.
 Aquesta secció és una panoràmica molt breu sobre com introduir
-dades a l'Scheme.  Si voleu saver més sobre l'Scheme, consulteu
+dades a l'Scheme.  Si voleu saber més sobre l'Scheme, consulteu
 @uref{https://@/www@/.schemers@/.org}.
 
 El LilyPond utilitza la implementació GNU Guile de l'Scheme, que
@@ -44,17 +44,17 @@ l'Scheme @qq{R5RS} es troba a
 Començarem amb una introducció a l'Scheme.  Per a aquesta breu
 introducció utilitzarem l'intèrpret Guile per explorar la manera
 en la qual el llenguatge funciona.  Un cop ens haguem
-familiriatizat amb l'Scheme, mostrarem com es pot integrar el
+familiaritzat amb l'Scheme, mostrarem com es pot integrar el
 llenguatge als arxius del LilyPond.
 
 
 @node Scheme sandbox
 @subsection Banc de sorra de l'Scheme
 
-La instal·lacio del LilyPond inclou també la de la implementació
+La instal·lació del LilyPond inclou també la de la implementació
 Guile de l'Scheme.  Es pot experimentar a un @qq{banc de sorra} de
 l'Scheme obrint una finestra del terminal i teclejant
-@q{guile}. En alguns sistemes, sobreto a Windows, pot caldre
+@q{guile}. En alguns sistemes, sobretot al Windows, pot caldre
 ajustar la variable d'entorn @code{GUILE_LOAD_PATH} a la carpeta
 @code{../usr/share/guile/1.8} dins de la instal·lació del LilyPond
 (per conèixer la ruta completa a aquesta carpet, consulteu
@@ -80,7 +80,7 @@ guile>
 
 Podem introduir expressions de l'Scheme en aquest indicador per
 experimentar amb l'Scheme.  Si voleu usar la biblioteca readline
-de GNU per a una més còmoda edició de la línia d'ordrs de
+de GNU per a una més còmoda edició de la línia d'ordres de
 l'Scheme, consulteu el fitxer @file{ly/scheme-sandbox.ly} per a
 més informació.  Si ja heu activat la biblioteca readline per a
 les sessions de Guile interactives fora del LilyPond, hauria de
@@ -100,7 +100,7 @@ guile> (define a 2)
 guile>
 @end lisp
 
-Les variables de l'Scheme es poden avaluar a l'indicar del sistema
+Les variables de l'Scheme es poden avaluar a l'indicador del sistema
 del Guile, simplement teclejant el nom de la variable:
 
 @lisp
@@ -119,7 +119,7 @@ guile> (display a)
 
 @noindent
 Observeu que el valor @code{2} i l'indicador del sistema
-@code{guile} es mostren en la misma línia.  Això es pot evitar
+@code{guile} es mostren en la mateixa línia.  Això es pot evitar
 cridant al procediment de la nova línia o imprimint un caràcter de
 la nova línia.
 
@@ -151,7 +151,7 @@ dels tipus de dades que són de rellevància respecte de l'entrada
 del LilyPond.
 
 @table @asis
-@item Booleanos
+@item Booleans
 Els valors Booleans són Vertader i Fals.  Vertader en l'Scheme és
 @code{#t} i Fals és @code{#f}.
 @funindex ##t
@@ -162,7 +162,7 @@ Els nombres s'escriuen de la forma normal, @code{1} és el nombre
 (enter) u, mentre que @w{@code{-1.5}} és un nombre en coma flotant
 (un nombre no enter).
 
-@item Cadenas
+@item Cadenes
 Las cadenes s'envolten entre cometes:
 
 @example
@@ -178,17 +178,17 @@ una cadena"
 @end example
 
 @noindent
-i els caràcters de línia nova al final de cada línia s'incloiran
+i els caràcters de línia nova al final de cada línia s'inclouran
 dins de la cadena.
 
 Els caràcters de línia nova també es poden afegir mitjançant la
 inclusió de @code{\n} en la cadena.
 
 @example
-"això\nés una\ncadena de divereses línies"
+"això\nés una\ncadena de diverses línies"
 @end example
 
-Les cometes dobles i barres invertides s'afageixen a les cadenes
+Les cometes dobles i barres invertides s'afegeixen a les cadenes
 precedint-les d'una barra invertida.  La cadena @code{\a va dir
 "b"} s'introdueix com
 
@@ -231,7 +231,7 @@ parèntesis i separats per un espai, un punt (@code{.}) i un altre
 espai.  El punt @emph{no és} un punt decimal, si no més bé un
 indicador de parella.
 
-Les parelles es poden introduir com valors literals precendint-los
+Les parelles es poden introduir com valors literals precedint-los
 d'un caràcter de cometa simple o apòstrof.
 
 @lisp
@@ -293,7 +293,7 @@ La representació d'una llista com a elements individuals separats
 per espais i envoltada entre parèntesis és realment una forma
 compacta de les parelles amb punt que constitueixen la llista, on
 el punt i immediatament un parèntesis d'obertura se suprimeixen
-junt al parèntesis de tancament corresponent.  Sensa aquesta
+junt al parèntesis de tancament corresponent.  Sense aquesta
 compactació, la sortida hauria estat
 @lisp
 (1 . (2 . (3 . ("abc" . (17.5 . ())))))
@@ -312,11 +312,11 @@ guile> '(17 23 "pep" "pepet" "pepepet")
 Les llistes són una part fonamental de l'Scheme.  De fet, l'Scheme
 es considera un dialecte del Lisp, on @q{lisp} és una abreviatura
 de @q{List Processing} (procés de llistes).  Totes les
-expresssions de l'Scheme són llistes.
+expressions de l'Scheme són llistes.
 
 
 @node Association lists (alists)
-@unnumberedsubsubsec Llistes associatives (listas-A)
+@unnumberedsubsubsec Llistes associatives (llistes-A)
 
 Un tipus especial de llistes són les @emph{llistes associatives} o
 @emph{llistes-A}.  Es pot usar una llista-A per emmagatzemar dades
@@ -350,7 +350,7 @@ Una Taula de hash és semblant a una matriu, però els índexs de la
 matriu poden ser qualsevol tipus de valor de l'Scheme, no sols enters.
 
 Les taules de hash són més eficients que les llistes_a si hi ha
-una gran quantitat de dades a emmgatzemar i les dades canvien amb
+una gran quantitat de dades a emmagatzemar i les dades canvien amb
 molt poca freqüència.
 
 La sintaxi per crear taules de hash és una mica complexa, però
@@ -396,17 +396,16 @@ guile>
 @subsection Càlculs a l'Scheme
 
 @ignore
-Todo el tiempo hemos estado usando listas.  Un cálculo, como @code{(+
-1 2)} también es una lista (que contiene el símbolo @code{+} y los
-números 1 y@tie{}2).  Normalmente, las listas se interpretan como
-cálculos, y el intérprete de Scheme sustituye el resultado del
-cálculo.  Para escribir una lista, detenemos la evaluación.  Esto se
-hace precediendo la lista por un apóstrofo @code{'}.  Así, para los
-cálculos no usamos ningún apóstrofo.
+We have been using lists all along.  A calculation, like @code{(+ 1 2)}
+is also a list (containing the symbol @code{+} and the numbers 1
+and@tie{}2).  Normally lists are interpreted as calculations, and the
+Scheme interpreter substitutes the outcome of the calculation.  To enter a
+list, we stop the evaluation.  This is done by quoting the list with a
+quote @code{'} symbol.  So, for calculations do not use a quote.
 
-Dentro de una lista o pareja precedida de apóstrofo, no hay necesidad
-de escribir ningún apóstrofo más.  Lo siguiente es una pareja de
-símbolos, una lista de símbolos y una lista de listas respectivamente:
+Inside a quoted list or pair, there is no need to quote anymore.  The
+following is a pair of symbols, a list of symbols and a list of lists
+respectively,
 
 @example
 #'(stem . head)
@@ -470,7 +469,7 @@ guile>
 
 Aquí podem veure que l'intèrpret estava intentant tractar l'1 com
 un operador o procediment, i no ho va poder fer.  D'aquí que
-l'error sigu "Wrong type to apply: 1".
+l'error sigui "Wrong type to apply: 1".
 
 Així doncs, per crear una llista hem d'usar l'operador de llista,
 o podem precedir-la d'un apòstrof perquè l'intèrpret no intenti
@@ -569,7 +568,7 @@ guile> (menor-que-deu? 15)
 @unnumberedsubsubsec Valors de retorn
 
 Els procediments de l'Scheme sempre retornen un valor de retorn,
-que és el valor de l'última expressió executada al procedimentt.
+que és el valor de l'última expressió executada al procediment.
 El valor de retorn pot ser qualsevol valor de l'Scheme vàlid, fins
 i tot una estructura de dades complexa o un procediment.
 
@@ -628,7 +627,7 @@ guile> (if (> a b) "a és més gran que b" "a no és més gran que b")
 @node cond
 @unnumberedsubsubsec cond
 
-Un altre procediment condicinoal a l'Scheme és @code{cond}:
+Un altre procediment condicional a l'Scheme és @code{cond}:
 
 @example
 (cond (expressió-de-prova-1 seqüència-de-expressions-resultant-1)
@@ -660,7 +659,7 @@ guile> (cond ((< a b) "a és més petit que b")
 
 L'intèrpret Guile forma part del LilyPond, cosa que significa que
 es pot incloure Scheme dins dels fitxers d'entrada del LilyPond.
-Hi ha diversos mètodes per incloure Shcme dins del LilyPond.
+Hi ha diversos mètodes per incloure Scheme dins del LilyPond.
 
 La manera més fàcil és utilitzar el símbol de
 coixinet@tie{}@code{#} abans d'una expressió de l'Scheme.
@@ -670,8 +669,7 @@ expressions, de forma semblant a com el llenguatge humà
 s'estructura en paraules i frases.  El LilyPond té un analitzador
 lèxic que reconeix elements indivisibles (nombres literals,
 cadenes de text, elements de l'Scheme, noms de nota, etc.), i un
-analitzador que entèn la sintaxi, la Gramàtica del Lilypond
-(@rcontrib{LilyPond grammar}).  Un cop que sap que s'aplica una
+analitzador que entén la sintaxi. Un cop que sap que s'aplica una
 regla sintàctica concreta, executa les accions associades amb ella.
 
 El mètode del símbol coixinet@tie{}@code{#} per incrustar Scheme
@@ -710,7 +708,7 @@ fa servir quan cridem a qualsevol variable o funció musical pel
 seu nom, com @code{\nom}, amb l'única diferència que el nom ve
 determinat per l'analitzador lèxic del LilyPond sense consultar al
 lector de l'Scheme, i així solament s'accepten els noms de
-variable consistents amb el mode actul del LilyPond.
+variable consistents amb el mode actual del LilyPond.
 
 L'acció immediata de @code{$} pot portar a alguna que altra
 sorpresa, vegeu @ref{Importing Scheme in LilyPond}.  La
@@ -719,7 +717,7 @@ utilització de @code{#} on l'analitzador sintàctic li dóna suport
 aquelles que es creen utilitzant @code{#} @emph{s'interpreten} com
 a música.  No obstant, @emph{no es copien} abans de ser
 utilitzades.  Si formen part d'alguna estructura que encara podria
-tener algun ús, potser hàgiu de fer servir explícitament
+tenir algun ús, potser hàgiu de fer servir explícitament
 @code{ly:music-deep-copy}.
 
 @funindex $@@
@@ -787,7 +785,7 @@ equival a
 #(define dotze 12)
 @end example
 
-Això significa que les variables del LiyPond estan disponibles per
+Això significa que les variables del LilyPond estan disponibles per
 al seu ús dins d'expressions de l'Scheme.  Per exemple,
 podríem usar
 
@@ -807,7 +805,7 @@ directament, el que habitualment s'espera quan es passen
 funcions musicals seria que el valor original quedés intacte.
 Així doncs, quan es fa referència a una variable musical amb la
 barra invertida (com ara @code{\vintiQuatre}), el LilyPond crea
-una còpia del valor musical d'aquesta variable per utilizar-la
+una còpia del valor musical d'aquesta variable per utilitzar-la
 dins de l'expressió musical que l'envolta, enlloc d'usar el valor
 de la variable directament.
 
@@ -865,7 +863,7 @@ es converteix internament en una definició de l'Scheme:
 @end example
 
 Això significa que les variables del LilyPond i les variables de
-l'Scheme es poden barregar amb llibertat.  A l'excemple següent,
+l'Scheme es poden barregar amb llibertat.  A l'exemple següent,
 s'emmagatzema un fragment de música a la variable @code{traLaLa},
 i es duplica usant l'Scheme.  El resultat s'importa dins d'un bloc
 @code{\score} per mitjà d'una segona variable @code{twice}:
@@ -885,7 +883,7 @@ traLaLa = { c'4 d'4 }
 
 En realitat, això és un exemple força interessant.  L'assignació
 sols té lloc després que l'analitzador sintàctic s'ha assegurat
-que no segueix res semblan a @code{\addlyrics}, de manera que cal
+que no segueix res semblant a @code{\addlyrics}, de manera que cal
 comprovar el que ve a continuació.  Llegeix el símbol @code{#} i
 l'expressió de l'Scheme següent @emph{sense} avaluar-la, de forma
 que pot procedir a l'assignació, i @emph{posteriorment} executar
@@ -910,7 +908,7 @@ $(make-sequential-music newLa)
 @end example
 
 Podem utilitzar @code{$} amb una expressió de l'Scheme a qualsevol
-lloc en el qual usaríem @code{\@var{nom}} després d'ahver assignat
+lloc en el qual usaríem @code{\@var{nom}} després d'haver assignat
 l'expressió de l'Scheme a una variable @var{nom}.  Aquesta
 substitució es produeix dins de l'@q{analitzador lèxic}, de manera
 que el LilyPond no arriba a assabentar-se de la diferència.
@@ -947,7 +945,7 @@ Ara bé, en totes aquestes formes, el codi de l'Scheme s'avalua en
 el moment en el qual el codi d'entrada encara s'està processant,
 ja sigui a l'analitzador lèxic o a l'analitzador sintàctic.  Si
 ens ca que s'executi en un moment posterior, hem de consultar
-@ref{Void scheme functions}, o emmagatzermar-ho dins d'un procediment.
+@ref{Void scheme functions}, o emmagatzemar-ho dins d'un procediment.
 
 @example
 #(define (nopc)
@@ -994,7 +992,6 @@ anomenarem a les últimes @q{propietats} i a les primeres
 @q{variables.}  Així, l'objecte plica té una propietat
 @code{thickness} (gruix), mentre que @code{vintiQuatre} és una
 variable.
-mientras que @code{veintiCuatro} es una variable.
 
 @cindex propietats comparades amb variables
 @cindex variables comparades amb propietats
@@ -1116,7 +1113,7 @@ intern, sota l'epígraf @rinternals{Music expressions}.
 @item
 @q{type} (tipus) o interfície: Cada nom musical té diversos
 @q{tipus} o interfícies, per exemple, una nota és un @code{event},
-pero también es un @code{note-event}, un @code{rhythmic-event}, i
+però també és un @code{note-event}, un @code{rhythmic-event}, i
 un @code{melodic-event}.  Totes les classes de música estan
 llistades en el manual de Referència de funcionament intern, sota
 l'epígraf @rinternals{Music classes}.
@@ -1133,39 +1130,35 @@ duració d'aquesta nota.  HI ha una llista de totes les propietats
 disponibles al manual de Referència de funcionament intern, sota
 l'epígraf @rinternals{Music properties}.
 
-Una expresión musical compuesta es un objeto musical que contiene
-otros objetos musicales dentro de sus propiedades.  Se puede
-almacenar una lista de objetos dentro de la propiedad
-@code{elements} de un objeto musical, o un único objeto musical
-@q{hijo} dentro de la propiedad @code{element}.  Por ejemplo,
-@rinternals{SequentialMusic} tiene su hijo dentro de
-@code{elements}, y @rinternals{GraceMusic} tiene su argumento
-único dentro de @code{element}.  El cuerpo de una repetición se
-almacena dentro de la propiedad @code{element} de
-@rinternals{RepeatedMusic}, y las alternativas dentro de
+Una expressió musical composta és un objecte musical que conté
+d'altres objectes musicals dins de les seves propietats.  Es pot
+emmagatzemar una llista d'objectes dins de la propietat
+@code{elements}.  Per exemple, @rinternals{SequentialMusic} té el
+seu fill dins de @code{elements}, i @rinternals{GraceMusic} té el
+seu argument únic dins de @code{element}.  El cos d'una repetició
+s'emmagatzema dins de la propietat @code{element} de 
+@rinternals{VoltaRepeatedMusic}, i les alternatives dins de
 @code{elements}.
 
 
 @node Building complicated functions
-@section Construir funciones complicadas
+@section Construcció de funcions complicades
 
-Esta sección explica cómo reunir la información necesaria para
-crear funciones musicales complicadas.
-
+Aquesta secció explica com reunir la informació necessària per
+crear funcions musicals complicades.
 
 @node Displaying music expressions
-@subsection Presentación de las expresiones musicales
+@subsection Presentació de les expressions musicals
 
-@cindex almacenamiento interno
-@cindex imprimir expresiones musicales
-@cindex representación interna, impresión de
+@cindex emmagatzemament intern
+@cindex impressió d'expressions musicals
+@cindex representació interna, impressió de
 @cindex displayMusic
 @funindex \displayMusic
 
-Si se está escribiendo una función musical, puede ser muy
-instructivo examinar cómo se almacena internamente una expresión
-musical.  Esto se puede hacer con la función musical
-@code{\displayMusic}.
+Si s'està escrivint una funció musical, pot ser molt instructiu
+examinar com s'emmagatzema internament una expressió musical.
+Això es pot fer amb la funció musical @code{\displayMusic}.
 
 @example
 @{
@@ -1174,7 +1167,7 @@ musical.  Esto se puede hacer con la función musical
 @end example
 
 @noindent
-imprime lo siguiente:
+imprimeix el següent:
 
 @example
 (make-music
@@ -1193,10 +1186,11 @@ imprime lo siguiente:
           (ly:make-pitch 0 0 0))))
 @end example
 
-De forma predeterminada, LilyPond imprime estos mensajes sobre la
-consola junto al resto de los mensajes.  Para separar estos
-mensajes y guardar el resultado de @code{\display@{LOQUESEA@}},
-puede especificar que se use un puerto de salida opcional:
+De manera predeterminada, el LilyPond imprimeix aquests missatges
+sobre la consola junt a la resta dels missatges. Per separar
+aquests missatge i desar el resultat de
+@code{\display@{ELQUESIGUI@}}, podeu especificar que s'usi un port
+de sortida opcional:
 
 @example
 @{
@@ -1204,9 +1198,9 @@ puede especificar que se use un puerto de salida opcional:
 @}
 @end example
 
-Esto sobreescribe el archivo de salida anterior cada vez ques e
-llama; si necesitamos escribir más de una expresión, debemos usar
-una variable para el puerto y reutilizarla:
+Això sobreescriu el fitxer de sortida anterior cada cop que es
+crida; si ens cal escriure més d'una expressió, hem d'usar una
+variable per al port i reutilitzar-la:
 @example
 @{
   port = #(open-output-file "display.txt")
@@ -1216,13 +1210,13 @@ una variable para el puerto y reutilizarla:
 @}
 @end example
 
-El manual de Guile describe los puertos detalladamente.  Solo es
-realmente necesario cerrar el puerto si necesitamos leer el
-archivo antes de que LilyPond termine; en el primer ejemplo, no
-nos hemos molestado en hacerlo.
+El manual del Guile descriu els ports detalladament.  Sols es
+realment necessari tancar el port si ens cal llegir el fitxer
+abans que acabi el LilyPond; en el primer exemple, no ens hem
+molestat de fer-ho.
 
-Un poco de reformateo hace a la información anterior más fácil de
-leer:
+Una mica d'ajustament del format fa que sigui més fàcil de llegir
+la informació anterior:
 
 @example
 (make-music 'SequentialMusic
@@ -1236,25 +1230,26 @@ leer:
 	       'pitch    (ly:make-pitch 0 0 0))))
 @end example
 
-Una secuencia musical @code{@{ @dots{} @}} tiene el nombre
-@code{SequentialMusic}, y sus expresiones internas se almacenan
-coma una lista dentro de su propiedad @code{'elements}.  Una nota
-se representa como un objeto @code{NoteEvent} (que almacena las
-propiedades de duración y altura) con información adjunta (en este
-caso, un evento @code{AbsoluteDynamicEvent} con una propiedad
-@code{"f"} de texto) almacenada en su propiedad
-@code{articulations}.
+Una seqüència musical @code{@{ @dots{} @}} té el nom
+@code{SequentialMusic}, i les seves expressions internes
+s'emmagatzemen com a una llista dins de la seva propietat
+@code{'elements}.  Una nota es representa com un objecte
+@code{NoteEvent} (que emmagatzema les propietats de duració i
+altura) amb informació adjunta (en aquest cas, un esdeveniment
+@code{NoteEvent} (que emmagatzema propietats de duració i altura)
+com informació adjunta (en aquest cas, un esdeveniment
+@code{AbsoluteDynamicEvent} amb una propietat @code{"f"} de text)
+emmagatzemada en la seva propietat @code{articulations}.
 
 @funindex \void
 
-@code{\displayMusic} devuelve la música que imprime en la consola,
-y por ello se interpretará al tiempo que se imprime en la consola.
-Para evitar la interpretación, escriba @code{\void} antes de
-@code{\displayMusic}.
-
+@code{\displayMusic} retorna la música que s'imprimeix a la
+consola, i per això s'interpretarà al mateix moment que
+s'imprimeix a la consola. Per evitar la interpretació, escriviu
+@code{\void} antes de @code{\displayMusic}.
 
 @node Music properties
-@subsection Propiedades musicales
+@subsection Propietats musicals
 
 @ignore
 TODO -- make sure we delineate between @emph{music} properties,
@@ -1262,7 +1257,7 @@ TODO -- make sure we delineate between @emph{music} properties,
 are potentially confusing.
 @end ignore
 
-Veamos un ejemplo:
+Vejam un exemple:
 
 @example
 someNote = c'
@@ -1276,9 +1271,8 @@ someNote = c'
   (ly:make-pitch 0 0 0))
 @end example
 
-El objeto @code{NoteEvent} es la representación de
-@code{someNote}.  Sencillo.  ¿Y si ponemos el c' dentro de un
-acorde?
+L'objecte @code{NoteEvent} és la representació de
+@code{someNote}. Senzill. I si posem el c' dins d'un acord?
 
 @example
 someNote = <c'>
@@ -1295,12 +1289,13 @@ someNote = <c'>
           (ly:make-pitch 0 0 0))))
 @end example
 
-Ahora el objeto @code{NoteEvent} es el primer objeto de la
-propiedad @code{'elements} de @code{someNote}.
+Ara l'object @code{NoteEvent} és el primer objecte de la propietat
+@code{'elements} de @code{someNote}.
 
-La función @code{display-scheme-music} es la función que se usa
-por parte de @code{\displayMusic} para imprimir la representación
-de Scheme de una expresión musical.
+La funció @code{display-scheme-music} és la funció que s'usa
+per part de @code{\displayMusic} per imprimir la representació
+per part de @code{\displayMusic} per imprimir la representació
+de Scheme d'una expressió musical.
 
 @example
 #(display-scheme-music (first (ly:music-property someNote 'elements)))
@@ -1313,8 +1308,8 @@ de Scheme de una expresión musical.
   (ly:make-pitch 0 0 0))
 @end example
 
-Después se accede a la altura de la nota a través de la propiedad
-@code{'pitch} del objeto @code{NoteEvent}:
+Després s'accedeix a l'altura de la nota mitjançant a propietat
+@code{'pitch} de l'objecte @code{NoteEvent}:
 
 @example
 #(display-scheme-music
@@ -1324,15 +1319,15 @@ Después se accede a la altura de la nota a través de la propiedad
 (ly:make-pitch 0 0 0)
 @end example
 
-La altura de la nota se puede cambiar estableciendo el valor de
-esta propiedad @code{'pitch}.
+L'altura de la nota es pot canviar establint el valor d'aquesta propietat
+@code{'pitch}.
 
 @funindex \displayLilyMusic
 
 @example
 #(set! (ly:music-property (first (ly:music-property someNote 'elements))
                           'pitch)
-       (ly:make-pitch 0 1 0)) ;; establecer la altura a d'.
+       (ly:make-pitch 0 1 0)) ;; establir l'altura a d'.
 \displayLilyMusic \someNote
 ===>
 d'4
@@ -1340,13 +1335,11 @@ d'4
 
 
 @node Doubling a note with slurs (example)
-@subsection Duplicar una nota con ligaduras (ejemplo)
+@subsection Duplicació una nota amb lligadures (exemple)
 
-Supongamos que queremos crear una función que convierte una
-entrada como @code{a} en @code{@{ a( a) @}}.  Comenzamos
-examinando la representación interna de la música con la que
-queremos terminar.
-
+Suposem que volem crear una funció que converteix una entrada com
+@code{a} a @code{@{ a( a) @}}.  Comencem examinant la
+representació interna de la música amb la que volem terminar.
 @example
 \displayMusic@{ a'( a') @}
 ===>
@@ -1377,11 +1370,11 @@ queremos terminar.
           (ly:make-pitch 0 5 0))))
 @end example
 
-La mala noticia es que las expresiones @code{SlurEvent} se deben
-añadir @q{dentro} de la nota (dentro de la propiedad
+La mala notícia és que les expressions @code{SlurEvent} s'han
+d'afegir @q{dins} de la nota (dins de la propietat
 @code{articulations}).
 
-Ahora examinamos la entrada.
+Ara examinem l'entrada.
 
 @example
 \displayMusic a'
@@ -1394,21 +1387,20 @@ Ahora examinamos la entrada.
   (ly:make-pitch 0 5 0))))
 @end example
 
-Así pues, en nuestra función, tenemos que clonar esta expresión
-(de forma que tengamos dos notas para construir la secuencia),
-añadir @code{SlurEvent} a la propiedad @code{'articulations} de
-cada una de ellas, y por último hacer una secuencia
-@code{SequentialMusic} con los dos elementos @code{NoteEvent}.
-Para añadir a una propiedad, es útil saber que una propiedad no
-establecida se lee como @code{'()}, la lista vacía, así que no se
-requiere ninguna comprobación especial antes de que pongamos otro
-elemento delante de la propiedad @code{articulations}.
-
+Així doncs, en la nostra funció, hem de clonar aquesta expressió
+(de forma que tinguem dues notes per construir la seqüència),
+afegir @code{SlurEvent} a la propietat @code{'articulations} de
+cada una d'elles, i per últim fer una seqüència
+@code{SequentialMusic} amb els dos elements @code{NoteEvent}.
+Per afegir a una propietat, és útil saber que una propietat no
+establerta es llegeix com a @code{'()}, la llista buida, així que
+no es requereix cap comprovació especial abans que posem un altre
+element endavant de la propietat @code{articulations}.
 
 @example
 doubleSlur = #(define-music-function (note) (ly:music?)
          "Return: @{ note ( note ) @}.
-         `note' is supposed to be a single note."
+         `note' se suposa que és un nota única."
          (let ((note2 (ly:music-deep-copy note)))
            (set! (ly:music-property note 'articulations)
                  (cons (make-music 'SlurEvent 'span-direction -1)
@@ -1421,24 +1413,24 @@ doubleSlur = #(define-music-function (note) (ly:music?)
 
 
 @node Adding articulation to notes (example)
-@subsection Añadir articulaciones a las notas (ejemplo)
+@subsection Afegir articulacions a les notes (exemple)
 
-La manera fácil de añadir articulación a las notas es juxtaponer dos
-expresiones musicales.  Sin embargo,
-supongamos que queremos escribir una función musical que lo haga.
+La manera fàcil d'afegir una articulació a les notes és juxtaposar
+dos expressions musicals.  Malgrat això, suposem que volem escriure
+una funció musical que ho faci.
 
-Una @code{$variable} dentro de la notación @code{#@{@dots{}#@}} es
-como una @code{\variable} normal en la notación clásica de
-LilyPond.  Podríamos escribir
+Una @code{$variable} dins de la notació @code{#@{@dots{}#@}} és
+com una @code{\variable} normal en la notació clàssica del
+LilyPond.  Podríem escriure
 
 @example
 @{ \music -. -> @}
 @end example
 
 @noindent
-pero a los efectos de este ejemplo, aprenderemos ahora cómo
-hacerlo en Scheme.  Empezamos examinando nuestra entrada y la
-salida deseada.
+però als efectes d'aquest exemple, aprendrem ara com fer-lo a
+l'Scheme.  Comencem examinant la nostra entrada i la sortida
+desitjada.
 
 @example
 %  input
@@ -1451,7 +1443,7 @@ salida deseada.
   'pitch
   (ly:make-pitch -1 0 0))))
 =====
-%  desired output
+%  sortida desitjada
 \displayMusic c4->
 ===>
 (make-music
@@ -1466,17 +1458,17 @@ salida deseada.
   (ly:make-pitch -1 0 0))
 @end example
 
-Vemos que una nota (@code{c4}) se representa como una expresión
-@code{NoteEvent}.  Para añadir una articulación de acento, se debe
-añadir una expresión @code{ArticulationEvent} a la propiedad
-@code{articulations} de la expresión @code{NoteEvent}.
+Veiem que una nota (@code{c4}) es representa como una expressió
+@code{NoteEvent}.  Per afegir una articulació d'accent, s'ha
+d'afegir una expressió @code{ArticulationEvent} a la propietat
+@code{articulations} de l'expressió @code{NoteEvent}.
 
-Para construir esta función, empezamos con
+Per construir aquesta funció, comencem amb
 
 @example
 (define (add-accent note-event)
-  "Add an accent ArticulationEvent to the articulations of `note-event',
-  which is supposed to be a NoteEvent expression."
+  "Afegeix un accent ArticulationEvent a les articulacions de `note-event',
+  que se suposa que és una expressió NoteEvent."
   (set! (ly:music-property note-event 'articulations)
         (cons (make-music 'ArticulationEvent
                 'articulation-type 'accent)
@@ -1484,77 +1476,77 @@ Para construir esta función, empezamos con
   note-event)
 @end example
 
-La primera línea es la forma de definir una función en Scheme: el
-nombre de la función es @code{add-accent}, y tiene una variable
-llamada @code{note-event}.  En Scheme, el tipo de variable suele
-quedar claro a partir de su nombre (¡esto también es una buena
-práctica en otros lenguajes de programación!)
+La primera línea és la forma de definir una funció a l'Scheme: el
+nom de la funció és @code{add-accent}, i té una variable anomenada
+@code{note-event}.  A l'Scheme, el tipus de variable sol quedar
+clar a partir del seu nom (això també es una bona pràctica a
+d'altres llenguatges de programació).
 
 @example
-"Add an accent@dots{}"
+"Afegeix un accent@dots{}"
 @end example
 
 @noindent
-es una descripción de lo que hace la función.  No es estrictamente
-necesaria, pero de igual forma que los nombres claros de variable,
-es una buena práctica.
+és una descripció del que fa la funció.  No és estrictament
+necessari, però d'igual forma que els noms clars de variable, és
+una bona pràctica.
 
-Se preguntará por qué modificamos el evento de nota directamente
-en lugar de trabajar sobre una copia (se puede usar
-@code{ly:music-deep-copy} para ello).  La razón es un contrato
-silencioso: se permite que las funciones musicales modifiquen sus
-argumentos; o bien se generan partiendo de cero (como la entrada
-del usuario) o están ya copiadas (referenciar una variable de
-música con @samp{\name} o la música procedente de expresiones de
-Scheme inmediatas @samp{$(@dots{})} proporcionan una copia).  Dado
-que sería ineficiente crear copias innecesarias, el valor devuelto
-de una función musical @emph{no} se copia.  Así pues, para cumplir
-dicho contrato, no debemos usar ningún argumento más de una vez, y
-devolverlo cuenta como una vez.
+Us preguntareu perquè modifiquem l'esdeveniment de nota
+directament enlloc de treballar sobre una còpia (es pot usar
+@code{ly:music-deep-copy} per això). La raó és un contracte
+silenciós: es permet que les funcions musicals modifiquin els seus
+arguments; o bé es generen partint de zero (com l'entrada de
+l'usuari) o estan ja copiades (referenciar una variable de música
+com @samp{\name} o la música procedent d'expressions de l'Scheme
+immediates @samp{$(@dots{})} proporcionen una còpia).  Donat que
+seria ineficient crear còpies innecessàries, el valor retornat
+d'una funció musical @emph{no} es copia.  Així doncs, per complir
+aquest contracte, no hem d'usar cap argument més d'un cop, i
+retornar-lo compta com un cop.
 
-En un ejemplo anterior, hemos construido música mediante la
-repetición de un argumento musical dado.  En tal caso, al menos
-una repetidión tuvo que ser una copia de sí misma.  Si no lo
-fuese, podrían ocurrir cosas muy extrañas.  Por ejemplo, si usamos
-@code{\relative} o @code{\transpose} sobre la música resultante
-que contiene los mismos elementos varias veces, estarían sujetos
-varias veces a la relativización o al transporte.  Si los
-asignamos a una variable de música, se rompe el curso porque hacer
-referencia a @samp{\name} creará de nuevo una copia que no retiene
-la identidad de los elementos repetidos.
+A un exemple anterior, hem construït música mitjançant la
+repetició d'un argument musical donat. En aquest cas, almenys una
+repetició ha d'haver sigut una còpia de sí mateixa. Si no ho fos,
+podrien ocórrer coses molt estranyes.  Per exemple, si usem
+@code{\relative} o @code{\transpose} sobre la música resultant
+que conté els mateixos elements diverses vegades, estarien
+subjectes diverses vegades a la relativització o al transport.
+Si els assignem a una variable de música, es trenca el curs perquè
+fer referència a @samp{\name} crearà de nou una còpia que no reté
+la identitat dels elements repetits.
 
-Ahora bien, aun cuando la función anterior no es una función
-musical, se usará normalmente dentro de funciones musicales.  Así
-pues, tiene sentido obedecer el mismo convenio que usamos para las
-funciones musicales: la entrada puede modificarse para producir la
-salida, y el código que llama es responsable de crear las copias
-si aún necesita el propio argumento sin modificar.  Si observamos
-las propias funciones de LilyPond como @code{music-map}, veremos
-que se atienen a los mismos principios.
+Ara bé, tot i que la funció anterior no és una funció musical,
+s'usarà normalment dins de funcions musicals.  Així doncs, té
+sentit obeir el mateix conveni que usem per a les funcions
+musicals: l'entrada pot modificar-se per produir la sortida, i el
+codi que crida és responsable de crear les còpies si encara li cal
+el propi argument sense modificar.  Si observem les pròpies
+funcions del LilyPond com @code{music-map}, veurem que respecten
+els mateixos principis.
 
-¿En qué punto nos encontramos?  Ahora tenemos un @code{note-event}
-que podemos modificar, no a causa de la utilización de
-@code{ly:music-deep-copy} sino por una explicación muy
-desarrollada.  Añadimos el acento a su propiedad de lista
+En quin punt ens trobem?  Ara tenim un @code{note-event} que podem
+modificar, no a causa de la utilització de
+@code{ly:music-deep-copy} sinó per una explicació molt
+desenvolupada.  Afegim l'accent a la seva propietat de llista
 @code{'articulations}.
 
 @example
 (set! place new-value)
 @end example
 
-Aquí, lo que queremos establecer (el @q{place}) es la propiedad
-@code{'articulations} de la expresión @code{note-event}.
+Aquí el que volem establir (el @q{place}) és la propietat
+@code{'articulations} de l'expressió @code{note-event}.
 
 @example
 (ly:music-property note-event 'articulations)
 @end example
 
-@code{ly:music-property} es la función ustilizada para acceder a las
-propiedades musicales (las @code{'articulations}, @code{'duration},
-@code{'pitch}, etc, que vemos arriba en la salida de
-@code{\displayMusic}).  El nuevo valor es la antigua propiedad
-@code{'articulations}, con un elemento adicional: la expresión
-@code{ArticulationEvent}, que copiamos a partir de la salida de
+@code{ly:music-property} és la funció utilitzada per accedir a les
+propietats musicals (les @code{'articulations}, @code{'duration},
+@code{'pitch}, etc, que veiem a dalt a la sortida de
+@code{\displayMusic}).  EL nou valor de la propietat
+@code{'articulations}, amb un element addicional: l'expressió
+@code{ArticulationEvent}, que copiem a partir de la sortida de
 @code{\displayMusic},
 
 @example
@@ -1563,25 +1555,25 @@ propiedades musicales (las @code{'articulations}, @code{'duration},
       (ly:music-property result-event-chord 'articulations))
 @end example
 
-Se usa @code{cons} para añadir un elemento a la parte delantera de
-una lista sin modificar la lista original.  Esto es lo que
-queremos: la misma lista de antes, más la nueva expresión
-@code{ArticulationEvent}.  El orden dentro de la propiedad
-@code{'articulations} no tiene importancia aquí.
+S'usa @code{cons} per afegir un element a la part d'endavant d'una
+llista sense modificar la llista original.  Això és el que volem:
+la mateixa llista d'abans, més nova expressió
+@code{ArticulationEvent}. L'ordre de la propietat
+@code{'articulations} no té importància aquí.
 
-Finalmente, una vez hemos añadido la articulación de acento a su
-propiedad @code{articulations}, podemos devolver
-@code{note-event}, de aquí la última línea de la función.
+Finalment, un cop hem afegit l'articulació d'accent a la seva
+propietat @code{articulations}, podem retornar
+@code{note-event}, per això l'última línea de la funció.
 
-Ahora transformamos la función @code{add-accent} en una función
-musical (es cuestión de un poco de aderezo sintáctico y una
-declaración del tipo de su argumento).
+Ara transformem la funció @code{add-accent} en una funció musical
+(és qüestió d'una mica d'ajustament sintàctic i una declaració del
+tipus de argument).
 
 @example
 addAccent = #(define-music-function (note-event)
                                      (ly:music?)
-  "Add an accent ArticulationEvent to the articulations of `note-event',
-  which is supposed to be a NoteEvent expression."
+  "Afegir un accent ArticulationEvent a les articulacions de `note-event',
+  que se suposa que és una expressió NoteEvent."
   (set! (ly:music-property note-event 'articulations)
         (cons (make-music 'ArticulationEvent
                 'articulation-type 'accent)
@@ -1589,8 +1581,8 @@ addAccent = #(define-music-function (note-event)
   note-event)
 @end example
 
-A continuación verificamos que esta función musical funciona
-correctamente:
+A continuació verifiquem que aquesta funció musical funciona
+correctament:
 
 @example
 \displayMusic \addAccent c4
