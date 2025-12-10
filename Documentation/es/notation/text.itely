@@ -357,10 +357,7 @@ alternativas.
 @cindex matiz, extensión de texto, personalizar
 @cindex texto, extensión de, matiz, personalizar
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/dynamics-text-spanner-postfix.ly}
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/dynamics-custom-text-spanner-postfix.ly}
+{snippets/dynamics-spanner-with-custom-text.ly}
 
 
 @morerefs

@@ -329,10 +329,7 @@ LilyPond が処理できるテキスト スパナは 1 ボイスにつき、1 �
 @cindex dynamics, text spanner, customize (強弱記号のテキスト スパナをカスタマイズする)
 @cindex text spanner, dynamics, customize (強弱記号のテキスト スパナをカスタマイズする)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/dynamics-text-spanner-postfix.ly}
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/dynamics-custom-text-spanner-postfix.ly}
+{snippets/dynamics-spanner-with-custom-text.ly}
 
 @morerefs
 記譜法リファレンス:

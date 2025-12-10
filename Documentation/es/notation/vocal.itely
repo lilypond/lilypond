@@ -2599,7 +2599,7 @@ Referencia de funcionamiento interno:
 @cindex arpegio, corchete, señalar voces divididas
 @cindex corchete, vertical, señalar voces divididas
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/using-arpeggiobracket-to-make-divisi-more-visible.ly}
+{snippets/using--arpeggiobracket-to-make-divisi-more-visible.ly}
 
 
 @morerefs

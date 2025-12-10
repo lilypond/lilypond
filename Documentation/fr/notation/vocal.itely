@@ -2552,7 +2552,7 @@ Référence des propriétés internes :
 @cindex voix, division
 @cindex division de voix
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/using-arpeggiobracket-to-make-divisi-more-visible.ly}
+{snippets/using--arpeggiobracket-to-make-divisi-more-visible.ly}
 
 @morerefs
 Manuel de notation :

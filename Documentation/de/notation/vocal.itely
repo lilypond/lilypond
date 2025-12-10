@@ -2298,7 +2298,7 @@ Referenz der Interna:
 @cindex geteilte Stimmen
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/using-arpeggiobracket-to-make-divisi-more-visible.ly}
+{snippets/using--arpeggiobracket-to-make-divisi-more-visible.ly}
 
 @morerefs
 Notationsreferenz:

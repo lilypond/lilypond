@@ -2431,7 +2431,7 @@ SATB (S: ソプラノ、A: アルト、T: テナー、B: バス) ボーカル譜
 @cindex bracket, vertical, marking divided voices (縦方向の囲みによってボイスの分割を示す)
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/using-arpeggiobracket-to-make-divisi-more-visible.ly}
+{snippets/using--arpeggiobracket-to-make-divisi-more-visible.ly}
 
 @morerefs
 記譜法リファレンス:

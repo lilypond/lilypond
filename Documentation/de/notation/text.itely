@@ -192,10 +192,7 @@ Textstrecker sind Teil des @code{Dynamic}-Kontextes, siehe
 @snippets
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/dynamics-text-spanner-postfix.ly}
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/dynamics-custom-text-spanner-postfix.ly}
+{snippets/dynamics-spanner-with-custom-text.ly}
 
 
 @morerefs

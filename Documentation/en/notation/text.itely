@@ -336,10 +336,7 @@ Workarounds can be found in @ref{Horizontal spacing}.
 @cindex dynamics, text spanner, customize
 @cindex text spanner, dynamics, customize
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/dynamics-text-spanner-postfix.ly}
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/dynamics-custom-text-spanner-postfix.ly}
+{snippets/dynamics-spanner-with-custom-text.ly}
 
 
 @morerefs

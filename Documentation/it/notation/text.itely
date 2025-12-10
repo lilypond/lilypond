@@ -179,10 +179,7 @@ LilyPond è capace di gestire un solo estensore del testo per ogni voce.
 @cindex dinamiche, estensore del testo, personalizzazione
 @cindex estensore del testo, dinamiche, personalizzazione
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/dynamics-text-spanner-postfix.ly}
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/dynamics-custom-text-spanner-postfix.ly}
+{snippets/dynamics-spanner-with-custom-text.ly}
 
 @morerefs
 Guida alla notazione:

@@ -2451,7 +2451,7 @@ Referència de funcionament interno:
 @cindex veus dividides
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/using-arpeggiobracket-to-make-divisi-more-visible.ly}
+{snippets/using--arpeggiobracket-to-make-divisi-more-visible.ly}
 
 @morerefs
 Referència de la notació:
