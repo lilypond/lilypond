@@ -22,7 +22,7 @@ Each score shows the desired beaming
 }
 {
   \time 2/8
-  a8^\markup "Beams should end at 1/8 and 2/8"
+  a8^\markup "Beams should end at 2/8"
   \repeat unfold 2 a8
   a16 a32 a64 a128 a
 }

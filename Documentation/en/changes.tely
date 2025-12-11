@@ -307,6 +307,28 @@ Certain spurious change clefs have been fixed.
 @itemize
 
 @item
+The default auto-beaming settings for 2/8 time have been changed
+to allow beaming the full measure.
+
+@lilypond
+<<
+  \time 2/8
+  \new Staff \with { subdivideBeams = ##f } {
+    <>^"subdivideBeams = ##f"
+    \repeat unfold 2 e'8
+    \repeat unfold 4 e'16
+    \repeat unfold 8 e'32
+  }
+  \new Staff \with { subdivideBeams = ##t } {
+    <>^"subdivideBeams = ##t"
+    \repeat unfold 2 e'8
+    \repeat unfold 4 e'16
+    \repeat unfold 8 e'32
+  }
+>>
+@end lilypond
+
+@item
 @code{\enablePolymeter} has been renamed to
 @code{\enablePerStaffTiming} to avoid confusion because it is
 recommended in only a subset of polymetric use cases.

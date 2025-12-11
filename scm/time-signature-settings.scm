@@ -72,8 +72,15 @@
     ((2 . 2) .
      ((beamExceptions . ((end . ((1/32 . (8 8 8 8))))))))
 
-    ;; in 2/4, 2/8 and 2/16 time:
-    ;;   use defaults, so no entries are necessary
+    ;; in 2/4 time:
+    ;;   use defaults -- no entries necessary
+
+    ;; in 2/8  time:
+    ;;   beam entire measure together
+    ((2 . 8) . ((beamExceptions . ((end . ((1/8 . (2))))))))
+
+    ;; in 2/16 time:
+    ;;   use defaults -- no entries necessary
 
     ;; in 3 2 time:
     ;;   use defaults, but end beams with 32nd notes and higher each 1 4 beat
