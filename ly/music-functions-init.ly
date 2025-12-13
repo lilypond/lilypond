@@ -750,7 +750,7 @@ parallel slurs or phrasing slurs within a single @code{Voice} context.
 \\fixed c' { c\\=1( d\\=2( e\\=1) f\\=2) }
 @end lilypond
 
-For itmes this can be used, for example, to tell LilyPond how to connect a
+For items this can be used, for example, to tell LilyPond how to connect a
 @code{FingerGlideSpanner} with non-matching fingers.
 
 @lilypond[quote,verbatim]
