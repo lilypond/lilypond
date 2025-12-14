@@ -17,7 +17,7 @@
 Want to prepare a lead sheet with a melody and chords? Look no further!
 "
 
-  doctitle = "Single staff template with notes and chords"
+  doctitle = "Single-staff template with notes and chords"
 } % begin verbatim
 
 

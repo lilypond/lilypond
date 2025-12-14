@@ -19,7 +19,7 @@ solo instrument or a melodic fragment. Cut and paste this into a file,
 add notes, and you're finished!
 "
 
-  doctitle = "Single staff template with only notes"
+  doctitle = "Single-staff template with only notes"
 } % begin verbatim
 
 

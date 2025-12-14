@@ -16,15 +16,15 @@
 
   texidoc = "
 The property @code{systemStartDelimiterHierarchy} can be used to make
-more complex nested staff groups. The command
-@code{\\set StaffGroup.systemStartDelimiterHierarchy} takes an
-alphabetical list of the number of staves produced. Before each staff a
-system start delimiter can be given. It has to be enclosed in brackets
-and takes as much staves as the brackets enclose. Elements in the list
-can be omitted, but the first bracket takes always the complete number
-of staves. The possibilities are @code{SystemStartBar},
-@code{SystemStartBracket}, @code{SystemStartBrace}, and
-@code{SystemStartSquare}.
+more complex nested staff groups. The
+@code{systemStartDelimiterHierarchy} property of the @code{StaffGroup}
+context takes an alphabetical list of the number of staves produced.
+Before each staff a system start delimiter can be given. It has to be
+enclosed in brackets and takes as much staves as the brackets enclose.
+Elements in the list can be omitted, but the first bracket takes always
+the complete number of staves. The possibilities are
+@code{SystemStartBar}, @code{SystemStartBracket},
+@code{SystemStartBrace}, and @code{SystemStartSquare}.
 "
 
   doctitle = "Nesting staves"

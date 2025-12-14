@@ -46,3 +46,8 @@ voice, the tie appears to cross voices.
     }
   >>
 }
+
+\paper {
+  line-width = 40\mm
+  ragged-right = ##f
+}

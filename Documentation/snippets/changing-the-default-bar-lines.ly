@@ -26,7 +26,7 @@ context.
 \layout {
   \context {
     \Score
-    %% Changing the defaults from engraver-init.ly
+    % Changing the defaults from engraver-init.ly
     measureBarType = "!"
     startRepeatBarType = "[|:"
     endRepeatBarType = ":|]"

@@ -14,7 +14,7 @@
   categories = "Template, Vocal music"
 
   texidoc = "
-This code shows one way of setting out a hymn tune when each line
+This code shows one way of setting out a hymn tune where each line
 starts and ends with a partial measure. It also shows how to add the
 verses as stand-alone text under the music.
 "
@@ -56,54 +56,46 @@ global = {
 }
 
 \score {  % Start score
-  <<
-    \new PianoStaff <<  % Start pianostaff
-      \new Staff <<  % Start Staff = RH
-        \global
-        \clef "treble"
-        \new Voice = "Soprano" <<  % Start Voice = "Soprano"
-          \Timeline
-          \voiceOne
-          \SopranoMusic
-        >>  % End Voice = "Soprano"
-        \new Voice = "Alto" <<  % Start Voice = "Alto"
-          \Timeline
-          \voiceTwo
-          \AltoMusic
-        >>  % End Voice = "Alto"
-      >>  % End Staff = RH
-      \new Staff <<  % Start Staff = LH
-        \global
-        \clef "bass"
-        \new Voice = "Tenor" <<  % Start Voice = "Tenor"
-          \Timeline
-          \voiceOne
-          \TenorMusic
-        >>  % End Voice = "Tenor"
-        \new Voice = "Bass" <<  % Start Voice = "Bass"
-          \Timeline
-          \voiceTwo
-          \BassMusic
-        >>  % End Voice = "Bass"
-      >>  % End Staff = LH
-    >>  % End pianostaff
-  >>
+  \new PianoStaff <<  % Start pianostaff
+    \new Staff <<  % Start Staff = RH
+      \global
+      \clef "treble"
+      \new Voice = "Soprano" <<  % Start Voice = "Soprano"
+        \Timeline
+        \voiceOne
+        \SopranoMusic
+      >>  % End Voice = "Soprano"
+      \new Voice = "Alto" <<  % Start Voice = "Alto"
+        \Timeline
+        \voiceTwo
+        \AltoMusic
+      >>  % End Voice = "Alto"
+    >>  % End Staff = RH
+
+    \new Staff <<  % Start Staff = LH
+      \global
+      \clef "bass"
+      \new Voice = "Tenor" <<  % Start Voice = "Tenor"
+        \Timeline
+        \voiceOne
+        \TenorMusic
+      >>  % End Voice = "Tenor"
+      \new Voice = "Bass" <<  % Start Voice = "Bass"
+        \Timeline
+        \voiceTwo
+        \BassMusic
+      >>  % End Voice = "Bass"
+    >>  % End Staff = LH
+  >>  % End pianostaff
 }  % End score
 
-\markup {
-  \fill-line {
-    ""
-    {
-      \column {
-        \left-align {
-          "This is line one of the first verse"
-          "This is line two of the same"
-          "And here's line three of the first verse"
-          "And the last line of the same"
-        }
-      }
-    }
-    ""
+\markup \fill-line {
+  \left-column {
+    "This is line one of the first verse"
+    "This is line two of the same"
+    \null
+    "And here's line one of the second verse"
+    "And the next line of the same"
   }
 }
 

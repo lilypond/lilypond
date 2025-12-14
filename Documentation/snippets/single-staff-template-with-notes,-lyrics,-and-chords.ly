@@ -18,7 +18,7 @@ This template allows the preparation of a song with melody, words, and
 chords.
 "
 
-  doctitle = "Single staff template with notes, lyrics, and chords"
+  doctitle = "Single-staff template with notes, lyrics, and chords"
 } % begin verbatim
 
 

@@ -15,7 +15,7 @@
                 overrides"
 
   texidoc = "
-Enclose the time signature in parentheses.
+The time signature can be enclosed within parentheses.
 "
 
   doctitle = "Time signature in parentheses"

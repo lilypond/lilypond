@@ -28,10 +28,8 @@ The appearance of pedal brackets may be altered in different ways.
 \relative c'' {
   c2\sostenutoOn c
   c2\sostenutoOff c
-  \once \override Staff.PianoPedalBracket.shorten-pair = #'(-7 . -2)
-  c2\sostenutoOn c
+  c2\tweak shorten-pair #'(-7 . -2) \sostenutoOn c
   c2\sostenutoOff c
-  \once \override Staff.PianoPedalBracket.edge-height = #'(0 . 3)
-  c2\sostenutoOn c
+  c2\tweak edge-height #'(0 . 3) \sostenutoOn c
   c2\sostenutoOff c
 }

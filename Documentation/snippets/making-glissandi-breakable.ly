@@ -59,5 +59,4 @@ music = {
 
 \paper {
   line-width = 100\mm
-  indent = 0
 }

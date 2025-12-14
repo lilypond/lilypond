@@ -15,9 +15,10 @@
 
   texidoc = "
 Horizontal alignment for lyrics can be set by overriding the
-@code{self-alignment-X} property of the @code{LyricText} object.
-@code{-1} is left, @code{0} is center, and @code{1} is right; however,
-you can use @code{#LEFT}, @code{#CENTER} and @code{#RIGHT} as well.
+@code{self-alignment-X} property of the @code{LyricText} object. Value
+@tie{}-1 means left-aligned, 0@tie{}centered, and 1@tie{}right-aligned.
+Alternatively, you can use the Scheme values @code{LEFT},
+@code{CENTER}, and @code{RIGHT} instead of numbers.
 "
 
   doctitle = "Lyrics alignment"

@@ -14,7 +14,7 @@
   categories = "Ancient notation, Contexts and engravers, Vocal music"
 
   texidoc = "
-Using tags, it is possible to produce both mensural and modern notation
+Using tags it is possible to produce both mensural and modern notation
 from the same music. In this snippet, a function @code{\\menrest} is
 introduced, allowing mensural rests to be pitched as in the original,
 but with modern rests in the standard staff position.
@@ -30,13 +30,19 @@ However, it suppresses warnings if it starts on a note that can't hold
 a beam but needs it anyway due to the use of
 @code{Completion_heads_engraver}.
 
-[The slightly shortened line length of the mensural staff avoids
-cropping of the custos glyph while LilyPond generates clipped images.]
+[Note that the custos sticks out into the right margin and might be cut
+off if the LilyPond output gets cropped, as is done in both this Wiki
+and the official documentation. The use of
+@code{\\with-true-dimensions} avoids this.]
 "
 
   doctitle = "Using tags to produce mensural and modern music from the same source"
 } % begin verbatim
 
+
+\layout {
+  line-width = 150\mm
+}
 
 menrest = #(define-music-function (note) (ly:music?)
               #{
@@ -75,6 +81,7 @@ ModLyr = \lyricmode {
   from your bright beams ab -- sen -- ted, __
 }
 
+\markup \with-true-dimensions % work around a cropping issue
 \score {
   \keepWithTag #'mens {
     <<
@@ -87,8 +94,6 @@ ModLyr = \lyricmode {
     >>
   }
   \layout {
-    line-width = 155\mm
-
     \context {
       \PetrucciVoice
       % No longer necessary starting with version 2.25.23.
@@ -96,6 +101,8 @@ ModLyr = \lyricmode {
     }
   }
 }
+
+\markup\vspace #1
 
 \score {
   \keepWithTag #'mod {
@@ -111,11 +118,4 @@ ModLyr = \lyricmode {
       \new Lyrics \lyricsto "Sop" \ModLyr
     >>
   }
-  \layout {
-    line-width = 157\mm
-  }
-}
-
-\paper {
-  ragged-last = ##t
 }

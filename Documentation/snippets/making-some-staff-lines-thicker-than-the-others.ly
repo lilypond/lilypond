@@ -16,7 +16,7 @@
 
   texidoc = "
 For educational purposes, a staff line can be thickened (e.g., the
-middle line, or to emphasize the line of the G clef). This can be
+middle line, or to emphasize the line of the G@tie{}clef). This can be
 achieved by adding extra lines very close to the line that should be
 emphasized, using the @code{line-positions} property of the
 @code{StaffSymbol} object.

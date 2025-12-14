@@ -16,8 +16,9 @@
   texidoc = "
 Sometimes you may want to put lyrics for different performers on a
 single line: where there is rapidly alternating text, for example. This
-snippet shows how this can be done with
-@code{\\override VerticalAxisGroup.nonstaff-nonstaff-spacing.minimum-distance = ##f}.
+snippet shows how it can be done with adjusting the
+@code{nonstaff-nonstaff-spacing} property of the
+@code{VerticalAxisGroup} grob.
 "
 
   doctitle = "Arranging separate lyrics on a single line"

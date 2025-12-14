@@ -14,14 +14,15 @@
   categories = "Staff notation"
 
   texidoc = "
-The @code{quotedEventTypes} property determines the music event types
-which should be quoted. The default value is
+The @code{quotedEventTypes} context property determines which music
+event types should be quoted. The default value is
 @code{(note-event rest-event tie-event beam-event tuplet-span-event)},
-which means that only the notes, rests, ties, beams and tuplets of the
-quoted voice will appear in the @code{\\quoteDuring} expression.
+which means that only notes, rests, ties, beams, and tuplets of a
+quoted voice appear in the @code{\\quoteDuring} expression.
 
 In the following example, a 16th rest is not quoted since
-@code{rest-event} is not in @code{quotedEventTypes}.
+@code{rest-event} is not in the redefined value of
+@code{quotedEventTypes}.
 
 For a list of event types, consult the @qq{Music classes} section of the
 Internals Reference.

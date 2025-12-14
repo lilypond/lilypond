@@ -15,12 +15,11 @@
 
   texidoc = "
 This snippet removes the first brace from a @code{PianoStaff} or a
-@code{GrandStaff}, together with the clefs.
+@code{GrandStaff}, together with the clefs. It may be useful when
+cutting and pasting the engraved image into existing music.
 
-It may be useful when cutting and pasting the engraved image into
-existing music.
-
-It uses @code{\\alterBroken}.
+The code uses @code{\\alterBroken} to hide the brace delimiter at the
+beginning.
 "
 
   doctitle = "Removing brace on first line of piano score"
@@ -28,8 +27,8 @@ It uses @code{\\alterBroken}.
 
 
 someMusic =  {
-  \once \override Staff.Clef.stencil = ##f
-  \once \override Staff.TimeSignature.stencil = ##f
+  \once \omit Staff.Clef
+  \once \omit Staff.TimeSignature
   \repeat unfold 3 c1 \break
   \repeat unfold 5 c1 \break
   \repeat unfold 5 c1
@@ -42,7 +41,7 @@ someMusic =  {
     \new Staff = "left" \relative c' { \clef F \someMusic }
   >>
   \layout {
-    indent=75
+    indent=75\mm
     \context {
       \PianoStaff
       \alterBroken transparent #'(#t) SystemStartBrace

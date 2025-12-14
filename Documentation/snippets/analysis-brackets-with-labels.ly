@@ -15,12 +15,12 @@
                 and overrides"
 
   texidoc = "
-Text markup may be added to analysis brackets through the @code{text}
+Text markup may be added to analysis brackets using the @code{text}
 property of the @code{HorizontalBracketText} grob. Adding different
 texts to brackets beginning at the same time requires the
 @code{\\tweak} command.
 
-Bracket text will be parenthesized after a line break.
+Bracket text gets parenthesized after a line break.
 "
 
   doctitle = "Analysis brackets with labels"

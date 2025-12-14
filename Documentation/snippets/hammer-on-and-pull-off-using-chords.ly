@@ -19,7 +19,7 @@ is drawn. However @qq{double arcs} are possible by setting the
 @code{doubleSlurs} property to @code{#t}.
 "
 
-  doctitle = "Hammer on and pull off using chords"
+  doctitle = "Hammer-on and pull-off using chords"
 } % begin verbatim
 
 

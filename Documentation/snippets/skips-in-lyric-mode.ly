@@ -14,9 +14,9 @@
   categories = "Really simple, Rhythms, Vocal music"
 
   texidoc = "
-The @code{s} syntax for skips is only available in note mode and chord
-mode. In other situations, for example, when entering lyrics, using the
-@code{\\skip} command is recommended.
+The @samp{s} syntax for skips is only available in note mode and
+chord mode. In other situations, for example, when entering lyrics,
+using the @code{\\skip} command is recommended.
 "
 
   doctitle = "Skips in lyric mode"

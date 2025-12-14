@@ -14,7 +14,8 @@
   categories = "Text, Vocal music"
 
   texidoc = "
-Markup mode may be used to format individual syllables in lyrics.
+The @code{\\markup} command can be used in @code{\\lyricmode} blocks to
+format individual syllables in lyrics.
 "
 
   doctitle = "Formatting lyrics syllables"
@@ -29,6 +30,6 @@ lyr = \lyricmode {
 }
 
 <<
-  \new Voice = melody \mel
-  \new Lyrics \lyricsto melody \lyr
+  \new Voice = "melody" \mel
+  \new Lyrics \lyricsto "melody" \lyr
 >>

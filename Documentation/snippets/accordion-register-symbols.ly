@@ -17,8 +17,9 @@
 Accordion register symbols are available as @code{\\markup} as well as
 as standalone music events (as register changes tend to occur between
 actual music events). Bass registers are not overly standardized. The
-available commands can be found in 'Discant symbols' in the Notation
-Reference.
+available commands can be found in
+@uref{https://lilypond.org/doc/v2.24/Documentation/notation/accordion#discant-symbols,@q{Discant
+symbols} in the Notation Reference}.
 "
 
   doctitle = "Accordion register symbols"

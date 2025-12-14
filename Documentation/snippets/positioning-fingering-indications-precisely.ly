@@ -14,31 +14,36 @@
   categories = "Editorial annotations, Tweaks and overrides"
 
   texidoc = "
-Generally the options available for positioning the fingering of chords
-work well by default, but if one of the indications needs to positioned
-more precisely the following tweak may be used. This is particularly
-useful for correcting the positioning when intervals of a second are
-involved.
+The semi-automatic positioning of fingering within a chords works
+usally well, but if one of the indications needs to be positioned more
+precisely the following tweak may be used. This is particularly useful
+for correcting the positioning when intervals of a second are involved.
 "
 
   doctitle = "Positioning fingering indications precisely"
 } % begin verbatim
 
 
-\relative c' {
-  \set fingeringOrientations = #'(left)
-  <c-1 d-2 a'-5>4
-  <c-1 d-\tweak extra-offset #'(0 . 0.2)-2 a'-5>4
-  \set fingeringOrientations = #'(down)
-  <c-1 d-2 a'-5>4
-  <c-\tweak extra-offset #'(0 . -1.1)-1
-   d-\tweak extra-offset #'(-1.2 . -1.8)-2 a'-5>4
-  \set fingeringOrientations = #'(down right up)
-  <c-1 d-\tweak extra-offset #'(-0.3 . 0)-2 a'-5>4
-  <c-1 d-\tweak extra-offset #'(-1 . 1.2)-2 a'-5>4
-  \set fingeringOrientations = #'(up)
-  <c-1 d-\tweak extra-offset #'(0 . 1.1)-2
-   a'-\tweak extra-offset #'(0 . 1)-5>4
-  <c-1 d-\tweak extra-offset #'(-1.2 . 1.5)-2
-   a'-\tweak extra-offset #'(0 . 1.4)-5>4
+\markup \with-true-dimensions % work around a cropping issue
+\score {
+  \relative c' {
+    \set fingeringOrientations = #'(left)
+    <c-1 d-2 a'-5>4
+    <c-1 d-\tweak extra-offset #'(0 . 0.2)-2 a'-5>
+
+    \set fingeringOrientations = #'(down)
+    <c-1 d-2 a'-5>
+    <c-\tweak extra-offset #'(0 . -1.1)-1
+     d-\tweak extra-offset #'(-1.2 . -1.8)-2 a'-5> |
+
+    \set fingeringOrientations = #'(down right up)
+    <c-1 d-\tweak extra-offset #'(-0.3 . 0)-2 a'-5>4
+    <c-1 d-\tweak extra-offset #'(-1 . 1.2)-2 a'-5>
+
+    \set fingeringOrientations = #'(up)
+    <c-1 d-\tweak extra-offset #'(0 . 1.1)-2
+     a'-\tweak extra-offset #'(0 . 1)-5>
+    <c-1 d-\tweak extra-offset #'(-1.2 . 1.5)-2
+     a'-\tweak extra-offset #'(0 . 1.4)-5> |
+  }
 }

@@ -18,7 +18,7 @@ The arc of hammer-on and pull-off is upwards in voices one and three
 and downwards in voices two and four:
 "
 
-  doctitle = "Hammer on and pull off using voices"
+  doctitle = "Hammer-on and pull-off using voices"
 } % begin verbatim
 
 

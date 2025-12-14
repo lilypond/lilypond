@@ -14,10 +14,10 @@
   categories = "Fretted strings, Staff notation"
 
   texidoc = "
-In tablatures usually the first string is printed topmost. If you want
-to have it at the bottom change the
-@code{stringOneTopmost}-context-property. For a context-wide setting
-this could be done in @code{layout} as well.
+In tablatures, the first string is usually printed topmost. If you want
+to have it at the bottom, set the @code{stringOneTopmost} context
+property to @code{#f}. For a context-wide setting this could be done in
+the @code{\\layout} block as well.
 "
 
   doctitle = "Let TabStaff print the topmost string at bottom"

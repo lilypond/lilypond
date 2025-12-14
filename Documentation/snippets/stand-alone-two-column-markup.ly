@@ -15,7 +15,7 @@
 
   texidoc = "
 Stand-alone text may be arranged in several columns using
-@code{\\markup} commands:
+@code{\\markup} commands.
 "
 
   doctitle = "Stand-alone two-column markup"

@@ -14,8 +14,8 @@
   categories = "Editorial annotations, Scheme"
 
   texidoc = "
-Choose different font sizes for instrumentName and shortInstrumentName
-as a context override.
+Choose different font sizes for @code{instrumentName} and
+@code{shortInstrumentName} as a context override.
 "
 
   doctitle = "Different font size settings for instrumentName and shortInstrumentName"
@@ -24,11 +24,10 @@ as a context override.
 
 InstrumentNameFontSize =
 #(define-music-function (font-size-pair)(pair?)
-"Sets the @code{font-size} of @code{InstrumentName}.
-The font-size for the initial @code{instrumentName} is taken from the first
-value in @var{font-size-pair}.  @code{shortInstrumentName} will get the second
-value of @var{font-size-pair}.
-"
+"Set the font size of `InstrumentName` grobs.
+The first value of FONT-SIZE-PAIR sets the font size of the initial
+`instrumentName` property, the second value sets the font size of
+`shortInstrumentName`"
 
 ;; This code could be changed/extended to set different values for each
 ;; occurance of `shortInstrumentName'
@@ -54,6 +53,9 @@ value of @var{font-size-pair}.
 #})
 
 \layout {
+  indent = 3\cm
+  short-indent = 0.8\cm
+
   \context {
     \Staff
     \InstrumentNameFontSize #'(6 . -3)

@@ -14,7 +14,8 @@
   categories = "Editorial annotations, Scheme"
 
   texidoc = "
-Here is how to circle a note.
+A circle can be drawn around a note head by providing a custom Scheme
+function to temporarily override the @code{stencil} property.
 "
 
   doctitle = "Drawing circles around note heads"
@@ -22,8 +23,8 @@ Here is how to circle a note.
 
 
 
-circle =
-\once \override NoteHead.stencil = #(lambda (grob)
+circle = \tweak NoteHead.stencil
+  #(lambda (grob)
     (let* ((note (ly:note-head::print grob))
            (combo-stencil (ly:stencil-add
                note
@@ -31,5 +32,6 @@ circle =
           (ly:make-stencil (ly:stencil-expr combo-stencil)
             (ly:stencil-extent note X)
             (ly:stencil-extent note Y))))
+  \etc
 
 { \circle c'' }

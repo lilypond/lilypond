@@ -18,20 +18,21 @@
 This snippet shows how to achieve vertically aligned @code{StaffGroups}
 with a @code{SystemStartBar} for each @code{StaffGroup}, but without
 connecting them.
+
+Note that this only works properly for music that can be printed as a
+single system.
 "
 
   doctitle = "Vertically aligned StaffGroups without connecting SystemStartBar"
 } % begin verbatim
 
 
-#(set-global-staff-size 18)
-
-\header { tagline = ##f }
+#(set-global-staff-size 15)
 
 \paper {
-  indent = 0
   ragged-right = ##f
   print-all-headers = ##t
+  tagline = ##f
 }
 
 \layout {

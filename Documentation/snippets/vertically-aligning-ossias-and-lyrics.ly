@@ -24,9 +24,10 @@ positioning of lyrics and ossias.
 
 
 \relative c' <<
-  \new Staff = "1" { c4 c s2 }
-  \new Staff = "2" { c4 c s2 }
-  \new Staff = "3" { c4 c s2 }
+  \new Staff = "1" { c4 c c c }
+  \new Staff = "2" { d4 d d d }
+  \new Staff = "3" { e4 e e e }
+
   { \skip 2
     <<
       \lyrics {
@@ -38,16 +39,16 @@ positioning of lyrics and ossias.
         fontSize = -2
         \override StaffSymbol.staff-space = #(magstep -2)
         \remove "Time_signature_engraver"
+        \override VerticalAxisGroup.staff-staff-spacing =
+           #'((minimum-distance . 0)
+              (basic-distance . 0)
+              (padding . 1))
       } {
         \tuplet 6/4 {
-          \override TextScript.padding = 3
+          \override TextScript.padding = 2
           c8[^"ossia above" d e d e f]
         }
       }
     >>
   }
 >>
-
-\paper {
-  ragged-right = ##t
-}

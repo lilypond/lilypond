@@ -14,8 +14,8 @@
   categories = "Template, Text, Vocal music"
 
   texidoc = "
-This template is basically the same as the simple @qq{Vocal ensemble}
-template, with the exception that here all the lyrics lines are placed
+This template is basically the same as the simple @qq{Vocal ensemble
+template}, with the exception that here all the lyrics lines are placed
 using @code{alignAboveContext} and @code{alignBelowContext}.
 "
 

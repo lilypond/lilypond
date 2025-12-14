@@ -14,10 +14,10 @@
   categories = "Keyboards, Tweaks and overrides"
 
   texidoc = "
-@code{Staff.pedalSustainStrings} can be used to set the text used for
-pedal down and up. Note that the only valid strings are those found in
-the list of pedal glyphs - the values used this snippet constitute an
-exhaustive list.
+With the @code{pedalSustainStrings} context property it is possible to
+set the text used for pedal down and up. Note that the only valid
+strings are those found in the list of pedal glyphs -- the values shown
+in this snippet constitute an exhaustive list.
 "
 
   doctitle = "Changing the text for sustain markings"
@@ -36,4 +36,8 @@ sustainNotes = { c4\sustainOn d e\sustainOff\sustainOn f\sustainOff }
   \sustainNotes
   \set Staff.pedalSustainStrings = #'("Ped" "*Ped" "*")
   \sustainNotes
+}
+
+\layout {
+  ragged-right = ##f
 }

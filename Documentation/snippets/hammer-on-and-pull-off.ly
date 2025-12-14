@@ -17,7 +17,7 @@
 Hammer-on and pull-off can be obtained using slurs.
 "
 
-  doctitle = "Hammer on and pull off"
+  doctitle = "Hammer-on and pull-off"
 } % begin verbatim
 
 

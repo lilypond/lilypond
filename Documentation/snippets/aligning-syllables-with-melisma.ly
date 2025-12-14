@@ -14,7 +14,7 @@
   categories = "Text, Vocal music"
 
   texidoc = "
-By default, lyrics syllables that start a melisma are left aligned on
+By default, lyrics syllables that start a melisma are left-aligned on
 their note. The alignment can be altered using the
 @code{lyricMelismaAlignment} property.
 "
@@ -23,25 +23,27 @@ their note. The alignment can be altered using the
 } % begin verbatim
 
 
-\score {
-  <<
-    \new Staff {
-      \relative c''
-      \new Voice = "vocal" {
-        c d~^\markup default  d e
-        c d~^\markup "right aligned" d e
-        c d~^\markup "center aligned" d e
-        c d~^\markup "reset to default" d e
-      }
+<<
+  \new Staff {
+    \new Voice = "vocal" \relative c'' {
+      \override TextScript.staff-padding = #2
+      c d~^\markup default  d e
+      c d~^\markup "right aligned" d e
+      c d~^\markup "center aligned" d e
+      c d~^\markup "reset to default" d e
     }
-    \new Lyrics \lyricsto "vocal" {
-      word word word
-      \set lyricMelismaAlignment = #RIGHT
-      word word word
-      \set lyricMelismaAlignment = #CENTER
-      word word word
-      \unset lyricMelismaAlignment
-      word word word
-    }
-  >>
+  }
+  \new Lyrics \lyricsto "vocal" {
+    word word word
+    \set lyricMelismaAlignment = #RIGHT
+    word word word
+    \set lyricMelismaAlignment = #CENTER
+    word word word
+    \unset lyricMelismaAlignment
+    word word word
+  }
+>>
+
+\layout {
+  ragged-right = ##f
 }

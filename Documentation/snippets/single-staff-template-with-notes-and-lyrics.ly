@@ -20,7 +20,7 @@ automatic beaming, which is common for vocal parts. To use automatic
 beaming, change or comment out the relevant line.
 "
 
-  doctitle = "Single staff template with notes and lyrics"
+  doctitle = "Single-staff template with notes and lyrics"
 } % begin verbatim
 
 

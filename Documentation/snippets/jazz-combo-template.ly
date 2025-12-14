@@ -15,9 +15,9 @@
 
   texidoc = "
 This is quite an advanced template, for a jazz ensemble. Note that all
-instruments are notated in @code{\\key c \\major}. This refers to the
-key in concert pitch; the key will be automatically transposed if the
-music is within a @code{\\transpose} section.
+instruments use @code{\\key c \\major}. This refers to the key in
+concert pitch; the key will be automatically transposed if the music is
+within a @code{\\transpose} section.
 "
 
   doctitle = "Jazz combo template"
@@ -30,16 +30,15 @@ music is within a @code{\\transpose} section.
   composer = "Me"
   meter = "moderato"
   piece = "Swing"
-  tagline = \markup {
-    \column {
-      "LilyPond example file by Amelie Zapf,"
-      "Berlin 07/07/2003"
-    }
-  }
+  tagline = \markup \column {
+              "LilyPond example file by Amelie Zapf,"
+              "Berlin 07/07/2003" }
 }
-% To make the example display in the documentation
+
+% To make the example display properly in the documentation.
 \paper {
-  paper-width = 130
+  paper-width = 130\mm
+  paper-height = 205\mm
 }
 
 % #(set-global-staff-size 16)
@@ -56,7 +55,7 @@ nsl = { \revert NoteHead.style
 crOn = \override NoteHead.style = #'cross
 crOff = \revert NoteHead.style
 
-%% insert chord name style stuff here.
+% Insert chord name style stuff here.
 
 jazzChords = { }
 
@@ -80,9 +79,7 @@ trpHarmony = \transpose c' d {
 trumpet = {
   \global
   \clef treble
-  <<
-    \trpt
-  >>
+  \trpt
 }
 
 % ------ Alto Saxophone ------
@@ -96,35 +93,30 @@ altoHarmony = \transpose c' a {
 altoSax = {
   \global
   \clef treble
-  <<
-    \alto
-  >>
+  \alto
 }
 
 % ------ Baritone Saxophone ------
 bari = \transpose c a' \relative c {
   \Key
-  c1
-  c1
-  \sl
-  d4^"Solo" d d d
-  \nsl
+  c1 | c1 |
+  \sl d4^"Solo" d d d \nsl |
 }
 bariHarmony = \transpose c' a \chordmode {
-  \jazzChords s1 s d2:maj e:m7
+  \jazzChords
+  s1 | s |
+  d2:maj e:m7 |
 }
 bariSax = {
   \global
   \clef treble
-  <<
-    \bari
-  >>
+  \bari
 }
 
 % ------ Trombone ------
 tbone = \relative c {
   \Key
-  c1 | c | c
+  c1 | c | c |
 }
 tboneHarmony = \chordmode {
   \jazzChords
@@ -132,9 +124,7 @@ tboneHarmony = \chordmode {
 trombone = {
   \global
   \clef bass
-  <<
-    \tbone
-  >>
+  \tbone
 }
 
 % ############ Rhythm Section #############
@@ -142,45 +132,41 @@ trombone = {
 % ------ Guitar ------
 gtr = \relative c'' {
   \Key
-  c1
-  \sl
-  b4 b b b
-  \nsl
-  c1
+  c1 |
+  \sl b4 b b b \nsl |
+  c1 |
 }
 gtrHarmony = \chordmode {
   \jazzChords
-  s1 c2:min7+ d2:maj9
+  s1 | c2:min7+ d2:maj9 | s1 |
 }
 guitar = {
   \global
   \clef treble
-  <<
-    \gtr
-  >>
+  \gtr
 }
 
 %% ------ Piano ------
 rhUpper = \relative c'' {
   \voiceOne
   \Key
-  c1 | c | c
+  c1 | c | c |
 }
 rhLower = \relative c' {
   \voiceTwo
   \Key
-  e1 | e | e
+  e1 | e | e |
 }
 
 lhUpper = \relative c' {
   \voiceOne
   \Key
-  g1 | g | g
+  g1 | g | g |
 }
 lhLower = \relative c {
   \voiceTwo
   \Key
-  c1 | c | c
+  c1 | c | c |
 }
 
 PianoRH = {
@@ -200,38 +186,35 @@ PianoLH = {
   >>
 }
 
-piano = {
-  <<
-    \new Staff = "upper" \PianoRH
-    \new Staff = "lower" \PianoLH
-  >>
-}
+piano = <<
+  \new Staff = "upper" \PianoRH
+  \new Staff = "lower" \PianoLH
+>>
+
 
 % ------ Bass Guitar ------
 Bass = \relative c {
   \Key
-  c1 | c | c
+  c1 | c | c |
 }
 bass = {
   \global
   \clef bass
-  <<
-    \Bass
-  >>
+  \Bass
 }
 
 % ------ Drums ------
 up = \drummode {
   \voiceOne
-  hh4 <hh sn> hh <hh sn>
-  hh4 <hh sn> hh <hh sn>
-  hh4 <hh sn> hh <hh sn>
+  hh4 <hh sn> hh <hh sn> |
+  hh4 <hh sn> hh <hh sn> |
+  hh4 <hh sn> hh <hh sn> |
 }
 down = \drummode {
   \voiceTwo
-  bd4 s bd s
-  bd4 s bd s
-  bd4 s bd s
+  bd4 s bd s |
+  bd4 s bd s |
+  bd4 s bd s |
 }
 
 drumContents = {
@@ -244,44 +227,50 @@ drumContents = {
 
 %%%%%%%%% It All Goes Together Here %%%%%%%%%%%%%%%%%%%%%%
 
-\score {
-  <<
-    \new StaffGroup = "horns" <<
-      \new Staff = "trumpet" \with { instrumentName = "Trumpet" }
-      \trumpet
-      \new Staff = "altosax" \with { instrumentName = "Alto Sax" }
-      \altoSax
-      \new ChordNames = "barichords" \with { instrumentName = "Trumpet" }
-      \bariHarmony
-      \new Staff = "barisax" \with { instrumentName = "Bari Sax" }
-      \bariSax
-      \new Staff = "trombone" \with { instrumentName = "Trombone" }
-      \trombone
+\book { % For the LilyPond documentation.
+  \score {
+    <<
+      \new StaffGroup = "horns" <<
+        \new Staff = "trumpet" \with { instrumentName = "Trumpet" }
+          \trumpet
+        \new Staff = "altosax" \with { instrumentName = "Alto Sax" }
+          \altoSax
+        \new ChordNames = "barichords" \with { instrumentName = "Bari Sax" }
+          \bariHarmony
+        \new Staff = "barisax" \with { instrumentName = "Bari Sax" }
+          \bariSax
+        \new Staff = "trombone" \with { instrumentName = "Trombone" }
+          \trombone
+      >>
+
+      \new StaffGroup = "rhythm" <<
+        \new ChordNames = "chords" \with { instrumentName = "Guitar" }
+          \gtrHarmony
+        \new Staff = "guitar" \with { instrumentName = "Guitar" }
+          \guitar
+        \new PianoStaff = "piano" \with {
+          instrumentName = "Piano"
+          midiInstrument = "acoustic grand"
+        } \piano
+        \new Staff = "bass" \with { instrumentName = "Bass" }
+          \bass
+        \new DrumStaff \with { instrumentName = "Drums" }
+          \drumContents
+      >>
     >>
 
-    \new StaffGroup = "rhythm" <<
-      \new ChordNames = "chords" \gtrHarmony
-      \new Staff = "guitar" \with { instrumentName = "Guitar" }
-      \guitar
-      \new PianoStaff = "piano" \with {
-        instrumentName = "Piano"
-        midiInstrument = "acoustic grand"
+    \layout {
+      \context {
+        \Staff
+        \RemoveEmptyStaves
       }
-      \piano
-      \new Staff = "bass" \with { instrumentName = "Bass" }
-      \bass
-      \new DrumStaff \with { instrumentName = "Drums" }
-      \drumContents
-    >>
-  >>
-  \layout {
-    \context { \Staff \RemoveEmptyStaves }
-    \context {
-      \Score
-      \override BarNumber.padding = 3
-      \override RehearsalMark.padding = 2
-      skipBars = ##t
+      \context {
+        \Score
+        \override BarNumber.padding = 3
+        \override RehearsalMark.padding = 2
+        skipBars = ##t
+      }
     }
+    \midi { }
   }
-  \midi { }
 }

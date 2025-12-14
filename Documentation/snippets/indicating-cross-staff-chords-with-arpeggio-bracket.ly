@@ -16,11 +16,12 @@
   texidoc = "
 An arpeggio bracket can indicate that notes on two different staves are
 to be played with the same hand. In order to do this, the
-@code{PianoStaff} must be set to accept cross-staff arpeggios and the
+@code{PianoStaff} must be set to accept cross-staff arpeggios, and the
 arpeggios must be set to the bracket shape in the @code{PianoStaff}
 context.
 
-(Debussy, @emph{Les collines d'Anacapri,} m. 65)
+The following example typesets measure@tie{}65 of Debussy's prelude
+@emph{Les collines d'Anacapri}.
 "
 
   doctitle = "Indicating cross-staff chords with arpeggio bracket"
@@ -31,27 +32,18 @@ context.
   \set PianoStaff.connectArpeggios = ##t
   \override PianoStaff.Arpeggio.stencil =
     #ly:arpeggio::brew-chord-bracket
-  \new Staff {
-    \relative c' {
-      \key b \major
-      \time 6/8
-      b8-.(\arpeggio fis'-.\> cis-.
-        e-. gis-. b-.)\!\fermata^\laissezVibrer \bar "||"
-    }
+
+  \new Staff \relative c' {
+    \key b \major
+    \time 6/8
+    b8-.(\arpeggio fis'-.\> cis-.
+      e-. gis-. b-.)\!\fermata^\laissezVibrer \bar "||"
   }
-  \new Staff {
-    \relative c' {
-      \clef bass
-      \key b \major
-      <<
-        {
-          <a e cis>2.\arpeggio
-        }
-        \\
-        {
-          <a, e a,>2.
-        }
-      >>
-    }
+
+  \new Staff \relative c' {
+    \clef bass
+    \key b \major
+    << { <a e cis>2.\arpeggio } \\
+       { <a, e a,>2. } >>
   }
 >>

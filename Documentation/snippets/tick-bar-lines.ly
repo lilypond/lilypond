@@ -14,7 +14,7 @@
   categories = "Staff notation"
 
   texidoc = "
-'Tick' bar lines are often used in music where the bar line is used
+@q{Tick} bar lines are often used in music where the bar line is used
 only for coordination and is not meant to imply any rhythmic stress.
 "
 

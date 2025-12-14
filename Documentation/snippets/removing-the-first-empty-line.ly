@@ -14,12 +14,12 @@
   categories = "Breaks, Staff notation, Tweaks and overrides"
 
   texidoc = "
-The first empty staff can also be removed from the score by setting the
-@code{VerticalAxisGroup} property @code{remove-first}. This can be done
-globally inside the @code{\\layout} block, or locally inside the
-specific staff that should be removed. In the latter case, you have to
-specify the context (@code{Staff} applies only to the current staff) in
-front of the property.
+To remove the first empty staff from a score, set the
+@code{remove-first} property of the @code{VerticalAxisGroup} grob to
+@code{#t}. This can be done globally inside the @code{\\layout} block
+or locally inside the specific staff that should be removed. In the
+latter case, you have to specify the context (@code{Staff} applies only
+to the current staff) in front of the property.
 
 The lower staff of the second staff group is not removed, because the
 setting applies only to the specific staff inside of which it is

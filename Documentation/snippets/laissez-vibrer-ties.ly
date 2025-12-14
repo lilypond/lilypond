@@ -15,8 +15,10 @@
                 Keyboards, Specific notation"
 
   texidoc = "
-Laissez vibrer ties have a fixed size. Their formatting can be tuned
+Laissez vibrer ties have a fixed size. Their positioning can be tuned
 using the @code{tie-configuration} property.
+
+See also snippet @qq{Longer laissez vibrer ties}.
 "
 
   doctitle = "Laissez vibrer ties"

@@ -14,10 +14,9 @@
   categories = "Editorial annotations, Scheme, Tweaks and overrides"
 
   texidoc = "
-The @code{\\circle} markup command draws circles around various
-objects, for example fingering indications. For other objects, specific
-tweaks may be required: this example demonstrates two strategies for
-rehearsal marks and measure numbers.
+The @code{\\circle} command draws circles around @code{\\markup}
+objects. For other objects, specific tweaks may be required, as
+demonstrated for rehearsal marks and measure numbers.
 "
 
   doctitle = "Drawing circles around various objects"
@@ -33,7 +32,7 @@ rehearsal marks and measure numbers.
 
   c2 d^\markup {
     \override #'(thickness . 3) {
-      \circle \finger 2
+      \circle foo
     }
   }
   \override Score.BarNumber.break-visibility = #all-visible
