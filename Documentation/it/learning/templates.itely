@@ -474,7 +474,7 @@ inclusi con @code{include}, come è spiegato in @ref{Built-in templates}.
 @appendixsubsec Trascrizione di musica Gregoriana
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+{snippets/ancient-notation-template---modern-transcription-of-gregorian-music.ly}
 
 
 @need 1500

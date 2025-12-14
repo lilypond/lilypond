@@ -1085,12 +1085,6 @@ contraltoWords = \lyricmode { Con -- tral -- to words }
 中にあるテンプレート -- @rlearning{Vocal ensembles templates} を参照して@c
 ください -- を吟味することによって作り出すことができます。
 
-@snippets
-
-@cindex lyrics, version 2.12 spacing (バージョン 2.12 のスペーシングの歌詞)
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
-
 @morerefs
 学習マニュアル:
 @rlearning{Vocal ensembles templates}
@@ -3173,7 +3167,7 @@ global = {
 @cindex transcription, modern of Gregorian music (グレゴリオ聖歌の現代譜への転写)
 @cindex modern transcription of Gregorian music (グレゴリオ聖歌の現代譜への転写)
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+{snippets/ancient-notation-template---modern-transcription-of-gregorian-music.ly}
 
 @morerefs
 学習マニュアル:

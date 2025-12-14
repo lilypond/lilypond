@@ -1085,10 +1085,6 @@ mitjançant l'elaboració dels exemples anteriors, o examinant les
 plantilles del Manual d'Aprenentatge, vegeu
 @rlearningnamed{Vocal ensembles templates, Plantilles de conjunts vocals}.
 
-@snippets
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
-
 @morerefs
 Manual d' aprenentatge:
 @rlearningnamed{Vocal ensembles templates, Plantilles de conjunts vocals}.
@@ -3208,7 +3204,7 @@ espaiades d'acord amb les síl·labes en comptes de fer-lo amb les
 duracions de les notes.
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+{snippets/ancient-notation-template---modern-transcription-of-gregorian-music.ly}
 
 @morerefs
 Manual d'aprenentatge:

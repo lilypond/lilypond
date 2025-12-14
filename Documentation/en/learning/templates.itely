@@ -476,7 +476,7 @@ use the built-in templates, which can simply be @code{\include}'d,
 @appendixsubsec Gregorian transcription template
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+{snippets/ancient-notation-template---modern-transcription-of-gregorian-music.ly}
 
 
 @need 800

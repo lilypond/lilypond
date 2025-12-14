@@ -492,7 +492,7 @@ con la instrucción @code{\include}, @pxref{Built-in templates}.
 @appendixsubsec Plantilla para transcripción de canto gregoriano
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+{snippets/ancient-notation-template---modern-transcription-of-gregorian-music.ly}
 
 
 @need 800

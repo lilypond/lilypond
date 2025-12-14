@@ -495,7 +495,7 @@ une construction préprogrammée appelée par une instruction
 @appendixsubsec Transcription du grégorien
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+{snippets/ancient-notation-template---modern-transcription-of-gregorian-music.ly}
 
 
 @need 800

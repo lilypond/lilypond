@@ -1061,10 +1061,6 @@ Andere Kombinationen von Gesangstext und System können erstellt werdne,
 indem man die gegebenen Beispiele modifiziert oder auch die
 @rlearningnamed{Vocal ensembles templates, Vokalensemble}-Vorlagen im Handbuch zum Lernen heranzieht.
 
-@snippets
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
-
 @morerefs
 Handbuch zum Lernen:
 @rlearningnamed{Vocal ensembles templates, Vokalensemble}.
@@ -3054,7 +3050,7 @@ gesetzt.  In diesem Fall werden die Noten entsprechend der
 Ausdehnung des Textes und nicht der Notenlänge gesetzt.
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+{snippets/ancient-notation-template---modern-transcription-of-gregorian-music.ly}
 
 @morerefs
 Handbuch zum Lernen:

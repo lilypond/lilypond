@@ -1104,12 +1104,6 @@ Si possono generare altre combinazioni di testo e righi a partire
 da questi esempi oppure studiando i modelli nel
 Manuale di apprendimento, vedi @rlearningnamed{Vocal ensembles templates, Modelli per gruppi vocali}.
 
-@snippets
-
-@cindex testo vocale, spaziatura della versione 2.12
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
-
 @morerefs
 Manuale di apprendimento:
 @rlearningnamed{Vocal ensembles templates, Modelli per gruppi vocali}.
@@ -3261,7 +3255,7 @@ alle durate delle note.
 @cindex trascrizione moderna, della musica gregoriana
 @cindex gregoriana, musica, trascrizione moderna
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+{snippets/ancient-notation-template---modern-transcription-of-gregorian-music.ly}
 
 @morerefs
 Manuale di apprendimento:

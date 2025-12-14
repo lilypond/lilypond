@@ -478,7 +478,7 @@ einzufügen bräuchten, siehe auch @ref{Built-in templates}.
 @appendixsubsec Vorlage zur Transkription von Gregorianik
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+{snippets/ancient-notation-template---modern-transcription-of-gregorian-music.ly}
 
 
 @need 1500

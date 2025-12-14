@@ -1170,11 +1170,6 @@ plantillas del Manual de Aprendizaje, véase
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/arranging-separate-lyrics-on-a-single-line.ly}
 
-@cindex letra, espaciado versión 2.12
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
-
-
 @morerefs
 Manual de aprendizaje:
 @rlearningnamed{Vocal ensembles templates, Plantillas de conjuntos vocales}.
@@ -3347,7 +3342,7 @@ con las duraciones de las notas.
 @cindex transcripción, moderna del canto gregoriano
 @cindex moderna, transcripción del canto gregoriano
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+{snippets/ancient-notation-template---modern-transcription-of-gregorian-music.ly}
 
 
 @morerefs

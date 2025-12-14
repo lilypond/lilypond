@@ -564,11 +564,6 @@ Akkordeon hat eigene Bezeichnungen für die Register (engl. shift)
 wie etwa @notation{Oboe}, @notation{Bandonium} usw.  Eine
 Anzahl an Symbolen wird benutzt um die Wechsel anzuzeigen.
 
-@snippets
-
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/accordion-discant-symbols.ly}
-
 @morerefs
 Schnipsel:
 @rlsr{Keyboard and other multi-staff instruments}.

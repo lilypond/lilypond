@@ -464,7 +464,7 @@ AltoTwoLyrics = \lyricmode { Al -- to Two ly -- rics }
 @appendixsubsec グレゴリア聖歌のテンプレート
 
 @lilypondfile[verbatim,quote,ragged-right,texidoc]
-{snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+{snippets/ancient-notation-template---modern-transcription-of-gregorian-music.ly}
 
 
 @need 1500

@@ -1124,10 +1124,6 @@ Learning Manual, see @rlearning{Vocal ensembles templates}.
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/arranging-separate-lyrics-on-a-single-line.ly}
 
-@cindex lyrics, version 2.12 spacing
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
-
 
 @morerefs
 Learning Manual:
@@ -3224,7 +3220,7 @@ durations.
 @cindex transcription, modern of Gregorian music
 @cindex modern transcription of Gregorian music
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+{snippets/ancient-notation-template---modern-transcription-of-gregorian-music.ly}
 
 
 @morerefs

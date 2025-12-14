@@ -1133,10 +1133,6 @@ de ces exemples, ou en examinant ce qui figure à la rubrique
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/arranging-separate-lyrics-on-a-single-line.ly}
 
-@cindex paroles, espacement version 2.12
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/obtaining-2.12-lyrics-spacing-in-newer-versions.ly}
-
 @morerefs
 Manuel d'initiation :
 @rlearningnamed{Vocal ensembles templates, Modèles pour ensemble vocal}.
@@ -3285,7 +3281,7 @@ syllabes et non leur durée.
 @cindex grégorien, transcription moderne
 @cindex transcription, grégorien
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/ancient-notation-template----modern-transcription-of-gregorian-music.ly}
+{snippets/ancient-notation-template---modern-transcription-of-gregorian-music.ly}
 
 @morerefs
 Manuel d'initiation :
