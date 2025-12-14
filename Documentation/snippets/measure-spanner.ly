@@ -24,8 +24,6 @@ bracket.
 } % begin verbatim
 
 
-\paper { tagline = ##f }
-
 \layout {
   \context {
     \Staff

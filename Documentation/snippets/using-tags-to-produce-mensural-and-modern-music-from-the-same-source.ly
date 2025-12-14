@@ -119,5 +119,3 @@ ModLyr = \lyricmode {
 \paper {
   ragged-last = ##t
 }
-
-\header { tagline = ##f }

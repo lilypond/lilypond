@@ -65,5 +65,3 @@ are attached to different staves. To fix that, override the
     a a a a
   }
 >>
-
-\paper { tagline = ##f }

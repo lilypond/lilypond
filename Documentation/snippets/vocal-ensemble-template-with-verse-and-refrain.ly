@@ -25,8 +25,6 @@ score.
 } % begin verbatim
 
 
-\header { tagline = ##f }
-
 global = {
   \key g \major
 

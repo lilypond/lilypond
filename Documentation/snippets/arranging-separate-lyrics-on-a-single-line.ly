@@ -24,8 +24,6 @@ snippet shows how this can be done with
 } % begin verbatim
 
 
-\header { tagline = ##f }
-
 \layout {
   \context {
     \Lyrics

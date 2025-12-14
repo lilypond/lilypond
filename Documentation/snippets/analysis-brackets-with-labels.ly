@@ -26,8 +26,6 @@ Bracket text will be parenthesized after a line break.
 } % begin verbatim
 
 
-\paper { tagline = ##f }
-
 \layout {
   \context {
     \Voice

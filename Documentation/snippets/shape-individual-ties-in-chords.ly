@@ -21,7 +21,6 @@ To shape individual ties in chords use the method demonstrated below.
 } % begin verbatim
 
 
-\paper { tagline = ##f }
 
 \markup "Chords can be tied note by note"
 

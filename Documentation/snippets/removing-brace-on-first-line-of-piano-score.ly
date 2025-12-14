@@ -49,5 +49,3 @@ someMusic =  {
     }
   }
 }
-
-\paper { tagline = ##f }
