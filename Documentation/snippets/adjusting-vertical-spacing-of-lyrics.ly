@@ -11,33 +11,27 @@
 \version "2.24.0"
 
 \header {
-  categories = "Spacing, Text, Tweaks and overrides, Vocal music,
-                Workaround"
+  categories = "Spacing, Text, Tweaks and overrides, Vocal music"
 
   texidoc = "
 This snippet shows how to bring the lyrics line closer to the staff.
 "
 
-  doctitle = "Adjusting lyrics vertical spacing"
+  doctitle = "Adjusting vertical spacing of lyrics"
 } % begin verbatim
 
 
 % Default layout:
 <<
   \new Staff \new Voice = melody \relative c' {
-    c4 d e f
-    g4 f e d
-    c1
+    c4 d e f | g4 f e d | c1
   }
   \new Lyrics \lyricsto melody { aa aa aa aa aa aa aa aa aa }
 
-  \new Staff {
-    \new Voice = melody \relative c' {
-      c4 d e f
-      g4 f e d
-      c1
-    }
+  \new Staff \new Voice = melody \relative c' {
+    c4 d e f | g4 f e d | c1
   }
+
   % Reducing the minimum space below the staff and above the lyrics:
   \new Lyrics \with {
     \override VerticalAxisGroup.nonstaff-relatedstaff-spacing =

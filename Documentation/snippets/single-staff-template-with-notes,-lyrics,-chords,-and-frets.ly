@@ -14,11 +14,11 @@
   categories = "Chords, Template, Vocal music"
 
   texidoc = "
-Here is a simple lead sheet template with melody, lyrics, chords and
+Here is a simple lead sheet template with melody, lyrics, chords, and
 fret diagrams.
 "
 
-  doctitle = "Single staff template with notes, lyrics, chords and frets"
+  doctitle = "Single-staff template with notes, lyrics, chords, and frets"
 } % begin verbatim
 
 

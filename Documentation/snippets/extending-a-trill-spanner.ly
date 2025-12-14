@@ -23,7 +23,7 @@ To do this, the @code{springs-and-rods} property should be set to
 @code{ly:spanner::set-spacing-rods}.
 "
 
-  doctitle = "Extending a TrillSpanner"
+  doctitle = "Extending a trill spanner"
 } % begin verbatim
 
 
@@ -33,9 +33,7 @@ To do this, the @code{springs-and-rods} property should be set to
   c16( as') c,-. des-.
   \once\override TrillSpanner.minimum-length = #15
   \once\override TrillSpanner.springs-and-rods = #ly:spanner::set-spacing-rods
-  \afterGrace es4
-  \startTrillSpan { d16[( \stopTrillSpan es)] }
+  \afterGrace es4\startTrillSpan { d16[(\stopTrillSpan es)] }
   c( c' g es c g' es d
-  \hideNotes
   c8)
 }

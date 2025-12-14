@@ -14,15 +14,15 @@
   categories = "Contexts and engravers, Staff notation"
 
   texidoc = "
-Using @code{MarkLine} contexts (such as in
-@uref{https://lsr.di.unimi.it/LSR/Item?id=1010,LSR1010}) in a Frenched
-score can be problematic if all the staves between two @code{MarkLine}s
-are removed in one system. The @code{Keep_alive_together_engraver} can
-be used within each @code{StaffGroup} to keep the @code{MarkLine} alive
-only as long as the other staves in the group stay alive.
+Using @code{MarkLine} contexts (such as in @qq{Placing rehearsal marks
+other than above the top staff}) in a Frenched score can be problematic
+if all the staves between two @code{MarkLine}s are removed in one
+system. The @code{Keep_alive_together_engraver} can be used within each
+@code{StaffGroup} to keep the @code{MarkLine} alive only as long as the
+other staves in the group stay alive.
 "
 
-  doctitle = "Using marklines in a Frenched score"
+  doctitle = "Using mark lines in a Frenched score"
 } % begin verbatim
 
 
@@ -45,10 +45,11 @@ strings = \repeat unfold 240 { c''8 }
 \paper {
   systems-per-page = 5
   ragged-last-bottom = ##f
+  tagline = ##f
 }
 
 \layout {
-  indent = 15\mm
+  indent = 16\mm
   short-indent = 5\mm
   \context {
     \name MarkLine
@@ -79,6 +80,7 @@ strings = \repeat unfold 240 { c''8 }
     \remove Mark_engraver
     \remove Metronome_mark_engraver
     \remove Staff_collecting_engraver
+    \override BarNumber.Y-offset = #3
   }
 }
 
@@ -86,7 +88,7 @@ strings = \repeat unfold 240 { c''8 }
   <<
     \new StaffGroup = "winds" \with {
       instrumentName = "Winds"
-      shortInstrumentName = "Winds"
+      shortInstrumentName = "W."
     } <<
       \new MarkLine \bars
       \new Staff \winds
@@ -95,16 +97,16 @@ strings = \repeat unfold 240 { c''8 }
       \new MarkLine \bars
       \new Staff = "trumpet" \with {
         instrumentName = "Trumpet"
-        shortInstrumentName = "Tpt"
+        shortInstrumentName = "Tp."
       } \trumpet
       \new Staff = "trombone" \with {
         instrumentName = "Trombone"
-        shortInstrumentName = "Tbn"
+        shortInstrumentName = "Tb."
       } \trombone
     >>
     \new StaffGroup = "strings" \with {
       instrumentName = "Strings"
-      shortInstrumentName = "Strings"
+      shortInstrumentName = "Str."
     } <<
       \new MarkLine \bars
       \new Staff = "strings" { \strings }

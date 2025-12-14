@@ -19,18 +19,15 @@ can be solved through a simple override, as shown in the second half of
 the example.
 "
 
-  doctitle = "Forcing measure width to adapt to MetronomeMark's width"
+  doctitle = "Forcing measure width to adapt to a metronome mark's width"
 } % begin verbatim
 
 
 example = {
   R1
-  \tempo "Allegro molto"
-  R1*6
-  \tempo "poco rit."
-  R1*2
-  \tempo "a tempo"
-  R1*8
+  \tempo "Allegro molto" R1*6
+  \tempo "poco rit." R1*2
+  \tempo "a tempo" R1*8 \break
 }
 
 {
@@ -39,4 +36,8 @@ example = {
     \override Score.MetronomeMark.extra-spacing-width = #'(-3 . 0)
     \example
   }
+}
+
+\layout {
+  ragged-right = ##t
 }

@@ -20,7 +20,7 @@ quarter note heads, and special marks, indicating rests of different
 length.
 "
 
-  doctitle = "Ancient notation template -- modern transcription of Gregorian music"
+  doctitle = "Ancient notation template – modern transcription of Gregorian music"
 } % begin verbatim
 
 
