@@ -15,10 +15,22 @@
                 and overrides"
 
   texidoc = "
-The function takes the default @code{Tie.stencil} as an argument,
-calculating the result relying on the extents of this default.
+This snippet provides a function @code{flared-tie} to draw a tie that
+consist of straight lines. It is intended as a replacement for the
+default tie-drawing function (i.e., a replacement argument for the
+@code{stencil} property of the @code{Tie} grob).
 
-Further tweaking is possible by overriding
+The argument of @code{flared-tie} is a list of coordinate pairs that
+specify additional points between the first and last point to span up
+the tie's lines. The first and last point are identical to the original
+tie's start and end point, respectively. The X@tie{}and
+Y@tie{}coordinate values are multiples of the bounding box length and
+height of the original tie (also taking care of the tie's direction);
+consequently, the first point has coordinates (0,0), and the last point
+(1,0).
+
+The function @code{flare-tie} defines a shorthand for a flat tie.
+Further tweaking of the shape is possible by overriding
 @code{Tie.details.height-limit} or with @code{\\shape}. It is also
 possible to change the custom definition on the fly.
 "
@@ -31,85 +43,85 @@ possible to change the custom definition on the fly.
    (define (pair-to-list pair)
      (list (car pair) (cdr pair)))
 
-  (define (normalize-coords goods x y dir)
-    (map
+   (define (normalize-coords goods x y dir)
+     (map
       (lambda (coord)
-        ;(coord-scale coord (cons x (* y dir)))
         (cons (* x (car coord)) (* y dir (cdr coord))))
       goods))
 
-  (define (my-c-p-s points thick)
-    (make-connected-path-stencil
-      points
-      thick
-      1.0
-      1.0
-      #f
-      #f))
+   (define (my-c-p-s points thick)
+     (make-connected-path-stencil points thick 1.0 1.0 #f #f))
 
-  ;; outer let to trigger suicide
-  (let ((sten (ly:tie::print grob)))
-    (if (grob::is-live? grob)
-        (let* ((layout (ly:grob-layout grob))
-               (line-thickness (ly:output-def-lookup layout 'line-thickness))
-               (thickness (ly:grob-property grob 'thickness 0.1))
-               (used-thick (* line-thickness thickness))
-               (dir (ly:grob-property grob 'direction))
-               (xex (ly:stencil-extent sten X))
-               (yex (ly:stencil-extent sten Y))
-               (lenx (interval-length xex))
-               (leny (interval-length yex))
-               (xtrans (car xex))
-               (ytrans (if (> dir 0)(car yex) (cdr yex)))
-               (uplist
+   ;; Calling `ly:tie::print` and assigning its return value to a
+   ;; variable in this outer `let` triggers LilyPond to position the
+   ;; tie, allowing us to extract its extents.  We only proceed,
+   ;; however, if the tie doesn't get discarded (for whatever reason).
+   (let ((sten (ly:tie::print grob)))
+     (if (grob::is-live? grob)
+         (let* ((layout (ly:grob-layout grob))
+                (line-thickness (ly:output-def-lookup layout
+                                                      'line-thickness))
+                (thickness (ly:grob-property grob 'thickness 0.1))
+                (used-thick (* line-thickness thickness))
+                (dir (ly:grob-property grob 'direction))
+                (xex (ly:stencil-extent sten X))
+                (yex (ly:stencil-extent sten Y))
+                (lenx (interval-length xex))
+                (leny (interval-length yex))
+                (xtrans (car xex))
+                (ytrans (if (> dir 0)(car yex) (cdr yex)))
+                ;; Add last point.
+                (coord-list (append coords '((1.0 . 0.0))))
+                (uplist
                  (map pair-to-list
-                      (normalize-coords coords lenx (* leny 2) dir))))
+                      (normalize-coords coord-list lenx (* leny 2) dir))))
+           (ly:stencil-translate
+            (my-c-p-s uplist used-thick)
+            (cons xtrans ytrans)))
+         '())))
 
-   (ly:stencil-translate
-       (my-c-p-s uplist used-thick)
-     (cons xtrans ytrans)))
-   '())))
-
+% Define a default tie shape consisting of three straight lines.
 #(define flare-tie
-  (flared-tie '((0 . 0)(0.1 . 0.2) (0.9 . 0.2) (1.0 . 0.0))))
-
-\layout {
-  \context {
-    \Voice
-    \override Tie.stencil = #flare-tie
-  }
-}
-
-\paper {
-  ragged-right = ##f
-}
+   (flared-tie '((0.1 . 0.3) (0.9 . 0.3))))
 
 \relative c' {
-  a4~a
-  \override Tie.height-limit = 4
-  a'4~a
-  a'4~a
-  <a,, c e a c e a c e>~ q \break
+  a4~ a
+  \once \override Tie.stencil = #flare-tie
+  a4~ a \break
 
-  a'4~a
-  \once \override Tie.details.height-limit = 14
-  a4~a \break
+  <a c e a c e a c e>~ q
+  \once \override Tie.stencil = #flare-tie
+  q~ q\break
 
-  a4~a
-  \once \override Tie.details.height-limit = 0.5
-  a4~a \break
+  <>^\markup \small \typewriter "height-limit = 14"
+  \override Tie.details.height-limit = 14
+  a'4~ a
+  \once \override Tie.stencil = #flare-tie
+  a4~ a \break
 
-  a4~a
-  \shape #'((0 . 0) (0 . 0.4) (0 . 0.4) (0 . 0)) Tie
-  a4~a \break
+  <>^\markup \small \typewriter "height-limit = 0.5"
+  \override Tie.details.height-limit = 0.5
+  a4~ a
+  \once \override Tie.stencil = #flare-tie
+  a4~ a \break
 
-  a4~a
+  \revert Tie.details.height-limit
+
+  <>^\markup \small \typewriter
+             "\shape #'((0 . 0) (0 . -1) (0 . -1) (0 . 0))"
+  \shape #'((0 . 0) (0 . -1) (0 . -1) (0 . 0)) Tie
+  a4~ a
+  \once \override Tie.stencil = #flare-tie
+  \shape #'((0 . 0) (0 . -1) (0 . -1) (0 . 0)) Tie
+  a4~ a \break
+
+  <>^\markup \small \typewriter
+             "#(flared-tie '((0.2 . 2) (0.5 . -3) (0.8 . 1))"
   \once \override Tie.stencil =
-    #(flared-tie '((0 . 0)(0.1 . 0.4) (0.9 . 0.4) (1.0 . 0.0)))
-  a4~a
-
-  a4~a
-  \once \override Tie.stencil =
-    #(flared-tie '((0 . 0)(0.06 . 0.1) (0.94 . 0.1) (1.0 . 0.0)))
-  a4~a
+        #(flared-tie '((0.2 . 2) (0.5 . -3) (0.8 . 1)))
+  a4~ a
+  <>_\markup \small \typewriter
+             "#(flared-tie '((0.5 . 2)))"
+  \once \override Tie.stencil = #(flared-tie '((0.5 . 2)))
+  a'4~ a
 }

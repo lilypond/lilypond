@@ -16,19 +16,31 @@
   texidoc = "
 PostScript code can be directly inserted inside a @code{\\markup}
 block.
+
+For technical reasons, this doesn't show up in the Wiki because
+@code{\\postscript} only works with LilyPond's PS backend and is
+neither supported in the SVG (used in this Wiki) nor in the Cairo
+backend.
+
+In general it is recommended to use LilyPond's native graphical markup
+commands like @code{\\polygon} instead, which can be used with all
+LilyPond backends.
 "
 
   doctitle = "Embedding native PostScript in a \\markup block"
 } % begin verbatim
 
 
-% PostScript is a registered trademark of Adobe Systems Inc.
-
 \relative c'' {
-  a4-\markup { \postscript "3 4 moveto 5 3 rlineto stroke" }
-  -\markup { \postscript "[ 0 1 ] 0 setdash 3 5 moveto 5 -3 rlineto stroke " }
-
-  b4-\markup { \postscript "3 4 moveto 0 0 1 2 8 4 20 3.5 rcurveto stroke" }
-  s2
+  a2-\markup \postscript "0 3 moveto
+                          5 2 rlineto
+                          stroke"
+    -\markup \postscript "[1 1] 0 setdash
+                          0 0 moveto
+                          5 2 rlineto
+                          stroke"
+  b2-\markup \postscript "1 1 moveto
+                          0 0 1 2 8 4 10 2 rcurveto
+                          stroke"
   a'1
 }

@@ -14,8 +14,8 @@
   categories = "Editorial annotations, Tweaks and overrides"
 
   texidoc = "
-The @code{print-function} can be overridden to draw a box around an
-arbitrary grob.
+The @code{stencil} property can be overridden to draw a box around
+arbitrary grobs, either using @code{\\override} or @code{\\tweak}.
 "
 
   doctitle = "Drawing boxes around grobs"
@@ -23,19 +23,18 @@ arbitrary grob.
 
 
 \relative c'' {
-  \override TextScript.stencil =
+  \once \override TextScript.stencil =
     #(make-stencil-boxer 0.1 0.3 ly:text-interface::print)
   c'4^"foo"
 
-  \override Stem.stencil =
+  \tweak Stem.stencil
     #(make-stencil-boxer 0.05 0.25 ly:stem::print)
-  \override Score.RehearsalMark.stencil =
-    #(make-stencil-boxer 0.15 0.3 ly:text-interface::print)
   b8
 
-  \revert Stem.stencil
-  \revert Flag.stencil
-  c4. c4
+  c4.^"bar" c4
+
+  \override Score.RehearsalMark.stencil =
+    #(make-stencil-boxer 0.15 0.3 ly:text-interface::print)
   \mark \default
   c1
 }

@@ -21,38 +21,38 @@ To shape individual ties in chords use the method demonstrated below.
 } % begin verbatim
 
 
-
-\markup "Chords can be tied note by note"
-
-{ <c'~ e'~ g'~ c''~>2 q }
-
-\markup \wordwrap {
-Affecting those ties with "\\shape" will not succeed, because TieColumn positions
-them on its own behalf and more or less ignores the "\\shape-input".
-You may surpress this by setting 'positioning-done true. Alas, 'positioning-done
-is an internal property, setting it true means: all positioning is done, don't
-do anything further. So you better take care you really did. See the example
-below where this is missed: All directions are down and the thickness is not
-accurate:
+{
+  \textMark "Chords can be tied note by note."
+  <c'~ e'~ g'~ c''~>2 q
 }
 
 {
+  \textMark \markup \override #'(baseline-skip . 3) \wordwrap {
+    Modifying those ties with \typewriter "\\shape" does not succeed,
+    because \typewriter TieColumn positions them on its own behalf,
+    ignoring \typewriter "\\shape" input more or less.  You may
+    circumvent this by setting \typewriter positioning-done to
+    \typewriter "#t" – alas, \typewriter positioning-done is an
+    internal property, and setting it to \typewriter "#t" means: all
+    positioning is done, don’t do anything further.  The next example
+    demonstrates a case where the positioning is not finished: all tie
+    directions are down, and the thickness is not accurate.
+  }
   <c'~ e'~ g'~ c''~>2
   \once \override TieColumn.positioning-done = ##t
   q
 }
 
-\markup "To cure that, enter ties with explicit direction-modifiers"
-
 {
+  \textMark "To fix that, enter ties with explicit direction modifiers."
   <c'_~ e'_~ g'_~ c''^~>2
   \once \override TieColumn.positioning-done = ##t
   q
 }
 
-\markup "Now you can use \\shape for each tie as usual"
-
 {
+  \textMark \markup {
+    Now you can use \typewriter "\\shape" for each tie as usual. }
   <c'-\shape #'((0 . 0) (0 . -10) (0 . -10) (0 . 0)) _~
    e'-\shape #'((0 . 0) (0 . -5) (0 . -5) (0 . 0)) _~
    g'-\shape #'((0 . 0) (0 . -2) (0 . -2) (0 . 0)) _~
@@ -62,30 +62,25 @@ accurate:
   q
 }
 
-\markup "This works at line break as well."
-
 {
+  \textMark "This also works at line breaks."
   <c'-\shape #'(((0 . 0) (0 . -10) (0 . -10) (0 . 0))
-                ((0 . 0) (0 . -10) (0 . -10) (0 . 0)))
-     _~
+                ((0 . 0) (0 . -10) (0 . -10) (0 . 0))) _~
    e'-\shape #'(((0 . 0) (0 . -5) (0 . -5) (0 . 0))
-                ((0 . 0) (0 . -5) (0 . -5) (0 . 0)))
-     _~
+                ((0 . 0) (0 . -5) (0 . -5) (0 . 0))) _~
    g'-\shape #'(((0 . 0) (0 . -2) (0 . -2) (0 . 0))
-                ((0 . 0) (0 . -2) (0 . -2) (0 . 0)))
-     _~
+                ((0 . 0) (0 . -2) (0 . -2) (0 . 0))) _~
    c''-\shape #'(((0 . 0) (0 . 5) (0 . 5) (0 . 0))
-                 ((0 . 0) (0 . 5) (0 . 5) (0 . 0)))
-     ^~
+                 ((0 . 0) (0 . 5) (0 . 5) (0 . 0))) ^~
   >2
   \break
   \once \override TieColumn.positioning-done = ##t
   q
 }
 
-\markup "Same with tieWaitForNote"
-
 {
+  \textMark \markup {
+    It also works with the \typewriter tieWaitForNote property. }
   \set tieWaitForNote = ##t
   c'4-\shape #'((0 . 0) (0 . -10) (0 . -10) (0 . 0)) _~
   e'-\shape #'((0 . 0) (0 . -5) (0 . -5) (0 . 0)) _~
@@ -93,4 +88,17 @@ accurate:
   c''-\shape #'((0 . 0) (0 . 5) (0 . 5) (0 . 0)) ^~
   \once \override TieColumn.positioning-done = ##t
   <c' e' g' c''>1
+}
+
+\layout {
+  indent = 0
+  \context {
+    \Score
+    \override TextMark.padding = #4
+    \override TextMark.break-align-symbols = #'(left-edge)
+  }
+}
+
+\paper {
+  score-system-spacing.padding = 3
 }

@@ -15,10 +15,11 @@
 
   texidoc = "
 The horizontal alignment of instrument names is tweaked by changing the
-@code{Staff.InstrumentName.self-alignment-X} property. The
-@code{\\layout} variables @code{indent} and @code{short-indent} define
-the space in which the instrument names are aligned before the first
-and the following systems, respectively.
+@code{self-alignment-X} property of the @code{InstrumentName} grob
+(usually in the @code{Staff} context). The @code{\\layout} variables
+@code{indent} and @code{short-indent} define the space in which the
+instrument names are aligned before the first and the following
+systems, respectively.
 "
 
   doctitle = "Aligning and centering instrument names"
@@ -29,47 +30,37 @@ and the following systems, respectively.
   left-margin = 3\cm
 }
 
-\score {
-  \new StaffGroup <<
-
-    \new Staff \with {
-      \override InstrumentName.self-alignment-X = #LEFT
-      instrumentName = \markup \left-column {
-        "Left aligned"
-        "instrument name"
-        }
-        shortInstrumentName = "Left"
-      }
-
-      {  c''1 \break c''1 }
-
-    \new Staff \with {
-      \override InstrumentName.self-alignment-X = #CENTER
-      instrumentName = \markup \center-column {
-        Centered
-        "instrument name"
-        }
-      shortInstrumentName = "Centered"
-    }
-
-    { g'1 g'1}
-
-    \new Staff \with {
-      \override InstrumentName.self-alignment-X = #RIGHT
-      instrumentName = \markup \right-column {
-        "Right aligned"
-        "instrument name"
-      }
-      shortInstrumentName = "Right"
-    }
-
-    { e'1 e'1 }
-
-  >>
-
-  \layout {
-    indent = 4\cm
-    short-indent = 2\cm
-    line-width = 6.5\cm
+\new StaffGroup <<
+  \new Staff \with {
+    \override InstrumentName.self-alignment-X = #LEFT
+    instrumentName = \markup \left-column { "Left aligned"
+                                            "instrument name" }
+    shortInstrumentName = "Left"
+  } {
+    c''1 \break c''1
   }
+
+  \new Staff \with {
+    \override InstrumentName.self-alignment-X = #CENTER
+    instrumentName = \markup \center-column { Centered
+                                              "instrument name" }
+    shortInstrumentName = "Centered"
+  } {
+    g'1 g'1
+  }
+
+  \new Staff \with {
+    \override InstrumentName.self-alignment-X = #RIGHT
+    instrumentName = \markup \right-column { "Right aligned"
+                                             "instrument name" }
+    shortInstrumentName = "Right"
+  } {
+    e'1 e'1
+  }
+>>
+
+\layout {
+  indent = 4\cm
+  short-indent = 2\cm
+  line-width = 6.5\cm
 }
