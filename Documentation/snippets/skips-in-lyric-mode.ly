@@ -25,5 +25,5 @@ mode. In other situations, for example, when entering lyrics, using the
 
 <<
   \relative c'' { a1 | a }
-  \new Lyrics \lyricmode { \skip 1 bla1 }
+  \new Lyrics \lyricmode { \skip1 bla1 }
 >>

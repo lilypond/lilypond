@@ -24,7 +24,9 @@ you can use @code{#LEFT}, @code{#CENTER} and @code{#RIGHT} as well.
 } % begin verbatim
 
 
-\layout { ragged-right = ##f }
+\layout {
+  ragged-right = ##f
+}
 
 \relative c'' {
   c1

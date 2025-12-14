@@ -65,18 +65,15 @@ txt =
 
 % First StaffGroup "exercise"
 
-eI =
-\relative c' {
+eI = \relative c' {
   \textMark \markup {
-          \bold Teacher:
-          This is a simple setting of the choral. Please improve it.
-          }
+    \bold Teacher:
+    This is a simple setting of the choral. Please improve it. }
   \key a \minor
   \time 4/4
   \voiceOne
 
-  \partial 4
-  e4
+  \partial 4 e4
   a b c b
   a b gis2
   e4\fermata g! g f
@@ -85,13 +82,11 @@ eI =
   \bar ":|."
 }
 
-eII =
-\relative c' {
+eII = \relative c' {
   \key a \minor
   \time 4/4
   \voiceTwo
-  \partial 4
-  c4
+  \partial 4 c4
   e e e gis
   a f e2
   b4 b d d
@@ -100,15 +95,13 @@ eII =
   \bar ":|."
 }
 
-eIII =
-\relative c' {
+eIII = \relative c' {
   \key a \minor
   \time 4/4
   \clef bass
   \voiceOne
 
-  \partial 4
-  a4
+  \partial 4 a4
   c b a b
   c d b2
   gis4 g g b
@@ -116,15 +109,13 @@ eIII =
   e2.
 }
 
-eIV =
-\relative c' {
+eIV = \relative c' {
   \key a \minor
   \time 4/4
   \clef bass
   \voiceTwo
 
-  \partial 4
-  a,4
+  \partial 4 a,4
   a' gis a e
   a, d e2
   e,4\fermata e' b g
@@ -133,36 +124,30 @@ eIV =
   \bar ":|."
 }
 
-exercise =
-\new StaffGroup = "exercise"
-<<
-
-  \new Staff
-    <<
-      \new Voice \eI
-      \new Voice \eII
-    >>
+exercise = \new StaffGroup = "exercise" <<
+  \new Staff <<
+    \new Voice \eI
+    \new Voice \eII
+  >>
 
   \new Lyrics \txt
 
-  \new Staff
-    <<
-      \new Voice \eIII
-      \new Voice \eIV
-    >>
+  \new Staff <<
+    \new Voice \eIII
+    \new Voice \eIV
+  >>
 >>
+
 
 % Second StaffGroup "simple Bach"
 
-sbI =
-\relative c' {
+sbI = \relative c' {
   \textMark \markup { \bold" Pupil:" Here's my version! }
   \key a \minor
   \time 4/4
   \voiceOne
 
-  \partial 4
-  e4
+  \partial 4 e4
   a b c b
   a b gis2
   e4\fermata g! g f
@@ -171,13 +156,11 @@ sbI =
   \bar ":|."
 }
 
-sbII =
-\relative c' {
+sbII = \relative c' {
   \key a \minor
   \time 4/4
   \voiceTwo
-  \partial 4
-  c8 d
+  \partial 4 c8 d
   e4 e e8 f g4
   f f e2
   b4 b8 c d4 d
@@ -186,15 +169,13 @@ sbII =
   \bar ":|."
 }
 
-sbIII =
-\relative c' {
+sbIII = \relative c' {
   \key a \minor
   \time 4/4
   \clef bass
   \voiceOne
 
-  \partial 4
-  a8 b
+  \partial 4 a8 b
   c4 b a b8 c
   d4 d8 c b2
   gis4 g g8 a b4
@@ -202,15 +183,13 @@ sbIII =
   e2.
 }
 
-sbIV =
-\relative c' {
+sbIV = \relative c' {
   \key a \minor
   \time 4/4
   \clef bass
   \voiceTwo
 
-  \partial 4
-  a,4
+  \partial 4 a,4
   a' gis a e
   f8 e d4 e2
   e,4\fermata e' b a8 g
@@ -219,29 +198,24 @@ sbIV =
   \bar ":|."
 }
 
-simpleBach =
-\new StaffGroup = "simple Bach"
-<<
-
-  \new Staff
-    <<
-      \new Voice \sbI
-      \new Voice \sbII
-    >>
+simpleBach = \new StaffGroup = "simple Bach" <<
+  \new Staff <<
+    \new Voice \sbI
+    \new Voice \sbII
+  >>
 
   \new Lyrics \txt
 
-  \new Staff
-    <<
-      \new Voice \sbIII
-      \new Voice \sbIV
-    >>
+  \new Staff <<
+    \new Voice \sbIII
+    \new Voice \sbIV
+  >>
 >>
+
 
 % Third StaffGroup "chromatic Bach"
 
-cbI =
-\relative c' {
+cbI = \relative c' {
   \textMark \markup {
     \bold "Teacher:"
     \column {
@@ -253,8 +227,7 @@ cbI =
   \time 4/4
   \voiceOne
 
-  \partial 4
-  e4
+  \partial 4 e4
   a b c b
   a b gis4. fis8
   e4\fermata g! g f
@@ -263,13 +236,12 @@ cbI =
   \bar ":|."
 }
 
-cbII =
-\relative c' {
+cbII = \relative c' {
   \key a \minor
   \time 4/4
   \voiceTwo
-  \partial 4
-  c8 d
+
+  \partial 4 c8 d
   e4 e e8 fis gis4
   a8 g! f!4 e2
   b4 e e d
@@ -278,15 +250,13 @@ cbII =
   \bar ":|."
 }
 
-cbIII =
-\relative c' {
+cbIII = \relative c' {
   \key a \minor
   \time 4/4
   \clef bass
   \voiceOne
 
-  \partial 4
-  a8 b
+  \partial 4 a8 b
   c[ b] a gis8 a4 d,
   e8[ e'] d c b4. a8
   gis4 b c d8 c
@@ -294,15 +264,13 @@ cbIII =
   c2.
 }
 
-cbIV =
-\relative c' {
+cbIV = \relative c' {
   \key a \minor
   \time 4/4
   \clef bass
   \voiceTwo
 
-  \partial 4
-  a4
+  \partial 4 a4
   c, e a, b
   c d e2
   e4\fermata e a b8 c
@@ -311,23 +279,18 @@ cbIV =
   \bar ":|."
 }
 
-chromaticBach =
-\new StaffGroup = "chromatic Bach"
-<<
-
-  \new Staff
-    <<
-      \new Voice \cbI
-      \new Voice \cbII
-    >>
+chromaticBach = \new StaffGroup = "chromatic Bach" <<
+  \new Staff <<
+    \new Voice \cbI
+    \new Voice \cbII
+  >>
 
   \new Lyrics \txt
 
-  \new Staff
-    <<
-      \new Voice \cbIII
-      \new Voice \cbIV
-    >>
+  \new Staff <<
+    \new Voice \cbIII
+    \new Voice \cbIV
+  >>
 >>
 
 
@@ -341,13 +304,13 @@ chromaticBach =
   >>
 
   \header {
-    title = \markup
-               \column {
-                 \combine \null \vspace #1
-                 "Exercise: Improve the given choral"
-                 " "
-                }
+    title = \markup \column {
+              \combine \null \vspace #1
+              "Exercise: Improve the given choral"
+              " "
+            }
   }
+
   \layout {
     \context {
       \Lyrics

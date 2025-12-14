@@ -47,8 +47,8 @@ bracket.
   \new Staff \relative c' {
     \key d \minor
     \tweak text "Subject"
-    \tweak direction #DOWN
-    \startMeasureSpanner
+      \tweak direction #DOWN
+      \startMeasureSpanner
     \tuplet 3/2 8 {
       d16[ e f] g[ f e] f[ g a] bes[ a g]
     }
@@ -56,8 +56,8 @@ bracket.
     b bes a g~ g f e a
     \stopMeasureSpanner
     \tweak text "Counter-subject"
-    \tweak direction #DOWN
-    \startMeasureSpanner
+      \tweak direction #DOWN
+      \startMeasureSpanner
     f8 e a r r16 b, c d e fis g e
     a gis a b c fis, b a gis e a4 g8
     \stopMeasureSpanner

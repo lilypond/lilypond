@@ -27,8 +27,7 @@ Reference.
 
 #(use-modules (lily accreg))
 
-\new PianoStaff
-<<
+\new PianoStaff <<
   \new Staff \relative {
     \clef treble
     \discant "10"

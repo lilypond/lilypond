@@ -100,6 +100,7 @@ BassLyrics = \lyricmode {
       \new Lyrics \lyricsto "BassVoice" \BassLyrics
     >>
   >>
+
   \layout {
     ragged-right = ##t
     \context { \Staff

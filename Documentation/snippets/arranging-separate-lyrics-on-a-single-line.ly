@@ -63,12 +63,14 @@ eveSings = \markup { \smallCaps "Eve" }
       s1
     }
   >>
+
   \new Lyrics \lyricsto "alice" {
     may -- be
     sec -- ond
     % ...
     Shut up, you fool!
   }
+
   \new Lyrics \lyricsto "eve" {
     that the
     words are

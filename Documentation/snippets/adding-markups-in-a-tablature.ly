@@ -29,9 +29,7 @@ To make them appear, simply use the command
 % by P.P.Schneider on June 2014
 
 high  = { r4 r8 <g c'> q r8 r4 }
-
 low = { c4 r4 c8 r8 g,8 b, }
-
 pulse = { s8^"1" s^"&" s^"2" s^"&" s^"3" s^"&" s^"4" s^"&" }
 
 \score {
@@ -46,7 +44,6 @@ pulse = { s8^"1" s^"&" s^"2" s^"&" s^"3" s^"&" s^"4" s^"&" }
       \override TextScript.font-series = #'bold
       \override TextScript.font-size = #-2
       \override TextScript.color = #red
-
     }
     \context {
       \Score

@@ -46,7 +46,7 @@ TenorMusic = \relative a {
   b4 b | b b b b | b b b b | b b b b | b2
 }
 
-BassMusic =  \relative g {
+BassMusic = \relative g {
   g4 g | g g g g | g g g g | g g g g | g2
   g4 g | g g g g | g g g g | g g g g | g2
 }
@@ -116,7 +116,7 @@ global = {
 }
 
 \paper {  % Start paper block
-  indent = 0     % don't indent first system
+  indent = 0         % don't indent first system
   line-width = 130   % shorten line length to suit music
-  tagline = ##f % Don't print tag line, can be removed
+  tagline = ##f      % Don't print tag line, can be removed
 }  % End paper block

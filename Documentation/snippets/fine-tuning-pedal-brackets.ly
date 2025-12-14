@@ -21,7 +21,9 @@ The appearance of pedal brackets may be altered in different ways.
 } % begin verbatim
 
 
-\paper { ragged-right = ##f }
+\paper {
+  ragged-right = ##f
+}
 
 \relative c'' {
   c2\sostenutoOn c

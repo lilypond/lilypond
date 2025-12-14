@@ -42,7 +42,11 @@ m = {
 }
 
 <<
-  \new Staff { \clef "G_8" <>_"default" \m <>_"italian (historic)"\m }
+  \new Staff {
+    \clef "G_8"
+    <>_"default" \m
+    <>_"italian (historic)"\m
+  }
   \new TabStaff
   {
     \m

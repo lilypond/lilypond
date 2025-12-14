@@ -33,7 +33,6 @@ stringNumberSpanner =
         \markup { \circle \number $StringNumber }
     #})
 
-
 \relative c {
   \clef "treble_8"
   \stringNumberSpanner "5"

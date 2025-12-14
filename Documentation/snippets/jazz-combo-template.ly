@@ -41,25 +41,25 @@ music is within a @code{\\transpose} section.
 \paper {
   paper-width = 130
 }
-%#(set-global-staff-size 16)
+
+% #(set-global-staff-size 16)
+
 \include "english.ly"
+
 
 %%%%%%%%%%%% Some macros %%%%%%%%%%%%%%%%%%%
 
-sl = {
-  \override NoteHead.style = #'slash
-  \hide Stem
-}
-nsl = {
-  \revert NoteHead.style
-  \undo \hide Stem
-}
+sl = { \override NoteHead.style = #'slash
+       \hide Stem }
+nsl = { \revert NoteHead.style
+        \undo \hide Stem }
 crOn = \override NoteHead.style = #'cross
 crOff = \revert NoteHead.style
 
 %% insert chord name style stuff here.
 
 jazzChords = { }
+
 
 %%%%%%%%%%%% Keys'n'thangs %%%%%%%%%%%%%%%%%
 

@@ -50,6 +50,7 @@ written.
     R
   }
 >>
+
 \new StaffGroup <<
   \new Staff \relative c' {
     e4 f g a \break

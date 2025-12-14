@@ -34,8 +34,7 @@ music = \relative c {
   }
   \new TabStaff \with {
     tablatureFormat = #fret-letter-tablature-format
-  }
-  {
+  } {
     \music
   }
 >>

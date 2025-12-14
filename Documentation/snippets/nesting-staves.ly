@@ -35,8 +35,13 @@ of staves. The possibilities are @code{SystemStartBar},
 \relative c'' <<
   \override StaffGroup.SystemStartSquare.collapse-height = 4
   \set StaffGroup.systemStartDelimiterHierarchy
-    = #'(SystemStartSquare (SystemStartBrace (SystemStartBracket a
-                             (SystemStartSquare b)  ) c ) d)
+    = #'(SystemStartSquare
+          (SystemStartBrace
+            (SystemStartBracket a
+              (SystemStartSquare b))
+            c)
+          d)
+
   \new Staff { c1 }
   \new Staff { c1 }
   \new Staff { c1 }

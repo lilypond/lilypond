@@ -40,7 +40,9 @@ tuning = \markup {
   tagline = ##f
 }
 
-\layout { ragged-right = ##f }
+\layout {
+  ragged-right = ##f
+}
 
 \relative c'' {
   \time 4/8

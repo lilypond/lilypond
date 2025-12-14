@@ -21,10 +21,10 @@ Markup mode may be used to format individual syllables in lyrics.
 } % begin verbatim
 
 
-
 mel = \relative c'' { c4 c c c c1 }
 lyr = \lyricmode {
-  Your lyrics \markup { \italic can } \markup { \with-color #red contain }
+  Your lyrics \markup { \italic can }
+  \markup { \with-color #red contain }
   \markup { \fontsize #8 \bold Markup! }
 }
 

@@ -44,11 +44,12 @@ value of @var{font-size-pair}.
              (begin
                (ly:grob-set-property!
                  (car siblings)
-                 'font-size
-                 (car font-size-pair))
+                 'font-size (car font-size-pair))
                (for-each
                  (lambda (g)
-                   (ly:grob-set-property! g 'font-size (cdr font-size-pair)))
+                   (ly:grob-set-property!
+                   g
+                   'font-size (cdr font-size-pair)))
                  (cdr siblings))))))
 #})
 
@@ -60,16 +61,12 @@ value of @var{font-size-pair}.
 }
 
 \new StaffGroup <<
-  \new Staff
-     \with {
+  \new Staff \with {
        instrumentName = "Flute"
-       shortInstrumentName = "Fl."
-     }
-     { c''1 \break c'' \break c'' }
-  \new Staff
-   \with {
-     instrumentName = "Violin"
-     shortInstrumentName = "Vl."
-   }
-   { c''1 \break c'' \break c'' }
+       shortInstrumentName = "Fl." } {
+    c''1 \break c'' \break c'' }
+  \new Staff \with {
+       instrumentName = "Violin"
+       shortInstrumentName = "Vl." } {
+    c''1 \break c'' \break c'' }
 >>
