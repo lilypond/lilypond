@@ -1,5 +1,7 @@
 adding-extra-fingering-with-scheme.ly
+adding-indicators-to-staves-which-get-split-after-a-break.ly
 adding-links-to-objects.ly
+adding-orchestral-cues-to-a-vocal-score.ly
 adding-the-current-date-to-a-score.ly
 adjusting-slur-positions-vertically.ly
 center-text-below-hairpin-dynamics.ly
@@ -9,18 +11,20 @@ creating--real--parenthesized-dynamics.ly
 creating-a-sequence-of-notes-on-various-pitches.ly
 creating-custom-dynamics-in-midi-output.ly
 customizing-the-position-and-number-of-dots-in-repeat-sign-bar-lines.ly
+different-font-size-settings-for-instrumentname-and-shortinstrumentname.ly
 displaying-grob-ancestry.ly
-drawing-boxes-around-grobs.ly
+drawing-circles-around-note-heads.ly
 drawing-circles-around-various-objects.ly
+extending-glissandi-across-repeats.ly
 flat-ties.ly
+generate-special-note-head-shapes.ly
 generating-custom-flags.ly
 generating-random-notes.ly
 generating-whole-scores-also-book-parts-in-scheme-without-using-the-parser.ly
 isolated-percent-repeats.ly
 numbers-as-easy-note-heads.ly
-outputting-the-version-number.ly
 overriding-articulations-by-type.ly
-print-chordnames-with-same-root-and-different-bass-as-slash-and-bass-note.ly
+print-chord-names-with-same-root-and-different-bass-as-slash-and-bass-note.ly
 replacing-default-midi-instrument-equalization.ly
 separating-key-cancellations-from-key-signature-changes.ly
 string-number-extender-lines.ly
@@ -29,5 +33,4 @@ transposing-pitches-with-minimum-accidentals--smart--transpose.ly
 two--partcombine-pairs-on-one-staff.ly
 user-defined-time-signatures.ly
 using-ly-grob-object-to-access-grobs-with--tweak.ly
-using-postscript-to-generate-special-note-head-shapes.ly
 vertical-line-as-a-baroque-articulation-mark.ly

@@ -1,4 +1,4 @@
-ancient-notation-template----modern-transcription-of-gregorian-music.ly
+ancient-notation-template---modern-transcription-of-gregorian-music.ly
 anglican-psalm-template.ly
 hymn-template.ly
 jazz-combo-template.ly
@@ -9,7 +9,7 @@ piano-template-with-melody-and-lyrics.ly
 satb-choir-template---four-staves.ly
 score-for-diatonic-accordion.ly
 single-staff-template-with-notes,-lyrics,-and-chords.ly
-single-staff-template-with-notes,-lyrics,-chords-and-frets.ly
+single-staff-template-with-notes,-lyrics,-chords,-and-frets.ly
 single-staff-template-with-notes-and-chords.ly
 single-staff-template-with-notes-and-lyrics.ly
 single-staff-template-with-only-notes.ly

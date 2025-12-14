@@ -3,8 +3,8 @@ adding-links-to-objects.ly
 adding-markups-in-a-tablature.ly
 adding-timing-marks-to-long-glissandi.ly
 adjusting-grace-note-spacing.ly
-adjusting-lyrics-vertical-spacing.ly
 adjusting-slur-positions-vertically.ly
+adjusting-vertical-spacing-of-lyrics.ly
 altering-the-length-of-beamed-stems.ly
 alternative-bar-numbering.ly
 analysis-brackets-above-the-staff.ly
@@ -39,13 +39,14 @@ dotted-harmonics.ly
 drawing-boxes-around-grobs.ly
 drawing-circles-around-various-objects.ly
 dynamics-spanner-with-custom-text.ly
-extending-a-trillspanner.ly
+extending-a-trill-spanner.ly
 extending-glissandi-across-repeats.ly
 fine-tuning-pedal-brackets.ly
 flat-ties.ly
 force-a-cancellation-natural-before-accidentals.ly
 forcing-horizontal-shift-of-notes.ly
 fret-diagrams-explained-and-developed.ly
+generate-special-note-head-shapes.ly
 generating-custom-flags.ly
 glissandi-can-skip-grobs.ly
 hairpins-with-different-line-styles.ly
@@ -66,6 +67,7 @@ nesting-staves.ly
 overriding-articulations-by-type.ly
 percent-repeat-count-visibility.ly
 positioning-arpeggios.ly
+positioning-fingering-indications-precisely.ly
 positioning-multi-measure-rests.ly
 positioning-text-markups-inside-slurs.ly
 printing-bar-numbers-inside-boxes-or-circles.ly
@@ -93,7 +95,6 @@ tweaking-clef-properties.ly
 tweaking-grace-layout-within-music.ly
 using-alternative-flag-styles.ly
 using-ly-grob-object-to-access-grobs-with--tweak.ly
-using-postscript-to-generate-special-note-head-shapes.ly
 using-the--tweak-command-to-tweak-individual-grobs.ly
 vertically-aligned-dynamics-and-textscripts.ly
 vertically-aligning-ossias-and-lyrics.ly

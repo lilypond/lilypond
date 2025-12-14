@@ -16,11 +16,11 @@ customizing-the-chord-grid-style.ly
 customizing-the-no-chord-symbol.ly
 displaying-complex-chords.ly
 manually-break-figured-bass-extenders-for-only-some-numbers.ly
-print-chordnames-with-same-root-and-different-bass-as-slash-and-bass-note.ly
+print-chord-names-with-same-root-and-different-bass-as-slash-and-bass-note.ly
 showing-chords-at-changes.ly
 simple-lead-sheet.ly
 single-staff-template-with-notes,-lyrics,-and-chords.ly
-single-staff-template-with-notes,-lyrics,-chords-and-frets.ly
+single-staff-template-with-notes,-lyrics,-chords,-and-frets.ly
 single-staff-template-with-notes-and-chords.ly
 vertically-centering-paired-figured-bass-extenders.ly
 volta-below-chords.ly

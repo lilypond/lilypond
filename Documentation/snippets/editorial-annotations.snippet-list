@@ -20,6 +20,7 @@ drawing-boxes-around-grobs.ly
 drawing-circles-around-note-heads.ly
 drawing-circles-around-various-objects.ly
 embedding-native-postscript-in-a--markup-block.ly
+generate-special-note-head-shapes.ly
 grid-lines--changing-their-appearance.ly
 grid-lines--emphasizing-rhythms-and-notes-synchronization.ly
 hammer-on-and-pull-off.ly
@@ -33,5 +34,4 @@ positioning-fingering-indications-precisely.ly
 positioning-text-markups-inside-slurs.ly
 printing-text-from-right-to-left.ly
 string-number-extender-lines.ly
-using-postscript-to-generate-special-note-head-shapes.ly
 using-the-whiteout-property.ly

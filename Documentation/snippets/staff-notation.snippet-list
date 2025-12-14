@@ -12,10 +12,10 @@ creating-blank-staves.ly
 creating-custom-key-signatures.ly
 cross-staff-stems.ly
 display-bracket-with-only-one-staff-in-a-system.ly
-extending-a-trillspanner.ly
+extending-a-trill-spanner.ly
 extending-glissandi-across-repeats.ly
 flat-ties.ly
-forcing-measure-width-to-adapt-to-metronomemarks-width.ly
+forcing-measure-width-to-adapt-to-a-metronome-mark-s-width.ly
 glissandi-can-skip-grobs.ly
 incipit.ly
 inserting-score-fragments-above-a-staff,-as-markups.ly
@@ -29,7 +29,7 @@ modifying-the-ottava-spanner-slope.ly
 nesting-staves.ly
 non-traditional-key-signatures.ly
 orchestra,-choir-and-piano-template.ly
-print-chordnames-with-same-root-and-different-bass-as-slash-and-bass-note.ly
+print-chord-names-with-same-root-and-different-bass-as-slash-and-bass-note.ly
 putting-lyrics-inside-the-staff.ly
 quoting-another-voice.ly
 quoting-another-voice-with-transposition.ly
@@ -46,7 +46,7 @@ tweaking-clef-properties.ly
 two--partcombine-pairs-on-one-staff.ly
 use-square-bracket-at-the-start-of-a-staff-group.ly
 using--autochange-with-more-than-one-voice.ly
-using-marklines-in-a-frenched-score.ly
+using-mark-lines-in-a-frenched-score.ly
 vertically-aligned-staffgroups-without-connecting-systemstartbar.ly
 volta-below-chords.ly
 volta-brackets-in-multiple-staves.ly
