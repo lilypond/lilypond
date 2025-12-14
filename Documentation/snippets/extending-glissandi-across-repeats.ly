@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  categories = "Staff notation, Tweaks and overrides"
+  categories = "Scheme, Staff notation, Tweaks and overrides,
+                Workaround"
 
   texidoc = "
 A glissando that extends into several @code{\\alternative} blocks can

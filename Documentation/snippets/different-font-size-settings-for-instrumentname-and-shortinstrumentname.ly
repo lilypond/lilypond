@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Editorial annotations"
+  categories = "Editorial annotations, Scheme"
 
   texidoc = "
 Choose different font sizes for instrumentName and shortInstrumentName

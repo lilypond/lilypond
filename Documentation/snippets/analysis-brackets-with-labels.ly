@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  categories = "Editorial annotations, Tweaks and overrides"
+  categories = "Contexts and engravers, Editorial annotations, Tweaks
+                and overrides"
 
   texidoc = "
 Text markup may be added to analysis brackets through the @code{text}

@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Editorial annotations"
+  categories = "Contexts and engravers, Editorial annotations"
 
   texidoc = "
 Measure spanners are an alternate way to print annotated brackets. As

@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  categories = "Staff notation, Symbols and glyphs, Vocal music"
+  categories = "Scheme, Staff notation, Symbols and glyphs, Vocal
+                music"
 
   texidoc = "
 This snippet defines the commands @code{\\splitStaffBarLine},

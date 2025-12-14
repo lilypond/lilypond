@@ -11,8 +11,8 @@
 \version "2.24.0"
 
 \header {
-  categories = "Contexts and engravers, Preparing parts, Staff
-                notation, Tweaks and overrides"
+  categories = "Contexts and engravers, Staff notation, Tweaks and
+                overrides"
 
   texidoc = "
 The property @code{systemStartDelimiterHierarchy} can be used to make

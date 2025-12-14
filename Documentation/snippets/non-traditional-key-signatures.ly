@@ -12,7 +12,7 @@
 
 \header {
   categories = "Contemporary notation, Pitches, Really cool, Staff
-                notation, Version-specific"
+                notation"
 
   texidoc = "
 The commonly used @code{\\key} command sets the @code{keyAlterations}

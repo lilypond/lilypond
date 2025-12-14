@@ -11,8 +11,8 @@
 \version "2.24.0"
 
 \header {
-  categories = "Ancient notation, Contexts and engravers, Rhythms,
-                Specific notation, Vocal music"
+  categories = "Ancient notation, Rhythms, Specific notation, Vocal
+                music"
 
   texidoc = "
 This form of notation is used for psalm chant, where verses aren't

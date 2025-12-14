@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Staff notation, Vocal music"
+  categories = "Scheme, Staff notation, Vocal music"
 
   texidoc = "
 This snippet shows one approach to simplify adding many orchestral cues

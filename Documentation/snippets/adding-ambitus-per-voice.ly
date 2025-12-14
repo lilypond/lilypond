@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  categories = "Pitches, Staff notation, Vocal music"
+  categories = "Contexts and engravers, Pitches, Staff notation, Vocal
+                music"
 
   texidoc = "
 Ambitus can be added per voice. In this case, the ambitus must be moved

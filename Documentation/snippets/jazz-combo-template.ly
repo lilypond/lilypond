@@ -11,8 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Fretted strings, Keyboards, Percussion, Real music,
-                Template"
+  categories = "Fretted strings, Keyboards, Percussion, Template"
 
   texidoc = "
 This is quite an advanced template, for a jazz ensemble. Note that all

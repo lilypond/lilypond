@@ -11,7 +11,8 @@
 \version "2.25.23"
 
 \header {
-  categories = "Editorial annotations, Education"
+  categories = "Contexts and engravers, Editorial annotations,
+                Education"
 
   texidoc = "
 Regular vertical lines can be drawn between staves to show note

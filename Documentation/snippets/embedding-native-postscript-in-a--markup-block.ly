@@ -11,8 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Editorial annotations, Really cool, Specific notation,
-                Text"
+  categories = "Editorial annotations, Specific notation, Text"
 
   texidoc = "
 PostScript code can be directly inserted inside a @code{\\markup}

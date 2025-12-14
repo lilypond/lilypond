@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Ancient notation, Vocal music"
+  categories = "Ancient notation, Contexts and engravers, Vocal music"
 
   texidoc = "
 Using tags, it is possible to produce both mensural and modern notation

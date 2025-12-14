@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Editorial annotations"
+  categories = "Editorial annotations, Tweaks and overrides"
 
   texidoc = "
 Generally the options available for positioning the fingering of chords

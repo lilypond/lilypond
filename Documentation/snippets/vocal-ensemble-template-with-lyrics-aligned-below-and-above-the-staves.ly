@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Contexts and engravers, Template, Text, Vocal music"
+  categories = "Template, Text, Vocal music"
 
   texidoc = "
 This template is basically the same as the simple @qq{Vocal ensemble}
