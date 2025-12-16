@@ -165,19 +165,30 @@ pitch@tie{}D instead of `re'."
       (conditional-string-capitalize name lowercase?)
       (accidental->markup-italian alt)))))
 
-;; fixme we should standardize on omit-root (or the other one.)
-;; perhaps the default should also be reversed --hwn
 (define-public (sequential-music-to-chord-exceptions seq . rest)
-  "Transform sequential music @var{seq} of type
+  "Transform sequential music @var{seq} to chord exceptions.
+
+@var{seq} is music that contains a sequence of chords with
+attached markup having the form
 
 @example
-@code{<<c d e>>-\\markup@{ foobar @}}
+<@var{pitch1} @var{pitch2} ... >...-\\markup @{ @var{markup} @}
 @end example
 
-to @code{(cons @var{cde-pitches} @var{foobar-markup})}, or to
-@code{(cons @var{de-pitches} @var{foobar-markup})} if @var{omit-root} is given
-and non-false."
+@noindent
+for example, @code{<c e g b d'>-\\markup \\super \"maj9\"}.
 
+Each chord gets transformed to a chord exception, which is a
+two-element list: its first element is a list representing the
+pitches @var{pitch1}, @var{pitch2}, etc., in a normalized form;
+the second element holds a procedure that generates @var{markup}.
+
+If optional argument @var{rest} is set and not equal to @code{#f},
+@var{pitch1} (i.e., the root of the chord) is omitted while
+constructing the chord exception.
+
+The function returns a list of all chord exceptions given in
+@var{seq}."
   (define (chord-to-exception-entry m)
     (let* ((elts (ly:music-property m 'elements))
            (omit-root (and (pair? rest) (car rest)))
@@ -188,19 +199,12 @@ and non-false."
                           elts)))
            (sorted (sort pitches ly:pitch<?))
            (root (car sorted))
-
-           ;; ugh?
-           ;;(diff (ly:pitch-diff root (ly:make-pitch -1 0 0)))
-           ;; FIXME.  This results in #<Pitch c> ...,
-           ;; but that is what we need because default octave for
-           ;; \chords has changed to c' too?
            (normalized (map (lambda (x) (- x root)) sorted))
            (texts (map (lambda (x) (ly:music-property x 'text))
                        (filter
                         (lambda (y) (memq 'text-script-event
                                           (ly:music-property y 'types)))
                         elts)))
-
            (text (if (null? texts) #f (if omit-root (car texts) texts))))
       (cons (if omit-root (cdr normalized) normalized) text)))
 
