@@ -26,6 +26,18 @@
 #include "lily-imports.hh"
 #include "output-def.hh"
 
+LY_DEFINE (ly_context_alias_p, "ly:context-alias?", 2, 0, 0,
+           (SCM context, SCM name),
+           R"(
+Is @var{name} the name or an alias of @var{context}?
+           )")
+{
+  auto *const tr = LY_ASSERT_SMOB (Context, context, 1);
+  LY_ASSERT_TYPE (ly_is_symbol, name, 2);
+
+  return to_scm (tr->is_alias (name));
+}
+
 LY_DEFINE (ly_context_current_moment, "ly:context-current-moment", 1, 0, 0,
            (SCM context),
            R"(
