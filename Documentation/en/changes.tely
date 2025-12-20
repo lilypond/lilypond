@@ -1519,8 +1519,8 @@ music =
 @item
 @code{BassFigureContinuation} grobs now support
 @code{horizontal-line-spanner-interface}; the @code{padding}
-property has been replaced with the corresponding sub-properties
-in @code{bound-details}.
+property has been replaced with the corresponding subproperties in
+@code{bound-details}.
 
 @item
 The @code{\align-on-other} markup command now accepts @code{#f} as
@@ -1752,6 +1752,13 @@ It is now also possible to set the @code{ledger-extra} property via the
   }
 }
 @end lilypond
+
+@item
+For grob @code{NonMusicalPaperColumn}, the subproperty
+@code{bottom-space} of the @code{line-break-system-details}
+property has been renamed to @code{bottom-padding}.  While
+available since version 2.13.4 (released in 2009) it wasn't
+documented before.
 
 @end itemize
 

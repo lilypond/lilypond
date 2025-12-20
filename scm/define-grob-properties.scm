@@ -681,8 +681,32 @@ break at a column with a negative penalty.")
      (line-break-permission ,symbol? "Instructs the line breaker on
 whether to put a line break at this column.  Can be @code{force} or
 @code{allow}.")
-     (line-break-system-details ,symbol-key-alist? "An alist of properties to
-use if this column is the start of a system.")
+
+     (line-break-system-details ,symbol-key-alist? "An alist of
+subproperties to use if this column is the start of a system.
+
+@itemize @bullet
+@item
+@code{alignment-distances} -- A list of vertical distances between
+the staves of a system.
+@item
+@code{bottom-padding} -- If set for the lowest staff of the
+bottommost system on a page, it specifies the distance between the
+bottom of the page and the lowest staff.
+@item
+@code{extra-offset} -- A pair of horizontal and vertical offsets
+for the current staff, relative to either the default layout
+positions or the positions given with the @code{X-offset} and
+@code{Y-offset} subproperties.
+@item
+@code{X-offset} -- Horizontal (absolute) starting point of the
+current staff.
+@item
+@code{Y-offset} -- Vertical (absolute) starting point of the
+current staff.
+@end itemize
+")
+
      (line-count ,integer? "The number of staff lines.")
      (line-positions ,list? "Vertical positions of staff lines.")
      (line-thickness ,number? "For slurs and ties, this is the

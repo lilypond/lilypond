@@ -2628,55 +2628,37 @@ Internals Reference:
 @node Explicit staff and system positioning
 @section Explicit staff and system positioning
 
-One way to understand the flexible vertical spacing mechanisms
-explained above is as a collection of settings that control the
-amount of vertical padding between staves and systems.
+@cindex exact positioning of staves
+@cindex positioning, exact, of staves
+@cindex staff, exact positioning
 
-It is possible to approach vertical spacing in a different way
-using property @code{NonMusicalPaperColumn.line-break-system-details}.
-While the flexible vertical spacing mechanisms specify vertical
-padding, @code{NonMusicalPaperColumn.line-break-system-details}
-can specify exact vertical positions on the page.
+@funindex line-break-system-details
+@funindex NonMusicalPaperColumn
 
-@code{NonMusicalPaperColumn.line-break-system-details} accepts
-an associative list of four different settings:
+It is possible to approach vertical spacing in a different way (in
+comparison to what was demonstrated in the previous sections) by
+using the property @code{line-break-system-details} of the
+@code{NonMusicalPaperColumn} grob.  While the flexible vertical
+spacing mechanisms specify vertical padding,
+@code{line-break-system-details} can specify exact vertical
+positions on the page.
 
-@itemize
-@item @code{X-offset}
-@item @code{Y-offset}
-@item @code{extra-offset}
-@item @code{alignment-distances}
-@end itemize
+This property contains five different subproperties:
+@code{X-offset}, @code{Y-offset}, @code{extra-offset},
+@code{alignment-distances}, and @code{bottom-padding}.
 
-@example
-\once \override NonMusicalPaperColumn.line-break-system-details =
-  #'((X-offset . 20))
-
-\once \override NonMusicalPaperColumn.line-break-system-details =
-  #'((Y-offset . 40))
-
-\once \override NonMusicalPaperColumn.line-break-system-details =
-  #'((X-offset . 20)
-     (Y-offset . 40))
-
-\once \override NonMusicalPaperColumn.line-break-system-details =
-  #'((alignment-distances . (15)))
-
-\once \override NonMusicalPaperColumn.line-break-system-details =
-  #'((X-offset . 20)
-     (Y-offset . 40)
-     (alignment-distances . (15)))
-@end example
-
-To understand how each of these different settings work, we begin
-by looking at an example that includes no overrides at all.
+To understand how each of these different subproperties work, we
+begin by looking at an example that includes no overrides at all.
+We isolate both line breaking and page breaking information in a
+dedicated voice, dividing the music into five measures per line.
+This technique of creating an otherwise empty voice for breaks
+helps in keeping layout separate from music entry as our example
+becomes more complicated.  Also see @ref{Breaks}.
 
 @c \book { } is required in these examples to ensure the spacing
 @c overrides can be seen between systems. -np
 
-@lilypond[verbatim,quote,staffsize=16]
-\header { tagline = ##f }
-\paper { left-margin = 0\mm }
+@lilypond[verbatim,quote,staffsize=11,papersize=a7]
 \book {
   \score {
     <<
@@ -2684,32 +2666,20 @@ by looking at an example that includes no overrides at all.
         \new Voice {
           s1*5 \break
           s1*5 \break
-          s1*5 \break
-        }
+          s1*5 \break }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
       >>
-      \new Staff {
-        \repeat unfold 15 { d'4 d' d' d' }
-      }
+      \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
     >>
   }
 }
 @end lilypond
 
-This score isolates both line breaking and page breaking information in
-a dedicated voice.  This technique of creating a breaks voice will help
-keep layout separate from music entry as our example becomes more
-complicated.  Also see @ref{Breaks}.
+We now set the vertical and horizontal start points of each system
+explicitly by using the @code{Y-offset} and @code{X-offset}
+subproperties of @code{line-break-system-details}.
 
-By using explicit @code{\break} commands, the music is divided into five
-measures per line.  Vertical spacing is from LilyPond's own defaults but
-the vertical start point of each system is set explicitly using the
-@code{Y-offset} pair in the @code{line-break-system-details} attribute
-of the @code{NonMusicalPaperColumn} grob:
-
-@lilypond[verbatim,quote,staffsize=16]
-\header { tagline = ##f }
-\paper { left-margin = 0\mm }
+@lilypond[verbatim,quote,staffsize=11,papersize=a7]
 \book {
   \score {
     <<
@@ -2717,44 +2687,36 @@ of the @code{NonMusicalPaperColumn} grob:
         \new Voice {
           \once \override
             Score.NonMusicalPaperColumn
-                 .line-break-system-details = #'((Y-offset . 0))
+                 .line-break-system-details.Y-offset = 0
           s1*5 \break
           \once \override
             Score.NonMusicalPaperColumn
-                 .line-break-system-details = #'((Y-offset . 40))
+                 .line-break-system-details.Y-offset = 30
+          \once \override
+            Score.NonMusicalPaperColumn
+                 .line-break-system-details.X-offset = 10
           s1*5 \break
           \once \override
             Score.NonMusicalPaperColumn
-                 .line-break-system-details = #'((Y-offset . 60))
-          s1*5 \break
-        }
+                 .line-break-system-details.Y-offset = 50
+          s1*5 \break }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
       >>
-      \new Staff {
-        \repeat unfold 15 { d'4 d' d' d' }
-      }
+      \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
     >>
   }
 }
 @end lilypond
-
-Note that @code{line-break-system-details} takes an associative list of
-potentially many values, but that we set only one value here.  Note,
-too, that the @code{Y-offset} property here determines the exact vertical
-position on the page at which each new system will render.
 
 In contrast to the absolute positioning available through
-@code{Y-offset} and @code{X-offset}, relative positioning is possible
-with the @code{extra-offset} property of
-@code{line-break-system-details}.  Placement is relative to the
-default layout or to the absolute positioning created by setting
-@code{X-offset} and @code{Y-offset}.  The property @code{extra-offset}
-accepts a @code{pair} consisting of displacements along the X-axis and
-Y-axis.
+@code{Y-offset} and @code{X-offset}, relative positioning is
+possible with the @code{extra-offset} subproperty.  Placement is
+relative to the default layout or to the absolute positioning
+created by setting @code{X-offset} and @code{Y-offset}.  The
+subproperty @code{extra-offset} accepts a @code{pair} consisting
+of displacements along the X- and Y-axis.
 
-@lilypond[verbatim,quote,staffsize=16]
-\header { tagline = ##f }
-\paper { left-margin = 0\mm }
+@lilypond[verbatim,quote,staffsize=11,papersize=a7]
 \book {
   \score {
     <<
@@ -2762,21 +2724,16 @@ Y-axis.
         \new Voice {
           s1*5 \break
           \once \override
-            Score
-            .NonMusicalPaperColumn
-            .line-break-system-details = #'((extra-offset . (0 . 10)))
+            Score.NonMusicalPaperColumn
+              .line-break-system-details.extra-offset = #'(5 . 5)
           s1*5 \break
           \once \override
-            Score
-            .NonMusicalPaperColumn
-            .line-break-system-details = #'((extra-offset . (0 . 10)))
-          s1*5 \break
-        }
+            Score.NonMusicalPaperColumn
+              .line-break-system-details.extra-offset = #'(0 . 20)
+          s1*5 \break }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
       >>
-      \new Staff {
-        \repeat unfold 15 { d'4 d' d' d' }
-      }
+      \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
     >>
   }
 }
@@ -2784,89 +2741,68 @@ Y-axis.
 
 Now that we have set the vertical start point of each system
 explicitly, we can also set the vertical distances between staves
-within each system manually.  We do this using the @code{alignment-distances}
-subproperty of @code{line-break-system-details}.
+within each system manually by modifying the
+@code{alignment-distances} subproperty.  As can be seen, we use an
+alist to set two different @code{line-break-system-details}
+subproperties at the same time.
 
-@lilypond[verbatim,quote,staffsize=16]
-\header { tagline = ##f }
-\paper { left-margin = 0\mm }
+@lilypond[verbatim,quote,staffsize=11,papersize=a7]
 \book {
   \score {
     <<
       \new Staff <<
         \new Voice {
           \once \override
-            Score
-            .NonMusicalPaperColumn
-            .line-break-system-details
-            = #'((Y-offset . 20)
+            Score.NonMusicalPaperColumn.line-break-system-details =
+              #'((Y-offset . 0)
                  (alignment-distances . (10)))
           s1*5 \break
           \once \override
-            Score
-            .NonMusicalPaperColumn
-            .line-break-system-details
-            = #'((Y-offset . 60)
+            Score.NonMusicalPaperColumn.line-break-system-details =
+              #'((Y-offset . 30)
                  (alignment-distances . (15)))
           s1*5 \break
           \once \override
-            Score
-            .NonMusicalPaperColumn
-            .line-break-system-details
-            = #'((Y-offset . 85)
+            Score.NonMusicalPaperColumn.line-break-system-details =
+              #'((Y-offset . 65)
                  (alignment-distances . (20)))
-          s1*5 \break
-        }
+          s1*5 \break }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
       >>
-      \new Staff {
-        \repeat unfold 15 { d'4 d' d' d' }
-      }
+      \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
     >>
   }
 }
 @end lilypond
 
-Note that here we assign two different values to the
-@code{line-break-system-details} attribute of the
-@code{NonMusicalPaperColumn} grob.  Though the
-@code{line-break-system-details} attribute alist accepts many
-additional spacing parameters (including, for example, a corresponding
-@code{X-offset} pair), we need only set the @code{Y-offset} and
-@code{alignment-distances} pairs to control the vertical start point of
-every system and every staff.  Finally, note that @code{alignment-distances}
-specifies the vertical positioning of staves but not of staff groups.
+The next example shows how to set vertical positions of multiple
+staves in a system.  Note that @code{alignment-distances} directly
+applies to staves, not taking care of grouping with
+@code{StaffGroup} or the like.  Value @code{#f} indicates that the
+default value should be used.
 
-@lilypond[verbatim,quote,staffsize=16]
-\header { tagline = ##f }
-\paper { left-margin = 0\mm }
+@lilypond[verbatim,quote,staffsize=11,papersize=a7]
 \book {
   \score {
     <<
       \new Staff <<
         \new Voice {
           \once \override
-            Score
-            .NonMusicalPaperColumn
-            .line-break-system-details
-            = #'((Y-offset . 0)
-                 (alignment-distances . (30 10)))
+            Score.NonMusicalPaperColumn.line-break-system-details =
+              #'((Y-offset . 0)
+                 (alignment-distances . (15 8)))
           s1*5 \break
           \once \override
-            Score
-            .NonMusicalPaperColumn
-            .line-break-system-details
-            = #'((Y-offset . 60)
-                 (alignment-distances . (10 10)))
+            Score.NonMusicalPaperColumn.line-break-system-details =
+              #'((Y-offset . 35)
+                 (X-offset . 10)
+                 (alignment-distances . (#f 8)))
           s1*5 \break
           \once \override
-            Score
-            .NonMusicalPaperColumn
-            .line-break-system-details
-            = #'((Y-offset . 100)
-                 (alignment-distances . (10 30)))
-          s1*5 \break
-        }
+            Score.NonMusicalPaperColumn.line-break-system-details =
+              #'((Y-offset . 65)
+                 (alignment-distances . (8 15)))
+          s1*5 \break }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
       >>
       \new StaffGroup <<
@@ -2878,23 +2814,77 @@ specifies the vertical positioning of staves but not of staff groups.
 }
 @end lilypond
 
+@funindex last-bottom-spacing
+
+The last subproperty of @code{line-break-system-details},
+@code{bottom-padding}, has a similar effect as
+@code{last-bottom-spacing}.  Note, however, that it doesn't hold a
+compressible or stretchable spacing dimension but a rigid, fixed
+padding value from the bottom of the page to the lowest staff.
+Here is the test snippet without a ragged bottom, showing the
+default distance.
+
+@lilypond[verbatim,quote,staffsize=11,papersize=a7]
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          s1*5 \break
+          s1*5 \break
+          s1*5 \break }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new Staff { \repeat unfold 15 { d'4 d' d' d' }
+      }
+    >>
+  }
+  \paper { ragged-last-bottom = ##f }
+}
+@end lilypond
+
+Setting @code{bottom-padding} yields the following result.
+
+@lilypond[verbatim,quote,staffsize=11,papersize=a7]
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          s1*5 \break
+          s1*5 \break
+          \once \override
+            Score.NonMusicalPaperColumn.line-break-system-details =
+              #'((bottom-padding . 20))
+          s1*5 \break }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
+    >>
+  }
+  \paper { ragged-last-bottom = ##f }
+}
+@end lilypond
+
 Some points to consider:
 
 @itemize
 @item When using @code{alignment-distances}, lyrics and other non-staff lines
 do not count as a staff.
 
-@item The units of the numbers passed to @code{X-offset},
-@code{Y-offset}, @code{extra-offset} and @code{alignment-distances} are
-interpreted as multiples of the distance between adjacent staff lines.
-Positive values move staves and lyrics up, negative values move staves
-and lyrics down.
+@item The units of the numbers passed to the @code{X-offset},
+@code{Y-offset}, @code{extra-offset}, and
+@code{alignment-distances} subproperties are interpreted as
+multiples of the distance between adjacent staff lines.  Positive
+values move staves and lyrics up, negative values move staves and
+lyrics down.
 
 @item Because the @code{NonMusicalPaperColumn.line-break-system-details}
-settings given here allow the positioning of staves and systems anywhere
-on the page, it is possible to violate paper or margin boundaries or even
-to print staves or systems on top of one another.  Reasonable values
-passed to these different settings will avoid this.
+settings given here allow the positioning of staves and systems
+anywhere on the page, it is possible to violate paper or margin
+boundaries or even to print staves or systems on top of one
+another.  Use reasonable values for the subproperties to avoid
+this.
 @end itemize
 
 @morerefs
