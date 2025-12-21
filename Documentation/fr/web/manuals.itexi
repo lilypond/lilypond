@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
+   Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -160,8 +160,8 @@ liens rapides, manuels téléchargeables, et documentation des anciennes
 versions.
 
 @item
-@uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository} :
-collection d'exemples, trucs et astuces élaborés par des utilisateurs.
+@uref{https://wiki.lilypond.community, LilyPond Wiki} : collection
+d'exemples, trucs et astuces élaborés par des utilisateurs.
 
 @item
 @uref{https://bit.ly/LearnLilyPond, Tutoriels vidéo} : Ben Lemon,
@@ -358,17 +358,17 @@ recommandée avant d'aborder de grands projets.
 @divClass{column-left-top}
 @subheading Morceaux choisis
 
-Il s'agit d'une sélection de petits exemples montrant des trucs,
-astuces et fonctionnalités particulières de LilyPond, issus de
-@uref{https://lsr@/.di@/.unimi@/.it,LilyPond Snippet Repository}
-(LSR).  Tous ces exemples sont dans le domaine public.
+Il s'agit d'une sélection de petits exemples montrant des trucs, astuces
+et fonctionnalités particulières de LilyPond, issus de
+@uref{https://wiki.lilypond.community, LilyPond Wiki}. Tous ces exemples
+sont dans le domaine public.
 
 Notez bien que cette annexe n'est en aucune manière un miroir ou même
-une partie du LSR.  Dans la mesure où le LSR repose sur une version
+une partie du Wiki.  Dans la mesure où LilyPond Wiki repose sur une version
 stable de LilyPond, les exemples illustrant des fonctionnalités
 introduites dans la dernière version de développement ne peuvent y
 figurer ; c'est pourquoi vous les trouverez dans le répertoire
-@file{Documentation/snippets/new/} des sources de LilyPond.
+@file{Documentation/@/snippets/@/new/} des sources de LilyPond.
 
 La liste des exemples correspondant à chacun des sous-chapitres du
 manuel de notation est accessible par des liens dans le paragraphe

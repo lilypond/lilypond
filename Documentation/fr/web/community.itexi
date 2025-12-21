@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+   Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -151,23 +151,27 @@ Forum hollandais}
 Liste de diffusion italophone}
 
 @end quotation
+
+Mersi de nous contacter si vous désirez faire apparaître une autre liste
+de diffusion en relation avec LilyPond.
 @divEnd
 
 
 @divClass{column-right-top}
-@subheading LilyPond Snippet Repository
+@subheading LilyPond Wiki
 
-Le LilyPond Snippet Repository regroupe des exemples de situations
-particulières auxquelles ont été confrontés les utilisateurs de LilyPond.
-Ils sont librement réutilisables dans vos propres travaux.  N'hésitez
-pas à apporter votre concours à cette banque de trucs et astuces !
+Le LilyPond Wiki, successeur du LilyPond Snippet Repository (LSR),
+regroupe des exemples de situations particulières auxquelles ont été
+confrontés les utilisateurs de LilyPond. Ils sont librement
+réutilisables dans vos propres travaux. N'hésitez pas à apporter votre
+concours à cette banque de trucs et astuces !
 
-@example
-@uref{https://lsr.di.unimi.it}
-@end example
+@indentedblock
+@uref{https://wiki.lilypond.community}
+@end indentedblock
 
-Un certain nombre d'exemples issus du LSR et particulièrement pertinents
-sont directement inclus dans la documentation, volume
+Un certain nombre d'exemples issus du LilyPond Wiki et particulièrement
+pertinents sont directement inclus dans la documentation, volume
 @ref{Snippets}.
 @divEnd
 
@@ -239,36 +243,41 @@ archive@tie{}2},
 
 Vous pouvez obtenir quelque support au travers de notre canal IRC :
 
-@example
+@indentedblock
 @uref{irc://irc.libera.chat/lilypond, #lilypond@@irc.libera.chat}
-@end example
+@end indentedblock
 
 Ce canal ne disposant pas d'archive publique, nous vous invitons à
 plutôt utiliser les listes de diffusion pour toute question qui pourrait
 intéresser d'autres utilisateurs.
 
+@ifhtml
+@indentedblock
 @html
-<form action="https://web.libera.chat"
-      method="get"
-      name="f_lily_irc"
-  <label>alias irc :
-    <input name="nick" type="text" size="15" value="">
-  </label>
-  <input name="Channel" type="hidden" value="lilypond">
-  <input type="submit" value="Rejoindre #lilypond IRC Chat">
+<form id="chat">
+  <p>
+    <label>irc name:
+      <input name="nick" type="text" size="15" value="">
+    </label>
+    <input type="submit" value="Join #lilypond IRC Chat">
+  </p>
 </form>
 
-<script language="JavaScript" type="text/javascript">
-  var username = "web";
-  var lang = window.navigator.userLanguage ? window.navigator.userLanguage
-  : window.navigator.language;
-  username += '-' + lang.substr(0, 2);
-  username += '-' + navigator.appName.substr(0, 2);
-  username += navigator.appCodeName.replace (" ", "").substr(0, 2);
-  username += navigator.platform.replace (" ", "").replace("nux", "").replace("n32", "");
-  document.forms["f_lily_irc"].nick.value = username;
+<script type="text/javascript">
+  var form = document.getElementById("chat");
+  var username = "guest";
+  username += String(Math.floor(Math.random() * 9000) + 1000);
+  form.nick.value = username;
+
+  form.onsubmit = function() {
+    window.open("https://web.libera.chat/?nick="
+                + this.nick.value + "#lilypond");
+    return true;
+  }
 </script>
 @end html
+@end indentedblock
+@end ifhtml
 @divEnd
 
 @c Currently inactive and inaccessible

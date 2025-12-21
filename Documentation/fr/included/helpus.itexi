@@ -3,7 +3,7 @@
 @c contributor/introduction.itely
 
 @ignore
-    Translation of GIT committish: a639edf751682ef4a5a9988b708fcdde3c3dd386
+    Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -61,8 +61,8 @@ suivant les recommandations s'appliquant aux
 documentation}.
 
 @item
-LilyPond Snippet Repository (LSR) : ajouter ou corriger des extraits.
-Voir @rcontribnamed{Adding and editing snippets, Ajout et édition
+LilyPond Wiki : ajouter ou corriger des extraits. Voir
+@rcontribnamed{Adding and editing snippets, Ajout et édition
 d'extraits}.
 
 @item

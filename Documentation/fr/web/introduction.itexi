@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
+   Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -716,7 +716,7 @@ Förster.
 
 Après les avoir réorchestrés, Aurélien a donné plusieurs
 représentations, entre octobre 2011 et avril 2012, des @emph{Tableaux
-d'une exposition} de Mussorgsky à la tête de
+d'une exposition} de Moussorgsky à la tête de
 @uref{https://junge-philharmonie-brandenburg.de/,
 l'orchestre philharmonique des jeunes de Brandenbourg}.
 
@@ -832,14 +832,22 @@ travail des autres et de réaliser ses propres éditions.
 
 @item
 @uref{https://www.baroquemusic.it/, baroquemusic.it}, initié en 2005,
-propose plus de 800 partitions de musique baroque. Ces archives incluent
+propose plus de 1 300 partitions de musique baroque. Ces archives incluent
 conducteurs, parties et fichiers MIDI, sont disponibles sous licence
 Creative Commons uniquement sur souscription.
+
+@emph{[En raison de la récente disparition de son mainteneur, ce site
+est voué à disparaître à la fin de l'année 2025.]}
 
 @item
 @uref{https://partitura.org/, Partitura Organum} propose une collection
 grandissante de pièces pour orgue dans le domaine public, réalisées avec
 LilyPond et sous licence Creative Commons.
+
+@item
+@uref{https://bayanguru.org/, Bayanguru} fourint des partitions pour le
++@uref{https://en.wikipedia.org/wiki/Bayan_(accordion), bayan}
+(accordéon diatonique à boutons) sous licence GPLv3.
 
 @item
 @uref{https://clairnote.org/, Clairnote} offre des partitions gratuites
@@ -848,6 +856,10 @@ dont le but est de faciliter la lecture et la compréhension de la
 musique. Les partitions du site sont issues de Mutopia et d'autres
 ressources en ligne, converties dans le système de notation propre à
 Clairnote.
+
+@item
+@uref{https://github.com/volodymyrprokopyuk/bayanguru, Bayanguru} :
+fichiers source de la librairie musicale Bayanguru.
 
 @end itemize
 @divEnd
