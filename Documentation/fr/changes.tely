@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 126af3d0c486475bc66ae306c28efb66c8205bd7
+    Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -308,6 +308,46 @@ désir, qu'elle qu'en soit la raison, ajoutez l'option @code{BYTECODE=no}
 @itemize
 
 @item
+Les ligatures automatiques pour une métrique à 2/8 ont été modifiées de
+sorte à autoriser une ligature sur l'entièreté de la mesure.
+
+@lilypond
+<<
+  \time 2/8
+  \new Staff \with { subdivideBeams = ##f } {
+    <>^"subdivideBeams = ##f"
+    \repeat unfold 2 e'8
+    \repeat unfold 4 e'16
+    \repeat unfold 8 e'32
+  }
+  \new Staff \with { subdivideBeams = ##t } {
+    <>^"subdivideBeams = ##t"
+    \repeat unfold 2 e'8
+    \repeat unfold 4 e'16
+    \repeat unfold 8 e'32
+  }
+>>
+@end lilypond
+
+@item
+@code{\enablePolymeter} a été renommé en @code{\enablePerStaffTiming}
+afin d'éviter toute confusion puisqu'elle n'est recommandée que dans
+certains cas particuliers de polymétrie.
+
+@item
+La propriété @code{TimeSignature@/.time-signature} remplace l'ancienne
+propriété @code{fraction}. Cette nouvelle propriété est plus généraliste
+et autorise des dérogations, ce qui permet certaines adaptations sans
+devoir toucher la propriété @code{stencil}.
+
+@lilypond[quote,verbatim]
+{
+  \once \override Timing.TimeSignature.time-signature = #'(-1 . 12)
+  R1
+}
+@end lilypond
+
+@item
 Certains faux changements de clef ont été réglés.
 
 @lilypond[quote,verbatim]
@@ -380,19 +420,6 @@ relatives.
   \once \override Timing.TimeSignature.time-signature = #'(2 . 8/3)
   \time 6/8
   r4. g'8 8 8
-}
-@end lilypond
-
-@item
-La propriété @code{TimeSignature@/.time-signature} accepte désormais une valeur
-@code{number-@/pair?}, ce qui est plus répandu que l'ancienne
-@code{fraction?}. Ceci permet quelques circonvolutions sans avoir à
-apporter de dérogation à la propriété @code{stencil}.
-
-@lilypond[quote,verbatim]
-{
-  \once \override Timing.TimeSignature.time-signature = #'(-1 . 12)
-  R1
 }
 @end lilypond
 
@@ -645,7 +672,8 @@ reprise peut désormais s'ajuster à l'aide de la propriété
 
 @item
 Les @emph{incipits} peuvent désormais adopter différents types de
-contexte.
+contexte. Ils acceptent aussi un argument optionnel destiné à les
+décaler sur la gauche
 
 @lilypond[verbatim,quote]
 \score {
@@ -658,7 +686,7 @@ contexte.
 
     \new Staff \with { instrumentName = "KievanStaff" }
       {
-        \incipit \new KievanStaff { c'4 d' }
+        \incipit #2 \new KievanStaff { c'4 d' }
         c'4 d' e' f' g'1
       }
     \new Staff
@@ -666,7 +694,8 @@ contexte.
       {
         \incipit
           \new TabStaff
-            \with { \magnifyStaff 0.5 \override InstrumentName.font-size = 6 }
+            \with { \magnifyStaff 0.5
+                    \override InstrumentName.font-size = 6 }
             { c'4 d' }
         c'4 d' e' f' g'1
       }
@@ -700,6 +729,66 @@ Le @code{FingerGlideSpanner} permet maintenant de connecter des objets
   \set strokeFingerOrientations = #'(down)
   b2 \glide -\rightHandFinger #1 \glide -2 \glide \5
   e'-\rightHandFinger #1 -2 \5
+}
+@end lilypond
+
+@item
+Un nouveau graveur, le @code{Toe_heel_engraver} (activé par défaut),
+écoute la variable de contexte @code{toeHeelStyle} pour fournir les
+options stylistiques des commandes @code{\rtoe}, @code{\ltoe},
+@code{\rheel} et @code{\lheel}.
+
+@lilypond[verbatim,quote]
+music = { f'4\rtoe f'4\rheel f'4\ltoe f'4\lheel \bar "||" }
+
+{
+  \music            % #'default
+  \set toeHeelStyle = #'standard    \music
+  \set toeHeelStyle = #'reversed    \music
+  \set toeHeelStyle = #'below       \music
+  \set toeHeelStyle = #'circleheels \music
+}
+@end lilypond
+
+Lorsque le graveur est activé, ces commandes ne se comportent plus comme
+les objets @code{Script} habituels puisqu'ils ne tiennent pas compte des
+changements de positionnement, autrement dit les @samp{^}, @samp{_} et
+@code{\tweak direction} sont ignorés. En cas de nécessité de positionner
+individuellement une indication de pédalier, les nouvelles commandes
+standard d'articulation @code{\toe}, @code{\vartoe}, @code{\heel},
+@code{\varheel} et @code{\heelcircle} (qui accède au nouveau glyphe
+@code{scripts@/.pedalheelcircle}) peuvent s'utiliser.
+
+@lilypond[verbatim,quote]
+{
+  f'2\toe f'2\vartoe |
+  f'2\heel f'2\varheel |
+  f'1\heelcircle
+}
+@end lilypond
+
+Désactiver le graveur fait adopter à @code{\rtoe} et ses semblables le
+comportement qu'ils avaient dans les versions précédentes de LilyPond.
+
+@item
+En liaison directe avec le point précédent, quatre nouvelles commandes
+de type articulation @code{\ltoeheel}, @code{\rtoeheel},
+@code{\lheeltoe} et @code{\rheeltoe}, permettent d'indiquer des
+substitutions pointe-talon ou talon-pointe. Elles sont influencées par
+le @code{Toe_heel_engraver} de la même manière qu'un @code{\rtoe} et ses
+semblables. Les glyphes de talon et de pointe ont été harmonisés quant à
+leur taille de façon à obtenir un meilleur rendu pour les substitutions.
+
+@lilypond[verbatim,quote]
+music = { f'4\rtoeheel f'4\rheeltoe
+          f'4\ltoeheel f'4\lheeltoe \bar "||" }
+
+{
+  \music            % #'default
+  \set toeHeelStyle = #'standard    \music
+  \set toeHeelStyle = #'reversed    \music
+  \set toeHeelStyle = #'below       \music
+  \set toeHeelStyle = #'circleheels \music
 }
 @end lilypond
 
@@ -1038,6 +1127,11 @@ music = \relative {
 \markup { \append-to-tag #'a append \test }
 \markup { \keep-with-tag #'a \score { \music } }
 @end lilypond
+
+@item
+Les deux nouvelles commandes @code{\pad-x-left} et @code{\pad-x-right}
+se comportent comme @code{\pad-x}, à ceci près qu'elles appliquent un
+décalage horizontal sur un seul des côtés du @emph{markup}.
 
 @end itemize
 

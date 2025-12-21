@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
+   Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -244,7 +244,9 @@ en rien les octaves de la musique relative.
 @funindex \chordmode
 @funindex \relative
 
-@code{\relative} est sans effet sur un bloc @code{\chordmode}.
+@code{\relative} n'est pas permis au sein d'un bloc @code{\chordmode}.
+Les blocs @code{\chordmode} au sein d'un bloc @code{\relative}
+demeurent inchangés.
 
 @lilypond[verbatim,quote]
 \new Staff {
@@ -254,8 +256,6 @@ en rien les octaves de la musique relative.
   \chordmode { c1 }
 }
 @end lilypond
-
-@code{\relative} n'est pas permis au sein d'un bloc @code{\chordmode}.
 
 @funindex \transpose
 @cindex octave relative et transposition
@@ -3060,8 +3060,9 @@ en insérant des @samp{!} et des @samp{?} après les notes concernées, tel
 >>
 @end lilypond
 
-Une solution plus sophistiquée est proposée avec le
-@url{https://lsr.di.unimi.it/LSR/Item?id=1172,LSR snippet 1172}.
+Une solution plus sophistiquée est proposée sur le
+@url{//wiki.lilypond.community/wiki/Accidental_adjustments_for_single-voice_polyphony,
+LilyPond Wiki}.
 
 Dans le cas d'une reprise, la logique voudrait que la présence
 d'altération de précaution d'une alternativee soit basée sur la dernière

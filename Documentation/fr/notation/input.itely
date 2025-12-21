@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
+   Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -616,7 +616,7 @@ défaut est défini dans le fichier d'initialisation
 Du texte sous forme de @emph{markup} comme les paroles d'un couplet
 @example
 \markup @{
-   2.  Le première ligne du deuxième couplet.
+   2.  La première ligne du deuxième couplet.
 @}
 @end example
 
@@ -624,26 +624,65 @@ De tels @emph{markups} seront imprimés là où ils apparaissent, avant,
 après ou entre les expressions musicales.
 
 @item
-@cindex variables
-@cindex identificateurs
-Une variable, ou identificateur, telle que
+@cindex variable
+@cindex identificateur
+@cindex identifiant
+Une variable ou identifiant, ou bien une structure Scheme sous forme
+de liste associative imbriquée (alist).
+
 @example
-toto = @{ c4 d e d @}
+toto = @{ c4 d e d @}       % variable normale
+"Cor 3" = @{ c4 d e d @}    % variable entre guillemets
+couplet.1 = @{ c4 d e d @}  % liste associative imbriquée
 @end example
 
-Vous pourrez la réutiliser plus loin dans votre fichier en saisissant
-simplement @code{\toto}. Le nom des identificateurs ne doit pas
-comporter de chiffre (ASCII), de succession de caractères
-souligné (@code{_}) ou de tiret ni aucune espace. Tous les autres
-caractères Unicode sont permis, aussi bien latins, grecs, chinois que
-cyrilliques. Les souligné ou tiret isolés sont autorisés. Autrement dit,
-les variables @code{CorIII} ou @code{αβγXII} sont valides.
+@noindent
+Ces variables peuvent se réutiliser plus loin dans votre fichier
+en les faisant précéder d'une oblique inverse.
+
+@example
+\toto
+\"Cor 3"
+\couplet.1
+@end example
+
+Le nom des identifiants ne doit pas comporter de chiffre (ASCII), de
+succession de caractères souligné (@code{_}) ou de tiret ni aucune
+espace. Tous les autres caractères Unicode sont permis, aussi bien
+latins, grecs, chinois que cyrilliques. Les souligné ou tiret isolés
+sont autorisés. Autrement dit, les variables @code{CorIII} ou
+@code{Скрипка-II} sont valides.
 
 Toute combinaison de caractères est permise dès lors que le nom de la
 variable est borné par des guillemets informatiques. En pareil cas, les
-antislashes et guillemets doivent être « échappés » par un antislash.
-Sont donc valides : @code{"toto tutu"}, @code{"a-b-c"} et @code{"Cor
-3"}.
+@emph{antislashes} et guillemets doivent être « échappés » par un
+@emph{antislash}. Sont donc valides : @code{"toto tutu"}, @code{"a-b-c"}
+et @code{"Cor 3"}.
+
+Les listes associatives imbriquées permettent de contourner les
+limitation vues ci-dessus à propos du nommage des variables qui ne
+devraient comporter de nombre. Une liste associative imbriquée est un
+nom d'identifiant valide suivi d'un ou plusieurs jeux de point et clé.
+Dans @code{mus.violon.1 = @{ a1 +@}}, nous avons un identifiant appelé
+@code{mus} qui comporte une liste associative @code{violon} qui à son
+tour comporte une clé @code{1}, et auquel est finalement attribué la
+valeur @code{@{ a1 @}}. Pour @code{"1.2"."3.4".5} le nom de variable est
+@code{"1.2"} et les clés sont @code{"3.4"} et @code{5} -- une telle
+construction, tout à fait valide, peut permettre de générer de manière
+automatique des noms de variable.
+
+Aucun nom de variable ou de clé dans une liste associative ne doit
+correspondre à un nom de note. Si cela se révélait nécessaire, il
+faudrait l'entourer de guillemets informatiques ou, encore mieux, opter
+pour un autre nom ou une autre clé.
+
+Pour des raisons techniques, accéder à des listes associatives
+imbriquées peut échouer dans certaines circonstances. En particulier,
+on ne peut y accéder aux niveaux de premier rang -- autrement dit en
+dehors d'un bloc de musique. Si @command{lilypond} venait à à avorter
+avec un message d'erreur « mauvais type d'expression », il faudrait
+remplacer la liste associative imbriquée par une variable entre
+guillemets.
 
 @end itemize
 
@@ -2618,17 +2657,30 @@ files}.
 @subsection Utilisation de balises
 
 @funindex \tag
-@funindex \keepWithTag
-@funindex \removeWithTag
 @cindex tag
 @cindex balise
-@cindex regroupement de balises
 
-La commande @code{\tag #'@var{partieA}} affecte à une expression
-musicale le nom @var{partieA}. Les expressions ainsi balisées pourront
-être filtrées par la suite, à l'aide de @code{\keepWithTag #'@var{nom}}
-ou @code{\removeWithTag #'@var{nom}}. Ces filtres fonctionnent de la
-manière suivante :
+La commande @code{\tag} affecte un nom à une expression musicale.
+
+@example
+\tag #'toto @{ ... @}
+@end example
+
+@noindent
+Les expressions ainsi balisées peuvent aisément se manipuler comme un
+tout.
+
+@subsubheading Conserver et exclure de la musique balisée
+@c VO Keeping and removing tagged music
+
+@funindex \keepWithTag
+@funindex \removeWithTag
+@cindex balises, garder
+@cindex balises, exclure
+
+Si la commande @code{\keepWithTag} permet de conserver une expression
+musicale balisée, la commande @code{\removeWithTag} exclura la musique
+balisée.
 
 @indentedblock
 @multitable @columnfractions .55 .45
@@ -2696,14 +2748,15 @@ que @code{#'conducteur} ou @code{#'(violonI violonII)}), suivi d'une
 expression musicale. Si, @emph{et seulement si} les symboles sont des
 indentifiants LilyPond valides (caractères alphabétiques uniquement,
 sans chiffre, souligné ou tiret) qui ne peuvent se confondre avec des
-notes, le @code{#'} peut s'omettre et, pour raccourcir, une liste de
-symboles peut utiliser la virgule en séparateur -- autrement dit,
-@code{\tag #'(violinI violinII)} peut s'écrire @code{\tag
+notes, le préfixe @code{#'} peut s'omettre et, pour raccourcir, une
+liste de symboles peut utiliser la virgule en séparateur -- autrement
+dit, @code{\tag #'(violinI violinII)} peut s'écrire @code{\tag
 violinI,violinII}. Ceci s'applique aussi bien pour @code{\keepWithTag}
-que pour @code{\removeWithTag}. Les commandes de balisage sont des
-fonctions musicales ; elles ne peuvent donc s'utiliser pour filtrer des
-éléments qui ne sont pas des expressions musicales tels que des blocs
-@code{\book} ou @code{\score}.
+que pour @code{\removeWithTag}.
+
+Les commandes de balisage sont des fonctions musicales ; elles ne
+peuvent donc s'utiliser pour filtrer des éléments qui ne sont pas des
+expressions musicales tels que des blocs @code{\book} ou @code{\score}.
 
 Dans l'exemple qui suit, nous obtenons deux versions du même extrait,
 l'une pour le conducteur, l'autre pour l'instrumentiste qui, elle,
@@ -2737,12 +2790,10 @@ music = \relative {
  }
 
 \score {
-  \removeWithTag #'expand
-  \music
+  \removeWithTag #'expand \music
 }
 \score {
-  \removeWithTag #'trills
-  \music
+  \removeWithTag #'trills \music
 }
 @end lilypond
 
@@ -2751,12 +2802,12 @@ music = \relative {
 @cindex @code{\tag} et citation de musique
 
 Lorsque des balises concernent des alternatives de durée non nulle, ces
-alternatives sont souvent conceptuellement simultanées, auquel cas il
-vaut mieux mettre ces alternatives dans des expressions musicales
-simultanées de telle sorte que l'expression musicale ait la même durée
-quelle que soit la balise retenue. Ceci est tout particulièrement
-important lorsque les balises sont utilisées conjointement avec des
-commandes telles que @code{\cueDuring}.
+alternatives sont souvent conceptuellement simultanées. Il vaut alors
+mieux mettre ces alternatives dans des expressions musicales simultanées
+de telle sorte que l'expression musicale ait la même durée quelle que
+soit la balise retenue. Ceci est tout particulièrement important lorsque
+les balises sont utilisées conjointement avec des commandes telles que
+@code{\cueDuring}.
 
 @lilypond[verbatim,quote]
 outputTypeTag = "isScore"
@@ -2814,13 +2865,14 @@ dans une liste :
 
 @lilypond[quote,verbatim]
 music = \relative c'' {
-  \tag #'a \tag #'both { a4 a a a }
-  \tag #'(b both) { b4 b b b }
+  \tag AA \tag AB { a4 a a a }
+  \tag BB,both { b4 b b b }
 }
+
 <<
-\keepWithTag #'a \music
-\keepWithTag #'b \music
-\keepWithTag #'both \music
+  \keepWithTag AA \music
+  \keepWithTag BB \music
+  \keepWithTag AB \music
 >>
 @end lilypond
 
@@ -2831,45 +2883,41 @@ même effet :
 
 @lilypond[verbatim,quote]
 music = \relative c'' {
-  \tag #'A { a4 a a a }
-  \tag #'B { b4 b b b }
-  \tag #'C { c4 c c c }
-  \tag #'D { d4 d d d }
+  \tag AA { a4 a a a }
+  \tag BB { b4 b b b }
+  \tag CC { c4 c c c }
+  \tag DD { d4 d d d }
 }
+
 \new Voice {
-  \removeWithTag #'B
-  \removeWithTag #'C
-  \music
-  \removeWithTag #'(B C)
-  \music
+  \removeWithTag BB \removeWithTag CC \music
+  \removeWithTag BB,CC \music
 }
 @end lilypond
 
 L'application de plus d'un filtre @code{\keepWithTag} à la même
-expression musicale aboutit à l'exclusion de @b{tous} les balisages. En
-effet, si le premier filtre exclut tous les autres balisages,
-l'application du second exclura les effets du premier. L'utilisation
-d'une unique commande @code{\keepWithTag} avec une liste de balises est
-en pareil cas des plus pertinentes : seront exclus tous les fragments
-non concernés par l'une quelconque des balises mentionnées.
+expression musicale aboutit à l'exclusion de @b{tous} les balisages, ce
+qui n'est certainement pas l'effet attendu : si le premier filtre exclut
+tous les autres balisages, l'application du second exclura les effets du
+premier. L'utilisation d'une unique commande @code{\keepWithTag} avec
+une liste de balises est en pareil cas des plus pertinentes : seront
+exclus tous les fragments non concernés par l'une quelconque des balises
+mentionnées. Le code suivant, à titre d'exemple, imprimera les
+@code{\tag}s @var{violinI} et @var{violinII}, mais ni @var{viola} ni
+@var{cello}.
 
 @lilypond[verbatim,quote]
 music = \relative c'' {
-  \tag #'violinI { a4 a a a }
-  \tag #'violinII { b4 b b b }
-  \tag #'viola { c4 c c c }
-  \tag #'cello { d4 d d d }
+  \tag violinI { a4 a a a }
+  \tag violinII { b4 b b b }
+  \tag viola { c4 c c c }
+  \tag cello { d4 d d d }
 }
 
 \new Staff {
-  \keepWithTag #'(violinI violinII)
-  \music
+  \keepWithTag violinI,violinII \music
 }
 @end lilypond
-
-@noindent
-imprimera les @code{\tag}s @var{violinI} et @var{violinII}, mais ni
-@var{viola} ni @var{cello}.
 
 @cindex regroupements de balises
 @cindex balises, regroupement
@@ -2877,48 +2925,51 @@ imprimera les @code{\tag}s @var{violinI} et @var{violinII}, mais ni
 
 Bien que @code{\keepWithTag} soit efficace pour gérer @emph{un} jeu
 d'alternatives, le rejet de musique filtrée par des balises
-@emph{étrangères} se révèle problématique lorsque les @code{\tag} sont
+étrangères se révèle problématique lorsque les @code{\tag} sont
 utilisés à plusieurs fins. Des « groupements de balises » peuvent alors
-être déclarés :
+être déclarés à l'aide de @code{\tagGroup}. Un code tel que
 
 @example
-\tagGroup #'(violinI violinII viola cello)
+\tagGroup violinI,violinII,viola,cello
 @end example
 
 @noindent
-Les différents filtres appartiennent désormais tous à un seul
-regroupement. Notez bien qu'une balise ne saurait être membre de
-plusieurs regroupements.
+met les quatre balises dans un seul regroupement. Par conséquent, taper
 
 @example
-\keepWithTag #'violinI @dots{}
+\keepWithTag violinI @dots{}
 @end example
 
 @noindent
 ne prendra désormais en compte que la musique concernée par la balise
 @code{violinI} du groupe de filtres : tout élément de la musique qui
-serait balisé par l'un des autres filtres de ce jeu sera rejeté.
+serait balisé par l'un des autres filtres de ce jeu sera rejeté, comme
+le montre l'exemple suivant.
 
 @lilypond[verbatim,quote]
+\tagGroup violinI,violinII
+\tagGroup original,arranged
+
 music = \relative {
-  \tagGroup #'(violinI violinII)
-  \tagGroup #'(viola cello)
-  \tag #'violinI { c''4^"violinI" c c c }
-  \tag #'violinII { a2 a }
-  \tag #'viola { e8 e e2. }
-  \tag #'cello { d'2 d4 d }
-  \tag #'autre { f^"autre" f f f }
-  R1^"non balisé"
+  \tag violinI { c''4^"violinI" c c c }
+  \tag violinII { a2 a }
+  \tag original { e8 e e2. }
+  \tag arranged { d'2 d4 d }
+  \tag other { f^"other" f f f }
+  R1^"untagged"
 }
 
 \new Voice {
-  \keepWithTag #'violinI
-  \music
+  \keepWithTag violinI \music
 }
 @end lilypond
 
-Dans le cadre de la commande @code{\keepWithTag}, seules les balises du
-regroupement mentionnées dans la commande seront visibles.
+Il est à noter que les balises ne peuvent être incluses que dans un seul
+regroupement.
+
+
+@subsubheading Préposition et apposition a de la musique balisée
+@c VO Prepending and appending to tagged music
 
 @funindex \pushToTag
 @funindex \appendToTag
@@ -2931,6 +2982,7 @@ point particulier d'une expression musicale. Les commandes
 matériau, qu'il soit antérieur ou postérieur, à des constructions
 musicales existantes. Les différentes possibilités sont les suivantes :
 
+@indentedblock
 @table @asis
 @item Musique séquentielle ou simultanée
 Lorsqu'a été balisée l'intégralité d'une construction @code{@{@dots{}@}}
@@ -2945,12 +2997,18 @@ dernières pour l'accord dans sa globalité.
 @item Notes et silences
 Lorsque la musique balisée est une note (y compris à l'intérieur d'un
 accord), ou un silence, peuvent venir s'y ajouter, avant ou après,
-d'autres articulations. Afin d'ajouter d'autres @emph{notes}, il est
-préférable de les placer dans une construction d'accord et baliser
-@emph{l'accord}. Notez bien qu'il n'est pas possible de baliser une
-simple @emph{articulation} et y ajouter quelque chose, puisqu'il ne
-s'agit pas d'une liste ; il vaut alors mieux baliser la note.
+d'autres articulations.
+
+Afin d'ajouter d'autres @emph{notes}, il est préférable de les placer
+dans une construction d'accord et baliser @emph{l'accord}. Notez bien
+qu'il n'est pas possible de baliser une simple @emph{articulation} et y
+ajouter quelque chose, puisqu'il ne s'agit pas d'une liste ; il vaut
+alors mieux baliser la note.
 @end table
+@end indentedblock
+
+Ces deux instructions sont affectées d'une balise, le matériau à
+raccorder à chaque instance de la balise, et l'expression balisée.
 
 @lilypond[verbatim,quote]
 music = { \tag #'here { \tag #'here <<c''>> } }
@@ -2965,31 +3023,33 @@ music = { \tag #'here { \tag #'here <<c''>> } }
 }
 @end lilypond
 
-Ces deux instructions sont affectées d'une balise, le matériau à
-raccorder à chaque instance de la balise, et l'expression balisée.
+
+@subsubheading Balise et @emph{markup}
+@c VO Tagging within markups
+
+@cindex @emph{markup} et balise
 
 @funindex \keep-with-tag
 @funindex \remove-with-tag
 @funindex \push-to-tag
 @funindex \append-to-tag
 
-La commande @code{\tag} peut s'utiliser aussi dans les environnements
-@code{\markup}. Les commandes @code{\keep-with-tag},
-@code{\remove-with-tag}, @code{\push-to-tag} et @code{\append-to-tag} y
-sont disponibles et se comportent comme celles utilisées pour les
-expressions musicales.
+La commande @code{\tag} peut s'utiliser aussi dans des @code{\markup}.
+LilyPond fournit les commandes @code{\keep-with-tag},
+@code{\remove-with-tag}, @code{\push-to-tag} et @code{\append-to-tag}
+qui se comportent comme celles utilisées pour les expressions musicales.
 
 @lilypond[verbatim,quote]
 test = \markup {
-  \tag #'a a
-  \tag #'b b
-  \tag #'c c
+  \tag #'AA a
+  \tag #'BB b
+  \tag #'CC c
 }
 
-\markup { \keep-with-tag #'b \test }
-\markup { \remove-with-tag #'b \test }
-\markup { \push-to-tag #'c pre \test }
-\markup { \append-to-tag #'c post \test }
+\markup { \keep-with-tag #'BB \test }
+\markup { \remove-with-tag #'BB \test }
+\markup { \push-to-tag #'CC pre \test }
+\markup { \append-to-tag #'CC post \test }
 @end lilypond
 
 Les commandes musicales @code{\keepWithTag} et @code{\removeWithTag}
@@ -3011,10 +3071,10 @@ music = \relative {
 @funindex \appendToTagMarkup
 
 Il est aussi possible d'insérer ou ajouter quelque chose à un
-@code{\markup} attaché aux objets musicaux. On ne peut utiliser
-@code{\pushToTag} et @code{\appendToTag} puisqu'ils ne traîtent que de
-la musique, mais @code{\pushToTagMarkup} et @code{\appendToTagMarkup}
-sont conçus pour rajouter un @emph{markup}.
+@code{\markup} attaché aux objets musicaux. On ne peut toutefois
+utiliser @code{\pushToTag} et @code{\appendToTag} puisqu'ils ne traîtent
+que de la musique ; cependant, @code{\pushToTagMarkup} et
+@code{\appendToTagMarkup} sont conçus pour rajouter un @emph{markup}.
 
 @lilypond[verbatim,quote]
 music = \relative {
@@ -3047,19 +3107,13 @@ music = \relative {
 
 Une attention particulière doit toutefois être portée lors de
 l'utilisation de balises avec des listes de @emph{markups}. Les
-fonctions de filtrage fonctionent comme prévu
+fonctions de filtrage fonctionent comme prévu, mais les commandes telles
+que @code{\push-to-tag} et @code{\append-to-tag} posent problème.
 
 @lilypond[verbatim,quote]
 \markup {
   \remove-with-tag #'test { a \tag #'test { b c } d }
 }
-@end lilypond
-
-@noindent
-mais les commandes telles que @code{\push-to-tag} et
-@code{\append-to-tag} posent problème.
-
-@lilypond[verbatim,quote]
 \markup {
   \push-to-tag #'test "twice" { a \tag #'test { b c } d }
 }
@@ -3109,6 +3163,19 @@ instruction @code{\relative} qui précède les commandes
 @code{\keepWithTag} ou @code{\removeWithTag} permet d'éviter ce risque,
 dans la mesure où elle viendra « recaler » ces hauteurs récupérées.
 
+Même lors de l'utilisation de regroupements de balises, les commands
+telles que @code{\keepWithTag} ne sont pas cumulatives. du code comme
+
+@example
+\keepWithTag violonI,original \laMusique
+@end example
+
+@noindent
+ne produira pas le même résultat que
+
+@example
+\keepWithTag violonI \keepWithTag original \laMusique
+@end example
 
 @node Using global settings
 @subsection Globalisation des réglages
@@ -4723,7 +4790,7 @@ automatiquement.
 
 @c Issue 4059 contains an attached snippet which shows how this might
 @c be done, but this is too large and complex for the NR, even as a
-@c referenced snippet.  It could be added to the LSR.
+@c referenced snippet.  It could be added to the LilyPond Wiki.
 
 Le niveau d'expression varie entre 0.0 (sans expression, autrement dit
 volume à zéro) et 1.0 (volume au maximum).

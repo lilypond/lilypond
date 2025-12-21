@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
+   Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2783,8 +2783,9 @@ notation moderne, d'indiquer aussi comment apparaissaient les silences
 ou notes initiaux dans la version originale, y compris la clef. Ceci
 s'appelle un @dfn{incipit}. La commande @code{\incipit} utilise le
 @code{indent} de la portée principale pour déterminer la place occupée
-par l'incipit, et @code{incipit-width} pour déterminer la longueur de la
-portée d'incipit.
+par l'incipit accolé au nom d'instrument, et @code{incipit-width} pour
+déterminer la longueur de la portée d'incipit. Un argument optionnel
+permet d'indiquer de combien l'incipit devrait se décaler sur la gauche.
 
 @lilypond[verbatim,quote,ragged-right]
 \score {
@@ -2792,7 +2793,7 @@ portée d'incipit.
     \new Voice = Tenor {
       \set Staff.instrumentName = "Tenor"
       \override Staff.InstrumentName.self-alignment-X = #RIGHT
-      \incipit { \clef "mensural-c4" \key f \major r\breve r1 c'1 }
+      \incipit #1 { \clef "mensural-c4" \key f \major r\breve r1 c'1 }
       \clef "treble_8"
       \key f \major
       R1 r2 c'2 |
@@ -2844,7 +2845,7 @@ constituer les barres de mesure.
 @c This simple setup will take care of the
 @c TODO Add text about lyrics to the lowest line, to be placed
 @c outside the StaffGroup.
-@c from lsr and -user
+@c from LilyPond Wiki and -user
 @c TBC
 
 @c @morerefs

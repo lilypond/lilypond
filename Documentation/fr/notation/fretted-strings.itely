@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
+   Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1398,15 +1398,14 @@ and color of dots.
 
 @funindex fret-diagram-interface
 
-La disposition graphique d'un diagramme d'accord peut être
-modifiée suivant les préférences de l'utilisateur grâce aux
-propriétés de l'interface @code{fret-diagram-interface}. Des
-détails se trouvent dans @rinternals{fret-diagram-interface}. Voir
-aussi @rlsrsnippetnamed{Fretted string instruments, Fret diagrams explained
-and developed, Construction et développement
-de diagrammes de fret} pour un exemple développé. Pour un
-diagramme d'accord, les propriétés de l'interface dépendent de
-@code{Voice.TextScript}.
+La disposition graphique d'un diagramme d'accord peut être modifiée
+suivant les préférences de l'utilisateur grâce aux propriétés de
+l'interface @code{fret-diagram-interface}. Des détails se trouvent dans
+@rinternals{fret-diagram-interface}. Voir aussi
+@rlsrsnippetnamed{Fretted string instruments, Fret diagrams explained
+and developed, Construction et développement de diagrammes de fret} pour
+un exemple développé. Pour un diagramme d'accord, les propriétés de
+l'interface dépendent de @code{Voice.TextScript}.
 
 @snippets
 
@@ -1895,9 +1894,9 @@ plus d'information sur la propriété @code{stringTunings}.
 La disposition graphique d'un diagramme d'accord peut être modifiée
 suivant les préférences de l'utilisateur au travers des propriétés de
 l'interface @code{fret-diagram-interface}. Voir aussi
-@rlsrsnippetnamed{Fretted string instruments, Fret diagrams explained and
-developed, Construction et développement de diagrammes de fret}
-pour un exemple. Pour un diagramme d'accord @code{FretBoards} donné, les
+@rlsrsnippetnamed{Fretted string instruments, Fret diagrams explained
+and developed, Construction et développement de diagrammes de fret} pour
+un exemple. Pour un diagramme d'accord @code{FretBoards} donné, les
 propriétés de l'interface dépendent de @code{FretBoards.FretBoard}.
 
 @predefined
@@ -2023,7 +2022,8 @@ Cet exemple montre comment indiquer les positions et les barrés :
 @end lilypond
 
 Une solution plus sophistiquée est disponible ici :
-@url{https://lsr.di.unimi.it/LSR/Item?id=952,LSR snippet 952}.
+@url{https://wiki.lilypond.community/wiki/Guitar_barre, Barré de
+guitare}.
 
 @morerefs
 Manuel de notation :

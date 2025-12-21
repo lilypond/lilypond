@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 7ac0dd1495161592599f5fdf9bb1233b3d588a02
+   Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1620,6 +1620,8 @@ suivant :
 
 @funindex \pad-markup
 @funindex \pad-x
+@funindex \pad-x-left
+@funindex \pad-x-right
 @funindex \pad-to-box
 @funindex \pad-around
 
@@ -1631,7 +1633,8 @@ leur description.
 @lilypond[quote,verbatim,line-width=14\cm]
 \markup \fill-line {
   \center-column {
-    \box "Charles Ives (1874 - 1954)"
+    \box \pad-x-left #3 "Charles Ives"
+    \box \pad-x-right #3 "(1874 - 1954)"
     \null
     \box \pad-markup #2 "THE UNANSWERED QUESTION"
     \box \pad-x #8 "A Cosmic Landscape"

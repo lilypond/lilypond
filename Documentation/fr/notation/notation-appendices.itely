@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-  Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
+  Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
 
   When revising a translation, copy the HEAD committish of the
   version that you are working on.  For details, see the Contributors'
@@ -2469,70 +2469,70 @@ f^\henzelongfermata e,_\henzelongfermata b'\henzelongfermata
 
 @item
 @code{\upbow}
-@lilypond[inline,notime,relative=2]
+@lilypond[notime,relative=2]
 f^\upbow e,_\upbow b'\upbow
 @end lilypond
 @tab
 @code{\downbow}
-@lilypond[inline,notime,relative=2]
+@lilypond[notime,relative=2]
 f^\downbow e,_\downbow b'\downbow
 @end lilypond
 @tab
 @code{\flageolet}
-@lilypond[inline,notime,relative=2]
+@lilypond[notime,relative=2]
 f^\flageolet e,_\flageolet b'\flageolet
 @end lilypond
 @tab
 @code{\open}
-@lilypond[inline,notime,relative=2]
+@lilypond[notime,relative=2]
 f^\open e,_\open b'\open
 @end lilypond
 
 @item
 @code{\halfopen}
-@lilypond[inline,notime,relative=2]
+@lilypond[notime,relative=2]
 f^\halfopen e,_\halfopen b'\halfopen
 @end lilypond
 @tab
 @code{\heel}
-@lilypond[inline,notime,relative=2]
+@lilypond[notime,relative=2]
 f^\heel e,_\heel b'\heel
 @end lilypond
 @tab
 @code{\varheel}
-@lilypond[inline,notime,relative=2]
+@lilypond[notime,relative=2]
 f^\varheel e,_\varheel b'\varheel
 @end lilypond
 @tab
 @code{\heelcircle}
-@lilypond[inline,notime,relative=2]
+@lilypond[notime,relative=2]
 f^\heelcircle e,_\heelcircle b'\heelcircle
 @end lilypond
 
 @item
 @code{\toe}
-@lilypond[inline,notime,relative=2]
+@lilypond[notime,relative=2]
 f^\toe e,_\toe b'\toe
 @end lilypond
 @tab
 @code{\vartoe}
-@lilypond[inline,notime,relative=2]
+@lilypond[notime,relative=2]
 f^\vartoe e,_\vartoe b'\vartoe
 @end lilypond
 @tab
 @code{\snappizzicato}
-@lilypond[inline,notime,relative=2]
+@lilypond[notime,relative=2]
 f^\snappizzicato e,_\snappizzicato b'\snappizzicato
 @end lilypond
 @tab
 @code{\stopped} ou @code{-+}
-@lilypond[inline,notime,relative=2]
+@lilypond[notime,relative=2]
 f^\stopped e,_\stopped b'\stopped
 @end lilypond
 
 @item
 @code{\thumb}
-@lilypond[inline,notime,relative=2]
+@lilypond[notime,relative=2]
 f^\thumb e,_\thumb b'\thumb
 @end lilypond
 

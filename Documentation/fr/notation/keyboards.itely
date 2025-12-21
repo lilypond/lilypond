@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
+   Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -86,8 +86,8 @@ Les indications de doigté sont abordées dans @ref{Fingering instructions}.
 
 @item
 Les indications en matière de pédalier d'orgue sont traitées comme
-des articulations. Voir à ce sujet
-@ref{List of articulations}.
+des articulations. Voir à ce sujet @ref{Organ pedal marks} et @ref{List
+of articulations}.
 
 @item
 Pour générer des repères verticaux, voir @ref{Grid lines}.
@@ -134,7 +134,8 @@ Manuel de notation :
 @ref{Writing music in parallel}.
 
 Morceaux choisis :
-@rlsrnamed{Keyboard and other multi-staff instruments, Claviers}.
+@rlsrnamed{Keyboard and other multi-staff instruments,
+ Claviers et autres instruments à portées multiples}.
 
 Référence des propriétés internes :
 @rinternals{PianoStaff}.
@@ -216,11 +217,11 @@ ainsi :
 >>
 @end lilypond
 
-Si les ligatures demandaient à être retouchées, commencez par
-modifier la direction des hampes.  L'emplacement des ligatures sera
-alors calculé à partir du centre de la portée la plus proche -- voir
-@rlearningnamed{Fixing overlapping notation, Correction des collisions d'objets} pour un exemple de
-retouche sur des ligatures.
+Si les ligatures demandaient à être retouchées, commencez par modifier
+la direction des hampes. L'emplacement des ligatures sera alors calculé
+à partir du centre de la portée la plus proche -- voir
+@rlearningnamed{Fixing overlapping notation, Correction des collisions
+d'objets} pour un exemple de retouche sur des ligatures.
 
 @cindex changement de portée et collision
 @cindex collision et changement de portée
@@ -252,16 +253,17 @@ Une voix qui change de portée peut entraîner des collisions :
 @end lilypond
 
 Hampes et liaisons viennent en surimpression sur la ligne des nuances
-parce que la résolution automatique des collisions est inactivée pour
-ce qui relie les notes de différentes portées ainsi que pour les hampes
-ou extenseurs affectés à des notes incluses dans un changement de
-portée.  Lorsque des collisions surviennent en pareil cas, il vous
-faudra les résoudre, en suivant les directives du chapitre
-@rlearningnamed{Fixing overlapping notation, Correction des collisions d'objets}.
+parce que la résolution automatique des collisions est inactivée pour ce
+qui relie les notes de différentes portées ainsi que pour les hampes ou
+extenseurs affectés à des notes incluses dans un changement de portée.
+Lorsque des collisions surviennent en pareil cas, il vous faudra les
+résoudre, en suivant les directives du chapitre @rlearningnamed{Fixing
+overlapping notation, Correction des collisions d'objets}.
 
 @morerefs
 Manuel d'initiation :
-@rlearningnamed{Fixing overlapping notation, Correction des collisions d'objets}.
+@rlearningnamed{Fixing overlapping notation,
+  Correction des collisions d'objets}.
 
 Manuel de notation :
 @ref{Automatic beams},
@@ -269,7 +271,8 @@ Manuel de notation :
 @ref{Stems}.
 
 Morceaux choisis :
-@rlsrnamed{Keyboard and other multi-staff instruments,Claviers}.
+@rlsrnamed{Keyboard and other multi-staff instruments,
+ Claviers et autres instruments à portées multiples}.
 
 Référence des propriétés internes :
 @rinternals{Beam},
@@ -376,7 +379,8 @@ Manuel de notation :
 @ref{Changing staff manually}.
 
 Morceaux choisis :
-@rlsrnamed{Keyboard and other multi-staff instruments, Claviers}.
+@rlsrnamed{Keyboard and other multi-staff instruments,
+ Claviers et autres instruments à portées multiples}.
 @endmorerefs
 
 @knownissues
@@ -458,7 +462,8 @@ d'arrivée de cette ligne.
 
 @morerefs
 Morceaux choisis :
-@rlsrnamed{Keyboard and other multi-staff instruments, Claviers}.
+@rlsrnamed{Keyboard and other multi-staff instruments,
+ Claviers et autres instruments à portées multiples}.
 
 Référence des propriétés internes :
 @rinternals{Note_head_line_engraver},
@@ -487,7 +492,8 @@ Référence des propriétés internes :
 
 @morerefs
 Morceaux choisis :
-@rlsrnamed{Keyboard and other multi-staff instruments, Claviers}.
+@rlsrnamed{Keyboard and other multi-staff instruments,
+ Claviers et autres instruments à portées multiples}.
 
 Référence des propriétés internes :
 @rinternals{Stem}.
@@ -580,7 +586,8 @@ Manuel de notation :
 @ref{Ties}.
 
 Morceaux choisis :
-@rlsrnamed{Keyboard and other multi-staff instruments, Claviers}.
+@rlsrnamed{Keyboard and other multi-staff instruments,
+ Claviers et autres instruments à portées multiples}.
 
 Référence des propriétés internes :
 @rinternals{Piano_pedal_engraver},
@@ -597,7 +604,107 @@ Référence des propriétés internes :
 @endmorerefs
 
 
-@need 1500
+@node Organ
+@section Orgue
+
+@cindex orgue
+
+Cette section aborde les problématiques de la musique pour orgue d'église.
+
+
+@node Organ pedal marks
+@subsection Indication de pédalier d'orgue
+
+@cindex orgue, indication de pédalier
+@cindex pédalier d'orgue, indication
+@cindex @sortas{pointe} « pointe », pédalier
+@cindex @sortas{talon} « talon », pédalier
+
+@funindex \rtoe
+@funindex \ltoe
+@funindex \rheel
+@funindex \lheel
+@funindex toeHeelStyle
+On trouve, dans la majorité des méthodes pour orgue, des indication
+d'utilisation des pointe et talon des pieds droit et gauche sur la
+portée du pédalier. Selon le style de l'ouvrage apparaîtront différents
+signes. Toutefois, et dans la plupart des cas, les indications de pédale
+sont positionnées au-dessus de la portée pour le pied droit, et en
+dessous de la portée pour le pied gauche.
+
+Les principales commandes permettant d'imprimer ces indications sont
+@code{\rtoe}, @code{\ltoe}, @code{\rheel} et @code{\lheel}. La
+propriété de contexte @code{toeHeelStyle} permet de sélectionner le
+style à adopter. Les différentes options sont les suivantes :
+
+@indentedblock
+@table @code
+@item default
+Valeur par défaut en début de pièce, pour compatibilité ascendante.
+@item standard
+Il s'agit de la nomenclature la plus courante de nos jours. L'apparence
+des indications est identique des deux côtés de la portée.
+@item reversed
+L'extrémité « fermée » du glyphe pointe vers la portée.
+@item circleheels
+L'indication de talon utilise un glyphe circulaire.
+@item below
+Cette option répond aux rares cas dans lesquels le pédalier apparaît
+sur la même portée que la main gauche, ce qui rend nécessaire que les
+indications du pied droit et du pied gauche se placent sous la portée.
+@end table
+@end indentedblock
+
+@funindex \rtoeheel
+@funindex \ltoeheel
+@funindex \rheeltoe
+@funindex \lheeltoe
+
+Pour des substitutions pointe-talon et talon-pointe sont disponibles les
+instructions @code{\rtoeheel}, @code{\ltoeheel}, @code{\rheeltoe} et
+@code{\lheeltoe}.
+
+@lilypond[verbatim,quote]
+music = { g'4_\rtoe g'\rheel g'\rtoeheel g'\rheeltoe |
+          e'4\ltoe e'\lheel e'\ltoeheel e'\lheeltoe \bar "||" }
+
+{
+  \music            % #'default
+  \set toeHeelStyle = #'standard \music
+  \set toeHeelStyle = #'reversed \music
+  \set toeHeelStyle = #'circleheels \music
+  \set toeHeelStyle = #'below \music
+}
+@end lilypond
+
+@code{\rtoe} et ses semblables ressemblent aux autres articulations
+telles que @code{\flageolet} or @code{\prall}, puisqu'il s'agit d'objets
+graphiques @code{Script}. Cependant, ils ignorent les modifications de
+positionnement -- autrement dit, les  @samp{^}, @samp{_} ou @code{\tweak
+direction} sont ignorés. L'idée sous-jacente est de séparer le contenu
+de la représentation en laissant le style gérer le positionnement des
+indications.
+
+@funindex \toe
+@funindex \vartoe
+@funindex \heel
+@funindex \varheel
+@funindex \heelcircle
+
+S'il est besoin de positionner individuellement les indication de
+pédalier en surplomb ou au-dessous de la portée, doivent s'utiliser les
+instruction d'articulation standard @code{\toe}, @code{\vartoe},
+@code{\heel}, @code{\varheel} et @code{\heelcircle}.
+
+@lilypond[verbatim,quote]
+{
+  f'2\toe f'2\vartoe |
+  f'2\heel f'2\varheel |
+  f'1\heelcircle
+}
+@end lilypond
+
+
 @node Accordion
 @section Accordéon
 
@@ -628,7 +735,8 @@ Une liste des différents symboles est disponible à l'annexe
 
 @morerefs
 Morceaux choisis :
-@rlsrnamed{Keyboard and other multi-staff instruments, Claviers}.
+@rlsrnamed{Keyboard and other multi-staff instruments,
+ Claviers et autres instruments à portées multiples}.
 @endmorerefs
 
 

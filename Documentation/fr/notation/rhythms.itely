@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: e6b269e6daab5d6a85a6de713a8bd38c4bdc4fb4
+   Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2055,8 +2055,8 @@ ligature automatique.
 @c VO Different time signatures with unequal-length measures
 
 Il arrive aussi que chaque portée ait sa propre métrique. Vous y
-parviendrez en insérant l'instruction @code{\enablePerStaffTiming} dans le
-bloc @code{\layout}.
+parviendrez en insérant l'instruction @code{\enablePerStaffTiming} dans
+le bloc @code{\layout}.
 
 @lilypond[quote,verbatim]
 \layout {
@@ -2088,8 +2088,8 @@ bloc @code{\layout}.
 @end lilypond
 
 Lorsqu'un seul morceau est polymétrique, l'instruction
-@code{\enablePerStaffTiming} sera placée dans la section @code{\layout} du
-bloc @code{\score} considéré.
+@code{\enablePerStaffTiming} sera placée dans la section @code{\layout}
+du bloc @code{\score} considéré.
 
 @lilypond[verbatim,quote]
 \score {
@@ -4611,7 +4611,7 @@ Référence des propriétés internes :
 Un groupe de notes ligaturées constituant une @dfn{acciaccatura}
 apparaîtra comme une @dfn{appoggiatura}, c'est-à-dire sans trait.
 
-@c TODO Add link to LSR snippet to add slash when available
+@c TODO Add link to LilyPond Wiki snippet to add slash when available
 
 La synchronisation des petites notes se fait de façon parfois
 surprenante, car les autres objets de la portée -- barre de mesure,
