@@ -61,14 +61,14 @@
 
 (define-public (paper-system-annotate-last system layout)
   (let*
-      ((bottomspace (ly:prob-property system 'bottom-space))
+      ((bottomspace (ly:prob-property system 'bottom-padding))
        (y-extent (paper-system-extent system Y))
        (x-extent (paper-system-extent system X))
        (stencil (ly:prob-property system 'stencil))
 
        (arrow (if (number? bottomspace)
                   (annotate-y-interval layout
-                                       "bottom-space"
+                                       "bottom-padding"
                                        (cons (- (car y-extent) bottomspace)
                                              (car y-extent))
                                        #t)

@@ -547,17 +547,16 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm,
     {
       Real bottom_padding = 0;
 
-      // TODO: junk bottom-space now that we have last-bottom-spacing?
-      // bottom-space has the flexibility that one can do it per-system.
-      // NOTE: bottom-space is misnamed since it is not stretchable space.
       if (Prob *p = elements_.back ().prob)
-        bottom_padding = from_scm<double> (get_property (p, "bottom-space"), 0);
+        bottom_padding
+          = from_scm<double> (get_property (p, "bottom-padding"), 0);
       else if (elements_.back ().staves.size ())
         {
           SCM details = get_details (elements_.back ());
-          bottom_padding = from_scm<double> (
-            ly_assoc_get (ly_symbol2scm ("bottom-space"), details, SCM_BOOL_F),
-            0.0);
+          bottom_padding
+            = from_scm<double> (ly_assoc_get (ly_symbol2scm ("bottom-padding"),
+                                              details, SCM_BOOL_F),
+                                0.0);
         }
       page_height_ -= bottom_padding;
     }
