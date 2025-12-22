@@ -88,6 +88,7 @@ protected:
 
 private:
   Context *parent_;
+  SCM context_list_;
 
   // The global time at which this context was added to the tree.  This default
   // value keeps Global_context, which is never added to the tree in the same
@@ -102,7 +103,6 @@ protected:
   SCM definition_mods_;
 
   SCM properties_scm_;
-  SCM context_list_;
   Acceptance_set acceptance_;
   /* When a context needs to be added to the tree, but its descent is
      not fully specified, can this context accept it as a descendant?

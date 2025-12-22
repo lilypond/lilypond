@@ -117,9 +117,9 @@ Global_context::prepare (SCM sev)
 Context *
 Global_context::get_score_context () const
 {
-  return (scm_is_pair (context_list_))
-           ? unsmob<Context> (scm_car (context_list_))
-           : 0;
+  SCM children = children_contexts ();
+  return (scm_is_pair (children)) ? unsmob<Context> (scm_car (children))
+                                  : nullptr;
 }
 
 SCM
