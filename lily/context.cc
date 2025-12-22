@@ -25,6 +25,7 @@
 #include "international.hh"
 #include "listener.hh"
 #include "ly-scm-list.hh"
+#include "ly-smob-list.hh"
 #include "main.hh"
 #include "output-def.hh"
 #include "profile.hh"
@@ -958,14 +959,25 @@ measure_number (Context const *context)
   return bn;
 }
 
-void
-set_context_property_on_children (Context *trans, SCM sym, SCM val)
+static void
+unchecked_preorder_walk (Context *context,
+                         const std::function<void (Context *)> &visit)
 {
-  set_property (trans, sym, ly_deep_copy (val));
-  for (SCM p = trans->children_contexts (); scm_is_pair (p); p = scm_cdr (p))
+  visit (context);
+  SCM children = context->children_contexts ();
+  for (auto *child : as_ly_smob_list<Context> (children))
     {
-      Context *trg = unsmob<Context> (scm_car (p));
-      set_context_property_on_children (trg, sym, ly_deep_copy (val));
+      assert (child); // Context guarantees that the list has only Contexts
+      unchecked_preorder_walk (child, visit);
+    }
+}
+
+void
+preorder_walk (Context *context, const std::function<void (Context *)> &visit)
+{
+  if (context && visit)
+    {
+      unchecked_preorder_walk (context, visit);
     }
 }
 

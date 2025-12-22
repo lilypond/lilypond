@@ -29,6 +29,7 @@
 #include "scm-hash.hh"
 #include "virtual-methods.hh"
 
+#include <functional>
 #include <vector>
 
 class Context_def;
@@ -297,7 +298,10 @@ bool check_repeat_count_visibility (Context const *context, SCM count);
 
 bool break_allowed (Context const *);
 
-void set_context_property_on_children (Context *trans, SCM sym, SCM val);
+// Apply the given function to the given context and then to all of its children
+// recursively.
+void preorder_walk (Context *context,
+                    const std::function<void (Context *)> &visit);
 
 /* Shorthand for creating and broadcasting stream events. */
 #define send_stream_event(ctx, type, origin, ...)                              \
