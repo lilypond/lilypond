@@ -1286,7 +1286,7 @@ Note that the arrows do not reflect the actual extents of the objects created
 by @code{\vspace} and @code{\hspace}; you might use @code{\box} for that.
 
 @lilypond[verbatim,quote]
-\markup {
+\markup \with-true-dimensions { % avoid cropping
   left \annotate-moving \hspace #4 right
   \column { top \annotate-moving \vspace #-4/3 bottom }
 }
@@ -1744,10 +1744,12 @@ It is now also possible to set the @code{ledger-extra} property via the
 @code{NoteHead} grob.
 
 @lilypond[quote,verbatim]
-{
-  c'''1
-  \tweak ledger-extra #4 c'''1
-  c'''1
+\markup \with-true-dimensions \score { % avoid cropping
+  {
+    c'''1
+    \tweak ledger-extra #4 c'''1
+    c'''1
+  }
 }
 @end lilypond
 
