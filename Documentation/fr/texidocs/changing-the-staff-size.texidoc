@@ -1,9 +1,9 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
 Bien que le meilleur moyen de définir la taille des portées consiste à
-utiliser @code{#(set-global-staff-size xx)}, une portée en particulier
-peut se redimensionner en affectant d'un coefficient ses propriétés
-@code{staff-space} et @code{fontSize}.
+utiliser @code{#(set-global-staff-size @var{taille})}, une portée en
+particulier peut se redimensionner en affectant d'un coefficient ses
+propriétés @code{staff-space} et @code{fontSize}.
 "
 
   doctitlefr = "Modification de la taille d'une portée"

@@ -1,6 +1,8 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
-L'ajout d'une marque-repère en fin de pièce peut entraîner la perte de
+En raison de ce qui est rapporté dans le
+@uref{https://gitlab.com/lilypond/lilypond/-/issues/2362,ticket 2362},
+l'ajout d'une marque-repère en fin de pièce peut entraîner la perte de
 la dernière indication de n-olet. La désactivation de
 @code{TupletBracket.full-length-to-extent} pallie ce problème.
 "

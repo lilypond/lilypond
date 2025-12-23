@@ -1,12 +1,15 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
+
+
 Certaines indications de nuance requièrent un complément textuel, comme
-« sempre pp ».  Dans la mesure où les nuances sont habituellement
-centrées sous la note, le @emph{pp} se trouvera repoussé loin après la
-note à laquelle il s'applique.
+« sempre @strong{pp} ». Dans la mesure où les nuances sont
+habituellement centrées sous la note, le @emph{pp} se trouvera
+repoussé loin après la note à laquelle il s'applique.
 
 Différentes approches permettent de correctement aligner horizontalement
-ce « sempre pp » :
+ce « sempre @strong{pp} » comme s'il ne s'agissait que d'un simple
+@emph{pp} :
 
 @itemize
 @item
@@ -51,4 +54,4 @@ texte additionnel, non sur le milieu de @emph{pp}.
 @end itemize
 "
 
-  doctitlefr = "Alignement de nuances personnalisées comme « sempre pp », « più f » ou « subito p »"
+  doctitlefr = "Alignement de nuances personnalisées comme « più f »"

@@ -1,10 +1,10 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
 Ce canevas ajoute une réduction pour piano à une partition standard pour
 chœur à quatre voix mixtes. Ceci illustre l'un des avantages de
 LilyPond : une expression musicale peut être réutilisée sans effort.
 Toute modification apportée à l'une des voix, mettons @code{tenorMusique},
-sera automatiquement reportée dans la réduction pour piano.
+est automatiquement reportée dans la réduction pour piano.
 "
 
   doctitlefr = "Ensemble vocal avec réduction pour piano"

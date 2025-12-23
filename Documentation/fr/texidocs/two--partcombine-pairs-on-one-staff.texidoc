@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
 La fonction @code{\\partCombine} prend deux expressions musicales
 contenant chacune une partie et les distribue dans quatre contextes
@@ -8,6 +8,8 @@ Les voix issues de @code{\\partCombine} peuvent disposer de leurs
 propres propriétés de mise en forme définies de manière habituelle. Sont
 ici définies des extensions à @code{\\partCombine} de sorte à faciliter
 le placement de quatre voix sur une seule portée.
+
+La version originelle peut se saisir  comme ici.
 
 @verbatim
 soprano = { d'4 | cis'  b  e'  d'8 cis' | cis'2 b }
@@ -24,6 +26,8 @@ bass = { fis8 gis | a4 gis g fis | eis fis b,2 }
   \\partCombineDown \\tenor \\bass
 >>
 @end verbatim
+
+Et voici le code développé.
 "
 
   doctitlefr = "Deux @code{\\partCombine} sur une même portée"

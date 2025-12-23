@@ -1,7 +1,9 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
 Un texte susceptible de se répartir sur plusieurs page se saisit avec la
-commande @code{\\markuplist}.
+commande @code{\\markuplist}. La commande de @emph{markup}
+@code{\\paragraph} ici définie introduit un alinéa avant d'appeler
+@code{\\justified-lines}.
 "
 
   doctitlefr = "Liste de @emph{markups}"

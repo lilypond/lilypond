@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 709a5683c94b57676ecddf1c5bb347a6c7d1f417
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
 Les noms d'accord sont générés à partir d'une liste de hauteurs. Les
 fonctions qui construisent ces noms peuvent être personnalisées.

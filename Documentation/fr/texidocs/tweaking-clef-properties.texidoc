@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
 Modifier le glyphe, la position de la clef ou son octaviation ne
 changeront pas la position des notes ; il faut pour y parvenir modifier
@@ -8,10 +8,11 @@ lignes. Le positionnement est relatif à la ligne médiane, un nombre
 positif faisant monter, un nombre négatif abaissant.
 
 Par exemple, la commande @code{\\clef \"treble_8\"} équivaut à définir
-@code{clefGlyph}, @code{clefPosition} -- qui contrôle la position
-verticale de la clef -- @code{middleCPosition} et @code{clefOctavation}.
-Une nouvelle clef apparaîtra dès lors que l'une de ces propriétés, à
-l'exception de @code{middleCPosition}, aura été modifiée.
+les propriétés de contexte @code{clefGlyph}, @code{clefPosition} -- qui
+contrôle la position verticale de la clef --, @code{middleCPosition} et
+@code{clefOctavation}. Une nouvelle clef apparaîtra dès lors que l'une
+de ces propriétés, à l'exception de @code{middleCPosition}, aura été
+modifiée.
 
 Les exemples qui suivent illustrent les différentes possibilités de
 définir ces propriétés manuellement. Sur la première ligne, la position

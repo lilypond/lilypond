@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
 Il est possible de définir de nouveaux styles de métrique. La métrique
-de la deuxième mesure devrait être sens dessus dessous sur les deux
+de la deuxième mesure se présente sens dessus dessous sur les deux
 portées.
 "
 

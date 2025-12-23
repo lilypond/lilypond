@@ -1,12 +1,17 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
-Il est parfois préférable d'utiliser les hampes de la portée supérieure
-pour créer des accords distribués, afin d'éviter tout risque de
-collision au niveau des ligatures automatiques.  Dans l'exemple suivant,
-le fait de partir des hampes de la portée inférieure aurait rendu
-nécessaire l'adaptation du détecteur de collision des ligatures, par une
-clause @code{\\override Staff.Beam.collision-voice-only = ##t}, afin
-qu'il ne tienne pas compte des collisions entre portées.
+Il est parfois préférable d'utiliser les hampes de l'autre portée pour
+créer des accords distribués, afin de tricher avec le détecteur de
+collision des ligatures de LilyPond. Dans l'exemple suivant, le fait de
+partir des hampes de la portée inférieure aurait rendu nécessaire
+l'adaptation du détecteur de collision des ligatures, par une clause
+
+@example
+\\override Staff.Beam.collision-voice-only = ##t
+@end example
+
+@noindent
+afin que LilyPond ne déplace pas les ligatures.
 "
 
   doctitlefr = "Accord distribué et problème de hampe – solution"

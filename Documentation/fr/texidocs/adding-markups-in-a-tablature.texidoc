@@ -1,9 +1,10 @@
-%% Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
 Par défaut, les @emph{markups} n'apparaissent pas dans une tablature.
 
-Il suffit, pour les voir apparaître, d'une simple commande
-@code{\\revert TabStaff.TextScript.stencil}.
+Il suffit, pour les voir apparaître, de rétablir la propriété
+@code{stencil} de l'objet @code{TextScript} dans le contexte
+@code{TabStaff}.
 "
 
   doctitlefr = "Ajout de @emph{markups} à une tablature"

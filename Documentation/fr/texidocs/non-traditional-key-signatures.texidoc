@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
 La commande @code{\\key} détermine la propriété @code{keyAlterations} d'un
 contexte @code{Staff}.
@@ -7,25 +7,25 @@ Des armures inhabituelles peuvent être spécifiées en modifiant
 directement cette propriété. Il s'agit en l'occurrence de définir une
 liste :
 
-@verbatim
+@example
 \\set Staff.keyAlterations =
-  #`(((octave . pas) . altération) ((octave . pas) . altération)
+  #`(((@var{octave} . @var{pas}) . @var{altération}) ((@var{octave} . @var{pas}) . @var{altération})
   @dots{})
-@end verbatim
+@end example
 
 @noindent
-dans laquelle, et pour chaque élément, @code{octave} spécifie l'octave
-(0 pour celle allant du do médium au si supérieur), @code{pas} la note
-dans cette octave (0 pour do et 6 pour si), et @code{altération} sera
+dans laquelle, et pour chaque élément, @var{octave} spécifie l'octave
+(0 pour celle allant du do médium au si supérieur), @var{pas} la note
+dans cette octave (0 pour do et 6 pour si), et @var{altération} sera
 @code{,SHARP} ou @code{,FLAT} ou @code{,DOUBLE-SHARP}, etc. (attention à
 la virgule en préfixe).
 
-Une formulation abrégée -- @code{(pas . altération)} -- signifie que
-l'altération de l'élément en question sera valide quelle que soit
-l'octave.
+Une formulation abrégée -- @code{(@var{pas} . @var{altération})} --
+signifie que l'altération de l'élément en question sera valide quelle
+que soit l'octave.
 
 En ce qui concerne les gammes microtonales dans lesquelles un
-« dièse » n'est pas d'un centième, @code{altération} se réfère à un
+« dièse » n'est pas d'un centième, @var{altération} se réfère à un
 deux-centième de ton entier.
 "
 

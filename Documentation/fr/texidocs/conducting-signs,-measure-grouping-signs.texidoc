@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 21521aa3ab6ece49d3e8ad34c11668c24af8a8fe
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
 Les regroupement par temps au sein d'une mesure sont contrôlés par des
 propriétés de contexte : @code{beatStructure} liste la longueur de

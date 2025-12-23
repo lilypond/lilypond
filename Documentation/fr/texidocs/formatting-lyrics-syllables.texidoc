@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 32cd4b7fa952f810c94a2296f3dad0fa85f0eb5d
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
-Le mode @emph{markup} permet d'individualiser la mise en forme de
-certaines syllabes.
+La commande @code{\\markup} permet d'individualiser la mise en forme de
+certaines syllabes d'un bloc @code{\\lyricmode}.
 "
 
   doctitlefr = "Mise en forme individuelle de syllabes"

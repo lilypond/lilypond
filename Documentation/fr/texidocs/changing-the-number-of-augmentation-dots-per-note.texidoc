@@ -1,7 +1,8 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
 Le nombre de points d'augmentation affectés à une note en particulier
-peut se modifier indépendamment des points placés après la note.
+peut se modifier indépendamment des points placés après la note, à
+l'aide de la propriété @code{dot-count} de l'objet @code{Dots}.
 "
 
   doctitlefr = "Spécification du nombre de points d'augmentation d'une note"

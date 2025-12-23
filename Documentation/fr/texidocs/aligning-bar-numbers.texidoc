@@ -1,9 +1,12 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
-Les numéros de mesure s'alignent en principe sur la droite de l'objet
-dont ils dépendent.  C'est normalement le coin gauche de la portée ou,
-en cours de ligne, à gauche de la barre.  Vous pouvez toutefois les
-centrer par rapport à la barre ou les afficher à droite de la barre.
+L'alignement des numéros de mesure dépend de l'endroit où ils se
+produisent : en début de ligne, ils seront alignés par la droite ; ils
+seront alignés sur la gauche de la barre de mesure dans les autres cas.
+Ceci peut se modifier à l'aide de la fonction Scheme
+@code{break-alignment-list}. Les trois arguments à cette fonction
+déterminent respectivement l'alignement en fin de ligne, en cours de
+ligne, et en début de ligne.
 "
 
   doctitlefr = "Alignement des numéros de mesure"

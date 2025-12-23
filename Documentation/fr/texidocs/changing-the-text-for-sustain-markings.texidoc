@@ -1,8 +1,9 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
-@code{Staff.pedalSustainStrings} permet de définir le texte affiché pour
-les instructions de pédale.  Les seuls caractères autorisés sont les
-glyphes particuliers de pédale, comme vous pouvez le constater ici.
+La propriété de contexte @code{Staff.pedalSustainStrings} permet de
+définir le texte affiché pour les instructions de pédale Les seuls
+caractères autorisés sont les glyphes particuliers de pédale ici
+présentés.
 "
 
   doctitlefr = "Modification du texte des indications de pédale"

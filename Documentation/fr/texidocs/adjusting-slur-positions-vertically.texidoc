@@ -1,12 +1,11 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
-
 Il est possible, à l'aide d'un @code{\\override Slur.positions}, de
 définir le positionnement vertical des extrémités d'une liaison à des
 valeurs absolues (ou, plutôt, forcer l'algoritme de LilyPond à
 considérer ces valeurs comme étant préférables). Dans de nombreux cas,
 ceci demande de procéder à tâtons pour obtenir une valeur acceptable,
-d'autant que la commande @code{\\offset} est inéfficace pour les
+d'autant que la commande @code{\\offset} est inefficace pour les
 liaisons et affiche un avertissement.
 
 Le code ci-dessous parmet d'ajuster le positionnement du début et de la
@@ -16,4 +15,4 @@ le ferait un @code{\\offset}.
 Syntaxe : @code{\\offsetPositions #'(@var{dy1} . @var{dy2})}
 "
 
-  doctitlefr = "Ajustement du positionnement vertical d'unel liaison"
+  doctitlefr = "Ajustement du positionnement vertical d'une liaison"

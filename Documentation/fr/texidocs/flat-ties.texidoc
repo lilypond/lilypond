@@ -1,13 +1,24 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
-La fonction ici présentée prend en argument le @code{Tie.stencil} par
-défaut et en recalcule le résultat d'après les étendues de cette valeur
-par défaut.
+La fonction @code{flared-tie} ici présentée permet de dessiner une
+liaison de prolongation constituée de lignes droites. Elle est sensée
+remplacer la fonction par défaut de dessin des liaisons de tenue -- elle
+remplace l'argument @code{stencil} de l'objet @code{Tie}.
 
-Des ajustements plus poussés sont possibles, en apportant des
-dérogations à @code{Tie.details.height-limit} ou à l'aide de la fonction
-@code{\\shape}. La définition personnalisée peut aussi se modifier à la
-volée.
+L'argument de cette fonction @code{flared-tie} est une liste de paires
+de coordonnées qui spécifient des points additionnels entre l'entame et
+la terminaison afin de déterminer l'étendue des lignes de la liaison.
+L'entame et la terminaison sont identiques à ceux de la liaison
+originelle. La valeur des abscisses et ordonnées sont des multiples de
+largeur et de la hauteur de la boîte englobante de la liaison originelle
+(tout en tenant compte de son positionnement) ; par voie de conséquence,
+le premier point a pour coordonnée (0,0), et le dernier point (1,0).
+
+La fonction @code{flare-tie} définit un raccourci pour l'obtention d'une
+liaison aplatie. Des ajustements plus poussés sont possibles, en
+apportant des dérogations à @code{Tie.details.height-limit} ou à l'aide
+de la fonction @code{\\shape}. La définition personnalisée peut aussi se
+modifier à la volée.
 "
 
   doctitlefr = "Liaison de prolongation aplatie"

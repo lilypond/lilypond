@@ -1,8 +1,8 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
 Par défaut, le premier système comportera absolument toutes les portées.
 Si vous préférez masquer les portées vides y compris pour le premier
-système, vous devrez activer la propriété @code{remove-first} du
+système, vous devrez activer la propriété @code{remove-first} de l'objet
 @code{VerticalAxisGroup}. Mentionnée dans un bloc @code{\\layout}, cette
 commande agira de manière globale. Pour qu'elle ne soit effective que
 pour une portée particulière, vous devrez également spécifier le

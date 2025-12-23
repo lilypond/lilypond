@@ -1,0 +1,9 @@
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+  texidocfr = "
+Voici la liste de tous les champs d'entête définis par défaut dans
+LilyPond. Grâce à l'activation de @code{print-all-headers}, beaucoup
+plus de champs s'affichent, endiquant la hiérachie des blocs
+@code{\\header}.
+"
+
+  doctitlefr = "Champs d'entête"

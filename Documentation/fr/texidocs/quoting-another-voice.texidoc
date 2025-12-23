@@ -1,14 +1,15 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
 Les types d'événements pris en charge pour la citation sont déterminés
-par la propriété @code{quotedEventTypes}. Par défaut, sa valeur est
-fixée à @code{(note-event rest-event tie-event beam-event
+par la propriété de contexte @code{quotedEventTypes}. Par défaut, sa
+valeur est fixée à @code{(note-event rest-event tie-event beam-event
 tuplet-span-event)}, ce qui signifie que seuls les notes, silences,
 liaisons, ligatures et n-olets seront mentionnés par
 @code{\\quoteDuring}.
 
 Dans l'exemple suivant, le quart de soupir n'est pas reproduit puisque
-@code{rest-event} n'est pas mentionné parmi les @code{quotedEventTypes}.
+@code{rest-event} n'est pas mentionné parmi les éléments de
+@code{quotedEventTypes}.
 
 Pour connaître la liste des types d'événements, reportez-vous à la
 rubrique @emph{Music classes} de la référence des propriétés internes.

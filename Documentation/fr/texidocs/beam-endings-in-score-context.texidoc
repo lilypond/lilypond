@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 772e0e24539737ac9cb88ee0b457af42dd065be7
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
 Les règles de ligature définies au niveau du contexte @code{Score}
 s'appliqueront à toutes les portées. Il est toutefois possible de

@@ -1,9 +1,16 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
-Par défaut, appogiatures et autres notes d'ornement sur le premier
-temps d'une mesure s'impriment après la barre. Elles peuvent toutefois
-précéder la barre grâce à l'insertion d'une barre invisible puis d'une
-visible, comme indiqué ici.
+Par défaut, appogiatures et autres notes d'ornement sur le premier temps
+d'une mesure s'impriment après la barre. Dans le cas d'une ligne unique,
+elles peuvent toutefois précéder la barre grâce à l'insertion d'une
+barre invisible puis d'une visible.
+
+Néanmoins, dans le cas d'un système à plusieurs portées, l'ajout d'une
+barre invisble gène le bonn positionnement des silences de mesure ; ils
+ne sont plus vraiment centrés, mais légèrement décalés sur la gauche.
+Une meilleure solution en pareil cas est d'utiliser la commande
+@code{\\afterGrace} tout en jouant sur le réglage de sa propriété
+@code{afterGraceFraction}.
 "
 
   doctitlefr = "Appoggiature avant une barre de mesure"

@@ -1,9 +1,10 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
 On peut vouloir positionner les paroles de différents intervenants sur
 une même ligne, notamment pour un dialogue par bribes. Cet extrait
-montre comment y parvenir avec l'instruction @code{\\override
-VerticalAxisGroup.nonstaff-nonstaff-spacing.minimum-distance = ##f}.
+montre comment y parvenir en ajustant la propriété
+@code{nonstaff-nonstaff-spacing} de l'objet graphique
+@code{VerticalAxisGroup}.
 "
 
   doctitlefr= "Agencement de paroles séparées sur une seule ligne"

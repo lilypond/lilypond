@@ -1,7 +1,8 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
-Deux méthodes alternatives vous permettent de gérer la numérotation des
-mesures en cas de reprises.
+Un réglage de la propriété de contexte @code{alternativeNumberingStyle}
+permet d'accéder à deux méthodes alternatives de gestion de la
+numérotation des mesures en cas de reprises.
 "
 
   doctitlefr = "Numérotation des mesures et alternatives"

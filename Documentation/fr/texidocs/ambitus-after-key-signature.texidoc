@@ -1,10 +1,10 @@
-%%  Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%%  Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
 L'ambitus se place par défaut à gauche de la clef. La fonction
 @code{\\ambitusAfter} permet cependant de modifier ce positionnement ;
-sa syntaxe est @code{\\ambitusAfter grob-interface} -- voir
+sa syntaxe est @code{\\ambitusAfter @var{grob-interface}} -- voir
 @rinternals{Graphical Object Interfaces} pour une liste des valeurs de
-@code{grob-interface} possibles.
+@var{grob-interface} possibles.
 
 L'un des cas d'usage est d'insérer l'ambitus entre l'armure et la
 métrique.

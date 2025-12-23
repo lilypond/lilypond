@@ -1,7 +1,8 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
-La fonction @code{print} peut se modifier pour obtenir l'encadrement de
-n'importe quel objet.
+La propriété @code{stencil} peut se modifier pour obtenir l'encadrement
+de n'importe quel objet, que ce soit à l'aide d'un @code{\\override} ou
+d'un @code{\\tweak}.
 "
 
   doctitlefr = "Encadrement d'objets"

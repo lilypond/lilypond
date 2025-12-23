@@ -1,20 +1,21 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
-Grâce à la propriété @code{dash-definition}, une liaison d'articulation
-peut être formée de traits discontinus variables. @code{dash-definition}
-se compose d'une liste de @code{segments-discontinus}
-(@emph{dash-elements}). Chaque @code{segment-discontinu} contient une
-liste de paramètres qui déterminent le comportement du trait pour une
-section de la liaison.
 
-Cette liaison se définit selon le paramètre de Bézier @code{t} qui est
-compris entre 0 (l'extrémité gauche de la liaison) et 1 (l'extrémité
-droite de la liaison). Chaque @code{segment-discontinu} se composera
-selon la liste @code{(t-début t-fin segment-style segment-taille)}. La
-portion de liaison allant de @code{t-début} à @code{t-fin} aura un trait
-@code{segment-style} de longueur @code{segment-taille}.
-@code{segment-taille} est exprimé en espace de portée ; un
-@code{segment-style} à 1 donnera un trait plein.
+
+Une liaison d'articulation peut être formée de traits discontinus
+variables. La propriété @code{dash-definition} se compose d'une liste de
+segments de liaison. Chaque segment contient une liste de paramètres qui
+déterminent le comportement du trait pour une section de la liaison.
+
+Les segments de cette liaison se définissent selon le paramètre de
+Bézier @code{t} qui est compris entre 0 (l'extrémité gauche de la
+liaison) et 1 (l'extrémité droite de la liaison). Chaque segment se
+composera selon la liste @code{(@var{t-début} @var{t-fin}
+@var{segment-style} @var{segment-taille})}. La portion de liaison allant
+de @var{t-début} à @var{t-fin} aura un trait @var{segment-style} de
+longueur @var{segment-taille}. @var{segment-taille} est exprimé en
+espace de portée ; un @var{segment-style} à 1 donnera un trait plein.
+@var{segment-taille} s'exprime en espace de portée.
 "
 
   doctitlefr = "Dessin d'une liaison d'articulation au trait discontinu"

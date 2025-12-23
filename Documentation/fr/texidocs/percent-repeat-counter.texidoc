@@ -1,8 +1,7 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
 Les répétitions de plus de deux mesures sont surmontées d'un compteur,
-si l'on active la propriété @code{countPercentRepeats} comme le montre
-l'exemple suivant :
+si l'on active la propriété de contexte @code{countPercentRepeats}.
 "
 
   doctitlefr = "Compteur de répétition en pourcent"

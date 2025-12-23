@@ -1,7 +1,8 @@
-%% Translation of GIT committish: 41a008e75e2fe29536406cdf0d71c32a4606f2b8
+%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
   texidocfr = "
 Lorsqu'un changement de clef intervient, le nouveau signe s'imprime dans
-une taille inférieure. On peut y déroger avec @code{full-size-change}.
+une taille inférieure. On peut y déroger en activant la propriété de
+contexte @code{full-size-change}.
 "
 
   doctitlefr = "Conservation de la taille lors d'un changement de clef"
