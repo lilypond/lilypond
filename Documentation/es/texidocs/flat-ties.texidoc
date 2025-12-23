@@ -12,7 +12,7 @@ coordenadas que especifican puntos adicionales entre el primero y
 el último para abarcar todas las líneas de la ligadura.  Los
 puntos primero y último son idénticos a los puntos de inicio y
 final de la ligadura, respectivamente.  Los valores de las
-coordenadas X@tie{}e@tie{}Y@tie son múltiplos de la longitud y la
+coordenadas X@tie{}e@tie{}Y son múltiplos de la longitud y la
 altura del rectángulo circundante (teniendo también en cuenta la
 dirección de la ligadura); por tanto, el primer punto tiene las
 coordenadas (0,0), y el último (1,0).

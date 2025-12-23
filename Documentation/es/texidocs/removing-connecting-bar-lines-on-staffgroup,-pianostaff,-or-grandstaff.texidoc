@@ -1,8 +1,9 @@
 %% Translation of GIT committish: aa4f229bc77265d2deaa36055c5845cd682823fe
   texidoces = "
 De forma predeterminada, las líneas divisorias en los contextos
-code{StaffGroup}, @code{PianoStaff} o @code{GrandStaff} se
+@code{StaffGroup}, @code{PianoStaff} o @code{GrandStaff} se
 conectan entre los pentagramas mediante una línea.  Se puede
 alterar este comportamiento pentagrama a pentagrama.
+
 "
   doctitlees = "Quitar las barras de compás entre los pentagramas de un StaffGroup, PianoStaff o GrandStaff"

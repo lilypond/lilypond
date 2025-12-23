@@ -2,7 +2,7 @@
   texidoces = "
 La alineación horizontal de la letra se puede ajustar
 sobreescribiendo la propiedad @code{self-alignment-X} del objeto
-@code{LyricText}.  El valor@tie{-1} significa alineado por la
+@code{LyricText}.  El valor@tie{}-1 significa alineado por la
 izquierda, 0@tie{}es centrado y 1@tie{}es derecha; de forma
 alternativa también podemos usar los valores de Scheme
 @code{#LEFT}, @code{#CENTER} y @code{#RIGHT} en lugar de números.
