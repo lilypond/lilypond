@@ -2847,7 +2847,7 @@ idéntico a la ilustración correspondiente que aparece en
 }
 @end lilypond
 
-Consulte @rlsrsnippetnamed{Tweaks and overrides, Ajustar las posiciones de las ligaduras verticalmente}
+Consulte @rlsrsnippet{Tweaks and overrides, Adjusting slur positions vertically}
 para ver una función de Scheme @code{\offsetPositions} que
 facilita el desplazamiento vertical de las ligaduras.
 
