@@ -1387,3 +1387,18 @@ the last value is used:
 Snippets:
 @rlsr{Repeats}.
 @endmorerefs
+
+
+@knownissues
+While the @code{\repeat tremolo} syntax is unfolded by
+@code{\unfoldRepeats}, its shorthand is not (this is
+tracked in
+@uref{https://gitlab.com/lilypond/lilypond/-/issues/6145, issue #6145}):
+
+@lilypond[quote,verbatim]
+{
+  \unfoldRepeats \repeat tremolo 4 c'16
+  \unfoldRepeats c'4:16
+}
+@end lilypond
+
