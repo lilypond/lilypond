@@ -121,6 +121,12 @@ Timing_translator::listen_partial (Stream_event *ev)
 }
 
 void
+Timing_translator::listen_polymetric_time_signature (Stream_event *ev)
+{
+  polymetric_time_signature_events_.push_back (ev);
+}
+
+void
 Timing_translator::pre_process_music ()
 {
   const auto &now = now_mom ();
@@ -154,6 +160,43 @@ Timing_translator::pre_process_music ()
                   auto mp = mlen - Rational (*dur);
                   set_property (context (), "measurePosition",
                                 to_scm (Moment (mp, now.grace_part_)));
+                }
+            }
+        }
+    }
+
+  // Check that the measure length of every \polymeter \time command matches the
+  // reference measure length defined here in the Timing context.
+  if (!polymetric_time_signature_events_.empty ())
+    {
+      // The measureLength property can be changed to create ad-hoc irregular
+      // measures, so don't rely on it for this check.  Recompute the regular
+      // measure length from the time signature.
+      SCM ref_tsig = get_property (this, "timeSignature");
+      SCM ref_mlen = Lily::calc_measure_length (ref_tsig);
+
+      for (const auto &ev : polymetric_time_signature_events_)
+        {
+          SCM poly_tsig = get_property (ev, "time-signature");
+          if (!scm_is_null (poly_tsig)) // ignore \polymetric \default
+            {
+              SCM poly_mlen = Lily::calc_measure_length (poly_tsig);
+              // If the polymetric time signature was scaled by \scaleDurations,
+              // scale the nominal measure length by the same factor.
+              const auto poly_dur = [&] { // TODO: from_scm<Duration>
+                if (auto *dur
+                    = unsmob<Duration> (get_property (ev, "duration")))
+                  return *dur;
+                return Duration ();
+              }();
+              const auto factor = poly_dur.factor ();
+              poly_mlen = scm_product (poly_mlen, to_scm (factor));
+              if (!ly_is_equal (poly_mlen, ref_mlen))
+                {
+                  ev->warning (_f ("conflicting measure length: %s",
+                                   ly_scm_write_string (poly_mlen)));
+                  warning (_f ("measure length in Timing context: %s",
+                               ly_scm_write_string (ref_mlen)));
                 }
             }
         }
@@ -288,6 +331,7 @@ Timing_translator::stop_translation_timestep ()
 
   alt_event_ = nullptr;
   bar_check_event_ = nullptr;
+  polymetric_time_signature_events_.clear ();
 }
 
 void
@@ -500,6 +544,7 @@ Timing_translator::boot ()
   ADD_LISTENER (bar_check);
   ADD_LISTENER (fine);
   ADD_LISTENER (partial);
+  ADD_LISTENER (polymetric_time_signature);
 }
 
 ADD_TRANSLATOR (Timing_translator,

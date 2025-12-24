@@ -38,6 +38,7 @@ protected:
   void listen_bar_check (Stream_event *);
   void listen_fine (Stream_event *);
   void listen_partial (Stream_event *);
+  void listen_polymetric_time_signature (Stream_event *);
   void pre_process_music ();
   void process_music ();
   void stop_translation_timestep ();
@@ -56,6 +57,7 @@ private:
   Stream_event *bar_check_event_ = nullptr;
   Stream_event *fine_event_ = nullptr;
   Stream_event *partial_event_ = nullptr;
+  std::vector<Stream_event *> polymetric_time_signature_events_;
 };
 
 #endif // TIMING_TRANSLATOR_HH
