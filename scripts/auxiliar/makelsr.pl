@@ -1042,6 +1042,9 @@ sub postprocess_code_block {
 #   from the `pandoc` converter, respectively.
 #
 #   Pre:
+#     * Remove `<div class="nodoc">...</div>` and `<span
+#       class="nodoc">...</span>`.  These groups hold stuff to be
+#       displayed in the Wiki only.
 #     * Convert `<samp>...</samp>` to `~samp~...~/samp~` since `pandoc`
 #       would swallow these tags unprocessed otherwise (see
 #       https://github.com/jgm/pandoc/issues/11299); note that
@@ -1095,6 +1098,13 @@ sub postprocess_code_block {
 #
 sub wiki_to_texinfo {
   my ($s) = @_;
+
+  $s =~ s/<div \h* class \h* = \h* "nodoc" \h* >
+          .*?
+          <\/div \h* >//xsg;
+  $s =~ s/<span \h* class \h* = \h* "nodoc" \h* >
+          .*?
+          <\/span \h* >//xsg;
 
   $s =~ s|<samp\h*>(.*?)</samp\h*>|~samp~$1~/samp~|sg;
   $s =~ s|<var\h*>(.*?)</var\h*>|~var~$1~/var~|sg;
