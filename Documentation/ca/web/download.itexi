@@ -1,0 +1,242 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
+@ignore
+    Translation of GIT committish: a639edf751682ef4a5a9988b708fcdde3c3dd386
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c Translators: Walter Garcia-Fontes
+@c Translation checkers:
+
+@node Download
+@unnumbered Descàrregues
+
+@divClass{heading-center}
+@heading Descàrregues del LilyPond @versionStable
+
+@divEnd
+
+
+@divClass{link-headings}
+
+
+@divClass{column-center-top}
+@subheading Enllaços essencials
+
+@subsubheading Per als usuaris novells
+
+@ref{Text input}:  El Lilypond és un gravador de música
+@strong{basat en text}; és més semblant a un llenguatge de
+programació que a un programa gràfic d'edició de partitures.
+Llegiu això per entendre el flux de treball bàsic del LilyPond.
+
+@ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Manual
+d'aprenentatge}}
+Aquesta introducció amable al LilyPond mostra com instal·lar el
+programa i us guia als vostres primers passos amb el programa.
+
+@subsubheading Per a usuaris que fan una actualització des d'una versió anterior
+
+@ifWebLinks{@manualStableChangesSplitNoName,@rchangesnamed{Top,Novetats}}
+Què hi ha de nou al LilyPond @versionStable{}.
+
+@ifWebLinks{@manualStableUsageSplitNoName,@rprogramnamed{Top,Utilització}}
+Explica com executar @command{convert-ly} per actualitzar amb
+facilitat fitxers d'entrada escrits per a versions més antigues.
+
+@ifWebLinks{@manualStableLearningSplitNoName,@rlearningnamed{Top,Aprenentatge}}
+El mètode d'instal·lació que es mostra al tutorial permet
+instal·lar diverses versions del LilyPond en paral·lel sense problemes.
+
+@divEnd
+
+
+@divClass{column-left-top}
+@subheading GNU/Linux
+
+@subsubheading Paquets genèrics o paquets específics de distribució?
+
+Moltes distribucions inclouen el LilyPond dins dels seus dipòsits
+normals de paquets.  Aquests paquets dels depòsits, però, poden
+ser significativament més antics que la versió estable actual.  Si
+aquest és el vostre cas, us recomanem molt que utilitzeu els
+nostres paquets genèrics.
+
+@subsubheading Descàrregues de paquets genèrics
+
+@itemize
+@item
+@sourceimage{logo-linux,,}
+@downloadStableLinux
+@end itemize
+
+@divEnd
+
+
+
+@divClass{column-right-top}
+
+@subheading Windows
+
+@subsubheading Descàrregues per a paquets genèrics
+
+Aquests fitxers binaris funcionen sota les versions Windows
+actuals (Windows 7 i Windows 8 no tenen suport).
+
+@itemize
+@item
+@sourceimage{logo-windows,,}
+@downloadStableMingw
+@end itemize
+
+@divEnd
+
+
+
+@divClass{column-left-bottom}
+@subheading macOS
+
+@subsubheading Descàrregues per a paquets genèrics
+
+Aquests paquets binaris funcionen a macOS 10.15 (Catalina) o
+superior.  Per a versions de macOS més antigues, si us plau feu
+servir MacPorts.
+
+@itemize
+@item
+@sourceimage{logo-macosx,,}
+@downloadStableDarwin
+@end itemize
+
+@subsubheading Utilització de un gestor de paquets
+
+@itemize
+@item
+@sourceimage{logo-macports,,}
+@uref{https://www.macports.org/,MacPorts}, un gestor de paquets
+per a macOS, té una @uref{https://ports.macports.org/port/lilypond/summary,
+adaptació del LilyPond}.
+
+@item
+@sourceimage{logo-homebrew,,}
+@uref{https://brew.sh/,Homebrew}, un altre gestor de paquets per a
+macOS, té una @uref{https://formulae.brew.sh/formula/lilypond,
+fórmula del LilyPond}.
+@end itemize
+
+@divEnd
+
+
+
+@divClass{column-right-bottom}
+@subheading Per a desenvolupadors
+
+@ref{Source}:
+per a empaquetadors
+
+@ref{Old downloads}:
+versions anteriors
+
+@ref{Development}:
+última versió inestable
+
+@divEnd
+
+
+@divEnd @c link-headings
+
+
+
+@divClass{column-center-middle-color2}
+
+@subheading Llicència del programari
+
+El LilyPond es publica sota la 
+@ref{GPL, Llicència pública general de GNU}.
+@divEnd
+
+
+
+@divClass{column-center-bottom}
+@subheading Legalitats
+
+@divClass{legal}
+Tots el logos i les imatges de producte tenen copyright i
+reconeixement de marca.
+
+@logoLegalLinux
+
+@logoLegalMacOSX
+
+@logoLegalWindows
+
+@divEnd
+@divEnd
+
+
+
+@menu
+* Source::
+* Old downloads::
+* GPL::
+@end menu
+
+
+
+@node Source
+@unnumberedsec Font
+
+@warning{Us recomanem  @strong{que no} intenteu compilar el
+LilyPond; pràcticament totes les necessitats d'usuari es cobreixen
+millor amb les versions ja compilades.}
+
+
+@divClass{column-center-top}
+
+@subheading Arxiu tar del codi font
+
+@downloadStableSource{}
+
+A @rcontrib{Compiling} es poden trobar les instruccions de compilació.
+
+@divEnd
+
+
+@node Old downloads
+@unnumberedsec Descàrregues de versions antigues
+
+@divClass{column-center-top}
+@subheading Totes les versions
+
+Per obtenir el codi font i els fitxers binaris de qualsevol
+llançament, visiteu la nostra 
+@uref{https://gitlab.com/lilypond/lilypond/-/releases,GitLab
+pàgina de llançaments} per a totes les versions fina a la 2.23.6,
+o el @uref{https://lilypond.org/download/binaries/,lloc de descàrregues}
+anterior per a versions més antigues.
+
+@divEnd
+
+
+
+
+@node GPL
+@unnumberedsec GPL
+
+@divClass{column-center-top}
+@subheading Llicència de programari
+
+El GNU LilyPond es publica sota la Llicència Pública General
+GNU. A @ref{Freedom} es pot trobar una introducció a aquesta
+llicència, i les raons per les quals la vam escollir.
+
+@divEnd
+
+@divClass{column-center-bottom}
+@subheading Llicència Pública General GNU
+
+@include en/gpl.itexi
+
+@divEnd

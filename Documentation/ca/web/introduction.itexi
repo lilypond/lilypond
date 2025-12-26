@@ -396,7 +396,7 @@ normal.
 @divEnd
 
 @divClass{column-center-middle-color2}
-@subsubheading Gràfics de Schenker
+@subsubheading Diagrames de Schenker
 
 La sortida estàndard es pot modificar de forma molt
 profunda. Heus aquí una impressionant anàlisi schenkeriana creada
@@ -893,8 +893,8 @@ estat concedida al LilyPond (190,00 @euro{}) i a Lua (US$250,00).}
 Desembre de 2005
 
 Linux Journal publica un article titulat
-@uref{https://www.linuxjournal.com/article/8364, Elabori fantàstics
-gràfics de Schenker amb el GNU LilyPond}. És un article destacat,
+@uref{https://www.linuxjournal.com/article/8364, Elaboreu fantàstics
+diagrames de Schenker amb el GNU LilyPond}. És un article destacat,
 profund però pràctic amb atractius gràfics de LilyPond. L'autor,
 Kris Shaffer, destaca: @qq{El Gnu LilyPond genera uns gràfics
 preciosos que a les alternatives comercials semblar de segona fila.}

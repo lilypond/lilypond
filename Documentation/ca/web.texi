@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: ca -*-
 @c This file is part of web.texi
 @ignore
-    Translation of GIT committish: 472ecfdd548d8f700d71ec1a403b7a5bdce7d5ba
+    Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -50,22 +50,8 @@ Free Documentation License''.
 @c expected to be found in lilypond/ subdirectory.
 @dircategory GNU LilyPond: el gravador de música
 @direntry
-* Manual d'aprenentatge del LilyPond:(lilypond-learning). Comenceu per aquí.
-* Glosari musical: (music-glossary).                 Per a usuaris de parla no anglesa
-* LilyPond: (lilypond-notation).                      Referència de la notació amb el LilyPond.
-* Fragments de codi del LilyPond: (lilypond-snippets). Consells, trucs i exemples curts.
-* Referència de funcionament intern: (lilypond-internals). Definicions pera a la construcció de trucs.
-* Utilització del prrograma: (lilypond-usage). Instal·lació i execució de les aplicacions
-* Pàgina web: (lilypond-web).    Vista prèvia de la nova pàgina.
-* lilypond: (lilypond-usage)Executar el LilyPond.   Invocar el programa LilyPond.
-* abc2ly: (lilypond-usage)Invocació d'abc2ly.      Importació d'ABC.
-* convert-ly: (lilypond-usage)Actualització de fitxers mitjançant convert-ly. Versions antigues del LilyPond.
-* etf2ly: (lilypond-usage)Invocar etf2ly.      Importació del Finale.
-* lilypond-book: (lilypond-usage)LilyPond-book. Intergrar text i música.
-* midi2ly: (lilypond-usage)Invocar midi2ly.    Importació de MIDI.
-* musicxml2ly: (lilypond-usage)Invocar musicxml2ly.  Importació de MusicXML.
+* Website: (lilypond-web).              Previsualització del lloc.
 @end direntry
-
 
 @c TITLE PAGE
 @ifnottex
@@ -155,7 +141,7 @@ a dalt) o de notació complexa, música antiga, música
 moderna, tabulatures, música vocal, fulls guia d'acords
 (lead sheets), materials didàctics, grans projectes
 orquestrals, sortida personalitzada o fins i tot
-gràfics de Schenker.
+diagrames de Schenker.
 
 @end ifclear
 @ifset web_version
@@ -178,11 +164,12 @@ l'edició de tota classe de partitures, ja siguin
 @uref{examples.html#Projectes-grans, grans projectes orquestrals},
 @uref{examples.html#Sortida-personalitzada, sortida personalitzada},
 i fins i tot
-@uref{examples.html#Schenker-Graphs, gràfics de Schenker}.
+@uref{examples.html#Diagrames-de-Schenker, diagrames de Schenker}.
 
 @end ifset
 
-Admireu la nostra galeria de @ref{Examples} i inspireu-vos''
+Admireu la nostra galeria de @ref{Examples,d'exemb
+ples} i inspireu-vos!
 
 @divEnd
 
@@ -191,6 +178,8 @@ Admireu la nostra galeria de @ref{Examples} i inspireu-vos''
 
 @c TODO: generate this automatically, including RSS feed.
 @include en/web/news-headlines.itexi
+
+@ref{News, Properes notícies…}
 
 @divEnd
 
@@ -368,9 +357,9 @@ a la llista, encara ho podeu fer a la
 @macro contactUsAbout{topic}
 @cartouche
 Si coneixeu qualssevol altres \topic\ que mereixin aparèixer
-relacionats aquí, us preguem que ens ho faci saber segons
-s'explica a les instruccions que apareixen a la secció a les
-instruccions que apareixin a la secció @ref{Bug reports}.
+relacionats aquí, us preguem que ens ho feu saber seguint
+les instruccions que apareixen a la secció a la secció @ref{Bug
+reports}.
 
 @end cartouche
 
@@ -378,7 +367,7 @@ instruccions que apareixin a la secció @ref{Bug reports}.
 @end ifnothtml
 
 @include ca/web/introduction.itexi
-@include en/web/download.itexi
+@include ca/web/download.itexi
 @include ca/web/manuals.itexi
 @include ca/web/community.itexi
 
