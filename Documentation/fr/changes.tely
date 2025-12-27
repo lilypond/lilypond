@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+    Translation of GIT committish: 304f8be3cd1ecbbc37f30191b4b49dcdc85bf3d5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1361,7 +1361,7 @@ l'étendue réelle des objets créés par @code{\vspace} et @code{\hspace} ;
 on pourrait utiliser @code{\box} à cette fin.
 
 @lilypond[verbatim,quote]
-\markup {
+\markup \with-true-dimensions { % avoid cropping
   left \annotate-moving \hspace #4 right
   \column { top \annotate-moving \vspace #-4/3 bottom }
 }
@@ -1829,12 +1829,21 @@ La propriété @code{ledger-extra} peut désormais se régler aussi à partir
 de l'objet @code{NoteHead}.
 
 @lilypond[quote,verbatim]
-{
-  c'''1
-  \tweak ledger-extra #4 c'''1
-  c'''1
+\markup \with-true-dimensions \score { % avoid cropping
+  {
+    c'''1
+    \tweak ledger-extra #4 c'''1
+    c'''1
+  }
 }
 @end lilypond
+
+@item
+Pour les objets graphiques @code{NonMusicalPaperColumn}, la
+sous-propriété @code{bottom-space} de @code{line-break-system-details} a
+été renommée en @code{bottom-padding}. Alors qu'elle existait depuis la
+version 2.13.4 sortie en 2009, cette sous-propriété n'était pour
+l'instant pas documentée.
 
 @end itemize
 

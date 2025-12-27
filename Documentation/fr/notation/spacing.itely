@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+   Translation of GIT committish: 304f8be3cd1ecbbc37f30191b4b49dcdc85bf3d5
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2738,55 +2738,37 @@ Référence des propriétés internes :
 @node Explicit staff and system positioning
 @section Positionnement explicite des portées et systèmes
 
-Pour bien comprendre comment fonctionnent les réglages de
-@code{VerticalAxisGroup} et de @code{\paper} abordés dans les deux
-rubriques précédentes, rien ne vaut une collection d'exemples illustrant
-les différentes mises au point du décalage vertical appliqué aux portées
-et systèmes distribués sur une page.
+@cindex portées, positionnement exact
+@cindex exact positionnement des portées
 
-Une autre approche de l'espacement vertical est le recours à la
-propriété @code{NonMusicalPaperColumn.line-break-system-details}. Alors
-que @code{VerticalAxisGroup} et @code{\paper} gèrent un décalage
-vertical, @code{NonMusicalPaperColumn.line-break-system-details}
-spécifiera le positionnement vertical absolu sur la page.
+@funindex line-break-system-details
+@funindex NonMusicalPaperColumn
 
-@code{NonMusicalPaperColumn.line-break-system-details} prend en charge
-une liste associative de quatre mises au point :
+Il est possible d'aborder l'espacement vertical d'une autre manière que
+ce qui est indiqué dans la rubrique précédente, en utilisant la
+propriété @code{line-break-system-details} de l'objet graphique
+@code{NonMusicalPaperColumn}. Alors que les mécanismes d'espacement
+vertical flexible spécifient un décalage vertical,
+@code{line-break-system-details} peut déterminer les positionnements
+exacts sur la page.
 
-@itemize
-@item @code{X-offset}
-@item @code{Y-offset}
-@item @code{extra-offset}
-@item @code{alignment-distances}
-@end itemize
+Cette propriété contient cinq différentes sous-propriétés :
+@code{X-offset}, @code{Y-offset}, @code{extra-offset},
+@code{alignment-distances} et@code{bottom-padding}.
 
-@example
-\once \override NonMusicalPaperColumn.line-break-system-details =
-  #'((X-offset . 20))
 
-\once \override NonMusicalPaperColumn.line-break-system-details =
-  #'((Y-offset . 40))
-
-\once \override NonMusicalPaperColumn.line-break-system-details =
-  #'((X-offset . 20)
-     (Y-offset . 40))
-
-\once \override NonMusicalPaperColumn.line-break-system-details =
-  #'((alignment-distances . (15)))
-
-\once \override NonMusicalPaperColumn.line-break-system-details =
-  #'((X-offset . 20)
-     (Y-offset . 40)
-     (alignment-distances . (15)))
-@end example
-
-Nous allons maintenant voir ces différents réglages en action.
-Commençons par examiner un exemple dépourvu de toute mise au point.
+Pour bien comprendre comment fonctionnent ces différentes
+sous-propriétés, commençons par examiner un exemple dépourvu de toute
+mise au point. Cette partition isole les informations de saut de ligne
+ou de page dans une voix spécifique. La mise en forme est ainsi séparée
+des événements musicaux ; ceci nous permettra d'y voir plus clair au fur
+et à mesure que nous avancerons. Pour plus de précisions, relisez
+@ref{Breaks}.
 
 @c \book { } is required in these examples to ensure the spacing
 @c overrides can be seen between systems. -np
 
-@lilypond[verbatim,quote,staffsize=16]
+@lilypond[verbatim,quote,staffsize=11,papersize=a7]
 \header { tagline = ##f }
 \paper { left-margin = 0\mm }
 \book {
@@ -2808,64 +2790,48 @@ Commençons par examiner un exemple dépourvu de toute mise au point.
 }
 @end lilypond
 
-Cette partition isole les informations de saut de ligne ou de page dans
-une voix spécifique. La mise en forme est ainsi séparée des événements
-musicaux ; ceci nous permettra d'y voir plus clair au fur et à mesure
-que nous avancerons. Pour plus de précisions, relisez @ref{Breaks}.
+Déterminons maintenant les ploints de départ vertical et horizontal de
+chacun des systèmes à l'aide des sous-propriétés @code{Y-offset} et
+@code{X-offset} de @code{line-break-system-details}.
 
-Les @code{\break} explicites répartissent la musique en lignes de cinq
-mesures chacune. L'espacement vertical est celui que LilyPond attribue
-par défaut. Nous pouvons, afin de fixer explicitement le point d'attache
-vertical de chacun des systèmes, définir un doublet @code{Y-offset} en
-tant qu'attribut du @code{line-break-system-details} de l'objet
-@code{NonMusicalPaperColumn} :
-
-@lilypond[verbatim,quote,staffsize=16]
-\header { tagline = ##f }
-\paper { left-margin = 0\mm }
+@lilypond[verbatim,quote,staffsize=11,papersize=a7]
 \book {
   \score {
     <<
       \new Staff <<
         \new Voice {
-          \once \override Score.NonMusicalPaperColumn
-            .line-break-system-details = #'((Y-offset . 0))
+          \once \override
+            Score.NonMusicalPaperColumn
+                 .line-break-system-details.Y-offset = 0
           s1*5 \break
-          \once \override Score.NonMusicalPaperColumn
-            .line-break-system-details = #'((Y-offset . 40))
+          \once \override
+            Score.NonMusicalPaperColumn
+                 .line-break-system-details.Y-offset = 30
+          \once \override
+            Score.NonMusicalPaperColumn
+                 .line-break-system-details.X-offset = 10
           s1*5 \break
-          \once \override Score.NonMusicalPaperColumn
-            .line-break-system-details = #'((Y-offset . 60))
-          s1*5 \break
-        }
+          \once \override
+            Score.NonMusicalPaperColumn
+                 .line-break-system-details.Y-offset = 50
+          s1*5 \break }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
       >>
-      \new Staff {
-        \repeat unfold 15 { d'4 d' d' d' }
-      }
+      \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
     >>
   }
 }
 @end lilypond
-
-Vous aurez remarqué que nous n'avons déterminé qu'une seule valeur, même
-si la liste associative de @code{line-break-system-details} peut en
-comporter un certain nombre. Vous aurez aussi noté que la propriété
-@code{Y-offset} détermine ici le point de départ de chacun des systèmes
-de la page.
 
 Contrairement au positionnement absolu accessible par @code{Y-offset} et
 @code{X-offset}, il est possible d'opter pour un positionnement relatif
-à l'aide de la propriété @code{extra-offset} des
-@code{line-break-system-details}. Le placement sera relatif à la mise en
-forme par défaut ou au positionnement absolu géré par @code{X-offset} et
-@code{Y-offset}. La propriété @code{extra-offset} prend en argument une
-@code{paire} constituée des déplacements sur les axes horizontal et
-vertical.
+à l'aide de la sous-propriété @code{extra-offset}. Le placement sera
+relatif à la mise en forme par défaut ou au positionnement absolu géré
+par @code{X-offset} et @code{Y-offset}. La propriété @code{extra-offset}
+prend en argument une @code{paire} constituée des déplacements sur les
+axes horizontal et vertical.
 
-@lilypond[verbatim,quote,staffsize=16]
-\header { tagline = ##f }
-\paper { left-margin = 0\mm }
+@lilypond[verbatim,quote,staffsize=11,papersize=a7]
 \book {
   \score {
     <<
@@ -2873,21 +2839,16 @@ vertical.
         \new Voice {
           s1*5 \break
           \once \override
-            Score
-            .NonMusicalPaperColumn
-            .line-break-system-details = #'((extra-offset . (0 . 10)))
+            Score.NonMusicalPaperColumn
+              .line-break-system-details.extra-offset = #'(5 . 5)
           s1*5 \break
           \once \override
-            Score
-            .NonMusicalPaperColumn
-            .line-break-system-details = #'((extra-offset . (0 . 10)))
-          s1*5 \break
-        }
+            Score.NonMusicalPaperColumn
+              .line-break-system-details.extra-offset = #'(0 . 20)
+          s1*5 \break }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
       >>
-      \new Staff {
-        \repeat unfold 15 { d'4 d' d' d' }
-      }
+      \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
     >>
   }
 }
@@ -2895,89 +2856,67 @@ vertical.
 
 Maintenant que chaque système est explicitement positionné, nous pouvons
 jouer sur la distance séparant les portées de chacun des systèmes, grâce
-à la sous-propriété @code{alignment-distances} de
-@code{line-break-system-details}.
+à la sous-propriété @code{alignment-distances}. Comme on peut le
+constater, est utilisée une liste associative pour définir en même temps
+deux sous-propriétés différentes de @code{line-break-system-details}.
 
-@lilypond[verbatim,quote,staffsize=16]
-\header { tagline = ##f }
-\paper { left-margin = 0\mm }
+@lilypond[verbatim,quote,staffsize=11,papersize=a7]
 \book {
   \score {
     <<
       \new Staff <<
         \new Voice {
           \once \override
-            Score
-            .NonMusicalPaperColumn
-            .line-break-system-details
-            = #'((Y-offset . 20)
+            Score.NonMusicalPaperColumn.line-break-system-details =
+              #'((Y-offset . 0)
                  (alignment-distances . (10)))
           s1*5 \break
           \once \override
-            Score
-            .NonMusicalPaperColumn
-            .line-break-system-details
-            = #'((Y-offset . 60)
+            Score.NonMusicalPaperColumn.line-break-system-details =
+              #'((Y-offset . 30)
                  (alignment-distances . (15)))
           s1*5 \break
           \once \override
-            Score
-            .NonMusicalPaperColumn
-            .line-break-system-details
-            = #'((Y-offset . 85)
+            Score.NonMusicalPaperColumn.line-break-system-details =
+              #'((Y-offset . 65)
                  (alignment-distances . (20)))
-          s1*5 \break
-        }
+          s1*5 \break }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
       >>
-      \new Staff {
-        \repeat unfold 15 { d'4 d' d' d' }
-      }
+      \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
     >>
   }
 }
 @end lilypond
 
-Nous avons maintenant assigné deux valeurs différentes à l'attribut
-@code{line-break-system-details} de l'objet
-@code{NonMusicalPaperColumn}. @code{line-break-system-details} pourrait
-prendre bien d'autres paramètres d'espacement, y compris un doublet
-@code{X-offset}, mais nous n'avons utilisé que @code{Y-offset} et
-@code{alignment-distances} pour contrôler le positionnement de chaque
-système et de chaque portée. Vous noterez enfin que
-@code{alignment-distances} traite le positionnement des portées, non
-d'un regroupement de portées.
+Voici maintenant comment positionner des portées à l'intérieur d'un
+système. Il est à noter que @code{alignment-distances} s'applique
+directement aux portées sans tenir compte d'un regroupement par
+@code{StaffGroup} ou autre. Une valeur à @code{#f} indique qu'il faudra
+prendre la valeur par défaut.
 
-@lilypond[verbatim,quote,staffsize=16]
-\header { tagline = ##f }
-\paper { left-margin = 0\mm }
+@lilypond[verbatim,quote,staffsize=11,papersize=a7]
 \book {
   \score {
     <<
       \new Staff <<
         \new Voice {
           \once \override
-            Score
-              .NonMusicalPaperColumn
-              .line-break-system-details
-              = #'((Y-offset . 0)
-                   (alignment-distances . (30 10)))
+            Score.NonMusicalPaperColumn.line-break-system-details =
+              #'((Y-offset . 0)
+                 (alignment-distances . (15 8)))
           s1*5 \break
           \once \override
-            Score
-            .NonMusicalPaperColumn
-            .line-break-system-details
-            = #'((Y-offset . 60)
-                 (alignment-distances . (10 10)))
+            Score.NonMusicalPaperColumn.line-break-system-details =
+              #'((Y-offset . 35)
+                 (X-offset . 10)
+                 (alignment-distances . (#f 8)))
           s1*5 \break
           \once \override
-            Score
-            .NonMusicalPaperColumn
-            .line-break-system-details
-            = #'((Y-offset . 100)
-                 (alignment-distances . (10 30)))
-          s1*5 \break
-        }
+            Score.NonMusicalPaperColumn.line-break-system-details =
+              #'((Y-offset . 65)
+                 (alignment-distances . (8 15)))
+          s1*5 \break }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
       >>
       \new StaffGroup <<
@@ -2989,6 +2928,59 @@ d'un regroupement de portées.
 }
 @end lilypond
 
+@funindex last-bottom-spacing
+
+La dernière sous-propriété de @code{line-break-system-details},
+@code{bottom-padding}, agit de manière analogue à
+@code{last-bottom-spacing}. Il est important de garder à l'esprit
+qu'elle ne définit pas un espace compressible ou extensible, mais une
+valeur de décalage fixe et rigide entre le bas de la page et le dernier
+système. Voici notre exemple de base sans @code{ragged-bottom},
+autrement dit réparti sur la hauteur de page, pour indiquer les
+distances par défaut.
+
+@lilypond[verbatim,quote,staffsize=11,papersize=a7]
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          s1*5 \break
+          s1*5 \break
+          s1*5 \break }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new Staff { \repeat unfold 15 { d'4 d' d' d' }
+      }
+    >>
+  }
+  \paper { ragged-last-bottom = ##f }
+}
+@end lilypond
+
+Définir @code{bottom-padding} mène à ce résultat.
+
+@lilypond[verbatim,quote,staffsize=11,papersize=a7]
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          s1*5 \break
+          s1*5 \break
+          \once \override
+            Score.NonMusicalPaperColumn.line-break-system-details =
+              #'((bottom-padding . 20))
+          s1*5 \break }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
+    >>
+  }
+  \paper { ragged-last-bottom = ##f }
+}
+@end lilypond
+
 Quelques points à prendre en considération :
 
 @itemize
@@ -2997,18 +2989,18 @@ Lorsque vous utilisez @code{alignment-distances}, les paroles et autres
 lignes de non-portée ne comptent pas pour une portée.
 
 @item
-Les nombres fournis à @code{X-offset}, @code{Y-offset},
-@code{extra-offset} et @code{alignment-distances} sont considérés comme
-des multiples de la distance entre des portées adjacentes. Des valeurs
-positives remontent les portées et paroles, des valeurs négatives les
-descendent.
+Les nombres fournis aux sous-propriétés @code{X-offset},
+@code{Y-offset}, @code{extra-offset} et @code{alignment-distances} sont
+considérés comme des multiples de la distance entre des portées
+adjacentes. Des valeurs positives remontent les portées et paroles, des
+valeurs négatives les descendent.
 
 @item
 Dans la mesure où @code{NonMusicalPaperColumn.line-break-system-details}
 permet de positionner systèmes et portées n'importe où sur une page,
 vous pourriez être en contradiction avec les dimensionnements de la
 feuille ou bien aboutir à des surimpressions. Soyez donc raisonnable
-quant aux différentes valeurs que vous affectez à ces réglages.
+quant aux différentes valeurs que vous affectez à ces sous-propriétés.
 
 @end itemize
 
