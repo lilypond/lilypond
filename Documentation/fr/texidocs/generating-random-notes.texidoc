@@ -1,10 +1,10 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: 304f8be3cd1ecbbc37f30191b4b49dcdc85bf3d5
   texidocfr = "
 Le fragment de code Scheme ci-dessous génère aléatoirement des notes.
 Il s'utilise ainsi :
 
 @example
-\\randomNotes @var{n @var{de} @var{à} @var{dur}}
+\\randomNotes @var{n} @var{de} @var{à} @var{dur}
 @end example
 
 @noindent
