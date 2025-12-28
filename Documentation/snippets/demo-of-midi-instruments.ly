@@ -15,20 +15,16 @@
                 notation"
 
   texidoc = "
-Problem: How to know which @code{midiInstrument} would be best for your
-composition?
+Problem: How to know which @code{midiInstrument} values would be best
+for your composition?
 
-Solution: A LilyPond demo file.
+Solution: A LilyPond demo file. You have to compile this snippet by
+yourself and listen to the created MIDI output file.
 "
 
-  doctitle = "Demo MidiInstruments"
+  doctitle = "Demo of MIDI instruments"
 } % begin verbatim
 
-
-\header {
-  title = "Demo of all midi sounds"
-  arranger = "Myself "
-}
 
 melody = \relative c' {
   \tempo 4 = 150
@@ -207,5 +203,3 @@ melody = \relative c' {
   }
   \midi { }
 }
-
-\paper { tagline = ##f }

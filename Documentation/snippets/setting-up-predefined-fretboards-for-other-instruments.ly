@@ -15,9 +15,9 @@
 
   texidoc = "
 Predefined fret diagrams can be added for new instruments in addition
-to the standards used for guitar. This file shows how this is done by
-defining a new string tuning and a few predefined fretboards for the
-Venezuelan @emph{cuatro}.
+to the standard diagrams used for guitar. This file shows how this is
+done by defining a new string tuning and a few predefined fretboards
+for the Venezuelan @emph{cuatro}.
 
 This file also shows how fingerings can be included in the chords used
 as reference points for the chord lookup, and displayed in the fret
@@ -27,19 +27,20 @@ These fretboards are not transposable because they contain string
 information. This is planned to be corrected in the future.
 "
 
-  doctitle = "Defining predefined fretboards for other instruments"
+  doctitle = "Setting up predefined fretboards for other instruments"
 } % begin verbatim
 
 
-% add FretBoards for the Cuatro
+% Add fretboards for the cuatro.
+%
 %   Note: This section could be put into a separate file
-%      predefined-cuatro-fretboards.ly
-%      and \included into each of your compositions
+%         `predefined-cuatro-fretboards.ly`
+%         and be \included into each of your compositions.
 
 cuatroTuning = #`(,(ly:make-pitch 0 6 0)
                   ,(ly:make-pitch 1 3 SHARP)
-		  ,(ly:make-pitch 1 1 0)
-		  ,(ly:make-pitch 0 5 0))
+                  ,(ly:make-pitch 1 1 0)
+                  ,(ly:make-pitch 0 5 0))
 
 dSix = { <a\4 b\1 d\3 fis\2> }
 dMajor = { <a\4 d\1 d\3 fis \2> }
@@ -63,7 +64,7 @@ gMajor = { <b\4 b\1 d\3 g\2> }
                         #cuatroTuning
                         "2-2;o;1-1;o;"
 
-% end of potential include file /predefined-cuatro-fretboards.ly
+% End of potential include file `predefined-cuatro-fretboards.ly`.
 
 
 #(set-global-staff-size 16)

@@ -14,12 +14,11 @@
   categories = "Chords, Really simple"
 
   texidoc = "
-The english naming of chords (default) can be changed to german
-(@code{\\germanChords} replaces B and Bes with H and B) or semi-german
-(@code{\\semiGermanChords} replaces B and Bes with H and Bb).
+The default English naming of chords can be changed to other languages,
+as demonstrated in this snippet.
 "
 
-  doctitle = "Changing the chord names to German or semi-German notation"
+  doctitle = "Display non-English chord names"
 } % begin verbatim
 
 
@@ -28,12 +27,18 @@ scm = \chordmode {
   b1/b | bis/bis | bes/bes
 }
 
-
 \layout {
-  ragged-right = ##t
+  indent = 3\cm
+  ragged-right = ##f
+
   \context {
     \ChordNames
     \consists "Instrument_name_engraver"
+  }
+  \context {
+    \Score
+    \override InstrumentName.self-alignment-Y = -1.2
+    \override InstrumentName.self-alignment-X = #RIGHT
   }
 }
 
