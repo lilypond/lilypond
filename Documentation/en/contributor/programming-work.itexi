@@ -798,37 +798,50 @@ class provide logging functionality that prints the position of the message
 in addition to the message.
 
 @item
-If a message can not be associated with a particular position in an input file,
-e.g., the output file cannot be written, then the functions in the
-@code{flower/include/warn.hh} file will provide logging functionality that
-only prints out the message, but no location.
+If a message can not be associated with a particular position in
+an input file, e.g., the output file cannot be written, the
+functions in file @file{flower/@/include/@/warn.hh} provide
+logging functionality that only prints out the message, but no
+location.
 
 @end itemize
 
-There are also Scheme functions to access all of these logging functions from
-scheme.  In addition, the Grob class contains some convenience wrappers for
-even easier access to these functions.
+There are also Scheme functions to access all of these logging
+functions from scheme.  In addition, the @code{Grob} class
+contains some convenience wrappers for even easier access to these
+functions.
 
-The message and debug functions in @code{warn.hh} also have an optional
-argument @code{newline}, which specifies whether the message should always
-start on a new line or continue a previous message.
-By default, @code{progress_indication} does NOT start on a new line, but rather
-continue the previous output.  They also do not have a particular input
-position associated, so there are no progress functions in the Input class.
-All other functions by default start their output on a new line.
+The message and debug functions in file @file{warn.hh} also have
+an optional argument @code{newline} to specify whether the message
+should always start on a new line or continue a previous message.
+They also do not have a particular input position associated, so
+there are no progress functions in the @code{Input} class.  By
+default, function @code{progress_indication()} does @emph{not}
+start on a new line but rather continues the previous output.  All
+other functions by default start their output on a new line.
 
-The error functions come in three different flavors: fatal error messages,
-programming error messages and normal error messages.  Errors written
-by the @code{error ()} function will cause LilyPond to exit immediately,
-errors by @code{Input::error ()} will continue the compilation, but
-return a non-zero return value of the LilyPond call (i.e., indicate an
-unsuccessful program execution).  All other errors will be printed on the
-console, but not exit LilyPond or indicate an unsuccessful return code.
-Their only differences to a warnings are the displayed text and that
-they will be shown with log level @code{ERROR}.
+LilyPond's error functions come in three different flavors: fatal
+error messages, programming error messages, and normal error
+messages.
 
-If the Scheme option @code{warning-as-error} is set, any warning will be
-treated as if @code{Input::error} was called.
+@itemize
+@item
+Errors written by the @code{error()} function cause the
+@command{lilypond} binary to exit immediately, returning a
+non-zero value.
+@item
+Errors by @code{Input::error()} let @command{lilypond} continue
+the compilation but return a non-zero value (i.e., indicating an
+unsuccessful program execution).
+@item
+All other errors are printed on the console without making
+@command{lilypond} exit or indicate an unsuccessful return code;
+they only differ to warning messages by the displayed text and
+that they are shown with log level @code{ERROR}.
+@end itemize
+
+If the Scheme option @code{warning-as-error} is set, any warning
+is treated as if @code{Input::@/error()} was called.
 
 
 @need 1000

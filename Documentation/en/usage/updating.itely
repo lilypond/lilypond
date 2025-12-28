@@ -418,8 +418,8 @@ computer science.}
 
 However, the LilyPond project has limited resources: not all
 conversions are performed automatically.  If @command{convert-ly}
-is not able to handle a syntax change, it emits a warnings like
-the following (from the 2.23.12 conversion rule).
+is not able to handle a syntax change, it emits a warning like the
+following (from the 2.23.12 conversion rule).
 
 @example
 Not smart enough to convert music following \fine.
