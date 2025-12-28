@@ -10,8 +10,6 @@ chords-with-stretched-fingering-for-fretboards-and-tabvoice.ly
 controlling-the-placement-of-chord-fingerings.ly
 customizing-fretboard-fret-diagrams.ly
 customizing-markup-fret-diagrams.ly
-defining-predefined-fretboards-for-other-instruments.ly
-faking-a-hammer-in-tablatures.ly
 fingerings,-string-indications,-and-right-hand-fingerings.ly
 flamenco-notation.ly
 fret-diagrams-explained-and-developed.ly
@@ -30,6 +28,7 @@ letter-tablature-formatting.ly
 open-string-harmonics-in-tablature.ly
 placement-of-right-hand-fingerings.ly
 polyphony-in-tablature.ly
+setting-up-predefined-fretboards-for-other-instruments.ly
 slides-in-tablature.ly
 stem-and-beam-behavior-in-tablature.ly
 string-number-extender-lines.ly

@@ -3,7 +3,6 @@ adding-bar-lines-to-chordnames-context.ly
 adjusting-figured-bass-alteration-glyphs.ly
 changing-a-single-note-s-size-in-a-chord.ly
 changing-chord-separator.ly
-changing-the-chord-names-to-german-or-semi-german-notation.ly
 changing-the-positions-of-figured-bass-alterations.ly
 chord-name-exceptions.ly
 chord-name-major7.ly
@@ -14,6 +13,7 @@ controlling-the-placement-of-chord-fingerings.ly
 cross-staff-chords---beaming-problems-workaround.ly
 customizing-the-chord-grid-style.ly
 customizing-the-no-chord-symbol.ly
+display-non-english-chord-names.ly
 displaying-complex-chords.ly
 manually-break-figured-bass-extenders-for-only-some-numbers.ly
 print-chord-names-with-same-root-and-different-bass-as-slash-and-bass-note.ly

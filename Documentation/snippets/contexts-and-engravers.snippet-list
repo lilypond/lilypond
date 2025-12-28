@@ -1,7 +1,7 @@
-adding-a-figured-bass-above-or-below-the-notes.ly
 adding-ambitus-per-voice.ly
 adding-an-extra-staff.ly
 adding-an-extra-staff-at-a-line-break.ly
+adding-bar-lines-to-chordnames-context.ly
 ambitus-after-key-signature.ly
 analysis-brackets-with-labels.ly
 automatically-changing-the-stem-direction-of-the-middle-note-based-on-the-melody.ly
@@ -24,6 +24,7 @@ nesting-staves.ly
 permitting-line-breaks-within-beamed-tuplets.ly
 print-chord-names-with-same-root-and-different-bass-as-slash-and-bass-note.ly
 printing-marks-on-every-staff.ly
+printing-music-with-different-time-signatures.ly
 removing-bar-numbers-from-a-score.ly
 use-square-bracket-at-the-start-of-a-staff-group.ly
 using-mark-lines-in-a-frenched-score.ly

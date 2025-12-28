@@ -1,12 +1,14 @@
 adding-an-extra-staff.ly
 adding-drum-parts.ly
 adding-fingerings-to-a-score.ly
+aligning-text-marks-to-notes.ly
 analysis-brackets-above-the-staff.ly
 changing-a-single-note-s-size-in-a-chord.ly
 changing-stanza-fonts.ly
 changing-the-appearance-of-a-slur-from-solid-to-dotted-or-dashed.ly
-changing-the-chord-names-to-german-or-semi-german-notation.ly
 combining-dynamics-with-markup-texts.ly
+combining-dynamics-with-markup-texts-2.ly
+display-non-english-chord-names.ly
 forcing-rehearsal-marks-to-start-from-a-given-letter-or-number.ly
 lyrics-alignment.ly
 merging-multi-measure-rests-in-a-polyphonic-part.ly

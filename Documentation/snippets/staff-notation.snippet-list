@@ -12,6 +12,7 @@ creating-blank-staves.ly
 creating-custom-key-signatures.ly
 cross-staff-stems.ly
 display-bracket-with-only-one-staff-in-a-system.ly
+displaying-a-whole-grandstaff-system-if-only-one-of-its-staves-is-alive.ly
 extending-a-trill-spanner.ly
 extending-glissandi-across-repeats.ly
 flat-ties.ly
