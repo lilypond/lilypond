@@ -999,6 +999,23 @@ exit 0 if ($no_lsr && $no_new);
 
 
 # Function:
+#   Auxiliary function to replace `<` with `&lt;` in preformatted text.
+#
+# Arguments:
+#   $s    String to be manipulated.
+#
+# Return:
+#   The manipulated string.
+sub replace_le {
+  my ($s) = @_;
+
+  $s =~ s/</&lt;/g;
+
+  return $s;
+}
+
+
+# Function:
 #   Auxiliary function to convert example blocks to valid Texinfo
 #   syntax.
 #
@@ -1051,6 +1068,11 @@ sub postprocess_code_block {
 #       `pandoc`'s `raw_html` extension has no effect since the Texinfo
 #       writer ignores it).
 #     * Ditto for `<var>...</var>`.
+#     * We circumvent another problem with Pandoc issue #11299 by
+#       converting `<` to `&lt;` in preformatted text (i.e., lines that
+#       start with a space): Pandoc removes everything that looks like a
+#       HTML tag (for example `<Grob Accidental >`).  We don't have to
+#       convert this later back to `<`; Pandoc does this automatically.
 #     * Convert `&nbsp;` and U+00A0 to `~~::~~`.  Pandoc transforms a
 #       non-breakable space to `@ `; however, for our purposes `@tie{}`
 #       is better.  To avoid overlong output lines we do this temporary
@@ -1108,6 +1130,7 @@ sub wiki_to_texinfo {
 
   $s =~ s|<samp\h*>(.*?)</samp\h*>|~samp~$1~/samp~|sg;
   $s =~ s|<var\h*>(.*?)</var\h*>|~var~$1~/var~|sg;
+  $s =~ s|^ (.*)$|" " . replace_le($1)|mge;
   $s =~ s/(?:&nbsp;|\N{U+00A0})/~~::~~/g;
   $s =~ s/\[\[(.*?)\]\]/\N{U+201C}$1\N{U+201D}/sg;
 
