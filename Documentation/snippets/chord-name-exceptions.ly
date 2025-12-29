@@ -14,28 +14,51 @@
   categories = "Chords, Scheme, Specific notation"
 
   texidoc = "
-The property @code{chordNameExceptions} can be used to store a list of
-special notations for specific chords.
+The property @code{chordNameExceptions} stores a list of chord name
+exceptions to handle cases either not covered or handled incorrectly.
+
+The default chord names used by LilyPond follow the rules as given in
+Klaus Ignatzek's book @qq{Die Jazzmethode für Klavier@tie{}1}; the
+algorithm to convert chords to chord names can be found in file
+@code{scm/chord-ignatzek-names.scm}. Additional rules are given as
+chord exceptions and stored in the variable @code{ignatzekExceptions},
+as set up in file @code{ly/chord-modifiers-init.ly}.
+
+This snippet modifies these exceptions in three steps.
+
+@enumerate 
+@item
+Set up some music with chords and associated markup. By convention, the
+root (i.e., the lowest note) of each chord should have pitch@tie{}c.
+@item
+Call Scheme function @code{sequential-music-to-chord-exceptions} to
+create a new list of exceptions, then concatenate it with the existing
+ones. Since @code{ignatzekExceptions} is set up with this function's
+second parameter set to @code{#t} (to ignore the root of the chords),
+we have to do the same.
+@item
+Register the new exception list.
+@end enumerate
 "
 
   doctitle = "Chord name exceptions"
 } % begin verbatim
 
 
-% modify maj9 and 6(add9)
-% Exception music is chords with markups
+% Step 1: Define music with chords and markup for maj9 and 6(add9).
 chExceptionMusic = {
-  <c e g b d'>1-\markup { \super "maj9" }
-  <c e g a d'>1-\markup { \super "6(add9)" }
+  <c e g b d'>-\markup { \super "maj9" }
+  <c e g a d'>-\markup { \super "6(add9)" }
 }
 
-% Convert music to list and prepend to existing exceptions.
-chExceptions = #(append
-  (sequential-music-to-chord-exceptions chExceptionMusic #t)
-  ignatzekExceptions)
+% Step 2: Create extended exception list.
+chExceptions =
+#(append (sequential-music-to-chord-exceptions chExceptionMusic #t)
+         ignatzekExceptions)
 
 theMusic = \chordmode {
   g1:maj9 g1:6.9
+  % Step 3: Register extended exception list.
   \set chordNameExceptions = #chExceptions
   g1:maj9 g1:6.9
 }

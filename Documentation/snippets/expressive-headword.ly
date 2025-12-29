@@ -14,14 +14,12 @@
   categories = "Headword"
 
   texidoc = "
-Expressive headword
+Expressive headword.
 "
 
   doctitle = "Expressive headword"
 } % begin verbatim
 
-
-% NR 1.3 Expressive marks
 
 % L. v. Beethoven, Op. 49 no. 1
 % Piano sonata 19 - "Leichte Sonate"
@@ -30,242 +28,52 @@ Expressive headword
 \include "english.ly"
 
 \new PianoStaff <<
+  \new Staff = "right hand" {
+    \clef treble
+    \key g \major
+    \time 6/8
 
-   % RH Staff
-   \new Staff {
-      \clef treble
-      \key g \major
-      \time 6/8
-      \partial 2
-      \once \override TextScript.padding = #2
-      d'8 \staccato
-      ^ \markup { \column {
-         RONDO
-         \italic Allegro } }
-      d'8 \staccato
-      g'8 \staccato
-      a'8 \staccato
+    \partial 2
+      \textMark \markup \override #'(baseline-skip . 3)
+                        \column { RONDO
+                                  \italic Allegro }
+      d'8-. d'-. g'-. a'-. |
+    b'8[( g']) e'-. e'-. a'-. b'-. |
+    c''8[( a']) e''-. d''-. c''-. b'-. |
+    a'8-. g'-. a'-. \acciaccatura { g'16[ a'] } bf'8 a'-. g'-. |
+    fs'8[( d']) d'-. d'-. g'-. a'-. |
+    % 5
+    b'8[( g']) e'-. e'-. a'-. b'-. |
+    c''8[( a']) e''-. d''-. c''-. b'-. |
+    a'8-. g'-. a'-. << { d' g' fs' } \\
+                       { d'4 c'8 } >> |
+    <b g'>4-- d'8-. g'-. b'-. d''-. |
+    d''8( <c'' a'>-.) <c'' a'>-. d''( <b' g'>-.) <b' g'>-. |
+    % 10
+    d''8( <c'' a'>-.) <c'' a'>-. d''( <b' g'>-.) <b' g'>-. |
+    d''8-. <c'' a'>-. <b' g'>-. d''-. <c'' a'>-. <b' g'>-.  |
+    <d'' c'' a'>4\fermata r8 r4 r8 |
+  }
 
-      |
+  \new Staff = "left hand" {
+    \clef bass
+    \key g \major
+    \time 6/8
 
-      b'8 [ (
-      g'8 ] )
-      e'8 \staccato
-      e' \staccato
-      a'8 \staccato
-      b'8 \staccato
-
-      |
-
-      c''8 [ (
-      a'8 ] )
-      e''8 \staccato
-      d''8 \staccato
-      c''8 \staccato
-      b'8 \staccato
-
-      |
-
-      a'8 \staccato
-      g'8 \staccato
-      a'8 \staccato
-      \acciaccatura { g'16 [ a'16 ] }
-      bf'8
-      a'8 \staccato
-      g'8 \staccato
-
-      |
-
-      fs'8 [ (
-      d'8 ] )
-      d'8 \staccato
-      d'8 \staccato
-      g'8 \staccato
-      a'8 \staccato
-
-      |
-
-      b'8 [ (
-      g'8 ] )
-      e'8 \staccato
-      e'8 \staccato
-      a'8 \staccato
-      b'8 \staccato
-
-      |
-
-      c''8 [ (
-      a'8 ] )
-      e''8 \staccato
-      d''8 \staccato
-      c''8 \staccato
-      b'8 \staccato
-
-      |
-
-      a'8 \staccato
-      g'8 \staccato
-      a'8 \staccato
-      <<
-         {
-            \voiceOne
-            d'8
-            g'8
-            fs'8
-            \oneVoice
-         }
-         \new Voice {
-            \voiceTwo
-            d'4
-            c'8
-            \oneVoice
-         }
-      >>
-
-      |
-
-      <b g'>4 \tenuto
-      d'8 \staccato
-      g'8 \staccato
-      b'8 \staccato
-      d''8 \staccato
-
-      |
-
-      d''8 (
-      <c'' a'>8 \staccato )
-      <c'' a'>8 \staccato
-      d''8 (
-      <b' g'>8 \staccato )
-      <b' g'>8 \staccato
-
-      |
-
-      d''8 (
-      <c'' a'>8 \staccato )
-      <c'' a'>8 \staccato
-      d''8 (
-      <b' g'>8 \staccato )
-      <b' g'>8 \staccato
-
-      |
-
-      d''8 \staccato
-      <c'' a'>8 \staccato
-      <b' g'>8 \staccato
-      d'' \staccato
-      <c'' a'>8 \staccato
-      <b' g'>8 \staccato
-
-      |
-
-      <d'' c'' a'>4 \fermata
-      r8 r4 r8
-   }
-
-   % LH Staff
-   \new Staff {
-      \clef bass
-      \key g \major
-      \time 6/8
-      \partial 2
-      r8
-      r8
-      <d' b>8 \staccato
-      <c' a>8 \staccato
-
-      |
-
-      <b g>4
-      r8
-      r8
-      <e' c'>8 \staccato
-      <d' b>8 \staccato
-
-      |
-
-      <c' a>4
-      r8
-      r8
-      <a fs>8 \staccato
-      <b g>8 \staccato
-
-      |
-
-      <c' a>8 \staccato
-      <b d'>8 \staccato
-      <e' c'>8 \staccato
-      <e' cs'>4. (
-
-      |
-
-      d'4 )
-      r8
-      r8
-      <d' b!>8 \staccato
-      <c'! a>8 \staccato
-
-      |
-
-      <b g>4
-      r8
-      r8
-      <e' c'>8 \staccato
-      <d' b>8 \staccato
-
-      |
-
-      <c' a>4
-      r8
-      r8
-      <a fs>8 \staccato
-      <b g>8 \staccato
-
-      |
-
-      <c' a>8 \staccato
-      <d' b>8 \staccato
-      <e' c'>8 \staccato
-      <b d>4
-      <a d>8 \staccato
-
-      |
-
-      <g g,>4 \tenuto
-      r8
-      r4
-      r8
-
-      |
-
-      r8
-      <d' fs>8 \staccato
-      <d' fs>8 \staccato
-      r8
-      <d' g>8 \staccato
-      <d' g>8 \staccato
-
-      |
-
-      r8
-      <d' fs>8 \staccato
-      <d' fs>8 \staccato
-      r8
-      <d' g>8 \staccato
-      <d' g>8 \staccato
-
-      |
-
-      r8
-      <d' fs>8 \staccato
-      <d' g>8 \staccato
-      r8
-      <d' fs>8 \staccato
-      <d' g>8 \staccato
-
-      |
-
-      <d' fs>4 \fermata
-      r8 r4 r8
+    \partial 2 r8 r <d' b>-. <c' a>-. |
+    <b g>4 r8 r <e' c'>-. <d' b>-. |
+    <c' a>4 r8 r <a fs>-. <b g>-. |
+    <c' a>8-. <b d'>-. <e' c'>-. <e' cs'>4.( |
+    d'4) r8 r <d' b!>-. <c'! a>-. |
+    % 5
+    <b g>4 r8 r <e' c'>-. <d' b>-. |
+    <c' a>4 r8 r <a fs>-. <b g>-. |
+    <c' a>8-. <d' b>-. <e' c'>-. <b d>4 <a d>8-. |
+    <g g,>4 \tenuto r8 r4 r8 |
+    r8 <d' fs>-. <d' fs>-. r <d' g>-. <d' g>-. |
+    % 10
+    r8 <d' fs>-. <d' fs>-. r <d' g>-. <d' g>-. |
+    r8 <d' fs>-. <d' g>-. r <d' fs>-. <d' g>-. |
+    <d' fs>4\fermata r8 r4 r8 |
    }
 >>

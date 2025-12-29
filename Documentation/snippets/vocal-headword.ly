@@ -14,60 +14,58 @@
   categories = "Headword"
 
   texidoc = "
-Vocal headword
+Vocal headword.
 "
 
   doctitle = "Vocal headword"
 } % begin verbatim
 
 
-%% http://lsr.di.unimi.it/LSR/Item?id=832
-
-% L. van Beethoven. Symphony No. 9 in D minor, op.125; Finale
-% mm. 216 -- 236
-% Text: F. von Schiller
+% L. van Beethoven, op. 125
+% Symphony No. 9 in D minor
+% Finale measures 216 - 236
+% Text: L. van Beethoven (introduction), F. von Schiller ("Ode to Joy")
 
 \score {
   \new Staff \relative c' {
     \override Score.BarNumber.self-alignment-X = #LEFT
     \set Score.currentBarNumber = 216
-    \bar ""  % make first bar number be shown
+    \set Score.barNumberVisibility = #all-bar-numbers-visible
+
+    \autoBeamOff
     \clef bass \key d \minor \time 3/4
     \tempo "Recitativo"
-    \autoBeamOff
-    r4^\markup { \small Baritono } r a
-    \appoggiatura a8 e'2. ~
-    e4 d8[ cis d e]
-    e4 g, r8 g
-    bes2 a8 e
-    g4 f r
-    R2.*2
-    gis2 gis4
-    r4 d'4. b8
-    b4 gis8([ a b cis]
-    e8[ d cis d)] b([ gis)]
-    e8 d d4 fis8([ e)]
-    d4 cis r
-    \key d \major
-    r4 r a'
-    d4.( e8[ fis e)]
-    e([ d)] d([ cis d a)]
-    g8([ fis)] fis([ e d c)]
-    c8([ b)] g'2~
-    \once \override Script.outside-staff-priority = #1 % put fermata closer to staff
-    g4.\fermata ^\markup { \small \italic "ad libitum" } e8[ cis!] d
-    d8 a a4 r \bar "||"
 
-    % \time 4/4 \tempo "Allegro assai"
-    % R1
-    % e''4^\f d r2
-    % R1
-    % e4( ^\f d2) a8([ g)]
+    r4^\markup { \small Baritono } r a |
+    \grace a8 e'2. ~ |
+    e4( d8[ cis d e]) |
+    e4 g, r8 g |
+    bes2 a8 e |
+    f4 f r |
+    R2.*2 |
+
+    gis2 gis4 |
+    r4 d'4. b8 |
+    b4 gis8\tweak height-limit #4 ([ a b cis] |
+    e8[ d cis d)] b([ gis)] |
+    e8 d d4 fis8([ e)] |
+    d4 cis r \bar "||"
+
+    \key d \major
+    r4 r a' |
+    d4.( e8[ fis e)] |
+    e([ d)] d([ cis d a)] |
+    g8([ fis)] fis([ e d c)] |
+    c8([ b)] g'2~ |
+    % put fermata closer to staff
+    \once \override Script.outside-staff-priority = #1
+    g4.\fermata ^\markup { \small \italic "ad libitum" } e8[ cis!] d |
+    d8 a a4 r \bar "||"
   }
+
   \addlyrics {
-    O Freun -- _ _ de, nicht die -- _ se Tö -- ne!
+    O Freun -- _ de, nicht die -- _ se Tö -- ne!
     Son -- dern laßt uns an -- _ ge -- neh -- me -- re an -- stim -- men,
     und freu -- _ _ _ _ _ _ _ den -- vol -- le -- re!
-    % Freu -- de, Freu -- de,__
   }
 }

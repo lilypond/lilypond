@@ -81,41 +81,48 @@ the other @code{\\book} commands create additional output files.
 #(define-public (book-music-handler book music)
    (add-music music))
 
-%%%
 
+% Some example code to show how to use these functions.  Each call to
+% `\oneNoteScore` constructs a global markup followed by a single
+% staff with a single quarter note.  The pitch of this note is taken
+% from the variable `pitch`; the start value 0 corresponds to pitch C.
+% After emitting the score, variable `pitch` gets increased by 1.
+%
+% `\oneNoteScore` calls Scheme function `add-one-note-score` to do all
+% the work.
 
-%% Just some example score to show how to use these functions:
 #(define add-one-note-score #f)
 #(let ((pitch 0))
-  (set! add-one-note-score
-        (lambda (parser)
-          (let* ((music (make-music 'EventChord
-                          'elements (list (make-music 'NoteEvent
-                                            'duration (ly:make-duration 2 0 1/1)
-                                            'pitch (ly:make-pitch 0 pitch 0)))))
-                 (score (scorify-music music))
-                 (layout (ly:output-def-clone $defaultlayout))
-                 (note-name (case pitch
-                              ((0) "do")
-                              ((1) "ré")
-                              ((2) "mi")
-                              ((3) "fa")
-                              ((4) "sol")
-                              ((5) "la")
-                              ((6) "si")
-                              (else "huh")))
-                 (title (markup #:large #:line ("Score with a" note-name))))
-            (ly:score-add-output-def! score layout)
-            (add-text title)
-            (add-score score))
-            (set! pitch (modulo (1+ pitch) 7)))))
+   (set! add-one-note-score
+         (lambda ()
+           (let* ((music
+                   (make-music
+                    'EventChord
+                    'elements (list (make-music
+                                     'NoteEvent
+                                     'duration (ly:make-duration 2 0 1/1)
+                                     'pitch (ly:make-pitch 0 pitch 0)))))
+                  (score (scorify-music music))
+                  (layout (ly:output-def-clone $defaultlayout))
+                  (note-name (case pitch
+                               ((0) "do")
+                               ((1) "ré")
+                               ((2) "mi")
+                               ((3) "fa")
+                               ((4) "sol")
+                               ((5) "la")
+                               ((6) "si")
+                               (else "huh")))
+                  (title (markup #:large #:line
+                                 ("Score with a" note-name))))
+             (ly:score-add-output-def! score layout)
+             (add-text title)
+             (add-score score))
+           (set! pitch (modulo (1+ pitch) 7)))))
 
 oneNoteScore =
-#(define-music-function () ()
-   (add-one-note-score (*parser*))
-   (make-music 'Music 'void #t))
-
-%%%
+#(define-void-function () ()
+   (add-one-note-score))
 
 \book {
   \oneNoteScore

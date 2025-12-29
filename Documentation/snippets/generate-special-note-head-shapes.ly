@@ -26,7 +26,7 @@ following signature, quite similar to the @code{make-path-stencil}
 Scheme function.
 
 @example
-(path @var{thickness @var{command-list} @var{line-cap-style} @var{line-join-style} @var{fill})}
+(path @var{thickness} @var{command-list} @var{line-cap-style} @var{line-join-style} @var{fill})
 @end example
 
 The commands in @var{command-list} resemble PostScript drawing

@@ -8,219 +8,87 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.3"
+\version "2.25.22"
 
 \header {
   categories = "Headword"
 
   texidoc = "
-Rhythms headword
+Rhythms headword.
 "
 
   doctitle = "Rhythms headword"
 } % begin verbatim
 
 
-%% http://lsr.di.unimi.it/LSR/Item?id=822
-
 % Beethoven, Op. 81a
-% Piano sonata 26 - Das Lebewohl
-% Movt II - Abwesenheit
+% Piano sonata 26 - (Les Adieux)
+% Movt II - Abwesenheit (L'Absence)
 % Measures 31 - 34
 
 \include "english.ly"
+
+% Circumvent issue #6876: `strict-grace-spacing` ignores
+% accidentals of the following main note.
+shiftedGrace =
+#(define-music-function (offset music) (number? ly:music?)
+   #{
+     \override NoteHead.X-offset = #(- offset 0.85)
+     \override Stem.X-offset = #offset
+     \grace { $music }
+     \revert NoteHead.X-offset
+     \revert Stem.X-offset
+   #})
+
+\new PianoStaff <<
+  \new Staff = "right hand" {
+    \clef treble
+    \key c \minor
+    \time 2/4
+    \set Score.currentBarNumber = #31
+
+    <c''' c''>8(^\markup \italic "a tempo" <g'' g'>) ~
+      <g'' g'>8( <a'' a'>16 <f'' f'>) |
+    <f'' f'>8[( \shiftedGrace #-0.15 { e''32 f'' e'' d'' }
+      <e''! e'>16 <f'' f'>16]) <g'' g'>16-.([ <a'' a'>-.)]
+      <bf'' bf'>32( <b'' b'>) <b'' b'>( <c''' c''>) |
+
+    b''32([ c''' d''' c'''32)] g''8 ~
+      g''32[ a''64( g'']) a''64([ g'') bf''( a''64)]
+      bf''64([ a'') c'''( b''64)] c'''128[ b'' d''' c''' f'''64 f''] |
+    <f'' f'>8[( \shiftedGrace #-0.15 { e''32 f'' e'' d''] }
+      <e''! e'>16 <f'' f'>]) <g'' g'>16-.([ <af''! af'!>-.)]
+      <bf'' bf'>32( <b'' b'>) <b'' b'>( <c''' c''>) |
+   }
+
+  \new Dynamics {
+    s2\offset Y-offset 1 -\markup \italic "cantabile" |
+    s4 s\tweak style #'none \cresc |
+    s16.\offset Y-offset 1 \p \offset Y-offset 1 \> s32\! s4. |
+    s4 s\tweak style #'none \cresc <>\! |
+  }
+
+  \new Staff = "left hand" {
+    \set Staff.beatBase = #1/8
+    \set Staff.beatStructure = 1,1,1,1
+    \clef bass
+    \key c \minor
+    \time 2/4
+    \repeat unfold 3 { <g e>32 c' <g e> c' } <a f> c' <a f> c' |
+    \repeat unfold 2 { <bf g>32 c' <bf g> c' }
+      <bf g> c' <a f> c' <g e> c' <g e> c' |
+
+    \repeat unfold 3 { <g e>32 c' <g e> c' } <a f> c' <a f> c' |
+    \repeat unfold 2 { <bf g>32 c' <bf g> c' }
+      <bf g> c' <af! f> c' <g e> c' <g e> c' |
+   }
+>>
 
 \layout {
   \context {
     \Score
     \override SpacingSpanner.base-shortest-duration =
       \musicLength 1*1/40
-      %\override SpacingSpanner.strict-grace-spacing = ##t
+    \override SpacingSpanner.strict-grace-spacing = ##t
   }
 }
-
-\new PianoStaff <<
-
-   % RH Staff
-   \new Staff {
-      \clef treble
-      \key c \minor
-      \time 2/4
-      \set Score.currentBarNumber = #31
-
-      <c''' c''>8 ( -\markup {
-        \override #'(baseline-skip . 2) \italic \column {
-          \line { a tempo }
-          cantabile
-        }
-      }
-      <g'' g'>8 )
-      ~
-      <g'' g'>8 (
-      <a'' a'>16
-      <f'' f'>16 )
-
-      |
-
-      \afterGrace
-         <f'' f'>8 [ (
-         {
-            e''16 [
-            f''16
-            e''16
-            d''16 ]
-         }
-      <e''! e'>16
-      <f'' f'>16 ] )
-      \once \override TextScript.padding = #3.8
-      <g'' g'>16 ( \staccato -\markup { \italic cresc. }
-      <a'' a'>16 ) \staccato
-      <bf'' bf'>32  (
-      <b'' b'>32 )
-      <b'' b'>32 (
-      <c''' c''>32 )
-
-      |
-
-      \once \override DynamicLineSpanner.padding = #2
-      b''32 ( \p \>
-      c'''32
-      d'''32
-      c'''32 ) \!
-      g''8 (
-      ~
-      g''32 [
-      a''64
-      g''64 ) ]
-
-      a''64 ( [
-      g''64 )
-      bf''64 (
-      a''64 ) ]
-
-      bf''64 ( [
-      a''64 )
-      c'''64 (
-      b''64 ) ]
-
-      c'''128 ( [
-      b''128
-      d'''128
-      c'''128
-      f'''64
-      f''64 ) ]
-
-      |
-
-      \afterGrace
-         <f'' f'>8 [ (
-         {
-            e''16 [
-            f''16
-            e''16
-            d''16 ]
-         }
-      <e''! e'>16
-      <f'' f'>16 ] )
-      <g'' g'>16 ( \staccato -\markup { \italic cresc. }
-      <af''! af'!>16 ) \staccato
-      <bf'' bf'>32  (
-      <b'' b'>32 )
-      <b'' b'>32 (
-      <c''' c''>32 )
-   }
-
-   % LH Staff
-   \new Staff {
-      \clef bass
-      \key c \minor
-      \time 2/4
-
-      <g e>32
-      c'32
-      <g e>32
-      c'32
-
-      <g e>32
-      c'32
-      <g e>32
-      c'32
-
-      <g e>32
-      c'32
-      <g e>32
-      c'32
-
-      <a f>32
-      c'32
-      <a f>32
-      c'32
-
-      |
-
-      <bf g>32
-      c'32
-      <bf g>32
-      c'32
-
-      <bf g>32
-      c'32
-      <bf g>32
-      c'32
-
-      <bf g>32
-      c'32
-      <a f>32
-      c'32
-
-      <g e>32
-      c'32
-      <g e>32
-      c'32
-
-      |
-
-      <g e>32
-      c'32
-      <g e>32
-      c'32
-
-      <g e>32
-      c'32
-      <g e>32
-      c'32
-
-      <g e>32
-      c'32
-      <g e>32
-      c'32
-
-      <a f>32
-      c'32
-      <a f>32
-      c'32
-
-      |
-
-      <bf! g>32
-      c'32
-      <bf g>32
-      c'32
-
-      <bf g>32
-      c'32
-      <bf g>32
-      c'32
-
-      <bf g>32
-      c'32
-      <af! f>32
-      c'32
-
-      <g e>32
-      c'32
-      <g e>32
-      c'32
-   }
->>
-

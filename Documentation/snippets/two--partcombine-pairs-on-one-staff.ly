@@ -14,38 +14,70 @@
   categories = "Scheme, Simultaneous notes, Staff notation"
 
   texidoc = "
-The @code{\\partCombine} function takes two music expressions each
-containing a part, and distributes them among four @code{Voice}s named
-@qq{two}, @qq{one}, @qq{solo}, and @qq{chords} depending on when and how the parts
-are merged into a common voice. The voices output from
-@code{\\partCombine} can have their layout properties adjusted in the
-usual way. Here we define extensions of @code{\\partCombine} to make it
-easier to put four voices on a staff.
+The @code{\\partCombine} function takes two music expressions, each
+containing a part, and distributes them among four @code{Voice}
+contexts named @qq{one}, @qq{two}, @qq{solo}, and @qq{shared}, depending on when
+and how the parts are merged into a common voice.
 
-The original version can be input as follows.
-
-@verbatim
-soprano = { d'4 | cis'  b  e'  d'8 cis' | cis'2 b }
-alto = { fis4 | e8 fis gis ais b4 b | b ais fis2 }
-tenor = { a8 b | cis' dis' e'4 b8 cis' d'4 | gis cis' dis'2 }
-bass = { fis8 gis | a4 gis g fis | eis fis b,2 }
-
-\\new Staff <<
-  \\key b\\minor
-  \\clef alto
-  \\partial 4
-  \\transpose b b'
-  \\partCombineUp \\soprano \\alto
-  \\partCombineDown \\tenor \\bass
->>
-@end verbatim
-
-And here is the extended snippet.
+Variants of @code{\\partCombine} are @code{\\partCombineUp} and
+@code{\\partCombineDown} to produce up-stem and down-stem merging of
+two voices, respectively. Combining them to squeeze four parts into a
+single staff, however, need some special setup, which this snippet
+defines accordingly.
 "
 
   doctitle = "Two \\partCombine pairs on one staff"
 } % begin verbatim
 
+
+customPartCombineUp =
+#(define-music-function (part1 part2) (ly:music? ly:music?)
+  "Make an up-stem `VoiceBox` context that combines PART1 and PART2.
+
+The context is called 'Up'; internally, the function calls
+`\\partCombineUp`."
+  #{
+    \new VoiceBox = "Up" <<
+      \context Voice = "one" { \voiceOne }
+      \context Voice = "two" { \voiceThree }
+      \context Voice = "shared" { \voiceOne }
+      \context Voice = "solo" { \voiceOne }
+      \context NullVoice = "null" {}
+      \partCombine #part1 #part2
+    >>
+  #})
+
+customPartCombineDown =
+#(define-music-function (part3 part4) (ly:music? ly:music?)
+  "Make a down-stem `VoiceBox` context that combines PART3 and PART4.
+
+The context is called 'Down'; internally, the function calls
+`\\partCombineDown`."
+  #{
+    \new VoiceBox = "Down" <<
+      \set VoiceBox.soloText = #"Solo III"
+      \set VoiceBox.soloIIText = #"Solo IV"
+      \context Voice ="one" { \voiceFour }
+      \context Voice ="two" { \voiceTwo }
+      \context Voice ="shared" { \voiceFour }
+      \context Voice ="solo" { \voiceFour }
+      \context NullVoice = "null" {}
+      \partCombine #part3 #part4
+    >>
+  #})
+
+soprano = { d'4 | cis'  b  e'  d'8 cis' | cis'2 b }
+alto = { fis4 | e8 fis gis ais b4 b | b ais fis2 }
+tenor = { a8 b | cis' dis' e'4 b8 cis' d'4 | gis cis' dis'2 }
+bass = { fis8 gis | a4 gis g fis | eis fis b,2 }
+
+\new Staff <<
+  \key b\minor
+  \clef alto
+  \partial 4
+  \transpose b b' \customPartCombineUp \soprano \alto
+  \customPartCombineDown \tenor \bass
+>>
 
 \layout {
   \context {
@@ -60,57 +92,3 @@ And here is the extended snippet.
     \accepts "NullVoice"
   }
 }
-
-customPartCombineUp =
-#(define-music-function (partOne partTwo)
-  (ly:music? ly:music?)
-"Take the music in @var{partOne} and @var{partTwo} and return
-a @code{VoiceBox} named @q{Up} containing @code{Voice}s
-that contain @var{partOne} and @var{partTwo} merged into one
-voice where feasible.  This variant sets the default voicing
-in the output to use upward stems."
-#{
-  \new VoiceBox = "Up" <<
-    \context Voice = "one" { \voiceOne }
-    \context Voice = "two" { \voiceThree }
-    \context Voice = "shared" { \voiceOne }
-    \context Voice = "solo" { \voiceOne }
-    \context NullVoice = "null" {}
-    \partCombine #partOne #partTwo
-  >>
-#})
-
-customPartCombineDown = #
-(define-music-function (partOne partTwo)
-  (ly:music? ly:music?)
-"Take the music in @var{partOne} and @var{partTwo} and return
-a @code{VoiceBox} named @q{Down} containing @code{Voice}s
-that contain @var{partOne} and @var{partTwo} merged into one
-voice where feasible.  This variant sets the default voicing
-in the output to use downward stems."
-#{
-  \new VoiceBox = "Down" <<
-    \set VoiceBox.soloText = #"Solo III"
-    \set VoiceBox.soloIIText = #"Solo IV"
-    \context Voice ="one" { \voiceFour }
-    \context Voice ="two" { \voiceTwo }
-    \context Voice ="shared" { \voiceFour }
-    \context Voice ="solo" { \voiceFour }
-    \context NullVoice = "null" {}
-    \partCombine #partOne #partTwo
-  >>
-#})
-
-soprano = { d'4 | cis'  b  e'  d'8 cis' | cis'2 b }
-alto = { fis4 | e8 fis gis ais b4 b | b ais fis2 }
-tenor = { a8 b | cis' dis' e'4 b8 cis' d'4 | gis cis' dis'2 }
-bass = { fis8 gis | a4 gis g fis | eis fis b,2 }
-
-\new Staff <<
-  \key b\minor
-  \clef alto
-  \partial 4
-  \transpose b b'
-  \customPartCombineUp \soprano \alto
-  \customPartCombineDown \tenor \bass
->>

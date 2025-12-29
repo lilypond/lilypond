@@ -14,15 +14,13 @@
   categories = "Ancient notation, Chords"
 
   texidoc = "
-When writing a figured bass, you can place the figures above or below
-the bass notes, by defining the
-@code{BassFigureAlignmentPositioning.direction} property (exclusively
-in a @code{Staff} context). Choices are @code{#UP} (or @code{#1}),
-@code{#CENTER} (or @code{#0}) and @code{#DOWN} (or @code{#-1}).
+When writing figured bass, you can place the figures above or below the
+bass notes by using the commands @code{\\bassFigureStaffAlignmentDown}
+and @code{\\bassFigureStaffAlignmentUp}. Prepend @code{\\once} to the
+command if you want to modify only the next figured bass.
 
-This property can be changed as many times as you wish. Use
-@code{\\once \\override} if you don't want the override to apply to the
-whole score.
+The command @code{\\bassFigureStaffAlignmentNeutral} resets the
+direction of figured bass to the default value.
 "
 
   doctitle = "Adding a figured bass above or below the notes"
@@ -37,12 +35,10 @@ bass = {
 
 continuo = \figuremode {
   <_>4 <6>4 <5/>4
-  \override Staff.BassFigureAlignmentPositioning.direction = #UP
-  %\bassFigureStaffAlignmentUp
-  < _+ >4 <6>
+  \bassFigureStaffAlignmentUp
+  <_+>4 <6> |
   \set Staff.useBassFigureExtenders = ##t
-  \override Staff.BassFigureAlignmentPositioning.direction = #DOWN
-  %\bassFigureStaffAlignmentDown
+  \bassFigureStaffAlignmentDown
   <4>4. <4>8 <_+>4
 }
 

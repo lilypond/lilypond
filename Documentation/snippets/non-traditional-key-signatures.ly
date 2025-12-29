@@ -23,7 +23,7 @@ format of this command is a list:
 
 @example
 \\set Staff.keyAlterations =
-  #`(((@var{octave . @var{step}) . @var{alter}) ((@var{octave} . @var{step}) . @var{alter}) ...)}
+  #`(((@var{octave} . @var{step}) . @var{alter}) ((@var{octave} . @var{step}) . @var{alter}) ...)
 @end example
 
 where, for each element in the list, @var{octave} specifies the

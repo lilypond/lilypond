@@ -18,22 +18,42 @@ Setting the property @code{strict-grace-spacing} makes the musical
 columns for grace notes @q{floating}, i.e., decoupled from the non-grace
 notes: first the normal notes are spaced, then the (musical columns of
 the) graces are put left of the musical columns for the main notes.
+
+Due to @uref{https://gitlab.com/lilypond/lilypond/-/issues/6876,issue
+#6876}, however, accidentals are ignored if this property is set. This
+snippet gives a workaround to circumvent the problem.
+
+Another unfortunate side effect of this property is that LilyPond does
+not check whether there is enough horizontal space for grace notes
+(this is tracked as
+@uref{https://gitlab.com/lilypond/lilypond/-/issues/2630,issue #2630}).
+You have to make sure that enough space is available, for example, by
+using @code{\\newSpacingSection} together with a proper value for the
+@code{base-shortest-duration} of the @code{SpacingSpanner} grob.
 "
 
   doctitle = "Positioning grace notes with floating space"
 } % begin verbatim
 
 
-\relative c'' {
-  <<
-    \override Score.SpacingSpanner.strict-grace-spacing = ##t
-    \new Staff \new Voice {
-      \afterGrace c4 { c16[ c8 c16] }
-      c8[ \grace { b16 d } c8]
-      c4 r
-    }
-    \new Staff {
-      c16 c c c c c c c c4 r
-    }
-  >>
+shiftedGrace =
+#(define-music-function (offset music) (number? ly:music?)
+   #{
+     \override NoteHead.X-offset = #(- offset 0.85)
+     \override Stem.X-offset = #offset
+     \grace { $music }
+     \revert NoteHead.X-offset
+     \revert Stem.X-offset
+   #})
+
+\relative c'' <<
+  { g4 \shiftedGrace #-1.3 a32 \shiftedGrace #-0.5 { bes c d } es4 }
+  { f,32 e d c f e d c f4 }
+>>
+
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.strict-grace-spacing = ##t
+  }
 }

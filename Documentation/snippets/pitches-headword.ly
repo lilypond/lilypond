@@ -22,127 +22,60 @@ Pitches headword.
 
 
 % L. v. Beethoven
-% Piano sonata 21 - Dem Grafen von Waldstein Gewidmet
-% chorale at measures 34 - 40+
+% Piano sonata 21 op. 53 - "à Monsieur Comte de Waldstein"
+% first movement, measures 34 - 41
 
 \include "english.ly"
 
 \new PianoStaff <<
-
-  % RH Staff
-  \new Staff <<
-
-    % RH Voice 1
-    \new Voice {
+  \new Staff = "right hand" <<
+    \new Voice = "right hand voice 1" {
       \set Score.currentBarNumber = 34
-      \voiceOne
-      gs''2 ( ^ \markup \italic { dolce e molto ligato }
-      fs''4
-      e''4
-      |
-      ds''2
-      cs''2 )
-      |
-      ds''2 (
-      e''4
-      fs''4
-      |
-      <gs'' e''>2
-      <fs'' ds''>2 )
-      |
-      \oneVoice
-      \clef bass
-      <gs' e' b>2 (
-      <fs' ds' a>4
-      <e' cs' gs>4
-      |
-      <ds' bs fs>2
-      <cs' a e>2 )
-      |
-      \voiceOne
-      b2 %(
-      cs'4
-      ds'4
-      |
-      \clef treble
-      <e' gs>4 %)
-      r4 r2
+      \voiceOne gs''2(^\markup \italic "dolce e molto ligato" fs''4 e'' |
+      ds''2 cs'') |
+      ds''2( e''4 fs'' |
+      <gs'' e''>2 <fs'' ds''>) \clef bass |
+
+      \oneVoice <gs' e' b>2( <fs' ds' a>4 <e' cs' gs> |
+      <ds' bs fs>2 <cs' a e>) |
+      \voiceOne b2\tweak height-limit 7
+                  \tweak positions #'(6 . 2) ( cs'4 ds' \clef treble |
+      <e' gs>4) r4 r2 |
     }
 
-    % RH Voice 2
-    \new Voice {
-      \voiceTwo
-      \override Staff.DynamicLineSpanner.staff-padding = 3
-      <e'' b'>2 \p
-      <ds'' a'>4
-      <cs'' gs'>4
-      |
-      <bs' fs'>2
-      e'2
-      |
-      <b'! a'>2 -\tweak style #'none \cresc
-      b'4
-      <e'' cs''>4
-      |
-      b'2. ( \sf \>
-      a'4 )
-      \clef bass
-      | \break
-      s1 \p
-      |
-      s1
-      |
-      <gs e>4 (
-      <a fs>2. )
-      |
-      s4
-      r4 r2
-    }
+    \new Voice = "right hand voice 2" {
+      \voiceTwo <e'' b'>2 <ds'' a'>4 <cs'' gs'> |
+      <bs' fs'>2 e' |
+      <b'! a'>2 b'4 <e'' cs''> |
+      b'2.( a'4) \clef bass | \break
 
+      s1 |
+      s1 |
+      <gs e>4( <a fs>2.) |
+      s4 r4 r2 |
+    }
   >>
 
-  % LH Staff
-  \new Staff {
+  \new Dynamics {
+    s1*2\p |
+    s1\tweak style #'none \cresc |
+    s1\sf\> |
+
+    s1*4\p |
+  }
+
+  \new Staff = "left hand" {
     \override Staff.SustainPedalLineSpanner.staff-padding = 6
-    <gs' e'>2 ( \sustainOn
-    <fs' ds' b>4 \sustainOff
-    <e' cs'>4
-    |
-    <ds' bs gs>2
-    <cs' a>2 ) \sustainOn
-    |
-    \clef bass
-    \slurDown
-    <ds' b! a fs>2 ( \sustainOff
-    <e' b gs>4
-    <fs' cs' a>4 \sustainOn
-    |
-    \clef treble
-    \voiceOne
-    <<
-      {
-        <gs' e'>2
-        <fs' ds'>2 )
-      }
-      \new Voice {
-        \voiceTwo
-        b1 \sustainOff
-      }
-    >>
-    \oneVoice
-    |
-    %\break
-    \clef bass
-    <gs e>2 (
-    <fs ds b,>4
-    <e cs>4
-    |
-    <ds bs, gs,>2
-    <cs a,>2 ) \sustainOn
-    |
-    <b,! b,,!>1 ( \sustainOff
-    |
-    <e e,>4 )
-    r4 r2
+    <gs' e'>2(\sustainOn <fs' ds' b>4\sustainOff <e' cs'> |
+    <ds' bs gs>2 <cs' a>)\sustainOn \clef bass |
+    <ds' b! a fs>2_(\sustainOff
+      <e' b gs>4 <fs' cs' a>\sustainOn \clef treble |
+    << { \voiceOne <gs' e'>2 <fs' ds'>) }
+       \new Voice { \voiceTwo b1\sustainOff } >> \clef bass |
+
+    \oneVoice <gs e>2( <fs ds b,>4 <e cs> |
+    <ds bs, gs,>2 <cs a,>)\sustainOn |
+    <b,! b,,!>1(\sustainOff |
+    <e e,>4) r4 r2 |
   }
 >>
