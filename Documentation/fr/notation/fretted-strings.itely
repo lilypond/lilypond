@@ -1723,7 +1723,7 @@ propriétés de l'interface dépendent de @code{FretBoards.FretBoard}.
 @cindex diagramme de fret prédéfini, définition
 @cindex prédéfini, diagramme de fret, définition
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/defining-predefined-fretboards-for-other-instruments.ly}
+{snippets/setting-up-predefined-fretboards-for-other-instruments.ly}
 
 @cindex accord, suppressiion des répétitions
 @cindex accord répété, suppression

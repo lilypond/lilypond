@@ -1715,7 +1715,7 @@ belong to @code{FretBoards.FretBoard}.
 @cindex fretboard, define predefined
 @cindex defining predefined fretboard
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/defining-predefined-fretboards-for-other-instruments.ly}
+{snippets/setting-up-predefined-fretboards-for-other-instruments.ly}
 
 @cindex chord, suppressing repeated
 @cindex repeated chords, suppressing

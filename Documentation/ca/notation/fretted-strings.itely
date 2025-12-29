@@ -1522,7 +1522,7 @@ predefinit, les propietats d'interfície pertanyen a
 {snippets/customizing-fretboard-fret-diagrams.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/defining-predefined-fretboards-for-other-instruments.ly}
+{snippets/setting-up-predefined-fretboards-for-other-instruments.ly}
 
 @lilypondfile[verbatim,quote,texidoc,doctitle,ragged-right]
 {snippets/chord-changes-for-fretboards.ly}

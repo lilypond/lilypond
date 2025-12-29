@@ -1764,7 +1764,7 @@ predefinido, las propiedades de interface pertenecen a
 @cindex traste, definir predeterminado
 @cindex definición, traste predefinido
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/defining-predefined-fretboards-for-other-instruments.ly}
+{snippets/setting-up-predefined-fretboards-for-other-instruments.ly}
 
 @cindex acorde, suprimir repetido
 @cindex repetido, acorde, suprimir

@@ -1733,7 +1733,7 @@ le proprietà dell'interfaccia appartengono a @code{FretBoards.FretBoard}.
 @cindex tastiera, definire predefinita
 @cindex definire tastiera predefinita
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/defining-predefined-fretboards-for-other-instruments.ly}
+{snippets/setting-up-predefined-fretboards-for-other-instruments.ly}
 
 @cindex accordo, sopprimere ripetizioni
 @cindex accordi ripetuti, soppressione

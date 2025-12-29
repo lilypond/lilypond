@@ -1538,7 +1538,7 @@ mychords = \chordmode {
 @cindex fretboard, define predefined (既定のフレットボードを定義する)
 @cindex define predefined fretboard (フレットボードを定義する)
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/defining-predefined-fretboards-for-other-instruments.ly}
+{snippets/setting-up-predefined-fretboards-for-other-instruments.ly}
 
 @cindex chord, suppressing repeated (繰り返しの和音を抑制する)
 @cindex repeated chords, suppressing (繰り返しの和音を抑制する)
