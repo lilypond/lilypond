@@ -25,11 +25,10 @@ by key name as well as by graphical means.
 \relative c'' {
   \textLengthOn
   c1^\markup
-    \woodwind-diagram
-      #'piccolo
-      #'((cc . (one three))
-         (lh . (gis))
-         (rh . (ees)))
+    \woodwind-diagram #'piccolo
+                      #'((cc . (one three))
+                         (lh . (gis))
+                         (rh . (ees)))
 
   c^\markup
     \override #'(graphical . #f) {

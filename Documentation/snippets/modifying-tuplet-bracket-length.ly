@@ -37,8 +37,6 @@ modify what material they cover.
   \tuplet 3/2 { c4 4 4 }
   % ...or to cover just whitespace
   \set tupletFullLengthNote = ##f
-  \time 4/4
-  \tuplet 5/4 { 4 1 }
-  \time 3/4
-  2.
+  \time 4/4 \tuplet 5/4 { 4 1 }
+  \time 3/4 2.
 }

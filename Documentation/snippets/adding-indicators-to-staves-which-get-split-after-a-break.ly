@@ -34,12 +34,11 @@ demonstrated below.
 
 #(define-markup-command (arrow-at-angle layout props angle-deg length fill)
    (number? number? boolean?)
-   (let* (
-           (PI-OVER-180 (/ (atan 1 1) 34))
-           (degrees->radians (lambda (degrees) (* degrees PI-OVER-180)))
-           (angle-rad (degrees->radians angle-deg))
-           (target-x (* length (cos angle-rad)))
-           (target-y (* length (sin angle-rad))))
+   (let* ((PI-OVER-180 (/ (atan 1 1) 34))
+          (degrees->radians (lambda (degrees) (* degrees PI-OVER-180)))
+          (angle-rad (degrees->radians angle-deg))
+          (target-x (* length (cos angle-rad)))
+          (target-y (* length (sin angle-rad))))
      (interpret-markup layout props
        (markup
         #:translate (cons (/ target-x 2) (/ target-y 2))

@@ -22,7 +22,6 @@ contexts.
 } % begin verbatim
 
 
-
 slides = {
   c'8\3(\glissando d'8\3)
   c'8\3\glissando d'8\3
@@ -41,12 +40,13 @@ slides = {
     \new Staff { \clef "treble_8" \slides }
     \new TabStaff { \slides }
   >>
+
   \layout {
     \context {
       \Score
       \override Glissando.minimum-length = 4
       \override Glissando.springs-and-rods =
-                          #ly:spanner::set-spacing-rods
+                  #ly:spanner::set-spacing-rods
       \override Glissando.thickness = 2
       \omit StringNumber
       % or:

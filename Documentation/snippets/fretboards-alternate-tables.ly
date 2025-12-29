@@ -15,16 +15,13 @@
 
   texidoc = "
 Alternate fretboard tables can be created. These would be used in order
-to have alternate fretboards for a given chord.
-
-In order to use an alternate fretboard table, the table must first be
-created. Fretboards are then added to the table.
+to have alternate fretboards for a given chord. In order to use an
+alternate fretboard table, the table must first be created. Fretboards
+are then added to the table.
 
 The created fretboard table can be blank, or it can be copied from an
-existing table.
-
-The table to be used in displaying predefined fretboards is selected by
-the property @code{\\predefinedDiagramTable}.
+existing table. The table to be used in displaying predefined
+fretboards is selected by the property @code{\\predefinedDiagramTable}.
 "
 
   doctitle = "Fretboards alternate tables"
@@ -79,8 +76,8 @@ the property @code{\\predefinedDiagramTable}.
       }
       {
         s1_\markup "Default table" | s1 |
-        s1_\markup \column {"New table" "from empty"} | s1 |
-        s1_\markup \column {"New table" "from default"} | s1 |
+        s1_\markup \column { "New table" "from empty" } | s1 |
+        s1_\markup \column { "New table" "from default" } | s1 |
       }
     >>
   }

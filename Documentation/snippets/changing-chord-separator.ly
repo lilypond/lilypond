@@ -24,7 +24,6 @@ markup.
 
 \chords {
   c:7sus4
-  \set chordNameSeparator
-    = \markup { \typewriter | }
+  \set chordNameSeparator = \markup { \typewriter | }
   c:7sus4
 }

@@ -59,12 +59,12 @@ the other @code{\\book} commands create additional output files.
                       (cons score (ly:parser-lookup 'toplevel-scores))))
 
 #(define-public (add-text text)
-  (add-score (list text)))
+   (add-score (list text)))
 
 #(define-public (add-music music)
-  (collect-music-aux (lambda (score)
-		       (add-score score))
-		     music))
+   (collect-music-aux (lambda (score)
+                        (add-score score))
+                      music))
 
 #(define-public (toplevel-book-handler book)
    (map (lambda (score)
@@ -136,4 +136,4 @@ oneNoteScore =
 \oneNoteScore
 \oneNoteScore
 
-\paper  { tagline = ##f }
+\paper { tagline = ##f }

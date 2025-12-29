@@ -27,7 +27,8 @@ extender attributed to that number right before the number.
 
 bassfigures = \figuremode {
   \set useBassFigureExtenders = ##t
-  <6 4>4 <6 4\!> <6 4\!> <6 4\!> |  <6\! 4\!>  <6 4> <6 4\!> <6 4>
+  <6 4>4 <6 4\!> <6 4\!> <6 4\!> |
+  <6\! 4\!>  <6 4> <6 4\!> <6 4>
 }
 
 <<

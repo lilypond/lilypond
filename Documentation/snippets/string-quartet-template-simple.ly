@@ -56,13 +56,13 @@ cello = \new Voice \relative c' {
 \score {
   \new StaffGroup <<
     \new Staff \with { instrumentName = "Violin 1" }
-    << \global \violinOne >>
+      << \global \violinOne >>
     \new Staff \with { instrumentName = "Violin 2" }
-    << \global \violinTwo >>
+      << \global \violinTwo >>
     \new Staff \with { instrumentName = "Viola" }
-    << \global \viola >>
+      << \global \viola >>
     \new Staff \with { instrumentName = "Cello" }
-    << \global \cello >>
+      << \global \cello >>
   >>
   \layout { }
   \midi { }

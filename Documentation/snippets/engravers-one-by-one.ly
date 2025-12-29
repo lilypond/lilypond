@@ -47,12 +47,10 @@ topVoice = \relative c' {
   d4->
 }
 
-
 % empty staff and voice contexts
 MyStaff = \context {
   \type Engraver_group
   \name Staff
-
   \accepts Voice
   \defaultchild Voice
 }
@@ -60,7 +58,6 @@ MyVoice = \context {
   \type Engraver_group
   \name Voice
 }
-
 
 % add note heads
 MyVoice = \context {

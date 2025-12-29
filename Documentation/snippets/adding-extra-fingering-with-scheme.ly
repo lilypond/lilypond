@@ -27,8 +27,7 @@ of the music for you.
 
 
 addScript =
-#(define-music-function (script music)
-   (ly:event? ly:music?)
+#(define-music-function (script music) (ly:event? ly:music?)
    (map-some-music
     (lambda (mus)
       (define (append-script-at! prop)
@@ -36,6 +35,7 @@ addScript =
               (append (ly:music-property mus prop)
                       (list (ly:music-deep-copy script))))
         mus)
+
       (case (ly:music-property mus 'name)
         ((EventChord)
          (append-script-at! 'elements))

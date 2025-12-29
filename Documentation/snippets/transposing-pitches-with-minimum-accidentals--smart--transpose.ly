@@ -45,10 +45,12 @@ In this manner, the most natural enharmonic notes are chosen.
          ;; for historical reasons
          (n (ly:pitch-notename p)))
      (cond
-      ((and (> a 1) (or (eqv? n 6) (eqv? n 2)))
+      ((and (> a 1)
+            (or (eqv? n 6) (eqv? n 2)))
        (set! a (- a 2))
        (set! n (+ n 1)))
-      ((and (< a -1) (or (eqv? n 0) (eqv? n 3)))
+      ((and (< a -1)
+            (or (eqv? n 0) (eqv? n 3)))
        (set! a (+ a 2))
        (set! n (- n 1))))
      (cond
@@ -77,8 +79,7 @@ In this manner, the most natural enharmonic notes are chosen.
      music))
 
 naturalizeMusic =
-#(define-music-function (m)
-   (ly:music?)
+#(define-music-function (m) (ly:music?)
    (naturalize m))
 
 music = \relative c' { c4 d e g }

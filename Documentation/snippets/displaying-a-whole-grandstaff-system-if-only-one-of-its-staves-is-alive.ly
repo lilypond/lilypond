@@ -74,6 +74,7 @@ the second violin is also displayed.
 \layout {
   indent = 3.0\cm
   short-indent = 1.5\cm
+
   \context {
     \GrandStaff
     \consists Keep_alive_together_engraver

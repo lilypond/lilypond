@@ -28,13 +28,13 @@ openStringHarmonics = {
   \override TextSpanner.dash-fraction = 0.3
   \override TextSpanner.dash-period = 1
 
-  %first harmonic
+  % first harmonic
   \override TextSpanner.bound-details.left.text =
     \markup\small "1st harm. "
   \harmonicByFret 12 e,2\6\startTextSpan
   \harmonicByRatio #1/2 e,\6\stopTextSpan
 
-  %second harmonic
+  % second harmonic
   \override TextSpanner.bound-details.left.text =
     \markup\small "2nd harm. "
   \harmonicByFret 7 e,\6\startTextSpan
@@ -44,7 +44,7 @@ openStringHarmonics = {
   %\harmonicByFret 19 < e,\6 a,\5 d\4 >
   %\harmonicByRatio #2/3 < e,\6 a,\5 d\4 >
 
-  %third harmonic
+  % third harmonic
   \override TextSpanner.bound-details.left.text =
     \markup\small "3rd harm. "
   \harmonicByFret 5 e,\6\startTextSpan
@@ -53,7 +53,7 @@ openStringHarmonics = {
   \harmonicByRatio #3/4 e,\6\stopTextSpan
   \break
 
-  %fourth harmonic
+  % fourth harmonic
   \override TextSpanner.bound-details.left.text =
     \markup\small "4th harm. "
   \harmonicByFret 4 e,\6\startTextSpan
@@ -63,26 +63,26 @@ openStringHarmonics = {
   \harmonicByFret 16 e,\6
   \harmonicByRatio #3/5 e,\6\stopTextSpan
 
-  %fifth harmonic
+  % fifth harmonic
   \override TextSpanner.bound-details.left.text =
     \markup\small "5th harm. "
   \harmonicByFret 3 e,\6\startTextSpan
   \harmonicByRatio #1/6 e,\6\stopTextSpan
   \break
 
-  %sixth harmonic
+  % sixth harmonic
   \override TextSpanner.bound-details.left.text =
     \markup\small "6th harm. "
   \harmonicByFret 2.7 e,\6\startTextSpan
   \harmonicByRatio #1/7 e,\6\stopTextSpan
 
-  %seventh harmonic
+  % seventh harmonic
   \override TextSpanner.bound-details.left.text =
     \markup\small "7th harm. "
   \harmonicByFret 2.3 e,\6\startTextSpan
   \harmonicByRatio #1/8 e,\6\stopTextSpan
 
-  %eighth harmonic
+  % eighth harmonic
   \override TextSpanner.bound-details.left.text =
     \markup\small "8th harm. "
   \harmonicByFret 2 e,\6\startTextSpan
@@ -91,8 +91,7 @@ openStringHarmonics = {
 
 \score {
   <<
-    \new Staff
-    \with { \omit StringNumber } {
+    \new Staff \with { \omit StringNumber } {
       \new Voice {
         \clef "treble_8"
         \openStringHarmonics

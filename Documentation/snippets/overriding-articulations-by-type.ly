@@ -31,10 +31,9 @@ With 2.16.2 and above it is possible to put the proposed function,
 % Code by David Nalesnik and Thomas Morley
 
 #(define (custom-script-tweaks ls)
-  (lambda (grob)
-    (let* ((type (ly:event-property
-                    (ly:grob-property grob 'cause)
-                    'articulation-type))
+   (lambda (grob)
+     (let* ((type (ly:event-property (ly:grob-property grob 'cause)
+                                     'articulation-type))
            (tweaks (assoc-ref ls type)))
       (if tweaks
           (for-each
@@ -43,11 +42,10 @@ With 2.16.2 and above it is possible to put the proposed function,
 
 customScripts =
 #(define-music-function (settings) (list?)
-#{
-  \override Script.before-line-breaking =
-    #(custom-script-tweaks settings)
-#})
-
+   #{
+     \override Script.before-line-breaking =
+       #(custom-script-tweaks settings)
+   #})
 revertCustomScripts = \revert Script.before-line-breaking
 
 %%%%%%%%%%%%%

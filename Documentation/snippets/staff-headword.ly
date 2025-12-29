@@ -75,13 +75,13 @@ lower = \relative do {
   \clef bass
   \key mib \major
   \time 2/4
+
   mib4-. r4 |
   sib-. r |
   fa'-. r |
   sib, r |
   mib4-. r4 |
 }
-
 
 \score {
   <<
@@ -114,10 +114,10 @@ lower = \relative do {
       \tambourin
     }
     \context Staff = "piano"
-    <<
-      \upper
-      \lower
-    >>
+      <<
+        \upper
+        \lower
+      >>
   >>
   \midi { \tempo 4 = 72 }
 }

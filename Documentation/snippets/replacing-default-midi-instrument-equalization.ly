@@ -32,8 +32,7 @@ and clarinet respectively.\"
 
 #(set! my-instrument-equalizer-alist
   (append
-    '(
-      ("flute" . (0.7 . 0.9))
+    '(("flute" . (0.7 . 0.9))
       ("clarinet" . (0.3 . 0.6)))
     my-instrument-equalizer-alist))
 

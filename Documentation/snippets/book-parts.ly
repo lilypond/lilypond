@@ -65,7 +65,8 @@ with the book last page.
     \markup { a page break }
     \pageBreak
     \markup { first part last page }
-    \markup \wordwrap { with ragged-last-bottom (see the space below this text) }
+    \markup \wordwrap {
+      with ragged-last-bottom (see the space below this text) }
   }
 
   \bookpart {

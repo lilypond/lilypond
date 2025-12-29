@@ -22,7 +22,9 @@ Custodes may be engraved in various styles.
 } % begin verbatim
 
 
-\layout { ragged-right = ##t }
+\layout {
+  ragged-right = ##t
+}
 
 \markup \with-true-dimensions  % work around a cropping issue
   \score {

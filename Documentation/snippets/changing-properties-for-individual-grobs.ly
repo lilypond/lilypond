@@ -28,12 +28,12 @@ arguments.
      (ly:grob-set-property!
       grob 'stencil
       (grob-interpret-markup grob
-			     #{ \markup \lower #0.5
-				#(case sp
-				   ((-5) "m")
-				   ((-3) "c ")
-				   ((-2) #{ \markup \teeny \bold 2 #})
-				   (else "bla")) #}))))
+       #{ \markup \lower #0.5
+           #(case sp
+              ((-5) "m")
+              ((-3) "c ")
+              ((-2) #{ \markup \teeny \bold 2 #})
+              (else "bla")) #}))))
 
 \relative c' {
   <d f g b>2
