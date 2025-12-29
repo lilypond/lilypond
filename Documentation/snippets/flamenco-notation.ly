@@ -11,8 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Fretted strings, Specific notation, Stylesheet,
-                Version-specific"
+  categories = "Fretted strings, Specific notation, Stylesheet"
 
   texidoc = "
 For flamenco guitar, special notation is used:

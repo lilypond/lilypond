@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Rhythms"
+  categories = "Rhythms, Scheme, Workaround"
 
   texidoc = "
 Setting the property @code{strict-grace-spacing} makes the musical

@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Headword"
+  categories = "Contemporary notation"
 
   texidoc = "
 Random complex notation

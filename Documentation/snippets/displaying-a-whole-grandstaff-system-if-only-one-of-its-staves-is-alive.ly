@@ -11,7 +11,8 @@
 \version "2.24.0"
 
 \header {
-  categories = "Contexts and engravers"
+  categories = "Contexts and engravers, Paper and layout, Staff
+                notation"
 
   texidoc = "
 In orchestral scores sometimes single or groups of instruments are

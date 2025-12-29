@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Winds"
+  categories = "Instrument-specific, Non-music, Winds"
 
   texidoc = "
 The snippet below produces a list of all possible keys and key settings

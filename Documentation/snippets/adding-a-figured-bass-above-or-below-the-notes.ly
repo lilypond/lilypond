@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Ancient notation, Chords, Contexts and engravers"
+  categories = "Ancient notation, Chords"
 
   texidoc = "
 When writing a figured bass, you can place the figures above or below

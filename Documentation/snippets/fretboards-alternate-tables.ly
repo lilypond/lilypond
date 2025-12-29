@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Fretted strings"
+  categories = "Fretted strings, Scheme"
 
   texidoc = "
 Alternate fretboard tables can be created. These would be used in order

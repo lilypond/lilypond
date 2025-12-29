@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Contemporary notation, Winds"
+  categories = "Contemporary notation, Scheme, Winds"
 
   texidoc = "
 It is possible to indicate special articulation techniques such as a

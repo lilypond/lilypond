@@ -11,8 +11,8 @@
 \version "2.25.23"
 
 \header {
-  categories = "Contemporary notation, Percussion, Real music, Really
-                cool, Rhythms"
+  categories = "Contemporary notation, Contexts and engravers,
+                Percussion, Real music, Really cool, Rhythms"
 
   texidoc = "
 In the following snippet, two parts have a completely different time

@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Percussion, Rhythms, Specific notation"
+  categories = "Percussion, Real music, Rhythms, Specific notation"
 
   texidoc = "
 A short example taken from Stravinsky's @emph{L'histoire du Soldat}.

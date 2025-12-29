@@ -11,7 +11,7 @@
 \version "2.24.0"
 
 \header {
-  categories = "Chords, Specific notation"
+  categories = "Chords, Scheme, Specific notation"
 
   texidoc = "
 The property @code{chordNameExceptions} can be used to store a list of
