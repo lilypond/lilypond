@@ -1011,7 +1011,21 @@ exit 0 if ($no_lsr && $no_new);
 sub postprocess_code_block {
   my ($s) = @_;
 
-  $s =~ s/ \@code\{ (.*?) \} /$1/xmg;
+  # Strip off `@code{...}` while respecting balanced braces.
+  $s =~ s/
+           \@code
+           (
+             \{
+             (
+               (?:
+                 (?> (?: \@\{ | \@\} | [^{}] )+ )
+               |
+                 (?1)
+               )*
+             )
+             \}
+           )
+         /$2/xmg;
   $s =~ s/\@ / /g;
   $s =~ s/\@\*//g;
 
