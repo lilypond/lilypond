@@ -24,8 +24,6 @@ beginning of a new line.
 
 \include "predefined-guitar-fretboards.ly"
 
-\paper { tagline = ##f }
-
 myChords = \chordmode {
   c1 c1 \break
   \set chordChanges = ##t

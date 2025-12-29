@@ -35,8 +35,6 @@ itself.
 } % begin verbatim
 
 
-\header { tagline = ##f }
-
 harmonies = \chordmode
 {
   a8:13

@@ -138,4 +138,3 @@ Repeats headword
    }
 >>
 
-\paper { tagline = ##f }

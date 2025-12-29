@@ -22,8 +22,6 @@ ancient notation.
 } % begin verbatim
 
 
-\paper { tagline = ##f }
-
 m = { c1 e f ges cis' \bar "||" }
 
 \score {

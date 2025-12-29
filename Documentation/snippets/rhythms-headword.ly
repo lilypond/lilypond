@@ -224,4 +224,3 @@ Rhythms headword
    }
 >>
 
-\paper { tagline = ##f }

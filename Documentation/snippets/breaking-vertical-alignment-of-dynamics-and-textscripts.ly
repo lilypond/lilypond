@@ -32,5 +32,3 @@ prematurely, this vertical alignment can be avoided.
 { g1\< |
   e''\breakDynamicSpan\f\> |
   c'\p }
-
-\paper { tagline = ##f }

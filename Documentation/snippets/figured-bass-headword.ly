@@ -102,4 +102,3 @@ extendOff = \bassFigureExtendersOff
   >>
 }
 
-\paper { tagline = ##f }

@@ -71,5 +71,3 @@ Vocal headword
     % Freu -- de, Freu -- de,__
   }
 }
-
-\paper { tagline = ##f }

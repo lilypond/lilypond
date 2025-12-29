@@ -56,5 +56,3 @@ music= \relative c' {
     }
   >>
 }
-
-\paper { tagline = ##f }

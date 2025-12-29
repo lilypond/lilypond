@@ -39,8 +39,6 @@ bar line, etc., form a @code{Staff} context.
 } % begin verbatim
 
 
-\header { tagline = ##f }
-
 topVoice = \relative c' {
   \key d \major
   es8([ g] a[ fis])

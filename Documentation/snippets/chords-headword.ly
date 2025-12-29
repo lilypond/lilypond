@@ -21,8 +21,6 @@
 } % begin verbatim
 
 
-\header { tagline = ##f }
-
 theChords = \chordmode {
   \time 2/2
   f1 | c2 f2 | f1 | c2 f2| %\break

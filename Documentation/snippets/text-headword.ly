@@ -91,5 +91,3 @@ Text headword
       df'[ <ef' g' bf'> q q] |
   }
 >>
-
-\paper { tagline = ##f }

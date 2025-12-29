@@ -105,5 +105,3 @@ openStringHarmonics = {
     }
   >>
 }
-
-\paper { tagline = ##f }
