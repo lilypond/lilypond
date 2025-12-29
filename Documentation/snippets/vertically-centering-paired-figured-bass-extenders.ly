@@ -15,9 +15,9 @@
 
   texidoc = "
 Where figured bass extender lines are being used by setting
-@code{useBassFigureExtenders} to true, pairs of congruent figured bass
-extender lines are vertically centered if
-@code{figuredBassCenterContinuations} is set to true.
+@code{useBassFigureExtenders} to @code{#t}, pairs of congruent figured
+bass extender lines are vertically centered if
+@code{figuredBassCenterContinuations} is set to @code{#t}.
 "
 
   doctitle = "Vertically centering paired figured bass extenders"
@@ -26,9 +26,9 @@ extender lines are vertically centered if
 
 <<
   \relative c' {
-    c8 c b b a a c16 c b b
-    c8 c b b a a c16 c b b
-    c8 c b b a a c c b b
+    \repeat unfold 3 {
+      c8 c b b a a c16 c b b
+    }
   }
   \figures {
     \set useBassFigureExtenders = ##t
@@ -39,6 +39,6 @@ extender lines are vertically centered if
     <6+ 4 3>4 <6 4 3>8 <4 3+>16 r
     \set figuredBassCenterContinuations = ##f
     <6+ 4 3>4 <6 4 3>8 r
-    <6+ 4 3>4 <6 4 3>8 <4 3+>8
+    <6+ 4 3>4 <6 4 3>8 <4 3+>16 r
   }
 >>

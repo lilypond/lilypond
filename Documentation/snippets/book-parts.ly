@@ -16,8 +16,8 @@
   texidoc = "
 @code{\\bookpart} can be used to split a book into several parts. Each
 part last page can be affected by @code{ragged-last-bottom}. Header and
-footer markups can detect a part last page, and make the difference
-with the book last page.
+footer markups can detect a part's last page to differentiate with the
+book's last page.
 "
 
   doctitle = "Book parts"

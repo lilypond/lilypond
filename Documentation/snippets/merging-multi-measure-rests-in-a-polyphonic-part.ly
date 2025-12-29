@@ -14,18 +14,20 @@
   categories = "Really simple, Rhythms"
 
   texidoc = "
-When using multi-measure rests in a polyphonic staff, rests are placed
-differently depending on the voice they belong to. However, they can be
-printed on the same staff line, using the following setting.
+Multi-measure rests in a polyphonic staff are placed differently
+depending on the voice they belong to. They can be printed on the same
+staff line using the setting below. If you omit the @code{\\once}
+keyword, the change affects all rests in that follow in the given
+voice.
 "
 
   doctitle = "Merging multi-measure rests in a polyphonic part"
 } % begin verbatim
 
 
-normalPos = \revert MultiMeasureRest.direction
+normalPos = \once \revert MultiMeasureRest.direction
 
 <<
-  { c''1 R1 c''1 \normalPos R1 } \\
-  { c'1  R1 c'1  \normalPos R1 }
+  { c''1 R c'' \normalPos R c'' R } \\
+  { c'1 R c' \normalPos R c' R }
 >>

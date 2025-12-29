@@ -15,10 +15,9 @@
 
   texidoc = "
 Figured bass often uses extenders to indicate continuation of the
-corresponding step. However, in this case lilypond is in greedy-mode
-and uses extenders whenever possible. To break individual extenders,
-one can simply use a modifier @code{\\!} to a number, which breaks any
-extender attributed to that number right before the number.
+corresponding step. LilyPond tries to make extenders as long as
+possible, which is not always wanted. To break individual extenders,
+append the modifier @code{\\!} to a number.
 "
 
   doctitle = "Manually break figured bass extenders for only some numbers"

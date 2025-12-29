@@ -21,11 +21,9 @@ Wind headword
 } % begin verbatim
 
 
-%% http://lsr.di.unimi.it/LSR/Item?id=833
-
-% NR 2.whatever  Wind
-% Tchaikovsky
-% Nutcracker Suite, VII Dance of the Merlitons
+% Tchaikovsky op. 71a
+% The Nutcracker (suite)
+% VII Dance of the Merlitons
 
 #(set-global-staff-size 15)
 
@@ -54,4 +52,8 @@ Wind headword
       g4--\sf \acciaccatura fis'8 g4--\mf
     }
   >>
+}
+
+\layout {
+  indent = 2\cm
 }

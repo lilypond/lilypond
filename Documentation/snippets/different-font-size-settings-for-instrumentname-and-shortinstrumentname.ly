@@ -23,34 +23,30 @@ Choose different font sizes for @code{instrumentName} and
 
 
 InstrumentNameFontSize =
-#(define-music-function (font-size-pair)(pair?)
-"Set the font size of `InstrumentName` grobs.
+#(define-music-function (font-size-pair) (pair?)
+   "Set the font size of `InstrumentName` grobs.
+
 The first value of FONT-SIZE-PAIR sets the font size of the initial
 `instrumentName` property, the second value sets the font size of
-`shortInstrumentName`"
-
-;; This code could be changed/extended to set different values for each
-;; occurance of `shortInstrumentName'
-
-#{
-  \override InstrumentName.after-line-breaking =
-    #(lambda (grob)
-       (let* ((orig (ly:grob-original grob))
-              (siblings (if (ly:grob? orig)
-                            (ly:spanner-broken-into orig)
-                            '())))
-         (if (pair? siblings)
-             (begin
-               (ly:grob-set-property!
-                 (car siblings)
-                 'font-size (car font-size-pair))
-               (for-each
-                 (lambda (g)
-                   (ly:grob-set-property!
-                   g
-                   'font-size (cdr font-size-pair)))
-                 (cdr siblings))))))
-#})
+`shortInstrumentName`."
+   ;; This code could be changed or extended to set different values
+   ;; for each occurrence of `shortInstrumentName'.
+   #{
+     \override InstrumentName.after-line-breaking =
+       #(lambda (grob)
+          (let* ((orig (ly:grob-original grob))
+                 (siblings (if (ly:grob? orig)
+                               (ly:spanner-broken-into orig)
+                               '())))
+            (when (pair? siblings)
+              (ly:grob-set-property! (car siblings)
+                                     'font-size (car font-size-pair))
+              (for-each
+               (lambda (g)
+                 (ly:grob-set-property! g
+                                        'font-size (cdr font-size-pair)))
+               (cdr siblings)))))
+   #})
 
 \layout {
   indent = 3\cm

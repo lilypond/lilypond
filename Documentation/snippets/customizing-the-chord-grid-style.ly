@@ -20,9 +20,9 @@ Custom divisions of chord squares can be defined through the
 @code{ChordSquare}. These are both alists. Their keys are measure
 divisions, namely lists which give the fraction of the measure that
 each chord (or rest, or skip) represents. More precisely, a measure
-division alist is made of positive, exact numbers adding up to 1, for
-example: @code{'(1/2 1/4 1/4)}. The exactness requirement means that,
-e.g., @code{1/2} is valid but not @code{0.5}.
+division alist is made of positive, exact numbers adding up to@tie{}1,
+for example: @code{'(1/2 1/4 1/4)}. The exactness requirement means
+that, e.g., @code{1/2} is valid but not @code{0.5}.
 
 The values in @code{measure-division-lines-alist} are lists of lines,
 which are represented as
@@ -33,8 +33,8 @@ expressed in the [-1,@tie{}1] scale relative to the extent of the
 square.
 
 The values in @code{measure-division-chord-placement-alist} are lists
-of @code{(@var{x} . @var{y})} pairs giving the placement of
-the respective chords.
+of @code{(@var{x} .@tie{}@var{y})} pairs giving the placement
+of the respective chords.
 
 This example defines a peculiar chord grid style that has a rule for
 measures divided in three equal parts.

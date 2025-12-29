@@ -54,7 +54,7 @@ drumsB = \drummode {
 }
 
 \layout {
-  indent = 40
+  indent = 40\mm
   \context {
     \DrumStaff
     drumStyleTable = #(alist->hash-table mydrums)

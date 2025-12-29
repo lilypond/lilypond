@@ -38,18 +38,23 @@ For example, the @code{System} grob can be both parent (on the Y-side)
 and grandparent (twice on the X-side) to a @code{VerticalAlignment}
 grob.
 
-This macro prints (to the console) a textual representation of a grob's
-ancestry.
+The macro defined in this snippet prints (to the console) a textual
+representation of a grob's ancestry. For example, the call
 
-When called this way:
+@example
+@{
+  \\once \\override NoteHead.before-line-breaking = #display-ancestry
+  c
+@}
+@end example
 
-@verbatim
-{ \\once \\override NoteHead.before-line-breaking = #display-ancestry c }
-@end verbatim
+generates the following output.
 
-The following output is generated:
+@example
+------------------------------------
+@end example
 
-@verbatim
+@example
 NoteHead
 X,Y: NoteColumn
      X: PaperColumn
@@ -61,14 +66,16 @@ X,Y: NoteColumn
            X: NonMusicalPaperColumn
               X,Y: System
            Y: System
-@end verbatim
+@end example
+
+As a consequence, you have to execute the code in this snippet by
+yourself, since the generated output file doesn't show the data we are
+interested in.
 "
 
   doctitle = "Displaying grob ancestry"
 } % begin verbatim
 
-
-%% http://lsr.di.unimi.it/LSR/Item?id=622
 
 #(define (get-ancestry grob)
    (if (not (null? (ly:grob-parent grob X)))
@@ -101,12 +108,12 @@ X,Y: NoteColumn
     (format #f "~&")))
 
 #(define (display-ancestry grob)
-   (format (current-error-port)
-      "~3&~a~2%~a~&"
-      (make-string 36 #\-)
-      (if (ly:grob? grob)
-          (format-ancestry (get-ancestry grob) 0)
-          (format #f "~a is not a grob" grob))))
+   (format (current-output-port)
+           "~2&~a~2%~a~&"
+           (make-string 36 #\-)
+           (if (ly:grob? grob)
+               (format-ancestry (get-ancestry grob) 0)
+               (format #f "~a is not a grob" grob))))
 
 \relative c' {
   \once \override NoteHead.before-line-breaking = #display-ancestry

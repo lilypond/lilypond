@@ -23,7 +23,7 @@ To add bar line indications in the @code{ChordNames} context, add the
 
 
 \new ChordNames \with {
-  \override BarLine.bar-extent = #'(-2 . 2)
+  \override BarLine.bar-extent = #'(-1 . 3)
   \consists "Bar_engraver"
 }
 

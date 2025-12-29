@@ -24,13 +24,14 @@ the following example.
 } % begin verbatim
 
 
-%% Hide fret number: useful to draw slide into/from a casual point of
-%% the fretboard.
+% Hide fret number: useful to draw slide into/from a casual point of
+% the fretboard.
 
 hideFretNumber = {
   \once \hide TabNoteHead
   \once \hide NoteHead
-  \once \hide Stem
+  \once \omit Stem
+  \once \omit Flag
   \once \override NoteHead.no-ledgers = ##t
   \once \override Glissando.bound-details.left.padding = #0.3
 }

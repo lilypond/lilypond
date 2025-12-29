@@ -31,9 +31,8 @@ a beam but needs it anyway due to the use of
 @code{Completion_heads_engraver}.
 
 [Note that the custos sticks out into the right margin and might be cut
-off if the LilyPond output gets cropped, as is done in both this Wiki
-and the official documentation. The use of
-@code{\\with-true-dimensions} avoids this.]
+off if the LilyPond output gets cropped tightly. The use of
+@code{\\with-true-dimensions} below avoids this.]
 "
 
   doctitle = "Using tags to produce mensural and modern music from the same source"

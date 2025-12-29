@@ -35,11 +35,8 @@ stringNumberSpanner =
 
 \relative c {
   \clef "treble_8"
-  \stringNumberSpanner "5"
   \textSpannerDown
-  a8\startTextSpan
-  b c d e f\stopTextSpan
-  \stringNumberSpanner "4"
-  g\startTextSpan a
+  \stringNumberSpanner "5" a8\startTextSpan b c d
+    e f\stopTextSpan \stringNumberSpanner "4" g\startTextSpan a |
   bes4 a g2\stopTextSpan
 }

@@ -31,7 +31,7 @@ whole score.
 
 bass = {
   \clef bass
-  g4 b, c d
+  g4 b, c d |
   e d8 c d2
 }
 

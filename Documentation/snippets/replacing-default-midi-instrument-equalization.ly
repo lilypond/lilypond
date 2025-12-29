@@ -18,10 +18,11 @@ The default MIDI instrument equalizer can be replaced by setting the
 @code{instrumentEqualizer} property in the @code{Score} context to a
 user-defined Scheme procedure that uses a MIDI instrument name as its
 argument along with a pair of fractions indicating the minimum and
-maximum volumes respectively to be applied to that specific instrument.
+maximum volumes, respectively, to be applied to that specific
+instrument.
 
 The following example sets the minimum and maximum volumes for flute
-and clarinet respectively.\"
+and clarinet.
 "
 
   doctitle = "Replacing default MIDI instrument equalization"

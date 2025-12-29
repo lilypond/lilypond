@@ -14,8 +14,9 @@
   categories = "Chords"
 
   texidoc = "
-By default, rests in a @code{ChordNames} context cause the @qq{N.C.}
-symbol to be printed. This markup can be customized.
+By default, rests in a @code{ChordNames} context cause the text @qq{N.C.}
+to be printed. This markup can be customized by setting the
+@code{noChordSymbol} context property.
 "
 
   doctitle = "Customizing the no-chord symbol"

@@ -14,7 +14,7 @@
   categories = "Headword"
 
   texidoc = "
-.
+Chords headword.
 "
 
   doctitle = "Chords headword"

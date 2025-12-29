@@ -15,19 +15,21 @@
 
   texidoc = "
 Sometimes chords with a stretched fingering are required. If not
-otherwise specified the context-property @code{maximumFretStretch} is
-set to @code{4}, though. Resulting in a warning about \"No string for
-pitch ...\" and the note is omitted. You may set
-@code{maximumFretStretch} to an approppriate value or explecitely
-assign string-numbers to all notes of a chord.
+otherwise specified the context property @code{maximumFretStretch} is
+set to value@tie{}4, though, resulting in a warning about @qq{No string
+for pitch ...}, and the note is omitted. You may set
+@code{maximumFretStretch} to an approppriate value or explicitly assign
+string numbers to all notes of a chord to fix that.
 "
 
   doctitle = "Chords with stretched fingering for FretBoards and TabVoice"
 } % begin verbatim
 
 
-%% The code below will print two warnings, which may be omitted by uncommenting:
-%#(for-each (lambda (x) (ly:expect-warning "No string for pitch")) (iota 2))
+% The code below prints two warnings for the second chord,
+% which may be omitted by uncommenting the following line.
+%
+% #(for-each (lambda (x) (ly:expect-warning "No string for pitch")) (iota 2))
 
 mus = {
   <c' bes'>

@@ -40,9 +40,8 @@ In this manner, the most natural enharmonic notes are chosen.
 
 #(define (naturalize-pitch p)
    (let ((o (ly:pitch-octave p))
+         ;; `ly:pitch-alteration` returns quarter tone steps.
          (a (* 4 (ly:pitch-alteration p)))
-         ;; alteration, a, in quarter tone steps,
-         ;; for historical reasons
          (n (ly:pitch-notename p)))
      (cond
       ((and (> a 1)
@@ -54,28 +53,33 @@ In this manner, the most natural enharmonic notes are chosen.
        (set! a (+ a 2))
        (set! n (- n 1))))
      (cond
-      ((> a 2) (set! a (- a 4)) (set! n (+ n 1)))
-      ((< a -2) (set! a (+ a 4)) (set! n (- n 1))))
-     (if (< n 0) (begin (set! o (- o 1)) (set! n (+ n 7))))
-     (if (> n 6) (begin (set! o (+ o 1)) (set! n (- n 7))))
+      ((> a 2)
+       (set! a (- a 4))
+       (set! n (+ n 1)))
+      ((< a -2)
+       (set! a (+ a 4))
+       (set! n (- n 1))))
+     (when (< n 0)
+       (set! o (- o 1))
+       (set! n (+ n 7)))
+     (when (> n 6)
+       (set! o (+ o 1))
+       (set! n (- n 7)))
      (ly:make-pitch o n (/ a 4))))
 
 #(define (naturalize music)
    (let ((es (ly:music-property music 'elements))
          (e (ly:music-property music 'element))
          (p (ly:music-property music 'pitch)))
-     (if (pair? es)
-         (ly:music-set-property!
-          music 'elements
-          (map naturalize es)))
-     (if (ly:music? e)
-         (ly:music-set-property!
-          music 'element
-          (naturalize e)))
-     (if (ly:pitch? p)
-         (begin
-           (set! p (naturalize-pitch p))
-           (ly:music-set-property! music 'pitch p)))
+     (when (pair? es)
+       (ly:music-set-property! music 'elements
+                               (map naturalize es)))
+     (when (ly:music? e)
+       (ly:music-set-property! music 'element
+                               (naturalize e)))
+     (when (ly:pitch? p)
+       (set! p (naturalize-pitch p))
+       (ly:music-set-property! music 'pitch p))
      music))
 
 naturalizeMusic =
@@ -84,12 +88,9 @@ naturalizeMusic =
 
 music = \relative c' { c4 d e g }
 
-\score {
-  \new Staff {
-    \transpose c ais { \music }
-    \naturalizeMusic \transpose c ais { \music }
-    \transpose c deses { \music }
-    \naturalizeMusic \transpose c deses { \music }
-  }
-  \layout { }
+\new Staff {
+  \transpose c ais { \music }
+  \naturalizeMusic \transpose c ais { \music }
+  \transpose c deses { \music }
+  \naturalizeMusic \transpose c deses { \music }
 }

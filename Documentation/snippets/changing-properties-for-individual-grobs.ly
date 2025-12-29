@@ -17,6 +17,16 @@
 The @code{\\applyOutput} command allows the tuning of any layout
 object, in any context. It requires a Scheme function with three
 arguments.
+
+In the example below, function @code{mc-squared} is executed for all
+@code{NoteHead} grobs (within the current @code{Voice} context) at the
+current time step; the function modifies the grob's @code{stencil},
+using the @code{staff-position} property to replace some pitches with
+markup.
+
+See the
+@uref{https://lilypond.org/doc/v2.24/Documentation/extending/running-a-function-on-all-layout-objects,@q{Extending}
+manual} for more information.
 "
 
   doctitle = "Changing properties for individual grobs"

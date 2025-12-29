@@ -23,11 +23,14 @@ elements of Turkish music notation.
 } % begin verbatim
 
 
+#(set-default-paper-size "a6" 'landscape)
+
 \include "turkish-makam.ly"
 
 \header {
   title = "Hüseyni Saz Semaisi"
   composer = "Lavtacı Andon"
+  tagline = ##f
 }
 
 \relative {
@@ -41,4 +44,8 @@ elements of Turkish music notation.
   a16[ bfc a8] bfc c16[ d c8] d16[ e d8] e4 fb8 |
   d4 a'8 a16[ g fb e] fb8[ g] a8.[ b16] a16[ g] |
   g4 g16[ fb] fb8.[ e16] e[ g fb e] e4 r8 |
+}
+
+\layout {
+  indent = 0
 }

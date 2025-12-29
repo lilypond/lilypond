@@ -26,6 +26,8 @@ provided for some figures.
 } % begin verbatim
 
 
+#(set-global-staff-size 26)
+
 \figures {
   <5\+> <5+ 4\+> <6 4- 2\+> r
   \set figuredBassAlterationDirection = #RIGHT

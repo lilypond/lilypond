@@ -14,10 +14,10 @@
   categories = "Fretted strings, Tweaks and overrides"
 
   texidoc = "
-Fret diagram properties can be set through
-@code{'fret-diagram-details}. For markup fret diagrams, overrides can
-be applied to the @code{Voice.TextScript} object or directly to the
-markup.
+Fret diagram properties can be modified by setting the
+@code{fret-diagram-details} property. For markup fret diagrams,
+overrides can be applied to the @code{Voice.TextScript} object or
+directly to the markup.
 "
 
   doctitle = "Customizing markup fret diagrams"

@@ -14,7 +14,7 @@
   categories = "Chords"
 
   texidoc = "
-When put together, chord names, a melody, and lyrics form a lead sheet:
+When put together, chord names, a melody, and lyrics form a lead sheet.
 "
 
   doctitle = "Simple lead sheet"

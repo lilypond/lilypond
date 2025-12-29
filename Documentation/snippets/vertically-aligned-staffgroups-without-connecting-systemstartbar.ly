@@ -36,6 +36,8 @@ single system.
 }
 
 \layout {
+  indent = 0
+
   \context {
     \StaffGroup
     \consists Text_mark_engraver

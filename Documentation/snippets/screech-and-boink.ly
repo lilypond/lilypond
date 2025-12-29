@@ -14,7 +14,7 @@
   categories = "Contemporary notation"
 
   texidoc = "
-Random complex notation
+Random complex notation.
 "
 
   doctitle = "Screech and Boink"

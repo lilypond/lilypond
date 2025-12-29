@@ -24,8 +24,7 @@ demonstrated in this example.
 } % begin verbatim
 
 
-stick = \markup {
-  \with-dimensions #'(0 . 5) #'(0 . 5)
+stick = \markup \with-dimensions #'(0.80 . 5.2) #'(0.85 . 5.2) {
   \postscript "
     0 6 translate
     0.8 -0.8 scale

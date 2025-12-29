@@ -14,8 +14,8 @@
   categories = "Chords"
 
   texidoc = "
-By default, every chord entered is printed; this behavior can be
-modified so that chord names are printed only at the start of lines and
+By default, every chord entered is printed. This behavior can be
+modified so that chord names are printed only at the start of lines or
 when the chord changes.
 "
 
@@ -24,7 +24,8 @@ when the chord changes.
 
 
 harmonies = \chordmode {
-  c1:m c:m \break c:m c:m d
+  c'1:m c:m \break
+  c'1:m c:m d
 }
 
 <<
@@ -33,6 +34,6 @@ harmonies = \chordmode {
     \harmonies
   }
   \new Staff {
-    \relative c' { \harmonies }
+    \harmonies
   }
 >>

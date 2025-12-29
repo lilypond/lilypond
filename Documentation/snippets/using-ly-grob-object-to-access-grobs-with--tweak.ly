@@ -28,12 +28,12 @@ command.
 The console output of the example function below (@code{display-grobs})
 is as follows.
 
-@verbatim
+@example
 --------------------
 #<Grob Accidental >
 ()
 #<Grob Stem >
-@end verbatim
+@end example
 
 It is probably not that useful, but it demonstrates that the grobs are
 indeed being accessed.

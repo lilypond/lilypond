@@ -36,17 +36,16 @@ lower = \relative c {
 }
 
 \score {
-  <<
-    \new StaffGroup = "tab with traditional" <<
-      \new Staff = "guitar traditional" <<
-        \clef "treble_8"
-        \new Voice = "upper" \upper
-        \new Voice = "lower" \lower
-      >>
-      \new TabStaff = "guitar tab" <<
-        \new TabVoice = "upper" \upper
-        \new TabVoice = "lower" \lower
-      >>
+  \new StaffGroup = "tab with traditional" <<
+    \new Staff = "guitar traditional" <<
+      \clef "treble_8"
+      \new Voice = "upper" \upper
+      \new Voice = "lower" \lower
+    >>
+
+    \new TabStaff = "guitar tab" <<
+      \new TabVoice = "upper" \upper
+      \new TabVoice = "lower" \lower
     >>
   >>
 }

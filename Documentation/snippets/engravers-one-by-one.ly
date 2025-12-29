@@ -14,28 +14,31 @@
   categories = "Contexts and engravers, Specific notation"
 
   texidoc = "
-The notation problem, creating a certain symbol, is handled by plugins.
-Each plugin is called an @emph{engraver}. In this example, (some)
-engravers are switched on one by one, in the following order:
+LilyPond handles the various elements necessary to typeset a score with
+plugins. Each plugin is called an @emph{engraver}. In this example,
+(some) engravers are switched on one by one, in the following order:
 
-- note heads,
-
-- staff symbol,
-
-- clef,
-
-- stem,
-
-- beams, slurs, accents,
-
-- accidentals, bar lines, time signature and key signature.
+@itemize
+@item
+note heads,
+@item
+staff symbol,
+@item
+clef,
+@item
+stem,
+@item
+beams, slurs, accents,
+@item
+accidentals, bar lines, time signature, and key signature.
+@end itemize
 
 Engravers are grouped. For example, note heads, slurs, beams, etc.,
 form a @code{Voice} context. Engravers for key signature, accidentals,
 bar line, etc., form a @code{Staff} context.
 "
 
-  doctitle = "Engravers one-by-one"
+  doctitle = "Engravers one by one"
 } % begin verbatim
 
 

@@ -30,21 +30,21 @@ fretboards is selected by the property @code{\\predefinedDiagramTable}.
 
 \include "predefined-guitar-fretboards.ly"
 
-% Make a blank new fretboard table
+% Make a blank new fretboard table.
 #(define custom-fretboard-table-one
    (make-fretboard-table))
 
-% Make a new fretboard table as a copy of default-fret-table
+% Make a new fretboard table as a copy of `default-fret-table`.
 #(define custom-fretboard-table-two
    (make-fretboard-table default-fret-table))
 
-% Add a chord to custom-fretboard-table-one
+% Add a chord to `custom-fretboard-table-one`.
 \storePredefinedDiagram #custom-fretboard-table-one
                         \chordmode {c}
                         #guitar-tuning
                         "3-(;3;5;5;5;3-);"
 
-% Add a chord to custom-fretboard-table-two
+% Add a chord to `custom-fretboard-table-two`.
 \storePredefinedDiagram #custom-fretboard-table-two
                         \chordmode {c}
                         #guitar-tuning

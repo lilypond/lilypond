@@ -17,11 +17,6 @@
 PostScript code can be directly inserted inside a @code{\\markup}
 block.
 
-For technical reasons, this doesn't show up in the Wiki because
-@code{\\postscript} only works with LilyPond's PS backend and is
-neither supported in the SVG (used in this Wiki) nor in the Cairo
-backend.
-
 In general it is recommended to use LilyPond's native graphical markup
 commands like @code{\\polygon} instead, which can be used with all
 LilyPond backends.

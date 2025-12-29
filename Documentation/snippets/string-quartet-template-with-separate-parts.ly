@@ -14,16 +14,19 @@
   categories = "Preparing parts, Template, Unfretted strings"
 
   texidoc = "
-The @qq{String quartet template} snippet produces a nice string quartet,
-but what if you needed to print parts? This new template demonstrates
-how to use the @code{\\tag} feature to easily split a piece into
-individual parts.
+The @qq{String quartet template (simple)} snippet produces a nice string
+quartet, but what if you need to print parts? This new template
+demonstrates how to use the @code{\\tag} feature to easily split a
+piece into individual parts.
 
-You need to split this template into separate files; the filenames are
-contained in comments at the beginning of each file. @code{piece.ly}
-contains all the music definitions. The other files -- @code{score.ly},
-@code{vn1.ly}, @code{vn2.ly}, @code{vla.ly}, and @code{vlc.ly} --
-produce the appropriate part.
+For technical reasons, multiple output files cannot be shown here for a
+single snippet, which means that the template below unifies the code
+for separate files. The file names are contained in comments at the
+beginning of each file.
+
+@code{piece.ly} contains all the music definitions. The other files --
+@code{score.ly}, @code{vn1.ly}, @code{vn2.ly}, @code{vla.ly}, and
+@code{vlc.ly} -- produce the full score and the four parts.
 
 Do not forget to remove specified comments when using separate files!
 "
@@ -33,7 +36,7 @@ Do not forget to remove specified comments when using separate files!
 
 
 % piece.ly
-% (This is the global definitions file)
+% (This is the global definitions file.)
 
 global= {
   \time 4/4
@@ -62,33 +65,32 @@ Cello = \new Voice \relative c' {
   \bar "|."
 }
 
-music = {
-  <<
-    \tag #'score \tag #'vn1
-    \new Staff \with { instrumentName = "Violin 1" }
+music = <<
+  \tag #'score \tag #'vn1
+  \new Staff \with { instrumentName = "Violin 1" }
     << \global \Violinone >>
 
-    \tag #'score \tag #'vn2
-    \new Staff \with { instrumentName = "Violin 2" }
+  \tag #'score \tag #'vn2
+  \new Staff \with { instrumentName = "Violin 2" }
     << \global \Violintwo >>
 
-    \tag #'score \tag #'vla
-    \new Staff \with { instrumentName = "Viola" }
+  \tag #'score \tag #'vla
+  \new Staff \with { instrumentName = "Viola" }
     << \global \Viola >>
 
-    \tag #'score \tag #'vlc
-    \new Staff \with { instrumentName = "Cello" }
+  \tag #'score \tag #'vlc
+  \new Staff \with { instrumentName = "Cello" }
     << \global \Cello >>
-  >>
-}
+>>
+
 
 % These are the other files you need to save on your computer
 
 % score.ly
-% (This is the main file)
+% (This is the main file.)
 
-% uncomment the line below when using a separate file
-%\include "piece.ly"
+% Uncomment the line below when using a separate file.
+% \include "piece.ly"
 
 #(set-global-staff-size 14)
 
@@ -99,10 +101,10 @@ music = {
 }
 
 
-%{ Uncomment this block when using separate files
+%{ Uncomment this block when using separate files.
 
 % vn1.ly
-% (This is the Violin 1 part file)
+% (This is the Violin 1 part file.)
 
 \include "piece.ly"
 \score {
@@ -111,7 +113,7 @@ music = {
 }
 
 % vn2.ly
-% (This is the Violin 2 part file)
+% (This is the Violin 2 part file.)
 
 \include "piece.ly"
 \score {
@@ -120,7 +122,7 @@ music = {
 }
 
 % vla.ly
-% (This is the Viola part file)
+% (This is the Viola part file.)
 
 \include "piece.ly"
 \score {
@@ -129,7 +131,7 @@ music = {
 }
 
 % vlc.ly
-% (This is the Cello part file)
+% (This is the Cello part file.)
 
 \include "piece.ly"
 \score {

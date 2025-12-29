@@ -14,11 +14,11 @@
   categories = "Fretted strings"
 
   texidoc = "
-FretBoards can be set to display only when the chord changes or at the
+Fretboards can be set to display only when the chord changes, or at the
 beginning of a new line.
 "
 
-  doctitle = "Chord changes for FretBoards"
+  doctitle = "Chord changes for fretboards"
 } % begin verbatim
 
 

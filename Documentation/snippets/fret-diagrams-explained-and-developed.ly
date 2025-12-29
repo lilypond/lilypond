@@ -358,7 +358,6 @@ diagrams.
 
 \paper {
   ragged-right = ##t
-  indent = 0
   system-system-spacing.basic-distance = 20
 }
 

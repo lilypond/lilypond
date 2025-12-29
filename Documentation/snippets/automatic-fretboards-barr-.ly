@@ -14,12 +14,12 @@
   categories = "Fretted strings"
 
   texidoc = "
-When automatic fretboards are used, barre indicators will be drawn
-whenever one finger is responsible for multiple strings.
+When automatic fretboards are used, barré indicators are drawn whenever
+one finger is responsible for multiple strings.
 
 If no finger indications are given in the chord from which the
-automatic fretboard is created, no barre indicators will be included,
-because there is no way to identify where barres should be placed.
+automatic fretboard is created, no barré indicators are included,
+because there is no way to identify where barrés should be placed.
 "
 
   doctitle = "Automatic fretboards barré"

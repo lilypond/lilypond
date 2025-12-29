@@ -14,8 +14,8 @@
   categories = "Ancient notation, Symbols and glyphs"
 
   texidoc = "
-Shown here are many of the symbols that are included in LilyPond's
-ancient notation.
+This snippets shows many of the symbols contained in the Emmentaler
+font that are used by LilyPond for typesetting ancient notation.
 "
 
   doctitle = "Ancient fonts"
@@ -24,91 +24,75 @@ ancient notation.
 
 m = { c1 e f ges cis' \bar "||" }
 
+\markup \with-true-dimensions % work around a cropping issue
 \score {
   \new VaticanaVoice {
-    \override NoteHead.style = #'vaticana.punctum
+    \clef "vaticana-fa2"
     \key es \major
     \textMark \markup \rounded-box "Vaticana clefs, custos and note heads"
-    \clef "vaticana-fa2"
-    <>^"vaticana.punctum"
-    \m
+
+    \override NoteHead.style = #'vaticana.punctum
+    <>^"vaticana.punctum" \m
 
     \override NoteHead.style = #'vaticana.inclinatum
-    <>^"vaticana.inclinatum"
-    \m
+    <>^"vaticana.inclinatum" \m
 
     \override NoteHead.style = #'vaticana.quilisma
-    <>^"vaticana.quilisma"
-    \m
-    \clef "vaticana-fa1"
+    <>^"vaticana.quilisma" \m
 
+    \clef "vaticana-fa1"
     \override NoteHead.style = #'vaticana.plica
-    <>^"vaticana.plica"
-    \m
+    <>^"vaticana.plica" \m
 
     \override NoteHead.style = #'vaticana.reverse.plica
-    <>^"vaticana.reverse.plica"
-    \m
+    <>^"vaticana.reverse.plica" \m
 
     \override NoteHead.style = #'vaticana.punctum.cavum
-    <>^"vaticana.punctum.cavum"
-    \m
+    <>^"vaticana.punctum.cavum" \m
 
     \override NoteHead.style = #'vaticana.lpes
-    <>^"vaticana.punctum.lpes"
-    \m
+    <>^"vaticana.punctum.lpes" \m
 
     \override NoteHead.style = #'vaticana.upes
-    <>^"vaticana.punctum.upes"
-    \m
+    <>^"vaticana.punctum.upes" \m
 
     \override NoteHead.style = #'vaticana.vupes
-    <>^"vaticana.punctum.vupes"
-    \m
+    <>^"vaticana.punctum.vupes" \m
 
     \override NoteHead.style = #'vaticana.linea.punctum
-    <>^"vaticana.punctum.linea"
-    \m
+    <>^"vaticana.punctum.linea" \m
 
     \override NoteHead.style = #'vaticana.epiphonus
-    <>^"vaticana.punctum.epiphonus"
-    \m
+    <>^"vaticana.punctum.epiphonus" \m
 
     \override NoteHead.style = #'vaticana.cephalicus
-    <>^"vaticana.punctum.cephalicus"
-    \m
+    <>^"vaticana.punctum.cephalicus" \m
 
     \break
 
     \textMark \markup \rounded-box "Medicaea clefs, custos and note heads"
-
     \set VaticanaStaff.alterationGlyphs =
       #alteration-medicaea-glyph-name-alist
     \override VaticanaStaff.Custos.style = #'medicaea
+
     \clef "medicaea-fa2"
-
     \override NoteHead.style = #'medicaea.punctum
-    <>^"medicaea.punctum"
-    \m
-    \clef "medicaea-do2"
+    <>^"medicaea.punctum" \m
 
+    \clef "medicaea-do2"
     \override NoteHead.style = #'medicaea.inclinatum
-    <>^"medicaea.inclinatum"
-    \m
+    <>^"medicaea.inclinatum" \m
 
     \override NoteHead.style = #'medicaea.virga
-    <>^"medicaea.virga"
-    \m
-    \clef "medicaea-fa1"
+    <>^"medicaea.virga" \m
 
+    \clef "medicaea-fa1"
     \override NoteHead.style = #'medicaea.rvirga
-    <>^"medicaea.rvirga"
-    \m
+    <>^"medicaea.rvirga" \m
 
     \break
 
     \textMark \markup \rounded-box "Hufnagel clefs, custos and note heads"
-
     \set Staff.alterationGlyphs =
       #alteration-hufnagel-glyph-name-alist
     \override VaticanaStaff.Custos.style = #'hufnagel
@@ -117,21 +101,18 @@ m = { c1 e f ges cis' \bar "||" }
     \break
 
     \override NoteHead.style = #'hufnagel.punctum
-    <>^"hufnagel.punctum"
-    \m
+    <>^"hufnagel.punctum" \m
+
     \clef "hufnagel-do2"
-
     \override NoteHead.style = #'hufnagel.lpes
-    <>^"hufnagel.lpes"
-    \m
-    \clef "hufnagel-do-fa"
+    <>^"hufnagel.lpes" \m
 
+    \clef "hufnagel-do-fa"
     \override NoteHead.style = #'hufnagel.virga
-    <>^"hufnagel.virga"
-    \m
+    <>^"hufnagel.virga" \m
   }
+
   \layout {
-    indent = 0.0
     \context {
       \Score
       \override TextScript.font-size = #-2
@@ -143,10 +124,6 @@ m = { c1 e f ges cis' \bar "||" }
       \VaticanaStaff
       alterationGlyphs =
         #alteration-vaticana-glyph-name-alist
-      \override Clef.space-alist =
-        #(grob-transformer 'space-alist
-          (lambda (grob orig)
-            (acons 'custos '(extra-space . 0.7) orig)))
     }
   }
 }

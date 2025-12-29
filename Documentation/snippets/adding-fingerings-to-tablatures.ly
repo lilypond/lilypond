@@ -31,13 +31,6 @@ threeTwo = \markup {
     \finger 2
   }
 }
-threeFour = \markup {
-  \override #'(baseline-skip . 2)
-  \column {
-    \finger 3
-    \finger 4
-  }
-}
 
 \score {
   \new TabStaff {

@@ -14,26 +14,21 @@
   categories = "Headword"
 
   texidoc = "
-Text headword
+Text headword.
 "
 
   doctitle = "Text headword"
 } % begin verbatim
 
 
-%% http://lsr.di.unimi.it/LSR/Item?id=829
-
-% NR 1.8 Text
-
 % L. v. Beethoven, Op. 110
 % Piano sonata 31
-% measures 1 - 7 (following Henle Urtext edition)
+% measures 1 - 7
 
 \include "english.ly"
 
 \new PianoStaff <<
-  % upper staff
-  \new Staff {
+  \new Staff = "right hand" {
     \clef treble
     \key af \major
     \time 3/4
@@ -54,13 +49,12 @@ Text headword
     bf''4.( g''4 ef''8) |
   }
 
-
   \new Dynamics {
     s2.-\tweak padding #-1
        -\tweak baseline-skip #0
        -\markup \center-column {
-                  \line { \dynamic p \italic { con amabilità } }
-                  \line { \hspace #3 (sanft) } } |
+          \whiteout \line { \dynamic p \italic { con amabilità } }
+          \line { \hspace #3 (sanft) } } |
     s2. |
     s2.\< |
     s8..\p s32\< s16..\> s64\! s8 s4\> |
@@ -70,9 +64,7 @@ Text headword
     s2.*3\! |
   }
 
-
-  % lower staff
-  \new Staff {
+  \new Staff = "left hand" {
     \clef bass
     \key af \major
     \time 3/4

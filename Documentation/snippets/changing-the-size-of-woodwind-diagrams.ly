@@ -24,20 +24,10 @@ The size and thickness of woodwind diagrams can be changed.
 \relative c'' {
   \textLengthOn
   c1^\markup
-    \woodwind-diagram
-      #'piccolo
-      #'()
+       \woodwind-diagram #'piccolo #'()
 
-  c^\markup
-    \override #'(size . 1.5) {
-      \woodwind-diagram
-        #'piccolo
-        #'()
-    }
-  c^\markup
-    \override #'(thickness . 0.15) {
-      \woodwind-diagram
-        #'piccolo
-        #'()
-    }
+  c^\markup \override #'(size . 1.5)
+      \woodwind-diagram #'piccolo #'()
+  c^\markup \override #'(thickness . 0.15)
+      \woodwind-diagram #'piccolo #'()
 }

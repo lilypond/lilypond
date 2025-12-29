@@ -15,19 +15,25 @@
 
   texidoc = "
 A table of contents is included using
-@code{\\markuplist \\table-of-contents}. The TOC items are added with
-the @code{\\tocItem} command.
+@code{\\markuplist \\table-of-contents}; its items are added with the
+@code{\\tocItem} command.
 "
 
   doctitle = "Table of contents"
 } % begin verbatim
 
 
-#(set-default-paper-size "a6")
+#(set-default-paper-size "a7" 'landscape)
+#(set-global-staff-size 11)
+
+\paper {
+  print-all-headers = ##t
+}
 
 \book {
   \markuplist \table-of-contents
   \pageBreak
+
   \tocItem \markup { The first score }
   \score {
     {
@@ -35,11 +41,13 @@ the @code{\\tocItem} command.
       \mark \default \tocItem \markup { Mark A }
       d'1
     }
+    \header { title = "First score" }
   }
   \pageBreak
+
   \tocItem \markup { The second score }
   \score {
     { e'1 }
-    \header { piece = "Second score" }
+    \header { title = "Second score" }
   }
 }

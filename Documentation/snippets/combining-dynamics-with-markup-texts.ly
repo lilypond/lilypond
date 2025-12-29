@@ -14,8 +14,11 @@
   categories = "Expressive marks, Really simple, Text"
 
   texidoc = "
-Some dynamics may involve text indications (such as @qq{più forte} or
-@qq{piano subito}). These can be produced using a @code{\\markup} block.
+Some dynamics may involve text indications (such as @qq{più @emph{f}} or
+@qq{@emph{p} subito}). These can be produced using a @code{\\markup}
+block; the resulting object behaves like a @code{TextScript} grob.
+
+See also @qq{Combining dynamics with markup texts (2)}.
 "
 
   doctitle = "Combining dynamics with markup texts"

@@ -14,8 +14,8 @@
   categories = "Fretted strings, Rhythms"
 
   texidoc = "
-For guitar music, it is possible to show strum rhythms, along with
-melody notes, chord names and fret diagrams.
+For guitar music it is possible to show strum rhythms, along with
+melody notes, chord names, and fret diagrams.
 "
 
   doctitle = "Guitar strum rhythms"

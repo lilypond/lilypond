@@ -30,16 +30,14 @@ or fret in the different orientations will be aligned.
     c1
     c1
   }
-  \new FretBoards {
-    \chordmode {
-      c1
-      \override FretBoard.fret-diagram-details.orientation =
-        #'landscape
-      c1
-      \override FretBoard.fret-diagram-details.orientation =
-        #'opposing-landscape
-      c1
-    }
+  \new FretBoards \chordmode {
+    c1
+    \override FretBoard.fret-diagram-details.orientation =
+      #'landscape
+    c1
+    \override FretBoard.fret-diagram-details.orientation =
+      #'opposing-landscape
+    c1
   }
   \new Voice {
     c'1

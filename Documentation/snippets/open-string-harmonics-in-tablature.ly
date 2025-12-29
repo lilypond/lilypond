@@ -17,7 +17,7 @@
 This snippet demonstrates open-string harmonics.
 "
 
-  doctitle = "Open string harmonics in tablature"
+  doctitle = "Open-string harmonics in tablature"
 } % begin verbatim
 
 

@@ -24,6 +24,8 @@ marks, but from the letter or number desired.
 
 
 \relative c'' {
+  \override Score.RehearsalMark.Y-offset = #3.5
+
   c1 \mark \default
   c1 \mark \default
   c1 \mark \default

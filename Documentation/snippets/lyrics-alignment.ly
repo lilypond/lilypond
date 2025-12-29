@@ -18,7 +18,9 @@ Horizontal alignment for lyrics can be set by overriding the
 @code{self-alignment-X} property of the @code{LyricText} object. Value
 @tie{}-1 means left-aligned, 0@tie{}centered, and 1@tie{}right-aligned.
 Alternatively, you can use the Scheme values @code{LEFT},
-@code{CENTER}, and @code{RIGHT} instead of numbers.
+@code{CENTER}, and @code{RIGHT} instead of numbers. Other numeric
+values are possible, too -- don't forget to add the @samp{#}
+Scheme prefix for negative numbers!
 "
 
   doctitle = "Lyrics alignment"
@@ -30,15 +32,16 @@ Alternatively, you can use the Scheme values @code{LEFT},
 }
 
 \relative c'' {
-  c1
-  c1
-  c1
+  c1 c c c
 }
+
 \addlyrics {
   \once \override LyricText.self-alignment-X = #LEFT
-  "This is left-aligned"
+  "left-aligned"
   \once \override LyricText.self-alignment-X = #CENTER
-  "This is centered"
+  "centered"
   \once \override LyricText.self-alignment-X = 1
-  "This is right-aligned"
+  "right-aligned"
+  \once \override LyricText.self-alignment-X = #-1.5
+  "very right"
 }

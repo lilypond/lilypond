@@ -15,11 +15,11 @@
 
   texidoc = "
 You can add additional elements to notes using @code{map-some-music}.
-In this example, an extra script is attached to a note.
+In this example, an extra script is attached to a note (or a chord).
 
-In general, first do a @code{\\displayMusic} of the music you want to
-create, then write a function that will work on the appropriate parts
-of the music for you.
+In general, you should first apply @code{\\displayMusic} to music
+similar to what you want to create so that you can see its structure.
+This can be then used as template for your Scheme code.
 "
 
   doctitle = "Adding extra fingering with Scheme"
@@ -44,8 +44,6 @@ addScript =
         (else #f)))
     music))
 
-\score {
-  {
-    \addScript _6 { c'4-3 <c' e' g'> }
-  }
+{
+  \addScript _6 { c'4-3 <c' e' g'> }
 }

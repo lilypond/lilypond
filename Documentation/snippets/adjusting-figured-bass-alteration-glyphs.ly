@@ -27,6 +27,8 @@ set the glyph in question to @code{#f} (or omit it).
 } % begin verbatim
 
 
+#(set-global-staff-size 26)
+
 \figures {
   \set figuredBassPlusDirection = #RIGHT
   <6\\> <7\\> <9\\> r

@@ -26,12 +26,12 @@ melody = \relative c' {
   \key c \major
   \time 4/4
 
-  f4 e8[ c] d4 g
+  f4 e8[ c] d4 g |
   a2 ~ a
 }
 
 harmonies = \chordmode {
-  c4:m f:min7 g:maj c:aug
+  c4:m f:min7 g:maj c:aug |
   d2:dim b4:5 e:sus
 }
 

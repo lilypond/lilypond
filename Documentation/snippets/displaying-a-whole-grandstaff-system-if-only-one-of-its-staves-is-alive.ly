@@ -15,18 +15,19 @@
                 notation"
 
   texidoc = "
-In orchestral scores sometimes single or groups of instruments are
-silent for a while and their staves can be removed for that time (with
-@code{\\removeEmptyStaves}).
+In many orchestral scores it is custom to not show staves for
+instruments that are silent for a while; this is called a @q{Frenched}
+score. LilyPond provides this functionality via the
+@code{\\RemoveEmptyStaves} command.
 
 When they play again it is often preferred to show the staves of
-@emph{all instruments of such a group}. This can be done adding the
-@code{Keep_alive_together_engraver} in the grouper (e.g., a GrandStaff
-or a StaffGroup).
+@emph{all instruments of such a group}. This can be done by adding the
+@code{Keep_alive_together_engraver} to the grouping context (e.g.,
+@code{GrandStaff} or @code{StaffGroup}).
 
-In the example the violins are silent in the 2nd system and in the 3rd
-system. Only the first violin plays the last measure but the staff of
-the second violin is also displayed.
+In the example below the violins are silent in the second system. Only
+the first violin plays the last measure in the third system but the
+staff of the second violin is also displayed.
 "
 
   doctitle = "Displaying a whole GrandStaff system if only one of its staves is alive"
@@ -35,38 +36,35 @@ the second violin is also displayed.
 
 \score {
   <<
-    \new StaffGroup = "StaffGroup_woodwinds"
-    <<
-      \new Staff = "Staff_flute" \with {
-        instrumentName = "Flute"
-        shortInstrumentName = "Fl"
-      }
-      \relative c' {
-        \repeat unfold 3 { c'4 c c c | c c c c | c c c c | \break }
-      }
-    >>
-    \new StaffGroup = "StaffGroup_Strings"
-    <<
-      \new GrandStaff = "GrandStaff_violins"
-      <<
+    \new Staff = "Staff_flute" \with {
+      instrumentName = "Flute"
+      shortInstrumentName = "Fl"
+    } \relative c' {
+      \repeat unfold 3 { c'4 c c c | c c c c | c c c c | \break }
+    }
+
+    \new StaffGroup = "StaffGroup_Strings" <<
+      \new GrandStaff = "GrandStaff_violins" <<
         \new Staff = "StaffViolinI" \with {
           instrumentName = "Violin I"
           shortInstrumentName = "Vi I"
-        }
-        \relative c'' {
-          a1 \repeat unfold 7 { s1 } \repeat unfold 12 a16  a4
+        } \relative c'' {
+          a1 | R1*7 | \repeat unfold 12 a16 a4 |
         }
         \new Staff = "StaffViolinII" \with {
           instrumentName = "Violin II"
           shortInstrumentName = "Vi II"
+        } \relative c' {
+          e1 | R1*8 |
         }
-        \relative c' { e1 \repeat unfold 8 { s1 } }
       >>
+
       \new Staff = "Staff_cello" \with {
         instrumentName = "Cello"
         shortInstrumentName = "Ce"
+      } \relative c {
+        \clef bass \repeat unfold 9 { c1 } |
       }
-      \relative c { \clef bass \repeat unfold 9 { c1 }}
     >>
   >>
 }

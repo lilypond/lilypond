@@ -14,7 +14,7 @@
   categories = "Headword"
 
   texidoc = "
-Pitches headword
+Pitches headword.
 "
 
   doctitle = "Pitches headword"

@@ -15,7 +15,9 @@
 
   texidoc = "
 This template demonstrates a simple string quartet. It also uses a
-@code{\\global} section for time and key signatures
+@code{\\global} section for time and key signatures.
+
+See also snippet @qq{String quartet template with separate parts}.
 "
 
   doctitle = "String quartet template (simple)"

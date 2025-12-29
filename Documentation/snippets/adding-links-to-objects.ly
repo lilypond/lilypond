@@ -21,9 +21,7 @@ Drawback: @code{point-and-click} is disturbed for the linked grobs.
 
 Limitation: Works for PDF only.
 
-The linked objects are colored with a separate command. Note that the
-links are not displayed and are not clickable from inside this Wiki for
-technical reasons.
+The linked objects are colored with a separate command.
 "
 
   doctitle = "Adding links to objects"

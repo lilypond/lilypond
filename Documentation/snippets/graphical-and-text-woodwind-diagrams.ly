@@ -31,11 +31,9 @@ by key name as well as by graphical means.
                          (rh . (ees)))
 
   c^\markup
-    \override #'(graphical . #f) {
-      \woodwind-diagram
-        #'piccolo
-        #'((cc . (one three))
-           (lh . (gis))
-           (rh . (ees)))
-    }
+    \override #'(graphical . #f)
+      \woodwind-diagram #'piccolo
+                        #'((cc . (one three))
+                           (lh . (gis))
+                           (rh . (ees)))
 }

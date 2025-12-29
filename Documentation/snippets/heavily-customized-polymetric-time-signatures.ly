@@ -27,10 +27,10 @@ melody = \relative c'' {
   \key g \major
   \compoundMeter #'((3 8) (2 8) (2 8) (3 8) (2 8) (2 8)
                     (2 8) (2 8) (3 8) (2 8) (2 8))
+  \set Timing.beamExceptions = #'()
+  \set Timing.beatStructure = 3,2,2,3,2,2,2,2,3,2,2
   c8 c c d4 c8 c b c b a4 g fis8 e d c b' c d e4-^ fis8 g \break
   c,4. d4 c4 d4. c4 d c2 d4. e4-^ d4
-  c4. d4 c4 d4. c4 d c2 d4. e4-^ d4 \break
-  c4. d4 c4 d4. c4 d c2 d4. e4-^ d4
   c4. d4 c4 d4. c4 d c2 d4. e4-^ d4 \break
 }
 
@@ -42,9 +42,7 @@ drum = \new DrumStaff \drummode {
   }
 }
 
-\new Staff \with {
-  instrumentName = \markup { \concat { "B" \flat " Sop." } }
-} {
+\new Staff {
   \melody
   \drum
 }

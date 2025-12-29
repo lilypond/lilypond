@@ -14,14 +14,14 @@
   categories = "Really simple, Rhythms"
 
   texidoc = "
-Tuplet brackets can be made to run to prefatory matter or the next
-note. Default tuplet brackets end at the right edge of the final note
-of the tuplet; full-length tuplet brackets extend farther to the right,
-either to cover all the non-rhythmic notation up to the following note,
-or to cover only the whitespace before the next item of notation, be
-that a clef, time signature, key signature, or another note. The
-example shows how to switch tuplets to full length mode and how to
-modify what material they cover.
+Tuplet brackets can be made to extend horizontally to prefatory matter
+or the next note. By default, tuplet brackets end at the right edge of
+the final note of the tuplet; full-length tuplet brackets extend
+farther to the right, either to cover all the non-rhythmic notation up
+to the following note, or to cover only the whitespace before the next
+item of notation, be that a clef, time signature, key signature, or
+another note. The example shows how to switch tuplets to full length
+mode and how to modify what material they cover.
 "
 
   doctitle = "Modifying tuplet bracket length"
@@ -29,13 +29,19 @@ modify what material they cover.
 
 
 \new RhythmicStaff {
+  % Defaults.
+  \time 2/4 \tuplet 3/2 { c4 4 4 }
+  \time 4/4 \tuplet 5/4 { 4 1 }
+  \time 3/4 2.
+}
+
+\new RhythmicStaff {
   % Set tuplets to be extendable...
   \set tupletFullLength = ##t
   % ...to cover all items up to the next note
   \set tupletFullLengthNote = ##t
-  \time 2/4
-  \tuplet 3/2 { c4 4 4 }
-  % ...or to cover just whitespace
+  \time 2/4 \tuplet 3/2 { c4 4 4 }
+  % ...or to cover just whitespace.
   \set tupletFullLengthNote = ##f
   \time 4/4 \tuplet 5/4 { 4 1 }
   \time 3/4 2.
