@@ -1801,7 +1801,8 @@ is '~a' a valid EPS file?")
   #:properties ((tags-to-keep '())
                 (tags-to-remove '())
                 (tags-with-pushes-alist '())
-                (tags-with-appends-alist '()))
+                (tags-with-appends-alist '())
+                (tags-with-replacement-alist '()))
   "Inline an image of music as specified by @var{score}.
 
 Like @code{\\score} but return a list of lines instead of a single markup."
@@ -1842,6 +1843,13 @@ Like @code{\\score} but return a list of lines instead of a single markup."
       fold
       (lambda (tag addition mus)
         #{ \appendToTagMarkup #tag #addition #mus #})))
+  (set! music
+    (fold
+      (lambda (replace-tags mus) #{
+        \replaceWithTagMarkup #(car replace-tags) #(cdr replace-tags) #mus
+      #})
+      music
+      tags-with-replacement-alist))
 
   (let ((output (ly:score-embedded-format score layout)))
 
@@ -6821,6 +6829,40 @@ tagged = \\markup {
     (props-with-tag-additions 'append props tag more)
     arg))
 
+(define (props-with-replacements props tag replacement)
+  (prepend-alist-chain
+    'tags-with-replacement-alist
+    (acons tag replacement (chain-assoc-get 'tags-with-replacement-alist props '()))
+    props))
+
+(define-markup-command (replace-with-tag layout props tag replacement arg)
+  (symbol? markup? markup?)
+  #:category other
+  #:properties ((tags-with-replacement-alist '()))
+  #:as-string (markup->string
+                arg
+                #:layout layout
+                #:props (props-with-replacements props tag replacement))
+  "Replace tagged markups in @var{arg}.
+
+Everything tagged with @var{tag} (including the tagging itself) gets
+replaced with @var{replacement}.
+
+It works similar to @code{\\replaceWithTag} for music,
+but only with markups.
+
+@lilypond[verbatim,quote]
+tagged = \\markup {
+  \\tag #'foo A
+  \\tag #'bar B
+}
+
+\\markup { \\replace-with-tag #'foo C \\tagged }
+@end lilypond"
+  (interpret-markup layout
+    (props-with-replacements props tag replacement)
+    arg))
+
 (define (tags-visible? tags tags-to-keep tags-to-remove)
   (let* ((tags-list
            (ensure-list tags))
@@ -6860,13 +6902,29 @@ tagged = \\markup {
       tagged-markup-list
       (tag-markup-additions 'tags-with-appends-alist))))
 
+(define (select-markup-replacement tags tags-with-replacement-alist tagged-markup-list)
+  (let* ((tags-list (ensure-list tags))
+         (tag-with-replacement
+           (find (lambda (tag-with-replacement)
+                   (memq (car tag-with-replacement)
+                         tags-list))
+                 tags-with-replacement-alist)))
+    (if tag-with-replacement
+        (list
+          (make-override-markup
+            (cons 'tags-with-replacement-alist
+                  (assq-remove! tags-with-replacement-alist (car tag-with-replacement)))
+            (cdr tag-with-replacement)))
+        tagged-markup-list)))
+
 (define-markup-command (tag layout props tags arg)
   (symbol-list-or-symbol? markup?)
   #:category other
   #:properties ((tags-to-keep '())
                 (tags-to-remove '())
                 (tags-with-pushes-alist '())
-                (tags-with-appends-alist '()))
+                (tags-with-appends-alist '())
+                (tags-with-replacement-alist '()))
   #:as-string (if (tags-visible? tags tags-to-keep tags-to-remove)
                   (markup->string
                     (make-line-markup
@@ -6874,7 +6932,8 @@ tagged = \\markup {
                         tags
                         tags-with-pushes-alist
                         tags-with-appends-alist
-                        (list arg))))
+                        (select-markup-replacement tags tags-with-replacement-alist
+                          (list arg)))))
                   "")
   "Tag markup @var{arg} with @var{tag}.
 
@@ -6901,7 +6960,8 @@ tagged = \\markup {
           tags
           tags-with-pushes-alist
           tags-with-appends-alist
-          (list arg))))
+          (select-markup-replacement tags tags-with-replacement-alist
+            (list arg)))))
     empty-stencil))
 
 
@@ -6911,7 +6971,8 @@ tagged = \\markup {
   #:properties ((tags-to-keep '())
                 (tags-to-remove '())
                 (tags-with-pushes-alist '())
-                (tags-with-appends-alist '()))
+                (tags-with-appends-alist '())
+                (tags-with-replacement-alist '()))
   "Tag markup list @var{arg} with @var{tag}.
 
 @var{tag} can be one or multiple tags.
@@ -6939,7 +7000,8 @@ tagged = \\markuplist {
         tags
         tags-with-pushes-alist
         tags-with-appends-alist
-        arg))
+        (select-markup-replacement tags tags-with-replacement-alist
+          arg)))
     '()))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

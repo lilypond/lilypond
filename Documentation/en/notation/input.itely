@@ -2884,18 +2884,49 @@ music = { \tag #'here { \tag #'here <<c''>> } }
 @end lilypond
 
 
+@subsubheading Replace tagged music
+
+@funindex \replaceWithTag
+
+It is possible to replace tagged music with other music.
+
+@lilypond[verbatim,quote]
+music = { c' \tag #'here { d' } e' }
+
+{
+  \music
+  \replaceWithTag #'here c' \music
+}
+@end lilypond
+
+Keep in mind that the tag is gone after the replacement,
+so you can only replace it once.  Filtering is also not
+possible after replacement.
+
+@lilypond[verbatim,quote]
+music = { c' \tag #'here { d' } e' }
+
+{
+  \removeWithTag #'here % does nothing because tag is replaced
+  \replaceWithTag #'here c'
+  \music
+}
+@end lilypond
+
+
 @subsubheading Tagging within markups
 
 @funindex \keep-with-tag
 @funindex \remove-with-tag
 @funindex \push-to-tag
 @funindex \append-to-tag
+@funindex \replace-with-tag
 
 The @code{\tag} command can also be used within @code{\markup}.
 LilyPond provides markup commands @code{\keep-with-tag},
-@code{\remove-with-tag}, @code{\push-to-tag}, and
-@code{\append-to-tag} in analogy to the corresponding commands for
-music expressions.
+@code{\remove-with-tag}, @code{\push-to-tag}, @code{\append-to-tag}
+and @code{\replace-with-tag} in analogy to the corresponding commands
+for music expressions.
 
 @lilypond[verbatim,quote]
 test = \markup {
@@ -2908,6 +2939,7 @@ test = \markup {
 \markup { \remove-with-tag #'BB \test }
 \markup { \push-to-tag #'CC pre \test }
 \markup { \append-to-tag #'CC post \test }
+\markup { \replace-with-tag #'CC sub \test }
 @end lilypond
 
 Music commands like @code{\keepWithTag} and @code{\removeWithTag}
@@ -2926,12 +2958,14 @@ music = \relative {
 
 @funindex \pushToTagMarkup
 @funindex \appendToTagMarkup
+@funindex \replaceWithTagMarkup
 
 It is also possible to push and append something to the
 @code{\markup} of musical objects.  However, we cannot use
-@code{\pushToTag} and @code{\appendToTag} because they only insert
-some music, so we need commands @code{\pushToTagMarkup} and
-@code{\appendToTagMarkup} to insert markup.
+@code{\pushToTag}, @code{\appendToTag} or @code{\replaceWithTag}
+because they only insert some music, so we need commands like
+@code{\pushToTagMarkup}, @code{\appendToTagMarkup} or
+@code{\replaceWithTagMarkup} to insert markup.
 
 @lilypond[verbatim,quote]
 music = \relative {
@@ -2941,6 +2975,7 @@ music = \relative {
 {
   \pushToTagMarkup #'part "great" \music
   \appendToTagMarkup #'part \markup { is also great } \music
+  \replaceWithTagMarkup #'part \markup { cool substitution } \music
 }
 @end lilypond
 
@@ -2963,8 +2998,8 @@ music = \relative {
 @funindex \tag-list
 
 Tagging lists of markup need special attention.  While the filter
-functions work as expected, commands like @code{\push-to-tag} and
-@code{\append-to-tag} do not.
+functions work as expected, commands like @code{\push-to-tag},
+@code{\append-to-tag} and @code{\replace-with-tag} do not.
 
 @lilypond[verbatim,quote]
 \markup {
@@ -2972,6 +3007,9 @@ functions work as expected, commands like @code{\push-to-tag} and
 }
 \markup {
   \push-to-tag #'test "twice" { a \tag #'test { b c } d }
+}
+\markup {
+  \replace-with-tag #'test "twice" { a \tag #'test { b c } d }
 }
 @end lilypond
 

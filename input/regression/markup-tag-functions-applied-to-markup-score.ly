@@ -1,4 +1,4 @@
-\version "2.25.27"
+\version "2.25.32"
 
 \header {
   texidoc = "Markup tags get applied to @code{\\score}-markup."
@@ -48,6 +48,27 @@ music = {
     \push-to-tag #'foo p2
     \append-to-tag #'foo a1
     \append-to-tag #'foo a2
+    \score { \music }
+
+    \score{
+      {
+        c'
+        d'
+        e'^"test baz"
+      }
+    }
+    \replace-with-tag #'foo baz
+    \score { \music }
+
+    \score{
+      {
+        c'
+        d'
+        e'^"test baz"
+      }
+    }
+    \replace-with-tag #'foo bar
+    \replace-with-tag #'foo baz
     \score { \music }
   }
 }

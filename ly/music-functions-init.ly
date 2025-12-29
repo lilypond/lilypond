@@ -2043,6 +2043,28 @@ removeWithTag =
         (tags-remove-predicate tags)
         music)))
 
+replaceWithTag =
+#(define-music-function (tag replacement music) (symbol? ly:music? ly:music?)
+   (_i "Replace tagged elements in @var{music}.
+
+Everything tagged with @var{tag} (including the tagging itself) gets
+replaced with @var{replacement}.")
+    (music-map (lambda (m)
+                 (if (memq tag (ly:music-property m 'tags))
+                     (set! m replacement))
+                 m)
+               music))
+
+replaceWithTagMarkup =
+#(define-music-function (tag replacement music) (symbol? markup? ly:music?)
+   (_i "Replace tagged markup in @var{music}.
+
+All markup tagged with @var{tag} (including the tagging itself) gets
+replaced with @var{replacement}.")
+    (apply-tag-operating-markup
+      (lambda (text) (make-replace-with-tag-markup tag replacement text))
+      music))
+
 resetRelativeOctave =
 #(define-music-function (pitch) (ly:pitch?)
    (_i "Set the octave inside a @code{\\relative} section to @var{pitch}.")

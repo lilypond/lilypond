@@ -2149,15 +2149,43 @@ des Tags eingefügt werden soll und den Ausdruck, der mit dem Tag versehen
 ist.  Der Befehl stellt sicher, dass alle Änderungen kopiert werden, sodass
 das ursprüngliche @code{\test} seine Bedeutung behält.
 
+@funindex \replaceWithTag
+
+Es ist außerdem möglich, ganze Abschnitte auszutauschen.
+
+@lilypond[verbatim,quote]
+music = { c' \tag #'here { d' } e' }
+
+{
+  \music
+  \replaceWithTag #'here c' \music
+}
+@end lilypond
+
+Es ist zu beachten, dass dabei der Tag an sich mit ersetzt wird.
+Das bedeutet, man kann keine weiteren Ersetzungen oder Filterungen,
+die sich auf diesen Tag beziehen, mehr vornehmen.
+
+@lilypond[verbatim,quote]
+music = { c' \tag #'here { d' } e' }
+
+{
+  \removeWithTag #'here % tut nichts, da der Tag ersetzt wurde
+  \replaceWithTag #'here c'
+  \music
+}
+@end lilypond
+
 @funindex \keep-with-tag
 @funindex \remove-with-tag
 @funindex \push-to-tag
 @funindex \append-to-tag
+@funindex \replace-with-tag
 
 Der @code{\tag}-Befehl kann auch in @code{\markup}-Umgebungen eingesetzt werden.
-Auch die Befehle @code{\keep-with-tag}, @code{\remove-with-tag}, @code{\push-to-tag}
-und @code{\append-to-tag} können genutzt werden und verhalten sich wie ihre
-Pendants in musikalischen Umgebungen.
+Auch die Befehle @code{\keep-with-tag}, @code{\remove-with-tag}, @code{\push-to-tag},
+@code{\append-to-tag} und @code{\replace-with-tag} können genutzt werden und
+verhalten sich wie ihre Pendants in musikalischen Umgebungen.
 
 @lilypond[verbatim,quote]
 test = \markup {
@@ -2170,6 +2198,7 @@ test = \markup {
 \markup { \remove-with-tag #'b \test }
 \markup { \push-to-tag #'c pre \test }
 \markup { \append-to-tag #'c post \test }
+\markup { \replace-with-tag #'c sub \test }
 @end lilypond
 
 Musikalische @code{\keepWithTag}- und @code{\removeWithTag}-Befehle
@@ -2189,12 +2218,14 @@ music = \relative {
 
 @funindex \pushToTagMarkup
 @funindex \appendToTagMarkup
+@funindex \replaceWithTagMarkup
 
 Soll an die markierten Stellen in @code{\markup}-Abschnitten von
 musikalischen Objekten etwas hinzugefügt werden, kann man
-@code{\pushToTag} und @code{\appendToTag} nicht verwenden,
+@code{\pushToTag}, @code{\appendToTag} oder @code{\removeWithTag} nicht verwenden,
 denn diese fügen nur musikalische Ausdrücke hinzu.
-Hierfür wird @code{\pushToTagMarkup} und @code{\appendToTagMarkup} benötigt.
+Hierfür wird @code{\pushToTagMarkup}, @code{\appendToTagMarkup} oder
+@code{\removeWithTagMarkup} benötigt.
 
 @lilypond[verbatim,quote]
 music = \relative {
@@ -2204,6 +2235,7 @@ music = \relative {
 {
   \pushToTagMarkup #'part "great" \music
   \appendToTagMarkup #'part \markup { is also great } \music
+  \replaceWithTagMarkup #'part \markup { cool substitution } \music
 }
 @end lilypond
 
@@ -2236,11 +2268,18 @@ von Listen besondere Vorsicht geboten. Während die Filter
 
 @noindent
 gut funktionieren, gibt es bei den einfügenden Befehlen
-@code{\push-to-tag} und @code{\append-to-tag} Probleme.
+@code{\push-to-tag}, @code{\append-to-tag} und
+@code{\replace-with-tag} Probleme.
 
 @lilypond[verbatim,quote]
 \markup {
+  \remove-with-tag #'test { a \tag #'test { b c } d }
+}
+\markup {
   \push-to-tag #'test "twice" { a \tag #'test { b c } d }
+}
+\markup {
+  \replace-with-tag #'test "twice" { a \tag #'test { b c } d }
 }
 @end lilypond
 
