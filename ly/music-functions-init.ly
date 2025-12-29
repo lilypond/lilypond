@@ -18,7 +18,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.25.24"
+\version "2.25.32"
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1688,6 +1688,43 @@ as a stemless note head in parentheses.")
                            trill-events)))))
      main-note))
 
+polymetric =
+#(define-music-function (time-signature-command)
+   ((ly:music? '()))
+   (_i "Apply @var{time-signature-command} to the local context rather than to
+@code{Timing}.
+
+Example:
+
+@example
+\\context Staff \\polymetric \\time 6/8
+@end example
+
+The local measure must align with the reference measure defined in
+@code{Timing}.  So that explicit changes to @code{Timing@/.measureLength} (e.g.,
+for ad-hoc irregular measures) remain visible, this command does not set the
+@code{measureLength} property in the local context.
+
+A nominally incompatible local measure can be fitted to the controlling
+@code{Timing} measure by applying @code{\\scaleDurations} to this command.  That
+adjusts the value of the internal property @code{meterScalingFactor} in the
+local context.
+
+To unset the local properties and resume using the values from the @code{Timing}
+context, use @code{\\polymetric \\default}.
+")
+   (let ((m time-signature-command)) ; rename for convenience
+     (cond
+      ((null? m)
+       (make-music 'PolymetricTimeSignatureMusic))
+      ((music-is-of-type? m 'polymetric-time-signature-music)
+       m) ; unexpected, but safe to pass through
+      ((music-is-of-type? m 'reference-time-signature-music)
+       (make-music 'PolymetricTimeSignatureMusic m))
+      (else
+       (ly:music-warning m (G_ "not a time-signature command"))
+       (make-music 'Music)))))
+
 popContextProperty =
 #(define-music-function (path) (key-list?)
    (_i "Pop value of context property @var{path} from stack and set it.
@@ -2269,7 +2306,7 @@ For example, a time signature of (3+1)/8 +@tie{}2/4 can be created with
      ;; TODO: Does it make sense to provide a separate beat structure when the
      ;; time signature itself is subdivided?  Maybe we should warn and ignore it
      ;; in that case.
-     (make-music 'TimeSignatureMusic
+     (make-music 'ReferenceTimeSignatureMusic
                  'time-signature time-sig
                  'beat-structure beat-structure))))
 

@@ -21,6 +21,7 @@
 
 #include "item.hh"
 #include "international.hh"
+#include "lily-guile.hh"
 #include "lily-imports.hh"
 #include "misc.hh"
 #include "moment.hh"
@@ -37,6 +38,7 @@ class Time_signature_engraver final : public Engraver
   Item *time_signature_ = nullptr;
   SCM last_spec_ = SCM_EOL;
   Stream_event *event_ = nullptr;
+  Stream_event *local_event_ = nullptr;
 
 protected:
   void derived_mark () const override;
@@ -45,7 +47,8 @@ protected:
 
 public:
   TRANSLATOR_DECLARATIONS (Time_signature_engraver);
-  void listen_time_signature (Stream_event *);
+  void listen_polymetric_time_signature (Stream_event *);
+  void listen_reference_time_signature (Stream_event *);
 };
 
 void
@@ -60,7 +63,29 @@ Time_signature_engraver::Time_signature_engraver (Context *c)
 }
 
 void
-Time_signature_engraver::listen_time_signature (Stream_event *ev)
+Time_signature_engraver::listen_polymetric_time_signature (Stream_event *ev)
+{
+  // When this engraver is operating in Staff (as usual), an event from the
+  // following code is not pertinent:
+  //
+  //     \context Voice \polymetric \time ...
+  //
+  // We don't promote this use, so we don't expect to see it routinely, but
+  // users could discover it and use it to set voice-specific beaming without
+  // changing the printed time signature.
+  //
+  // Ignoring events that do not correspond to the value of timeSignature in
+  // this context should mitigate the problem.  Is there any better solution?
+  SCM event_val = get_property (ev, "time-signature");
+  SCM context_val = get_property (this, "timeSignature");
+  if (ly_is_equal (context_val, event_val))
+    {
+      local_event_ = ev;
+    }
+}
+
+void
+Time_signature_engraver::listen_reference_time_signature (Stream_event *ev)
 {
   event_ = ev;
 }
@@ -75,8 +100,8 @@ Time_signature_engraver::process_music ()
   if (!scm_is_eq (last_spec_, spec)
       && (scm_is_pair (spec) || scm_is_false (spec)))
     {
-      time_signature_
-        = make_item ("TimeSignature", event_ ? to_scm (event_) : SCM_EOL);
+      auto ev = local_event_ ? local_event_ : event_;
+      time_signature_ = make_item ("TimeSignature", ev ? to_scm (ev) : SCM_EOL);
 
       // check value before setting to respect overrides
       SCM tsig_sym = ly_symbol2scm ("time-signature");
@@ -98,7 +123,7 @@ Time_signature_engraver::process_music ()
 void
 Time_signature_engraver::stop_translation_timestep ()
 {
-  if (time_signature_ && event_)
+  if (time_signature_ && (event_ || local_event_))
     {
       // Avoid measure_position (context ()) here because its result is
       // normalized to be >= 0 always.
@@ -111,12 +136,14 @@ Time_signature_engraver::stop_translation_timestep ()
 
   time_signature_ = nullptr;
   event_ = nullptr;
+  local_event_ = nullptr;
 }
 
 void
 Time_signature_engraver::boot ()
 {
-  ADD_LISTENER (time_signature);
+  ADD_LISTENER (polymetric_time_signature);
+  ADD_LISTENER (reference_time_signature);
 }
 
 ADD_TRANSLATOR (Time_signature_engraver,

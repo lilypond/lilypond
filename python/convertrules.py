@@ -5583,9 +5583,19 @@ def conv(s):
 
 @rule((2, 25, 32), r"""
 bottom-space -> bottom-padding
+TimeSignatureEvent -> ReferenceTimeSignatureEvent
+TimeSignatureMusic -> ReferenceTimeSignatureMusic
+time-signature-event -> reference-time-signature-event
+time-signature-music -> reference-time-signature-music
 """)
 def conv(s):
     s = re.sub(r'\bbottom-space\b', r'bottom-padding', s)
+    s = re.sub(r'\bTimeSignatureEvent\b', r'ReferenceTimeSignatureEvent', s)
+    s = re.sub(r'\bTimeSignatureMusic\b', r'ReferenceTimeSignatureMusic', s)
+    s = re.sub(r'\btime-signature-event\b',
+               r'reference-time-signature-event', s)
+    s = re.sub(r'\btime-signature-music\b',
+               r'reference-time-signature-music', s)
     return s
 
 

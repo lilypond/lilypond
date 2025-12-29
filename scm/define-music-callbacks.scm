@@ -204,57 +204,102 @@ depth-first through MUSIC."
          'Score)))
 
 (define (make-time-signature-set music)
-  "Set context properties for a time signature."
-  (let* ((spec (ly:music-property music 'time-signature))
-         (structure (ly:music-property music 'beat-structure)))
-    (list (context-spec-music
-           (make-apply-context
-            (lambda (context)
-              (let* ((time-signature-settings
-                      (ly:context-property context 'timeSignatureSettings))
-                     (my-beat-base
-                      (beat-base spec time-signature-settings))
-                     (my-beat-structure
-                      (if (null? structure)
-                          (beat-structure my-beat-base
-                                          spec
-                                          time-signature-settings)
-                          structure))
-                     (my-beam-exceptions
-                      (beam-exceptions spec time-signature-settings))
-                     (my-measure-length
-                      (calc-measure-length spec)))
-                (ly:context-set-property!
-                 context 'timeSignature spec)
-                (ly:context-set-property!
-                 context 'beatBase my-beat-base)
-                (ly:context-set-property!
-                 context 'beatStructure my-beat-structure)
-                (ly:context-set-property!
-                 context 'beamExceptions my-beam-exceptions)
-                (ly:context-set-property!
-                 context 'measureLength my-measure-length))))
-           'Timing)
-          ;; (make-music 'TimeSignatureEvent music) would always
-          ;; create a Bottom context.  So instead, we just send the
-          ;; event to whatever context may be currently active.  If
-          ;; that is not contained within an existing context with
-          ;; TimeSignatureEngraver at the time \time is iterated, it
-          ;; will drop through the floor which mostly means that
-          ;; point&click and tweaks are not available for any time
-          ;; signatures engraved due to the Timing property changes
-          ;; but without a \time of its own.  This is more a
-          ;; "notification" rather than an "event" (which is always
-          ;; sent to Bottom) but we don't currently have iterators for
-          ;; that.
-          (descend-to-context
-           (make-apply-context
-            (lambda (context)
-              (ly:broadcast (ly:context-event-source context)
-                            (ly:make-stream-event
-                             (ly:make-event-class 'time-signature-event)
-                             (ly:music-mutable-properties music)))))
-           'Score))))
+  "Set or unset context properties for a time signature."
+  (let* (;; The \polymetric command initializes the duration property to the
+         ;; duration of a whole note.  By this point, it might have been scaled
+         ;; by \scaleDurations.
+         (scaled-duration (ly:music-property music 'duration #f))
+         (scaling-factor (if scaled-duration
+                             (ly:duration-scale scaled-duration)
+                             1))
+         (spec (ly:music-property music 'time-signature *unspecified*)))
+
+    (define (do-sets context)
+      (let* ((structure (ly:music-property music 'beat-structure)))
+        (let* ((time-signature-settings
+                (ly:context-property context 'timeSignatureSettings))
+               (my-beat-base (beat-base spec time-signature-settings))
+               (my-beat-structure
+                (if (null? structure)
+                    (beat-structure my-beat-base spec time-signature-settings)
+                    structure))
+               (my-beam-exceptions
+                (beam-exceptions spec time-signature-settings))
+               (my-mlen (calc-measure-length spec)))
+          (ly:context-set-property! context 'timeSignature spec)
+          ;; meterScalingFactor should not be set unless the meter is scaled
+          (when scaled-duration
+            (ly:context-set-property!
+             context 'meterScalingFactor scaling-factor))
+          (ly:context-set-property! context 'beatBase my-beat-base)
+          (ly:context-set-property! context 'beatStructure my-beat-structure)
+          (ly:context-set-property! context 'beamExceptions my-beam-exceptions)
+          ;; measureLength should be set in Timing only, so that the user can
+          ;; explicitly change Timing.measureLength to create irregular
+          ;; measures.
+          (when (not scaled-duration)
+            (ly:context-set-property! context 'measureLength my-mlen)))))
+
+    (define (do-unsets context)
+      (ly:context-unset-property context 'meterScalingFactor)
+      (ly:context-unset-property context 'timeSignature)
+      (ly:context-unset-property context 'beatBase)
+      (ly:context-unset-property context 'beatStructure)
+      (ly:context-unset-property context 'beamExceptions)
+      (when (not scaled-duration) ; for symmetry with do-sets
+        (ly:context-unset-property context 'measureLength)))
+
+    (define (valid-in-context? operation-sym context)
+      (cond
+       ((not scaled-duration)
+        ;; Plain old \time may be used in any context.  It broadcasts a
+        ;; notification from that context, but it always sets properties of
+        ;; Timing.
+        #t)
+       ((ly:context-alias? context 'Timing)
+        ;; \polymetric \time must not be used in Timing context.  It sets
+        ;; properties of the context where is used, and it also broadcasts a
+        ;; notification from that context.  To avoid repeating the warning, we
+        ;; warn on set only.
+        (when (eq? operation-sym 'set)
+          (ly:music-warning music (G_ "ignoring in Timing context")))
+        #f)
+       (else
+        #t)))
+
+    (list
+     (descend-to-context
+      (context-spec-music
+       (make-apply-context
+        (lambda (context)
+          (when (valid-in-context? 'set context)
+            (if (unspecified? spec)
+                (do-unsets context)
+                (do-sets context)))))
+       (if scaled-duration '() 'Timing))
+      'Score)
+     ;; (make-music 'ReferenceTimeSignatureEvent music) would always create
+     ;; a Bottom context.  So instead, we just send the event to whatever
+     ;; context may be currently active.  If that is not contained within an
+     ;; existing context with TimeSignatureEngraver at the time \time is
+     ;; iterated, it will drop through the floor which mostly means that
+     ;; point&click and tweaks are not available for any time signatures
+     ;; engraved due to the Timing property changes but without a \time of
+     ;; its own.  This is more a "notification" rather than an "event"
+     ;; (which is always sent to Bottom) but we don't currently have
+     ;; iterators for that.
+     (descend-to-context
+      (make-apply-context
+       (lambda (context)
+         (when (valid-in-context? 'notify context)
+           (ly:broadcast (ly:context-event-source context)
+                         (ly:make-stream-event
+                          (ly:make-event-class
+                           (if scaled-duration
+                               'polymetric-time-signature-event
+                               'reference-time-signature-event))
+                          (ly:music-mutable-properties music))))))
+      'Score))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Some MIDI callbacks -- is this a good place for them?

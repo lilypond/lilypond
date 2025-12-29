@@ -89,6 +89,8 @@
                          segno-mark-event
                          volta-repeat-end-event
                          volta-repeat-start-event))
+    (time-signature-event . (polymetric-time-signature-event
+                             reference-time-signature-event))
     (() . (Announcement))
     (Announcement . (AnnounceNewContext))
     ))

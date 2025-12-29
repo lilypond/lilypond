@@ -1,4 +1,4 @@
-\version "2.25.27"
+\version "2.25.32"
 
 #(use-modules (srfi srfi-13)
               (ice-9 format)
@@ -264,6 +264,10 @@ are reported on the stderr of this run."
       ##[ \compoundMeter 3,2,8 #]
 \test "\\time #'((1 . 2) (3 . 4))"
       ##[ \compoundMeter #'((1 2) (3 4)) #]
+\test ##[ \polymetric \time 2/4 #]
+\test ##[ \polymetric \time 3,2 5/8 #]
+\test ##[ \polymetric \time 2,3 #'((1 . 2) (3 . 4)) #]
+\test ##[ \polymetric \default #]
 \test ##[ \time 2/4 #]
 \test ##[ \time 3,2 5/8 #]
 \test ##[ \bar "|." #]
@@ -405,7 +409,8 @@ are reported on the stderr of this run."
 %% grouped post-events
 \test ##[ ^"a"^\fermata #] % PostEvents
 
-%% these types do not implement a display method on purpose
+%% These types do not implement a display method on purpose, some of them
+%% because they are used within computed elements of other types.
 \ignoreMusicType TremoloSpanEvent
 \ignoreMusicType RepeatSlashEvent
 \ignoreMusicType PercentEvent
@@ -422,7 +427,8 @@ are reported on the stderr of this run."
 \ignoreMusicType ScriptEvent % unused?
 \ignoreMusicType PartCombineEvent
 \ignoreMusicType TupletSpanEvent
-\ignoreMusicType TimeSignatureEvent % in computed elements of TimeSignatureMusic
+\ignoreMusicType ReferenceTimeSignatureEvent % see ReferenceTimeSignatureMusic
+\ignoreMusicType PolymetricTimeSignatureEvent % see PolymetricTimeSignatureMusic
 
 %% TODO: this one should be implemented, but currently
 %% isn't.  The implementation is complicated by the way

@@ -58,7 +58,11 @@ protected:
 
   Moment beaming_measure_position ()
   {
-    return measure_position (context (), beaming_options_.period_);
+    const auto factor
+      = from_scm (get_property (this, "meterScalingFactor"), Rational (1));
+    const auto actual_per = beaming_options_.period_ * factor;
+    const auto actual_pos = measure_position (context (), actual_per);
+    return actual_pos / factor;
   }
 
 private:
@@ -354,8 +358,16 @@ Auto_beam_engraver::handle_current_stem (Item *stem)
       return;
     }
 
-  Duration const &stem_duration
-    = *unsmob<Duration> (get_property (ev, "duration"));
+  auto stem_duration = [&] { // TODO: from_scm<Duration>
+    if (auto *dur = unsmob<Duration> (get_property (ev, "duration")))
+      return *dur;
+    return Duration ();
+  }();
+
+  const auto meter_scaling_factor
+    = from_scm (get_property (this, "meterScalingFactor"), Rational (1));
+  stem_duration
+    = stem_duration.compressed (Rational (1) / meter_scaling_factor);
 
   if (stem_duration.duration_log () <= 2)
     {

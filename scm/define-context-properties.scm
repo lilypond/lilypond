@@ -920,6 +920,10 @@ also contain @code{((@var{octave} . @var{name}) . (@var{alter}
      (melismaBusy ,boolean? "Signifies whether a melisma is active.
 This can be used to signal melismas on top of those automatically
 detected.")
+     (meterScalingFactor ,number? "The factor by which local nominal time
+signature settings must be scaled to fit the measure defined in the
+@code{Timing} context.  This must not be set in the @code{Timing} context.
+Readers should use@tie{}1 as the default when this property is not set.")
      (midiSkipOffset ,ly:moment? "This is the accrued MIDI offset to
 account for time skipped via @code{skipTypesetting}.")
 

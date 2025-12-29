@@ -307,6 +307,26 @@ Certain spurious change clefs have been fixed.
 @itemize
 
 @item
+The new @code{\polymetric} command simplifies notating polymeter
+with aligned measures by setting scaled metric properties in
+contexts other than @code{Timing}.
+
+@lilypond[quote,verbatim]
+<<
+  \new Staff {
+    \scaleDurations 4/6 {
+      \context Staff \polymetric \time 6,6,6 18/16
+      \repeat unfold 18 c'16
+    }
+  }
+  \new Staff {
+    \time 3/4
+    c'4 4 4
+  }
+>>
+@end lilypond
+
+@item
 The default auto-beaming settings for 2/8 time have been changed
 to allow beaming the full measure.
 

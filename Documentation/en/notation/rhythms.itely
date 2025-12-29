@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.30"
+@c \version "2.25.32"
 
 @node Rhythms
 @chapter Rhythms
@@ -1969,6 +1969,7 @@ Snippets:
 @cindex meter, polymetric
 
 @funindex timeSignature
+@funindex \polymetric
 @funindex \scaleDurations
 @funindex \tuplet
 
@@ -1977,20 +1978,24 @@ visible time signature symbol and/or scaling note durations.
 
 @subsubheading Different time signatures with equal-length measures
 
-Set a common time signature for each staff, and set the
-@code{timeSignature} to the desired fraction.  Then use the
-@code{\scaleDurations} function to scale the durations of the notes in
-each staff to the common time signature.
+Use @code{\polymetric \time} to set a local time signature and
+@code{\scaleDurations} to make its measure length match
+@code{Timing@/.measureLength}.  This sets the same set of
+properties as the @code{\time} command, except for
+@code{measureLength}.
+
+To unset the local properties and resume using the values from the
+@code{Timing} context, use @code{\polymetric \default}.
 
 @cindex beam, with polymetric meters
 @cindex polymetric meter, with beams
 
-In the following example, music with the time signatures of 3/4, 9/8 and
-10/8 are used in parallel.  In the second staff, shown durations are
-multiplied by 2/3 (because 2/3 * 9/8 = 3/4) and in the third staff, the
-shown durations are multiplied by 3/5 (because 3/5 * 10/8 = 3/4).  It
-may be necessary to insert beams manually, as the duration scaling will
-affect the auto-beaming rules.
+In the following example, staves with time signatures 3/4, 9/8,
+and 10/8 are used in parallel, with 3/4 chosen as the reference
+measure length.  The music in the first staff is spaced normally.
+In the second staff, the notated durations are multiplied by 2/3
+(because 2/3 * 9/8 = 3/4) and in the third staff, the notated
+durations are multiplied by 3/5 (because 3/5 * 10/8 = 3/4).
 
 @lilypond[quote,verbatim]
 \relative <<
@@ -2000,20 +2005,18 @@ affect the auto-beaming rules.
     c4 c c |
   }
   \new Staff {
-    \time 3/4
-    \set Staff.timeSignature = 9/8
     \scaleDurations 2/3 {
-      \repeat unfold 3 { c8[ c c] }
+      \context Staff \polymetric \time 9/8
+      \repeat unfold 3 { c8 c c }
       \repeat unfold 3 { c4 c8 }
     }
   }
   \new Staff {
-    \time 3/4
-    \set Staff.timeSignature = 10/8
     \scaleDurations 3/5 {
-      \repeat unfold 2 { c8[ c c] }
-      \repeat unfold 2 { c8[ c] } |
-      c4. c \tuplet 3/2 { c8[ c c] } c4
+      \context Staff \polymetric \time 3,3,2,2 10/8
+      \repeat unfold 2 { c8 c c }
+      \repeat unfold 2 { c8 c } |
+      c4. c \tuplet 3/2 { c8 c c } c4
     }
   }
 >>

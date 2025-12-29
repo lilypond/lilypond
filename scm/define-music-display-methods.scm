@@ -1018,25 +1018,33 @@ Otherwise, return #f."
                 (cons* (*current-context*) symbol properties))
             (new-line->lily-string))))
 
-(define-display-method TimeSignatureMusic (expr)
-  (let* ((spec (ly:music-property expr 'time-signature))
-         (spec-str (if (fraction? spec)
-                       (format #f "~a/~a" (car spec) (cdr spec))
-                       (format #f "#'~a" spec)))
-         (structure (ly:music-property expr 'beat-structure)))
-    (if (null? structure)
-        (format #f
-                "\\time ~a~a"
-                spec-str
-                (new-line->lily-string))
-        (format #f
-                ;; This is silly but the latter will also work for #f
-                ;; and other
-                (if (key-list? structure)
-                    "\\time ~{~a~^,~} ~a~a"
-                    "\\time #'~a ~a~a")
-                structure spec-str
-                (new-line->lily-string)))))
+(let*
+    ((handle-time
+      (define-display-method ReferenceTimeSignatureMusic (expr)
+        (let* ((spec (ly:music-property expr 'time-signature *unspecified*))
+               (spec-str (if (fraction? spec)
+                             (format #f "~a/~a" (car spec) (cdr spec))
+                             (format #f "#'~a" spec)))
+               (structure (ly:music-property expr 'beat-structure)))
+          (cond
+           ((unspecified? spec)
+            (format #f "\\default"))
+           ((null? structure)
+            (format #f
+                    "\\time ~a~a"
+                    spec-str
+                    (new-line->lily-string)))
+           (else
+            (format #f
+                    ;; This is silly but the latter will also work for #f
+                    ;; and other
+                    (if (key-list? structure)
+                        "\\time ~{~a~^,~} ~a~a"
+                        "\\time #'~a ~a~a")
+                    structure spec-str
+                    (new-line->lily-string))))))))
+  (define-display-method PolymetricTimeSignatureMusic (expr)
+    (string-append "\\polymetric " (handle-time expr))))
 
 ;;; \melisma and \melismaEnd
 (define-extra-display-method ContextSpeccedMusic (expr)

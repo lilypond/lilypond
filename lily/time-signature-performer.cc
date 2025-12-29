@@ -41,7 +41,7 @@ protected:
 
 public:
   TRANSLATOR_DECLARATIONS (Time_signature_performer);
-  void listen_time_signature (Stream_event *);
+  void listen_reference_time_signature (Stream_event *);
 };
 
 void
@@ -56,7 +56,7 @@ Time_signature_performer::Time_signature_performer (Context *c)
 }
 
 void
-Time_signature_performer::listen_time_signature (Stream_event *ev)
+Time_signature_performer::listen_reference_time_signature (Stream_event *ev)
 {
   event_ = ev;
 }
@@ -156,7 +156,7 @@ Time_signature_performer::stop_translation_timestep ()
 void
 Time_signature_performer::boot ()
 {
-  ADD_LISTENER (time_signature);
+  ADD_LISTENER (reference_time_signature);
 }
 
 ADD_TRANSLATOR (Time_signature_performer,

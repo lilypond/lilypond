@@ -529,6 +529,26 @@ Syntax: @var{note}@code{\\(} and @var{note}@code{\\)}")
         (types . (post-event span-event event phrasing-slur-event))
         ))
 
+    (PolymetricTimeSignatureEvent
+     . ((description . "An event created when setting a new time signature")
+        (types . (event time-signature-event polymetric-time-signature-event))
+        ))
+
+    (PolymetricTimeSignatureMusic
+     . ((description . "Set a new time signature")
+        ;; The log and dot count of this duration are irrelevant.  When the
+        ;; music is iterated, the scaling factor will tell whether it was
+        ;; modified by \scaleDurations.
+        (duration . ,(ly:make-duration 0))
+        (iterator-ctor . ,ly:sequential-iterator::constructor)
+        (elements-callback . ,make-time-signature-set)
+        ;; The length-callback is slightly ugly.  We just use it to get
+        ;; a zero length for the overall timing in spite of having a
+        ;; non-zero duration property.
+        (length-callback . ,ly:music-sequence::cumulative-length-callback)
+        (types . (time-signature-music polymetric-time-signature-music))
+        ))
+
     (PostEvents
      . ((description . "Container for several postevents.
 
@@ -559,6 +579,18 @@ Syntax: @code{\\unset @var{context}.@var{prop}}")
         (length-callback . ,ly:music-wrapper::length-callback)
         (start-callback . ,ly:music-wrapper::start-callback)
         (types . (music-wrapper-music))
+        ))
+
+    (ReferenceTimeSignatureEvent
+     . ((description . "An event created when setting a new time signature")
+        (types . (event time-signature-event reference-time-signature-event))
+        ))
+
+    (ReferenceTimeSignatureMusic
+     . ((description . "Set a new time signature")
+        (iterator-ctor . ,ly:sequential-iterator::constructor)
+        (elements-callback . ,make-time-signature-set)
+        (types . (time-signature-music reference-time-signature-music))
         ))
 
     (RehearsalMarkEvent
@@ -789,18 +821,6 @@ Syntax: @code{\\times @var{fraction} @var{music}}, e.g.,
         (start-callback . ,ly:music-wrapper::start-callback)
         (iterator-ctor . ,ly:tuplet-iterator::constructor)
         (types . (time-scaled-music))
-        ))
-
-    (TimeSignatureMusic
-     . ((description . "Set a new time signature")
-        (iterator-ctor . ,ly:sequential-iterator::constructor)
-        (elements-callback . ,make-time-signature-set)
-        (types . (time-signature-music))
-        ))
-
-    (TimeSignatureEvent
-     . ((description . "An event created when setting a new time signature")
-        (types . (event time-signature-event))
         ))
 
     (VowelTransitionEvent

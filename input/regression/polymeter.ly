@@ -1,8 +1,8 @@
-\version "2.25.30"
+\version "2.25.32"
 
 \header {
-  texidoc = "The @code{\enablePerStaffTiming} command makes @code{measureLength}
-and other timing properties independent between staves."
+  texidoc = "The @code{\\enablePerStaffTiming} command makes
+@code{measureLength} and other timing properties independent between staves."
 }
 
 #(ly:set-option 'warning-as-error #t)
@@ -24,6 +24,7 @@ and other timing properties independent between staves."
    \contextPropertyCheck Score.beatBase \default
    \contextPropertyCheck Score.beatStructure \default
    \contextPropertyCheck Score.measureLength \default
+   \contextPropertyCheck Score.meterScalingFactor \default
    %% Score.timeSignature 4/4 is initialized in engraver-init.ly, so removing
    %% Timing_translator does not affect it.  It looks inconsistent here, but it
    %% is practical: the Score setting is visible as the default time signature

@@ -1,4 +1,4 @@
-\version "2.25.28"
+\version "2.25.32"
 
 \header {
   texidoc = "This placeholder test covers some internals of a future
@@ -10,7 +10,7 @@
 #(when (defined? 'senzaMisura) (error "update this test"))
 senzaMisura =
 #(define-music-function () ()
-  (make-music 'TimeSignatureMusic 'time-signature #f))
+  (make-music 'ReferenceTimeSignatureMusic 'time-signature #f))
 
 \layout {
   \context {
