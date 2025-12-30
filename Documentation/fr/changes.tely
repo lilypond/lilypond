@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 304f8be3cd1ecbbc37f30191b4b49dcdc85bf3d5
+    Translation of GIT committish: db08378695caf4c44b59e67bf6133df2cad4ea16
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -306,6 +306,27 @@ désir, qu'elle qu'en soit la raison, ajoutez l'option @code{BYTECODE=no}
 @unnumberedsec Améliorations de la représentation des hauteurs
 
 @itemize
+
+@item
+La nouvelle commande @code{\polymetric} simplifie la notation d'une
+polymétrie dont la longueur des mesures est alignée lorsque sont réglées
+les propriétés d'échelonnement de la métrique dans des contextes
+différents de @code{Timing}.
+
+@lilypond[quote,verbatim]
+<<
+  \new Staff {
+    \scaleDurations 4/6 {
+      \context Staff \polymetric \time 6,6,6 18/16
+      \repeat unfold 18 c'16
+    }
+  }
+  \new Staff {
+    \time 3/4
+    c'4 4 4
+  }
+>>
+@end lilypond
 
 @item
 Les ligatures automatiques pour une métrique à 2/8 ont été modifiées de

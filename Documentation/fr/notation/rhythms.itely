@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+   Translation of GIT committish: db08378695caf4c44b59e67bf6133df2cad4ea16
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.30"
+@c \version "2.25.32"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 @c Translation checkers: Valentin Villenave, François Martin, Xavier Scheuer
@@ -1995,6 +1995,7 @@ Morceaux choisis :
 @cindex polymétrie
 
 @funindex timeSignature
+@funindex \polymetric
 @funindex \scaleDurations
 @funindex \tuplet
 
@@ -2006,22 +2007,25 @@ que de manière détournée -- modification de l'indicateur de métrique et
 @subsubheading Métriques différentes et mesures d'égale longueur
 @c VO Different time signatures with equal-length measures
 
-Il suffit, pour obtenir cette forme de notation, de tout d'abord
-affecter une même métrique aux différentes portées. Cette métrique sera
-ensuite remplacée dans chacune des portées par un quotient fourni en
-argument à la propriété @code{timeSignature}. La durée des notes sera
-enfin proratisée selon la métrique commune grâce à la fonction
-@code{\scaleDurations}.
+Il suffit, pour obtenir cette forme de notation, d'utiliser la commande
+@code{\polymetric \time} pour définir la métrique locale, et
+@code{\scaleDurations} pour que la longueur de mesure corresponde à
+@code{Timing@/.measureLength}. Ceci réglera le même jeu de propriétés
+que la commande @code{\time}, à l'exception de @code{measureLength}.
+
+Désactiver les propriétés locales et retrouver les valeurs du
+contexte @code{Timing} s'obtient par un @code{\polymetric \default}.
 
 @cindex ligature et musique polymétrique
 @cindex polymétrie et ligature
 
-L'exemple suivant utilise parallèlement des mesures à 3/4, 9/8 et 10/8.
+L'exemple suivant utilise parallèlement des mesures à 3/4, 9/8 et 10/8,
+et 3/4 est choisi comme longueur de référence des mesures.
+
+
 Pour la deuxième portée les durées sont multipliées par 2/3 de telle
-sorte que 2/3 * 9/8 = 3/4 ; pour la troisième elles sont multipliées par
-3/5, de telle sorte que 3/5 * 10/8 = 3/4. Les ligatures devront être
-explicites, la fonction d'échelonnement venant perturber les règles de
-ligature automatique.
+sorte que 2/3 × 9/8 = 3/4 ; pour la troisième elles sont multipliées par
+3/5, de telle sorte que 3/5 × 10/8 = 3/4.
 
 @lilypond[quote,verbatim]
 \relative <<
@@ -2031,20 +2035,18 @@ ligature automatique.
     c4 c c |
   }
   \new Staff {
-    \time 3/4
-    \set Staff.timeSignature = 9/8
     \scaleDurations 2/3 {
-      \repeat unfold 3 { c8[ c c] }
+      \context Staff \polymetric \time 9/8
+      \repeat unfold 3 { c8 c c }
       \repeat unfold 3 { c4 c8 }
     }
   }
   \new Staff {
-    \time 3/4
-    \set Staff.timeSignature = 10/8
     \scaleDurations 3/5 {
-      \repeat unfold 2 { c8[ c c] }
-      \repeat unfold 2 { c8[ c] } |
-      c4. c \tuplet 3/2 { c8[ c c] } c4
+      \context Staff \polymetric \time 3,3,2,2 10/8
+      \repeat unfold 2 { c8 c c }
+      \repeat unfold 2 { c8 c } |
+      c4. c \tuplet 3/2 { c8 c c } c4
     }
   }
 >>
