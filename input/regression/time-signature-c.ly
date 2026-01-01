@@ -28,9 +28,9 @@ The numbers above the staff show the input in each case."
   \tempo \markup \case-label { 2 2 }
   \time 2/2 d1
 
-  \tempo \markup \case-label { 2 ½ }
+  \tempo \markup \case-label { 2 1/2 }
   \time #'(2 . 1/2) d\longa
 
-  \tempo \markup \case-label { ⅔ 2 }
+  \tempo \markup \case-label { 2/3 2 }
   \time #'(2/3 . 2) \tuplet 3/2 { e'4 d'4 }
 }
