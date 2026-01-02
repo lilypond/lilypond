@@ -469,10 +469,12 @@ Dieser Abschnitt zeigt Eigenheiten der Notation von Klavermusik
 @funindex \unaCorda
 @funindex \treCorde
 
-Klaviere (teilweise auch Vibraphone und Celesta) besitzen üblicherweise
-drei Pedale, das linke oder Haltepedal, das rechte oder Una-corda-Pedal
-und das Sostenuto-Pedal.  Die englischen Begriff hierzu lauten:
-@notation{sustain}, @notation{sostenuto} und @notation{una corda}.
+Klaviere besitzen üblicherweise drei Pedale, die den Klang
+beeinflussen: das Haltepedal (rechts), das Una-corda-Pedal (links)
+und das Sostenuto-Pedal (in der Mitte).  Die englischen Begriffe
+hierzu lauten @notation{sustain}, @notation{una corda} und
+@notation{sostenuto}.  Vibraphone und Celestas haben ebenfalls ein
+Haltepedal.
 
 @lilypond[quote,verbatim]
 \relative {
