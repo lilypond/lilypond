@@ -771,6 +771,11 @@ aims to make music easier to read and understand.  The scores on the
 website are taken from Mutopia and other online resources and then
 converted to Clairnote's own notation.
 
+@item
+@uref{https://ebersberger-liedersammlung.de/, Ebersberger
+Liedersammlung}, which is a collection of approx.@tie{}240
+copyright-free songs (mostly in German), all set in LilyPond.
+
 @end itemize
 @divEnd
 

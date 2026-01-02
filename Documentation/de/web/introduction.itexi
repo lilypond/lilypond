@@ -776,6 +776,11 @@ Ziel, Lesen und Verständnis von Musik zu vereinfachen.  Die Partituren auf der
 Webseite sind aus Mutopia und anderen Onlinequellen entnommen und dann
 in Clairnotes eigene Notation umgewandelt worden.
 
+@item
+@uref{https://ebersberger-liedersammlung.de/, Ebersberger
+Liedersammlung}, eine Sammlung von rund 240 gemeinfreien Liedern
+(die meisten davon mit deutschem Text), alle mit LilyPond gesetzt.
+
 @end itemize
 @divEnd
 
