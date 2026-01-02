@@ -85,7 +85,7 @@ public:
 class Audio_instrument final : public Audio_item
 {
 public:
-  Audio_instrument (std::string instrument_string);
+  explicit Audio_instrument (std::string instrument_string);
 
   std::string str_;
 };
@@ -152,7 +152,7 @@ public:
 class Audio_tempo final : public Audio_item
 {
 public:
-  Audio_tempo (Rational wholes_per_minute)
+  explicit Audio_tempo (Rational wholes_per_minute)
     : wholes_per_minute_ (wholes_per_minute)
   {
   }

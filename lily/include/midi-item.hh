@@ -58,13 +58,13 @@ public:
   virtual ~Midi_channel_item ();
   int channel_;
   OVERRIDE_CLASS_NAME (Midi_channel_item);
-  Midi_channel_item (Audio_item *ai);
+  explicit Midi_channel_item (Audio_item *ai);
 };
 
 class Midi_duration : public Midi_item
 {
 public:
-  Midi_duration (Real seconds_f);
+  explicit Midi_duration (Real seconds_f);
 
   std::string to_string () const override;
   Real seconds_;
@@ -77,7 +77,7 @@ class Midi_control_change : public Midi_channel_item
 {
 public:
   OVERRIDE_CLASS_NAME (Midi_control_change);
-  Midi_control_change (Audio_control_change *ai);
+  explicit Midi_control_change (Audio_control_change *ai);
   virtual ~Midi_control_change ();
   std::string to_string () const override;
 
@@ -90,7 +90,7 @@ public:
 class Midi_instrument : public Midi_channel_item
 {
 public:
-  Midi_instrument (Audio_instrument *);
+  explicit Midi_instrument (Audio_instrument *);
 
   OVERRIDE_CLASS_NAME (Midi_instrument);
   std::string to_string () const override;
@@ -101,7 +101,7 @@ public:
 class Midi_key : public Midi_item
 {
 public:
-  Midi_key (Audio_key *);
+  explicit Midi_key (Audio_key *);
   OVERRIDE_CLASS_NAME (Midi_key);
 
   std::string to_string () const override;
@@ -112,7 +112,7 @@ public:
 class Midi_time_signature : public Midi_item
 {
 public:
-  Midi_time_signature (Audio_time_signature *);
+  explicit Midi_time_signature (Audio_time_signature *);
   OVERRIDE_CLASS_NAME (Midi_time_signature);
 
   std::string to_string () const override;
@@ -124,7 +124,7 @@ public:
 class Midi_note : public Midi_channel_item
 {
 public:
-  Midi_note (Audio_note *);
+  explicit Midi_note (Audio_note *);
   OVERRIDE_CLASS_NAME (Midi_note);
 
   int get_semitone_pitch () const;
@@ -140,7 +140,7 @@ public:
 class Midi_note_off : public Midi_note
 {
 public:
-  Midi_note_off (Midi_note *);
+  explicit Midi_note_off (Midi_note *);
   OVERRIDE_CLASS_NAME (Midi_note_off);
 
   std::string to_string () const override;
@@ -163,7 +163,7 @@ public:
   };
   OVERRIDE_CLASS_NAME (Midi_text);
 
-  Midi_text (Audio_text *);
+  explicit Midi_text (Audio_text *);
 
   std::string to_string () const override;
 
@@ -173,7 +173,7 @@ public:
 class Midi_piano_pedal : public Midi_channel_item
 {
 public:
-  Midi_piano_pedal (Audio_piano_pedal *);
+  explicit Midi_piano_pedal (Audio_piano_pedal *);
   OVERRIDE_CLASS_NAME (Midi_piano_pedal);
 
   std::string to_string () const override;
@@ -184,7 +184,7 @@ public:
 class Midi_tempo : public Midi_item
 {
 public:
-  Midi_tempo (Audio_tempo *);
+  explicit Midi_tempo (Audio_tempo *);
   OVERRIDE_CLASS_NAME (Midi_tempo);
 
   std::string to_string () const override;

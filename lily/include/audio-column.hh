@@ -33,7 +33,7 @@
 class Audio_column : public Audio_element
 {
 public:
-  Audio_column (Moment when)
+  explicit Audio_column (Moment when)
     : when_ (when)
   {
   }

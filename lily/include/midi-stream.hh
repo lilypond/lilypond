@@ -29,7 +29,7 @@
 class Midi_stream
 {
 public:
-  Midi_stream (const std::string &file_name_string);
+  explicit Midi_stream (const std::string &file_name_string);
   ~Midi_stream ();
 
   void write (const std::string &);
