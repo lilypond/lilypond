@@ -73,7 +73,7 @@ Score_performer::announce_element (Audio_element_info info)
       performance_->audio_staffs_.push_back (s);
     }
 
-  performance_->add_element (info.elem_);
+  performance_->add_element (info.elem_, info.event_);
 }
 
 void

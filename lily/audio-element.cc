@@ -18,6 +18,7 @@
 */
 
 #include "audio-element.hh"
+#include "lily-guile.hh"
 
 #include <cassert>
 
@@ -27,6 +28,15 @@ Audio_element::Audio_element ()
 
 Audio_element::~Audio_element ()
 {
+}
+
+void
+Audio_element::gc_mark () const
+{
+  if (cause_)
+    {
+      scm_gc_mark (cause_->self_scm ());
+    }
 }
 
 char const *

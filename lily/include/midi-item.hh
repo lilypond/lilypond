@@ -21,6 +21,7 @@
 #define MIDI_ITEM_HH
 
 #include "audio-item.hh"
+#include "diagnostics.hh"
 
 std::string int2midi_varint_string (int i);
 
@@ -29,7 +30,7 @@ std::string int2midi_varint_string (int i);
 
    Maybe use base classes for RIFF files?
 */
-class Midi_item
+class Midi_item : public Diagnostics
 {
 public:
   VIRTUAL_CLASS_NAME (Midi_item);
@@ -39,12 +40,23 @@ public:
 
   static Midi_item *get_midi (Audio_item *a);
 
+  // Subclasses may implement audio() to return nullptr, but we don't want
+  // anyone to forget to implement this method.  It accesses the input location
+  // to cite in diagnostic messages, so it should be implemented to return the
+  // associated Audio_item whenever there is one.
+  virtual const Audio_item *audio () const = 0;
+  Input *origin () const final
+  {
+    auto *const a = audio ();
+    return a ? a->origin () : nullptr;
+  }
   virtual std::string to_string () const = 0;
 };
 
 class Midi_end_of_track : public Midi_item
 {
 public:
+  const Audio_item *audio () const override { return nullptr; }
   std::string to_string () const override
   {
     // the literal std::string's terminating null is part of the MIDI command
@@ -79,6 +91,7 @@ public:
   OVERRIDE_CLASS_NAME (Midi_control_change);
   explicit Midi_control_change (Audio_control_change *ai);
   virtual ~Midi_control_change ();
+  const Audio_control_change *audio () const override { return audio_; }
   std::string to_string () const override;
 
   Audio_control_change *audio_;
@@ -93,6 +106,7 @@ public:
   explicit Midi_instrument (Audio_instrument *);
 
   OVERRIDE_CLASS_NAME (Midi_instrument);
+  const Audio_instrument *audio () const override { return audio_; }
   std::string to_string () const override;
 
   Audio_instrument *audio_;
@@ -104,6 +118,7 @@ public:
   explicit Midi_key (Audio_key *);
   OVERRIDE_CLASS_NAME (Midi_key);
 
+  const Audio_key *audio () const override { return audio_; }
   std::string to_string () const override;
 
   Audio_key *audio_;
@@ -115,6 +130,7 @@ public:
   explicit Midi_time_signature (Audio_time_signature *);
   OVERRIDE_CLASS_NAME (Midi_time_signature);
 
+  const Audio_time_signature *audio () const override { return audio_; }
   std::string to_string () const override;
 
   Audio_time_signature *audio_;
@@ -127,6 +143,7 @@ public:
   explicit Midi_note (Audio_note *);
   OVERRIDE_CLASS_NAME (Midi_note);
 
+  const Audio_note *audio () const override { return audio_; }
   int get_semitone_pitch () const;
   int get_fine_tuning () const;
   std::string to_string () const override;
@@ -165,6 +182,7 @@ public:
 
   explicit Midi_text (Audio_text *);
 
+  const Audio_text *audio () const override { return audio_; }
   std::string to_string () const override;
 
   Audio_text *audio_;
@@ -176,6 +194,7 @@ public:
   explicit Midi_piano_pedal (Audio_piano_pedal *);
   OVERRIDE_CLASS_NAME (Midi_piano_pedal);
 
+  const Audio_piano_pedal *audio () const override { return audio_; }
   std::string to_string () const override;
 
   Audio_piano_pedal *audio_;
@@ -187,6 +206,7 @@ public:
   explicit Midi_tempo (Audio_tempo *);
   OVERRIDE_CLASS_NAME (Midi_tempo);
 
+  const Audio_tempo *audio () const override { return audio_; }
   std::string to_string () const override;
 
   Audio_tempo *audio_;

@@ -26,6 +26,8 @@
 
 #include <vector>
 
+class Stream_event;
+
 /* MIDI output.  */
 class Performance : public Music_output
 {
@@ -43,7 +45,7 @@ public:
 
   void derived_mark () const override;
 
-  void add_element (Audio_element *p);
+  void add_element (Audio_element *p, Stream_event *cause);
   void process () override;
 
   void write_output (std::string filename,

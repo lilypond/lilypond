@@ -28,6 +28,7 @@
 #include "midi-stream.hh"
 #include "output-def.hh"
 #include "score.hh"
+#include "stream-event.hh"
 #include "string-convert.hh"
 #include "warn.hh"
 
@@ -53,6 +54,8 @@ void
 Performance::derived_mark () const
 {
   scm_gc_mark (headers_);
+  for (auto *element : audio_elements_)
+    element->gc_mark ();
 }
 
 void
@@ -111,9 +114,10 @@ Performance::output (Midi_stream &midi_stream,
 }
 
 void
-Performance::add_element (Audio_element *p)
+Performance::add_element (Audio_element *p, Stream_event *cause)
 {
   audio_elements_.push_back (p);
+  p->set_cause (cause);
 }
 
 void

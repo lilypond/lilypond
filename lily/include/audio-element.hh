@@ -20,16 +20,30 @@
 #ifndef AUDIO_ELEMENT_HH
 #define AUDIO_ELEMENT_HH
 
+#include "diagnostics.hh"
+#include "stream-event.hh"
 #include "virtual-methods.hh"
 
-class Audio_element
+class Audio_element : public Diagnostics
 {
+private:
+  Stream_event *cause_ = nullptr;
+
+private:
+  // Performance keeps Audio_elements alive and calls gc_mark() to ensure that
+  // their causing events survive garbage collection.
+  friend class Performance;
+  void set_cause (Stream_event *cause) { cause_ = cause; }
+
 public:
   Audio_element ();
   virtual ~Audio_element ();
 
   VIRTUAL_CLASS_NAME (Audio_element);
+  Stream_event *cause () const { return cause_; }
+  void gc_mark () const;
   virtual char const *name () const;
+  Input *origin () const final { return cause_ ? cause_->origin () : nullptr; }
 };
 
 #endif // AUDIO_ELEMENT_HH

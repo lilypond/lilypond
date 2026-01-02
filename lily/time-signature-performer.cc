@@ -139,7 +139,7 @@ Time_signature_performer::process_music ()
         from_scm<Rational> (scm_car (fr)), // numerator
         from_scm<Rational> (scm_cdr (fr)), // denominator
         static_cast<int> (beat_base_clocks.numerator ()));
-      Audio_element_info info (audio_, 0);
+      Audio_element_info info (audio_, event_);
       announce_element (info);
     }
 }
