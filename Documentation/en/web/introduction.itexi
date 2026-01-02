@@ -971,7 +971,7 @@ issue CMS06.
 
 @divClass{testimonial-item}
 @imageFloat{carter-brey,jpg, right}
-@subsubheading @uref{http://nyphil.org/meet/orchestra/index.cfm?page=profile&personNum=7, Carter Brey}, Principal Cellist, New York Philharmonic
+@subsubheading @uref{https://www.nyphil.org/about-us/artists/carter-brey/, Carter Brey}, principal cellist, New York Philharmonic
 
 @qq{@dots{} I've written a couple of encore pieces for solo cello
 which I've printed with LilyPond and which I'm going to submit to
@@ -982,7 +982,7 @@ look half as sharp as mine!}
 
 @divClass{testimonial-item}
 @imageFloat{orm-finnendahl,jpg, left}
-@subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl}, professor of Composition, Hochschule für Musik und Darstellende Kunst Frankfurt am Main
+@subsubheading @uref{https://icem-www.folkwang-uni.de/~finnendahl/, Orm Finnendahl}, professor of composition, Hochschule für Musik und Darstellende Kunst Frankfurt am Main
 
 @qq{Although I don't know [LilyPond] very well yet, I'm
 @strong{*very} impressed.  I used the program to input a motet of
@@ -994,7 +994,7 @@ speed, ease of use and look!}
 
 @divClass{testimonial-item}
 @imageFloat{darius-blasband,jpg, right}
-@subsubheading Darius Blasband, composer (Brussels, Belgium)
+@subsubheading @uref{https://www.dariusblasband.com/, Darius Blasband}, composer (Brussels, Belgium)
 
 @qq{[..after the first orchestra rehearsal] I got numerous
 compliments about the quality of the scores.  Even more
@@ -1005,7 +1005,7 @@ the raw, untouched output.}
 
 
 @divClass{testimonial-item}
-@subsubheading Kieren MacMillan, composer (Toronto, Canada)
+@subsubheading @uref{https://www.kierenmacmillan.info/, Kieren MacMillan}, composer (Toronto, Canada)
 
 @qq{thanks and kudos to the development team for their incredible
 work.  I've never seen anything approaching the output that I get
@@ -1020,7 +1020,7 @@ houses}). [@dots{}]} @qq{Beat that, Finale/Sibelius/Igor/whatever!!!}
 
 
 @divClass{testimonial-item}
-@subsubheading Chris Cannam, lead programmer of the @uref{https://www.rosegardenmusic.com/, RoseGarden} project
+@subsubheading Chris Cannam, former lead programmer of the @uref{https://www.rosegardenmusic.com/, RoseGarden} project
 
 @qq{LilyPond is obviously the zillion-ton gorilla [of great music
 typesetting].}
@@ -1028,7 +1028,7 @@ typesetting].}
 
 
 @divClass{testimonial-item}
-@subsubheading Chris Snyder, @uref{https://twitter.com/adoromusic, Adoro Music Publishing}
+@subsubheading Chris Snyder, Adoro Music Publishing
 
 @qq{The way that music is entered for LilyPond causes me to think in a
 more musical way -- there have been times when I've been stumped as
@@ -1050,7 +1050,7 @@ time.  I'm convinced that no commercial product can come close.}
 
 
 @divClass{testimonial-item}
-@subsubheading David Bobroff, Bass Trombone, Iceland Symphony Orchestra
+@subsubheading David Bobroff, bass trombone, Iceland Symphony Orchestra
 
 @qq{I think LilyPond is great [@dots{}] The more I learn about LilyPond
 the more I like it!}
@@ -1058,7 +1058,7 @@ the more I like it!}
 
 
 @divClass{testimonial-item}
-@subsubheading Vaylor Trucks, Electric guitar player (Yes, @uref{http://www.allmanbrothersband.com/modules.php?op=modload&name=userpage&file=content&page_id=12, related to})
+@subsubheading @uref{https://www.brotherandsister.band/meet-the-band, Vaylor Trucks}, electric guitar player (yes, @uref{http://www.allmanbrothersband.com, related to})
 
 @qq{I am super impressed with LilyPond [@dots{}]}
 
@@ -1082,7 +1082,7 @@ good.}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{https://www.troff.org/whoswho.html#werner, Werner Lemberg}, Conductor at the Theater in Koblenz, Germany and distinguished GNU Hacker
+@subsubheading @uref{https://www.moz.ac.at/de/personen/dirigieren-chor-blasorchesterleitung/werner-lemberg, Werner Lemberg}, senior lecturer, Mozarteum University (Salzburg), and distinguished GNU Hacker
 
 @qq{Anyway, LilyPond does an amazingly good job!}
 @divEnd
@@ -1099,7 +1099,7 @@ potential.}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://webusers.siba.fi/~mkuuskan/, Dr. Mika Kuuskankare}, researcher at the @uref{http://siba.fi, Sibelius Academy Finland}, composer and author of Expressive Notation Package (ENP)
+@subsubheading Dr. Mika Kuuskankare, composer and author of the Expressive Notation Package (ENP)
 
 @qq{I have the deepest respect towards LilyPond and towards its creators
 and maintainers as I know from personal experience how difficult this
@@ -1108,7 +1108,7 @@ kind of software can be.}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{https://camerondh.blogspot.com, David Cameron}, Musician, professional typesetter and long time SCORE user
+@subsubheading @uref{https://camerondh.blogspot.com, David Cameron}, musician, professional typesetter and long time SCORE user
 
 @qq{My heartfelt thanks to everyone who contributes to this project.  I
 was a power SCORE user for big typesetting houses way back in the '90s,

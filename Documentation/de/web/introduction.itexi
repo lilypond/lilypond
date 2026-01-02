@@ -980,7 +980,7 @@ Nummer CMS06.
 
 @divClass{testimonial-item}
 @imageFloat{carter-brey,jpg, right}
-@subsubheading @uref{http://nyphil.org/meet/orchestra/index.cfm?page=profile&personNum=7, Carter Brey}, Erstes Cello, New York Philharmonic
+@subsubheading @uref{https://www.nyphil.org/about-us/artists/carter-brey/, Carter Brey}, Erstes Cello, New York Philharmonic
 
 @qq{@dots{} Ich habe einige Zugabestücke für Solo-Cello geschrieben
   und mit LilyPond gedruckt. Sie sollen bei Schirmer herausgegeben werden. Ich
@@ -991,7 +991,7 @@ Nummer CMS06.
 
 @divClass{testimonial-item}
 @imageFloat{orm-finnendahl,jpg, left}
-@subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl}, Kompositionsprofessor, Hochschule für Musik und Darstellende Kunst Frankfurt am Main
+@subsubheading @uref{https://icem-www.folkwang-uni.de/~finnendahl/, Orm Finnendahl}, Kompositionsprofessor, Hochschule für Musik und Darstellende Kunst Frankfurt am Main
 
 @qq{Auch wenn ich [LilyPond] noch nicht sehr gut kenne, bin ich schon außerordentlich
   beeindruckt. Ich habe das Programm benutzt, um eine Motette von Josquin Desprez
@@ -1003,7 +1003,7 @@ Nummer CMS06.
 
 @divClass{testimonial-item}
 @imageFloat{darius-blasband,jpg, right}
-@subsubheading Darius Blasband, Komponist (Brüssel, Belgien)
+@subsubheading @uref{https://www.dariusblasband.com/, Darius Blasband}, Komponist (Brüssel, Belgien)
 
 @qq{[Nach der ersten Orchesterprobe] wurde die Qualität meiner Notenblätter
   immer wieder gelobt. Und das, obwohl ich keine der vielen Möglichkeiten
@@ -1013,7 +1013,7 @@ Nummer CMS06.
 
 
 @divClass{testimonial-item}
-@subsubheading Kieren MacMillan, Komponist (Toronto, Kanada)
+@subsubheading @uref{https://www.kierenmacmillan.info/, Kieren MacMillan}, Komponist (Toronto, Kanada)
 
 @qq{Anerkennung und Dank an das Entwicklungsteam für ihre unglaubliche
   Arbeit. Ich habe noch nie etwas gesehen, das dem Satz nahekommt, den ich
@@ -1030,14 +1030,14 @@ Nummer CMS06.
 
 
 @divClass{testimonial-item}
-@subsubheading Chris Cannam, Chefprogrammierer des @uref{https://www.rosegardenmusic.com/, RoseGarden}-Projekts
+@subsubheading Chris Cannam, ehemaliger Chefprogrammierer des @uref{https://www.rosegardenmusic.com/, RoseGarden}-Projekts
 
 @qq{LilyPond ist offensichtlich der Super-Gorilla [des Notensatzes].}
 @divEnd
 
 
 @divClass{testimonial-item}
-@subsubheading Chris Snyder, @uref{https://twitter.com/adoromusic, Adoro Music Publishing}
+@subsubheading Chris Snyder, Adoro Music Publishing
 
 @qq{Die Art, in der die Noten mit LilyPond eingegeben werden,
 lässt mich musikalischer denken -- es gab Zeiten, wenn ich vergeblich
@@ -1071,7 +1071,7 @@ desto mehr mag ich es!}
 
 
 @divClass{testimonial-item}
-@subsubheading Vaylor Trucks, E-Gitarrenspieler (Ja, @uref{http://www.allmanbrothersband.com/modules.php?op=modload&name=userpage&file=content&page_id=12, verwandt mit})
+@subsubheading @uref{https://www.brotherandsister.band/meet-the-band, Vaylor Trucks}, E-Gitarrenspieler (Ja, @uref{https://www.allmanbrothersband.com/, verwandt mit})
 
 @qq{Ich bin total beeindruckt von LilyPond [@dots{}]}
 
@@ -1096,7 +1096,7 @@ desto mehr mag ich es!}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{https://www.troff.org/whoswho.html#werner, Werner Lemberg}, Dirigent am Koblenzer Theater und herausragender GNU-Hacker
+@subsubheading @uref{https://www.moz.ac.at/de/personen/dirigieren-chor-blasorchesterleitung/werner-lemberg, Werner Lemberg}, Senior Lecturer am Mozarteum Salzburg und herausragender GNU-Hacker
 
 @qq{Überhaupt macht LilyPond saubere Arbeit!}
 @divEnd
@@ -1112,8 +1112,7 @@ desto mehr mag ich es!}
 @divEnd
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://webusers.siba.fi/~mkuuskan/, Dr. Mika Kuuskankare}, Forscher an der @uref{http://siba.fi, Sibelius-Akademie Finnland}, Komponist
-und Autor des Expressive Notation Package (ENP)
+@subsubheading Dr. Mika Kuuskankare, Komponist und Autor des Expressive Notation Package (ENP)
 
 @qq{Ich habe eine große Achtung vor LilyPond und denen, die es geschrieben
 haben, denn ich weiß aus eigener Erfarhung, wie schwierig solch ein
@@ -1122,8 +1121,7 @@ Programm sein kann.}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{https://camerondh.blogspot.com, David Cameron}, Musiker,
-professioneller Notensetzer und lange Zeit Score-Benutzer
+@subsubheading @uref{https://camerondh.blogspot.com, David Cameron}, Musiker, professioneller Notensetzer und lange Zeit Score-Benutzer
 
 @qq{Den allergrößten Dank an alle, die zu diesem Projekt beitragen.  Ich habe SCORE für einen großen Musikverlag in den 90er Jahren sehr intensiv benutzt,
 aber jetzt sehe ich, dass LilyPond es mir endlich ermöglicht, genau das
