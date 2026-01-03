@@ -235,7 +235,11 @@ sub lilypond_format_ref {
     # Expect that we only use @ref for external references.
     if ($command_name ne 'ref') {
         my $msg = "used '$command_name' to link to external manual '$file'";
-        $converter->line_error($converter, $msg, $element->{'source_info'});
+        if ($texinfo_version lt '7.2.90') {
+            $converter->line_error($converter, $msg, $element->{'source_info'});
+        } else {
+            $converter->converter_line_error($msg, $element->{'source_info'});
+        }
     }
 
     my $node_content;
@@ -247,7 +251,12 @@ sub lilypond_format_ref {
                    => $element->{'extra'}->{'node_argument'}->{'node_content'}};
         }
     } else {
-        my $node_arg = $element->{'args'}->[0];
+        my $node_arg;
+        if ($texinfo_version lt '7.2.90') {
+            $node_arg = $element->{'args'}->[0];
+        } else {
+            $node_arg = $element->{'contents'}->[0];
+        }
         if ($node_arg->{'extra'} and $node_arg->{'extra'}->{'node_content'}) {
             $node_content = $node_arg->{'extra'}->{'node_content'};
             if ($texinfo_version lt '7.1.90') {
@@ -261,21 +270,34 @@ sub lilypond_format_ref {
         $node_file = lc($node_file);
 
         if (!defined($name)) {
-            my $node_tree = {'type' => '_code', 'contents' => [$node_content]};
-            my $node_name = $converter->convert_tree($node_tree, 'node in ref');
+            my $node_name;
+            if ($texinfo_version lt '7.2.90') {
+                my $node_tree = {'type' => '_code', 'contents' => [$node_content]};
+                $node_name = $converter->convert_tree($node_tree, 'node in ref');
+            } else {
+                $node_name = $converter->convert_tree_in_code_context($node_content, 'node in ref');
+            }
             if (defined($node_name) and $node_name ne 'Top') {
                 $name = $node_name;
             }
         }
     } else {
         my $msg = "could not determine node for link to external manual '$file'";
-        $converter->line_error($converter, $msg, $element->{'source_info'});
+        if ($texinfo_version lt '7.2.90') {
+            $converter->line_error($converter, $msg, $element->{'source_info'});
+        } else {
+            $converter->converter_line_error($msg, $element->{'source_info'});
+        }
     }
 
     if (!defined($name)) {
         if ($book eq '') {
             my $msg = "could not determine name for link to external manual '$file'";
-            $converter->line_error($converter, $msg, $element->{'source_info'});
+            if ($texinfo_version lt '7.2.90') {
+                $converter->line_error($converter, $msg, $element->{'source_info'});
+            } else {
+                $converter->converter_line_error($msg, $element->{'source_info'});
+            }
         }
         $name = $book;
     }
@@ -285,7 +307,11 @@ sub lilypond_format_ref {
     if ($manual_name eq 'web' and defined($only_web_version)) {
         if (!$converter->get_conf('SPLIT')) {
             my $msg = "unexpected website build without splitting";
-            $converter->line_error($converter, $msg, $element->{'source_info'});
+            if ($texinfo_version lt '7.2.90') {
+                $converter->line_error($converter, $msg, $element->{'source_info'});
+            } else {
+                $converter->converter_line_error($msg, $element->{'source_info'});
+            }
         }
         $href = "../../doc/$only_web_version/Documentation/$file/$node_file.html";
     } elsif ($converter->get_conf('SPLIT')) {
@@ -384,10 +410,27 @@ sub lilypond_format_tocframe {
     } else {
         $contents = &{$converter->formatting_function('format_contents')}($converter, 'contents');
     }
+    my $sections_list;
+    my $nodes_list;
+    if ($texinfo_version ge '7.2.90') {
+        my $document = $converter->get_info('document');
+        $sections_list = $document->sections_list();
+        $nodes_list = $document->nodes_list();
+    }
 
     # Find the path to the current element.
     my $node = $converter->{'current_node'};
-    my $element = $node->{'extra'}->{'associated_section'};
+    my $element;
+    my $section_relation;
+    if ($texinfo_version lt '7.2.90') {
+        $element = $node->{'extra'}->{'associated_section'};
+    } else {
+        my $node_relation = $nodes_list->[$node->{'extra'}->{'node_number'} -1];
+        $section_relation = $node_relation->{'associated_section'};
+        if ($section_relation) {
+            $element = $section_relation->{'element'};
+        }
+    }
     my %parentelements;
     while (defined($element)) {
         my $toc_id = $converter->command_contents_target($element, 'contents');
@@ -399,8 +442,15 @@ sub lilypond_format_tocframe {
             $element = $element->{'section_up'};
         } elsif ($texinfo_version lt '7.1.90') {
             $element = $element->{'structure'}->{'section_up'};
-        } else {
+        } elsif ($texinfo_version lt '7.2.90') {
             $element = $element->{'extra'}->{'section_directions'}->{'up'};
+        } else {
+            $section_relation = $section_relation->{'section_directions'}->{'up'};
+            if ($section_relation) {
+                $element = $section_relation->{'element'};
+            } else {
+                $element = undef;
+            }
         }
     }
 
@@ -520,7 +570,7 @@ sub format_navigation_button {
             $attributes .= " accesskey=\"$accesskey\"";
         }
     }
-    if ($converter->get_conf('USE_REL_REV')) {
+    if ($texinfo_version ge '7.2.90' or $converter->get_conf('USE_REL_REV')) {
         my $button_rel;
         if ($texinfo_version lt '7.1') {
             if ($converter->get_conf('BUTTONS_REL')) {
