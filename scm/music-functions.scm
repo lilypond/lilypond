@@ -272,6 +272,7 @@ The number of dots in the shifted music may not be less than zero."
   "Add \\volta @var{number-list} to @var{music}."
   (make-music 'VoltaSpeccedMusic
               'element music
+              'origin (ly:music-property music 'origin)
               'volta-numbers number-list))
 
 (define-public (make-repeat name times main alts)
