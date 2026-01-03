@@ -166,26 +166,49 @@ Volta_engraver::listen_volta_span (Stream_event *ev)
     }
   else if (dir == STOP)
     {
-      if (!layer.start_ev_)
+      // This handles the possibility of an empty alternative: a simultaneous
+      // start and stop with the same volta spec.  This will not handle
+      // consecutive empty alternatives well, since it tracks only one start
+      // event, but it covers the most important case: an empty final
+      // alternative.
+      if (layer.start_ev_ && are_volta_numbers_equal (layer.start_ev_, ev))
         {
-          if (!layer.stop_prev_ev_)
-            layer.stop_prev_ev_ = ev;
+          if (!layer.stop_curr_ev_)
+            layer.stop_curr_ev_ = ev;
         }
-      else
+      else if (!layer.stop_prev_ev_)
         {
-          // When an alternative is empty, we can in one timestep receive a stop
-          // event for the previous alternative and the current alternative.
-          // (This code will not handle consecutive empty alternatives, but it
-          // covers the most important case: an empty final alternative.)
-          if (!are_volta_numbers_equal (layer.start_ev_, ev))
+          // If there is a current bracket which was created by an event, ignore
+          // unrelated stop events, which are recognized by a difference in
+          // their list of volta numbers.
+          //
+          // Unrelated stop events might arise from differences in grace notes
+          // among elements of simultaneous music (issue #34).  In this case, at
+          // the earliest grace time, we expect the current bracket to end.  Any
+          // events for that ended bracket which arrive at a later grace time
+          // are quietly ignored rather than allowed to end a different bracket.
+          //
+          // Unrelated stop events might arise from other incongruous repeat
+          // structure in simultaneous music.  Are there any cases where it
+          // would be helpful to warn here, or are existing warnings sufficient?
+          const bool accept_event = [&] {
+            if (!layer.bracket_) // lacking information required to filter
+              {
+                return true;
+              }
+
+            auto *const bracket_start_ev = layer.bracket_->event_cause ();
+            if (!bracket_start_ev) // lacking information required to filter
+              {
+                return true;
+              }
+
+            return are_volta_numbers_equal (bracket_start_ev, ev);
+          }();
+
+          if (accept_event)
             {
-              if (!layer.stop_prev_ev_)
-                layer.stop_prev_ev_ = ev;
-            }
-          else
-            {
-              if (!layer.stop_curr_ev_)
-                layer.stop_curr_ev_ = ev;
+              layer.stop_prev_ev_ = ev;
             }
         }
     }
@@ -262,7 +285,50 @@ Volta_engraver::process_music ()
             }
         }
 
-      layer.start_bracket_this_timestep_ = manual_start || layer.start_ev_;
+      layer.start_bracket_this_timestep_ = [&] {
+        if (!(manual_start || layer.start_ev_))
+          {
+            return false; // We have no reason to start a bracket.
+          }
+
+        // If there is no current bracket, or if the current bracket will stop
+        // here, we can start a new one without trouble.
+        if (!layer.bracket_ || end)
+          {
+            return true;
+          }
+
+        // We have reason to start a new bracket, but no clear reason to stop
+        // the current one.  Differences in grace notes among elements of
+        // simultaneous music cause volta events to be announced in more than
+        // one time step (issue #34).  Do not split the current bracket just for
+        // this; let it continue.
+        if (layer.start_mom_.main_part_ == now_mom ().main_part_)
+          {
+            // Compare volta specs to gain confidence that we are handling grace
+            // synchronization rather than incongruous repeat structure.
+            //
+            // Manually created (via repeatCommands) brackets do not have volta
+            // numbers: they have only markup.  We refrain from trying to fix
+            // them blindly.
+            if (layer.start_ev_)
+              {
+                if (auto *const prev_ev = layer.bracket_->event_cause ())
+                  {
+                    if (are_volta_numbers_equal (prev_ev, layer.start_ev_))
+                      {
+                        // The volta numbers are the same as for the current
+                        // bracket.  We're probably seeing issue #34: don't
+                        // start a new bracket.
+                        return false;
+                      }
+                  }
+              }
+          }
+
+        return true;
+      }();
+
       if (layer.start_bracket_this_timestep_ && layer.bracket_ && !end)
         {
           if (manual_start)
