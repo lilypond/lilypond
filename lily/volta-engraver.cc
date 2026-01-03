@@ -127,6 +127,14 @@ Volta_engraver::listen_fine (Stream_event *)
   should_close_end_ = true;
 }
 
+static bool
+are_volta_numbers_equal (Stream_event *a, Stream_event *b)
+{
+  SCM volta_numbers_sym = ly_symbol2scm ("volta-numbers");
+  return ly_is_equal (get_property (a, volta_numbers_sym),
+                      get_property (b, volta_numbers_sym));
+}
+
 void
 Volta_engraver::listen_volta_span (Stream_event *ev)
 {
@@ -136,14 +144,25 @@ Volta_engraver::listen_volta_span (Stream_event *ev)
   auto &layer = layers_[layer_no];
 
   // It is common to have the same repeat structure in multiple voices, so we
-  // ignore simultaneous events; but it might not be a bad thing to add some
-  // consistency checks here if they could catch some kinds of user error.
+  // ignore simultaneous events; but it is nice to perform some consistency
+  // checks to catch likely errors and improve the user's debugging experience.
 
   auto dir = from_scm<Direction> (get_property (ev, "span-direction"));
   if (dir == START)
     {
       if (!layer.start_ev_)
-        layer.start_ev_ = ev;
+        {
+          layer.start_ev_ = ev;
+        }
+      else if (!are_volta_numbers_equal (layer.start_ev_, ev))
+        {
+          // Include the volta numbers in the message because they might not be
+          // obvious if the source has the legacy \alternative syntax with
+          // implied \volta.
+          const auto nums = ly_scm_write_string (
+            get_property (ev, ly_symbol2scm ("volta-numbers")));
+          ev->warning (_f ("discarding conflicting volta numbers: %s", nums));
+        }
     }
   else if (dir == STOP)
     {
@@ -158,10 +177,7 @@ Volta_engraver::listen_volta_span (Stream_event *ev)
           // event for the previous alternative and the current alternative.
           // (This code will not handle consecutive empty alternatives, but it
           // covers the most important case: an empty final alternative.)
-          SCM volta_numbers_sym = ly_symbol2scm ("volta-numbers");
-          SCM start_nums = get_property (layer.start_ev_, volta_numbers_sym);
-          SCM these_nums = get_property (ev, volta_numbers_sym);
-          if (!ly_is_equal (these_nums, start_nums))
+          if (!are_volta_numbers_equal (layer.start_ev_, ev))
             {
               if (!layer.stop_prev_ev_)
                 layer.stop_prev_ev_ = ev;
