@@ -11,7 +11,21 @@ should end prematurely where part@tie{}A enters.
 
 #(ly:set-option 'warning-as-error #t)
 
-%% TODO: Ending the brackets early deserves a warning.
+#(ly:expect-warning
+  (ly:translate-cpp-warning-scheme
+   "already have a VoltaBracket; ending it prematurely"))
+#(ly:expect-warning
+  (ly:translate-cpp-warning-scheme
+   "already have a VoltaBracket; ending it prematurely"))
+#(ly:expect-warning
+  (ly:translate-cpp-warning-scheme
+   "already have a VoltaBracket; ending it prematurely"))
+#(ly:expect-warning
+  (ly:translate-cpp-warning-scheme
+   "already have a VoltaBracket; ending it prematurely"))
+#(ly:expect-warning
+  (ly:translate-cpp-warning-scheme
+   "already have a VoltaBracket; ending it prematurely"))
 
 voiceA = \fixed c' {
   \repeat volta 3 {

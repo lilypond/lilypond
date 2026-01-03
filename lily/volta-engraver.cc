@@ -331,11 +331,8 @@ Volta_engraver::process_music ()
 
       if (layer.start_bracket_this_timestep_ && layer.bracket_ && !end)
         {
-          if (manual_start)
-            {
-              layer.bracket_->warning (
-                _ ("already have a VoltaBracket; ending it prematurely"));
-            }
+          layer.bracket_->warning (
+            _ ("already have a VoltaBracket; ending it prematurely"));
           end = true;
         }
 
