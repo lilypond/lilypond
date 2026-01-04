@@ -2483,3 +2483,115 @@ adapted for typesetting within a chord grid.")))
    (description . "Read the @code{toeHeelStyle} context property and use it to
 style @code{\\rtoe} and its siblings, based on the data in the
 @code{toe-heel-styles} alist.")))
+
+(define-public Glissando_engraver
+  (lambda (context)
+    (let ((glissando-event #f)
+          (start-glissando-line #f)
+          (stop-glissando-line #f)
+          (current-glissando-grobs '())
+          (gliss-map #f))
+
+      (define (bounds lst grobs start-stop)
+        ;; `lst` is supposed to be the number-pair-list from `glissandoMap`
+        ;; `grobs` are usually note-head grobs
+        ;; `start-stop` is car or cdr of a pair
+        ;;
+        ;; Selects possible left/right bounds for Glissando.
+        (if (number-pair-list? lst)
+            (let* ((user-start-stops (map start-stop lst))
+                   (start-stops
+                     (filter
+                       (lambda (n)
+                         (and (index? n) (<= n (1- (length grobs)))))
+                       user-start-stops)))
+              (map
+                (lambda (start-stop) (list-ref grobs start-stop))
+                start-stops))
+            grobs))
+
+      (make-engraver
+        (listeners
+           ((glissando-event this-engraver event)
+             (set! glissando-event event)
+             (set! start-glissando-line #t)))
+
+        (acknowledgers
+          ((note-column-interface this-engraver grob source-engraver)
+           (let* ((note-heads-array (ly:grob-object grob 'note-heads #f))
+                  (note-heads
+                    (if note-heads-array
+                        (ly:grob-array->list note-heads-array)
+                        '()))
+                  (glissando-skip?
+                    (ly:grob-property grob 'glissando-skip #f)))
+
+        ;; Do not start a new Glissando, if the last is not yet ended.
+        ;; This may happen if 'glissando-skip is used.
+        (when (and glissando-skip? start-glissando-line stop-glissando-line)
+          (ly:warning "G_overwriting glissando")
+          (set! glissando-event #f)
+          (set! start-glissando-line #f))
+
+        (when (and (not glissando-skip?) stop-glissando-line)
+          ;; set 'glissando-index
+          (for-each
+            (lambda (gliss i) (ly:grob-set-property! gliss 'glissando-index i))
+            current-glissando-grobs
+            (iota (length note-heads)))
+
+          (let ((possible-right-bounds (bounds gliss-map note-heads cdr)))
+
+            ;; Set right bound.
+            (for-each
+              (lambda (bound gliss )
+                (ly:spanner-set-bound! gliss RIGHT bound)
+                (ly:engraver-announce-end-grob this-engraver gliss bound))
+              possible-right-bounds
+              current-glissando-grobs)
+
+            ;; Throw away Glissandi not right-bounded by a rhythmic grob.
+            (for-each
+              (lambda (gliss)
+                (when (not (ly:grob? (ly:spanner-bound gliss RIGHT)))
+                  (ly:grob-suicide! gliss)))
+              current-glissando-grobs)
+
+            (set! stop-glissando-line #f)
+            (set! current-glissando-grobs '())))
+
+        (when start-glissando-line
+          (set! gliss-map (ly:context-property context 'glissandoMap #f))
+          (let ((possible-left-bounds (bounds gliss-map note-heads car)))
+            (set! start-glissando-line #f)
+            (set! stop-glissando-line #t)
+            (set! current-glissando-grobs
+                  (append
+                    (map
+                      (lambda (bound)
+                        (let ((gliss
+                                (ly:engraver-make-grob
+                                  this-engraver 'Glissando glissando-event)))
+                          (ly:spanner-set-bound! gliss LEFT bound)
+                          gliss))
+                      possible-left-bounds)
+                    current-glissando-grobs))
+            (set! glissando-event #f))))))
+        ((finalize this-engraver)
+         (when (pair? current-glissando-grobs)
+           (for-each
+             (lambda (gliss)
+               (ly:warning "unterminated Glissando")
+               (ly:grob-suicide! gliss))
+             current-glissando-grobs)
+           (set! current-glissando-grobs '())
+           (set! gliss-map #f)
+           (set! stop-glissando-line #f)))))))
+
+(ly:register-translator
+ Glissando_engraver 'Glissando_engraver
+ '((grobs-created . (Glissando))
+   (events-accepted . (glissando-event))
+   (properties-read . (glissandoMap))
+   (properties-written . ())
+   (description . "Engrave glissandi.")))
