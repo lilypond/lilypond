@@ -545,7 +545,7 @@ def conv(s):
 
 
 def regularize_id(s):
-    s = ''
+    r = ''
     lastx = ''
     for x in s:
         if x == '_':
@@ -553,13 +553,13 @@ def regularize_id(s):
             continue
         elif x in string.digits:
             x = chr(ord(x) - ord('0') + ord('A'))
-        elif x not in string.letters:
+        elif x not in string.ascii_letters:
             x = 'x'
-        elif x in string.lowercase and lastx == '_':
+        elif x in string.ascii_lowercase and lastx == '_':
             x = x.upper()
-        s = s + x
+        r = r + x
         lastx = x
-    return s
+    return r
 
 
 @rule((1, 3, 117), 'identifier names: $!foo_bar_123 -> xfooBarABC')
