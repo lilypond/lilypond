@@ -24,6 +24,7 @@
 #   IPC::Run3
 #   Pandoc
 #   Parallel::ForkManager
+#   URI::Escape
 #
 # Either install missing modules using your package manager (if
 # available) or use `cpanm` to download, compile, and install them.
@@ -46,6 +47,7 @@ use JSON::PP; # For parsing the data returned by the MediaWiki API.
 use Pandoc; # Accessing `pandoc`.
 use Parallel::ForkManager; # For parallel processing.
 use Text::Wrap; # For formatting the 'category' header field.
+use URI::Escape; # For Wiki communication to expand templates.
 
 
 # Get the top directory of the LilyPond git repository...
@@ -132,6 +134,9 @@ Use the LilyPond Wiki to regenerate LilyPond's 'snippets' directory.
                            script
   -s, --top-source=DIR   directory where to look for subdirectory
                            'Documentation/snippets' (default: '.')
+  -t, --preserve-templates
+                         don't expand templates used in the LilyPond
+                           Wiki
   -V, --verbose          be verbose
 
 Environment variable:
@@ -192,6 +197,7 @@ my $no_lsr = 0;
 my $no_new = 0;
 my $no_snippet_list = 0;
 my $path = "";
+my $preserve_templates = 0;
 my $top_source = ".";
 my $verbose = 0;
 
@@ -209,6 +215,7 @@ GetOptions(
   "no-new|n" => \$no_new,
   "no-snippet-list|f" => \$no_snippet_list,
   "path|p=s" => \$path,
+  "preserve-templates|p" => \$preserve_templates,
   "top-source|s=s" => \$top_source,
   "verbose|V" => \$verbose,
 ) || show_help(2);
@@ -413,7 +420,7 @@ sub parse_wiki_page {
 #   the original Java implementation used to extract LSR snippets.
 #
 # Arguments:
-#   $s              The string to be manipulated.
+#   $s    The string to be manipulated.
 #
 # Return:
 #   The converted string.
@@ -515,6 +522,87 @@ sub parse_wiki_dump {
 
 
 # Function:
+#   Expand a template.
+#
+# Arguments:
+#   $template    The template.
+#   $http        The HTTP handle.
+#
+# Return:
+#   The expanded template.
+#
+sub expand_template {
+  my ($template, $http) = @_;
+
+  my $request_template =
+       "https://wiki.lilypond.community/api.php"
+       . "?format=json"
+       . "&formatversion=2"
+       . "&action=expandtemplates"
+       . "&prop=wikitext"
+       . "&text=";
+
+  my $response = $http->get($request_template
+                            . uri_escape_utf8($template));
+  if (!$response->{success}) {
+    print   "Expanding template " . $template. " failed:\n"
+          . "    $response->{status} $response->{reason}\n"
+      if $verbose;
+    die "error: Can't download data from LilyPond Wiki\n";
+  }
+
+  my $json = decode_json $response->{"content"};
+  my $expansion = $json->{"expandtemplates"}{"wikitext"};
+
+  # Ignore expansion if there is no template defined.  We only check
+  # the outermost level, assuming that nested templates are working.
+  return ($expansion =~ /^\[\[:Template:/) ? $template : $expansion;
+}
+
+
+# Function:
+#   Expand templates.
+#
+#   The `query` action of the MediaWiki API doesn't do that; we have
+#   to explicitly call the `expandtemplates` action.
+#
+# Arguments:
+#   $page    The Wiki page.
+#   $http    The HTTP handle.
+#
+# Return:
+#   The Wiki page, with all templates expanded.
+#
+sub expand_templates {
+  my ($page, $http) = @_;
+
+  # Catch all `{{...}}` (with balanced braces) outside of
+  # `<pre>...</pre>`.
+  $page =~ s/
+               (?: <pre> .*? <\/pre> )
+               (*SKIP)
+               (*FAIL)
+             |
+               \{
+               (
+                 \{
+                 (?:
+                   [^{}]++
+                 |
+                   (?1)
+                 )*
+                 \}
+               )
+               \}
+            /
+              expand_template($&, $http)
+            /xsge;
+
+  return $page;
+}
+
+
+# Function:
 #   Download JSON data from LilyPond Wiki.
 #
 sub download_wiki {
@@ -572,6 +660,9 @@ sub download_wiki {
       my %categories = map { $_->{"title"} => 1 }
                          @{$entry->{"categories"}};
       my $page = $entry->{"revisions"}[0]{"slots"}{"main"}{"content"};
+
+      $page = expand_templates($page, $http)
+                unless $preserve_templates;
 
       my $version = undef;
       my $doc = undef;
