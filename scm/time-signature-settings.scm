@@ -348,15 +348,9 @@ If there is no entry, derive a structure from @var{time-sig}."
                 (full (make-list (floor beat-count) group-size)))
             (reverse (cons part full))))))
 
-  ;; Return the numerator terms normalized to the beat base.
+  ;; Return numerator terms, which define the beat structure.
   (define (calc-subdivided-fraction-structure time-sig-fraction)
-    (let* ((num (car time-sig-fraction))
-           (den (cdr time-sig-fraction))
-           (factor (* den base)))
-      (if (zero? factor)
-          '(+inf.0) ; unexpected in this context
-          (map (lambda (f) (/ f factor))
-               (ensure-list num)))))
+    (ensure-list (car time-sig-fraction)))
 
   (if (not (finite? base))
       '() ; senza misura: scaling the structure (if any) is meaningless
