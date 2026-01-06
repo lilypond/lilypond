@@ -12,14 +12,12 @@
 
 @c Translators: Till Paala
 
-@node General input and output
-@chapter Allgemeine Eingabe und Ausgabe
+@part Allgemeine Eingabe und Ausgabe
 
-Dieses Kapitel erklärt allgemeine Fragen zur Eingabe und Ausgabe von
-Notation mit LilyPond und weniger direkte Fragen der Notation.
-
+@raisesections
 
 @node Input structure
+@anchor{General Input and output} @c retain old label
 @section Eingabestruktur
 
 Das hauptsächliche Eingabeformat von LilyPond sind Textdateien.
@@ -3449,3 +3447,5 @@ gut gemachtes @qq{proof of concept}.  Wenn Ereignisse, die Sie
 brauchen, nicht in enthalten sind, können Sie @file{event-listener.ly}
 in Ihr LilyPond-Verzeichnis kopieren und die Datei verändern,
 sodass sie die benötigte Information ausgibt.
+
+@lowersections

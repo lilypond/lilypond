@@ -12,9 +12,13 @@
 
 @c Translators: Till Paala
 
+@part Layout-Kontrolle
 
-@node Spacing issues
-@chapter Abstände
+@raisesections
+
+@node Page layout
+@anchor{Spacing issues} @c retain old label
+@section Seitenlayout
 
 Das finale Layout der Seite wird von drei Faktoren bestimmt: dem Layout
 der Seite, den Zeilenumbrüchen und der Platzverteilung.  Jeder Faktor
@@ -40,12 +44,6 @@ etwa Papierhöhe oder ob Seitenzahlen ausgegeben werden sollen.  Siehe
 @ref{Page layout}.  Die @code{\layout}-Umbegung enthält Layouteinstellungen
 der Partitur selber, wie etwa die Zahl der Systeme oder den Platz zwischen
 Systemgruppen usw.  Siehe @ref{Score layout}.
-
-
-@node Page layout
-@section Seitenlayout
-
-Dieser Abschnitt behandelt Seitenlayout-Optionen innerhalb der @code{\paper}-Umgebung.
 
 
 @node The paper block
@@ -3637,3 +3635,5 @@ Notationsreferenz:
 
 Schnipsel:
 @rlsr{Spacing}.
+
+@lowersections

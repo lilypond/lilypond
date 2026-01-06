@@ -11,11 +11,9 @@
 
 @c Translators: Till Paala
 
-@node Specialist notation
-@chapter Spezielle Notation
+@part Notation für spezielle Zwecke
 
-Dieser Abschnitt erklärt, wie Notation erstellt wird, die nur für ein
-bestimmtes Instrument oder einen Stil eingesetzt wird.
+@raisesections
 
 @include de/notation/vocal.itely
 @include de/notation/keyboards.itely
@@ -27,3 +25,5 @@ bestimmtes Instrument oder einen Stil eingesetzt wird.
 @include de/notation/contemporary.itely
 @include de/notation/ancient.itely
 @include de/notation/world.itely
+
+@lowersections

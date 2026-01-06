@@ -12,8 +12,13 @@
 
 @c Translators: Till Paala
 
-@node Changing defaults
-@chapter Standardeinstellungen verändern
+@part Feinadjustierung des Notenbildes
+
+@raisesections
+
+@node Tuning output
+@anchor{Changing defaults} @c retain old label
+@section Standardeinstellungen verändern
 
 Das Ziel von LilyPonds Design ist es, von sich aus gut gesetzte Noten
 zu produzieren.  Es kann aber trotzdem vorkommen, dass Sie diesen
@@ -3358,7 +3363,7 @@ Referenz der Interna:
 @node Aligning objects
 @subsection Objekte ausrichten
 
-Graphische Objekte, die das @code{self-alignment-interface} und/obder
+Graphische Objekte, die das @code{self-alignment-interface} und/oder
 das @code{side-position-interface} unterstützen, können an einem
 vorher gesetzten Objekt auf verschiedene Weise ausgerichtet werden.
 Eine Liste derartiger Objekte findet sich in
@@ -4117,4 +4122,4 @@ tempoPadded =
 }
 @end lilypond
 
-
+@lowersections

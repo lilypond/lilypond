@@ -41,19 +41,80 @@ Copyright @copyright{} 1999--2023 bei den Autoren.
 
 
 @menu
-* Musical notation::               Allgemeine Notation, die fast immer vorkommt.
-* Specialist notation::            Notation, die nur für spezielle Zwecke eingesetzt wird.
-* General input and output::       Allgemeine Information über die Quelldateien von LilyPond.
-* Spacing issues::                 Anzeige der Ausgabe auf dem Papier.
-* Changing defaults::              Das Notenbild verfeinern.
-@c * Schnittstellen für Programmierer::     Benutzung für Experten.
+Allgemeine Notation
+
+* Pitches::               Tonhöhen von Noten notieren und darstellen.
+* Rhythms::               Tondauern von Noten notieren und darstellen.
+* Expressive marks::      Vortragsbezeichnungen zu Noten hinzufügen.
+* Repeats::               Noten wiederholen.
+* Simultaneous notes::    Mehr als eine Note gleichzeitig.
+* Staff notation::        Notensysteme darstellen.
+* Editorial annotations:: Besondere Notation, um die Lesbarkeit zu verbessern.
+* Text::                  Text zur Partitur hinzufügen.
+
+
+Notation für spezielle Zwecke
+
+* Vocal music::           Notation von Gesang.
+* Keyboard and other multi-staff instruments::
+                          Klavier, Harfe usw.
+* Unfretted string instruments::
+                          Gitarre, Laute usw.
+* Fretted string instruments::
+                          Violine u.ä.
+* Common notation for percussion::
+                          Pauken, Schlagzeug usw.
+* Wind instruments::      Holz- und Blechblasinstrumente.
+* Chord notation::        Jazzakkorde, bezifferter Bass u.ä.
+* Contemporary music::    Notation für zeitgenössische Musik.
+* Ancient notation::      Mensuralnotation, gregorianischer Choral usw.
+* World music::           Notation für nicht-westliche Musik.
+
+
+Ein- und Ausgabe für LilyPond
+
+* Input structure::       Wie schaut eine LilyPond-Eingabedatei aus?
+* Titles and headers::    Titel, Kopfzeilen, Fußzeilen usw.
+* Working with input files::
+                          Strukturieren von Eingabedateien.
+* Controlling output::    Was kann ich wie in welchem Format ausgeben?
+* MIDI output::           Wie LilyPond MIDI-Ausgabe unterstützt.
+* Extracting musical information::
+                          Darstellung von LilyPond-Datenstrukturen.
+
+
+Layout-Kontrolle
+
+* Page layout::           Anpassung des Seitenlayouts.
+* Score layout::          Anpassung des Partiturlayouts.
+* Breaks::                Zeilen- und Seitenumbrüche.
+* Vertical spacing::      Vertikale Abstände.
+* Horizontal spacing::    Horizontale Abstände.
+* Fitting music onto fewer pages::
+                          Wie erreiche ich ein dichteres Seitenlayout?
+
+
+Feinadjustierung des Notenbildes
+
+* Tuning output::         Ein erster Überblick.
+* Interpretation contexts::
+                          Einführung in Kontexte.
+* Explaining the Internals Reference::
+                          Einführung in die Referenz der Programminterna.
+* Modifying properties::  @code{\set}, @code{\override}, @code{\tweak} usw.
+* Useful concepts and properties::
+                          Wie man Grobs und ihre Eigenschaften klassifiziert.
+* Advanced tweaks::       Mehr Adjustierung.
+* Using music functions:: Adjustierungen mittels Funktionen.
+
 
 Anhänge
 
-@c * Literatur::                Wichtige Literatur über die Notation.
-* Notation manual tables::         Tabellen und Grafiken.
-* Cheat sheet::                    Überblick über die LilyPond-Syntax.
-* GNU Free Documentation License:: Die Lizenz dieses Handbuchs.
+* Notation manual tables::
+                          Tabellen und Grafiken.
+* Cheat sheet::           Überblick über die LilyPond-Syntax.
+* GNU Free Documentation License::
+                          Die Lizenz dieses Handbuchs.
 * Index of commands and concepts::
 @end menu
 

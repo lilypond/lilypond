@@ -12,6 +12,7 @@
 @c Translators: Till Paala
 
 @node Pitches
+@anchor{Musical notation} @c retain old label
 @section Tonhöhen
 
 @lilypondfile[quote]{snippets/pitches-headword.ly}

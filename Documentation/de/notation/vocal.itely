@@ -12,6 +12,7 @@
 @c Translators: Till Paala
 
 @node Vocal music
+@anchor{Specialist notation} @c retain old label
 @section Notation von Gesang
 
 @lilypondfile[quote]{snippets/vocal-headword.ly}
