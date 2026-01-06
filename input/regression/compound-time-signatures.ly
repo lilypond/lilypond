@@ -1,7 +1,7 @@
 \version "2.19.21"
 
 \header {
-    texidoc = "Create compound time signatures. The argument is a Scheme list
+    texidoc = "Create complex time signatures. The argument is a Scheme list
 of lists. Each list describes one fraction, with the last entry being the
 denominator, while the first entries describe the summands in the
 enumerator. If the time signature consists of just one fraction,

@@ -1,7 +1,8 @@
 \version "2.19.21"
 
 \header {
-    texidoc = "Simple-fraction components of a compound time signature are numeric regardless of the time signature style.
+    texidoc = "Simple-fraction components of a complex time signature are
+numeric regardless of the time signature style.
 "
 }
 

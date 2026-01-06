@@ -2192,7 +2192,7 @@ también @code{\enablePerStaffTiming} dentro del bloque @code{\midi}.
 @end quotation
 
 
-@subsubheading Compound time signatures
+@subsubheading Complex time signatures
 
 @funindex \compoundMeter
 @cindex compuesto, indicación de compás

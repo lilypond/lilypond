@@ -5,7 +5,7 @@
 of their own anchors with respect to their own extents, the
 ``average'' anchor of the group falls at that position with respect to
 the extent of the group.  In this case, each rehearsal mark should
-point to the stated point relative to the compound time signature."
+point to the stated point relative to the complex time signature."
 }
 
 \layout {

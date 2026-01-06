@@ -559,7 +559,7 @@ class Attributes(Measure_element):
             return -1
 
         if isinstance(sig[0], list):
-            # Complex compound time signature.
+            # Complex time signature.
             l = 0
             for i in sig:
                 l += self.single_time_sig_to_fraction(i)

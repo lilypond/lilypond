@@ -75,7 +75,7 @@ notation of rhythm in contemporary music.
 @subsection References for contemporary approaches to rhythm
 
 @itemize
-@item Compound time signatures are addressed in @ref{Time signature}.
+@item Complex time signatures are addressed in @ref{Time signature}.
 
 @item Basic polymetric notation is addressed in
 @ref{Polymetric notation}.
@@ -104,7 +104,7 @@ addressed in @ref{Grouping staves}.
 @subsection Contemporary time signatures
 
 @ignore
-    Extended discussion of compound time signatures
+    Extended discussion of complex time signatures
     including Graham P.'s work; non-standard time
     signatures such as 7/10, 5/6; alternative
     notations such as Orff-esque 4/note, placing a

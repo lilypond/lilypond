@@ -542,7 +542,7 @@ a fresh copy of the list-head is made."
 
 
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-;;; Formatting of complex/compound time signatures
+;;; Formatting of complex time signatures
 
 ;; There ought to be a \join-line sep {...} command
 (define (insert-markups l m)

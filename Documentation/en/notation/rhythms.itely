@@ -2122,11 +2122,18 @@ In order to use this feature with MIDI output, also include
 @end quotation
 
 
-@subsubheading Compound time signatures
+@subsubheading Complex time signatures
 
 @funindex \compoundMeter
-@cindex compound time signature
-@cindex time signature, compound
+@cindex additive time signature
+@cindex alternating time signature
+@cindex complex time signature
+@cindex meter, additive
+@cindex meter, alternating
+@cindex meter, complex
+@cindex time signature, additive
+@cindex time signature, alternating
+@cindex time signature, complex
 
 These are created using the @code{\compoundMeter} function.  The syntax
 for this is:

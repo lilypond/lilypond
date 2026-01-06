@@ -2158,7 +2158,7 @@ qu'elle est libellée dans le bloc @code{\midi}.
 
 
 @subsubheading Métriques complexes
-@c VO Compound time signatures
+@c VO Complex time signatures
 
 @cindex métrique composite
 @cindex complexe, métrique
