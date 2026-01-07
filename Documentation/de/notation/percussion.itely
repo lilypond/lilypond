@@ -14,18 +14,18 @@
 
 @need 1500
 @node Percussion
-@section Schlagzeug
+@chapter Schlagzeug
 
 
 @node Common notation for percussion
-@subsection Übliche Notation für Schlagzeug
+@section Übliche Notation für Schlagzeug
 
 Rhythmusnotation wird vor allem für Schlaginstrumente eingesetzt,
 aber hiermit kann auch der Rhythmus einer Melodie dargestellt werden.
 
 
 @node References for percussion
-@unnumberedsubsubsec Referenz für Schlagzeug
+@subsection Referenz für Schlagzeug
 
 @itemize
 
@@ -50,7 +50,7 @@ Schnipsel:
 
 
 @node Basic percussion notation
-@unnumberedsubsubsec Grundlagen der Schlagzeugnotation
+@subsection Grundlagen der Schlagzeugnotation
 
 @cindex Perkussion
 @cindex Drums
@@ -112,7 +112,7 @@ Schnipsel:
 
 
 @node Drum rolls
-@unnumberedsubsubsec Trommelwirbel
+@subsection Trommelwirbel
 
 Trommelwirbel werden mit drei Balken durch den Notenhals notiert. Für
 Viertelnoten oder längere Noten werden die drei Balken explizit notiert,
@@ -159,7 +159,7 @@ Schnipsel:
 
 
 @node Pitched percussion
-@unnumberedsubsubsec Schlagzeug mit Tonhöhe
+@subsection Schlagzeug mit Tonhöhe
 
 Bestimmte Schlagzeuginstrumente mit Tonhöhe (z. B. Xylophone,
 vibraphone und Pauken) werden auf normalen Systemen geschrieben.  Das
@@ -178,7 +178,7 @@ Schnipsel:
 
 
 @node Percussion staves
-@unnumberedsubsubsec Schlagzeugsysteme
+@subsection Schlagzeugsysteme
 
 @cindex Perkussion
 @cindex Schlagzeug
@@ -364,7 +364,7 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 
 
 @node Custom percussion staves
-@unnumberedsubsubsec Eigene Schlagzeugsysteme
+@subsection Eigene Schlagzeugsysteme
 
 Wenn ihnen keine der vordefinierten Stile gefällt, können Sie auch eine
 eigene Liste der Positionen und Notenköpfe am Anfang ihrer Datei erstellen.
@@ -572,7 +572,7 @@ Referenz der Interna:
 
 
 @node Ghost notes
-@unnumberedsubsubsec Geisternoten
+@subsection Geisternoten
 
 Geisternoten für Schlagzeug und Perkussion können mit dem
 Klammer- (@code{\parenthesize})-Befehl, beschrieben in @ref{Parentheses},

@@ -13,7 +13,7 @@
 @c \version "2.19.21"
 
 @node World music
-@section Weltmusik
+@chapter Weltmusik
 
 Dieser Abschnitt soll Besonderheiten der Notation aufzeigen, die
 insbesondere relevant sind, um Musik nicht-westlicher Tradition
@@ -21,14 +21,14 @@ zu notieren.
 
 
 @node Common notation for non-Western music
-@subsection Übliche Notation für nichteuropäische Musik
+@section Übliche Notation für nichteuropäische Musik
 
 Dieser Abschnitt zeigt, wie man Partituren erstellt, die nicht
 der europäischen klassischen Musiktradition angehören.
 
 
 @node Extending notation and tuning systems
-@unnumberedsubsubsec Erweiterung von Notation und Stimmungssystemen
+@subsection Erweiterung von Notation und Stimmungssystemen
 
 Die klassische Standardnotation wird üblicherweise zur Notation
 verschiedenster Musikarten benutzt und ist nicht auf die @qq{klassische
@@ -85,14 +85,14 @@ Notationsreferenz:
 
 
 @node Arabic music
-@subsection Arabische Musik
+@section Arabische Musik
 
 Dieser Abschnitt zeigt Möglichkeiten, wie arabische Musik notiert
 werden kann.
 
 
 @node References for Arabic music
-@unnumberedsubsubsec Referenz für arabische Musik
+@subsection Referenz für arabische Musik
 
 @cindex arabische Musik
 @cindex Maqam
@@ -149,7 +149,7 @@ Schnipsel:
 
 
 @node Arabic note names
-@unnumberedsubsubsec Arabische Notenbezeichnungen
+@subsection Arabische Notenbezeichnungen
 
 @cindex arabische Notenbezeichnungen
 @cindex Notenbezeichnungen, arabisch
@@ -203,7 +203,7 @@ Schnipsel:
 
 
 @node Arabic key signatures
-@unnumberedsubsubsec Arabische Tonarten
+@subsection Arabische Tonarten
 
 @cindex arabische Tonarten
 @cindex arabische Vorzeichen
@@ -329,7 +329,7 @@ Schnipsel:
 
 
 @node Arabic time signatures
-@unnumberedsubsubsec Arabische Taktarten
+@subsection Arabische Taktarten
 
 @cindex Arabische Taktarten
 @cindex Taktarten, arabisch
@@ -374,7 +374,7 @@ Schnipsel:
 
 
 @node Arabic music example
-@unnumberedsubsubsec Arabische Notenbeispiele
+@subsection Arabische Notenbeispiele
 
 @cindex Beispiel der arabischen Musik
 @cindex arabische Musik, Beispiel
@@ -413,7 +413,7 @@ Schnipsel:
 
 
 @node Further reading for Arabic music
-@unnumberedsubsubsec Weitere Literatur zur arabischen Musik
+@subsection Weitere Literatur zur arabischen Musik
 
 @enumerate
 
@@ -457,14 +457,14 @@ Ibrahim Ali Darwish Al-masri
 
 
 @node Turkish classical music
-@subsection Türkische klassische Musik
+@section Türkische klassische Musik
 
 Dieser Abschnitt zeigt Probleme, die bei der Notation von klassischer
 türkischer Musik auftreten können.
 
 
 @node References for Turkish classical music
-@unnumberedsubsubsec Verweise für türkische klassische Musik
+@subsection Verweise für türkische klassische Musik
 
 @cindex Türkische Musik
 @cindex Osmanische Musik
@@ -492,7 +492,7 @@ Notenbezeichnungen und Versetzungszeichen finden sich in
 
 
 @node Turkish note names
-@unnumberedsubsubsec Türkische Notenbezeichnungen
+@subsection Türkische Notenbezeichnungen
 
 @cindex türkische Notenbezeichnungen
 @cindex makam

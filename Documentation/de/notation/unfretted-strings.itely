@@ -13,7 +13,7 @@
 @c Translators: Till Paala
 
 @node Unfretted string instruments
-@section Bundlose Saiteninstrumente
+@chapter Bundlose Saiteninstrumente
 
 @lilypondfile[quote]
 {snippets/unfretted-headword.ly}
@@ -28,7 +28,7 @@ werden können.
 
 
 @node Common notation for unfretted strings
-@subsection Übliche Notation für bundlose Saiteninstrumente
+@section Übliche Notation für bundlose Saiteninstrumente
 
 Es gibt wenige Spezifikationen für die Notation von Saiteninstrumenten ohne
 Bünde.  Die Noten werden auf einem System notiert und meistens ist auch nur
@@ -37,7 +37,7 @@ Divisi-Stellen erforderlich sein.
 
 
 @node References for unfretted strings
-@unnumberedsubsubsec Hinweise für bundlose Saiteninstrumente
+@subsection Hinweise für bundlose Saiteninstrumente
 
 Die meisten Notationseigenschaften, die für Orchesterstreicher eingesetzt
 werden, sind an anderer Stelle beschrieben:
@@ -74,7 +74,7 @@ Schnipsel:
 @rlsr{Unfretted string instruments}.
 
 @node Bowing indications
-@unnumberedsubsubsec Bezeichnung des Bogens
+@subsection Bezeichnung des Bogens
 
 @funindex \upbow
 @funindex \downbow
@@ -119,7 +119,7 @@ Notation Reference:
 
 
 @node Harmonics
-@unnumberedsubsubsec Flageolett
+@subsection Flageolett
 
 @strong{@i{Natürliches Flageolett}}
 
@@ -188,7 +188,7 @@ Notationsreferenz:
 
 
 @node Snap (Bartok) pizzicato
-@unnumberedsubsubsec Bartók-Pizzicato
+@subsection Bartók-Pizzicato
 
 @cindex Pizzicato, Bartók
 @cindex Pizzicato, Knall-

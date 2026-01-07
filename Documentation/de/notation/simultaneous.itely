@@ -12,7 +12,7 @@
 @c Translators: Till Paala
 
 @node Simultaneous notes
-@section Gleichzeitig erscheinende Noten
+@chapter Gleichzeitig erscheinende Noten
 
 @lilypondfile[quote,ragged-right,line-width=16\cm]{snippets/simultaneous-headword.ly}
 
@@ -23,14 +23,14 @@ von mehr als einer Stimme pro System.
 
 
 @node Single voice
-@subsection Eine einzelne Stimme
+@section Eine einzelne Stimme
 
 Dieser Abschnitt behandelt gleichzeitige Noten innerhalb
 derselben Stimme.
 
 
 @node Chorded notes
-@unnumberedsubsubsec Noten mit Akkorden
+@subsection Noten mit Akkorden
 
 @cindex Akkorde
 @cindex Klammern, spitze
@@ -151,7 +151,7 @@ Cluster, siehe @ref{Clusters}.
 
 
 @node Chord repetition
-@unnumberedsubsubsec Akkord-Wiederholungen
+@subsection Akkord-Wiederholungen
 
 @cindex Akkorde, Wiederholung
 @cindex Wiederholung mit @code{q}
@@ -250,7 +250,7 @@ Installierte Dateien:
 
 
 @node Simultaneous expressions
-@unnumberedsubsubsec Gleichzeitige Ausdrücke
+@subsection Gleichzeitige Ausdrücke
 
 Eine oder mehrere musikalische Ausdrücke, die in doppelte spitze
 Klammern eingeschlossen werden, werden gleichzeitig gesetzt.  Wenn
@@ -332,7 +332,7 @@ die Auflösung von Zusammenstößen ab und kann also zu unbeabsichtigten
 Resultaten führen. (Siehe auch @ref{Collision resolution}.)
 
 @node Clusters
-@unnumberedsubsubsec Cluster
+@subsection Cluster
 
 @cindex Cluster
 @cindex Notencluster
@@ -380,14 +380,14 @@ Cluster produzieren kein MIDI.
 
 
 @node Multiple voices
-@subsection Mehrere Stimmen
+@section Mehrere Stimmen
 
 Dieser Abschnitt behandelt gleichzeitige Noten in mehreren Stimmen
 oder mehreren Systemen.
 
 
 @node Single-staff polyphony
-@unnumberedsubsubsec Mehrstimmigkeit in einem System
+@subsection Mehrstimmigkeit in einem System
 
 @cindex Mehrstimmigkeit, ein System
 @cindex ein System, Mehrstimmigkeit
@@ -606,7 +606,7 @@ Schnipsel:
 
 
 @node Voice styles
-@unnumberedsubsubsec Stimmenstile
+@subsection Stimmenstile
 
 @cindex Voice-Stile
 @cindex Stile, Stimmen
@@ -657,7 +657,7 @@ Schnipsel:
 
 
 @node Collision resolution
-@unnumberedsubsubsec Auflösung von Zusammenstößen
+@subsection Auflösung von Zusammenstößen
 
 @cindex Noten verschmelzen
 @cindex Verschmelzen von Noten
@@ -902,7 +902,7 @@ are at the same time differently dotted are not clear.
 
 
 @node Automatic part combining
-@unnumberedsubsubsec Automatische Kombination von Stimmen
+@subsection Automatische Kombination von Stimmen
 
 @cindex automatische Kombination von Stimmen
 @cindex Stimmen kombinieren
@@ -1115,7 +1115,7 @@ wenn Sie @code{\partCombine} in Tabulaturen benutzen
 (siehe @ref{Default tablatures}).
 
 @node Writing music in parallel
-@unnumberedsubsubsec Musik parallel notieren
+@subsection Musik parallel notieren
 
 @cindex Parallele Notation, Eingabe
 @cindex Eingabe von Noten parallel

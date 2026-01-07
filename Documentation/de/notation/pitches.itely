@@ -13,7 +13,7 @@
 
 @node Pitches
 @anchor{Musical notation} @c retain old label
-@section Tonhöhen
+@chapter Tonhöhen
 
 @lilypondfile[quote]{snippets/pitches-headword.ly}
 
@@ -22,7 +22,7 @@ Es gibt drei Stufen in diesem Prozess: Eingabe, Veränderung und Ausgabe.
 
 
 @node Writing pitches
-@subsection Tonhöhen setzen
+@section Tonhöhen setzen
 
 Dieser Abschnitt zeigt, wie man Tonhöhen notiert.  Es gibt
 zwei verschiedene Möglichkeiten, Noten in bestimmten
@@ -32,7 +32,7 @@ Modus besser.
 
 
 @node Absolute octave entry
-@unnumberedsubsubsec Absolute Oktavenbezeichnung
+@subsection Absolute Oktavenbezeichnung
 
 @cindex Tonhöhenbezeichnungen
 @cindex Absoluter Modus: Tonhöhen
@@ -94,7 +94,7 @@ Schnipsel:
 
 
 @node Relative octave entry
-@unnumberedsubsubsec Relative Oktavenbezeichnung
+@subsection Relative Oktavenbezeichnung
 
 @cindex Relativ
 @cindex Relative Oktavbestimmung
@@ -293,7 +293,7 @@ Darum wird von der Benutzung abgeraten.
 
 
 @node Accidentals
-@unnumberedsubsubsec Versetzungszeichen
+@subsection Versetzungszeichen
 
 @cindex Versetzungszeichen
 @cindex Tonart
@@ -450,7 +450,7 @@ keinem Standard.
 
 
 @node Note names in other languages
-@unnumberedsubsubsec Notenbezeichnungen in anderen Sprachen
+@subsection Notenbezeichnungen in anderen Sprachen
 
 @cindex Notenbezeichungen, andere Sprachen
 @cindex Tonhöhenbezeichnungen, andere Sprachen
@@ -621,13 +621,13 @@ Schnipsel:
 
 
 @node Changing multiple pitches
-@subsection Viele Tonhöhen gleichzeitig verändern
+@section Viele Tonhöhen gleichzeitig verändern
 
 Dieser Abschnitt zeigt, wie man Tonhöhen beeinflusst.
 
 
 @node Octave checks
-@unnumberedsubsubsec Oktavenüberprüfung
+@subsection Oktavenüberprüfung
 
 @cindex Oktavenüberprüfung
 @cindex Oktavierungskorrektur
@@ -704,7 +704,7 @@ Referenz der Interna:
 
 
 @node Transpose
-@unnumberedsubsubsec Transponieren
+@subsection Transponieren
 
 @cindex Transposition
 @cindex Transponieren
@@ -851,7 +851,7 @@ Des anstelle von e-dreifach-b).
 
 
 @node Inversion
-@unnumberedsubsubsec Umkehrung
+@subsection Umkehrung
 
 @cindex Umkehrung
 @cindex Melodietransformation, Umkehrung
@@ -890,7 +890,7 @@ Notationsreferenz:
 
 
 @node Retrograde
-@unnumberedsubsubsec Krebs
+@subsection Krebs
 
 @cindex Krebs
 @cindex Melodietransformation, Krebs
@@ -923,7 +923,7 @@ Notationsreferenz:
 
 
 @node Modal transformations
-@unnumberedsubsubsec Modale Transformierungen
+@subsection Modale Transformierungen
 
 @cindex modale Transformationen
 @cindex Transformationen, modal
@@ -938,7 +938,7 @@ also rückwärts erscheinen, siehe @ref{Retrograde}.
 @warning{Alle Noten, die nicht zu der vorgegebenen Skala gehören, werden
 nicht transformiert.}
 
-@subsubheading Modale Transposition
+@subheading Modale Transposition
 
 @cindex modale Transposition
 @cindex Transposition, modal
@@ -996,7 +996,7 @@ motif = \relative { c'8 d e f g a b c }
 @end lilypond
 
 
-@subsubheading Modale Umkehrung
+@subheading Modale Umkehrung
 
 @cindex modale Umkehrung
 @cindex Umkehrung, modal
@@ -1067,14 +1067,14 @@ Notationsreferenz:
 
 
 @node Displaying pitches
-@subsection Tonhöhen anzeigen lassen
+@section Tonhöhen anzeigen lassen
 
 Dieser Abschnitt zeigt, wie die Ausgabe von Tonhöhen
 verändern werden kann.
 
 
 @node Clef
-@unnumberedsubsubsec Notenschlüssel
+@subsection Notenschlüssel
 
 @cindex G-Schlüssel
 @cindex C-Schlüssel
@@ -1204,7 +1204,7 @@ Referenz der Interna:
 
 
 @node Key signature
-@unnumberedsubsubsec Tonartbezeichnung
+@subsection Tonartbezeichnung
 
 @cindex Tonart
 @cindex Vorzeichen
@@ -1314,7 +1314,7 @@ Referenz der Interna:
 
 
 @node Ottava brackets
-@unnumberedsubsubsec Oktavierungsklammern
+@subsection Oktavierungsklammern
 
 @cindex ottava
 @cindex 15ma
@@ -1364,7 +1364,7 @@ Referenz der Interna:
 
 
 @node Instrument transpositions
-@unnumberedsubsubsec Transposition von Instrumenten
+@subsection Transposition von Instrumenten
 
 @cindex Transposition, MIDI
 @cindex Transposition, Instrumente
@@ -1465,7 +1465,7 @@ Schnipsel:
 
 
 @node Automatic accidentals
-@unnumberedsubsubsec Automatische Versetzungszeichen
+@subsection Automatische Versetzungszeichen
 
 @cindex Akzidentien
 @cindex Versetzungszeichen, Standard
@@ -2646,7 +2646,7 @@ forget = #(define-music-function (music) (ly:music?) #{
 
 
 @node Ambitus
-@unnumberedsubsubsec Tonumfang
+@subsection Tonumfang
 
 @cindex Ambitus
 @cindex Stimmumfang
@@ -2714,13 +2714,13 @@ Es gibt keine Kollisionskontrolle bei mehreren Ambitus in einem System.
 
 
 @node Note heads
-@subsection Notenköpfe
+@section Notenköpfe
 
 Dieser Abschnitt zeigt, wie man Notenköpfe ändern kann.
 
 
 @node Special note heads
-@unnumberedsubsubsec Besondere Notenköpfe
+@subsection Besondere Notenköpfe
 
 @cindex Notenköpfe, besondere
 @cindex besondere Notenköpfe
@@ -2824,7 +2824,7 @@ Referenz der Interna:
 
 
 @node Easy notation note heads
-@unnumberedsubsubsec Easy-Notation-Notenköpfe
+@subsection Easy-Notation-Notenköpfe
 
 @cindex Notenköpfe, Übung
 @cindex Notenköpfe zum Lernen
@@ -2882,7 +2882,7 @@ Referenz der Interna:
 
 
 @node Shape note heads
-@unnumberedsubsubsec Notenköpfe mit besonderen Formen
+@subsection Notenköpfe mit besonderen Formen
 
 @cindex Notenköpfe, Formen
 @cindex Notation, Aiken
@@ -2994,7 +2994,7 @@ Referenz der Interna:
 
 
 @node Improvisation
-@unnumberedsubsubsec Improvisation
+@subsection Improvisation
 
 @cindex Improvisation
 @cindex schräge Notenköpfe

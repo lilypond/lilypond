@@ -12,7 +12,7 @@
 @c Translators: Till Paala
 
 @node Editorial annotations
-@section Anmerkungen
+@chapter Anmerkungen
 
 @lilypondfile[quote]{snippets/editorial-headword.ly}
 
@@ -22,14 +22,14 @@ Anmerkungen anzubringen.
 
 
 @node Inside the staff
-@subsection Innerhalb des Systems
+@section Innerhalb des Systems
 
 Dieser Abschnitt zeigt, wie man Elemente hervorhebt, die sich
 innerhalb des Notensystems befinden.
 
 
 @node Selecting notation font size
-@unnumberedsubsubsec Auswahl der Notations-Schriftgröße
+@subsection Auswahl der Notations-Schriftgröße
 
 @cindex Font, Größe ändern für Notation
 @cindex Schriftgröße (Notation) ändern
@@ -129,7 +129,7 @@ Referenz der Interna:
 
 
 @node Fingering instructions
-@unnumberedsubsubsec Fingersatzanweisungen
+@subsection Fingersatzanweisungen
 
 @cindex Fingersatz
 @cindex Fingerwechsel
@@ -208,7 +208,7 @@ Schreibweise @code{@var{Note}-@var{Zahl}} einsetzt.
 
 
 @node Hidden notes
-@unnumberedsubsubsec Unsichtbare Noten
+@subsection Unsichtbare Noten
 
 @cindex Noten verstecken
 @cindex Verstecken von Noten
@@ -274,7 +274,7 @@ Referenz der Interna:
 
 
 @node Coloring objects
-@unnumberedsubsubsec Farbige Objekte
+@subsection Farbige Objekte
 
 @cindex Objekte, farbig
 @cindex Farbe
@@ -383,7 +383,7 @@ dazu muss @code{\tweak} benutzt werden. Siehe auch @ref{The tweak command}.
 
 
 @node Parentheses
-@unnumberedsubsubsec Klammern
+@subsection Klammern
 
 @cindex Geisternoten
 @cindex Noten in Klammern
@@ -432,7 +432,7 @@ gesetzt, anstatt den gesamten Akkord in eine große Klammer zu fassen.
 
 
 @node Stems
-@unnumberedsubsubsec Hälse
+@subsection Hälse
 
 @cindex Hals
 @cindex Hals, unsichtbar
@@ -489,14 +489,14 @@ Referenz der Interna:
 
 
 @node Outside the staff
-@subsection Außerhalb des Notensystems
+@section Außerhalb des Notensystems
 
 Dieser Abschnitt zeigt, wie man Elemente im System von
 außerhalb des Systems hervorhebt.
 
 
 @node Balloon help
-@unnumberedsubsubsec Erklärungen in Ballonform
+@subsection Erklärungen in Ballonform
 
 @cindex Ballon
 @cindex Blase
@@ -571,7 +571,7 @@ Referenz der Interna:
 
 
 @node Grid lines
-@unnumberedsubsubsec Gitternetzlinien
+@subsection Gitternetzlinien
 
 @cindex Gitterlinien
 @cindex Linien, Gitter
@@ -640,7 +640,7 @@ Referenz der Interna:
 
 
 @node Analysis brackets
-@unnumberedsubsubsec Analyseklammern
+@subsection Analyseklammern
 
 @cindex Klammern
 @cindex Phrasierungsklammern

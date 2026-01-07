@@ -13,7 +13,7 @@
 @c Translators: Till Paala
 
 @node Text
-@section Text
+@chapter Text
 
 @lilypondfile[quote]{snippets/text-headword.ly}
 
@@ -26,7 +26,7 @@ in anderen Abschnitten: @ref{Vocal music}, @ref{Titles and headers}.
 
 
 @node Writing text
-@subsection Text eingeben
+@section Text eingeben
 
 Dieser Abschnitt zeigt verschiedene Arten, wie Text in die Partitur
 eingefügt werden kann.
@@ -41,7 +41,7 @@ siehe @ref{Text encoding}.}
 
 
 @node Text scripts
-@unnumberedsubsubsec Textarten
+@subsection Textarten
 
 @cindex Textarten
 @cindex Textelemente, nicht leer
@@ -134,7 +134,7 @@ schreiben Sie in Ihre Datei:
 
 
 @node Text spanners
-@unnumberedsubsubsec Text mit Verbindungslinien
+@subsection Text mit Verbindungslinien
 
 @cindex Textstrecker
 @cindex Strecker, Text
@@ -210,7 +210,7 @@ Referenz der Interna:
 
 
 @node Text marks
-@unnumberedsubsubsec Textartige Zeichen
+@subsection Textartige Zeichen
 
 @cindex Textzeichen
 @cindex textartige Zeichen
@@ -312,7 +312,7 @@ ausgegeben.
 
 
 @node Separate text
-@unnumberedsubsubsec Separater Text
+@subsection Separater Text
 
 @cindex separater Text
 @cindex Text alleine
@@ -387,7 +387,7 @@ Referenz der Interna:
 
 
 @node Formatting text
-@subsection Text formatieren
+@section Text formatieren
 
 Dieser Abschnitt zeigt grundlegende und fortgeschrittene
 Formatierung von Text, wobei der Textbeschriftungsmodus
@@ -395,7 +395,7 @@ Formatierung von Text, wobei der Textbeschriftungsmodus
 
 
 @node Text markup introduction
-@unnumberedsubsubsec Textbeschriftung (Einleitung)
+@subsection Textbeschriftung (Einleitung)
 
 @cindex markup
 @cindex Textbeschriftung
@@ -510,7 +510,7 @@ Syntaxfehler im Textbeschriftungsmodus können sehr verwirrend sein.
 
 
 @node Selecting font and font size
-@unnumberedsubsubsec Überblick über die wichtigsten Textbeschriftungsbefehle
+@subsection Überblick über die wichtigsten Textbeschriftungsbefehle
 
 @cindex Schriftschnitt verändern
 @cindex Schriftart verändern
@@ -718,7 +718,7 @@ verglichen mit @code{\fontsize}.
 
 
 @node Text alignment
-@unnumberedsubsubsec Textausrichtung
+@subsection Textausrichtung
 
 @cindex Text, Ausrichtung
 @cindex Ausrichtung von Text
@@ -981,7 +981,7 @@ Referenz der Interna:
 
 
 @node Graphic notation inside markup
-@unnumberedsubsubsec Graphische Notation innerhalb einer Textbeschriftung
+@subsection Graphische Notation innerhalb einer Textbeschriftung
 
 @cindex Graphik, eingebunden
 @cindex Illustrationen im Text
@@ -1167,7 +1167,7 @@ Referenz der Interna:
 
 
 @node Music notation inside markup
-@unnumberedsubsubsec Musikalische Notation innerhalb einer Textbeschriftung
+@subsection Musikalische Notation innerhalb einer Textbeschriftung
 
 @cindex Notationsobjekte, Einfügen
 @cindex Einfügen von Notationsobjekten
@@ -1312,7 +1312,7 @@ Referenz der Interna:
 
 
 @node Multi-page markup
-@unnumberedsubsubsec Textbeschriftung über mehrere Seiten
+@subsection Textbeschriftung über mehrere Seiten
 
 @cindex Textbeschriftung über mehrere Seiten
 @cindex Beschriftung über mehrere Seiten
@@ -1379,14 +1379,14 @@ Referenz der Interna:
 
 
 @node Fonts
-@subsection Schriftarten
+@section Schriftarten
 
 Dieser Abschnitt zeigt, wie Schriftarten eingesetzt werden können und
 wie man sie in Partituren ändern kann.
 
 
 @node Fonts explained
-@unnumberedsubsubsec Was sind Schriftarten
+@subsection Was sind Schriftarten
 
 @cindex Pango
 @cindex Schriftarten, Hintergrundinformation
@@ -1505,7 +1505,7 @@ Notationsreferenz:
 
 
 @node Single entry fonts
-@unnumberedsubsubsec Schriftarten für einen Eintrag
+@subsection Schriftarten für einen Eintrag
 
 Jede Schriftart, die über das Betriebssystem installiert ist und von
 FontConfig erkannt wird, kann in einer Partitur eingefügt werden.  Dazu
@@ -1547,7 +1547,7 @@ Schnipsel:
 
 
 @node Entire document fonts
-@unnumberedsubsubsec Schriftart des gesamten Dokuments
+@subsection Schriftart des gesamten Dokuments
 
 Es ist auch möglich, die Schriftarten für die gesamte Partitur zu ändern.
 In diesem Fall müssen die Familien @code{roman},

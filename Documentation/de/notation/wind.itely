@@ -13,7 +13,7 @@
 @c Translators: Till Paala
 
 @node Wind instruments
-@section Blasinstrumente
+@chapter Blasinstrumente
 
 @lilypondfile[quote]{snippets/wind-headword.ly}
 
@@ -22,14 +22,14 @@ bei der Notation von Blasinstrumenten auftreten.
 
 
 @node Common notation for wind instruments
-@subsection Übliche Notation für Bläser
+@section Übliche Notation für Bläser
 
 Dieser Abschnitt erklärt Notation, die für die meisten
 Blasinstrumente gültig sind.
 
 
 @node References for wind instruments
-@unnumberedsubsubsec Referenz für Blasinstrumente
+@subsection Referenz für Blasinstrumente
 
 @cindex Blasinstrumente
 
@@ -112,7 +112,7 @@ Schnipsel:
 
 
 @node Fingerings
-@unnumberedsubsubsec Fingersatz
+@subsection Fingersatz
 
 Alle Blasinstrumente außer der Posaune benötigen mehrere Finger, um
 verschiedene Tonhöhen zu produzieren.  Einige Fingersatzbeispiele
@@ -139,13 +139,13 @@ Snippets:
 
 
 @node Bagpipes
-@subsection Dudelsack
+@section Dudelsack
 
 Dieser Abschnitt beinhaltet die Notation von Dudelsackmusik.
 
 
 @node Bagpipe definitions
-@unnumberedsubsubsec Dudelsack-Definitionen
+@subsection Dudelsack-Definitionen
 
 @cindex Dudelsack
 @cindex Sackpfeife
@@ -202,7 +202,7 @@ Schnipsel:
 
 
 @node Bagpipe example
-@unnumberedsubsubsec Dudelsack-Beispiele
+@subsection Dudelsack-Beispiele
 
 So sieht die bekannte Melodie Amazing Grace aus, wenn man sie für
 Dudelsack notiert.
@@ -250,13 +250,13 @@ Schnipsel:
 
 
 @node Woodwinds
-@subsection Holzbläser
+@section Holzbläser
 
 Dieser Abschnitt zeigt Notation, die spezifisch für Holzbläser ist.
 
 
 @node Woodwind diagrams
-@subsubsection Holzbläserdiagramme
+@subsection Holzbläserdiagramme
 
 Holzbläserdiagramme können benutzt werden, um die Griffe für eine bestimmte
 Note darzustellen.  Diagramme gibt es für folgende Instrumente:

@@ -13,7 +13,7 @@
 @c Translators: Till Paala
 
 @node Ancient notation
-@section Notation von alter Musik
+@chapter Notation von alter Musik
 
 @lilypondfile[quote]{snippets/ancient-headword.ly}
 
@@ -77,7 +77,7 @@ Notationsreferenz:
 
 @c {{{1 Overview of the supported styles
 @node Overview of the supported styles
-@subsection Überblick über die unterstützten Stile
+@section Überblick über die unterstützten Stile
 
 Drei Stile sind vorhanden, um den gregorianischen Choral zu
 setzen:
@@ -171,12 +171,12 @@ Glossary:
 @c {{{1 Ancient notation, general
 @need 1500
 @node Ancient notation - common features
-@subsection Alte Notation -- Allgemeines
+@section Alte Notation -- Allgemeines
 
 
 @c {{{2 Pre-defined contexts
 @node Pre-defined contexts
-@unnumberedsubsubsec Vordefinierte Umgebungen
+@subsection Vordefinierte Umgebungen
 
 Für den gregorianischen Choral und die Mensuralnotation gibt
 es vordefinierte Stimm- und Systemkontexte, die all die
@@ -205,7 +205,7 @@ Notationsreferenz:
 
 @c {{{2 Ligatures
 @node Ligatures
-@unnumberedsubsubsec Ligaturen
+@subsection Ligaturen
 
 @cindex Ligaturen
 
@@ -262,7 +262,7 @@ in den Postfix-Stil (@code{Note\[ ... Note\]}).
 
 @c {{{2 Custodes
 @node Custodes
-@unnumberedsubsubsec Custodes
+@subsection Custodes
 
 @cindex Custodes
 @cindex Custos
@@ -339,7 +339,7 @@ Referenz der Interna:
 
 @c {{{2 Figured bass support
 @node Figured bass support
-@unnumberedsubsubsec Unterstützung für Generalbass
+@subsection Unterstützung für Generalbass
 
 Es gibt beschränkte Unterstützung für Generalbassziffern aus der
 Barockzeit.  Siehe hierzu @ref{Figured bass}.
@@ -357,12 +357,12 @@ Notationsreferenz:
 @c {{{1 Typesetting mensural music
 @need 1500
 @node Typesetting mensural music
-@subsection Mensurale Musik setzen
+@section Mensurale Musik setzen
 
 
 @c {{{2Mensural contexts
 @node Mensural contexts
-@unnumberedsubsubsec Mensural-Kontexte
+@subsection Mensural-Kontexte
 
 @cindex MensuralVoice
 @cindex MensuralStaff
@@ -405,7 +405,7 @@ Glossar:
 
 @c {{{2 Mensural clefs
 @node Mensural clefs
-@unnumberedsubsubsec Mensurale Schlüssel
+@subsection Mensurale Schlüssel
 
 @cindex Schlüssel, Mensuralnotation
 
@@ -529,7 +529,7 @@ Der mensurale G-Schlüssel ist als Petrucci-G-Schlüssel deklariert.
 
 @c {{{2Mensural time signatures
 @node Mensural time signatures
-@unnumberedsubsubsec Mensurale Taktartenbezeichnungen
+@subsection Mensurale Taktartenbezeichnungen
 
 @cindex Taktart, Mensuralnotation
 @cindex Mensur
@@ -647,7 +647,7 @@ werden.
 
 @c {{{2Mensural note heads
 @node Mensural note heads
-@unnumberedsubsubsec Mensurale Notenköpfe
+@subsection Mensurale Notenköpfe
 
 @cindex Notenköpfe, Mensuralnotation
 
@@ -715,7 +715,7 @@ Notationsreferenz:
 
 @c {{{2Mensural flags
 @node Mensural flags
-@unnumberedsubsubsec Mensurale Fähnchen
+@subsection Mensurale Fähnchen
 
 @cindex Fähnchen, Mensuralnotation
 
@@ -757,7 +757,7 @@ eingesetzt werden.
 
 @c {{{2Mensural rests
 @node Mensural rests
-@unnumberedsubsubsec Mensurale Pausen
+@subsection Mensurale Pausen
 
 @cindex Pausen, Mensuralnotation
 
@@ -807,7 +807,7 @@ einsetzt.
 
 @c {{{2Mensural accidentals and key signatures
 @node Mensural accidentals and key signatures
-@unnumberedsubsubsec Mensurale Versetzungszeichen und Tonartbezeichnung
+@subsection Mensurale Versetzungszeichen und Tonartbezeichnung
 
 @cindex Versetzungszeichen, Mensuralnotation
 @cindex Vorzeichen, Mensuralnotation
@@ -857,7 +857,7 @@ Referenz der Interna:
 
 @c {{{2 Annotational accidentals (musica ficta)
 @node Annotational accidentals (musica ficta)
-@unnumberedsubsubsec Vorgeschlagene Versetzungszeichen (@emph{musica ficta})
+@subsection Vorgeschlagene Versetzungszeichen (@emph{musica ficta})
 
 In der europäischen Notation bis etwa 1600 wurde von Sängern erwartet,
 dass sie eigenständig Noten nach bestimmten Regeln chromatisch veränderten.
@@ -905,7 +905,7 @@ Referenz der Interna:
 
 @c {{{2White mensural ligatures
 @node White mensural ligatures
-@unnumberedsubsubsec Weiße Mensuralligaturen
+@subsection Weiße Mensuralligaturen
 
 @cindex Mensuralligaturen
 @cindex Weiße Mensuralligaturen
@@ -1019,7 +1019,7 @@ Versetzungszeichen können mit vorhergehenden Noten kollidieren.
 
 @c {{{1 Typesetting Gregorian chant
 @node Typesetting Gregorian chant
-@subsection Gregorianischen Choral setzen
+@section Gregorianischen Choral setzen
 
 Wenn ein gregorianischer Choral notiert wird, wählt der
 @code{Vaticana_ligature_engraver} automatisch die richtigen
@@ -1040,7 +1040,7 @@ Notationreferenz:
 
 @c {{{2Gregorian chant contexts
 @node Gregorian chant contexts
-@unnumberedsubsubsec Gregorianische Gesangs-Kontexte
+@subsection Gregorianische Gesangs-Kontexte
 
 @cindex VaticanaVoice
 @cindex VaticanaStaff
@@ -1084,7 +1084,7 @@ begonnen werden kann. Siehe das folgende Beispiel:
 
 @c {{{2 Gregorian clefs
 @node Gregorian clefs
-@unnumberedsubsubsec Gregorianische Schlüssel
+@subsection Gregorianische Schlüssel
 
 @cindex Schlüssel, greg. Choral
 
@@ -1225,7 +1225,7 @@ Notationsreferenz:
 
 @c {{{2 Gregorian accidentals and key signatures
 @node Gregorian accidentals and key signatures
-@unnumberedsubsubsec Gregorianische Versetzungszeichen und Tonartbezeichnung
+@subsection Gregorianische Versetzungszeichen und Tonartbezeichnung
 
 @cindex Vorzeichen, greg. Choral
 @cindex Versetzungszeichen, greg. Choral
@@ -1287,7 +1287,7 @@ Referenz der Interna:
 
 @c {{{2Divisiones
 @node Divisiones
-@unnumberedsubsubsec Divisiones
+@subsection Divisiones
 
 @cindex divisio
 @cindex divisiones
@@ -1372,7 +1372,7 @@ Referenz der Interna:
 
 @c {{{2Gregorian articulations
 @node Gregorian articulation signs
-@unnumberedsubsubsec Artikulationszeichen des Gregorianischen Chorals
+@subsection Artikulationszeichen des Gregorianischen Chorals
 
 @cindex Artikulationszeichen, greg. Choral
 
@@ -1423,7 +1423,7 @@ entsprechenden Notenköpfen gesetzt.
 
 @c {{{2Augmentum dots (@emph{morae})
 @node Augmentum dots (morae)
-@unnumberedsubsubsec Augmentationspunkte (@emph{morae})
+@subsection Augmentationspunkte (@emph{morae})
 
 Verlängerungspunkte, auch als @emph{morae} bezeichnet, werden
 mit der Musikfunktion @code{\augmentum} hinzugefügt.  Es
@@ -1459,7 +1459,7 @@ Schnipsel:
 
 @c {{{2Gregorian square neumes ligatures
 @node Gregorian square neume ligatures
-@unnumberedsubsubsec Ligaturen der gregorianischen Quadratnotation
+@subsection Ligaturen der gregorianischen Quadratnotation
 
 @cindex Quadratische Neumenligaturen
 @cindex Gregorianische quadratische Neumenligaturen
@@ -2439,11 +2439,11 @@ Präfixen in arbiträrer Reihenfolge notiert werden kann.
 
 @need 1500
 @node Typesetting Kievan square notation
-@subsection Kiever Quadratnotation setzen
+@section Kiever Quadratnotation setzen
 
 
 @node Kievan contexts
-@unnumberedsubsubsec Kiever Kontexte
+@subsection Kiever Kontexte
 
 @funindex KievanVoice
 @funindex KievanStaff
@@ -2488,7 +2488,7 @@ Notation setzen, mit denen in Galizien rusinischer Choral notiert
 worden ist.
 
 @node Kievan clefs
-@unnumberedsubsubsec Kiever Schlüssel
+@subsection Kiever Schlüssel
 
 @cindex Schlüssel, Kiever Notation
 
@@ -2510,7 +2510,7 @@ Notationsreferenz:
 @ref{Clef}.
 
 @node Kievan note heads
-@unnumberedsubsubsec Kiever Notenköpfe
+@subsection Kiever Notenköpfe
 
 @cindex Notenköpfe, Kiever Notation
 
@@ -2550,7 +2550,7 @@ indem man die @code{direction}-Eigenschaft des @code{Stem}-Objekts
 setzt.
 
 @node Kievan accidentals
-@unnumberedsubsubsec Kiever Versetzungszeichen
+@subsection Kiever Versetzungszeichen
 
 @cindex Versetzungszeichen, Kiever Notation
 
@@ -2580,7 +2580,7 @@ Notationsreferenz:
 @ref{The Emmentaler font}.
 
 @node Kievan bar line
-@unnumberedsubsubsec Kiever Taktstriche
+@subsection Kiever Taktstriche
 
 Eine dekorative Figur wird üblicherweise am Ende von eines
 Musikstückes der Kiever Notation gesetzt, was man als Kiever
@@ -2598,7 +2598,7 @@ Schlussstrich bezeichnen kann.  Es wird gesetzt mit @code{\bar "k"}.
 
 @c Working with ancient music: scenarios and solutions::  {{{1
 @node Working with ancient music - scenarios and solutions
-@subsection Musiksatz Alter Musik in der Praxis -- Szenarien und Lösungen
+@section Musiksatz Alter Musik in der Praxis -- Szenarien und Lösungen
 
 Wenn man mit Alter Notation zu tun hat, fallen oft Aufgaben
 an, die in der modernen Notation nicht vorkommen, für welche
@@ -2622,7 +2622,7 @@ moderne Edition aus der selben Quelle erstellt.
 
 @c {{{2Incipits
 @node Incipits
-@unnumberedsubsubsec Incipite
+@subsection Incipite
 
 @c TODO Add text
 @c clefs, mensuration signs etc from lsr and -user
@@ -2633,7 +2633,7 @@ In Arbeit.
 
 @c {{{2Mensurstriche layout
 @node Mensurstriche layout
-@unnumberedsubsubsec Mensurstriche
+@subsection Mensurstriche
 
 
 Als @emph{Mensurstriche} wird ein Notenlayout bezeichnet,
@@ -2657,7 +2657,7 @@ rhythmisch orientieren kann.
 
 @c {{{2Transcribing Gregorian chant
 @node Transcribing Gregorian chant
-@unnumberedsubsubsec Gregorianischen Choral transkribieren
+@subsection Gregorianischen Choral transkribieren
 
 Gregorianischer Choral kann mit einigen einfachen Einstellungen
 in moderner Notation notiert werden.
@@ -2839,7 +2839,7 @@ spirLyr = \lyricmode {
 
 @c {{{2Ancient and modern from one source
 @node Ancient and modern from one source
-@unnumberedsubsubsec Alte und moderne Edition aus einer Quelldatei
+@subsection Alte und moderne Edition aus einer Quelldatei
 
 @c TODO Add text
 @c Here among others the snippets about reducing note length

@@ -12,7 +12,7 @@
 @c Translators: Till Paala
 
 @node Expressive marks
-@section Ausdrucksbezeichnungen
+@chapter Ausdrucksbezeichnungen
 
 @lilypondfile[quote]{snippets/expressive-headword.ly}
 
@@ -21,7 +21,7 @@ die zur Partitur hinzugefügt werden können.
 
 
 @node Expressive marks attached to notes
-@subsection Ausdrucksbezeichnungen an Noten angehängt
+@section Ausdrucksbezeichnungen an Noten angehängt
 
 Dieser Abschnitt erklärt, wie man Ausdrucksbezeichnungen erstellt,
 die an Noten gebunden sind: Artikulationszeichen, Ornamente und
@@ -30,7 +30,7 @@ Ausdrucksbezeichnungen zu erstellen.
 
 
 @node Articulations and ornamentations
-@unnumberedsubsubsec Artikulationszeichen und Verzierungen
+@subsection Artikulationszeichen und Verzierungen
 
 @cindex Artikulationszeichen
 @cindex Beschriftung
@@ -212,7 +212,7 @@ Referenz der Interna:
 
 
 @node Dynamics
-@unnumberedsubsubsec Dynamik
+@subsection Dynamik
 
 @cindex Lautstärke
 @cindex Dynamik
@@ -474,7 +474,7 @@ Referenz der Interna:
 
 
 @node New dynamic marks
-@unnumberedsubsubsec Neue Lautstärkezeichen
+@subsection Neue Lautstärkezeichen
 
 @cindex neue Dynamikzeichen
 @cindex eigene Dynamikzeichen
@@ -593,7 +593,7 @@ Schnipsel:
 
 
 @node Expressive marks as curves
-@subsection Ausdrucksbezeichnungen als Bögen
+@section Ausdrucksbezeichnungen als Bögen
 
 Dieser Abschnitt erklärt, wie man verschiedene gebogene
 Ausdrucksbezeichnungen erstellt: Legato- und Phrasierungsbögen,
@@ -601,7 +601,7 @@ Atemzeichen und Glissandos zu unbestimmten Tonhöhen.
 
 
 @node Slurs
-@unnumberedsubsubsec Legatobögen
+@subsection Legatobögen
 
 @cindex Legatobögen
 
@@ -757,7 +757,7 @@ Referenz der Interna:
 
 
 @node Phrasing slurs
-@unnumberedsubsubsec Phrasierungsbögen
+@subsection Phrasierungsbögen
 
 @cindex Phrasierungsbögen
 @cindex Phrasierungszeichen
@@ -896,7 +896,7 @@ Referenz der Interna:
 
 
 @node Breath marks
-@unnumberedsubsubsec Atemzeichen
+@subsection Atemzeichen
 
 @cindex Atemzeichen
 @cindex Pausenzeichen
@@ -948,7 +948,7 @@ Referenz der Interna:
 
 
 @node Falls and doits
-@unnumberedsubsubsec Glissando zu unbestimmter Tonhöhe
+@subsection Glissando zu unbestimmter Tonhöhe
 
 @cindex falls
 @cindex doits
@@ -991,7 +991,7 @@ Schnipsel:
 
 
 @node Expressive marks as lines
-@subsection Ausdrucksbezeichnungen als Linien
+@section Ausdrucksbezeichnungen als Linien
 
 Dieser Abschnitt zeigt, wie man verschiedene Ausdrucksbezeichnungen
 erstellt, die sich linear erstrecken: Glissando, Arpeggio und
@@ -999,7 +999,7 @@ Triller.
 
 
 @node Glissando
-@unnumberedsubsubsec Glissando
+@subsection Glissando
 
 @cindex Glissando
 @funindex \glissando
@@ -1042,7 +1042,7 @@ supported.
 
 
 @node Arpeggio
-@unnumberedsubsubsec Arpeggio
+@subsection Arpeggio
 
 @cindex Arpeggio
 @cindex Gebrochene Akkorde
@@ -1165,7 +1165,7 @@ mehrere Notensysteme.
 
 
 @node Trills
-@unnumberedsubsubsec Triller
+@subsection Triller
 
 @cindex Triller
 

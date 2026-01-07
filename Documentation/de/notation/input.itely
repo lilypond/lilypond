@@ -14,11 +14,9 @@
 
 @part Allgemeine Eingabe und Ausgabe
 
-@raisesections
-
 @node Input structure
 @anchor{General Input and output} @c retain old label
-@section Eingabestruktur
+@chapter Eingabestruktur
 
 Das hauptsächliche Eingabeformat von LilyPond sind Textdateien.
 Üblicherweise werden diese Dateien mit der Endung @file{.ly}
@@ -26,7 +24,7 @@ versehen.
 
 
 @node Structure of a score
-@subsection Struktur einer Partitur
+@section Struktur einer Partitur
 
 @funindex \score
 
@@ -114,7 +112,7 @@ Notationsreferenz:
 
 
 @node Multiple scores in a book
-@subsection Mehrere Partituren in einem Buch
+@section Mehrere Partituren in einem Buch
 
 @funindex \book
 @cindex Sätze, mehrere
@@ -216,7 +214,7 @@ einem Titel innerhalb einer @code{\header}-Umgebung beginnen.
 
 
 @node Multiple output files from one input file
-@subsection Mehrere Ausgabedateien aus einer Eingabedatei
+@section Mehrere Ausgabedateien aus einer Eingabedatei
 
 Wenn Sie mehrere Ausgabedateien aus derselben @file{.ly}-Datei haben
 wollen, können Sie mehrere @code{\book}-Umgebungen hinzufügen, wobei
@@ -266,7 +264,7 @@ produziert also
 
 
 @node Output file names
-@subsection Dateinamen der Ausgabedateien
+@section Dateinamen der Ausgabedateien
 
 @funindex \bookOutputSuffix
 @funindex \bookOutputName
@@ -335,7 +333,7 @@ Die obige Datei produziert folgene Ausgabedateien:
 @file{Nocturne.pdf}.
 @end itemize
 @node File structure
-@subsection Die Dateistruktur
+@section Die Dateistruktur
 
 @funindex \paper
 @funindex \midi
@@ -533,7 +531,7 @@ Notationsreferenz:
 
 
 @node Titles and headers
-@section Titel
+@chapter Titel
 
 Fast alle gedruckten Noten beinhalten einen Titel und den Namen
 des Komponisten, teilweise wird auch noch sehr viel mehr Information
@@ -542,11 +540,11 @@ zur Verfügung gestellt.
 
 @need 1500
 @node Creating titles headers and footers
-@subsection Titel, Kopf- und Fußzeilen erstellen
+@section Titel, Kopf- und Fußzeilen erstellen
 
 
 @node Title blocks explained
-@unnumberedsubsubsec Wie funktioniert die Titel-Umgebung?
+@subsection Wie funktioniert die Titel-Umgebung?
 
 @c TODO: figure out how \bookpart titles work
 
@@ -642,7 +640,7 @@ Notationsreferenz:
 
 
 @node Default layout of book and score title blocks
-@unnumberedsubsubsec Standardlayout von @code{book}- und Partitur-Titelumgebungen
+@subsection Standardlayout von @code{book}- und Partitur-Titelumgebungen
 
 Dieses Beispiel zeigt alle @code{\header}-(Überschrifen)-Variablen:
 
@@ -759,7 +757,7 @@ Installierte Dateien:
 
 
 @node Default layout of headers and footers
-@unnumberedsubsubsec Standardlayout von Kopf- und Fußzeilen
+@subsection Standardlayout von Kopf- und Fußzeilen
 
 @emph{Kopf-} und @emph{Fußzeilen} sind Textzeilen, die ganz oben
 und ganz unten auf der Seite stehen, unabhängig vom Textbereich eines
@@ -832,14 +830,14 @@ Um die @emph{tagline} ganz zu entfernen, wird ihr Inhalb als @code{##f}
 
 @need 1500
 @node Custom headers footers and titles
-@subsection Eigene Kopf- und Fußzeilen sowie Titel
+@section Eigene Kopf- und Fußzeilen sowie Titel
 
 @c TODO: somewhere put a link to header spacing info
 @c       (you'll have to explain it more in NR 4).
 
 
 @node Custom text formatting for title blocks
-@unnumberedsubsubsec Angepasste Textformatierung für Titelumgebungen
+@subsection Angepasste Textformatierung für Titelumgebungen
 
 Standard-@code{\markup}-Befehle können eingesetzt werden, um jeglichen
 Text in Titeln, Kopf- und Fußzeilen innerhalb der @code{\header}-Umgebung
@@ -861,7 +859,7 @@ Notationsreferenz:
 
 
 @node Custom layout for title blocks
-@unnumberedsubsubsec Angepasstes Layout für Titelumgebungen
+@subsection Angepasstes Layout für Titelumgebungen
 
 @cindex bookTitleMarkup
 @cindex scoreTitleMarkup
@@ -1019,7 +1017,7 @@ Notationsreferenz:
 
 
 @node Custom layout for headers and footers
-@unnumberedsubsubsec Angepasstes Layout für Kopf- und Fußzeilen
+@subsection Angepasstes Layout für Kopf- und Fußzeilen
 
 @c can make-header and make-footer be removed from
 @c paper-defaults-init.ly? -mp
@@ -1132,14 +1130,14 @@ Installierte Dateien:
 
 
 @node Creating footnotes
-@subsection Fußnoten erstellen
+@section Fußnoten erstellen
 
 Zwei Arten an Fußnoten können erstellt werden: automatische und
 manuelle Fußnoten.
 
 
 @node Footnotes overview
-@unnumberedsubsubsec Übersicht über Fußnoten
+@subsection Übersicht über Fußnoten
 
 Automatische Fußnoten erstellen aufsteigende Zahlenverweise, während
 mit manuellen Fußnoten eigene angepasste Verweise erstellt werden
@@ -1205,7 +1203,7 @@ der vorherigen Note oder Pause zuordnen kann.
 
 
 @node Automatic footnotes
-@unnumberedsubsubsec Automatische Fußnoten
+@subsection Automatische Fußnoten
 
 @cindex Fußnoten, automatisch
 
@@ -1291,7 +1289,7 @@ den Befehl @code{\footnote}:
 
 
 @node Manual footnotes
-@unnumberedsubsubsec Manuelle Fußnoten
+@subsection Manuelle Fußnoten
 
 @cindex Fußnoten, manuell
 
@@ -1422,7 +1420,7 @@ braucht man in der @code{\paper}-Umgebung den Eintrag
 
 
 @node Reference to page numbers
-@subsection Verweis auf die Seitenzahlen
+@section Verweis auf die Seitenzahlen
 
 Eine bestimmte Stelle der Partitur kann mit einem @code{\label}-Befehl
 markiert werden, sowohl auf oberster Ebene als auch innerhalb eines
@@ -1505,7 +1503,7 @@ welche die Ausrichtung linksbündig, zentriert oder rechtsbündig gegenüber dem
 
 
 @node Table of contents
-@subsection Inhaltsverzeichnis
+@section Inhaltsverzeichnis
 
 Ein Inhaltsverzeichnis kann eingefügt werden mit dem Befehl
 @code{\markuplist \table-of-contents}.  Die Elemente, die im
@@ -1651,11 +1649,11 @@ Installierte Dateien:
 
 @need 1500
 @node Working with input files
-@section Arbeiten an Eingabe-Dateien
+@chapter Arbeiten an Eingabe-Dateien
 
 
 @node Including LilyPond files
-@subsection LilyPond-Dateien einfügen
+@section LilyPond-Dateien einfügen
 
 @funindex \include
 @cindex einfügen  von Dateien
@@ -1775,7 +1773,7 @@ installierte Datei anstelle der eigenen verwendet.
 
 
 @node Different editions from one source
-@subsection Verschiedene Editionen aus einer Quelldatei
+@section Verschiedene Editionen aus einer Quelldatei
 
 Es gibt verschiedene Funktionen, die es möglich machen, unterschiedliche
 Versionen einer Partitur aus der gleichen Quelldatei zu produzieren.
@@ -1794,7 +1792,7 @@ ohne dass man Änderungen an den Noten vornehmen muss.
 
 
 @node Using variables
-@unnumberedsubsubsec Variablen benutzen
+@subsection Variablen benutzen
 
 @cindex Variablen, Benutzung
 
@@ -1856,7 +1854,7 @@ werden, die dann eingebunden werden, siehe @ref{Including LilyPond files}.
 
 
 @node Using tags
-@unnumberedsubsubsec Marken benutzen
+@subsection Marken benutzen
 
 @cindex Tag
 @cindex Marke
@@ -2340,7 +2338,7 @@ than one tagged section at the same place.
 
 
 @node Using global settings
-@unnumberedsubsubsec Globale Einstellungen benutzen
+@subsection Globale Einstellungen benutzen
 
 @funindex include-settings
 
@@ -2371,14 +2369,14 @@ Notationsreferenz:
 
 @need 1500
 @node Special characters
-@subsection Sonderzeichen
+@section Sonderzeichen
 
 @cindex Sonderzeichen
 @cindex Nicht-ASCII-Zeichen
 
 
 @node Text encoding
-@unnumberedsubsubsec Zeichenkodierung
+@subsection Zeichenkodierung
 
 
 @cindex UTF-8
@@ -2454,7 +2452,7 @@ portuguese = \lyricmode {
 
 
 @node Unicode
-@unnumberedsubsubsec Unicode
+@subsection Unicode
 
 @cindex Unicode
 
@@ -2507,7 +2505,7 @@ Um das Copyright-Zeichen zu notieren, kann folgender Code eingesetzt werden:
 
 
 @node ASCII aliases
-@unnumberedsubsubsec ASCII-Aliase
+@subsection ASCII-Aliase
 
 Eine Liste von ASCII-Befehlen für Sonderzeichen kann
 eingefügt werden:
@@ -2562,11 +2560,11 @@ Installierte Dateien:
 
 @need 1500
 @node Controlling output
-@section Ausgabe kontrollieren
+@chapter Ausgabe kontrollieren
 
 
 @node Extracting fragments of music
-@subsection Notationsfragmente extrahieren
+@section Notationsfragmente extrahieren
 
 Es ist möglich, kleine Abschnitte einer großen Partitur direkt aus der
 Quelldatei zu erzeugen.  Das kann damit verglichen werden, dass man
@@ -2604,7 +2602,7 @@ Zu mehr Information über Ausgabeformate siehe @rprogramnamed{Invoking LilyPond,
 
 
 @node Skipping corrected music
-@subsection Korrigierte Musik überspringen
+@section Korrigierte Musik überspringen
 
 
 @funindex skipTypesetting
@@ -2657,7 +2655,7 @@ alle Stimmen und Systeme aus, sodass noch mehr Zeit bei der
 
 
 @node Alternative output formats
-@subsection Alternative Ausgabeformate
+@section Alternative Ausgabeformate
 
 @cindex scalable vector graphics output
 @cindex skalierbare Vektorgraphik-Ausgabe
@@ -2674,7 +2672,7 @@ Kommandozeile.  Siehe @rprogramnamed{Basic command-line options for LilyPond, Gr
 
 
 @node Replacing the notation font
-@subsection Die Notationsschriftart verändern
+@section Die Notationsschriftart verändern
 
 Gonville ist eine Alternative zu der Emmentaler-Schriftart, die in
 LilyPond eingesetzt wird und kann unter der Adresse
@@ -2693,7 +2691,7 @@ Und hier einige Beispieltakte in der Feta-Glyphe:
 
 @sourceimage{Gonville_before,,}
 
-@subsubheading Installationsanweisungen für MacOS
+@subheading Installationsanweisungen für MacOS
 
 Laden Sie die Datei herunter und entpacken Sie die ZIP-Datei.
 Kopieren Sie das @code{lilyfonts}-Verzeichnis nach
@@ -2719,7 +2717,7 @@ und zu anderen Einzelheiten, wie auch der Lizenz von Gonville.
 
 
 @node MIDI output
-@section MIDI-Ausgabe
+@chapter MIDI-Ausgabe
 
 @cindex Klang
 @cindex MIDI
@@ -2747,7 +2745,7 @@ als 15 Notensysteme hat.
 
 
 @node Creating MIDI files
-@subsection MIDI-Dateien erstellen
+@section MIDI-Dateien erstellen
 
 Um eine MIDI-Datei aus einer LilyPond-Quelldatei zu erstellen, muss
 eine @code{\midi}-Umgebung zu der @code{\score}-Umgebung hinzugefügt
@@ -2809,7 +2807,7 @@ Als Alternative kann man diese Option auch als Kommandozeilenparameter
 lilypond … -dmidi-extension=midi lilyDatei.ly
 @end example
 
-@subsubheading Instrumentenbezeichnungen
+@subheading Instrumentenbezeichnungen
 
 @cindex Instrumentbezeichnungen
 
@@ -2854,7 +2852,7 @@ Player und @uref{http://@/timidity@/.sourceforge@/.net/,timidity}.
 
 
 @node MIDI block
-@subsection Der MIDI-Block
+@section Der MIDI-Block
 
 @cindex MIDI-Umgebung
 
@@ -2916,10 +2914,10 @@ in eine Partiturumgebung eingefügt wird, die mit dem Befehl
 
 
 @node What goes into the MIDI output?
-@subsection Was geht in die MIDI-Ausgabe
+@section Was geht in die MIDI-Ausgabe
 
 
-@subsubheading In MIDI unterstützt
+@subheading In MIDI unterstützt
 
 @cindex Tonhöhen in MIDI
 @cindex MIDI, Tonhöhen
@@ -2965,7 +2963,7 @@ zu der Liste hinzugefügt werden:
 @end itemize
 
 
-@subsubheading In MIDI nicht unterstützt
+@subheading In MIDI nicht unterstützt
 
 Folgende Notationselemente werden nicht in die MIDI-Ausgabe einbezogen,
 außer am setzt das @ref{The articulate script} ein:
@@ -2983,7 +2981,7 @@ außer am setzt das @ref{The articulate script} ein:
 
 
 @node Repeats in MIDI
-@subsection Wiederholungen im MIDI
+@section Wiederholungen im MIDI
 
 @cindex Wiederholungen in MIDI
 @cindex MIDI und Wiederholungen
@@ -3033,7 +3031,7 @@ aussehen kann:
 
 
 @node Controlling MIDI dynamics
-@subsection MIDI-Lautstärke kontrollieren
+@section MIDI-Lautstärke kontrollieren
 
 Dynamik in der MIDI-Ausgabe wird durch den Dynamic_performer
 erstellt, welcher sich in einem @code{Voice}-Kontext befindet.
@@ -3042,7 +3040,7 @@ als auch relative Lautstärken von Dynamikanweisungen und auch
 relative Lautstärke von einzelnen Instrumenten einzustellen.
 
 
-@subsubheading Dynamik-Zeichen
+@subheading Dynamik-Zeichen
 
 Dynamikanweisungen werden als ein bestimmter Bruch der insgesamt
 zur Verfügung stehenden MIDI-Lautstärke notiert.  Die Standardbrüche
@@ -3091,7 +3089,7 @@ zu benutzen.  Das letzte Beispiel dieses Abschnittes zeigt, wie das
 gemacht werden kann.
 
 
-@subsubheading MIDI-Lautstärke
+@subheading MIDI-Lautstärke
 
 Die generellen Mindest- und Höchstwerte für die Lautstärke der MIDI-Datei
 wird kontrolliert, indem die Eigenschaften @code{midiMinimumVolume}
@@ -3146,7 +3144,7 @@ auf den Bereich zwischen 0.2 und 0.5 eingeschränkt.
 @end lilypond
 
 
-@subsubheading Verschiedene Instrumente angleichen (i)
+@subheading Verschiedene Instrumente angleichen (i)
 
 Wenn die Mindest- und Höchstwerte für die MIDI-Lautstärke
 innerhalb eines @code{Staff}-Kontextes gesetzt werden,
@@ -3194,7 +3192,7 @@ diese Einstellung korrekt funktioniert.
 @end lilypond
 
 
-@subsubheading Verschiedene Instrumente angleichen (ii)
+@subheading Verschiedene Instrumente angleichen (ii)
 
 Wenn Mindest- und Höchstwerte für die Lautstärke der MIDI-Datei
 nicht vorgegeben werden, nimmt LilyPond standardmäßig einige
@@ -3267,7 +3265,7 @@ Lautstärkewerte, die denen des vorigen Beispiels entsprechen.
 
 
 @node Percussion in MIDI
-@subsection Schlagzeug in MIDI
+@section Schlagzeug in MIDI
 
 Schlagzeuginstrumente werden üblicherweise in einem @code{DrumStaff}-Kontext
 notiert.  Aus diese Weise werden sie korrekt in den MIDI-Kanal@tie{}10
@@ -3295,7 +3293,7 @@ Schlagstock (sidestick) für diesen Zweck eingesetzt.
 
 
 @node The articulate script
-@subsection Artikuliere-Skript
+@section Artikuliere-Skript
 
 Eine realistischere MIDI-Ausgabe ist möglich, wenn man das
 Artikuliere-Skript einsetzt.  Es versucht, Artikulationen
@@ -3338,14 +3336,14 @@ kann schlechter klingen.
 
 
 @node Extracting musical information
-@section Musikalische Information extrahieren
+@chapter Musikalische Information extrahieren
 
 Neben graphischer Ausgabe und MIDI kann LilyPond auch die musikalische
 Information als Text anzeigen:
 
 
 @node Displaying LilyPond notation
-@subsection LilyPond-Notation anzeigen
+@section LilyPond-Notation anzeigen
 
 @funindex \displayLilyMusic
 
@@ -3395,13 +3393,13 @@ eingesetzt werden, damit der Ausdruck für die Interpretation ignoriert wird:
 
 
 @node Displaying Scheme music expressions
-@subsection Musikalische Scheme-Ausdrücke anzeigen
+@section Musikalische Scheme-Ausdrücke anzeigen
 
 Siehe @rextendnamed{Displaying music expressions, Musikalische Funktionen darstellen}.
 
 
 @node Saving music events to a file
-@subsection Musikalische Ereignisse in einer Datei speichern
+@section Musikalische Ereignisse in einer Datei speichern
 
 Musikereignisse können in einer Datei Notensystem für Notensystem
 gespeichert werden, indem eine Datei in die Paritur eingefügt
@@ -3447,5 +3445,3 @@ gut gemachtes @qq{proof of concept}.  Wenn Ereignisse, die Sie
 brauchen, nicht in enthalten sind, können Sie @file{event-listener.ly}
 in Ihr LilyPond-Verzeichnis kopieren und die Datei verändern,
 sodass sie die benötigte Information ausgibt.
-
-@lowersections

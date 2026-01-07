@@ -13,8 +13,6 @@
 
 @part Allgemeine Notation
 
-@raisesections
-
 @include de/notation/pitches.itely
 @include de/notation/rhythms.itely
 @include de/notation/expressive.itely
@@ -23,5 +21,3 @@
 @include de/notation/staff.itely
 @include de/notation/editorial.itely
 @include de/notation/text.itely
-
-@lowersections

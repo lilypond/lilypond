@@ -13,7 +13,7 @@
 @c \version "2.21.0"
 
 @node Keyboard and other multi-staff instruments
-@section Tasteninstrumente und andere Instrumente mit mehreren Systemen
+@chapter Tasteninstrumente und andere Instrumente mit mehreren Systemen
 
 @lilypondfile[quote]{snippets/keyboard-headword.ly}
 
@@ -27,14 +27,14 @@ keine Tasten aufweisen.
 
 
 @node Common notation for keyboards
-@subsection Übliche Notation für Tasteninstrumente
+@section Übliche Notation für Tasteninstrumente
 
 Dieser Abschnitt zeigt allgemeine Eigenschaften des Notensatzes, die
 für die meisten Instrumente mit mehreren Systemen benötigt werden.
 
 
 @node References for keyboards
-@unnumberedsubsubsec Referenz für Tasteninstrumente
+@subsection Referenz für Tasteninstrumente
 
 @cindex Klaviersystem
 @cindex Piano-System
@@ -141,7 +141,7 @@ Referenz der Interna:
 
 
 @node Changing staff manually
-@unnumberedsubsubsec Notensysteme manuell verändern
+@subsection Notensysteme manuell verändern
 
 @cindex manuelle Systemwechsel
 @cindex Systemwechsel, manuell
@@ -264,7 +264,7 @@ Balken einsetzen.
 
 
 @node Changing staff automatically
-@unnumberedsubsubsec Automatischer Systemwechsel
+@subsection Automatischer Systemwechsel
 
 @cindex Automatischer Systemwechsel
 @cindex Systemwechsel, automatisch
@@ -359,7 +359,7 @@ System zugewiesen, auf dem sich ihre erste Note befinden würde.
 
 
 @node Staff-change lines
-@unnumberedsubsubsec Stimmführungslinien
+@subsection Stimmführungslinien
 
 @cindex Stimmkreuzung
 @cindex Systemwechsel von Stimmen
@@ -410,7 +410,7 @@ Referenz der Interna:
 
 
 @node Cross-staff stems
-@unnumberedsubsubsec Hälse über beide Systeme
+@subsection Hälse über beide Systeme
 
 @cindex Hälse über zwei Systeme
 @cindex System querende Hälse
@@ -444,13 +444,13 @@ Referenz der Interna:
 
 
 @node Piano
-@subsection Klavier
+@section Klavier
 
 Dieser Abschnitt zeigt Eigenheiten der Notation von Klavermusik
 
 
 @node Piano pedals
-@unnumberedsubsubsec Klavierpedal
+@subsection Klavierpedal
 
 @cindex Pedalbezeichnung
 @cindex Klavier, Pedalbezeichnung
@@ -544,7 +544,7 @@ Referenz der Interna:
 
 
 @node Accordion
-@subsection Akkordeon
+@section Akkordeon
 
 @cindex Akkordeon
 
@@ -553,7 +553,7 @@ benötigt wird.
 
 
 @node Discant symbols
-@unnumberedsubsubsec Diskant-Symbole
+@subsection Diskant-Symbole
 
 @cindex Akkordeon, Diskant-Symbole
 @cindex Diskantsymbole, Akkordeon
@@ -573,13 +573,13 @@ Schnipsel:
 
 
 @node Harp
-@subsection Harfe
+@section Harfe
 
 Dieser Abschnitt zeigt Eigenheiten der Notation für Harfe.
 
 
 @node References for harps
-@unnumberedsubsubsec Referenzen für Harfe
+@subsection Referenzen für Harfe
 
 @cindex Harfe
 
@@ -608,7 +608,7 @@ Notationsreferenz:
 
 
 @node Harp pedals
-@unnumberedsubsubsec Harfenpedal
+@subsection Harfenpedal
 
 @cindex Harfenpedal
 @cindex Pedal, Harfe

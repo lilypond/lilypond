@@ -13,8 +13,6 @@
 
 @part Notation für spezielle Zwecke
 
-@raisesections
-
 @include de/notation/vocal.itely
 @include de/notation/keyboards.itely
 @include de/notation/unfretted-strings.itely
@@ -25,5 +23,3 @@
 @include de/notation/contemporary.itely
 @include de/notation/ancient.itely
 @include de/notation/world.itely
-
-@lowersections

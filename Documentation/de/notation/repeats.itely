@@ -12,7 +12,7 @@
 @c Translators: Till Paala
 
 @node Repeats
-@section Wiederholungszeichen
+@chapter Wiederholungszeichen
 
 @lilypondfile[quote]{snippets/repeats-headword.ly}
 
@@ -46,7 +46,7 @@ Das wird benutzt, um Tremolo-Wiederholungen am Notenhals zu notieren.
 
 @need 1500
 @node Long repeats
-@subsection Lange Wiederholungen
+@section Lange Wiederholungen
 
 @cindex Wiederholungen
 @cindex Volta
@@ -64,7 +64,7 @@ Das wird benutzt, um Tremolo-Wiederholungen am Notenhals zu notieren.
 @funindex \partial
 
 @node Normal repeats
-@unnumberedsubsubsec Normale Wiederholungen
+@subsection Normale Wiederholungen
 
 Die Syntax für normale Wiederholungen ist
 
@@ -353,7 +353,7 @@ Situationen Klammern zu benutzen.
 
 
 @node Manual repeat marks
-@unnumberedsubsubsec Manuelle Wiederholungszeichen
+@subsection Manuelle Wiederholungszeichen
 
 @cindex manuelle Wiederholungszeichen
 @cindex Wiederholung, manuell
@@ -480,7 +480,7 @@ Referenz der Interna:
 
 
 @node Written-out repeats
-@unnumberedsubsubsec Ausgeschriebene Wiederholungen
+@subsection Ausgeschriebene Wiederholungen
 
 @cindex ausgeschriebene Wiederholungen
 @cindex wiederholte Musik
@@ -612,7 +612,7 @@ Referenz der Interna:
 
 
 @node Short repeats
-@subsection Kurze Wiederholungen
+@section Kurze Wiederholungen
 
 Dieser Abschnitt zeigt, wie man kurze Wiederholungen notiert.
 Kurze Wiederholungen haben zwei Formen: Wiederholungen
@@ -621,7 +621,7 @@ Prozentzeichen dargestellt werden, und Tremolos.
 
 
 @node Percent repeats
-@unnumberedsubsubsec Prozent-Wiederholungen
+@subsection Prozent-Wiederholungen
 
 @cindex Prozent-Wiederholungen
 @cindex Taktweise Wiederholungen
@@ -720,7 +720,7 @@ Referenz der Interna:
 
 
 @node Tremolo repeats
-@unnumberedsubsubsec Tremolo-Wiederholung
+@subsection Tremolo-Wiederholung
 
 @cindex Tremolobalken
 @cindex Tremolo

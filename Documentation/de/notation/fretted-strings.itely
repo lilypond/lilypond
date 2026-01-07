@@ -13,7 +13,7 @@
 @c Translators: Till Paala
 
 @node Fretted string instruments
-@section Saiteninstrumente mit Bünden
+@chapter Saiteninstrumente mit Bünden
 
 @lilypondfile[quote]{snippets/fretted-headword.ly}
 
@@ -26,14 +26,14 @@ Saiteninstrumente mit Bünden.
 
 
 @node Common notation for fretted strings
-@subsection Übliche Notation für Saiteninstrumente mit Bünden
+@section Übliche Notation für Saiteninstrumente mit Bünden
 
 Dieser Abschnitt zeigt Besonderheiten der Notation, die allen
 Bundinstrumenten eigen ist.
 
 
 @node References for fretted strings
-@unnumberedsubsubsec Referenz für Saiteninstrumente mit Bünden
+@subsection Referenz für Saiteninstrumente mit Bünden
 
 Noten für Bundinstrumente wird normalerweise auf
 einem einzelnen System notiert, entweder als traditionelles
@@ -77,7 +77,7 @@ Notationsreferenz:
 
 
 @node String number indications
-@unnumberedsubsubsec Seitennummerbezeichnung
+@subsection Seitennummerbezeichnung
 
 @cindex Saitenzahl
 @cindex Zahl von Saiten
@@ -131,7 +131,7 @@ Referenz der Interna:
 
 
 @node Default tablatures
-@unnumberedsubsubsec Standardtabulaturen
+@subsection Standardtabulaturen
 
 @cindex Tabulatur, Grundlegendes
 
@@ -500,7 +500,7 @@ Slide.
 
 
 @node Custom tablatures
-@unnumberedsubsubsec Angepasste Tabulaturen
+@subsection Angepasste Tabulaturen
 
 @cindex Tabulaturen, eigen
 @cindex eigene Tabulaturen
@@ -698,7 +698,7 @@ fortschreitet, wie etwa Ukulele.
 
 
 @node Fret diagram markups
-@unnumberedsubsubsec Bund-Diagramm-Beschriftung
+@subsection Bund-Diagramm-Beschriftung
 
 @cindex Fret (Bunddiagramme)
 @cindex Griffsymbole, bundierte Saiteninstrumente
@@ -1100,7 +1100,7 @@ Referenz der Interna:
 
 
 @node Predefined fret diagrams
-@unnumberedsubsubsec Vordefinierte Bund-Diagramme
+@subsection Vordefinierte Bund-Diagramme
 
 
 @cindex Bunddiagramme
@@ -1420,7 +1420,7 @@ Referenz der Interna:
 
 
 @node Automatic fret diagrams
-@unnumberedsubsubsec Automatische Bund-Diagramme
+@subsection Automatische Bund-Diagramme
 
 @cindex Bunddiagramme, automatisch
 @cindex Akkorddiagramme, automatisch
@@ -1581,7 +1581,7 @@ mit nicht-monotonischer Stimmung.
 
 
 @node Right-hand fingerings
-@unnumberedsubsubsec Fingersatz der rechten Hand
+@subsection Fingersatz der rechten Hand
 
 @cindex bundierte Saiteninstrumente, Fingersatz der rechten Hand
 @cindex Bundinstrumente, Fingersatz der rechten Hand
@@ -1632,7 +1632,7 @@ Referenz der Interna:
 
 
 @node Guitar
-@subsection Gitarre
+@section Gitarre
 
 Die meisten der Besonderheiten von Gitarrennotation wurden im
 allgemeinen Abschnitt behandelt, aber es gibt noch einige, die
@@ -1646,7 +1646,7 @@ werden.
 
 
 @node Indicating position and barring
-@unnumberedsubsubsec Position und Barré anzeigen
+@subsection Position und Barré anzeigen
 
 @cindex Position und Barré für bundierte Saiteninstrumente
 @cindex Position und Barré für Bundinstrumente
@@ -1681,7 +1681,7 @@ Schnipsel:
 
 
 @node Indicating harmonics and dampened notes
-@unnumberedsubsubsec Flageolett und gedämpfte Noten
+@subsection Flageolett und gedämpfte Noten
 
 @cindex bundierte Saiteninstrumente, gedämpfte Noten
 @cindex Bundinstrumente, gedämpfte Noten
@@ -1764,7 +1764,7 @@ Schnipsel:
 
 
 @node Indicating power chords
-@unnumberedsubsubsec Powerakkorde anzeigen
+@subsection Powerakkorde anzeigen
 
 @cindex Powerakkorde
 @cindex Powerchords
@@ -1817,11 +1817,11 @@ Schnipsel:
 
 @need 1500
 @node Banjo
-@subsection Banjo
+@section Banjo
 
 
 @node Banjo tablatures
-@unnumberedsubsubsec Banjo-Tabulaturen
+@subsection Banjo-Tabulaturen
 
 @cindex Banjo-Tabulaturen
 @cindex Tabulatur, Banjo

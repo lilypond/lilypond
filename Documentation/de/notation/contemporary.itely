@@ -13,7 +13,7 @@
 
 
 @node Contemporary music
-@section Zeitgenössische Musik
+@chapter Zeitgenössische Musik
 
 Seit Anfang des 20. Jahrhunderts wurden die kompositorischen Stile
 und Kompositionstechniken sehr stark erweitert.  Neue harmonische
@@ -26,14 +26,14 @@ Notation zeitgenössischer Musik benötigt wird.
 
 
 @node Pitch and harmony in contemporary music
-@subsection Tonhöhe und Harmonie in zeitgenössischer Musik
+@section Tonhöhe und Harmonie in zeitgenössischer Musik
 
 Dieser Abschnitt zeigt Lösungen zur Notation von zeitgenössischen
 Tonhöhen und Harmonien.
 
 
 @node References for pitch and harmony in contemporary music
-@unnumberedsubsubsec Verweise zu Tonhöhe und Harmonie in zeitgenössischer Musik
+@subsection Verweise zu Tonhöhe und Harmonie in zeitgenössischer Musik
 
 @itemize
 @item
@@ -51,7 +51,7 @@ addressed in @ref{Automatic accidentals}.
 
 
 @node Microtonal notation
-@unnumberedsubsubsec Mikrotonale Notation
+@subsection Mikrotonale Notation
 
 @ignore
     Discussion of microtones other than quarter-tones,
@@ -60,7 +60,7 @@ addressed in @ref{Automatic accidentals}.
 
 
 @node Contemporary key signatures and harmony
-@unnumberedsubsubsec Zeitgenössische Tonartvorzeichnung und Harmonie
+@subsection Zeitgenössische Tonartvorzeichnung und Harmonie
 
 @ignore
     Discussion of contemporary key signatures:
@@ -69,14 +69,14 @@ addressed in @ref{Automatic accidentals}.
 
 
 @node Contemporary approaches to rhythm
-@subsection Zeitgenössische Notation von Rhythmen
+@section Zeitgenössische Notation von Rhythmen
 
 Dieser Abschnitt erklärt Besonderheiten, die wichtig für
 die Notation von Rhythmus in zeitgenössischer Musik sind.
 
 
 @node References for contemporary approaches to rhythm
-@unnumberedsubsubsec Verweise für zeitgenössische Benutzung von Rhythmus
+@subsection Verweise für zeitgenössische Benutzung von Rhythmus
 
 @itemize
 @item
@@ -99,7 +99,7 @@ Mensurstrich-Taktstriche (zwischen den Systemen) finden sich erklärt in
 
 
 @node Tuplets in contemporary music
-@unnumberedsubsubsec N-tolen in zeitgenössischer Musik
+@subsection N-tolen in zeitgenössischer Musik
 
 @ignore
     Extended discussion of modern tuplets, including
@@ -111,7 +111,7 @@ Mensurstrich-Taktstriche (zwischen den Systemen) finden sich erklärt in
 
 
 @node Contemporary time signatures
-@unnumberedsubsubsec Zeitgenössische Taktarten
+@subsection Zeitgenössische Taktarten
 
 @ignore
     Extended discussion of complex time signatures
@@ -125,7 +125,7 @@ Mensurstrich-Taktstriche (zwischen den Systemen) finden sich erklärt in
 
 
 @node Extended polymetric notation
-@unnumberedsubsubsec Erweiterte polymetrische Notation
+@subsection Erweiterte polymetrische Notation
 
 @ignore
     Extended examples e.g. different instruments
@@ -134,7 +134,7 @@ Mensurstrich-Taktstriche (zwischen den Systemen) finden sich erklärt in
 
 
 @node Beams in contemporary music
-@unnumberedsubsubsec Balken in zeitgenössischer Musik
+@subsection Balken in zeitgenössischer Musik
 
 @ignore
     Beaming practises, stemlets, Boulez-esque displaying
@@ -143,7 +143,7 @@ Mensurstrich-Taktstriche (zwischen den Systemen) finden sich erklärt in
 
 
 @node Bar lines in contemporary music
-@unnumberedsubsubsec Taktstriche in zeitgenössischer Musik
+@subsection Taktstriche in zeitgenössischer Musik
 
 @ignore
     Mensurstriche barlines, tick barlines, etc.
@@ -151,19 +151,19 @@ Mensurstrich-Taktstriche (zwischen den Systemen) finden sich erklärt in
 
 
 @node Graphical notation
-@subsection Graphische Notation
+@section Graphische Notation
 
 
 @node Contemporary scoring techniques
-@subsection Zeitgenössische Partiturtechniken
+@section Zeitgenössische Partiturtechniken
 
 
 @node New instrumental techniques
-@subsection Neue Instrumententechniken
+@section Neue Instrumententechniken
 
 
 @node Further reading and scores of interest
-@subsection Leseliste und interessante Referenzpartituren
+@section Leseliste und interessante Referenzpartituren
 
 Dieser Abschnitt weist auf einige Bücher, Musikbeispiele und
 andere Resourcen hin, die relevant für die Notation
@@ -171,7 +171,7 @@ zeitgenössischer Musik sind.
 
 
 @node Books and articles on contemporary musical notation
-@unnumberedsubsubsec Bücher und Artikel über zeitgenössische Notation
+@subsection Bücher und Artikel über zeitgenössische Notation
 
 @itemize
 @item
@@ -190,7 +190,7 @@ von Kurt Stone [W. W. Norton, 1980]
 
 
 @node Scores and musical examples
-@unnumberedsubsubsec Partituren und Musikbeispiele
+@subsection Partituren und Musikbeispiele
 
 @ignore
     Rough list of composers whose work could be included

@@ -736,7 +736,7 @@ cello                     lead 6 (voice)
 @node List of colors
 @appendixsec Liste der Farben
 
-@subsubheading Normale Farben
+@subheading Normale Farben
 
 Die Syntax zur Benutzung findet sich im Abschnitt @ref{Coloring objects}.
 
@@ -751,7 +751,7 @@ darkcyan    darkmagenta    darkyellow
 @end verbatim
 
 
-@subsubheading X-Farbbezeichnungen
+@subheading X-Farbbezeichnungen
 
 X-Farbbezeichnungen haben verschiedene Varianten:
 
@@ -767,7 +767,7 @@ Manche Bezeichnungen können auch ein numerales Suffix tragen
 (etwa @q{LightSalmon4}).
 
 
-@subsubheading Farben ohne eine numerale Endung
+@subheading Farben ohne eine numerale Endung
 
 @verbatim
 snow		GhostWhite	WhiteSmoke	gainsboro	FloralWhite
@@ -801,7 +801,7 @@ LightGreen
 @end verbatim
 
 
-@subsubheading Farben mit einer numeralen Endung
+@subheading Farben mit einer numeralen Endung
 
 Für die folgenden Bezeichnungen kann das Suffix N durch eine
 Zahl von 1--4 ersetzt werden.
@@ -826,7 +826,7 @@ thistleN
 @end verbatim
 
 
-@subsubheading Grauskala
+@subheading Grauskala
 
 Eine Grauskala kann mit der Bezeichnung
 
@@ -868,7 +868,7 @@ Siehe auch @ref{Formatting text}.
 
 
 @node Clef glyphs
-@unnumberedsubsec Notenschlüssel-Glyphen
+@appendixsubsec Notenschlüssel-Glyphen
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -878,7 +878,7 @@ Siehe auch @ref{Formatting text}.
 
 
 @node Time Signature glyphs
-@unnumberedsubsec Taktart-Glyphen
+@appendixsubsec Taktart-Glyphen
 
 
 @lilypond[quote]
@@ -889,7 +889,7 @@ Siehe auch @ref{Formatting text}.
 
 
 @node Number glyphs
-@unnumberedsubsec Zahlen-Glyphen
+@appendixsubsec Zahlen-Glyphen
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -899,7 +899,7 @@ Siehe auch @ref{Formatting text}.
 
 
 @node Accidental glyphs
-@unnumberedsubsec Versetzungszeichen-Glyphen
+@appendixsubsec Versetzungszeichen-Glyphen
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -909,7 +909,7 @@ Siehe auch @ref{Formatting text}.
 
 
 @node Default Notehead glyphs
-@unnumberedsubsec Standard-Notenkopf-Glyphen
+@appendixsubsec Standard-Notenkopf-Glyphen
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -919,7 +919,7 @@ Siehe auch @ref{Formatting text}.
 
 
 @node Special Notehead glyphs
-@unnumberedsubsec Spezielle Notenkopf-Glyphen
+@appendixsubsec Spezielle Notenkopf-Glyphen
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -929,7 +929,7 @@ Siehe auch @ref{Formatting text}.
 
 
 @node Shape-note Notehead glyphs
-@unnumberedsubsec Geformte Notenkopf-Glyphen
+@appendixsubsec Geformte Notenkopf-Glyphen
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -939,7 +939,7 @@ Siehe auch @ref{Formatting text}.
 
 
 @node Rest glyphs
-@unnumberedsubsec Pausen-Glyphen
+@appendixsubsec Pausen-Glyphen
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -949,7 +949,7 @@ Siehe auch @ref{Formatting text}.
 
 
 @node Flag glyphs
-@unnumberedsubsec Fähnchen-Glyphen
+@appendixsubsec Fähnchen-Glyphen
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -959,7 +959,7 @@ Siehe auch @ref{Formatting text}.
 
 
 @node Dot glyphs
-@unnumberedsubsec Punkt-Glyphen
+@appendixsubsec Punkt-Glyphen
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -969,7 +969,7 @@ Siehe auch @ref{Formatting text}.
 
 
 @node Dynamic glyphs
-@unnumberedsubsec Dynamik-Glyphen
+@appendixsubsec Dynamik-Glyphen
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -979,7 +979,7 @@ Siehe auch @ref{Formatting text}.
 
 
 @node Script glyphs
-@unnumberedsubsec Schrift-Glyphen
+@appendixsubsec Schrift-Glyphen
 @lilypond[quote]
 \include "en/included/font-table.ly"
 \markuplist \override-lines #'(word-space . 4)
@@ -988,7 +988,7 @@ Siehe auch @ref{Formatting text}.
 
 
 @node Arrowhead glyphs
-@unnumberedsubsec Pfeilkopf-Glyphen
+@appendixsubsec Pfeilkopf-Glyphen
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -998,7 +998,7 @@ Siehe auch @ref{Formatting text}.
 
 
 @node Bracket-tip glyphs
-@unnumberedsubsec Klammerspitzen-Glyphen
+@appendixsubsec Klammerspitzen-Glyphen
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1008,7 +1008,7 @@ Siehe auch @ref{Formatting text}.
 
 
 @node Pedal glyphs
-@unnumberedsubsec Pedal-Glyphen
+@appendixsubsec Pedal-Glyphen
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1018,7 +1018,7 @@ Siehe auch @ref{Formatting text}.
 
 
 @node Accordion glyphs
-@unnumberedsubsec Akkordeon-Glyphen
+@appendixsubsec Akkordeon-Glyphen
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1028,7 +1028,7 @@ Siehe auch @ref{Formatting text}.
 
 
 @node Tie glyphs
-@unnumberedsubsec Bogen-Glyphen
+@appendixsubsec Bogen-Glyphen
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1039,7 +1039,7 @@ Siehe auch @ref{Formatting text}.
 
 
 @node Vaticana glyphs
-@unnumberedsubsec Vaticana-Glyphen
+@appendixsubsec Vaticana-Glyphen
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1049,7 +1049,7 @@ Siehe auch @ref{Formatting text}.
 
 
 @node Medicaea glyphs
-@unnumberedsubsec Medicaea-Glyphen
+@appendixsubsec Medicaea-Glyphen
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1059,7 +1059,7 @@ Siehe auch @ref{Formatting text}.
 
 
 @node Hufnagel glyphs
-@unnumberedsubsec Hufnagel-Glyphen
+@appendixsubsec Hufnagel-Glyphen
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1069,7 +1069,7 @@ Siehe auch @ref{Formatting text}.
 
 
 @node Mensural glyphs
-@unnumberedsubsec Mensural-Glyphen
+@appendixsubsec Mensural-Glyphen
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1079,7 +1079,7 @@ Siehe auch @ref{Formatting text}.
 
 
 @node Neomensural glyphs
-@unnumberedsubsec Neomensural-Glyphen
+@appendixsubsec Neomensural-Glyphen
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1089,7 +1089,7 @@ Siehe auch @ref{Formatting text}.
 
 
 @node Petrucci glyphs
-@unnumberedsubsec Petrucci-Glyphen
+@appendixsubsec Petrucci-Glyphen
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1099,7 +1099,7 @@ Siehe auch @ref{Formatting text}.
 
 
 @node Solesmes glyphs
-@unnumberedsubsec Solesmes-Glyphen
+@appendixsubsec Solesmes-Glyphen
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1110,7 +1110,7 @@ Siehe auch @ref{Formatting text}.
 
 
 @node Kievan Notation glyphs
-@unnumberedsubsec Glyphen der Kiever Notation
+@appendixsubsec Glyphen der Kiever Notation
 
 @lilypond[quote]
 \include "en/included/font-table.ly"
@@ -1212,7 +1212,7 @@ an Noten angehängt werden (etwa @samp{c\accent}).
 @funindex \tenuto
 
 @node Articulation scripts
-@unnumberedsubsec Artikulationsskripte
+@appendixsubsec Artikulationsskripte
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -1273,7 +1273,7 @@ f^\tenuto e,_\tenuto b'\tenuto
 @funindex \haydnturn
 
 @node Ornament scripts
-@unnumberedsubsec Ornamentale Skripte
+@appendixsubsec Ornamentale Skripte
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -1372,7 +1372,7 @@ f^\haydnturn e,_\haydnturn b'\haydnturn
 @funindex \henzelongfermata
 
 @node Fermata scripts
-@unnumberedsubsec Fermatenskripte
+@appendixsubsec Fermatenskripte
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -1431,7 +1431,7 @@ f^\henzelongfermata e,_\henzelongfermata b'\henzelongfermata
 @funindex \thumb
 
 @node Instrument-specific scripts
-@unnumberedsubsec Instrumentenspezifische Skripte
+@appendixsubsec Instrumentenspezifische Skripte
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -1511,7 +1511,7 @@ f^\thumb e,_\thumb b'\thumb
 @funindex \varcoda
 
 @node Repeat sign scripts
-@unnumberedsubsec Wiederholungszeichenskripte
+@appendixsubsec Wiederholungszeichenskripte
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -1540,7 +1540,7 @@ f^\varcoda e,_\varcoda b'\varcoda
 @funindex \signumcongruentiae
 
 @node Ancient scripts
-@unnumberedsubsec Skripte der alten Notation
+@appendixsubsec Skripte der alten Notation
 
 @multitable @columnfractions .22 .25 .25 .25
 
@@ -1601,7 +1601,7 @@ Handbüchern, auf den Mailinglisten oder im Quellcode vor.
 
 
 @node alist
-@unnumberedsubsec alist
+@appendixsubsec alist
 
 @cindex alist
 @cindex assoziative Liste
@@ -1617,7 +1617,7 @@ können, die auch die Bezeichnung des erwarteten Typprädikats
 mitteilt.
 
 @node callback
-@unnumberedsubsec callback
+@appendixsubsec callback
 
 @cindex callback
 
@@ -1632,7 +1632,7 @@ es Scheme-Code auf der Benutzerebene zu erlauben, wie viele
 Funktionen der niedrigeren Ebene ausgeführt werden sollen.
 
 @node closure
-@unnumberedsubsec closure
+@appendixsubsec closure
 
 @cindex closure
 @cindex einfache closure
@@ -1661,7 +1661,7 @@ Liste von Argumenten angewendet werden soll, enthält.
 
 
 @node glyph
-@unnumberedsubsec glyph
+@appendixsubsec glyph
 
 @cindex glyph
 @cindex Glyphe
@@ -1684,7 +1684,7 @@ Notationsreferenz:
 
 
 @node grob
-@unnumberedsubsec grob
+@appendixsubsec grob
 
 @cindex grob
 @cindex layout objects
@@ -1709,7 +1709,7 @@ Referenz der Interna:
 
 
 @node immutable
-@unnumberedsubsec immutable
+@appendixsubsec immutable
 
 @cindex immutable-Objekte
 @cindex immutable-Eigenschaften
@@ -1730,7 +1730,7 @@ Notationsreferenz:
 
 
 @node interface
-@unnumberedsubsec interface
+@appendixsubsec interface
 
 @cindex interface
 @cindex grob-interface
@@ -1756,7 +1756,7 @@ Referenz der Interna:
 
 
 @node lexer
-@unnumberedsubsec lexer
+@appendixsubsec lexer
 
 @cindex lexer
 
@@ -1769,7 +1769,7 @@ Parsen, eignet.  Siehe @ref{parser}.
 
 
 @node mutable
-@unnumberedsubsec mutable
+@appendixsubsec mutable
 
 @cindex mutable-Objekte
 @cindex veränderbare (mutable) Objekte
@@ -1789,7 +1789,7 @@ Notationsreferenz:
 
 
 @node output-def
-@unnumberedsubsec output-def
+@appendixsubsec output-def
 
 @cindex output-def
 
@@ -1800,7 +1800,7 @@ erstellt.
 
 
 @node parser
-@unnumberedsubsec parser
+@appendixsubsec parser
 
 @cindex parser
 @cindex Grammatik von LilyPond
@@ -1824,7 +1824,7 @@ integriert.
 
 
 @node parser variable
-@unnumberedsubsec parser variable
+@appendixsubsec parser variable
 
 Diese Variablen werden direkt in Scheme definiert.  Von ihrer direkten
 Benutzung durch den Benutzer wird streng abgeraten, weil ihre
@@ -1858,7 +1858,7 @@ LilyPond benutzt folgende Parser-Variablen:
 
 
 @node prob
-@unnumberedsubsec prob
+@appendixsubsec prob
 
 Property OBjects, also Eigenschaftsobjekte, oder kurz @strong{Prob},
 sind Mitglieder der @code{Prob}-Klasse, eine einfache Basisklasse für
@@ -1870,12 +1870,12 @@ Systemgrobs und Titelblöcken während der Erstellung des Seitenlayouts zu
 speichern.
 
 @node simple closure
-@unnumberedsubsec simple closure
+@appendixsubsec simple closure
 
 Siehe @ref{closure}.
 
 @node smob
-@unnumberedsubsec smob
+@appendixsubsec smob
 
 @cindex smob
 @cindex Scheme objekt
@@ -1889,7 +1889,7 @@ mit einer Identität.  Wenn Sie auf die LilyPond-Quellen zurückgreifen
 können, findet sich mehr Information hierzu in @file{lily/includes/smob.hh}.
 
 @node stencil
-@unnumberedsubsec stencil
+@appendixsubsec stencil
 
 @cindex stencil
 @cindex Matrize (stencil)

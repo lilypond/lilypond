@@ -12,7 +12,7 @@
 @c Translators: Till Paala
 
 @node Staff notation
-@section Notation auf Systemen
+@chapter Notation auf Systemen
 
 @c The line width is a bit of a hack to allow space for the
 @c  instrument names.
@@ -24,14 +24,14 @@ man Aufführungsanweisungen und Stichnoten zu einzelnen Systemen hinzufügt.
 
 
 @node Displaying staves
-@subsection Systeme anzeigen lassen
+@section Systeme anzeigen lassen
 
 Dieser Abschnitt zeigt unterschiedliche Methoden, Notensysteme und
 Gruppen von Systemen zu erstellen.
 
 
 @node Instantiating new staves
-@unnumberedsubsubsec Neue Notensysteme erstellen
+@subsection Neue Notensysteme erstellen
 
 @cindex Beginn eines Notensystems
 @cindex Notensystem, neu
@@ -145,7 +145,7 @@ Referenz der Interna:
 
 
 @node Grouping staves
-@unnumberedsubsubsec Systeme gruppieren
+@subsection Systeme gruppieren
 
 @cindex Systeme, mehrere
 @cindex Notensysteme, mehrere
@@ -280,7 +280,7 @@ auf.
 
 
 @node Nested staff groups
-@unnumberedsubsubsec Verschachtelte Notensysteme
+@subsection Verschachtelte Notensysteme
 
 @cindex System, geschachtelt
 @cindex Schachtelung von Systemen
@@ -341,7 +341,7 @@ Referenz der Interna:
 
 
 @node Separating systems
-@unnumberedsubsubsec Systeme trennen
+@subsection Systeme trennen
 
 @cindex Trennzeichen
 @cindex System-Trennzeichen
@@ -393,7 +393,7 @@ Schnipsel:
 
 
 @node Modifying single staves
-@subsection Einzelne Systeme verändern
+@section Einzelne Systeme verändern
 
 Dieser Abschnitt zeigt, wie man bestimmte Eigenschaften eines Systems
 ändert -- etwa die Anzahl der Notenlinien oder die Größe des Systems.
@@ -402,7 +402,7 @@ beenden sowie eine Methode, Ossia-Systeme zu erstellen.
 
 
 @node Staff symbol
-@unnumberedsubsubsec Das Notensystem
+@subsection Das Notensystem
 
 @cindex Justierung von Notensystemen
 @cindex Notensysteme, Modifikation
@@ -581,7 +581,7 @@ Referenz der Interna:
 
 
 @node Ossia staves
-@unnumberedsubsubsec Ossia-Systeme
+@subsection Ossia-Systeme
 
 @cindex Ossia-Systeme
 @cindex Ossia
@@ -750,7 +750,7 @@ Referenz der Interna:
 
 
 @node Hiding staves
-@unnumberedsubsubsec Systeme verstecken
+@subsection Systeme verstecken
 
 @cindex Systeme verstecken
 @cindex leere Systeme verstecken
@@ -877,7 +877,7 @@ zusammenhängen, siehe @ref{Changing context default settings}.
 
 
 @node Writing parts
-@subsection Orchesterstimmen erstellen
+@section Orchesterstimmen erstellen
 
 Dieser Abschnitt zeigt, wie man Tempo-Anweisungen und
 Instrumentenbezeichnungen einfügt.  Es werden auch Möglichkeiten
@@ -886,7 +886,7 @@ formatieren.
 
 
 @node Instrument names
-@unnumberedsubsubsec Instrumentenbezeichnungen
+@subsection Instrumentenbezeichnungen
 
 @cindex Instrumentenbezeichnungen
 @cindex kurze Instrumentenbezeichnungen
@@ -1071,7 +1071,7 @@ Referenz der Interna:
 
 
 @node Quoting other voices
-@unnumberedsubsubsec Andere Stimmen zitieren
+@subsection Andere Stimmen zitieren
 
 @cindex Stichnoten
 @cindex Zitieren von anderen Stimmen
@@ -1236,7 +1236,7 @@ werden, ist das Notenbild unter Umständen sehr schlecht.
 
 
 @node Formatting cue notes
-@unnumberedsubsubsec Stichnoten formatieren
+@subsection Stichnoten formatieren
 
 @cindex Stichnoten
 @cindex Noten, Stichnoten

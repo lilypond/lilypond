@@ -13,7 +13,7 @@
 @c Translators: Till Paala
 
 @node Chord notation
-@section Notation von Akkorden
+@chapter Notation von Akkorden
 
 @lilypondfile[quote]{snippets/chords-headword.ly}
 
@@ -24,7 +24,7 @@ und Generalbass können auch angezeigt werden.
 
 
 @node Chord mode
-@subsection Akkord-Modus
+@section Akkord-Modus
 
 @cindex Akkorde
 @cindex chord-Akkorde
@@ -35,7 +35,7 @@ einzelnen Tonhöhen ausgeschrieben werden.
 
 
 @node Chord mode overview
-@unnumberedsubsubsec Überblick über den Akkord-Modus
+@subsection Überblick über den Akkord-Modus
 
 @cindex Akkordbezeichnungen
 @cindex Akkordmodus
@@ -112,7 +112,7 @@ explizit aufgerufen werden:
 
 
 @node Common chords
-@unnumberedsubsubsec Übliche Akkorde
+@subsection Übliche Akkorde
 
 @cindex Dreiklänge
 @cindex Septakkorde
@@ -252,7 +252,7 @@ Tonhöhen alteriert werden, wie beschrieben in
 
 
 @node Extended and altered chords
-@unnumberedsubsubsec Erweiterte und modifizierte Akkorde
+@subsection Erweiterte und modifizierte Akkorde
 
 @cindex erweiterte Akkorde
 @cindex veränderte Akkorde
@@ -429,14 +429,14 @@ der Grundton des Akkordes geändert wird.
 
 
 @node Displaying chords
-@subsection Akkorde anzeigen
+@section Akkorde anzeigen
 
 Akkorde können zusätzlich zur üblichen Notation als Töne auf
 einem Notensystem auch mit einem Akkordsymbol gesetzt werden.
 
 
 @node Printing chord names
-@unnumberedsubsubsec Akkordbezeichnungen drucken
+@subsection Akkordbezeichnungen drucken
 
 @funindex ChordNames
 
@@ -563,7 +563,7 @@ werden.
 
 
 @node Customizing chord names
-@unnumberedsubsubsec Akkordbezeichnungen anpassen
+@subsection Akkordbezeichnungen anpassen
 
 @cindex Anpassen von Akkordsymbolen
 @cindex Akkordsymbole, anpassen
@@ -818,7 +818,7 @@ myChords = \relative c' {
 
 
 @node Figured bass
-@subsection Generalbass
+@section Generalbass
 
 @lilypondfile[quote,staffsize=18,indent=2\cm,line-width=159\mm]
 {snippets/figured-bass-headword.ly}
@@ -827,7 +827,7 @@ Generalbassnotation kann dargestellt werden.
 
 
 @node Introduction to figured bass
-@unnumberedsubsubsec Grundlagen des Bezifferten Basses
+@subsection Grundlagen des Bezifferten Basses
 
 @cindex Basso continuo
 @cindex Generalbass
@@ -878,7 +878,7 @@ Schnipsel:
 
 
 @node Entering figured bass
-@unnumberedsubsubsec Eingabe des Generalbass'
+@subsection Eingabe des Generalbass'
 
 @code{\figuremode} (Zahlenmodus) wird benutzt, um den Eingabemodus
 auf den Zahlenmodus umzustellen.  Mehr Information zu unterschiedlichen
@@ -1065,7 +1065,7 @@ Referenz der Interna:
 
 
 @node Displaying figured bass
-@unnumberedsubsubsec Generalbass anzeigen
+@subsection Generalbass anzeigen
 
 Generalbass kann mit dem @code{FiguredBass}-Kontext, aber auch in
 den meisten anderen @code{Staff}-Kontexten dargestellt werden.
