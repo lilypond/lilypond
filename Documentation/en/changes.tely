@@ -1870,6 +1870,12 @@ property has been renamed to @code{bottom-padding}.  While
 available since version 2.13.4 (released in 2009) it wasn't
 documented before.
 
+@item
+It is now possible to modify tag groups created with
+@code{\tagGroup} or @code{\tagGroupRef} by using the
+commands @code{\resetTagGroups}, @code{\resetTagGroup},
+@code{\addToTagGroup} and @code{\removeFromTagGroup}.
+
 @end itemize
 
 

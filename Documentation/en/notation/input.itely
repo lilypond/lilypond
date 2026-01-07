@@ -2789,6 +2789,8 @@ music = \relative c'' {
 }
 @end lilypond
 
+@subsubsubheading Using tag groups
+
 @cindex tag groups
 @funindex \tagGroup
 
@@ -2836,6 +2838,135 @@ music = \relative {
 Note that individual tags cannot be members of more than one tag
 group.
 
+@funindex \tagGroupRef
+
+It is possible to modify tag groups.  There is an
+alternative way of defining them using @code{\tagGroupRef}
+to be able to reference the tag group later for modification.  The call
+
+@example
+tg = \tagGroupRef violinI,violinII
+@end example
+
+@noindent
+is essentially the same as
+
+@example
+tg = #'(violinI violinII)
+\tagGroup \tg
+@end example
+
+There are different possibilities to change existing tag groups.
+
+@itemize
+@funindex \resetTagGroups
+
+@item
+To undo the effects of every call of @code{\tagGroup}
+or @code{\tagGroupRef} you can just use @code{\resetTagGroups}.
+
+@lilypond[verbatim,quote]
+\tagGroup tagI,tagII
+
+music = \relative {
+  \tag tagI { c''4^"tagI" c c c }
+  \tag tagII { a2^"tagII" a }
+  \tag otherI { d4^"otherI" d d d }
+  \tag otherII { f,4^"otherII" g a c }
+}
+
+\new Voice {
+  \keepWithTag tagI \music
+}
+
+\resetTagGroups
+
+\new Voice {
+  \keepWithTag tagI \music
+}
+@end lilypond
+
+@funindex \resetTagGroup
+
+@item
+If you want to reset one specific tag group you have to
+use @code{\resetTagGroup} with a given tag group specified
+by all of its tags.  It is handy to use @code{\tagGroupRef}
+for the definition of the tag group.
+
+@lilypond[verbatim,quote]
+tgI = \tagGroupRef tagI,tagII
+tgII = \tagGroupRef otherI,otherII
+
+music = \relative {
+  \tag tagI { c''4^"tagI" c c c }
+  \tag tagII { a2^"tagII" a }
+  \tag otherI { d4^"otherI" d d d }
+  \tag otherII { f,4^"otherII" g a c }
+  \tag test { c8^"test" a g f e2 }
+}
+
+% 'otherI', 'otherII' and 'test' are not in the same group
+% as 'tagI' so they stay untouched.
+\new Voice {
+  \keepWithTag tagI \music
+}
+
+\resetTagGroup \tgI
+
+% now only 'otherI' and 'otherII' are in a tag group,
+% so '\keepWithTag tagI' filters 'tagII' and 'test'.
+\new Voice {
+  \keepWithTag tagI \music
+}
+@end lilypond
+
+@funindex \addToTagGroup
+@funindex \removeFromTagGroup
+
+@item
+Another way of modifying an existing tag group is
+to add or remove single tags with the commands
+@code{\addToTagGroup} and @code{\removeFromTagGroup}.
+
+@lilypond[verbatim,quote]
+tgI = \tagGroupRef tagI,tagII
+tgII = \tagGroupRef otherI,otherII
+
+music = \relative {
+  \tag tagI { c''4^"tagI" c c c }
+  \tag tagII { a2^"tagII" a }
+  \tag otherI { d4^"otherI" d d d }
+  \tag otherII { f,4^"otherII" g a c }
+  \tag test { c8^"test" a g f e2 }
+}
+
+% 'otherI', 'otherII' and 'test' are not in the same group
+% as 'tagI' so they stay untouched.
+\new Voice {
+  \keepWithTag tagI \music
+}
+
+\addToTagGroup \tgI test
+
+% now 'tagI', 'tagII' and 'test' are in the same group
+% so 'tagII' and 'test' are removed.
+\new Voice {
+  \keepWithTag tagI \music
+}
+
+\removeFromTagGroup \tgII otherII
+\addToTagGroup \tgI otherII
+
+% now 'otherII' is removed from 'tgII' and
+% added to 'tgI' so only 'otherI' is in its
+% own tag group and is not filtered.
+\new Voice {
+  \keepWithTag tagI \music
+}
+@end lilypond
+
+@end itemize
 
 @subsubheading Prepending and appending to tagged music
 

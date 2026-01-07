@@ -56,6 +56,12 @@ addQuote =
    (_i "Define @var{music} as a quotable music expression named @var{name}.")
    (add-quotable name music))
 
+addToTagGroup =
+#(define-void-function (tag-group more-tags) (symbol-list? symbol-list?)
+   (_i "Add @var{more-tags} to the tag group identified by @var{tag-group}.")
+   (let ((err (add-to-tag-group tag-group more-tags)))
+     (if err (ly:parser-error err (*location*)))))
+
 after =
 #(define-music-function (delta ev mus) (ly:duration? ly:music? ly:music?)
   (_i "Add music @var{ev} with a delay of @var{delta} after the onset of
@@ -2042,6 +2048,12 @@ pitch.")
    (make-music 'RelativeOctaveMusic
                'element music))
 
+removeFromTagGroup =
+#(define-void-function (tag-group tags) (symbol-list? symbol-list?)
+   (_i "Remove @var{tags} from the tag group identified by @var{tag-group}.")
+   (let ((err (remove-from-tag-group tag-group tags)))
+     (if err (ly:parser-error err (*location*)))))
+
 removeWithTag =
 #(define-music-function (tags music) (symbol-list-or-symbol? ly:music?)
    (_i "Remove elements of @var{music} that are tagged with one of the tags in
@@ -2083,6 +2095,18 @@ resetRelativeOctave =
    (make-music 'SequentialMusic
                'to-relative-callback
                (lambda (music last-pitch) pitch)))
+
+resetTagGroup =
+#(define-void-function (tag-group) (symbol-list?)
+   (_i "Reset the tag group equal to @var{tag-group}.")
+
+   (let ((err (reset-tag-group tag-group)))
+     (if err (ly:parser-error err (*location*)))))
+
+resetTagGroups =
+#(define-void-function () ()
+   (_i "Reset all tag groups previously created with @code{\\tagGroup}.")
+   (reset-tag-groups))
 
 retrograde =
 #(define-music-function (music) (ly:music?)
@@ -2256,6 +2280,14 @@ tagGroup =
 Tag groups must not overlap.")
    (let ((err (define-tag-group tags)))
      (if err (ly:parser-error err (*location*)))))
+
+tagGroupRef =
+#(define-scheme-function (tags) (symbol-list?)
+   (_i "Define a tag group comprising the symbols in the symbol list @var{tags}.
+
+It returns the created tag group for further reference.")
+   (tagGroup tags)
+   tags)
 
 temporary =
 #(define-music-function (music) (ly:music?)

@@ -2895,8 +2895,48 @@ there is a conflicting tag group definition."
 
 ;; Save the default tag groups and restore them after every session.
 (define default-tag-groups (hash-table->alist tag-groups))
-(call-after-session (lambda ()
-                      (set! tag-groups (alist->hash-table default-tag-groups))))
+(define-public (reset-tag-groups)
+  "Reset the tag groups to the default internal tag groups."
+  (set! tag-groups (alist->hash-table default-tag-groups)))
+(call-after-session reset-tag-groups)
+
+(define-public (reset-tag-group tag-group)
+  "Remove the tag group definition for the given @var{tag-group} symbol list.
+
+Returns @code{#f} if successful, and an error message if
+the given tag group could not be found."
+  (cond ((not (tag-group-defined? tag-group))
+          (format #f (G_ "tag group ~a not found") tag-group))
+        (else
+          (for-each
+           (lambda (elt) (hashq-remove! tag-groups elt))
+           tag-group)
+          #f)))
+
+(define-public (add-to-tag-group tag-group tags)
+  "Add the given @var{tags} to the existing @var{tag-group} symbol list.
+
+Returns @code{#f} if successful, and an error message if
+the @var{tag-group} does not exist or if
+there is a conflicting tag group definition for one of the symbols
+in @var{tags}."
+  (or (reset-tag-group tag-group)
+      (define-tag-group (append! tag-group tags))))
+
+(define-public (remove-from-tag-group tag-group tags)
+  "Remove the given @var{tags} from the existing @var{tag-group} symbol list.
+
+Returns @code{#f} if successful, and an error message if
+the @var{tag-group} does not exist."
+  (or (reset-tag-group tag-group)
+      (define-tag-group (lset-difference! eq? tag-group tags))))
+
+(define-public (tag-group-defined? tag-group)
+  "Test if given @var{tag-group} is defined.
+
+Return @code{#t} if so and @code{#f} otherwise."
+  (and (pair? tag-group)
+       (equal? tag-group (tag-group-get (car tag-group)))))
 
 (define-public (tag-group-get tag)
   "Return the tag group (as a list of symbols) that the given

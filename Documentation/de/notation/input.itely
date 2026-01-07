@@ -2119,6 +2119,136 @@ da diese Marke in der selben Gruppe wie @code{violinI} ist.
 anderen Gruppe sind und @code{other} bleibt ebenfalls erhalten,
 weil diese Marke gar keiner Gruppe zugeordnet ist.
 
+@funindex \tagGroupRef
+
+Es ist möglich, bereits erstellte Taggruppen zu modifizieren.
+Um diese referenzieren zu können, existiert eine alternative
+Definitionsmöglichkeit mit @code{\tagGroupRef}.  Der Aufruf
+
+@example
+tg = \tagGroupRef violinI,violinII
+@end example
+
+@noindent
+ist im Wesentlichen das gleiche wie
+
+@example
+tg = #'(violinI violinII)
+\tagGroup \tg
+@end example
+
+Bereits erstellte Taggruppen können auf mehrere Arten
+verändert werden.
+
+@funindex \resetTagGroups
+
+Um die Auswirkungen von allen @code{\tagGroup}- und
+@code{\tagGroupRef}-Befehlen rückgängig zu machen,
+lässt sich @code{\resetTagGroups} verwenden.
+
+@lilypond[verbatim,quote]
+\tagGroup tagI,tagII
+
+music = \relative {
+  \tag tagI { c''4^"tagI" c c c }
+  \tag tagII { a2^"tagII" a }
+  \tag otherI { d4^"otherI" d d d }
+  \tag otherII { f,4^"otherII" g a c }
+}
+
+\new Voice {
+  \keepWithTag tagI \music
+}
+
+\resetTagGroups
+
+\new Voice {
+  \keepWithTag tagI \music
+}
+@end lilypond
+
+@funindex \resetTagGroup
+
+Soll hingegen nur eine einzelne Taggruppe aufgelöst werden,
+so ist @code{\resetTagGroup} mit einer Taggruppe zu nutzen.
+An dieser Stelle ist die Nutzung von @code{\tagGroupRef}
+zur Erstellung der Taggruppe vorteilhaft, um eine Referenz
+in Form einer Variablen zu erhalten.
+
+@lilypond[verbatim,quote]
+tgI = \tagGroupRef tagI,tagII
+tgII = \tagGroupRef otherI,otherII
+
+music = \relative {
+  \tag tagI { c''4^"tagI" c c c }
+  \tag tagII { a2^"tagII" a }
+  \tag otherI { d4^"otherI" d d d }
+  \tag otherII { f,4^"otherII" g a c }
+  \tag test { c8^"test" a g f e2 }
+}
+
+% 'otherI', 'otherII' und 'test' sind nicht in der selben
+% Taggruppe wie 'tagI' und werden daher nicht rausgefiltert.
+\new Voice {
+  \keepWithTag tagI \music
+}
+
+\resetTagGroup \tgI
+
+% Jetzt sind nur noch 'otherI' und 'otherII' in einer Taggruppe,
+% daher filtert '\keepWithTag tagI' jetzt 'tagII' und 'test' heraus.
+\new Voice {
+  \keepWithTag tagI \music
+}
+@end lilypond
+
+@funindex \addToTagGroup
+@funindex \removeFromTagGroup
+
+Eine weitere Modifikationsmöglichkeit bieten die Befehle
+@code{\addToTagGroup} und @code{\removeFromTagGroup}, die
+neue Tags zu bestehenden Taggruppen hinzufügen oder bereits
+vorhandene wieder entfernen können.
+
+@lilypond[verbatim,quote]
+tgI = \tagGroupRef tagI,tagII
+tgII = \tagGroupRef otherI,otherII
+
+music = \relative {
+  \tag tagI { c''4^"tagI" c c c }
+  \tag tagII { a2^"tagII" a }
+  \tag otherI { d4^"otherI" d d d }
+  \tag otherII { f,4^"otherII" g a c }
+  \tag test { c8^"test" a g f e2 }
+}
+
+% 'otherI', 'otherII' und 'test' sind nicht in der gleichen
+% Taggruppe wie 'tagI' und bleiben somit ungefiltert.
+\new Voice {
+  \keepWithTag tagI \music
+}
+
+\addToTagGroup \tgI test
+
+% Jetzt sind 'tagI', 'tagII' und 'test' in der gleichen Taggruppe.
+% Somit werden 'tagII' und 'test' herausgefiltert.
+\new Voice {
+  \keepWithTag tagI \music
+}
+
+\removeFromTagGroup \tgII otherII
+\addToTagGroup \tgI otherII
+
+% Jetzt wird 'otherII' von der Taggruppe 'tgII' entfernt
+% und der Taggruppe 'tgI' hinzugefügt.
+% Damit ist nur noch 'otherI' in seiner eigenen Gruppe
+% und wird damit nicht gefiltert.
+\new Voice {
+  \keepWithTag tagI \music
+}
+@end lilypond
+
+
 Manchmal will man Noten an einem bestimmen Platz in existierenden
 Noten einfügen.  Dafür kann entweder @code{\pushToTag} oder
 @code{\appendToTag} benutzt werden, um Material hinter bzw. vor den
