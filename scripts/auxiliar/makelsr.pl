@@ -701,21 +701,23 @@ sub download_wiki {
 }
 
 
-# Download snippets or access dump file.
-print "Getting snippets from LilyPond Wiki...";
-print "\n" if $verbose;
+if ($dump || $input || !($no_lsr && $no_snippet_list)) {
+  # Download snippets or access dump file.
+  print "Getting snippets from LilyPond Wiki...";
+  print "\n" if $verbose;
 
-if ($input) {
-  my $wiki_dump = file_name_is_absolute($input)
-                    ? $input
-                    : catfile($curr_dir, $input);
-  print "\n" if not $verbose;
-  print "  Using LilyPond Wiki dump file '$wiki_dump'\n" if $verbose;
+  if ($input) {
+    my $wiki_dump = file_name_is_absolute($input)
+                      ? $input
+                      : catfile($curr_dir, $input);
+    print "\n" if not $verbose;
+    print "  Using LilyPond Wiki dump file '$wiki_dump'\n" if $verbose;
 
-  parse_wiki_dump($wiki_dump);
-}
-else {
-  download_wiki();
+    parse_wiki_dump($wiki_dump);
+  }
+  else {
+    download_wiki();
+  }
 }
 
 
