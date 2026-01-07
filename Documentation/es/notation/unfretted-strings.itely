@@ -13,8 +13,7 @@
 @node Unfretted string instruments
 @chapter Instrumentos de cuerda sin trastes
 
-@lilypondfile[quote]
-{snippets/unfretted-headword.ly}
+@lilypondfile[quote]{snippets/unfretted-headword.ly}
 
 @cindex orquestales, cuerdas
 @cindex cuerdas orquestales

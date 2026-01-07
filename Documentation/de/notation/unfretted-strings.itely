@@ -15,8 +15,7 @@
 @node Unfretted string instruments
 @chapter Bundlose Saiteninstrumente
 
-@lilypondfile[quote]
-{snippets/unfretted-headword.ly}
+@lilypondfile[quote]{snippets/unfretted-headword.ly}
 
 @cindex Streicher
 @cindex Orchester, Streicher

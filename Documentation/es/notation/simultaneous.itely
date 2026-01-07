@@ -13,7 +13,7 @@
 @node Simultaneous notes
 @chapter Notas simultáneas
 
-@lilypondfile[quote,ragged-right,line-width=16\cm]{snippets/simultaneous-headword.ly}
+@lilypondfile[quote]{snippets/simultaneous-headword.ly}
 
 La palabra @q{polifonía} en música hace referencia a tener más de
 una voz en una pieza cualquiera de música.  En LilyPond la

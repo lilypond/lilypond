@@ -16,8 +16,7 @@
 @section フレットの無い弦楽器
 
 
-@lilypondfile[quote]
-{snippets/unfretted-headword.ly}
+@lilypondfile[quote]{snippets/unfretted-headword.ly}
 
 @cindex orchestral strings (オーケストラの弦楽器)
 @cindex strings, orchestral (オーケストラの弦楽器)

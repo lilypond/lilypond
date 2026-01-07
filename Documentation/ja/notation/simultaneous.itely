@@ -16,7 +16,7 @@
 @node Simultaneous notes
 @section 同時進行する音符
 
-@lilypondfile[quote,ragged-right,line-width=16\cm]{snippets/simultaneous-headword.ly}
+@lilypondfile[quote]{snippets/simultaneous-headword.ly}
 
 楽譜の中で多声部は楽曲の 1 節の中にある複数のボイスを参照します。@c
 LilyPond の中で多声部は同じ譜にある複数のボイスを参照します。

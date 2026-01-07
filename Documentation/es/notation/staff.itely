@@ -12,9 +12,7 @@
 @node Staff notation
 @chapter Notación de los pentagramas
 
-@c The line width is a bit of a hack to allow space for the
-@c instrument names.
-@lilypondfile[quote,ragged-right,line-width=14.5\cm,staffsize=16]{snippets/staff-headword.ly}
+@lilypondfile[quote]{snippets/staff-headword.ly}
 
 Esta sección explica cómo influir sobre la apariencia de los
 pentagramas, cómo imprimir partituras con más de un pentagrama y

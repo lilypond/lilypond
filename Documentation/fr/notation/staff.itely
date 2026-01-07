@@ -17,10 +17,7 @@
 @node Staff notation
 @chapter Notation sur la portée
 
-@c The line width is a bit of a hack to allow space for the
-@c instrument names.
-@lilypondfile[quote,ragged-right,line-width=14.5\cm,staffsize=16]
-{snippets/staff-headword.ly}
+@lilypondfile[quote]{snippets/staff-headword.ly}
 
 Cette section aborde les détails de gravure de la portée, la réalisation
 de partitions comprenant plusieurs portées et l'ajout d'indications

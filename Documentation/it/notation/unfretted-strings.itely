@@ -15,8 +15,7 @@
 @node Unfretted string instruments
 @section Strumenti a corde senza tasti
 
-@lilypondfile[quote]
-{snippets/unfretted-headword.ly}
+@lilypondfile[quote]{snippets/unfretted-headword.ly}
 
 @cindex archi da orchestra
 @cindex orchestra, archi

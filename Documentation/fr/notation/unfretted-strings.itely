@@ -17,8 +17,7 @@
 @node Unfretted string instruments
 @chapter Cordes non frettées
 
-@lilypondfile[quote]
-{snippets/unfretted-headword.ly}
+@lilypondfile[quote]{snippets/unfretted-headword.ly}
 
 @cindex cordes d'orchestre
 @cindex orchestre, cordes

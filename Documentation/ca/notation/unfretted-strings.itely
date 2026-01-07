@@ -16,8 +16,7 @@
 @node Unfretted string instruments
 @section Instruments de corda sense trasts
 
-@lilypondfile[quote]
-{snippets/unfretted-headword.ly}
+@lilypondfile[quote]{snippets/unfretted-headword.ly}
 
 @cindex orquestrals, cordes
 @cindex cordes orquestrals

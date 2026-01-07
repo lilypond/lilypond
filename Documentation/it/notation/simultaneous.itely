@@ -15,7 +15,7 @@
 @node Simultaneous notes
 @section Note simultanee
 
-@lilypondfile[quote,ragged-right,line-width=16\cm]{snippets/simultaneous-headword.ly}
+@lilypondfile[quote]{snippets/simultaneous-headword.ly}
 
 La polifonia in musica si riferisce alla coesistenza simultanea di più di una voce in un
 brano musicale. In LilyPond la polifonia si riferisce alla coesistenza di

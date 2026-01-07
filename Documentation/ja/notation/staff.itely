@@ -16,9 +16,7 @@
 @node Staff notation
 @section 譜の記譜法
 
-@c The line width is a bit of a hack to allow space for the
-@c  instrument names.
-@lilypondfile[quote,ragged-right,line-width=14.5\cm,staffsize=16]{snippets/staff-headword.ly}
+@lilypondfile[quote]{snippets/staff-headword.ly}
 
 このセクションでは、譜の見た目を変える方法、複数の譜を持つ楽譜を譜刻する方法、@c
 それに、テンポ指示と演奏指示楽節の音符を譜に付け加える方法について説明します。

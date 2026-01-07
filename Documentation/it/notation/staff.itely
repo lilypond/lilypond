@@ -15,9 +15,7 @@
 @node Staff notation
 @section Notazione del rigo
 
-@c The line width is a bit of a hack to allow space for the
-@c  instrument names.
-@lilypondfile[quote,ragged-right,line-width=14.5\cm,staffsize=16]{snippets/staff-headword.ly}
+@lilypondfile[quote]{snippets/staff-headword.ly}
 
 Questa sezione spiega come modificare l'aspetto del rigo, come stampare
 partiture multirigo e come aggiungere indicazioni di tempo e citazioni

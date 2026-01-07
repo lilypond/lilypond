@@ -818,8 +818,7 @@ myChords = \relative c' {
 @node Figured bass
 @subsection Basso continuo
 
-@lilypondfile[quote,staffsize=18,indent=2\cm,line-width=159\mm]
-{snippets/figured-bass-headword.ly}
+@lilypondfile[quote]{snippets/figured-bass-headword.ly}
 
 La notazione del basso continuo è supportata.
 

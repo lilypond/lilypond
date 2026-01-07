@@ -14,7 +14,7 @@
 @node Simultaneous notes
 @chapter Gleichzeitig erscheinende Noten
 
-@lilypondfile[quote,ragged-right,line-width=16\cm]{snippets/simultaneous-headword.ly}
+@lilypondfile[quote]{snippets/simultaneous-headword.ly}
 
 Polyphonie bedeutet in der musikalischen Terminologie das
 Vorhandensein von mehr als einer (eigenständigen) Stimme

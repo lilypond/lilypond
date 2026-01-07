@@ -981,8 +981,7 @@ Internals Reference:
 @node Figured bass
 @section Figured bass
 
-@lilypondfile[quote,staffsize=18,indent=2\cm,line-width=159\mm]
-{snippets/figured-bass-headword.ly}
+@lilypondfile[quote]{snippets/figured-bass-headword.ly}
 
 Figured bass notation can be displayed.
 

@@ -819,8 +819,7 @@ myChords = \relative c' {
 @node Figured bass
 @subsection 通奏低音
 
-@lilypondfile[quote,staffsize=18,indent=2\cm,line-width=159\mm]
-{snippets/figured-bass-headword.ly}
+@lilypondfile[quote]{snippets/figured-bass-headword.ly}
 
 通奏低音を譜刻することができます。
 
