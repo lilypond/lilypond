@@ -1161,8 +1161,7 @@ Der vollständige Befehl ist:
 Die Elemente sind folgende:
 
 @table @var
-@item
-Zeichen
+@item Zeichen
 ist eine Beschriftung oder Zeichenkette, die das Fußnotenzeichen
 angbit, welches für den Referenzpunkt als auch für die Fußnote
 unten auf der Seite benützt wird.  Es kann ausgelassen werden
