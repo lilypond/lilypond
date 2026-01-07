@@ -128,8 +128,8 @@ Use the LilyPond Wiki to regenerate LilyPond's 'snippets' directory.
   -n, --no-new           don't use snippets from the 'new'
                            subdirectory to update the 'snippets'
                            directory
-  -N, --new              the same as '--no-lsr', but also suppress
-                           'new category' warnings
+  -N, --new              the same as '--no-lsr --no-snippet-list', but
+                           also suppress 'new category' warnings
   -p, --path=DIR         directory where to look for the 'convert-ly'
                            script
   -s, --top-source=DIR   directory where to look for subdirectory
@@ -223,6 +223,7 @@ show_help(1) if $help;
 
 if ($new) {
   $no_lsr = 1;
+  $no_snippet_list = 1;
 }
 
 if ($all_dump_only) {
