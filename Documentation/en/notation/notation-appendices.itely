@@ -590,7 +590,7 @@ colors: @code{green}, @code{grey}, @code{maroon}, @code{purple}.
 @uref{https://en.wikipedia.org/wiki/X11_color_names, X11 color names}
 offer a wider choice than CSS names.  They come in several variants:
 
-@itemize @bullet
+@itemize
 @item
 Any name that is spelled as a single word with capitalization
 (e.g., @q{LightSlateBlue}) can also be spelled as space-separated

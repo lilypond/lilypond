@@ -576,13 +576,13 @@ An accidental alters a note by:
 @itemize
 
 @item Raising its pitch:
-@itemize
+@itemize @minus{}
 @item By two semitones—@notation{double sharp}
 @item By one semitone—@notation{sharp}
 @end itemize
 
 @item Lowering its pitch:
-@itemize
+@itemize @minus{}
 @item By one semitone—@notation{flat}
 @item By two semitones—@notation{double flat}
 @end itemize
@@ -3699,7 +3699,7 @@ Dictionary}.
 @item
 In figured bass to indicate that:
 
-@itemize
+@itemize @minus{}
 
 @item The extended note should be held through a change in harmony, when applied
 to one figure --OR--
@@ -5602,14 +5602,14 @@ This system extended to the ratio of longer note values to each other:
 @itemize
 
 @item maxima to longa, called:
-@itemize
+@itemize @minus{}
 @item @notation{modus maximorum},
 @item @notation{modus major}, or
 @item @notation{maximodus})
 @end itemize
 
 @item longa to breve, called:
-@itemize
+@itemize @minus{}
 @item @notation{modus longarum},
 @item @notation{modus minor}, or
 @item @notation{modus}
@@ -5688,7 +5688,7 @@ by grouping beats and by subdividing the primary beat.
 @item @b{quintuple}: groups of five beats.
 
 @item @b{sextuple} meter: groups of six.  A special case of:
-@itemize
+@itemize @minus{}
 @item duple meter, subdivided in three; or
 @item triple meter, subdivided in two.
 @end itemize
@@ -5708,14 +5708,14 @@ frequently used prior to the 20th Century.
 @itemize
 
 @item simple: subdivided in groups of two.
-@itemize
+@itemize @minus{}
 @item duple: 2/2, 2/4, 2/8
 @item triple: 3/2, 3/4, 3/8
 @item quadruple: 4/2, 4/4 (also called common time), 4/8
 @end itemize
 
 @item compound: subdivided in groups of three.
-@itemize
+@itemize @minus{}
 @item duple: 6/8
 @item triple: 9/8
 @item quadruple: 12/8
@@ -5889,7 +5889,7 @@ Used to qualify other indications, such as:
 @itemize
 
 @item Dynamics
-@itemize
+@itemize @minus{}
 @item @notation{mezzo piano} is @q{medium quiet} (that is, not as quiet as
 @notation{piano})
 @item @notation{mezzo forte} is @q{medium loud} (that is, not as loud as
@@ -5897,7 +5897,7 @@ Used to qualify other indications, such as:
 @end itemize
 
 @item Voice
-@itemize
+@itemize @minus{}
 @item Pitchwise, a mezzo-soprano's voice lies between that of contraltos and
 sopranos
 @end itemize
@@ -8940,7 +8940,7 @@ FI: ääni, lauluääni.
 @itemize
 
 @item Human voices:
-@itemize
+@itemize @minus{}
 @item @ref{soprano}
 @item @ref{mezzo-soprano}
 @item @ref{contralto}

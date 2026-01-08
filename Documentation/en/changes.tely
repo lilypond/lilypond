@@ -1208,7 +1208,7 @@ still working for backward compatibility (if you load
 @item
 Defaults for fret labels in fret diagrams have changed.
 
-@itemize
+@itemize @minus{}
 @item
 The default value for @code{fret-label-vertical-offset} is set to
 @w{-0.5}, which centers the label in the fret space.
@@ -1222,7 +1222,7 @@ instead of @code{'roman-lower}.
 @item
 Two new options are available for @code{fret-diagram-details}:
 
-@itemize
+@itemize @minus{}
 @item @code{string-overhang} allows to define the extension of string
 lines beyond the last fret line, in multiples of @code{fret-distance}.
 Default value@tie{}1.
@@ -1602,7 +1602,7 @@ Scheme command-line option handling is now more robust.  In the
 course of the new implementation, some minor changes were
 necessary.
 
-@itemize
+@itemize @minus{}
 @item
 On the command line, the argument for the @option{-dpaper-size}
 option no longer needs to be extra-quoted, i.e., a call like
@@ -1675,7 +1675,7 @@ possible (and sensible).
 Here is a list of some notable changes (not taking bug fixes into
 account).
 
-@itemize
+@itemize @minus{}
 @item The script is now much faster.
 
 @item Overlapping and nested slurs work as expected.

@@ -2414,7 +2414,7 @@ staves:
 
 @itemize
 @item @code{VerticalAxisGroup} properties:
-@itemize
+@itemize @minus{}
 @item @code{default-staff-staff-spacing}
 @item @code{staff-staff-spacing}
 @end itemize
@@ -2494,11 +2494,11 @@ staff groups:
 
 @itemize
 @item @code{VerticalAxisGroup} properties:
-@itemize
+@itemize @minus{}
 @item @code{staff-staff-spacing}
 @end itemize
 @item @code{StaffGrouper} properties:
-@itemize
+@itemize @minus{}
 @item @code{staff-staff-spacing}
 @item @code{staffgroup-staff-spacing}
 @end itemize
@@ -2562,7 +2562,7 @@ The following properties affect the spacing of non-staff lines:
 
 @itemize
 @item @code{VerticalAxisGroup} properties:
-@itemize
+@itemize @minus{}
 @item @code{staff-affinity}
 @item @code{nonstaff-relatedstaff-spacing}
 @item @code{nonstaff-nonstaff-spacing}

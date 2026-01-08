@@ -1315,7 +1315,7 @@ documentation text
 You @emph{must} include a @code{@@morerefs} @dots{}
 @code{@@endmorerefs} block.
 
-@itemize
+@itemize @minus{}
 @item
 The order of items inside the @code{@@morerefs} block is
 
@@ -1489,7 +1489,7 @@ names use this convention.
 @item
 Here is a list of preferred terms to be used:
 
-@itemize
+@itemize @minus{}
 @item
 @emph{Simultaneous}, NOT concurrent.
 

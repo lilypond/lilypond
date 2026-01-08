@@ -110,7 +110,7 @@ given in @rweb{Contact}.
 @item
 @strong{Git branches:}
 
-@itemize
+@itemize @minus{}
 @item @code{master}:
 always base your work on this branch, but @strong{never push}
 directly to it.

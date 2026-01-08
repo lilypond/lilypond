@@ -1684,7 +1684,7 @@ objects have been split over different systems.
 In the following example, we define a procedure
 @code{my-callback}.  This procedure
 
-@itemize
+@itemize @minus{}
 @item
 determines if the spanner has been split across line breaks
 @item

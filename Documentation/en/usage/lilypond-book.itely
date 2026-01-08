@@ -308,7 +308,7 @@ classes.}}
 Each snippet calls the following macros if they have been defined by
 the user:
 
-@itemize @bullet
+@itemize
 @item @code{\preLilyPondExample} is called before the music,
 
 @item @code{\postLilyPondExample} is called after the music,

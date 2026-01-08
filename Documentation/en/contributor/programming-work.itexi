@@ -593,7 +593,7 @@ for localization).  This includes warning and error messages.
 @item
 Do not localize/gettextify:
 
-@itemize
+@itemize @minus{}
 @item
 @code{programming_error}
 

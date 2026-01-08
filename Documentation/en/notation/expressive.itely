@@ -271,7 +271,7 @@ necessary, the @code{direction} property.  The convenience functions
 The type of grob that an articulation creates depends on what it
 is attached to.
 
-@itemize @bullet
+@itemize
 @item
 On notes or ordinary rests, articulations create @code{Script}
 objects.

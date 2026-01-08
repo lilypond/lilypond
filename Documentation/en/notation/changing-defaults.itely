@@ -3842,7 +3842,7 @@ Although all three components of the vector used to override
 effective with every layout object, and some combinations may
 even give errors.  The following limitations apply:
 
-@itemize @bullet
+@itemize
 @item Bar lines cannot be printed at the start of line.
 
 @item A bar number cannot be printed at the start of the @emph{first}

@@ -72,7 +72,7 @@ using text pattern matching and replacement (rather than
 @q{understanding} the context of what it is changing within a
 given input file).  This has several consequences:
 
-@itemize @bullet
+@itemize
 @item
 The reliability of the conversion depends on the quality of each applied
 rule set and on the complexity of the respective change.  Sometimes

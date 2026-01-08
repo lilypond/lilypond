@@ -1715,7 +1715,7 @@ traditionally engraved music to computer printouts.
 Among the numerous improvements and changes, the following might
 be most visible:
 
-@itemize @bullet
+@itemize
 @item
 Many items are now positioned using their actual outline rather
 than a@tie{}rectangular bounding box.  This greatly reduces

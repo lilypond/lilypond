@@ -656,7 +656,7 @@ formatting details:
 @sourceimage{lily14-sarabande-annotated,,}
 @end ifnottex
 
-@itemize @bullet
+@itemize
 @item there is too much space before the time signature
 @item the stems of the beamed notes are too long
 @item the second and fourth measures are too narrow
@@ -814,7 +814,8 @@ partIV = \relative {
 @end lilypond
 
 Some shortcomings in the unedited Finale output include:
-@itemize @bullet
+
+@itemize
 @item Most of the beams extend too far off the staff.  A beam that points
 towards the center of the staff should have a length of about one
 octave, but engravers shorten this when the beam points away from the
