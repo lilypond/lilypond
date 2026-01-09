@@ -25,8 +25,7 @@
 Die Tabelle zeigt die zwei üblichen Möglichkeiten, wie Akkordbezeichnungen
 ausgegeben werden. Es wird auch die entsprechende Note ausgegeben.
 
-@c The line width is a hack to allow space for instrument names
-@lilypondfile[quote,line-width=15\cm]{en/included/chord-names-jazz.ly}
+@lilypondfile[quote,staffsize=18]{en/included/chord-names-jazz.ly}
 
 
 @node Common chord modifiers

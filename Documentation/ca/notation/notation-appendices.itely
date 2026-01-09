@@ -24,8 +24,7 @@
 La taula següent mostra dos sistemes estàndard per imprimir els
 noms dels acords, junt a les notes que representen.
 
-@c The line width is a hack to allow space for instrument names
-@lilypondfile[quote,line-width=15\cm]{en/included/chord-names-jazz.ly}
+@lilypondfile[quote,staffsize=18]{en/included/chord-names-jazz.ly}
 
 @node Common chord modifiers
 @appendixsec Modificadors d'acord més usuals

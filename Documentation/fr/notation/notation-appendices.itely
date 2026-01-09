@@ -57,9 +57,7 @@ de nommage, non pris en charge, sont indiqués dans le morceau choisi
 @rlsrnamed{Chord notation,Accords}, qui inclut une notation inspirée par Harald
 Banter (1982) utilisée par défaut dans LilyPond jusqu’à sa version 1.7.
 
-@c The line width is a hack to allow space for instrument names
-@lilypondfile[quote,line-width=15\cm]
-{en/included/chord-names-jazz.ly}
+@lilypondfile[quote,staffsize=18]{en/included/chord-names-jazz.ly}
 
 
 @node Common chord modifiers

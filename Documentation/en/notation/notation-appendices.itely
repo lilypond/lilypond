@@ -50,8 +50,7 @@ snippet in @rlsr{Chord notation}, including the notation inspired
 by Harald Banter (1982) that was used by default in early LilyPond
 releases (up to version 1.7).
 
-@c The line width is a hack to allow space for instrument names
-@lilypondfile[quote,line-width=15\cm]{en/included/chord-names-jazz.ly}
+@lilypondfile[quote,staffsize=18]{en/included/chord-names-jazz.ly}
 
 
 @node Common chord modifiers

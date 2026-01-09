@@ -52,8 +52,7 @@ el fragmento de código @qq{Chord names alternative} de la sección
 (1982) que se utilizaba de forma predeterminada en algunas de las
 primeras versiones de LilyPond (hasta la 1.7).
 
-@c The line width is a hack to allow space for instrument names
-@lilypondfile[quote,line-width=15\cm]{en/included/chord-names-jazz.ly}
+@lilypondfile[quote,staffsize=18]{en/included/chord-names-jazz.ly}
 
 
 @node Common chord modifiers
