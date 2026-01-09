@@ -22,13 +22,13 @@ chordmodifiers = #default-chord-modifier-list
 
 whiteTriangleMarkup = \markup {
   \fontsize #-3 \triangle ##f
-  %%  394 capital delta
+  %% U+0394 capital delta
   %#(ly:wide-char->utf-8 #x0394)
 
-  %% 2206 : delta from the symbol font.
+  %% U+2206: delta from the symbol font.
   %   #(ly:wide-char->utf-8 #x2206)
 
-  %% up pointing triangle
+  %% U+25B3: up pointing triangle
   % #(ly:wide-char->utf-8 #x25B3)
 }
 
@@ -40,7 +40,7 @@ blackTriangleMarkup = \markup {
 }
 
 whiteCircleMarkup = \markup {
-  %% b0 is the degree sign. No need for \super here.
+  %% U+00B0 is the degree sign. No need for \super here.
   \fontsize #2 #(ly:wide-char->utf-8 #x00b0)
 }
 
@@ -48,16 +48,16 @@ ignatzekExceptionMusic = {
   <c e gis>-\markup { "+" }
   <c es ges>-\markup { \whiteCircleMarkup }
   <c es ges bes>-\markup {
-    %%  f8 is o with slash.
-    \super #(ly:wide-char->utf-8 #x00f8)
-  }
-  <c es ges beses>-\markup \concat { \whiteCircleMarkup \super  "7" }
+    %% U+00F8 is character 'o' with a slash.
+    \super #(ly:wide-char->utf-8 #x00f8) }
+  <c es ges beses>-\markup \concat { \whiteCircleMarkup \super "7" }
   <c e g b fis'>-\markup { \super "lyd" } % Lydian
-  <c e g bes des' ees' fis' aes'>-\markup { \super "alt" } % altered chord (super-Locrian)
-  %% Power chords should be printed by default:
+  <c e g bes des' ees' fis' aes'>-\markup {
+    \super "alt" } % altered chord (super-Locrian)
+  % Power chords should be printed by default.
   <c g>-\markup { \super "5" }
   <c g c'>-\markup { \super "5" }
 }
 
-ignatzekExceptions  =
+ignatzekExceptions =
 #(sequential-music-to-chord-exceptions ignatzekExceptionMusic #t)
