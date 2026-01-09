@@ -1271,6 +1271,41 @@ automatically for words ending in a melisma.
 }
 @end lilypond
 
+@item
+LilyPond now follows the Ignatzek chord name scheme more closely.
+This reverts changes introduced in version 2.15.21 (in 2011),
+which are now considered as incorrect and/or ambiguous.
+
+@lilypond[quote, verbatim]
+oldException = { <c e g b fis'>-\markup \super "lyd" }
+chExceptions = #(append (sequential-music-to-chord-exceptions
+                         oldException #t)
+                        ignatzekExceptions)
+
+music = { <c e g d'>1 | <c es g f'> | <c e g b fis'> }
+
+\new StaffGroup \with { instrumentName = "old:" }
+<<
+  \new ChordNames \with {
+    chordNameExceptions = #chExceptions
+    additionalPitchPrefix = ""
+  } \music
+  \new Voice \transpose c c' \music
+>>
+
+\new StaffGroup \with { instrumentName = "new:" }
+<<
+  \new ChordNames \music
+  \new Voice \transpose c c' \music
+>>
+
+\layout {
+  indent = 1\cm
+  line-width = 9\cm
+  ragged-right = ##f
+}
+@end lilypond
+
 @end itemize
 
 

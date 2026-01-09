@@ -51,7 +51,6 @@ ignatzekExceptionMusic = {
     %% U+00F8 is character 'o' with a slash.
     \super #(ly:wide-char->utf-8 #x00f8) }
   <c es ges beses>-\markup \concat { \whiteCircleMarkup \super "7" }
-  <c e g b fis'>-\markup { \super "lyd" } % Lydian
   <c e g bes des' ees' fis' aes'>-\markup {
     \super "alt" } % altered chord (super-Locrian)
   % Power chords should be printed by default.

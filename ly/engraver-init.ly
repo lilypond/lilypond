@@ -940,7 +940,7 @@ run."
   %% chord names:
   chordNameFunction = #ignatzek-chord-names
   minorChordModifier = "m"
-  additionalPitchPrefix = "" % was "add"
+  additionalPitchPrefix = "add"
   majorSevenSymbol = #whiteTriangleMarkup
   chordNameLowercaseMinor = ##f
   chordNameSeparator = #(make-hspace-markup 0.5)
