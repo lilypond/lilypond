@@ -1656,9 +1656,9 @@ explicitly specify the size of the drawing, as demonstrated below:
 c'1^\markup {
   \combine
     \epsfile #X #10 "./context-example.eps"
-    \with-dimensions #'(0 . 6) #'(0 . 10)
+    \with-dimensions #'(-0.5 . 10.5) #'(-2 . 8)
     \postscript "
-      -2 3 translate
+      -0.3 1 translate
       2.7 2 scale
       newpath
       2 -1 moveto
