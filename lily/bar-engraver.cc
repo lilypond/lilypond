@@ -156,7 +156,7 @@ Bar_engraver::calc_bar_type () const
   // probably not useful enough to be worth explaining, testing, and
   // maintaining.  Varying the position of a caesura/phrase bar might be a good
   // reason to do it, but that is easy enough to do with two layers (as seen).
-  constexpr std::array<BarType, 7> types_by_priority {
+  constexpr auto types_by_priority = std::array {
     BarType::REPEAT,             //
     BarType::FINE,               //
     BarType::SECTION,            //
