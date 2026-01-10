@@ -20,7 +20,7 @@ even if it is not metrically correct.
   \omit Staff.TimeSignature
 
   \set Timing.beamExceptions = #'()
-  \set Timing.beatStructure = 1
+  \set Timing.beatStructure = #'(1)
   \set Timing.beatBase = 1
 
   \set subdivideBeams = ##t
