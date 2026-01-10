@@ -215,17 +215,17 @@ depth-first through MUSIC."
          (spec (ly:music-property music 'time-signature *unspecified*)))
 
     (define (do-sets context)
-      (let* ((structure (ly:music-property music 'beat-structure)))
-        (let* ((time-signature-settings
-                (ly:context-property context 'timeSignatureSettings))
-               (my-beat-base (beat-base spec time-signature-settings))
-               (my-beat-structure
-                (if (null? structure)
-                    (beat-structure my-beat-base spec time-signature-settings)
-                    structure))
-               (my-beam-exceptions
-                (beam-exceptions spec time-signature-settings))
-               (my-mlen (calc-measure-length spec)))
+      (let* ((structure (ly:music-property music 'beat-structure))
+             (time-signature-settings
+              (ly:context-property context 'timeSignatureSettings))
+             (my-beat-base (beat-base spec time-signature-settings))
+             (my-beat-structure
+              (if (null? structure)
+                  (beat-structure my-beat-base spec time-signature-settings)
+                  structure))
+             (my-beam-exceptions
+              (beam-exceptions spec time-signature-settings))
+             (my-mlen (calc-measure-length spec)))
           (ly:context-set-property! context 'timeSignature spec)
           ;; meterScalingFactor should not be set unless the meter is scaled
           (when scaled-duration
@@ -238,7 +238,7 @@ depth-first through MUSIC."
           ;; explicitly change Timing.measureLength to create irregular
           ;; measures.
           (when (not scaled-duration)
-            (ly:context-set-property! context 'measureLength my-mlen)))))
+            (ly:context-set-property! context 'measureLength my-mlen))))
 
     (define (do-unsets context)
       (ly:context-unset-property context 'meterScalingFactor)
