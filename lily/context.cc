@@ -931,6 +931,17 @@ measure_position (Context const *context)
   return measure_position (context, measure_length (context));
 }
 
+Moment
+scaled_measure_position (Context const *context,
+                         Rational const &scaled_measure_length)
+{
+  const auto factor
+    = from_scm (get_property (context, "meterScalingFactor"), Rational (1));
+  const auto actual_len = scaled_measure_length * factor;
+  const auto actual_pos = measure_position (context, actual_len);
+  return actual_pos / factor;
+}
+
 // Find the moment where a note of duration dur happening now will end.
 Moment
 note_end_mom (Context const *context, Duration const *dur)

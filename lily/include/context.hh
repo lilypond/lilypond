@@ -290,6 +290,12 @@ Moment measure_position (Context const *context,
 // The grace part of the position is not modified.
 Moment measure_position (Context const *context);
 
+// This is like measure_position(), but it uses the meterScalingFactor property
+// to support cases of polymeter with aligned measures.  The provided measure
+// length and the returned measure position are in terms of the nominal meter.
+Moment scaled_measure_position (Context const *context,
+                                Rational const &scaled_measure_length);
+
 Moment note_end_mom (Context const *context, Duration const *dur);
 Rational measure_length (Context const *context);
 int measure_number (Context const *context);

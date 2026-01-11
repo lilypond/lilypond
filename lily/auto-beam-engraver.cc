@@ -58,11 +58,7 @@ protected:
 
   Moment beaming_measure_position ()
   {
-    const auto factor
-      = from_scm (get_property (this, "meterScalingFactor"), Rational (1));
-    const auto actual_per = beaming_options_.period_ * factor;
-    const auto actual_pos = measure_position (context (), actual_per);
-    return actual_pos / factor;
+    return scaled_measure_position (context (), beaming_options_.period_);
   }
 
 private:
