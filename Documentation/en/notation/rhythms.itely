@@ -1315,8 +1315,9 @@ Mensural time signatures are covered in
 @cindex beaming, time signature default properties
 
 In addition to setting the printed time signature, the @code{\time}
-command also sets the values of the time-signature-based properties
-@code{beatBase}, @code{beatStructure}, and @code{beamExceptions}.
+command also sets the values of the context properties
+@code{beatBase}, @code{beatStructure}, @code{submeasureStructure},
+and @code{beamExceptions}.
 The predefined default values for these properties can be found in
 @file{scm/time-signature-settings.scm}.
 
@@ -1337,24 +1338,23 @@ argument:
 }
 @end lilypond
 
-Alternatively, the default values of all these time-signature-based
-variables, including @code{beatBase} and @code{beamExceptions},
-can be set together.  The values can be set independently for several
-different time signatures.  The new values take effect when a
-subsequent @code{\time} command with the same value of the time
-signature is executed:
+Alternatively, the default values of these metric properties can
+be set as a group for a given time signature.  The new values take
+effect at a subsequent @code{\time} command with that time
+signature:
 
 @lilypond[quote,verbatim]
 \score {
   \new Staff {
     \relative c' {
       \overrideTimeSignatureSettings
-        4/4        % timeSignature
-        #1/4       % beatBase
-        3,1        % beatStructure
-        #'()       % beamExceptions
-      \time 4/4
-      \repeat unfold 8 { c8 } |
+        8/4             % timeSignature
+        #1/4            % beatBase
+        #'((2 2) (3 1)) % beatStructure, measureStructure
+        #'()            % beamExceptions
+      \time 8/4
+      \submeasureBarsOn
+      \repeat unfold 16 { c8 } |
     }
   }
 }
@@ -1375,8 +1375,11 @@ time signature to which these values apply.
 unit of @var{beatStructure}.
 
 @item
-@code{@var{beatStructure}}, a Scheme list describing the length of
-each beat in the measure in units of @var{beatBase}.
+@code{@var{structure}}, a Scheme list describing the length of
+each beat in the measure in units of @var{beatBase} (i.e.,
+@code{beatStructure}), optionally grouped with inner lists
+describing larger subdivisions of the measure (i.e.,
+@code{submeasureStructure}).
 
 @item
 @code{@var{beamExceptions}}, an alist containing any beaming rules
@@ -2153,18 +2156,22 @@ before it, the top numbers.
 }
 @end lilypond
 
-More complex meters can be constructed using additional lists.  Also,
-automatic beaming settings will be adjusted depending on the values.
+More complex meters can be constructed using additional lists.
+Automatic beaming settings will be adjusted depending on the
+values.  Submeasure bar lines can be enabled to help clarify
+complex rhythms.
 
 @lilypond[quote,verbatim]
-\relative {
+\fixed c' {
   \compoundMeter #'((1 4) (3 8))
-  \repeat unfold 5 c'8 \repeat unfold 10 c16
+  \repeat unfold 5 c8 \repeat unfold 10 c16
 }
 
-\relative {
+\fixed c' {
   \compoundMeter #'((1 2 3 8) (3 4))
-  \repeat unfold 12 c'8
+  \repeat unfold 12 c8
+  \submeasureBarsOn
+  \repeat unfold 12 c8
 }
 @end lilypond
 
@@ -3733,6 +3740,20 @@ aligned to measures.  Several commands employ this bar type:
 @funindex \caesura
 
 Used at @code{\caesura}; @pxref{Phrase bar lines in hymn tunes}.
+
+@item submeasureBarType
+@cindex bar line, dotted
+@cindex bar line, submeasure
+@cindex dotted bar line
+@cindex meter, strictly alternating
+@cindex strictly alternating meter
+@cindex submeasure bar line
+@funindex \submeasureBarsOn
+@funindex submeasureStructure
+
+Used at submeasure boundaries specified by
+@code{submeasureStructure}, when @code{\submeasureBarsOn} allows;
+@pxref{Time signature}.
 
 @item measureBarType
 @cindex bar line, default

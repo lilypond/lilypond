@@ -307,6 +307,21 @@ Certain spurious change clefs have been fixed.
 @itemize
 
 @item
+The new @code{\submeasureBarsOn} command enables automatic bar
+lines between the components of strictly alternating time
+signatures (not shown), or where specified by setting the new
+@code{submeasureStructure} context property or grouping the beats
+in the optional argument to the @code{\time} command.
+
+@lilypond[quote,verbatim]
+{
+  \submeasureBarsOn
+  \time #'((3 4) (3 4) (4 3 4)) 25/16
+  \repeat unfold 25 c'16
+}
+@end lilypond
+
+@item
 The new @code{\polymetric} command simplifies notating polymeter
 with aligned measures by setting scaled metric properties in
 contexts other than @code{Timing}.
