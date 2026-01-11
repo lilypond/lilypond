@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: db08378695caf4c44b59e67bf6133df2cad4ea16
+    Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1122,9 +1122,10 @@ La commande @code{\tag} est désormais fonctionnelle dans les
 environnements @code{\markup}. De nouvelles commandes de @emph{markup}
 sont ajoutées pour filtrer (@code{\keep-with-tag} et
 @code{\remove-with-tag}) et insérer des @emph{makups} dans un contexte
-de @emph{markup} (@code{\push-to-tag} et @code{\append-to-tag}) ou dans
-un contexte musical (@code{\pushToTagMarkup} et
-@code{\appendToTagMarkup}).
+de @emph{markup} (@code{\push-to-tag}, @code{\append-to-tag} et
+@code{\replace-with-tag}) ou dans un contexte musical
+(@code{\pushToTagMarkup}, @code{\appendToTagMarkup} et
+@code{\replaceWithMarkup}).
 
 @lilypond[quote,verbatim]
 test = \markup {
@@ -1141,11 +1142,13 @@ music = \relative {
 \removeWithTag #'a \music
 \pushToTagMarkup #'a push \music
 \appendToTagMarkup #'a append \music
+\replaceWithTagMarkup #'a replacement \music
 
 \markup { \keep-with-tag #'a \test }
 \markup { \remove-with-tag #'a \test }
 \markup { \push-to-tag #'a push \test }
 \markup { \append-to-tag #'a append \test }
+\markup { \replace-with-tag #'a replacement \test }
 \markup { \keep-with-tag #'a \score { \music } }
 @end lilypond
 

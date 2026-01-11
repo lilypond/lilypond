@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+   Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -3024,6 +3024,37 @@ music = { \tag #'here { \tag #'here <<c''>> } }
 @end lilypond
 
 
+@subsubheading Remplacement de musique balisée
+@c VO Replace tagged music
+
+@funindex \replaceWithTag
+
+Il est possible de remplace de la musique balisée par une autre musique.
+
+@lilypond[verbatim,quote]
+music = { c' \tag #'ici { d' } e' }
+
+{
+  \music
+  \replaceWithTag #'ici c' \music
+}
+@end lilypond
+
+Il faut bien garder à l'esprit que la balise disparaît avec son
+remplacement ; elle ne peut donc être remplacée qu'une seule fois. Le
+filtrage aussi n'est plus possible à la suite du remplacement.
+
+@lilypond[verbatim,quote]
+music = { c' \tag #'ici { d' } e' }
+
+{
+  \removeWithTag #'ici % sans effet à cause du remplacement de balise
+  \replaceWithTag #'ici c'
+  \music
+}
+@end lilypond
+
+
 @subsubheading Balise et @emph{markup}
 @c VO Tagging within markups
 
@@ -3033,11 +3064,13 @@ music = { \tag #'here { \tag #'here <<c''>> } }
 @funindex \remove-with-tag
 @funindex \push-to-tag
 @funindex \append-to-tag
+@funindex \replace-with-tag
 
 La commande @code{\tag} peut s'utiliser aussi dans des @code{\markup}.
 LilyPond fournit les commandes @code{\keep-with-tag},
-@code{\remove-with-tag}, @code{\push-to-tag} et @code{\append-to-tag}
-qui se comportent comme celles utilisées pour les expressions musicales.
+@code{\remove-with-tag}, @code{\push-to-tag}, @code{\append-to-tag} et
+@code{\replace-with-tag} qui se comportent comme celles utilisées pour
+les expressions musicales.
 
 @lilypond[verbatim,quote]
 test = \markup {
@@ -3050,6 +3083,7 @@ test = \markup {
 \markup { \remove-with-tag #'BB \test }
 \markup { \push-to-tag #'CC pre \test }
 \markup { \append-to-tag #'CC post \test }
+\markup { \replace-with-tag #'CC sub \test }
 @end lilypond
 
 Les commandes musicales @code{\keepWithTag} et @code{\removeWithTag}
@@ -3069,12 +3103,14 @@ music = \relative {
 
 @funindex \pushToTagMarkup
 @funindex \appendToTagMarkup
+@funindex \replaceWithTagMarkup
 
 Il est aussi possible d'insérer ou ajouter quelque chose à un
 @code{\markup} attaché aux objets musicaux. On ne peut toutefois
-utiliser @code{\pushToTag} et @code{\appendToTag} puisqu'ils ne traîtent
-que de la musique ; cependant, @code{\pushToTagMarkup} et
-@code{\appendToTagMarkup} sont conçus pour rajouter un @emph{markup}.
+utiliser @code{\pushToTag}, @code{\appendToTag} ou
+@code{\replaceWithTag} puisqu'ils ne traîtent que de la musique ;
+cependant, @code{\pushToTagMarkup}, @code{\appendToTagMarkup} et
+@code{\replaceWithTagMarkup} sont conçus pour rajouter un @emph{markup}.
 
 @lilypond[verbatim,quote]
 music = \relative {
@@ -3084,6 +3120,7 @@ music = \relative {
 {
   \pushToTagMarkup #'part "great" \music
   \appendToTagMarkup #'part \markup { is also great } \music
+  \replaceWithTagMarkup #'part \markup { cool substitution } \music
 }
 @end lilypond
 
@@ -3108,7 +3145,8 @@ music = \relative {
 Une attention particulière doit toutefois être portée lors de
 l'utilisation de balises avec des listes de @emph{markups}. Les
 fonctions de filtrage fonctionent comme prévu, mais les commandes telles
-que @code{\push-to-tag} et @code{\append-to-tag} posent problème.
+que @code{\push-to-tag}, @code{\append-to-tag} et
+@code{\replace-with-tag} posent problème.
 
 @lilypond[verbatim,quote]
 \markup {
@@ -3116,6 +3154,9 @@ que @code{\push-to-tag} et @code{\append-to-tag} posent problème.
 }
 \markup {
   \push-to-tag #'test "twice" { a \tag #'test { b c } d }
+}
+\markup {
+  \replace-with-tag #'test "twice" { a \tag #'test { b c } d }
 }
 @end lilypond
 
