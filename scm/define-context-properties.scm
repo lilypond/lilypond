@@ -191,8 +191,8 @@ shallow. Ranges from@tie{}@w{0} to infinity (@tie{}@code{0}=no limit,
 corresponding to one unit of @code{beatStructure}.")
      (beatExtraVelocity ,integer? "Extra MIDI velocity added by the
 @samp{Beat_performer} at the start of each beat.")
-     (beatStructure ,list? "A sequence describing the length of each beat in the
-measure in units of @code{beatBase}.")
+     (beatStructure ,number-list? "A sequence describing the length of each beat
+in the measure in units of @code{beatBase}.")
      (breathMarkType ,symbol? "The type of @code{BreathingSign} to create at
 @code{\\breathe}.")
 
