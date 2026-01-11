@@ -1314,18 +1314,27 @@ value @var{n}@tie{}octaves lower, and value@tie{}0 means no octavation.")
                'ottava-number octave))
 
 overrideTimeSignatureSettings =
-#(define-music-function
-   (time-signature beat-base beat-structure beam-exceptions)
-   (boolean-or-fraction? positive-musical-length? list? list?)
+#(define-music-function (time-signature beat-base structure beam-exceptions)
+   (boolean-or-fraction?
+    positive-musical-length?
+    optionally-grouped-beat-structure?
+    list?)
    (_i "Override time signature settings.
 
-This function sets @code{timeSignatureSettings} for time signatures equal to
-@var{time-signature} to have settings of @var{beat-base}, @var{beat-structure},
-and @var{beam-exceptions}.")
+This function sets the @code{timeSignatureSettings} entry for
+@var{time-signature} to use @var{beat-base}, @var{structure}, and
+@var{beam-exceptions}.
+
+@var{beat-base} and @var{beam-exceptions} are used as-is for @code{beatBase} and
+@code{beamExceptions}.
+
+@var{structure} is used to derive values for @code{beatStructure} and
+@code{submeasureStructure} as described for the @code{\\time} command.
+")
 
    ;; TODO -- add warning if largest value of grouping is
    ;;       greater than time-signature.
-  (let ((setting (make-setting beat-base beat-structure beam-exceptions)))
+  (let ((setting (make-setting beat-base structure beam-exceptions)))
     (override-time-signature-setting time-signature setting)))
 
 overrideProperty =
@@ -2303,12 +2312,18 @@ textEndMark =
    (make-music 'TextMarkEvent 'text text 'horizontal-direction LEFT))
 
 time =
-#(define-music-function (beat-structure time-sig)
-   ((number-list? '()) time-signature?)
+#(define-music-function (structure time-sig)
+   ((optionally-grouped-beat-structure? '()) time-signature?)
    (_i "Set the time signature to @var{time-sig}.
 
-The optional number list @var{beat-structure} additionally sets a beat
-structure.
+When @var{structure} is a plain list of numbers, it is used as-is for
+@code{beatStructure}, and @code{submeasureStructure} is left at the default.
+
+When @var{structure} is a list of lists, @code{beatStructure} is derived by
+discarding the grouping, and @code{submeasureStructure} is derived by summing
+each group.  For example, a @var{structure} of @code{'((1@tie{}2)
+(4@tie{}8))} yields a @code{beatStructure} of @code{'(1 2 4@tie{}8)} and a
+@code{submeasureStructure} of @code{'(3@tie{}12)}.
 
 @var{time-sig} may be a fraction, e.g., @code{3/4}.
 
@@ -2325,12 +2340,13 @@ For example, a time signature of (3+1)/8 +@tie{}2/4 can be created with
      (ly:input-warning (*location*) (G_ "unsupported time signature"))
      (make-music 'Music))
     (else
-     ;; TODO: Does it make sense to provide a separate beat structure when the
-     ;; time signature itself is subdivided?  Maybe we should warn and ignore it
-     ;; in that case.
+     ;; TODO: Are there any mistakes a user might make when overriding the
+     ;; default structure that we could easily and reliably detect and warn
+     ;; about?  At least, we might want to check that the elements of the
+     ;; structure are positive exact rationals or +inf.0.
      (make-music 'ReferenceTimeSignatureMusic
                  'time-signature time-sig
-                 'beat-structure beat-structure))))
+                 'beat-structure structure))))
 
 times =
 #(define-music-function (fraction music) (fraction? ly:music?)

@@ -215,14 +215,25 @@ depth-first through MUSIC."
          (spec (ly:music-property music 'time-signature *unspecified*)))
 
     (define (do-sets context)
-      (let* ((structure (ly:music-property music 'beat-structure))
+      (let* ((music-beat-structure (ly:music-property music 'beat-structure))
+             (user-beat-structure
+              (optionally-grouped-beat-structure->beat-structure
+               music-beat-structure))
+             (user-submeasure-structure
+              (optionally-grouped-beat-structure->submeasure-structure
+               music-beat-structure))
              (time-signature-settings
               (ly:context-property context 'timeSignatureSettings))
              (my-beat-base (beat-base spec time-signature-settings))
              (my-beat-structure
-              (if (null? structure)
+              (if (null? user-beat-structure)
                   (beat-structure my-beat-base spec time-signature-settings)
-                  structure))
+                  user-beat-structure))
+             (my-submeasure-structure
+              (if (null? user-submeasure-structure)
+                  (calc-submeasure-structure my-beat-base spec
+                                             time-signature-settings)
+                  user-submeasure-structure))
              (my-beam-exceptions
               (beam-exceptions spec time-signature-settings))
              (my-mlen (calc-measure-length spec)))
@@ -233,6 +244,8 @@ depth-first through MUSIC."
              context 'meterScalingFactor scaling-factor))
           (ly:context-set-property! context 'beatBase my-beat-base)
           (ly:context-set-property! context 'beatStructure my-beat-structure)
+          (ly:context-set-property! context 'submeasureStructure
+                                    my-submeasure-structure)
           (ly:context-set-property! context 'beamExceptions my-beam-exceptions)
           ;; measureLength should be set in Timing only, so that the user can
           ;; explicitly change Timing.measureLength to create irregular
@@ -245,6 +258,7 @@ depth-first through MUSIC."
       (ly:context-unset-property context 'timeSignature)
       (ly:context-unset-property context 'beatBase)
       (ly:context-unset-property context 'beatStructure)
+      (ly:context-unset-property context 'submeasureStructure)
       (ly:context-unset-property context 'beamExceptions)
       (when (not scaled-duration) ; for symmetry with do-sets
         (ly:context-unset-property context 'measureLength)))

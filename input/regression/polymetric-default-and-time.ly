@@ -27,6 +27,7 @@ measure@tie{}3, both staves should change to 3/4 time."
     \contextPropertyCheck Staff.beatStructure \default
     \contextPropertyCheck Staff.measureLength \default
     \contextPropertyCheck Staff.meterScalingFactor \default
+    \contextPropertyCheck Staff.submeasureStructure \default
     \contextPropertyCheck Staff.timeSignature \default
     \repeat unfold 6 c8 |
   }

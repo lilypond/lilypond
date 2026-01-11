@@ -270,6 +270,8 @@ are reported on the stderr of this run."
 \test ##[ \polymetric \default #]
 \test ##[ \time 2/4 #]
 \test ##[ \time 3,2 5/8 #]
+\test ##[ \time #'((1)) 1/1 #]
+\test ##[ \time #'((1 2) (3 4)) 10/8 #]
 \test ##[ \bar "|." #]
 \test ##[ \fine #]
 \test ##[ \section #]

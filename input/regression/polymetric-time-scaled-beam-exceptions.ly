@@ -26,6 +26,7 @@ written time signatures."
       \contextPropertyCheck Staff.beatStructure #'(1 1)
       \contextPropertyCheck Staff.measureLength \default
       \contextPropertyCheck Staff.meterScalingFactor #3/2
+      \contextPropertyCheck Staff.submeasureStructure #'(2)
       \contextPropertyCheck Staff.timeSignature 2/2
 
       \repeat unfold 8 c8 |
@@ -45,6 +46,7 @@ written time signatures."
       \contextPropertyCheck Staff.beatStructure #'(1 1 1 1)
       \contextPropertyCheck Staff.measureLength \default
       \contextPropertyCheck Staff.meterScalingFactor #3/2
+      \contextPropertyCheck Staff.submeasureStructure #'(4)
       \contextPropertyCheck Staff.timeSignature 4/4
 
       \repeat unfold 8 c8 |

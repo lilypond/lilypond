@@ -82,6 +82,7 @@ Variable beat_base ("beat-base");
 Variable beat_structure ("beat-structure");
 Variable calc_measure_length ("calc-measure-length");
 Variable calc_repeat_slash_count ("calc-repeat-slash-count");
+Variable calc_submeasure_structure ("calc-submeasure-structure");
 Variable car_less ("car<");
 Variable clipped_systems_stencils ("clipped-systems-stencils");
 Variable construct_chord_elements ("construct-chord-elements");

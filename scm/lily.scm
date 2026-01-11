@@ -840,6 +840,7 @@ determines the number of scale steps that make up an octave.  Usually the
     (,cheap-list? . "list")
     (,fraction? . "fraction, as pair")
     (,grob-list? . "list of grobs")
+    (,grouped-number-list? . "list of non-empty lists of numbers")
     (,index? . "non-negative, exact integer")
     (,index-or-markup? . "index or markup")
     (,key? . "index or symbol")
@@ -862,6 +863,7 @@ determines the number of scale steps that make up an octave.  Usually the
     (,number-or-string? . "number or string")
     (,number-pair? . "pair of numbers")
     (,number-pair-list? . "list of number pairs")
+    (,optionally-grouped-beat-structure? . "a number list or a list of them")
     (,positive-fraction? . "positive, finite fraction, as pair")
     (,positive-musical-length?
      . "positive exact rational, fraction (as pair), moment, or +inf.0")

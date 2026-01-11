@@ -34,6 +34,7 @@ case, both the @code{Score} and @code{Staff} time signatures are 4/4, but the
       \contextPropertyCheck Score.beatStructure #'(1 1 1 1)
       \contextPropertyCheck Score.measureLength 1
       \contextPropertyCheck Score.meterScalingFactor \default
+      \contextPropertyCheck Score.submeasureStructure #'(4)
       \contextPropertyCheck Score.timeSignature 4/4
 
       %% notwithstanding the warning, the settings take effect
@@ -44,6 +45,7 @@ case, both the @code{Score} and @code{Staff} time signatures are 4/4, but the
       \contextPropertyCheck Staff.beatStructure #'(1 1 1 1)
       \contextPropertyCheck Staff.measureLength \default
       \contextPropertyCheck Staff.meterScalingFactor #5/4
+      \contextPropertyCheck Staff.submeasureStructure #'(4)
       \contextPropertyCheck Staff.timeSignature 4/4
 
       \repeat unfold 4 r4

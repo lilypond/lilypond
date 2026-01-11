@@ -17,6 +17,7 @@ testMusic = \new Staff \fixed c' {
     \contextPropertyCheck Score.beatStructure \default
     \contextPropertyCheck Score.measureLength \default
     \contextPropertyCheck Score.meterScalingFactor \default
+    \contextPropertyCheck Score.submeasureStructure \default
     \contextPropertyCheck Score.timeSignature 4/4
 
     \contextPropertyCheck Staff.beamExceptions #'()
@@ -24,6 +25,7 @@ testMusic = \new Staff \fixed c' {
     \contextPropertyCheck Staff.beatStructure #'(3 3)
     \contextPropertyCheck Staff.measureLength #6/8
     \contextPropertyCheck Staff.meterScalingFactor \default
+    \contextPropertyCheck Staff.submeasureStructure #'(6)
     \contextPropertyCheck Staff.timeSignature 6/8
   }
   \tag "midi" {
@@ -32,6 +34,7 @@ testMusic = \new Staff \fixed c' {
     \contextPropertyCheck Score.beatStructure #'(3 3)
     \contextPropertyCheck Score.measureLength #6/8
     \contextPropertyCheck Score.meterScalingFactor \default
+    \contextPropertyCheck Score.submeasureStructure #'(6)
     \contextPropertyCheck Score.timeSignature 6/8
 
     \contextPropertyCheck Staff.beamExceptions \default
@@ -39,6 +42,7 @@ testMusic = \new Staff \fixed c' {
     \contextPropertyCheck Staff.beatStructure \default
     \contextPropertyCheck Staff.measureLength \default
     \contextPropertyCheck Staff.meterScalingFactor \default
+    \contextPropertyCheck Staff.submeasureStructure \default
     \contextPropertyCheck Staff.timeSignature \default
   }
 
@@ -57,6 +61,7 @@ testMusic = \new Staff \fixed c' {
     \contextPropertyCheck Score.beatStructure \default
     \contextPropertyCheck Score.measureLength \default
     \contextPropertyCheck Score.meterScalingFactor \default
+    \contextPropertyCheck Score.submeasureStructure \default
     \contextPropertyCheck Score.timeSignature 4/4
 
     \contextPropertyCheck Staff.beamExceptions #'()
@@ -64,6 +69,7 @@ testMusic = \new Staff \fixed c' {
     \contextPropertyCheck Staff.beatStructure #'(3 3)
     \contextPropertyCheck Staff.measureLength #6/8
     \contextPropertyCheck Staff.meterScalingFactor \default
+    \contextPropertyCheck Staff.submeasureStructure #'(6)
     \contextPropertyCheck Staff.timeSignature 6/8
   }
   \tag "midi" {
@@ -72,6 +78,7 @@ testMusic = \new Staff \fixed c' {
     \contextPropertyCheck Score.beatStructure #'(3 3)
     \contextPropertyCheck Score.measureLength #6/8
     \contextPropertyCheck Score.meterScalingFactor \default
+    \contextPropertyCheck Score.submeasureStructure #'(6)
     \contextPropertyCheck Score.timeSignature 6/8
 
     \contextPropertyCheck Staff.beamExceptions \default
@@ -79,6 +86,7 @@ testMusic = \new Staff \fixed c' {
     \contextPropertyCheck Staff.beatStructure \default
     \contextPropertyCheck Staff.measureLength \default
     \contextPropertyCheck Staff.meterScalingFactor \default
+    \contextPropertyCheck Staff.submeasureStructure \default
     \contextPropertyCheck Staff.timeSignature \default
   }
 

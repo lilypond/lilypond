@@ -253,12 +253,20 @@ Example:
     (assoc-get my-symbol my-time-signature-settings '())))
 
 (define-public (make-setting beat-base
-                             beat-structure
+                             structure
                              beam-exceptions)
-  (list
-   (cons 'beatBase (musical-length->number beat-base))
-   (cons 'beatStructure beat-structure)
-   (cons 'beamExceptions beam-exceptions)))
+  (let* ((my-beat-structure
+          (optionally-grouped-beat-structure->beat-structure structure))
+         (my-submeasure-structure
+          (optionally-grouped-beat-structure->submeasure-structure structure))
+         (result (list
+                  (cons 'beatBase (musical-length->number beat-base))
+                  (cons 'beamExceptions beam-exceptions))))
+    (when (not (null? my-submeasure-structure))
+      (set! result (acons 'submeasureStructure my-submeasure-structure result)))
+    (when (not (null? my-beat-structure))
+      (set! result (acons 'beatStructure my-beat-structure result)))
+    result))
 
 (define-public (calc-measure-length time-sig)
   "Calculate the measure length for @var{time-sig}.
@@ -311,6 +319,29 @@ list.  This does not."
         (if (zero? den) ; avoid integer div error
             +inf.0
             (/ den)))))))
+
+(define-public (optionally-grouped-beat-structure->beat-structure structure)
+  "If @var{structure} has groups defining submeasures, ungroup them."
+  (cond
+   ((number-list? structure) ; including '()
+    structure)
+   ((grouped-number-list? structure)
+    (apply append structure)) ; ungroup
+   (else ; Would logging an error be helpful?
+    '())))
+
+(define-public (optionally-grouped-beat-structure->submeasure-structure
+                structure)
+  "If the beats in @var{structure} are grouped, extract the submeasure structure from them."
+  (cond
+   ((number-list? structure) ; including '()
+    '()) ; no submeasure structure specified
+   ((grouped-number-list? structure)
+    (map (lambda (group)
+           (apply + group))
+         structure))
+   (else ; Would logging an error be helpful?
+    '())))
 
 (define-public (beat-structure base time-sig time-signature-settings)
   "Get the @code{beatStructure} value for @var{time-sig} from @var{time-signature-settings}, scaled to @var{base} units.

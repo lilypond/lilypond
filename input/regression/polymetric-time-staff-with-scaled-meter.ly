@@ -27,6 +27,7 @@ staff should revert to 4/4 time."
     \contextPropertyCheck Staff.beatStructure \default
     \contextPropertyCheck Staff.measureLength \default
     \contextPropertyCheck Staff.meterScalingFactor \default
+    \contextPropertyCheck Staff.submeasureStructure \default
     \repeat unfold 4 c4
   }
 >>

@@ -1,4 +1,4 @@
-\version "2.25.28"
+\version "2.25.32"
 
 \header {
   texidoc = "@code{\\time} accepts an option specifying the beat structure.  In
@@ -32,6 +32,7 @@ subdivided into duples."
     \contextPropertyCheck Timing.beatBase #1/4
     \contextPropertyCheck Timing.beatStructure #'(1 1 1)
     \contextPropertyCheck Timing.measureLength #3/4
+    \contextPropertyCheck Timing.submeasureStructure #'(3)
     \contextPropertyCheck Timing.timeSignature 3/4
     \repeat unfold 12 d'16
   } \\ {
@@ -48,6 +49,7 @@ subdivided into duples."
     \contextPropertyCheck Timing.beatBase #1/4
     \contextPropertyCheck Timing.beatStructure #'(2 1)
     \contextPropertyCheck Timing.measureLength #3/4
+    \contextPropertyCheck Timing.submeasureStructure #'(3)
     \contextPropertyCheck Timing.timeSignature 3/4
     \repeat unfold 12 d'16
   }\\ {
@@ -64,6 +66,7 @@ subdivided into duples."
     \contextPropertyCheck Timing.beatBase #1/4
     \contextPropertyCheck Timing.beatStructure #'(1 2)
     \contextPropertyCheck Timing.measureLength #3/4
+    \contextPropertyCheck Timing.submeasureStructure #'(3)
     \contextPropertyCheck Timing.timeSignature 3/4
     \repeat unfold 12 d'16
   } \\ {

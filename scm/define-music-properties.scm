@@ -53,7 +53,9 @@ splitting in @code{Completion_heads_engraver}.")
 
      (bar-type ,string? "The type of bar line to create, e.g., @code{\"|\"}")
      (bass ,boolean? "Set if this note is a bass note in a chord.")
-     (beat-structure ,list? "A @code{beatStructure} to be used in auto-beaming.")
+     (beat-structure ,optionally-grouped-beat-structure? "Beat structure for
+automatic beams, optionally with inner lists defining submeasure structure for
+automatic bar lines.")
      (bracket-start ,boolean? "Start a bracket here.
 
 TODO: Use SpanEvents?")

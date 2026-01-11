@@ -25,6 +25,7 @@
    \contextPropertyCheck Score.beatStructure \default
    \contextPropertyCheck Score.measureLength \default
    \contextPropertyCheck Score.meterScalingFactor \default
+   \contextPropertyCheck Score.submeasureStructure \default
    %% Score.timeSignature 4/4 is initialized in engraver-init.ly, so removing
    %% Timing_translator does not affect it.  It looks inconsistent here, but it
    %% is practical: the Score setting is visible as the default time signature

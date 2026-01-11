@@ -72,6 +72,13 @@
 (define-public (number-list? x)
   (and (list? x) (every number? x)))
 
+;; a list of non-empty number lists (the outer list may still be empty)
+(define-public (grouped-number-list? x)
+  (and (list? x) (every (lambda (group)
+                          (and (not (null? group))
+                               (number-list? group)))
+                        x)))
+
 (define-public (musical-length-as-number? x)
   (or (and (exact-rational? x) (not (negative? x)))
       (and (real? x) (= x +inf.0))))
@@ -238,6 +245,10 @@ See the @code{\\time} command for a description of canonical form."
        (ly:skyline? (cdr x))))
 
 (define-public (scheme? x) #t)
+
+(define-public (optionally-grouped-beat-structure? x)
+  (or (number-list? x)
+      (grouped-number-list? x)))
 
 (define-public (time-signature? x)
   "Is @var{x} syntactically a time signature in canonical form?

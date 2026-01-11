@@ -16,6 +16,7 @@ checkScoreTwoEight =
   \contextPropertyCheck Score.beatBase #1/8
   \contextPropertyCheck Score.beatStructure #'(1 1)
   \contextPropertyCheck Score.meterScalingFactor \default
+  \contextPropertyCheck Score.submeasureStructure #'(2)
   \contextPropertyCheck Score.timeSignature 2/8
 #})
 
@@ -25,6 +26,7 @@ checkStaffNonPolymetric =
   \contextPropertyCheck Staff.beatBase \default
   \contextPropertyCheck Staff.beatStructure \default
   \contextPropertyCheck Staff.meterScalingFactor \default
+  \contextPropertyCheck Staff.submeasureStructure \default
   \contextPropertyCheck Staff.timeSignature \default
 #})
 
@@ -35,6 +37,7 @@ checkStaffScaledThreeEight =
   \contextPropertyCheck Staff.beatBase #1/8
   \contextPropertyCheck Staff.beatStructure #'(1 1 1)
   \contextPropertyCheck Staff.meterScalingFactor #2/3
+  \contextPropertyCheck Staff.submeasureStructure #'(3)
   \contextPropertyCheck Staff.timeSignature 3/8
 #})
 

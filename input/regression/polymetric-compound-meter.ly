@@ -31,6 +31,7 @@ common time."
       \contextPropertyCheck Staff.beatStructure #'(3 3 2)
       \contextPropertyCheck Staff.measureLength \default
       \contextPropertyCheck Staff.meterScalingFactor 1
+      \contextPropertyCheck Staff.submeasureStructure #'(8)
       \contextPropertyCheck Staff.timeSignature #'((3 3 2) . 8)
 
       \repeat unfold 8 f8
@@ -44,6 +45,7 @@ common time."
       \contextPropertyCheck Staff.beatStructure \default
       \contextPropertyCheck Staff.measureLength \default
       \contextPropertyCheck Staff.meterScalingFactor \default
+      \contextPropertyCheck Staff.submeasureStructure \default
       \contextPropertyCheck Staff.timeSignature \default
 
       \repeat unfold 8 f8

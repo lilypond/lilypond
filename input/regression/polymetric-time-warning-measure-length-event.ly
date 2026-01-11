@@ -16,6 +16,7 @@ checks =
   \contextPropertyCheck Score.beatStructure #'(1 1 1 1 1)
   \contextPropertyCheck Score.measureLength #5/4
   \contextPropertyCheck Score.meterScalingFactor \default
+  \contextPropertyCheck Score.submeasureStructure #'(5)
   \contextPropertyCheck Score.timeSignature 5/4
 
   \contextPropertyCheck Staff.beamExceptions #'()
@@ -23,6 +24,7 @@ checks =
   \contextPropertyCheck Staff.beatStructure #'(3 2)
   \contextPropertyCheck Staff.measureLength \default
   \contextPropertyCheck Staff.meterScalingFactor 1
+  \contextPropertyCheck Staff.submeasureStructure #'(5)
   \contextPropertyCheck Staff.timeSignature 5/8
 #})
 

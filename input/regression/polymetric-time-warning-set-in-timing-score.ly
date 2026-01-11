@@ -19,6 +19,7 @@ a @code{Timing} context.  In this case, the command is issued in the default
     \contextPropertyCheck Score.beatStructure #'(3 3)
     \contextPropertyCheck Score.measureLength #6/8
     \contextPropertyCheck Score.meterScalingFactor \default
+    \contextPropertyCheck Score.submeasureStructure #'(6)
     \contextPropertyCheck Score.timeSignature 6/8
 
     \applyContext #(lambda (context)
@@ -33,6 +34,7 @@ a @code{Timing} context.  In this case, the command is issued in the default
     \contextPropertyCheck Score.beatStructure #'(3 3)
     \contextPropertyCheck Score.measureLength #6/8
     \contextPropertyCheck Score.meterScalingFactor \default
+    \contextPropertyCheck Score.submeasureStructure #'(6)
     \contextPropertyCheck Score.timeSignature 6/8
 
     \repeat unfold 6 c8

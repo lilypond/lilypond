@@ -418,6 +418,14 @@ Timing_translator::initialize ()
     }
   set_property (context (), "beatStructure", beat_structure);
 
+  SCM submeasure_structure = get_property (this, "submeasureStructure");
+  if (!scm_is_pair (submeasure_structure))
+    {
+      submeasure_structure = Lily::calc_submeasure_structure (
+        beat_base, time_signature, time_signature_settings);
+    }
+  set_property (context (), "submeasureStructure", submeasure_structure);
+
   set_property (context (), "beamHalfMeasure",
                 get_property (this, "beamHalfMeasure"));
 

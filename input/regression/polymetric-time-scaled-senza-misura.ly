@@ -24,7 +24,7 @@ senzaMisura =
   \overrideTimeSignatureSettings
     ##f       % timeSignature
     #1/4      % beatBase
-    #'(1)     % beatStructure
+    #'(1)     % beatStructure, but no measureStructure
     #'()      % beamExceptions
 } <<
   \new Staff {
@@ -35,12 +35,14 @@ senzaMisura =
     \contextPropertyCheck Timing.beatStructure #'(1)
     \contextPropertyCheck Timing.measureLength #+inf.0
     \contextPropertyCheck Timing.meterScalingFactor \default
+    \contextPropertyCheck Timing.submeasureStructure #'()
 
     \contextPropertyCheck Staff.beamExceptions \default
     \contextPropertyCheck Staff.beatBase \default
     \contextPropertyCheck Staff.beatStructure \default
     \contextPropertyCheck Staff.measureLength \default
     \contextPropertyCheck Staff.meterScalingFactor \default
+    \contextPropertyCheck Staff.submeasureStructure \default
 
     \repeat unfold 12 c'8
   }
@@ -53,6 +55,7 @@ senzaMisura =
       \contextPropertyCheck Staff.beatStructure #'(1)
       \contextPropertyCheck Staff.measureLength \default
       \contextPropertyCheck Staff.meterScalingFactor #2/3
+      \contextPropertyCheck Staff.submeasureStructure #'()
       c'8\( \repeat unfold 4 c'8 c'8\)
       \context Staff \polymetric \default
     }

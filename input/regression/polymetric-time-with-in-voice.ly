@@ -19,6 +19,7 @@ checkStaffNonPolymetric =
   \contextPropertyCheck Staff.beatStructure \default
   \contextPropertyCheck Staff.measureLength \default
   \contextPropertyCheck Staff.meterScalingFactor \default
+  \contextPropertyCheck Staff.submeasureStructure \default
   \contextPropertyCheck Staff.timeSignature \default
 #})
 
@@ -29,6 +30,7 @@ checkVoiceNonPolymetric =
   \contextPropertyCheck Voice.beatStructure \default
   \contextPropertyCheck Voice.measureLength \default
   \contextPropertyCheck Voice.meterScalingFactor \default
+  \contextPropertyCheck Voice.submeasureStructure \default
   \contextPropertyCheck Voice.timeSignature \default
 #})
 
@@ -60,6 +62,7 @@ checkVoiceNonPolymetric =
         \contextPropertyCheck Voice.beatStructure #'(3 3 2)
         \contextPropertyCheck Voice.measureLength \default
         \contextPropertyCheck Voice.meterScalingFactor 1
+        \contextPropertyCheck Voice.submeasureStructure #'(8)
         \contextPropertyCheck Voice.timeSignature 8/8
 
         \repeat unfold 8 c8

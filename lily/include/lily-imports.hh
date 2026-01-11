@@ -92,6 +92,7 @@ extern Variable beat_base;
 extern Variable beat_structure;
 extern Variable calc_measure_length;
 extern Variable calc_repeat_slash_count;
+extern Variable calc_submeasure_structure;
 extern Variable car_less;
 extern Variable clipped_systems_stencils;
 extern Variable construct_chord_elements;

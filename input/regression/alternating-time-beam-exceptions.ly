@@ -1,4 +1,4 @@
-\version "2.25.30"
+\version "2.25.32"
 
 \header {
   texidoc = "The beat structure and beaming exceptions for a component of a
@@ -30,6 +30,7 @@ strictly alternating time signature are the same as when it appears alone."
     \compoundMeter #'((2 2) (4 4) (3 8))
     \contextPropertyCheck Timing.beatBase #1/8
     \contextPropertyCheck Timing.beatStructure #'(4 4  2 2 2 2  1 1 1)
+    \contextPropertyCheck Timing.submeasureStructure #'(8 8 3)
     \contextPropertyCheck Timing.measureLength #19/8
     \contextPropertyCheck Timing.timeSignature #'((2 . 2) (4 . 4) (3 . 8))
     \contextPropertyCheck Timing.beamExceptions

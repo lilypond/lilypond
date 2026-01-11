@@ -33,6 +33,7 @@ is 6/8."
     \contextPropertyCheck Score.beatStructure #'(1 1)
     \contextPropertyCheck Score.measureLength #3/4
     \contextPropertyCheck Score.meterScalingFactor \default
+    \contextPropertyCheck Score.submeasureStructure #'(2)
     \contextPropertyCheck Score.timeSignature 2/2
 
     \contextPropertyCheck Staff.beamExceptions #'()
@@ -40,6 +41,7 @@ is 6/8."
     \contextPropertyCheck Staff.beatStructure #'(3 3)
     \contextPropertyCheck Staff.measureLength #3/4
     \contextPropertyCheck Staff.meterScalingFactor 1
+    \contextPropertyCheck Staff.submeasureStructure #'(6)
     \contextPropertyCheck Staff.timeSignature 6/8
 
     \repeat unfold 6 c8

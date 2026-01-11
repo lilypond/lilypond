@@ -756,6 +756,9 @@ one).")
 subdivided by omitting a number of beamlets, dependent on
 @code{beamMaximumSubdivision}, between beats at multiples of
 @code{beamMinimumSubdivision}.")
+     (submeasureStructure ,number-list? "A sequence describing subdivisions of a
+measure.  Each element tells the distance from the previous division in units of
+@code{beatBase}.")
      (suggestAccidentals ,boolean-or-symbol? "If set to @code{#t},
 accidentals are typeset as suggestions above the note.  Setting it to
 @code{'cautionary} only applies that to cautionary accidentals.")
