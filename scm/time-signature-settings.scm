@@ -28,6 +28,7 @@
 ;;;
 ;;;   (beatBase . (/ numerator denominator))
 ;;;   (beatStructure . structure-list)
+;;;   (submeasureStructure . structure-list)
 ;;;   (beamExceptions . (alist of beam exceptions that don't follow beats))
 ;;;
 ;;; The alist of beam exceptions has the following entries:
@@ -380,6 +381,75 @@ If there is no entry, derive a structure from @var{time-sig}."
                       (calc-simple-fraction-structure time-sig))
                      (else
                       (calc-subdivided-fraction-structure time-sig)))))
+              (if (zero? beat-factor)
+                  ;; Likely: The computed beat base is +inf.0 for senza misura.
+                  ;; Unexpected: The beat base found in the settings is +inf.0
+                  ;; or the beat base function argument is zero.
+                  '(+inf.0)
+                  (map (lambda (x) (/ x beat-factor)) struct)))))))
+
+(define-public (calc-submeasure-structure base time-sig time-signature-settings)
+  "Get the @code{submeasureStructure} value for @var{time-sig}.
+
+Look up the value in @var{time-signature-settings} and scale it to @var{base}
+units.  If there is no entry, derive a structure from @var{time-sig}.
+
+@var{time-sig} must be a sane, canonical time signature.
+"
+
+  ;; Look up the measure structure that would be used for the given fraction in
+  ;; isolation.  Then, scale it to the beat base that will be used for the
+  ;; concatenated time signature.
+  (define (recur time-sig-fraction)
+    (let* ((lone-base (beat-base time-sig-fraction time-signature-settings))
+           (lone-struct (calc-submeasure-structure lone-base time-sig-fraction
+                                                   time-signature-settings))
+           (beat-factor (/ base lone-base)))
+      (if (zero? beat-factor)
+          '(+inf.0) ; unexpected in this context
+          (map (lambda (x) (/ x beat-factor)) lone-struct))))
+
+  ;; By default, we don't subdivide single fractions (whether with a simple or
+  ;; subdivided numerator).  Return a one-element list with an entry covering
+  ;; the full measure length.  This allows concatenating several of these lists
+  ;; to generate a submeasure structure for a strictly alternating time
+  ;; signature.
+  (define (calc-single-fraction-structure time-sig-fraction)
+    (let* ((measure-length (calc-measure-length time-sig-fraction))
+           (den (cdr time-sig-fraction))
+           (measure-beats (* measure-length den)))
+      (if (zero? measure-beats)
+          '()
+          (list measure-beats))))
+
+  (if (not (finite? base))
+      '() ; senza misura: scaling the structure (if any) is meaningless
+      (let* ((settings (assoc-get time-sig time-signature-settings '()))
+             (table-struct (assoc-get 'submeasureStructure settings '())))
+        (if (and (null? table-struct)
+                 (pair? time-sig)
+                 (not (number? (cdr time-sig))))
+            ;; time-sig is two or more fractions, representing a strictly
+            ;; alternating time signature.  Also, it has no entry in the
+            ;; settings. (Finding an entry in the settings would be unusual for
+            ;; this kind of time signature, but we allow it.)
+            (concatenate (map recur time-sig))
+            (let* ((table-base (assoc-get 'beatBase settings '()))
+                   (beat-factor
+                    (/ base
+                       (if (null? table-base)
+                           (beat-base time-sig time-signature-settings)
+                           table-base)))
+                   (struct
+                    (cond
+                     ((not (null? table-struct))
+                      table-struct)
+                     ((not (pair? time-sig)) ; #f for senza misura (or garbage)
+                      '())
+                     ((number? (car time-sig))
+                      (calc-single-fraction-structure time-sig))
+                     (else
+                      (calc-single-fraction-structure time-sig)))))
               (if (zero? beat-factor)
                   ;; Likely: The computed beat base is +inf.0 for senza misura.
                   ;; Unexpected: The beat base found in the settings is +inf.0
