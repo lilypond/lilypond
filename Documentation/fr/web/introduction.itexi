@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+   Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -845,8 +845,8 @@ grandissante de pièces pour orgue dans le domaine public, réalisées avec
 LilyPond et sous licence Creative Commons.
 
 @item
-@uref{https://bayanguru.org/, Bayanguru} fourint des partitions pour le
-+@uref{https://en.wikipedia.org/wiki/Bayan_(accordion), bayan}
+@uref{https://bayanguru.org/, Bayanguru} fournit des partitions pour le
+@uref{https://en.wikipedia.org/wiki/Bayan_(accordion), bayan}
 (accordéon diatonique à boutons) sous licence GPLv3.
 
 @item
@@ -858,8 +858,9 @@ ressources en ligne, converties dans le système de notation propre à
 Clairnote.
 
 @item
-@uref{https://github.com/volodymyrprokopyuk/bayanguru, Bayanguru} :
-fichiers source de la librairie musicale Bayanguru.
+@uref{https://ebersberger-liedersammlung.de/, Ebersberger
+Liedersammlung} répertorie environ 240 chansons (la plupart en allemand)
+libres de droits d'auteur. Toutes sont disponibles au format LilyPond.
 
 @end itemize
 @divEnd
@@ -1062,7 +1063,7 @@ numéro CMS06.
 
 @divClass{testimonial-item}
 @imageFloat{carter-brey,jpg, right}
-@subsubheading @uref{http://nyphil.org/meet/orchestra/index.cfm?page=profile&personNum=7, Carter Brey}, premier violoncelle, Philharmonique de New York
+@subsubheading @uref{http://www.nyphil.org/about-us/artists/carter-brey/, Carter Brey}, premier violoncelle, Philharmonique de New York
 
 @qq{@dots{} J'avais écrit avec Encore quelques pièces pour violoncelle
 solo.  Je les ai imprimées avec LilyPond avant de les soumettre à
@@ -1073,7 +1074,7 @@ Schirmer en vue de les publier.  J'en mettrais ma main à couper que leur
 
 @divClass{testimonial-item}
 @imageFloat{orm-finnendahl,jpg, left}
-@subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl}, professeur de composition, Hochschule für Musik und Darstellende Kunst, Francfort sur le Main
+@subsubheading @uref{http://icem-www.folkwang-uni.de/~finnendahl/, Orm Finnendahl}, professeur de composition, Hochschule für Musik und Darstellende Kunst, Francfort sur le Main
 
 @qq{Bien que ma maîtrise [de LilyPond] soit pour l'instant imparfaite,
 je suis néanmoins @emph{très} impressionné.  J'ai utilisé ce programme
@@ -1085,7 +1086,7 @@ tant au niveau de la rapidité que de l'ergonomie et du résultat !}
 
 @divClass{testimonial-item}
 @imageFloat{darius-blasband,jpg, right}
-@subsubheading Darius Blasband, compositeur (Bruxelles)
+@subsubheading @uref{https://www.dariusblasband.com/, Darius Blasband}, compositeur (Bruxelles)
 
 @qq{[Après la première répétition d'orchestre,] j'ai reçu de nombreux
 compliments concernant la qualité des partitions.  Plus important,
@@ -1096,7 +1097,7 @@ retouches, que les musiciens ont utilisé.}
 
 
 @divClass{testimonial-item}
-@subsubheading Kieren MacMillan, compositeur (Toronto, Canada)
+@subsubheading @uref{https://www.kierenmacmillan.info/, Kieren MacMillan}, compositeur (Toronto, Canada)
 
 @qq{Merci et encore merci à l'équipe des développeurs pour leur
 admirable travail.  Je n'ai jamais rien vu qui approche le résultat que
@@ -1113,7 +1114,7 @@ vieilles maisons❞ [@dots{}]}
 
 
 @divClass{testimonial-item}
-@subsubheading Chris Cannam, programmeur en chef du projet @uref{https://www.rosegardenmusic.com/, RoseGarden}
+@subsubheading Chris Cannam, ancien programmeur en chef du projet @uref{https://www.rosegardenmusic.com/, RoseGarden}
 
 @qq{LilyPond est clairement le ténor brillantissime [de la gravure
 musicale de qualité].}
@@ -1121,7 +1122,7 @@ musicale de qualité].}
 
 
 @divClass{testimonial-item}
-@subsubheading Chris Snyder, @uref{https://twitter.com/adoromusic, Adoro Music Publishing}
+@subsubheading Chris Snyder,  Adoro Music Publishing
 
 @qq{La façon dont on saisit la musique pour LilyPond me fait penser
 d'une façon plus musicale -- il m'est arrivé plusieurs fois de buter sur
@@ -1151,7 +1152,7 @@ LilyPond, plus je l'apprécie !}
 
 
 @divClass{testimonial-item}
-@subsubheading Vaylor Trucks, joueur de guitare électrique (si, @uref{http://www.allmanbrothersband.com/modules.php?op=modload&name=userpage&file=content&page_id=12, il y a un rapport})
+@subsubheading @uref{https://www.brotherandsister.band/meet-the-band, Vaylor Trucks}, joueur de guitare électrique (si, @uref{http://www.allmanbrothersband.com, il y a un rapport})
 
 @qq{Je suis super impressionné par LilyPond [@dots{}]}
 
@@ -1176,7 +1177,7 @@ grand merci de nous fournir LilyPond, c'est vraiment un bon programme.}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{https://www.troff.org/whoswho.html#werner, Werner Lemberg}, Chef au Théâtre de Coblence (Allemagne) et éminent hacker GNU
+@subsubheading @uref{https://www.moz.ac.at/de/personen/dirigieren-chor-blasorchesterleitung/werner-lemberg, Werner Lemberg}, Maître de conférence à l'université du Mozarteum de Salzbourg (Autriche) et éminent hacker GNU
 
 @qq{À vrai dire, LilyPond fait un boulot des plus étonnants !}
 @divEnd
@@ -1192,7 +1193,7 @@ amis sur son potentiel.}
 @divEnd
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://webusers.siba.fi/~mkuuskan/, Dr Mika Kuuskankare}, chercheur à la @uref{http://siba.fi, Sibelius Academy Finland}, compositeur et auteur de Expressive Notation Package (ENP)
+@subsubheading Mika Kuuskankare, compositeur et auteur de Expressive Notation Package (ENP)
 
 @qq{J'ai le plus grand respect pour LilyPond, ses concepteurs et tous
 ceux qui en assurent la maintenance, d'autant plus que je sais, de par
