@@ -21,6 +21,7 @@
 #include "engraver.hh"
 
 #include "context.hh"
+#include "global-context.hh"
 #include "grob-properties.hh"
 #include "item.hh"
 #include "lily-imports.hh"
@@ -34,6 +35,7 @@
 #include "translator.icc"
 
 #include <array>
+#include <numeric>
 #include <string>
 #include <vector>
 
@@ -43,6 +45,7 @@ enum class BarType
   NONE = 0,
   UNDERLYING_REPEAT,
   UNDERLYING_CAESURA,
+  SUBMEASURE,
   MEASURE,
   CAESURA,
   SECTION,
@@ -60,6 +63,7 @@ private:
   void acknowledge_span_bar_stub (Grob_info_t<Item>);
   ly_scm_list calc_bar_type () const;
   void initialize () override;
+  bool is_at_submeasure_division () const;
   void listen_caesura (Stream_event *);
   void listen_segno_mark (Stream_event *);
   void process_acknowledged ();
@@ -86,6 +90,15 @@ private:
   SCM glyph_ = SCM_EOL;
   SCM glyph_left_ = SCM_EOL;
   SCM glyph_right_ = SCM_EOL;
+  // #f forces initial calculation
+  mutable SCM submeasure_structure_ = SCM_BOOL_F;
+  mutable std::vector<Rational> submeasure_positions_;
+  // This period is the length of the submeasure structure in units of whole
+  // notes.  It normally equals the measure length, but in music with irregular
+  // measures, the structure may be longer than the current measure (and be used
+  // only partly) or shorter than the current measure (and be repeated to fill
+  // the measure).
+  mutable Rational submeasure_period_ = 0;
   Item *bar_ = nullptr;
   std::vector<Spanner *> spanners_;
   bool first_time_ = true;
@@ -103,6 +116,66 @@ Bar_engraver::derived_mark () const
   scm_gc_mark (glyph_);
   scm_gc_mark (glyph_left_);
   scm_gc_mark (glyph_right_);
+}
+
+// DEFER: Consider refactoring this.  Other engravers will probably want to do
+// some of this too.  For example, we might want to add an option that makes
+// Accidental_engraver reset at submeasure divisions.
+bool
+Bar_engraver::is_at_submeasure_division () const
+{
+  // Recompute submeasure positions after changes in submeasureStructure.
+  SCM structure_scm = get_property (this, "submeasureStructure");
+  if (!scm_is_eq (submeasure_structure_, structure_scm))
+    {
+      // eq? considers object identity; therefore, someone must have set the
+      // property since the last time we checked, though its value is not
+      // necessarily different.
+      submeasure_structure_ = structure_scm;
+
+      submeasure_positions_.clear ();
+      submeasure_positions_.push_back (0);
+      const auto &structure = as_ly_scm_list_t<Rational> (structure_scm);
+      std::inclusive_scan (structure.begin (), structure.end (),
+                           std::back_inserter (submeasure_positions_));
+      // The last element of the result is the period of the structure in units
+      // of beatBase.  If the submeasureStructure is empty, the period is zero,
+      // and we will have to handle it as a special case later.
+      submeasure_period_ = submeasure_positions_.back ();
+      submeasure_positions_.pop_back ();
+      // Convert units from beats to whole notes.
+      const auto beat_base
+        = from_scm (get_property (this, "beatBase"), Rational (1, 4));
+      submeasure_period_ *= beat_base;
+      for (auto &pos : submeasure_positions_)
+        {
+          pos *= beat_base;
+        }
+    }
+
+  // A submeasure can only begin when the main part of the current time
+  // advances.  Any later timestep with the same main part isn't a candidate for
+  // a submeasure bar line.
+  if (auto *const global = find_global_context ()) // should always exist
+    {
+      if (global->now_mom ().main_part_
+          == global->previous_moment ().main_part_)
+        {
+          return false;
+        }
+    }
+
+  if (submeasure_period_ == 0) // no submeasure structure is defined
+    {
+      // If we're at a measure boundary, say that we're also at a submeasure
+      // boundary.
+      return from_scm<bool> (get_property (this, "measureStartNow"));
+    }
+
+  const auto pos = scaled_measure_position (context (), submeasure_period_);
+  return std::find (submeasure_positions_.begin (),
+                    submeasure_positions_.end (), pos.main_part_)
+         != submeasure_positions_.end ();
 }
 
 // Returns zero or more BarLine.glyph values from highest to lowest priority.
@@ -162,6 +235,7 @@ Bar_engraver::calc_bar_type () const
     BarType::SECTION,            //
     BarType::CAESURA,            //
     BarType::MEASURE,            //
+    BarType::SUBMEASURE,         //
     BarType::UNDERLYING_CAESURA, //
     BarType::UNDERLYING_REPEAT,  //
   };
@@ -267,6 +341,15 @@ Bar_engraver::calc_bar_type () const
               && from_scm<bool> (get_property (this, "measureStartNow")))
             {
               read_bar (ly_symbol2scm ("measureBarType"));
+            }
+          break;
+
+        case BarType::SUBMEASURE:
+          if (!first_time_
+              && from_scm<bool> (get_property (this, "submeasureBarsEnabled"))
+              && is_at_submeasure_division ())
+            {
+              read_bar (ly_symbol2scm ("submeasureBarType"));
             }
           break;
 
@@ -566,6 +649,9 @@ segnoBarType
 segnoStyle
 startRepeatBarType
 startRepeatSegnoBarType
+submeasureBarsEnabled
+submeasureBarType
+submeasureStructure
 underlyingRepeatBarType
 whichBar
                 )",

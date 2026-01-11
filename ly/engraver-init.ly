@@ -137,6 +137,7 @@ multiple variants of Gregorian chant notation."
 
   %% Eliminate measure bar lines and allow line breaks anywhere.
   forbidBreakBetweenBarLines = ##f
+  submeasureBarType = #'()
   measureBarType = #'()
 
   %% The chosen caesuraTypeTransform prefers BarLine over Divisio.
@@ -830,6 +831,8 @@ run."
   forbidBreakBetweenBarLines = ##t % where Bar_engraver is present
   printTrivialVoltaRepeats = ##f
 
+  submeasureBarsEnabled = ##f
+  submeasureBarType = "!"
   measureBarType = "|"
   sectionBarType = "||"
   fineBarType = "|."
@@ -1510,6 +1513,7 @@ accommodated for typesetting a piece in mensural style."
 
   %% Eliminate measure bar lines and allow line breaks anywhere.
   forbidBreakBetweenBarLines = ##f
+  submeasureBarType = #'()
   measureBarType = #'()
 
   %% Match the thickness of bar lines to the staff lines.
@@ -1569,6 +1573,7 @@ Odhecaton} (Venice, 1501)."
 
   %% Eliminate measure bar lines and allow line breaks anywhere.
   forbidBreakBetweenBarLines = ##f
+  submeasureBarType = #'()
   measureBarType = #'()
 
   %% It seems that Petrucci prefers a double line for start-repeat,
@@ -1661,6 +1666,7 @@ accommodated for typesetting a piece in Kievan style."
 
   %% Eliminate measure bar lines and allow line breaks anywhere.
   forbidBreakBetweenBarLines = ##f
+  submeasureBarType = #'()
   measureBarType = #'()
 
   %% A single bar line delimits phrases.  A width of about 3x the

@@ -26,6 +26,7 @@ senzaMisura =
     #1/4      % beatBase
     #'(1)     % beatStructure, but no measureStructure
     #'()      % beamExceptions
+  \submeasureBarsOn % but we expect not to see any!
 } <<
   \new Staff {
     \senzaMisura

@@ -1,8 +1,8 @@
-\version "2.23.14"
+\version "2.25.32"
 
 divisions = {
-  \time 2/4
-  s2 % default measure bar here
+  s4 % submeasure bar here
+  s4 % measure bar here
   s2 % start-repeat bar here
   \repeat volta 2 s2 % double repeat bar here
   \repeat volta 2 s2 % end-repeat bar here
@@ -15,8 +15,8 @@ divisions = {
 
 labels = {
   \override Score.TextMark.self-alignment-X = #CENTER
-  \time 2/4
-  \skip 2 \textMark \markup \rotate #90 \tiny "measure"
+  \skip 4 \textMark \markup \rotate #90 \tiny "submeasure"
+  \skip 4 \textMark \markup \rotate #90 \tiny "measure"
   \skip 2
   \repeat volta 2 \skip 2
   \repeat volta 2 \skip 2
@@ -30,8 +30,13 @@ labels = {
 }
 
 music = \fixed c' {
+  %% To demo the submeasure bar line, introduce subdivision into 2/4 time, but
+  %% enable printing the bar for one measure only.
+  \overrideTimeSignatureSettings 2/4 #1/4 #'((1) (1)) #'()
   \time 2/4
-  c2
+  \submeasureBarsOn
+  c4 c4 % room for submeasure bar line
+  \submeasureBarsOff
   d2
   \repeat volta 2 e2
   \repeat volta 2 f2

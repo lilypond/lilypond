@@ -151,7 +151,8 @@ defineBarLine =
                        (car glyph-list)
                        (cadr glyph-list)
                        (caddr glyph-list))))
-
+submeasureBarsOn = \set Staff.submeasureBarsEnabled = ##t
+submeasureBarsOff = \set Staff.submeasureBarsEnabled = ##f
 
 %% bass figures
 

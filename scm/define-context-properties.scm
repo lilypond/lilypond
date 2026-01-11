@@ -756,6 +756,9 @@ one).")
 subdivided by omitting a number of beamlets, dependent on
 @code{beamMaximumSubdivision}, between beats at multiples of
 @code{beamMinimumSubdivision}.")
+     (submeasureBarType ,string? "Bar line to insert at submeasure boundaries
+specified by @code{submeasureStructure}, when @code{submeasureBarsEnabled}
+allows.")
      (submeasureStructure ,number-list? "A sequence describing subdivisions of a
 measure.  Each element tells the distance from the previous division in units of
 @code{beatBase}.")
@@ -961,6 +964,9 @@ the first segno, 1@tie{}from the first to the second segno,
      (stringFretFingerList ,list? "A list containing three entries.
 In @code{TabVoice} and @code{FretBoards} they determine the string, fret and
 finger to use")
+     (submeasureBarsEnabled ,boolean? "Whether to insert submeasure bar lines at
+boundaries specified by @code{submeasureStructure}.  They are typically enabled
+selectively to clarify complex rhythms.")
 
 
      (tieMelismaBusy ,boolean? "Signal whether a tie is present.")
