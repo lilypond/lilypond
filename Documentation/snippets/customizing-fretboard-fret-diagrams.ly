@@ -14,18 +14,17 @@
   categories = "Fretted strings, Tweaks and overrides"
 
   texidoc = "
-Fret diagram properties can be set through
-@code{'fret-diagram-details}.  For @code{FretBoard} fret diagrams,
-overrides are applied to the @code{FretBoards.FretBoard} object. Like
-@code{Voice}, @code{FretBoards} is a bottom-level context, and
-therefore can be omitted in property overrides.
+Fret diagram properties can be modified by setting the
+@code{fret-diagram-details} property.  For @code{FretBoard} fret
+diagrams, overrides are applied to the @code{FretBoards.FretBoard}
+object.  Like @code{Voice}, @code{FretBoards} is a bottom-level
+context, and therefore can be omitted in property overrides.
 "
 
   doctitle = "Customizing fretboard fret diagrams"
 } % begin verbatim
 
 
-% begin verbatim
 \include "predefined-guitar-fretboards.ly"
 
 \storePredefinedDiagram #default-fret-table \chordmode { c' }
@@ -66,7 +65,7 @@ oo = #(define-music-function
       \oo FretBoard.fret-diagram-details.dot-position #0.5
       \oo FretBoard.fret-diagram-details.fret-count #3
       d
-       \oo FretBoard.fret-diagram-details.barre-type #'straight
+      \oo FretBoard.fret-diagram-details.barre-type #'straight
       \oo FretBoard.fret-diagram-details.finger-code #'none
       \oo FretBoard.fret-diagram-details.dot-radius #0.25
       \oo FretBoard.fret-diagram-details.dot-color #'black

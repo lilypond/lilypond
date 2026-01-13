@@ -14,10 +14,10 @@
   categories = "Repeats"
 
   texidoc = "
-By default, the volta brackets will be drawn over all of the
+By default, volta brackets are drawn over all of the
 alternative music, but it is possible to shorten them by
 overriding @code{VoltaBracket.musical-length}.  In the next
-example, the bracket only lasts one measure, which is a
+example, the bracket only spans one measure, which has a
 duration of 3/4.
 "
 
@@ -33,14 +33,10 @@ duration of 3/4.
     \alternative {
       \volta 1,2,3,4 {
         \once \override Score.VoltaBracket.musical-length =
-        \musicLength 2.
+          \musicLength 2.
         e4 e e
         f4 f f
       }
       \volta 5 {
-        g4 g g
-        g2.
-      }
-    }
-  }
+        g4 g g } } }
 }

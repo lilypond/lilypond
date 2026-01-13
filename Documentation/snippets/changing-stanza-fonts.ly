@@ -25,14 +25,10 @@ used for printing the stanza number.
 %{
 You may have to install additional fonts.
 
-Red Hat Fedora
+Red Hat Fedora: dejavu-fonts-all
 
-  dejavu-fonts-all
-
-Debian GNU/Linux, Ubuntu
-
-  fonts-dejavu-core
-  fonts-dejavu-extra
+Debian GNU/Linux, Ubuntu: fonts-dejavu-core
+                          fonts-dejavu-extra
 %}
 
 \relative c'' {

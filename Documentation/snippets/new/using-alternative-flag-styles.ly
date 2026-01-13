@@ -32,6 +32,7 @@ their associated @code{Stem} grob will also behave beam-like.
   doctitle = "Using alternative flag styles"
 }
 
+
 "@" =
 #(define-music-function (music) (ly:music?)
   #{ \set stemLeftBeamCount = 0 $music [] #})

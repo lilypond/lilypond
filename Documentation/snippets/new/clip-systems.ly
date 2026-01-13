@@ -23,6 +23,7 @@ are generated.
   doctitle = "Clip systems"
 }
 
+
 #(set-default-paper-size "a6" 'landscape)
 \layout {
   indent = 2.4\cm

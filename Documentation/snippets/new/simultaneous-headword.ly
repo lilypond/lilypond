@@ -10,6 +10,7 @@ Simultaneous headword.
   doctitle = "Simultaneous headword"
 }
 
+
 \include "english.ly"
 
 % L. v. Beethoven, Op. 111
@@ -17,18 +18,11 @@ Simultaneous headword.
 % Movt II - Arietta - Adagio molto semplice e cantabile
 % measures 108 - 118
 
-\layout {
-  \context {
-    \Score
-  }
-}
-
 trillFlat =
 \once \override TrillSpanner.bound-details.left.text = \markup {
   \concat {
     \musicglyph "scripts.trill"
-    \translate #'(-0.5 . 1.9)
-      \fontsize #-7 \flat
+    \translate #'(-0.5 . 1.9) \fontsize #-7 \flat
   }
 }
 

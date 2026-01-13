@@ -27,15 +27,11 @@ Bulgarian (Cyrillic), Hebrew, Japanese and Portuguese.
 %{
 You may have to install additional fonts.
 
-Red Hat Fedora
+Red Hat Fedora: linux-libertine-fonts (Latin, Cyrillic, Hebrew)
+                google-noto-serif-jp-fonts (Japanese)
 
-  linux-libertine-fonts (Latin, Cyrillic, Hebrew)
-  google-noto-serif-jp-fonts (Japanese)
-
-Debian GNU/Linux, Ubuntu
-
-  fonts-linuxlibertine (Latin, Cyrillic, Hebrew)
-  fonts-noto-cjk (Japanese)
+Debian GNU/Linux, Ubuntu: fonts-linuxlibertine (Latin, Cyrillic, Hebrew)
+                          fonts-noto-cjk (Japanese)
 %}
 
 % 'Linux Libertine' fonts also contain Cyrillic and Hebrew glyphs.

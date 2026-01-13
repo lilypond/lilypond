@@ -14,7 +14,7 @@
   categories = "Headword"
 
   texidoc = "
-Keyboard headword
+Keyboard headword.
 "
 
   doctitle = "Keyboard headword"
