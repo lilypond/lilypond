@@ -1,8 +1,9 @@
 adjusting-vertical-spacing-of-lyrics.ly
 allowing-fingerings-to-be-printed-inside-the-staff.ly
+breaking-horizontal-alignment-of-dynamics-and-textscripts.ly
 breaking-vertical-alignment-of-dynamics-and-textscripts.ly
+harmonizing-bar-line-thickness-for-staves-with-different-sizes.ly
 page-label.ly
 proportional-strict-notespacing.ly
-reconciliating-bar-lines-thickness-when-staves-are-of-different-sizes-todo-duplicates-snippet-in-documentation-en-notation-spacing.itely.ly
 vertically-aligned-dynamics-and-textscripts.ly
 vertically-aligning-ossias-and-lyrics.ly

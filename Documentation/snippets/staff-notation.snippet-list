@@ -18,6 +18,7 @@ extending-glissandi-across-repeats.ly
 flat-ties.ly
 forcing-measure-width-to-adapt-to-a-metronome-mark-s-width.ly
 glissandi-can-skip-grobs.ly
+harmonizing-bar-line-thickness-for-staves-with-different-sizes.ly
 incipit.ly
 inserting-score-fragments-above-a-staff,-as-markups.ly
 let-tabstaff-print-the-topmost-string-at-bottom.ly
@@ -34,7 +35,6 @@ print-chord-names-with-same-root-and-different-bass-as-slash-and-bass-note.ly
 putting-lyrics-inside-the-staff.ly
 quoting-another-voice.ly
 quoting-another-voice-with-transposition.ly
-reconciliating-bar-lines-thickness-when-staves-are-of-different-sizes-todo-duplicates-snippet-in-documentation-en-notation-spacing.itely.ly
 removing-brace-on-first-line-of-piano-score.ly
 removing-connecting-bar-lines-on-staffgroup,-pianostaff,-or-grandstaff.ly
 removing-the-first-empty-line.ly

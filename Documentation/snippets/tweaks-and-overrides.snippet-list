@@ -11,6 +11,7 @@ alternative-bar-numbering.ly
 analysis-brackets-above-the-staff.ly
 analysis-brackets-with-labels.ly
 asymmetric-slurs.ly
+breaking-horizontal-alignment-of-dynamics-and-textscripts.ly
 breaking-vertical-alignment-of-dynamics-and-textscripts.ly
 caesura--railtracks--with-fermata.ly
 changing-a-single-note-s-size-in-a-chord.ly
@@ -56,7 +57,7 @@ how-to-change-fret-diagram-position.ly
 inserting-a-caesura.ly
 keep-change-clefs-full-sized.ly
 line-arrows.ly
-making-an-object-invisible-using-the--transparent--property.ly
+making-an-object-invisible-using--hide.ly
 making-glissandi-breakable.ly
 manually-controlling-beam-positions.ly
 measure-centered-bar-numbers.ly
