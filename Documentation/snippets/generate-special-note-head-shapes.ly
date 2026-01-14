@@ -16,14 +16,15 @@
   texidoc = "
 When a note head with a special shape cannot easily be generated with
 graphic markup, a drawing specification for @code{ly:make-stencil} can
-be used to generate the shape. This example gives an example for a
+be used to generate the shape. This snippet gives an example for a
 parallelogram-shaped note head.
 
 Unfortunately, the available commands in a drawing specification are
-@uref{https://gitlab.com/lilypond/lilypond/-/issues/6874,currently not
-documented}; in any case, the used @code{path} sub-command has the
-following signature, quite similar to the @code{make-path-stencil}
-Scheme function.
+currently not documented (this is tracked in
+@uref{https://gitlab.com/lilypond/lilypond/-/issues/6874,Issue #6874});
+in any case, the used @code{path} sub-command has the following
+signature, quite similar to the @code{make-path-stencil} Scheme
+function.
 
 @example
 (path @var{thickness} @var{command-list} @var{line-cap-style} @var{line-join-style} @var{fill})

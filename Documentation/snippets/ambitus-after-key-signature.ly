@@ -18,7 +18,7 @@
 By default, ambitus are positioned at the left of the clef. The
 @code{\\ambitusAfter} function allows for changing this placement.
 Syntax is @code{\\ambitusAfter @var{grob-interface}}; see
-@uref{http://lilypond.org/doc/v2.24/Documentation/internals/graphical-object-interfaces,Graphical
+@uref{https://lilypond.org/doc/v2.24/Documentation/internals/graphical-object-interfaces,Graphical
 Object Interfaces} for a list of possible values for
 @var{grob-interface}.
 

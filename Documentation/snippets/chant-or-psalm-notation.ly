@@ -15,7 +15,7 @@
                 music"
 
   texidoc = "
-This form of notation is used for psalm chant, where verses aren't
+This form of notation is used for psalm chant, where verses are not
 always of the same length.
 "
 

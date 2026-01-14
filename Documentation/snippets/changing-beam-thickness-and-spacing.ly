@@ -14,9 +14,9 @@
   categories = "Tweaks and overrides"
 
   texidoc = "
-To make beams thicker or thinner alter the @code{Beam.beam-thickness}
-property. To adjust the spacing between beams alter the
-@code{Beam.length-fraction} property.
+To make beams thicker or thinner, alter the @code{beam-thickness}
+property of the @code{Beam} grob. To adjust the spacing between beams,
+alter @code{length-fraction}.
 "
 
   doctitle = "Changing beam thickness and spacing"

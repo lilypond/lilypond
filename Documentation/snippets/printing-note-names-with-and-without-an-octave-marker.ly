@@ -45,3 +45,14 @@ scale = \relative c' {
     }
   >>
 }
+
+\layout {
+  \context {
+    \NoteNames
+    % Allow vertical overlapping of different `NoteNames` contexts
+    % to make them appear as if they were a single line.
+    \override VerticalAxisGroup
+              .nonstaff-nonstaff-spacing
+              .minimum-distance = ##f
+  }
+}

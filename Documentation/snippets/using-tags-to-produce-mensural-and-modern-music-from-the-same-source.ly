@@ -66,9 +66,8 @@ finalis = \section
 
 Music = \relative c'' {
   \key f \major
-  g1 d'2 \menrest bes4 bes a2 \menrest r4 g4 fis4.
-  fis8 fis4 fis g e f4.([ g8] a4[ g8 f]
-    g2.\Be fis8 e\Am fis2) g\breve \finalis
+  g1 d'2 \menrest bes4 bes a2 \menrest r4 g4 fis4. fis8 fis4 fis \break
+  g e f4.([ g8] a4[ g8 f] g2.\Be fis8 e\Am fis2) g\breve \finalis
 }
 
 MenLyr = \lyricmode {

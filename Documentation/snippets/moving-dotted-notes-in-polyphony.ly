@@ -16,8 +16,8 @@
   texidoc = "
 When a dotted note in the upper voice is moved to avoid a collision
 with a note in another voice, the default is to move the upper note to
-the right. This behaviour can be over-ridden by using the
-@code{prefer-dotted-right} property of @code{NoteCollision}.
+the right. This behaviour can be changed setting the
+@code{prefer-dotted-right} property of the @code{NoteCollision} grob.
 "
 
   doctitle = "Moving dotted notes in polyphony"

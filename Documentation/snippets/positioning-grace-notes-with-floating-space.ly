@@ -19,14 +19,14 @@ columns for grace notes @q{floating}, i.e., decoupled from the non-grace
 notes: first the normal notes are spaced, then the (musical columns of
 the) graces are put left of the musical columns for the main notes.
 
-Due to @uref{https://gitlab.com/lilypond/lilypond/-/issues/6876,issue
+Due to @uref{https://gitlab.com/lilypond/lilypond/-/issues/6876,Issue
 #6876}, however, accidentals are ignored if this property is set. This
 snippet gives a workaround to circumvent the problem.
 
 Another unfortunate side effect of this property is that LilyPond does
 not check whether there is enough horizontal space for grace notes
 (this is tracked as
-@uref{https://gitlab.com/lilypond/lilypond/-/issues/2630,issue #2630}).
+@uref{https://gitlab.com/lilypond/lilypond/-/issues/2630,Issue #2630}).
 You have to make sure that enough space is available, for example, by
 using @code{\\newSpacingSection} together with a proper value for the
 @code{base-shortest-duration} of the @code{SpacingSpanner} grob.

@@ -14,9 +14,10 @@
   categories = "Spacing, Tweaks and overrides"
 
   texidoc = "
-If @code{strict-note-spacing} is set spacing of notes is not influenced
-by bars or clefs within a system. Rather, they are placed just before
-the note that occurs at the same time. This may cause collisions.
+If the @code{strict-note-spacing} property of the @code{SpacingSpanner}
+grob is set to @code{#t}, spacing of notes is not influenced by bars or
+clefs within a system. Rather, they are placed just before the note
+that occurs at the same time. This may cause collisions.
 "
 
   doctitle = "Proportional strict notespacing"
@@ -26,6 +27,7 @@ the note that occurs at the same time. This may cause collisions.
 \relative c'' <<
   \override Score.SpacingSpanner.strict-note-spacing = ##t
   \set Score.proportionalNotationDuration = #1/16
+
   \new Staff {
     c8[ c \clef alto c c \grace { d16 } c8 c] c4
     c2 \grace { c16[ c16] } c2

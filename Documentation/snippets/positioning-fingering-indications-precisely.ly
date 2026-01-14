@@ -14,10 +14,11 @@
   categories = "Editorial annotations, Tweaks and overrides"
 
   texidoc = "
-The semi-automatic positioning of fingering within a chords works
-usally well, but if one of the indications needs to be positioned more
-precisely the following tweak may be used. This is particularly useful
-for correcting the positioning when intervals of a second are involved.
+The semi-automatic positioning of fingering within a chords works fine
+in most situations. If one of the indications needs to be positioned
+more precisely the following, tweaks as shown in this snippet may be
+used. This is particularly useful for correcting the positioning when
+intervals of a second are involved.
 "
 
   doctitle = "Positioning fingering indications precisely"

@@ -63,11 +63,12 @@ theMusic = \chordmode {
   g1:maj9 g1:6.9
 }
 
-\layout {
-  ragged-right = ##t
-}
-
 <<
-   \new ChordNames \theMusic
-   \new Voice \theMusic
+  \new ChordNames \theMusic
+  \new Voice \theMusic
 >>
+
+\layout {
+  line-width = 10\cm
+  ragged-right = ##f
+}

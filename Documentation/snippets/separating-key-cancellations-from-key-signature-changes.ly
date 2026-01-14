@@ -26,17 +26,17 @@ the beginning of a line, respectively. We are only interested in
 changing the behaviour in the middle of a line.
 
 If you look up the definition of @code{break-align-orders} in
-LilyPond's Internal Reference (see the
-@uref{https://lilypond.org/doc/v2.24/Documentation/internals/breakalignment,@code{BreakAlignment}}
-grob), you get the following order in the second element:
+LilyPond's
+@uref{https://lilypond.org/doc/v2.24/Documentation/internals/breakalignment,Internals
+Reference}, you get the following order in the second element:
 
-@verbatim
+@example
 ...
 staff-bar
 key-cancellation
 key-signature
 ...
-@end verbatim
+@end example
 
 We want to change that, moving @code{key-cancellation} before
 @code{staff-bar}. To make this happen we use the

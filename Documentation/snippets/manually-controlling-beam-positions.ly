@@ -14,8 +14,8 @@
   categories = "Connecting notes, Rhythms, Tweaks and overrides"
 
   texidoc = "
-Beam positions may be controlled manually, by overriding the
-@code{positions} setting of the @code{Beam} grob.
+Beam positions may be controlled manually by setting the
+@code{positions} property of the @code{Beam} grob.
 "
 
   doctitle = "Manually controlling beam positions"

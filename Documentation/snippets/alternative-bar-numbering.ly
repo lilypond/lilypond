@@ -34,19 +34,26 @@ music = \relative c' {
   c1 \bar "|."
 }
 
-\markup "default"
 {
+  \textMark \markup \large "default"
   \music
 }
 
-\markup \typewriter "numbers"
 {
+  \textMark \markup \large \typewriter "numbers"
   \set Score.alternativeNumberingStyle = #'numbers
   \music
 }
 
-\markup \typewriter "numbers-with-letters"
 {
+  \textMark \markup \large \typewriter "numbers-with-letters"
   \set Score.alternativeNumberingStyle = #'numbers-with-letters
   \music
+}
+
+\layout {
+  \context {
+    \Score
+    \override TextMark.Y-offset = #5
+  }
 }

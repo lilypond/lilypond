@@ -17,9 +17,9 @@
   texidoc = "
 When adding a new staff at a line break, some extra space is
 unfortunately added at the end of the line before the break (to fit in
-a key signature change, which will never be printed anyway). The
-workaround is to set the @code{explicitKeySignatureVisibility} property
-of the @code{Staff} grob as is shown in the example.
+a key signature change, which is never printed anyway). The workaround
+is to set the @code{explicitKeySignatureVisibility} property of the
+@code{Staff} grob as is shown in the example.
 "
 
   doctitle = "Adding an extra staff at a line break"

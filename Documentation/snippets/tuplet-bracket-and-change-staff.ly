@@ -24,31 +24,20 @@ finishing in the upper one.
 
 aigues = \relative c' {
   \time 6/8
-  s4.
-  \stemDown
-  c16[ bes' e]
-  \stemUp
-  g c e
-  \stemDown
+  s4. \stemDown c16[ bes' e] \stemUp g c e \stemDown |
   g8
 }
 
 basses = \relative c {
   \time 3/4
   \clef F
-  \tweak positions #'(4.5 . 9.5)
-  \tweak edge-height #'(1 . -1)
-  \tuplet 7/6 {
-    c16[ bes' e]
-    \change Staff = md
-    \stemUp
-    g[ c e g]
-  }
-  s4.s8
+  \tweak positions #'(4.5 . 8.5)
+    \tweak edge-height #'(1 . -1)
+    \tuplet 7/6 { c16[ bes' e] \change Staff = md \stemUp g[ c e g] } s4. |
+  s8
 }
 
-\new PianoStaff
-\with { \omit TimeSignature }
+\new PianoStaff \with { \omit TimeSignature }
 <<
   \new Staff = md \aigues
   \new Staff = mg \basses

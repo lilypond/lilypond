@@ -14,14 +14,14 @@
   categories = "Spacing, Tweaks and overrides, Workaround"
 
   texidoc = "
-All @code{DynamicLineSpanner} objects (hairpins and dynamic texts) are
-placed with their reference line at least @code{'staff-padding} from
-the staff, unless other notation forces them to be farther. Setting
-@code{'staff-padding} to a sufficiently large value aligns the
-dynamics.
+For all @code{DynamicLineSpanner} objects (i.e., hairpins and dynamic
+texts), the vertical minimum distance between their reference line and
+the staff is given by the value in the @code{staff-padding} property,
+unless other notation elements forces them to be farther away. Setting
+this property to a sufficiently large value aligns the dynamics.
 
 The same idea, together with @code{\\textLengthOn}, is used to align
-the text scripts along their baseline.
+text scripts along their baseline.
 "
 
   doctitle = "Vertically aligned dynamics and textscripts"
@@ -42,5 +42,3 @@ music = \relative c' {
   \override TextScript.staff-padding = 1
   \music
 }
-
-\paper { tagline = ##f }

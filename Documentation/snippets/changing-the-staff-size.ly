@@ -14,10 +14,14 @@
   categories = "Paper and layout, Staff notation, Tweaks and overrides"
 
   texidoc = "
-Though the simplest way to resize staves is to use
-@code{#(set-global-staff-size @var{size})}, an individual staff's
-size can be changed by scaling the properties @code{staff-space} and
-@code{fontSize}.
+The simplest way to resize staves is to use
+
+@example
+ #(set-global-staff-size @var{size})
+@end example
+
+To resize an individual staff's size, you can use the properties
+@code{staff-space} and @code{fontSize}.
 "
 
   doctitle = "Changing the staff size"
@@ -25,17 +29,13 @@ size can be changed by scaling the properties @code{staff-space} and
 
 
 <<
-  \new Staff {
-    \relative c'' {
-      \dynamicDown
-      c8\ff c c c c c c c
-    }
+  \new Staff \relative c'' {
+    \dynamicDown c8\ff c c c c c c c
   }
   \new Staff \with {
     fontSize = #-3
     \override StaffSymbol.staff-space = #(magstep -3)
-  } {
-    \clef bass
-    c8 c c c c\f c c c
+  } \relative c {
+    \clef bass c8 c c c c\f c c c
   }
 >>

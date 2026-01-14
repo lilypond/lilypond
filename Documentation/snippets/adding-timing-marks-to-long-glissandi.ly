@@ -15,8 +15,8 @@
 
   texidoc = "
 Skipped beats in very long glissandi are sometimes indicated by timing
-marks, often consisting of stems without noteheads. Such stems can also
-be used to carry intermediate expression markings.
+marks consisting of stems without noteheads. Such stems can also be
+used to carry intermediate expression markings.
 
 If the stems do not align well with the glissando, they may need to be
 repositioned slightly.
@@ -39,21 +39,8 @@ glissandoSkipOff = {
 }
 
 \relative c'' {
-  r8 f8\glissando
-  \glissandoSkipOn
-  f4 g a a8\noBeam
-  \glissandoSkipOff
-  a8
-
-  r8 f8\glissando
-  \glissandoSkipOn
-  g4 a8
-  \glissandoSkipOff
-  a8 |
-
-  r4 f\glissando \<
-  \glissandoSkipOn
-  a4\f \>
-  \glissandoSkipOff
-  b8\! r |
+  r8 f8\glissando \glissandoSkipOn f4 g a |
+  a8\noBeam \glissandoSkipOff a8
+    r8 f8\glissando \glissandoSkipOn g4 a8 \glissandoSkipOff a8 |
+  r4 f\glissando\< \glissandoSkipOn a4\f\> \glissandoSkipOff b8\! r |
 }

@@ -14,7 +14,8 @@
   categories = "Chords, Specific notation"
 
   texidoc = "
-The layout of the major 7 can be tuned with @code{majorSevenSymbol}.
+The layout of the major@tie{}7 can be tuned with the
+@code{majorSevenSymbol} context property.
 "
 
   doctitle = "Chord name major7"

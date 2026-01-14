@@ -19,6 +19,9 @@ align successive dynamic objects like hairpins and dynamic text.
 However, this is not always wanted. By inserting
 @code{\\breakDynamicSpan}, which ends the alignment spanner
 prematurely, this vertical alignment can be avoided.
+
+See also snippet @qq{Breaking horizontal alignment of dynamics and
+textscripts}.
 "
 
   doctitle = "Breaking vertical alignment of dynamics and textscripts"

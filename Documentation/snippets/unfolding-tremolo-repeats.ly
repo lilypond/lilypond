@@ -14,10 +14,10 @@
   categories = "Repeats, Workaround"
 
   texidoc = "
-Currently, @code{@var{note}:@var{duration}}, which is a more
-or less a shortcut for @code{\\repeat tremolo}, is not unfolded by
+Currently, @code{@var{note}:@var{duration}}, which is more or
+less a shortcut for @code{\\repeat tremolo}, is not unfolded by
 @code{\\unfoldRepeats} (this is tracked in
-@uref{https://gitlab.com/lilypond/lilypond/-/issues/6145,issue #6145}).
+@uref{https://gitlab.com/lilypond/lilypond/-/issues/6145,Issue #6145}).
 The function given in this snippet provides a workaround.
 "
 

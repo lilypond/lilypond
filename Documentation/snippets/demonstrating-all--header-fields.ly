@@ -16,7 +16,7 @@
   texidoc = "
 A demonstration of all header fields that LilyPond defines by default.
 Thanks to setting @code{print-all-headers} to @code{#t}, much more
-fields as usual are displayed, indicating the hiearchy of
+fields as usual are displayed, indicating the hierarchy of
 @code{\\header} blocks.
 "
 

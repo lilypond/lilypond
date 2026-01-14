@@ -21,21 +21,18 @@ This snippet shows how to bring the lyrics line closer to the staff.
 } % begin verbatim
 
 
-% Default layout:
+music = \relative c' { c4 d e f | g4 f e d | c1 }
+text = \lyricmode { aa aa aa aa aa aa aa aa aa }
+
 <<
-  \new Staff \new Voice = melody \relative c' {
-    c4 d e f | g4 f e d | c1
-  }
-  \new Lyrics \lyricsto melody { aa aa aa aa aa aa aa aa aa }
+  \new Staff \new Voice = melody \music
+  % Default layout:
+  \new Lyrics \lyricsto melody \text
 
-  \new Staff \new Voice = melody \relative c' {
-    c4 d e f | g4 f e d | c1
-  }
-
-  % Reducing the minimum space below the staff and above the lyrics:
+  \new Staff \new Voice = melody \music
+  % Reducing the minimum space below the staff and above the lyrics.
   \new Lyrics \with {
     \override VerticalAxisGroup.nonstaff-relatedstaff-spacing =
       #'((basic-distance . 1))
-  }
-  \lyricsto melody { aa aa aa aa aa aa aa aa aa }
+  } \lyricsto melody \text
 >>

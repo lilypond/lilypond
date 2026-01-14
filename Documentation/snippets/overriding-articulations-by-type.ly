@@ -49,8 +49,7 @@ revertCustomScripts = \revert Script.before-line-breaking
 
 % Predefine two sets of desired tweaks.
 #(define my-settings-1
-   '(
-     (accent . ((font-size . 0)
+   '((accent . ((font-size . 0)
                 (color . (1 0 0))))
      (segno . ((font-size . 0)
                (color . (1 0 0))))
@@ -65,8 +64,7 @@ revertCustomScripts = \revert Script.before-line-breaking
     ))
 
 #(define my-settings-2
-  '(
-    (accent . ((font-size . 4)
+  '((accent . ((font-size . 4)
                (color . (0 1 0))
                (padding . 1.5)))
     (coda . ((color . (0 1 0))

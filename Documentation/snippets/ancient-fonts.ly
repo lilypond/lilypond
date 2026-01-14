@@ -113,6 +113,9 @@ m = { c1 e f ges cis' \bar "||" }
   }
 
   \layout {
+    % Compensate `\with-true-dimensions` for PDF output.
+    line-width = 159\mm
+
     \context {
       \Score
       \override TextScript.font-size = #-2
