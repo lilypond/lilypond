@@ -66,7 +66,11 @@ Note_heads_engraver::process_music ()
   for (vsize i = 0; i < note_evs_.size (); i++)
     {
       Stream_event *ev = note_evs_[i];
-      Item *note = make_item ("NoteHead", ev->self_scm ());
+      const bool pitch_approximate
+        = from_scm<bool> (get_property (ev, "pitch-approximate"));
+      auto *note = make_item (pitch_approximate ? "ApproximatePitchNoteHead"
+                                                : "NoteHead",
+                              ev->self_scm ());
 
       Pitch *pit = unsmob<Pitch> (get_property (ev, "pitch"));
 
@@ -136,6 +140,7 @@ Generate note heads.
 
                 /* create */
                 R"(
+ApproximatePitchNoteHead
 NoteHead
                 )",
 

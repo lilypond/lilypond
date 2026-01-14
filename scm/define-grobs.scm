@@ -2422,6 +2422,44 @@ attached to a @iref{MultiMeasureRest} grob.  See also
 @iref{Script}.")))))
 
 
+    (ApproximatePitchNoteHead
+     . (
+        (bend-me . ())
+        (duration-log . ,note-head::calc-duration-log)
+        (extra-spacing-height . ,ly:note-head::include-ledger-line-height)
+        (flexa-width . 2.0)
+        (glyph-name . ,note-head::calc-glyph-name)
+        (left-down-stem . #f)
+        (ligature-flexa . #f)
+        (no-ledgers . #t)
+        (parenthesis-friends . (accidental-grob dot))
+        (right-down-stem . #f)
+        (right-up-stem . #f)
+        (stem-attachment . ,ly:note-head::calc-stem-attachment)
+        (stencil . ,ly:note-head::print)
+        (style . arrow)
+        (X-offset . ,ly:note-head::stem-x-shift)
+        (Y-extent . ,grob::always-Y-extent-from-stencil)
+        (Y-offset . ,staff-symbol-referencer::callback)
+        (meta . ((class . Item)
+                 (interfaces . (accidental-participating-head-interface
+                                bend-interface
+                                font-interface
+                                gregorian-ligature-interface
+                                ledgered-interface
+                                ligature-head-interface
+                                mensural-ligature-interface
+                                note-head-interface
+                                rhythmic-grob-interface
+                                rhythmic-head-interface
+                                staff-symbol-referencer-interface
+                                vaticana-ligature-interface))
+                 (description . "A note head for a pitch that cannot be notated
+with certainty.  See also @iref{NoteHead}.")
+                 (remarks . ("An example is the highest note the singer can
+sing.  The notated pitch shows the rough expectation.  By default, this head is
+triangular and has no ledger lines."))))))
+
     (NonMusicalPaperColumn
      . (
         (allow-loose-spacing . #t)

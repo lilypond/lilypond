@@ -228,6 +228,15 @@ appoggiatura =
 #(def-grace-function startAppoggiaturaMusic stopAppoggiaturaMusic
    (_i "Create an appoggiatura from @var{music}."))
 
+approximatePitch =
+#(define-music-function (note) (ly:music?)
+   (_i "Indicate that the pitch of @var{note} approximates a pitch that cannot
+be known exactly, such as the highest note a singer can sing.")
+   (when (not (music-is-of-type? note 'note-event))
+     (ly:parser-error (G_ "argument must be a note") (*location*)))
+   (set! (ly:music-property note 'pitch-approximate) #t)
+   note)
+
 % for regression testing purposes.
 assertBeamQuant =
 #(define-music-function (l r) (pair? pair?)

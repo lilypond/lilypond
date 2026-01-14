@@ -165,6 +165,9 @@ Options are @code{solo1}, @code{solo2} and @code{unisono}.")
      (pitch ,ly:pitch? "The pitch of this note.")
      (pitch-alist ,list? "A list of pitches jointly forming the scale
 of a key signature.")
+     (pitch-approximate ,boolean? "The @code{pitch} property approximates a
+pitch that cannot be known exactly, such as the highest note a singer can
+sing.")
      (pop-first ,boolean? "Do a revert before we try to do an override
 on some grob property.")
      (procedure ,procedure? "The function to run with @code{\\applycontext}.

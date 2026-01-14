@@ -114,6 +114,7 @@ are reported on the stderr of this run."
 \test ##[ { c,,4 d'4 } #]
 \test ##[ { c'4 d'='4 } #]
 \test ##[ { c!4 c?4 } #]
+\test ##[ \approximatePitch c'4 #]
 \test ##[ r1.*4/3 #]		% RestEvent
 \test ##[ c1\rest #]		% RestEvent
 \test ##[ s2..*3/4 #]		% SkipEvent

@@ -953,29 +953,37 @@ respective predecessor chord."
   "Walk through @var{music} and give pitchless notes (not having a
 pitch in @code{pitch} or a drum type in @code{drum-type}) the pitch(es)
 from the predecessor note/chord if available."
-  (let ((last-pitch #f))
+  (let ((last-pitch #f) ; pitch, drum symbol, or chord
+        (last-pitch-approx #f)) ; when last-pitch is a pitch, is it approximate?
+    (define (set-last-pitch pitch approx)
+      (set! last-pitch pitch)
+      (set! last-pitch-approx approx))
     (map-some-music
      (lambda (m)
-       (define (set-and-ret last)
-         (set! last-pitch last)
-         m)
        (cond
         ((music-is-of-type? m 'event-chord)
          (if (any (lambda (m) (music-is-of-type? m 'rhythmic-event))
                   (ly:music-property m 'elements))
-             (set! last-pitch m))
+             (set-last-pitch m #f))
          m)
         ((music-is-of-type? m 'note-event)
          (cond
-          ((or (ly:music-property m 'pitch #f)
-               (ly:music-property m 'drum-type #f))
-           => set-and-ret)
+          ((ly:music-property m 'pitch #f) =>
+           (lambda (pitch)
+             (set-last-pitch pitch (ly:music-property m 'pitch-approximate #f))
+             m))
+          ((ly:music-property m 'drum-type #f) =>
+           (lambda (type)
+             (set-last-pitch type #f)
+             m))
           ;; ok, naked rhythm.  Go through the various cases of
           ;; last-pitch
           ;; nothing available: just keep as-is
           ((not last-pitch) m)
           ((ly:pitch? last-pitch)
            (set! (ly:music-property m 'pitch) last-pitch)
+           (when last-pitch-approx
+             (set! (ly:music-property m 'pitch-approximate) #t))
            m)
           ((symbol? last-pitch)
            (set! (ly:music-property m 'drum-type) last-pitch)

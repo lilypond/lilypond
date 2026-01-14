@@ -569,7 +569,9 @@ expression."
 
 (define-display-method NoteEvent (note)
   (cond ((not (null? (ly:music-property note 'pitch))) ;; note
-         (simple-note->lily-string note))
+         (if (ly:music-property note 'pitch-approximate #f)
+             (format #f "\\approximatePitch ~a" (simple-note->lily-string note))
+             (simple-note->lily-string note)))
         ((not (null? (ly:music-property note 'drum-type))) ;; drum
          (format #f "~a~a~{~a~}" (ly:music-property note 'drum-type)
                  (duration->lily-string (ly:music-property note 'duration))

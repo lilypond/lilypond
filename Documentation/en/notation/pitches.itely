@@ -484,6 +484,40 @@ quarter tone accidentals, so LilyPond's symbols do not conform to
 any standard.
 
 
+@node Approximate pitches
+@subsection Approximate pitches
+
+@cindex approximate pitch
+@cindex extreme pitch
+@cindex highest pitch
+@cindex lowest pitch
+@cindex maximum pitch
+@cindex minimum pitch
+@cindex pitch, approximate
+@cindex pitch, extreme
+@cindex pitch, unspecified
+@cindex unspecified pitch
+@funindex \approximatePitch
+
+To write a note when the pitch is not known exactly, such as the
+highest note a singer can sing, use the @code{\approximatePitch}
+command with a pitch that communicates the rough expectation.
+LilyPond prints the note at the given pitch with a triangular head
+and no ledger lines.
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  e4 f g \approximatePitch c
+}
+@end lilypond
+
+@morerefs
+Internals Reference:
+@rinternals{ApproximatePitchNoteHead},
+@rinternals{Note_heads_engraver}.
+@endmorerefs
+
+
 @node Note names in other languages
 @subsection Note names in other languages
 
