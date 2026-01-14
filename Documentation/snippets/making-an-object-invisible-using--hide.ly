@@ -14,10 +14,18 @@
   categories = "Rhythms, Simultaneous notes, Tweaks and overrides"
 
   texidoc = "
-Setting the @code{transparent} property will cause an object to be
-printed in @qq{invisible ink}: the object is not printed, but all its
-other behavior is retained. The object still takes up space, it takes
-part in collisions, and slurs, ties and beams can be attached to it.
+Applying @code{\\hide} to a grob causes objects of this type to be
+printed with @qq{invisible ink}. They are not printed, but all of their
+other behavior is retained:
+
+@itemize
+@item
+the objects still take up space,
+@item
+they take part in collision resolution, and
+@item
+slurs, ties, and beams can be attached to them as usual.
+@end itemize
 
 This snippet demonstrates how to connect different voices using ties.
 Normally, ties only connect two notes in the same voice. By introducing
@@ -25,7 +33,7 @@ a tie in a different voice, and blanking the first up-stem in that
 voice, the tie appears to cross voices.
 "
 
-  doctitle = "Making an object invisible using the @q{transparent} property"
+  doctitle = "Making an object invisible using \\hide"
 } % begin verbatim
 
 
