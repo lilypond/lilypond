@@ -32,7 +32,7 @@
        (else (cdr entry)))
      "\n")))
 
-(define (document-type-predicate-category alist nodename description)
+(define (document-type-predicate-category alist nodename description width)
   (string-append
    "@node " nodename "\n"
    "@appendixsubsec " nodename "\n"
@@ -40,7 +40,8 @@
    description "\n"
    "\n"
    "@indentedblock\n"
-   "@multitable @columnfractions .38 .6\n"
+   "@multitable @columnfractions "
+     (number->string width) " " (number->string (- .98 width)) "\n"
    "@headitem Type predicate @tab Description\n"
    (string-concatenate
     (sort (map document-type-predicate alist)
@@ -70,18 +71,23 @@ and @code{#f} (false) if it isn't.\n"
         "R5RS primary predicates"
         "Primary predicates can be applied to any expression.  They can
 be used on their own as predicates for LilyPond functions.
-The predicates here are part of the Scheme standard R5RS.")
+The predicates here are part of the Scheme standard R5RS."
+        0.25)
        (,r5rs-secondary-predicates
         "R5RS secondary predicates"
         "Secondary predicates are only applicable to specific expressions
 (for example, to numbers).  They will throw a type error when applied to expressions
-they are not intended for.  The predicates here are part of the Scheme standard R5RS.")
+they are not intended for.  The predicates here are part of the Scheme standard R5RS."
+        0.25)
        (,guile-predicates
         "Guile predicates"
-        "These predicates are defined by Guile but are not part of a Scheme standard.")
+        "These predicates are defined by Guile but are not part of a Scheme standard."
+        0.25)
        (,lilypond-scheme-predicates
         "LilyPond scheme predicates"
-        "These predicates are only available within LilyPond and defined in Scheme.")
+        "These predicates are only available within LilyPond and defined in Scheme."
+        0.48)
        (,lilypond-exported-predicates
         "LilyPond exported predicates"
-        "These predicates are only available within LilyPond and usually defined in C++."))))))
+        "These predicates are only available within LilyPond and usually defined in C++."
+        0.35))))))

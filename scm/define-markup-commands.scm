@@ -1427,10 +1427,14 @@ by @code{\\vspace} and @code{\\hspace}; you might use @code{\\box} for that.
     \\line { left \\annotate-moving \\hspace #-4 right }
     \\line {
       \\column {
-        top \\override #'(size . 0.6) \\annotate-moving \\vspace #4/3 bottom
+        top
+        \\override #'(size . 0.6)
+          \\annotate-moving \\vspace #4/3 bottom
       }
       \\column {
-        top \\override #'(size . 2.0) \\annotate-moving \\vspace #-4/3 bottom
+        top
+        \\override #'(size . 2.0)
+          \\annotate-moving \\vspace #-4/3 bottom
       }
     }
   }

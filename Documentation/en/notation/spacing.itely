@@ -1569,7 +1569,7 @@ even in the middle of a measure, and despite the presence of beams.
 
 \paper {
   indent = 0
-  line-width = 140\mm
+  line-width = 135\mm
 }
 @end lilypond
 

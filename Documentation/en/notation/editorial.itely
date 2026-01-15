@@ -604,7 +604,8 @@ play on the same string, or stroke fingers indicating an @dfn{Arrastre}.
   \tuplet 5/4 4 {
     \set strokeFingerOrientations = #'(down)
     <f-1 \glide \rightHandFinger #1 _\6 >16
-    %% Raise a bit, otherwise the stub-line would be hidden by the ledger line.
+    % Raise a bit, otherwise the stub line would be hidden
+    % by the ledger line.
     <c'\tweak Y-offset #0.5 -3>
     <f' -4 \rightHandFinger #1 >
     \set strokeFingerOrientations = #'(up)

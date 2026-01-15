@@ -211,7 +211,8 @@ The duration line may end with a hook (beam-style only) or an arrow.
     g'1\- s \clef "alto" g'
   }
   \new Staff {
-    \override DurationLine.bound-details.right.end-on-break-align-group = ##t
+    \override DurationLine.bound-details
+                          .right.end-on-break-align-group = ##t
     g'1\- s \clef "alto" g' \bar "|."
   }
 >>

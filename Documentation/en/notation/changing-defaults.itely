@@ -1700,10 +1700,12 @@ PDF manual.
 Follow the link to @rinternals{Fingering}.  At the top of the
 page, you will see
 
+@raggedright
 @quotation
 Fingering objects are created by the following engraver(s):
 @rinternals{Fingering_engraver} and @rinternals{New_fingering_engraver}.
 @end quotation
+@end raggedright
 
 By following related links inside the program reference, we can follow the
 flow of information within the program:
