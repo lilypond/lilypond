@@ -48,26 +48,51 @@ be integrated in LilyPond files.
 @node Scheme sandbox
 @subsection Scheme sandbox
 
+@cindex Scheme sandbox
+@cindex sandbox, Scheme
+
 The LilyPond installation includes the Guile implementation of
-Scheme. A hands-on Scheme sandbox with all of LilyPond loaded is
-available with this command line:
+Scheme.  A hands-on Scheme sandbox with all of LilyPond loaded is
+available with this call on the command line:
+
 @example
 lilypond scheme-sandbox
 @end example
 
 @noindent
-Once the sandbox is running, you will receive a guile prompt:
+Once the sandbox is running, you will receive a guile prompt
 
 @lisp
 guile>
 @end lisp
 
-You can enter Scheme expressions at this prompt to experiment with
-Scheme.  If you want to be able to use the GNU readline library for
-nicer editing of the Scheme command line, check the file
-@file{ly/scheme-sandbox.ly} for more information.  If you already have
-enabled the readline library for your interactive Guile sessions outside
-of LilyPond, this should work in the sandbox as well.
+@noindent
+which you can use to enter Scheme expressions.
+
+The file containing the sandbox code (@file{ly/scheme-sandbox.ly})
+tries to activate the GNU readline library for nicer editing on
+the Guile prompt (for example, using the up and down arrow keys to
+access previously typed commands).  Currently, this only works
+with a LilyPond binary dynamically linked with Guile, which is not
+the case for the @q{officially} distributed binaries.  Two
+possible workarounds are as follows.
+
+@itemize
+
+@item
+Use @uref{https://github.com/hanslub42/rlwrap, @command{rlwrap}},
+a thin wrapper around the readline library.  This program is
+available for Unix-like operating systems; call it with
+
+@example
+rlwrap lilypond scheme-sandbox
+@end example
+
+@item
+Use the Emacs editor in combination with the
+@uref{https://github.com/shevvek/lilypond-ts-mode, LilyPond
+Tree-sitter Mode}.  This works under Windows, too.
+@end itemize
 
 
 @node Scheme variables

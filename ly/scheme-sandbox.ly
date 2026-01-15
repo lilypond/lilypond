@@ -18,16 +18,35 @@
 
 \version "2.24.0"
 
+% Set a default prompt.
+#(use-modules (system repl common))
+#(repl-default-option-set! 'prompt "guile>")
+
+% The next command loads the user's init file (usually `~/.guile`) for
+% interactive sessions.
 #(load-user-init)
 
-% This loads the user's .guile file for interactive sessions.
-% One typical thing you might want to put there is
-% (use-modules (ice-9 readline))
-% (activate-readline)
-% in order to activate command-line editing for interactive sessions.
-% You need libreadline support and the respective Guile module to be
-% installed for that.  Depending on your system and version, the
-% requirements may be different.
+% Try to activate 'readline' support, which greatly enhances the
+% functionality of the guile prompt.
+#(cond
+  ((with-exception-handler (lambda (exception) #f)
+     (lambda ()
+       (use-modules (ice-9 readline)))
+     #:unwind? #t)
+   (activate-readline))
+  (else
+   (ly:warning "
+
+  Cannot load dynamic library 'guile-readline'.  Either you are using
+  a statically linked LilyPond binary (for example, the binary that
+  comes with the official distribution), or you haven't installed the
+  'guile-readline' and 'libreadline' packages for your system.
+
+  Possible workarounds:
+
+  . Use the 'rlwrap' program.
+  . Use the Emacs editor with the 'lilypond-ts-mode' package.
+")))
 
 #(newline)
 #(begin
