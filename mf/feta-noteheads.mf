@@ -436,7 +436,6 @@ def define_triangle_shape (expr xs, caveness, tilt, llap_sharp) =
   labels (0, 10, 20, 30);
   penlabels (1, 1', 2, 2', 3, 3', 12, 23, 31);
 
-  % attachment Y
   charwy := ypart exact_right_point;
   charwx := xpart exact_right_point + .5 pen_thick# * xs;
   chardwy := ypart exact_down_point;
@@ -613,12 +612,14 @@ def draw_cross (expr thick) =
 
   z4 - z3 = whatever * (ne) + (ne rotated -90) * thickness;
 
+  % labels (2, 3, 4, 5, 6);
 
+
+  % This point uses sharp values.
   x1 = charwd / 2 - .5 pen_thick#;
   z1 = whatever * ne
        + thick / 2 * stafflinethickness# * (ne rotated -90);
 
-  % labels (1, 2, 3, 4, 5, 6);
 
   nw = unitvector (z3 - z4);
 
@@ -815,6 +816,8 @@ def draw_do_head (expr width_factor, thickness_factor) =
   set_char_box (0, width_factor * solfa_base_notewidth#,
                 0.5 solfa_noteheight#, 0.5 solfa_noteheight#);
 
+  save bottom_thick_factor, left_thick_factor;
+
   bottom_thick_factor := 2 * thickness_factor - 1;
   % no different thickness for left side if we want uniform thickness
   if thickness_factor = 1:
@@ -991,7 +994,7 @@ def draw_re_head (expr width_factor, thickness_factor) =
 
   charwx := charwd;
   charwy := curve_start [-chardp, charht];
-  chardwy := charwy
+  chardwy := charwy;
 enddef;
 
 
