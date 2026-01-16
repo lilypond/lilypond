@@ -3631,8 +3631,8 @@ class NotestyleEvent(Event):
         self.filled = None
 
     notehead_styles_dict = {
-        'arrow down': None,  # TODO: Implement
-        'arrow up': None,  # TODO: Implement
+        'arrow down': "'arrow",  # LilyPond uses this for down-stem
+        'arrow up': "'arrow",  # LilyPond uses this for up-stem
         'back slashed': None,  # TODO: Implement
         'circle dot': None,  # TODO: Implement
         'circle-x': "'xcircle",
@@ -3641,8 +3641,8 @@ class NotestyleEvent(Event):
         'cross': None,  # TODO: + shaped note head
         'diamond': "'harmonic-mixed",
         'do': "'do",
-        'fa': "'fa",  # LilyPond automatically uses this for down-stem
-        'fa up': "'fa",  # LilyPond automatically uses this for up-stem
+        'fa': "'fa",  # LilyPond uses this for down-stem
+        'fa up': "'fa",  # LilyPond uses this for up-stem
         'inverted triangle': None,  # TODO: Implement
         'la': "'la",
         'left triangle': None,  # TODO: Implement

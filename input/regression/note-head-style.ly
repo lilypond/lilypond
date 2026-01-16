@@ -1,4 +1,5 @@
-\version "2.25.25"
+\version "2.25.33"
+
 \header{
   texidoc="
 Note head shapes may be set from several choices.
@@ -7,7 +8,7 @@ If you want different note head styles on one stem,
 you must create a special context.
 
 Harmonic notes have a different shape and different
-dimensions.
+dimensions, as have arrow note heads.
 "
 }
 
@@ -26,11 +27,11 @@ pattern =
   s1^#name
   \new Voice \with #style {
     \override Stem.direction = #UP
-    e'4 e'2. e'1 e'\breve*1/2 e'\longa*1/4
+    e'4 d'2. e'1 e'\breve*1/2 e'\longa*1/4
   }
   \new Voice \with #style {
     \override Stem.direction = #DOWN
-    g4 g2. g1 g\breve*1/2 g\longa*1/4
+    g4 a2. g1 g\breve*1/2 g\longa*1/4
   }
 >> #})
 
@@ -83,6 +84,7 @@ patternStyle =
 
   \break
 
+  \patternStyle arrow
   \pattern "kievan" \with { \kievanOn }
 
 }

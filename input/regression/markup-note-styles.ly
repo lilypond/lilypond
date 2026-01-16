@@ -1,4 +1,4 @@
-\version "2.19.35"
+\version "2.25.33"
 
 \header {
   texidoc = "@code{\\note-by-number} and @code{\\note} support
@@ -6,14 +6,10 @@ all note head styles and all flag styles (default, straight, flat, mensural)."
 }
 
 #(define styles-list
-  '(default altdefault
-    baroque neomensural
-    mensural petrucci
-    semipetrucci blackpetrucci
-    harmonic harmonic-black
-    harmonic-mixed diamond
-    cross xcircle
-    triangle slash))
+  '(default altdefault baroque
+    neomensural mensural petrucci semipetrucci blackpetrucci
+    harmonic harmonic-black harmonic-mixed
+    diamond cross xcircle triangle slash arrow))
 
 #(define-markup-command (show-note-styles layout props styles) (list?)
    (interpret-markup layout props

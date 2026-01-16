@@ -91,7 +91,7 @@
 
   (define special-noteheads
     (get-group glyph-list
-      "^noteheads.[dsu]M?[012](double|harmonic|diamond|cross|xcircle|triangle|slash)$"))
+      "^noteheads.[dsu]M?[012](double|harmonic|diamond|cross|xcircle|triangle|arrow|slash)$"))
 
   (define shape-note-noteheads
     (get-group glyph-list
@@ -151,7 +151,7 @@
   evenFooterMarkup = \markup {}
   }
 
-\version "2.25.5"
+\version "2.25.33"
 
 #(define-markup-command (doc-char layout props name) (string?)
   (interpret-markup layout props

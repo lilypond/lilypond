@@ -733,6 +733,7 @@ duration log @var{log}."
         ((harmonic) "0harmonic")
         ((harmonic-black) "2harmonic")
         ((harmonic-mixed) (if (<= log 1) "0harmonic" "2harmonic"))
+        ((arrow) (if (<= log 1) "0arrow" "2arrow"))
 
         (else
          (let ((str (symbol->string style)))

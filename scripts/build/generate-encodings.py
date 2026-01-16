@@ -81,6 +81,11 @@ emmentaler_glyphsets = [
 
         "noteheads.s2xcircle",
 
+        "noteheads.u0arrow",
+        "noteheads.d0arrow",
+        "noteheads.u2arrow",
+        "noteheads.d2arrow",
+
         # ancient noteheads
         "noteheads.s0mensural",
         "noteheads.s1mensural",
