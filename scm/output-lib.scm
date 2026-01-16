@@ -679,35 +679,41 @@ corner of the beam later on."
 ;; Kept separate from note-head::calc-glyph-name to allow use by
 ;; markup commands \note and \note-by-number
 (define-public (select-head-glyph style log)
-  "Select a note head glyph string based on note head style @var{style}
-and duration log @var{log}."
+  "Select a note head glyph string.
+
+The constructed name is based on note head style @var{style} and the
+duration log @var{log}."
   (if (symbol? style)
       (case style
-        ;; "default" style is directly handled in note-head.cc as a
-        ;; special case (HW says, mainly for performance reasons).
-        ;; Therefore, style "default" does not appear in this case
-        ;; statement.  -- jr
-        ;; Though we not to care if style is '(), see below.  -- harm
-        ((xcircle) "2xcircle")
-        ((harmonic) "0harmonic")
-        ((harmonic-black) "2harmonic")
-        ((harmonic-mixed) (if (<= log 1) "0harmonic"
-                              "2harmonic"))
-        ((baroque)
-         ;; Oops, I actually would not call this "baroque", but, for
-         ;; backwards compatibility to 1.4, this is supposed to take
-         ;; brevis, longa and maxima from the neo-mensural font and all
-         ;; other note heads from the default font.  -- jr
-         (if (< log 0)
-             (string-append (number->string log) "neomensural")
-             (number->string log)))
+        ;; The style called "default" is directly handled in
+        ;; `note-head.cc`, mainly for performance reasons.  Therefore,
+        ;; it does not appear in this case statement.
+
+        ;; Like "default", but the brevis is drawn with double vertical
+        ;; lines.
         ((altdefault)
-         ;; Like default, but brevis is drawn with double vertical lines
          (if (= log -1)
              (string-append (number->string log) "double")
              (number->string log)))
+
+        ;; The style "baroque" (which is actually a misnomer) takes
+        ;; brevis, longa, and maxima from the neo-mensural set of glyphs
+        ;; and all other note heads from the default font.
+        ((baroque)
+         (if (< log 0)
+             (string-append (number->string log) "neomensural")
+             (number->string log)))
+
+        ;; Styles with a complete set of glyphs.
         ((mensural)
          (string-append (number->string log) (symbol->string style)))
+        ((neomensural)
+         (string-append (number->string log) (symbol->string style)))
+        ((kievan)
+         (string-append (number->string log) (symbol->string style)))
+
+        ;; The next styles are similar to "baroque", using a different
+        ;; glyph set for brevis, longa, and maxima.
         ((petrucci)
          (if (< log 0)
              (string-append (number->string log) "mensural")
@@ -720,26 +726,35 @@ and duration log @var{log}."
          (if (< log 0)
              (string-append (number->string log) "semimensural")
              (string-append (number->string log) "petrucci")))
-        ((neomensural)
-         (string-append (number->string log) (symbol->string style)))
-        ((kievan)
-         (string-append (number->string log) "kievan"))
+
+        ;; Styles with only a smaller set of glyphs, not covering all
+        ;; duration logs.
+        ((xcircle) "2xcircle")
+        ((harmonic) "0harmonic")
+        ((harmonic-black) "2harmonic")
+        ((harmonic-mixed) (if (<= log 1) "0harmonic" "2harmonic"))
+
         (else
          (let ((str (symbol->string style)))
+           ;; Names for Gregorian notation glyphs come with suffixes.
            (if (or (string-startswith str "vaticana")
                    (string-startswith str "hufnagel")
                    (string-startswith str "medicaea"))
                str
+               ;; Last resort.
                (string-append (number->string (max 0 log))
                               str)))))
-      ;; 'vaticana-ligature-interface has a 'glyph-name-property for NoteHead.
-      ;; Probably best to return an empty list here, if called in a context
-      ;; without setting 'style, i.e. 'style is '(), to avoid a scheme-error.
+
+      ;; `vaticana-ligature-interface` has a `glyph-name` property for
+      ;; `NoteHead`, which can be the empty list, i.e., '().  It is
+      ;; probably best to return an empty list for this case to avoid a
+      ;; Scheme error.
       '()))
 
 (define-public (note-head::calc-glyph-name grob)
   (let* ((style (ly:grob-property grob 'style))
-         (log (min (if (eq? 'kievan style) 3 2) (ly:grob-property grob 'duration-log))))
+         (log (min (if (eq? 'kievan style) 3 2)
+                   (ly:grob-property grob 'duration-log))))
     (select-head-glyph style log)))
 
 (define-public (note-head::brew-ez-stencil grob)
