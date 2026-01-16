@@ -325,10 +325,9 @@ vardef penposx@# (expr d) =
 enddef;
 
 
-%
-% UGH: xs not declared as argument.
-%
-def define_triangle_shape =
+% This function sets up an inner and outer outline (`triangle_in` and
+% `triangle_out`); it also defines stem attachment points.
+def define_triangle_shape (expr xs, caveness, tilt, llap_sharp) =
   save triangle_a, triangle_b, triangle_c;
   save triangle_out_a, triangle_out_b, triangle_out_c;
   save triangle_in, triangle_out;
@@ -344,8 +343,11 @@ def define_triangle_shape =
 
   save pen_thick;
   pen_thick# = stafflinethickness# + .1 staff_space#;
-  define_pixels (llap);
   define_blacker_pixels (pen_thick);
+
+  save llap;
+  llap# := llap_sharp;
+  define_pixels (llap);
 
   left_up_dir = llap# * dir (90 + tilt);
 
@@ -443,16 +445,7 @@ enddef;
 
 
 def draw_whole_triangle_head =
-  save hei, xs;
-  save llap;
-  save tilt;
-
-  tilt = 40;
-  llap# = 3/4 noteheight#;
-
-  xs = 1.5;
-  caveness := 0.1;
-  define_triangle_shape;
+  define_triangle_shape (1.5, 0.1, 40, 3/4 noteheight#);
   fill triangle_out;
   unfill triangle_in;
 enddef;
@@ -466,15 +459,7 @@ fet_endchar;
 
 
 def draw_small_triangle_head =
-  save hei, xs;
-  save llap;
-  save tilt;
-
-  tilt = 40;
-  llap# = 2/3 noteheight#;
-  xs = 1.2;
-  caveness := 0.1;
-  define_triangle_shape;
+  define_triangle_shape (1.2, 0.1, 40, 2/3 noteheight#);
 
   pickup feta_fillpen;
 
@@ -491,15 +476,7 @@ fet_endchar;
 
 
 def draw_closed_triangle_head =
-  save hei, xs;
-  save llap;
-  save tilt;
-
-  tilt = 40;
-  llap# = 2/3 noteheight#;
-  xs = 1.0;
-  caveness := 0.1;
-  define_triangle_shape;
+  define_triangle_shape (1.0, 0.1, 40, 2/3 noteheight#);
   fill triangle_out;
 enddef;
 
