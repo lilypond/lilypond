@@ -5399,18 +5399,22 @@ customizable as well; defaults are the same as the values of the corresponding
   "
 @cindex note, within text, by @code{log} and @code{dot-count}
 
-Draw a note of length @var{log}, with @var{dot-count} dots and a stem pointing
-into direction @var{dir}.
+Draw a note with a given length, a number of dots, and a stem.
 
-By using fractional values for @var{dir}, longer or shorter stems can be
-obtained.
+The note length is specified with @var{log}, the number of dots with
+@var{dot-count}, and the stem direction and length with @var{dir}.
+Fractional values for @var{dir} can be used to control the length of the
+stem.  Value@tie{}0 suppresses the stem completely; this is useful for
+note head styles that don't take stems or come with built-in stems (like
+Kievan).
 
-Ancient note-head styles (via the @code{style} property, @pxref{Note head
-styles}) get mensural-style flags by default; use @code{flag-style} to override
-this.  Supported flag styles are @code{default}, @code{old-straight-flag},
-@code{modern-straight-flag}, @code{flat-flag}, @code{stacked}, @code{mensural}, and
-@code{neomensural}.  The last flag style is the same as @code{mensural} and
-provided for convenience.
+Ancient note head styles (via the @code{style} property, @pxref{Note
+head styles}) get mensural-style flags by default; use the
+@code{flag-style} property to override this.  Supported flag styles are
+@code{default}, @code{old-straight-flag}, @code{modern-straight-flag},
+@code{flat-flag}, @code{stacked}, @code{mensural}, and
+@code{neomensural}.  The last flag style is the same as @code{mensural}
+and provided for convenience.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -5419,12 +5423,17 @@ provided for convenience.
   \\note-by-number #1 #2 #0.8
   \\hspace #2
   \\override #'(style . petrucci)
-  \\note-by-number #3 #0 #UP
+    \\note-by-number #3 #0 #UP
   \\hspace #2
   \\override #'(flag-style . modern-straight-flag)
-  \\note-by-number #4 #0 #DOWN
+    \\note-by-number #4 #0 #DOWN
+  \\override #'(style . kievan)
+    \\note-by-number #2 #0 #0
 }
-@end lilypond"
+@end lilypond
+
+See also function @code{\\note}.
+"
   (define (get-glyph-name-candidates dir log style)
     (map (lambda (dir-name)
            (format #f "noteheads.~a~a"
@@ -5444,11 +5453,11 @@ provided for convenience.
             (car cands))))
 
   (define (buildflags flag-stencil remain curr-stencil spacing)
-    ;; Function to recursively create a stencil with @code{remain} flags
-    ;; from the single-flag stencil @code{curr-stencil}, which is already
+    ;; Function to recursively create a stencil with `remain` flags from
+    ;; the single-flag stencil `curr-stencil`, which is already
     ;; translated to the position of the previous flag position.
     ;;
-    ;; Copy and paste from /scm/flag-styles.scm
+    ;; Copy and paste from `flag-styles.scm`.
     (if (> remain 0)
         (let* ((translated-stencil
                 (ly:stencil-translate-axis curr-stencil spacing Y))
@@ -5460,15 +5469,14 @@ provided for convenience.
                               upflag-angle upflag-length
                               downflag-angle downflag-length
                               dir)
-    ;; Create a stencil for a straight flag.  @var{flag-thickness} and
-    ;; @var{flag-spacing} are given in staff spaces, @var{upflag-angle} and
-    ;; @var{downflag-angle} are given in degrees, and @var{upflag-length} and
-    ;; @var{downflag-length} are given in staff spaces.
+    ;; Create a stencil for a straight flag.  `flag-thickness` and
+    ;; `flag-spacing` are given in staff spaces, `upflag-angle` and
+    ;; `downflag-angle` are given in degrees, and `upflag-length` and
+    ;; `downflag-length` are given in staff spaces.
     ;;
     ;; All lengths are scaled according to the font size of the note.
     ;;
-    ;; From /scm/flag-styles.scm, modified to fit here.
-
+    ;; From `flag-styles.scm`, modified to fit here.
     (let* ((stem-up (> dir 0))
            (staff-space (ly:output-def-lookup layout 'staff-space))
            ;; scale with font-size and staff-space
@@ -5500,11 +5508,14 @@ provided for convenience.
                                                  (font-name . #f))
                                                props)))
          ;; To make the stem scale properly with changes in
-         ;; set-global-staff-size and/or set-layout-staff-size, we need to catch
-         ;; text-font-size from current layout and $defaultpaper and scale
-         ;; stem-thickness and -length with the division
-         ;; (/ layout-text-font-size paper-text-font-size) later.
-         ;; Default for text-font-size is 11.
+         ;; `set-global-staff-size` and/or `set-layout-staff-size`, we
+         ;; need to catch `text-font-size` from current `layout` and
+         ;; `$defaultpaper` and scale `stem-thickness` and `stem-length`
+         ;; with the factor
+         ;;
+         ;;   (/ layout-text-font-size paper-text-font-size)
+         ;;
+         ;; later on.  Default for `text-font-size` is 11.
          (layout-text-font-size
           (ly:output-def-lookup layout 'text-font-size 11))
          (paper-text-font-size
@@ -5518,11 +5529,11 @@ provided for convenience.
            (ly:parser-lookup '$defaultpaper)
            'output-scale))
          (staff-space (ly:output-def-lookup layout 'staff-space))
-         ;; While `layout-set-staff-size', applied in a score-layout, changes
-         ;; staff-space, it does not change staff-space while applied in \paper
-         ;; of an explicit book.
-         ;; Thus we compare the actual staff-space with the values of
-         ;; output-scale from current layout and $defaultpaper
+         ;; While `layout-set-staff-size', applied in a score layout,
+         ;; changes `staff-space`, it does not change `staff-space`
+         ;; while applied in `\paper` of an explicit book.  We thus
+         ;; compare the actual `staff-space` value with the values of
+         ;; `output-scale` from current `layout` and `$defaultpaper`.
          (size-factor
           (if (eqv? (/ layout-output-scale paper-output-scale) staff-space)
               (magstep font-size)
@@ -5534,10 +5545,10 @@ provided for convenience.
                                          (sign dir) log style))))
             (if (string-null? result)
                 ;; If no glyph name can be found, select default heads.
-                ;; Though this usually means an unsupported style has been
-                ;; chosen, it also prevents unrelated 'style settings from
-                ;; other grobs (e.g., TextSpanner and TimeSignature) leaking
-                ;; into markup.
+                ;; Though this usually means an unsupported style has
+                ;; been chosen, it also prevents unrelated `style`
+                ;; settings from other grobs (e.g., `TextSpanner` and
+                ;; `TimeSignature`) leaking into markup.
                 (get-glyph-name font
                                 (get-glyph-name-candidates
                                  (sign dir) log 'default))
@@ -5551,7 +5562,7 @@ provided for convenience.
           (* size-factor
              (/ layout-text-font-size paper-text-font-size)
              (max 3 (- log 1))))
-         ;; With ancient-flags we want a tighter stem
+         ;; With ancient-flags we want a tighter stem.
          (stem-thickness
           (* size-factor
              (/ layout-text-font-size paper-text-font-size)
@@ -5565,8 +5576,8 @@ provided for convenience.
                               (interval-index
                                (ly:stencil-extent head-glyph Y)
                                (cdr attach-indices)))))
-         ;; For a tighter stem (with ancient-flags) the stem-width has to be
-         ;; adjusted.
+         ;; For a tighter stem (with ancient flags) the stem width has
+         ;; to be adjusted.
          (stem-X-corr
           (if (or ancient-flags?
                   (member flag-style '(mensural neomensural)))
@@ -5587,12 +5598,12 @@ provided for convenience.
                                   (ly:stencil-translate-axis
                                    dot (* 2 x dotwid) X))
                                 (iota dot-count)))))
-         ;; Straight-flags. Values taken from /scm/flag-style.scm
+         ;; Straight flags.  Values are taken from `flag-style.scm`.
          (modern-straight-flag (straight-flag-mrkp 0.48 1 -18 1.1 22 1.2 dir))
          (old-straight-flag (straight-flag-mrkp 0.48 1 -45 1.2 45 1.4 dir))
          (flat-flag (straight-flag-mrkp 0.48 1.0 0 1.0 0 1.0 dir))
-         ;; Calculate a corrective to avoid a gap between
-         ;; straight-flags and the stem.
+         ;; Calculate a corrective to avoid a gap between straight flags
+         ;; and the stem.
          (flag-style-Y-corr (if (or (eq? flag-style 'modern-straight-flag)
                                     (eq? flag-style 'old-straight-flag)
                                     (eq? flag-style 'flat-flag))
@@ -5625,16 +5636,16 @@ provided for convenience.
                                 (if (> dir 0) "u" "d")
                                 log))))
                 (cons (+ (car attach-off)
-                         ;; For tighter stems (with ancient-flags) the
-                         ;; flag has to be adjusted different.
+                         ;; For tighter stems (with ancient flags) the
+                         ;; flag has to be adjusted differently.
                          (if (and (not ancient-flags?) (< dir 0))
                              stem-thickness
                              0))
                       (+ stemy flag-style-Y-corr))))))
-    ;; If there is a flag on an upstem and the stem is short, move the dots
-    ;; to avoid the flag.  16th notes get a special case because their flags
-    ;; hang lower than any other flags.
-    ;; Not with ancient flags or straight-flags.
+    ;; If there is a flag on an up-stem and the stem is short, move the
+    ;; dots to avoid the flag.  16th notes are handled specially because
+    ;; their flags hang lower than any other flags.  Don't do this with
+    ;; ancient flags or straight flags.
     (if (and dots (> dir 0) (> log 2)
              (or (member flag-style '(default stacked)) (null? flag-style))
              (not ancient-flags?)
@@ -5651,7 +5662,7 @@ provided for convenience.
                (ly:stencil-translate
                 dots
                 (cons (+ (cdr (ly:stencil-extent head-glyph X)) dotwid)
-                      ;; dots-direction unit is _half_ staff spaces
+                      ;; `dots-direction` unit is _half_ staff spaces.
                       (/ dots-direction 2)))
                stem-glyph)))
     stem-glyph))
@@ -5664,20 +5675,21 @@ provided for convenience.
   "
 @cindex note, within text, by duration
 
-Draw a note of given @var{duration} with a stem pointing into direction
-@var{dir}.
+Draw a note with a given duration and a stem.
 
-@var{duration} gives the note head type and augmentation dots; @var{dir}
-controls both the direction and length of the stem.
+The note duration is specified with @var{duration} (setting both the
+note head type and the number of augmentation dots).  The stem direction
+and length is given by @var{dir}.
 
-See also function @code{\\note-by-number}.
+This function is wrapper around @code{\\note-by-number}; its
+documentation gives more details on the available properties.
 
 @lilypond[verbatim,quote]
 \\markup {
   \\note {4..} #UP
   \\hspace #2
   \\override #'(style . cross)
-  \\note {4..} #0.75
+    \\note {4..} #0.75
   \\hspace #2
   \\note {\\breve} #0
 }
