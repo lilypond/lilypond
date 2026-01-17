@@ -197,9 +197,12 @@ check_meshing_chords (Grob *me, Grob *clash_up, Grob *clash_down)
   else if (touch)
     {
       // Up-stem note on a line has a raised dot, so no risk of collision
-      Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
+      auto is_on_staff_line = [&] {
+        auto *staff = Staff_symbol_referencer::get_staff_symbol (me);
+        return staff && Staff_symbol_referencer::on_line (staff, ups[0]);
+      };
       if ((full_collide
-           || (!Staff_symbol_referencer::on_line (staff, ups[0])
+           || (!is_on_staff_line ()
                && from_scm<bool> (get_property (me, "prefer-dotted-right"))))
           && Rhythmic_head::dot_count (head_up)
                > Rhythmic_head::dot_count (head_down))
