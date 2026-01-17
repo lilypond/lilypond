@@ -1,4 +1,4 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
  texidocfr = "
 Grâce aux balises (@emph{tags}), il est possible d'utiliser une même
 source pour produire une partition de musique mensurale et moderne. Dans
@@ -19,8 +19,8 @@ l'utilisation du @code{Completion_heads_engraver}.
 
 [La ligne légèrement plus courte dans la portée mensurale permet
 d'éviter que le glyphe de custode ne soit raccourci lors de la
-génération des images. On peut éviter à l'aide d'un
-@code{\\with-true-dimensions}.]
+génération des images. On peut l'éviter à l'aide d'un
+@code{\\with-true-dimensions} comme ici.]
 "
 
   doctitlefr = "Recours aux balises pour produire une partition ancienne et moderne à partir de la même source"

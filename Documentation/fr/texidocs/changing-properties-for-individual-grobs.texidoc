@@ -1,7 +1,17 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
   texidocfr = "
 La commande @code{\\applyOutput} permet de personnaliser n'importe quel
-objet de rendu.  Elle requiert une fonction Scheme à trois arguments.
+objet de rendu. Elle requiert une fonction Scheme à trois arguments.
+
+Dans l'exemple suivant, la fonction @code{mc-squared} est exécutée pour
+tous les objets @code{NoteHead} (au sein du contexte @code{Voice} en
+cours) à ce moment précis ; la fonction modifie le @code{stencil} de
+l'objet graphique à l'aide de la propriété @code{staff-position} pour
+remplacer certaines hauteurs par des @emph{markups}.
+
+De plus amples informations sont disponibles à la rubrique
+@rextendnamed{Running a function on all layout objects,
+Application d’une fonction à tous les objets de mise en forme}.
 "
 
   doctitlefr = "Modification des propriétés d'objets particuliers"

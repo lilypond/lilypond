@@ -1,8 +1,12 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
   texidocfr = "
+
 Certaines indications de nuance peuvent requérir un complément textuel,
-comme « più forte » ou « piano subito ».  Elles se réalisent aisément
-à l'aide d'un bloc @code{\\markup}.
+comme « più @emph{f} » ou « @emph{p} subito ». Elles se réalisent
+aisément à l'aide d'un bloc @code{\\markup}. Le résultat se comportera
+comme un objet @code{TextScript}.
+
+Voir aussi @code{Combinaison de nuance et de texte (2)}.
 "
 
   doctitlefr = "Combinaison de nuance et de texte"

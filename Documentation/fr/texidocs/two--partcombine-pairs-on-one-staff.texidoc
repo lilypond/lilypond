@@ -1,33 +1,16 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
   texidocfr = "
+
 La fonction @code{\\partCombine} prend deux expressions musicales
 contenant chacune une partie et les distribue dans quatre contextes
 @code{Voice} nommés « two », « one », « solo » et « chords » selon le
 moment et la manière dont ces parties fusionnent en une voix commune.
-Les voix issues de @code{\\partCombine} peuvent disposer de leurs
-propres propriétés de mise en forme définies de manière habituelle. Sont
-ici définies des extensions à @code{\\partCombine} de sorte à faciliter
-le placement de quatre voix sur une seule portée.
 
-La version originelle peut se saisir  comme ici.
-
-@verbatim
-soprano = { d'4 | cis'  b  e'  d'8 cis' | cis'2 b }
-alto = { fis4 | e8 fis gis ais b4 b | b ais fis2 }
-tenor = { a8 b | cis' dis' e'4 b8 cis' d'4 | gis cis' dis'2 }
-bass = { fis8 gis | a4 gis g fis | eis fis b,2 }
-
-\\new Staff <<
-  \\key b\\minor
-  \\clef alto
-  \\partial 4
-  \\transpose b b'
-  \\partCombineUp \\soprano \\alto
-  \\partCombineDown \\tenor \\bass
->>
-@end verbatim
-
-Et voici le code développé.
+Des variantes de @code{\\partCombine} -- @code{\\partCombineUp} et
+@code{\\partCombineDown} -- permettent de fusionner des voix aux hampes
+ascendantes et descendantes. Les combiner alors pour présenter quatre
+parties sur une seule portée requiert cependant des réglages
+spécifiques, comme indiqué ci-dessous.
 "
 
   doctitlefr = "Deux @code{\\partCombine} sur une même portée"

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
   texidocfr = "
 Par défaut, LilyPond utilise des objets @code{DynamicLineSpanner} pour
 aligner verticalement une succession d'objets nuance tels que soufflets

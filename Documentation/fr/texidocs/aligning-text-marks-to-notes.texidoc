@@ -1,0 +1,9 @@
+%% Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
+  texidocfr = "
+Les objets @code{TextMark} s'alignent par défaut sur des objets
+graphiques @code{NonMusicalPaperColumn} tels que le coin gauche de la
+portée ou une barre de mesure. Ils peuvent aussi venir s'aligner dès
+lors qu'aura été désactivée la propriété @code{non-musical}.
+"
+
+  doctitlefr = "Alignement de repère sur une note"

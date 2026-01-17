@@ -1,8 +1,8 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
   texidocfr = "
 L'égaliseur basique peut être modifié par la définition d'une nouvelle
 procédure Scheme @code{instrumentEqualizer} au sein du contexte
-@code{Score}.  Cette procédure prend en unique argument le nom d'un
+@code{Score}. Cette procédure prend en unique argument le nom d'un
 instrument MIDI et renverra une paire de fractions correspondant aux
 minimum et maximum de volume alloué à cet instrument.
 

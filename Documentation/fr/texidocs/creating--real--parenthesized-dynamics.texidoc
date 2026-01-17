@@ -1,16 +1,16 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
   texidocfr = "
 Bien que le moyen le plus simple pour ajouter des parenthèses à une
 indication de nuance consiste à utiliser un bloc @code{\\markup}, cette
-pratique a un inconvénient : les objets ainsi créés seront considérés
+pratique a un inconvénient : les objets ainsi créés sont considérés
 comme des annotations textuelles, non comme des nuances.
 
 Il est néanmoins possible de créer des objets particuliers en partant de
 code Scheme -- comme expliqué dans le manuel de notation -- avec la
-fonction @code{make-dynamic-script}.  Les @emph{markups} ainsi créés
-seront alors considérés comme étant des indications de nuance, et de ce
-fait pourront se voir appliquer les effets des commandes
-@code{\\dynamicUp} et @code{\\dynamicDown}.
+fonction @code{make-dynamic-script}. Les @emph{markups} ainsi créés sont
+alors considérés comme étant des indications de nuance, et de ce fait
+peuvent se voir appliquer les effets des commandes @code{\\dynamicUp} et
+@code{\\dynamicDown}.
 "
 
   doctitlefr = "Indications de nuance vraiment entre parenthèses"

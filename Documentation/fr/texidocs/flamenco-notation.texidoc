@@ -1,24 +1,24 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
   texidocfr = "
 La guitare flamenco fait appel à des éléments de notation particuliers :
 
 @itemize
 @item
-le @emph{golpe} : coup frappé sur la caisse de résonance avec l'ongle
-de l'annulaire,
+le @emph{golpe} : coup frappé sur la caisse de résonance avec l'ongle de
+l'annulaire,
 @item
 une flèche pour indiquer le sens des butés (@emph{strokes}),
 @item
-les doigtés : « p » pouce, « i » index, « m » majeur, « a »
-annulaire et « x » auriculaire,
+les doigtés : « p » pouce, « i » index, « m » majeur, « a » annulaire et
+« x » auriculaire,
 @item
-les @emph{rasgueados} sur trois ou quatre doigts : grattage des
-cordes en étendant les doigts rapidement les uns après les autres
-dans un mouvement continu, se terminant sur l'index,
+les @emph{rasgueados} sur trois ou quatre doigts : grattage des cordes
+en étendant les doigts rapidement les uns après les autres dans un
+mouvement continu, se terminant sur l'index,
 @item
 les @emph{abanicos} : séries de butés du pouce, index et auriculaire.
-Il existe aussi un @emph{abanico 2} pour lequel l'index et
-l'annulaire remplacent l'auriculaire.
+Il existe aussi un @emph{abanico 2} pour lequel l'index et l'annulaire
+remplacent l'auriculaire.
 @item
 @emph{alza púa} : jeu rapide du pouce.
 @end itemize

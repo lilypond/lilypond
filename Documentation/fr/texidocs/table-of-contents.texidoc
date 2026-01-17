@@ -1,7 +1,7 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
   texidocfr = "
 L'instruction @code{\\markuplist \\table-of-contents} permet d'inclure
-une table des matières.  Ses éléments sont ajoutés à l'aide de la
+une table des matières. Ses éléments sont ajoutés à l'aide de la
 commande @code{\\tocItem}.
 "
 

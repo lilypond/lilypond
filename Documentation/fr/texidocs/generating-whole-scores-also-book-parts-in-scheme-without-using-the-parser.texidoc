@@ -1,4 +1,4 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
   texidocfr = "
 Une partition LilyPond, de manière interne, n'est rien d'autre qu'une
 expression Scheme générée par l'analyseur syntaxique de LilyPond. Il est
@@ -6,19 +6,18 @@ donc possible, à l'aide de Scheme, de générer automatiquement une
 partition sans fichier source. Une expression musicale en Scheme sera
 transformée en partition par un appel à
 
-@verbatim
+@example
 (scorify-music music)
-@end verbatim
+@end example
 
 Ceci aura pour effet de générer un objet @code{score} auquel sera
 appliqué un bloc @code{layout} comportant la fonction
 
-@verbatim
+@example
 (let* ((layout (ly:output-def-clone $defaultlayout)))
    ; modification de la mise en forme, puis assignation :
-   (ly:score-add-output-def! score layout)
-  )
-@end verbatim
+   (ly:score-add-output-def! score layout))
+@end example
 
 Il suffit alors de transmettre ce @code{score} à LilyPond pour qu'il le
 grave. Les trois fonctions -- @code{(add-score score)},

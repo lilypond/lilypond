@@ -1,0 +1,10 @@
+%% Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
+  texidocfr = "
+
+Partant du problème que l'on ignore quelle valeur de
+@code{midiInstrument} serait la plus adaptée à sa composition, la
+compilation de ce fichier permet de faire son choix.
+
+"
+
+  doctitlefr = "Démonstration des instruments MIDI"

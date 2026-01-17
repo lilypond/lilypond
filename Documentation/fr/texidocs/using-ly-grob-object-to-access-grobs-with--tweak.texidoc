@@ -1,4 +1,4 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
   texidocfr = "
 Certains objets graphiques ne sont accessibles que par le biais d'un
 @emph{callback} à partir d'un autre @code{grob}. Ils sont normalement
@@ -14,12 +14,12 @@ implicitement par la commande @code{\\tweak}.
 Voici ce qui sera émis dans la console suite à la fonction
 @code{display-grobs} ici construite.
 
-@verbatim
+@example
 --------------------
 #<Grob Accidental >
 ()
 #<Grob Stem >
-@end verbatim
+@end example
 
 Cette fonction n'est probablement pas très utile. Elle indique toutefois
 qu'il est tout à fait possible d'accéder aux objets.

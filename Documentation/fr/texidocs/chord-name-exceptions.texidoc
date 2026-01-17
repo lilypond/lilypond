@@ -1,7 +1,33 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
   texidocfr = "
-Il est possible de créer votre propre modèle de chiffrages en réglant la
-propriété @code{chordNameExceptions}.
+La propriété @code{chordNameExceptions} enregistre une liste de
+chiffrages personnalisés afin de traiter des cas non prévus ou
+incorrectement gérés.
+
+Par défaut, LilyPond utilise le jeu de chiffrages issus de l'ouvrage de
+Klaus Ignatzek « Die Jazzmethode für Klavier 1 » ; l'algorithme de
+conversion des accords en chiffrages est inclus dans le fichier
+@file{scm/chord-ignatzek-names.scm}. Des règles additionnelles pour
+gérer des chiffrages exceptionnels sont enregistrées en tant que
+variables @code{ignatzekExceptions} dans le fichier
+@code{ly/chord-modifiers-init.ly}.
+
+Le code ci-dessous modifie ces exceptions en trois étapes.
+
+@enumerate
+@item
+Saisie de musique en accords avec @emph{markup} associé. Par convention,
+la base -- autrement dit la note la plus basse -- de chaque accord aura
+une hauteur de do (@code{c} pour les anglophones).
+@item
+Appel de la fonction Scheme @code{sequential-music-to-chord-exceptions}
+pour créer une liste de nouvelles exceptions, puis l'ajouter à celles
+déjà répertoriées. Dans la mesure où @code{ignatzekExceptions} est
+défini avec le second paramètre de cette fonction fixé à @code{#t}, afin
+d'ignorer la base de chaque accord, il faut faire de même.
+@item
+Enregistrement de la nouvelle liste d'exceptions.
+@end enumerate
 "
 
   doctitlefr = "Modèles de chiffrage d'accords"

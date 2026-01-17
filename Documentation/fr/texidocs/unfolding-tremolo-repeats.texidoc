@@ -1,0 +1,11 @@
+%% Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
+  texidocfr = "
+Actuellement, saisir @code{@var{note}:@var{durée}} est en quelque sorte
+un raccourci de @code{\\repeat tremolo}, mais n'est pas expansé par une
+directive @code{\\unfoldRepeats} (ceci fait l'objet du
+@uref{https://gitlab.com/lilypond/lilypond/-/issues/6145, ticket 6145}).
+La fonction ci-dessous présentée constitue un contournement à cette
+faiblesse.
+"
+
+  doctitlefr = "Expansion de répétition de trémolo"

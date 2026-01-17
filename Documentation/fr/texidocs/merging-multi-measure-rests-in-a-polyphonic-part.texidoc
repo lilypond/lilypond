@@ -1,8 +1,10 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
   texidocfr = "
 Dans le cadre d'un portée polyphonique, les silences multimesures sont
-positionnés différemment selon la voix à laquelle ils appartiennent.
-Le réglage suivant permet néanmoins de les imprimer sur une même ligne.
+positionnés différemment selon la voix à laquelle ils appartiennent. Le
+réglage suivant permet néanmoins de les imprimer sur une même ligne. En
+l'absence du @code{\\once}, l'adaptation sera effective pour tous les
+autres silences à venir dans cette voix.
 "
 
   doctitlefr = "Fusion de silences multimesures dans une partie polyphonique"

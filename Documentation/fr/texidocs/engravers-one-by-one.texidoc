@@ -1,9 +1,10 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
   texidocfr = "
-Pour appréhender la notation, nous l'avons disséquée en éléments
-simples : chaque type de symbole est géré par un module différent.
-Chaque module est appelé « graveur ». Dans cet exemple, quelques
-graveurs sont appelé chacun à son tour, dans l'ordre suivant :
+
+LilyPond gère les différents éléments nécessaires à la réalisaon d'un
+partision grâce à des modules. Chaque module est appelé « graveur ».
+Dans cet exemple, quelques graveurs sont appelés chacun à son tour, dans
+l'ordre suivant :
 
 @itemize
 @item têtes de note,

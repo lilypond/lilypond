@@ -1,11 +1,7 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
   texidocfr = "
 Du code PostScript peut directement être intégré dans un bloc
 @code{\\markup}.
-
-Pour des raisons techniques, ceci ne fontionne qu'avec le moteur PS de
-LilyPond, et n'est pris en charge ni pour le SVG (utilisé dans le Wiki),
-ni pour le moteur Cairo.
 
 En règle générale, il est préférable d'utiliser la commande de
 @emph{markup} @code{\\polygon} qui est fonctionnelle avec tous les

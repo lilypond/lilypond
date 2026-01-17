@@ -1,0 +1,10 @@
+%% Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
+  texidocfr = "
+Certaines indications de nuance peuvent requérir un complément textuel,
+comme « più @emph{f} » ou « @emph{p} subito ». Elles se réalisent à
+l'aide de la fonction Scheme @code{make-dynamic-script}. Les objets
+alors créés se comportent somme des objets graphiques
+@code{DynamicText}.
+"
+
+  doctitlefr = "Combinaison de nuance et de texte (2)"

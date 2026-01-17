@@ -1,6 +1,5 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
   texidocfr = "
-
 La fonction comprise dans l'extrait suivant permet d'ajouter du texte --
 comme « molto » ou « poco » -- à un soufflet de (de)crescendo. Le texte
 ajouté viendra se positionner selon le positionnement du soufflet. Le
@@ -8,7 +7,6 @@ soufflet s'aligne avec un objet @code{DynamicText}.
 
 Cet exemple présente aussi comment, à l'aide de code
 Scheme, influencer la manière dont un objet est normalement imprimé.
-
 "
 
   doctitlefr = "Texte centré sous un soufflet"

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
   texidocfr = "
 Lorsque l'on manipule des rappels d'objet (@emph{grob callbacks}), il
 peut être intéressant d'en maîtriser les ascendants. La plupart des
@@ -27,19 +27,24 @@ Par exemple, l'objet @code{System} peut, vis à vis d'un objet
 @code{VerticalAlignment}, être à la fois parent (par son côté Y) et
 grand parent (par deux fois du côté X).
 
-La macro ci-dessous affiche à l'écran une représentation textuelle de
-l'ascendance d'un @emph{grob}.
+La macro définie ci-dessous affiche à l'écran une représentation
+textuelle de l'ascendance d'un @emph{grob}. Par exemple, appeler
 
-Elle se lance ainsi :
-
-@verbatim
-{ \\once \\override NoteHead.before-line-breaking = #display-ancestry c }
-@end verbatim
+@example
+@{
+  \\once \\override NoteHead.before-line-breaking = #display-ancestry
+  c
+@}
+@end example
 
 @noindent
-et génère la sortie suivante :
+génère la sortie suivante :
 
-@verbatim
+@example
+------------------------------------
+@end example
+
+@example
 NoteHead
 X,Y: NoteColumn
      X: PaperColumn
@@ -51,7 +56,11 @@ X,Y: NoteColumn
            X: NonMusicalPaperColumn
               X,Y: System
            Y: System
-@end verbatim
+@end example
+
+Par voie de conséquence, il vous faut exécuter vous-même le code de cet
+extrait, puisque le fichier résultant ne contient pas les données qui
+nous intéressent.
 "
 
   doctitlefr = "Affichage de la généalogie d'un objet"

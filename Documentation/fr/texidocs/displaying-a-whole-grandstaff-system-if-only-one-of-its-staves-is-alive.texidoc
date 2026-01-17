@@ -1,17 +1,21 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
   texidocfr = "
-Il arrive, dans les partitions d'orchestre, qu'un instrument ou un
-groupe d'instruments ne joue pas pendant un moment et que leurs portées
-disparaisse pendant ce temps -- à l'aide de @code{\\removeEmptyStaves}.
+
+Dans la plupart des conducteurs d'orchestre, il est d'usage qu'un
+instrument ou un groupe d'instruments ne joue pas pendant un moment ;
+leurs portées disparaissent alors pendant ce temps -- les anglophones
+appellent cela une « partition à la française » @emph{(Frenched score)}.
+LilyPond dispose de cette fonctionnalité à l'aide de la commande
+@code{\\RemoveEmptyStaves}.
 
 Il est préférable, lorsque l'un d'entre eux reprend, d'imprimer
 @strong{toutes les portées du groupe en question} grâce au
 @code{Keep_alive_together_engraver} placé au niveau du regroupement,
 qu'il s'agisse d'un @code{GrandStaff} ou d'un @code{StaffGroup}.
 
-Dans l'exemple suivant, les violons ne jouent pas lors des deuxième et
-troisième systèmes. Bien que seul le premier violon redémarre à la
-dernière mesure, la portée de second violon apparaît elle aussi.
+Dans l'exemple suivant, les violons ne jouent pas lors du deuxième
+système. Bien que seul le premier violon redémarre à la dernière mesure
+du troisième système, la portée de second violon apparaît elle aussi.
 "
 
   doctitlefr = "Affichage d'un système complet lorsqu'une seule portée est active"
