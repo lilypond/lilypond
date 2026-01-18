@@ -1,13 +1,37 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
   texidocfr = "
-La propriété @code{measureLength}, conjointement avec
-@code{measurePosition}, détermine l'endroit où une barre de mesure est
-requise. L'utilisation d'un @code{\\scaleDurations} a l'inconvénient que
-l'échelonnement des durées rend compliqués les changements de métrique.
-Il est nécessaire en pareil cas de définir manuellement
-@code{measureLength}, avec un appel à @code{ly:make-moment}. Le second
-argument devra être identique au deuxième argument de
-@code{\\scaleDurations}.
+@subsubsubheading Polymétrie sans alignement des mesures
+
+La prise en charge de contextes aux métriques indépendantes demande de
+supprimer le @code{Timing_translator} du contexte @code{Score},
+conjointement à la création d'un contexte @code{TimingStaffGroup}
+disposant du @code{Timing_translator}. Ceci fera de @code{Timing}
+un alias de @code{TimingStaffGroup}, permettant ainsi aux commandes
+@code{\\time} de s'appliquer au sein du @code{TimingStaffGroup} où elles
+apparaissent.
+
+Contrairement à la commande native de LilyPond
+@code{\\enablePerStaffTiming}, cette approche requiert la création
+explicite de contextes @code{TimingStaffGroup} mais, par contre,
+autorise la création de multiples contextes @code{Staff} qui suivront de
+concert la mesure définie dans le @code{TimingStaffGroup} qui les
+englobe.
+
+@subsubsubheading Échelonnement local des métriques
+
+La commande @code{\\time}, qui ne peut être échelonné, établit une
+mesure de la longueur désirée dans @code{Timing}, autrement dit dans
+@code{TimingStaffGroup}. Dans le code ci-dessous, toutes les portées
+incluses dans un @code{TimingStaffGroup} utilisent une métrique
+échelonnée, de sorte que, peu importe la métrique, elle tiendra dans la
+longueur de mesure désirée. Si l'un des contextes inclus n'avait pas de
+métrique échelonnée, le choix de la métrique devant être fournie à
+@code{Timing} aurait toute son importance.
+
+L'utilisation de la commande @code{\\polymetric \\time} permet de
+définir les propriétés d'échelonnement de la métrique dans le contexte
+@code{Timing}, et l'utilisation de @code{\\scaleDurations} échelonnera
+le mètre et les notes afin qu'elles tiennent dans la mesure.
 "
 
   doctitlefr = "Modification de la métrique au sein d'un fragment polymétrique à l'aide de @code{\\scaleDurations}"

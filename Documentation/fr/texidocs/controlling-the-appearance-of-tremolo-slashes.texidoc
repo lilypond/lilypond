@@ -1,0 +1,33 @@
+%% Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
+  texidocfr = "
+Différentes propriétés de l'objet graphique @code{StemTremolo}
+permettent de gérer l'apparence des traits de trémolo.
+
+@itemize
+@item
+La propriété @code{slope} définit la pente des traits.
+@item
+La propriété @code{shape} détermine si les traits doivent ressembler à des
+rectangles (valeur @code{rectangle}) ou bien à des petites ligatures
+(valeur @code{beam-like}).
+@item
+La propriété @code{style} gère à la fois la pente et la forme selon que
+la note est affublée d'un crochet, est ligaturée ou n'a qu'une simple
+hampe. Ceci diffère des deux autres propriétés qui, elles, modifient
+l'apparence de façon inconditionnelle. Deux styles sont définis.
+@itemize @minus{}
+@item
+@code{default} : les traits en présence de hampe descendante et de
+crochet sont plus longs et plus pentus que pour des hampes avec crochet
+ascendantes ; les traits sur des notes ligaturées prennent l'apparence
+de rectangles et sont parallèles à la ligature.
+@item
+@code{constant} : tous les traits ont l'apparence de petites ligatures
+et ont la même pente, hormis lorsque sur des hampes descendantes
+crochetées.
+@end itemize
+
+@end itemize
+"
+
+  doctitlefr = "Contrôle de l'apparence des traits de trémolo"

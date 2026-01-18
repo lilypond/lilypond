@@ -1,0 +1,7 @@
+%% Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
+  texidocfr = "
+Voici deux différentes cloches, saisies « cb » (@emph{cow bell} pour
+sonnaille) et « rb » (@emph{ride bell} pour clochette).
+"
+
+  doctitlefr = "Exemple de sonnaille et clochette"

@@ -1,8 +1,8 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
   texidocfr = "
 Des métriques telles que « 5/8 » peuvent s'interpréter sous une forme
 décomposée -- « 3/8 + 2/8 » par exemple -- qui combine plusieurs
-métriques.
+métriques inégales.
 
 LilyPond est capable de rendre ce type de notation, plus facile à lire
 et à interpréter, en imprimant cette métrique composite et en adaptant
