@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
+    Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -87,7 +87,7 @@ musique contemporaine.
 @subsection Généralités sur le rythme en musique contemporaine
 
 @itemize
-@item Les métrique composites sont abordées à la rubrique
+@item Les métrique complexes sont abordées à la rubrique
 @ref{Time signature}.
 
 @item Les bases de la polymétrie sont abordées à la rubrique

@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
+    Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -306,6 +306,22 @@ désir, qu'elle qu'en soit la raison, ajoutez l'option @code{BYTECODE=no}
 @unnumberedsec Améliorations de la représentation des hauteurs
 
 @itemize
+
+@item
+La nouvelle commande @code{\submeasureBarsOn} permet d'afficher
+automatiquement des barres de mesure entre les composants d'une métrique
+alternative stricte (non montré ici), ou lorsque spécifié par les
+réglages de la nouvelle propriété de contexte @code{submeasureStructure}
+ou par les pulsations de l'argument optionnel de la commande
+@code{\time}.
+
+@lilypond[quote,verbatim]
+{
+  \submeasureBarsOn
+  \time #'((3 4) (3 4) (4 3 4)) 25/16
+  \repeat unfold 25 c'16
+}
+@end lilypond
 
 @item
 La nouvelle commande @code{\polymetric} simplifie la notation d'une
@@ -1224,7 +1240,7 @@ respectivement renommés en @code{script.uupbow} et
 @item
 Les réglages par défaut des étiquettes de diagramme de fret ont changé.
 
-@itemize
+@itemize @minus{}
 @item
 La valeur par défaut de @code{fret-label-vertical-offset} est fixée
 à @w{-0.5}, ce qui a pour effet de centrer l'étiquette dans l'espace du
@@ -1236,6 +1252,23 @@ format de chaîne @code{"~dfr"} (résultant en @q{3fr} par exemple), au
 lieu de @code{'roman-lower}.
 @end itemize
 
+@item
+Deux nouvelles options sont disponibles pour les
+@code{fret-diagram-details} :
+
+@itemize @minus{}
+@item
+@code{string-overhang} permet de définir l'extension des lignes de
+corde au-delà de la ligne de dernier fret, en  multiples de
+@code{fret-distance}. La valeur par défaut est de 1.
+
+@item
+@code{barre-thickness} définit l'épaisseur de la ligne du barré, en
+multiples de @code{dot-radius}. Elle n'est définit que pour
+@code{barre-type=straight}, avec une valeur par défaut de 1.
+
+@end itemize
+
 @end itemize
 
 @ignore
@@ -1245,11 +1278,50 @@ lieu de @code{'roman-lower}.
 
 @node Wind instrument improvements
 @unnumberedsec Améliorations pour la notation des instruments à vent
-
+@end ignore
 
 @node Chord notation improvements
 @unnumberedsec Améliorations pour la notation des accords
-@end ignore
+
+@itemize
+@item
+LilyPond suit désormais plus rigoureusement la nomenclature de
+nommage des accords par Ignatzek. Ceci annule des modifications
+intervenues fin 2011 avec la version 2.15.21, et que l'on pourrait
+maintenant qualifier incorrects ou ambigus.
+
+@lilypond[quote, verbatim]
+oldException = { <c e g b fis'>-\markup \super "lyd" }
+chExceptions = #(append (sequential-music-to-chord-exceptions
+                         oldException #t)
+                        ignatzekExceptions)
+
+music = { <c e g d'>1 | <c es g f'> | <c e g b fis'> }
+
+\new StaffGroup \with { instrumentName = "old:" }
+<<
+  \new ChordNames \with {
+    chordNameExceptions = #chExceptions
+    additionalPitchPrefix = ""
+  } \music
+  \new Voice \transpose c c' \music
+>>
+
+\new StaffGroup \with { instrumentName = "new:" }
+<<
+  \new ChordNames \music
+  \new Voice \transpose c c' \music
+>>
+
+\layout {
+  indent = 1\cm
+  line-width = 9\cm
+  ragged-right = ##f
+}
+@end lilypond
+
+@end itemize
+
 
 @node Ancient notation improvements
 @unnumberedsec Améliorations pour les notations anciennes
@@ -1684,7 +1756,7 @@ La gestion des options Scheme en ligne de commande gagne en
 robustesse. Quelques changements mineurs ont été rendus nécessaires par
 cette nouvelle implémentation.
 
-@itemize
+@itemize @minus{}
 @item
 Sur la ligne de commande, l'argument à l'option @option{-dpaper-size} ne
 nécéssite plus d'être mis entre guillemets. En d'autres termes,
@@ -1759,7 +1831,7 @@ originelle.
 Voici une liste des quelques changements notables, exception faite des
 corrections de bogue.
 
-@itemize
+@itemize @minus{}
 @item Le script est beaucoup plus rapide.
 
 @item Le chevauchement et l'imbrication des liaisons fonctionnent comme

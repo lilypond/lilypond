@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: db08378695caf4c44b59e67bf6133df2cad4ea16
+   Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1359,10 +1359,11 @@ Les métriques anciennes font l'objet d'un
 @cindex métrique et ligature
 
 En plus de déterminer la métrique qui sera imprimée, la commande
-@code{\time} réglera aussi les valeurs par défaut des propriétés
-@code{beatBase}, @code{beatStructure} et @code{beamExceptions}
-correspondant à la métrique. Les valeurs prédéterminées par défaut de
-ces différentes propriétés sont inscrites dans le fichier
+@code{\time} réglera aussi les valeurs par défaut des propriétés de
+contexte @code{beatBase}, @code{beatStructure},
+@code{submeasureStructure} et @code{beamExceptions} correspondant à la
+métrique. Les valeurs prédéterminées par défaut de ces différentes
+propriétés sont inscrites dans le fichier
 @file{scm/time-signature-settings.scm}.
 
 La valeur par défaut de @code{beatStructure} peut se voir aménagée dès
@@ -1381,23 +1382,25 @@ la commande @code{\time} à l'aide d'un premier argument :
 }
 @end lilypond
 
-Les valeurs par défaut de toutes ces variables associées à la métrique,
-y compris @code{beatBase} et @code{beamExceptions}, peuvent se définir
-en même temps. Ces valeurs peuvent se régler indépendamment pour
-différentes métriques. Les valeurs adaptées ne seront effectives qu'à
-partir du moment où interviendra une commande @code{\time} de la valeur
-de métrique correspondante :
+Les valeurs par défaut de toutes ces variables associées à la métrique
+peuvent se définir en même temps. Ces valeurs peuvent se régler
+indépendamment pour différentes métriques. Les valeurs adaptées ne
+seront effectives qu'à partir du moment où interviendra une commande
+@code{\time} de la valeur de métrique correspondante :
 
 @lilypond[quote,verbatim]
 \score {
-  \relative c' {
-    \overrideTimeSignatureSettings
-      4/4        % timeSignature
-      #1/4       % beatBase
-      3,1        % beatStructure
-      #'()       % beamExceptions
-    \time 4/4
-    \repeat unfold 8 { c8 } |
+  \new Staff {
+    \relative c' {
+      \overrideTimeSignatureSettings
+        8/4        % timeSignature
+        #1/4       % beatBase
+        3,1        % beatStructure
+        #'((2 2) (3 1)) % beatStructure, measureStructure
+        #'()       % beamExceptions
+      \time 8/4
+      \repeat unfold 16 { c8 } |
+    }
   }
 }
 @end lilypond
@@ -1407,7 +1410,6 @@ de métrique correspondante :
 @code{\overrideTimeSignatureSettings} prend quatre arguments :
 
 @enumerate
-
 @item
 @code{@var{timeSignature}}, une fraction indiquant la métrique pour
 laquelle ces valeurs doivent s'appliquer,
@@ -1417,8 +1419,11 @@ laquelle ces valeurs doivent s'appliquer,
 @code{beatStructure},
 
 @item
-@code{@var{beatStructure}}, une liste Scheme décrivant la structure de
-cette pulsation, en unité de @code{beatBase},
+@code{@var{structure}}, une liste Scheme décrivant la structure de
+cette pulsation, en unité de @code{beatBase} -- autrement dit
+@code{beatStructure} -- optionnellement couplée avec des listes
+indiquant les subdivisions de la mesure -- c'est à dire
+@code{submeasureStructure}.
 
 @item
 @code{@var{beamExceptions}}, une liste associative des règles de
@@ -2161,6 +2166,7 @@ qu'elle est libellée dans le bloc @code{\midi}.
 @c VO Complex time signatures
 
 @cindex métrique composite
+@cindex composite, métrique
 @cindex complexe, métrique
 
 @funindex \compoundMeter
@@ -2185,17 +2191,20 @@ métrique, les précédents représentent le « numérateur ».
 
 Une métrique plus élaborée s'obtient en ajoutant d'autres listes. Bien
 entendu, les ligatures automatiques s'ajusteront aux différentes
-valeurs.
+valeurs. Des barres de subdivision de mesures peuvent s'ajouter pour
+permettre une meilleure lecture des rythmes complexes.
 
 @lilypond[quote,verbatim]
-\relative {
+\fixed c' {
   \compoundMeter #'((1 4) (3 8))
-  \repeat unfold 5 c'8 \repeat unfold 10 c16
+  \repeat unfold 5 c8 \repeat unfold 10 c16
 }
 
-\relative {
+\fixed c' {
   \compoundMeter #'((1 2 3 8) (3 4))
-  \repeat unfold 12 c'8
+  \repeat unfold 12 c8
+  \submeasureBarsOn
+  \repeat unfold 12 c8
 }
 @end lilypond
 
@@ -3768,6 +3777,19 @@ emploient ce type de barre : @code{\codaMark}, @code{\inStaffSegno},
 
 S'utilise avec @code{\caesura} -- voir
 @ref{Phrase bar lines in hymn tunes}.
+
+@item submeasureBarType
+@cindex barre de mesure pointillée
+@cindex barre, sous-mesure
+@cindex pointillée, barre de mesure
+@cindex métrique, mise en évidence
+@cindex sous-mesure, barre
+@funindex \submeasureBarsOn
+@funindex submeasureStructure
+
+S'utilise pour borner les sous-mesures spécifiées par
+@code{submeasureStructure}, lorsque l'autorise un
+@code{\submeasureBarsOn} ; @pxref{Time signature}.
 
 @item measureBarType
 @cindex barre par défaut

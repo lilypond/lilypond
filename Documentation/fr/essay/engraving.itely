@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+   Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -712,7 +712,7 @@ formatage :
 @sourceimage{lily14-sarabande-annotated,,}
 @end ifnottex
 
-@itemize @bullet
+@itemize
 @item trop d'espace avant la métrique
 @item la hampe des notes ligaturées est trop longue
 @item les deuxième et quatrième mesures sont trop tassées
@@ -872,7 +872,7 @@ partIV = \relative {
 
 Entre autres défauts du résultat brut de Finale, nous notons :
 
-@itemize @bullet
+@itemize
 @item La majorité des ligatures est trop éloignée de la portée.
 Lorsqu'une ligature se retrouve vers le milieu de la portée, la hauteur
 des hampes qui la portent est d'environ une octave.  Néanmoins, un

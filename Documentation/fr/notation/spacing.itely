@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 304f8be3cd1ecbbc37f30191b4b49dcdc85bf3d5
+   Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2521,7 +2521,7 @@ suivantes :
 
 @itemize
 @item Propriétés du @code{VerticalAxisGroup} :
-@itemize
+@itemize @minus{}
 @item @code{default-staff-staff-spacing}
 @item @code{staff-staff-spacing}
 @end itemize
@@ -2601,11 +2601,11 @@ propriétés suivantes :
 
 @itemize
 @item Propriétés du @code{VerticalAxisGroup} :
-@itemize
+@itemize @minus{}
 @item @code{staff-staff-spacing}
 @end itemize
 @item Propriétés du @code{StaffGrouper} :
-@itemize
+@itemize @minus{}
 @item @code{staff-staff-spacing}
 @item @code{staffgroup-staff-spacing}
 @end itemize
@@ -2673,7 +2673,7 @@ suivantes :
 
 @itemize
 @item Propriétés du @code{VerticalAxisGroup} :
-@itemize
+@itemize @minus{}
 @item @code{staff-affinity}
 @item @code{nonstaff-relatedstaff-spacing}
 @item @code{nonstaff-nonstaff-spacing}

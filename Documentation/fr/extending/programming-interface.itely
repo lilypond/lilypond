@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 917e0a90fae40da9c2efa704963fa741ecef0b0b
+   Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1790,7 +1790,7 @@ graphiques ont été divisés sur des systèmes différents.
 Dans l'exemple suivant, on définit une nouvelle opération nommée
 @code{my-callback}.  Cette opération
 
-@itemize
+@itemize @minus{}
 @item
 détermine si l'objet a été divisé à l'occasion d'un changement de ligne
 @item

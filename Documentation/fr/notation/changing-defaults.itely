@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+   Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -4048,7 +4048,7 @@ vectorielles ne sont d'ailleurs pas prises en charge par tous les objets
 de rendu, et certaines combinaisons peuvent entraîner des erreurs ; nous
 citerons entre autres :
 
-@itemize @bullet
+@itemize
 @item Une barre de mesure ne peut s'imprimer en début de ligne.
 
 @item Un numéro de mesure ne peut apparaître au début de la première

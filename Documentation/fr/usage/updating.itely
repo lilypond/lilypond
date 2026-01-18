@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
+   Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -75,7 +75,7 @@ Les règles de conversion de @command{convert-ly} reposent sur la
 recherche et le remplacement de motifs textuels plutôt que sur les
 capacités intellectuelles de LilyPond, en conséquence de quoi :
 
-@itemize @bullet
+@itemize
 @item
 La fiabilité de la conversion dépend de la qualité même de chaque jeu de
 règles ainsi que sur la complexité des modifications respectives à

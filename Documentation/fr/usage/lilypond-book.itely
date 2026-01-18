@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+    Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -338,7 +338,7 @@ dimensions du papier pour certaines classes de document.}}
 Dès lors qu'elles auront été définies dans votre document, les macros
 suivantes seront appelées avant chaque extrait musical :
 
-@itemize @bullet
+@itemize
 @item @code{\preLilyPondExample} avant la musique,
 
 @item @code{\postLilyPondExample} après la musique,
