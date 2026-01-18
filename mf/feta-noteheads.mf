@@ -502,7 +502,8 @@ def draw_slash (expr hwid_hash) =
                 exact_height, exact_height);
 
   charwx := charwd;
-  charwy := charht;
+  % Compensate for round end of stem.
+  charwy := charht - 0.75 blot_diameter#;
 
   clearxy;
 
@@ -672,9 +673,10 @@ def draw_cross (expr thick) =
   currentpicture := currentpicture shifted (hround (w / 2), 0);
 
   charwx := charwd;
-  charwy := y1 + feta_shift;
+  % Compensate for round end of stem.
+  charwy := y1 - 0.25 pen_thick# + feta_shift;
 
-  z12 = (charwx * hppp, y1 * vppp);
+  z12 = (charwx * hppp, (y1 - 0.25 pen_thick) * vppp);
 
   labels (12);
 enddef;

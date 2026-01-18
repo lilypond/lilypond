@@ -405,13 +405,15 @@ fet_endchar;
 fet_beginchar ("harmonic notehead (neo-mensural open)", "s0harmonic");
   draw_neomensural_open_head (1.3 staff_space#, 1.3 noteheight#, 5);
   charwx := head_width#;
-  charwy := 0;
+  % Compensate for the round end of the stem.
+  charwy := -0.02 noteheight#;
 fet_endchar;
 
 fet_beginchar ("harmonic notehead (neo-mensural black)", "s2harmonic");
   draw_neomensural_black_head (1.3 staff_space#, 1.3 noteheight#, 5);
   charwx := head_width#;
-  charwy := 0;
+  % Compensate for the round end of the stem.
+  charwy := -0.02 noteheight#;
 fet_endchar;
 
 
