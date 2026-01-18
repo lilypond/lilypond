@@ -27,8 +27,7 @@
 
 LY_DEFINE (ly_music_length, "ly:music-length", 1, 0, 0, (SCM mus),
            R"(
-Get the length of music expression @var{mus} and return it as a @code{Moment}
-object.
+Return the duration of @var{mus} as a @code{ly:moment}.
            )")
 {
   auto *const sc = LY_ASSERT_SMOB (Music, mus, 1);

@@ -3194,7 +3194,8 @@ Larger values yield tighter spacing.
   \layout {
     \context {
       \Score
-      \override SpacingSpanner.base-shortest-duration = \musicLength 16
+      \override SpacingSpanner.base-shortest-duration =
+        \musicLength 16
     }
   }
 }
@@ -3698,10 +3699,8 @@ pick in which of the three different locations they would like to
 set @code{proportionalNotationDuration}.
 
 The @code{proportionalNotationDuration} setting takes a single
-argument, which is the reference length to space all music.
-The call @code{\musicLength 1*1/20} specifies one
-twentieth of a whole note; values such as @code{\musicLength 16}
-and @code{\musicLength @{2 2.@}} are possible as well.
+argument, which is the reference length to space all music.  The
+value @code{#1/20} specifies one twentieth of a whole note.
 
 How do we select the right reference duration to pass to
 @code{proportionalNotationDuration}?  Usually by a process of trial

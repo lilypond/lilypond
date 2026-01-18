@@ -1200,7 +1200,14 @@ modalTranspose =
 
 musicLength =
 #(define-scheme-function (music) (ly:music?)
-   (_i "Return the length of @var{music} as a moment.")
+   (_i "Return the duration of @var{music} as a @code{ly:moment}.
+
+Examples:
+
+@example
+\\musicLength 8 @result{} #(ly:make-moment 1/8)
+\\musicLength @{8. 8 8@} @result{} #(ly:make-moment 7/16)
+@end example")
    (ly:music-length music))
 
 musicMap =

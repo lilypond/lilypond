@@ -4820,13 +4820,6 @@ next bar line then falls at 9/8 rather than 5/4.
 }
 @end lilypond
 
-@noindent
-As the example illustrates, @code{\musicLength @var{music}}
-computes the musical length of the given music.  For example,
-@code{\musicLength 8} is the length of an eighth note and
-@code{\musicLength @{8. 8 8@}} is the length of seven sixteenth
-notes.
-
 @morerefs
 Notation Reference:
 @ref{Bar numbers},
