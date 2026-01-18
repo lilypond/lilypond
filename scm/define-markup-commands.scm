@@ -5499,9 +5499,11 @@ See also function @code{\\note}.
              (offset-add flag-end thickness-offset)
              thickness-offset))
            (points (map (lambda (coord) (offset-add coord start)) raw-points))
-           (stencil (ly:round-polygon points half-stem-thickness -1.0))
+           (stencil (and (not (= dir 0))
+                         (ly:round-polygon points half-stem-thickness -1.0)))
            ;; Log for 1/8 is 3, so we need to subtract 3
-           (flag-stencil (buildflags stencil (- log 3) stencil spacing)))
+           (flag-stencil (and (not (= dir 0))
+                              (buildflags stencil (- log 3) stencil spacing))))
       flag-stencil))
 
   (let* ((font (ly:paper-get-font layout (cons '((font-encoding . fetaMusic)
@@ -5557,7 +5559,8 @@ See also function @code{\\note}.
          (ancient-flags?
           (member style
                   '(mensural neomensural petrucci semipetrucci blackpetrucci)))
-         (attach-indices (ly:note-head::stem-attachment font head-glyph-name))
+         (attach-indices (ly:note-head::stem-attachment
+                          font head-glyph-name (sign dir)))
          (stem-length
           (* size-factor
              (/ layout-text-font-size paper-text-font-size)
@@ -5568,14 +5571,10 @@ See also function @code{\\note}.
              (/ layout-text-font-size paper-text-font-size)
              (if ancient-flags? 0.1 0.13)))
          (stemy (* dir stem-length))
-         (attach-off (cons (interval-index
-                            (ly:stencil-extent head-glyph X)
-                            (* (sign dir) (car attach-indices)))
-                           ;; fixme, this is inconsistent between X & Y.
-                           (* (sign dir)
-                              (interval-index
-                               (ly:stencil-extent head-glyph Y)
-                               (cdr attach-indices)))))
+         (attach-off (cons (interval-index (ly:stencil-extent head-glyph X)
+                                           (car attach-indices))
+                           (interval-index (ly:stencil-extent head-glyph Y)
+                                           (cdr attach-indices))))
          ;; For a tighter stem (with ancient flags) the stem width has
          ;; to be adjusted.
          (stem-X-corr
@@ -5583,6 +5582,7 @@ See also function @code{\\note}.
                   (member flag-style '(mensural neomensural)))
               (* 0.5 dir stem-thickness) 0))
          (stem-glyph (and (> log 0)
+                          (not (= dir 0))
                           (ly:round-filled-box
                            (ordered-cons (+ stem-X-corr (car attach-off))
                                          (+ stem-X-corr (car attach-off)
@@ -5611,6 +5611,7 @@ See also function @code{\\note}.
                                 0))
          (flaggl
           (and (> log 2)
+               (not (= dir 0))
                (ly:stencil-translate
                 (cond ((eq? flag-style 'modern-straight-flag)
                        modern-straight-flag)
