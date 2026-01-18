@@ -1176,12 +1176,11 @@ Beam::set_stem_lengths (SCM smob)
     common[a] = common_refpoint_of_array (stems, me, a);
 
   const auto staff_space = Staff_symbol_referencer::staff_space (me);
-  Interval pos;
-  {
-    Drul_array<Real> p = from_scm<Drul_array<Real>> (posns);
+  const auto pos = [&] {
+    auto p = from_scm (posns, Drul_array (0.0, 0.0));
     scale_drul (&p, staff_space);
-    pos = {p[LEFT], p[RIGHT]};
-  }
+    return Interval (p[LEFT], p[RIGHT]);
+  }();
 
   bool gap = false;
   Real thick = 0.0;
