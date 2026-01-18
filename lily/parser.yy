@@ -3230,10 +3230,12 @@ post_event_nofinger:
 		$$ = $2;
 	}
 	| script_dir direction_less_event {
-		Music *m = unsmob<Music> ($2);
-		m->set_spot (parser->lexer_->override_input (@$));
-		if (!SCM_UNBNDP ($1))
-			set_property (m, "direction", $1);
+		if (auto *m = unsmob<Music> ($2)) {
+			m->set_spot (parser->lexer_->override_input (@$));
+			if (!SCM_UNBNDP ($1)) {
+				set_property (m, "direction", $1);
+			}
+		}
 		$$ = $2;
 	}
 	| '^' fingering
