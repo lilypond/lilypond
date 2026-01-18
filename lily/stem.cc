@@ -992,10 +992,12 @@ Stem::offset_callback (SCM smob)
       Real r = std::isnan (real_attach) ? 0.0 : real_attach;
 
       /* If not centered: correct for stem thickness.  */
+      const Real epsilon = 1e-3; // compensate rounding in font
       std::string style
         = robust_symbol2string (get_property (f, "style"), "default");
-      if (attach != 0.0 && style != "neomensural" && style != "petrucci"
-          && style != "blackpetrucci" && style != "semipetrucci")
+      if (std::abs (attach) > epsilon && style != "neomensural"
+          && style != "petrucci" && style != "blackpetrucci"
+          && style != "semipetrucci")
         {
           Direction d = get_grob_direction (me);
           Real rule_thick = thickness (me);

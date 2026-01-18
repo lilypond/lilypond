@@ -5581,12 +5581,24 @@ See also function @code{\\note}.
           (if (or ancient-flags?
                   (member flag-style '(mensural neomensural)))
               (* 0.5 dir stem-thickness) 0))
+         (epsilon 0.001) ; compensate rounding in font
+         ;; A down-stem attachment point gets aligned with the upper
+         ;; left corner of the stem, an up-stem point with the lower
+         ;; right corner, and if the horizontal attachment direction is
+         ;; zero, the stem gets centered.
          (stem-glyph (and (> log 0)
                           (not (= dir 0))
                           (ly:round-filled-box
-                           (ordered-cons (+ stem-X-corr (car attach-off))
-                                         (+ stem-X-corr (car attach-off)
-                                            (* (- (sign dir)) stem-thickness)))
+                           (if (< (abs (car attach-indices)) epsilon)
+                               (ordered-cons
+                                (- (+ stem-X-corr (car attach-off))
+                                   (/ stem-thickness 2))
+                                (+ (+ stem-X-corr (car attach-off))
+                                   (/ stem-thickness 2)))
+                               (ordered-cons
+                                (+ stem-X-corr (car attach-off))
+                                (+ stem-X-corr (car attach-off)
+                                   (* (- (sign dir)) stem-thickness))))
                            (cons (min stemy (cdr attach-off))
                                  (max stemy (cdr attach-off)))
                            (/ stem-thickness 3))))
