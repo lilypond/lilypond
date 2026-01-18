@@ -24,8 +24,15 @@
 LY_DEFINE (ly_note_head__stem_attachment, "ly:note-head::stem-attachment", 2, 1,
            0, (SCM font_metric, SCM glyph_name, SCM direction),
            R"(
-Get attachment in @var{font-metric} for attaching a stem to notehead
-@var{glyph-name} in the direction @var{direction} (default @code{UP}).
+Get stem attachment point from @var{font_metric} for @var{glyph-name}.
+
+This only works for note head glyphs.  Depending on @var{direction}, the
+attachment point for an up-stem or a down-stem is returned.  @var{direction}
+defaults to @code{UP} if not specified.
+
+The return value is a pair, where each component is measured in a -1 to@tie{}1
+scale so that -1 is the left/@/bottom edge of the note head's bounding box and
+1@tie{}is the right/@/top edge.
            )")
 {
   auto *const fm = LY_ASSERT_SMOB (Font_metric, font_metric, 1);

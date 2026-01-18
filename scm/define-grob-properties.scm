@@ -1293,8 +1293,12 @@ the @code{staff-staff-spacing} property of the staff's
 @code{VerticalAxisGroup} grob is set, that is used instead.  See
 @code{staff-staff-spacing} for a description of the alist
 structure.")
-     (stem-attachment ,number-pair? "An @code{(@var{x} . @var{y})}
-pair where the stem attaches to the notehead.")
+
+     (stem-attachment ,number-pair? "An @code{(@var{x} . @var{y})} pair
+where the stem attaches to the note head.  Each component is measured in
+a -1 to@tie{}1 scale so that -1 is the left/bottom edge of the note's
+bounding box and 1@tie{}is the right/top edge.")
+
      (stem-begin-position ,number? "User override for the
 begin position of a stem.")
      ;;[TODO: doco]
