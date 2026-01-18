@@ -822,6 +822,20 @@ music = { f'4\rtoeheel f'4\rheeltoe
 
 @itemize
 @item
+Triangular note heads have been added to the Emmentaler font.
+They can be used by overriding @code{NoteHead@/.style} to
+@code{arrow}.
+
+@lilypond
+\fixed c' {
+  \omit Staff.Clef
+  \omit Staff.TimeSignature
+  \override NoteHead.style = #'arrow
+  g4 2. | a4 2. | c'4 2. | d'4 2.
+}
+@end lilypond
+
+@item
 A new @code{\bar-line} markup command to print bar lines in text is now
 available.
 

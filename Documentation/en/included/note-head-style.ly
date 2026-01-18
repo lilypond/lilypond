@@ -1,4 +1,4 @@
-\version "2.25.25"
+\version "2.25.33"
 
 \header {
   texidoc="
@@ -52,33 +52,45 @@ pattern =
   }
 >> #} )
 
+%% When rearranging these to add new styles, take into account that it probably
+%% requires less effort for a reader to compare styles that are near each other
+%% in the same column.  Try to group styles that are likely to be compared that
+%% way, e.g. mensural, neomensural, and petrucci.  Also, try to put similar
+%% styles with contrasting applications near each other so that the contrast is
+%% more easily noticed, e.g. triangle and arrow.  (LilyPond's "arrow" style
+%% corresponds to Gould's "triangular noteheads" and SMUFL glyphs with
+%% "triangle" in the name.)
 \new StaffGroup <<
   \new Staff {
     \pattern #'default
-    \pattern #'altdefault
+    \pattern #'mensural
   }
   \new Staff {
-    \pattern #'baroque
+    \pattern #'altdefault
     \pattern #'neomensural
   }
   \new Staff {
-    \pattern #'mensural
+    \pattern #'baroque
     \pattern #'petrucci
   }
   \new Staff {
-    \pattern #'harmonic
-    \pattern #'harmonic-black
-  }
-  \new Staff {
-    \pattern #'harmonic-mixed
+    \pattern #'slash
     \pattern #'diamond
   }
   \new Staff {
-    \pattern #'cross
-    \pattern #'xcircle
+    \pattern #'arrow
+    \pattern #'harmonic
   }
   \new Staff {
     \pattern #'triangle
-    \pattern #'slash
+    \pattern #'harmonic-black
+  }
+  \new Staff {
+    \pattern #'cross
+    \pattern #'harmonic-mixed
+  }
+  \new Staff {
+    \pattern #'xcircle
+    \once \omit Staff.TimeSignature % meh
   }
 >>
