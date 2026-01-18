@@ -86,7 +86,8 @@ check_meshing_chords (Grob *me, Grob *clash_up, Grob *clash_down)
 
   /* Merge heads if the notes lie the same line, or if the "stem-up-note" is
      above the "stem-down-note". */
-  bool merge_possible = (ups[0] >= dps[0]) && (ups.back () >= dps.back ());
+  bool merge_possible = !ups.empty () && !dps.empty () && (ups[0] >= dps[0])
+                        && (ups.back () >= dps.back ());
 
   /* Do not merge notes typeset in different style. */
   if (!ly_is_equal (get_property (head_up, "style"),
