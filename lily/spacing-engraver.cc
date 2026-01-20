@@ -225,8 +225,7 @@ Spacing_engraver::stop_translation_timestep ()
   auto shortest_playing = Moment::infinity ();
   for (vsize i = 0; i < playing_durations_.size (); i++)
     {
-      Stream_event *ev = playing_durations_[i].info_.event_cause ();
-      if (ev)
+      if (auto *ev = playing_durations_[i].info_.event_cause ())
         {
           auto m = get_event_length (ev);
           shortest_playing = std::min (shortest_playing, m);
@@ -236,11 +235,11 @@ Spacing_engraver::stop_translation_timestep ()
 
   for (vsize i = 0; i < now_durations_.size (); i++)
     {
-      auto m = get_event_length (now_durations_[i].info_.event_cause ());
-      if (m)
+      const auto &nd = now_durations_[i];
+      if (auto m = get_event_length (nd.info_.event_cause ()))
         {
           starter = std::min (starter, m);
-          playing_durations_.insert (now_durations_[i]);
+          playing_durations_.insert (nd);
         }
     }
   now_durations_.clear ();
