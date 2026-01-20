@@ -311,28 +311,6 @@ class Gettext(ConfigurePackage):
     def download_url(self) -> str:
         return f"https://ftpmirror.gnu.org/gnu/gettext/{self.archive}"
 
-    def _apply_patches_locale_charset(self, c: Config):
-        # localcharset.c defines locale_charset, which is also provided by
-        # Guile. However, Guile has a modification to this file so we really
-        # need to build that version.
-        def patch_makefile(content: str) -> str:
-            return content.replace("libgnu_la-localcharset.lo", "")
-
-        makefile = os.path.join("gettext-runtime", "intl", "gnulib-lib", "Makefile.in")
-        self.patch_file(c, makefile, patch_makefile)
-
-        def patch_dcigettext(content: str) -> str:
-            return content.replace("locale_charset ()", "NULL")
-
-        dcigettext = os.path.join("gettext-runtime", "intl", "dcigettext.c")
-        self.patch_file(c, dcigettext, patch_dcigettext)
-
-    def apply_patches(self, c: Config):
-        # On mingw, we build a shared libintl.dll (see below) so there is no
-        # problem with duplicate locale_charset (see above).
-        if not c.is_mingw():
-            self._apply_patches_locale_charset(c)
-
     @property
     def configure_script(self) -> str:
         return os.path.join("gettext-runtime", "configure")
@@ -755,8 +733,26 @@ class Guile(ConfigurePackage):
         makefile_in = os.path.join("libguile", "Makefile.in")
         self.patch_file(c, makefile_in, patch_makefile_in)
 
-
     def apply_patches(self, c: Config):
+        # Gnulib provides the file localcharset.c that defines locale_charset.
+        # It is compiled into multiple library archives, including libiconv.a,
+        # libintl.a, and libunistring.a. That works fine because the linker only
+        # pulls in object files that are needed to satisfy an unresolved symbol.
+        # Once provided, all future files and definitions will be ignored.
+        # Guile however modifies its localcharset.c to also provide the related
+        # function environ_locale_charset. Because that function is referenced
+        # and not provided by any other archive, the linker is forced to include
+        # Guile's copy of localcharset.c. This can lead to duplicate symbols for
+        # locale_charset if another archive already provided it.
+        # To avoid problems, rename the function definition in localcharset.c
+        # to guile_locale_charset, which is not referenced anywhere. The real
+        # locale_charset function is then provided by any of the other archives.
+        def patch_localcharset(content: str) -> str:
+            return content.replace("\nlocale_charset", "\nguile_locale_charset")
+
+        localcharset = os.path.join("lib", "localcharset.c")
+        self.patch_file(c, localcharset, patch_localcharset)
+
         if c.is_mingw():
             self._apply_patches_mingw(c)
 
