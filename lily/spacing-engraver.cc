@@ -32,11 +32,11 @@
 struct Rhythmic_tuple final
 {
   Grob_info info_;
-  Moment end_;
+  Rational end_;
 
-  Rhythmic_tuple (Grob_info i, Moment m)
+  Rhythmic_tuple (Grob_info i, Rational end)
     : info_ (i),
-      end_ (m)
+      end_ (end)
   {
   }
 
@@ -53,7 +53,7 @@ int
 Rhythmic_tuple::time_compare (Rhythmic_tuple const &h1,
                               Rhythmic_tuple const &h2)
 {
-  return compare (h1.end_.main_part_, h2.end_.main_part_);
+  return compare (h1.end_, h2.end_);
 }
 
 /****************************************************************/
@@ -190,8 +190,8 @@ Spacing_engraver::add_starter_duration (Grob_info i)
       Stream_event *r = i.event_cause ();
       if (r && r->in_event_class ("rhythmic-event"))
         {
-          auto len = get_event_length (r, now_);
-          Rhythmic_tuple t (i, now_mom () + len);
+          auto len = get_event_length (r).main_part_;
+          Rhythmic_tuple t (i, now_.main_part_ + len);
           now_durations_.push_back (t);
         }
     }
@@ -222,23 +222,23 @@ Spacing_engraver::stop_translation_timestep ()
       return;
     }
 
-  auto shortest_playing = Moment::infinity ();
+  auto shortest_playing = Rational::infinity ();
   for (vsize i = 0; i < playing_durations_.size (); i++)
     {
       if (auto *ev = playing_durations_[i].info_.event_cause ())
         {
-          auto m = get_event_length (ev);
-          shortest_playing = std::min (shortest_playing, m);
+          auto len = get_event_length (ev).main_part_;
+          shortest_playing = std::min (shortest_playing, len);
         }
     }
-  auto starter = Moment::infinity ();
+  auto starter = Rational::infinity ();
 
   for (vsize i = 0; i < now_durations_.size (); i++)
     {
       const auto &nd = now_durations_[i];
-      if (auto m = get_event_length (nd.info_.event_cause ()))
+      if (auto len = get_event_length (nd.info_.event_cause ()).main_part_)
         {
-          starter = std::min (starter, m);
+          starter = std::min (starter, len);
           playing_durations_.insert (nd);
         }
     }
@@ -247,8 +247,8 @@ Spacing_engraver::stop_translation_timestep ()
   shortest_playing = std::min (shortest_playing, starter);
 
   assert (starter);
-  SCM sh = to_scm (shortest_playing);
-  SCM st = to_scm (starter);
+  SCM sh = to_scm (Moment (shortest_playing));
+  SCM st = to_scm (Moment (starter));
 
   set_property (musical_column, "shortest-playing-duration", sh);
   set_property (musical_column, "shortest-starter-duration", st);
@@ -262,10 +262,16 @@ Spacing_engraver::start_translation_timestep ()
   now_ = now_mom ();
   stopped_durations_.clear ();
 
-  while (playing_durations_.size () && playing_durations_.front ().end_ < now_)
-    playing_durations_.delmin ();
-  while (playing_durations_.size () && playing_durations_.front ().end_ == now_)
-    stopped_durations_.push_back (playing_durations_.get ());
+  while (playing_durations_.size ()
+         && playing_durations_.front ().end_ < now_.main_part_)
+    {
+      playing_durations_.delmin ();
+    }
+  while (playing_durations_.size ()
+         && playing_durations_.front ().end_ == now_.main_part_)
+    {
+      stopped_durations_.push_back (playing_durations_.get ());
+    }
 }
 
 void
