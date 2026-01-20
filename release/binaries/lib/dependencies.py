@@ -293,7 +293,7 @@ ghostscript = Ghostscript()
 
 class Libiconv(ConfigurePackage):
     def enabled(self, c: Config) -> bool:
-        return c.is_mingw()
+        return c.is_macos() or c.is_mingw()
 
     @property
     def version(self) -> str:
@@ -310,6 +310,16 @@ class Libiconv(ConfigurePackage):
     @property
     def download_url(self) -> str:
         return f"https://ftpmirror.gnu.org/gnu/libiconv/{self.archive}"
+
+    def get_env_variables(self, c: Config) -> Dict[str, str]:
+        """Return environment variables to make libiconv available."""
+        libiconv_install = self.install_directory(c)
+        return {
+            "CPATH": os.path.join(libiconv_install, "include"),
+            # Cannot use LIBRARY_PATH because it is only used if GCC is built
+            # as a native compiler, so it doesn't work for mingw.
+            "LDFLAGS": "-L" + os.path.join(libiconv_install, "lib"),
+        }
 
     @property
     def license_files(self) -> List[str]:
@@ -494,6 +504,8 @@ class GLib(MesonPackage):
         deps = [libffi, pcre2, zlib]
         if gettext.enabled(c):
             deps += [gettext]
+        if libiconv.enabled(c):
+            deps += [libiconv]
         return deps
 
     def build_env_extra(self, c: Config) -> Dict[str, str]:
@@ -501,6 +513,12 @@ class GLib(MesonPackage):
         if gettext.enabled(c):
             # Make meson find libintl.
             env.update(gettext.get_env_variables(c))
+        if libiconv.enabled(c):
+            # Make meson also find libiconv, prepending to the variables.
+            assert gettext.enabled(c)
+            libiconv_env_variables = libiconv.get_env_variables(c)
+            env["CPATH"] = f"{libiconv_env_variables['CPATH']}{os.pathsep}{env['CPATH']}"
+            env["LDFLAGS"] = f"{libiconv_env_variables['LDFLAGS']} {env['LDFLAGS']}"
         return env
 
     def meson_args_static(self, c: Config) -> List[str]:
@@ -602,12 +620,6 @@ class Libunistring(ConfigurePackage):
 
     def configure_args(self, c: Config) -> List[str]:
         args = ["--disable-threads"]
-
-        if c.is_macos():
-            args += [
-                # macOS iconv is slightly broken, force using it.
-                "am_cv_func_iconv_works=yes",
-            ]
 
         if libiconv.enabled(c):
             libiconv_install_dir = libiconv.install_directory(c)
