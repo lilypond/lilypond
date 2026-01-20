@@ -619,6 +619,13 @@ class Libunistring(ConfigurePackage):
         return libiconv_dep
 
     def configure_args(self, c: Config) -> List[str]:
+        macos_args = []
+        if c.is_macos():
+            macos_args = [
+                # macOS iconv is slightly broken, force using it.
+                "am_cv_func_iconv_works=yes",
+            ]
+
         mingw_args = []
         if c.is_mingw():
             libiconv_install_dir = libiconv.install_directory(c)
@@ -626,7 +633,7 @@ class Libunistring(ConfigurePackage):
                 f"--with-libiconv-prefix={libiconv_install_dir}",
             ]
 
-        return ["--disable-threads"] + mingw_args
+        return ["--disable-threads"] + macos_args + mingw_args
 
     @property
     def license_files(self) -> List[str]:
