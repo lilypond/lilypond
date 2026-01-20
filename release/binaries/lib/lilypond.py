@@ -108,26 +108,15 @@ class LilyPond(ConfigurePackage):
         raise NotImplementedError
 
     def dependencies(self, c: Config) -> List[Package]:
-        gettext_dep: List[Package] = []
-        if c.is_freebsd() or c.is_macos() or c.is_mingw():
-            gettext_dep = [gettext]
-        python_dep: List[Package] = [python]
-        if c.is_mingw():
-            python_dep = [embeddable_python]
-        return (
-            gettext_dep
-            + [
-                freetype,
-                fontconfig,
-                ghostscript,
-                glib,
-                guile,
-                pango,
-                libpng,
-                cairo,
-            ]
-            + python_dep
-        )
+        deps = [freetype, fontconfig, ghostscript, glib, guile, pango, libpng, cairo]
+        if gettext.enabled(c):
+            deps += [gettext]
+        if python.enabled(c):
+            deps += [python]
+        else:
+            assert embeddable_python.enabled(c)
+            deps += [embeddable_python]
+        return deps
 
     def configure_args_static(self, c: Config) -> List[str]:
         # LilyPond itself isn't a library!
@@ -138,35 +127,27 @@ class LilyPond(ConfigurePackage):
         env["GHOSTSCRIPT"] = ghostscript.exe_path(c.native_config)
         env["GUILE"] = guile.exe_path(c.native_config)
         env["PYTHON"] = python.exe_path(c.native_config)
-        if c.is_freebsd() or c.is_macos() or c.is_mingw():
+        if gettext.enabled(c):
             env.update(gettext.get_env_variables(c))
         return env
 
     def configure_args(self, c: Config) -> List[str]:
-        static = []
+        args = [
+            # Disable the documentation.
+            "--disable-documentation",
+        ]
         if not c.is_macos():
-            static = [
+            args += [
                 # Include the static version of libstdc++.
                 "--enable-static-gxx",
             ]
         if c.is_mingw():
-            static += [
-                "CFLAGS=-DCAIRO_WIN32_STATIC_BUILD",
-            ]
-
-        flexlexer = []
-        if c.is_mingw():
             flexlexer_dir = self.flexlexer_directory(c)
-            flexlexer = [f"--with-flexlexer-dir={flexlexer_dir}"]
-
-        return (
-            static
-            + [
-                # Disable the documentation.
-                "--disable-documentation",
+            args += [
+                "CFLAGS=-DCAIRO_WIN32_STATIC_BUILD",
+                f"--with-flexlexer-dir={flexlexer_dir}",
             ]
-            + flexlexer
-        )
+        return args
 
     def build(self, c: Config) -> bool:
         # If mingw, copy FlexLexer.h from /usr/include and pass it to configure

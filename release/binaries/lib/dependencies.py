@@ -245,15 +245,7 @@ class Ghostscript(ConfigurePackage):
         return []
 
     def configure_args(self, c: Config) -> List[str]:
-        mingw_args = []
-        if c.is_mingw():
-            mingw_args = [
-                # Some platforms have sys/times.h for native compilation;
-                # however, mingw doesn't have it. Ghostscript's doesn't
-                # handle this situation correctly.
-                "GCFLAGS=-DHAVE_SYS_TIMES_H=0",
-            ]
-        return mingw_args + [
+        args = [
             # Only enable drivers needed for LilyPond.
             "--disable-contrib",
             "--disable-dynamic",
@@ -272,6 +264,16 @@ class Ghostscript(ConfigurePackage):
             "--without-urf",
             "--without-x",
         ]
+
+        if c.is_mingw():
+            args += [
+                # Some platforms have sys/times.h for native compilation;
+                # however, mingw doesn't have it. Ghostscript's doesn't
+                # handle this situation correctly.
+                "GCFLAGS=-DHAVE_SYS_TIMES_H=0",
+            ]
+
+        return args
 
     def exe_path(self, c: Config) -> str:
         """Return path to gs executable."""
@@ -480,14 +482,14 @@ class GLib(MesonPackage):
         return f"https://download.gnome.org/sources/glib/{major_version}/{self.archive}"
 
     def dependencies(self, c: Config) -> List[Package]:
-        gettext_dep: List[Package] = []
-        if c.is_freebsd() or c.is_macos() or c.is_mingw():
-            gettext_dep = [gettext]
-        return gettext_dep + [libffi, pcre2, zlib]
+        deps = [libffi, pcre2, zlib]
+        if gettext.enabled(c):
+            deps += [gettext]
+        return deps
 
     def build_env_extra(self, c: Config) -> Dict[str, str]:
         env = super().build_env_extra(c)
-        if c.is_freebsd() or c.is_macos() or c.is_mingw():
+        if gettext.enabled(c):
             # Make meson find libintl.
             env.update(gettext.get_env_variables(c))
         return env
@@ -499,19 +501,21 @@ class GLib(MesonPackage):
         return super().meson_args_static(c)
 
     def meson_args(self, c: Config) -> List[str]:
-        mingw_args = []
-        if c.is_mingw():
-            mingw_args = [
-                # Prevent using format specifiers that trigger GCC warnings.
-                "-Dc_args=-D__USE_MINGW_ANSI_STDIO",
-            ]
-        return mingw_args + [
+        args = [
             # Disable G_ENABLE_DEBUG as recommended by upstream.
             "-Dglib_debug=disabled",
             "-Dtests=false",
             # Disable unused xattr support that is not auto.
             "-Dxattr=false",
         ]
+
+        if c.is_mingw():
+            args += [
+                # Prevent using format specifiers that trigger GCC warnings.
+                "-Dc_args=-D__USE_MINGW_ANSI_STDIO",
+            ]
+
+        return args
 
     @property
     def license_files(self) -> List[str]:
@@ -613,27 +617,27 @@ class Libunistring(ConfigurePackage):
         return f"https://ftpmirror.gnu.org/gnu/libunistring/{self.archive}"
 
     def dependencies(self, c: Config) -> List[Package]:
-        libiconv_dep: List[Package] = []
-        if c.is_mingw():
-            libiconv_dep = [libiconv]
-        return libiconv_dep
+        deps: List[Package] = []
+        if libiconv.enabled(c):
+            deps += [libiconv]
+        return deps
 
     def configure_args(self, c: Config) -> List[str]:
-        macos_args = []
+        args = ["--disable-threads"]
+
         if c.is_macos():
-            macos_args = [
+            args += [
                 # macOS iconv is slightly broken, force using it.
                 "am_cv_func_iconv_works=yes",
             ]
 
-        mingw_args = []
-        if c.is_mingw():
+        if libiconv.enabled(c):
             libiconv_install_dir = libiconv.install_directory(c)
-            mingw_args = [
+            args += [
                 f"--with-libiconv-prefix={libiconv_install_dir}",
             ]
 
-        return ["--disable-threads"] + macos_args + mingw_args
+        return args
 
     @property
     def license_files(self) -> List[str]:
@@ -757,13 +761,12 @@ class Guile(ConfigurePackage):
             self._apply_patches_mingw(c)
 
     def dependencies(self, c: Config) -> List[Package]:
-        gettext_dep: List[Package] = []
-        if c.is_freebsd() or c.is_macos() or c.is_mingw():
-            gettext_dep = [gettext]
-        libiconv_dep: List[Package] = []
-        if c.is_mingw():
-            libiconv_dep = [libiconv]
-        return gettext_dep + libiconv_dep + [bdwgc, libffi, libunistring]
+        deps = [bdwgc, libffi, libunistring]
+        if gettext.enabled(c):
+            deps += [gettext]
+        if libiconv.enabled(c):
+            deps += [libiconv]
+        return deps
 
     def build_env_extra(self, c: Config) -> Dict[str, str]:
         env = super().build_env_extra(c)
@@ -776,44 +779,44 @@ class Guile(ConfigurePackage):
     def configure_args(self, c: Config) -> List[str]:
         libunistring_install_dir = libunistring.install_directory(c)
 
-        libintl_args = []
-        if c.is_freebsd() or c.is_macos() or c.is_mingw():
+        args = [
+            # Disable unused parts of Guile.
+            "--disable-networking",
+            # Disable -Werror to enable builds with newer compilers.
+            "--disable-error-on-warning",
+            # Disable LTO.
+            "--disable-lto",
+            # Enable builtin mini-gmp to avoid building GMP ourselves.
+            "--enable-mini-gmp",
+            # Make configure find the statically built dependencies.
+            f"--with-libunistring-prefix={libunistring_install_dir}",
+            # Prevent that configure searches for libcrypt.
+            "ac_cv_search_crypt=no",
+        ]
+
+        if gettext.enabled(c):
             gettext_install_dir = gettext.install_directory(c)
-            libintl_args = [
+            args += [
                 f"--with-libintl-prefix={gettext_install_dir}",
             ]
 
-        mingw_args = []
+        if libiconv.enabled(c):
+            libiconv_install_dir = libiconv.install_directory(c)
+            args += [
+                f"--with-libiconv-prefix={libiconv_install_dir}",
+            ]
+
         if c.is_mingw():
             guile_for_build = self.exe_path(c.native_config)
-            libiconv_install_dir = libiconv.install_directory(c)
-            mingw_args = [
+            args += [
                 f"GUILE_FOR_BUILD={guile_for_build}",
-                f"--with-libiconv-prefix={libiconv_install_dir}",
                 # Disable threads, not needed on Windows.
                 "--without-threads",
                 # Do not link against 'libbcrypt'.
                 "gl_cv_lib_assume_bcrypt=no",
             ]
 
-        return (
-            [
-                # Disable unused parts of Guile.
-                "--disable-networking",
-                # Disable -Werror to enable builds with newer compilers.
-                "--disable-error-on-warning",
-                # Disable LTO.
-                "--disable-lto",
-                # Enable builtin mini-gmp to avoid building GMP ourselves.
-                "--enable-mini-gmp",
-                # Make configure find the statically built dependencies.
-                f"--with-libunistring-prefix={libunistring_install_dir}",
-                # Prevent that configure searches for libcrypt.
-                "ac_cv_search_crypt=no",
-            ]
-            + libintl_args
-            + mingw_args
-        )
+        return args
 
     def exe_path(self, c: Config) -> str:
         """Return path to the guile interpreter."""
