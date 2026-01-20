@@ -110,8 +110,8 @@ Spacing_spanner::note_spacing (Grob * /* me */, Paper_column *lc,
                                Paper_column *rc, Spacing_options const *options)
 {
   auto shortest_playing_len
-    = from_scm (get_property (lc, "shortest-playing-duration"), Moment (0));
-  if (shortest_playing_len < 0)
+    = from_scm (get_property (lc, "shortest-playing-duration"), Rational (0));
+  if (shortest_playing_len <= 0)
     {
       programming_error ("cannot find a ruling note at: "
                          + Paper_column::when_mom (lc).to_string ());
@@ -140,19 +140,19 @@ Spacing_spanner::note_spacing (Grob * /* me */, Paper_column *lc,
       The following is an extra safety measure, such that
       the length of a mmrest event doesn't cause havoc.
     */
-    shortest_playing_len = std::min (shortest_playing_len, mlen);
+    shortest_playing_len = std::min (shortest_playing_len, mlen.main_part_);
   }
 
   Spring ret;
   if (delta_t.main_part_ && !lwhen.grace_part_)
     {
       // A spring of length and stiffness based on the controlling duration
-      Real len = options->get_duration_space (shortest_playing_len.main_part_);
+      Real len = options->get_duration_space (shortest_playing_len);
       Real min = options->increment_; // canonical notehead width
 
       // The portion of that spring proportional to the time between lc and rc
-      auto fraction = static_cast<Real> (delta_t.main_part_
-                                         / shortest_playing_len.main_part_);
+      auto fraction
+        = static_cast<Real> (delta_t.main_part_ / shortest_playing_len);
       ret = Spring (fraction * len, fraction * min);
 
       // Stretch proportional to the space between canonical bare noteheads

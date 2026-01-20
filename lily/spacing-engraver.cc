@@ -215,9 +215,9 @@ Spacing_engraver::stop_translation_timestep ()
                 -Rational::infinity ());
   if (proportional >= Rational (0))
     {
-      SCM mom = to_scm (Moment (proportional));
-      set_property (musical_column, "shortest-playing-duration", mom);
-      set_property (musical_column, "shortest-starter-duration", mom);
+      SCM scm = to_scm (proportional);
+      set_property (musical_column, "shortest-playing-duration", scm);
+      set_property (musical_column, "shortest-starter-duration", scm);
       set_property (musical_column, "used", SCM_BOOL_T);
       return;
     }
@@ -247,11 +247,9 @@ Spacing_engraver::stop_translation_timestep ()
   shortest_playing = std::min (shortest_playing, starter);
 
   assert (starter);
-  SCM sh = to_scm (Moment (shortest_playing));
-  SCM st = to_scm (Moment (starter));
-
-  set_property (musical_column, "shortest-playing-duration", sh);
-  set_property (musical_column, "shortest-starter-duration", st);
+  set_property (musical_column, "shortest-playing-duration",
+                to_scm (shortest_playing));
+  set_property (musical_column, "shortest-starter-duration", to_scm (starter));
 }
 
 void

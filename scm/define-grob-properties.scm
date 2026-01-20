@@ -1824,10 +1824,10 @@ maxima in a ligature.")
      (right-up-stem ,boolean? "request an upward right stem for a final
 longa or maxima in a ligature.")
 
-     (shortest-playing-duration ,ly:moment? "The duration of the
-shortest note playing here.")
-     (shortest-starter-duration ,ly:moment? "The duration of the
-shortest note that starts here.")
+     (shortest-playing-duration ,positive-musical-length-as-number? "The
+duration of the shortest note playing here.")
+     (shortest-starter-duration ,positive-musical-length-as-number? "The
+duration of the shortest note that starts here.")
      (stropha ,boolean? "Is this neume a stropha?")
 
      (virga ,boolean? "Is this neume a virga?")

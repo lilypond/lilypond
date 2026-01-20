@@ -108,10 +108,8 @@ Paper_column::when_mom (Grob *me)
 bool
 Paper_column::is_musical (Grob *me)
 {
-  SCM m = get_property (me, "shortest-starter-duration");
-  if (Moment *s = unsmob<Moment> (m))
-    return *s != Moment (0);
-  return false;
+  SCM st = get_property (me, "shortest-starter-duration");
+  return static_cast<bool> (from_scm (st, Rational (0)));
 }
 
 bool

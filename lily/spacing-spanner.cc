@@ -119,10 +119,8 @@ Spacing_spanner::calc_common_shortest_duration (SCM grob)
             continue;
 
           SCM st = get_property (cols[i], "shortest-starter-duration");
-          Moment this_shortest = *unsmob<Moment> (st);
-          assert (this_shortest);
-          shortest_in_measure
-            = std::min (shortest_in_measure, this_shortest.main_part_);
+          const auto this_shortest = from_scm (st, Rational::infinity ());
+          shortest_in_measure = std::min (shortest_in_measure, this_shortest);
         }
       else if (!isinf (shortest_in_measure)
                && Paper_column::is_breakable (cols[i]))
