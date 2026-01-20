@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="565"
+   height="439"
+   id="svg7717"
+   sodipodi:version="0.32"
+   inkscape:version="1.4.2 (ebf0e940d0, 2025-05-08)"
+   version="1.0"
+   sodipodi:docname="text-input-parts-both-annotate-ca.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   inkscape:export-filename="text-input-parts-both-annotate-ca.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs7719">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective7725" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="285.5"
+     inkscape:cy="240"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1864"
+     inkscape:window-height="1131"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:showpageshadow="2"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7722">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#87de87;stroke:none;stroke-width:1.79999995;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect7765"
+       width="74"
+       height="27"
+       x="45"
+       y="105" />
+    <rect
+       style="fill:#ff8080;stroke:none;stroke-width:1.79999995;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect7767"
+       width="223"
+       height="30"
+       x="12"
+       y="222" />
+    <rect
+       style="fill:#ff8080;stroke:none;stroke-width:1.79999995;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect7763"
+       width="174"
+       height="34"
+       x="16"
+       y="8" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:0%;font-family:'DejaVu Sans Mono';-inkscape-font-specification:'Sans Bold';fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="23"
+       y="35"
+       id="text7727"><tspan
+         sodipodi:role="line"
+         id="tspan7729"
+         x="23"
+         y="35"
+         style="font-size:24px;line-height:1.25">hornNotes =</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="67.885628"
+         id="tspan7731"
+         style="font-size:24px;line-height:1.25">\relative c {</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="100.77125"
+         id="tspan7733"
+         style="font-size:24px;line-height:1.25">  \time 2/4</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="133.65688"
+         id="tspan7735"
+         style="font-size:24px;line-height:1.25">  R2*3</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="166.5425"
+         id="tspan7737"
+         style="font-size:24px;line-height:1.25">  r4 f8 a cis4 f e d</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="199.42813"
+         id="tspan7739"
+         style="font-size:24px;line-height:1.25">}</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="232.31375"
+         id="tspan7741"
+         style="font-size:24px;line-height:1.25"> </tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="265.19937"
+         id="tspan7743"
+         style="font-size:24px;line-height:1.25">bassoonNotes =</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="298.08499"
+         id="tspan7745"
+         style="font-size:24px;line-height:1.25">\relative c {</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="330.97061"
+         id="tspan7747"
+         style="font-size:24px;line-height:1.25">  \clef bass</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="363.85626"
+         id="tspan7749"
+         style="font-size:24px;line-height:1.25">  r4 d,8 f gis4 g b bes</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="396.74188"
+         id="tspan7751"
+         style="font-size:24px;line-height:1.25">  a8 e f4 g d gis f</tspan><tspan
+         sodipodi:role="line"
+         x="23"
+         y="429.6275"
+         id="tspan7753"
+         style="font-size:24px;line-height:1.25">}</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'DejaVu Serif';-inkscape-font-specification:'DejaVu Serif';fill:#217821;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="239"
+       y="53"
+       id="text7755"><tspan
+         sodipodi:role="line"
+         id="tspan7757"
+         x="239"
+         y="53"
+         style="font-size:22px;line-height:1.25">Escriviu un silenci</tspan><tspan
+         sodipodi:role="line"
+         x="239"
+         y="80.5"
+         style="font-size:22px;line-height:1.25"
+         id="tspan1"> multi-compàs</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:'DejaVu Serif';-inkscape-font-specification:'DejaVu Serif';fill:#c83737;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="294"
+       y="186"
+       id="text7759"><tspan
+         sodipodi:role="line"
+         id="tspan7761"
+         x="294"
+         y="186"
+         style="font-size:22px;line-height:1.25">Emmagatzemeu notes</tspan><tspan
+         sodipodi:role="line"
+         x="294"
+         y="213.5"
+         style="font-size:22px;line-height:1.25"
+         id="tspan2"> en una variable</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#217821;stroke-width:1.39954;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 241.00383,83.747792 C 213.85851,114.58423 240.86466,126.46239 126.99504,120.25627"
+       id="path7769"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#c83737;stroke-width:1.79999995;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 407,220 C 404,260 280,205 241,237"
+       id="path7771"
+       sodipodi:nodetypes="cc" />
+  </g>
+</svg>

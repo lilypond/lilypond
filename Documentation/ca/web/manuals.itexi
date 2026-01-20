@@ -417,7 +417,7 @@ maneres d'informar de les fallades, i desenvolupament.
 
 @divClass{keep-bullets}
 @itemize
-@ref{Top,Web}
+@item @ref{Top,Web}
 @end itemize
 @divEnd
 
