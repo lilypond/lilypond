@@ -1090,10 +1090,6 @@ it.")
      (shortest-duration-space ,number? "Start with this multiple of
 @code{spacing-increment} space for the shortest duration.  See also
 @rinternals{spacing-spanner-interface}.")
-     (shortest-playing-duration ,ly:moment? "The duration of the
-shortest note playing here.")
-     (shortest-starter-duration ,ly:moment? "The duration of the
-shortest note that starts here.")
      (show-control-points ,boolean? "For grobs printing Bézier
 curves, setting this property to @code{#t} causes the control points
 and control polygon to be drawn on the page for ease of tweaking.")
@@ -1828,6 +1824,10 @@ maxima in a ligature.")
      (right-up-stem ,boolean? "request an upward right stem for a final
 longa or maxima in a ligature.")
 
+     (shortest-playing-duration ,ly:moment? "The duration of the
+shortest note playing here.")
+     (shortest-starter-duration ,ly:moment? "The duration of the
+shortest note that starts here.")
      (stropha ,boolean? "Is this neume a stropha?")
 
      (virga ,boolean? "Is this neume a virga?")
