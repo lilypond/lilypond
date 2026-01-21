@@ -1,16 +1,11 @@
-%% Translation of GIT committish: 9c7cce2e12f0730684dcf6fe737eed69170674a3
+%% Translation of GIT committish: 70abecb938c2bb752967bd56b7402dd8129838a5
   texidoces = "
 Se puede insertar código PostScript directamente dentro de un
 bloque @code{\\markup}.
 
-Por razones técnicas, esto no se muestra en el Wiki porque
-@code{\\postscript} solo funciona con el @q{backend} de PS de
-LilyPond y no está contemplado ni en el backend de SVG (usado en
-el Wiki) ni en el de Cairo.
-
 En general se recomienda usar en su lugar las instrucciones de
 marcado nativas de LilyPond tales como @code{\\polygon}, que se
-pueden usar con todos los backends de LilyPond.
+pueden usar con todos los @emph{backends} de LilyPond.
 
 "
   doctitlees = "Empotrar PostScript nativo dentro de un bloque \\markup"

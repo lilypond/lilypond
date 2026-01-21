@@ -1,10 +1,27 @@
-%% Translation of GIT committish: 1bf2403e1cd7038a1e7ea62da560af601e3694fc
+%% Translation of GIT committish: 35d4cc1b78c4105643ca5fdcb44cb717578d6d4a
   texidoces = "
-Al establecer la propiedad @code{strict-grace-spacing} hacemos
-que las columnas musicales para las notas de adorno sean
+Al establecer la propiedad @code{strict-grace-spacing} hacemos que
+las columnas musicales para las notas de adorno sean
 @q{flotantes}, es decir, desacopladas de las notas que no son de
 adorno: primero se aplica el espaciado de las notas normales, y
 luego se ponen las columnas musicales de las notas de adorno a la
 izquierda de las columnas musicales de las notas principales.
+
+Sin embargo, a causa del
+@uref{https://gitlab.com/lilypond/lilypond/-/issues/6876,bug
+número 6876}, las alteraciones accidentales se ignoran si esta
+propiedad está establecida.  Este fragmento de código ofrece una
+solución para este problema.
+
+Otro desafortunado efecto colateral de esta propiedad es que
+LilyPond no comprueba si hay espacio horizontal suficiente para
+las notas de adorno (este problema recibe seguimiento como
+@uref{https://gitlab.com/lilypond/lilypond/-/issues/2630,bug
+número 2630}).  Tenemos que asegurarnos de que ha espacio
+suficiente, por ejemplo, por medio del uso de
+@code{\\newSpacingSection} junto con un valor adecuado para la
+duración @code{base-shortest-duration} del objeto gráfico
+@code{SpacingSpanner}.
+
 "
   doctitlees = "Posicionamiento de las notas de adorno con espacio flotante"

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 9e1da77702d0f3bf5ca406c9697350e5dbf29fe6
+    Translation of GIT committish: befc181b7c9cf3d903a3b80eb475af9da65e922c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3064,18 +3064,48 @@ music = { \tag #'here { \tag #'here <<c''>> } }
 @end lilypond
 
 
+@subsubheading Sustituir música etiquetada
+
+@funindex \replaceWithTag
+
+Se puede sustituir música etiquetada con otra música.
+
+@lilypond[verbatim,quote]
+music = { c' \tag #'here { d' } e' }
+
+{
+  \music
+  \replaceWithTag #'here c' \music
+}
+@end lilypond
+
+No olvide que la etiqueta desaparece después de la sustitución, de
+manera que solo podemos sustituirla una vez.  Asimismo, no se
+puede realizar un filtrado después de la susticuión.
+
+@lilypond[verbatim,quote]
+music = { c' \tag #'here { d' } e' }
+
+{
+  \removeWithTag #'here % does nothing because tag is replaced
+  \replaceWithTag #'here c'
+  \music
+}
+@end lilypond
 @subsubheading Etiquetado dentro de elementos de marcado
 
 @funindex \keep-with-tag
 @funindex \remove-with-tag
 @funindex \push-to-tag
 @funindex \append-to-tag
+@funindex \replace-with-tag
 
 La instrucción @code{\tag} también se puede usar dentro de
 entornos @code{\markup}.  LilyPond aporta las instrucciones de
 marcado @code{\keep-with-tag}, @code{\remove-with-tag},
-@code{\push-to-tag} y @code{\append-to-tag} de forma análoga a las
-instrucciones correspondientes para expresiones musicales.
+@code{\push-to-tag}, @code{\append-to-tag} y
+@code{\replace-with-tag} de forma análoga a las instrucciones
+correspondientes para expresiones musicales.
 
 @lilypond[verbatim,quote]
 test = \markup {
@@ -3088,6 +3118,7 @@ test = \markup {
 \markup { \remove-with-tag #'BB \test }
 \markup { \push-to-tag #'CC pre \test }
 \markup { \append-to-tag #'CC post \test }
+\markup { \replace-with-tag #'CC sub \test }
 @end lilypond
 
 Las instrucciones musicales como @code{\keepWithTag} y
@@ -3107,13 +3138,15 @@ music = \relative {
 
 @funindex \pushToTagMarkup
 @funindex \appendToTagMarkup
+@funindex \replaceWithTagMarkup
 
 También es posible añadir algo al principio y al final del
 @code{\markup} de objetos musicales.  Sin embargo, no se pueden
-usar @code{\pushToTag} ni @code{\appendToTag} porque solo insertan
-música, así que necesitamos las instrucciones
-@code{\pushToTagMarkup} y @code{\appendToTagMarkup} para insertar
-elementos de marcado.
+usar @code{\pushToTag}, @code{\appendToTag} ni
+@code{\replaceWithTag} porque solo insertan música, así que
+necesitamos instrucciones como @code{\pushToTagMarkup},
+@code{\appendToTagMarkup} o @code{\replaceWithTagMarkup} para
+insertar elementos de marcado.
 
 @lilypond[verbatim,quote]
 music = \relative {
@@ -3123,6 +3156,7 @@ music = \relative {
 {
   \pushToTagMarkup #'part "great" \music
   \appendToTagMarkup #'part \markup { is also great } \music
+  \replaceWithTagMarkup #'part \markup { cool substitution } \music
 }
 @end lilypond
 
@@ -3146,8 +3180,8 @@ music = \relative {
 
 El uso de etiquetas con listas de marcado requiere un cuidado
 especial.  Aunque las funciones de filtrado funcionan como se
-espera, no es así con instrucciones como @code{\push-to-tag} y
-@code{\append-to-tag}.
+espera, no es así con instrucciones como @code{\push-to-tag},
+@code{\append-to-tag} y @code{\replace-with-tag}.
 
 @lilypond[verbatim,quote]
 \markup {
@@ -3155,6 +3189,9 @@ espera, no es así con instrucciones como @code{\push-to-tag} y
 }
 \markup {
   \push-to-tag #'test "twice" { a \tag #'test { b c } d }
+}
+\markup {
+  \replace-with-tag #'test "twice" { a \tag #'test { b c } d }
 }
 @end lilypond
 

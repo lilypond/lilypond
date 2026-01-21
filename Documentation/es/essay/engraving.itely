@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 7037b9e19fcbd86ffcabfdb1c880b68735a628ec
+    Translation of GIT committish: ba4e7ffd01ece9dc9662a035967f5a6e438f9cf9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -710,7 +710,7 @@ numerosos errores en los detalles de formateo:
 @sourceimage{lily14-sarabande-annotated,,}
 @end ifnottex
 
-@itemize @bullet
+@itemize
 @item hay demasiado espacio antes de la indicación de compás
 @item las plicas de las notas unidas por una barra son muy largas
 @item los compases segundo y cuarto son muy estrechos
@@ -874,7 +874,7 @@ partIV = \relative {
 
 Entre algunos de los puntos negativos de la salida sin retocar de
 Finale se encuentran los siguientes:
-@itemize @bullet
+@itemize
 @item Casi todas las barras se salen demasiado del pentagrama.
 Una barra que apunta hacia el centro del pentagrama debe tener una
 longitud de una octava aproximadamente, pero los grabadores

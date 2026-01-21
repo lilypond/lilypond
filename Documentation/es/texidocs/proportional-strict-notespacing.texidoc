@@ -1,9 +1,11 @@
-%% Translation of GIT committish: 4f16fa98fd258f08e64203c793028ea3e363b1c0
+%% Translation of GIT committish: 35d4cc1b78c4105643ca5fdcb44cb717578d6d4a
   texidoces = "
-Si está establecido @code{strict-note-spacing}, el espaciado de las
-notas no queda influido por los compases o claves que pueda haber
-dentro de un sistema.  En lugar de ello, se colocan justo antes de la
-nota que tiene lugar en el mismo momento temporal. Esto puede producir
+Si está establecida al valor @code{#t} la propiedad
+@code{strict-note-spacing} del objeto gráfico
+@code{SpacingSpanner}, el espaciado de las notas no queda influido
+por los compases o claves que pueda haber dentro de un sistema.
+En lugar de ello, se colocan justo antes de la nota que tiene
+lugar en el mismo momento temporal. Esto puede producir
 colisiones.
 
 "

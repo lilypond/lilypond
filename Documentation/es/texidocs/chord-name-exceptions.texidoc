@@ -1,8 +1,36 @@
-%% Translation of GIT committish: 4f16fa98fd258f08e64203c793028ea3e363b1c0
+%% Translation of GIT committish: 35d4cc1b78c4105643ca5fdcb44cb717578d6d4a
   texidoces = "
-Se puede usar la propiedad @code{chordNameExceptions} para
-almacenar una lista de notaciones espaciales para acordes
-específicos.
+
+La propiedad @code{chordNameExceptions} almacena una lista de
+excepciones para los nombres de acorde, para tratar casos que no
+están cubiertos, o bien que se tratan incorrectamente.
+
+Los nombres de acorde predeterminados que se usan por LilyPond
+siguen las reglas dadas en el libro de Klaus Ignatzek's @qq{Die
+Jazzmethode für Klavier@tie{}1}; el algoritmo para convertir
+acordes en nombres de acorde puede verse dentro del archivo
+@code{scm/chord-ignatzek-names.scm}. Las reglas adicionales se dan
+como excepciones de acordes y se almacenan dentro de la variable
+@code{ignatzekExceptions}, como está establecido en el archivo
+@code{ly/chord-modifiers-init.ly}.
+
+Este fragmento de código modifica estas excepcioens en tres pasos.
+
+@enumerate 
+@item
+Preparación de una música con acordes y elementos de marcado
+asociados. Por convención, la fundamental de cada acorde debe
+ser@tie{}Do.
+@item
+Llamar a la función de Scheme
+@code{sequential-music-to-chord-exceptions} para crear una lista
+de excepciones nueva, y después concatenarla con las existentes.
+Como @code{ignatzekExceptions} está preparado con el segundo
+parámetro de su función fijado al valor @code{#t} (para ignorar la
+fundamental de los acordes), tenemos que hacer lo mismo.
+@item
+Registrar la nueva lista de excepciones.
+@end enumerate
 
 "
   doctitlees = "Excepciones para los nombres de acorde"

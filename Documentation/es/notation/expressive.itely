@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 7f24b1d60e74d61de8e9c980da04a8f9064b9829
+    Translation of GIT committish: ba4e7ffd01ece9dc9662a035967f5a6e438f9cf9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -294,7 +294,7 @@ la propiedad @code{direction}.  Las funciones de conveniencia
 
 El tipo de grob que crea una articulación depende de a qué se adjunta.
 
-@itemize @bullet
+@itemize
 @item
 Obre las notas o silencios ordinarios, las articulaciones crean objetos @code{Script}.
 @item

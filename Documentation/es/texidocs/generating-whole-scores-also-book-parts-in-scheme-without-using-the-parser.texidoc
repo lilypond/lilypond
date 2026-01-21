@@ -1,4 +1,4 @@
-%% Translation of GIT committish: fbf390d05408c5b842a22c122da734c54f92ca12
+%% Translation of GIT committish: af28c5f89c915fdf795739a1e2dd437c726d7f61
   texidoces = "
 Internamente, una partitura de LilyPond no es más que una
 expresión de Scheme, generada por el analizador sintáctico de
@@ -7,19 +7,18 @@ una partitura sin ningún archivo de entrada.  Si tenemos la
 expresión musical en Scheme, se puede generar la partitura
 simplemente llamando a
 
-@verbatim
+@example
 (scorify-music music)
-@end verbatim
+@end example
 
 sobre la música.  Así se genera un objeto partitura, para el que
 podemos entonces fijar un bloque layout personalizado con
 
-@verbatim
+@example
 (let* ((layout (ly:output-def-clone $defaultlayout)))
    ; modificamos el layout aquí, y después lo asignamos:
-   (ly:score-add-output-def! score layout)
-  )
-@end verbatim
+   (ly:score-add-output-def! score layout))
+@end example
 
 Finalmente, todo lo que tenemos que hacer es pasar esta partitura
 a lilypond para que realice la composición tipográfica.  Este

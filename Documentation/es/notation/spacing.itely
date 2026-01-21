@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 60cb08a01235cd28cfca069774e79da033d81d76
+    Translation of GIT committish: e14f3b2735ee559b06211f1b9a082923705f0970
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1688,7 +1688,7 @@ compás, y a pesar de la presencia de barras de corchea.
 
 \paper {
   indent = 0
-  line-width = 140\mm
+  line-width = 135\mm
 }
 @end lilypond
 
@@ -2591,7 +2591,7 @@ Las siguientes propiedades afectan al espaciado de las pautas
 
 @itemize
 @item Propiedades de @code{VerticalAxisGroup}:
-@itemize
+@itemize @minus{}
 @item @code{default-staff-staff-spacing}
 @item @code{staff-staff-spacing}
 @end itemize
@@ -2674,11 +2674,11 @@ dentro de los grupos:
 
 @itemize
 @item Propiedades de @code{VerticalAxisGroup}:
-@itemize
+@itemize @minus{}
 @item @code{staff-staff-spacing}
 @end itemize
 @item Propiedades de @code{StaffGrouper}:
-@itemize
+@itemize @minus{}
 @item @code{staff-staff-spacing}
 @item @code{staffgroup-staff-spacing}
 @end itemize
@@ -2810,59 +2810,40 @@ Referencia de funcionamiento interno:
 @node Explicit staff and system positioning
 @section Posicionamiento explícito de los pentagramas y los sistemas
 
-Una forma de entender los mecanismos del espaciado vertical
-flexible que se han explicado más arriba es como una colección de
-ajustes que controlan la cantidad de relleno vertical entre los
-pentagramas y los sistemas.
+@cindex posicionamiento exacto de las pautas
+@cindex exacto, posicionamiento, de las pautas
+@cindex pauta, posicionamiento exacto
+
+@funindex line-break-system-details
+@funindex NonMusicalPaperColumn
 
 Es posible enfrentarse al espaciado vertical de una forma distinta
-utilizando la propiedad
-@code{NonMusicalPaperColumn.line-break-system-details}.  Mientras
-que los mecanismos del espaciado vertical flexible especifican
-relleno vertical,
-@code{NonMusicalPaperColumn.line-break-system-details} puede
-especificar posiciones verticales exactas sobre la página.
+(comparado con lo que se ha visto en las secciones previas)
+utilizando la propiedad @code{line-break-system-details} del
+objeto gráfico @code{NonMusicalPaperColumn}.  Mientras que los
+mecanismos del espaciado vertical flexible especifican relleno
+vertical, @code{line-break-system-details} puede especificar
+posiciones verticales exactas sobre la página.
 
-@code{NonMusicalPaperColumn.line-break-system-details} acepta una
-lista asociativa de cuatro ajustes diferentes:
-
-@itemize
-@item @code{X-offset} (desplazamiento en X)
-@item @code{Y-offset} (desplazamiento en Y)
-@item @code{extra-offset} (desplazamiento adicional)
-@item @code{alignment-distances} (distancias de alineación)
-@end itemize
-
-@example
-\once \override NonMusicalPaperColumn.line-break-system-details =
-  #'((X-offset . 20))
-
-\once \override NonMusicalPaperColumn.line-break-system-details =
-  #'((Y-offset . 40))
-
-\once \override NonMusicalPaperColumn.line-break-system-details =
-  #'((X-offset . 20)
-     (Y-offset . 40))
-
-\once \override NonMusicalPaperColumn.line-break-system-details =
-  #'((alignment-distances . (15)))
-
-\once \override NonMusicalPaperColumn.line-break-system-details =
-  #'((X-offset . 20)
-     (Y-offset . 40)
-     (alignment-distances . (15)))
-@end example
+Esta propiedad contiene cinco subpropiedades diferentes:
+@code{X-offset} (desplazamiento en X) @code{Y-offset}
+(desplazamiento en Y) @code{extra-offset} (desplazamiento
+adicional) @code{alignment-distances} (distancias de alineación) y
+@code{bottom-padding} (relleno por debajo).
 
 Para entender cómo funciona cada uno de los distintos ajustes,
 empezamos observando un ejemplo que no incluye absolutamente
-ninguna sobreescritura.
+ninguna sobreescritura.  Mantenemos aisladas tanto la información
+de los saltos de línea como los de página en una voz dedicada a
+ello, dividiendo la música en líneas de cinco compases cada una.
+Esta técnica de crear una voz de saltos ayuda a mantener la
+disposición separada de la escritura de notas conforme el ejemplo
+se vuelve más complicado.  Consulte @ref{Breaks}.
 
 @c \book { } is required in these examples to ensure the spacing
 @c overrides can be seen between systems. -np
 
-@lilypond[verbatim,quote,staffsize=16]
-\header { tagline = ##f }
-\paper { left-margin = 0\mm }
+@lilypond[verbatim,quote,staffsize=11,papersize=a7]
 \book {
   \score {
     <<
@@ -2870,35 +2851,21 @@ ninguna sobreescritura.
         \new Voice {
           s1*5 \break
           s1*5 \break
-          s1*5 \break
-        }
+          s1*5 \break }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
       >>
-      \new Staff {
-        \repeat unfold 15 { d'4 d' d' d' }
-      }
+      \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
     >>
   }
 }
 @end lilypond
 
-Esta partitura mantiene aislada tanto la información de los saltos
-de línea como los de página en una voz dedicada a ello.  Esta
-técnica de crear una voz de saltos ayuda a mantener separada de la
-escritura de notas conforme el ejemplo se vuelve más complicado.
-Consulte @ref{Breaks}.
+A continuación fijamos los puntos de inicio vertical y horizontal
+de cada sistema explícitamente usando las subpropiedades
+@code{Y-offset} y @code{X-offset} de
+@code{line-break-system-details}.
 
-Utilizando instrucciones @code{\break} explícitas, la música se
-divide en líneas de cinco compases cada una.  El espaciado
-vertical proviene de los ajustes predeterminados de LilyPond pero
-el punto de origen vertical de cada sistema se fija explícitamente
-usando el par @code{Y-offset} en el atributo
-@code{line-break-system-details} del grob
-@code{NonMusicalPaperColumn}:
-
-@lilypond[verbatim,quote,staffsize=16]
-\header { tagline = ##f }
-\paper { left-margin = 0\mm }
+@lilypond[verbatim,quote,staffsize=11,papersize=a7]
 \book {
   \score {
     <<
@@ -2906,46 +2873,37 @@ usando el par @code{Y-offset} en el atributo
         \new Voice {
           \once \override
             Score.NonMusicalPaperColumn
-                 .line-break-system-details = #'((Y-offset . 0))
+                 .line-break-system-details.Y-offset = 0
           s1*5 \break
           \once \override
             Score.NonMusicalPaperColumn
-                 .line-break-system-details = #'((Y-offset . 40))
+                 .line-break-system-details.Y-offset = 30
+          \once \override
+            Score.NonMusicalPaperColumn
+                 .line-break-system-details.X-offset = 10
           s1*5 \break
           \once \override
             Score.NonMusicalPaperColumn
-                 .line-break-system-details = #'((Y-offset . 60))
-          s1*5 \break
-        }
+                 .line-break-system-details.Y-offset = 50
+          s1*5 \break }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
       >>
-      \new Staff {
-        \repeat unfold 15 { d'4 d' d' d' }
-      }
+      \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
     >>
   }
 }
 @end lilypond
-
-Observe que @code{line-break-system-details} toma una lista
-asociativa de una cantidad de valores potencialmente elevada, pero
-aquí solo fijamos un valor.  Observe también que aquí la propiedad
-@code{Y-offset} determina la posición vertical exacta sobre la
-página en la que se trazará cada uno de los nuevos sistemas.
 
 En contraste con el posicionado absoluto que está disponible a
 través de @code{Y-offset} y de @code{X-offset}, es posible un
-posicionamiento relativo con la propiedad @code{extra-offset} de
-@code{line-break-system-details}.  La colocación es relativa a la
-disposición predeterminada o al posicionamiento absoluto creado
-mediante el establecimiento de los valores de @code{X-offset} y de
-@code{Y-offset}.  La propiedad @code{extra-offset} acepta una
-pareja de números (un @code{pair}) que consiste en desplazamientos
-a lo largo de los ejes X e Y.
+posicionamiento relativo con la subpropiedad @code{extra-offset}.
+La colocación es relativa a la disposición predeterminada o al
+posicionamiento absoluto creado mediante el establecimiento de los
+valores de @code{X-offset} y de @code{Y-offset}.  La subpropiedad
+@code{extra-offset} acepta una pareja de números (un @code{pair})
+que consiste en desplazamientos a lo largo de los ejes X e Y.
 
-@lilypond[verbatim,quote,staffsize=16]
-\header { tagline = ##f }
-\paper { left-margin = 0\mm }
+@lilypond[verbatim,quote,staffsize=11,papersize=a7]
 \book {
   \score {
     <<
@@ -2953,21 +2911,16 @@ a lo largo de los ejes X e Y.
         \new Voice {
           s1*5 \break
           \once \override
-            Score
-            .NonMusicalPaperColumn
-            .line-break-system-details = #'((extra-offset . (0 . 10)))
+            Score.NonMusicalPaperColumn
+              .line-break-system-details.extra-offset = #'(5 . 5)
           s1*5 \break
           \once \override
-            Score
-            .NonMusicalPaperColumn
-            .line-break-system-details = #'((extra-offset . (0 . 10)))
-          s1*5 \break
-        }
+            Score.NonMusicalPaperColumn
+              .line-break-system-details.extra-offset = #'(0 . 20)
+          s1*5 \break }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
       >>
-      \new Staff {
-        \repeat unfold 15 { d'4 d' d' d' }
-      }
+      \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
     >>
   }
 }
@@ -2977,90 +2930,68 @@ Ahora que hemos establecido explícitamente el punto de origen
 vertical de cada sistema, podemos también establecer manualmente
 las distancias verticales entre los pentagramas dentro de cada
 sistema.  Lo hacemos usando la subpropiedad
-@code{alignment-distances} de @code{line-break-system-details}.
+@code{alignment-distances}.  Como puede verse, usamos una lista-A
+para fijar dos subpropiedades @code{line-break-system-details}
+diferentes al mismo tiempo.
 
-@lilypond[verbatim,quote,staffsize=16]
-\header { tagline = ##f }
-\paper { left-margin = 0\mm }
+@lilypond[verbatim,quote,staffsize=11,papersize=a7]
 \book {
   \score {
     <<
       \new Staff <<
         \new Voice {
           \once \override
-            Score
-            .NonMusicalPaperColumn
-            .line-break-system-details
-            = #'((Y-offset . 20)
+            Score.NonMusicalPaperColumn.line-break-system-details =
+              #'((Y-offset . 0)
                  (alignment-distances . (10)))
           s1*5 \break
           \once \override
-            Score
-            .NonMusicalPaperColumn
-            .line-break-system-details
-            = #'((Y-offset . 60)
+            Score.NonMusicalPaperColumn.line-break-system-details =
+              #'((Y-offset . 30)
                  (alignment-distances . (15)))
           s1*5 \break
           \once \override
-            Score
-            .NonMusicalPaperColumn
-            .line-break-system-details
-            = #'((Y-offset . 85)
+            Score.NonMusicalPaperColumn.line-break-system-details =
+              #'((Y-offset . 65)
                  (alignment-distances . (20)))
-          s1*5 \break
-        }
+          s1*5 \break }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
       >>
-      \new Staff {
-        \repeat unfold 15 { d'4 d' d' d' }
-      }
+      \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
     >>
   }
 }
 @end lilypond
 
-Observe que aquí asignamos dos valores distintos al atributo
-@code{line-break-system-details} del grob
-@code{NonMusicalPaperColumn}.  Aunque el atributo alist de
-@code{line-break-system-details} acepta muchos parámetros de
-espaciado adicionales (entre ellos, por ejemplo, un par
-@code{X-offset} correspondiente), solo tenemos que establecer el
-desplazamiento @code{Y-offset} y los pares
-@code{alignment-distances} para controlar el punto de origen
-vertical de cada sistema y pentagrama.  Finalmente, observe que
-@code{alignment-distances} especifica el posicionamiento vertical
-de los pentagramas pero no de los grupos de pentagramas.
+El ejemplo siguiente muestra cómo fijar las posiciones verticales
+de varios pentagramas dentro de un sistema.  Observe que
+@code{alignment-distances} se aplica directamente a los
+pentagramas, sin preocuparse de las agrupaciones hechas con
+@code{StaffGroup} o similares.  El valor @code{#f} indica que se
+debe usar el valor predeterminado.
 
-@lilypond[verbatim,quote,staffsize=16]
-\header { tagline = ##f }
-\paper { left-margin = 0\mm }
+@lilypond[verbatim,quote,staffsize=11,papersize=a7]
 \book {
   \score {
     <<
       \new Staff <<
         \new Voice {
           \once \override
-            Score
-            .NonMusicalPaperColumn
-            .line-break-system-details
-            = #'((Y-offset . 0)
-                 (alignment-distances . (30 10)))
+            Score.NonMusicalPaperColumn.line-break-system-details =
+              #'((Y-offset . 0)
+                 (alignment-distances . (15 8)))
           s1*5 \break
           \once \override
-            Score
-            .NonMusicalPaperColumn
-            .line-break-system-details
-            = #'((Y-offset . 60)
-                 (alignment-distances . (10 10)))
+            Score.NonMusicalPaperColumn.line-break-system-details =
+              #'((Y-offset . 35)
+                 (X-offset . 10)
+                 (alignment-distances . (#f 8)))
           s1*5 \break
           \once \override
-            Score
-            .NonMusicalPaperColumn
-            .line-break-system-details
-            = #'((Y-offset . 100)
-                 (alignment-distances . (10 30)))
-          s1*5 \break
-        }
+            Score.NonMusicalPaperColumn.line-break-system-details =
+              #'((Y-offset . 65)
+                 (alignment-distances . (8 15)))
+          s1*5 \break }
         \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
       >>
       \new StaffGroup <<
@@ -3072,26 +3003,80 @@ de los pentagramas pero no de los grupos de pentagramas.
 }
 @end lilypond
 
+@funindex last-bottom-spacing
+
+La última subpropiedad de @code{line-break-system-details},
+@code{bottom-padding}, tiene un efecto similar al de
+@code{last-bottom-spacing}.  Sin embargo, observe que no guarda
+una dimensión de espaciado que se pueda estirar o comprimir, sino
+un valor de relleno rígido y fijo a partir del extremo inferior de
+la página hasta el pentagrama inferior.  Aquí aparece el fragmento
+de prueba con la parte inferior justificada, mostrando la
+distancia por omisión.
+
+@lilypond[verbatim,quote,staffsize=11,papersize=a7]
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          s1*5 \break
+          s1*5 \break
+          s1*5 \break }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new Staff { \repeat unfold 15 { d'4 d' d' d' }
+      }
+    >>
+  }
+  \paper { ragged-last-bottom = ##f }
+}
+@end lilypond
+
+Al fijar un valor para @code{bottom-padding} se obtiene el
+resultado siguiente.
+
+@lilypond[verbatim,quote,staffsize=11,papersize=a7]
+\book {
+  \score {
+    <<
+      \new Staff <<
+        \new Voice {
+          s1*5 \break
+          s1*5 \break
+          \once \override
+            Score.NonMusicalPaperColumn.line-break-system-details =
+              #'((bottom-padding . 20))
+          s1*5 \break }
+        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+      >>
+      \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
+    >>
+  }
+  \paper { ragged-last-bottom = ##f }
+}
+@end lilypond
+
 Algunos puntos que tener en cuenta:
 
 @itemize
 @item Al usar @code{alignment-distances}, la letra y otras líneas que no
 son pautas, no cuentan como un pentagrama.
 
-@item Las unidades de los números que se pasan a @code{X-offset},
-@code{Y-offset}, @code{extra-offset} y @code{alignment-distances}
-se interpretan como múltiplos de la distancia entre líneas de
-pentagrama adyacentes.  Los valores positivos mueven a los
-pentagramas y a la letra hacia arriba, los valores negativos
-mueven los pentagramas y la letra hacia abajo.
+@item Las unidades de los números que se pasan a las subpropiedades
+@code{X-offset}, @code{Y-offset}, @code{extra-offset} y
+@code{alignment-distances} se interpretan como múltiplos de la
+distancia entre líneas de pentagrama adyacentes.  Los valores
+positivos mueven a los pentagramas y a la letra hacia arriba, los
+valores negativos mueven los pentagramas y la letra hacia abajo.
 
 @item A causa de que los ajustes a
 @code{NonMusicalPaperColumn.line-break-system-details} dados aquí
 permiten el posicionamiento de pentagramas y sistemas en cualquier
 lugar de la página, es posible violar los márgenes o los límites
 del papel, o incluso imprimir pentagramas o sistemas unos encima
-de otros.  Esto se evitaría pasando a los diferentes ajustes unos
-valores razonables.
+de otros.  Para evitarlo, pase unos valores razonables a las
+subpropiedades.
 @end itemize
 
 @morerefs
@@ -3953,9 +3938,7 @@ prefiere establecer el valor de
 
 El ajuste @code{proportionalNotationDuration} acepta un solo
 argumento, que es la duración de referencia para espaciar toda la
-música.  La llamada @code{\musicLength 1*1/20} especifica un
-veinteavo de redonda; también son posibles valores como
-@code{\musicLength 16} y @code{\musicLength @{2 2.@}}.
+música.  El valor @code{#1/20} especifica un veinteavo de redonda.
 
 ¿Cómo seleccionamos la duración correcta de referencia para
 pasarla a @code{proportionalNotationDuration}?  Normalmente

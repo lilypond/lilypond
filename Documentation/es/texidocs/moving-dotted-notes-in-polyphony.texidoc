@@ -1,9 +1,10 @@
-%% Translation of GIT committish: 4f16fa98fd258f08e64203c793028ea3e363b1c0
+%% Translation of GIT committish: 35d4cc1b78c4105643ca5fdcb44cb717578d6d4a
   texidoces = "
-Cuando se puede una nota en la voz superior para evitar la colisión
-con una nota de otra voz, el comportamiento predeterminado es
-desplazar la nota superior a la derecha.  Se puede cambiar usando la
-propiedad @code{prefer-dotted-right} de @code{NoteCollision}.
+Cuando se puede una nota en la voz superior para evitar la
+colisión con una nota de otra voz, el comportamiento
+predeterminado es desplazar la nota superior a la derecha.  Se
+puede cambiar modificando la propiedad @code{prefer-dotted-right}
+del objeto gráfico @code{NoteCollision}.
 
 "
   doctitlees = "Desplazar las notas con puntillo en polifonía"

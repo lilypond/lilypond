@@ -1,6 +1,6 @@
-%% Translation of GIT committish: 4f16fa98fd258f08e64203c793028ea3e363b1c0
+%% Translation of GIT committish: 2dbd7c68d29e97631d7ef0d5f324fdc0ad92eccf
   texidoc = "
-Encabezamiento de instrumentos de teclado
+Encabezamiento de instrumentos de teclado.
 "
 
-  doctitle = "Encabezamiento de instrumentos de teclado"
+  doctitlees = "Encabezamiento de instrumentos de teclado"

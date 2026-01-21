@@ -1,18 +1,21 @@
-%% Translation of GIT committish: 4f16fa98fd258f08e64203c793028ea3e363b1c0
+%% Translation of GIT committish: 70abecb938c2bb752967bd56b7402dd8129838a5
   texidoces = "
-A veces, en las partituras orquestales se dejan en silencio
-instrumentos individuales o grupos de ellos durante un período de
-tiempo, y sus pentagramas correspondientes se pueden suprimir
-durante ese tiempo (con @code{\\removeEmptyStaves}).
+En muchas partituras orquestales es costumbre no mostrar los
+pentagramas de aquellos instrumentos que están en silencio durante
+bastante tiempo; esto se llama @q{partitura francesa}.  LilyPond
+aporta esta funcionalidad a través de la instrucción
+@code{\\RemoveEmptyStaves}.
 
 Cuando vuelven a sonar, con frecuencia se prefiere mostrar
 @emph{todos los instrumentos del grupo}.  Esto se puede hacer
-añadiendo el grabador @code{Keep_alive_together_engraver} en el
-contexto agrupador (p.ej.: un GrandStaff o un StaffGroup).
+añadiendo el grabador @code{Keep_alive_together_engraver} al
+contexto agrupador (p.ej.: un @code{GrandStaff} o un
+@code{StaffGroup}).
 
-En este ejemplo, los violines están en silencio durante los
-sistemas segundo y tercero.  Solo el violín primero suena en el
-último compás, pero se muestra también el pentagrama del violín
+En este ejemplo, los violines están en silencio durante el segundo
+sistema.  Solo el violín primero suena en el último compás del
+tercer sistema, pero se muestra también el pentagrama del violín
 segundo.
+
 "
   doctitlees = "Mostrar un sistema GrandStaff completo si sigue con vida uno solo de sus pentagramas"

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: b22569ea33c9c9a6a26e17624d79449bffa81b22
+    Translation of GIT committish: bb0c37bd08beca748b6dab0fec77feebd04d44cd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1435,3 +1435,17 @@ añade una barra de corchea a la plica de la nota.  Si
 Fragmentos de código:
 @rlsrnamed{Repeats,Repeticiones}.
 @endmorerefs
+
+
+@knownissues
+Aunque la sintaxis de @code{\repeat tremolo} se despliega por
+medio de @code{\unfoldRepeats}, su abreviatura correspondiente no
+lo hace (el seguimiento de este problema está en el
+@uref{https://gitlab.com/lilypond/lilypond/-/issues/6145, bug número 6145}):
+
+@lilypond[quote,verbatim]
+{
+  \unfoldRepeats \repeat tremolo 4 c'16
+  \unfoldRepeats c'4:16
+}
+@end lilypond

@@ -1,12 +1,12 @@
-%% Translation of GIT committish: 4f16fa98fd258f08e64203c793028ea3e363b1c0
+%% Translation of GIT committish: 70abecb938c2bb752967bd56b7402dd8129838a5
   texidoces = "
 Se pueden añadir elementos adicionales a las notas usando
 @code{map-some-music}.  En este ejemplo se ajunta una inscripción
 adicional a una nota.
 
-En general se debe efectuar un @code{\\displayMusic} de la música
-que queremos crear, y luego escribir una función que haga el
-trabajo sobre las partes adecuadas de la música por nosotros.
+En general se debe efectuar primero un @code{\\displayMusic} de la
+música que queremos crear, para ver su estructura.  Más tarde,
+podemos usar esto como plantilla para nuestro código de Scheme.
 
 "
   doctitlees = "Incluir digitaciones adicionales con Scheme"

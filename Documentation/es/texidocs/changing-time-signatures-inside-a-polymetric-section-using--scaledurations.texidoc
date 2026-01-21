@@ -1,14 +1,40 @@
-%% Translation of GIT committish: 4f16fa98fd258f08e64203c793028ea3e363b1c0
+%% Translation of GIT committish: 0a82f929a89e5db79274ad46c7e7f9ba71269d1a
   texidoces = "
-La propiedad @code{measureLength}, junto con
-@code{measurePosition}, determina cuándo es necesario dibujar una
-línea divisoria.  Sin embargo, al utilizar
-@code{\\scaleDurations}, el escalado proporcional de las
-duraciones hace difícil introducir cambios de compás.  En este
-caso se debe establecer manualmente el valor de
-@code{measureLength} utilizando la función @code{ly:make-moment}.
-El segundo argumento debe ser el mismo que el segundo argumento de
-@code{\\scaleDurations}.
+@subsubsubheading Polirritmia flexible con compases no alineados
+
+Para poder crear explícitamente contextos con compases
+independientes, suprima el traductor @code{Timing_translator} del
+contexto @code{Score} y defina un contexto @code{TimingStaffGroup}
+que contenga el traductor @code{Timing_translator}.  Esto hace que
+@code{Timing} sea un alias de @code{TimingStaffGroup}, con la mira
+puesta en las instrucciones @code{\\time} hacia el
+@code{TimingStaffGroup} contenedor.
+
+A diferencia de la instrucción incorporada
+@code{\\enablePerStaffTiming} de LilyPond, este enfoque requiere
+la creación explícita de contextos @code{TimingStaffGroup}; a
+cambio, permite crear varios contextos @code{Staff} que de forma
+conjunta siguen al compás definido en su @code{TimingStaffGroup}
+contenedor.
+
+@subsubsubheading Indicaciones de compás escalados localmente
+
+Use la instrucción no escalable @code{\\time} para establecer un
+compás de la longitud deseada en @code{Timing}, más conocido como
+@code{TimingStaffGroup}.  En este fragmento de código, todos los
+pentagramas que están por debajo de @code{TimingStaffGroup} usan
+una indicación de compás escalada, de forma que cualquier compás
+que establezcamos con la longitud deseada es tan bueno como
+cualquier otro.  Si hubiese un contexto contenedor que no usara
+una indicación de compás escalada, la elección del compás que se
+establezca en @code{Timing} tendría importancia en dicho contexto.
+
+Use la instrucción @code{\\polymetric \\time} para establecer
+propiedades métricas escalablesen los contextos que están por
+debajo de @code{Timing}, y use la instrucción
+@code{\\scaleDurations} para escalar tanto el compás local como
+las notas que han de llenar el compás.
+
 
 "
   doctitlees = "Modificar el compás dentro de una sección polimétrica utilizando @code{\\scaleDurations}"

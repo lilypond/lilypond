@@ -1,11 +1,13 @@
-%% Translation of GIT committish: 4f16fa98fd258f08e64203c793028ea3e363b1c0
+%% Translation of GIT committish: 35d4cc1b78c4105643ca5fdcb44cb717578d6d4a
   texidoces = "
-Todos los objetos @code{DynamicLineSpanner} (reguladores e
-indicaciones dinámicas de texto) se sitúan con su línea de referencia a
-una distancia de al menos @code{'staff-padding} del pentagrama, a no
-ser que otros elementos de notación los fuerce a colocarse a más
-distancia.  Si se ajusta @code{'staff-padding} a un valor
-suficientemente grande, las indicaciones dinámicas quedarán alineadas.
+Para todos los objetos @code{DynamicLineSpanner} (esto es,
+reguladores y textos de dinámica), la distancia vertical mínima
+entre su línea de referencia y el pentagrama viene dada por el
+valor dentro de la propiedad @code{staff-padding}, a no ser que
+otros elementos de notación los fuercen a situarse en una posición
+más alejada.  El establecimiento de esta propiedad a un valor
+suficientemente grande, permite alinear las indicaciones de matiz
+dinámico.
 
 Se usa una idea similar junto a \\textLengthOn para alinear las
 inscripciones de texto a lo largo de su línea de base.

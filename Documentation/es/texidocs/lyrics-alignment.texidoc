@@ -1,4 +1,4 @@
-%% Translation of GIT committish: cd3e2b0177d366d0a25b4c7628b26455e52175cd
+%% Translation of GIT committish: 70abecb938c2bb752967bd56b7402dd8129838a5
   texidoces = "
 La alineación horizontal de la letra se puede ajustar
 sobreescribiendo la propiedad @code{self-alignment-X} del objeto
@@ -6,6 +6,9 @@ sobreescribiendo la propiedad @code{self-alignment-X} del objeto
 izquierda, 0@tie{}es centrado y 1@tie{}es derecha; de forma
 alternativa también podemos usar los valores de Scheme
 @code{#LEFT}, @code{#CENTER} y @code{#RIGHT} en lugar de números.
+También son posibles otros valores numéricos.  Importante: no
+olvide añadir el prfijo de Scheme @samp{#} para los números
+negativos.
 
 "
   doctitlees = "Alineación de la letra"

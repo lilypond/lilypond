@@ -1,34 +1,23 @@
-%% Translation of GIT committish: e57447fe9c53034c997759bff512fa0130b3a6ee
+%% Translation of GIT committish: af28c5f89c915fdf795739a1e2dd437c726d7f61
   texidoces = "
 La función @code{\\partCombine} toma dos expresiones musicales,
 cada una de las cuales contiene una parte o voz, y las distribuye
-entre cuatro @code{Voice}s llamadas @qq{two}, @qq{one}, @qq{solo},
-y @qq{chords} dependiendo de cuándo y cómo las partes o voces se
-combinan en una voz común.  Las voces que devuelve
-@code{\\partCombine} pueden ver ajustadas sus propiedades de
-presentación de la manera usual.  Aquí definimos extensiones de
-@code{\\partCombine} para facilitar la inclusión de cuatro voces
-dentro del mismo pentagrama.
+entre cuatro contextos de @code{Voice} llamados @qq{one},
+@qq{two}, @qq{solo} y @qq{shared} dependiendo de cuándo y cómo las
+partes o voces se combinan en una voz común.
 
-La versión original se puede escribir de la siguiente forma.
+Las voces que devuelve @code{\\partCombine} pueden ver ajustadas
+sus propiedades de presentación de la manera usual.  Aquí
+definimos extensiones de @code{\\partCombine} para facilitar la
+inclusión de cuatro voces dentro del mismo pentagrama.
 
-@verbatim
-soprano = { d'4 | cis'  b  e'  d'8 cis' | cis'2 b }
-alto = { fis4 | e8 fis gis ais b4 b | b ais fis2 }
-tenor = { a8 b | cis' dis' e'4 b8 cis' d'4 | gis cis' dis'2 }
-bass = { fis8 gis | a4 gis g fis | eis fis b,2 }
+@code{\\partCombineUp} y @code{\\partCombineDown} son variantes de
+@code{\\partCombine} pensadas para producir combinaciones de dos
+voces con la plica hacia arriba y hacia abajo, respectivamente.
+Sin embargo, combinarlas para comprimir cuatro partes en un solo
+pentagrama requiere ciertos ajustes especiales, los que este
+fragmento de código define adecuadamente.
 
-\\new Staff <<
-  \\key b\\minor
-  \\clef alto
-  \\partial 4
-  \\transpose b b'
-  \\partCombineUp \\soprano \\alto
-  \\partCombineDown \\tenor \\bass
->>
-@end verbatim
-
-Y aquí está el fragmento en su versión extendida.
 "
 
   doctitlees = "Dos pares de @code{\\partCombine} en un solo pentagrama"

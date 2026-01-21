@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: b6bfa0814f990effc942289f963603479ac6469b
+    Translation of GIT committish: ba4e7ffd01ece9dc9662a035967f5a6e438f9cf9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -329,7 +329,7 @@ forma inesperada para algunas clases de documento.}}
 Cada fragmento ejecuta los macros siguientes si han sido definidos
 por el usuario:
 
-@itemize @bullet
+@itemize
 @item @code{\preLilyPondExample} que se llama antes de la música,
 
 @item @code{\postLilyPondExample} que se llama después de la música,

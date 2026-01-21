@@ -1,4 +1,4 @@
-%% Translation of GIT committish: cd3e2b0177d366d0a25b4c7628b26455e52175cd
+%% Translation of GIT committish: 35d4cc1b78c4105643ca5fdcb44cb717578d6d4a
  texidoces = "
 Usando etiquetas es posible producir las dos notaciones mensural y
 moderna a partir del mismo código fuente de la música.  En este
@@ -22,7 +22,10 @@ debido al uso del grabador @code{Completion_heads_engraver}.
 
 [La longitud ligeramente acortada de la línea en la pauta mensural
 evita el recorte del glifo de los custos cuando LilyPond genera
-imágenes recortadas.]
+imágenes recortadas muy estrechamente.  El uso de
+@code{\\with-true-dimensions}, tal y como aparece a continuación,
+evita esto.]
+
 "
 
   doctitlees = "Uso de etiquetas para producir música mensural y moderna a partir del mismo código fuente"

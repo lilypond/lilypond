@@ -1,5 +1,4 @@
-%% Translation of GIT committish: aa4f229bc77265d2deaa36055c5845cd682823fe
-  doctitlees = "Posicionar los silencios multicompás"
+%% Translation of GIT committish: 35d4cc1b78c4105643ca5fdcb44cb717578d6d4a
   texidoces = "
 A diferencia de los silencios normales, no existe una instrucción
 predefinida para modificar la posición predeterminada de un
@@ -10,4 +9,6 @@ numeración par e impar están separados verticalmente.
 
 Este fragmento de código muestra la forma de controlar la
 colocación de los silencios multicompás.
+
 "
+  doctitlees = "Posicionar los silencios multicompás"

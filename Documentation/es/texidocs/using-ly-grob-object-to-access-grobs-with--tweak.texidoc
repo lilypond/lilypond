@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 506860610ae036509ff2629736fb24bd92dde75e
+%% Translation of GIT committish: 70abecb938c2bb752967bd56b7402dd8129838a5
   texidoces = "
 Se puede acceder @qq{lateralmente} a algunos grobs desde dentro de
 la función de callback de otro grob.  Éstos se encuentran
@@ -17,12 +17,12 @@ la instrucción @code{\\tweak}.
 La salida de consola de la función de ejemplo que se muestra abajo
 (@code{display-grobs}) es como sigue.
 
-@verbatim
+@example
 --------------------
 #<Grob Accidental >
 ()
 #<Grob Stem >
-@end verbatim
+@end example
 
 Probablemente no es tan útil, pero muestra que efectivamente se
 puede acceder a los objetos gráficos.

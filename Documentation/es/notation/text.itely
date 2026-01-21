@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: a760e29edcd0367c259c05b92888783e6f4f45e5
+    Translation of GIT committish: 9a4e09528e8bb7a9b3a35163b6b0f35ccd24175d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1710,9 +1710,9 @@ ejemplifica a continuación:
 c'1^\markup {
   \combine
     \epsfile #X #10 "./context-example.eps"
-    \with-dimensions #'(0 . 6) #'(0 . 10)
+    \with-dimensions #'(-0.5 . 10.5) #'(-2 . 8)
     \postscript "
-      -2 3 translate
+      -0.3 1 translate
       2.7 2 scale
       newpath
       2 -1 moveto

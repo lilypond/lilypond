@@ -1,4 +1,4 @@
-%% Translation of GIT committish: cd3e2b0177d366d0a25b4c7628b26455e52175cd
+%% Translation of GIT committish: 446f583fab07ee1bd9fdcd9b5faf5f4ee8c772a3
   texidoces = "
 Se pueden añadir indicaciones de marcado de texto a los corchetes
 de análisis por medio de la propiedad @code{text} del objeto
@@ -7,7 +7,8 @@ diferentes al corchetes que comienzan en el mismo tiempo, es
 necesario usar la instrucción @code{\\tweak}.
 
 El texto del corchete se encierra entre paréntesis después de un
-salto de línea.
+salto de línea.  El orden vertical de los corchetes anidados se
+puede controlar con la propiedad @code{outside-staff-priority}.
 "
 
   doctitlees = "Corchetes de análisis con etiquetas"

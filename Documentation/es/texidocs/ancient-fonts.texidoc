@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 4f16fa98fd258f08e64203c793028ea3e363b1c0
+%% Translation of GIT committish: 35d4cc1b78c4105643ca5fdcb44cb717578d6d4a
   texidoces = "
-Aquí se muestran muchos de los símbolos de LilyPond para la música
-antigua.
-
+Este fragmento de código presenta muchos de los símbolos incluidos
+en la fuente Emmentaler que LilyPond usa para tipografiar la
+música antigua.
 "
   doctitlees = "Tipografía de música antigua"

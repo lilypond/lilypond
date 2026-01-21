@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: b22569ea33c9c9a6a26e17624d79449bffa81b22
+    Translation of GIT committish: 0aa9f13afda15bb5a28e08484ffe62417ed603cc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -446,7 +446,7 @@ ajustando el barrado automático.  La alternativa sería desactivar el
 barrado automático y realizar un barrado manual de las notas.  Incluso
 si no es necesaria una correspondencia con música escrita ya
 existente, puede seguir siendo deseable ajustar el comportamiento del
-barrado automático y/o utilizar indicaciones de compás compuestas.
+barrado automático y/o utilizar indicaciones de compás complejas o de amalgama.
 
 @snippets
 

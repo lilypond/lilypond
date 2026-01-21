@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: f5d488bdce69146bbfc7390a16960c5d8275f367
+    Translation of GIT committish: 95af071e7c2db32d2e80ab7ba89fbffeafa96297
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -597,7 +597,7 @@ Los @uref{https://en.wikipedia.org/wiki/X11_color_names, nombres
 de los colores de X11} ofrecen un abanico de opciones más amplio
 que los nombres de CSS. Admiten distintas variantes:
 
-@itemize @bullet
+@itemize
 @item
 Un nombre que se escribe como una palabra única con mayúsculas
 intercaladas (p.ej. @q{LightSlateBlue}) se puede escribir también

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 4f16fa98fd258f08e64203c793028ea3e363b1c0
+%% Translation of GIT committish: 35d4cc1b78c4105643ca5fdcb44cb717578d6d4a
   texidoces = "
 A veces queremos modificar un solo timpo de articulación.  Aunque
 siempre es posible usar la instrucción @code{\\tweak}, podría
@@ -7,7 +7,5 @@ una partitura completa.  El ejemplo muestra cómo trucar
 articulaciones con una lista de ajustes personalizados.  Un caso
 sería la creación de una hoja de estilos.
 
-Con 2.16.2 it es posible introducir la función propuesta,
-@code{\\customScripts}, en un bloque @code{\\layout}.
 "
   doctitlees = "Modificación de articulaciones por tipo"

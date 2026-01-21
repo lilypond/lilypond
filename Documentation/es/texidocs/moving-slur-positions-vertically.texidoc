@@ -1,18 +1,19 @@
-%% Translation of GIT committish: fbf390d05408c5b842a22c122da734c54f92ca12
+%% Translation of GIT committish: 35d4cc1b78c4105643ca5fdcb44cb717578d6d4a
   texidoces = "
-Se puede ajustar la posición vertical de una ligadura de
-expresión utilizando la propiedad @code{positions} del objeto
-@code{Slur}.  La propiedad tiene dos parámetros, refiriéndose el
-primero al extremo izquierdo de la ligadura y el segundo al derecho.
-Los valores de los parámetros no se utilizan por parte de LilyPond
+Se puede ajustar la posición vertical de una ligadura de expresión
+utilizando la propiedad @code{positions} del objeto @code{Slur}.
+La propiedad tiene dos parámetros, refiriéndose el primero al
+extremo izquierdo de la ligadura y el segundo al derecho.  Los
+valores de los parámetros no se utilizan por parte de LilyPond
 para producir un desplazamiento exacto de la ligadura: más bien
-selecciona la colocación que mejor aspecto tiene, teniendo en cuenta
-los valores de los parámetros.  Los valores positivos desplazan la
-ligadura hacia arriba, y son adecuados a notas que tienen las plicas
-hacia abajo.  Los valores negativos desplazan las ligaduras bajas aún
-más hacia abajo.
+selecciona la colocación que mejor aspecto tiene, teniendo en
+cuenta los valores de los parámetros.  Los valores positivos
+desplazan la ligadura hacia arriba, y son adecuados a notas que
+tienen las plicas hacia abajo.  Los valores negativos desplazan
+las ligaduras bajas aún más hacia abajo.
 
-Véase también @qq{Ajustar las posiciones de las ligaduras verticalmente}.
+Véase también el fragmento de código @qq{Ajustar las posiciones de
+las ligaduras verticalmente}.
 
 "
   doctitlees = "Desplazar ligaduras de expresión verticalmente"

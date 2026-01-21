@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 4f16fa98fd258f08e64203c793028ea3e363b1c0
+%% Translation of GIT committish: 35d4cc1b78c4105643ca5fdcb44cb717578d6d4a
   texidoces = "
 De forma predeterminada, LilyPond usa ojetos gráficos
 @code{DynamicLineSpanner} para alinear verticalmente objetos de
@@ -7,6 +7,9 @@ Sin embargo esto no siempre es deseable.  Insertando
 @code{\\breakDynamicSpan}, que finaliza el objeto extenso de
 alineamiento de forma prematura, se puede evitar este alineamiento
 vertical.
+
+Véase también el fragmento de código @qq{Desalinear indicaciones
+dinámicas y textuales horizontalmente}.
 "
 
   doctitlees = "Desalinear indicaciones dinámicas y textuales verticalmente"

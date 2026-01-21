@@ -1,9 +1,10 @@
-%% Translation of GIT committish: 4f16fa98fd258f08e64203c793028ea3e363b1c0
+%% Translation of GIT committish: 35d4cc1b78c4105643ca5fdcb44cb717578d6d4a
   texidoces = "
 Para hacer que las barras sean más gruesas o más delgadas, altere
-la propiedad @code{Beam.beam-thickness}.  Para ajustar el
-espaciado entre las barras, altere la propiedad
-@code{Beam.length-fraction}.
+la propiedad @code{beam-thickness} del objeto gráfico @code{Beam}.
+Para ajustar el espaciado entre las barras, altere la propiedad
+@code{length-fraction}.
+
 "
 
   doctitlees = "Cambiar el grosor y el espaciado de las barras"

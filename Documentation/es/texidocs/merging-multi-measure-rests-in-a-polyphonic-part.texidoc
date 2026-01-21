@@ -1,9 +1,11 @@
-%% Translation of GIT committish: aa4f229bc77265d2deaa36055c5845cd682823fe
+%% Translation of GIT committish: 70abecb938c2bb752967bd56b7402dd8129838a5
   texidoces = "
-Cuando se usan silencios multicompás en un pentagrama polifónico,
-los silencios se sitúan de forma diferente dependiendo de a qué
-voz pertenecen.  Sin embargo, se pueden imprimir sobre la misma
-línea del pentagrama, usando el ajuste que aparece a continuación.
+Los silencios multicompás en un pentagrama polifónico se sitúan de
+forma diferente dependiendo de a qué voz pertenecen.  Se pueden
+imprimir sobre la misma línea del pentagrama, usando el ajuste que
+aparece a continuación.  Si omitimos la palabra clave
+@code{\\once}, el cambio afecta a todos los silencios que siguen,
+dentro de la voz dada.
 
 "
   doctitlees = "Combinar los silencios multicompás en una parte polifónica"

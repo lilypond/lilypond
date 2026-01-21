@@ -1,15 +1,13 @@
-%% Translation of GIT committish: 4f16fa98fd258f08e64203c793028ea3e363b1c0
+%% Translation of GIT committish: af28c5f89c915fdf795739a1e2dd437c726d7f61
   texidoces = "
-Al escribir un bajo cifrado, podemos situar las cifras encima o debajo
-de las notas del bajo, mediante la definición de la propiedad
-@code{BassFigureAlignmentPositioning #'direction} (exclusivamente
-dentro de un contexto @code{Staff}). Se puede elegir entre @code{#UP}
-(o @code{#1}, arriba), @code{#CENTER} (o @code{#0}, centrado) y
-@code{#DOWN} (o @w{@code{#-1}}, abajo).
+Al escribir un bajo cifrado, podemos situar las cifras encima o
+debajo de las notas del bajo mediante las instrucciones
+@code{\\bassFigureStaffAlignmentDown} y
+@code{\\bassFigureStaffAlignmentUp}.  Anteponemos @code{\\once} a
+la instrucción si queremos modificar solo la cifra siguiente.
 
-Esta propiedad se puede cambiar tantas veces como queramos.  Utilice
-@code{\\once \\override} si no quiere que la sobreescritura se aplique
-a toda la partitura.
+La instrucción @code{\\bassFigureStaffAlignmentNeutral} reinicia
+la dirección del bajo cifrado a su valor predeterminado.
 
 "
   doctitlees = "Añadir un bajo cifrado encima o debajo de las notas"

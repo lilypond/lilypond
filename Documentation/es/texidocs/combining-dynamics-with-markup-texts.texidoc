@@ -1,8 +1,11 @@
-%% Translation of GIT committish: fbf390d05408c5b842a22c122da734c54f92ca12
+%% Translation of GIT committish: 70abecb938c2bb752967bd56b7402dd8129838a5
   texidoces = "
 Ciertas indicaciones dinámicas pueden llevar textos (como @qq{più
-forte} o @qq{piano subito}). Se pueden producir usando un bloque
-@code{\\markup}.
+@emph{f}} o @qq{@emph{p} subito}). Se pueden producir usando un
+bloque @code{\\markup}; el objeto resultante se comporta como un
+objeto gráfico @code{TextScript}.
+
+See also @qq{Combining dynamics with markup texts (2)}.
 
 "
   doctitlees = "Combinar indicaciones dinámicas con marcados textuales"

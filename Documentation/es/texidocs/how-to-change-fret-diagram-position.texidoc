@@ -1,20 +1,21 @@
-%% Translation of GIT committish: 4f16fa98fd258f08e64203c793028ea3e363b1c0
+%% Translation of GIT committish: 70abecb938c2bb752967bd56b7402dd8129838a5
   texidoces = "
-Si queremos mover un diagrama de posiciones de acorde, por ejemplo,
-para evitar la colisión, o situarlo entre dos notas, tenemos varias
-posibilidades:
+Si queremos mover un diagrama de posiciones de acorde, por
+ejemplo, para evitar la colisión, o situarlo entre dos notas,
+tenemos varias posibilidades.
 
-1) modificar los valores de relleno #'padding o del desplazamiento
-adicional #'extra-offset (como se muestra en el primer ejemplo)
+1) Modificar el valor de las propiedades @code{padding} (relleno)
+o @code{extra-offset} (desplazamiento adicional) como se muestra
+en la primera línea.
 
-2) podemos añadir una voz invisible y adjuntar los diagramas de
-posiciones a las notas invisibles de esa voz (como se ve en el segundo
-ejemplo).
+2) Podemos añadir una voz invisible y adjuntar los diagramas de
+posiciones a las notas invisibles de esa voz (como se ve en la
+segunda línea).
 
- Si tenemos que mover el diagrama según una posición rítmica dentro
-del compás (en el ejemplo, la tercera parte del compás) es mejor el
-segundo ejemplo, porque el diagrama se alinea con el tercer pulso por
-sí solo.
+Si tenemos que mover el diagrama según una posición rítmica dentro
+del compás (en el ejemplo, la tercera parte del compás) es mejor
+el segundo ejemplo, porque el diagrama se alinea con el tercer
+pulso por sí solo.
 
 "
-  doctitlees = "Cómo cambiar la posicion de un diagrama de posiciones"
+  doctitlees = "Cómo cambiar la posición de un diagrama de posiciones"

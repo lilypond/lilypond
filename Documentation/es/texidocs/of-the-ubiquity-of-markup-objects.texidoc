@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 4f16fa98fd258f08e64203c793028ea3e363b1c0
+%% Translation of GIT committish: 2dbd7c68d29e97631d7ef0d5f324fdc0ad92eccf
   texidoces = "
 Los objetos de texto se escriben como simples cadenas de texto
 entrecomilladas, o como bloques @code{\\markup} que pueden aceptar
@@ -12,8 +12,8 @@ Los bloques de marcado de texto se pueden usar:
 dentro de cualquier objeto @code{TextScript} (adjunto a notas con @code{-},
 @code{^} o @code{_}),
 @item
-cualquier marca @code{TextMark} escrita con la palabra clave @code{\\textMark}, o con la instrucción @code{\\textEndMark}, u otros objetos similares como 
-MetronomeMark escrito con la instrucción @code{\\tempo},
+dentro de cualquier marca @code{TextMark} escrita con la palabra clave @code{\\textMark}, o con la instrucción @code{\\textEndMark}, u otros objetos similares como 
+@code{MetronomeMark} escrito con la instrucción @code{\\tempo},
 @item
 como bloques de marcado autosuficientes, introducidos en el nivel superior jerárquico fuera de cualquier bloque
 @code{\\score},

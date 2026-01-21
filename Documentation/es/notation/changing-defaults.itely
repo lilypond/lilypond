@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-Translation of GIT committish: d2fe9aa327bdbb1f054fada72c54d266456fc45d
+Translation of GIT committish: e14f3b2735ee559b06211f1b9a082923705f0970
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1748,11 +1748,13 @@ utilizando el manual en formato PDF.
 Siga el enlace que lleva a @rinternals{Fingering}.  Al principio
 de la página, puede ver
 
+@raggedright
 @quotation
 Los objetos de digitación se crean por parte de los siguientes
 grabadores: @rinternals{Fingering_engraver} y
 @rinternals{New_fingering_engraver}.
 @end quotation
+@end raggedright
 
 Siguiendo los enlaces relacionados dentro de la referencia del
 programa, podemos seguir el flujo de información dentro del

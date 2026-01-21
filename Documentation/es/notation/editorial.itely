@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is included from notation.itely
 @ignore
-    Translation of GIT committish: b22569ea33c9c9a6a26e17624d79449bffa81b22
+    Translation of GIT committish: e14f3b2735ee559b06211f1b9a082923705f0970
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -629,7 +629,8 @@ cuerda, o pulsar los dedos indicando un @dfn{arrastre}.
   \tuplet 5/4 4 {
     \set strokeFingerOrientations = #'(down)
     <f-1 \glide \rightHandFinger #1 _\6 >16
-    %% Raise a bit, otherwise the stub-line would be hidden by the ledger line.
+    % Raise a bit, otherwise the stub line would be hidden
+    % by the ledger line.
     <c'\tweak Y-offset #0.5 -3>
     <f' -4 \rightHandFinger #1 >
     \set strokeFingerOrientations = #'(up)

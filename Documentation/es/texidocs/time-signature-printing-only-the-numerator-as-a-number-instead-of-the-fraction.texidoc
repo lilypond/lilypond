@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 4f16fa98fd258f08e64203c793028ea3e363b1c0
+%% Translation of GIT committish: 2dbd7c68d29e97631d7ef0d5f324fdc0ad92eccf
   texidoces = "
 A veces, la indicación de compás no debe imprimir la fracción
 completa (p.ej.  7/4), sino solo el numerador (el dígito@tie{}7 en
@@ -7,7 +7,7 @@ este caso).  Esto se puede hacer fácilmente utilizando
 cambiar el estilo permanentemente. Usando @code{\\revert
 Staff.TimeSignature.style}, se puede revertir el cambio.  Para
 aplicar el estilo de un número único a una sola indicación de
-compás, utilice la instrucción @code{\\override} y anteponga la
-instrucción @code{\\once}.
+compás, use @code{\\tweak}.
+
 "
   doctitlees = "Indicación de compás imprimiendo solo el numerador (en lugar de la fracción)"

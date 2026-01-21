@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of extending.tely
 @ignore
-    Translation of GIT committish: 3662896dcab1111d5be82638e9a6d6de4e226985
+    Translation of GIT committish: ba4e7ffd01ece9dc9662a035967f5a6e438f9cf9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1808,7 +1808,7 @@ sistemas.
 En el ejemplo siguiente, definimos un procedimiento
 @code{my-callback}.  Este procedimiento
 
-@itemize
+@itemize @minus{}
 @item
 determina si hemos sido divididos por los saltos de línea
 @item

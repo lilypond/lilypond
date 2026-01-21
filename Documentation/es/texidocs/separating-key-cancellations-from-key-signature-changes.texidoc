@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 298041c62dfc4f5674fc7ee18f45b7dbd2653add
+%% Translation of GIT committish: 35d4cc1b78c4105643ca5fdcb44cb717578d6d4a
   texidoces = "
 De forma predeterminada, las alteraciones accidentales que se usan
 para las cancelaciones en las armaduras se colocan adyacentes a
@@ -15,18 +15,17 @@ al comienzo de una línea, respectivamente.  Solo nos interesa
 cambiar el comportamiento en el medio de la línea.
 
 Si busca la definición de @code{break-align-orders} en la
-Referencia de funcionamiento interno de LilyPond (véase el objeto
-gráfico
-@uref{https://lilypond.org/doc/v2.24/Documentation/internals/breakalignment,@code{BreakAlignment}}),
-verá el orden siguiente en el segundo elemento:
+@uref{https://lilypond.org/doc/v2.24/Documentation/internals/breakalignment,Referencia
+de funcionamiento interno} de LilyPond, verá el orden siguiente en
+el segundo elemento:
 
-@verbatim
+@example
 ...
 staff-bar
 key-cancellation
 key-signature
 ...
-@end verbatim
+@end example
 
 Queremos modificar eso, trasladando @code{key-cancellation} a
 antes de @code{staff-bar}.  Para que esto ocurra, usamos la

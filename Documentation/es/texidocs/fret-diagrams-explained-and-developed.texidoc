@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 4f16fa98fd258f08e64203c793028ea3e363b1c0
+%% Translation of GIT committish: 70abecb938c2bb752967bd56b7402dd8129838a5
   texidoces = "
-Eeste fragmento de código presenta muchas posibilidades para obtener
-diagramas de posiciones de acorde y cómo trucarlos.
+Este fragmento de código presenta muchas posibilidades para
+obtener diagramas de posiciones de acorde y cómo trucarlos.
 
 "
   doctitlees = "Diagramas de posiciones de acorde, explicados y desarrollados"

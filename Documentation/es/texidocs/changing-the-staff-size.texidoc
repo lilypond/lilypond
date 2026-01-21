@@ -1,9 +1,13 @@
-%% Translation of GIT committish: 1bf2403e1cd7038a1e7ea62da560af601e3694fc
+%% Translation of GIT committish: 35d4cc1b78c4105643ca5fdcb44cb717578d6d4a
   texidoces = "
-Aunque la manera más sencilla de redimensionar los pentagramas es
-usar @code{#(set-global-staff-size @var{tamaño})}, el tamaño de
-una pauta individual se puede cambiar escalando las propiedades de
-@code{staff-space} y de @code{fontSize}.
+La manera más sencilla de redimensionar los pentagramas es usar
+
+@example
+ #(set-global-staff-size @var{tamaño})
+@end example
+
+El tamaño de una pauta individual se puede cambiar usando las
+propiedades @code{staff-space} y de @code{fontSize}.
 
 "
   doctitlees = "Modificar el tamaño de la pauta"

@@ -1,8 +1,19 @@
-%% Translation of GIT committish: 4f16fa98fd258f08e64203c793028ea3e363b1c0
+%% Translation of GIT committish: 70abecb938c2bb752967bd56b7402dd8129838a5
   texidoces = "
 La instrucción @code{\\applyOutput} hace posible el ajuste fino de
-cualquier objeto de presentación, en cualquier contexto.  Requiere una
-función de Scheme contres argumentos.
+cualquier objeto de presentación, en cualquier contexto.  Requiere
+una función de Scheme contres argumentos.
+
+En el ejemplo de abajo, la función @code{mc-squared} se ejecuta
+para todos los objetos gráficos @code{NoteHead} (dentro del
+contexto @code{Voice} actual) en el punto temporal en curso; la
+función modifica el @code{stencil} o sello del objeto gráfico,
+usando la propiedad @code{staff-position} para sustituir ciertas
+alturas con elementos de marcado.
+
+Consulte el
+@uref{https://lilypond.org/doc/v2.24/Documentation/extending/running-a-function-on-all-layout-objects,@q{Manual
+de extensión del programa}} para más información.
 
 "
   doctitlees = "Modificación de propiedades para objetos gráficos individuales"

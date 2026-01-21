@@ -1,10 +1,6 @@
-%% Translation of GIT committish: 4f16fa98fd258f08e64203c793028ea3e363b1c0
+%% Translation of GIT committish: 70abecb938c2bb752967bd56b7402dd8129838a5
   texidoces = "
-Referencia de la notación 1.7 Anotaciones editoriales
-
-Beethoven, Op. 31, Núm. 3@*
-Sonata para piano núm. 18, mov. II, Scherzo@*
-Compases 9 a 14
+Encabezamiento de Indicaciones editoriales.
 "
 
-  doctitle = "Encabezamiento de indicaciones editoriales"
+  doctitlees = "Encabezamiento de indicaciones editoriales"

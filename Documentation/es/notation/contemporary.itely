@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: b22569ea33c9c9a6a26e17624d79449bffa81b22
+    Translation of GIT committish: e14f3b2735ee559b06211f1b9a082923705f0970
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -75,7 +75,7 @@ la música contemporánea.
 @subsection Referencias para enfoque contemporáneos del ritmo
 
 @itemize
-@item Los tipos de compás de amalgama se estudian en @ref{Time signature}.
+@item Los tipos de compás complejos o de amalgama se estudian en @ref{Time signature}.
 
 @item La notación polimétrica básica se estudia en
 @ref{Polymetric notation}.
@@ -215,7 +215,8 @@ una línea a partir de @code{BreakAlignGroup}.
     g'1\- s \clef "alto" g'
   }
   \new Staff {
-    \override DurationLine.bound-details.right.end-on-break-align-group = ##t
+    \override DurationLine.bound-details
+                          .right.end-on-break-align-group = ##t
     g'1\- s \clef "alto" g' \bar "|."
   }
 >>

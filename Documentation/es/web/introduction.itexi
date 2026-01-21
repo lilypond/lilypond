@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: d4d13c8b46ca5922c2d32657833c589d6c04e534
+    Translation of GIT committish: a985978d4f9a711bc69699bc2abb91fc18e01e1c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -822,6 +822,11 @@ leer y comprender.  Las partituras del sitio web se han tomado de
 Mutopia y otros recursos en línea, y convertidos después a la
 notación Clairnote.
 
+@item
+@uref{https://ebersberger-liedersammlung.de/, Ebersberger
+Liedersammlung}, which is a collection of approx.@tie{}240
+copyright-free songs (mostly in German), all set in LilyPond.
+
 @end itemize
 @divEnd
 
@@ -1036,7 +1041,7 @@ número CMS06.
 
 @divClass{testimonial-item}
 @imageFloat{carter-brey,jpg, right}
-@subsubheading @uref{http://nyphil.org/meet/orchestra/index.cfm?page=profile&personNum=7, Carter Brey}, primer cello de la Filarmónica de Nueva York
+@subsubheading @uref{https://www.nyphil.org/about-us/artists/carter-brey/, Carter Brey}, primer cello de la Filarmónica de Nueva York
 
 @qq{@dots{} He escrito un par de piezas para violoncello solista
 que he impreso con LilyPond y que voy a enviar a Schirmer para su
@@ -1047,7 +1052,7 @@ de bueno que el mío!}
 
 @divClass{testimonial-item}
 @imageFloat{orm-finnendahl,jpg, left}
-@subsubheading @uref{http://icem-www.folkwang-hochschule.de/~finnendahl/, Orm Finnendahl}, profesor de composición, Hochschule für Musik und Darstellende Kunst Frankfurt am Main
+@subsubheading @uref{https://icem-www.folkwang-uni.de/~finnendahl/, Orm Finnendahl}, profesor de composición, Hochschule für Musik und Darstellende Kunst Frankfurt am Main
 
 @qq{Aún cuando no domino [LilyPond] todavía, estoy @strong{muy}
 impresionado.  Usé el programa para digitalizar un motete de
@@ -1060,7 +1065,7 @@ resultados!}
 
 @divClass{testimonial-item}
 @imageFloat{darius-blasband,jpg, right}
-@subsubheading Darius Blasband, compositor (Bruselas, Bélgica)
+@subsubheading @uref{https://www.dariusblasband.com/, Darius Blasband}, compositor (Bruselas, Bélgica)
 
 @qq{[...después del primer ensayo orquestal] obtuve numerosos
 cumplidos sobre la calidad de las partituras. Lo que es incluso
@@ -1071,7 +1076,7 @@ orquesta es básicamente la impresión en bruto, sin retocar.}
 
 
 @divClass{testimonial-item}
-@subsubheading Kieren MacMillan, compositor (Toronto, Canadá)
+@subsubheading @uref{https://www.kierenmacmillan.info/, Kieren MacMillan}, compositor (Toronto, Canadá)
 
 @qq{Gracias y felicitaciones al equipo de desarrollo por su
 increíble trabajo.  Nunca he visto nada que se acerque al
@@ -1089,7 +1094,7 @@ partitura de Warner Bros, e incluso muchas de las más recientes de
 
 
 @divClass{testimonial-item}
-@subsubheading Chris Cannam, programador principal del proyecto @uref{https://www.rosegardenmusic.com/, RoseGarden}
+@subsubheading Chris Cannam, antiguo programador principal del proyecto @uref{https://www.rosegardenmusic.com/, RoseGarden}
 
 @qq{LilyPond es, obviamente, King Kong [de la tipografía musical a lo
 grande].}
@@ -1097,7 +1102,7 @@ grande].}
 
 
 @divClass{testimonial-item}
-@subsubheading Chris Snyder, @uref{https://twitter.com/adoromusic, Adoro Music Publishing}
+@subsubheading Chris Snyder, Adoro Music Publishing
 
 @qq{La forma en que se introduce la música para LilyPond me hace
 pensar de una manera más musical -- ha habido veces en que me he
@@ -1130,7 +1135,7 @@ LilyPond, ¡más me gusta!}
 
 
 @divClass{testimonial-item}
-@subsubheading Vaylor Trucks, intérprete de guitarra eléctrica (sí, @uref{http://www.allmanbrothersband.com/modules.php?op=modload&name=userpage&file=content&page_id=12, pariente de...})
+@subsubheading @uref{https://www.brotherandsister.band/meet-the-band, Vaylor Trucks}, intérprete de guitarra eléctrica (sí, @uref{http://www.allmanbrothersband.com, pariente de...})
 
 @qq{Estoy súper-impresionado con LilyPond (@dots{})}
 
@@ -1155,7 +1160,7 @@ decir es: gracias por darnos LilyPond, es realmente bueno.}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{https://www.troff.org/whoswho.html#werner, Werner Lemberg}, director de orquesta en el Teatro de Koblenz, Alemania, y destacado hacker de GNU
+@subsubheading @uref{https://www.moz.ac.at/de/personen/dirigieren-chor-blasorchesterleitung/werner-lemberg, Werner Lemberg}, profesor senior en la Mozarteum University (Salzburgo) y destacado hacker de GNU
 
 @qq{¡De cualquier manera, LilyPond hace un trabajo sensacional!}
 @divEnd
@@ -1172,7 +1177,7 @@ amigos míos hablándoles de su potencial.}
 
 
 @divClass{testimonial-item}
-@subsubheading @uref{http://webusers.siba.fi/~mkuuskan/, El Dr. Mika Kuuskankare}, investigador de la @uref{http://siba.fi, Sibelius Academy de Finlandia}, compositor y autor del Expressive Notation Package (ENP)
+@subsubheading Dr. Mika Kuuskankare, compositor y autor del Expressive Notation Package (ENP)
 
 @qq{Siento el más hondo respeto hacia LilyPond y sus creadores y
 mantenedores debido a que sé por mi experiencia personal lo

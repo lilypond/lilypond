@@ -1,17 +1,18 @@
-%% Translation of GIT committish: 4f16fa98fd258f08e64203c793028ea3e363b1c0
+%% Translation of GIT committish: 2dbd7c68d29e97631d7ef0d5f324fdc0ad92eccf
   texidoces = "
 Aunque las casillas de repetición se especifican de forma óptima
 usando @code{\\repeat volta}, debe usarse la propiedad de contexto
-@code{repeatCommands} en caso de que el texto de la casilla requiera
-un formato más avanzado con @code{\\markup}.
-
+@code{repeatCommands} en caso de que el texto de la casilla
+requiera un formato más avanzado con @code{\\markup}.
 
 Puesto que @code{repeatCommands} admite una lista, el método más
-sencillo de incluir elementos de marcado es usar un identificador para
-el texto e insertarlo en la lista de instrucciones usando la sintaxis
-de Scheme @code{#(list (list 'volta textIdentifier))}.  Las
-instrucciones de principio y fin de repetición se pueden añadir como
-elementos de lista independientes:
+sencillo de incluir elementos de marcado es usar un identificador
+para el texto e insertarlo en la lista de instrucciones usando la
+sintaxis de Scheme @code{#`((volta ,@var{textIdentifier}) ...)}
+(observe el uso del apóstrofo invertido después de @code{#} y la
+coma antes de @var{textIdentifier}).  Las instrucciones de
+principio y fin de repetición se pueden añadir como elementos de
+lista independientes:
 
 "
   doctitlees = "Elementos de marcado para el texto de las casillas de repetición usando @code{repeatCommands}"

@@ -1,9 +1,0 @@
-%% Translation of GIT committish: 4f16fa98fd258f08e64203c793028ea3e363b1c0
-  texidoces = "
-La nomenclatura inglesa (predeterminada) para los acordes del cifrado
-americano se puede cambiar por la alemana (@code{\\germanChords}
-sustituye B y Bes por H y B) o por la semi-alemana
-(@code{\\semiGermanChords} sustituye B y Bes por H y Bb).
-
-"
-  doctitlees = "Cambiar la nomenclatura de los acordes del cifrado americano por la notación alemana o semi-alemana"
