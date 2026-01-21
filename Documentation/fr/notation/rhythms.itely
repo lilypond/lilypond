@@ -8,7 +8,7 @@
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.32"
+@c \version "2.25.33"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 @c Translation checkers: Valentin Villenave, François Martin, Xavier Scheuer
@@ -2169,13 +2169,13 @@ qu'elle est libellée dans le bloc @code{\midi}.
 @cindex composite, métrique
 @cindex complexe, métrique
 
-@funindex \compoundMeter
+@funindex \timeAbbrev
 
 Une métrique composite se crée à l'aide de la fonction
-@code{\compoundMeter}, en suivant la syntaxe :
+@code{\timeAbbrev}, en suivant la syntaxe :
 
 @example
-\compoundMeter #'(liste de listes)
+\timeAbbrev #'(liste de listes)
 @end example
 
 La construction la plus simple est constituée d'une seule liste, dans
@@ -2184,7 +2184,7 @@ métrique, les précédents représentent le « numérateur ».
 
 @lilypond[quote,verbatim]
 \relative {
-  \compoundMeter #'((2 2 2 8))
+  \timeAbbrev #'((2 2 2 8))
   \repeat unfold 6 c'8 \repeat unfold 12 c16
 }
 @end lilypond
@@ -2196,12 +2196,12 @@ permettre une meilleure lecture des rythmes complexes.
 
 @lilypond[quote,verbatim]
 \fixed c' {
-  \compoundMeter #'((1 4) (3 8))
+  \timeAbbrev #'((1 4) (3 8))
   \repeat unfold 5 c8 \repeat unfold 10 c16
 }
 
 \fixed c' {
-  \compoundMeter #'((1 2 3 8) (3 4))
+  \timeAbbrev #'((1 2 3 8) (3 4))
   \repeat unfold 12 c8
   \submeasureBarsOn
   \repeat unfold 12 c8

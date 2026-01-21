@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.25.28"
+@c \version "2.25.33"
 
 @c Translators: Till Paala
 
@@ -1696,17 +1696,17 @@ verschoben werden.
 >>
 @end lilypond
 
-@funindex \compoundMeter
+@funindex \timeAbbrev
 @cindex Zusammengesetzte Taktarten
 @cindex Taktarten, zusammengesetzt
 
 @subheading Zusammengesetzte Taktarten
 
 Taktarten aus mehreren Teilen werden mit der Funktion
-@code{\compoundMeter} erstellt.  Die Syntax ist folgende:
+@code{\timeAbbrev} erstellt.  Die Syntax ist folgende:
 
 @example
-\compoundMeter #'(Liste aus Listen)
+\timeAbbrev #'(Liste aus Listen)
 @end example
 
 Die einfachste Konstruktion ist eine einzige Liste, wobei die letzte
@@ -1715,7 +1715,7 @@ Zahlen die Zähler sind.
 
 @lilypond[quote,verbatim]
 \relative {
-  \compoundMeter #'((2 2 2 8))
+  \timeAbbrev #'((2 2 2 8))
   \repeat unfold 6 c'8 \repeat unfold 12 c16
 }
 @end lilypond
@@ -1726,12 +1726,12 @@ entsprechend der Werte angepasst.
 
 @lilypond[quote,verbatim]
 \relative {
-  \compoundMeter #'((1 4) (3 8))
+  \timeAbbrev #'((1 4) (3 8))
   \repeat unfold 5 c'8 \repeat unfold 10 c16
 }
 
 \relative {
-  \compoundMeter #'((1 2 3 8) (3 4))
+  \timeAbbrev #'((1 2 3 8) (3 4))
   \repeat unfold 12 c'8
 }
 @end lilypond

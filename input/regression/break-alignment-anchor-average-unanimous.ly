@@ -1,4 +1,4 @@
-\version "2.25.30"
+\version "2.25.33"
 
 \header {
   texidoc = "When a group of break-aligned items agree on the position
@@ -32,23 +32,23 @@ point to the stated point relative to the complex time signature."
 \fixed c' <<
   \new Staff {
     \override Score.TimeSignature.break-align-anchor-alignment = -1.5
-    \compoundMeter 1,1,1 \textMark \markup \test-mark "-1.5"
+    \timeAbbrev 1,1,1 \textMark \markup \test-mark "-1.5"
     c1 \bar "|"
 
     \override Score.TimeSignature.break-align-anchor-alignment = #LEFT
-    \compoundMeter 1,1,1 \textMark \markup \test-mark "-1.0" \partial 1*100
+    \timeAbbrev 1,1,1 \textMark \markup \test-mark "-1.0" \partial 1*100
     c1 \bar "|"
 
     \override Score.TimeSignature.break-align-anchor-alignment = #CENTER
-    \compoundMeter 1,1,1 \textMark \markup \test-mark "0" \partial 1*100
+    \timeAbbrev 1,1,1 \textMark \markup \test-mark "0" \partial 1*100
     c1 \bar "|"
 
     \override Score.TimeSignature.break-align-anchor-alignment = #RIGHT
-    \compoundMeter 1,1,1 \textMark \markup \test-mark "+1.0" \partial 1*100
+    \timeAbbrev 1,1,1 \textMark \markup \test-mark "+1.0" \partial 1*100
     c1 \bar "|"
 
     \override Score.TimeSignature.break-align-anchor-alignment = 1.5
-    \compoundMeter 1,1,1 \textMark \markup \test-mark "+1.5" \partial 1*100
+    \timeAbbrev 1,1,1 \textMark \markup \test-mark "+1.5" \partial 1*100
     c1 \bar "|"
   }
 

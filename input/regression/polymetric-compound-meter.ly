@@ -1,7 +1,7 @@
-\version "2.25.32"
+\version "2.25.33"
 
 \header {
-  texidoc = "The @code{\\polymetric \\compoundMeter} works like
+  texidoc = "The @code{\\polymetric \\timeAbbrev} works like
 @code{\\polymetric \\time}.
 
 The staff named ``Test'' should change to (3+3+2)/8 time in the second measure
@@ -24,7 +24,7 @@ common time."
     \new Staff = "B" \with { instrumentName = "Test" } {
       \repeat unfold 8 f8
 
-      \context Staff \polymetric \compoundMeter 3,3,2,8
+      \context Staff \polymetric \timeAbbrev 3,3,2,8
 
       \contextPropertyCheck Staff.beamExceptions #'()
       \contextPropertyCheck Staff.beatBase #1/8

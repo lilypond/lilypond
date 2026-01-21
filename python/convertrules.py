@@ -5599,6 +5599,14 @@ def conv(s):
     return s
 
 
+@rule((2, 25, 33), r"""
+\compoundMeter -> \timeAbbrev
+""")
+def conv(s):
+    s = re.sub(r'\\compoundMeter', r'\\timeAbbrev', s)
+    return s
+
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

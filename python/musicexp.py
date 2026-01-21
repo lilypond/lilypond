@@ -4293,7 +4293,7 @@ class TimeSignatureChange(Music):
         if len(self.fractions) == 2 and isinstance(self.fractions[0], int):
             ret.append(r'\time %d/%d' % tuple(self.fractions))
         elif self.fractions:
-            ret.append(r"\compoundMeter #'%s"
+            ret.append(r"\timeAbbrev #'%s" # TODO: just use \time
                        % self.format_fraction(self.fractions))
 
         return ' '.join(ret)

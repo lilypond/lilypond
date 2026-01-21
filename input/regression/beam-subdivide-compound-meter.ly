@@ -1,4 +1,4 @@
-\version "2.25.23"
+\version "2.25.33"
 
 \header {
   texidoc = "Even under unusual measure lengths, beam
@@ -11,7 +11,7 @@ subdivision should not defect."
 
 \relative c'' {
   \omit Staff.Clef
-  \compoundMeter #'((2 4) (5 32))
+  \timeAbbrev #'((2 4) (5 32))
   \contextPropertyCheck Timing.beatBase #1/32
   \set beatStructure = #'(8 8 5)
   \set subdivideBeams = ##t

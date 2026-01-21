@@ -1,4 +1,4 @@
-\version "2.25.30"
+\version "2.25.33"
 
 \header {
   texidoc = "The ``average'' anchor of a diverse group of
@@ -28,9 +28,9 @@ next."
   \new Staff \with { % here, point at the right side (almost)
     \override TimeSignature.break-align-anchor-alignment = #1.25
   } {
-    \compoundMeter 1,2,3,1 \textMark "↓"
+    \timeAbbrev 1,2,3,1 \textMark "↓"
     c1 \bar "|"
-    \compoundMeter 1,2,3,1 \textMark "↓" \partial 1*5
+    \timeAbbrev 1,2,3,1 \textMark "↓" \partial 1*5
     c1 \bar "|"
   }
   \new Staff {

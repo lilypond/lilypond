@@ -1,4 +1,4 @@
-\version "2.25.31"
+\version "2.25.33"
 
 \header {
   categories = "Rhythms"
@@ -16,7 +16,7 @@ printing the time signatures and adapting the automatic beaming behavior.
 
 
 \relative c' {
-  \compoundMeter #'((2 8) (3 8))
+  \timeAbbrev #'((2 8) (3 8))
   c8 d e fis gis
   c8 fis, gis e d
   c8 d e4 gis8

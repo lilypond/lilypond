@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.28"
+@c \version "2.25.33"
 
 @c Translators: Federico Bruni
 @c Translation checkers: Luca Rossetto Casel
@@ -1748,16 +1748,16 @@ Si può dare a ogni rigo la sua indicazione di tempo indipendente spostando
 >>
 @end lilypond
 
-@funindex \compoundMeter
+@funindex \timeAbbrev
 @cindex indicazione di tempo composto
 @cindex tempo composto, indicazione
 
 @subsubsubheading Indicazioni di tempo composto
 
-Si creano con la funzione @code{\compoundMeter}.  La sintassi è:
+Si creano con la funzione @code{\timeAbbrev}.  La sintassi è:
 
 @example
-\compoundMeter #'(lista di liste)
+\timeAbbrev #'(lista di liste)
 @end example
 
 La struttura più semplice è una singola lista, dove l'@emph{ultimo} numero
@@ -1766,7 +1766,7 @@ indicano i numeri superiori del segno di tempo.
 
 @lilypond[quote,verbatim]
 \relative {
-  \compoundMeter #'((2 2 2 8))
+  \timeAbbrev #'((2 2 2 8))
   \repeat unfold 6 c'8 \repeat unfold 12 c16
 }
 @end lilypond
@@ -1777,12 +1777,12 @@ valori.
 
 @lilypond[quote,verbatim]
 \relative {
-  \compoundMeter #'((1 4) (3 8))
+  \timeAbbrev #'((1 4) (3 8))
   \repeat unfold 5 c'8 \repeat unfold 10 c16
 }
 
 \relative {
-  \compoundMeter #'((1 2 3 8) (3 4))
+  \timeAbbrev #'((1 2 3 8) (3 4))
   \repeat unfold 12 c'8
 }
 @end lilypond

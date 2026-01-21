@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.30"
+@c \version "2.25.33"
 
 @node Rhythms
 @chapter Duraciones
@@ -2194,16 +2194,16 @@ también @code{\enablePerStaffTiming} dentro del bloque @code{\midi}.
 
 @subsubheading Complex time signatures
 
-@funindex \compoundMeter
+@funindex \timeAbbrev
 @cindex compuesto, indicación de compás
 @cindex compás, compuesto, indicación de
 
 @subsubheading Indicaciones de compás compuesto
 
-Se crean usando la función @code{\compoundMeter}.  La sintaxis es:
+Se crean usando la función @code{\timeAbbrev}.  La sintaxis es:
 
 @example
-\compoundMeter #'(lista de listas)
+\timeAbbrev #'(lista de listas)
 @end example
 
 La construcción más simple es una lista única, en la que el
@@ -2212,7 +2212,7 @@ compás y los anteriores son los numeradores.
 
 @lilypond[quote,verbatim]
 \relative {
-  \compoundMeter #'((2 2 2 8))
+  \timeAbbrev #'((2 2 2 8))
   \repeat unfold 6 c'8 \repeat unfold 12 c16
 }
 @end lilypond
@@ -2223,12 +2223,12 @@ dependiendo de los valores.
 
 @lilypond[quote,verbatim]
 \relative {
-  \compoundMeter #'((1 4) (3 8))
+  \timeAbbrev #'((1 4) (3 8))
   \repeat unfold 5 c'8 \repeat unfold 10 c16
 }
 
 \relative {
-  \compoundMeter #'((1 2 3 8) (3 4))
+  \timeAbbrev #'((1 2 3 8) (3 4))
   \repeat unfold 12 c'8
 }
 @end lilypond

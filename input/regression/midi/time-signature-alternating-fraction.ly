@@ -1,4 +1,4 @@
-\version "2.25.28"
+\version "2.25.33"
 
 \header {
   texidoc = "The MIDI time signature derived from an alternating time signature
@@ -15,7 +15,7 @@ Verifying the MIDI output requires manual inspection."
 
 \score {
   \fixed c' {
-    \compoundMeter #'((2 4) (6 8))
+    \timeAbbrev #'((2 4) (6 8))
     \contextPropertyCheck Timing.beamExceptions #'()
     \contextPropertyCheck Timing.beatBase #1/8
     \contextPropertyCheck Timing.beatStructure #'(2 2  3 3)

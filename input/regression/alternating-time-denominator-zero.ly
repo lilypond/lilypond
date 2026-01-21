@@ -1,4 +1,4 @@
-\version "2.25.27"
+\version "2.25.33"
 
 \header {
   texidoc = "A strictly alternating time signature with a zero denominator
@@ -10,4 +10,4 @@ results in a warning."
   (ly:translate-cpp-warning-scheme
    "unsupported time signature"))
 
-{ \compoundMeter #'((1 2) (3 0)) c'1 }
+{ \timeAbbrev #'((1 2) (3 0)) c'1 }

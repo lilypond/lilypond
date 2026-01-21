@@ -18,7 +18,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.25.32"
+\version "2.25.33"
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -431,20 +431,6 @@ may be @code{\\default} to use the next number in sequence automatically.")
    (if num
        (make-music 'CodaMarkEvent 'label num)
        (make-music 'CodaMarkEvent)))
-
-compoundMeter =
-#(define-music-function (time-sig) (pair?)
-   (_i "Set the time signature to @var{time-sig}.
-
-This is like @code{\\time} @var{time-sig}, except that it allows abbreviating
-fractions as lists.  For example, a time signature of (3+1)/8 + 2/4 can be
-created with @code{\\compoundMeter #'((3 1 8) (2 4))}, and a time signature
-of (3+2)/8 with either @code{\\compoundMeter #'((3 2 8))} or the shorter version
-@code{\\compoundMeter 3,2,8}.")
-   (let ((canonical (tsig-abbr-expand time-sig)))
-     (if canonical
-         #{ \time #canonical #}
-         #{ #})))
 
 compressMMRests =
 #(define-music-function (music) (ly:music?)
@@ -2354,6 +2340,23 @@ For example, a time signature of (3+1)/8 +@tie{}2/4 can be created with
      (make-music 'ReferenceTimeSignatureMusic
                  'time-signature time-sig
                  'beat-structure structure))))
+
+timeAbbrev =
+#(define-music-function (time-sig) (pair?)
+   (_i "Set the time signature to @var{time-sig}.
+
+This is like @code{\\time} @var{time-sig}, except that it allows abbreviating
+fractions as lists.  For example, a time signature of (3+1)/8 + 2/4 can be
+created with @code{\\timeAbbrev #'((3 1 8) (2 4))}, and a time signature of
+(3+2)/8 with either @code{\\timeAbbrev #'((3 2 8))} or the shorter version
+@code{\\timeAbbrev 3,2,8}.
+
+This is for backward compatibility.  Using @code{\\time} instead is
+recommended.")
+   (let ((canonical (tsig-abbr-expand time-sig)))
+     (if canonical
+         #{ \time #canonical #}
+         #{ #})))
 
 times =
 #(define-music-function (fraction music) (fraction? ly:music?)

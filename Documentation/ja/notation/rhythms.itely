@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.25.28"
+@c \version "2.25.33"
 
 @c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
 @c Translation status: post-GDP
@@ -1767,17 +1767,17 @@ R1\fermata
 >>
 @end lilypond
 
-@funindex \compoundMeter
+@funindex \timeAbbrev
 @cindex compound time signature (複合拍子記号)
 @cindex time signature, compound (複合拍子記号)
 
 @subsubsubheading 複合拍子記号
 
-複合拍子記号は @code{\compoundMeter} を用いて作成します。@c
+複合拍子記号は @code{\timeAbbrev} を用いて作成します。@c
 構文は以下の通りです:
 
 @example
-\compoundMeter #'(list of lists)
+\timeAbbrev #'(list of lists)
 @end example
 
 最も簡単な構成は単一のリストであり、@c
@@ -1785,7 +1785,7 @@ R1\fermata
 
 @lilypond[quote,verbatim]
 \relative {
-  \compoundMeter #'((2 2 2 8))
+  \timeAbbrev #'((2 2 2 8))
   \repeat unfold 6 c'8 \repeat unfold 12 c16
 }
 @end lilypond
@@ -1795,12 +1795,12 @@ R1\fermata
 
 @lilypond[quote,verbatim]
 \relative {
-  \compoundMeter #'((1 4) (3 8))
+  \timeAbbrev #'((1 4) (3 8))
   \repeat unfold 5 c'8 \repeat unfold 10 c16
 }
 
 \relative {
-  \compoundMeter #'((1 2 3 8) (3 4))
+  \timeAbbrev #'((1 2 3 8) (3 4))
   \repeat unfold 12 c'8
 }
 @end lilypond

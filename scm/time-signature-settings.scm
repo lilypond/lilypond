@@ -213,7 +213,7 @@ canonical form, or to @code{#f} on error.  Values are not examined."
 This change is purely syntactic and does not check any values.  Return @code{#f}
 if @var{abbr} is not syntactically valid.
 
-See the @code{\\compoundMeter} command for a description of abbreviated form.
+See the @code{\\timeAbbrev} command for a description of abbreviated form.
 See the @code{\\time} command for a description of canonical form.
 
 Example:

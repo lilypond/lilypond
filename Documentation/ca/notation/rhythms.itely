@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.28"
+@c \version "2.25.33"
 
 @c Translators: Walter Garcia-Fontes
 @c Translation checkers:
@@ -1723,16 +1723,16 @@ i @code{Default_bar_line_engraver} al context de @code{Staff}.
 >>
 @end lilypond
 
-@funindex \compoundMeter
+@funindex \timeAbbrev
 @cindex compost, indicacions de compàs
 @cindex compàs compost, indicació de
 
 @subsubsubheading Indicacions de compàs compost
 
-Es creen usant la funció @code{\compoundMeter}.  La sintaxi és:
+Es creen usant la funció @code{\timeAbbrev}.  La sintaxi és:
 
 @example
-\compoundMeter #'(llista de llistes)
+\timeAbbrev #'(llista de llistes)
 @end example
 
 La construcció més simple és una llista única, en la qual
@@ -1741,7 +1741,7 @@ compàs i les anteriors són els numeradors.
 
 @lilypond[quote,verbatim]
 \relative {
-  \compoundMeter #'((2 2 2 8))
+  \timeAbbrev #'((2 2 2 8))
   \repeat unfold 6 c'8 \repeat unfold 12 c16
 }
 @end lilypond
@@ -1752,12 +1752,12 @@ depenent dels valors.
 
 @lilypond[quote,verbatim]
 \relative {
-  \compoundMeter #'((1 4) (3 8))
+  \timeAbbrev #'((1 4) (3 8))
   \repeat unfold 5 c'8 \repeat unfold 10 c16
 }
 
 \relative {
-  \compoundMeter #'((1 2 3 8) (3 4))
+  \timeAbbrev #'((1 2 3 8) (3 4))
   \repeat unfold 12 c'8
 }
 @end lilypond

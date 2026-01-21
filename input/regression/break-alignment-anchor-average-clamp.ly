@@ -1,4 +1,4 @@
-\version "2.25.30"
+\version "2.25.33"
 
 \header {
   texidoc = "In this case, the complex time signature has a CENTER
@@ -28,7 +28,7 @@ arrow should point there."
   \new Staff \with { % here, point at the right side (almost)
     \override TimeSignature.break-align-anchor-alignment = #CENTER
   } {
-    \compoundMeter 1,2,3,1 \textMark "↓"
+    \timeAbbrev 1,2,3,1 \textMark "↓"
     c1 \bar "|"
   }
   \new Staff {

@@ -307,6 +307,19 @@ Certain spurious change clefs have been fixed.
 @itemize
 
 @item
+The @code{\time} command now supports complex meters which
+previously required @code{\compoundMeter}, though it requires a
+slightly different syntax.  The @code{\compoundMeter} command has
+been renamed to @code{\timeAbbrev}.
+
+@lilypond[quote,verbatim]
+{
+  \time #'((2 2 2 3) . 8)
+  \repeat unfold 9 c'8
+}
+@end lilypond
+
+@item
 The new @code{\submeasureBarsOn} command enables automatic bar
 lines between the components of strictly alternating time
 signatures (not shown), or where specified by setting the new
