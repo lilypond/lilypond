@@ -1022,7 +1022,7 @@ tipográfica en el modo de marcado:
 @funindex \larger
 @funindex \magnify
 
-El tamao de texto global para los elementos de marcado se puede
+El tamaño de texto global para los elementos de marcado se puede
 fijar con la variable de papel @code{text-font-size}.  Es útil
 para ajustar el tamaño a una fuente tipográfica distinta que puede
 aparecer más pequeña o más grande aunque tenga el mismo tamaño

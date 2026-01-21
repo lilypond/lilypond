@@ -395,7 +395,7 @@ archivos de un programa que tiene un convertidor para un formato
 directo.
 
 @command{midi2ly} convierte las pistas en contextos de
-@rinternals{Staff}) y los canales en contextos de
+@rinternals{Staff} y los canales en contextos de
 @rinternals{Voice}.  Se utiliza el modo relativo para las alturas,
 y las duraciones se escriben solamente cuando es necesario.
 
@@ -479,12 +479,12 @@ estándar de facto para el intercambio de partituras entre
 programas de notación.  Sin embargo, algunos de sus elementos son
 de nivel bastante bajo y están más bien orientados a los gráficos,
 lo que hace que no sea trivial (incluso imposible a veces)
-convertidlos automáticamente a LilyPond.
+convertirlos automáticamente a LilyPond.
 
 El guion de Python @command{musicxml2ly} extrae las notas,
 articulaciones, estructura de la partitura y letra de archivos de
 MusicXML @q{que estén dividos en partes}, y los escribe en un
-archivo @file{.ly}.  Se ejecuta desde de la línea de órdenes como
+archivo @file{.ly}.  Se ejecuta desde la línea de órdenes como
 sigue:
 
 @example
@@ -527,7 +527,7 @@ es@tie{}1, es decir, tomar los datos de la primera página.
 
 @item --ds, --dynamics-scale=@var{factor}
 Escalar los elementos @code{<dynamics>} en un factor no negativo
-@var{factor}; el valor de 0 significa usar el tamao estándar de
+@var{factor}; el valor de 0 significa usar el tamaño estándar de
 LilyPond para los matices dinámicos.  Esta opción puede ser
 necesaria para los archivos MusicXML que usan una fuente
 tipográfica para la música como @q{Maestro}, en la que el tamaño
