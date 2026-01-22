@@ -4252,11 +4252,18 @@ class TimeSignatureChange(Music):
         self.visible = True
 
     def format_fraction(self, frac):
-        if isinstance(frac, list):
+        if isinstance(frac[0], list):
+            # list of lists -> alternating meter
             l = [self.format_fraction(f) for f in frac]
             return "(" + " ".join(l) + ")"
-        else:
-            return "%s" % frac
+        # just a list -> fraction
+        n = [str(i) for i in frac[0:-1]]
+        d = str(frac[-1])
+        if len(n) >= 2:
+            # subdivided (additive) numerator
+            return "((" + " ".join(n) + f") . {d})"
+        # single-term numerator
+        return f"({n[0]} . {d})"
 
     def ly_expression(self):
         ret = []
@@ -4293,7 +4300,7 @@ class TimeSignatureChange(Music):
         if len(self.fractions) == 2 and isinstance(self.fractions[0], int):
             ret.append(r'\time %d/%d' % tuple(self.fractions))
         elif self.fractions:
-            ret.append(r"\timeAbbrev #'%s" # TODO: just use \time
+            ret.append(r"\time #'%s"
                        % self.format_fraction(self.fractions))
 
         return ' '.join(ret)
