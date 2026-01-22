@@ -441,7 +441,6 @@ Internals Reference:
 
 @snippets
 
-@anchor{Cross-staff stems}
 @cindex cross-staff note
 @cindex note, cross-staff
 @cindex cross-staff stem
@@ -454,6 +453,7 @@ Internals Reference:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/cross-staff-stems.ly}
 
+@anchor{Cross-staff arpeggio brackets}
 @cindex cross-staff arpeggio bracket
 @cindex arpeggio bracket, cross-staff
 @cindex bracket, cross-staff
