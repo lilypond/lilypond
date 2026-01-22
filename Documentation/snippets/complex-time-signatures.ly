@@ -26,7 +26,7 @@ printing the time signatures and adapting the automatic beaming behavior.
 
 
 \relative c' {
-  \timeAbbrev #'((2 8) (3 8))
+  \time #'((2 . 8) (3 . 8))
   c8 d e fis gis
   c8 fis, gis e d
   c8 d e4 gis8

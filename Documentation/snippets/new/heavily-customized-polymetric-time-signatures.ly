@@ -15,8 +15,8 @@ is the template of a real Balkan song, by the way).
 
 melody = \relative c'' {
   \key g \major
-  \timeAbbrev #'((3 8) (2 8) (2 8) (3 8) (2 8) (2 8)
-                 (2 8) (2 8) (3 8) (2 8) (2 8))
+  \time #'((3 . 8) (2 . 8) (2 . 8) (3 . 8) (2 . 8) (2 . 8)
+           (2 . 8) (2 . 8) (3 . 8) (2 . 8) (2 . 8))
   \set Timing.beamExceptions = #'()
   \set Timing.beatStructure = 3,2,2,3,2,2,2,2,3,2,2
   c8 c c d4 c8 c b c b a4 g fis8 e d c b' c d e4-^ fis8 g \break

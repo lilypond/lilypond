@@ -2311,7 +2311,7 @@ signatures.
 @lilypond[quote,verbatim]
 \relative c' {
   \key f \major
-  \timeAbbrev #'((3 8) (2 8) (3 8))
+  \time #'((3 . 8) (2 . 8) (3 . 8))
   c8 d e f4 d8 c bes
   c4 g'8 e c f4.
   \bar "||"

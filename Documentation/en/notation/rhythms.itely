@@ -2127,7 +2127,7 @@ In order to use this feature with MIDI output, also include
 
 @subsubheading Complex time signatures
 
-@funindex \timeAbbrev
+@funindex \time
 @cindex additive time signature
 @cindex alternating time signature
 @cindex complex time signature
@@ -2138,37 +2138,38 @@ In order to use this feature with MIDI output, also include
 @cindex time signature, alternating
 @cindex time signature, complex
 
-These are created using the @code{\timeAbbrev} function.  The syntax
-for this is:
-
-@example
-\timeAbbrev #'(list of lists)
-@end example
-
-The simplest construction is a single list, where the @emph{last} number
-indicates the bottom number of the time signature and those that come
-before it, the top numbers.
+These are created using the @code{\time} function with the time
+signature represented as a Scheme expression.  Fractions are
+represented as pairs, @code{(@var{numerator}
+.@tie{}@var{denominator})}, where the denominator is always a
+number.  The numerator is one number or a list of two or more
+numbers.  A list represents concatenation.
 
 @lilypond[quote,verbatim]
-\relative {
-  \timeAbbrev #'((2 2 2 8))
-  \repeat unfold 6 c'8 \repeat unfold 12 c16
+\fixed c' {
+  \time #'((2 2 2) . 8)
+  \repeat unfold 6 c8
+  \repeat unfold 12 c16
 }
 @end lilypond
 
-More complex meters can be constructed using additional lists.
-Automatic beaming settings will be adjusted depending on the
-values.  Submeasure bar lines can be enabled to help clarify
-complex rhythms.
+Meters that alternate strictly through multiple fractions can be
+constructed by grouping the fractions into a list.  Automatic
+beaming settings will be adjusted depending on the values.
+Submeasure bar lines can be enabled to help clarify complex
+rhythms.
 
 @lilypond[quote,verbatim]
 \fixed c' {
-  \timeAbbrev #'((1 4) (3 8))
-  \repeat unfold 5 c8 \repeat unfold 10 c16
+  \time #'((1 . 4) (3 . 8))
+  \repeat unfold 5 c8
+  \repeat unfold 10 c16
 }
+@end lilypond
 
+@lilypond[quote,verbatim]
 \fixed c' {
-  \timeAbbrev #'((1 2 3 8) (3 4))
+  \time #'(((1 2 3) . 8) (3 . 4))
   \repeat unfold 12 c8
   \submeasureBarsOn
   \repeat unfold 12 c8
