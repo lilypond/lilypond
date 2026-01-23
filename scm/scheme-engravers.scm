@@ -2595,3 +2595,56 @@ style @code{\\rtoe} and its siblings, based on the data in the
    (properties-read . (glissandoMap))
    (properties-written . ())
    (description . "Engrave glissandi.")))
+
+(define-public (Custos_engraver context)
+;;; This engraver creates custos symbols.
+;;;
+;;; FIXME: note heads inside of ligatures (i.e. ligature heads) are
+;;; sometimes not recognized by this engraver. --jr
+  (let ((custodes '())
+        (pitches '()))
+    (make-engraver
+     ((start-translation-timestep engraver)
+      (set! custodes '()))
+     (acknowledgers
+      ((note-head-interface engraver notehead source-engraver)
+       ;; Ideally, we'd do (ly:grob-set-parent! custos Y notehead),
+       ;; but since the note head lives on the other system, we can't.
+       ;;
+       ;; So we copy the position from the note head pitch.  We
+       ;; don't look at the staff-position, since we can't be sure
+       ;; whether Clef_engraver already applied a vertical shift.
+       (let ((ev (event-cause notehead)))
+         (when (and (ly:stream-event? ev)
+                    (ly:in-event-class? ev 'note-event))
+           (let ((pitch (ly:event-property ev 'pitch)))
+             (when (ly:pitch? pitch)
+               (set! pitches (cons pitch pitches))))))))
+     ((process-acknowledged engraver)
+      ;; Don't create Custos where they wouldn't be visible anyway,
+      ;; i.e. only create Custos where we can have a line break.
+      (when (or (not (ly:context-property context 'forbidBreak #f))
+                (ly:context-property context 'forceBreak #f))
+        (for-each
+         (lambda (pitch)
+           (let ((custos (ly:engraver-make-item engraver 'Custos '()))
+                 (staff-pos (+ (ly:pitch-steps pitch)
+                               (ly:context-property context 'middleCPosition 0))))
+             (ly:grob-set-property! custos 'staff-position staff-pos)
+             (set! custodes (cons custos custodes))))
+         pitches)
+        (set! pitches '())))
+     ((stop-translation-timestep engraver)
+      (set! pitches '()))
+     ((finalize engraver)
+      (for-each ly:grob-suicide! custodes)
+      (set! custodes '())))))
+
+(ly:register-translator
+ Custos_engraver 'Custos_engraver
+ '((events-accepted . ())
+   (grobs-created . (Custos))
+   (properties-read . (forbidBreak forceBreak middleCPosition))
+   (properties-written . ())
+   (description . "Engrave custodes.")))
+
