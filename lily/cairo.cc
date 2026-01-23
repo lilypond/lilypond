@@ -379,7 +379,7 @@ Cairo_outputter::cairo_font_for_ft_font (FT_Face face)
 
       if (cairo_font_face_set_user_data (
             cairo_font_face, &ukey, face,
-            reinterpret_cast<cairo_destroy_func_t> (FT_Done_Face)))
+            [] (auto p) { FT_Done_Face (static_cast<FT_Face> (p)); }))
         {
           programming_error ("cairo_font_face_set_user_data failed");
         }
