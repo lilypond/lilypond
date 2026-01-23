@@ -1489,17 +1489,19 @@ class Part(Music_xml_node):
             gr._measure_position = gr._prev_measure_position
             gr._after_grace = True
 
-    # Trace starts and stops of slurs in the `slurs` array.  If we encounter
-    # a cross-voice slur, remove it with a warning.  This is better than
-    # letting LilyPond warn, because the construction `a( ... c( ... d)`
-    # (with the expected `b)` in another voice) can lead to ugly artifacts
-    # in the output.
+    # This function takes care of various `<notation>` elements.
     #
-    # We assume that the MusicXML data is well-formed.  In case it is not,
-    # LilyPond will complain.
-    def trace_slurs(self, n, slurs):
+    # * Trace starts and stops of slurs in the `slurs` array.  If we
+    #   encounter a cross-voice slur, remove it with a warning.  This is
+    #   better than letting LilyPond warn, because the construction `a( ... 
+    #   c( ...  d)` (with the expected `b)` in another voice) can lead to
+    #   ugly artifacts in the output.
+    #
+    #   We assume that the MusicXML data is well-formed.  In case it is not,
+    #   LilyPond will complain.
+    def trace_notation(self, n, slurs):
         notations_children = n['notations']
-        id = n['voice'] if 'voice' in n else '1'
+        voice_id = n['voice'] if 'voice' in n else '1'
 
         # Note that there is no order of start and stop elements due to
         # `<forward>` and `<backup>`.
@@ -1511,11 +1513,11 @@ class Part(Music_xml_node):
                 if type == 'continue':
                     continue
                 if nr not in slurs:
-                    slurs[nr] = (s, id)
+                    slurs[nr] = (s, voice_id)
                     continue
 
-                (prev_s, prev_id) = slurs[nr]
-                if prev_id != id:
+                (prev_s, prev_voice_id) = slurs[nr]
+                if prev_voice_id != voice_id:
                     s.message(_('Ignoring cross-voice slur'))
                     s_array = s._parent._content['slur']
                     s_array.remove(s)
@@ -1679,7 +1681,7 @@ class Part(Music_xml_node):
                         rest._is_whole_measure = True
 
                 if 'notations' in n:
-                    self.trace_slurs(n, slurs)
+                    self.trace_notation(n, slurs)
 
                 if 'offset' in n:
                     # The standard recommends integers; however, non-integer
