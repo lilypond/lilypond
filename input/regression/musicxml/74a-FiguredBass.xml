@@ -80,8 +80,7 @@
         <pitch><step>G</step><octave>4</octave></pitch>
         <duration>8</duration>
         <voice>1</voice>
-        <type>eighth</type>
-        <dot/>
+        <type>quarter</type>
       </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>
