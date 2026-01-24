@@ -17,6 +17,9 @@
   along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#ifndef GLIB_UTILS_HH
+#define GLIB_UTILS_HH
+
 #include "memory.hh"
 
 #include <glib.h>
@@ -27,3 +30,5 @@
 // g_xxxx_unref).
 template <typename T>
 using unique_glib_ptr = unique_ptr_with_void_freer<T, g_free>;
+
+#endif // GLIB_UTILS_HH
