@@ -20,15 +20,19 @@
 #ifndef GLIB_UTILS_HH
 #define GLIB_UTILS_HH
 
-#include "memory.hh"
-
 #include <glib.h>
+#include <memory>
 
-// Specialize flower's unique_ptr_with_void_freer for g_free.  Use for anything
-// GLib returns that is owned by the caller (but not for objects with shared
-// ownership, whose reference count should be decremented instead, using
-// g_xxxx_unref).
+// a functor wrapping g_free ()
+struct G_freer
+{
+  void operator() (gpointer p) const { return g_free (p); }
+};
+
+// Use for anything GLib returns that is owned by the caller (but not for
+// objects with shared ownership, whose reference count should be decremented
+// instead, using g_xxxx_unref).
 template <typename T>
-using unique_glib_ptr = unique_ptr_with_void_freer<T, g_free>;
+using unique_glib_ptr = std::unique_ptr<T, G_freer>;
 
 #endif // GLIB_UTILS_HH

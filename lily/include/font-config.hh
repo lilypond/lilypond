@@ -20,11 +20,16 @@
 #ifndef FONT_CONFIG_HH
 #define FONT_CONFIG_HH
 
-#include "memory.hh"
-
 #include <fontconfig/fontconfig.h>
+#include <memory>
 
-using unique_fcconfig_ptr = unique_ptr_with_freer<FcConfig, FcConfigDestroy>;
+// a functor wrapping FcConfigDestroy ()
+struct Fc_config_destroyer
+{
+  void operator() (FcConfig *p) const { return FcConfigDestroy (p); }
+};
+
+using unique_fcconfig_ptr = std::unique_ptr<FcConfig, Fc_config_destroyer>;
 unique_fcconfig_ptr make_font_config (bool emmentaler);
 
 #endif
