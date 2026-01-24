@@ -18,7 +18,7 @@
 */
 
 // Defines _GNU_SOURCE, which is needed to enable POSIX features like
-// strdup and M_PI on Cygwin.
+// M_PI on Cygwin.
 #include "config.hh"
 
 #include "cpu-timer.hh"
@@ -59,6 +59,7 @@
 
 #include <algorithm>
 #include <functional>
+#include <memory>
 #include <string>
 #include <unordered_map>
 #include <utility>
@@ -959,22 +960,34 @@ Cairo_outputter::eps_file (std::string const &content, std::vector<int> bbox,
 
   assert (cairo_surface_status (image) == CAIRO_STATUS_SUCCESS);
 
-  char *dupped_content = strdup (content.c_str ());
-  cairo_status_t status = cairo_surface_set_mime_data (
-    image, CAIRO_MIME_TYPE_EPS,
-    reinterpret_cast<const unsigned char *> (dupped_content), content.length (),
-    free, dupped_content);
-  assert (status == CAIRO_STATUS_SUCCESS);
+  {
+    auto duped_content
+      = std::unique_ptr<unsigned char[]> (new unsigned char[content.length ()]);
+    std::uninitialized_copy (content.begin (), content.end (),
+                             duped_content.get ());
+
+    const auto status = cairo_surface_set_mime_data (
+      image, CAIRO_MIME_TYPE_EPS, duped_content.get (), content.length (),
+      [] (auto p) { delete[] static_cast<unsigned char *> (p); },
+      duped_content.release ());
+    assert (status == CAIRO_STATUS_SUCCESS);
+  }
 
   std::string bbox_str = String_convert::form_string (
     "bbox=[%d %d %d %d]", bbox[0], bbox[1], bbox[2], bbox[3]);
 
-  char *dupped_bbox = strdup (bbox_str.c_str ());
-  status = cairo_surface_set_mime_data (
-    image, CAIRO_MIME_TYPE_EPS_PARAMS,
-    reinterpret_cast<const unsigned char *> (dupped_bbox), bbox_str.length (),
-    &free, dupped_bbox);
-  assert (status == CAIRO_STATUS_SUCCESS);
+  {
+    auto duped_bbox = std::unique_ptr<unsigned char[]> (
+      new unsigned char[bbox_str.length ()]);
+    std::uninitialized_copy (bbox_str.begin (), bbox_str.end (),
+                             duped_bbox.get ());
+
+    const auto status = cairo_surface_set_mime_data (
+      image, CAIRO_MIME_TYPE_EPS_PARAMS, duped_bbox.get (), bbox_str.length (),
+      [] (auto p) { delete[] static_cast<unsigned char *> (p); },
+      duped_bbox.release ());
+    assert (status == CAIRO_STATUS_SUCCESS);
+  }
   paint_image_surface (image, width, height, scale, false, nullptr);
   cairo_surface_destroy (image);
 }
