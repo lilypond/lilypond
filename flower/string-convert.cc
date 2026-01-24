@@ -27,6 +27,8 @@
 #include <cstring>
 #include <string>
 
+static_assert (CHAR_BIT == 8); // often assumed
+
 /**
    A safe length for stringconversion buffers.
 
@@ -54,7 +56,6 @@ std::string
 String_convert::bin2hex (char c)
 {
   std::string str;
-  static_assert (CHAR_BIT == 8);
   const auto bin_char = static_cast<uint8_t> (c);
   str += nibble2hex (bin_char >> 4);
   str += nibble2hex (bin_char);
@@ -149,31 +150,31 @@ String_convert::to_lower (std::string s)
 std::string
 String_convert::be_u16 (uint16_t u)
 {
-  uint8_t r[2];
-  r[0] = uint8_t (u >> 8);
-  r[1] = uint8_t (u);
-  return std::string (reinterpret_cast<char *> (r), 2);
+  return std::string {
+    static_cast<char> ((u >> 8) & 0xFF),
+    static_cast<char> (u & 0xFF),
+  };
 }
 
 std::string
 String_convert::be_u32 (uint32_t u)
 {
-  uint8_t r[4];
-  r[0] = uint8_t (u >> 24);
-  r[1] = uint8_t (u >> 16);
-  r[2] = uint8_t (u >> 8);
-  r[3] = uint8_t (u);
-  return std::string (reinterpret_cast<char *> (r), 4);
+  return std::string {
+    static_cast<char> ((u >> 24) & 0xFF),
+    static_cast<char> ((u >> 16) & 0xFF),
+    static_cast<char> ((u >> 8) & 0xFF),
+    static_cast<char> (u & 0xFF),
+  };
 }
 
 std::string
 String_convert::be_u24 (uint32_t u)
 {
-  uint8_t r[3];
-  r[0] = uint8_t (u >> 16);
-  r[1] = uint8_t (u >> 8);
-  r[2] = uint8_t (u);
-  return std::string (reinterpret_cast<char *> (r), 3);
+  return std::string {
+    static_cast<char> ((u >> 16) & 0xFF),
+    static_cast<char> ((u >> 8) & 0xFF),
+    static_cast<char> (u & 0xFF),
+  };
 }
 
 static bool

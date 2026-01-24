@@ -158,10 +158,13 @@ Midi_key::Midi_key (Audio_key *a)
 std::string
 Midi_key::to_string () const
 {
-  uint8_t str[] = {0xff, 0x59, 0x02, uint8_t (audio_->accidentals_),
-                   uint8_t (audio_->major_ ? 0 : 1)};
-
-  return std::string (reinterpret_cast<char *> (str), sizeof (str));
+  return std::string {
+    static_cast<char> (0xff),
+    static_cast<char> (0x59),
+    static_cast<char> (0x02),
+    static_cast<char> (audio_->accidentals_ & 0xFF),
+    static_cast<char> (!audio_->major_),
+  };
 }
 
 Midi_time_signature::Midi_time_signature (Audio_time_signature *a)
@@ -242,14 +245,15 @@ Midi_time_signature::to_string () const
       return "";
     }
 
-  uint8_t out[] = {0xff,
-                   0x58,
-                   0x04,
-                   static_cast<uint8_t> (num.num ()),
-                   static_cast<uint8_t> (midi_dlog),
-                   uint8_t (audio_->beat_base_clocks_),
-                   8};
-  return std::string (reinterpret_cast<char *> (out), sizeof (out));
+  return std::string {
+    static_cast<char> (0xff),
+    static_cast<char> (0x58),
+    static_cast<char> (0x04),
+    static_cast<char> (num.num () & 0xFF),
+    static_cast<char> (midi_dlog & 0xFF),
+    static_cast<char> (audio_->beat_base_clocks_ & 0xFF),
+    static_cast<char> (0x08),
+  };
 }
 
 Midi_note::Midi_note (Audio_note *a)
@@ -380,9 +384,12 @@ Midi_tempo::to_string () const
   // I assume it could cause trouble. [DE]
   const auto midi_val = static_cast<uint32_t> (std::clamp (
     us_per_quarter.trunc_int (), int64_t {1}, int64_t {0xff'ff'ff}));
-  uint8_t out[] = {0xff, 0x51, 0x03};
-  return std::string (reinterpret_cast<char *> (out), sizeof (out))
-         + String_convert::be_u24 (midi_val);
+  auto str = std::string {
+    static_cast<char> (0xff),
+    static_cast<char> (0x51),
+    static_cast<char> (0x03),
+  };
+  return str + String_convert::be_u24 (midi_val);
 }
 
 Midi_text::Midi_text (Audio_text *a)
@@ -393,8 +400,10 @@ Midi_text::Midi_text (Audio_text *a)
 std::string
 Midi_text::to_string () const
 {
-  uint8_t text_code[] = {0xff, audio_->type_};
-  std::string str (reinterpret_cast<char *> (text_code), sizeof (text_code));
+  auto str = std::string {
+    static_cast<char> (0xff),
+    static_cast<char> (audio_->type_),
+  };
   str += int2midi_varint_string (int (audio_->text_string_.length ()));
   str += audio_->text_string_;
   return str;
