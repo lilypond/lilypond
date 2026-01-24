@@ -84,7 +84,7 @@ Kievan_ligature_engraver::fold_up_primitives (
       move_related_items_to_column (current, first->get_column (), min_length);
 
       // check if we have any dots
-      if (size_t const dot_count = Rhythmic_head::dot_count (current))
+      if (Rhythmic_head::dot_count (current))
         {
           Grob *dot_gr = Rhythmic_head::get_dots (current);
 
