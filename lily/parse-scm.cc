@@ -58,7 +58,7 @@ struct Parse_start
   // The pre-unwind handler, which prints the Scheme error.
   static SCM handle_error_before_unwinding (void *data, SCM tag, SCM args)
   {
-    const auto *const ps = reinterpret_cast<Parse_start *> (data);
+    const auto *const ps = static_cast<Parse_start *> (data);
     WarningAsErrorExitDeferrer deferrer;
 
     // Capture the call stack.

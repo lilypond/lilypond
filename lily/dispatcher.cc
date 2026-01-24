@@ -116,7 +116,7 @@ Dispatcher::dispatch (SCM sev)
   };
 
   auto *const lists
-    = reinterpret_cast<Entry *> (alloca (sizeof (Entry) * (num_classes + 1)));
+    = static_cast<Entry *> (alloca (sizeof (Entry) * (num_classes + 1)));
 
   int i = 0;
   for (SCM cl = class_list; scm_is_pair (cl); cl = scm_cdr (cl))
