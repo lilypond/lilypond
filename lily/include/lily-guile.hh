@@ -212,14 +212,13 @@ ly_append (Args... args)
   return scm_append (ly_list (args...));
 }
 
-// Wrap scm_internal_hash_fold() to reduce the number of places we need to use
-// reinterpret_cast.
+// Wrap scm_internal_hash_fold() because it is internal and therefore at risk of
+// changing.
 inline SCM
 ly_scm_hash_fold (SCM (*fn) (void *closure, SCM key, SCM val, SCM result),
                   void *closure, SCM init, SCM table)
 {
-  return scm_internal_hash_fold (reinterpret_cast<scm_t_hash_fold_fn> (fn),
-                                 closure, init, table);
+  return scm_internal_hash_fold (fn, closure, init, table);
 }
 
 // C++ version of scm_with_fluid
