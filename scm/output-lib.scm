@@ -4178,10 +4178,43 @@ lines for grobs with @code{'staff-position} @var{staff-pos}.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; custos
 
+;;; TODO:
+;;; - do not show if a clef change immediately follows in the next line
+;;; - decide: do or do not print custos if the next line starts with a rest
+
+(define (custos::get-glyph custos)
+  (let* ((style (ly:grob-property custos 'style 'mensural))
+         ;; adjust: Shall we use a common custos font character
+         ;; regardless if on staffline or not, or shall we use
+         ;; individual font characters for both cases?
+        (adjust #t)
+        (neutral-pos (ly:grob-property custos 'neutral-position 0))
+        (neutral-dir (ly:grob-property custos 'neutral-direction))
+        (pos (round (ly:grob-staff-position custos)))
+        (font-char (format #f
+                           "custodes.~a.~a~a"
+                           (symbol->string style)
+                           (cond
+                            ((< pos neutral-pos) "u")
+                            ((> pos neutral-pos) "d")
+                            ((= neutral-dir UP) "u")
+                            ((= neutral-dir DOWN) "d")
+                            ;; auto direction; not yet supported -> use "d"
+                            (else "d"))
+                           (if adjust
+                               (if (ly:position-on-line? custos pos)
+                                   "1"
+                                   "0")
+                               "2")))
+        (stil (ly:font-get-glyph (ly:grob-default-font custos) font-char)))
+    (if (ly:stencil-empty? stil)
+        (ly:warning (G_ "custos `~a' not found") font-char))
+    stil))
+
 (define-public custos::print
   (lambda (grob)
    (let* ((no-ledgers? (ly:grob-property grob 'no-ledgers #f))
-          (stil (ly:custos::print grob)))
+          (stil (custos::get-glyph grob)))
      (if no-ledgers?
          stil
          (let* ((stil-ext (ly:stencil-extent stil X))
@@ -4255,3 +4288,4 @@ lines for grobs with @code{'staff-position} @var{staff-pos}.
              ;; `stil` needs to be last, otherwise a probably colored ledger
              ;; would print above the note head.
              (apply ly:stencil-add (append fake-ledgers (list stil))))))))
+

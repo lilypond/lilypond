@@ -230,6 +230,13 @@ or 15 (two octaves), but LilyPond allows any integer here."
  '(bezier extroversion filled))
 
 (ly:add-interface
+ 'custos-interface
+ "A custos object.  @code{style} can have four valid values: @code{mensural},
+@code{vaticana}, @code{medicaea}, and @code{hufnagel}.  @code{mensural} is the
+default style."
+ '(style neutral-position neutral-direction))
+
+(ly:add-interface
  'dots-interface
  "The dots to go with a notehead or rest.  @code{direction} sets the preferred
 direction to move in case of staff line collisions.  @code{style} defaults to
