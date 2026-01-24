@@ -145,7 +145,7 @@ Smob_base<Super>::init ()
                                      fundoc.c_str ());
       scm_c_export (Super::type_p_name_, NULL);
     }
-  ly_add_type_predicate (unsmob<const Super>, smob_name_.c_str ());
+  ly_predicate_info<unsmob<const Super>>::init (smob_name_);
   Super::smob_proc_init (smob_tag_);
 }
 #endif

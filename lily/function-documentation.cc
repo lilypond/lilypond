@@ -83,25 +83,6 @@ Get a hash table with all LilyPond Scheme extension functions.
   return doc_hash_table;
 }
 
-static std::unordered_map<const void *, std::string> type_names;
-
-void
-ly_internal_add_type_predicate (const void *pred, const char *name)
-{
-  type_names[pred] = std::string (name);
-}
-
-std::string
-internal_predicate_to_typename (const void *pred)
-{
-  auto it = type_names.find (pred);
-  if (it != type_names.end ())
-    return it->second;
-
-  programming_error ("Unknown type predicate");
-  return "unknown type";
-}
-
 // Portably get a description for integer predicates that include range checks.
 namespace
 {
@@ -160,36 +141,36 @@ void
 init_func_doc ()
 {
   // C++ integral types
-  ly_add_type_predicate (is_scm<short>, int_text<short> ());
-  ly_add_type_predicate (is_scm<int>, int_text (0));
-  ly_add_type_predicate (is_scm<long>, int_text (0L));
-  ly_add_type_predicate (is_scm<long long>, int_text (0LL));
-  ly_add_type_predicate (is_scm<unsigned short>, int_text<unsigned short> ());
-  ly_add_type_predicate (is_scm<unsigned>, int_text (0U));
-  ly_add_type_predicate (is_scm<unsigned long>, int_text (0UL));
-  ly_add_type_predicate (is_scm<unsigned long long>, int_text (0ULL));
+  ly_predicate_info<is_scm<short>>::init (int_text<short> ());
+  ly_predicate_info<is_scm<int>>::init (int_text (0));
+  ly_predicate_info<is_scm<long>>::init (int_text (0L));
+  ly_predicate_info<is_scm<long long>>::init (int_text (0LL));
+  ly_predicate_info<is_scm<unsigned short>>::init (int_text<unsigned short> ());
+  ly_predicate_info<is_scm<unsigned>>::init (int_text (0U));
+  ly_predicate_info<is_scm<unsigned long>>::init (int_text (0UL));
+  ly_predicate_info<is_scm<unsigned long long>>::init (int_text (0ULL));
 
   // etc.
-  ly_add_type_predicate (is_number_pair, "number pair");
-  ly_add_type_predicate (is_scm<Axis>, "axis");
-  ly_add_type_predicate (is_scm<Direction>, "direction");
-  ly_add_type_predicate (is_scm<Offset>, "pair of reals");
-  ly_add_type_predicate (is_scm<Bezier>, "list of four number pairs");
-  ly_add_type_predicate (is_scm<Skyline_pair>, "pair of skylines");
-  ly_add_type_predicate (ly_cheap_is_list, "list");
-  ly_add_type_predicate (ly_is_list, "list");
-  ly_add_type_predicate (ly_is_port, "port");
-  ly_add_type_predicate (ly_is_procedure, "procedure");
-  ly_add_type_predicate (ly_is_symbol, "symbol");
-  ly_add_type_predicate (scm_is_bool, "boolean");
-  ly_add_type_predicate (scm_is_bytevector, "bytevector");
-  ly_add_type_predicate (scm_is_integer, "integer");
-  ly_add_type_predicate (scm_is_number, "number");
-  ly_add_type_predicate (scm_is_pair, "pair");
-  ly_add_type_predicate (is_scm<Rational>, "rational");
-  ly_add_type_predicate (scm_is_real, "real number");
-  ly_add_type_predicate (scm_is_string, "string");
-  ly_add_type_predicate (scm_is_vector, "vector");
+  ly_predicate_info<is_number_pair>::init ("number pair");
+  ly_predicate_info<is_scm<Axis>>::init ("axis");
+  ly_predicate_info<is_scm<Direction>>::init ("direction");
+  ly_predicate_info<is_scm<Offset>>::init ("pair of reals");
+  ly_predicate_info<is_scm<Bezier>>::init ("list of four number pairs");
+  ly_predicate_info<is_scm<Skyline_pair>>::init ("pair of skylines");
+  ly_predicate_info<ly_cheap_is_list>::init ("list");
+  ly_predicate_info<ly_is_list>::init ("list");
+  ly_predicate_info<ly_is_port>::init ("port");
+  ly_predicate_info<ly_is_procedure>::init ("procedure");
+  ly_predicate_info<ly_is_symbol>::init ("symbol");
+  ly_predicate_info<scm_is_bool>::init ("boolean");
+  ly_predicate_info<scm_is_bytevector>::init ("bytevector");
+  ly_predicate_info<scm_is_integer>::init ("integer");
+  ly_predicate_info<scm_is_number>::init ("number");
+  ly_predicate_info<scm_is_pair>::init ("pair");
+  ly_predicate_info<is_scm<Rational>>::init ("rational");
+  ly_predicate_info<scm_is_real>::init ("real number");
+  ly_predicate_info<scm_is_string>::init ("string");
+  ly_predicate_info<scm_is_vector>::init ("vector");
 }
 
 ADD_SCM_INIT_FUNC (func_doc, init_func_doc);

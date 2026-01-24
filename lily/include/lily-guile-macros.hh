@@ -22,7 +22,10 @@
 
 #include "config.hh"
 
+#include <memory>
 #include <string>
+#include <string_view>
+#include <utility>
 #include <variant>
 
 /* this lets us "overload" macros such as get_property to take
@@ -94,30 +97,27 @@ scm_or_str2keyword (SCM s)
 
 std::string mangle_cxx_identifier (const char *);
 
-void ly_internal_add_type_predicate (const void *pred, const char *name);
-
-template <typename ReturnType>
-inline void
-ly_add_type_predicate (ReturnType (*pred) (SCM), const char *name)
+// Map a predicate to a user-facing type name at compile time.  A pointer to the
+// name is known at compile time, but the name itself is filled in at run time.
+// C++20: Try setting the name at compile time.
+template <auto pred>
+class ly_predicate_info
 {
-  // ReturnType might be bool.
-  // ReturnType might be int for scm_is_foo().
-  static_assert (static_cast<bool> (ReturnType ()) || true,
+  static_assert (decltype (static_cast<bool> (pred (SCM_EOL))) {true},
                  "predicate return type must be convertible to bool");
-  return ly_internal_add_type_predicate (reinterpret_cast<const void *> (pred),
-                                         name);
-}
 
-std::string internal_predicate_to_typename (const void *pred);
+private:
+  static inline std::unique_ptr<char[]> name_;
 
-template <typename ReturnType>
-inline std::string
-predicate_to_typename (ReturnType (*pred) (SCM))
-{
-  static_assert (static_cast<bool> (ReturnType ()) || true,
-                 "predicate return type must be convertible to bool");
-  return internal_predicate_to_typename (reinterpret_cast<const void *> (pred));
-}
+public:
+  static void init (std::string_view name)
+  {
+    auto new_name = std::unique_ptr<char[]> (new char[name.size ()]);
+    std::uninitialized_copy (name.begin (), name.end (), new_name.get ());
+    name_ = std::move (new_name);
+  }
+  static const char *name () { return name_ ? name_.get () : "unknown type"; }
+};
 
 namespace detail
 {
@@ -350,7 +350,7 @@ void ly_check_name (const char *cxx, const char *fname);
       {                                                                        \
         scm_wrong_type_arg_msg (mangle_cxx_identifier (__FUNCTION__).c_str (), \
                                 number, var,                                   \
-                                predicate_to_typename (pred).c_str ());        \
+                                ly_predicate_info<pred>::name ());             \
       }                                                                        \
   }
 
