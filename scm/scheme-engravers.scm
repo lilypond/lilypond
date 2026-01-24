@@ -2529,7 +2529,7 @@ style @code{\\rtoe} and its siblings, based on the data in the
         ;; Do not start a new Glissando, if the last is not yet ended.
         ;; This may happen if 'glissando-skip is used.
         (when (and glissando-skip? start-glissando-line stop-glissando-line)
-          (ly:warning "G_overwriting glissando")
+          (ly:warning (G_ "overwriting glissando"))
           (set! glissando-event #f)
           (set! start-glissando-line #f))
 
@@ -2581,7 +2581,7 @@ style @code{\\rtoe} and its siblings, based on the data in the
          (when (pair? current-glissando-grobs)
            (for-each
              (lambda (gliss)
-               (ly:warning "unterminated Glissando")
+               (ly:warning (G_ "unterminated Glissando"))
                (ly:grob-suicide! gliss))
              current-glissando-grobs)
            (set! current-glissando-grobs '())
