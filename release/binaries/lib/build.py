@@ -362,9 +362,9 @@ class MesonPackage(Package):
 
             # Install the package to a temporary location.
             args += ["--libdir=lib", f"--prefix={install_directory}"]
-            # Disable automatic feature detection, packages should add explicit
-            # options.
-            args += ["--auto-features=disabled"]
+            # Disable automatic feature detection and wrap mode, packages should
+            # add explicit options.
+            args += ["--auto-features=disabled", "--wrap-mode=nofallback"]
             args += self.meson_args(c)
             args += [src_directory, build_directory]
 
