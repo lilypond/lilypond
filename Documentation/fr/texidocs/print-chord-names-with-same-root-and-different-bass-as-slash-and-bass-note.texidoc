@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
+  texidocfr = "
+Voici comment imprimer une suite d'accords nommés (objets
+@code{ChordNames}) dont seule la basse diffère, indiquée par une oblique
+et cette nouvelle basse, à l'aide du graveur Scheme ici défini. Son
+comportement peut se gérer finement à l'aide de la propriété de contexte
+@code{chordChanges}.
+"
+  doctitlefr = "Impression de noms d'accords identiques à la basse différente par une oblique et nouvelle basse"

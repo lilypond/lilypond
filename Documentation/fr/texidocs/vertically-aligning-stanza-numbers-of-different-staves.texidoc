@@ -1,0 +1,9 @@
+%% Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
+  texidocfr = "
+Il peut arriver que les numéros de couplet ne s'alignent pas
+verticalement s'ils sont attachés à différentes portées. Une adaptation
+de la propriété @code{self-alignment-X} de l'objet graphique
+@code{LyricText} permet d'y remédier.
+"
+
+  doctitlefr = "Alignement vertical des numéros de couplet sur différentes portées"

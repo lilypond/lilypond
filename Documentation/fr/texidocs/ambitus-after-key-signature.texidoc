@@ -1,4 +1,4 @@
-%%  Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%%  Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
   texidocfr = "
 L'ambitus se place par défaut à gauche de la clef. La fonction
 @code{\\ambitusAfter} permet cependant de modifier ce positionnement ;

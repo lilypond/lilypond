@@ -1,0 +1,11 @@
+%% Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
+  texidocfr = "
+Il est possible de personnaliser la position et le nombre de points
+d'une barre indiquant une reprise, que ce soit en définissant de
+nouvelles barres de mesure personnalisées ou bien en redéfinissant la
+manière dont les indications de reprise par défaut sont dessinées. Ceci
+s'avère tout particulièrement utile dans le cas de portées aux lignes
+adaptées comme dans l'exemple ci-dessous.
+"
+
+  doctitlefr = "Contrôle de la position et du nombre de points d'une barre de reprise"

@@ -1,0 +1,8 @@
+%% Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
+  texidocfr = "
+L'ajout du @code{Volta_engraver} à une portée particulière permet que
+les crochets de @emph{volta} s'affichent sur d'autres portées que la
+première d'une partition.
+"
+
+  doctitlefr = "Crochets de @emph{volta} sur plusieurs portées"

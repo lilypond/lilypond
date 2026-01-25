@@ -1,7 +1,5 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
   texidocfr = "
-
-
 Certaines indications de nuance requièrent un complément textuel, comme
 « sempre @strong{pp} ». Dans la mesure où les nuances sont
 habituellement centrées sous la note, le @emph{pp} se trouvera
@@ -27,7 +25,7 @@ nuance d'apparaître à cet endroit.
 
 @item
 L'application d'un décalage au script de nuance
-@code{\\once \\override @dots{} X-offset = @dots{}}. Inconvénient : là
+@code{\\once \\override @dots{} .X-offset = @dots{}}. Inconvénient : là
 aussi il faut le faire à chaque fois.
 
 @item

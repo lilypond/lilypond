@@ -1,4 +1,4 @@
-%% Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
+%% Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
  texidocfr = "
 Grâce aux balises (@emph{tags}), il est possible d'utiliser une même
 source pour produire une partition de musique mensurale et moderne. Dans
@@ -13,7 +13,7 @@ notation ancienne. L'action de convertir de la musique mensurale en
 version moderne est communément appelée « transcription ».
 
 L'appel à @code{c4.\\Be c8 c\\Am} revient au même que @code{c4.[ c8 c]}.
-N'éanmoins, il évite les avertissements si le début intervient sur une
+Néanmoins, il évite les avertissements si le début intervient sur une
 note dépourvue de ligature mais pourrait s'en voir affublée de par
 l'utilisation du @code{Completion_heads_engraver}.
 

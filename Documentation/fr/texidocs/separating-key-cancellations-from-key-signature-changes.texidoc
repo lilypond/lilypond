@@ -1,4 +1,4 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
   texidocfr = "
 Les altérations supprimées lors d'un changement de tonalité sont par
 défaut accolées à la nouvelle armure. Ce comportement peut s'adapter
@@ -8,24 +8,24 @@ grâce à la propriété @code{break-align-orders} de l'objet
 La valeur de @code{break-align-orders} est constituée d'un vecteur à
 trois composantes listant l'ordre des éléments à l'occasion d'une
 rupture. Chaque composante liste l'ordre par défaut des éléments selon
-qu'ils intervennent en fin, en cours, et au début d'une ligne. Seule la
+qu'ils interviennent en fin, en cours, et au début d'une ligne. Seule la
 deuxième liste nous intéresse ici,
 
 Si l'on se réfère à la référence des propriétés internes à propos de
 l'objet @code{break-align-orders}, l'ordre du deuxième élément est :
 
-@verbatim
+@example
 ...
 staff-bar
 key-cancellation
 key-signature
 ...
-@end verbatim
+@end example
 
 C'est ce que nous voulons modifier, en déplaçant @code{key-cancellation}
 avant @code{staff-bar}. Nous nous appuyons sur la fonction
 @code{grob-transformer} qui nous donne accès au vecteur original en tant
-que second argument de la fonction labmda, ici appelé @var{orig} (nous
+que second argument de la fonction lambda, ici appelé @var{orig} (nous
 n'avons pas besoin du premier argument @var{grob}). Nous retournons un
 nouveau vecteur dont les premier et dernier éléments restent inchangés.
 Pour l'élément du milieu, nous supprimons @code{key-cancellation} de la

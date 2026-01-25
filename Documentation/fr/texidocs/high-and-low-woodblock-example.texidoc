@@ -1,0 +1,10 @@
+%% Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
+  texidocfr = "
+Deux woodblocks se saisissent « wbh » (woodblock haut) et « wbl »
+(woodblock bas). La hauteur des barres de mesure a été adaptée par une
+commande @code{\\override} afin qu'elles ne soient pas trop courtes. La
+position des deux lignes de la portée doit aussi être explicitement
+définie.
+"
+
+  doctitlefr = "Exemple de woodblocks haut et bas"

@@ -1,0 +1,24 @@
+%% Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
+  texidocfr = "
+Par défaut, LilyPond utilise des objets @code{DynamicLineSpanner} pour
+aligner horizontalement une succession d'objets nuance tels que
+soufflets et indications textuelles, et quel que soit leur
+positionnement par rapport à la portée. Ceci peut, parfois, ne pas être
+désirable et une rupture de l'étendue de l'alignement n'est pas possible
+comme en matière d'alignement vertical (voir l'exemple « Rupture
+d'alignement vertical des nuances graphiques et textuelles »).
+
+Deux solutions permettent de pallier ce désagrément.
+
+@itemize
+@item
+Modifier la propriété @code{shorten-pair} de l'objet @code{Hairpin} pour
+compenser le décalage qui a été apppliqué au soufflet.
+@item
+Placer les deux objets de nuance dans des voix différentes.
+@end itemize
+
+Le code ci-dessous illustre ces deux possibilités.
+"
+
+  doctitlefr = "Rupture d'alignement horizontal des nuances graphiques et textuelles"

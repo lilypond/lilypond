@@ -1,4 +1,4 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
   texidocfr = "
 Un @emph{markup} textuel peut venir s'ajouter aux crochets d'analyse
 grâce à la propriété @code{text} de l'objet graphique
@@ -6,6 +6,8 @@ grâce à la propriété @code{text} de l'objet graphique
 moment requièrent d'utiliser la commande @code{\\tweak}.
 
 Le texte ajouté sera répété, entre parenthèse, après un saut de ligne.
+L'ordre vertical des crochets imbriqués se gère à l'aide de la propriété
+@code{outside-staff-priority}.
 "
 
   doctitlefr = "Crochet d'analyse avec texte"

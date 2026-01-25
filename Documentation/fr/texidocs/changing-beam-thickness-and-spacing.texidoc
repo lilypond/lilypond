@@ -1,8 +1,9 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
   texidocfr = "
 L'épaisseur des ligatures se gère au niveau de la propriété
-@code{Beam.beam-thickness}. L'ajustement de l'espace entre les ligatures
-est géré par la propriété @code{Beam.length-fraction}.
+@code{beam-thickness} de l'objet graphique @code{Beam}. L'ajustement de
+l'espace entre les ligatures est géré par la propriété
+@code{length-fraction}.
 "
 
   doctitlefr = "Modification de l'épaisseur et de l'écartement des ligatures"

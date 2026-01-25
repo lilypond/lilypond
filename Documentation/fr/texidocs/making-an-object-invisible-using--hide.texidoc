@@ -1,15 +1,22 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
   texidocfr = "
-Une modification de la propriété @code{transparent} permet d'imprimer un
+Affecter un objet graphique d'un @code{\\hide} permet d'imprimer un
 objet « à l'encre sympathique » : l'objet n'est pas affiché bien que tous
-ses attributs soient préservés.  L'objet en question occupe donc sa
-place, est pris en compte lors de collisions, et peut se voir attaché
-liaisons ou ligatures.
+ses attributs soient préservés :
+
+@itemize
+@item
+l'objet en question occupe donc sa place,
+@item
+il est pris en compte lors de collisions, et
+@item
+il peut se voir attaché liaisons ou ligatures comme les autres.
+@end itemize
 
 Cet exemple illustre la manière de connecter deux voix par une liaison
 de prolongation.  Les liaisons de prolongation ne peuvent normalement
 intervenir que dans la même voix.  Dès lors que la liaison est entamée
-dans une autre voix et que la première hampe ascendante est rendue
+dans une autre voix et que la première hampe ascendante est masquée
 transparente dans cette même voix, la liaison semble passer d'une voix à
 l'autre.
 "

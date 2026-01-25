@@ -1,4 +1,4 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
   texidocfr = "
 La commande @code{\\repeat volta} permet d'indiquer facilement des
 reprises. Il est certains cas où l'adjonction d'un texte sous forme de
@@ -8,7 +8,7 @@ contexte @code{repeatCommands}.
 Dans la mesure où l'argument de @code{repeatCommands} est constitué
 d'une liste, le plus simple est de définir le texte dans une variable
 qui sera ensuite incorporée dans la liste en respectant la syntaxe
-Scheme @code{#(list (list 'volta texteIdentificateur))}. Les commandes
+Scheme @code{#`(volta @var{texteIdentificateur}) ...)}. Les commandes
 de début et de fin de reprise peuvent s'ajouter séparément à la liste
 des éléments.
 "

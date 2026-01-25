@@ -1,0 +1,32 @@
+%% Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
+  texidocfr = "
+Le galbe des liaisons de prolongation d'un accord peuvent adopter des
+galbes différents comme illustré ci-dessous.
+
+Dans la première ligne, on voit que toutes les notes de l'accord
+bénéficient d'une liaison.
+
+Modifier ces liaisons à l'aide de @code{\\shape} est sans effet dans la
+mesure où @code{TieColumn} les positionne de son propre chef, ignorant
+plus ou moins ce que contient @code{\\shape}. On pourrait s'en sortir en
+affectant @code{#t} à @code{positioning-done}, mais
+@code{positioning-done} est une propriété interne et l'activer revient à
+dire : tout le positionnement est terminé, il n'y a plus rien à faire.
+La deuxième ligne illustre le fait que le positionnement n'est pas
+terminé : toutes les liaisons sont par dessous, et leur épaisseur n'est
+pas optimale.
+
+Le fait d'indiquer explicitement le positionnement des liaisons permet
+d'utiliser @code{\\shape} pour chacune des liaisons (
+@ifnothtml
+4@sup{e}
+@end ifnothtml
+@ifhtml
+@html
+4<sup>e</sup>
+@end html
+@end ifhtml
+ ligne) et fonctionne même dans le cas d'un saut de ligne et avec la
+propriété @code{tieWaitForNote}.
+"
+  doctitlefr = "Galbe individuel des liaisons d'un accord"

@@ -1,0 +1,23 @@
+%% Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
+  texidocfr = "
+Lorsque le profil spécifique d'une tête de note ne peut être obtenu
+facilement à l'aide d'un @emph{markup} graphique, il est possible
+d'utiliser des instructions de dessin pour @code{ly:make-stencil} afin
+de générer ce profil. Cet exemple propose une tête de note profilée en
+parallélogramme.
+
+Malheureusement, les commandes disponibles pour spécifier le dessin ne
+sont pas documentées à ce jour -- c'est l'objet du
+@uref{https://gitlab.com/lilypond/lilypond/-/issues/6874,ticket #6874}
+-- mais la sous-commande @code{path} a la signature suivante, très
+proche de la fonction Scheme @code{make-path-stencil}.
+
+@example
+(path @var{épaisseur} @var{liste-commandes} @var{style-ligne-principale} @var{style-jonction-ligne} @var{remplissage})
+@end example
+
+Les commandes dans @var{liste-commandes} ressemblent aux instructions de
+dessin en PostScript, à ceci près que les arguments suivent ici le nom
+de la commande.
+"
+  doctitlefr = "Génération de notes profilées spéciales"

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
   texidocfr = "
 La métrique est parfois indiquée non pas par une fraction (par ex. 7/4)
 mais simplement par son numérateur (le chiffre 7 dans ce cas).
@@ -7,8 +7,7 @@ L'instruction
 déroger au style par défaut de manière permanente -- un
 @code{\\revert Staff.TimeSignature.style} annulera ces modifications.
 Lorsque cette métrique sous la forme d'un seul chiffre ne se présente
-qu'une seule fois, il suffit de faire précéder l'instruction
-@code{\\override} d'un simple @code{\\once}.
+qu'une seule fois, il suffit de recourir à un @code{\\tweak}.
 "
 
   doctitlefr = "Affichage seulement du numérateur d'une métrique (au lieu d'une fraction)"

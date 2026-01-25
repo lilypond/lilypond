@@ -1,4 +1,4 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
   texidocfr = "
 Le positionnement vertical d'une liaison se contrôle par la propriété
 @code{positions} de l'objet @code{Slur}. Cette propriété dispose de deux
@@ -9,7 +9,8 @@ adapter le positionnement de la courbe. Des valeurs positives décalent
 la liaison vers le haut et s'utilisent pour des hampes descendantes. Des
 valeurs négatives entraînent un décalage vers le bas.
 
-Voir aussi « Ajustement du positionnement vertical d'une liaison ».
+Voir aussi l'exemple « Ajustement du positionnement vertical d'une
+liaison ».
 "
 
   doctitlefr = "Déplacement vertical des liaisons d'articulation"

@@ -1,4 +1,4 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
   texidocfr = "
 Les symboles s'ordonnent verticalement suivant la propriété
 @code{script-priority}. Plus sa valeur numérique est faible, plus le
@@ -21,9 +21,9 @@ et inversement. L'ordre dans lequel les hauteurs sont saisies dans
 l'accord est ici sans importance.
 
 Par défaut, les scripts les moins techniques sont inscrits au plus près
-de la tête de note. L'ordrre de base est articulation, flageolet,
-doigté, doigté main droite, numéro de corde, point d'orgue, archet et
-script textuel.
+de la tête de note. L'ordre de base est articulation, flageolet, doigté,
+doigté main droite, numéro de corde, point d'orgue, archet et script
+textuel.
 "
 
   doctitlefr = "Contrôle de l'ordre vertical des articulations et ornements"

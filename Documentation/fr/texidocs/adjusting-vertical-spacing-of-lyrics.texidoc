@@ -1,7 +1,7 @@
-%% Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
+%% Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
    texidocfr = "
-Le code ci-dessous indique comment rapprocher une ligne de paroles de la
-portée à laquelle elle est affectée.
+Le code ci-dessous indique comment rapprocher de la portée à laquelle
+elle est affectée, une ligne de paroles.
 "
 
   doctitlefr = "Ajustement de l'espacement vertical des paroles"
