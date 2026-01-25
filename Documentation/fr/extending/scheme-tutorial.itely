@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 917e0a90fae40da9c2efa704963fa741ecef0b0b
+   Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -50,26 +50,54 @@ verrons comment ce langage peut s'intégrer à un fichier LilyPond.
 @node Scheme sandbox
 @subsection Le bac à sable de Scheme
 
+@cindex Scheme, bac à sable
+@cindex Scheme, @emph{sandbox}
+@cindex @emph{sandbox} Scheme
+
 L'installation de LilyPond comprend l'implémentation Guile de Scheme.
 Tous les paquetages de LilyPond disposent d'un « bac à sable » Scheme,
 accessible par la commande :
+
 @example
 lilypond scheme-sandbox
 @end example
 
 @noindent
-Une fois le bac à sable actif, vous obtiendrez l'invite :
+Une fois le bac à sable actif, vous obtiendrez l'invite de Guile
+
 @lisp
 guile>
 @end lisp
 
-Vous pouvez dès à présent saisir des expressions Scheme pour vous
-exercer. Si vous souhaitez pouvoir utiliser la bibliothèque GNU
-@code{readline}, qui offre une ligne de commande plus élaborée,
-consultez les informations contenues dans le fichier
-@file{ly/Scheme-sandbox.ly}. La bibliothèque @var{readline}, dans la
-mesure où elle est habituellement activée dans vos sessions Guile,
-devrait être effective y compris dans le bac à sable.
+@noindent
+à laquelle vous pouvez saisir des expressions Scheme.
+
+Le fichier contenant le code du bac à sable --
+@file{ly/Scheme-sandbox.ly} -- essaie d'activer la bibliothèque GNU
+@code{readline}, qui offre une ligne de commande plus élaborée, comme
+par exemple l'utilisation des flèches de direction pour accéder aux
+commandes précédentes. Ceci n'est fonctionnel, à ce jour, que lorsque le
+binaire de LilyPond est lié dynamiquement à Guile, ce qui n'est pas le
+cas avec les binaires « officiellement » distribués. Voici deux moyens
+de contourner ce désagrément.
+
+@itemize
+
+@item
+Utiliser @uref{https://github.com/hanslub42/rlwrap, @command{rlwrap}},
+petit progamme « enveloppant » la bibliothèque @code{readline}. Ce
+programme est disponibles pour les systèmes de type Unix ; ile est lancé
+ainsi :
+
+@example
+rlwrap lilypond scheme-sandbox
+@end example
+
+@item
+Utiliser l'éditeur Emacs auquel on ajoute le
+@uref{https://github.com/shevvek/lilypond-ts-mode, LilyPond
+Tree-sitter Mode}. Ceci fonctionne aussi sur Windows.
+@end itemize
 
 
 @node Scheme variables

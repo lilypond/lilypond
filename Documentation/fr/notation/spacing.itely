@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
+   Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -3323,7 +3323,8 @@ resserrée.
   \layout {
     \context {
       \Score
-      \override SpacingSpanner.base-shortest-duration = \musicLength 16
+      \override SpacingSpanner.base-shortest-duration =
+        \musicLength 16
     }
   }
 }
@@ -3857,9 +3858,8 @@ trois façons, à l'instar de n'importe quelle définition de contexte.
 
 La propriété @code{proportionalNotationDuration} prend en unique
 argument la durée de référence qui servira de base pour espacer toute la
-musique. L'appel de @code{\musicLength 1*1/20} produit donc une durée de
-référence égale à un vingtième de ronde. Vous pourriez tout aussi bien
-utiliser @code{\musicLength_16} ou @code{\musicLength @{2 2.@}}.
+musique. Une valeur de @code{#1/20} produit donc une durée de référence
+égale à un vingtième de ronde.
 
 Se pose alors le problème de fournir la juste durée de référence à
 @code{proportionalNotationDuration}. Il faut en l'occurrence procéder

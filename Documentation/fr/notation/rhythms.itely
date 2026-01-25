@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
+   Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -4839,12 +4839,6 @@ donc cette mesure d'une croche. La barre de mesure suivante tombera donc
   c4 c1
 }
 @end lilypond
-
-@noindent
-Comme le montre cet exemple, @code{\musicLength @var{musique}} calcule
-une durée correspondant à la musique donnée. Par exemple,
-@code{\musicLength 8} est la durée d'une croche, et @code{\musicLength
-@{8. 8 8@}} correspond à la durée de sept doubles croches.
 
 @morerefs
 Manuel de notation :
