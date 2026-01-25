@@ -557,27 +557,38 @@ Stem::calc_positioning_done (SCM smob)
 
   Real thick = thickness (me);
 
-  Grob *hed = support_head (me);
+  // Align other heads relative to the "support head."
+  {
+    // In the case of a whole-note artificial harmonic, the harmonic head and
+    // the normal head should be aligned on-center.
+    const bool is_harmonic_centered
+      = std::any_of (heads.begin (), heads.end (),
+                     [] (auto *h) {
+                       SCM style = get_property (h, "style");
+                       return scm_is_eq (style, ly_symbol2scm ("harmonic"));
+                     })
+        && is_invisible (me);
 
-  bool is_harmonic_centered = false;
-  for (vsize i = 0; i < heads.size (); i++)
-    is_harmonic_centered = is_harmonic_centered
-                           || scm_is_eq (get_property (heads[i], "style"),
-                                         ly_symbol2scm ("harmonic"));
-  is_harmonic_centered = is_harmonic_centered && is_invisible (me);
+    auto *const sup = support_head (me);
+    const auto sup_extent = sup->extent (sup, X_AXIS);
+    for (auto *const h : heads)
+      {
+        if (h == sup)
+          {
+            // Skipping the calculations below is a performance optimization.
+            // Even if they were performed, they shouldn't move the support head
+            // relative to itself.
+            continue;
+          }
+        const auto h_extent = h->extent (h, X_AXIS);
+        const auto amount = is_harmonic_centered
+                              ? (sup_extent.center () - h_extent.center ())
+                              : (sup_extent[dir] - h_extent[dir]);
+        if (!std::isnan (amount)) // empty heads can produce NaN
+          h->translate_axis (amount, X_AXIS);
+      }
+  }
 
-  Real w = hed->extent (hed, X_AXIS)[dir];
-  for (vsize i = 0; i < heads.size (); i++)
-    {
-      Real amount = w - heads[i]->extent (heads[i], X_AXIS)[dir];
-
-      if (is_harmonic_centered)
-        amount = hed->extent (hed, X_AXIS).center ()
-                 - heads[i]->extent (heads[i], X_AXIS).center ();
-
-      if (!std::isnan (amount)) // empty heads can produce NaN
-        heads[i]->translate_axis (amount, X_AXIS);
-    }
   bool parity = true;
   Real lastpos = Staff_symbol_referencer::get_position (heads[0]);
   int threshold = from_scm (get_property (me, "note-collision-threshold"), 1);
