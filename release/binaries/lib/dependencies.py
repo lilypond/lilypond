@@ -291,6 +291,37 @@ class Ghostscript(ConfigurePackage):
 ghostscript = Ghostscript()
 
 
+class Libiconv(ConfigurePackage):
+    def enabled(self, c: Config) -> bool:
+        return c.is_mingw()
+
+    @property
+    def version(self) -> str:
+        return "1.18"
+
+    @property
+    def directory(self) -> str:
+        return f"libiconv-{self.version}"
+
+    @property
+    def archive(self) -> str:
+        return f"{self.directory}.tar.gz"
+
+    @property
+    def download_url(self) -> str:
+        return f"https://ftpmirror.gnu.org/gnu/libiconv/{self.archive}"
+
+    @property
+    def license_files(self) -> List[str]:
+        return ["COPYING"]
+
+    def __str__(self) -> str:
+        return f"libiconv {self.version}"
+
+
+libiconv = Libiconv()
+
+
 class Gettext(ConfigurePackage):
     def enabled(self, c: Config) -> bool:
         return c.is_freebsd() or c.is_macos() or c.is_mingw()
@@ -544,37 +575,6 @@ class Bdwgc(ConfigurePackage):
 
 
 bdwgc = Bdwgc()
-
-
-class Libiconv(ConfigurePackage):
-    def enabled(self, c: Config) -> bool:
-        return c.is_mingw()
-
-    @property
-    def version(self) -> str:
-        return "1.18"
-
-    @property
-    def directory(self) -> str:
-        return f"libiconv-{self.version}"
-
-    @property
-    def archive(self) -> str:
-        return f"{self.directory}.tar.gz"
-
-    @property
-    def download_url(self) -> str:
-        return f"https://ftpmirror.gnu.org/gnu/libiconv/{self.archive}"
-
-    @property
-    def license_files(self) -> List[str]:
-        return ["COPYING"]
-
-    def __str__(self) -> str:
-        return f"libiconv {self.version}"
-
-
-libiconv = Libiconv()
 
 
 class Libunistring(ConfigurePackage):
@@ -1257,12 +1257,12 @@ all_dependencies: List[Package] = [
     freetype,
     fontconfig,
     ghostscript,
+    libiconv,
     gettext,
     libffi,
     pcre2,
     glib,
     bdwgc,
-    libiconv,
     libunistring,
     guile,
     harfbuzz,
