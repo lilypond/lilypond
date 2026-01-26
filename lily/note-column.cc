@@ -169,6 +169,13 @@ Note_column::extremal_heads (Grob *me)
   return Stem::extremal_heads (me);
 }
 
+Grob *
+Note_column::support_head (Grob *me)
+{
+  Grob *st = get_stem (me);
+  return st ? Stem::support_head (st) : nullptr;
+}
+
 /*
   Return extent of the noteheads in the "main column",
   (i.e. excluding any suspended noteheads), or extent
