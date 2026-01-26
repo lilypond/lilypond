@@ -185,6 +185,21 @@ Stem::support_head (Grob *me)
   if (heads.size () == 1)
     return heads[0];
 
+  // In a whole-note chord, harmonic heads are centered on the normal heads.
+  // They don't accurately represent the extent of the chord, so we ignore them.
+  if (is_invisible (me))
+    {
+      auto ext_heads = extremal_heads_if (me, [] (auto *h) {
+        return !scm_is_eq (get_property (h, "style"),
+                           ly_symbol2scm ("harmonic"));
+      });
+      const auto d = get_grob_direction (me);
+      if (d && ext_heads[-d])
+        {
+          return ext_heads[-d];
+        }
+    }
+
   return first_head (me);
 }
 
@@ -569,16 +584,7 @@ Stem::calc_positioning_done (SCM smob)
 
   // Align other heads relative to the "support head."
   {
-    // In the case of a whole-note artificial harmonic, the harmonic head and
-    // the normal head should be aligned on-center.
-    const bool is_harmonic_centered
-      = std::any_of (heads.begin (), heads.end (),
-                     [] (auto *h) {
-                       SCM style = get_property (h, "style");
-                       return scm_is_eq (style, ly_symbol2scm ("harmonic"));
-                     })
-        && is_invisible (me);
-
+    const bool i_am_invisible = is_invisible (me);
     auto *const sup = support_head (me);
     const auto sup_extent = sup->extent (sup, X_AXIS);
     for (auto *const h : heads)
@@ -590,8 +596,13 @@ Stem::calc_positioning_done (SCM smob)
             // relative to itself.
             continue;
           }
+        // In a whole-note chord, center harmonic heads on the normal heads.
+        // Otherwise, justify all heads to the invisible stem.
+        const bool align_on_center = i_am_invisible
+                                     && scm_is_eq (get_property (h, "style"),
+                                                   ly_symbol2scm ("harmonic"));
         const auto h_extent = h->extent (h, X_AXIS);
-        const auto amount = is_harmonic_centered
+        const auto amount = align_on_center
                               ? (sup_extent.center () - h_extent.center ())
                               : (sup_extent[dir] - h_extent[dir]);
         if (!std::isnan (amount)) // empty heads can produce NaN
