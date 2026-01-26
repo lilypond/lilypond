@@ -47,11 +47,11 @@ check_meshing_chords (Grob *me, Grob *clash_up, Grob *clash_down)
   Drul_array<Grob *> stems (Note_column::get_stem (clash_down),
                             Note_column::get_stem (clash_up));
 
-  Grob *head_up = Note_column::first_head (clash_up);
-  Grob *head_down = Note_column::first_head (clash_down);
+  Grob *const fh_up = Note_column::first_head (clash_up);
+  Grob *const fh_down = Note_column::first_head (clash_down);
 
-  Interval extent_up = head_up->extent (head_up, X_AXIS);
-  Interval extent_down = head_down->extent (head_down, X_AXIS);
+  Interval extent_up = fh_up->extent (fh_up, X_AXIS);
+  Interval extent_down = fh_down->extent (fh_down, X_AXIS);
 
   /* Staff-positions of all noteheads on each stem */
   std::vector<int> ups = Stem::note_head_positions (stems[UP]);
@@ -90,20 +90,19 @@ check_meshing_chords (Grob *me, Grob *clash_up, Grob *clash_down)
                         && (ups.back () >= dps.back ());
 
   /* Do not merge notes typeset in different style. */
-  if (!ly_is_equal (get_property (head_up, "style"),
-                    get_property (head_down, "style")))
+  if (!ly_is_equal (get_property (fh_up, "style"),
+                    get_property (fh_down, "style")))
     merge_possible = false;
 
-  int up_ball_type = Rhythmic_head::duration_log (head_up);
-  int down_ball_type = Rhythmic_head::duration_log (head_down);
+  int up_ball_type = Rhythmic_head::duration_log (fh_up);
+  int down_ball_type = Rhythmic_head::duration_log (fh_down);
 
   /* Do not merge whole notes (or longer, like breve, longa, maxima). */
   if (merge_possible && (up_ball_type <= 0 || down_ball_type <= 0))
     merge_possible = false;
 
   if (merge_possible
-      && Rhythmic_head::dot_count (head_up)
-           != Rhythmic_head::dot_count (head_down)
+      && Rhythmic_head::dot_count (fh_up) != Rhythmic_head::dot_count (fh_down)
       && !from_scm<bool> (get_property (me, "merge-differently-dotted")))
     merge_possible = false;
 
@@ -186,8 +185,7 @@ check_meshing_chords (Grob *me, Grob *clash_up, Grob *clash_down)
   if ((full_collide
        || ((close_half_collide || distant_half_collide)
            && from_scm<bool> (get_property (me, "prefer-dotted-right"))))
-      && Rhythmic_head::dot_count (head_up)
-           < Rhythmic_head::dot_count (head_down))
+      && Rhythmic_head::dot_count (fh_up) < Rhythmic_head::dot_count (fh_down))
     {
       shift_amount = -1;
       if (!touch)
@@ -204,8 +202,8 @@ check_meshing_chords (Grob *me, Grob *clash_up, Grob *clash_down)
       if ((full_collide
            || (!is_on_staff_line ()
                && from_scm<bool> (get_property (me, "prefer-dotted-right"))))
-          && Rhythmic_head::dot_count (head_up)
-               > Rhythmic_head::dot_count (head_down))
+          && Rhythmic_head::dot_count (fh_up)
+               > Rhythmic_head::dot_count (fh_down))
         touch = false;
       else
         shift_amount = -1;
@@ -217,8 +215,8 @@ check_meshing_chords (Grob *me, Grob *clash_up, Grob *clash_down)
      note does not look like a rectangular block.
   */
   SCM fa_styles = get_property (me, "fa-styles");
-  SCM up_style = get_property (head_up, "style");
-  SCM down_style = get_property (head_down, "style");
+  SCM up_style = get_property (fh_up, "style");
+  SCM down_style = get_property (fh_down, "style");
   if (merge_possible && scm_is_true (scm_memq (up_style, fa_styles))
       && scm_is_true (scm_memq (down_style, fa_styles)))
     {
@@ -226,14 +224,14 @@ check_meshing_chords (Grob *me, Grob *clash_up, Grob *clash_down)
       Direction d = from_scm (get_property (me, "fa-merge-direction"), DOWN);
 
       // Hide unwanted glyph.
-      set_property (d == UP ? head_down : head_up, "transparent", SCM_BOOL_T);
+      set_property (d == UP ? fh_down : fh_up, "transparent", SCM_BOOL_T);
 
       // Adjust starting point of the stem to get a smooth connection
       // between stem and glyph.
       Offset up_att = Offset (0.0, d == UP ? 0.5 : -1.0);
       Offset down_att = Offset (0.0, d == DOWN ? -0.5 : 1.0);
-      set_property (head_up, "stem-attachment", to_scm (up_att));
-      set_property (head_down, "stem-attachment", to_scm (down_att));
+      set_property (fh_up, "stem-attachment", to_scm (up_att));
+      set_property (fh_down, "stem-attachment", to_scm (down_att));
     }
 
   if (merge_possible)
@@ -245,34 +243,34 @@ check_meshing_chords (Grob *me, Grob *clash_up, Grob *clash_down)
          different heads, dots on the smaller one disappear; and when
          merging identical heads, dots on the down-stem head disappear */
       Grob *wipe_ball = 0;
-      Grob *dot_wipe_head = head_up;
+      Grob *dot_wipe_head = fh_up;
 
       if (up_ball_type == down_ball_type)
         {
-          if (Rhythmic_head::dot_count (head_down)
-              < Rhythmic_head::dot_count (head_up))
+          if (Rhythmic_head::dot_count (fh_down)
+              < Rhythmic_head::dot_count (fh_up))
             {
-              wipe_ball = head_down;
-              dot_wipe_head = head_down;
+              wipe_ball = fh_down;
+              dot_wipe_head = fh_down;
             }
-          else if (Rhythmic_head::dot_count (head_down)
-                   > Rhythmic_head::dot_count (head_up))
+          else if (Rhythmic_head::dot_count (fh_down)
+                   > Rhythmic_head::dot_count (fh_up))
             {
-              dot_wipe_head = head_up;
-              wipe_ball = head_up;
+              dot_wipe_head = fh_up;
+              wipe_ball = fh_up;
             }
           else
-            dot_wipe_head = head_down;
+            dot_wipe_head = fh_down;
         }
       else if (down_ball_type > up_ball_type)
         {
-          wipe_ball = head_down;
-          dot_wipe_head = head_down;
+          wipe_ball = fh_down;
+          dot_wipe_head = fh_down;
         }
       else if (down_ball_type < up_ball_type)
         {
-          wipe_ball = head_up;
-          dot_wipe_head = head_up;
+          wipe_ball = fh_up;
+          dot_wipe_head = fh_up;
           /*
             If upper head is eighth note or shorter, and lower head is half note,
             shift by the difference between the open and filled note head widths,
@@ -306,8 +304,8 @@ check_meshing_chords (Grob *me, Grob *clash_up, Grob *clash_down)
     shift_amount *= 0.4;
 
   /* we're meshing. */
-  else if (Rhythmic_head::dot_count (head_up)
-           || Rhythmic_head::dot_count (head_down))
+  else if (Rhythmic_head::dot_count (fh_up)
+           || Rhythmic_head::dot_count (fh_down))
     shift_amount *= 0.1;
   else
     shift_amount *= 0.17;
@@ -326,20 +324,20 @@ check_meshing_chords (Grob *me, Grob *clash_up, Grob *clash_down)
   /* If any dotted notes ended up on the left,
      tell the Dot_Columnn to avoid the note heads on the right.
    */
-  if (shift_amount < -1e-6 && Rhythmic_head::dot_count (head_up))
+  if (shift_amount < -1e-6 && Rhythmic_head::dot_count (fh_up))
     {
-      Grob *d = unsmob<Grob> (get_object (head_up, "dot"));
+      Grob *d = unsmob<Grob> (get_object (fh_up, "dot"));
       Grob *parent = d->get_x_parent ();
       if (has_interface<Dot_column> (parent))
-        Side_position_interface::add_support (parent, head_down);
+        Side_position_interface::add_support (parent, fh_down);
     }
-  else if (Rhythmic_head::dot_count (head_down))
+  else if (Rhythmic_head::dot_count (fh_down))
     {
-      Grob *d = unsmob<Grob> (get_object (head_down, "dot"));
+      Grob *d = unsmob<Grob> (get_object (fh_down, "dot"));
       Grob *parent = d->get_x_parent ();
       if (has_interface<Dot_column> (parent))
         {
-          Grob *stem = unsmob<Grob> (get_object (head_up, "stem"));
+          Grob *stem = unsmob<Grob> (get_object (fh_up, "stem"));
           // Loop over all heads on an up-pointing-stem to see if dots
           // need to clear any heads suspended on its right side.
           extract_grob_set (stem, "note-heads", heads);
@@ -349,14 +347,14 @@ check_meshing_chords (Grob *me, Grob *clash_up, Grob *clash_down)
     }
 
   // In meshed chords with dots on the left, adjust dot direction
-  if (shift_amount > 1e-6 && Rhythmic_head::dot_count (head_down))
+  if (shift_amount > 1e-6 && Rhythmic_head::dot_count (fh_down))
     {
-      Grob *dot_down = unsmob<Grob> (get_object (head_down, "dot"));
+      Grob *dot_down = unsmob<Grob> (get_object (fh_down, "dot"));
       Grob *col_down = dot_down->get_x_parent ();
       Direction dir = UP;
-      if (Rhythmic_head::dot_count (head_up))
+      if (Rhythmic_head::dot_count (fh_up))
         {
-          Grob *dot_up = unsmob<Grob> (get_object (head_up, "dot"));
+          Grob *dot_up = unsmob<Grob> (get_object (fh_up, "dot"));
           Grob *col_up = dot_up->get_x_parent ();
           if (col_up == col_down) // let the common DotColumn arrange dots
             dir = CENTER;
@@ -365,7 +363,7 @@ check_meshing_chords (Grob *me, Grob *clash_up, Grob *clash_down)
         }
       if (dir != CENTER)
         {
-          Grob *stem = unsmob<Grob> (get_object (head_down, "stem"));
+          Grob *stem = unsmob<Grob> (get_object (fh_down, "stem"));
           extract_grob_set (stem, "note-heads", heads);
           for (vsize i = 0; i < heads.size (); i++)
             if (Grob *dot = unsmob<Grob> (get_object (heads[i], "dot")))
