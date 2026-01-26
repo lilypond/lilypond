@@ -49,9 +49,11 @@ check_meshing_chords (Grob *me, Grob *clash_up, Grob *clash_down)
 
   Grob *const fh_up = Note_column::first_head (clash_up);
   Grob *const fh_down = Note_column::first_head (clash_down);
+  Grob *const sh_up = Note_column::support_head (clash_up);
+  Grob *const sh_down = Note_column::support_head (clash_down);
 
-  Interval extent_up = fh_up->extent (fh_up, X_AXIS);
-  Interval extent_down = fh_down->extent (fh_down, X_AXIS);
+  Interval extent_up = sh_up->extent (sh_up, X_AXIS);
+  Interval extent_down = sh_down->extent (sh_down, X_AXIS);
 
   /* Staff-positions of all noteheads on each stem */
   std::vector<int> ups = Stem::note_head_positions (stems[UP]);
@@ -111,8 +113,11 @@ check_meshing_chords (Grob *me, Grob *clash_up, Grob *clash_down)
       && !from_scm<bool> (get_property (me, "merge-differently-headed")))
     merge_possible = false;
 
-  /* Should never merge quarter and half notes, as this would make
-     them indistinguishable.  */
+  // Should never merge quarter and half notes, as this would make
+  // them indistinguishable.
+  //
+  // TODO: The stem duration doesn't tell the full story if the heads themselves
+  // have been tweaked.
   if (merge_possible
       && ((Stem::duration_log (stems[UP]) == 1
            && Stem::duration_log (stems[DOWN]) == 2)
@@ -146,7 +151,19 @@ check_meshing_chords (Grob *me, Grob *clash_up, Grob *clash_down)
   for (vsize i = 0, j = 0; i < ups.size () && j < dps.size ();)
     {
       if (ups[i] == dps[j])
-        full_collide = true;
+        {
+          full_collide = true;
+          // TODO: If the heads in this position mean different things, they
+          // cannot be merged.  Example: One head is normal and the other is
+          // harmonic.
+          //
+          // TODO: Even if the heads in this position have the same appearance
+          // and meaning, if their size is such that there is no way to place a
+          // single head in contact with both stems, they probably cannot be
+          // merged.  Example: Cue-size heads in a chord that also has normal
+          // heads.  (Harmonics is another example, but it might require
+          // magnification to notice.)
+        }
       else if (std::abs (ups[i] - dps[j]) <= threshold)
         {
           merge_possible = false;
@@ -404,9 +421,10 @@ Note_collision_interface::calc_positioning_done (SCM smob)
       if (clash_groups[d].size ())
         {
           Grob *h = clash_groups[d][0];
-          Grob *fh = Note_column::first_head (h);
-          if (fh)
-            wid = fh->extent (h, X_AXIS).length ();
+          if (auto *sh = Note_column::support_head (h))
+            {
+              wid = sh->extent (h, X_AXIS).length ();
+            }
         }
     }
 

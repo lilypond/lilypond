@@ -288,12 +288,37 @@ Stem::note_head_positions (Grob *me, bool filter)
   std::vector<int> ps;
   extract_grob_set (me, "note-heads", heads);
   Grob *xref = common_refpoint_of_array (heads, me, X_AXIS);
+  const bool filter_stemless = filter && is_invisible (me);
 
   for (vsize i = heads.size (); i--;)
     {
       Grob *n = heads[i];
-      if (filter && n->relative_coordinate (xref, X_AXIS) != 0.0)
-        continue;
+      if (filter)
+        {
+          // The main column can include smaller notes that are shifted to align
+          // with normal notes.  For example, using Emmentaler, a quarter-note
+          // head sharing an up-stem with a half-note head is offset by about
+          // 0.0732, and a harmonic head centered on a normal whole note is
+          // offset by about 0.331.  This allowance might need to be tuned as
+          // other cases are tested.
+          //
+          // It is illogical to limit this check to whole-note harmonics, but it
+          // is being done to avoid changing the decisions of
+          // Note_collision_interface in other cases.  Some of those decisions
+          // do require improvement, but without a lot of diligence, the risk of
+          // regressions is high.
+          const bool filter_centered
+            = filter_stemless
+              && scm_is_eq (get_property (n, "style"),
+                            ly_symbol2scm ("harmonic"));
+          const auto tolerated
+            = filter_centered ? Interval (0.0, 0.375) : Interval (0.0);
+          const auto x = n->relative_coordinate (xref, X_AXIS);
+          if (!tolerated.contains (x))
+            {
+              continue;
+            }
+        }
 
       int p = Staff_symbol_referencer::get_rounded_position (n);
       ps.push_back (p);
