@@ -36,6 +36,8 @@ public:
   static Spanner *get_beam (Grob *);
   static Grob *first_head (Grob *);
   static Grob *last_head (Grob *);
+  static Drul_array<Grob *> extremal_heads_if (Grob *me,
+                                               bool (*predicate) (Grob *));
   static Drul_array<Grob *> extremal_heads (Grob *);
   static Grob *support_head (Grob *);
   static void add_head (Grob *me, Grob *n);

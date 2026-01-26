@@ -215,13 +215,10 @@ Stem::last_head (Grob *me)
   return 0;
 }
 
-/*
-  START is part where stem reaches `last' head.
-
-  This function returns a drul with (bottom-head, top-head).
-*/
+// Return a drul with (bottom-head, top-head), accepting only the heads that
+// satisfy the predicate.  The pointers are null if no head satisfies it.
 Drul_array<Grob *>
-Stem::extremal_heads (Grob *me)
+Stem::extremal_heads_if (Grob *me, bool (*predicate) (Grob *))
 {
   // N.B. `me` could be a NoteColumn rather than a Stem.  This isn't very clean,
   // but this was implemented here first, and rearranging it without rearranging
@@ -235,9 +232,13 @@ Stem::extremal_heads (Grob *me)
   Drul_array<Grob *> exthead;
   extract_grob_set (me, "note-heads", heads);
 
-  for (vsize i = 0; i < heads.size (); i++)
+  for (auto *n : heads)
     {
-      Grob *n = heads[i];
+      if (!predicate (n))
+        {
+          continue;
+        }
+
       int p = Staff_symbol_referencer::get_rounded_position (n);
 
       if (p < extpos[DOWN]) /* < lowest note unison: take FIRST one */
@@ -253,6 +254,15 @@ Stem::extremal_heads (Grob *me)
     }
 
   return exthead;
+}
+
+/*
+  This function returns a drul with (bottom-head, top-head).
+*/
+Drul_array<Grob *>
+Stem::extremal_heads (Grob *me)
+{
+  return extremal_heads_if (me, [] (auto) { return true; });
 }
 
 /* The staff positions, in ascending order.
