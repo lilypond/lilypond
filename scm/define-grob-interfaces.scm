@@ -232,7 +232,7 @@ or 15 (two octaves), but LilyPond allows any integer here."
 (ly:add-interface
  'custos-interface
  "A custos object.  @code{style} can have four valid values: @code{mensural},
-@code{vaticana}, @code{medicaea}, and @code{hufnagel}.  @code{mensural} is the
+@code{vaticana}, @code{medicaea}, and @code{hufnagel}.  @code{vaticana} is the
 default style."
  '(style neutral-position neutral-direction))
 

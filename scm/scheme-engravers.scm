@@ -2598,14 +2598,8 @@ style @code{\\rtoe} and its siblings, based on the data in the
 
 (define-public (Custos_engraver context)
 ;;; This engraver creates custos symbols.
-;;;
-;;; FIXME: note heads inside of ligatures (i.e. ligature heads) are
-;;; sometimes not recognized by this engraver. --jr
-  (let ((custodes '())
-        (pitches '()))
+  (let ((pitches '()))
     (make-engraver
-     ((start-translation-timestep engraver)
-      (set! custodes '()))
      (acknowledgers
       ((note-head-interface engraver notehead source-engraver)
        ;; Ideally, we'd do (ly:grob-set-parent! custos Y notehead),
@@ -2630,15 +2624,11 @@ style @code{\\rtoe} and its siblings, based on the data in the
            (let ((custos (ly:engraver-make-item engraver 'Custos '()))
                  (staff-pos (+ (ly:pitch-steps pitch)
                                (ly:context-property context 'middleCPosition 0))))
-             (ly:grob-set-property! custos 'staff-position staff-pos)
-             (set! custodes (cons custos custodes))))
+             (ly:grob-set-property! custos 'staff-position staff-pos)))
          pitches)
         (set! pitches '())))
      ((stop-translation-timestep engraver)
-      (set! pitches '()))
-     ((finalize engraver)
-      (for-each ly:grob-suicide! custodes)
-      (set! custodes '())))))
+      (set! pitches '())))))
 
 (ly:register-translator
  Custos_engraver 'Custos_engraver
