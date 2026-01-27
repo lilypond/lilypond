@@ -2425,6 +2425,7 @@ attached to a @iref{MultiMeasureRest} grob.  See also
     (ApproximatePitchNoteHead
      . (
         (bend-me . ())
+        (direction . ,note-head::calc-direction)
         (duration-log . ,note-head::calc-duration-log)
         (extra-spacing-height . ,ly:note-head::include-ledger-line-height)
         (flexa-width . 2.0)
@@ -2543,6 +2544,7 @@ the same voice.  See also @iref{NoteCollision}.")))))
     (NoteHead
      . (
         (bend-me . ())
+        (direction . ,note-head::calc-direction)
         (duration-log . ,note-head::calc-duration-log)
         (extra-spacing-height . ,ly:note-head::include-ledger-line-height)
         (flexa-width . 2.0)

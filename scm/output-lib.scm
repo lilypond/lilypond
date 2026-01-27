@@ -618,6 +618,10 @@ corner of the beam later on."
        (ly:duration-log
         (ly:event-property (event-cause grob) 'duration))))
 
+(define-public (note-head::calc-direction grob)
+  (let ((stem (ly:grob-object grob 'stem)))
+    (ly:grob-property stem 'direction)))
+
 (define-public (dots::calc-dot-count grob)
   (ly:duration-dot-count
    (ly:event-property (event-cause grob) 'duration)))

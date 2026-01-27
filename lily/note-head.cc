@@ -53,13 +53,8 @@ internal_print (Grob *me, std::string *font_char)
   Stencil out = fm->find_by_name (idx_either + suffix);
   if (out.is_empty ())
     {
-      Grob *stem = unsmob<Grob> (get_object (me, "stem"));
-      Direction stem_dir = stem ? get_grob_direction (stem) : CENTER;
-
-      if (stem_dir == CENTER)
-        programming_error ("must have stem dir for note head");
-
-      idx_either = idx_directed = prefix + (stem_dir == UP ? "u" : "d");
+      const auto dir = get_strict_grob_direction (me);
+      idx_either = idx_directed = prefix + (dir == UP ? "u" : "d");
       out = fm->find_by_name (idx_either + suffix);
     }
 
@@ -233,11 +228,18 @@ ADD_INTERFACE (Note_head,
                R"(
 A note head.  There are many possible values for @code{style}.  For a complete
 list, see @rnotation{Note head styles}.
+
+The sense of the @code{direction} property is the direction of the stem that the
+head is designed to attach to.  For certain glyphs, this might seem
+counterintuitive.  Note that stems do not adapt to forced changes in head
+direction, so even when a head style has direction-dependent glyphs, proper
+attachment to the stem depends on the design of the font.
                )",
 
                /* properties */
                R"(
 accidental-grob
+direction
 duration-log
 glyph-name
 ignore-ambitus
