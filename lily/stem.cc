@@ -280,6 +280,23 @@ Stem::extremal_heads (Grob *me)
   return extremal_heads_if (me, [] (auto) { return true; });
 }
 
+MAKE_DOCUMENTED_SCHEME_CALLBACK (Stem, extremal_heads,
+                                 "ly:stem::extremal-heads", 1,
+                                 R"(
+Return a pair containing the lowest and highest heads on this stem.
+
+If the stem has only one head, both elements of the pair refer to it.  If the
+stem has no heads, the result is @code{'(() . ())}.
+)");
+SCM
+Stem::extremal_heads (SCM smob)
+{
+  auto *const me = LY_ASSERT_SMOB (Item, smob, 1);
+  auto heads = extremal_heads (me);
+  return scm_cons (heads[DOWN] ? to_scm (heads[DOWN]) : SCM_EOL,
+                   heads[UP] ? to_scm (heads[UP]) : SCM_EOL);
+}
+
 /* The staff positions, in ascending order.
  * If FILTER, include the main column of noteheads only */
 std::vector<int>

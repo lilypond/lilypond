@@ -618,6 +618,29 @@ corner of the beam later on."
        (ly:duration-log
         (ly:event-property (event-cause grob) 'duration))))
 
+(define-public (approximate-pitch-note-head::calc-direction grob)
+  "Choose a direction for arrow note heads.
+
+This function assumes that the head style is set to @code{arrow}.  When the head
+is at the end of the stem, which is the expected case, point the head in the
+opposite direction of the stem.  Otherwise, point the head away from the center
+of the staff."
+  (let* ((stem (ly:grob-object grob 'stem #f))
+         (stem-dir (if stem (ly:grob-property stem 'direction CENTER) CENTER))
+         (heads (and stem (ly:stem::extremal-heads stem)))
+         (first-head (and heads (index-cell heads (- stem-dir)))))
+    (if (eq? first-head grob)
+        stem-dir
+        ;; What to do in other cases is unclear.  Should we have prevented
+        ;; stem-sharing before getting here?  Pointing away from the center of
+        ;; the staff seems sane: that is what would happen for a lone note.
+        (let ((pos (ly:grob-property grob 'staff-position)))
+          (cond
+           ((positive? pos) DOWN)
+           ((negative? pos) UP)
+           (else
+            (if stem (ly:grob-property stem 'neutral-direction UP) UP)))))))
+
 (define-public (note-head::calc-direction grob)
   (let ((stem (ly:grob-object grob 'stem)))
     (ly:grob-property stem 'direction)))
