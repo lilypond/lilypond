@@ -253,6 +253,32 @@ trillTweak =
      #}))
 """,
 
+    "arpeggioXX": """\
+% For cross-staff arpeggios.
+arpeggioXX =
+  \\once \\set PianoStaff.connectArpeggios = ##t
+arpeggioArrowUpXX =
+  \\once \\override PianoStaff.Arpeggio.arpeggio-direction = #UP
+arpeggioArrowDownXX =
+  \\once \\override PianoStaff.Arpeggio.arpeggio-direction = #DOWN
+arpeggioBracketXX =
+  \\once \\override PianoStaff.Arpeggio.stencil =
+    #ly:arpeggio::brew-chord-bracket
+""",
+
+    "arpeggioX": """\
+% For cross-voice arpeggios.
+arpeggioX =
+  \\once \\set Staff.connectArpeggios = ##t
+arpeggioArrowUpX =
+  \\once \\override Staff.Arpeggio.arpeggio-direction = #UP
+arpeggioArrowDownX =
+  \\once \\override Staff.Arpeggio.arpeggio-direction = #DOWN
+arpeggioBracketX =
+  \\once \\override Staff.Arpeggio.stencil =
+    #ly:arpeggio::brew-chord-bracket
+""",
+
     "cancel-after-key": """\
 cancelAfterKey = {
   \\once \\set Staff.printKeyCancellation = ##t

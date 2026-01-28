@@ -1428,6 +1428,7 @@ class ChordEvent(NestedMusic):
         # For handling `<direction>` elements containing `<offset>`.
         self.when = 0
         self.offset_elements = []
+        self.arpeggio_type = None  # For cross-staff and cross-voice arpeggios.
 
     def append_grace(self, element):
         if element:
@@ -1827,8 +1828,9 @@ class ChordEvent(NestedMusic):
 
         if rest_events:
             rest_events[0].print_ly(printer)
-        elif len(note_events) == 1:
-            # We don't print an arpeggio line or bracket for a single note.
+        elif len(note_events) == 1 and not self.arpeggio_type:
+            # We don't print an arpeggio line or bracket for a single note
+            # if not part of a cross-staff or cross-voice arpeggio.
             note_events[0].print_ly(printer)
         elif note_events:
             global previous_pitch
@@ -1899,13 +1901,19 @@ class ArpeggioChordEvent(ChordEvent):
                     % (min_offset / 2, max_offset / 2))
 
     def arpeggio_pre_chord(self, printer):
+        # For shorter command names.
+        cross = {'PianoStaff': 'XX',
+                 'Staff': 'X'}.get(self.arpeggio_type, '')
+
+        if cross:
+            printer(r'\arpeggio' + cross)
         if self.arpeggio == 'non-arpeggiate':
-            printer(r'\arpeggioBracket')
+            printer(r'\arpeggioBracket' + cross)
         elif self.arpeggio == 'arpeggiate':
             dir = {'down': r'\arpeggioArrowDown',
                    'up': r'\arpeggioArrowUp'}.get(self.arpeggio_dir, '')
             if dir:
-                printer(dir)
+                printer(dir + cross)
 
     def arpeggio_post_chord(self, printer):
         if self.arpeggio is not None:

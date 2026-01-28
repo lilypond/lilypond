@@ -4691,8 +4691,16 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
                         # Use first occurrence of the element to set
                         # attributes.
                         ev_chord.arpeggio = arpeggiate
+                        ev_chord.arpeggio_type = n.arpeggio_type
                         ev_chord.arpeggio_dir = getattr(a, 'direction', None)
                         ev_chord.arpeggio_color = getattr(a, 'color', color)
+
+                        if n.arpeggio_type == 'PianoStaff':
+                            needed_additional_definitions.append('arpeggioXX')
+                        elif n.arpeggio_type == 'Staff':
+                            needed_additional_definitions.append('arpeggioX')
+                            globvars.layout_information.set_context_item(
+                                'Staff', r'\consists "Span_arpeggio_engraver"')
 
                     # Setting a vertical minimum and a maximum position for
                     # the arpeggio is a subset of the theoretically possible

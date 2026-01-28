@@ -911,6 +911,7 @@ class Note(Measure_element):
         Measure_element.__init__(self)
         self.instrument_name = ''
         self.single_voice = None  # Not set for invisible and/or chord notes.
+        self.arpeggio_type = None  # For cross-voice and cross-staff arpeggios.
         self._after_grace = False
         self._duration = 1
         self._content['beam'] = []
@@ -1497,11 +1498,16 @@ class Part(Music_xml_node):
     #   c( ...  d)` (with the expected `b)` in another voice) can lead to
     #   ugly artifacts in the output.
     #
+    # * Keep track of arpeggios.  At a given moment we need to know in which
+    #   staff and voice the corresponding note occurs.  The result is
+    #   processed later on in function `process_arpeggios`.
+    #
     #   We assume that the MusicXML data is well-formed.  In case it is not,
     #   LilyPond will complain.
-    def trace_notation(self, n, slurs):
+    def trace_notation(self, n, slurs, arpeggios):
         notations_children = n['notations']
         voice_id = n['voice'] if 'voice' in n else '1'
+        staff_id = n.get('staff', 'None')
 
         # Note that there is no order of start and stop elements due to
         # `<forward>` and `<backup>`.
@@ -1525,6 +1531,85 @@ class Part(Music_xml_node):
                     prev_array.remove(prev_s)
 
                 del slurs[nr]
+
+            # The structure used for collecting arpeggio information is as
+            # follows.
+            #
+            #   { <moment_1>:
+            #       { <arpeggio_nr_1>:
+            #           ( { <staff_id_1>, <staff_id_2>, ... },
+            #             { <voice_id_1>, <voice_id_2>, ... },
+            #             [ <note>, <note>, ... ] ),
+            #         <arpeggio_nr_2>:
+            #           ( ... ),
+            #         ...
+            #       },
+            #     <moment_2>:
+            #       { ... },
+            #     ...
+            #   }
+            for arpeggiate in ['arpeggiate', 'non-arpeggiate']:
+                for a in notations[arpeggiate]:
+                    nr = getattr(a, 'number', '1')
+
+                    if n._when not in arpeggios:
+                        arpeggios[n._when] = {}
+
+                    if nr in arpeggios[n._when]:
+                        arpeggios[n._when][nr][0].add(staff_id)
+                        arpeggios[n._when][nr][1].add(voice_id)
+                        arpeggios[n._when][nr][2].append(n)
+                    else:
+                        # Use `[...]` for string while initializing set to
+                        # avoid splitting into single characters.
+                        arpeggios[n._when][nr] = (set([staff_id]),
+                                                  set([voice_id]),
+                                                  [n])
+
+    # LilyPond cannot handle arbitrary arpeggio configurations; this is an
+    # implementation limitation.  We support the following situations.
+    #
+    # * Per-voice arpeggios.
+    # * Cross-voice arpeggios.  No per-voice arpeggio support at the same
+    #   time.  This gets handled in the `Staff` context.
+    # * Cross-staff arpeggios.  No per-voice and cross-voice arpeggio
+    #   support at the same time.  This gets handled in the `PianoStaff`
+    #   context.
+    def process_arpeggios(self, arpeggios):
+        # Compute arpeggio type.
+        for moment in arpeggios.keys():
+            elem = arpeggios[moment]
+            if len(elem) == 1:
+                for nr in elem.keys():
+                    val = elem[nr]
+                    num_staff_ids = len(val[0])
+                    num_voice_ids = len(val[1])
+                    if num_staff_ids == 1:
+                        if num_voice_ids == 1:
+                            arpeggio_type = 'Voice'
+                        else:
+                            arpeggio_type = 'Staff'
+                    else:
+                        arpeggio_type = 'PianoStaff'
+            else:
+                is_voice = True
+                for nr in elem.keys():
+                    val = elem[nr]
+                    num_staff_ids = len(val[0])
+                    num_voice_ids = len(val[1])
+                    if num_staff_ids != 1 or num_voice_ids != 1:
+                        is_voice = False
+                        break
+                if is_voice:
+                    arpeggio_type = 'Voice'
+                else:
+                    arpeggio_type = 'Staff'
+
+            # Assign arpeggio type to all related elements.
+            for nr in elem.keys():
+                nn = elem[nr][2]
+                for n in nn:
+                    n.arpeggio_type = arpeggio_type
 
     # Set durations and starting points of all notes and measures.  Note
     # that the starting point of the very first note is 0.
@@ -1561,6 +1646,9 @@ class Part(Music_xml_node):
         previous_senza_misura = None  # `Measure` or `Time_modification`
 
         for m in measures:
+            # To identify cross-voice and cross-staff arpeggios.
+            arpeggios = {}
+
             if senza_misura_mode:
                 if previous_senza_misura:
                     previous_senza_misura.senza_misura_length = \
@@ -1680,9 +1768,6 @@ class Part(Music_xml_node):
                             and attributes_object.get_measure_length() == dur):
                         rest._is_whole_measure = True
 
-                if 'notations' in n:
-                    self.trace_notation(n, slurs)
-
                 if 'offset' in n:
                     # The standard recommends integers; however, non-integer
                     # values have been seen in the wild.  We thus increase
@@ -1696,6 +1781,9 @@ class Part(Music_xml_node):
 
                 n._when = now
                 n._measure_position = measure_position
+
+                if 'notations' in n:
+                    self.trace_notation(n, slurs, arpeggios)
 
                 if last_voice_id != voice_id or now > 0:
                     if grace_length > 0:
@@ -1756,6 +1844,8 @@ class Part(Music_xml_node):
                     # we are only paying attention to the first.
                     instr = instruments[0]
                     n.instrument_name = part_list.get_instrument(instr.id)
+
+            self.process_arpeggios(arpeggios)
 
             if grace_length > 0:
                 starting_grace_lengths[(self.id, voice_id)] = grace_length
