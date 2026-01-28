@@ -1,15 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 154972ad163bae17d8753c7e4e065304c79ccf78
+    Translation of GIT committish: f629c63b9a178b7f8b0cc2175a4f15696cae52b7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
     Guide, node Updating translation committishes..
 @end ignore
 
-
 @c \version "2.25.33"
-
 
 @node Rhythms
 @chapter Duraciones
@@ -2201,7 +2199,7 @@ también @code{\enablePerStaffTiming} dentro del bloque @code{\midi}.
 
 @subsubheading Indicaciones de compás complejo o de amalgama
 
-@funindex \timeAbbrev
+@funindex \time
 @cindex compuesto, indicación de compás
 @cindex compás, compuesto, indicación de
 @cindex indicación de compás aditiva
@@ -2211,36 +2209,38 @@ también @code{\enablePerStaffTiming} dentro del bloque @code{\midi}.
 @cindex alterno, indicación de compás
 @cindex amalgama, indicación de compás de
 
-Se crean usando la función @code{\timeAbbrev}.  La sintaxis es:
-
-@example
-\timeAbbrev #'(lista de listas)
-@end example
-
-La construcción más simple es una lista única, en la que el
-@emph{último} número indica el denominador de la indicación de
-compás y los anteriores son los numeradores.
+Se crean usando la función @code{\time} con la indicación de
+compás representada como una expresión de Scheme.  Las fracciones
+se representan como parejas, @code{(@var{numerador}
+.@tie{}@var{denominador})}, donde el denominador siempre es un
+número.  El numerador es un número o una lista de dos o más
+números.  Una lista representa una concatenación.
 
 @lilypond[quote,verbatim]
-\relative {
-  \timeAbbrev #'((2 2 2 8))
-  \repeat unfold 6 c'8 \repeat unfold 12 c16
+\fixed c' {
+  \time #'((2 2 2) . 8)
+  \repeat unfold 6 c8
+  \repeat unfold 12 c16
 }
 @end lilypond
 
-Se pueden construir compases más complejos utilizando listas
-adicionales.  Los ajustes de barrado automático se ajustarán
-dependiendo de los valores.  Se pueden habilitar barras de compás
-secundarias como ayuda para aclarar los ritmos complejos.
+Se pueden construir compases que alternan de forma estricta una
+serie de fracciones, agrupándolas en una lista.  Los ajustes de
+barrado automático se ajustarán dependiendo de los valores.  Se
+pueden habilitar barras de compás secundarias como ayuda para
+aclarar los ritmos complejos.
 
 @lilypond[quote,verbatim]
 \fixed c' {
-  \timeAbbrev #'((1 4) (3 8))
-  \repeat unfold 5 c8 \repeat unfold 10 c16
+  \time #'((1 . 4) (3 . 8))
+  \repeat unfold 5 c8
+  \repeat unfold 10 c16
 }
+@end lilypond
 
+@lilypond[quote,verbatim]
 \fixed c' {
-  \timeAbbrev #'((1 2 3 8) (3 4))
+  \time #'(((1 2 3) . 8) (3 . 4))
   \repeat unfold 12 c8
   \submeasureBarsOn
   \repeat unfold 12 c8

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 3662896dcab1111d5be82638e9a6d6de4e226985
+    Translation of GIT committish: 7beb9b71e8605f31b8d1448dae3f4a64a36abd78
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -50,29 +50,58 @@ lenguaje en los archivos de LilyPond.
 @node Scheme sandbox
 @subsection Cajón de arena de Scheme
 
+@cindex Scheme, cajó de arena
+@cindex arena, cajón de, Scheme
+
 La instalación de LilyPond incluye también la de la implementación
-Guile de Scheme.  Está disponible un cajón de arena de Scheme listo
-para funcionar con todo LilyPond cargado, con esta instrucción de
-la línea de órdenes:
+Guile de Scheme.  Está disponible un cajón de arena de Scheme
+listo para funcionar con todo LilyPond cargado, con esta llamada
+de la línea de órdenes:
+
 @example
 lilypond scheme-sandbox
 @end example
 
 @noindent
 Una vez está funcionando el cajón de arena, verá un indicador del
-sistema de Guile:
+sistema de Guile
 
 @lisp
 guile>
 @end lisp
 
-Podemos introducir expresiones de Scheme en este indicador para
-experimentar con Scheme.  Si quiere usar la biblioteca readline de
-GNU para una más cómoda edición de la línea de órdenes de Scheme,
-consulte el archivo @file{ly/scheme-sandbox.ly} para más
-información.  Si ya ha activado la biblioteca readline para las
-sesiones de Guile interactivas fuera de LilyPond, debería
-funcionar también en el cajón de arena.
+@noindent
+que podemos usar para introducir expresiones de Scheme.
+
+El archivo que contiene el código del cajó de arena
+(@file{ly/scheme-sandbox.ly}) trata de activar la biblioteca
+readline de GNU para una más cómoda edición sobre la línea de
+órdenes de Guile (por ejemplo, usando las teclas del cursor flecha
+arriba y flecha abajo para acceder a instrucciones tecleadas con
+anterioridad).  Por el momento, esto solamente funciona con un
+ejecutable binario de LilyPond que esté enlazado dinámicamente con
+Guile, lo que no es el caso para los binarios distribuidos
+@q{oficialmente}.  Existen dos posibles formas de solventar este
+problema, como se muestra a continuación.
+
+@itemize
+
+@item
+Usar @uref{https://github.com/hanslub42/rlwrap, @command{rlwrap}},
+un envoltorio poco pesado alrededor de la biblioteca readline.
+Este programa está disponible para sistemas operativos de la
+familia Unix; lo llamamos con
+
+@example
+rlwrap lilypond scheme-sandbox
+@end example
+
+@item
+Usar el editor Emacs en combinación con el
+@uref{https://github.com/shevvek/lilypond-ts-mode, Modo
+Tree-sitter de LilyPond}.  Esto también funciona bajo Windows.
+@end itemize
+
 
 @node Scheme variables
 @subsection Variables de Scheme
