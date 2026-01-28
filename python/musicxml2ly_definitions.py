@@ -20,213 +20,6 @@
 
 
 additional_definitions = {
-    # TODO: Implement values `both` and `arrow` of `line-end` attribute.
-    "make-edge-height": """\
-#(define edge-height-alist
-   '((up . -0.7)
-     (down . 0.7)
-     (none . 0)))
-
-#(define (get-height type)
-   (or (assv-ref edge-height-alist type)
-       (begin
-         (ly:warning "bracket edge type '~a' not implemented" type)
-         0)))
-
-% Make the `edge-height` property independent of a bracket's direction.
-#(define (make-edge-height left right)
-   (grob-transformer
-    'edge-height
-    (lambda (grob orig)
-      (let ((dir (ly:grob-property grob 'direction))
-            (left-height (get-height left))
-            (right-height (get-height right)))
-        (cons (* dir left-height) (* dir right-height))))))
-""",
-
-    "make-bracketed": """\
-#(define make-bracketed
-   (grob-transformer
-    'stencil
-    (lambda (grob orig)
-      (let* ((paren-stil (grob-interpret-markup
-                          grob
-                          (markup #:musicglyph "accidentals.leftparen")))
-             (ext (ly:stencil-extent paren-stil Y))
-             (stil (ly:accidental-interface::print grob))
-             (thick (ly:output-def-lookup (ly:grob-layout grob)
-                                          'line-thickness 0.1))
-             (padding thick)
-             (protrusion (* 2.5 thick))
-             (lb (ly:bracket Y ext thick protrusion))
-             (rb (ly:bracket Y ext thick (- protrusion))))
-        (set! stil (ly:stencil-combine-at-edge stil X 1 rb padding))
-        (set! stil (ly:stencil-combine-at-edge stil X -1 lb padding))
-        stil))))
-
-bracketAcc =
-  \\tweak AccidentalCautionary.parenthesized ##f
-  \\tweak AccidentalCautionary.stencil #make-bracketed \\etc
-""",
-
-    "hide-note": """\
-hideNote =
-  \\tweak Dots.transparent ##t
-  \\tweak NoteHead.transparent ##t
-  \\tweak NoteHead.no-ledgers ##t
-  \\tweak Stem.transparent ##t
-  \\tweak Accidental.transparent ##t
-  \\tweak Rest.transparent ##t
-  \\tweak TabNoteHead.transparent ##t \\etc
-""",
-
-    "insert-before": """\
-#(define (insert-before where what lst)
-   (cond ((null? lst)
-          (list what))
-         ((eq? where (car lst))
-          (cons what lst))
-         (else
-          (cons (car lst) (insert-before where what (cdr lst))))))
-""",
-
-    "cancel-before-barline": """\
-cancelBeforeBarline = {
-  \\once \\set Staff.printKeyCancellation = ##t
-  \\once \\override Score.BreakAlignment.break-align-orders =
-  #(grob-transformer
-    'break-align-orders
-    (lambda (grob orig)
-      (let* ((middle (vector-ref orig 1))
-             (middle (delq 'key-cancellation middle))
-             (middle (insert-before 'staff-bar 'key-cancellation middle)))
-        (vector
-         (vector-ref orig 0)
-         middle
-         (vector-ref orig 2)))))
-}
-""",
-
-    "cancel-after-key": """\
-cancelAfterKey = {
-  \\once \\set Staff.printKeyCancellation = ##t
-  \\once \\override Score.BreakAlignment.break-align-orders =
-  #(grob-transformer
-    'break-align-orders
-    (lambda (grob orig)
-      (let* ((middle (vector-ref orig 1))
-             (middle (delq 'key-signature middle))
-             (middle (insert-before 'key-cancellation 'key-signature middle)))
-        (vector
-         (vector-ref orig 0)
-         middle
-         (vector-ref orig 2)))))
-}
-""",
-
-    "staff-lines": """\
-% Change the number of staff lines to `num-lines`.
-%
-% The argument `clef` makes the function emit a clef with the given
-% name.  If `clef` contains the substring `"percussion"` or `"tab"`,
-% use both even and odd staff line positions.  If set to `""`, do the
-% same but don't set `Staff.clefPosition` (which means that no clef
-% gets triggered).  If `clef` is set to any other value, use even
-% staff line positions only and set `Staff.clefPosition`, which
-% triggers a clef if its value changes.
-%
-% The optional argument `properties` is an alist of properties to
-% control the appearance of both the staff and the clef:
-%
-% * `details` is a list of staff line numbers that should be
-%   displayed.  An empty list suppresses any display of staff lines;
-%   omitting the argument means to display all lines.
-% * `staff-color` holds the color of the staff.
-% * `clef-font-size` holds the font size of the clef
-% * `clef-color` holds the color of the clef.
-%
-% \\staffLines [<properties>] <clef> <num-lines>
-
-staffLines =
-#(define-music-function (properties clef num-lines)
-                        ((alist? '()) string? index?)
-   (let* ((details (assoc-get 'details properties #f))
-          (staff-color (assoc-get 'staff-color properties #f))
-          (clef-color (assoc-get 'clef-color properties #f))
-          (clef-font-size (assoc-get 'clef-font-size properties #f))
-          (lines (or details (iota num-lines 1)))
-          (only-even-pos (not (or (equal? clef "")
-                                  (string-contains clef "percussion")
-                                  (string-contains clef "tab"))))
-          (offset (if only-even-pos
-                      (if (even? num-lines) 1 0)
-                      0))
-          ;; MusicXML counts staff lines from the bottom.
-          (delta (- -1 num-lines offset))
-          (positions (filter (lambda (x) (<= x num-lines))
-                             lines))
-          (positions (map (lambda (x) (+ delta (* x 2)))
-                      positions)))
-     #{
-       \\stopStaff
-
-       #(if staff-color
-            #{
-              \\once \\override Staff.StaffSymbol.color = #staff-color
-            #})
-       #(if clef-color
-            #{
-              \\once \\override Staff.Clef.color = #clef-color
-            #})
-       #(if clef-font-size
-            #{
-              \\once \\override Staff.Clef.font-size = #clef-font-size
-            #})
-
-       #(if (equal? clef "")
-            #{
-              \\unset Staff.middleCPosition
-              \\unset Staff.middleCClefPosition
-              % To suppress the clef inserted by default by LilyPond at the
-              % beginning of a piece.
-              \\once \\omit Staff.Clef
-            #}
-            #{ \\clef #clef #})
-
-       \\override Staff.StaffSymbol.line-positions = #positions
-
-       \\applyContext
-       #(lambda (ctx)
-          (let* ((c (ly:context-find ctx 'Staff))
-                 (clef-p (ly:context-property c 'clefPosition))
-                 (middle-c-p (ly:context-property c 'middleCPosition))
-                 (middle-c-clef-p (ly:context-property c 'middleCClefPosition))
-                 (use-offset (not (string-contains clef "percussion")))
-                 (delta (+ delta (if use-offset 6 0))))
-            (when only-even-pos
-              (ly:context-set-property! c 'clefPosition (+ clef-p delta))
-              (ly:context-set-property! c 'forceClef #t))
-            (ly:context-set-property! c 'middleCPosition (+ middle-c-p delta))
-            (ly:context-set-property! c 'middleCClefPosition
-                                      (+ middle-c-clef-p delta))))
-       \\startStaff
-     #}))
-""",
-
-    "square": """\
-#(define-markup-command (square layout props arg)
-   (markup?)
-   (let* ((stil (interpret-markup layout props arg))
-          (x-size (interval-length (ly:stencil-extent stil X)))
-          (y-size (interval-length (ly:stencil-extent stil Y)))
-          (axis (if (> x-size y-size) Y X)))
-     (interpret-markup
-      layout props
-      #{
-        \\markup \\box \\with-dimension-from #axis \\rotate #90 #arg #arg
-      #})))
-""",
-
     "accidental-marks": """\
 % \\accs-ornament
 % --------------
@@ -460,6 +253,75 @@ trillTweak =
      #}))
 """,
 
+    "cancel-after-key": """\
+cancelAfterKey = {
+  \\once \\set Staff.printKeyCancellation = ##t
+  \\once \\override Score.BreakAlignment.break-align-orders =
+  #(grob-transformer
+    'break-align-orders
+    (lambda (grob orig)
+      (let* ((middle (vector-ref orig 1))
+             (middle (delq 'key-signature middle))
+             (middle (insert-before 'key-cancellation 'key-signature middle)))
+        (vector
+         (vector-ref orig 0)
+         middle
+         (vector-ref orig 2)))))
+}
+""",
+
+    "cancel-before-barline": """\
+cancelBeforeBarline = {
+  \\once \\set Staff.printKeyCancellation = ##t
+  \\once \\override Score.BreakAlignment.break-align-orders =
+  #(grob-transformer
+    'break-align-orders
+    (lambda (grob orig)
+      (let* ((middle (vector-ref orig 1))
+             (middle (delq 'key-cancellation middle))
+             (middle (insert-before 'staff-bar 'key-cancellation middle)))
+        (vector
+         (vector-ref orig 0)
+         middle
+         (vector-ref orig 2)))))
+}
+""",
+
+    "crescendo": """\
+Cresc = #(make-music 'CrescendoEvent 'span-direction START
+                                     'span-type 'text)
+""",
+
+    "decrescendo": """\
+Decresc = #(make-music 'DecrescendoEvent 'span-direction START
+                                         'span-type 'text)
+""",
+
+    "fingering-substitution": """\
+substFinger =
+#(define-music-function (start left right)
+   (markup? markup? markup?)
+   #{
+     \\tweak self-alignment-X #-0.6
+     -\\finger \\markup
+       \\concat {
+         #start
+         \\overtie \\concat { #left \\char ##x2009 #right } }
+   #})
+""",
+
+    "for-barline": """\
+% This `\\caesura` creates a light-light bar line where there isn't
+% already a more significant bar line, and aligns its decorations
+% (e.g., fermatas) to the bar line.
+forBarLine =
+{
+  \\once \\set Staff.caesuraType = #'((underlying-bar-line . "||"))
+  \\once \\set Staff.caesuraTypeTransform = ##f
+  \\caesura
+}
+""",
+
     "harmonic": """\
 harmonicSmall =
   \\tweak NoteHead.font-size #-3
@@ -477,43 +339,181 @@ harmonicParen =
    #})
 """,
 
-    "fingering-substitution": """\
-substFinger =
-#(define-music-function (start left right)
-   (markup? markup? markup?)
-   #{
-     \\tweak self-alignment-X #-0.6
-     -\\finger \\markup
-       \\concat {
-         #start
-         \\overtie \\concat { #left \\char ##x2009 #right } }
-   #})
+    "hide-note": """\
+hideNote =
+  \\tweak Dots.transparent ##t
+  \\tweak NoteHead.transparent ##t
+  \\tweak NoteHead.no-ledgers ##t
+  \\tweak Stem.transparent ##t
+  \\tweak Accidental.transparent ##t
+  \\tweak Rest.transparent ##t
+  \\tweak TabNoteHead.transparent ##t \\etc
+""",
+
+    "insert-before": """\
+#(define (insert-before where what lst)
+   (cond ((null? lst)
+          (list what))
+         ((eq? where (car lst))
+          (cons what lst))
+         (else
+          (cons (car lst) (insert-before where what (cdr lst))))))
+""",
+
+    "make-bracketed": """\
+#(define make-bracketed
+   (grob-transformer
+    'stencil
+    (lambda (grob orig)
+      (let* ((paren-stil (grob-interpret-markup
+                          grob
+                          (markup #:musicglyph "accidentals.leftparen")))
+             (ext (ly:stencil-extent paren-stil Y))
+             (stil (ly:accidental-interface::print grob))
+             (thick (ly:output-def-lookup (ly:grob-layout grob)
+                                          'line-thickness 0.1))
+             (padding thick)
+             (protrusion (* 2.5 thick))
+             (lb (ly:bracket Y ext thick protrusion))
+             (rb (ly:bracket Y ext thick (- protrusion))))
+        (set! stil (ly:stencil-combine-at-edge stil X 1 rb padding))
+        (set! stil (ly:stencil-combine-at-edge stil X -1 lb padding))
+        stil))))
+
+bracketAcc =
+  \\tweak AccidentalCautionary.parenthesized ##f
+  \\tweak AccidentalCautionary.stencil #make-bracketed \\etc
+""",
+
+    # TODO: Implement values `both` and `arrow` of `line-end` attribute.
+    "make-edge-height": """\
+#(define edge-height-alist
+   '((up . -0.7)
+     (down . 0.7)
+     (none . 0)))
+
+#(define (get-height type)
+   (or (assv-ref edge-height-alist type)
+       (begin
+         (ly:warning "bracket edge type '~a' not implemented" type)
+         0)))
+
+% Make the `edge-height` property independent of a bracket's direction.
+#(define (make-edge-height left right)
+   (grob-transformer
+    'edge-height
+    (lambda (grob orig)
+      (let ((dir (ly:grob-property grob 'direction))
+            (left-height (get-height left))
+            (right-height (get-height right)))
+        (cons (* dir left-height) (* dir right-height))))))
 """,
 
     "pluck": """\
 RH = \\rightHandFinger \\etc
 """,
 
-    "crescendo": """\
-Cresc = #(make-music 'CrescendoEvent 'span-direction START
-                                     'span-type 'text)
+    "square": """\
+#(define-markup-command (square layout props arg)
+   (markup?)
+   (let* ((stil (interpret-markup layout props arg))
+          (x-size (interval-length (ly:stencil-extent stil X)))
+          (y-size (interval-length (ly:stencil-extent stil Y)))
+          (axis (if (> x-size y-size) Y X)))
+     (interpret-markup
+      layout props
+      #{
+        \\markup \\box \\with-dimension-from #axis \\rotate #90 #arg #arg
+      #})))
 """,
 
-    "decrescendo": """\
-Decresc = #(make-music 'DecrescendoEvent 'span-direction START
-                                         'span-type 'text)
-""",
+    "staff-lines": """\
+% Change the number of staff lines to `num-lines`.
+%
+% The argument `clef` makes the function emit a clef with the given
+% name.  If `clef` contains the substring `"percussion"` or `"tab"`,
+% use both even and odd staff line positions.  If set to `""`, do the
+% same but don't set `Staff.clefPosition` (which means that no clef
+% gets triggered).  If `clef` is set to any other value, use even
+% staff line positions only and set `Staff.clefPosition`, which
+% triggers a clef if its value changes.
+%
+% The optional argument `properties` is an alist of properties to
+% control the appearance of both the staff and the clef:
+%
+% * `details` is a list of staff line numbers that should be
+%   displayed.  An empty list suppresses any display of staff lines;
+%   omitting the argument means to display all lines.
+% * `staff-color` holds the color of the staff.
+% * `clef-font-size` holds the font size of the clef
+% * `clef-color` holds the color of the clef.
+%
+% \\staffLines [<properties>] <clef> <num-lines>
 
-    "for-barline": """\
-% This `\\caesura` creates a light-light bar line where there isn't
-% already a more significant bar line, and aligns its decorations
-% (e.g., fermatas) to the bar line.
-forBarLine =
-{
-  \\once \\set Staff.caesuraType = #'((underlying-bar-line . "||"))
-  \\once \\set Staff.caesuraTypeTransform = ##f
-  \\caesura
-}
+staffLines =
+#(define-music-function (properties clef num-lines)
+                        ((alist? '()) string? index?)
+   (let* ((details (assoc-get 'details properties #f))
+          (staff-color (assoc-get 'staff-color properties #f))
+          (clef-color (assoc-get 'clef-color properties #f))
+          (clef-font-size (assoc-get 'clef-font-size properties #f))
+          (lines (or details (iota num-lines 1)))
+          (only-even-pos (not (or (equal? clef "")
+                                  (string-contains clef "percussion")
+                                  (string-contains clef "tab"))))
+          (offset (if only-even-pos
+                      (if (even? num-lines) 1 0)
+                      0))
+          ;; MusicXML counts staff lines from the bottom.
+          (delta (- -1 num-lines offset))
+          (positions (filter (lambda (x) (<= x num-lines))
+                             lines))
+          (positions (map (lambda (x) (+ delta (* x 2)))
+                      positions)))
+     #{
+       \\stopStaff
+
+       #(if staff-color
+            #{
+              \\once \\override Staff.StaffSymbol.color = #staff-color
+            #})
+       #(if clef-color
+            #{
+              \\once \\override Staff.Clef.color = #clef-color
+            #})
+       #(if clef-font-size
+            #{
+              \\once \\override Staff.Clef.font-size = #clef-font-size
+            #})
+
+       #(if (equal? clef "")
+            #{
+              \\unset Staff.middleCPosition
+              \\unset Staff.middleCClefPosition
+              % To suppress the clef inserted by default by LilyPond at the
+              % beginning of a piece.
+              \\once \\omit Staff.Clef
+            #}
+            #{ \\clef #clef #})
+
+       \\override Staff.StaffSymbol.line-positions = #positions
+
+       \\applyContext
+       #(lambda (ctx)
+          (let* ((c (ly:context-find ctx 'Staff))
+                 (clef-p (ly:context-property c 'clefPosition))
+                 (middle-c-p (ly:context-property c 'middleCPosition))
+                 (middle-c-clef-p (ly:context-property c 'middleCClefPosition))
+                 (use-offset (not (string-contains clef "percussion")))
+                 (delta (+ delta (if use-offset 6 0))))
+            (when only-even-pos
+              (ly:context-set-property! c 'clefPosition (+ clef-p delta))
+              (ly:context-set-property! c 'forceClef #t))
+            (ly:context-set-property! c 'middleCPosition (+ middle-c-p delta))
+            (ly:context-set-property! c 'middleCClefPosition
+                                      (+ middle-c-clef-p delta))))
+       \\startStaff
+     #}))
 """,
 
     "stem-directions": """\
