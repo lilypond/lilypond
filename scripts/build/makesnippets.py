@@ -20,7 +20,7 @@
 '''USAGE: makesnippets.py INPUT_DIR OUTPUT_DIR LANGUAGES DOC_DIR
 
 Read all .ly files from INPUT_DIR, insert translations from .texidoc
-files found in DOC_DIR/LANG/texdiocs, and write ther result to OUTPUT_DIR.'''
+files found in DOC_DIR/LANG/texidocs, and write the result to OUTPUT_DIR.'''
 
 import glob
 import sys

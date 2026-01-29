@@ -1109,7 +1109,7 @@ Place a fret playing indication on string @var{string-number} at fret
 @var{fret-number} with an optional fingering label @var{finger-value},
 an optional color modifier @var{color-modifier}, an optional color
 @var{color}, an optional parenthesis @code{'parenthesized} and an
-optional paranthesis color @code{'default-paren-color}.
+optional parenthesis color @code{'default-paren-color}.
 
 By default, the fret playing indicator is a solid dot.  This can be
 globally changed by setting the value of the property @code{dot-color}

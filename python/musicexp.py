@@ -5088,7 +5088,6 @@ class Staff(StaffGroup):
 
             self.stafftype = "PianoStaff"
             self.substafftype = "Staff"
-            # printer ('test')
 
         if self.symbol != 'brace':
             brack = system_start_dict.get(self.symbol, None)
