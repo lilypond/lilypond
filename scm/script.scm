@@ -49,7 +49,7 @@
         (script-stencil . (feta . ("bachschleifer" . "bachschleifer")))
         (no-ledgers . #f)
         (padding . 0.8)
-        (length-fraction . 0.5)
+        (length-fraction . 1.5)
         (avoid-slur . around)
         (side-axis . ,X)
         (direction . ,LEFT)

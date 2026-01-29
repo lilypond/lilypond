@@ -2009,56 +2009,12 @@ As a last resort @code{CENTER} is returned."
     dir))
 
 (define-public ((script::ledger-lines stencil) grob)
-  (let* ((par-y (ly:grob-parent grob Y))
-         (no-ledgers? (ly:grob-property grob 'no-ledgers #t)))
-    (if (and (zero? (ly:grob-property grob 'side-axis Y))
-             (not no-ledgers?))
-        (let* ((script-staff-pos
-                 (ly:grob-property grob 'staff-position
-                   (or ((horizontal-script::calc-staff-position 0) grob) 0)))
-               (staff-symbol (ly:grob-object grob 'staff-symbol))
-               (staff-space (ly:staff-symbol-staff-space grob))
-               ;; calculate thickness of ledger lines
-               (staff-line-thick (ly:staff-symbol-line-thickness grob))
-               (ledger-line-thickness-prop
-                 (ly:grob-property staff-symbol 'ledger-line-thickness))
-               (half-ledger-line-thick
-                 (/
-                   (+
-                      (* (car ledger-line-thickness-prop)
-                         staff-line-thick)
-                      (* (cdr ledger-line-thickness-prop)
-                         staff-space))
-                   2))
-               ;; calculate vertical positions of ledger lines
-               (line-positions
-                 (ly:grob-property staff-symbol 'line-positions))
-               (ledger-line-positions
-                 (or
-                   (ly:grob-property grob 'ledger-positions #f)
-                   (ly:grob-property par-y 'ledger-positions #f)
-                   (ledger-lines::positions-from-ledgered-grob
-                     grob script-staff-pos)))
-               (length-fraction
-                 (ly:grob-property grob 'length-fraction 0))
-               ;; create ledger line stencils
-               (fake-ledgers
-                 (map
-                   (lambda (pos)
-                     (ly:stencil-translate-axis
-                       (ly:round-filled-box
-                         (interval-scale
-                           (ly:stencil-extent stencil X)
-                           (1+ length-fraction))
-                         (cons
-                           (- half-ledger-line-thick)
-                           half-ledger-line-thick)
-                         (* half-ledger-line-thick 2))
-                       (/ (* (- pos script-staff-pos) staff-space) 2)
-                       Y))
-                   ledger-line-positions)))
-          (apply ly:stencil-add fake-ledgers))
-        empty-stencil)))
+  (if (zero? (ly:grob-property grob 'side-axis Y))
+      (ledgered-grob::ledger-lines
+        grob
+        stencil
+        #:alternative-grob (ly:grob-parent grob Y))
+      empty-stencil))
 
 ;; For `\rtoeheel` and siblings.
 (define-public (toe-heel-subst-stencil grob left right)
@@ -2085,7 +2041,6 @@ As a last resort @code{CENTER} is returned."
        (list (make-musicglyph-markup left-glyph)
              (make-hspace-markup (if need-kerning 0.1 0))
              (make-musicglyph-markup right-glyph)))))))
-
 
 (define-public (ly:script-interface::print grob)
 "The @code{stencil} of a script grob."
@@ -2122,7 +2077,6 @@ disambiguate between different glyphs")))
                    script-stencil)
                  empty-stencil))))
     (ly:stencil-add ((script::ledger-lines raw-stencil) grob) raw-stencil)))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; instrument names
@@ -4201,6 +4155,70 @@ lines for grobs with @code{'staff-position} @var{staff-pos}.
           (delete-adjacent-duplicates
             (sort (flatten-list calculated-ledgers) <))))))
 
+(define*-public (ledgered-grob::ledger-lines
+                 grob
+                 stencil
+                 #:key
+                 (default-length-fraction 1)
+                 alternative-grob
+                 ledger-color)
+  (if (ly:grob-property grob 'no-ledgers #t)
+      empty-stencil
+      (let* ((staff-pos (ly:grob-staff-position grob))
+             (staff-symbol (ly:grob-object grob 'staff-symbol))
+             (staff-space (ly:staff-symbol-staff-space grob))
+             ;; calculate thickness of ledger lines
+             (staff-line-thick (ly:staff-symbol-line-thickness grob))
+             (ledger-line-thickness-prop
+              (ly:grob-property staff-symbol 'ledger-line-thickness))
+             (half-ledger-line-thick
+              (/
+               (+ (* (car ledger-line-thickness-prop)
+                     staff-line-thick)
+                  (* (cdr ledger-line-thickness-prop)
+                     staff-space))
+               2))
+             ;; calculate vertical positions of ledger lines
+             (ledger-line-positions
+              (or
+               (ly:grob-property grob 'ledger-positions #f)
+               (if alternative-grob
+                   (ly:grob-property alternative-grob 'ledger-positions #f)
+                   #f)
+               (ledger-lines::positions-from-ledgered-grob
+                grob staff-pos)))
+             ;; calculate horizontal extent of ledger lines
+             (length-fraction
+                (ly:grob-property
+                 grob
+                 'length-fraction
+                 default-length-fraction))
+             (ledger-X-ext
+                (interval-scale
+                 (ly:stencil-extent stencil X)
+                 length-fraction))
+             ;; create ledger line stencils
+             (single-ledger
+              (ly:round-filled-box
+               ledger-X-ext
+               (cons
+                (- half-ledger-line-thick)
+                half-ledger-line-thick)
+               (* half-ledger-line-thick 2)))
+             (fake-ledgers
+              (map
+               (lambda (pos)
+                 (ly:stencil-translate-axis
+                  single-ledger
+                  (/ (* (- pos staff-pos) staff-space) 2)
+                  Y))
+               ledger-line-positions))
+             (combined-fake-ledgers
+              (apply ly:stencil-add fake-ledgers)))
+        (if ledger-color
+            (stencil-with-color combined-fake-ledgers ledger-color)
+            combined-fake-ledgers))))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; custos
@@ -4209,7 +4227,7 @@ lines for grobs with @code{'staff-position} @var{staff-pos}.
 ;;; - do not show if a clef change immediately follows in the next line
 ;;; - decide: do or do not print custos if the next line starts with a rest
 
-(define (custos::get-glyph custos)
+(define (custos::print custos)
   (let* ((style (ly:grob-property custos 'style 'vaticana))
          (neutral-pos (ly:grob-property custos 'neutral-position 0))
          (neutral-dir (ly:grob-property custos 'neutral-direction))
@@ -4227,86 +4245,36 @@ lines for grobs with @code{'staff-position} @var{staff-pos}.
                             (if (ly:position-on-line? custos pos)
                                 "1"
                                 "0")))
-         (stil (ly:font-get-glyph (ly:grob-default-font custos) font-char)))
+         (stil (ly:font-get-glyph (ly:grob-default-font custos) font-char))
+         (ledger-default-length-fraction
+          (cond
+           ((eq? style 'mensural) 1.5)
+           ((eq? style 'vaticana) 4.0)
+           ((eq? style 'medicaea) 3.5)
+           (else 2)))
+         ;; In VaticanaScore the ledger line gets the color from
+         ;; LedgerLineSpanner.
+         ;; TODO how to get LedgerLineSpanner from Custos or StaffSymbol?
+         ;;      For now we take the color from StaffSymbol (per current
+         ;;      default, it's the same)
+         (ledger-color (ly:grob-property
+                        (ly:grob-object custos 'staff-symbol)
+                        'color #f))
+         (ledgers
+          (ledgered-grob::ledger-lines
+           custos
+           stil
+           #:default-length-fraction ledger-default-length-fraction
+           #:ledger-color ledger-color)))
     (if (ly:stencil-empty? stil)
         (ly:warning (G_ "custos `~a' not found") font-char))
-    stil))
-
-(define-public custos::print
-  (lambda (grob)
-   (let* ((no-ledgers? (ly:grob-property grob 'no-ledgers #f))
-          (stil (custos::get-glyph grob)))
-     (if no-ledgers?
-         stil
-         (let* ((stil-ext (ly:stencil-extent stil X))
-                (style (ly:grob-property grob 'style))
-                (staff-symbol (ly:grob-object grob 'staff-symbol))
-                (staff-space (ly:staff-symbol-staff-space grob))
-                ;; calculate thickness of ledger lines
-                (staff-line-thick (ly:staff-symbol-line-thickness grob))
-                (ledger-line-thickness-prop
-                  (ly:grob-property staff-symbol 'ledger-line-thickness))
-                (half-ledger-line-thick
-                  (/
-                    (+
-                       (* (car ledger-line-thickness-prop)
-                          staff-line-thick)
-                       (* (cdr ledger-line-thickness-prop)
-                          staff-space))
-                    2))
-                (line-positions
-                  (ly:grob-property staff-symbol 'line-positions))
-                (staff-pos (ly:grob-property grob 'staff-position))
-                ;; Prefer 'ledger-positions from custos, otherwise calculate it.
-                (ledger-line-positions
-                  (or
-                    (ly:grob-property grob 'ledger-positions #f)
-                    (ledger-lines::positions-from-ledgered-grob
-                      grob staff-pos)))
-                (length-fraction
-                  (ly:grob-property
-                    grob
-                    'length-fraction
-                    (cond
-                      ((eq? style 'mensural) 1.5)
-                      ((eq? style 'vaticana) 4.0)
-                      ((eq? style 'medicaea) 3.5)
-                      (else 2))))
-                (raw-single-ledger
-                  (ly:round-filled-box
-                    (cons
-                      (+ (* -1 (interval-length stil-ext) length-fraction)
-                         (interval-center stil-ext))
-                      (interval-center stil-ext))
-                    (cons
-                      (- half-ledger-line-thick)
-                      half-ledger-line-thick)
-                    (* half-ledger-line-thick 2)))
-                ;; In VaticanaScore the ledger line gets the color from
-                ;; LedgerLineSpanner.
-                ;; TODO how to get LedgerLineSpanner from Custos or StaffSymbol?
-                ;;      For now we take the color from StaffSymbol (per current
-                ;;      default, it's the same)
-                (clr (ly:grob-property staff-symbol 'color #f))
-                (single-ledger
-                  (if clr
-                      (stencil-with-color raw-single-ledger clr)
-                      raw-single-ledger))
-                (fake-ledgers
-                  (map
-                    (lambda (pos)
-                      (ly:stencil-translate
-                        (ly:make-stencil
-                          (ly:stencil-expr single-ledger)
-                          '(0 . 0)
-                          (cons
-                            (- half-ledger-line-thick)
-                            half-ledger-line-thick))
-                        (cons
-                          (+ (interval-center stil-ext))
-                          (/ (* (- pos staff-pos) staff-space) 2))))
-                    ledger-line-positions)))
-             ;; `stil` needs to be last, otherwise a probably colored ledger
-             ;; would print above the note head.
-             (apply ly:stencil-add (append fake-ledgers (list stil))))))))
-
+    ;; right-align ledgers to stil and combine stencils.
+    ;; `stil` needs to be last, otherwise a probably colored ledger
+-   ;; would print above the note head.
+    (ly:stencil-add (ly:stencil-translate-axis
+                      (stencil-squash-extent
+                        (ly:stencil-aligned-to ledgers X RIGHT)
+                        X)
+                      (cdr (ly:stencil-extent stil X))
+                      X)
+                    stil)))

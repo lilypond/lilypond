@@ -1,4 +1,4 @@
-\version "2.25.27"
+\version "2.25.33"
 
 \header {
   texidoc = "Horizontal @code{Script} may get ledger lines by disabling
@@ -30,7 +30,7 @@ Non-standard settings of @code{StaffSymbol@/.line-positions} and
   \stopStaff
   \startStaff
   \revert Staff.StaffSymbol.thickness
-  \once \override Script.length-fraction = 1.5
+  \once \override Script.length-fraction = 2.5
   b1 -\mordent
   \section
   \stopStaff
