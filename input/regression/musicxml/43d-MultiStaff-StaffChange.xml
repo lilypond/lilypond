@@ -6,9 +6,19 @@
     <miscellaneous>
       <miscellaneous-field name="description">Staff changes in a piano staff.
           In the first measure, the voice from the second staff has some notes
-          on the first staff.  In the second measure, second eighth, the voice
-          from the second staff has a chord on the first
-          staff.</miscellaneous-field>
+          on the first staff.
+
+          In the second measure, the voice from the second staff holds four
+          chords.  All notes of the first one are in the second staff, and all
+          notes of the second one are in the first staff.  The remaining two
+          demonstrate cross-staff chords: The top note of the third chord is in
+          the first staff (with the other notes in the second staff), and the
+          bottom note of the fourth chord is in the second staff (with the other
+          notes in the first staff).
+
+          In both bars, no explicit stem directions are set; it is thus up to
+          the application to decide whether the beams appear below the second
+          staff or between the two staves.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
