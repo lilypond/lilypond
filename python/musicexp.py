@@ -44,8 +44,10 @@ def escape_instrument_string(input_string):
     return '"' + input_string + '"'
 
 
-def color_to_ly(hex_val):
-    if hex_val is None:
+def color_to_ly(hex_val, return_black=False):
+    if (hex_val is None
+            or ((hex_val == '#000000' or hex_val == '#FF000000')
+                and not return_black)):
         return None
 
     # MusicXML uses ARGB notation, while LilyPond uses RGBA.
@@ -2326,7 +2328,7 @@ class TextSpannerEvent(SpanEvent):
                                                 'color', '#000000')
                 trill_color = ''
                 if spanner_color_attribute != trill_color_attribute:
-                    trill_color = color_to_ly(trill_color_attribute)
+                    trill_color = color_to_ly(trill_color_attribute, True)
 
                 trill_font_size_attribute = getattr(self.mxl_ornament,
                                                     'font-size', None)
@@ -2441,7 +2443,7 @@ class DynamicsSpannerEvent(SpanEvent):
 
         if spanner_color_attribute != dynamics_color_attribute:
             init_markup.append(r'\with-color %s'
-                               % color_to_ly(dynamics_color_attribute))
+                               % color_to_ly(dynamics_color_attribute, True))
 
         text_markup = text_to_ly(self.text_elements, ' '.join(init_markup))
 
