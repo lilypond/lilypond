@@ -33,6 +33,13 @@ whole manual as a single page.  PDF is available for downloading
 and using offline.  To get to these three formats, follow the
 links that read @q{details of} and then the manual name.
 
+While the PDF version of the manuals is probably best for reading
+and printing (especially if you want to zoom in), there is a
+limitation: contrary to the HTML version, copying and pasting
+LilyPond code snippets does not preserve indentation.  This is a
+deficiency of the PDF format itself (and not of the documentation
+system used by LilyPond) that cannot be fixed.
+
 @divClass{link-headings}
 
 @divClass{column-center-top}
