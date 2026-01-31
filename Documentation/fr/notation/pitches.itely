@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+   Translation of GIT committish: fafad7372f36503c8b698069950fbb42a6388b90
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -487,6 +487,38 @@ Références des propriétés internes :
 Il n'y a pas de standard universellement accepté pour noter le bémol et
 demi (qui abaisse la hauteur trois quarts de ton), le symbole de
 LilyPond n'est donc conforme à aucun standard.
+
+
+@node Approximate pitches
+@subsection Hauteurs approximatives
+
+@cindex approximative, hauteur
+@cindex extrême hauteur
+@cindex maximum, hauteur
+@cindex minimum, hauteur
+@cindex hauteur approximative
+@cindex hauteur, extrême
+@cindex non spécifiée, hauteur
+@cindex hauteur non spécifiée
+@funindex \approximatePitch
+
+L'écriture d'une note dont on ne connaît pas exactement la hauteur,
+comme la plus haute note qu'un chanteur peut émettre, s'obtient par la
+commande @code{\approximatePitch} à laquelle est transmise une note dont
+on évalue la hauteur. LilyPond imprime cette note -- sous la forme d'un
+triangle et sans ligne supplémentaire -- à la hauteur spécifiée.
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  e4 f g \approximatePitch c
+}
+@end lilypond
+
+@morerefs
+Référence des propriétés internes :
+@rinternals{ApproximatePitchNoteHead},
+@rinternals{Note_heads_engraver}.
+@endmorerefs
 
 
 @node Note names in other languages

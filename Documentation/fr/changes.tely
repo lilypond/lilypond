@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
+    Translation of GIT committish: fafad7372f36503c8b698069950fbb42a6388b90
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -308,6 +308,48 @@ désir, qu'elle qu'en soit la raison, ajoutez l'option @code{BYTECODE=no}
 @itemize
 
 @item
+La nouvelle commande @code{\approximatePitch} permet de créer des notes
+de hauteur approximative.
+
+@lilypond[quote,verbatim]
+\relative c'' {
+  e4 f g \approximatePitch c
+}
+@end lilypond
+
+@item
+Certains faux changements de clef ont été réglés.
+
+@lilypond[quote,verbatim]
+{
+  R1
+  \clef treble
+  R1
+}
+@end lilypond
+
+@end itemize
+
+
+@node Rhythm improvements
+@unnumberedsec Améliorations en matière de rythme
+
+@itemize
+
+@item
+La commande @code{\time} prend désormais en charge les métriques
+complèxes qui auparavant nécessitaient @code{\compoundMeter}, même si la
+syntaxe est quelque peu différente. La commande @code{\compoundMeter} a
+été renommée en @code{\timeAbbrev}.
+
+@lilypond[quote,verbatim]
+{
+  \time #'((2 2 2 3) . 8)
+  \repeat unfold 9 c'8
+}
+@end lilypond
+
+@item
 La nouvelle commande @code{\submeasureBarsOn} permet d'afficher
 automatiquement des barres de mesure entre les composants d'une métrique
 alternative stricte (non montré ici), ou lorsque spécifié par les
@@ -383,25 +425,6 @@ devoir toucher la propriété @code{stencil}.
   R1
 }
 @end lilypond
-
-@item
-Certains faux changements de clef ont été réglés.
-
-@lilypond[quote,verbatim]
-{
-  R1
-  \clef treble
-  R1
-}
-@end lilypond
-
-@end itemize
-
-
-@node Rhythm improvements
-@unnumberedsec Améliorations en matière de rythme
-
-@itemize
 
 @item
 La commande @code{\time} accepte désormais un nombre rationnel au
@@ -840,6 +863,20 @@ horizontalement par défaut.
 @unnumberedsec Améliorations en matière de fontes et de mise en forme du texte
 
 @itemize
+@item
+Des tês de note de forme triangulaire ont été ajoutées à la fonte
+Emmentaler. Elles sont utilisables en réglant @code{NoteHead@/.style} à
+@code{arrow}.
+
+@lilypond
+\fixed c' {
+  \omit Staff.Clef
+  \omit Staff.TimeSignature
+  \override NoteHead.style = #'arrow
+  g4 2. | a4 2. | c'4 2. | d'4 2.
+}
+@end lilypond
+
 @item
 La nouvelle commande de @emph{markup} @code{\bar-line} permet d'imprimer
 une barre de mesure dans du texte.

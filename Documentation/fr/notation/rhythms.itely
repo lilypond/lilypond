@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
+   Translation of GIT committish: fafad7372f36503c8b698069950fbb42a6388b90
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -2169,39 +2169,32 @@ qu'elle est libellée dans le bloc @code{\midi}.
 @cindex composite, métrique
 @cindex complexe, métrique
 
-@funindex \timeAbbrev
+@funindex \time
 
-Une métrique composite se crée à l'aide de la fonction
-@code{\timeAbbrev}, en suivant la syntaxe :
+Une métrique composite se crée à l'aide de la fonction @code{\time}, la
+métrique étant représentée par un expression Scheme. Les fractions sont
+représentées par des paires @code{(@var{numérateur}
+. @var{dénominateur})} et où le « dénominateur » est toujours un nombre.
+Le « numérateur » est un nombre ou une liste de deux ou plusieurs
+nombres. Une liste représente une concaténation.
 
-@example
-\timeAbbrev #'(liste de listes)
-@end example
-
-La construction la plus simple est constituée d'une seule liste, dans
-laquelle le @emph{dernier} nombre indique le « dénominateur » de la
-métrique, les précédents représentent le « numérateur ».
+Une métrique constituée de l'alternance stricte de plusieurs fractions
+s'obtient en plus élaborée s'obtient en regroupant ces fractions dans
+une liste. Bien entendu, les ligatures automatiques s'ajusteront aux
+différentes valeurs. Des barres de subdivision de mesures peuvent
+s'ajouter pour permettre une meilleure lecture des rythmes complexes.
 
 @lilypond[quote,verbatim]
-\relative {
-  \timeAbbrev #'((2 2 2 8))
-  \repeat unfold 6 c'8 \repeat unfold 12 c16
+\fixed c' {
+  \time #'((1 . 4) (3 . 8))
+  \repeat unfold 5 c8
+  \repeat unfold 10 c16
 }
 @end lilypond
 
-Une métrique plus élaborée s'obtient en ajoutant d'autres listes. Bien
-entendu, les ligatures automatiques s'ajusteront aux différentes
-valeurs. Des barres de subdivision de mesures peuvent s'ajouter pour
-permettre une meilleure lecture des rythmes complexes.
-
 @lilypond[quote,verbatim]
 \fixed c' {
-  \timeAbbrev #'((1 4) (3 8))
-  \repeat unfold 5 c8 \repeat unfold 10 c16
-}
-
-\fixed c' {
-  \timeAbbrev #'((1 2 3 8) (3 4))
+  \time #'(((1 2 3) . 8) (3 . 4))
   \repeat unfold 12 c8
   \submeasureBarsOn
   \repeat unfold 12 c8
