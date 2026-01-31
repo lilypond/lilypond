@@ -125,25 +125,36 @@ when interpreting markups."
         ""))))
    (else "")))
 
-(define-public (apply-tag-operating-markup text-modificator music)
-  "Iterates over @code{music}. If @code{tag-markup} is noticed in the
-music property @code{'text} of any part, apply @code{text-modificator}
-to the text."
+(define-public (apply-tag-operating-markup prop-val-modificator music)
+  "Apply @var{prop-val-modificator} to tag markup in @var{music}.
+
+Iterate over @code{music} to find markups that use the @code{\\tag}-command.
+Markups are recognized in the music properties @code{text} and @code{value}
+of the iterated music objects.
+If the value of the property contains tag markups,
+the @code{prop-val-modificator} is applied to it
+and the modified value is updated accordingly."
+  (define (detect-tag-markup-and-modify m prop)
+    (let ((m-prop-val (ly:music-property m prop)))
+      (and
+        (pair? m-prop-val)
+        (let* ((tag-markup? #f))
+          (when (pair? m-prop-val)
+            (list-map
+              (lambda (x)
+                (when
+                  (and (procedure? x) (eq? (procedure-name x) 'tag-markup))
+                  (set! tag-markup? #t))
+                x)
+              m-prop-val))
+          (when tag-markup?
+            (ly:music-set-property! m prop (prop-val-modificator m-prop-val)))
+          m))))
   (map-some-music
     (lambda (m)
-      (let* ((m-text (ly:music-property m 'text)))
-        (and
-          (pair? m-text)
-          (let* ((tag-markup? #f))
-            (when (pair? m-text)
-              (list-map
-                (lambda (x)
-                  (when
-                    (and (procedure? x) (eq? (procedure-name x) 'tag-markup))
-                    (set! tag-markup? #t))
-                  x)
-                m-text))
-            (when tag-markup?
-              (ly:music-set-property! m 'text (text-modificator m-text)))
-            m))))
+      (or
+        ; the most markups are in 'text property
+        (detect-tag-markup-and-modify m 'text)
+        ; some markups like stanzas are in 'value property
+        (detect-tag-markup-and-modify m 'value)))
     music))
