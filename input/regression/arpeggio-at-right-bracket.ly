@@ -16,6 +16,7 @@ half-note chords."
   }
 }
 
-testArpeggio = \arpeggio % \nonArpeggio would make more sense
+testCommand = \arpeggio
+testGrobName = #'Arpeggio
 
 \include "arpeggio-at-right.ily"

@@ -15,6 +15,7 @@ on the right; the second has it on the left.  Ditto for the half-note chords."
   }
 }
 
-testArpeggio = \arpeggio
+testCommand = \arpeggio
+testGrobName = #'Arpeggio
 
 \include "arpeggio-at-right.ily"

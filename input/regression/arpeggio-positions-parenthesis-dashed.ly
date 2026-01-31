@@ -16,6 +16,7 @@ two should match."
   }
 }
 
-testArpeggio = \arpeggio
+testCommand = \arpeggio
+testGrobName = #'Arpeggio
 
 \include "arpeggio-positions.ily"

@@ -13,11 +13,11 @@
 \fixed c' {
   \time 4/1
 
-  \once \override Arpeggio.direction = #RIGHT
-  <f a c'>4\testArpeggio
-  <f a c'>4\testArpeggio
+  \once \override #(list testGrobName 'direction) = #RIGHT
+  <f a c'>4\testCommand
+  <f a c'>4\testCommand
 
-  \once \override Arpeggio.direction = #RIGHT
-  <f a c'>2\testArpeggio
-  <f a c'>2\testArpeggio
+  \once \override #(list testGrobName 'direction) = #RIGHT
+  <f a c'>2\testCommand
+  <f a c'>2\testCommand
 }

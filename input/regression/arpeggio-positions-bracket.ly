@@ -16,6 +16,7 @@ match."
   }
 }
 
-testArpeggio = \arpeggio % \nonArpeggio would make more sense
+testCommand = \arpeggio
+testGrobName = #'Arpeggio
 
 \include "arpeggio-positions.ily"

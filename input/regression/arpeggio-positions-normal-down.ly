@@ -15,6 +15,7 @@ second sign takes its position from the black notes.  The two should match."
   }
 }
 
-testArpeggio = \arpeggio % \downArpeggio would make more sense
+testCommand = \arpeggio % \downArpeggio would make more sense
+testGrobName = #'Arpeggio
 
 \include "arpeggio-positions.ily"
