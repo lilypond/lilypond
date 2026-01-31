@@ -1383,9 +1383,13 @@ def draw_fa_head (expr width_factor, thickness_factor, flipped) =
   if flipped:
     p_in := p_in rotated 180 shifted (w, 0);
     p_out := p_out rotated 180 shifted (w, 0);
+    charwy := -0.5 solfa_noteheight#;
+    chardwy := 0;
+  else:
+    charwy := 0;
+    chardwy := 0.5 solfa_noteheight#;
   fi;
 
-  charwy := 0.0;
   charwx := charwd;
 enddef;
 
