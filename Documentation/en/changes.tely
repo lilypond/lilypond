@@ -291,7 +291,7 @@ for whatever reason, add @code{BYTECODE=no} as an argument to
 The new @code{\approximatePitch} command creates notes of
 approximate pitch.
 
-@lilypond[quote,vebatim]
+@lilypond[quote,verbatim]
 \relative c'' {
   e4 f g \approximatePitch c
 }
