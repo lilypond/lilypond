@@ -1323,12 +1323,12 @@ fet_endchar;
 % Right triangle, hypotenuse from nw to se corner.  Stem attaches on
 % vertical side in direction of horizontal side.
 %
-def draw_fa_head (expr width_factor, thickness_factor) =
+def draw_fa_head (expr width_factor, thickness_factor, flipped) =
   set_char_box (0, width_factor * solfa_base_notewidth#,
                 0.5 solfa_noteheight#, 0.5 solfa_noteheight#);
 
-  save p_down_in, p_down_out, p_up_in, p_up_out, nw_dist, nw;
-  path p_down_in, p_down_out, p_up_in, p_up_out;
+  save p_in, p_out, nw_dist, nw;
+  path p_in, p_out;
   save path_a, path_b, path_c;
   path path_a, path_b, path_c;
   pair nw_dist, nw;
@@ -1365,23 +1365,25 @@ def draw_fa_head (expr width_factor, thickness_factor) =
   path_c := (z3 - nw_dist)
             -- (z1 - nw_dist);
 
-  p_up_in := (path_a intersectionpoint path_b)
-             -- (path_b intersectionpoint path_c)
-             -- (path_c intersectionpoint path_a)
-             -- cycle;
+  p_in := (path_a intersectionpoint path_b)
+          -- (path_b intersectionpoint path_c)
+          -- (path_c intersectionpoint path_a)
+          -- cycle;
 
-  p_up_out := lft z1{down}
-              .. (z1 + nw_dist){-nw}
-              -- (z3 + nw_dist){-nw}
-              .. bot z3{right}
-              .. rt z3{up}
-              -- rt z2{up}
-              .. top z2{left}
-              -- top z1{left}
-              .. cycle;
+  p_out := lft z1{down}
+           .. (z1 + nw_dist){-nw}
+           -- (z3 + nw_dist){-nw}
+           .. bot z3{right}
+           .. rt z3{up}
+           -- rt z2{up}
+           .. top z2{left}
+           -- top z1{left}
+           .. cycle;
 
-  p_down_in := p_up_in rotated 180 shifted (w, 0);
-  p_down_out := p_up_out rotated 180 shifted (w, 0);
+  if flipped:
+    p_in := p_in rotated 180 shifted (w, 0);
+    p_out := p_out rotated 180 shifted (w, 0);
+  fi;
 
   charwy := 0.0;
   charwx := charwd;
@@ -1391,82 +1393,82 @@ save fa_weight;
 fa_weight := 1.75;
 
 fet_beginchar ("whole fa up head", "u0fa");
-  draw_fa_head (solfa_whole_width, fa_weight);
-  fill p_up_out;
-  unfill p_up_in;
+  draw_fa_head (solfa_whole_width, fa_weight, false);
+  fill p_out;
+  unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("whole fa down head", "d0fa");
-  draw_fa_head (solfa_whole_width, fa_weight);
-  fill p_down_out;
-  unfill p_down_in;
+  draw_fa_head (solfa_whole_width, fa_weight, true);
+  fill p_out;
+  unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("half fa up head", "u1fa");
-  draw_fa_head (solfa_half_width, fa_weight);
-  fill p_up_out;
-  unfill p_up_in;
+  draw_fa_head (solfa_half_width, fa_weight, false);
+  fill p_out;
+  unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("half fa down head", "d1fa");
-  draw_fa_head (solfa_half_width, fa_weight);
-  fill p_down_out;
-  unfill p_down_in;
+  draw_fa_head (solfa_half_width, fa_weight, true);
+  fill p_out;
+  unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("quarter fa up head", "u2fa");
-  draw_fa_head (solfa_quarter_width, fa_weight);
-  fill p_up_out;
+  draw_fa_head (solfa_quarter_width, fa_weight, false);
+  fill p_out;
 fet_endchar;
 
 
 fet_beginchar ("quarter fa down head", "d2fa");
-  draw_fa_head (solfa_quarter_width, fa_weight);
-  fill p_down_out;
+  draw_fa_head (solfa_quarter_width, fa_weight, true);
+  fill p_out;
 fet_endchar;
 
 
 fet_beginchar ("whole thin fa up head", "u0faThin");
-  draw_fa_head (solfa_whole_width, 1);
-  fill p_up_out;
-  unfill p_up_in;
+  draw_fa_head (solfa_whole_width, 1, false);
+  fill p_out;
+  unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("whole thin fa down head", "d0faThin");
-  draw_fa_head (solfa_whole_width, 1);
-  fill p_down_out;
-  unfill p_down_in;
+  draw_fa_head (solfa_whole_width, 1, true);
+  fill p_out;
+  unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("half thin fa up head", "u1faThin");
-  draw_fa_head (solfa_half_width, 1);
-  fill p_up_out;
-  unfill p_up_in;
+  draw_fa_head (solfa_half_width, 1, false);
+  fill p_out;
+  unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("half thin fa down head", "d1faThin");
-  draw_fa_head (solfa_half_width, 1);
-  fill p_down_out;
-  unfill p_down_in;
+  draw_fa_head (solfa_half_width, 1, true);
+  fill p_out;
+  unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("quarter thin fa up head", "u2faThin");
-  draw_fa_head (solfa_quarter_width, 1);
-  fill p_up_out;
+  draw_fa_head (solfa_quarter_width, 1, false);
+  fill p_out;
 fet_endchar;
 
 
 fet_beginchar ("quarter thin fa down head", "d2faThin");
-  draw_fa_head (solfa_quarter_width, 1);
-  fill p_down_out;
+  draw_fa_head (solfa_quarter_width, 1, true);
+  fill p_out;
 fet_endchar;
 
 
@@ -2019,42 +2021,42 @@ save funk_fa_weight;
 funk_fa_weight := 1.9;
 
 fet_beginchar ("whole up Funk fahead", "u0faFunk");
-  draw_fa_head (funk_notehead_width, funk_fa_weight);
-  fill p_up_out;
-  unfill p_up_in;
+  draw_fa_head (funk_notehead_width, funk_fa_weight, false);
+  fill p_out;
+  unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("whole down Funk fahead", "d0faFunk");
-  draw_fa_head (funk_notehead_width, funk_fa_weight);
-  fill p_down_out;
-  unfill p_down_in;
+  draw_fa_head (funk_notehead_width, funk_fa_weight, true);
+  fill p_out;
+  unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("half up Funk fahead", "u1faFunk");
-  draw_fa_head (funk_notehead_width, funk_fa_weight);
-  fill p_up_out;
-  unfill p_up_in;
+  draw_fa_head (funk_notehead_width, funk_fa_weight, false);
+  fill p_out;
+  unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("half down Funk fahead", "d1faFunk");
-  draw_fa_head (funk_notehead_width, funk_fa_weight);
-  fill p_down_out;
-  unfill p_down_in;
+  draw_fa_head (funk_notehead_width, funk_fa_weight, true);
+  fill p_out;
+  unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("quarter up Funk fahead", "u2faFunk");
-  draw_fa_head (funk_notehead_width, funk_fa_weight);
-  fill p_up_out;
+  draw_fa_head (funk_notehead_width, funk_fa_weight, false);
+  fill p_out;
 fet_endchar;
 
 
 fet_beginchar ("quarter down Funk fahead", "d2faFunk");
-  draw_fa_head (funk_notehead_width, funk_fa_weight);
-  fill p_down_out;
+  draw_fa_head (funk_notehead_width, funk_fa_weight, true);
+  fill p_out;
 fet_endchar;
 
 
@@ -2553,35 +2555,35 @@ save walker_fa_weight;
 walker_fa_weight := 1.5;
 
 fet_beginchar ("whole Walker fahead", "s0faWalker");
-  draw_fa_head (funk_notehead_width, walker_fa_weight);
-  fill p_down_out;
-  unfill p_down_in;
+  draw_fa_head (funk_notehead_width, walker_fa_weight, true);
+  fill p_out;
+  unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("half up Walker fahead", "u1faWalker");
-  draw_fa_head (funk_notehead_width, walker_fa_weight);
-  fill p_up_out;
-  unfill p_up_in;
+  draw_fa_head (funk_notehead_width, walker_fa_weight, false);
+  fill p_out;
+  unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("half down Walker fahead", "d1faWalker");
-  draw_fa_head (funk_notehead_width, walker_fa_weight);
-  fill p_down_out;
-  unfill p_down_in;
+  draw_fa_head (funk_notehead_width, walker_fa_weight, true);
+  fill p_out;
+  unfill p_in;
 fet_endchar;
 
 
 fet_beginchar ("quarter up Walker fahead", "u2faWalker");
-  draw_fa_head (funk_notehead_width, walker_fa_weight);
-  fill p_up_out;
+  draw_fa_head (funk_notehead_width, walker_fa_weight, false);
+  fill p_out;
 fet_endchar;
 
 
 fet_beginchar ("quarter down Walker fahead", "d2faWalker");
-  draw_fa_head (funk_notehead_width, walker_fa_weight);
-  fill p_down_out;
+  draw_fa_head (funk_notehead_width, walker_fa_weight, true);
+  fill p_out;
 fet_endchar;
 
 
