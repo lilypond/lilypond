@@ -187,29 +187,43 @@ Arpeggio::print (SCM smob)
   return mol.smobbed_copy ();
 }
 
+// Make a bracket with the given Y extent.
+Stencil
+Arpeggio::brew_chord_bracket (Grob *me, Interval y_extent)
+{
+  const auto thickness
+    = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
+      * from_scm (get_property (me, "thickness"), 1.0);
+  const auto side = from_scm (get_property (me, "direction"), LEFT);
+  const auto width = from_scm (get_property (me, "protrusion"), 0.4);
+  return Lookup::bracket (Y_AXIS, y_extent, thickness, width * -side,
+                          thickness);
+}
+
 /* Draws a vertical bracket to the left of a chord
    Chris Jackson <chris@fluffhouse.org.uk> */
-
 MAKE_SCHEME_CALLBACK (Arpeggio, brew_chord_bracket,
                       "ly:arpeggio::brew-chord-bracket", 1);
 SCM
 Arpeggio::brew_chord_bracket (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  Interval heads = from_scm (get_property (me, "positions"), Interval ())
-                   * Staff_symbol_referencer::staff_space (me);
+  auto y_extent = from_scm (get_property (me, "positions"), Interval ());
+  y_extent.widen (0.75); // candidate for a grob property
+  y_extent *= Staff_symbol_referencer::staff_space (me);
+  return brew_chord_bracket (me, y_extent).smobbed_copy ();
+}
 
-  Real th = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
-            * from_scm<double> (get_property (me, "thickness"), 1);
-  Real sp = 1.5 * Staff_symbol_referencer::staff_space (me);
-  Real dy = heads.length () + sp;
-  const auto side = from_scm (get_property (me, "direction"), LEFT);
-  const auto width = from_scm<double> (get_property (me, "protrusion"), 0.4);
-
-  Stencil mol (
-    Lookup::bracket (Y_AXIS, Interval (0, dy), th, width * -side, th));
-  mol.translate_axis (heads[LEFT] - sp / 2.0, Y_AXIS);
-  return mol.smobbed_copy ();
+MAKE_SCHEME_CALLBACK (Arpeggio, chord_bracket_width,
+                      "ly:arpeggio::chord-bracket-width", 1);
+SCM
+Arpeggio::chord_bracket_width (SCM smob)
+{
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
+  // dummy Y extent avoids triggering vertical alignment before line breaking
+  constexpr auto y_extent = Interval (0, 1);
+  const auto x_extent = brew_chord_bracket (me, y_extent).extent (X_AXIS);
+  return to_scm (x_extent);
 }
 
 MAKE_SCHEME_CALLBACK (Arpeggio, brew_chord_slur, "ly:arpeggio::brew-chord-slur",
