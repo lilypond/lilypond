@@ -14,10 +14,10 @@
   \time 4/1
 
   \once \override Arpeggio.direction = #RIGHT
-  <f a c'>4\arpeggio
-  <f a c'>4\arpeggio
+  <f a c'>4\testArpeggio
+  <f a c'>4\testArpeggio
 
   \once \override Arpeggio.direction = #RIGHT
-  <f a c'>2\arpeggio
-  <f a c'>2\arpeggio
+  <f a c'>2\testArpeggio
+  <f a c'>2\testArpeggio
 }
