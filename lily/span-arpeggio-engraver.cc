@@ -37,7 +37,9 @@ class Span_arpeggio_engraver final : public Engraver
 {
 public:
   TRANSLATOR_DECLARATIONS (Span_arpeggio_engraver);
-  void acknowledge_arpeggio (Grob_info);
+  void acknowledge_arpeggio (Grob_info_t<Item>);
+  void acknowledge_chord_bracket (Grob_info_t<Item>);
+  void acknowledge_chord_slur (Grob_info_t<Item>);
   void acknowledge_note_column (Grob_info_t<Item>);
 
 protected:
@@ -45,8 +47,18 @@ protected:
   void stop_translation_timestep ();
 
 private:
-  Item *span_arpeggio_ = nullptr;
-  std::vector<Grob *> arpeggios_;
+  struct Chord_onset_info
+  {
+    const char *const item_name_;
+    const char *const connect_property_name_;
+    std::vector<Item *> items_ {};
+    Item *span_item_ = nullptr;
+  };
+
+private:
+  Chord_onset_info arpeggio_ = {"Arpeggio", "connectArpeggios"};
+  Chord_onset_info bracket_ = {"ChordBracket", "connectChordBrackets"};
+  Chord_onset_info slur_ = {"ChordSlur", "connectChordSlurs"};
   std::vector<Grob *> note_columns_;
 };
 
@@ -56,9 +68,21 @@ Span_arpeggio_engraver::Span_arpeggio_engraver (Context *c)
 }
 
 void
-Span_arpeggio_engraver::acknowledge_arpeggio (Grob_info info)
+Span_arpeggio_engraver::acknowledge_arpeggio (Grob_info_t<Item> info)
 {
-  arpeggios_.push_back (info.grob ());
+  arpeggio_.items_.push_back (info.grob ());
+}
+
+void
+Span_arpeggio_engraver::acknowledge_chord_bracket (Grob_info_t<Item> info)
+{
+  bracket_.items_.push_back (info.grob ());
+}
+
+void
+Span_arpeggio_engraver::acknowledge_chord_slur (Grob_info_t<Item> info)
+{
+  slur_.items_.push_back (info.grob ());
 }
 
 void
@@ -70,60 +94,75 @@ Span_arpeggio_engraver::acknowledge_note_column (Grob_info_t<Item> info)
 void
 Span_arpeggio_engraver::process_acknowledged ()
 {
-  /*
-    connectArpeggios is slightly brusque; we should really read a grob
-    property of the caught non-span arpeggios. That way, we can have
-
-    both non-connected and connected arps in one pianostaff.
-
-  */
-  if (!span_arpeggio_ && arpeggios_.size () > 1
-      && from_scm<bool> (get_property (this, "connectArpeggios")))
-    span_arpeggio_ = make_item ("Arpeggio", SCM_EOL);
-
-  if (span_arpeggio_)
+  for (auto *const info : {&arpeggio_, &bracket_, &slur_})
     {
-      for (vsize i = 0; i < note_columns_.size (); i++)
-        Separation_item::add_conditional_item (note_columns_[i],
-                                               span_arpeggio_);
-      note_columns_.clear ();
+      /*
+        connectArpeggios is slightly brusque; we should really read a grob
+        property of the caught non-span arpeggios. That way, we can have
+
+        both non-connected and connected arps in one pianostaff.
+
+      */
+      if (!info->span_item_ && info->items_.size () > 1
+          && from_scm<bool> (get_property (this, info->connect_property_name_)))
+        info->span_item_ = make_item (info->item_name_, SCM_EOL);
+
+      if (info->span_item_)
+        {
+          for (auto *const col : note_columns_)
+            {
+              Separation_item::add_conditional_item (col, info->span_item_);
+            }
+          note_columns_.clear ();
+        }
     }
 }
 
 void
 Span_arpeggio_engraver::stop_translation_timestep ()
 {
-  if (span_arpeggio_)
+  for (auto *const info : {&arpeggio_, &bracket_, &slur_})
     {
-      /*
-        we do this very late, to make sure we also catch `extra'
-        side-pos support like accidentals.
-      */
-      for (vsize j = 0; j < arpeggios_.size (); j++)
+      if (info->span_item_)
         {
-          extract_grob_set (arpeggios_[j], "stems", stems);
-          for (vsize i = 0; i < stems.size (); i++)
-            Pointer_group_interface::add_grob (
-              span_arpeggio_, ly_symbol2scm ("stems"), stems[i]);
-
-          extract_grob_set (arpeggios_[j], "side-support-elements", sses);
-          for (vsize i = 0; i < sses.size (); i++)
-            Pointer_group_interface::add_grob (
-              span_arpeggio_, ly_symbol2scm ("side-support-elements"), sses[i]);
-
           /*
-            we can't kill the children, since we don't want to the
-            previous note to bump into the span arpeggio; so we make
-            it transparent.  */
-          set_object (arpeggios_[j], "vertically-spanning-surrogate",
-                      to_scm (span_arpeggio_));
-          set_property (arpeggios_[j], "transparent", SCM_BOOL_T);
-        }
+            we do this very late, to make sure we also catch `extra'
+            side-pos support like accidentals.
+          */
+          for (auto *const item : info->items_)
+            {
+              extract_grob_set (item, "stems", stems);
+              for (auto *const stem : stems)
+                {
+                  Pointer_group_interface::add_grob (
+                    info->span_item_, ly_symbol2scm ("stems"), stem);
+                }
 
-      span_arpeggio_->set_y_parent (arpeggios_[0]->get_y_parent ());
-      span_arpeggio_ = nullptr;
+              extract_grob_set (item, "side-support-elements", sses);
+              for (auto *const sse : sses)
+                {
+                  Pointer_group_interface::add_grob (
+                    info->span_item_, ly_symbol2scm ("side-support-elements"),
+                    sse);
+                }
+
+              /*
+                we can't kill the children, since we don't want to the
+                previous note to bump into the span arpeggio; so we make
+                it transparent.
+              */
+              set_object (item, "vertically-spanning-surrogate",
+                          to_scm (info->span_item_));
+              set_property (item, "transparent", SCM_BOOL_T);
+            }
+
+          info->span_item_->set_y_parent (info->items_[0]->get_y_parent ());
+          info->span_item_ = nullptr;
+        }
     }
-  arpeggios_.clear ();
+  arpeggio_.items_.clear ();
+  bracket_.items_.clear ();
+  slur_.items_.clear ();
   note_columns_.clear ();
 }
 
@@ -131,23 +170,30 @@ void
 Span_arpeggio_engraver::boot ()
 {
   ADD_ACKNOWLEDGER (arpeggio);
+  ADD_ACKNOWLEDGER (chord_bracket);
+  ADD_ACKNOWLEDGER (chord_slur);
   ADD_ACKNOWLEDGER (note_column);
 }
 
 ADD_TRANSLATOR (Span_arpeggio_engraver,
                 /* doc */
                 R"(
-Make arpeggios that span multiple staves.
+Make arpeggios, non-arpeggiato brackets, and vertical slurs spanning multiple
+staves.
                 )",
 
                 /* create */
                 R"(
 Arpeggio
+ChordBracket
+ChordSlur
                 )",
 
                 /* read */
                 R"(
 connectArpeggios
+connectChordBrackets
+connectChordSlurs
                 )",
 
                 /* write */

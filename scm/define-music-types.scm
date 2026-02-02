@@ -77,7 +77,7 @@ context, and 3.@tie{}the context where @var{func} is called.")
         ))
 
     (ArpeggioEvent
-     . ((description . "Make an arpeggio on this note.
+     . ((description . "Arpeggiate this chord.
 
 Syntax: @w{@var{note}@code{-\\arpeggio}}")
         (types . (post-event arpeggio-event event))
@@ -157,6 +157,15 @@ previous note.
 Syntax: @var{note}@code{\\caesura}")
 
         (types . (caesura-event event))))
+
+    (ChordSlurEvent
+     . ((description . "Do not arpeggiate this chord.  This is similar to
+@xref{NonArpeggiatoEvent} with the acknowledgment that performing all notes
+simultaneously might be impossible.
+
+Syntax: @w{@var{note}@code{-\\chordSlur}}")
+        (types . (post-event chord-slur-event event))
+        ))
 
     (ClusterNoteEvent
      . ((description . "A note that is part of a cluster.")
@@ -421,6 +430,13 @@ Syntax: @code{R-\\markup @{ \"bla\" @}}")
      . ((description . "Unspecified music expression.")
         (types . ())
         (void . #t)
+        ))
+
+    (NonArpeggiatoEvent
+     . ((description . "Do not arpeggiate this chord.
+
+Syntax: @w{@var{note}@code{-\\nonArpeggiato}}")
+        (types . (post-event non-arpeggiato-event event))
         ))
 
     (NoteEvent

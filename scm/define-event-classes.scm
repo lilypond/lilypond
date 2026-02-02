@@ -33,6 +33,7 @@
                     bar-event
                     breathing-event
                     caesura-event
+                    chord-slur-event
                     extender-event span-event rhythmic-event dynamic-event
                     break-event label-event
                     partial-event
@@ -45,6 +46,7 @@
                     laissez-vibrer-event mark-event text-mark-event
                     multi-measure-text-event
                     multi-measure-articulation-event
+                    non-arpeggiato-event
                     note-grouping-event pes-or-flexa-event repeat-tie-event
                     section-label-event
                     spacing-section-event layout-instruction-event

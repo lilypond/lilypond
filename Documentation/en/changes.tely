@@ -613,6 +613,14 @@ renamed to @code{'single-number}.
 
 @itemize
 
+@item
+The new commands @code{\chordSlur} and @code{\nonArpeggiato}
+support creating vertical slurs and brackets without abusing the
+@code{\arpeggio} command.
+
+@lilypond[quote,verbatim]
+{ <c' g'>\nonArpeggiato <c' f''>\chordSlur }
+@end lilypond
 
 @item
 A new ornament, @code{bachschleifer}, is now available.

@@ -31,6 +31,18 @@
 
 #include "translator.icc"
 
+namespace
+{
+
+enum class Arpeggio_type
+{
+  NON_ARPEGGIATED = 0,
+  SLURRED,
+  ARPEGGIATED,
+};
+
+}
+
 class Arpeggio_engraver final : public Engraver
 {
 public:
@@ -44,10 +56,13 @@ protected:
   void process_music ();
   void stop_translation_timestep ();
   void listen_arpeggio (Stream_event *);
+  void listen_chord_slur (Stream_event *);
+  void listen_non_arpeggiato (Stream_event *);
 
 private:
   Item *arpeggio_ = nullptr;
   Stream_event *arpeggio_event_ = nullptr;
+  Arpeggio_type arpeggio_type_ = Arpeggio_type::NON_ARPEGGIATED;
 };
 
 Arpeggio_engraver::Arpeggio_engraver (Context *c)
@@ -58,7 +73,28 @@ Arpeggio_engraver::Arpeggio_engraver (Context *c)
 void
 Arpeggio_engraver::listen_arpeggio (Stream_event *ev)
 {
-  assign_event_once (arpeggio_event_, ev);
+  if (assign_event_once (arpeggio_event_, ev))
+    {
+      arpeggio_type_ = Arpeggio_type::ARPEGGIATED;
+    }
+}
+
+void
+Arpeggio_engraver::listen_chord_slur (Stream_event *ev)
+{
+  if (assign_event_once (arpeggio_event_, ev))
+    {
+      arpeggio_type_ = Arpeggio_type::SLURRED;
+    }
+}
+
+void
+Arpeggio_engraver::listen_non_arpeggiato (Stream_event *ev)
+{
+  if (assign_event_once (arpeggio_event_, ev))
+    {
+      arpeggio_type_ = Arpeggio_type::NON_ARPEGGIATED;
+    }
 }
 
 void
@@ -97,7 +133,18 @@ Arpeggio_engraver::process_music ()
 {
   if (arpeggio_event_)
     {
-      arpeggio_ = make_item ("Arpeggio", arpeggio_event_->self_scm ());
+      const char *const item_name = [this] {
+        switch (arpeggio_type_)
+          {
+            // clang-format off
+          case Arpeggio_type::NON_ARPEGGIATED: return "ChordBracket";
+          case Arpeggio_type::SLURRED: return "ChordSlur";
+          case Arpeggio_type::ARPEGGIATED: return "Arpeggio";
+            // clang-format on
+          }
+        abort ();
+      }();
+      arpeggio_ = make_item (item_name, arpeggio_event_->self_scm ());
     }
 }
 
@@ -112,6 +159,8 @@ void
 Arpeggio_engraver::boot ()
 {
   ADD_LISTENER (arpeggio);
+  ADD_LISTENER (chord_slur);
+  ADD_LISTENER (non_arpeggiato);
   ADD_ACKNOWLEDGER (stem);
   ADD_ACKNOWLEDGER (rhythmic_head);
   ADD_ACKNOWLEDGER (note_column);
@@ -120,12 +169,14 @@ Arpeggio_engraver::boot ()
 ADD_TRANSLATOR (Arpeggio_engraver,
                 /* doc */
                 R"(
-Generate an Arpeggio symbol.
+Create arpeggiato and non-arpeggiato symbols.
                 )",
 
                 /* create */
                 R"(
 Arpeggio
+ChordBracket
+ChordSlur
                 )",
 
                 /* read */

@@ -502,6 +502,8 @@ Accidental_engraver::boot ()
 {
   ADD_ACKNOWLEDGER (accidental_participating_head);
   ADD_ACKNOWLEDGER (arpeggio);
+  ADD_ACKNOWLEDGER_FOR (acknowledge_arpeggio, chord_bracket);
+  ADD_ACKNOWLEDGER_FOR (acknowledge_arpeggio, chord_slur);
   ADD_ACKNOWLEDGER (finger);
   ADD_END_ACKNOWLEDGER (tie);
   ADD_ACKNOWLEDGER (note_column);

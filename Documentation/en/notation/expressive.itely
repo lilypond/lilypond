@@ -1454,7 +1454,24 @@ is denoted by appending @code{\arpeggio} to the chord construct:
 \relative { <c' e g c>1\arpeggio }
 @end lilypond
 
-Different types of arpeggios may be written.
+It is possible to connect arpeggios across voices or staves by
+setting the property @code{connectArpeggios} in a staff-grouping
+context.  This connects all arpeggios in that context:
+
+@lilypond[verbatim,quote]
+\new PianoStaff \fixed c' <<
+  \new Staff {
+    \once \set PianoStaff.connectArpeggios = ##t
+    <e g>2\arpeggio q\arpeggio
+  }
+  \new Staff {
+    \clef "bass"
+    <a, c>2\arpeggio q\arpeggio
+  }
+>>
+@end lilypond
+
+There are commands to specify the performance direction.
 @code{\arpeggioNormal} reverts to a normal arpeggio:
 
 @lilypond[verbatim,quote]
@@ -1483,7 +1500,8 @@ definition in the @file{ly/property-init.ly} file.
 @funindex \arpeggioParenthesis
 @funindex \arpeggioParenthesisDashed
 
-Special @emph{bracketed} arpeggio symbols can be created:
+The symbol that the @code{\arpeggio} command creates can be
+changed:
 
 @lilypond[verbatim,quote]
 \relative {
@@ -1508,12 +1526,60 @@ object's @code{stencil} property, and may also adapt its
 @code{X-extent} (that is, the horizontal dimension it takes
 not to collide with other objects).
 
-The dash properties of the parenthesis arpeggio are controlled
-with the @code{dash-definition} property (@pxref{Slurs}).
+@cindex block chord
+@cindex bracket, non-arpeggiato
+@cindex chord bracket
+@cindex chord, block
+@cindex non-arpeggiato
+@funindex \nonArpeggiato
+
+For a bracket designating a non-arpeggiated chord, it is better to
+use @code{\nonArpeggiato} than to use @code{\arpeggio} and alter
+the appearance.  This creates a @code{ChordBracket} object.
+
+@lilypond[verbatim,quote]
+\new PianoStaff \fixed c' <<
+  \new Staff {
+    \once \set PianoStaff.connectChordBrackets = ##t
+    <e g>2\nonArpeggiato q\nonArpeggiato
+  }
+  \new Staff {
+    \clef "bass"
+    <a, c>2\nonArpeggiato q\nonArpeggiato
+  }
+>>
+@end lilypond
+
+@cindex chord slur
+@cindex chord, rolled
+@cindex rolled chord
+@cindex slur, vertical
+@cindex vertical slur
+@funindex \chordSlur
+
+For a vertical slur designating a quasi-non-arpeggiated chord, it
+is better to use @code{\chordSlur} than to use @code{\arpeggio}
+and alter the appearance.  This creates a @code{ChordSlur} object.
+
+@lilypond[verbatim,quote]
+\new PianoStaff \fixed c <<
+  \new Staff {
+    \once \set PianoStaff.connectChordSlurs = ##t
+    <e' g' g''>2\chordSlur q\chordSlur
+  }
+  \new Staff {
+    \clef "bass"
+    <a, a c'>2\chordSlur q\chordSlur
+  }
+>>
+@end lilypond
+
+The dash properties of @code{ChordSlur} and the parenthesis
+@code{Arpeggio} are controlled with the @code{dash-definition}
+property (@pxref{Slurs}).
 
 Arpeggios can be explicitly written out with ties.  For more
 information, @pxref{Ties}.
-
 
 @predefined
 @code{\arpeggio},
@@ -1522,16 +1588,13 @@ information, @pxref{Ties}.
 @code{\arpeggioNormal},
 @code{\arpeggioBracket},
 @code{\arpeggioParenthesis},
-@code{\arpeggioParenthesisDashed}.
+@code{\arpeggioParenthesisDashed},
+@code{\chordSlur},
+@code{\nonArpeggiato}.
 @endpredefined
 
 
 @snippets
-
-@cindex arpeggio, cross-staff
-@cindex cross-staff arpeggio
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/creating-cross-staff-arpeggios-in-a-piano-staff.ly}
 
 @cindex arpeggio, cross-voice
 @cindex cross-voice arpeggio
@@ -1554,6 +1617,8 @@ Snippets:
 
 Internals Reference:
 @rinternals{Arpeggio},
+@rinternals{ChordBracket},
+@rinternals{ChordSlur},
 @rinternals{Slur},
 @rinternals{PianoStaff}.
 @endmorerefs
@@ -1571,6 +1636,7 @@ advisable to directly override the relevant properties for the
 
 @example
 \override Staff.Arpeggio.stencil = #ly:chord-bracket::print
+\override Staff.Arpeggio.X-extent = #ly:chord-bracket::width
 @end example
 
 @noindent

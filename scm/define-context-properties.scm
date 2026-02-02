@@ -278,6 +278,10 @@ context of the completion engraver, and the duration to be split.")
 completion.")
      (connectArpeggios ,boolean? "If set, connect arpeggios across
 piano staff.")
+     (connectChordBrackets ,boolean? "If set, connect chord brackets across
+piano staff.")
+     (connectChordSlurs ,boolean? "If set, connect chord slurs across piano
+staff.")
      (countPercentRepeats ,boolean? "If set, produce counters for
 percent repeats.")
      (createKeyOnClefChange ,boolean? "Print a key signature whenever

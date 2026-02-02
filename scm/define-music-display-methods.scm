@@ -210,6 +210,9 @@ expression."
 (define-post-event-display-method HarmonicEvent (event) #f "\\harmonic")
 (define-post-event-display-method GlissandoEvent (event) #f "\\glissando")
 (define-post-event-display-method ArpeggioEvent (event) #f "\\arpeggio")
+(define-post-event-display-method ChordSlurEvent (event) #f "\\chordSlur")
+(define-post-event-display-method NonArpeggiatoEvent (event) #f
+  "\\nonArpeggiato")
 (define-post-event-display-method AbsoluteDynamicEvent (event) #f
   (format #f "\\~a" (ly:music-property event 'text)))
 

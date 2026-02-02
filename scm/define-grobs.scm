@@ -226,7 +226,7 @@ horizontal spacing from the ambitus to other items.")))))
                                 side-position-interface
                                 staff-symbol-referencer-interface))
                  (description . "An arpeggio line (normally a
-vertical wiggle).")))))
+vertical wiggle).  See also @iref{ChordBracket} and @iref{ChordSlur}.")))))
 
 
     (BalloonText
@@ -808,6 +808,32 @@ managed with @iref{BarNumber} grobs.")))))
                  (description . "An auxiliary grob providing a
 vertical baseline to align @iref{CenteredBarNumber} grobs.")))))
 
+    (ChordBracket
+     . (
+        (cross-staff . ,ly:arpeggio::calc-cross-staff)
+        (direction . ,LEFT)
+        (line-thickness . 1)
+        (padding . 0.5)
+        (positions . ,ly:arpeggio::calc-positions)
+        (protrusion . 0.4)
+        (script-priority . 0)
+        (side-axis . ,X)
+        (staff-position . 0.0)
+        (stencil . ,ly:chord-bracket::print)
+        (thickness . 1)
+        (X-extent . ,ly:chord-bracket::width)
+        (Y-extent . ,(grob::unpure-Y-extent-from-stencil
+                      ly:arpeggio::pure-height))
+        (X-offset . ,ly:side-position-interface::x-aligned-side)
+        (Y-offset . ,staff-symbol-referencer::callback)
+        (meta . ((class . Item)
+                 (interfaces . (chord-bracket-interface
+                                font-interface
+                                side-position-interface
+                                staff-symbol-referencer-interface))
+                 (description . "A non-arpeggiato or non-divisi bracket.  See
+also @iref{Arpeggio} and @iref{ChordSlur}.")))))
+
     (ChordName
      . (
         (after-line-breaking . ,ly:chord-name::after-line-breaking)
@@ -827,6 +853,31 @@ vertical baseline to align @iref{CenteredBarNumber} grobs.")))))
                                 text-interface))
                  (description . "A stand-alone chord name.  For chord
 names in chord grids, see @iref{GridChordName}.")))))
+
+    (ChordSlur
+     . (
+        (cross-staff . ,ly:arpeggio::calc-cross-staff)
+        (direction . ,LEFT)
+        (line-thickness . 1)
+        (padding . 0.5)
+        (positions . ,ly:arpeggio::calc-positions)
+        (protrusion . 0.4)
+        (script-priority . 0)
+        (side-axis . ,X)
+        (staff-position . 0.0)
+        (stencil . ,ly:chord-slur::print)
+        (thickness . 1)
+        (X-extent . ,ly:chord-slur::width)
+        (Y-extent . ,(grob::unpure-Y-extent-from-stencil
+                      ly:arpeggio::pure-height))
+        (X-offset . ,ly:side-position-interface::x-aligned-side)
+        (Y-offset . ,staff-symbol-referencer::callback)
+        (meta . ((class . Item)
+                 (interfaces . (chord-slur-interface
+                                font-interface
+                                side-position-interface
+                                staff-symbol-referencer-interface))
+                 (description . "A vertical slur.  See also @iref{Arpeggio} and @iref{ChordBracket}.")))))
 
     ;; About chord square notation, see: Philippe Baudoin, "Jazz, mode d'emploi
     ;; / Petite encyclopédie des données techniques de base".

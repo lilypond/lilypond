@@ -1,4 +1,4 @@
-\version "2.25.33"
+\version "2.25.34"
 
 #(use-modules (srfi srfi-13)
               (ice-9 format)
@@ -182,6 +182,15 @@ are reported on the stderr of this run."
 \test ##[ { < c\harmonic >4 < c e\harmonic >4 } #] 	% HarmonicEvent
 \test ##[ { c4\glissando c4^\glissando c4_\glissando } #]	% GlissandoEvent
 \test ##[ { c4\arpeggio c4^\arpeggio c4_\arpeggio } #] 	% ArpeggioEvent
+\test ##[ < c e >4\arpeggio #]				% ArpeggioEvent
+\test ##[ < d f >4^\arpeggio #]				% ArpeggioEvent
+\test ##[ < g b >4_\arpeggio #]				% ArpeggioEvent
+\test ##[ < c e >4\chordSlur #]				% ChordSlurEvent
+\test ##[ < d f >4^\chordSlur #]			% ChordSlurEvent
+\test ##[ < g b >4_\chordSlur #]			% ChordSlurEvent
+\test ##[ < c e >4\nonArpeggiato #]			% NonArpeggiatoEvent
+\test ##[ < d f >4^\nonArpeggiato #]			% NonArpeggiatoEvent
+\test ##[ < g b >4_\nonArpeggiato #]			% NonArpeggiatoEvent
 \test ##[ { c4\p c4^\ff c4_\sfz } #] 			% AbsoluteDynamicEvent
 \test ##[ { c4\< c,,4\!\breakDynamicSpan\p } #]          % BreakDynamicSpanEvent
 \test ##[ { c4[ c4] c4^[ c4^] c4_[ c4_] } #] 		% BeamEvent

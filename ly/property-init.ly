@@ -72,43 +72,74 @@ ambitusAfter =
 
 %% arpeggios
 
-% For drawing vertical chord brackets with \arpeggio
-% This is a shorthand for the value of the print-function property
-% of either Staff.Arpeggio or PianoStaff.Arpeggio, depending whether
-% cross-staff brackets are desired.
-
 arpeggio = #(make-music 'ArpeggioEvent)
-arpeggioArrowUp = {
-  \revert Arpeggio.stencil
-  \revert Arpeggio.X-extent
-  \override Arpeggio.arpeggio-direction = #UP
-}
-arpeggioArrowDown = {
-  \revert Arpeggio.stencil
-  \revert Arpeggio.X-extent
-  \override Arpeggio.arpeggio-direction = #DOWN
-}
-arpeggioNormal = {
-  \revert Arpeggio.stencil
-  \revert Arpeggio.X-extent
-  \revert Arpeggio.arpeggio-direction
-  \revert Arpeggio.dash-definition
-}
-arpeggioBracket = {
-  \override Arpeggio.stencil = #ly:chord-bracket::print
-  \override Arpeggio.X-extent = #ly:chord-bracket::width
-}
-arpeggioParenthesis = {
-  \override Arpeggio.stencil = #ly:chord-slur::print
-  \override Arpeggio.X-extent = #ly:chord-slur::width
-  \revert Arpeggio.dash-definition
-}
-arpeggioParenthesisDashed = {
-  \override Arpeggio.stencil = #ly:chord-slur::print
-  \override Arpeggio.X-extent = #ly:chord-slur::width
-  \override Arpeggio.dash-definition = #'((0 1 0.4 0.75))
-}
+chordSlur = #(make-music 'ChordSlurEvent)
+nonArpeggiato = #(make-music 'NonArpeggiatoEvent)
 
+arpeggioArrowUp =
+#(define-music-function () ()
+  (_i "Let @code{\\arpeggio} produce a wavy line with an up arrow.")
+  #{
+    \revert Arpeggio.stencil
+    \revert Arpeggio.X-extent
+    \override Arpeggio.arpeggio-direction = #UP
+  #})
+
+arpeggioArrowDown =
+#(define-music-function () ()
+  (_i "Let @code{\\arpeggio} produce a wavy line with a down arrow.")
+  #{
+    \revert Arpeggio.stencil
+    \revert Arpeggio.X-extent
+    \override Arpeggio.arpeggio-direction = #DOWN
+  #})
+
+arpeggioNormal =
+#(define-music-function () ()
+  (_i "Let @code{\\arpeggio} produce a wavy line without an arrow.")
+  #{
+    \revert Arpeggio.stencil
+    \revert Arpeggio.X-extent
+    \revert Arpeggio.arpeggio-direction
+    \revert Arpeggio.dash-definition
+  #})
+
+arpeggioBracket =
+#(define-music-function () ()
+  (_i "Let @code{\\arpeggio} produce a square bracket.
+
+Note: For a bracket designating a non-arpeggiated chord, it is better to use
+@code{\\nonArpeggiato} than to use @code{\\arpeggio} and alter the appearance.")
+  #{
+    \override Arpeggio.stencil = #ly:chord-bracket::print
+    \override Arpeggio.X-extent = #ly:chord-bracket::width
+  #})
+
+arpeggioParenthesis =
+#(define-music-function () ()
+  (_i "Let @code{\\arpeggio} produce a vertical slur.
+
+Note: For a vertical slur designating a quasi-non-arpeggiated chord, it is
+better to use @code{\\chordSlur} than to use @code{\\arpeggio} and alter the
+appearance.")
+  #{
+    \override Arpeggio.stencil = #ly:chord-slur::print
+    \override Arpeggio.X-extent = #ly:chord-slur::width
+    \revert Arpeggio.dash-definition
+  #})
+
+arpeggioParenthesisDashed =
+#(define-music-function () ()
+  (_i "Let @code{\\arpeggio} produce a dashed vertical slur.
+
+Note: For a vertical slur designating a quasi-non-arpeggiated chord, it is
+better to use @code{\\chordSlur} than to use @code{\\arpeggio} and alter the
+appearance.")
+  #{
+    \override Arpeggio.stencil = #ly:chord-slur::print
+    \override Arpeggio.X-extent = #ly:chord-slur::width
+    \override Arpeggio.dash-definition = #'((0 1 0.4 0.75))
+  #})
 
 %% auto beaming
 
