@@ -189,7 +189,7 @@ Arpeggio::print (SCM smob)
 
 // Make a bracket with the given Y extent.
 Stencil
-Arpeggio::brew_chord_bracket (Grob *me, Interval y_extent)
+Chord_bracket::print (Grob *me, Interval y_extent)
 {
   const auto thickness
     = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
@@ -202,32 +202,30 @@ Arpeggio::brew_chord_bracket (Grob *me, Interval y_extent)
 
 /* Draws a vertical bracket to the left of a chord
    Chris Jackson <chris@fluffhouse.org.uk> */
-MAKE_SCHEME_CALLBACK (Arpeggio, brew_chord_bracket,
-                      "ly:arpeggio::brew-chord-bracket", 1);
+MAKE_SCHEME_CALLBACK (Chord_bracket, print, "ly:chord-bracket::print", 1);
 SCM
-Arpeggio::brew_chord_bracket (SCM smob)
+Chord_bracket::print (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   auto y_extent = from_scm (get_property (me, "positions"), Interval ());
   y_extent.widen (0.75); // candidate for a grob property
   y_extent *= Staff_symbol_referencer::staff_space (me);
-  return brew_chord_bracket (me, y_extent).smobbed_copy ();
+  return print (me, y_extent).smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Arpeggio, chord_bracket_width,
-                      "ly:arpeggio::chord-bracket-width", 1);
+MAKE_SCHEME_CALLBACK (Chord_bracket, width, "ly:chord-bracket::width", 1);
 SCM
-Arpeggio::chord_bracket_width (SCM smob)
+Chord_bracket::width (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   // dummy Y extent avoids triggering vertical alignment before line breaking
   constexpr auto y_extent = Interval (0, 1);
-  const auto x_extent = brew_chord_bracket (me, y_extent).extent (X_AXIS);
+  const auto x_extent = print (me, y_extent).extent (X_AXIS);
   return to_scm (x_extent);
 }
 
 Stencil
-Arpeggio::brew_chord_slur (Grob *me, Interval positions)
+Chord_slur::print (Grob *me, Interval positions)
 {
   SCM dash_definition = get_property (me, "dash-definition");
   Real ss = Staff_symbol_referencer::staff_space (me);
@@ -261,20 +259,18 @@ Arpeggio::brew_chord_slur (Grob *me, Interval positions)
   return mol;
 }
 
-MAKE_SCHEME_CALLBACK (Arpeggio, brew_chord_slur, "ly:arpeggio::brew-chord-slur",
-                      1);
+MAKE_SCHEME_CALLBACK (Chord_slur, print, "ly:chord-slur::print", 1);
 SCM
-Arpeggio::brew_chord_slur (SCM smob)
+Chord_slur::print (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   const auto positions = from_scm (get_property (me, "positions"), Interval ());
-  return brew_chord_slur (me, positions).smobbed_copy ();
+  return print (me, positions).smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Arpeggio, chord_slur_width,
-                      "ly:arpeggio::chord-slur-width", 1);
+MAKE_SCHEME_CALLBACK (Chord_slur, width, "ly:chord-slur::width", 1);
 SCM
-Arpeggio::chord_slur_width (SCM smob)
+Chord_slur::width (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
@@ -305,7 +301,7 @@ Arpeggio::chord_slur_width (SCM smob)
   // before line breaking.  We use a large value to aim for the worst case,
   // expecting the stencil code to limit the curvature of the slur.
   constexpr auto positions = Interval (0, 100);
-  const auto x_extent = brew_chord_slur (me, positions).extent (X_AXIS);
+  const auto x_extent = print (me, positions).extent (X_AXIS);
   return to_scm (x_extent);
 }
 
@@ -344,6 +340,37 @@ dash-definition
 line-thickness
 positions
 protrusion
+script-priority
+stems
+thickness
+               )");
+
+ADD_INTERFACE (Chord_bracket,
+               R"(
+Functions and settings for drawing a vertical bracket, such as for
+non-arpeggiato, non-divisi, or optional material.
+               )",
+
+               /* properties */
+               R"(
+line-thickness
+positions
+protrusion
+script-priority
+stems
+thickness
+               )");
+
+ADD_INTERFACE (Chord_slur,
+               R"(
+Functions and settings for drawing a vertical slur.
+               )",
+
+               /* properties */
+               R"(
+dash-definition
+line-thickness
+positions
 script-priority
 stems
 thickness

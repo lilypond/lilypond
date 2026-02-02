@@ -263,7 +263,7 @@ arpeggioArrowDownXX =
   \\once \\override PianoStaff.Arpeggio.arpeggio-direction = #DOWN
 arpeggioBracketXX =
   \\once \\override PianoStaff.Arpeggio.stencil =
-    #ly:arpeggio::brew-chord-bracket
+    #ly:chord-bracket::print
 """,
 
     "arpeggioX": """\
@@ -276,7 +276,7 @@ arpeggioArrowDownX =
   \\once \\override Staff.Arpeggio.arpeggio-direction = #DOWN
 arpeggioBracketX =
   \\once \\override Staff.Arpeggio.stencil =
-    #ly:arpeggio::brew-chord-bracket
+    #ly:chord-bracket::print
 """,
 
     "cancel-after-key": """\

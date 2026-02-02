@@ -5607,6 +5607,17 @@ def conv(s):
     return s
 
 
+@rule((2, 25, 34), r"""
+ly:arpeggio::brew-chord-bracket -> ly:chord-bracket::print
+ly:arpeggio::brew-chord-slur -> ly:chord-slur::print
+""")
+def conv(s):
+    s = re.sub(r'ly:arpeggio::brew-chord-bracket',
+               r'ly:chord-bracket::print', s)
+    s = re.sub(r'ly:arpeggio::brew-chord-slur', r'ly:chord-slur::print', s)
+    return s
+
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

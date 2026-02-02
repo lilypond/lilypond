@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.24.0"
+\version "2.25.34"
 
 \header {
   categories = "Keyboards, Real music"
@@ -31,7 +31,7 @@ The following example typesets measure@tie{}65 of Debussy's prelude
 \new PianoStaff <<
   \set PianoStaff.connectArpeggios = ##t
   \override PianoStaff.Arpeggio.stencil =
-    #ly:arpeggio::brew-chord-bracket
+    #ly:chord-bracket::print
 
   \new Staff \relative c' {
     \key b \major

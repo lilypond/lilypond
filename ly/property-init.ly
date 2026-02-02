@@ -95,17 +95,17 @@ arpeggioNormal = {
   \revert Arpeggio.dash-definition
 }
 arpeggioBracket = {
-  \override Arpeggio.stencil = #ly:arpeggio::brew-chord-bracket
-  \override Arpeggio.X-extent = #ly:arpeggio::chord-bracket-width
+  \override Arpeggio.stencil = #ly:chord-bracket::print
+  \override Arpeggio.X-extent = #ly:chord-bracket::width
 }
 arpeggioParenthesis = {
-  \override Arpeggio.stencil = #ly:arpeggio::brew-chord-slur
-  \override Arpeggio.X-extent = #ly:arpeggio::chord-slur-width
+  \override Arpeggio.stencil = #ly:chord-slur::print
+  \override Arpeggio.X-extent = #ly:chord-slur::width
   \revert Arpeggio.dash-definition
 }
 arpeggioParenthesisDashed = {
-  \override Arpeggio.stencil = #ly:arpeggio::brew-chord-slur
-  \override Arpeggio.X-extent = #ly:arpeggio::chord-slur-width
+  \override Arpeggio.stencil = #ly:chord-slur::print
+  \override Arpeggio.X-extent = #ly:chord-slur::width
   \override Arpeggio.dash-definition = #'((0 1 0.4 0.75))
 }
 

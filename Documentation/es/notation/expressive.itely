@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.25.34"
 
 @node Expressive marks
 @chapter Expresiones
@@ -1633,7 +1633,7 @@ objeto @code{Arpeggio} dentro del contexto correspondiente; por
 ejemplo:
 
 @example
-\override Staff.Arpeggio.stencil = #ly:arpeggio::brew-chord-bracket
+\override Staff.Arpeggio.stencil = #ly:chord-bracket::print
 @end example
 
 @noindent

@@ -2644,7 +2644,7 @@ note name.")))))
                         (first-note . (extra-space . 0.5))
                         (next-note . (extra-space . 0.5))
                         (right-edge . (extra-space . 0.1))))
-        (stencil . ,ly:arpeggio::brew-chord-bracket)
+        (stencil . ,ly:chord-bracket::print)
         (Y-extent . ,(grob::unpure-Y-extent-from-stencil
                       ly:arpeggio::pure-height))
         (meta . ((class . Item)

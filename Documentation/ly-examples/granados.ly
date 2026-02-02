@@ -3,7 +3,7 @@
 % Goyescas, "Coloquio en la Reja."              %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\version "2.19.83"
+\version "2.25.34"
 
 \include "example-header.ily"
 
@@ -151,7 +151,7 @@ lowerVoiceTwo = \relative {
 \score {
   \new PianoStaff <<
     \set PianoStaff.connectArpeggios = ##t
-    \override PianoStaff.Arpeggio.stencil = #ly:arpeggio::brew-chord-bracket
+    \override PianoStaff.Arpeggio.stencil = #ly:chord-bracket::print
     \override PianoStaff.Arpeggio.padding = #-0.5
 
     \new Staff = "high" <<
