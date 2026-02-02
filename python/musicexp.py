@@ -3590,7 +3590,7 @@ class ParenthesizeEvent(FunctionWrapperEvent):
 
 
 class StemEvent(Event):
-    """"
+    """
     A class to take care of stem values (`up`, `down`, `double`, `none`).
     """
 

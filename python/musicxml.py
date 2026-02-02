@@ -1494,7 +1494,7 @@ class Part(Music_xml_node):
     #
     # * Trace starts and stops of slurs in the `slurs` array.  If we
     #   encounter a cross-voice slur, remove it with a warning.  This is
-    #   better than letting LilyPond warn, because the construction `a( ... 
+    #   better than letting LilyPond warn, because the construction `a( ...
     #   c( ...  d)` (with the expected `b)` in another voice) can lead to
     #   ugly artifacts in the output.
     #
@@ -2042,7 +2042,7 @@ class Part(Music_xml_node):
                       one_child=False)
 
         voices = OrderedDict()
-        last_voice = None
+        last_vid = None
         voice_to_staff_dict = {}
 
         # We now do a pre-pass to collect all voice IDs so that dynamics,
@@ -2052,19 +2052,21 @@ class Part(Music_xml_node):
                 vid = n['voice']
             except KeyError:
                 if isinstance(n, Note):
-                    vid = last_voice if 'chord' in n else "1"
+                    vid = last_vid if 'chord' in n else "1"
                 else:
                     vid = None
 
             if vid is not None:
-                last_voice = vid
+                last_vid = vid
 
             sid = n.get('staff', None)
-            if vid is not None and vid not in voices:
-                voices[vid] = Musicxml_voice()
-            if vid is not None and sid is not None and 'grace' not in n:
-                if vid not in voice_to_staff_dict:
-                    voice_to_staff_dict[vid] = sid
+
+            if vid is not None:
+                if vid not in voices:
+                    voices[vid] = Musicxml_voice()
+                if sid is not None and 'grace' not in n:
+                    if vid not in voice_to_staff_dict:
+                        voice_to_staff_dict[vid] = sid
 
         # We need at least one voice and one staff ID.
         if not voices:
@@ -2099,10 +2101,10 @@ class Part(Music_xml_node):
                 id = n['voice']
             except KeyError:
                 if isinstance(n, Note):
-                    id = last_voice if 'chord' in n else '1'
+                    id = last_vid if 'chord' in n else '1'
 
             if id is not None:
-                last_voice = id
+                last_vid = id
 
             # We don't need `<backup>` and `<forward>` any more since we
             # have already assigned the correct onset times.

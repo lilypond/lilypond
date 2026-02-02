@@ -5032,8 +5032,8 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
 
 
 def musicxml_id_to_lily(id):
-    digits = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five',
-              'Six', 'Seven', 'Eight', 'Nine', 'Ten']
+    digits = ['Zero', 'One', 'Two', 'Three', 'Four',
+              'Five', 'Six', 'Seven', 'Eight', 'Nine']
 
     for digit in digits:
         d = digits.index(digit)
