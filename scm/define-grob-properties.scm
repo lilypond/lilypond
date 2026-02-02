@@ -1762,6 +1762,10 @@ Internally used to distribute beam shortening over stems.")
      (system-Y-offset ,number? "The Y-offset (relative to the bottom of the
 top-margin of the page) of the system to which this staff belongs.")
 
+     (vertically-spanning-surrogate ,ly:grob? "When an engraver hides a shorter
+instance of a vertically spanning grob (e.g., an arpeggio sign) to allow a
+taller instance to appear, this property may be set in the shorter instance to
+allow navigation to the taller instance.")
      (volta-numbers ,number-list? "List of volta numbers.")
 
 

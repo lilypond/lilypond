@@ -115,6 +115,8 @@ Span_arpeggio_engraver::stop_translation_timestep ()
             we can't kill the children, since we don't want to the
             previous note to bump into the span arpeggio; so we make
             it transparent.  */
+          set_object (arpeggios_[j], "vertically-spanning-surrogate",
+                      to_scm (span_arpeggio_));
           set_property (arpeggios_[j], "transparent", SCM_BOOL_T);
         }
 

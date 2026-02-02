@@ -39,7 +39,9 @@ public:
   DECLARE_SCHEME_CALLBACK (chord_bracket_width, (SCM));
 
   // vertical slur
+  static Stencil brew_chord_slur (Grob *, Interval positions);
   DECLARE_SCHEME_CALLBACK (brew_chord_slur, (SCM));
+  DECLARE_SCHEME_CALLBACK (chord_slur_width, (SCM));
 };
 
 #endif /* ARPEGGIO_HH */

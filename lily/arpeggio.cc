@@ -226,16 +226,12 @@ Arpeggio::chord_bracket_width (SCM smob)
   return to_scm (x_extent);
 }
 
-MAKE_SCHEME_CALLBACK (Arpeggio, brew_chord_slur, "ly:arpeggio::brew-chord-slur",
-                      1);
-SCM
-Arpeggio::brew_chord_slur (SCM smob)
+Stencil
+Arpeggio::brew_chord_slur (Grob *me, Interval positions)
 {
-  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   SCM dash_definition = get_property (me, "dash-definition");
   Real ss = Staff_symbol_referencer::staff_space (me);
-  Interval heads = from_scm (get_property (me, "positions"), Interval ())
-                   * Staff_symbol_referencer::staff_space (me);
+  Interval heads = positions * Staff_symbol_referencer::staff_space (me);
 
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"))
             * from_scm<double> (get_property (me, "line-thickness"), 1.0);
@@ -262,7 +258,55 @@ Arpeggio::brew_chord_slur (SCM smob)
 
   Stencil mol (Lookup::slur (curve, th, lt, dash_definition));
   mol.translate_axis (heads[LEFT] + 1.5 * sp / 2.0, Y_AXIS);
-  return mol.smobbed_copy ();
+  return mol;
+}
+
+MAKE_SCHEME_CALLBACK (Arpeggio, brew_chord_slur, "ly:arpeggio::brew-chord-slur",
+                      1);
+SCM
+Arpeggio::brew_chord_slur (SCM smob)
+{
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
+  const auto positions = from_scm (get_property (me, "positions"), Interval ());
+  return brew_chord_slur (me, positions).smobbed_copy ();
+}
+
+MAKE_SCHEME_CALLBACK (Arpeggio, chord_slur_width,
+                      "ly:arpeggio::chord-slur-width", 1);
+SCM
+Arpeggio::chord_slur_width (SCM smob)
+{
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
+
+  // A surrogate slur appears instead of this one, but does not control
+  // horizontal spacing itself.
+  auto *const surrogate
+    = unsmob<Grob> (get_object (me, "vertically-spanning-surrogate"));
+
+  // Get the width from this grob's stencil if we're not in a cross-staff
+  // situation.  Making a cross-staff stencil here would trigger vertical
+  // alignment before line breaking.
+  if (!surrogate && !from_scm<bool> (get_property (me, "cross-staff")))
+    {
+      return Grob::stencil_width (smob);
+    }
+
+  // If a surrogate slur isn't cross-staff (it might be just cross-voice), then
+  // it should have no trouble calculating its actual width.
+  if (surrogate && !from_scm<bool> (get_property (surrogate, "cross-staff")))
+    {
+      return Grob::stencil_width (to_scm (surrogate));
+    }
+
+  // We're in a cross-staff situation.  If this slur is cross-staff, we can't
+  // make its stencil to get its actual width, and if this slur is not
+  // cross-staff, its extent is probably not a good estimate of the extent of
+  // the surrogate.  Using a dummy height avoids triggering vertical alignment
+  // before line breaking.  We use a large value to aim for the worst case,
+  // expecting the stencil code to limit the curvature of the slur.
+  constexpr auto positions = Interval (0, 100);
+  const auto x_extent = brew_chord_slur (me, positions).extent (X_AXIS);
+  return to_scm (x_extent);
 }
 
 /*

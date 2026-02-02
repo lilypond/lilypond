@@ -864,6 +864,7 @@ springs-and-rods
 staff-symbol
 stencil
 transparent
+vertically-spanning-surrogate
 vertical-skylines
 whiteout
 whiteout-color

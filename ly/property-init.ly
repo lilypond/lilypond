@@ -100,12 +100,12 @@ arpeggioBracket = {
 }
 arpeggioParenthesis = {
   \override Arpeggio.stencil = #ly:arpeggio::brew-chord-slur
-  \override Arpeggio.X-extent = #ly:grob::stencil-width
+  \override Arpeggio.X-extent = #ly:arpeggio::chord-slur-width
   \revert Arpeggio.dash-definition
 }
 arpeggioParenthesisDashed = {
   \override Arpeggio.stencil = #ly:arpeggio::brew-chord-slur
-  \override Arpeggio.X-extent = #ly:grob::stencil-width
+  \override Arpeggio.X-extent = #ly:arpeggio::chord-slur-width
   \override Arpeggio.dash-definition = #'((0 1 0.4 0.75))
 }
 
