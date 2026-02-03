@@ -1091,3 +1091,14 @@ new stencil."
   (let* ((x (interval-widen (ly:stencil-extent stencil X) amount))
          (y (interval-widen (ly:stencil-extent stencil Y) amount)))
     (ly:stencil-add stencil (make-transparent-box-stencil x y))))
+
+(define-public (stencil-squash-extent stencil axis)
+  "Set the extent of @var{stencil} in the dimension @var{axis} to zero."
+  (ly:make-stencil
+   (ly:stencil-expr stencil)
+   (if (= axis X)
+       '(0 . 0)
+       (ly:stencil-extent stencil X))
+   (if (= axis X)
+       (ly:stencil-extent stencil Y)
+       '(0 . 0))))
