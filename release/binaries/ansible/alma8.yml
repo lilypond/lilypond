@@ -34,8 +34,8 @@
       dnf:
         name:
           - bison
-          - gcc-toolset-14-gcc
-          - gcc-toolset-14-gcc-c++
+          - gcc-toolset-15-gcc
+          - gcc-toolset-15-gcc-c++
           - flex
           - fontforge
           - gperf
