@@ -1,6 +1,0 @@
-File `dllist.py` was taken from
-
-  https://github.com/rgsoda/pypy-llist/
-
-Some minor modifications are applied to make it work directly in Python 3
-without the need of an additional file of this repository (`compat.py`).
