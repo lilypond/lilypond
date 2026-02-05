@@ -2027,12 +2027,15 @@ class Part(Music_xml_node):
         link_spanners(elements, [Note, Notations, Ornaments], 'wavy-line',
                       one_child=False)
 
-        voices = OrderedDict()
-        last_vid = None
-        voice_to_staff_dict = {}
+        # Keys of `voices_dict` are tuplets of the form
+        #
+        #   (<staff ID>, <voice ID>, <grace>)
+        #
+        # Values are constructed voice IDs reflecting LilyPond's needs.
+        voices_dict = OrderedDict()
 
-        # We now do a pre-pass to collect all voice IDs so that dynamics,
-        # clefs, etc., can be assigned to the correct voices.
+        # The next pre-pass collects all voice and staff ID information so
+        # that dynamics, clefs, etc., can be assigned to the correct voices.
         for n in elements:
             try:
                 vid = n['voice']
@@ -2040,36 +2043,61 @@ class Part(Music_xml_node):
                 if isinstance(n, Note):
                     vid = last_vid if 'chord' in n else "1"
                 else:
-                    vid = None
+                    continue
 
             if vid is not None:
                 last_vid = vid
 
-            sid = n.get('staff', None)
+            sid = n.get('staff', '1')
+            grace = 'grace' in n
 
-            if vid is not None:
-                if vid not in voices:
-                    voices[vid] = Musicxml_voice()
-                if sid is not None and 'grace' not in n:
-                    if vid not in voice_to_staff_dict:
-                        voice_to_staff_dict[vid] = sid
+            # We start with using this as an ordered set.
+            voices_dict[(sid, vid, grace)] = None
 
-        # We need at least one voice and one staff ID.
-        if not voices:
-            voices['1'] = Musicxml_voice()
-        if not voice_to_staff_dict:
-            voice_to_staff_dict = {v: '1' for v in voices}
+        # We now construct IDs for all voices.
+        for voice in voices_dict:
+            voices_dict[voice] = voice[1]
 
-        # Invert the `voice_to_staff_dict` into a `staff_to_voice_dict`
-        # (since we need to assign staff-related objects like clefs, times,
-        # etc., to the correct voices).  This will never be entirely correct
-        # due to staff switches, but it is the best we can do.
+        # The collected information in `voices_dict` is now used to
+        # construct two other dictionaries:
+        #
+        # `staff_to_voice_dict`:
+        #   This is needed to assign staff-related objects like clefs,
+        #   times, etc., to the proper voices; this will never be entirely
+        #   correct due to staff switches, but it is the best we can do with
+        #   the used algorithm.  Voice IDs must not occur more than once in
+        #   the value arrays.
+        #
+        # `voices`:
+        #   This defines the order of voices for a given part.  We assume
+        #   that voice order in the MusicXML file is from top to bottom in a
+        #   part.
+        #
+        # The used algorithm has two major flaws.
+        #
+        # * Staff switches might mix up the correct voice order in a staff.
+        #   `<attribute>` might be affected, too.
+        #
+        # * Relying on a global top-to-bottom order can fail easily; see
+        #   large comment in function `Staff::print_ly_contents` (in file
+        #   `musicexp.py`).
         staff_to_voice_dict = {}
-        for (v, s) in voice_to_staff_dict.items():
-            if s not in staff_to_voice_dict:
-                staff_to_voice_dict[s] = [v]
-            else:
-                staff_to_voice_dict[s].append(v)
+        seen_ids = set()
+        for (voice, id) in voices_dict.items():
+            # Also ignore grace elements.
+            if id in seen_ids or voice[2]:
+                continue
+
+            seen_ids.add(id)
+
+            if voice[0] not in staff_to_voice_dict:
+                staff_to_voice_dict[voice[0]] = []
+            staff_to_voice_dict[voice[0]].append(id)
+
+        voices = OrderedDict()
+        for sid in sorted(staff_to_voice_dict):
+            for vids in staff_to_voice_dict[sid]:
+                voices[vids] = Musicxml_voice()
 
         start_attr = None
         assign_to_next_note = []
@@ -2082,6 +2110,7 @@ class Part(Music_xml_node):
                 if not isinstance(e, Hash_text):
                     prev_e = e
 
+        # Now assign all elements to voices.
         for (prev_n, n) in prev_curr_iter(elements):
             try:
                 id = n['voice']
