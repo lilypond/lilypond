@@ -7,7 +7,10 @@
       <miscellaneous-field name="description">In some cases, a &lt;rest&gt;
           element misses the &lt;type&gt; child (this happens, for example,
           with voices in Finale, where you don't manually insert a
-          rest).</miscellaneous-field>
+          rest).
+
+          The second note in voice&nbsp;2 misses a &lt;staff&gt; element; it is
+          thus positioned in the upper staff.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

@@ -4938,9 +4938,6 @@ class Staff(StaffGroup):
     def print_ly_contents(self, printer):
         if not self.id or not self.part_information:
             return
-        sub_staff_type = self.substafftype
-        if not sub_staff_type:
-            sub_staff_type = self.stafftype
 
         top = self.barline_top
         bottom = self.barline_bottom
@@ -4984,10 +4981,11 @@ class Staff(StaffGroup):
                 printer.newline()
 
             # Now comes the real definition of a part's staff (or staves).
-            if staff_id:
-                printer(r'\context %s = "%s" <<' % (sub_staff_type, staff_id))
+            if staff_id and self.substafftype:
+                printer(r'\context %s = "%s" <<'
+                        % (self.substafftype, staff_id))
             else:
-                printer(r'\context %s <<' % sub_staff_type)
+                printer(r'\context %s <<' % self.stafftype)
             printer.newline()
 
             if not barlines[i][0]:

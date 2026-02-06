@@ -4120,7 +4120,9 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
     # For pedal marks.
     pedal_is_line = False
 
-    current_staff = None
+    # Using the staff of a voice's first note is a heuristic guess.  It
+    # might fail in cross-staff situations.
+    current_staff = voice._start_staff
 
     pending_figured_bass = []
     pending_chordnames = []
@@ -4153,7 +4155,13 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
         skip_grace_skip = None
 
         staff_change = None
-        staff = n.get('staff')
+
+        if isinstance(n,
+                      (musicxml.Note, musicxml.Direction, musicxml.Harmony)):
+            staff = n.get('staff', '1')
+        else:
+            staff = voice._start_staff
+
         if staff:
             if ((current_staff is not None and staff != current_staff)
                     or (current_staff is None

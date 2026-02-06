@@ -1442,13 +1442,10 @@ class Musicxml_voice:
     def add_element(self, e):
         self._elements.append(e)
         if isinstance(e, Note):
-            try:
-                name = e['staff']
-                if not self._start_staff and ('grace' not in e):
-                    self._start_staff = name
-                self._staves[name] = True
-            except KeyError:  # no <staff>
-                pass
+            name = e.get('staff', '1')
+            if not self._start_staff and 'grace' not in e:
+                self._start_staff = name
+            self._staves[name] = True
 
             lyrics = e['lyric']
             if not self._has_lyrics:
