@@ -1,4 +1,4 @@
-From 4924a4990b5dabd004021049a54f5b9d8079c98a Mon Sep 17 00:00:00 2001
+From 1ebe8a7cbddda6602d2d6e6b9db498340f3a4dfa Mon Sep 17 00:00:00 2001
 From: Jonas Hahnfeld <hahnjo@hahnjo.de>
 Date: Sat, 2 Sep 2023 16:15:37 +0200
 Subject: [PATCH 4/9] Decouple scm_t_inum from long datatype
@@ -8,24 +8,24 @@ has the same size as pointers to get compatible bytecode on different
 platforms. This assumption breaks on 64-bit Windows where longs are
 still 32 bit. Instead use intptr_t as the underlying datatype.
 
-Unfortunately, this comes with an additional challenge because GMP
-functions accept unsigned longs as arguments. So instead, in such
-configurations where long < scm_t_inum, split the values into two
-longs to convert to mpz.
+Unfortunately, this comes with an additional challenge because most
+GMP functions accept unsigned longs as arguments. So instead, in
+such configurations where long < scm_t_inum, use mpz_import.
 
 * libguile/scm.h: Define SCM_INTPTR_T_BIT.
 * libguile/numbers.h (scm_t_inum): Typedef to intptr_t. Update the
-definitions of SCM_I_FIXNUM_BIT and SCM_MOST_NEGATIVE_FIXNUM.
+definitions of SCM_I_FIXNUM_BIT and SCM_MOST_NEGATIVE_FIXNUM and
+avoid undefined behavior.
 * libguile/numbers.c: Update verify.
 (scm_to_mpz): Implement if SCM_LONG_BIT < SCM_I_FIXNUM_BIT.
 * libguile/integers.c (inum_to_bignum, scm_integer_gcd_zi): Implement
 if SCM_LONG_BIT < SCM_I_FIXNUM_BIT.
 ---
  libguile/integers.c | 12 ++++++++++++
- libguile/numbers.c  | 25 ++++++++++++++++++++++---
- libguile/numbers.h  | 10 ++++------
+ libguile/numbers.c  | 17 ++++++++++++++---
+ libguile/numbers.h  | 15 ++++++++-------
  libguile/scm.h      |  2 ++
- 4 files changed, 40 insertions(+), 9 deletions(-)
+ 4 files changed, 36 insertions(+), 10 deletions(-)
 
 diff --git a/libguile/integers.c b/libguile/integers.c
 index b4090e5bf..23bd2c0d5 100644
@@ -62,7 +62,7 @@ index b4090e5bf..23bd2c0d5 100644
    alias_bignum_to_mpz (x, zx);
    result = mpz_gcd_ui (NULL, zx, y);
 diff --git a/libguile/numbers.c b/libguile/numbers.c
-index fc598694a..2ef5faa07 100644
+index fc598694a..04d732e61 100644
 --- a/libguile/numbers.c
 +++ b/libguile/numbers.c
 @@ -94,10 +94,10 @@ verify (FLT_RADIX == 2);
@@ -78,7 +78,7 @@ index fc598694a..2ef5faa07 100644
  
  /* Some functions that use GMP's mpn functions assume that a
     non-negative fixnum will always fit in a 'mp_limb_t'.  */
-@@ -6868,7 +6868,26 @@ void
+@@ -6868,7 +6868,18 @@ void
  scm_to_mpz (SCM val, mpz_t rop)
  {
    if (SCM_I_INUMP (val))
@@ -86,31 +86,40 @@ index fc598694a..2ef5faa07 100644
 +    {
 +      scm_t_inum inum = SCM_I_INUM (val);
 +#if SCM_LONG_BIT >= SCM_I_FIXNUM_BIT
-+      // Cast to long and directly pass to GMP.
 +      mpz_set_si (rop, (long)inum);
-+#elif (2 * SCM_LONG_BIT) > SCM_I_FIXNUM_BIT
-+      scm_t_inum inum_abs = inum;
-+      if (inum < 0)
-+        inum_abs *= -1;
-+      long high = inum_abs >> (SCM_LONG_BIT - 1);
-+      long low = (long)(inum_abs & ((((scm_t_inum)1) << (SCM_LONG_BIT - 1)) - 1));
-+      mpz_set_si (rop, high);
-+      mpz_mul_2exp (rop, rop, SCM_LONG_BIT - 1);
-+      mpz_add_ui (rop, rop, low);
++#else
++      /* SCM_INUM_MIN > INTPTR_MIN, so this is safe from overflow. */
++      scm_t_inum inum_abs = inum >= 0 ? inum : -inum;
++      mpz_import (rop, 1, -1, sizeof (inum_abs), 0, 0, &inum_abs);
 +      if (inum < 0)
 +        mpz_neg (rop, rop);
-+#else
-+#error Unknown configuration
 +#endif
 +    }
    else if (SCM_BIGP (val))
      scm_integer_set_mpz_z (scm_bignum (val), rop);
    else
 diff --git a/libguile/numbers.h b/libguile/numbers.h
-index 84ad5466f..8bc87829a 100644
+index 84ad5466f..c32eb0de2 100644
 --- a/libguile/numbers.h
 +++ b/libguile/numbers.h
-@@ -52,12 +52,10 @@ extern "C++" {
+@@ -22,6 +22,8 @@
+ 
+ 
+ 
++#include <stdint.h>
++
+ #include "libguile/scmconfig.h"
+ 
+ /* gmp.h needs to be included with C++ linkage, if including Guile
+@@ -45,6 +47,7 @@ extern "C++" {
+ #include "libguile/error.h"
+ #include "libguile/gc.h"
+ #include "libguile/print.h"
++#include "libguile/scm.h"
+ 
+ 
+ 
+@@ -52,13 +55,11 @@ extern "C++" {
   *
   * Inums are exact integers that fit within an SCM word
   * (along with two tagging bits).
@@ -120,13 +129,15 @@ index 84ad5466f..8bc87829a 100644
 -typedef long scm_t_inum;
 -#define SCM_I_FIXNUM_BIT         (SCM_LONG_BIT - 2)
 -#define SCM_MOST_NEGATIVE_FIXNUM (-1L << (SCM_I_FIXNUM_BIT - 1))
+-#define SCM_MOST_POSITIVE_FIXNUM (- (SCM_MOST_NEGATIVE_FIXNUM + 1))
 + */
 +typedef intptr_t scm_t_inum;
 +#define SCM_I_FIXNUM_BIT         (SCM_INTPTR_T_BIT - 2)
-+#define SCM_MOST_NEGATIVE_FIXNUM (((scm_t_inum) -1) << (SCM_I_FIXNUM_BIT - 1))
- #define SCM_MOST_POSITIVE_FIXNUM (- (SCM_MOST_NEGATIVE_FIXNUM + 1))
++#define SCM_MOST_POSITIVE_FIXNUM (INTPTR_MAX >> 2)
++#define SCM_MOST_NEGATIVE_FIXNUM (-1 - SCM_MOST_POSITIVE_FIXNUM)
  
  /* SCM_SRS (X, Y) is signed right shift, defined as floor (X / 2^Y),
+    where Y must be non-negative and less than the width in bits of X.
 diff --git a/libguile/scm.h b/libguile/scm.h
 index 180b40159..3ca0f93b2 100644
 --- a/libguile/scm.h
