@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
+   Translation of GIT committish: c2ea1fa2792532a1a123f08504fc8677defb7a96
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -85,8 +85,8 @@ de contourner ce désagrément.
 
 @item
 Utiliser @uref{https://github.com/hanslub42/rlwrap, @command{rlwrap}},
-petit progamme « enveloppant » la bibliothèque @code{readline}. Ce
-programme est disponibles pour les systèmes de type Unix ; ile est lancé
+petit programme « enveloppant » la bibliothèque @code{readline}. Ce
+programme est disponibles pour les systèmes de type Unix ; il est lancé
 ainsi :
 
 @example
@@ -209,7 +209,7 @@ forme d'un @code{\n}.
 @end example
 
 Guillemets et obliques inverses dans une chaîne doivent être précédés
-d'une oblique inverse.  La chaîne @code{\a dit "b"} se saisit donc
+d'une oblique inverse. La chaîne @code{\a dit "b"} se saisit donc
 
 @example
 "\\a dit \"b\""
@@ -704,7 +704,7 @@ associées.
 Le recours à un @emph{hash} pour mettre en exergue du Scheme est tout à
 fait approprié. Dès qu'il rencontre un @code{#}, l'analyseur lexical
 passe le relais au lecteur Scheme qui va alors déchiffrer l'intégralité
-de l'expression Scheme -- ce peut être un identificateur, une expression
+de l'expression Scheme -- ce peut être un identifiant, une expression
 bornée par des parenthèses ou bien d'autres choses encore. Une fois
 cette expression lue, elle est enregistrée en tant que valeur d'un
 élément grammatical @code{SCM_TOKEN}. Puisque l'analyseur syntaxique
@@ -743,7 +743,7 @@ un @code{#} dès que l'analyseur grammatical le supporte. Dans le cadre
 d'une expression musicale, une expression qui aura été créée à l'aide
 d'un @code{#} sera interprétée comme étant de la musique. Elle ne sera
 cependant pas recopiée avant utilisation. Si la structure qui l'abrite
-devait être réutilisée, un appel expicite à @code{ly:music-deep-copy}
+devait être réutilisée, un appel explicite à @code{ly:music-deep-copy}
 pourrait être requis.
 
 @funindex $@@
@@ -855,8 +855,8 @@ Manuel d'extension :
 
 Lorsque l'on débogue de larges portions de code Scheme, il est bien
 appréciable que soit mise en évidence la ligne du programme à la source
-même de l'erreur. Lilypond permet la localisation dans les sources pour
-les erreurs Scheme dès lors d'ezst ajoutée à la ligne de commande
+même de l'erreur. LilyPond permet la localisation dans les sources pour
+les erreurs Scheme dès lors qu'est ajoutée à la ligne de commande
 l'option @option{-dcompile-@/Scheme-@/code}. L'ajout d'une ligne
 @code{#(ly:set-@/option 'compile-@/Scheme-@/code)} en tête d'un fichier
 LilyPond aura le même effet.
@@ -866,7 +866,7 @@ sujet de l'erreur grâce à l'option @option{-ddebug-@/eval} -- ou une
 ligne @code{#(debug-@/enable 'backtrace)} dans le fichier. Grâce à ce
 mode, et dès la survenance d'une erreur, s'affiche en mode verbeux une
 « trace inverse » contenant des informations sur tous les appels de
-fonction, ce qui permet de remonter le fil jusqu'àa la pierre
+fonction, ce qui permet de remonter le fil jusqu'à la pierre
 d'achoppement.
 
 @knownissues
@@ -880,8 +880,8 @@ Scheme.
 @subsection Saisie de variables et Scheme
 
 Le format de saisie prend en charge la notion de variable -- ou
-identificateur. Dans l'exemple suivant, une expression musicale se voit
-attribuer un identificateur qui portera le nom de @code{traLaLa}.
+identifiant. Dans l'exemple suivant, une expression musicale se voit
+attribuer un identifiant qui portera le nom de @code{traLaLa}.
 
 @example
 traLaLa = @{ c'4 d'4 @}
@@ -1353,7 +1353,7 @@ soufflets) devrait être plus large, mais pas gagner en hauteur.
 @item redimensionner le stencil par défaut sur l'axe des X
 @end enumerate
 
-@item @b{Réflexions sur l'Thoughts about previous item}
+@item @b{Réflexions sur le point précédent}
 
 La solution A est réalisable, mais demandera plus d'effort de codage.
 Quant à la solution B, bien que moins exigeante, elle a le désavantage
@@ -1366,7 +1366,7 @@ ne le saura pas avant d'avoir essayé.
 
 @itemize
 @item
-Si 'lon veut manipuler le stencil par défaut, il faut s'informer à son
+Si l'on veut manipuler le stencil par défaut, il faut s'informer à son
 sujet.
 
 L'indication d'espressivo est un objet graphique @code{Script}. En
@@ -1887,9 +1887,8 @@ comment le résultat est représenté en interne.
           (ly:make-pitch 0 5 0))))
 @end example
 
-Mauvaise nouvelle ! Les expressions @code{SlurEvent} doivent
-s'ajouter « à l'intérieur » de la note -- dans sa propriété
-@code{articulations}.
+Mauvaise nouvelle ! Les expressions @code{SlurEvent} doivent s'ajouter
+« à l'intérieur » de la note -- dans sa propriété @code{articulations}.
 
 Examinons à présent la saisie :
 
