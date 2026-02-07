@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
+    Translation of GIT committish: c2ea1fa2792532a1a123f08504fc8677defb7a96
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -320,7 +320,7 @@ algorithme heuristique n'est pas infaillible ; vous devrez alors
 recourir à l'option @code{line-width}.
 
 @warning{Assurez-vous que votre préambule compile effectivement sans
-erreur, au risque d'empêcher la déctetion de longueur de ligne. Ceci
+erreur, au risque d'empêcher la détection de longueur de ligne. Ceci
 peut se tester en traitant votre document avec @LaTeX{}, sur un bloc
 @code{\begin@{document@} ... \end@{document@}} vide.
 
@@ -345,8 +345,8 @@ suivantes seront appelées avant chaque extrait musical :
 
 @item @code{\betweenLilyPondSystem[1]} entre les systèmes, si tant est
 que @code{lilypond-book} a découpé la partition en plusieurs fichiers
-PostScript.  Elle requiert un paramètre et reçoit le nombre de fichiers
-inclus dans l'extrait.  Par défaut, elle insère simplement un
+PostScript. Elle requiert un paramètre et reçoit le nombre de fichiers
+inclus dans l'extrait. Par défaut, elle insère simplement un
 @code{\linebreak}.
 @end itemize
 
@@ -389,7 +389,7 @@ saut de ligne et de limiter le nombre de systèmes à inclure.
 
 En ce qui concerne @LaTeX{}, vous devrez définir
 @code{\betweenLilyPondSystem} de telle sorte que l'inclusion cesse dès
-que le nombre de systèmes requis est atteint.  Dans la mesure où
+que le nombre de systèmes requis est atteint. Dans la mesure où
 @code{\betweenLilyPondSystem} n'est appelé qu'@strong{après} le premier
 système, inclure un seul système est un jeu d'enfant :
 
@@ -402,8 +402,8 @@ système, inclure un seul système est un jeu d'enfant :
 @end example
 
 Pour un plus grand nombre de systèmes, il suffit d'insérer un test
-conditionnel @TeX{} avant le @code{\endinput}.  À partir de l'exemple
-qui suit, remplacez le « 2 » par le nombre de systèmes dont vous aurez
+conditionnel @TeX{} avant le @code{\endinput}. À partir de l'exemple qui
+suit, remplacez le « 2 » par le nombre de systèmes dont vous aurez
 besoin :
 
 @example
@@ -462,7 +462,7 @@ spécifiques au traitement de documents @LaTeX{}, au chapitre
 @subsection Texinfo
 
 Texinfo est le format standard pour toute la documentation du projet
-GNU.  À titre d'exemple, toute la documentation de LilyPond -- qu'il
+GNU. À titre d'exemple, toute la documentation de LilyPond -- qu'il
 s'agisse des versions HTML, PDF ou info -- est générée à partir de
 documents Texinfo.
 
@@ -553,8 +553,7 @@ sont mentionnés dans @ref{Invoking lilypond-book}.
 @subsection HTML
 
 Afin d'insérer de la musique dans vos fichiers HTML,
-@code{lilypond-book} dispose des environnements et commandes
-suivants :
+@code{lilypond-book} dispose des environnements et commandes suivants :
 
 @itemize
 
@@ -679,7 +678,7 @@ Vous pouvez utiliser, en tant que balise externe, aussi bien
 @subheading Inclusion de code LilyPond
 
 L'inclusion de code LilyPond se réalise à l'aide d'un environnement
-@code{programlisting} auquel on associe le langage @code{lilypond}.  En
+@code{programlisting} auquel on associe le langage @code{lilypond}. En
 voici la syntaxe :
 
 @example
@@ -771,7 +770,7 @@ Détermine le format du papier à @var{chaîne} (par exemple @code{a5} ou
 pour une liste des différentes tailles disponibles.
 
 Cette option affecte le résultat de LilyPond -- les dimensions de la
-feuille contenant le fragment musical -- et en aucaun cas le texte. Une
+feuille contenant le fragment musical -- et en aucun cas le texte. Une
 valeur non reconnue de @var{chaîne} sera rejetée. @code{lilypond-book}
 émettra un message d'avertissement et l'extrait utilisera le format par
 défaut, à savoir la taille de papier du documents pour @LaTeX{} et
@@ -803,7 +802,7 @@ prendre les valeurs @code{cm}, @code{mm}, @code{in}, @code{pt}
 ou @code{bp}.
 
 Cette option affecte le résultat de LilyPond -- les dimensions de la
-feuille contenant le fragement musical -- et en aucun cas le texte.
+feuille contenant le fragment musical -- et en aucun cas le texte.
 Cette option, lorsqu'elle est présente, a préséance sur l'option
 @option{papersize}. En l'absence d'option @option{paper-width}, la
 largeur de la feuille est déterminée à celle du document pour @LaTeX{}
@@ -1134,7 +1133,7 @@ lors de la génération du @file{.ps} puis dans le @file{.pdf}.
 
 La commande @command{dvips} peut déclencher certains messages concernant
 des fontes, que vous pouvez ignorer sans scrupule.@*
-Si vous utilisez @command{latex} en mode colonnage, n'oubliez pas
+Si vous utilisez @command{latex} en mode colonage, n'oubliez pas
 d'ajouter @option{-t landscape} aux options de @command{dvips}.
 
 Les environnements tels que
@@ -1144,17 +1143,16 @@ Les environnements tels que
 @end example
 
 @noindent
-ne sont pas interprétés par @LaTeX{}. En fait,
-@code{lilypond-book} extrait ces « environnements » dans des
-fichiers accessoires et les traite par LilyPond. Il récupère
-ensuite les graphiques résultants et crée un fichier @file{.tex}
-dans lequel les macros
-@code{\begin@{lilypond@}}@dots{}@code{\end@{lilypond@}} sont
-remplacées par des commandes « d'inclusion de graphique ». C'est
-seulement à ce moment là que @LaTeX{} est lancé -- bien que
-@LaTeX{} aura préalablement tourné, cela aura été en fait sur un
-document « vide » et pour calculer les dimensions du papier et la
-longueur de ligne pour l'extrait LilyPond.
+ne sont pas interprétés par @LaTeX{}. En fait, @code{lilypond-book}
+extrait ces « environnements » dans des fichiers accessoires et les
+traite par LilyPond. Il récupère ensuite les graphiques résultants et
+crée un fichier @file{.tex} dans lequel les macros
+@code{\begin@{lilypond@}}@dots{}@code{\end@{lilypond@}} sont remplacées
+par des commandes « d'inclusion de graphique ». C'est seulement à ce
+moment là que @LaTeX{} est lancé -- bien que @LaTeX{} aura préalablement
+tourné, cela aura été en fait sur un document « vide » et pour calculer
+les dimensions du papier et la longueur de ligne pour l'extrait
+LilyPond.
 
 @knownissues
 La commande @code{\pageBreak} est inopérante dans un environnement
@@ -1208,7 +1206,7 @@ est équivalant à @code{texi}.
 @item -F @var{filtre}
 @itemx --filter=@var{filtre}
 Passe les extrait au travers de @var{filtre} avant de traiter le
-fichier. Cette option ne génèrera pas de partition, mais permet
+fichier. Cette option ne générera pas de partition, mais permet
 d'appliquer les mises à jour de LilyPond aux extraits avant de traiter
 le fichier par un nouvel appel à @command{lilypond-book}, cette fois-ci
 sans l'option @option{--filter}. Exemple :
@@ -1224,7 +1222,7 @@ lilypond-book --filter='convert-ly --from=2.0.0 -' mon-book.tely
 @itemx --help
 Affiche un bref résumé des options.
 
-@item -I @var{dir}
+@item -I @var{rép}
 @itemx --include=@var{répertoire}
 Ajoute @var{répertoire} au chemin des inclusions.  Lorsque des extraits
 ont déjà été compilés dans l'un des répertoires inclus,
@@ -1313,9 +1311,9 @@ correct des extraits dans le document maître.
 Cette option permet de « raccourcir » les lignes de portée et de les
 décaler vers la droite, de la distance donnée en argument.
 
-Notez bien que @var{distance}, lorsqu'utilsée pour décaler, est arrondie
-à une valeur entière en @dfn{big point} (bp), unité pour les sorties
-PostScript et PDF -- le bp correspond à 1/72 pouce, soit environ
+Notez bien que @var{distance}, lorsqu'utilisée pour décaler, est
+arrondie à une valeur entière en @dfn{big point} (bp), unité pour les
+sorties PostScript et PDF -- le bp correspond à 1/72 pouce, soit environ
 0,353 @dmn{mm}. Ce n'est toutefois pas LilyPond qui raccourcira la
 longueur de la portée. Il se pourrait donc, si @var{distance} ne
 correspondait pas à un entier multiple de bp, que la longueur de portée
@@ -1340,14 +1338,14 @@ dans le même répertoire que le fichier source.
 
 @item --use-source-file-names
 Cette option permet d'affecter aux fichiers correspondant aux extraits
-de musique le même nom que leur source.  Elle n'est fonctionnelle que
+de musique le même nom que leur source. Elle n'est fonctionnelle que
 dans le cas où la partition est incluse à l'aide de @code{lilypondfile},
 et que les répertoires mentionnés par les options @code{--output-dir} et
 @code{--lily-output-dir} diffèrent.
 
 @item -V
 @itemx --verbose
-@command{lilypond-book} sait être volubile !  Cette option est
+@command{lilypond-book} sait être volubile ! Cette option est
 équivalente à @code{--loglevel=DEBUG}.
 
 @item -v
@@ -1359,7 +1357,7 @@ Affiche le numéro de version.
 @knownissues
 
 @code{lilypond-book} ne sait pas interpréter la commande Texinfo
-@code{@@pagesize}.  Dans le même ordre d'idée, des commandes @LaTeX{}
+@code{@@pagesize}. Dans le même ordre d'idée, des commandes @LaTeX{}
 modifiant les marges et longueur de ligne mentionnées après le préambule
 seront ignorées.
 
@@ -1372,7 +1370,7 @@ premier sera traité.
 
 Vous pouvez affecter à votre fichier source n'importe quelle extension.
 Nous vous recommandons cependant un certain nombre d'extensions selon le
-format de sortie désiré -- voir @ref{Invoking lilypond-book}.  Une
+format de sortie désiré -- voir @ref{Invoking lilypond-book}. Une
 extension hors du commun vous obligera à spécifier le format de sortie,
 alors que @code{lilpond-book} est en mesure de déterminer le format de
 sortie en fonction de l'extension du fichier source.
@@ -1397,10 +1395,10 @@ sortie en fonction de l'extension du fichier source.
 @end indentedblock
 
 Lorsque le fichier source a la même extension que celle que
-@code{lilypond-book} affectera au fichier résultant et que vous
-lancez @code{lilypond-book} à partir du répertoire le contenant, vous
-verrez assurément un message du type « La sortie va écraser le fichier
-d'entrée ».  Aussi ne saurions-nous trop vous conseiller d'utiliser
+@code{lilypond-book} affectera au fichier résultant et que vous lancez
+@code{lilypond-book} à partir du répertoire le contenant, vous verrez
+assurément un message du type « La sortie va écraser le fichier
+d'entrée ». Aussi ne saurions-nous trop vous conseiller d'utiliser
 l'option @option{--output}.
 
 
@@ -1409,7 +1407,7 @@ l'option @option{--output}.
 
 Le script @command{lilypond-book} ne peut s'utiliser pour des
 traitements parallèles lorsque le répertoire de sortie est identique. Si
-vous le tentez, l'utiliation d'un fichier verrou forcera l'exécution
+vous le tentez, l'utilisation d'un fichier verrou forcera l'exécution
 séquentielle (dans un ordre arbitraire) des processus
 @command{lilypond-book}.
 
@@ -1417,8 +1415,8 @@ En d'autres termes, lorsque l'on veut traiter à la fois les documents
 @file{foo.lytex} et @file{bar.lytex} (via l'utilitaire @command{make}
 par exemple), il faut soit qu'il se situent dans des répertoires
 différents -- disons @file{foo/foo.lytex} et @file{bar/bar.lytex} --,
-soit utiliser l'option de la ligne de commande @option{--output} avec des
-valeurs différentes.
+soit utiliser l'option de la ligne de commande @option{--output} avec
+des valeurs différentes.
 
 Notez que LilyPond peut, de son côté, traiter plusieurs fichiers sources
 en parallèle. Dans la mesure où @command{lilypond-book} passe en une
@@ -1437,7 +1435,7 @@ lilypond-book --process="lilypond -djob-count=4" \
 @node lilypond-book templates
 @section Modèles pour lilypond-book
 
-Voici quelques canevas dédiés à @code{lilypond-book}.  Si vous ne savez
+Voici quelques canevas dédiés à @code{lilypond-book}. Si vous ne savez
 pas de quoi il retourne, lisez le chapitre @ref{lilypond-book}.
 
 
@@ -1508,7 +1506,7 @@ wenn sie von der Schriftart unterstützt werden.
 @subheading Texinfo
 
 Un document Texinfo est tout à fait capable de comporter des fragments
-de partition LilyPond.  Si vous ne le savez pas encore, sachez que
+de partition LilyPond. Si vous ne le savez pas encore, sachez que
 l'intégralité de ce manuel est rédigée en Texinfo.
 
 @example

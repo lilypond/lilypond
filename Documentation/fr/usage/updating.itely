@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
+   Translation of GIT committish: c2ea1fa2792532a1a123f08504fc8677defb7a96
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -28,7 +28,7 @@ libeller les fonctions et commandes peut être amenée à évoluer. Ceci
 peut avoir pour effet de générer des erreurs ou avertissements
 intempestifs, voire une sortie erronée, lorsque des fichiers créés avec
 une version antérieure sont traités par une version plus récente du
-progamme.
+programme.
 
 L'utilitaire @command{convert-ly} permet alors de mettre ces fichiers en
 conformité au fur et à mesure que de nouvelles versions de LilyPond sont
@@ -96,8 +96,8 @@ LilyPond, ainsi que Scheme, gèrent plutôt bien l'emplacement ou
 l'absence d'espaces ; les règles utilisées par @command{convert-ly}
 tendent cependant à effectuer certains postulats en matière de style.
 Suivre le style adopté dans les différent manuels est un gage de mise à
-jour sans problème si l'on considère que ces manuels sont eux-même mis à
-jour avec @command{convert-ly}.
+jour sans problème si l'on considère que ces manuels sont eux-mêmes mis
+à jour avec @command{convert-ly}.
 @end itemize
 
 
@@ -120,8 +120,8 @@ pour un système informatique ni comment elle fonctionne. Aussi, si vous
 ne savez de quoi il retourne, nous vous renvoyons aux nombreuses
 documentations que vous pourrez trouver sur ce sujet.
 
-Consultez @ref{The PATH environment variable} pour savoir comment
-régler votre système d'exploitation afin de pouvoir utiliser
+Consultez @ref{The PATH environment variable} pour savoir comment régler
+votre système d'exploitation afin de pouvoir utiliser
 @command{convert-ly} en ligne de commande sans avoir à en spécifier le
 chemin d'accès.
 
@@ -137,7 +137,7 @@ Python (version 3.8 ou supérieure).
 trouve dans le même répertoire que le binaire @file{lilypond.exe} et un
 interpréteur Python, @file{python.exe}. Partant du principe que vous
 avez déplié la version @version{} dans un répertoire
-@file{C:\Utilisateurs\moi} et que @env{PATH} est correctement réglé, ill
+@file{C:\Utilisateurs\moi} et que @env{PATH} est correctement réglé, il
 faudrait taper
 
 @example
@@ -236,9 +236,9 @@ Les utilisateurs de Windows utiliseront l'instruction
 forfiles /s /M *.ly /c "cmd /c convert-ly.py -e @@file"
 @end example
 
-Par ailleurs, il est possible de spécifier de manière explicite le chemin
-d'accès au dossier comportant des sous-répertoires où se trouvent les
-fichiers sources, à l'aide de l'option @code{/p} :
+Par ailleurs, il est possible de spécifier de manière explicite le
+chemin d'accès au dossier comportant des sous-répertoires où se trouvent
+les fichiers sources, à l'aide de l'option @code{/p} :
 
 @smallexample
 forfiles /s /p C:\Documents\MesPartitions /M *.ly /c "cmd /c convert-ly.py -e @@file"
@@ -297,7 +297,7 @@ Voir aussi l'option @option{--backup-numbered}.
 
 @item -b, --backup-numbered
 Combiné à l'option @samp{-e}, numérote les sauvegardes de telle sorte
-qu'aucune version antérieure ne soit écrasée. Si le fichier à traîter
+qu'aucune version antérieure ne soit écrasée. Si le fichier à traiter
 est @file{monfichier.ly}, tente d'enregistrer la sauvegarde sous
 @file{monfichier.ly.~1~}. Si il existe déjà, essaie
 @file{monfichier.ly.~2~}, etc. Les fichiers de sauvegarde, selon le
@@ -349,8 +349,8 @@ Affiche les informations de garantie et de copyright et quitte.
 
 @end table
 
-Lorsqu'il s'agit de fragments inclus dans un fichier Texinfo, il
-vous faudra lancer
+Lorsqu'il s'agit de fragments inclus dans un fichier Texinfo, il vous
+faudra lancer
 
 @example
 convert-ly --from=@dots{} --to=@dots{} --no-version *.itely
@@ -412,8 +412,8 @@ connu en informatique.}.
 
 Le projet LilyPond ne dispose cependant que de ressources limitées : les
 conversions ne sont pas toutes automatisées. Lorsque
-@command{convert-ly} n'arrive pas à traîter un changement de syntaxe, il
-emet un avertissement tel que le suivant (à partir d'une règle de
+@command{convert-ly} n'arrive pas à traiter un changement de syntaxe, il
+émet un avertissement tel que le suivant (à partir d'une règle de
 conversion pour 2.23.12).
 
 @example
@@ -429,15 +429,15 @@ Please refer to the manual for details, and update manually.
 @node Writing code to support multiple versions
 @section Écriture de code supportant différentes versions
 
-Dans certains cas, et tout particulièrement lorsque l'on se contitue une
-@emph{bibliothèque} de code, il est souhaitable de pouvoir supporter
+Dans certains cas, et tout particulièrement lorsque l'on se constitue
+une @emph{bibliothèque} de code, il est souhaitable de pouvoir supporter
 différentes versions de LilyPond indépendamment des changements de
-syntaxe.  Il est possible d'y parvenir à l'aide de portions de code
+syntaxe. Il est possible d'y parvenir à l'aide de portions de code
 englobées dans une expression conditionnelle et dont l'exécution se fera
-relativement à la version utilisée de LilyPond.  La fonction
+relativement à la version utilisée de LilyPond. La fonction
 @code{ly:version?} requiert un opérateur de comparaison @var{op} et une
 version de référence @var{ver} sous forme de liste d'entiers jusqu'à
-trois éléments.  Les éléments absents sont ignorés, de telle sorte que
+trois éléments. Les éléments absents sont ignorés, de telle sorte que
 @code{'(2 20)} est équivalent à @emph{toute} version de la série 2.20.
 On peut donc en arriver à des constructions telles que :
 

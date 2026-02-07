@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 7ac0dd1495161592599f5fdf9bb1233b3d588a02
+   Translation of GIT committish: c2ea1fa2792532a1a123f08504fc8677defb7a96
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -75,7 +75,7 @@ où @code{%(file)s}, @code{%(line)s} et @code{%(column)s} seront
 respectivement remplacés par le fichier, la ligne et la colonne
 considérés.
 
-L'utilisation d'un éditeur non répertorié dans ce fichier recquiert d'en
+L'utilisation d'un éditeur non répertorié dans ce fichier requiert d'en
 connaître la syntaxe spécifique et d'assigner la commande complète à la
 variable @code{LYEDITOR}. Voici par exemple ce qui convient à l'éditeur
 Visual Studio Code :
@@ -84,7 +84,7 @@ Visual Studio Code :
 export LYEDITOR="code --goto %(file)s:%(line)s:%(column)s"
 @end example
 
-@warning{L'utilisation d'Emacs recquiert une configuration
+@warning{L'utilisation d'Emacs requiert une configuration
 supplémentaire. Il faudra ajouter la ligne @code{(server-start)} à votre
 fichier @file{~/.emacs} afin d'éviter qu'une instance supplémentaire
 d'Emacs ne s'ouvre à chaque clic sur un objet du PDF.}
@@ -94,8 +94,8 @@ d'Emacs ne s'ouvre à chaque clic sur un objet du PDF.}
 @unnumberedsubsubsec Utilisation avec GNOME
 
 En ce qui concerne l'environnement GNOME, les URI sont gérés par des
-fichers « .desktop ». Il faut donc créer un fichier dans un répertoire
-local tel que @file{/tmp}, que l'on appelera
+fichiers « .desktop ». Il faut donc créer un fichier dans un répertoire
+local tel que @file{/tmp}, que l'on appellera
 @file{lilypond-@/invoke-@/editor.desktop}. Il devra avoir le contenu
 suivant :
 
@@ -134,7 +134,7 @@ devrait appeler @file{lilypond-invoke-editor} pour ouvrir les fichiers.
 @cindex Evince
 
 Il se peut que, bien que @code{xdg-open} soit fonctionnel, Evince
-refuse d'ouvir les liens pointer-cliquer pour des raisons
+refuse d'ouvrir les liens pointer-cliquer pour des raisons
 d'autorisation. S'impose alors une modification du profil
 @code{Apparmor} d'Evince ; c'est lui qui contrôle le type d'action
 qu'Evince est autorisé à réaliser.
@@ -293,7 +293,7 @@ Certains éditeurs de texte prennent en charge LilyPond.
 @node Emacs mode
 @unnumberedsubsec Mode Emacs
 
-Emacs dispose d'un @file{lilypond-mode} qui fournit l'autocomplétion
+Emacs dispose d'un @file{lilypond-mode} qui fournit l'auto-complétion
 des mots-clés, l'indentation, les appariements spécifiques à LilyPond,
 la coloration syntaxique, ainsi que des raccourcis pour compiler et
 consulter les manuels de LilyPond en mode info.  Si le
@@ -419,7 +419,7 @@ midi2ly [@var{option}]@dots{} @var{fichier-midi}
 @end example
 
 Notez bien que, par « ligne de commande », nous parlons de la ligne de
-commande du système.  Pour plus de précisions, reportez-vous à
+commande du système. Pour plus de précisions, reportez-vous à
 @ref{Converting from other formats}.
 
 @command{midi2ly} accepte les options suivantes :
@@ -438,8 +438,8 @@ Rendu explicite des durées.
 Afficher un résumé des utilisations.
 
 @item -k, --key=@var{acc}[:@var{minor}]
-Déterminer la tonalité par défaut.  @math{@var{acc} > 0} fixe le
-nombre de dièses, @math{@var{acc} < 0} le nombre de bémols.  Une
+Déterminer la tonalité par défaut. @math{@var{acc} > 0} fixe le
+nombre de dièses, @math{@var{acc} < 0} le nombre de bémols. Une
 tonalité mineure est spécifiée par l'emploi de @code{:1}.
 
 @item -o, --output=@var{fichier}
@@ -492,7 +492,7 @@ musicxml2ly [@var{option}]@dots{} @var{fichier}
 @end example
 
 Notez bien que, par « ligne de commande », nous parlons de la ligne de
-commande du système.  Pour plus de précisions, reportez-vous à
+commande du système. Pour plus de précisions, reportez-vous à
 @ref{Converting from other formats}.
 
 Par défaut, @command{musicxml2ly} supprime l'extension de @var{fichier}
@@ -540,8 +540,8 @@ Afficher un résumé de toutes les options utilisables.
 
 @item -l, --language=@var{lang}
 Utiliser une autre définition linguistique (@var{lang}), comme par exemple
-@var{deutsch} pour des noms de notes en allemand. Sont autorisées les
-valeurs reconnues en tant que langue de saisie par LilyPond -- voir
+@var{deutsch} pour des noms de note en allemand. Sont autorisées les
+valeurs reconnues en tant que langue de saisie ppour LilyPond -- voir
 @rnotationnamed{Note names in other languages, Nom des notes dans
 d’autres langues}.
 
@@ -586,8 +586,8 @@ Ne pas ajouter la mention spéciale de LilyPond (en pied de la dernière
 page).
 
 @item -o, --output=@var{fichier}
-Générer le résultat dans le fichier @var{fichier}.  S'il est
-déterminé à « @file{-} », le résultat sera émis sur la sortie standard.
+Générer le résultat dans le fichier @var{fichier}. S'il est déterminé à
+« @file{-} », le résultat sera émis sur la sortie standard.
 
 @item --oe, --ottavas-end-early=t[rue]/f[alse]
 Considérer la clôture des éléments @code{<octave-shift>} avant le
@@ -668,7 +668,7 @@ Afficher le numéro de version.
 @end table
 
 Il est possible d'ajouter des bribes de code LilyPond dans un fichier
-source ABC.  Ainsi, l'assertion
+source ABC. Ainsi, l'assertion
 
 @example
 %%LY voices \set autoBeaming = ##f
@@ -689,7 +689,7 @@ placera le texte suivant le mot-clé « slyrics » dans une ligne de
 paroles.
 
 @knownissues
-Le standard ABC n'est pas si « standard » que cela.  Pour des
+Le standard ABC n'est pas si « standard » que cela. Pour des
 fonctionnalités étendues, comme la polyphonie, existent différentes
 conventions.
 
@@ -704,7 +704,7 @@ ne le fait pas.
 @node Invoking etf2ly
 @subsection Utilisation de @code{etf2ly}
 
-@warning{Ce programme ne bénéficie d'aucune maintenance.  Il est
+@warning{Ce programme ne bénéficie d'aucune maintenance. Il est
 susceptible d'être supprimé des futures versions de LilyPond.}
 
 @cindex Enigma Transport Format
@@ -714,7 +714,7 @@ susceptible d'être supprimé des futures versions de LilyPond.}
 @cindex Coda Technology
 
 ETF (Enigma Transport Format) est l'un des formats utilisés par le
-logiciel Finale, édité par Coda Music Technology.  @command{etf2ly}
+logiciel Finale, édité par Coda Music Technology. @command{etf2ly}
 convertit partiellement les fichiers ETF en fichiers source LilyPond.
 
 Pour le lancer en ligne de commande, procédez ainsi :
@@ -724,7 +724,7 @@ etf2ly [@var{option}]@dots{} @var{fichier-etf}
 @end example
 
 Notez bien que, par « ligne de commande », nous parlons de la ligne de
-commande du système.  Pour plus de précisions, reportez-vous à
+commande du système. Pour plus de précisions, reportez-vous à
 @ref{Converting from other formats}.
 
 @command{etf2ly} accepte les options suivantes :
@@ -741,8 +741,8 @@ Afficher le numéro de version.
 @end table
 
 @knownissues
-La liste des scripts d'articulation est incomplète.  Les mesures vides
-perturbent @command{etf2ly}.  Les séquences de notes d'ornement ne se
+La liste des scripts d'articulation est incomplète. Les mesures vides
+perturbent @command{etf2ly}. Les séquences de notes d'ornement ne se
 terminent pas de manière satisfaisante.
 
 
@@ -751,7 +751,7 @@ terminent pas de manière satisfaisante.
 
 @cindex programmes externes générant des fichiers LilyPond
 
-LilyPond ne prend pas en charge d'autre format.  Cependant, certains
+LilyPond ne prend pas en charge d'autre format. Cependant, certains
 outils indépendants permettent de générer des fichiers LilyPond, comme
 indiqué à la page @rwebnamed{Easier editing, Facilités d'édition}.
 
@@ -841,7 +841,7 @@ autre ordinateur.
 
 Les documents HTML ne sont pas destinés à l'impression, il n'est donc
 pas nécessaire de se préoccuper d'éventuelles coupures d'image aux sauts
-de page. On peut donc utiliseer une unique page, qui peut être très
+de page. On peut donc utiliser une unique page, qui peut être très
 longue, pour une image représentant l'intégralité d'une partition. Ceci
 s'obtient en lançant
 
@@ -863,10 +863,9 @@ séparés par des virgules, par exemple
 lilypond -dseparate-page-formats=eps,pdf -dtall-page-formats=png,svg monfichier.ly
 @end smallexample
 
-
 Pour les nombreux programmes qui sont capables de contenir des images,
 que ce soit au format @file{PNG}, @file{EPS} ou @file{PDF}, mieux vaut
-utiliser @command{lilypond} que @command{lilypond-book}.  Chaque extrait
+utiliser @command{lilypond} que @command{lilypond-book}. Chaque extrait
 devra être généré séparément avant d'être inséré dans votre document.
 Consultez la documentation du logiciel en question quant à l'insertion
 de fichiers provenant d'autres sources.

@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+    Translation of GIT committish: c2ea1fa2792532a1a123f08504fc8677defb7a96
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -50,15 +50,15 @@ Copyright @copyright{} 1999--2023 par les auteurs.
 @c  maybe add a "Tasks" or "Specific tasks" or something like
 @c  that, after Suggestions  -gp
 @menu
-* Running lilypond::       mode d'emploi.
-* Updating files with convert-ly:: mise à jour d'anciens fichiers.
-* lilypond-book::               intégration de texte et musique.
-* External programs::         associer LilyPond à d'autres programmes.
-* Suggestions for writing files::  comment agencer un fichier.
+* Running lilypond::       Mode d'emploi.
+* Updating files with convert-ly:: Mise à jour d'anciens fichiers.
+* lilypond-book::               Intégration de texte et musique.
+* External programs::         Associer LilyPond à d'autres programmes.
+* Suggestions for writing files::  Comment agencer un fichier.
 
 Annexes
 
-* GNU Free Documentation License:: licence de ce document.
+* GNU Free Documentation License:: Licence de ce document.
 * Index of commands and concepts::
 @end menu
 

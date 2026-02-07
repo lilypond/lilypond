@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+   Translation of GIT committish: c2ea1fa2792532a1a123f08504fc8677defb7a96
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -18,31 +18,31 @@
 @chapter Suggestions pour la saisie de fichiers LilyPond
 
 Maintenant vous êtes prêt à travailler sur de plus gros fichiers
-LilyPond -- des pièces entières, et plus seulement les petits
-exemples du tutoriel.  Mais comment devriez-vous vous y prendre ?
+LilyPond -- des pièces entières, et plus seulement les petits exemples
+du tutoriel. Mais comment devriez-vous vous y prendre ?
 
 Tant que LilyPond parvient à comprendre vos fichiers et produit le
 résultat que vous souhaitez, peu importe la manière dont le code est
-organisé.  Néanmoins, quelques critères doivent être pris en compte
+organisé. Néanmoins, quelques critères doivent être pris en compte
 lorsque l'on écrit un fichier LilyPond.
 
 @itemize
 @item
-Si vous faites une erreur, la structure même du fichier LilyPond
-peut permettre de la localiser plus ou moins facilement.
+Si vous faites une erreur, la structure même du fichier LilyPond peut
+permettre de la localiser plus ou moins facilement.
 
 @item
 Et si vous souhaitez partager vos fichiers avec quelqu'un d'autre, ou si
-vous souhaitez modifier vos propres fichiers dans quelques années ?
-Si certains fichiers LilyPond sont compréhensibles au premier coup
-d'œil, d'autres vous feront vous arracher les cheveux pendant une heure.
+vous souhaitez modifier vos propres fichiers dans quelques années ? Si
+certains fichiers LilyPond sont compréhensibles au premier coup d'œil,
+d'autres vous feront vous arracher les cheveux pendant une heure.
 
 @item
 Et si vous souhaitez mettre à jour votre fichier pour l'utiliser avec
-une version plus récente de LilyPond ?  La syntaxe du langage d'entrée
-change parfois lorsque LilyPond s'améliore.  La plupart des changements
+une version plus récente de LilyPond ? La syntaxe du langage d'entrée
+change parfois lorsque LilyPond s'améliore. La plupart des changements
 peuvent être appliqués automatiquement avec @code{convert-ly}, mais
-quelques-uns peuvent requérir une intervention manuelle.  Vos fichiers
+quelques-uns peuvent requérir une intervention manuelle. Vos fichiers
 LilyPond peuvent être structurés de manière à faciliter leur mise à
 jour.
 @end itemize
@@ -60,12 +60,11 @@ résoudre, la plupart des problèmes de saisie.
 quelle que soit sa taille. Par expérience, il est très difficile de se
 rappeler quelle version de LilyPond a servi au moment de la création
 d'un fichier. Ceci s'avèrera d'autant plus utile lors d'une
-@ref{Updating files with convert-ly, mise à jour}
-(@command{convert-ly} requiert la présence d'une ligne @code{\version})
-ou si vous transmettez votre fichier à d'autres utilisateurs -- y
-compris pour demander de l'aide sur les listes de diffusion. Vous
-noterez par ailleurs que tous les fichiers modèles de LilyPond ont une
-mention @code{\version}.
+@ref{Updating files with convert-ly, mise à jour} (@command{convert-ly}
+requiert la présence d'une ligne @code{\version}) ou si vous transmettez
+votre fichier à d'autres utilisateurs -- y compris pour demander de
+l'aide sur les listes de diffusion. Vous noterez par ailleurs que tous
+les fichiers modèles de LilyPond ont une mention @code{\version}.
 
 @item @strong{Une mesure par ligne de texte}.
 Si la musique en elle-même ou le résultat que vous désirez contient
@@ -77,18 +76,18 @@ fichiers.
 @item
 @strong{Ajoutez des contrôles de limite ou numéro de mesure et
 d'octaviation} -- voir @rnotationnamed{Bar and bar number checks,
-Vérification des limites et numéros de mesure} et
-@rnotationnamed{Octave checks, Vérifications d'octave}. Si vous avez
-ajouté des contrôles de loin en loin et que vous faites une erreur, vous
-pourrez la retrouver plus rapidement. « De loin en loin », qu'est-ce à
-dire ? Cela dépend de la complexité de la musique. Pour de la musique
-très simple, à certains endroits stratégiques. Pour de la musique très
-complexe ou avec une multiplicité de voix, peut-être à chaque mesure.
+Vérification des limites et numéros de mesure} et @rnotationnamed{Octave
+checks, Vérifications d'octave}. Si vous avez ajouté des contrôles de
+loin en loin et que vous faites une erreur, vous pourrez la retrouver
+plus rapidement. « De loin en loin », qu'est-ce à dire ? Cela dépend de
+la complexité de la musique. Pour de la musique très simple, à certains
+endroits stratégiques. Pour de la musique très complexe ou avec une
+multiplicité de voix, peut-être à chaque mesure.
 
 @item @strong{Ajoutez des commentaires}.
 Utilisez soit des numéros de mesure (assez souvent), soit des références
 au contenu musical -- « second thème des violons », « quatrième
-variation », etc.  Vous pouvez ne pas avoir besoin des commentaires
+variation », etc. Vous pouvez ne pas avoir besoin des commentaires
 lorsque vous écrivez une pièce pour la première fois, mais si vous
 souhaitez y revenir deux ou trois ans plus tard pour changer quelque
 chose, ou si vous donnez le fichier source à un ami, ce sera beaucoup
@@ -96,13 +95,13 @@ plus difficile de déterminer vos intentions ou la manière dont votre
 fichier est structuré si vous n'y avez pas adjoint de commentaires.
 
 @item @strong{Mentionnez les durées au début de chaque section ou
-variable}.  Si vous saisissez @code{c4 d e} au début d'une phrase, vous
+variable}. Si vous saisissez @code{c4 d e} au début d'une phrase, vous
 vous épargnerez des problèmes si, plus tard, vous modifiez votre
 musique.
 
 @item @strong{Indentez les accolades et indications de musique en parallèle}.
 Beaucoup de problèmes viennent d'un défaut de parité entre @code{@{} et
-@code{@}} ou @code{<<} et @code{>>}.  Par exemple,
+@code{@}} ou @code{<<} et @code{>>}. Par exemple,
 
 @example
 \new Staff @{
@@ -147,7 +146,7 @@ au sein du bloc @code{\layout} :
 Ceci n'aura par pour effet de générer un contexte supplémentaire,
 mais s'appliquera dès sa création.  Voyez
 @rlearningnamed{Saving typing with variables and functions,
-@'Economie de saisie grâce aux identificateurs et fonctions} et
+@'Economie de saisie grâce aux identifiants et fonctions} et
 @rlearningnamed{Style sheets, Feuilles de style}.
 
 @end itemize
@@ -162,22 +161,21 @@ c'est-à-dire de la musique déjà écrite,
 @itemize
 
 @item
-n'entrez qu'un seul système de la partition originale
-à la fois -- avec toujours une seule mesure par ligne de texte --,
-et vérifiez chaque système lorsqu'il est terminé.  Vous pouvez
-utiliser les commandes @code{showLastLength} et @code{showFirstLength}
-pour accélérer la compilation -- voir
-@rnotationnamed{Skipping corrected music,
-Ignorer des passages de la partition} ;
+n'entrez qu'un seul système de la partition originale à la fois -- avec
+toujours une seule mesure par ligne de texte --, et vérifiez chaque
+système lorsqu'il est terminé. Vous pouvez utiliser les commandes
+@code{showLastLength} et @code{showFirstLength} pour accélérer la
+compilation -- voir @rnotationnamed{Skipping corrected music, Ignorer
+des passages de la partition} ;
 
 @item
 définissez @code{mBreak = @{ \break @}} et insérez @code{\mBreak} dans
 le fichier d'entrée pour obtenir des sauts de ligne identiques à la
-partition originale.  Cela facilite la comparaison entre la partition
-originale et la partition de LilyPond.  Lorsque vous avez fini de relire
-votre musique, vous pouvez définir @code{mBreak = @{ @}}
-pour enlever tous ces sauts de ligne, et laisser LilyPond placer les
-sauts de ligne selon son propre algorithme ;
+partition originale. Cela facilite la comparaison entre la partition
+originale et la partition de LilyPond. Lorsque vous avez fini de relire
+votre musique, vous pouvez définir @code{mBreak = @{ @}} pour enlever
+tous ces sauts de ligne, et laisser LilyPond placer les sauts de ligne
+selon son propre algorithme ;
 
 @item
 encadrez les notes d'une partie pour instrument transpositeur dans un
@@ -189,15 +187,16 @@ encadrez les notes d'une partie pour instrument transpositeur dans un
 @noindent
 (où @var{tonalité-naturelle} correspond à celle de l'instrument en
 question) de telle sorte que la musique comprise dans cette variable se
-retrouve en ut.  Vous pourrez toujours transposer à l'inverse si besoin
-lorsque vous ferez appel à cette variable.  Des erreurs de transposition
+retrouve en ut. Vous pourrez toujours transposer à l'inverse si besoin
+lorsque vous ferez appel à cette variable. Des erreurs de transposition
 seront moins susceptibles de se produire si la musique de toutes les
 variables est dans la même et unique tonalité.
 
 De la même manière, prenez toujours le do comme note de départ ou
-d'arrivée.  Ceci aura pour simple conséquence que les autres tonalités
+d'arrivée. Ceci aura pour simple conséquence que les autres tonalités
 que vous utiliserez seront celles propres à chacun des instruments --
-sib pour une trompette en si bémol, ou lab pour une clarinette en la bémol.
+sib pour une trompette en si bémol, ou lab pour une clarinette en la
+bémol.
 
 @end itemize
 
@@ -210,10 +209,10 @@ structurer clairement ses fichiers LilyPond.
 
 @itemize @bullet
 
-@item @strong{Utilisez un identificateur pour chaque voix},
-avec un minimum de structure dans la définition.  La structure de la
-section @code{\score} est la plus susceptible de changer, notamment
-dans une nouvelle version de LilyPond, alors que la définition du
+@item @strong{Utilisez un identifiant pour chaque voix},
+avec un minimum de structure dans la définition. La structure de la
+section @code{\score} est la plus susceptible de changer, notamment dans
+une nouvelle version de LilyPond, alors que la définition du
 @code{violon} l'est beaucoup moins.
 
 @example
@@ -231,11 +230,11 @@ g'4 c'8. e16
 @end example
 
 @item @strong{Séparez les retouches des définitions de musique}.
-Nous vous avons déjà invité à adopter une telle pratique, qui
-par ailleurs devient vitale pour des projets d'importance.  Nous
-pouvons avoir besoin de changer la définition de @code{fpuisp}, mais
-dans ce cas nous n'aurons besoin de le faire qu'une seule fois, et nous
-pourrons encore éviter de modifier quoi que ce soit à l'intérieur de la
+Nous vous avons déjà invité à adopter une telle pratique, qui par
+ailleurs devient vitale pour des projets d'importance. Nous pouvons
+avoir besoin de changer la définition de @code{fpuisp}, mais dans ce cas
+nous n'aurons besoin de le faire qu'une seule fois, et nous pourrons
+encore éviter de modifier quoi que ce soit à l'intérieur de la
 définition du @code{violon}.
 
 @example
@@ -252,20 +251,20 @@ g'4\fpuisp c'8. e16
 @node Troubleshooting
 @section Résolution de problèmes
 
-Tôt ou tard, vous écrirez un fichier que LilyPond ne peut pas
-compiler.  Les messages que LilyPond affiche peuvent vous aider à
-trouver l'erreur, mais dans beaucoup de cas vous aurez besoin de faire
-quelques recherches pour déterminer la source du problème.
+Tôt ou tard, vous écrirez un fichier que LilyPond ne peut pas compiler.
+Les messages que LilyPond affiche peuvent vous aider à trouver l'erreur,
+mais dans beaucoup de cas vous aurez besoin de faire quelques recherches
+pour déterminer la source du problème.
 
-Pour ce faire, les outils les plus puissants sont le commentaire de
-fin de ligne, indiqué par @code{%}, et le commentaire multilignes (ou
-bloc de commentaire), indiqué par @code{%@{ @dots{} %@}}.  Si vous ne
-pouvez localiser le problème, commencez par mettre en commentaire de
-grandes parties de votre fichier source.  Après avoir mis en
-commentaire une section, essayez de compiler à nouveau.  Si cela
-fonctionne, c'est que le problème se situe dans cette partie du
-fichier.  Si cela ne fonctionne pas, continuez à mettre en commentaire
-d'autres sections, jusqu'à ce que vous ayez quelque chose qui compile.
+Pour ce faire, les outils les plus puissants sont le commentaire de fin
+de ligne, indiqué par @code{%}, et le commentaire multilignes (ou bloc
+de commentaire), indiqué par @code{%@{ @dots{} %@}}. Si vous ne pouvez
+localiser le problème, commencez par mettre en commentaire de grandes
+parties de votre fichier source. Après avoir mis en commentaire une
+section, essayez de compiler à nouveau. Si cela fonctionne, c'est que le
+problème se situe dans cette partie du fichier. Si cela ne fonctionne
+pas, continuez à mettre en commentaire d'autres sections, jusqu'à ce que
+vous ayez quelque chose qui compile.
 
 Dans un cas extrême, vous pourriez en arriver à
 
@@ -283,8 +282,8 @@ Dans un cas extrême, vous pourriez en arriver à
 @noindent
 c'est-à-dire un fichier sans aucune musique.
 
-Si cela se produit, ne vous découragez pas.  Décommentez un peu, la
-partie de basse par exemple, et voyez si ça fonctionne.  Si ce n'est pas
+Si cela se produit, ne vous découragez pas. Décommentez un peu, la
+partie de basse par exemple, et voyez si ça fonctionne. Si ce n'est pas
 le cas, placez en commentaire toute la partie de basse, mais laissez
 @code{\basse} décommenté dans le bloc @code{\score}.
 
@@ -298,11 +297,10 @@ basse = \relative @{
 @end example
 
 Maintenant commencez à décommenter petit à petit la partie de
-@code{basse} jusqu'à ce que vous localisiez la ligne qui pose
-problème.
+@code{basse} jusqu'à ce que vous localisiez la ligne qui pose problème.
 
-Une autre technique de débogage très utile est la construction
-d'un @rwebnamed{Tiny examples,exemple minimaliste}.
+Une autre technique de débogage très utile est la construction d'un
+@rwebnamed{Tiny examples,exemple minimaliste}.
 
 
 @node Make and Makefiles
@@ -312,12 +310,12 @@ d'un @rwebnamed{Tiny examples,exemple minimaliste}.
 @cindex make
 
 La plupart des plates-formes sur lesquelles tourne LilyPond disposent
-d'un logiciel appelé @code{make}.  Ce logiciel va lire un fichier
-spécial, nommé @code{Makefile}, qui contient tout ce qu'il
-faut -- les dépendances entre certains fichiers, les instructions
-successives à traiter par le système -- pour aboutir au fichier que
-vous désirez obtenir.  Il pourrait par exemple contenir tout ce qu'il
-faut pour produire @file{ballade.pdf} et @file{ballade.midi} à partir de
+d'un logiciel appelé @code{make}. Ce logiciel va lire un fichier
+spécial, nommé @code{Makefile}, qui contient tout ce qu'il faut -- les
+dépendances entre certains fichiers, les instructions successives à
+traiter par le système -- pour aboutir au fichier que vous désirez
+obtenir. Il pourrait par exemple contenir tout ce qu'il faut pour
+produire @file{ballade.pdf} et @file{ballade.midi} à partir de
 @file{ballade.ly} en lançant LilyPond.
 
 La création d'un @code{Makefile} peut se révéler pertinente pour
@@ -393,11 +391,11 @@ contenus dans le répertoire @code{Notes} :
 Le @emph{Makefile} répertorie des cibles correspondant à @code{score}
 (l'intégrale au format conducteur), @code{mouvements} (chacun des
 mouvements au format conducteur) et @code{pupitres} (une partition par
-pupitre).  Il contient aussi une cible @code{archive} chargée de générer
+pupitre). Il contient aussi une cible @code{archive} chargée de générer
 une archive des fichiers source qui pourra être diffusée sur la toile ou
-transmise par courriel.  Voici ce que contiendrait ce @emph{Makefile}
-pour GNU/Linux ou macOS.  Ce fichier doit être enregistré sous le nom
-de @code{Makefile} à la racine du projet -- ici @code{Symphonie}.
+transmise par courriel. Voici ce que contiendrait ce @emph{Makefile}
+pour GNU/Linux ou macOS. Ce fichier doit être enregistré sous le nom de
+@code{Makefile} à la racine du projet -- ici @code{Symphonie}.
 
 @warning{Lorsque vous définissez une cible ou une règle sur plusieurs
 lignes, les lignes à partir de la deuxième @strong{doivent} débuter par
@@ -419,7 +417,7 @@ PDFDIR := PDF
 MIDIDIR := MIDI
 
 # Les fichiers sources et résultants sont recherchés dans les
-# répertoires listés dans la variable VPATH.  Ceux-ci sont tous
+# répertoires listés dans la variable VPATH. Ceux-ci sont tous
 # des sous-répertoires du répertoire courant (fourni par la variable
 # de GNU make "CURDIR").
 VPATH := \
@@ -499,16 +497,15 @@ mouvements: $(piece)I.pdf \
 all: score parties mouvements
 @end example
 
-
-Les choses se compliquent sous Windows.  Une fois GNU Make pour Windows
+Les choses se compliquent sous Windows. Une fois GNU Make pour Windows
 téléchargé et installé, il vous faudra correctement définir le chemin
 d'accès au programme @emph{Make} -- dans les variables d'environnement
-du système --  afin que l'interpréteur de commandes DOS puisse le
-localiser.  Pour cela, faites un clic droite sur « Poste de travail »,
-choisissez @code{Propriétés} puis @code{Avancées}.  Cliquez sur
+du système -- afin que l'interpréteur de commandes DOS puisse le
+localiser. Pour cela, faites un clic droite sur « Poste de travail »,
+choisissez @code{Propriétés} puis @code{Avancées}. Cliquez sur
 @code{Variables d'environnement} puis, dans l'onglet
-@code{Variables système}, mettez @code{path} en surbrillance et
-cliquez sur @code{Modifier}.  Ajoutez alors le chemin d'accès complet à
+@code{Variables système}, mettez @code{path} en surbrillance et cliquez
+sur @code{Modifier}. Ajoutez alors le chemin d'accès complet à
 l'exécutable de GNU Make, qui devrait ressembler à :
 
 @example
@@ -604,11 +601,10 @@ mouvements: $(piece)I.pdf \
 all: score parties mouvements
 @end example
 
-
 Le @emph{Makefile} suivant convient pour un document
-@command{lilypond-book} réalisé avec @LaTeX{}.  Ce projet contiendra un
+@command{lilypond-book} réalisé avec @LaTeX{}. Ce projet contiendra un
 index, ce qui nécessitera de lancer une deuxième fois @command{latex}
-pour mettre à jour les liens.  Les fichiers résultants iront dans le
+pour mettre à jour les liens. Les fichiers résultants iront dans le
 répertoire @code{out} pour ce qui est des pdf et dans le répertoire
 @code{htmlout} pour ce qui est du html.
 
@@ -666,11 +662,11 @@ AVENIR : faire que ça marche sous Windows
 Ce @emph{makefile} n'est malheureusement pas opérationnel sous Windows.
 La seule alternative qui s'offre aux utilisateurs de Windows consiste à
 créer un fichier de traitement par lot (@code{.bat}) qui contienne les
-différentes commandes successives.  Bien que cette manière de procéder
-ne tienne aucun compte des dépendances entre fichiers, elle permet de
-réduire le nombre de processus à lancer dans une seule commande.  Vous
+différentes commandes successives. Bien que cette manière de procéder ne
+tienne aucun compte des dépendances entre fichiers, elle permet de
+réduire le nombre de processus à lancer dans une seule commande. Vous
 devrez enregistrer les lignes suivantes dans un fichier
-@code{construire.bat} ou @code{construire.cmd}.  Ce fichier pourra être
+@code{construire.bat} ou @code{construire.cmd}. Ce fichier pourra être
 exécuté soit en ligne de commande, soit par un double clic sur son
 icône.
 
