@@ -136,7 +136,7 @@ Grob::get_print_stencil ()
   if (auto *m = unsmob<const Stencil> (stil))
     {
       retval = *m;
-      bool transparent = from_scm<bool> (get_property (this, "transparent"));
+      const bool transparent = is_transparent ();
 
       /* Process whiteout before color and grob-cause to prevent colored */
       /* whiteout background and larger file sizes with \pointAndClickOn. */
@@ -231,6 +231,12 @@ Grob::get_print_stencil ()
   if (from_scm<bool> (get_property (this, "show-vertical-skylines")))
     add_skylines (Y_AXIS, get_property (this, "vertical-skylines"));
   return retval;
+}
+
+bool
+Grob::is_transparent ()
+{
+  return from_scm<bool> (get_property (this, "transparent"));
 }
 
 /****************************************************************

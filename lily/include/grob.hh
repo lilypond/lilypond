@@ -165,6 +165,7 @@ public:
   /* printing */
   const Stencil *get_stencil ();
   Stencil get_print_stencil ();
+  bool is_transparent ();
 
   /* interfaces */
   bool internal_has_interface (SCM intf) const;
