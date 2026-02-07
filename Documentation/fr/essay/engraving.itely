@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
+   Translation of GIT committish: c2ea1fa2792532a1a123f08504fc8677defb7a96
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -30,9 +30,8 @@ Ce chapitre traite des objectifs et de l'architecture de LilyPond.
 Bien avant que LilyPond soit à l'origine de tout un matériel d'orchestre
 d'excellente facture ou qu'il participe à la création d'ouvrages
 universitaires, avant même qu'il serve à imprimer la plus simple des
-mélodies, avant que la communauté des utilisateurs de LilyPond
-s'étende sur toute la planète, LilyPond est parti du constat
-suivant :
+mélodies, avant que la communauté des utilisateurs de LilyPond s'étende
+sur toute la planète, LilyPond est parti du constat suivant :
 
 @quotation
 Pourquoi la plupart des partitions qui sortent d'un ordinateur ne
@@ -76,25 +75,25 @@ résolution, en vue de leur impression.)
 @end ifnottex
 Si vous posez ces pages sur un pupitre et les lisez ou prenez votre
 archet, vous constaterez que la gravure manuelle est nettement plus
-agréable à la vue.  Ses lignes sont fluides et il y a du mouvement,
-c'est de la musique et c'est vivant.  Quant à l'édition moderne, elle a
-l'air terne et mécanique.
+agréable à la vue. Ses lignes sont fluides et il y a du mouvement, c'est
+de la musique et c'est vivant. Quant à l'édition moderne, elle a l'air
+terne et mécanique.
 
 Ce qui rend cette nouvelle édition différente n'est pas évident au
-premier coup d'œil : c'est propre et condensé, presque « mieux »
-que l'autre dans la mesure où tout y est « calculé » pour atteindre
-l'uniformité.  À vrai dire, il nous a fallu un moment pour nous en
-rendre compte.  Notre but étant d'améliorer la notation informatisée, il
-nous fallait mettre le doigt sur ce qui ne va pas.
+premier coup d'œil : c'est propre et condensé, presque « mieux » que
+l'autre dans la mesure où tout y est « calculé » pour atteindre
+l'uniformité. À vrai dire, il nous a fallu un moment pour nous en rendre
+compte. Notre but étant d'améliorer la notation informatisée, il nous
+fallait mettre le doigt sur ce qui ne va pas.
 
 Le problème se situe au niveau même de la précision toute mathématique
-qui amène à l'uniformité de cette nouvelle édition.  Considérons les
-barres de mesure en milieu de ligne : dans la partition
-traditionnelle, leur emplacement varie quelque peu, à l'inverse de la
-nouvelle, où toutes les barres sont rigoureusement alignées.  Pour que
-ce soit bien clair, le schéma ci-dessous montre en parallèle ce
-positionnement, tant pour la version traditionnelle -- à gauche -- que
-pour la version moderne -- à droite.
+qui amène à l'uniformité de cette nouvelle édition. Considérons les
+barres de mesure en milieu de ligne : dans la partition traditionnelle,
+leur emplacement varie quelque peu, à l'inverse de la nouvelle, où
+toutes les barres sont rigoureusement alignées. Pour que ce soit bien
+clair, le schéma ci-dessous montre en parallèle ce positionnement, tant
+pour la version traditionnelle -- à gauche -- que pour la version
+moderne -- à droite.
 
 @quotation
 @iftex
@@ -110,15 +109,15 @@ Sur la partition générée par l'ordinateur, même les notes sont alignées
 et la mélodie finit par disparaître derrière un quadrillage à base de
 signes musicaux.
 
-Il y a bien sûr d'autres divergences.  En ce qui concerne l'édition
+Il y a bien sûr d'autres divergences. En ce qui concerne l'édition
 traditionnelle, les traits verticaux sont plus épais, les liaisons plus
 rapprochées des têtes de note, et la pente des ligatures -- liens
-groupant les croches -- pas toujours la même.  D'aucuns diront que tout
+groupant les croches -- pas toujours la même. D'aucuns diront que tout
 ceci n'est que pinaillerie, il n'en demeure pas moins que cette
-partition a plus de lisibilité.  Dans la partition informatisée, il n'y
-a pratiquement aucune différence d'une ligne à l'autre, et si
-l'interprète la quitte des yeux un instant, il risque de ne plus savoir
-où il en était sur la page.
+partition a plus de lisibilité. Dans la partition informatisée, il n'y a
+pratiquement aucune différence d'une ligne à l'autre, et si l'interprète
+la quitte des yeux un instant, il risque de ne plus savoir où il en
+était sur la page.
 
 LilyPond a été conçu dans le but de résoudre les problèmes que nous
 avons décelés dans divers logiciels existant et aussi dans l'optique
@@ -150,16 +149,16 @@ Henle no 666, @copyright{}2000 :
 @cindex music engraving
 
 L'art de la typographie musicale est celui de la @emph{gravure
-musicale}.  Ce terme vient du procédé traditionnel de l'impression
+musicale}. Ce terme vient du procédé traditionnel de l'impression
 musicale@footnote{Dès le début, les imprimeurs européens ont essayé
 plusieurs techniques, allant de la matrice en bois sculpté à la fine
-plaque de métal ciselée, en passant par des typons mobiles.  L'avantage
+plaque de métal ciselée, en passant par des typons mobiles. L'avantage
 de ces derniers résidait dans la possibilité d'effectuer aisément des
 corrections et de facilement ajouter à la musique texte et paroles.
 Néanmoins seule la gravure offrait l'avantage d'appréhender le rendu
-global.  C'est la raison pour laquelle la gravure est devenue le
-standard en matière de musique imprimée, à l'exception près de certains
-livres de cantiques, y compris au
+global. C'est la raison pour laquelle la gravure est devenue le standard
+en matière de musique imprimée, à l'exception près de certains livres de
+cantiques, y compris au
 @ifnothtml
 XX@sup{e}
 @end ifnothtml
@@ -168,8 +167,8 @@ XX@sup{e}
 XX<sup>e</sup>
 @end html
 @end ifhtml
- siècle, essentiellement pour des raisons de simplicité et de coût.}.
-Il y a encore quelques décennies, les partitions étaient réalisées en
+ siècle, essentiellement pour des raisons de simplicité et de coût.}. Il
+y a encore quelques décennies, les partitions étaient réalisées en
 taillant et ciselant la musique dans des plaques de zinc ou d'étain, en
 inverse, comme dans un miroir. Ces plaques étaient encrées et les
 reliefs créés par les poinçons et les découpes retenaient l'encre. La
@@ -192,9 +191,9 @@ d'années de pratique.
 
 LilyPond s'inspire du travail réalisé par les maîtres graveurs qui
 officiaient chez les éditeurs européens jusque dans les années 1950.
-Ceux-ci sont bien  souvent considérés comme ayant atteint le sommet de
+Ceux-ci sont bien souvent considérés comme ayant atteint le sommet de
 leur art, et comptent dans leurs rangs des maisons telles que
-Bärenreiter, Duhem, Durand, Hofmeister, Peters ou Schott.  Au fil de
+Bärenreiter, Duhem, Durand, Hofmeister, Peters ou Schott. Au fil de
 notre analyse de ces éditions, nous en avons appris encore plus sur ce
 qu'il faut pour obtenir une partition d'excellente facture, et ce sur
 quoi LilyPond devait porter ses efforts.
@@ -212,13 +211,13 @@ quoi LilyPond devait porter ses efforts.
 
 Les images ci-dessous mettent en évidence certaines différences entre
 l'art du graveur traditionnel et le résultat habituel sorti d'un
-ordinateur.  L'image de gauche est un fac-similé d'un bémol tiré
-d'une édition Bärenreiter traditionnelle ; celle de droite est
-issue de la même partition, éditée en 2000.  Bien que toutes deux soient
-imprimées avec le même encrage, la version « ancienne » paraît plus
-noire : les lignes de la portée y sont plus épaisses et le galbe du
-bémol de Bärenreiter est à la limite de la volupté.  Sur l'autre image,
-les lignes sont plus fines et le bémol semble raide, coincé.
+ordinateur. L'image de gauche est un fac-similé d'un bémol tiré d'une
+édition Bärenreiter traditionnelle ; celle de droite est issue de la
+même partition, éditée en 2000. Bien que toutes deux soient imprimées
+avec le même encrage, la version « ancienne » paraît plus noire : les
+lignes de la portée y sont plus épaisses et le galbe du bémol de
+Bärenreiter est à la limite de la volupté. Sur l'autre image, les lignes
+sont plus fines et le bémol semble raide, coincé.
 
 @multitable @columnfractions .25 .25 .25 .25
 @item @tab
@@ -260,13 +259,13 @@ Henle (2000)
 
 Lorsque nous nous sommes décidés à écrire un programme permettant de
 typographier la musique, aucune police librement accessible ne
-correspondait à l'esthétique de nos partitions préférées.  Sans
-toutefois nous décourager, nous avons créé notre propre jeu de symboles
-musicaux à partir des éditions traditionnelles dont nous disposions.
-L'expérience aidant, notre goût typographique s'est développé et nous
-avons pu appréhender certaines subtilités stylistiques qui nous font
-trouver maintenant de piètre qualité des polices que nous avions tout
-d'abord appréciées.
+correspondait à l'esthétique de nos partitions préférées. Sans toutefois
+nous décourager, nous avons créé notre propre jeu de symboles musicaux à
+partir des éditions traditionnelles dont nous disposions. L'expérience
+aidant, notre goût typographique s'est développé et nous avons pu
+appréhender certaines subtilités stylistiques qui nous font trouver
+maintenant de piètre qualité des polices que nous avions tout d'abord
+appréciées.
 
 À titre d'exemple, voici deux fontes musicales : la première ligne
 comporte des caractères de la police par défaut du logiciel Sibelius --
@@ -283,17 +282,17 @@ propre police pour LilyPond.
 @end quotation
 
 Les symboles de LilyPond sont plus forts et leur épaisseur plus
-équilibrée, ce qui d'ailleurs les rend plus lisibles.  Les extrémités en
+équilibrée, ce qui d'ailleurs les rend plus lisibles. Les extrémités en
 pointe, comme pour le soupir, devraient avoir une terminaison légèrement
-arrondie plutôt qu'un angle tranchant.  Ceci s'explique par la fragilité
+arrondie plutôt qu'un angle tranchant. Ceci s'explique par la fragilité
 des poinçons qui s'émoussent rapidement lors du martellement et de la
-ciselure.  Par ailleurs, la densité de la police doit tenir compte de
+ciselure. Par ailleurs, la densité de la police doit tenir compte de
 l'épaisseur des lignes, ligatures et liaisons afin d'obtenir un rendu
 plein d'intensité et d'équilibre.
 
 Vous noterez aussi que notre ronde n'est pas ovoïde, mais plutôt en
-forme de losange.  La barre de notre bémol est comme brossée, le haut
-étant de fait un peu plus large.  Notre dièse et notre bécarre sont plus
+forme de losange. La barre de notre bémol est comme brossée, le haut
+étant de fait un peu plus large. Notre dièse et notre bécarre sont plus
 évidents à reconnaître à distance du fait que leurs barres transversales
 n'ont pas la même pente et que les verticales sont plus épaisses.
 
@@ -302,12 +301,12 @@ n'ont pas la même pente et que les verticales sont plus épaisses.
 @unnumberedsubsec Espacement
 
 Si l'on considère l'espacement, sa répartition devrait refléter la durée
-des notes.  Néanmoins, et comme nous l'avons vu plus haut avec la suite
+des notes. Néanmoins, et comme nous l'avons vu plus haut avec la suite
 de Bach, la plupart des éditions modernes se basent sur des durées à la
 précision mathématique, ce qui entraîne un effet des plus monotones.
 Dans l'exemple qui suit, le même motif est imprimé deux fois : la
 première en appliquant un espacement chronométrique, la seconde avec
-quelques corrections.  Quelle version remporte vos suffrages ?
+quelques corrections. Quelle version remporte vos suffrages ?
 
 @cindex optique et espacement
 @cindex espacement et effet d'optique
@@ -370,23 +369,23 @@ music = {
 @cindex régulier, espacement
 
 Chaque mesure de ce fragment comporte des notes d'égale valeur, ce qui
-devrait se constater au niveau de l'espacement.  Malheureusement, notre
-œil nous trompe : non seulement il considère la distance séparant
-deux têtes de notes mais, de surcroît, il prend en compte l'espace
-entre deux hampes.  Par voie de conséquence, une succession de notes
-hampe en haut puis hampe en bas devrait comporter un espace accru et,
-dans une situation inverse, être plus resserrée, sans oublier de
-considérer la hauteur de chacune de ces notes.  La deuxième ligne
-comporte de tels aménagements alors que, dans la première ligne, la
-succession hampe descendante puis montante laisse apparaître des notes
-resserrées.  Un maître graveur ajusterait les espaces pour obtenir un
-rendu qui flatte l'œil.
+devrait se constater au niveau de l'espacement. Malheureusement, notre
+œil nous trompe : non seulement il considère la distance séparant deux
+têtes de notes mais, de surcroît, il prend en compte l'espace entre deux
+hampes. Par voie de conséquence, une succession de notes hampe en haut
+puis hampe en bas devrait comporter un espace accru et, dans une
+situation inverse, être plus resserrée, sans oublier de considérer la
+hauteur de chacune de ces notes. La deuxième ligne comporte de tels
+aménagements alors que, dans la première ligne, la succession hampe
+descendante puis montante laisse apparaître des notes resserrées. Un
+maître graveur ajusterait les espaces pour obtenir un rendu qui flatte
+l'œil.
 
 Autre effet d'optique -- que d'ailleurs LilyPond prend en considération
--- l'espace entre la hampe et la barre de mesure.  Lorsqu'une barre est
-précédée d'une hampe montante, il est judicieux d'accroître l'espace
-qui les sépare pour éviter cette sensation de tassement.  Une note dont
-la hampe va vers le bas ne nécessite pas un tel ajustement.
+-- l'espace entre la hampe et la barre de mesure. Lorsqu'une barre est
+précédée d'une hampe montante, il est judicieux d'accroître l'espace qui
+les sépare pour éviter cette sensation de tassement. Une note dont la
+hampe va vers le bas ne nécessite pas un tel ajustement.
 
 
 @node Ledger lines
@@ -395,12 +394,12 @@ la hampe va vers le bas ne nécessite pas un tel ajustement.
 @cindex lignes supplémentaires
 @cindex collisions
 
-Les lignes supplémentaires sont une gageure pour le typographe :
-les différents symboles musicaux doivent être suffisamment rapprochés
-pour que le lecteur identifie la hauteur au premier coup d'œil.  Vous
-noterez, dans l'exemple qui suit, que les lignes supplémentaires sont un
-peu plus épaisses que celles de la portée.  Par ailleurs, un maître
-graveur écourtera la ligne supplémentaire en présence d'une altération.
+Les lignes supplémentaires sont une gageure pour le typographe : les
+différents symboles musicaux doivent être suffisamment rapprochés pour
+que le lecteur identifie la hauteur au premier coup d'œil. Vous noterez,
+dans l'exemple qui suit, que les lignes supplémentaires sont un peu plus
+épaisses que celles de la portée. Par ailleurs, un maître graveur
+écourtera la ligne supplémentaire en présence d'une altération.
 LilyPond, dans sa recherche d'efficacité, adopte ces pratiques.
 
 @multitable @columnfractions .25 .25 .25 .25
@@ -429,16 +428,16 @@ LilyPond, dans sa recherche d'efficacité, adopte ces pratiques.
 @unnumberedsubsec Tailles
 
 Une même œuvre peut être imprimée dans différents formats -- d'une
-partie instrumentale au conducteur format de poche.  Les graveurs
+partie instrumentale au conducteur format de poche. Les graveurs
 traditionnels utilisaient alors des poinçons différents pour obtenir le
-meilleur rendu selon la taille de la partition.  L'avènement des fontes
+meilleur rendu selon la taille de la partition. L'avènement des fontes
 digitalisées permet d'obtenir n'importe quelle taille à partir d'un
-simple tracé.  Bien que ceci constitue un progrès en soi, il nous faut
+simple tracé. Bien que ceci constitue un progrès en soi, il nous faut
 cependant nuancer : les glyphes sont moins forts lorsqu'ils sont de
 taille réduite.
 
 Pour les besoins de LilyPond, nous avons créé des polices de graisse
-différente selon la taille.  Voici ce que produit LilyPond dans une
+différente selon la taille. Voici ce que produit LilyPond dans une
 taille de portée de 26 points :
 
 @quotation
@@ -451,8 +450,8 @@ taille de portée de 26 points :
 @end quotation
 
 @noindent
-et la même musique en 11 points, grossie de 236 % pour obtenir
-une taille identique à l'image précédente :
+et la même musique en 11 points, grossie de 236 % pour obtenir une
+taille identique à l'image précédente :
 
 @quotation
 @iftex
@@ -467,8 +466,8 @@ une taille identique à l'image précédente :
 Comme vous le constatez, LilyPond imprime des lignes un peu plus
 épaisses pour garantir une meilleure lecture à taille réduite.
 
-Ceci permet par ailleurs de faire coexister harmonieusement
-plusieurs portées de taille différente sur une même page :
+Ceci permet par ailleurs de faire coexister harmonieusement plusieurs
+portées de taille différente sur une même page :
 
 @c Grieg's Violin Sonata Op. 45
 @lilypond[indent=1.5\cm]
@@ -524,35 +523,35 @@ global = {
 
 Les musiciens sont normalement plus concentrés sur la manière dont ils
 jouent la musique que sur son apparence, aussi ces pinailleries sur des
-détails de typographie peuvent paraître académiques.  Il n'en est rien.
+détails de typographie peuvent paraître académiques. Il n'en est rien.
 La partition contribue, au même titre que bien d'autres éléments, à
-l'existence même d'une représentation : tout doit être fait pour
-que l'interprète donne le meilleur de lui-même, et ce qui est peu clair
-ou pas agréable à lire constitue un frein.
+l'existence même d'une représentation : tout doit être fait pour que
+l'interprète donne le meilleur de lui-même, et ce qui est peu clair ou
+pas agréable à lire constitue un frein.
 
 La musique gravée de manière traditionnelle présente des symboles denses
-et des lignes épaisses. Ceci produit un résultat équilibré, à plus
-forte raison si la partition est éloignée du lecteur, comme lorsqu'elle
-est posée sur un pupitre.  Une répartition attentive des blancs permet
-de resserrer la musique sans pour autant tasser les symboles et, au
-final, diminue le nombre de tournes -- avantage indéniable.
+et des lignes épaisses. Ceci produit un résultat équilibré, à plus forte
+raison si la partition est éloignée du lecteur, comme lorsqu'elle est
+posée sur un pupitre. Une répartition attentive des blancs permet de
+resserrer la musique sans pour autant tasser les symboles et, au final,
+diminue le nombre de tournes -- avantage indéniable.
 
-C'est une caractéristique commune de la typographie.  La présentation
+C'est une caractéristique commune de la typographie. La présentation
 devrait être soignée, non seulement pour l'amour de l'art, mais plus
-spécialement parce qu'elle vient en aide au lecteur dans sa tâche.
-Pour du matériel d'interprétation tel que les partitions de musique,
-ceci est doublement important : les musiciens sont limités dans
-leur attention.  Au moins leur attention se porte sur la lecture, au
-plus ils peuvent se concentrer sur l'exécution.  En d'autres termes, une
-meilleure typographie se traduit par une meilleure interprétation.
+spécialement parce qu'elle vient en aide au lecteur dans sa tâche. Pour
+du matériel d'interprétation tel que les partitions de musique, ceci est
+doublement important : les musiciens sont limités dans leur attention.
+Au moins leur attention se porte sur la lecture, au plus ils peuvent se
+concentrer sur l'exécution. En d'autres termes, une meilleure
+typographie se traduit par une meilleure interprétation.
 
 Ces considérations montrent bien que la typographie musicale est un art
 à la fois complexe et plein de subtilités, et qu'elle requiert des
 compétences particulières que la majorité des musiciens ne possède pas.
 LilyPond s'efforce de transposer le degré d'excellence de la gravure
 traditionnelle à l'ère de l'ordinateur et donc de le mettre à
-disposition de tous les musiciens.  Nous avons affiné nos algorithmes,
-le @emph{design} de nos fontes et les réglages du programme de manière à
+disposition de tous les musiciens. Nous avons affiné nos algorithmes, le
+@emph{design} de nos fontes et les réglages du programme de manière à
 produire des partitions d'une qualité comparable aux bonnes vieilles
 éditions que nous avons toujours autant de plaisir à voir et à
 interpréter.
@@ -566,8 +565,8 @@ interpréter.
 
 Nous allons maintenant examiner les éléments nécessaires à la création
 d'un logiciel capable d'imiter le rendu des partitions gravées à
-l'ancienne.  Nous commencerons par voir comment inculquer à l'ordinateur
-les « bonnes manières » de la présentation.  Nous nous attarderons
+l'ancienne. Nous commencerons par voir comment inculquer à l'ordinateur
+les « bonnes manières » de la présentation. Nous nous attarderons
 ensuite sur l'analyse comparative par rapport aux éditions
 traditionnelles, avant de considérer le degré de flexibilité à y inclure
 pour être en mesure de gérer les différents cas de figure particuliers à
@@ -577,9 +576,9 @@ la notation.
 @node Beauty contests
 @unnumberedsubsec Concours de beauté
 
-Quels sont en réalité nos critères de formatage ?  Considérant
-l'image suivante, laquelle de ces trois configurations devrions-nous
-choisir pour formater la liaison ?
+Quels sont en réalité nos critères de formatage ? Considérant l'image
+suivante, laquelle de ces trois configurations devrions-nous choisir
+pour formater la liaison ?
 
 @lilypond
 \relative {
@@ -592,14 +591,14 @@ choisir pour formater la liaison ?
 }
 @end lilypond
 
-Seuls quelques ouvrages traitent de l'art de graver la musique.  Ils ne
-contiennent malheureusement que des généralités et quelques exemples.
-La lecture de telles règles est certes instructive, mais est très loin
-de nous conduire à un algorithme prêt à être implémenté dans un
-programme.  Dans la pratique, suivre les instructions de ces traités
-aboutirait à des algorithmes qui figent bon nombre d'exceptions.
-Répertorier tous ces cas de figure demanderait un travail considérable,
-qui finalement ne les couvrirait pas tous.
+Seuls quelques ouvrages traitent de l'art de graver la musique. Ils ne
+contiennent malheureusement que des généralités et quelques exemples. La
+lecture de telles règles est certes instructive, mais est très loin de
+nous conduire à un algorithme prêt à être implémenté dans un programme.
+Dans la pratique, suivre les instructions de ces traités aboutirait à
+des algorithmes qui figent bon nombre d'exceptions. Répertorier tous ces
+cas de figure demanderait un travail considérable, qui finalement ne les
+couvrirait pas tous.
 
 @quotation
 @iftex
@@ -617,14 +616,14 @@ Plutôt que d'écrire une foultitude de règles qui embrasserait tous les
 cas de figure possibles et imaginables en matière de mise en forme, nous
 avons préféré inculquer à LilyPond un certain nombre d'objectifs qui lui
 permette de choisir entre différentes alternatives selon leur
-esthétique.  Pour ce faire, chacune des configurations est analysée en
+esthétique. Pour ce faire, chacune des configurations est analysée en
 terme de moins bonne qualité, et nous opterons pour celle étant la moins
 mauvaise.
 
 Voici, à titre d'exemple, trois configurations possibles pour le tracé
-d'une liaison ; LilyPond leur attribue individuellement une « note
-de laideur ».  Le premier essai se voit attribuer 15,39 points
-notamment pour l'effleurement de la tête de note.
+d'une liaison ; LilyPond leur attribue individuellement une « note de
+laideur ». Le premier essai se voit attribuer 15,39 points notamment
+pour l'effleurement de la tête de note.
 
 @lilypond
 \relative {
@@ -636,11 +635,11 @@ notamment pour l'effleurement de la tête de note.
 
 La liaison ci-dessous reste à une distance uniforme des notes, mais il
 faut tenir compte du fait qu'elle n'est pas rattachée aux première et
-dernière notes. Ceci nous fait 1,71 points pour le début de la
-liaison et 9,37 pour la terminaison -- qui est beaucoup plus éloignée de
-la dernière note.  Par ailleurs, la liaison monte alors que la mélodie
-redescend, ce qui entraîne une pénalité de 2 points.  Ceci nous
-fait un total de 13,08 points de laideur.
+dernière notes. Ceci nous fait 1,71 points pour le début de la liaison
+et 9,37 pour la terminaison -- qui est beaucoup plus éloignée de la
+dernière note. Par ailleurs, la liaison monte alors que la mélodie
+redescend, ce qui entraîne une pénalité de 2 points. Ceci nous fait un
+total de 13,08 points de laideur.
 
 @lilypond
 \relative {
@@ -652,7 +651,7 @@ fait un total de 13,08 points de laideur.
 
 Quant à la liaison qui suit, seule la terminaison reste éloignée de la
 dernière note, ce qui donne 10,04 points de laideur auxquels nous
-ajoutons 2 autres points pour la pente ascendante.  Cette configuration
+ajoutons 2 autres points pour la pente ascendante. Cette configuration
 étant la moins laide, ou plutôt la version la plus satisfaisante, nous
 la sélectionnons.
 
@@ -666,7 +665,7 @@ la sélectionnons.
 Cette manière de procéder est générique, et nous y avons recours dans
 bon nombre de situations, comme pour déterminer la pente d'un lien de
 croches, formater des accords liés, formater des accords avec des
-valeurs pointées, positionner les sauts de ligne ou de page.  Cette
+valeurs pointées, positionner les sauts de ligne ou de page. Cette
 technique est consommatrice de temps de calcul, dans la mesure où elle
 examine de nombreuses possibilités ; néanmoins, le jeu en vaut la
 chandelle, puisque le résultat final est bien meilleur et nous rapproche
@@ -700,10 +699,10 @@ publiée en mai 2001 :
 @sourceimage{lily14-sarabande,,}
 @end ifnottex
 
-@noindent La sortie LilyPond est certes lisible, et acceptable pour
-beaucoup de gens.  Cependant, une comparaison minutieuse avec une
-édition gravée à la main révèle de nombreuses erreurs de
-formatage :
+@noindent
+La sortie LilyPond est certes lisible, et acceptable pour beaucoup de
+gens. Cependant, une comparaison minutieuse avec une édition gravée à la
+main révèle de nombreuses erreurs de formatage :
 
 @iftex
 @sourceimage{lily14-sarabande-annotated-hires,16cm,}
@@ -726,8 +725,8 @@ Passons sous silence les notes et indications absentes, tout comme
 la faute de hauteur !
 
 En ajustant les algorithmes, paramètres et polices concernés, nous avons
-pu améliorer le résultat.  La deuxième ligne ci-dessous a été générée
-par la version la plus récente de LilyPond (@version{}).
+pu améliorer le résultat. La deuxième ligne ci-dessous a été générée par
+la version la plus récente de LilyPond (@version{}).
 
 @iftex
 @sourceimage{baer-sarabande-hires,16cm,}
@@ -771,13 +770,13 @@ proche d'une qualité de publication que les précédentes.
 
 Nous pouvons aussi évaluer les capacités de LilyPond dans ses choix, en
 comparant ses résultats avec ce que génèrent d'autres logiciels du
-marché.  Notre choix s'est porté sur Finale 2008, l'un des logiciels les
-plus populaires notamment en Amérique du Nord. Son plus
-proche concurrent est Sibelius, très répandu sur le marché européen.
+marché. Notre choix s'est porté sur Finale 2008, l'un des logiciels les
+plus populaires notamment en Amérique du Nord. Son plus proche
+concurrent est Sibelius, très répandu sur le marché européen.
 
 Pour cette analyse comparative, nous avons choisi la fugue en sol mineur
-du premier livre du Clavier bien tempéré de Bach (BWV 861). En
-voici le thème :
+du premier livre du Clavier bien tempéré de Bach (BWV 861). En voici le
+thème :
 
 @lilypond
 \relative {
@@ -789,17 +788,16 @@ voici le thème :
 @end lilypond
 
 @noindent
-
 Nous nous sommes intéressés aux sept dernières mesures (27 à 34) de
 l'œuvre, que nous avons saisies à la fois avec Finale et avec LilyPond.
 C'est à cet endroit que le sujet est rappelé, dans une strette à trois
-voix, avant de mener à la conclusion.  Pour ce qui est de Finale, nous
+voix, avant de mener à la conclusion. Pour ce qui est de Finale, nous
 nous sommes abstenus d'effectuer quelque ajustement que ce soit dans le
-but d'obtenir un résultat par défaut.  Ceci permet de vraiment apprécier
+but d'obtenir un résultat par défaut. Ceci permet de vraiment apprécier
 conjointement ce que génère chacun des deux logiciels sans retouche
-aucune.  Nous avons toutefois redimensionné la page pour les besoins de
+aucune. Nous avons toutefois redimensionné la page pour les besoins de
 cet essai et forcé la musique à tenir sur deux systèmes pour que la
-comparaison soit plus évidente.  En effet, Finale crée par défaut deux
+comparaison soit plus évidente. En effet, Finale crée par défaut deux
 systèmes de trois mesure, et un troisième -- s'étalant sur toute la
 ligne -- pour la dernière mesure.
 
@@ -875,13 +873,13 @@ Entre autres défauts du résultat brut de Finale, nous notons :
 @itemize
 @item La majorité des ligatures est trop éloignée de la portée.
 Lorsqu'une ligature se retrouve vers le milieu de la portée, la hauteur
-des hampes qui la portent est d'environ une octave.  Néanmoins, un
-maître graveur les raccourcira dès lors que cette ligature est en dehors
-de la portée d'une section à plusieurs voix.  Les règles de ligatures de
-Finale peuvent être améliorées à l'aide du greffon @emph{Patterson
-Beams}, que nous avons décidé de laisser de côté pour cet exemple.
+des hampes qui la portent est d'environ une octave. Néanmoins, un maître
+graveur les raccourcira dès lors que cette ligature est en dehors de la
+portée d'une section à plusieurs voix. Les règles de ligatures de Finale
+peuvent être améliorées à l'aide du greffon @emph{Patterson Beams}, que
+nous avons décidé de laisser de côté pour cet exemple.
 
-@item Finale n'ajuste pas la position des notes qui s'entrecroisent.  Il
+@item Finale n'ajuste pas la position des notes qui s'entrecroisent. Il
 en résulte une lecture peu évidente lorsque les voix supérieure et
 inférieure de croisent temporairement :
 
@@ -904,23 +902,23 @@ collide = \once \override NoteColumn.force-hshift = #0
 @end lilypond
 
 @item Finale positionne tous les silences d'une même voix à une hauteur
-fixe de la portée.  Si l'utilisateur peut les déplacer à loisir, le
+fixe de la portée. Si l'utilisateur peut les déplacer à loisir, le
 logiciel ne se soucie en rien de ce qui se passe dans les autres voix.
 Par chance, il n'y a aucune collision entre un silence et une note dans
-cet exemple ; cela tient plutôt à la position des notes qu'à celle
-des silences.  Tout compte fait, le mérite en revient à Bach plutôt qu'à
+cet exemple ; cela tient plutôt à la position des notes qu'à celle des
+silences. Tout compte fait, le mérite en revient à Bach plutôt qu'à
 Finale d'éviter les collisions.
 
 @end itemize
 
 Cet exemple ne vise en aucun cas à démontrer que Finale est incapable de
-fournir un résultat admirable.  Au contraire, un utilisateur chevronné
+fournir un résultat admirable. Au contraire, un utilisateur chevronné
 pourra obtenir quelque chose d'excellent, mais au prix d'une bonne dose
-tant de dextérité que de temps.  La différence fondamentale entre
+tant de dextérité que de temps. La différence fondamentale entre
 LilyPond et les générateurs de partition commerciaux réside dans le fait
-suivant : LilyPond tend à réduire l'intervention de l'utilisateur à
-sa plus simple expression, alors que les autres programmes font tout
-pour avoir une interface attractive pour effectuer toutes les retouches.
+suivant : LilyPond tend à réduire l'intervention de l'utilisateur à sa
+plus simple expression, alors que les autres programmes font tout pour
+avoir une interface attractive pour effectuer toutes les retouches.
 
 Par ailleurs, Finale commet une erreur particulièrement flagrante :
 il manque un bémol à la mesure 33
@@ -937,7 +935,7 @@ il manque un bémol à la mesure 33
 @noindent
 Il faut un bémol pour annuler le bécarre qui se trouve dans la même
 mesure, mais Finale ne s'en rend pas compte parce qu'il se trouve dans
-une autre voix.  Ainsi, l'utilisateur doit non seulement recourir à un
+une autre voix. Ainsi, l'utilisateur doit non seulement recourir à un
 greffon pour gérer les ligatures, repositionner têtes de note et
 silences, il lui faut de surcroît vérifier qu'à chaque mesure les
 altérations sont en conformité indépendamment des voix s'il veut être à
@@ -946,21 +944,21 @@ partition.
 
 S'il vous plaît d'examiner ces sept mesures de plus près, elles sont
 reproduites en intégralité à la fin de cet essai, ainsi que quatre
-autres versions.  Vous noterez certaines variations entre les éditions
-traditionnelles, et LilyPond tient un rang acceptable.  Il reste tout de
+autres versions. Vous noterez certaines variations entre les éditions
+traditionnelles, et LilyPond tient un rang acceptable. Il reste tout de
 même quelques petits défauts à régler, comme le raccourcissement peut
 être exagéré des hampes ; il y a donc encore de quoi faire pour les
 développeurs.
 
 La typographie relevant d'un jugement humain, les personnes ne peuvent
-être remplacées.  Beaucoup de tâches rébarbatives peuvent cependant être
-automatisées : si LilyPond parvenait à gérer la plupart des
-situations usuelles correctement, ce serait un grand pas en avant pour
-l'édition informatisée.  Au fil du temps, le logiciel pourra être révisé
-afin d'automatiser de plus en plus d'actions, de sorte que les
-ajustements manuels seront de moins en moins nécessaires.  Les cas
-particuliers peuvent être traités manuellement, notamment grâce à
-l'architecture flexible de LilyPond.
+être remplacées. Beaucoup de tâches rébarbatives peuvent cependant être
+automatisées : si LilyPond parvenait à gérer la plupart des situations
+usuelles correctement, ce serait un grand pas en avant pour l'édition
+informatisée. Au fil du temps, le logiciel pourra être révisé afin
+d'automatiser de plus en plus d'actions, de sorte que les ajustements
+manuels seront de moins en moins nécessaires. Les cas particuliers
+peuvent être traités manuellement, notamment grâce à l'architecture
+flexible de LilyPond.
 
 
 @node Building software
@@ -979,16 +977,16 @@ de LilyPond.
 @cindex récursivité des structures
 
 Le format de saisie idéal pour un système évolué de formatage consiste
-en la description abstraite du contenu.  Dans le cas qui nous occupe, il
-s'agit tout bonnement de la musique.  Cela n'est pas sans poser un
-énorme problème : comment définir @emph{ce qu'est} la
-musique ?  Pour résoudre ce problème, nous l'avons inversé.  Au
-lieu de définir ce qu'est la musique, notre programme sert de
-définition : nous avons écrit un programme capable de produire des
-partitions, et avons ajusté son format de saisie pour être aussi léger
-que possible.  Lorsque le format ne peut plus être simplifié, nous
-avons par définition atteint le contenu même.  Autrement dit, notre
-programme utilise la définition formelle d'un document musical.
+en la description abstraite du contenu. Dans le cas qui nous occupe, il
+s'agit tout bonnement de la musique. Cela n'est pas sans poser un énorme
+problème : comment définir @emph{ce qu'est} la musique ? Pour résoudre
+ce problème, nous l'avons inversé. Au lieu de définir ce qu'est la
+musique, notre programme sert de définition : nous avons écrit un
+programme capable de produire des partitions, et avons ajusté son format
+de saisie pour être aussi léger que possible. Lorsque le format ne peut
+plus être simplifié, nous avons par définition atteint le contenu même.
+Autrement dit, notre programme utilise la définition formelle d'un
+document musical.
 
 La syntaxe est également celle de l'interface utilisateur de LilyPond,
 puisqu'elle peut être facilement tapée au clavier :
@@ -1008,12 +1006,12 @@ sont un do médium noire et un ré croche juste au-dessus.
 }
 @end lilypond
 
-À petite échelle, une telle syntaxe est pratique.  À plus grande
-échelle, une structuration est nécessaire.  Sans cela, comment saisir
-des pièces aussi complexes qu'un opéra ou une symphonie ?  La
-structure est construite selon le même concept que les expressions
-musicales : c'est en combinant de petits fragments qu'une musique
-plus complexe peut être représentée.  Par exemple :
+À petite échelle, une telle syntaxe est pratique. À plus grande échelle,
+une structuration est nécessaire. Sans cela, comment saisir des pièces
+aussi complexes qu'un opéra ou une symphonie ? La structure est
+construite selon le même concept que les expressions musicales : c'est
+en combinant de petits fragments qu'une musique plus complexe peut être
+représentée. Par exemple :
 
 @lilypond[quote,verbatim,fragment]
 f'4
@@ -1056,24 +1054,23 @@ blanche) à l'aide de @code{<<}, @code{\\} et @code{>>} :
 \new Voice { << g2 \\ { f4 <<c d e>> } >> }
 @end lilypond
 
-De telles structures récursives peuvent être définies formellement et
-de manière ordonnée avec une @emph{grammaire libre de tout contexte}.
-Le code d'analyse de la saisie est également généré depuis cette
-grammaire.  Autrement dit, la définition de la syntaxe de LilyPond est
-claire et sans ambiguïté.
+De telles structures récursives peuvent être définies formellement et de
+manière ordonnée avec une @emph{grammaire libre de tout contexte}. Le
+code d'analyse de la saisie est également généré depuis cette grammaire.
+Autrement dit, la définition de la syntaxe de LilyPond est claire et
+sans ambiguïté.
 
-Ce sont la syntaxe et l'interface qui concernent les utilisateurs.
-Elles sont sujettes à discussion, puisque relatives aux goûts de chacun.
-Bien que ces discussions soient intéressantes, elles ne sont pas
-productives.  À l'échelle de LilyPond, l'importance du format de saisie
-est minime : inventer une syntaxe claire est bien plus aisé
-qu'écrire un code de mise en page décent.  Ceci est d'ailleurs
-illustré par le nombre de lignes de code de ces composants
-respectifs : l'analyse du texte de saisie et sa représentation
-pèsent moins de 10 % du code.
+Ce sont la syntaxe et l'interface qui concernent les utilisateurs. Elles
+sont sujettes à discussion, puisque relatives aux goûts de chacun. Bien
+que ces discussions soient intéressantes, elles ne sont pas productives.
+À l'échelle de LilyPond, l'importance du format de saisie est minime :
+inventer une syntaxe claire est bien plus aisé qu'écrire un code de mise
+en page décent. Ceci est d'ailleurs illustré par le nombre de lignes de
+code de ces composants respectifs : l'analyse du texte de saisie et sa
+représentation pèsent moins de 10 % du code.
 
 Dans la conception des structures utilisées par LilyPond, nous avons
-pris certaines options divergentes des autres logiciels.  Considérons la
+pris certaines options divergentes des autres logiciels. Considérons la
 nature par essence hiérarchique de la notation musicale :
 
 @lilypond[quote,fragment]
@@ -1092,7 +1089,7 @@ nature par essence hiérarchique de la notation musicale :
 @end lilypond
 
 Nous y voyons des hauteurs regroupées en accords appartenant à des
-mesures elles-mêmes rattachées à des portées.  On pourrait représenter
+mesures elles-mêmes rattachées à des portées. On pourrait représenter
 cela par un système de boîtes imbriquées :
 
 @quotation
@@ -1105,7 +1102,7 @@ cela par un système de boîtes imbriquées :
 @end quotation
 
 Cette structure est cependant réductrice car reposant sur des postulats
-extrêmement restrictifs.  Cela devient plus évident dès lors que la
+extrêmement restrictifs. Cela devient plus évident dès lors que la
 musique se complique :
 
 @lilypond[quote]
@@ -1147,12 +1144,11 @@ musique se complique :
 @end lilypond
 
 Ici, les portées débutent et s'arrêtent n'importe où, les voix passent
-d'une portée à l'autre, et parfois même occupent deux portées.  Nombre
-de logiciels auront d'énormes difficultés à reproduire cet exemple, pour
-la bonne et simple raison qu'ils se basent sur le modèle hiérarchique de
-boîtes imbriquées.  LilyPond, quant à lui, tend à préserver la
-dichotomie entre le format de saisie et une structure aussi flexible que
-possible.
+d'une portée à l'autre, et parfois même occupent deux portées. Nombre de
+logiciels auront d'énormes difficultés à reproduire cet exemple, pour la
+bonne et simple raison qu'ils se basent sur le modèle hiérarchique de
+boîtes imbriquées. LilyPond, quant à lui, tend à préserver la dichotomie
+entre le format de saisie et une structure aussi flexible que possible.
 
 
 @node What symbols to engrave?
@@ -1169,24 +1165,24 @@ symboles, encore faudrait-il savoir @emph{quels} symboles doivent
 apparaître -- ou bien, quelle notation utiliser.
 
 La notation musicale constitue une forme d'enregistrement de la musique
-qui a d'ailleurs évolué sur un millier d'années.  La forme que nous
-utilisons de nos jours remonte au début de la Renaissance.  Bien que ses
+qui a d'ailleurs évolué sur un millier d'années. La forme que nous
+utilisons de nos jours remonte au début de la Renaissance. Bien que ses
 fondements n'aient pas changé -- des têtes de note réparties sur une
 portée à cinq lignes --, certains détails sont apparus qui permettent de
-rendre compte des apports de la notation contemporaine.  La notation
+rendre compte des apports de la notation contemporaine. La notation
 musicale couvre cinq siècles de musique, allant de la simple monodie à
 de gigantesques contrepoints orchestraux.
 
 Comment intégrer un tel monstre aux si nombreux visages ? Notre solution
 est de clairement distinguer la notation -- @emph{quels} symboles
-utiliser -- de la gravure -- @emph{où} les placer.  Pour appréhender la
+utiliser -- de la gravure -- @emph{où} les placer. Pour appréhender la
 notation, nous l'avons disséquée en éléments simples (et
-programmables) : chaque type de symbole est géré par un module --
-ou greffon -- différent.  Tous ces modules sont entièrement
-configurables et indépendants, chacun pouvant être développé et amélioré
-séparément.  Nous appelons ces modules des graveurs (@emph{engravers} en
-anglais), par analogie avec ces professionnels qui mettent en forme
-graphiquement les idées musicales.
+programmables) : chaque type de symbole est géré par un module -- ou
+greffon -- différent. Tous ces modules sont entièrement configurables et
+indépendants, chacun pouvant être développé et amélioré séparément. Nous
+appelons ces modules des graveurs (@emph{engravers} en anglais), par
+analogie avec ces professionnels qui mettent en forme graphiquement les
+idées musicales.
 
 
 Le module le plus basique, qu'on appelle @code{Note_heads_engraver},
@@ -1318,9 +1314,9 @@ et, enfin, les hampes et leurs crochets sont gérés par le
 
 @noindent
 Le module @code{Stem_engraver} est appelé dès qu'une tête de note
-apparaît.  Pour chaque note rencontrée -- ou groupe de notes s'il s'agit
-d'un accord --, un objet hampe est créé et attaché à la tête de note.
-Si l'on ajoute les modules en charge des ligatures, des liaisons, des
+apparaît. Pour chaque note rencontrée -- ou groupe de notes s'il s'agit
+d'un accord --, un objet hampe est créé et attaché à la tête de note. Si
+l'on ajoute les modules en charge des ligatures, des liaisons, des
 accents, des barres de mesure, de la métrique et de l'armure, nous avons
 tout ce qui est nécessaire à une partition.
 
@@ -1334,7 +1330,7 @@ tout ce qui est nécessaire à une partition.
 @cindex contextes
 
 Le principe décrit plus haut fonctionne très bien pour de la musique
-monophonique, mais qu'en est-il de la polyphonie ?  Dans ce cas,
+monophonique, mais qu'en est-il de la polyphonie ? Dans ce cas,
 plusieurs voix peuvent partager la même portée :
 
 @lilypond[quote,ragged-right]
@@ -1343,15 +1339,15 @@ plusieurs voix peuvent partager la même portée :
 @end lilypond
 
 Ici, la portée et les altérations sont partagées mais les hampes,
-liaisons, liens, etc. dépendent de chaque voix.  De plus, les graveurs
-doivent être regroupés.  Les graveurs de têtes de note, hampes,
-liaisons, etc. sont donc inclus dans un groupe appelé @emph{Voice
-context} (contexte de voix),  alors que l'armure, les altérations, les
-barres de mesures, etc. sont placées dans un groupe @emph{Staff context}
-(contexte de portée).  Dans le cas d'une polyphonie, un contexte de
-portée contient plusieurs contextes de voix.  De même, plusieurs
-contextes de portée peuvent être assemblés dans un contexte de partition
-(@emph{Score context}) :
+liaisons, liens, etc. dépendent de chaque voix. De plus, les graveurs
+doivent être regroupés. Les graveurs de têtes de note, hampes, liaisons,
+etc. sont donc inclus dans un groupe appelé @emph{Voice context}
+(contexte de voix), alors que l'armure, les altérations, les barres de
+mesures, etc. sont placées dans un groupe @emph{Staff context} (contexte
+de portée). Dans le cas d'une polyphonie, un contexte de portée contient
+plusieurs contextes de voix. De même, plusieurs contextes de portée
+peuvent être assemblés dans un contexte de partition (@emph{Score
+context}) :
 
 @lilypond[quote,ragged-right]
 \include "en/included/engraver-example.ily"
@@ -1372,18 +1368,17 @@ Référence des propriétés internes :
 @node Flexible architecture
 @unnumberedsubsec Flexibilité architecturale
 
-Pour ses premiers pas, LilyPond était totalement écrit en langage
-C++ ; les programmeurs gravaient les fonctionnalités du programme
-dans le marbre.  Cela s'est avéré peu satisfaisant pour plusieurs
-raisons :
+Pour ses premiers pas, LilyPond était totalement écrit en langage C++ ;
+les programmeurs gravaient les fonctionnalités du programme dans le
+marbre. Cela s'est avéré peu satisfaisant pour plusieurs raisons :
 
 @itemize
 
 @item Il peut arriver que LilyPond commette une erreur, auquel cas
-l'utilisateur doit pouvoir déroger aux décisions arbitraires, et donc
-se servir du moteur de formatage.  Par conséquent,  les règles et
-paramètres ne peuvent être fixés lors de la compilation, mais doivent
-être accessibles lors de l'exécution.
+l'utilisateur doit pouvoir déroger aux décisions arbitraires, et donc se
+servir du moteur de formatage. Par conséquent, les règles et paramètres
+ne peuvent être fixés lors de la compilation, mais doivent être
+accessibles lors de l'exécution.
 
 @item Graver est une affaire de jugement visuel, donc une affaire de goût.
 Nous savons que les utilisateurs peuvent ne pas être d'accord avec nous.
@@ -1391,7 +1386,7 @@ Il faut donc qu'il aient accès aux définitions des styles
 typographiques.
 
 @item Enfin, nous redéfinissons continuellement les règles de formatage,
-et avons donc besoin d'une approche souple des règles.  Le C++ implique
+et avons donc besoin d'une approche souple des règles. Le C++ implique
 une méthode de groupement des règles qui ne correspond pas au
 fonctionnement de la notation musicale.
 
@@ -1402,18 +1397,17 @@ fonctionnement de la notation musicale.
 
 Nous avons résolu ces problème par l'adjonction d'un interpréteur pour
 le Scheme et la réécriture de parties entières de LilyPond dans ce
-langage.  L'architecture du programme repose sur la notion d'objets
+langage. L'architecture du programme repose sur la notion d'objets
 graphiques que l'on peut décrire par des variables ou des fonctions
-Scheme.  Elle doit prendre en compte les règles de formatage, le style
-typographique et les décisions de formatage individuelles.
-L'utilisateur de LilyPond peut accéder directement à la majorité de ces
-contrôles.
+Scheme. Elle doit prendre en compte les règles de formatage, le style
+typographique et les décisions de formatage individuelles. L'utilisateur
+de LilyPond peut accéder directement à la majorité de ces contrôles.
 
-La mise en page dépend des variables Scheme.  Par exemple, la variable
+La mise en page dépend des variables Scheme. Par exemple, la variable
 @var{direction} définie pour de nombreux objets, encode le choix entre
-haut et bas (ou gauche et droite).  L'image qui suit présente deux
-accords, accentués et arpégés.  Pour le premier accord, la direction de
-chaque objet est vers le bas (ou la gauche).  Les objets sont dirigés
+haut et bas (ou gauche et droite). L'image qui suit présente deux
+accords, accentués et arpégés. Pour le premier accord, la direction de
+chaque objet est vers le bas (ou la gauche). Les objets sont dirigés
 vers le haut (ou la droite) pour le second.
 
 @lilypond[quote,ragged-right]
@@ -1438,11 +1432,11 @@ vers le haut (ou la droite) pour le second.
 @cindex formatage, règles de
 
 @noindent
-Le processus de mise en forme d'une partition consiste à lire et
-écrire des variables d'objets.  Certaines variables ont une valeur
-prédéfinie.  Par exemple, l'épaisseur de nombreuses lignes --
-caractéristiques d'un style typographique -- est préétablie.  La changer
-entraîne un changement du style typographique.
+Le processus de mise en forme d'une partition consiste à lire et écrire
+des variables d'objets. Certaines variables ont une valeur prédéfinie.
+Par exemple, l'épaisseur de nombreuses lignes -- caractéristiques d'un
+style typographique -- est préétablie. La changer entraîne un changement
+du style typographique.
 
 @lilypond[quote,ragged-right]
 fragment = {
@@ -1464,12 +1458,11 @@ fragment = {
 @end lilypond
 
 Les valeurs prédéfinies de certaines variables font aussi partie des
-règles de formatage.  Chaque objet possède des variables contenant des
-procédures.  Ces procédures réalisent le formatage prédéfini, dont
+règles de formatage. Chaque objet possède des variables contenant des
+procédures. Ces procédures réalisent le formatage prédéfini, dont
 l'apparence peut être changée en remplaçant ces procédures par d'autres.
 Dans l'exemple suivant, la règle permettant à l'objet « tête de note »
-de dessiner son symbole est modifiée au cours de l'extrait
-musical :
+de dessiner son symbole est modifiée au cours de l'extrait musical :
 
 @lilypond[quote,ragged-right]
 #(set-global-staff-size 30)
@@ -1519,9 +1512,9 @@ musical :
 Nous vous avons montré ce que devrait être la gravure musicale, et
 comment nous avons construit notre logiciel pour imiter cette apparence.
 Nous nous sommes énormément investis dans cette construction. En guise
-de  récompense pour ce long travail, vous pouvez à votre tour
-utiliser le programme pour imprimer votre musique.
-Commençons par quelques notes@dots{}
+de récompense pour ce long travail, vous pouvez à votre tour utiliser le
+programme pour imprimer votre musique. Commençons par quelques
+notes@dots{}
 
 @lilypond[quote,relative=1]
 {
@@ -1546,9 +1539,8 @@ populaire@dots{}
 >>
 @end lilypond
 
-On peut aussi éditer de la polyphonie ou une partition pour piano.
-Quant à ce qui suit, admirez l'exotisme de certaines
-constructions@dots{}
+On peut aussi éditer de la polyphonie ou une partition pour piano. Quant
+à ce qui suit, admirez l'exotisme de certaines constructions@dots{}
 
 @lilypond[quote]
 \header {
@@ -1619,9 +1611,9 @@ constructions@dots{}
 @end lilypond
 
 Ces fragments ont tous été écrits à la main, mais ce n'est pas une
-obligation.  Dans la mesure où le moteur de formatage est presque
+obligation. Dans la mesure où le moteur de formatage est presque
 complètement automatisé, il peut servir à générer du matériel imprimable
-pour d'autres programmes en charge de manipuler de la musique.  LilyPond
+pour d'autres programmes en charge de manipuler de la musique. LilyPond
 est parfaitement en mesure de convertir des bases de données musicales
 aux fins de les utiliser dans des sites internet ou des présentations
 multimédia.
@@ -1629,12 +1621,12 @@ multimédia.
 Vous avez constaté, au fil de notre propos, que le format source est
 purement textuel et peut donc être réutilisé dans d'autres formats basés
 sur une description textuelle comme @LaTeX{}, HTML ou -- ce qui est le
-cas pour la documentation de LilyPond -- Texinfo.  À l'aide du script
+cas pour la documentation de LilyPond -- Texinfo. À l'aide du script
 @command{lilypond-book} fourni avec LilyPond, les fragments de code
 insérés feront place à une image dans le fichier résultant, qu'il soit
-au format PDF ou HTML.  Il existe aussi une extension pour
-OpenOffice.org et LibreOffice -- OOoLilyPond -- qui permet d'insérer des
-extraits dans un document.
+au format PDF ou HTML. Il existe aussi une extension pour OpenOffice.org
+et LibreOffice -- OOoLilyPond -- qui permet d'insérer des extraits dans
+un document.
 
 Pour mieux voir LilyPond en action, consulter la documentation ou
 accéder directement au logiciel, rendez-vous sur www.lilypond.org.
@@ -1646,8 +1638,7 @@ accéder directement au logiciel, rendez-vous sur www.lilypond.org.
 
 Cette annexe présente quatre éditions de référence et deux éditions
 informatisées des sept dernières mesures de la fugue en sol mineur
-extraite du Premier livre du clavier bien tempéré de Bach
-(BWV 861).
+extraite du Premier livre du clavier bien tempéré de Bach (BWV 861).
 
 @noindent
 Bärenreiter BA5070 (Neue Ausgabe Sämtlicher Werke, Serie V, Band 6.1,
@@ -1662,10 +1653,9 @@ Bärenreiter BA5070 (Neue Ausgabe Sämtlicher Werke, Serie V, Band 6.1,
 
 @noindent
 Bärenreiter BA5070 (Neue Ausgabe Sämtlicher Werke, Serie V, Band 6.1,
-1989), à partir d'une autre source.  En plus de différences au niveau
-des éléments textuels, ce travail montre que, au sein d'une même maison
-d'édition, les appréciations peuvent être différentes selon le
-graveur :
+1989), à partir d'une autre source. En plus de différences au niveau des
+éléments textuels, ce travail montre que, au sein d'une même maison
+d'édition, les appréciations peuvent être différentes selon le graveur :
 
 @iftex
 @sourceimage{bwv861-baer-alt,16cm,}
@@ -1676,9 +1666,9 @@ graveur :
 
 @noindent
 Breitkopf & Härtel, édité par Ferruccio Busoni (Wiesbaden, 1894),
-disponible à la Petrucci Music Library (IMSLP #22081).  Les
-éléments éditoriaux tels que doigtés et articulations en ont été gommés
-aux fins de comparaison avec les autres éditions :
+disponible à la Petrucci Music Library (IMSLP #22081). Les éléments
+éditoriaux tels que doigtés et articulations en ont été gommés aux fins
+de comparaison avec les autres éditions :
 
 @iftex
 @sourceimage{bwv861-breitkopf,16cm,}

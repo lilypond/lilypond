@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+   Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -38,7 +38,14 @@ consultation en ligne. Les formats HTML en fichier unique -- certains
 ont une taille conséquente -- contiennent l'intégralité d'un manuel sur
 une seule page. Les exemplaires PDF sont plutôt destinés au
 téléchargement pour consultation hors ligne. Ces trois formats sont
-accessibles en suivant le lien « détail de@dots{} » de chacun des manuels.
+accessibles en suivant le lien « détail de… » de chacun des manuels.
+
+Bien que la version PDF des manuels est fort probablement la plus
+optimale en matière de lecture et d'impression, particulièrement si l'on
+veut zoomer, elle comporte en inconvénient par rapport au HTML : copier
+et coller des bribes de codes LilyPond ne préserve pas l'indentation. Il
+s'agit en l'espèce d'une déficience du format PDF lui-même, non lié au
+système de documentation de LilyPond, qui ne peut être résolu.
 
 @divClass{link-headings}
 
@@ -48,10 +55,9 @@ accessibles en suivant le lien « détail de@dots{} » de chacun des manuels.
 @itemize
 
 @item
-@ref{Text input} :
-LilyPond est un système de gravure musicale @strong{en mode texte}.  Si
-vous ne savez pas du tout ce que ça veut dire, lisez tout d'abord
-ceci !
+@ref{Text input} : LilyPond est un système de gravure musicale
+@strong{en mode texte}. Si vous ne savez pas du tout ce que ça veut
+dire, lisez tout d'abord ceci !
 
 @item
 @ifWebLinks{@manualStableLearningSplitNoName-fr,@rlearningnamed{Top,Initiation}}
@@ -60,9 +66,9 @@ une introduction pas-à-pas à LilyPond.
 
 @item
 @ifWebLinks{@manualStubStableGlossarySplitNoName-fr,@rglosnamed{Top,Glossaire}}
-@emph{(lecture optionnelle)} répertoire de définition et de traduction
-de termes musicaux, utile en particulier pour connaître les termes
-musicaux en anglais.
+@emph{(lecture optionnelle)} répertoire de définition et de
+traduction de termes musicaux, utile en particulier pour connaître
+les termes musicaux en anglais.
 @details{Glossary, Glossaire}
 
 @item
@@ -83,14 +89,15 @@ traditionnelle avec poinçons et plaques de plomb.
 
 @item
 @ifWebLinks{@manualStableNotationSplitNoName-fr,@rnotationnamed{Top,Notation}}
-partie la plus importante de la documentation, ce manuel fournit toutes
-les informations détaillées dont vous aurez besoin en matière de notation.
+partie la plus importante de la documentation, ce manuel fournit
+toutes les informations détaillées dont vous aurez besoin en
+matière de notation.
 @details{Notation, Notation}
 
 @item
 @ifWebLinks{@manualStableUsageSplitNoName-fr,@rprogramnamed{Top,Utilisation}}
-présentation des différentes composantes de LilyPond, ainsi que les
-particularités de certains systèmes d'exploitation.
+présentation des différentes composantes de LilyPond, ainsi que
+les particularités de certains systèmes d'exploitation.
 @details{Usage, Utilisation}
 
 @item
@@ -104,8 +111,8 @@ XXX Enable the next item after the 2.26 stable release.
 
 @item
 @docLink{Index visuel,ly-examples/visualindex.pdf,
-         @uref{@value{manualStable}/ly-examples/visualindex.pdf}} :
-index visuel de tous les objets graphiques (PDF).
+@uref{@value{manualStable}/ly-examples/visualindex.pdf}} : index visuel
+de tous les objets graphiques (PDF).
 
 @end ignore
 
@@ -131,7 +138,7 @@ ce document.
 @item
 @ifWebLinks{@manualStableChangesSplitNoName-fr,@rchangesnamed{Top,Nouveautés}}
 changements depuis la dernière version stable.
-@details{Changes, Nouveautés}
+@details{Changes,Nouveautés}
 
 @item
 @ifWebLinks{@manualStableExtendingSplitNoName-fr,@rextendnamed{Top,Extension}}
@@ -225,15 +232,14 @@ ces manuels sont publiés sous la licence GNU de documentation libre FDL.
 @subheading Manuel d'initiation
 
 Ce manuel explique comment débuter avec LilyPond, et expose de manière
-simple quelques concepts clés.  Il est conseillé de lire ces chapitres
-de manière linéaire.
+simple quelques concepts clés. Il est conseillé de lire ces chapitres de
+manière linéaire.
 
 Dans ce manuel se trouve à chaque section un paragraphe @strong{Voir
 aussi} contenant des références vers d'autres sections : il est
-conseillé de ne pas les suivre en première lecture ; lorsque vous
-aurez lu l'ensemble du manuel d'initiation, vous pourrez en relisant
-certaines sections suivre ces références pour approfondir certains
-aspects.
+conseillé de ne pas les suivre en première lecture ; lorsque vous aurez
+lu l'ensemble du manuel d'initiation, vous pourrez en relisant certaines
+sections suivre ces références pour approfondir certains aspects.
 @divEnd
 
 @divClass{column-right-bottom}
@@ -254,7 +260,7 @@ aspects.
 @subheading Glossaire
 
 Ce document explique en anglais des termes musicaux, et donne leur
-traduction dans diverses langues.  Si vous n'êtes pas familier avec la
+traduction dans diverses langues. Si vous n'êtes pas familier avec la
 notation et la terminologie musicales, il est conseillé de consulter le
 glossaire, notamment pour les parties non encore traduites de la
 documentation.
@@ -279,11 +285,11 @@ documentation.
 @subheading Essai
 
 Ce document résume l'histoire de la typographie musicale, puis examine
-les techniques de gravure à l'œuvre dans LilyPond.  Il inclut également
+les techniques de gravure à l'œuvre dans LilyPond. Il inclut également
 des comparaisons entre LilyPond et d'autres logiciels de notation
 musicale.
 
-@warning{il est plus facile d'examiner les détails typographiques dans
+@warning{Il est plus facile d'examiner les détails typographiques dans
 l'édition de ce manuel au format PDF, car elle peut être vue à une plus
 haute résolution.}
 
@@ -307,7 +313,7 @@ haute résolution.}
 @subheading Manuel de notation
 
 Ce manuel détaille toutes les commandes LilyPond produisant une notation
-musicale.  La lecture de cet ouvrage requiert une bonne compréhension des
+musicale. La lecture de cet ouvrage requiert une bonne compréhension des
 concepts exposés dans le manuel d'initiation.
 
 @warning{L'utilisation optimale du manuel de notation requiert une
@@ -336,7 +342,7 @@ glossaire.}
 
 Ce manuel explique l'exécution des programmes et l'intégration de
 partitions LilyPond dans d'autres programmes, et suggère des « bonnes
-pratiques » pour une utilisation plus efficace.  Sa lecture est
+pratiques » pour une utilisation plus efficace. Sa lecture est
 recommandée avant d'aborder de grands projets.
 
 @divEnd
@@ -364,8 +370,8 @@ et fonctionnalités particulières de LilyPond, issus de
 sont dans le domaine public.
 
 Notez bien que cette annexe n'est en aucune manière un miroir ou même
-une partie du Wiki.  Dans la mesure où LilyPond Wiki repose sur une version
-stable de LilyPond, les exemples illustrant des fonctionnalités
+une partie du Wiki. Dans la mesure où LilyPond Wiki repose sur une
+version stable de LilyPond, les exemples illustrant des fonctionnalités
 introduites dans la dernière version de développement ne peuvent y
 figurer ; c'est pourquoi vous les trouverez dans le répertoire
 @file{Documentation/@/snippets/@/new/} des sources de LilyPond.
@@ -394,15 +400,15 @@ manuel de notation est accessible par des liens dans le paragraphe
 
 @subsubheading Où sont la vue graphique, les menus et barres d'outils ?
 
-LilyPond demande que la musique soit écrite comme du texte.  Lisez la
+LilyPond demande que la musique soit écrite comme du texte. Lisez la
 partie intitulée @ref{Text input}.
 
 
 @subsubheading La documentation est si longue !  Dois-je vraiment la lire ?
 
-Vous devez lire le @ref{Learning,manuel d'initiation}.  Pour le reste
-de la documentation, vous n'avez besoin de lire que ce qui est en
-rapport avec la notation musicale que vous voulez produire.
+Vous devez lire le @ref{Learning,manuel d'initiation}. Pour le reste de
+la documentation, vous n'avez besoin de lire que ce qui est en rapport
+avec la notation musicale que vous voulez produire.
 
 
 @subsubheading Ça fait encore beaucoup à lire !  Ai-je besoin de lire tout cela ?
@@ -417,12 +423,14 @@ utiliser LilyPond se trouvent peut-être dans notre @ref{Introduction}.
 
 @subsubheading Quelque chose ne fonctionne pas !  Comment je le répare ?
 
-C'est expliqué dans @rprogramnamed{Troubleshooting, Résolution de problèmes}.
+C'est expliqué dans @rprogramnamed{Troubleshooting, Résolution de
+problèmes}.
 
 
 @subsubheading Pourquoi changez-vous la syntaxe ?
 
-C'est expliqué dans @rprogramnamed{Why does the syntax change?, LilyPond est une langue vivante}.
+C'est expliqué dans @rprogramnamed{Why does the syntax change?, LilyPond
+est une langue vivante}.
 
 @divEnd
 
@@ -513,14 +521,14 @@ d’ajustements et retouches dans LilyPond.
 
 C'est un ensemble de pages étroitement liées entre elles, qui documente
 les moindres petits détails de chaque classe, objet et fonction de
-LilyPond.  Cette documentation est produite directement à partir des
-définitions de formatage du code source.  Elle n'est à ce jour
-disponible qu'en anglais.
+LilyPond. Cette documentation est produite directement à partir des
+définitions de formatage du code source. Elle n'est à ce jour disponible
+qu'en anglais.
 
 Presque toutes les fonctions de formatage utilisées en interne sont
-directement disponibles pour l'utilisateur.  Par exemple, toutes les
+directement disponibles pour l'utilisateur. Par exemple, toutes les
 variables qui contrôlent les épaisseurs, les distances, etc. peuvent
-être modifiées dans les fichiers d'entrée.  Il y a un grand nombre
+être modifiées dans les fichiers d'entrée. Il y a un grand nombre
 d'options de formatage, et elles sont toutes décrites dans ce document.
 Chaque section du manuel de notation a un paragraphe @b{Voir aussi}, qui
 renvoie à la documentation générée automatiquement.
@@ -621,7 +629,7 @@ LilyPond 1.6 Documentation}
 @subheading Licence de la documentation
 
 La documentation de GNU LilyPond est publiée selon les termes de la
-@emph{GNU Free Documentation License}.  Une brève introduction à cette
+@emph{GNU Free Documentation License}. Une brève introduction à cette
 licence ainsi que les motifs qui nous ont fait l'adopter se trouvent à
 la page @ref{Freedom}.
 

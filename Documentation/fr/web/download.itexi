@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: a639edf751682ef4a5a9988b708fcdde3c3dd386
+    Translation of GIT committish: c2ea1fa2792532a1a123f08504fc8677defb7a96
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -29,11 +29,10 @@
 @subsubheading Pour les nouveaux utilisateurs
 @c VO For new users
 
-@ref{Text input} : LilyPond travaille sur des
-@strong{fichiers textuels}.  Il s'apparente davantage à un langage
-de programmation qu'à un éditeur de partitions en mode graphique.
-Lisez cette page pour comprendre les bases du fonctionnement
-de LilyPond.
+@ref{Text input} : LilyPond travaille sur des @strong{fichiers
+textuels}. Il s'apparente davantage à un langage de programmation qu'à
+un éditeur de partitions en mode graphique. Lisez cette page pour
+comprendre les bases du fonctionnement de LilyPond.
 
 @ifWebLinks{@manualStableLearningSplitNoName-fr,@rlearningnamed{Top,Manuel d'initiation}}
 Cette introduction pas-à-pas à LilyPond montre comment l'installer et
@@ -42,16 +41,16 @@ vous guide à travers vos premiers pas avec l'application.
 @subsubheading Pour les utilisateurs qui mettent à jour LilyPond depuis une version antérieure
 
 @ifWebLinks{@manualStableChangesSplitNoName-fr,@rchangesnamed{Top,Nouveautés}}
-Évolutions de LilyPond @versionStable par rapport à la version
-stable précédente.
+Évolutions de LilyPond @versionStable par rapport à la version stable
+précédente.
 
 @ifWebLinks{@manualStableUsageSplitNoName-fr,@rprogramnamed{Top,Manuel d'utilisation}}
-Fonctionnment de @command{convert-ly}, utilitaire de mise à jour automatique des
-fichiers écrits pour une version précédente de LilyPond.
+Fonctionnement de @command{convert-ly}, utilitaire de mise à jour
+automatique des fichiers écrits pour une version précédente de LilyPond.
 
 @ifWebLinks{@manualStableLearningSplitNoName-fr,@rlearningnamed{Top,Manuel d'initiation}}
-La méthode détaillée dans le tutoriel indique comment installer plusieurs
-versions de LilyPond en parallèle.
+La méthode détaillée dans le tutoriel indique comment installer
+plusieurs versions de LilyPond en parallèle.
 
 @divEnd
 
@@ -63,10 +62,10 @@ versions de LilyPond en parallèle.
 @subsubheading Paquets de votre distribution ou paquets génériques ?
 @c VO Generic Packages or Distribution-Specific Packages?
 
-De nombreuses distributions GNU/Linux disposent d'un paquet
-LilyPond dans leurs dépôts.  Cependant, il arrive qu'ils soient
-plus anciens que la dernière version stable.  Si c'est le cas pour
-vous, mieux vaut installer LilyPond avec ces paquets génériques.
+De nombreuses distributions GNU/Linux disposent d'un paquet LilyPond
+dans leurs dépôts. Cependant, il arrive qu'ils soient plus anciens que
+la dernière version stable. Si c'est le cas pour vous, mieux vaut
+installer LilyPond avec ces paquets génériques.
 
 @subsubheading Téléchargement des paquets génériques
 @c VO Downloads for Generic Packages
@@ -87,8 +86,8 @@ vous, mieux vaut installer LilyPond avec ces paquets génériques.
 @subsubheading Téléchargement des paquets génériques
 @c VO Downloads for Generic Packages
 
-Ces exécutables fonctionnent sur les versions actuelles de Windows
-(les systèmes Windows 7 et Windows 8 ne sont pas pris en charge).
+Ces exécutables fonctionnent sur les versions actuelles de Windows (les
+systèmes Windows 7 et Windows 8 ne sont pas pris en charge).
 
 @itemize
 @item
@@ -105,9 +104,9 @@ Ces exécutables fonctionnent sur les versions actuelles de Windows
 @subsubheading Téléchargement des paquets génériques
 @c VO Downloads for Generic Packages
 
-Ces exécutables fonctionnent sur macOS 10.15 (Catalina) et supérieur.
-Si vous utilisez une version antérieure de macOS, veuillez
-installer LilyPond depuis MacPorts.
+Ces exécutables fonctionnent sur macOS 10.15 (Catalina) et supérieur. Si
+vous utilisez une version antérieure de macOS, veuillez installer
+LilyPond depuis MacPorts.
 
 @itemize
 @item
@@ -128,7 +127,7 @@ pour Mac OS, dispose de
 @item
 @sourceimage{logo-homebrew,,}
 @uref{https://brew.sh/,Homebrew}, autre gestionnaire de paquets pour
-for Mac OS, propose une @uref{https://formulae.brew.sh/formula/lilypond,
+for Mac OS, propose une @uref{https://formulae.brew.sh/formula/lilypond,
 formule LilyPond}.
 @end itemize
 
@@ -189,7 +188,6 @@ protégés par le droit d’auteur.
 @end menu
 
 
-
 @node Source
 @unnumberedsec Sources
 
@@ -210,8 +208,6 @@ Les instructions permettant de compiler LilyPond sont répertoriées dans
 @divEnd
 
 
-
-
 @node Old downloads
 @unnumberedsec Anciennes versions
 
@@ -229,8 +225,6 @@ pour les versions antérieures.
 @divEnd
 
 
-
-
 @node GPL
 @unnumberedsec GPL
 
@@ -238,10 +232,9 @@ pour les versions antérieures.
 @subheading Licence logicielle
 @c VO Software license
 
-GNU LilyPond est distribué selon la
-@ref{GPL,Licence Publique Générale GNU GPL}.  Pour une introduction à
-cette licence, et les raisons qui nous ont fait l'adopter, lisez
-@ref{Freedom}.
+GNU LilyPond est distribué selon la @ref{GPL,Licence Publique Générale
+GNU GPL}. Pour une introduction à cette licence, et les raisons qui nous
+ont fait l'adopter, lisez @ref{Freedom}.
 
 @divEnd
 

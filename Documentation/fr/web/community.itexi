@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage : fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+   Translation of GIT committish: c2ea1fa2792532a1a123f08504fc8677defb7a96
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -152,7 +152,7 @@ Liste de diffusion italophone}
 
 @end quotation
 
-Mersi de nous contacter si vous désirez faire apparaître une autre liste
+Merci de nous contacter si vous désirez faire apparaître une autre liste
 de diffusion en relation avec LilyPond.
 @divEnd
 
@@ -183,7 +183,7 @@ pertinents sont directement inclus dans la documentation, volume
 @subsubheading Liste de diffusion des développeurs : @code{lilypond-devel@@gnu.org}
 
 C'est sur cette liste que se tiennent les discussions ayant trait au
-développement.  C'est aussi à cette liste que peuvent être adressés les
+développement. C'est aussi à cette liste que peuvent être adressés les
 patches.
 
 @quotation
@@ -200,7 +200,7 @@ archive@tie{}2},
 @subsubheading Liste de diffusion des bogues : @code{bug-lilypond@@gnu.org}
 
 Cette liste @strong{anglophone} est tout spécialement consacrée
-signalements et discussions à propos des bogues ou limitations.  Elle
+signalements et discussions à propos des bogues ou limitations. Elle
 n'est pas destinée à recevoir des patches.
 
 @quotation
@@ -223,7 +223,7 @@ liste sont répertoriées dans @ref{Bug reports}.}
 
 @subsubheading Liste de diffusion des versions : @code{info-lilypond@@gnu.org}
 
-Cette liste de diffusion est en lecture seule.  Son but est de notifier
+Cette liste de diffusion est en lecture seule. Son but est de notifier
 la mise à disposition des versions.
 
 @quotation
@@ -322,7 +322,7 @@ aider comprendront votre propos et vous apporteront une réponse.
 
 @item
 Réduire l'exemple à sa plus simple expression indique que vous avez déjà
-tenté par vous-même de trouver une solution.  Des tonnes de lignes
+tenté par vous-même de trouver une solution. Des tonnes de lignes
 laissent à penser que celui qui les envoie se soucie guère de ce qui
 arrive.
 
@@ -352,7 +352,7 @@ Inclure une mention @code{\version} pour indiquer le numéro de version
 utilisée.
 
 @item
-Être aussi bref et concis que possible.  Si des problèmes concernant les
+Être aussi bref et concis que possible. Si des problèmes concernant les
 espacements ou la mise en page peuvent nécessiter un certain nombre de
 mesures, la plupart des litiges peuvent se cantonner à moins d'une
 mesure.
@@ -360,8 +360,8 @@ mesure.
 @item
 Lorsque vous créez un exemple minimal à partir de votre code, commencez
 par commenter des portions de votre fichier -- à l'aide de @w{@code{%}
-ou @code{%@{ @dots{} %@}}}.  Tout ce que vous mettez en commentaire et
-qui ne nuit pas à la démonstration est superflu ; suprimez-le !
+ou @code{%@{ @dots{} %@}}}. Tout ce que vous mettez en commentaire et
+qui ne nuit pas à la démonstration est superflu ; supprimez-le !
 
 @item
 Évitez autant que faire se peut toute notation, tonalité ou métrique
@@ -410,7 +410,7 @@ En voici un exemple :
 @}
 @end example
 
-C'est vrai, ce n'est pas très long.  Mais on peut encore le réduire :
+C'est vrai, ce n'est pas très long. Mais on peut encore le réduire :
 
 @example
 \version "2.14.1"
@@ -445,7 +445,7 @@ Un recensement des bogues non encore résolus est disponible sur notre
 @end example
 
 @warning{Nous vous saurons gré de ne pas ajouter directement de
-signalement sur le traceur de bogues.  Vous pourrez toujours, une fois
+signalement sur le traceur de bogues. Vous pourrez toujours, une fois
 qu'il aura été dûment répertorié, y apporter vos commentaires et
 compléments d'information.}
 
@@ -459,10 +459,10 @@ Lorsque le dysfonctionnement que vous avez repéré n'est pas répertorié,
 faites-le nous savoir en créant un signalement de bogue.
 
 @warning{Nous n'acceptons les signalements de bogue que s'ils sont
-rédigés sous la forme d'@ref{Tiny examples}.  Nous ne disposons
-pas de suffisamment de ressources pour traiter les rapports de bogue,
-aussi tout exemple non minimaliste sera rejeté.  Dans la plupart des
-cas, seules quelques notes suffisent à démontrer le dysfonctionnement.}
+rédigés sous la forme d'@ref{Tiny examples}. Nous ne disposons pas de
+suffisamment de ressources pour traiter les rapports de bogue, aussi
+tout exemple non minimaliste sera rejeté. Dans la plupart des cas,
+seules quelques notes suffisent à démontrer le dysfonctionnement.}
 
 Voici ce à quoi devrait ressembler tout signalement de bogue :
 
@@ -488,8 +488,8 @@ Voici ce à quoi devrait ressembler tout signalement de bogue :
 Après avoir vérifié que votre problème n'est pas déjà répertorié et
 rédigé votre rapport de bogue, n'hésitez pas à nous le transmettre.
 
-Il n'existe malheureusement plus d'interface permettant de poster
-sur la liste de diffusion de bogues sans y être abonné.  Consultez
+Il n'existe malheureusement plus d'interface permettant de poster sur la
+liste de diffusion de bogues sans y être abonné. Consultez
 @example
 @uref{https://lists.gnu.org/mailman/listinfo/bug-lilypond}
 @end example
@@ -503,10 +503,10 @@ pour plus d'information.
 
 Une fois le message reçu, nos « exterminateurs de bogues » analyseront
 votre rapport et vous demanderont peut-être des informations
-complémentaires avant de l'ajouter au traceur.  Dans la mesure où
-l'équipe est réduite, merci de leur laisser quelques jours avant
-qu'ils ne vous transmettent le numéro de référence de votre signalement
-une fois qu'il aura été ajouté à la base.
+complémentaires avant de l'ajouter au traceur. Dans la mesure où
+l'équipe est réduite, merci de leur laisser quelques jours avant qu'ils
+ne vous transmettent le numéro de référence de votre signalement une
+fois qu'il aura été ajouté à la base.
 
 Vous pourrez alors, après l'avoir indiqué en cliquant le symbole
 « enveloppe » apparaissant en regard du titre du rapport, être
@@ -518,9 +518,9 @@ automatiquement notifié du traitement apporté à ce bogue.
 @subheading Information complémentaire : indication du comportement escompté
 
 Une fois votre requête enregistrée, n'hésitez pas à nous indiquer le
-résultat que vous escomptiez.  Qu'il s'agisse d'un bout de code ou d'une
-image -- réalisée à partir de n'importe quel outil --, tant que cela nous
-aide à voir ce que vous désirez obtenir.
+résultat que vous escomptiez. Qu'il s'agisse d'un bout de code ou d'une
+image -- réalisée à partir de n'importe quel outil --, tant que cela
+nous aide à voir ce que vous désirez obtenir.
 @divEnd
 
 
@@ -561,7 +561,7 @@ Il fut un temps où
 
 Le projet LilyPond ne dispose d'aucune organisation quant à ces
 « efforts » ; il n'est en aucun cas partie prenante dans ces
-transactions ni ne saurait les interdire.  Tout contrat qui pourrait
+transactions ni ne saurait les interdire. Tout contrat qui pourrait
 intervenir entre personnes privées ne saurait nous impliquer.
 
 @divEnd
@@ -575,13 +575,13 @@ les points suivants :
 
 @itemize
 @item
-Les développeurs de LilyPond peuvent parfois proposer leurs services
-sur les différentes listes de diffusion.
+Les développeurs de LilyPond peuvent parfois proposer leurs services sur
+les différentes listes de diffusion.
 
 @item
 Tout entendement entre personnes privées requiert les mêmes précautions
 de base que n'importe quelle transaction : qui paye, combien, par quel
-moyen et dans quelles conditions.  Nous vous invitons à lever tout doute
+moyen et dans quelles conditions. Nous vous invitons à lever tout doute
 ou ambiguïté à ce sujet, avant même que les travaux soient entamés.
 
 @end itemize
@@ -595,7 +595,6 @@ ou ambiguïté à ce sujet, avant même que les travaux soient entamés.
 
 @divClass{heading-center}
 @heading Développement pour LilyPond @versionDevel
-
 
 @c we normally don't allow named references, but in this case
 @c it's good to emphasize the "stable" part.  -gp
@@ -612,12 +611,11 @@ lecture des @ref{Manuals, manuels pour la version stable}.}
 @subheading Numérotation des versions
 @c VO Release numbers
 
-Il existe deux jeux de version pour LilyPond : des versions stables
-et des versions instables de développement.  Les versions stables
+Il existe deux jeux de version pour LilyPond : des versions stables et
+des versions instables de développement. Les versions stables
 comportent, en versionnage « mineur », un numéro pair (par ex. 2.14,
-2.16 ou 2.18).  Les versions de développement, quant à elles,
-comportent un versionnage « mineur » impair (par ex. 2.15, 2.17
-ou 2.19).
+2.16 ou 2.18). Les versions de développement, quant à elles, comportent
+un versionnage « mineur » impair (par ex. 2.15, 2.17 ou 2.19).
 
 @divEnd
 
@@ -672,7 +670,7 @@ manuel d'@manualDevelLearningSplitNoName-fr{}.
 @subheading Le guide du contributeur
 @c VO Contributor's Guide
 
-Le développement de LilyPond est relativement complexe.  Dans l'espoir
+Le développement de LilyPond est relativement complexe. Dans l'espoir
 d'aider les nouveaux contributeurs, et dans le but de préserver au mieux
 la stabilité de ce système, nous avons rédigé un manuel dédié aux
 activités de développement.
@@ -779,8 +777,8 @@ concernant la notation ABC -- convertie par @command{abc2ly} --
 @c VO Manuals
 
 @ifclear web_version
-@warning{Il s'agit des manuels pour LilyPond @version{} ; la
-dernière mouture est consultable sur @url{https://lilypond.org}}
+@warning{Il s'agit des manuels pour LilyPond @version{} ; la dernière
+mouture est consultable sur @url{https://lilypond.org}.}
 @end ifclear
 
 @divClass{normal-table}
