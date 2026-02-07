@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 126af3d0c486475bc66ae306c28efb66c8205bd7
+   Translation of GIT committish: c2ea1fa2792532a1a123f08504fc8677defb7a96
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -81,8 +81,8 @@ pour le réglage des propriétés.
 Certains types d'objet portent des noms spécifiques. Les objets qui se
 rapportent à des éléments de notation sur le fichier de sortie, comme
 les notes, les hampes, les liaisons de phrasé ou de prolongation, les
-doigtés, les clefs, etc. sont appelés « Objets de rendu » ; ils sont
-aussi connus sous le nom « d'Objets graphiques » (en anglais :
+doigtés, les clefs, etc. sont appelés « objets de rendu » ; ils sont
+aussi connus sous le nom « d'objets graphiques » (en anglais :
 @emph{Graphical objects} ou @dfn{grobs} pour faire court). Ce sont bien
 des objets au sens générique ci-dessus et, en tant que tels, ils
 reçoivent des propriétés qui leur sont associées, comme leur position,
@@ -102,7 +102,7 @@ commande @code{\stopStaff} puis créés de nouveau à l'aide de la commande
 @code{\startStaff}.
 
 De plus existent certains @emph{grobs} que l'on peut qualifier
-« d'astraits ». Ils n'ont pas pour fonction intrinsèque d'imprimer
+« d'abstraits ». Ils n'ont pas pour fonction intrinsèque d'imprimer
 quelque chose, mais plutôt de collecter, positionner et gérer d'autres
 objets. Citons, parmi les plus courants, @code{DynamicLineSpanner},
 @code{BreakAlignment}, @code{NoteColumn}, @code{VerticalAxisGroup} ou
@@ -240,7 +240,7 @@ faisant précéder une valeur par un @samp{#}. Quant aux nombres, ils
 doivent être précédés d'un @samp{#} lorsqu'ils sont utilisés en argument
 à une fonction de @emph{markup} -- autrement dit dans un bloc
 @code{\markup}.@footnote{Notez cependant que, pour LilyPond, un nombre
-@strong{doît commencer} par un chiffre ou un signe moins suivi d'un
+@strong{doit commencer} par un chiffre ou un signe moins suivi d'un
 chiffre dès qu'on n'est pas en mode Scheme. En d'autre termes,
 @samp{0.2} ou @samp{-0.2} sont des nombres valides, alors que @samp{.2}
 et @samp{-.2} ne le sont pas. Si cela était vraiment nécessaire, on
@@ -441,7 +441,7 @@ correct ne ne s'obtiendrait qu'en procédant à tâtons.
 }
 @end lilypond
 
-De toute évidence, @code{\offset} n'est effectif que pour traîter des
+De toute évidence, @code{\offset} n'est effectif que pour traiter des
 valeurs de type numérique. Il existe d'autres restrictions à ce qui peut
 se modifier, comme mentionné dans @rnotationnamed{The offset command, La
 commande @code{\offset}}.
@@ -473,7 +473,7 @@ a'4^"Black"
 
 @noindent
 Attention : les commandes @code{\tweak} et @code{\offset} doivent être
-précédées d'une marque d'articulation, comme si elles-même étaient des
+précédées d'une marque d'articulation, comme si elles-mêmes étaient des
 articulations. Dans la cas de multiples positionnements forcés --
 @samp{^} ou @samp{_} --, celui le plus à gauche aura préséance puisqu'il
 sera appliqué en dernier.
@@ -561,7 +561,8 @@ commande @code{\override} :
 
 @morerefs
 Manuel de notation :
-@rnotationnamed{Tweak and single, Les commandes @code{\tweak} et @code{\single}},
+@rnotationnamed{Tweak and single,
+Les commandes @code{\tweak} et @code{\single}},
 @rnotationnamed{The offset command, La commande @code{\offset}}.
 @endmorerefs
 
@@ -739,7 +740,7 @@ que l'on pourrait traduire ainsi :
 @example
 thickness (nombre)
     1.2
-    [...] Pour les liaisons de phrésé et de tenue, c'est la distance
+    [...] Pour les liaisons de phrasé et de tenue, c'est la distance
     entre les deux arcs extérieurs de la courbe à son point le plus
     épais, [...] Cette propriété s'exprime en multiple de l'épaisseur
     de ligne de portée en cours [...]
@@ -1168,7 +1169,7 @@ Scheme, Scheme et les calculs}.
 @end indentedblock
 
 Attention : les arguments numériques aux fonctions de @emph{markup} au
-sein d'un bloc @code{\markup} riquièrent un signe dièse.
+sein d'un bloc @code{\markup} requièrent un signe dièse.
 
 @morerefs
 Manuel d'extension :
@@ -1371,7 +1372,7 @@ pour rendre la métrique transparente est :
 @end lilypond
 
 L'utilisation de la propriété @code{transparent} étant relativement
-fréquent, LilyPond dispose d'un raccourci à cet effet : @code{\hide}
+fréquente, LilyPond dispose d'un raccourci à cet effet : @code{\hide}
 (pour « masquer »).
 
 @funindex \hide
@@ -1459,9 +1460,9 @@ des couleurs}. Pour mettre les barres de mesure en blanc, on écrit :
 et nous constatons que les barres de mesure sont une fois de plus
 invisibles. Attention : aucune apostrophe ne précède @code{"white"} --
 il ne s'agit pas d'un symbole, mais d'une chaîne de caractères mappée
-dans une liste prédéfinie de valeurs internes. La syntaxe de Lilypond, à
+dans une liste prédéfinie de valeurs internes. La syntaxe de LilyPond, à
 ce propos, ressemble en tout point au
-@uref{https://www.w3.org/Style/CSS/, langage CSS} couremment utilisé
+@uref{https://www.w3.org/Style/CSS/, langage CSS} couramment utilisé
 pour les pages internet. En plus des noms prédéfinis, il est possible de
 spécifier une couleur par un code hexadécimal :
 
@@ -1833,7 +1834,7 @@ précisément dans ce but. Elle comporte un argument, le changement de
 taille de police (la valeur -2 dans l'exemple précédent), à partir
 duquel elle applique un facteur de mise à l'échelle qui réduit, ou
 augmente, les objets en question. La gageure consiste donc à ne pas
-modifier la taille des haampes et autres objets, mais de plutôt jouer
+modifier la taille des hampes et autres objets, mais de plutôt jouer
 sur la l'unité de base de ces tailles -- en l'occurrence la propriété
 @code{staff-space} de l'objet graphique @code{StaffSymmbol}.
 
@@ -2025,8 +2026,8 @@ déplacé comme son parent @code{Stem}.
 toujours les effets escomptés, voir @rnotationnamed{Aligning objects,
 Alignement des objets}.}
 
-@cindex @code{X-extent} property
-@cindex @code{Y-extent} property
+@cindex @code{X-extent}, propriété
+@cindex @code{Y-extent}, propriété
 
 Venons-en maintenant à une autre paire de propriétés : @code{X-extent}
 et @code{Y-extent}. Toutes deux sont constituées d'une paire de nombres,
@@ -2053,7 +2054,7 @@ va de même pour la tête de la brève (nous avons préféré le style de tête
 
 Supposons maintenant que nous voulions positionner un objet
 @code{RehearsalMark} de telle sorte que son bord droit s'aligne sur une
-barre de mesure (par défaut, LilyPond centre horizontalemenet la marque
+barre de mesure (par défaut, LilyPond centre horizontalement la marque
 de repère). Avec un @code{X-offset} égal à zéro, c'est à dire que son
 point de référence s'aligne sur le point de référence de son parent, à
 savoir la barre de mesure dans le cas présent, le @emph{grob}
@@ -2099,7 +2100,7 @@ Une fonction avec un nom à rallonges est déjà disponible et capable de
 réaliser ces calculs pour nous :
 
 @example
-\override @var{GrobName}.X-offset =
+\override @var{NomGrob}.X-offset =
   #ly:self-alignment-interface::x-aligned-on-self
 @end example
 
@@ -2107,7 +2108,7 @@ réaliser ces calculs pour nous :
 à laquelle il suffit d'indiquer l'alignement désiré :
 
 @example
-\override @var{GrobName}.self-alignment-X = #RIGHT
+\override @var{NomGrob}.self-alignment-X = #RIGHT
 @end example
 
 Ce code demande à la procédure de trouver la distance entre le point de
@@ -2255,7 +2256,7 @@ près de la portée.
 Dans l'exemple suivant, tous les @emph{markup} ont la même priorité,
 dans la mesure où rien n'est indiqué explicitement. Vous remarquerez que
 @code{Text3} est également positionné près de la portée, juste
-en-dessous de @code{Text2}.
+au-dessous de @code{Text2}.
 
 @cindex @emph{markup}, exemple
 
@@ -2575,7 +2576,7 @@ défaut donnée dans la RPI à la page de l'objet @code{Fingering} étant
 
 Les objets extérieurs à la portée sont placés automatiquement de façon à
 éviter les collisions. Il est toutefois possible, grâce à différentes
-méthodes, de rectifier un positionnement automatique qui se révèlerait
+méthodes, de rectifier un positionnement automatique qui se révélerait
 ne pas être optimal.
 
 
@@ -2887,7 +2888,6 @@ avec la commande @code{\override}.
 
 @cindex @emph{grob}, dimensionnement
 @cindex dimensionnement des @emph{grobs}
-
 
 En règle générale, tous les objets graphiques disposent de la
 @code{grob-interface} qui contient, entre autres, les propriétés
@@ -3324,11 +3324,11 @@ les valeurs de leurs propriétés @code{horizontal-shift} permettront de
 les ordonner, les empilements de rang supérieur étant progressivement
 décalés pour éviter les chevauchements des têtes. Cette propriété est
 déterminée par les commandes @code{\voice@var{XXX}} et peut se voir
-aménagée par une commande @code{\override} ou, plus habituellemnt, par
+aménagée par une commande @code{\override} ou, plus habituellement, par
 les commandes @code{\shiftOn}. Notez bien que cette propriété ne fait
 qu'affecter un rang aux empilements pour leur décalage ; elle ne
 détermine en rien la magnitude du décalage, qui sera augmentera
-progressivement et selon un pas proprotionnel à la largeur des têtes de
+progressivement et selon un pas proportionnel à la largeur des têtes de
 chaque rang. Le pas, généralement de la moitié de la largeur d'une tête,
 peut aller jusqu'à la pleine largeur de tête en cas de groupes
 resserrés.
@@ -3421,21 +3421,21 @@ trouver les propriétés à retoucher pour obtenir un déplacement.
   @tab Nom d'objet
 @item Articulations, par ex. @samp{->}
   @tab @code{Script}
-@item Barres de ligature
+@item Barre de ligature
   @tab @code{Beam}
 @item Doigté
   @tab @code{Fingering}
-@item Liaisons de phrasé
+@item Liaison de phrasé
   @tab @code{Slur}
-@item Liaisons de prolongation
+@item Liaison de prolongation
   @tab @code{Tie}
-@item N-olets
+@item N-olet
   @tab @code{TupletBracket}
-@item Nuances (verticalement)
+@item Nuance (verticalement)
   @tab @code{DynamicLineSpanner}
-@item Nuances (horizontalement)
+@item Nuance (horizontalement)
   @tab @code{DynamicText}
-@item Reprises / marques de texte
+@item Reprise / marque de texte
   @tab @code{RehearsalMark}
 @item Texte, par ex. @samp{^"texte"}
   @tab @code{TextScript}
@@ -3509,7 +3509,7 @@ mais avec un fonctionnement radicalement différent : elle contrôle
 l'espacement horizontal entre une nuance absolue et une nuance textuelle
 avec extenseur démarrant au même moment.} On ne l'utilise pas souvent,
 mais l'espacement par défaut peut se révéler inadéquat avec certaines
-altérations ou certains glyphes utilisés en musique microtonale.
+altérations ou certains glyphes utilisés en musique micro-tonale.
 
 @cindex @code{AccidentalPlacement}, exemple de dérogation
 @cindex @code{right-padding}, exemple d'utilisation de la propriété
@@ -3840,7 +3840,7 @@ chez Henle, par exemple.} Voici, pour commencer, ce à quoi nous voulons
 que la partition ressemble ; pour limiter les complications, nous
 n'avons pas fait apparaître les indications de nuance, de doigté ni de
 pédale, et n'avons pas poussé les affinages autant qu'il aurait été
-posssible.
+possible.
 
 
 @c The following should appear as music without code
@@ -4895,7 +4895,7 @@ L'emplacement du répertoire dépend du fait que, pour vous procurer
 LilyPond, vous avez téléchargé un paquet précompilé sur
 @code{lilypond.org} ou vous l'avez installé grâce à votre gestionnaire
 de paquetages (c'est-à-dire distribué avec GNU/Linux ou installé avec
-MacPorts, Homebrew, +Cygwin, Chocolatey, etc.), ou encore vous l'avez
+MacPorts, Homebrew, Cygwin, Chocolatey, etc.), ou encore vous l'avez
 compilé directement à partir des sources.
 
 @itemize
@@ -4955,7 +4955,7 @@ Voici les fichiers les plus utiles dans le répertoire @file{ly/} :
 @headitem Nom de fichier
   @tab Contenu
 @item @file{ly/engraver-init.ly}
-  @tab Définition des contextes de graveurs
+  @tab Définition des contextes de graveur
 @item @file{ly/paper-defaults-init.ly}
   @tab Réglages papier par défaut
 @item @file{ly/performer-init.ly}

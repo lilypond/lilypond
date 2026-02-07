@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+   Translation of GIT committish: c2ea1fa2792532a1a123f08504fc8677defb7a96
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -86,8 +86,6 @@ c d e @}}} est valide, alors que @w{@samp{@{ C D E @}}} produit un
 message d'erreur.
 
 
-
-
 @node How to write input files
 @section Composition d'un fichier source
 
@@ -144,7 +142,7 @@ les exemples des manuels de LilyPond est utilisée la nomenclature
 batave. Néanmoins, LilyPond prend en charge d'autres dénominations des
 hauteurs -- voir @rnotationnamed{Note names in other languages, Nom des
 notes dans d'autres langues}. Les lettres @code{c} à @code{b} indiquent
-des hauteurs dans l'octave basse -- celle sous le @notation{do medium}.
+des hauteurs dans l'octave basse -- celle sous le @notation{do médium}.
 Leur adjoindre un @samp{'} ou un @samp{,} indique une octave supérieure
 ou inférieure. Voici une gamme commençant sur le @notation{do médium}
 ainsi qu'un arpège :
@@ -204,7 +202,7 @@ exemple le calcul des octaves relatives. En partant d'un si sur la
 troisième ligne de la clé de sol, un do, un ré ou un mi sans indication
 d'octave particulière seront placés juste au-dessus du si, c'est-à-dire
 au plus à une quarte ascendante du si, alors qu'un la, un sol ou un fa
-seront placés juste en-dessous du si, c'est-à-dire au plus à une quarte
+seront placés juste au-dessous du si, c'est-à-dire au plus à une quarte
 descendante du si.
 
 @lilypond[verbatim,quote]
@@ -265,7 +263,7 @@ Glossaire musicologique :
 La @notation{durée} d'une note est indiquée par un nombre qui suit sa
 hauteur : @samp{1} pour une @notation{ronde}, @samp{2} pour une
 @notation{blanche}, @samp{4} pour une @notation{noire} et ainsi de
-suite. Les @notation{crochets} et @notation{liens} (ou ligaturess) sont
+suite. Les @notation{crochets} et @notation{liens} (ou ligatures) sont
 ajoutés automatiquement.
 
 Si aucune durée n'est indiquée pour une note, la dernière durée entrée
@@ -565,7 +563,7 @@ section : tout ce qui se trouve entre @code{%@{} et @code{%@}} est
 ignoré. Les blocs de commentaires ne peuvent s'imbriquer, ce qui
 signifie que vous ne pouvez pas placer un commentaire-bloc à l'intérieur
 d'un autre commentaire-bloc. Si jamais vous essayez, vous verrez que la
-première occurence de @code{%@}} terminera « les @emph{deux}
+première occurrence de @code{%@}} terminera « les @emph{deux}
 commentaires-blocs ». Le fragment suivant met en évidence quelques
 usages possibles des commentaires :
 
@@ -595,7 +593,7 @@ pistes à suivre pour vous aider à éviter de telles déconvenues.
 
 Résoudre les problèmes rencontrés avec LilyPond est une gageure pour
 ceux qui ne connaissent que des interfaces graphiques puisque rien
-n'empèche de créer du code erroné. En pareil cas, il suffit souvent d'un
+l'empêche de créer du code erroné. En pareil cas, il suffit souvent d'un
 peu de logique pour être en mesure d'identifier les causes du problème
 et le résoudre simplement. Le chapitre @rprogramnamed{Troubleshooting,
 Résolution de problèmes} liste quelques directives à ce propos.

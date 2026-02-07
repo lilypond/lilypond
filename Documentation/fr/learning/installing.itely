@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo;; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+    Translation of GIT committish: c2ea1fa2792532a1a123f08504fc8677defb7a96
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -76,7 +76,7 @@ droite apparaît alors une partition simple.
 
 Félicitations, vous venez de créer votre première partition avec
 LilyPond. Si vous êtes déjà satisfait, vous pouvez passer ce qui suit.
-Toutefois, il se peut que la version de LilylPond qui vient d'être
+Toutefois, il se peut que la version de LilyPond qui vient d'être
 installée soit différente de celle sur laquelle se base cette
 documentation. Si vous voulez une autre version de LilyPond, vous pouvez
 l'indiquer dans Frescobaldi, sans pour autant perdre celle d'origine.
@@ -123,9 +123,8 @@ syntaxe de LilyPond.
 @node Graphical setup under Windows
 @section Installation en mode graphique sous Windows
 
-Récupérez LilyPond pour Windows à partir de la
-@rwebnamed{Download, page de téléchargement}. Le fichier est une
-archive ZIP nommée
+Récupérez LilyPond pour Windows à partir de la @rwebnamed{Download, page
+de téléchargement}. Le fichier est une archive ZIP nommée
 @file{lilypond-@/@var{x}@.@var{y}.@var{z}-@/mingw-@/x86_64.zip} (où
 « mingw » signifie que c'est pour Windows) qu'il faut dézipper dans
 l'explorateur de fichiers. Placez le nouveau répertoire
@@ -202,9 +201,8 @@ la syntaxe de LilyPond.
 @node Graphical setup under macOS
 @section Installation en mode graphique sous macOS
 
-Récupérez LilyPond pour Windows à partir de la
-@rwebnamed{Download, page de téléchargement}. Le fichier est une
-archive nommée
+Récupérez LilyPond pour macOS à partir de la @rwebnamed{Download, page
+de téléchargement}. Le fichier est une archive nommée
 @file{lilypond-@/@var{x}.@var{y}.@var{z}-@/darwin-@/x86_64.tar.gz} (où
 « darwin » signifie que c'est pour macOS) qu'il faut déplier dans
 l'explorateur de fichiers. Placez le nouveau répertoire
@@ -221,13 +219,13 @@ fichier @file{.dmg}.
 
 @center @sourceimage{macos-1-frescobaldi-download-github,10cm,}
 
-Dans l'explorateur, double-cliquez sur lel fichier pour lancer
+Dans l'explorateur, double-cliquez sur le fichier pour lancer
 l'installateur. Vous pourriez, à ce moment rencontrer un problème :
 
 @center @sourceimage{macos-2-frescobaldi-cant-be-opened,5cm,}
 
 Ceci est du au fait que le développement de Frescobaldi est réalisé
-indépendamment d'Apple. Ce logiciel est néanmoins sur, mais vous devez
+indépendamment d'Apple. Ce logiciel est néanmoins sûr, mais vous devez
 le dire à Apple. Pour ce faire, commencez par cliquer « Annuler ».
 @emph{Après avoir cliqué « Annuler »}, accédez à l'application
 « Préférences système » et sélectionnez « Sécurité et vie privée ».
@@ -305,9 +303,8 @@ partir de @uref{https://www.macports.org,MacPorts} ou
 @uref{https://brew.sh,Homebrew}.
 
 Dans tous les cas, on peut installer LilyPond en dépliant l'archive
-récupérée à partir de la
-@rwebnamed{Download, page de téléchargement}. Les binaires sont
-utilisables dès leur expansion. Vous pouvez lancer
+récupérée à partir de la @rwebnamed{Download, page de téléchargement}.
+Les binaires sont utilisables dès leur expansion. Vous pouvez lancer
 
 @example
 /@var{...}/lilypond-@var{x}.@var{y}.@var{z}/bin/lilypond fichier.ly
@@ -332,7 +329,7 @@ Ceci produira un résultat dans @file{fichier.pdf} :
 { c' }
 @end lilypond
 
-Passez maintenant au @ref{Tutorial} pour en apprendre plus sur
-la syntaxe de LilyPond, ou consultez
-@rprogramnamed{Command-line usage, Utilisation en ligne de commande} pour de plus amples
-informations sur l'utilisation de LilyPond en ligne de commande.
+Passez maintenant au @ref{Tutorial} pour en apprendre plus sur la
+syntaxe de LilyPond, ou consultez @rprogramnamed{Command-line usage,
+Utilisation en ligne de commande} pour de plus amples informations sur
+l'utilisation de LilyPond en ligne de commande.

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+   Translation of GIT committish: c2ea1fa2792532a1a123f08504fc8677defb7a96
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -32,7 +32,7 @@ et édité ; il suffit en fait d'ajouter une instruction @code{\include}
 au fichier source.
 
 @warning{Contrairement à la plupart des inclusions, la commande
-@code{@bs{}include} traitant ces gabarit préprogrammés doit se placer
+@code{@bs{}include} traitant ces gabarits préprogrammés doit se placer
 @strong{à la fin} du fichier source.}
 
 Les expressions musicales nécessaires sont affectées à des variables
@@ -185,7 +185,7 @@ dans la variable @code{DescantLyrics}. De la même manière, une partie de
 solo peut s'ajouter au-dessus du chœur en alimentant les variables
 @code{SoloMusic} et @code{SoloLyrics}.
 
-Comme pour n'importe quelle partition, vous pouver y ajouter des blocs
+Comme pour n'importe quelle partition, vous pouvez y ajouter des blocs
 @code{\header} et @code{\paper} en tête de fichier ; leur contenu sera
 combiné (sans les remplacer) aux réglages du gabarit préprogrammé. Tous
 les réglages par défaut du gabarit seront annulés dès lors que
@@ -236,7 +236,7 @@ sa valeur par défaut ou lui affecter @code{##f} laisse la possibilité
 de répartir les voix sur une ou deux portées selon le réglage de
 @code{SopranoTwoVoicesPerStaff}, @code{MenTwoVoicesPerStaff}, etc.
 
-Prenons par exmple un pièce pour soprano et alto qui commence à
+Prenons par exemple un pièce pour soprano et alto qui commence à
 l'unisson, puis passe à deux voix (soprano et alto), lesquelles
 finissent par se diviser. Cette partition pourrait se coder ainsi :
 

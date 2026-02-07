@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+   Translation of GIT committish: c2ea1fa2792532a1a123f08504fc8677defb7a96
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -211,15 +211,14 @@ bloc @code{\book} soit explicite ou non, il affectera chacun des
 @code{\score} compris dans ce @code{\book}.
 @end itemize
 
-Pour plus de détail à ce sujet, consultez
-@rnotationnamed{Multiple scores in a book,
-Plusieurs partitions dans un même ouvrage}.
+Pour plus de détail à ce sujet, consultez @rnotationnamed{Multiple
+scores in a book, Plusieurs partitions dans un même ouvrage}.
 
 @cindex variable
 @cindex identifiant
 
 Un autre raccourci pratique est la possibilité de définir des variables,
-également appelées « identificateurs » -- @pxref{Organizing pieces with
+également appelées « identifiants » -- @pxref{Organizing pieces with
 variables} à ce sujet. Dans tous les modèles, vous trouverez :
 
 @example
@@ -280,9 +279,9 @@ grandes expressions musicales petit bout par petit bout -- nous avons vu
 les notes, puis les accords, etc. Maintenant, nous allons partir d'une
 grande expression musicale, et remonter la pente. Pour rester simple,
 nous nous contenterons d'un chanteur accompagné au piano. On n'a pas
-besoin d'une partition d'orchestre -- c.-à-d. des portées regroupées en
-@code{StaffGroup} -- donc laissons cela de côté. Par contre, nous
-voulons bien une voix et une double portée de piano.
+besoin d'une partition d'orchestre -- c'est à dire des portées
+regroupées en @code{StaffGroup} -- donc laissons cela de côté. Par
+contre, nous voulons bien une voix et une double portée de piano.
 
 @example
 \score @{
@@ -354,8 +353,8 @@ accolades qui suivent @code{\new Voice = "chant"}, on pourrait commencer
 
 Mais si l'on procédait ainsi, la section @code{\score} deviendrait vite
 assez touffue, et très rapidement on ne s'y retrouverait plus. C'est
-pourquoi on utilisera plutôt des variables, ou identificateurs, comme
-nous l'avons vu plus haut. Pour s'assurer que le contenu de la variable
+pourquoi on utilisera plutôt des variables, ou identifiants, comme nous
+l'avons vu plus haut. Pour s'assurer que le contenu de la variable
 @code{words} soit bien interprété comme des paroles, nous le préfixons
 d'un @code{\lyricmode}. Sans cette précaution, LilyPond tenterait
 d'interpréter le contenu de cette variable comme des notes, ce qui
@@ -1333,8 +1332,8 @@ de désactiver les ligatures automatiques.
 
 Nous allons reprendre un extrait de @emph{Judas Maccabæus} pour
 illustrer ce que cette technique apporte en flexibilité. Nous commençons
-par utiliser des variables -- ou identificateurs -- afin de séparer de
-la structure de la portée aussi bien la musique que les paroles. Nous
+par utiliser des variables -- ou identifiants -- afin de séparer de la
+structure de la portée aussi bien la musique que les paroles. Nous
 ajoutons par la même occasion un crochet spécifique aux portées pour
 chœur (@code{ChoirStaff}). Quant aux blocs de paroles, nous les faisons
 précéder de la commande @code{\lyricmode} pour nous assurer qu'elles
@@ -1607,10 +1606,10 @@ Bien que ceci ne soit pas obligatoire, nous vous invitons à adopter
 cette pratique qui vous évitera nombre d'erreurs « accolades non
 appariées ». La structure de la musique apparaît ainsi au premier coup
 d'œil, et les défauts de parité sont plus facilement repérables. Vous
-remarquerez que la portée LH est créée à l'aide d'un double chevron
-gauche -- nécessaire pour gérer ses deux voix -- alors que la portée RH
-ne contient qu'une seule expression musicale -- il n'y a qu'une voix --
-bornée par des accolades simples.
+remarquerez que la portée @code{LH} est créée à l'aide d'un double
+chevron gauche -- nécessaire pour gérer ses deux voix -- alors que la
+portée @code{RH} ne contient qu'une seule expression musicale -- il n'y
+a qu'une voix -- bornée par des accolades simples.
 
 @cindex contexte, nommage
 @cindex nommage des contextes
@@ -1627,7 +1626,7 @@ Vous noterez la distinction entre le nom du type de contexte,
 lettres au bon gré de l'utilisateur -- permettant d'identifier une
 instance particulière du type en question. Vous pouvez utiliser des
 chiffres et espaces, à la stricte condition d'englober le tout dans des
-guillemets ; l'identificateur suivant est tout à fait valide :
+guillemets ; l'identifiant suivant est tout à fait valide :
 @code{\new Staff = "MaPortee 1" @var{expression-musicale}}. Comme nous
 l'avons déjà vu dans le chapitre consacré aux paroles (@ref{Voices and
 vocals}), cet identifiant permettra ensuite de se référer à ce contexte
@@ -2542,7 +2541,7 @@ lower = \relative {
 préprogrammé @code{satb.ly} -- voir @ref{Built-in templates}. Il masque,
 dans un but de simplification, totalement la structure des contextes
 nécessaires et les génère automatiquement. Pour les besoins de la
-démonstration et à titre didactique nous procèderons ici pas à pas, ce
+démonstration et à titre didactique nous procéderons ici pas à pas, ce
 gabarit préprogrammé ne correspondant pas forcément à vos attentes.}
 
 Le gabarit qui se rapprocherait le plus de cette mise en forme est
@@ -2631,7 +2630,7 @@ piano » :
 puis d'ajouter les définitions de variable pour @code{superieur} et
 @code{inferieur}.
 
-Les systèmes pour chœur (@code{ChoirStaff})et pour piano
+Les systèmes pour chœur (@code{ChoirStaff}) et pour piano
 (@code{PianoStaff}) doivent être combinés à l'aide de doubles chevrons
 gauche/droite puisqu'ils doivent s'empiler :
 
@@ -3126,7 +3125,7 @@ violin = \new Staff {
 }
 @end lilypond
 
-Néanmoins vous pouvez aussi utiliser ces identificateurs -- aussi connus
+Néanmoins vous pouvez aussi utiliser ces identifiants -- aussi connus
 sous le nom de variables, @dfn{macros}, ou commandes (définies par
 l'utilisateur) -- pour des retouches :
 
@@ -3157,11 +3156,11 @@ violin = \relative {
 }
 @end lilypond
 
-Ces identificateurs sont évidemment utiles pour économiser de la frappe.
+Ces identifiants sont évidemment utiles pour économiser de la frappe.
 Mais ils peuvent l'être même si vous ne les utilisez qu'une seule fois :
 ils réduisent la complexité. Regardons l'exemple précédent sans aucun
-identificateur. C'est beaucoup plus laborieux à lire, et
-particulièrement la dernière ligne.
+identifiant. C'est beaucoup plus laborieux à lire, et particulièrement
+la dernière ligne.
 
 @example
 violin = \relative @{
@@ -3184,8 +3183,8 @@ Vous n'avez pas oublié les « postévénements » ? Rappelez-vous les
 articulations, doigtés, tout ce qui peut s'ajouter @emph{après} une note
 -- voir @ref{Structure of a note entry} --, souvent introduit par un
 tiret ou un indicateur de positionnement. Ces événements peuvent
-eux-même s'enregistrer sous forme de variable, auquel cas les
-habituelles accolades ne seront pas nécessaires puiqu'elles
+eux-mêmes s'enregistrer sous forme de variable, auquel cas les
+habituelles accolades ne seront pas nécessaires puisqu'elles
 n'apparaîtraient pas entre la note et son articulation.
 
 @noindent
@@ -3230,8 +3229,8 @@ padText =
 }
 @end lilypond
 
-Utiliser des identificateurs est aussi un bon moyen pour vous épargner
-du travail si la syntaxe de LilyPond change un jour -- voir
+Utiliser des identifiants est aussi un bon moyen pour vous épargner du
+travail si la syntaxe de LilyPond change un jour -- voir
 @rprogramnamed{Updating files with convert-ly, Mise à jour avec
 convert-ly}. Si vous avez une seule définition, par exemple
 @code{\dolce}, pour tous vos fichiers (voir @ref{Style sheets}) et que
@@ -3299,7 +3298,7 @@ transposition est visible comme suit :
 
 Dans les pièces d'ensemble, il arrive souvent qu'une voix ne joue pas
 pendant plusieurs mesures. Un silence spécial, appelé silence
-multimesures, l'indique alors. On l'obtient par un @code{R} majuscule,
+multimesure, l'indique alors. On l'obtient par un @code{R} majuscule,
 suivi d'une durée : @code{1} pour une pause, @code{2} pour une
 demi-pause, etc. Cette durée peut être multipliée pour établir de plus
 longs silences. Par exemple, le silence suivant dure trois mesures

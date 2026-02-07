@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8de70593080ba6e86a32540b834e2acf3dbdd460
+   Translation of GIT committish: c2ea1fa2792532a1a123f08504fc8677defb7a96
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -53,8 +53,9 @@ Cette section présente la notation courante dont on a besoin pour
 Les simples barres de mesure se placent automatiquement ; nul n'est
 besoin de les saisir. D'autres types de barre de mesure sont accessibles
 par la commande @code{\bar}, tels que @code{\bar "||"} pour une double
-barre ou @code{\bar "|."} pour la barre finale.  Pour une liste des
-différents styles de barre de mesure, voir @rnotationnamed{Bar lines, Barres de mesure}.
+barre ou @code{\bar "|."} pour la barre finale. Pour une liste des
+différents styles de barre de mesure, voir @rnotationnamed{Bar lines,
+Barres de mesure}.
 
 @lilypond[verbatim,quote]
 \relative { g'1 e1 \bar "||" c2. c'4 \bar "|." }
@@ -97,7 +98,8 @@ votre attention l'absence du @samp{4} à la troisième mesure.
 @morerefs
 Manuel de notation :
 @rnotationnamed{Bar lines, Barres de mesure},
-@rnotationnamed{Bar and bar number checks, Vérification des limites et numéros de mesure}.
+@rnotationnamed{Bar and bar number checks,
+Vérification des limites et numéros de mesure}.
 @endmorerefs
 
 
@@ -154,9 +156,9 @@ Cependant, si vous utilisez la commande @code{\language "italiano"} pour
 entrer les noms de note français au lieu des noms hollandais, il faudra
 ajouter un @samp{d} pour obtenir un dièse, et un @samp{b} pour un bémol.
 Le double dièse et le double bémol s'obtiennent en ajoutant
-respectivement @samp{dd} et @samp{bb}.  Pour en savoir plus sur les
-autres langues disponibles, consultez
-@rnotationnamed{Note names in other languages, Nom des notes dans d'autres langues}.
+respectivement @samp{dd} et @samp{bb}. Pour en savoir plus sur les
+autres langues disponibles, consultez @rnotationnamed{Note names in
+other languages, Nom des notes dans d'autres langues}.
 @c END DIV
 
 @lilypond[verbatim,quote]
@@ -237,11 +239,10 @@ Dans cet exemple,
 aucune note n'a d'altération accidentelle, et pourtant vous devrez
 entrer le @samp{is} pour les notes @samp{cis} et @samp{fis}.
 
-Le code @samp{b} ne veut pas dire @qq{Imprimez-moi un point noir sur
-la troisième ligne de la portée.}  Cela signifie plutôt : @qq{Ici se
-trouve une note dont la hauteur est un si naturel.}  Avec une armure
-de la bémol majeur, ce @samp{si} est flanqué d'un bécarre
-accidentel :
+Le code @samp{b} ne veut pas dire « Imprimez-moi un point noir sur la
+troisième ligne de la portée ». Cela signifie plutôt : « Ici se trouve
+une note dont la hauteur est un si naturel ». Avec une armure de la
+bémol majeur, ce @samp{si} est flanqué d'un bécarre accidentel :
 
 @lilypond[verbatim,quote]
 \relative {
@@ -256,11 +257,11 @@ lors que vous voulez enfoncer l'une des touches noires, il vous faudra
 
 Ajouter explicitement toutes les altérations demande un peu plus
 d'effort dans la phase de saisie, mais cela facilite grandement la
-@notation{transposition}.  De plus, les altérations accidentelles
-peuvent ainsi être imprimées suivant plusieurs conventions.  Pour
-connaître les différentes manières dont les altérations accidentelles
-peuvent être imprimées, consultez @rnotationnamed{Automatic accidentals,
-Altérations accidentelles automatiques}.
+@notation{transposition}. De plus, les altérations accidentelles peuvent
+ainsi être imprimées suivant plusieurs conventions. Pour connaître les
+différentes manières dont les altérations accidentelles peuvent être
+imprimées, consultez @rnotationnamed{Automatic accidentals, Altérations
+accidentelles automatiques}.
 
 @morerefs
 Manuel de notation :
@@ -759,10 +760,10 @@ combinée à deux notes :
 @cindex expression
 
 Ce mécanisme est similaire aux formules mathématiques : une grosse
-formule est créée en assemblant plusieurs petites formules.  De telles
-formules sont appelées expressions, elles ont une définition
-récursive, de telle sorte que vous pouvez fabriquer des expressions
-arbitrairement longues et complexes.  Par exemple :
+formule est créée en assemblant plusieurs petites formules. De telles
+formules sont appelées expressions, elles ont une définition récursive,
+de telle sorte que vous pouvez fabriquer des expressions arbitrairement
+longues et complexes. Par exemple :
 
 @display
 @math{1}
@@ -773,13 +774,13 @@ arbitrairement longues et complexes.  Par exemple :
 
 @noindent
 Ceci est une suite d'expressions, où chacune est contenue dans la
-suivante.  Les expressions les plus simples sont les nombres, et de
-plus grandes expressions sont produites en combinant des expressions
-avec des opérateurs -- comme @math{+}, @math{*} et @math{/} -- et
-des parenthèses.  Tout comme les expressions mathématiques, les
-expressions musicales peuvent être imbriquées avec une profondeur
-arbitraire, ce qui est nécessaire pour des partitions complexes comme
-de la musique polyphonique.
+suivante. Les expressions les plus simples sont les nombres, et de plus
+grandes expressions sont produites en combinant des expressions avec des
+opérateurs -- comme @math{+}, @math{*} et @math{/} -- et des
+parenthèses. Tout comme les expressions mathématiques, les expressions
+musicales peuvent être imbriquées avec une profondeur arbitraire, ce qui
+est nécessaire pour des partitions complexes comme de la musique
+polyphonique.
 
 
 @node Simultaneous music expressions multiple staves
@@ -807,7 +808,7 @@ Pour entrer une musique avec plusieurs voix ou plusieurs portées, nous
 pouvons aussi combiner @emph{en parallèle} les expressions : deux
 voix qui doivent être jouées en même temps, sont entrées comme une
 combinaison simultanée de deux expressions.  Une expression musicale
-@qq{simultanée} est formée en entourant les expressions entre @code{<<}
+« simultanée » est formée en entourant les expressions entre @code{<<}
 et @code{>>}.  Dans l'exemple suivant, trois expressions (contenant
 chacune deux notes distinctes) sont combinées simultanément.
 
@@ -970,7 +971,8 @@ des barres de mesure.
 
 @morerefs
 Manuel de notation :
-@rnotationnamed{Keyboard and other multi-staff instruments, Instruments utilisant des portées multiples},
+@rnotationnamed{Keyboard and other multi-staff instruments,
+Instruments utilisant des portées multiples},
 @rnotationnamed{Displaying staves, Gravure des portées}.
 @endmorerefs
 
@@ -1020,7 +1022,7 @@ durée, donc @emph{à l'extérieur} des chevrons.
 @noindent
 Cet exemple illustre par ailleurs une fonctionnalité fort intéressante :
 un accord peut se répéter à l'aide du symbole @samp{q}. Et ceci est
-opèrationnel même lorsque des notes isolées viennent s'insérer dans la
+opérationnel même lorsque des notes isolées viennent s'insérer dans la
 séquence.
 
 @lilypond[verbatim,quote]
@@ -1091,8 +1093,8 @@ come out to play}.
 @end lilypond
 
 Des @notation{paroles} peuvent être associées à ces notes, en les
-combinant avec la commande @code{\addlyrics}.  On entre les paroles en
-séparant chaque syllable par une espace :
+combinant avec la commande @code{\addlyrics}. On entre les paroles en
+séparant chaque syllabe par une espace :
 
 @lilypond[verbatim,quote]
 <<
@@ -1172,8 +1174,7 @@ les notes du mélisme.  Pour les détails, consultez @ref{Ties and slurs}.
 Les paroles sont maintenant correctement alignées, mais les liens de
 croche automatiques ne conviennent pas pour les notes au-dessus de
 @emph{shine as}.  On peut les corriger en ajoutant des liens de croche
-manuels ; pour ceci consultez
-@ref{Automatic and manual beams}.
+manuels ; pour ceci consultez @ref{Automatic and manual beams}.
 
 @lilypond[verbatim,quote]
 <<
@@ -1325,10 +1326,9 @@ L'exemple suivant est extrait de @emph{Judas Macchabée} de Händel.
 @end lilypond
 
 Pour produire des partitions plus complexes ou plus longues que cet
-exemple simple, il est vivement conseillé de séparer la structure de
-la partition des notes et paroles, grâce à des variables.  Ceci sera
-détaillé plus loin dans
-@ref{Organizing pieces with variables}.
+exemple simple, il est vivement conseillé de séparer la structure de la
+partition des notes et paroles, grâce à des variables. Ceci sera
+détaillé plus loin dans @ref{Organizing pieces with variables}.
 
 @morerefs
 Manuel de notation :
@@ -1365,9 +1365,9 @@ profondément imbriquées, jusqu'au point où il devient difficile de se
 repérer dans le fichier source.  Cet inconvénient peut être résolu par
 l'utilisation de @emph{variables}.
 
-En utilisant des variables, parfois appelées identificateurs ou
-macros, on peut scinder des expressions musicales complexes en des
-expressions plus simples.  Une variable se définit comme suit :
+En utilisant des variables, parfois appelées identifiants ou macros, on
+peut scinder des expressions musicales complexes en des expressions plus
+simples. Une variable se définit comme suit :
 
 @example
 musiqueToto = @{ @dots{} @}
@@ -1419,7 +1419,7 @@ barA = { \tripletA \tripletA \tripletA \tripletA }
 }
 @end lilypond
 
-Il est possible d'utiliser des variables de types variés.  Par exemple,
+Il est possible d'utiliser des variables de types variés. Par exemple,
 
 @example
 maLargeur = 60   % un nombre transmis à une variable \paper
@@ -1428,8 +1428,8 @@ monNom = "Wendy" % une chaîne transmise à un markup
 aCinqPapier = \paper @{ #(set-paper-size "a5") @}
 @end example
 
-En fonction de son contenu, un identificateur peut être utilisé à
-différents endroits.  L'exemple suivant utilise les variables définies
+En fonction de son contenu, un identifiant peut être utilisé à
+différents endroits. L'exemple suivant utilise les variables définies
 ci-dessus.
 
 @example
@@ -1474,9 +1474,9 @@ en début de fichier, après le numéro de version.
 
 @noindent
 Quand LilyPond traite le fichier, le titre et le compositeur sont
-imprimés au début de la partition.  Vous trouverez plus d'informations
-sur les titres à la section
-@rnotationnamed{Creating titles headers and footers, Création de titres et entête ou pied de page}.
+imprimés au début de la partition. Vous trouverez plus d'informations
+sur les titres à la section @rnotationnamed{Creating titles headers and
+footers, Création de titres et entête ou pied de page}.
 
 
 @node Absolute note names
@@ -1536,7 +1536,7 @@ référence :
 }
 @end lilypond
 
-Avec un @code{\relative}, le même exemple ne recquiert pas d'indication
+Avec un @code{\relative}, le même exemple ne requiert pas d'indication
 d'octave puisque la mélodie progresse sur des intervalles ne dépassant
 pas la tierce.
 
@@ -1590,9 +1590,9 @@ morceau ou deux. Commencez par copier l'un des modèles types et
 ajoutez-y des notes -- consultez les @ref{Templates}. Si vous voulez
 employer une notation que vous n'avez pas trouvée dans le tutoriel,
 consultez le manuel de notation, en commençant par la
-@rnotationnamed{Musical notation, Notation musicale générale}. Si vous désirez écrire pour un
-ensemble instrumental non couvert par les modèles, lisez la section
-@ref{Extending the templates}.
+@rnotationnamed{Musical notation, Notation musicale générale}. Si vous
+désirez écrire pour un ensemble instrumental non couvert par les
+modèles, lisez la section @ref{Extending the templates}.
 
 Après avoir écrit quelques pièces courtes, lisez les chapitres 3 à 5
 du manuel d'initiation.  Rien ne s'oppose à ce que vous consultiez dès
@@ -1609,9 +1609,9 @@ première lecture ; lorsque vous aurez lu l'ensemble du manuel
 d'initiation, vous pourrez en relisant certaines sections suivre ces
 références pour approfondir certains aspects.
 
-Si vous ne l'avez pas encore fait, lisez
-@ref{Overview of manuals}.  Les sources de documentation et
-d'information sur LilyPond sont vastes, il est normal pour un débutant
-de ne pas savoir où chercher ; si vous passez quelques minutes à
-lire attentivement cette section, vous vous épargnerez certainement la
-frustration causée par des heures de recherches infructueuses.
+Si vous ne l'avez pas encore fait, lisez @ref{Overview of manuals}. Les
+sources de documentation et d'information sur LilyPond sont vastes, il
+est normal pour un débutant de ne pas savoir où chercher ; si vous
+passez quelques minutes à lire attentivement cette section, vous vous
+épargnerez certainement la frustration causée par des heures de
+recherches infructueuses.
