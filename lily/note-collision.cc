@@ -262,16 +262,25 @@ check_meshing_chords (Grob *me, Grob *clash_up, Grob *clash_down)
       Grob *wipe_ball = 0;
       Grob *dot_wipe_head = fh_up;
 
+      // The user might have hidden one of the notes.  It was correct to ignore
+      // that to this point, since transparent grobs are expected to affect
+      // layout; but now that we have decided to eliminate one, it makes sense
+      // to be satisfied when one is already hidden.
+      auto visible_dot_count = [] (Grob *head) {
+        auto *const dots = Rhythmic_head::get_dots (head);
+        return (dots && !dots->is_transparent ())
+                 ? from_scm (get_property (dots, "dot-count"), 0)
+                 : 0;
+      };
+
       if (up_ball_type == down_ball_type)
         {
-          if (Rhythmic_head::dot_count (fh_down)
-              < Rhythmic_head::dot_count (fh_up))
+          if (visible_dot_count (fh_down) < visible_dot_count (fh_up))
             {
               wipe_ball = fh_down;
               dot_wipe_head = fh_down;
             }
-          else if (Rhythmic_head::dot_count (fh_down)
-                   > Rhythmic_head::dot_count (fh_up))
+          else if (visible_dot_count (fh_down) > visible_dot_count (fh_up))
             {
               dot_wipe_head = fh_up;
               wipe_ball = fh_up;
