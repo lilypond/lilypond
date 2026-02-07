@@ -1,7 +1,7 @@
-From d637d8155566087243ee4afbbcd4296ad6f2480f Mon Sep 17 00:00:00 2001
+From dcf8d3c586593c7d8b98ff06bc1d46c34e5572c7 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Michael=20K=C3=A4ppler?= <xmichael-k@web.de>
 Date: Tue, 25 Jun 2024 23:30:41 +0200
-Subject: [PATCH 3/3] mpz->integer: do not convert to bignum if inum is
+Subject: [PATCH 9/9] mpz->integer: do not convert to bignum if inum is
  sufficient
 
 Before, `take_mpz` would convert to bignum if the `mpz` value
@@ -33,5 +33,5 @@ index 1560c5d17..092345b1d 100644
    return ret;
  }
 -- 
-2.34.1
+2.52.0
 

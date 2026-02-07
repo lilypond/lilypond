@@ -1,7 +1,7 @@
-From e2a279152a291514ddbd42c3faefa82d2d4483f8 Mon Sep 17 00:00:00 2001
+From 7555fa162ee08e153300d0e229967d36a6910fab Mon Sep 17 00:00:00 2001
 From: Jonas Hahnfeld <hahnjo@hahnjo.de>
 Date: Wed, 20 Mar 2024 20:57:02 +0100
-Subject: [PATCH 6/6] Use inum_magnitude for inums
+Subject: [PATCH 6/9] Use inum_magnitude for inums
 
 * libguile/integers.c: Call inum_magnitude instead of long_magnitude
   for scm_t_inum arguments.
@@ -51,5 +51,5 @@ index 23bd2c0d5..380ff193c 100644
          mp_limb_t hi = mpn_mul_1 (rd, xd, xn, yd);
          if (hi)
 -- 
-2.34.1
+2.52.0
 

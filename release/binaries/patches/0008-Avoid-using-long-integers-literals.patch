@@ -1,7 +1,7 @@
-From 7d21acce0f94b8fd372e6bb3e55d8b04d964c85b Mon Sep 17 00:00:00 2001
+From 88950f82b241909a80c57d65266a11fed67bebb4 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Michael=20K=C3=A4ppler?= <xmichael-k@web.de>
 Date: Wed, 19 Jun 2024 22:07:09 +0200
-Subject: [PATCH 2/3] Avoid using `long` integers literals
+Subject: [PATCH 8/9] Avoid using `long` integers literals
 
 Bit manipulation on `long` integer literals caused overflow in
 some cases (e.g., when calculating high powers of two) on Windows,
@@ -53,5 +53,5 @@ index aab49428e..1560c5d17 100644
  
  SCM
 -- 
-2.34.1
+2.52.0
 

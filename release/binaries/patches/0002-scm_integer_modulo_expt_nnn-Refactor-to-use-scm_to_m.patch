@@ -1,7 +1,7 @@
-From 61bb25cb080dc874e5d85387b8e0874d48e11978 Mon Sep 17 00:00:00 2001
+From 68a7fc2477ff4fa91f26e3217130705e74c25dfc Mon Sep 17 00:00:00 2001
 From: Jonas Hahnfeld <hahnjo@hahnjo.de>
 Date: Wed, 30 Aug 2023 17:36:30 +0200
-Subject: [PATCH 2/6] scm_integer_modulo_expt_nnn: Refactor to use scm_to_mpz
+Subject: [PATCH 2/9] scm_integer_modulo_expt_nnn: Refactor to use scm_to_mpz
 
 * libguile/integers.c (scm_integer_modulo_expt_nnn): Refactor to use
 scm_to_mpz.
@@ -57,5 +57,5 @@ index cc62d1c78..81ee06206 100644
    /* if the exponent K is negative, and we simply call mpz_powm, we
       will get a divide-by-zero exception when an inverse 1/n mod m
 -- 
-2.34.1
+2.52.0
 

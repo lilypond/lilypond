@@ -1,7 +1,7 @@
-From 31dbc71a3692d9eb0f36d89e3b25a1e45d5c4917 Mon Sep 17 00:00:00 2001
+From 4924a4990b5dabd004021049a54f5b9d8079c98a Mon Sep 17 00:00:00 2001
 From: Jonas Hahnfeld <hahnjo@hahnjo.de>
 Date: Sat, 2 Sep 2023 16:15:37 +0200
-Subject: [PATCH 4/6] Decouple scm_t_inum from long datatype
+Subject: [PATCH 4/9] Decouple scm_t_inum from long datatype
 
 Guile expects that scm_t_inum (a typedef to long before this patch)
 has the same size as pointers to get compatible bytecode on different
@@ -128,7 +128,7 @@ index 84ad5466f..8bc87829a 100644
  
  /* SCM_SRS (X, Y) is signed right shift, defined as floor (X / 2^Y),
 diff --git a/libguile/scm.h b/libguile/scm.h
-index 4d079b1a8..e053c9883 100644
+index 180b40159..3ca0f93b2 100644
 --- a/libguile/scm.h
 +++ b/libguile/scm.h
 @@ -843,6 +843,8 @@ typedef struct scm_thread scm_thread;
@@ -141,5 +141,5 @@ index 4d079b1a8..e053c9883 100644
  
  /* Cast pointer through (void *) in order to avoid compiler warnings
 -- 
-2.34.1
+2.52.0
 

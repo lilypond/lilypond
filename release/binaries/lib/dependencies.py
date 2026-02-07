@@ -43,7 +43,7 @@ def copy_slice(src: str, dst: str, lines: slice):
 class Expat(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "2.7.1"
+        return "2.7.4"
 
     @property
     def directory(self) -> str:
@@ -139,7 +139,7 @@ zlib = Zlib()
 class FreeType(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "2.13.3"
+        return "2.14.1"
 
     @property
     def directory(self) -> str:
@@ -214,7 +214,7 @@ fontconfig = Fontconfig()
 class Ghostscript(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "10.05.1"
+        return "10.06.0"
 
     @property
     def directory(self) -> str:
@@ -338,7 +338,7 @@ class Gettext(ConfigurePackage):
 
     @property
     def version(self) -> str:
-        return "0.26"
+        return "1.0"
 
     @property
     def directory(self) -> str:
@@ -411,7 +411,7 @@ gettext = Gettext()
 class Libffi(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "3.5.1"
+        return "3.5.2"
 
     @property
     def directory(self) -> str:
@@ -445,7 +445,7 @@ libffi = Libffi()
 class PCRE2(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "10.45"
+        return "10.47"
 
     @property
     def directory(self) -> str:
@@ -485,7 +485,7 @@ pcre2 = PCRE2()
 class GLib(MesonPackage):
     @property
     def version(self) -> str:
-        return "2.84.3"
+        return "2.86.3"
 
     @property
     def directory(self) -> str:
@@ -558,7 +558,7 @@ glib = GLib()
 class Bdwgc(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "8.2.8"
+        return "8.2.12"
 
     @property
     def directory(self) -> str:
@@ -598,7 +598,7 @@ bdwgc = Bdwgc()
 class Libunistring(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "1.3"
+        return "1.4.1"
 
     @property
     def directory(self) -> str:
@@ -650,7 +650,7 @@ libunistring = Libunistring()
 class Guile(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "3.0.10"
+        return "3.0.11"
 
     @property
     def major_version(self) -> str:
@@ -670,17 +670,6 @@ class Guile(ConfigurePackage):
         return f"https://ftpmirror.gnu.org/gnu/guile/{self.archive}"
 
     def _apply_patches_mingw(self, c: Config):
-        # Patch lightening to fix JIT calling conventions on Windows.
-        def patch_x86(content: str) -> str:
-            replace = "if (defined(__CYGWIN__) || defined(_WIN64))"
-            content = content.replace("ifdef __CYGWIN__", replace)
-            content = content.replace("if __CYGWIN__", replace)
-            return content
-
-        for ext in ["c", "h"]:
-            x86 = os.path.join("libguile", "lightening", "lightening", f"x86.{ext}")
-            self.patch_file(c, x86, patch_x86)
-
         # Fix headers so compilation of LilyPond works.
         def patch_numbers(content: str) -> str:
             return "\n".join(
@@ -690,8 +679,6 @@ class Guile(ConfigurePackage):
         numbers_h = os.path.join("libguile", "numbers.h")
         self.patch_file(c, numbers_h, patch_numbers)
 
-        # Strictly speaking, this is not necessary for Guile 3.0.9 but it
-        # makes testing of current main easier.
         def patch_scm(content: str) -> str:
             return content.replace(
                 "# define SCM_API __declspec(dllimport) extern",
@@ -724,7 +711,6 @@ class Guile(ConfigurePackage):
             "0007-Fix-inum-negation.patch",
             "0008-Avoid-using-long-integers-literals.patch",
             "0009-mpz-integer-do-not-convert-to-bignum-if-inum-is-suff.patch",
-            "0010-Fix-setjmp-longjmp-related-crashes-on-Windows.patch",
         ]:
             patch_path = os.path.join(root_path, "patches", patch)
             with open(patch_path) as patch_file:
@@ -735,15 +721,6 @@ class Guile(ConfigurePackage):
                     cwd=self.src_directory(c),
                     check=True,
                 )
-
-        # Patch '0010-...' changes `libguile/Makefile.am`. We thus modify
-        # `libguile/Makefile.in` manually to avoid a dependency on
-        # `auto(re)conf`.
-        def patch_makefile_in(content: str) -> str:
-            return content.replace("script.h", "script.h setjump-win.h")
-
-        makefile_in = os.path.join("libguile", "Makefile.in")
-        self.patch_file(c, makefile_in, patch_makefile_in)
 
     def apply_patches(self, c: Config):
         # Gnulib provides the file localcharset.c that defines locale_charset.
@@ -845,7 +822,7 @@ guile = Guile()
 class HarfBuzz(MesonPackage):
     @property
     def version(self) -> str:
-        return "11.3.2"
+        return "12.3.2"
 
     @property
     def directory(self) -> str:
@@ -913,7 +890,7 @@ fribidi = FriBidi()
 class Pango(MesonPackage):
     @property
     def version(self) -> str:
-        return "1.56.4"
+        return "1.57.0"
 
     @property
     def directory(self) -> str:
@@ -972,7 +949,7 @@ pango = Pango()
 class Libpng(ConfigurePackage):
     @property
     def version(self) -> str:
-        return "1.6.50"
+        return "1.6.54"
 
     @property
     def directory(self) -> str:
@@ -1086,7 +1063,7 @@ class Cairo(MesonPackage):
 cairo = Cairo()
 
 
-PYTHON_VERSION = "3.13.5"
+PYTHON_VERSION = "3.14.3"
 
 
 class Python(ConfigurePackage):
