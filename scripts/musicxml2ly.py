@@ -4135,6 +4135,10 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
     chordnames_builder = LilyPondVoiceBuilder()
     fretboards_builder = LilyPondVoiceBuilder()
 
+    if voice.cross_staff_chord_voice is not None:
+        globvars.layout_information.set_context_item(
+            'PianoStaff', r'\consists "Span_stem_engraver"')
+
     # Make sure that the keys in the dict don't get reordered, since
     # we need the correct ordering of the lyrics stanzas! By default,
     # a dict will reorder its keys
@@ -5396,6 +5400,8 @@ def print_voice_definitions(printer, part_list, voices):
         for (name, voice) in nv_dict.items():
             k = music_xml_voice_name_to_lily_name(part_id, name)
             printer('%s =' % k)
+            if voice.voicedata.cross_staff_chord_voice is not None:
+                printer(r'\crossStaff')
             voice.ly_voice.print_ly(printer)
             printer.newline()
             if voice.chordnames:
@@ -5463,7 +5469,8 @@ def print_voice_definitions(printer, part_list, voices):
 # ```
 def format_staff_info(part_id, staff_id, raw_voices):
     voices = []
-    for (v, lyricsids, figured_bass, chordnames, fretboards) in raw_voices:
+    for (v, lyricsids, figured_bass, chordnames, fretboards,
+         csc_voice) in raw_voices:
         voice_name = music_xml_voice_name_to_lily_name(part_id, v)
         voice_lyrics = [
             (music_xml_lyrics_name_to_lily_name(part_id, v, l),
@@ -5483,7 +5490,7 @@ def format_staff_info(part_id, staff_id, raw_voices):
             fretboards_name = music_xml_fretboards_name_to_lily_name(
                 part_id, v)
         voices.append([voice_name, voice_lyrics, figured_bass_name,
-                       chordnames_name, fretboards_name])
+                       chordnames_name, fretboards_name, csc_voice])
     return [staff_id, voices]
 
 
@@ -5522,7 +5529,8 @@ def update_score_setup(score_structure, part_list, voices, parts):
                                      order,
                                      voice.figured_bass,
                                      voice.chordnames,
-                                     voice.fretboards)
+                                     voice.fretboards,
+                                     voice.voicedata.cross_staff_chord_voice)
                         thisstaff_raw_voices.append(raw_voice)
 
                 staves_info.append(format_staff_info(
@@ -5539,11 +5547,13 @@ def update_score_setup(score_structure, part_list, voices, parts):
                              order,
                              voice.figured_bass,
                              voice.chordnames,
-                             voice.fretboards)
+                             voice.fretboards,
+                             voice.voicedata.cross_staff_chord_voice)
                 thisstaff_raw_voices.append(raw_voice)
 
             staves_info.append(format_staff_info(
                 part_id, None, thisstaff_raw_voices))
+
         part = score_structure.find_part(part_id)
         if part is not None:
             part.set_part_information(staves_info)

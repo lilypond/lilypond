@@ -1430,7 +1430,8 @@ class Frame_Note(Music_xml_node):
 
 
 class Musicxml_voice:
-    def __init__(self):
+    def __init__(self, cross_staff_chord_voice=None):
+        self.cross_staff_chord_voice = cross_staff_chord_voice
         self._elements = []
         self._staves = {}
         self._start_staff = None
