@@ -4474,7 +4474,13 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
             # In cross-staff situations it can happen that `n.single_voice`
             # is set while `voice_number` is zero, so we test for the
             # latter, too.
-            if voice_number and n.single_voice is not None:
+            #
+            # All notes in cross-staff chord voices have the `single_voice`
+            # flag set by definition; the stem direction is set globally for
+            # such voices.
+            if (voice_number
+                    and n.single_voice is not None
+                    and voice.cross_staff_chord_voice is None):
                 if is_single_voice != n.single_voice:
                     is_single_voice = n.single_voice
 
@@ -4571,12 +4577,6 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
             # This catches '<grace note> <dynamics> <main note>'.
             if voice_builder.pending_elements and 'chord' not in n:
                 voice_builder.add_pending_elements()
-
-        # A staff change might happen anywhere; for this reason we have more
-        # checks here and below.
-        if staff_change and 'chord' in n:
-            # TODO: Handle cross-staff chords.
-            staff_change = None
 
         if grace is not None or note_grace_skip is not None:
             grace_chord = None

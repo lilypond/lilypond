@@ -5007,9 +5007,14 @@ class Staff(StaffGroup):
             for [v, lyrics, figuredbass, _, _, csc_voice] in voices:
                 n += 1
                 voice_text = ''
-                if nr_voices > 1:
+                if nr_voices > 1 or csc_voice:
                     # TODO: Support more voices.
                     voice_number = n
+                    # Cross-staff chord voices need the right stem
+                    # direction, otherwise stems don't connect.
+                    if ((csc_voice == 'U' and voice_number % 2 == 0)
+                            or (csc_voice == 'D' and voice_number % 2)):
+                        voice_number += 1
                     if voice_number > 4:
                         if not voice_warning:
                             ly.warning(_('Only up to 4 voices per staff are '

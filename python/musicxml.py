@@ -2056,12 +2056,26 @@ class Part(Music_xml_node):
             else:
                 main_sid = max_sid
 
+            main_sid = str(main_sid)
+
             # We can now set the `cross_staff` field, also moving the
             # `<beam>` children to a note in the main staff if necessary.
+            #
+            # The chord itself gets split into sub-chords.
             other_note_with_beam = None
             main_note = None
+            sub_chords_main_note = set()
+
             for chord_element in chord_elements:
-                if main_sid == int(chord_element.get('staff')):
+                sid = chord_element.get('staff', '1')
+
+                if sid not in sub_chords_main_note:
+                    # Convert first chord note of a sub-chord to a main note.
+                    if 'chord' in chord_element:
+                        del chord_element._content['chord']
+                    sub_chords_main_note.add(sid)
+
+                if main_sid == sid:
                     if not main_note:
                         main_note = chord_element
                 else:
@@ -2129,13 +2143,14 @@ class Part(Music_xml_node):
 
         # Keys of `voices_dict` are tuplets of the form
         #
-        #   (<staff ID>, <voice ID>, <grace>)
+        #   (<staff ID>, <voice ID>, <cross-staff chord direction>, <grace>)
         #
         # Values are constructed voice IDs reflecting LilyPond's needs.
         voices_dict = OrderedDict()
 
         # The next pre-pass collects all voice and staff ID information so
-        # that dynamics, clefs, etc., can be assigned to the correct voices.
+        # that dynamics, clefs, cross-staff chords, etc., can be assigned to
+        # the correct voices.
         for n in elements:
             try:
                 vid = n['voice']
@@ -2145,18 +2160,37 @@ class Part(Music_xml_node):
                 else:
                     continue
 
-            if vid is not None:
+            csc_voice_dir = None
+            if isinstance(n, Note) and n.cross_staff is not None:
+                csc_voice_dir = n.cross_staff
+            elif vid is not None:
                 last_vid = vid
 
             sid = n.get('staff', '1')
             grace = 'grace' in n
 
             # We start with using this as an ordered set.
-            voices_dict[(sid, vid, grace)] = None
+            voices_dict[(sid, vid, csc_voice_dir, grace)] = None
 
-        # We now construct IDs for all voices.
+        # We now construct IDs for all voices.  For cross-staff chords we
+        # need separate voices that come either first or last for a given
+        # staff, and which are shared with all voices that contain
+        # cross-staff chords (this means we need unique IDs based on staff
+        # IDs, not on voice IDs).
+        normal_voices = set([v[1] for v in voices_dict if not v[2]])
+
         for voice in voices_dict:
-            voices_dict[voice] = voice[1]
+            if not voice[2]:
+                voices_dict[voice] = voice[1]
+                continue
+
+            for suffix in ['U', 'D']:
+                if voice[2] == suffix:
+                    csc_vid = voice[0]
+                    # Find unique ID.
+                    while csc_vid + suffix in normal_voices:
+                        csc_vid += 'x'
+                    voices_dict[voice] = csc_vid + suffix
 
         # The collected information in `voices_dict` is now used to
         # construct two other dictionaries:
@@ -2185,19 +2219,36 @@ class Part(Music_xml_node):
         seen_ids = set()
         for (voice, id) in voices_dict.items():
             # Also ignore grace elements.
-            if id in seen_ids or voice[2]:
+            if id in seen_ids or voice[3]:
                 continue
 
             seen_ids.add(id)
 
+            # We temporarily use a triplet of lists as the value to simplify
+            # ordering.
             if voice[0] not in staff_to_voice_dict:
-                staff_to_voice_dict[voice[0]] = []
-            staff_to_voice_dict[voice[0]].append(id)
+                staff_to_voice_dict[voice[0]] = ([], [], [])
+            val = staff_to_voice_dict[voice[0]]
+            if voice[2] == 'U':
+                val[0].append(id)
+            elif voice[2] == 'D':
+                val[2].append(id)
+            else:
+                val[1].append(id)
 
         voices = OrderedDict()
         for sid in sorted(staff_to_voice_dict):
-            for vids in staff_to_voice_dict[sid]:
-                voices[vids] = Musicxml_voice()
+            for (vids_U, vids, vids_D) in [staff_to_voice_dict[sid]]:
+                for v in vids_U:
+                    voices[v] = Musicxml_voice('U')
+                for v in vids:
+                    voices[v] = Musicxml_voice()
+                for v in vids_D:
+                    voices[v] = Musicxml_voice('D')
+
+        # Now merge the triplets into simple lists.
+        for (sid, vids) in staff_to_voice_dict.items():
+            staff_to_voice_dict[sid] = vids[0] + vids[1] + vids[2]
 
         start_attr = None
         assign_to_next_note = []
@@ -2370,7 +2421,11 @@ class Part(Music_xml_node):
             for i in assign_to_next_note:
                 voices[id].add_element(i)
             assign_to_next_note = []
-            voices[id].add_element(n)
+
+            if n.cross_staff is not None:
+                voices[n.get('staff', '1') + n.cross_staff].add_element(n)
+            else:
+                voices[id].add_element(n)
 
         # Assign all remaining elements from `assign_to_next_note` to the
         # voice of the previous note (if any).
