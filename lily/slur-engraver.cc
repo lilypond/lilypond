@@ -145,10 +145,8 @@ Slur_engraver::acknowledge_note_column (Grob_info_t<Item> info)
       if (Stream_event *ev = heads[i]->event_cause ())
         for (const auto d : {LEFT, RIGHT})
           {
-            std::pair<Note_slurs::const_iterator, Note_slurs::const_iterator>
-              its = note_slurs_[d].equal_range (ev);
-            for (Note_slurs::const_iterator it = its.first; it != its.second;
-                 ++it)
+            const auto [begin, end] = note_slurs_[d].equal_range (ev);
+            for (auto it = begin; it != end; ++it)
               it->second->set_bound (d, heads[i]);
           }
     }

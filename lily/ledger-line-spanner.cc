@@ -326,11 +326,11 @@ Ledger_line_spanner::print (SCM smob)
   // Iterate through ledger requests and the data they have about each
   // note head to generate the final extents for all ledger lines.
   // Note heads of different widths produce different ledger extents.
-  for (Ledger_requests::iterator i (reqs.begin ()); i != reqs.end (); i++)
+  for (auto &[req_rank, dir_reqs] : reqs)
     {
       for (const auto d : {DOWN, UP})
         {
-          Ledger_request &lr = i->second[d];
+          Ledger_request &lr = dir_reqs[d];
           for (vsize h = 0; h < lr.heads_.size (); h++)
             {
               std::vector<Real> &ledger_posns = lr.heads_[h].ledger_positions_;
@@ -381,28 +381,22 @@ Ledger_line_spanner::print (SCM smob)
   Real half_thickness = thickness * 0.5;
   Interval y_extent = Interval (-half_thickness, half_thickness);
 
-  for (Ledger_requests::iterator i (reqs.begin ()); i != reqs.end (); i++)
+  for (const auto &[req_rank, dir_reqs] : reqs)
     {
       for (const auto d : {DOWN, UP})
         {
-          std::map<Real, std::vector<Interval>> &lex
-            = i->second[d].ledger_extents_;
-          for (std::map<Real, std::vector<Interval>>::iterator k = lex.begin ();
-               k != lex.end (); k++)
+          for (const auto &[lpos, extents] : dir_reqs[d].ledger_extents_)
             {
-              Real lpos = k->first;
               // When the extents of two ledgers at the same
               // vertical position overlap horizontally, we merge
               // them together to produce a single stencil.  In rare
               // cases they do not overlap and we do not merge them.
-              Interval_set merged = Interval_set::interval_union (k->second);
-              const std::vector<Interval> &x_extents = merged.intervals ();
-
-              for (vsize n = 0; n < x_extents.size (); n++)
+              const auto merged = Interval_set::interval_union (extents);
+              for (const auto &x_extent : merged.intervals ())
                 {
                   // thickness (ledger line thickness) is the blot diameter
                   Stencil line = Lookup::round_filled_box (
-                    Box (x_extents[n], y_extent), thickness);
+                    Box (x_extent, y_extent), thickness);
 
                   line.translate_axis (lpos * halfspace, Y_AXIS);
                   ledgers.add_stencil (line);

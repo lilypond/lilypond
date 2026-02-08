@@ -774,11 +774,9 @@ add_grobs_of_one_priority (
             continue;
           // Find the riders associated with this grob, and merge their
           // skylines with elt's skyline.
-          typedef std::multimap<Grob *, Grob *>::const_iterator GrobMapIterator;
-          std::pair<GrobMapIterator, GrobMapIterator> range
-            = riders.equal_range (elt);
           std::vector<Skyline_pair> rider_v_skylines;
-          for (GrobMapIterator j = range.first; j != range.second; j++)
+          const auto [begin, end] = riders.equal_range (elt);
+          for (auto j = begin; j != end; ++j)
             {
               Grob *rider = j->second;
               SCM v_rider_scm = get_property (rider, "vertical-skylines");

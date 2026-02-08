@@ -531,10 +531,9 @@ Beam::calc_beam_segments (SCM smob)
     = from_scm (get_property (me, "break-overshoot"), Drul_array (-0.5, 0.0));
 
   std::vector<Beam_segment> segments;
-  for (Position_stem_segments_map::const_iterator i (stem_segments.begin ());
-       i != stem_segments.end (); i++)
+  for (const auto &[vertical_count, unsorted_segs] : stem_segments)
     {
-      std::vector<Beam_stem_segment> segs = (*i).second;
+      auto segs = unsorted_segs;
       std::sort (segs.begin (), segs.end ());
 
       Beam_segment current;
@@ -542,7 +541,6 @@ Beam::calc_beam_segments (SCM smob)
       // Iterate over all of the segments of the current beam rank,
       // merging the adjacent Beam_stem_segments into one Beam_segment
       // when appropriate.
-      int vertical_count = (*i).first;
       for (vsize j = 0; j < segs.size (); j++)
         {
           // Keeping track of the different directions here is a little tricky.

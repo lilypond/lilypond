@@ -168,9 +168,7 @@ Note_head::get_stem_attachment (Font_metric *fm, const std::string &key,
   if (k != GLYPH_INDEX_INVALID)
     {
       Box b = fm->get_indexed_char_dimensions (k);
-      Offset wxwy;
-      bool rotate;
-      std::tie (wxwy, rotate) = fm->attachment_point (key, dir);
+      const auto [wxwy, rotate] = fm->attachment_point (key, dir);
       for (const auto a : {X_AXIS, Y_AXIS})
         {
           Interval v = b[a];

@@ -50,9 +50,8 @@ protected:
 void
 Note_spacing_engraver::derived_mark () const
 {
-  for (Last_spacing_map::const_iterator i = last_spacings_.begin ();
-       i != last_spacings_.end (); i++)
-    scm_gc_mark (i->first->self_scm ());
+  for (auto &[context, grob] : last_spacings_)
+    scm_gc_mark (context->self_scm ());
 }
 
 Note_spacing_engraver::Note_spacing_engraver (Context *c)
