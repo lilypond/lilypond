@@ -909,6 +909,7 @@ class Note(Measure_element):
         self.instrument_name = ''
         self.single_voice = None  # Not set for invisible notes.
         self.arpeggio_type = None  # For cross-voice and cross-staff arpeggios.
+        self.cross_staff = None  # 'U' or 'D' if part of a cross-staff chord.
         self._after_grace = False
         self._duration = 1
         self._content['beam'] = []
@@ -2027,6 +2028,104 @@ class Part(Music_xml_node):
         link_spanners(elements, [Direction, DirType], 'dashes')
         link_spanners(elements, [Note, Notations, Ornaments], 'wavy-line',
                       one_child=False)
+
+        def handle_cross_staff_chords(chord_elements,
+                                      min_sid, max_sid, stem_dir):
+            if min_sid == 1000 or max_sid == min_sid:
+                return  # Not a cross-staff chord.
+
+            # We use stem information (if available) to split cross-staff
+            # chords into different voices even if option
+            # `convert_stem_directions` is not set.
+            if stem_dir is None:
+                # Derive stem direction from main note.
+                main_note = chord_elements[0]
+                main_sid = int(main_note.get('staff', '1'))
+                if main_sid == max_sid:
+                    stem_dir = 'down'
+                elif main_sid == min_sid:
+                    stem_dir = 'up'
+                else:
+                    # If a chord spans more than two staves, the main note
+                    # could be in the middle, which doesn't work with
+                    # LilyPond.
+                    main_sid = max_sid
+                    stem_dir = 'down'
+            elif stem_dir == 'up':
+                main_sid = min_sid
+            else:
+                main_sid = max_sid
+
+            # We can now set the `cross_staff` field, also moving the
+            # `<beam>` children to a note in the main staff if necessary.
+            other_note_with_beam = None
+            main_note = None
+            for chord_element in chord_elements:
+                if main_sid == int(chord_element.get('staff')):
+                    if not main_note:
+                        main_note = chord_element
+                else:
+                    chord_element.cross_staff = \
+                        'U' if stem_dir == 'up' else 'D'
+                    if not other_note_with_beam and chord_element['beam']:
+                        other_note_with_beam = chord_element
+
+            if other_note_with_beam:
+                main_note._content['beam'] = other_note_with_beam['beam']
+                other_note_with_beam._content['beam'] = []
+
+            # Synthesize a `<stem>` element for main note.
+            if not 'stem' in main_note:
+                hash_text = Hash_text()
+                hash_text._data = stem_dir
+                stem = Stem()
+                stem._children = [hash_text]
+                main_note._content['stem'] = stem
+
+        # The following pre-pass scans for cross-staff chords, setting the
+        # `Note.cross_staff` field to either 'U' or 'D' where necessary.
+        #
+        # We look at a chord's stem direction to decide which staff or
+        # staves are the 'other' one; if no stem direction is set, the
+        # chord's main note is assumed to be not in the 'other' staff or
+        # staves.
+        chord_elements = []
+        min_sid = 1000
+        max_sid = -1000
+        stem_dir = None
+
+        for n in elements:
+            if not isinstance(n, Note) or 'rest' in n:
+                continue
+
+            if 'chord' in n:
+                chord_elements.append(n)
+            else:
+                handle_cross_staff_chords(chord_elements,
+                                          min_sid, max_sid, stem_dir)
+
+                chord_elements = [n]
+                min_sid = 1000
+                max_sid = -1000
+                stem_dir = None
+
+            sid = n.get('staff')
+            if sid is not None:
+                val = int(sid)
+                min_sid = min(min_sid, val)
+                max_sid = max(max_sid, val)
+
+            # The first `<stem>` element wins.
+            if stem_dir is None:
+                stem = n.get('stem')
+                if stem is not None:
+                    dir = stem.get_text().strip()
+                    if dir == 'down' or dir == 'up':
+                        stem_dir = dir
+
+        if chord_elements:
+            handle_cross_staff_chords(chord_elements,
+                                      min_sid, max_sid, stem_dir)
 
         # Keys of `voices_dict` are tuplets of the form
         #
