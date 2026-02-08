@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 89716651b57c6b1a7eb763c9c88119f49419a9c3
+    Translation of GIT committish: 4a931f3ede63fe04993c34482d2aad4a8e0f7051
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -495,6 +495,37 @@ No existen estándares reconocidos ampliamente para denotar los
 bemoles de tres cuartos, de manera que los símbolos de LilyPond no
 se ajustan a ningún estándar.
 
+@node Approximate pitches
+@subsection Alturas aproximadas
+
+@cindex aproximada, altura
+@cindex extrema, altura
+@cindex máxima altura
+@cindex mínima altura
+@cindex altura aproximada
+@cindex altura, extrema
+@cindex altura, sin especificar
+@cindex no especificada, altura
+@funindex \approximatePitch
+
+Para escribir una nota cuando su altura no se conoce con
+exactitud, tal y como la nota más aguda que puede emitir un
+cantante, use la instrucción @code{\approximatePitch} con una
+altura que indica la altura aproximada.  LilyPond imprime la nota
+a la altura dada con una cabeza de forma triangular y sin líneas
+adicionales.
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  e4 f g \approximatePitch c
+}
+@end lilypond
+
+@morerefs
+Referencia de funcionamiento interno:
+@rinternals{ApproximatePitchNoteHead},
+@rinternals{Note_heads_engraver}.
+@endmorerefs
 
 @node Note names in other languages
 @subsection Nombres de las notas en otros idiomas

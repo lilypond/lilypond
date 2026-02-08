@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: f5d488bdce69146bbfc7390a16960c5d8275f367
+    Translation of GIT committish: 01bf9131e8f6e7e52e0e9705edde65060b71e320
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -467,7 +467,6 @@ Referencia de funcionamiento interno:
 
 @snippets
 
-@anchor{Cross-staff stems}
 @cindex plica de pentagrama cruzado
 @cindex pentagrama cruzado, plica de
 @cindex distancia, entre pentagramas en música de piano
@@ -483,6 +482,7 @@ Referencia de funcionamiento interno:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/cross-staff-stems.ly}
 
+@anchor{Cross-staff arpeggio brackets}
 @cindex cruzado, pentagrama, corchete de arpegio
 @cindex arpegio, corchete de pentagrama cruzado
 @cindex corchete, de pentagrama cruzado

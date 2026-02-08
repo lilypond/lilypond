@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: befc181b7c9cf3d903a3b80eb475af9da65e922c
+    Translation of GIT committish: 277ab70268d205084e4af5aa4aba7aa7ba479fa0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -2962,6 +2962,8 @@ music = \relative c'' {
 }
 @end lilypond
 
+@subsubsubheading Uso de los grupos de etiquetas
+
 @cindex grupos de etiquetas
 @funindex \tagGroup
 
@@ -3010,6 +3012,138 @@ music = \relative {
 Observe que las etiquetas individuales no pueden ser miembros de
 más de un grupo de etiquetas.
 
+@funindex \tagGroupRef
+
+Existe la posibilidad de modificar los grupos de etiquetas.  Hay
+una forma alternativa de definirlos mediante el uso de
+@code{\tagGroupRef} para así poder hacer referencia al grupo más
+tarde para su modificación.  La llamada
+
+@example
+tg = \tagGroupRef violinI,violinII
+@end example
+
+@noindent
+es, en esencia, lo mismo que
+
+@example
+tg = #'(violinI violinII)
+\tagGroup \tg
+@end example
+
+Hay varias posibilidades diferentes para modificar grupos de
+etiquetas existentes.
+
+@itemize
+@funindex \resetTagGroups
+
+@item
+Para deshacer los efectos de cada llamada de @code{\tagGroup} o de
+@code{\tagGroupRef} podemos simlemente usar
+@code{\resetTagGroups}.
+
+@lilypond[verbatim,quote]
+\tagGroup tagI,tagII
+
+music = \relative {
+  \tag tagI { c''4^"tagI" c c c }
+  \tag tagII { a2^"tagII" a }
+  \tag otherI { d4^"otherI" d d d }
+  \tag otherII { f,4^"otherII" g a c }
+}
+
+\new Voice {
+  \keepWithTag tagI \music
+}
+
+\resetTagGroups
+
+\new Voice {
+  \keepWithTag tagI \music
+}
+@end lilypond
+
+@funindex \resetTagGroup
+
+@item
+Si queremos reiniciar un grupo de etiquetas específico, tenemos
+que usar @code{\resetTagGroup} con un grupo de etiquetas dado,
+especificado a través de todas sus etiquetas.  Es cómodo usar
+@code{\tagGroupRef} para la definición del grupo de etiquetas.
+
+@lilypond[verbatim,quote]
+tgI = \tagGroupRef tagI,tagII
+tgII = \tagGroupRef otherI,otherII
+
+music = \relative {
+  \tag tagI { c''4^"tagI" c c c }
+  \tag tagII { a2^"tagII" a }
+  \tag otherI { d4^"otherI" d d d }
+  \tag otherII { f,4^"otherII" g a c }
+  \tag test { c8^"test" a g f e2 }
+}
+
+% 'otherI', 'otherII' and 'test' are not in the same group
+% as 'tagI' so they stay untouched.
+\new Voice {
+  \keepWithTag tagI \music
+}
+
+\resetTagGroup \tgI
+
+% now only 'otherI' and 'otherII' are in a tag group,
+% so '\keepWithTag tagI' filters 'tagII' and 'test'.
+\new Voice {
+  \keepWithTag tagI \music
+}
+@end lilypond
+
+@funindex \addToTagGroup
+@funindex \removeFromTagGroup
+
+@item
+Otra manera de modificar un grupo de etiquetas existente es añadir
+o eliminar etiquetas sencillas con las instrucciones
+@code{\addToTagGroup} y @code{\removeFromTagGroup}.
+
+@lilypond[verbatim,quote]
+tgI = \tagGroupRef tagI,tagII
+tgII = \tagGroupRef otherI,otherII
+
+music = \relative {
+  \tag tagI { c''4^"tagI" c c c }
+  \tag tagII { a2^"tagII" a }
+  \tag otherI { d4^"otherI" d d d }
+  \tag otherII { f,4^"otherII" g a c }
+  \tag test { c8^"test" a g f e2 }
+}
+
+% 'otherI', 'otherII' and 'test' are not in the same group
+% as 'tagI' so they stay untouched.
+\new Voice {
+  \keepWithTag tagI \music
+}
+
+\addToTagGroup \tgI test
+
+% now 'tagI', 'tagII' and 'test' are in the same group
+% so 'tagII' and 'test' are removed.
+\new Voice {
+  \keepWithTag tagI \music
+}
+
+\removeFromTagGroup \tgII otherII
+\addToTagGroup \tgI otherII
+
+% now 'otherII' is removed from 'tgII' and
+% added to 'tgI' so only 'otherI' is in its
+% own tag group and is not filtered.
+\new Voice {
+  \keepWithTag tagI \music
+}
+@end lilypond
+
+@end itemize
 
 @subsubheading Añadir contenido antes y después de la música etiquetada
 

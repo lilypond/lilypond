@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 9a2f072694412a33f4ae756af409e4c51fed1a03
+    Translation of GIT committish: ac9193c5fd282502dc699a13e88c6e62301e65cc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -34,6 +34,14 @@ manual en una sola página.  El PDF está disponible para su
 descarga y para usarlo fuera de línea.  Para obtener cada uno de
 los tres formatos, siga los enlaces con el texto @code{detalles
 de} y a continuación el nombre del manual.
+
+Aunque seguramente la versión de los manuales en PDF es idónea
+para su lectura e impresión (sobre todo si queremos ampliar un
+detalle), existe una limitación: a diferencia de la versión en
+HTML, la copia y pegado de fragmentos de código de LilyPond no
+conserva los distintos márgenes de cada línea.  Esto es una
+deficiencia del propio formato PDF (no del sistema de
+documentación que LilyPond utiliza) que no tiene ninguna solución.
 
 @divClass{link-headings}
 
