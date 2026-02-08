@@ -89,10 +89,9 @@ Modified_font_metric::ledger_shortening_range(
 std::pair<Offset, bool>
 Modified_font_metric::attachment_point (const std::string &s, Direction d) const
 {
-  Offset o;
-  bool rotate;
-  std::tie (o, rotate) = orig_->attachment_point (s, d);
-  return std::make_pair (o * magnification_, rotate);
+  auto point = orig_->attachment_point (s, d);
+  point.first *= magnification_;
+  return point;
 }
 
 Offset

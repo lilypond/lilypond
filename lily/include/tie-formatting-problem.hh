@@ -42,7 +42,7 @@ struct Tie_configuration_variation
   std::vector<std::pair<vsize, Tie_configuration *>> index_suggestion_pairs_;
   void add_suggestion (vsize index, Tie_configuration *suggestion)
   {
-    index_suggestion_pairs_.push_back (std::make_pair (index, suggestion));
+    index_suggestion_pairs_.emplace_back (index, suggestion);
   }
 };
 

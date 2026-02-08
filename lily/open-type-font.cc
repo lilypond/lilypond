@@ -311,13 +311,14 @@ Open_type_font::ledger_shortening_range (const std::string &glyph_name) const
   if (scm_is_false (entry))
     return range;
 
-  SCM range_scm = scm_assq_ref (entry,
-                                ly_symbol2scm ("ledger-shortening-range"));
+  SCM range_scm
+    = scm_assq_ref (entry, ly_symbol2scm ("ledger-shortening-range"));
   if (!scm_is_pair (range_scm))
     return range;
 
   return Interval (from_scm<double> (scm_car (range_scm), 0),
-                   from_scm<double> (scm_cdr (range_scm), 0)) * point_constant;
+                   from_scm<double> (scm_cdr (range_scm), 0))
+         * point_constant;
 }
 
 /*
@@ -339,7 +340,7 @@ Open_type_font::attachment_point (const std::string &glyph_name,
 
   Offset o;
   if (scm_is_false (entry))
-    return std::make_pair (o, false); // TODO: error out?
+    return {o, false}; // TODO: error out?
 
   SCM char_alist = entry;
   SCM att_scm = to_scm (Offset {});
@@ -360,11 +361,11 @@ Open_type_font::attachment_point (const std::string &glyph_name,
         {
           warning (
             _f ("no stem attachment found in font for glyph %s", glyph_name));
-          return std::make_pair (o, false);
+          return {o, false};
         }
     }
 
-  return std::make_pair (point_constant * from_scm<Offset> (att_scm), rotate);
+  return {point_constant * from_scm<Offset> (att_scm), rotate};
 }
 
 Box

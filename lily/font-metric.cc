@@ -139,7 +139,7 @@ Font_metric::ledger_shortening_range (const std::string &) const
 std::pair<Offset, bool>
 Font_metric::attachment_point (const std::string &, Direction) const
 {
-  return std::make_pair (Offset (0, 0), false);
+  return {Offset (0, 0), false};
 }
 
 Stencil
