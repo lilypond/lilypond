@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
+   Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -32,39 +32,38 @@ cordes d'orchestre.
 @section Vue d'ensemble de la notation pour cordes non frettées
 
 Il existe peu d'éléments spécifiques à l'écriture pour instruments à
-cordes non frettées.  La musique est notée sur une portée et ne
-nécessite généralement qu'une seule voix.  Le recours à deux voix
-distinctes peut cependant permettre de traiter efficacement des doubles
-notes ou des divisions.
+cordes non frettées. La musique est notée sur une portée et ne nécessite
+généralement qu'une seule voix. Le recours à deux voix distinctes peut
+cependant permettre de traiter efficacement des doubles notes ou des
+divisions.
 
 
 @node References for unfretted strings
 @subsection Références en matière de cordes non frettées
 
-La majorité des éléments de notation nécessaires en matière de
-cordes d'orchestre et autres instruments à archet est abordée dans
-d'autres chapitres de la documentation :
+La majorité des éléments de notation nécessaires en matière de cordes
+d'orchestre et autres instruments à archet est abordée dans d'autres
+chapitres de la documentation :
 
 @itemize
 
 @item Les indications textuelles telles que « pizz. » ou « arco » sont
-ajoutées comme du texte simple -- voir à ce sujet
-@ref{Text scripts}.
+ajoutées comme du texte simple -- voir à ce sujet @ref{Text scripts}.
 
 @item Les indications de doigtés, incluant les indications du pouce,
 sont décrites dans @ref{Fingering instructions}.
 
 @item Des numéros de corde peuvent être ajoutés (généralement en chiffre
-romain pour les instruments à archet) -- voir à ce sujet
-@ref{String number indications}.
+romain pour les instruments à archet) -- voir à ce sujet @ref{String
+number indications}.
 
 @item Les doubles notes sont généralement indiquées en écrivant un
-accord, voir @ref{Chorded notes}. Les précisions pour jouer des
-accords peuvent être ajoutées, comme l'indique @ref{Arpeggio}.
+accord, voir @ref{Chorded notes}. Les précisions pour jouer des accords
+peuvent être ajoutées, comme l'indique @ref{Arpeggio}.
 
 @item Un squelette de partition est disponible à l'annexe
-@rlearningnamed{String quartet templates, Modèles pour quatuor à cordes}.  D'autres informations
-se trouvent dans les exemples de code.
+@rlearningnamed{String quartet templates, Modèles pour quatuor à
+cordes}. D'autres informations se trouvent dans les exemples de code.
 
 @end itemize
 
@@ -111,8 +110,8 @@ Les indications d'archet, poussé (@code{\upbow}) et tiré
 
 @noindent
 Des chiffres romains peuvent s'ajouter pour indiquer les numéros de
-corde (en lieu et place de chiffres arabes cerclés), comme expliqué
-dans @ref{String number indications}.
+corde (en lieu et place de chiffres arabes cerclés), comme expliqué dans
+@ref{String number indications}.
 
 Alternativement, les indications de corde peuvent se traiter sous forme
 de @emph{markup}, et un script indiquer une corde à vide.
@@ -168,12 +167,13 @@ effleurer la corde à l'endroit où vous l'auriez pincée si la note avait
 @end lilypond
 
 Une autre façon de procéder consiste à faire surmonter la note normale
-d'un petit cercle.  Ceci indique que la note écrite doit être jouée en
+d'un petit cercle. Ceci indique que la note écrite doit être jouée en
 harmonique :
 
 @lilypond[verbatim,quote,fragment]
 d''2^\flageolet d''_\flageolet
 @end lilypond
+
 
 @subsubheading Harmoniques artificiels
 

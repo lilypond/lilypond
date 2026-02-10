@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 467b57a5e9a012d9ecbca354dfe137cedfbc7b86
+    Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -77,7 +77,7 @@ Notation à usage spécifique
 * Percussion::            Batterie et autres.
 * Wind instruments::      Bois, cuivres et autres.
 * Chord notation::        Accords et basse chiffrée.
-* Contemporary music::    Ainsi que notation graphique.
+* Contemporary music::    Traite aussi de notation graphique.
 * Ancient notation::      Musique mensurale, chant grégorien et kiévien, etc.
 * World music::           Musique non-européenne.
 
@@ -90,7 +90,7 @@ Généralités sur les fichiers sources et les sorties
 * Working with input files::
                           Inclusion de fichier, balisage de musique, etc.
 * Controlling output::    Extraction et escamotage de fragments, formats
-                            de sortie, adjoinction de fichier au PDF, etc.
+                            de sortie, adjonction de fichier au PDF, etc.
 * Creating MIDI output::  Notation supportée, nuances, instruments,
                             cannaux, et plus encore.
 * Extracting musical information::
@@ -123,7 +123,7 @@ Modification des réglages prédéfinis
 * Modifying properties::  @code{\set}, @code{\override}, @code{\tweak}, etc.
 * Useful concepts and properties::
                           Comment les objets graphiques et leurs
-                            propriétés  sont classés.
+                            propriétés sont classés.
 
 Annexes
 

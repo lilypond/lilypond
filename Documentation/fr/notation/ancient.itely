@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+   Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -27,7 +27,7 @@
 
 La gestion par LilyPond des formes de notation ancienne inclut des
 fonctionnalités spécifiques à la notation mensurale, au chant grégorien
-et à la notation de style kievien. Ces fonctionnalités sont accessibles
+et à la notation de style kiévien. Ces fonctionnalités sont accessibles
 en modifiant les propriétés de style des objets graphiques tels que tête
 de note ou silence, ou bien grâce aux contextes prédéfinis à cet effet.
 
@@ -140,7 +140,6 @@ Ottaviano Petrucci (1466-1539), premier imprimeur à utiliser des
 caractères amovibles pour la musique dans son édition du @emph{Harmonice
 musices odhecaton} en 1501. Les têtes de notes de ce style sont plus
 larges que pour les autres styles mensuraux.
-
 
 @end itemize
 
@@ -829,9 +828,9 @@ toutefois il était requis, le bécarre sera emprunté au style
 }
 @end lilypond
 
-La manière d'utiliser ce style est abordée dans
-@ref{Alternate accidental glyphs}. Il est activé par défaut
-dans un contexte @code{MensuralStaff}.
+La manière d'utiliser ce style est abordée dans @ref{Alternate
+accidental glyphs}. Il est activé par défaut dans un contexte
+@code{MensuralStaff}.
 
 @morerefs
 Glossaire musicologique :
@@ -1351,14 +1350,14 @@ est un symbole ajouté à la portée et utilisé en chant grégorien pour
 séparer les phrases ou parties. @emph{Divisio minima}, @emph{divisio
 maior} et @emph{divisio maxima} peuvent respectivement s'interpréter
 comme une pause courte, moyenne ou longue, à l'image des marques de
-respiration --- cf. @ref{Breath marks}. Le signe @emph{finalis}
-n'est pas uniquement une marque de fin de chant ; il sert aussi à
-indiquer la fin de chaque partie dans une structure verset/répons.
+respiration --- cf. @ref{Breath marks}. Le signe @emph{finalis} n'est
+pas uniquement une marque de fin de chant ; il sert aussi à indiquer la
+fin de chaque partie dans une structure verset/répons.
 
 Certaines éditions utilisent @emph{virgula} ou @emph{caesura} en lieu et
 place de @emph{divisio minima} ; les contextes prédéfinis de chant
 grégorien sont configurés pour utiliser @code{\caesura} afin de produire
-une marque de césure..
+une marque de césure.
 
 @lilypond[quote,ragged-right,staffsize=23]
 \new VaticanaScore {

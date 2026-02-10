@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
+   Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -161,7 +161,7 @@ Action par défaut ; produit une triade majeure.
 @item
 m, m7
 @tab
-Accord mineur.  Ce modificateur abaisse la tierce, et la septième s'il y
+Accord mineur. Ce modificateur abaisse la tierce, et la septième s'il y
 en a une.
 @tab
 @lilypond[inline,line-width=4\cm, noragged-right]
@@ -174,7 +174,7 @@ en a une.
 @item
 dim, dim7
 @tab
-Accord diminué.  Ce modificateur minorise la tierce, diminue la quinte et
+Accord diminué. Ce modificateur minorise la tierce, diminue la quinte et
 la septième s'il y en a.
 @tab
 @lilypond[inline,line-width=4\cm, noragged-right]
@@ -187,7 +187,7 @@ la septième s'il y en a.
 @item
 aug
 @tab
-Accord augmenté.  Ce modificateur augmente la quinte.
+Accord augmenté. Ce modificateur augmente la quinte.
 @tab
 @lilypond[inline,line-width=4\cm, noragged-right]
 \chordmode {
@@ -199,8 +199,8 @@ Accord augmenté.  Ce modificateur augmente la quinte.
 @item
 maj, maj7
 @tab
-Accord de septième majeure. Ce modificateur majorise la septième.  Le
-@code{7} à la suite du @code{maj} est facultatif.  Ce modificateur ne
+Accord de septième majeure. Ce modificateur majorise la septième. Le
+@code{7} à la suite du @code{maj} est facultatif. Ce modificateur ne
 sert pas à créer une triade majeure.
 @tab
 @lilypond[inline,line-width=4\cm, noragged-right]
@@ -296,8 +296,8 @@ Les notes ajoutées peuvent monter aussi haut que de besoin.
 @cindex accord, altération d'un degré
 
 On peut augmenter ou diminuer certains intervalles au moyen des
-signes @code{-} ou @code{+} au degré considéré.  L'altération de l'un
-des degrés automatiquement inclus dans la structure de base d'un accord
+signes @code{-} ou @code{+} au degré considéré. L'altération de l'un des
+degrés automatiquement inclus dans la structure de base d'un accord
 s'effectue de la même manière.
 
 @lilypond[quote,verbatim]
@@ -323,7 +323,7 @@ par un point lorsqu'il y en a plus d'une.
 @funindex sus
 
 L'ajout du modificateur @code{sus} permet de créer un accord de
-suspension.  Ceci aura pour effet de supprimer la tierce et d'y ajouter,
+suspension. Ceci aura pour effet de supprimer la tierce et d'y ajouter,
 suivant que vous spécifiez @code{2} ou @code{4}, la seconde ou la
 quarte ; @code{sus} est alors équivalent à @code{^3}. @code{sus4} est
 équivalent à @code{5.4}.
@@ -451,7 +451,7 @@ Les chiffrages d'accords sont liés au contexte @code{ChordNames} :
 @end lilypond
 
 Les accords peuvent être saisis soit en tant que hauteurs simultanées,
-soit au moyen du mode accords.  Le chiffrage affiché sera identique quel
+soit au moyen du mode accords. Le chiffrage affiché sera identique quel
 que soit le mode de saisie, à moins qu'il n'y ait inversion ou ajout de
 la basse.
 
@@ -567,9 +567,9 @@ pas chiffré correctement s'il est saisi en tant que musique simultanée.
 @cindex accord, personnalisation du chiffrage
 @cindex chiffrage d'accord, personnalisation
 
-Il existe plus d'un système de chiffrage d'accords.  Le nom des accords
+Il existe plus d'un système de chiffrage d'accords. Le nom des accords
 varie selon les traditions musicales, et plusieurs symboles représentent
-un même accord.  LilyPond vous permet de créer votre propre nomenclature
+un même accord. LilyPond vous permet de créer votre propre nomenclature
 d'accords, tant au niveau des noms que des symboles qui les
 représenteront.
 
@@ -595,7 +595,7 @@ alternatifs} .
 @funindex \frenchChords
 
 En plus des différents systèmes de nommage, le nom de la fondamentale
-varie selon la langue utilisée.  Les instructions @code{\germanChords},
+varie selon la langue utilisée. Les instructions @code{\germanChords},
 @code{\semiGermanChords}, @code{\italianChords} et @code{\frenchChords}
 permettent de définir la langue, comme vous pouvez le constater :
 
@@ -604,7 +604,7 @@ permettent de définir la langue, comme vous pouvez le constater :
 
 @funindex chordNameLowercaseMinor
 Nombre de carnets de chant allemands indiquent un accord mineur par
-l'emploi de caractères en minuscule, sans le suffixe @code{m}.  Cette
+l'emploi de caractères en minuscule, sans le suffixe @code{m}. Cette
 fonctionnalité est gérée par la propriété
 @code{chordNameLowercaseMinor} :
 
@@ -625,8 +625,8 @@ suivantes :
 
 Dans les chiffrages d'accord jazz, la note fondamentale de chaque accord
 est exprimée par une lettre capitale, parfois suivie d'une altération,
-correspondant à la notation anglo-saxonne de la musique.  Cette
-propriété a pour valeur la fonction qui transforme la hauteur de la note
+correspondant à la notation anglo-saxonne de la musique. Cette propriété
+a pour valeur la fonction qui transforme la hauteur de la note
 fondamentale en nom de note ; c'est donc en assignant une nouvelle
 fonction à cette propriété que l'on peut produire des noms de note
 spéciaux adaptés par exemple aux systèmes de notation d'autres pays.
@@ -637,7 +637,7 @@ spéciaux adaptés par exemple aux systèmes de notation d'autres pays.
 @funindex \whiteTriangleMarkup
 
 Cette propriété définit l'objet ajouté au @code{chordRootNamer} pour
-indiquer une septième majeure.  Les options prédéfinies sont
+indiquer une septième majeure. Les options prédéfinies sont
 @code{whiteTriangleMarkup} (triangle blanc) et
 @code{blackTriangleMarkup} (triangle noir).
 
@@ -645,9 +645,9 @@ indiquer une septième majeure.  Les options prédéfinies sont
 @funindex additionalPitchPrefix
 
 Lorsqu'un chiffrage contient des notes ajoutées, vous pouvez le préfixer
-d'une annotation.  LilyPond n'en ajoute pas par défaut, dans le but de
-ne pas trop surcharger la partition ; vous pouvez cependant les
-faire apparaître si elles sont visuellement efficaces.
+d'une annotation. LilyPond n'en ajoute pas par défaut, dans le but de ne
+pas trop surcharger la partition ; vous pouvez cependant les faire
+apparaître si elles sont visuellement efficaces.
 
 @lilypond[verbatim,quote,ragged-right]
 \new ChordNames {
@@ -662,7 +662,7 @@ faire apparaître si elles sont visuellement efficaces.
 
 Lorsqu'un chiffrage mentionne une note ajoutée (par exemple la basse),
 les règles utilisées sont par défaut celles définies par la propriété
-@code{chordRootNamer} ci-dessus.  Cependant, la propriété
+@code{chordRootNamer} ci-dessus. Cependant, la propriété
 @code{chordNoteNamer} permet de régler cet élément indépendamment, par
 exemple pour imprimer la basse en caractères minuscules.
 
@@ -670,10 +670,10 @@ exemple pour imprimer la basse en caractères minuscules.
 @funindex chordNameSeparator
 
 Les différents termes d'un chiffrage jazz (par exemple les notes de
-l'accord et la basse) sont habituellement légèrement espacés.  La
+l'accord et la basse) sont habituellement légèrement espacés. La
 propriété @code{chordNameSeparator} permet d'indiquer un autre
-séparateur.  Le séparateur entre un chiffrage et sa basse est géré par
-la propriété @code{slashChordSeparator}.
+séparateur. Le séparateur entre un chiffrage et sa basse est géré par la
+propriété @code{slashChordSeparator}.
 
 @lilypond[verbatim,quote,ragged-right]
 \chords {
@@ -687,10 +687,10 @@ la propriété @code{slashChordSeparator}.
 @item slashChordSeparator
 @funindex slashChordSeparator
 
-La note basse d'un accord n'est pas forcément la fondamentale.  L'accord
+La note basse d'un accord n'est pas forcément la fondamentale. L'accord
 est alors « renversé » -- certains diront « barré » parce que son
 chiffrage est habituellement flanqué d'une barre oblique entre l'accord
-de base et sa basse.  La propriété @code{slashChordSeparator} permet de
+de base et sa basse. La propriété @code{slashChordSeparator} permet de
 modifier ce séparateur -- par défaut la barre de fraction.
 
 @lilypond[verbatim,quote,ragged-right]
@@ -706,8 +706,8 @@ modifier ce séparateur -- par défaut la barre de fraction.
 @funindex chordNameExceptions
 
 Cette propriété recense, sous forme de paire, les accords mis en forme
-de manière particulière.  Le premier élément de chacune des paires
-répertorie les différentes hauteurs qui constituent l'accord.  Le second
+de manière particulière. Le premier élément de chacune des paires
+répertorie les différentes hauteurs qui constituent l'accord. Le second
 élément est un @emph{markup} qui sera ajouté au @code{chordRootNamer}
 lors de l'impression du chiffrage.
 
@@ -715,8 +715,8 @@ lors de l'impression du chiffrage.
 @funindex minorChordModifier
 
 Les accords mineurs sont habituellement identifiés par un @code{m} après
-leur fondamentale.  Certaines nomenclatures ont cependant adopté un
-autre suffixe, comme le signe moins.
+leur fondamentale. Certaines nomenclatures ont cependant adopté un autre
+suffixe, comme le signe moins.
 
 @lilypond[verbatim,quote,ragged-right]
 \chords {
@@ -798,8 +798,8 @@ Morceaux choisis :
 
 @knownissues
 Les chiffrages d'accords ne sont déterminés que par la succession des
-hauteurs de notes.  En d'autres termes, les accords inversés ne sont pas
-reconnus, ni les notes ajoutées à la basse.  C'est pourquoi les accords
+hauteurs de notes. En d'autres termes, les accords inversés ne sont pas
+reconnus, ni les notes ajoutées à la basse. C'est pourquoi les accords
 saisis au moyen de la syntaxe @code{<@dots{}>} peuvent produire des
 chiffrages étranges.
 
@@ -872,7 +872,7 @@ Chaque case est automatiquement subdivisée.
 
 Les accords qui s'étendent sur la mesure sont centrés dans leur case.
 Ceux durant la moitié de la mesure occupent la moitié de la case, et
-ceux n'en prenant que le quart occupent le quart de la case. Voicii un
+ceux n'en prenant que le quart occupent le quart de la case. Voici un
 résumé des règles par défaut en matière de subdivision des cases :
 
 @lilypond[quote,indent=0\cm,noragged-right]
@@ -901,7 +901,7 @@ résumé des règles par défaut en matière de subdivision des cases :
 
 L'instruction @code{\medianChordGridStyle} modifie la présentation par
 défaut des cases marquant les divisions de la mesure pour adopter le
-style préconisé par Philippe Baudoin dansn son ouvrage @emph{Jazz, mode
+style préconisé par Philippe Baudoin dans son ouvrage @emph{Jazz, mode
 d'emploi}.
 
 @example
@@ -1016,13 +1016,13 @@ XVIII<sup>e</sup>
 partie à lui seul, qui se déroule tout au long de l'œuvre pour en donner
 la structure harmonique.
 
-Les musiciens du @emph{continuo} jouent des claviers (clavecin,
-orgue) ou de tout autre instrument pouvant réaliser des accords.  Leur
-partie est constituée d'une portée de basse aux notes agrémentées de
+Les musiciens du @emph{continuo} jouent des claviers (clavecin, orgue)
+ou de tout autre instrument pouvant réaliser des accords. Leur partie
+est constituée d'une portée de basse aux notes agrémentées de
 combinaisons de chiffres et signes indiquant le développement des
-accords à jouer, ainsi que leur éventuel renversement.  Cette notation
-était avant tout un guide, invitant le musicien à improviser de
-lui-même l'accompagnement.
+accords à jouer, ainsi que leur éventuel renversement. Cette notation
+était avant tout un guide, invitant le musicien à improviser de lui-même
+l'accompagnement.
 
 LilyPond gère la basse chiffrée, appelée aussi @dfn{continuo} ou
 @dfn{basse continue}.
@@ -1042,27 +1042,26 @@ LilyPond gère la basse chiffrée, appelée aussi @dfn{continuo} ou
 @funindex \figuremode
 @funindex \figures
 
-La gestion de la basse chiffrée se décompose en deux parties.  Dans un
+La gestion de la basse chiffrée se décompose en deux parties. Dans un
 premier temps, le mode @code{\figuremode} permet de saisir les accords
-sous forme chiffrée.  Le contexte @code{FiguredBass} s'occupera ensuite
-de gérer les objets @code{BassFigure}.  La basse chiffrée pourra être
+sous forme chiffrée. Le contexte @code{FiguredBass} s'occupera ensuite
+de gérer les objets @code{BassFigure}. La basse chiffrée pourra être
 attachée à un contexte @code{Staff}.
 
 L'expression @code{\figures @{ @dots{} @}} constitue une raccourci à
 @code{\new FiguredBass \figuremode @{ @dots{} @}}.
 
-Bien que la gestion de la basse chiffrée ressemble beaucoup à celle
-des accords, elle est beaucoup plus simpliste.  Le mode
-@code{\figuremode} ne fait que stocker des chiffres que le contexte
-@code{FiguredBass} se chargera d'imprimer tels quels.  En aucune manière
-ils ne sont transformés en son, et ils ne sont pas rendus dans un
-fichier MIDI.
+Bien que la gestion de la basse chiffrée ressemble beaucoup à celle des
+accords, elle est beaucoup plus simpliste. Le mode @code{\figuremode} ne
+fait que stocker des chiffres que le contexte @code{FiguredBass} se
+chargera d'imprimer tels quels. En aucune manière ils ne sont
+transformés en son, et ils ne sont pas rendus dans un fichier MIDI.
 
 @ignore
-En interne, ce code produit des étiquettes de texte que vous
-pouvez formater à votre convenance grâce aux propriétés des
-étiquettes.  Par exemple, l'espacement vertical des chiffrages est
-déterminé par la propriété @code{baseline-skip}.
+En interne, ce code produit des étiquettes de texte que vous pouvez
+formater à votre convenance grâce aux propriétés des étiquettes. Par
+exemple, l'espacement vertical des chiffrages est déterminé par la
+propriété @code{baseline-skip}.
 @end ignore
 
 @morerefs
@@ -1078,7 +1077,7 @@ Morceaux choisis :
 @subsection Saisie de la basse chiffrée
 
 @code{\figuremode} permet de faire la relation entre ce qui est saisi et
-le mode de chiffrage.  De plus amples informations quant aux différents
+le mode de chiffrage. De plus amples informations quant aux différents
 modes sont regroupées à la rubrique @ref{Input modes}.
 
 En mode de saisie, un chiffrage est délimité par @samp{<} et @samp{>}.
@@ -1105,7 +1104,7 @@ un @samp{_} en lieu et place du chiffre.
 }
 @end lilypond
 
-En l'absene d'altération, un @samp{_} crée un chiffrage vide qui
+En l'absence d'altération, un @samp{_} crée un chiffrage vide qui
 néanmoins occupe de l'espace. Ceci peut permettre de contrôler
 l'empilement des chiffres.
 
@@ -1341,7 +1340,7 @@ contexte @code{FiguredBass} pour éviter l'apparition d'une portée
 supplémentaire vide.
 
 On peut ajouter une basse chiffrée directement à un contexte
-@code{Staff}.  L'alignement vertical est alors automatiquement ajusté.
+@code{Staff}. L'alignement vertical est alors automatiquement ajusté.
 
 @lilypond[verbatim,ragged-right,quote]
 <<
@@ -1382,7 +1381,7 @@ positionner au-dessus ou en dessous de la portée.
 @end lilypond
 
 Dès lors que l'empilement d'une basse chiffrée comporte des nombres de
-plus d'un caracère, il est possible de gérer leur alignement horizontal
+plus d'un caractère, il est possible de gérer leur alignement horizontal
 à l'aide de la propriété de contexte
 @code{figuredBassLargeNumberAlignment}.
 

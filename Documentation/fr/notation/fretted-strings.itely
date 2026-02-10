@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
+   Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -45,11 +45,11 @@ une seule portée, en notation traditionnelle ou en tablature, les deux
 d'utiliser des diagrammes d'accord au-dessus de la portée
 traditionnelle. La guitare et le banjo sont des instruments
 transpositeurs, sonnant une octave au-dessous de ce qui est écrit. Les
-partitions pour ces instruments utilisent donc la clé de sol ottava
-bassa @code{"treble_8"} -- ou une instruction @code{\transposition c}
-pour un rendu MIDI correct. Vous pourrez trouver ailleurs dans la
-documentation d'autres éléments aussi utilisés par les instruments à
-cordes frettées :
+partitions pour ces instruments utilisent donc la clé de sol
+@emph{ottava bassa} @code{"treble_8"} -- ou une instruction
+@code{\transposition c} pour un rendu MIDI correct. Vous pourrez trouver
+ailleurs dans la documentation d'autres éléments aussi utilisés par les
+instruments à cordes frettées :
 
 @itemize
 @item Les doigtés s'obtiennent comme indiqué au chapitre
@@ -101,10 +101,10 @@ c4\5 e\4 g2\3
 
 Quand les indications de doigté et de numéro de corde sont attachées à
 une même note, leur positionnement respectif peut se gérer à l'aide de
-la propriété @code{script-priority} property -- @pxref{Controlling the
-vertical ordering of scripts,, Contrôle de l'ordre vertical des
-articulations et ornements} et @ref{Default values for script-priority}.
-Leur ordre d'apparition dans la source n'a donc aucune importance.
+la propriété @code{script-priority} -- @pxref{Controlling the vertical
+ordering of scripts,, Contrôle de l'ordre vertical des articulations et
+ornements} et @ref{Default values for script-priority}. Leur ordre
+d'apparition dans la source n'a donc aucune importance.
 
 @lilypond[verbatim,quote,fragment]
 \clef "treble_8"
@@ -436,8 +436,8 @@ fretHarmonics = {
 }
 @end lilypond
 
-Un harmonique peut accessoirement se calculer à partir de la longueur de
-corde par rapport au doigté de cet harmonique.
+Une harmonique peut accessoirement se calculer à partir de la longueur
+de corde par rapport au doigté de cet harmonique.
 
 @lilypond[verbatim,quote]
 ratioHarmonics = {
@@ -748,7 +748,7 @@ harmoniques et aux glissandos.
 
 @funindex stringTunings
 
-Sous LilyPond, la case correspondant à une note jouée sur une corde
+Avec LilyPond, la case correspondant à une note jouée sur une corde
 donnée est calculée automatiquement. Pour ce faire, l'accordage doit
 être spécifié. L'accordage des cordes est donné par la propriété
 @code{stringTunings}.
@@ -859,7 +859,7 @@ instruments (comme le ukulele) n'ont pas les cordes classées par
 hauteur.
 
 Chaque hauteur de corde incluse dans un accordage est un objet LilyPond
-de type @emph{pitch}.  Les objets @emph{pitch} sont créés par la fonction
+de type @emph{pitch}. Les objets @emph{pitch} sont créés par la fonction
 @code{ly:make-pitch} -- voir @rinternalsnamed{Scheme functions,
 Fonctions Scheme}.
 
@@ -899,7 +899,8 @@ LilyPond dispose d'une clef de tablature moderne.
 }
 @end lilypond
 
-Cette clef moderne prend en charge les tablatures de quatre à sept cordes.
+Cette clef moderne prend en charge les tablatures de quatre à sept
+cordes.
 
 @cindex micro-intervalle, tablature
 @cindex quart de ton, tablature
@@ -907,7 +908,7 @@ Cette clef moderne prend en charge les tablatures de quatre à sept cordes.
 @cindex tablature et quart de ton
 
 Un @code{TabStaff} peut contenir des micro-intervalles tels les quarts
-de ton, qui interveiennent dans les chutes ou sauts. L'assertion
+de ton, qui interviennent dans les chutes ou sauts. L'assertion
 @w{@code{supportNonIntegerFret = ##t}} devra se placer au niveau du
 contexte @code{Score}. Les micro-intervalles ne sont toutefois pas pris
 en charge dans un contexte @code{FretBoards}.
@@ -1275,9 +1276,9 @@ dans le diagramme d'accord. L'indication de capodastre est une petite
 ligne transversale aux cordes. La case avec le capodastre est la case la
 plus basse du diagramme d'accord.
 
-Les points d'indication de doigté peuvent se colorier ou être mis
-entre parenthèses ; la couleur des parenthèses est indépendante de
-celle du point.
+Les points d'indication de doigté peuvent se colorier ou être mis entre
+parenthèses ; la couleur des parenthèses est indépendante de celle du
+point.
 
 Des @emph{markups} peuvent par ailleurs venir s'insérer dans les points.
 
@@ -1568,7 +1569,7 @@ mychordlist = {
 
 La table des diagrammes d'accord contient huit types d'accord (majeur,
 mineur, augmenté, diminué, septième de dominante, septième majeure,
-septièime mineure, neuvième de dominante) pour chacune des 17
+septième mineure, neuvième de dominante) pour chacune des 17
 fondamentales possibles.
 
 La table des diagrammes pour ukulele contient trois types d'accord
@@ -1670,7 +1671,6 @@ corde à vide. Tout comme les diagrammes d'accord, les carrures d'accord
 sont définies grâce aux interfaces @code{fret-diagram-terse} ou
 @code{fret-diagram-verbose}.
 
-
 @lilypond[verbatim, ragged-right, quote]
 \include "predefined-guitar-fretboards.ly"
 
@@ -1708,10 +1708,10 @@ La disposition graphique d'un diagramme d'accord peut être modifiée
 suivant les préférences de l'utilisateur grâce aux propriétés de
 l'interface @code{fret-diagram-interface}. Pour plus d'information,
 consultez @rinternals{fret-diagram-interface}. Voir aussi
-@rlsrsnippetnamed{Fretted string instruments, Fret diagrams explained and
-developed, Construction et développement de diagrammes de fret}
-pour un exemple développé. Pour un diagramme d'accord donné, les
-propriétés de l'interface dépendent de @code{FretBoards.FretBoard}.
+@rlsrsnippetnamed{Fretted string instruments, Fret diagrams explained
+and developed, Construction et développement de diagrammes de fret} pour
+un exemple développé. Pour un diagramme d'accord donné, les propriétés
+de l'interface dépendent de @code{FretBoards.FretBoard}.
 
 @snippets
 
@@ -1888,8 +1888,8 @@ servira à calculer les cordes et les cases du contexte @code{FretBoard}.
 
 Les cordes et les cases du contexte @code{FretBoards} sont liées à la
 propriété @code{stringTunings}, qui a là même signification que dans le
-contexte @code{TabStaff}.  Voir @ref{Custom tablatures} pour
-plus d'information sur la propriété @code{stringTunings}.
+contexte @code{TabStaff}. Voir @ref{Custom tablatures} pour plus
+d'information sur la propriété @code{stringTunings}.
 
 La disposition graphique d'un diagramme d'accord peut être modifiée
 suivant les préférences de l'utilisateur au travers des propriétés de

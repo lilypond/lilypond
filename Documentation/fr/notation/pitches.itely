@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fafad7372f36503c8b698069950fbb42a6388b90
+   Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -175,7 +175,7 @@ déterminer facilement la hauteur absolue de la première note de
 l'expression.
 
 @item pas de hauteur de référence explicite
-La fromulation @code{\relative @{ gis''' @dots{} @}}) peut se voir comme
+La formulation @code{\relative @{ gis''' @dots{} @}}) peut se voir comme
 une version abrégée de l'option précédente : la première note de
 l'expression est écrite en octave absolue. Cette option est équivalente
 à prendre un @code{f} comme hauteur de référence.
@@ -217,7 +217,7 @@ de notes peut tout à fait couvrir un intervalle important.
 @end lilypond
 
 Lorsque plusieurs blocs @code{\relative} sont imbriqués, le bloc
-@code{\relative} inclus dispose de sa propre haueur de référence
+@code{\relative} inclus dispose de sa propre hauteur de référence
 indépendamment de celui qui l'englobe.
 
 @lilypond[verbatim,quote]
@@ -245,8 +245,8 @@ en rien les octaves de la musique relative.
 @funindex \relative
 
 @code{\relative} n'est pas permis au sein d'un bloc @code{\chordmode}.
-Les blocs @code{\chordmode} au sein d'un bloc @code{\relative}
-demeurent inchangés.
+Les blocs @code{\chordmode} au sein d'un bloc @code{\relative} demeurent
+inchangés.
 
 @lilypond[verbatim,quote]
 \new Staff {
@@ -884,8 +884,8 @@ musiqueEnSiBemol = @{ e4 @dots{} @}
 @end example
 
 @noindent
-Pour plus d'information à ce sujet, consultez
-@ref{Instrument transpositions}.
+Pour plus d'information à ce sujet, consultez @ref{Instrument
+transpositions}.
 
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -1202,7 +1202,7 @@ commandes @code{\cueClef} et @code{\cueDuringWithClef} --
 @cindex clef et transposition
 @cindex octave et clef
 @cindex octaviation optionnelle
-@cindex opotionnelle, octaviation
+@cindex optionnelle, octaviation
 @cindex chorale, clef de ténor
 @cindex ténor, clef
 
@@ -1238,8 +1238,8 @@ c'2 c'
 c'2 c'
 @end lilypond
 
-Les hauteurs seront affichées comme si l'argument numérique
-n'avait pas été encadré de parenthèses ou crochets.
+Les hauteurs seront affichées comme si l'argument numérique n'avait pas
+été encadré de parenthèses ou crochets.
 
 Lorsqu'un changement de clef intervient en même temps qu'un saut de
 ligne, la nouvelle clef est imprimée à la fois en fin de ligne et au
@@ -1410,8 +1410,8 @@ Vous pouvez aussi avoir recours aux modes anciens que sont
 }
 @end lilypond
 
-Rien n'empèche de définir d'autres modes, en listant l'altération
-de chacun des degrés de la gamme en partant du do.
+Rien n'empêche de définir d'autres modes, en listant l'altération de
+chacun des degrés de la gamme en partant du do.
 
 @lilypond[verbatim,quote]
 freygish = #`((0 . ,NATURAL) (1 . ,FLAT) (2 . ,NATURAL)
@@ -1489,7 +1489,7 @@ Référence des propriétés internes :
 @funindex \ottava
 
 Les marques d'octaviation, @emph{Ottava}, haussent ou abaissent les
-notes affichées d'une ou plusieurs octaves, tout en présevant leur
+notes affichées d'une ou plusieurs octaves, tout en préservant leur
 hauteur réelle. Le but des octaviations est de réduire le nombre de
 lignes supplémentaires nécessaires, tout particulièrement en présence
 d'un intervalle important à l'occasion d'un court passage. L'instruction
@@ -3097,7 +3097,7 @@ Une solution plus sophistiquée est proposée sur le
 LilyPond Wiki}.
 
 Dans le cas d'une reprise, la logique voudrait que la présence
-d'altération de précaution d'une alternativee soit basée sur la dernière
+d'altération de précaution d'une alternative soit basée sur la dernière
 mesure @emph{jouée} plutôt que la dernière @emph{imprimée}. Dans
 l'exemple qui suit, vous conviendrez que le do de la seconde alternative
 ne nécessite pas son bécarre.
@@ -3346,7 +3346,7 @@ Pour une liste exhaustive des styles de tête de note, consultez
 
 Certains instruments utilisent des têtes de note différentes à des fins
 spécifiques -- des croix (style @code{cross}) pour le @emph{parlato} des
-chanteurs ou les notes étouffées des guitares :
+chanteurs ou les notes étouffées des guitaristes :
 
 @lilypond[verbatim,quote]
 \relative {
@@ -3506,7 +3506,7 @@ XIX@sup{e}
 XIX<sup>e</sup>
 @end html
 @end ifhtml
- siècle.  Voici comment procéder :
+ siècle. Voici comment procéder :
 
 @lilypond[verbatim,quote]
 \relative c'' {

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
+   Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -35,7 +35,6 @@ https://sourceforge.net/p/testlilyissues/issues/68/
 @node Page layout
 @anchor{Spacing issues} @c retain old label
 @chapter Mise en forme de la page
-
 
 L'agencement général d'une partition dépend de trois facteurs
 interdépendants : la mise en page, les sauts de ligne et l'espacement.
@@ -73,7 +72,6 @@ particulière selon leur langue d'origine. Ainsi le vocable anglais
 typographique, un maître français voit un alignement à gauche -- il dira
 « au fer à gauche » -- alors que son homologue anglophone constate un
 @emph{ragged-right} -- donc du vide à droite.}
-
 
 
 @node The paper block
@@ -123,7 +121,7 @@ mise en page,
 
 @item
 la définition des différents @emph{markups} qui personnaliseront la mise
-en forme des entêtes et pieds de page ainsi que des titrages.
+en forme des en-têtes et pieds de page ainsi que des titrages.
 
 @end itemize
 
@@ -131,7 +129,7 @@ La fonction @code{set-paper-size} fait l'objet de la rubrique qui suit
 -- @ref{Paper size and automatic scaling}. Les variables du bloc
 @code{\paper} chargées de la mise en page sont abordées plus loin dans
 ce chapitre. Quant aux définitions relatives aux @emph{markups} des
-entête, pied de page et titrage, elles sont étudiées à la rubrique
+en-tête, pied de page et titrage, elles sont étudiées à la rubrique
 @ref{Custom titles headers and footers}.
 
 La plupart des variables gérant le papier ne sont fonctionnelles que
@@ -179,8 +177,8 @@ fonctions Scheme ; voici l'équivalent de l'exemple précédent :
 @cindex papier, variable prédéfinie
 @cindex variable prédéfinie, papier
 
-Enfin, il est tou à fait possible de prédéfinir des variables concernant
-les sorties imprimables.
+Enfin, il est tout à fait possible de prédéfinir des variables
+concernant les sorties imprimables.
 
 @example
 bigMargin = \paper @{ top-margin = 10\cm @}
@@ -993,7 +991,7 @@ au moins l'action associée sera favorisée en regard des autres choix.
 Pénalité pour apparition d'une page blanche en cours de partition.
 L'attribution d'une valeur élevée à @code{blank-@/page-p@/enalty} alors
 qu'a été activé @code{ly:@/page-@/turn-@/breaking} forcera LilyPond à
-éviter de placer une page blanche au mileu de la partition, quitte à
+éviter de placer une page blanche au milieu de la partition, quitte à
 espacer d'autant plus la musique pour remplir cette page blanche et la
 suivante. La valeur par défaut est de @code{5}.
 
@@ -1086,7 +1084,7 @@ majuscules) . La valeur par défaut est @code{'arabic}.
 
 @item bookpart-level-page-numbering
 @cindex page, numérotation par @code{bookpart}
-@cindex page, numérotation indépendente pour l'introduction
+@cindex page, numérotation indépendante pour l'introduction
 @funindex bookpart-level-page-numbering
 
 L'activation de cette variable permet d'obtenir une pagination
@@ -1128,15 +1126,15 @@ sorte que la page une se retrouve à droite.
 
 
 @node paper variables concerning headers and markups
-@subsection Variables supplémentaires d'entête et @emph{markup}
+@subsection Variables supplémentaires d'en-tête et @emph{markup}
 
 @table @code
 
 @item print-all-headers
-@cindex entête, impression
+@cindex en-tête, impression
 @funindex print-all-headers
 
-Lorsque cette variable est activée, l'intégralité des champs d'entête
+Lorsque cette variable est activée, l'intégralité des champs d'en-tête
 sera imprimée pour chaque bloc @code{\score}, plutôt que les seuls
 champs @code{piece} et @code{opus}. Voir @ref{Titles and headers} pour
 les cas d'usage. La valeur par défaut est @code{#f}.
@@ -1195,8 +1193,9 @@ Morceaux choisis :
 @endmorerefs
 
 @knownissues
-L'entête par défaut, formé d'une seule ligne, est constitué du numéro de
-page et du champ @code{instrument} contenu dans le bloc @code{\header}.
+L'en-tête par défaut, formé d'une seule ligne, est constitué du numéro
+de page et du champ @code{instrument} contenu dans le bloc
+@code{\header}.
 
 
 @node paper variables for debugging
@@ -1833,7 +1832,6 @@ Morceaux choisis :
 @endmorerefs
 
 @knownissues
-
 Les commandes @code{\autoLineBreaksOff} et @code{\autoBreaksOff} doivent
 impérativement se placer après le début de la musique pour éviter tout
 message d'erreur.
@@ -1875,7 +1873,7 @@ par ces commandes.
 Tout comme @code{ragged-right} et @code{ragged-last} qui permettent de
 gérer la répartition horizontale, LilyPond dispose de commutateurs
 équivalents au niveau de la verticalité. @code{ragged-bottom}, une fois
-activé, empèchera les systmèes de se répartir sur la page. Quant à
+activé, empêchera les systèmes de se répartir sur la page. Quant à
 @code{ragged-last-bottom} (valorisé à @code{#t} par défaut), il laissera
 un espace vide en dernière page, y compris pour chaque @code{\bookpart}.
 Pour de plus amples détails, reportez-vous à @ref{Fixed vertical spacing
@@ -1944,7 +1942,6 @@ Morceaux choisis :
 @endmorerefs
 
 @knownissues
-
 Le préfixe @code{\once} est ineffectif en ce qui concerne les commandes
 @code{\autoPageBreaksOn} et @code{\autoPageBreaksOff}. Si le
 positionnement automatique des sauts de page est désactivé et qu'il est
@@ -2516,7 +2513,7 @@ Les @code{Staff}, @code{DrumStaff}, @code{TabStaff} entre autres sont
 des contextes de « portée » pouvant contenir plusieurs voix, mais pas
 une portée.
 
-L'espacement de ces @i{portées isolées} est géré par les propriétés
+L'espacement de ces @emph{portées isolées} est géré par les propriétés
 suivantes :
 
 @itemize
@@ -2661,11 +2658,11 @@ Référence des propriétés internes :
 @node Spacing of non-staff lines
 @subsection Espacement des lignes rattachées à des portées
 
-Les @i{lignes de non-portée}, comme les @code{Lyrics} ou les
-@code{ChordNames} sont des contextes dont les objets de rendu sont
+Les @emph{lignes de non-portée}, comme les @code{Lyrics} ou les
+@code{ChordNames}, sont des contextes dont les objets de rendu sont
 gravés à l'instar des portées -- une ligne horizontale dans un système.
 En fait, les lignes de non-portée sont des contextes qui vont créer un
-objet de rendu @code{VerticalAxisGroup} auxquel est attaché le
+objet de rendu @code{VerticalAxisGroup} auquel est attaché le
 @rinternals{Axis_group_engraver}.
 
 L'espacement des lignes de non-portée est géré par les propriétés
@@ -2790,7 +2787,7 @@ et à mesure que nous avancerons. Pour plus de précisions, relisez
 }
 @end lilypond
 
-Déterminons maintenant les ploints de départ vertical et horizontal de
+Déterminons maintenant les points de départ vertical et horizontal de
 chacun des systèmes à l'aide des sous-propriétés @code{Y-offset} et
 @code{X-offset} de @code{line-break-system-details}.
 
@@ -2958,7 +2955,7 @@ distances par défaut.
 }
 @end lilypond
 
-Définir @code{bottom-padding} mène à ce résultat.
+Définir @code{bottom-padding} mène à ce résultat :
 
 @lilypond[verbatim,quote,staffsize=11,papersize=a7]
 \book {
@@ -3187,7 +3184,7 @@ la propriété @code{stem-spacing-correction} de l'objet
 
 L'objet @code{StaffSpacing}, généré au niveau d'un contexte
 @rinternals{Staff}, possède une même propriété qui contrôlera
-l'espacement hampe-barre de mesure.
+l'espacement entre hampe et barre de mesure.
 
 L'exemple suivant montre ces adaptations, tout d'abord selon les
 réglages par défaut, puis avec des corrections forcées.
@@ -3247,7 +3244,7 @@ paramètres d'espacement.
 
 Dans l'exemple qui suit, le changement de métrique marque le début d'une
 nouvelle partie ; remarquez comme les doubles-croches sont alors
-automatiquent un peu plus espacées :
+automatiquement un peu plus espacées :
 
 @lilypond[relative,verbatim,quote]
 \time 2/4
@@ -3260,7 +3257,7 @@ c16[ c c8]
 
 La commande @code{\newSpacingSection} crée un nouvel objet
 @code{SpacingSpanner} à cet instant musical. Si toutefois les
-ajustements apportés à l'espacement automatique ne se révélent pas
+ajustements apportés à l'espacement automatique ne se révèlent pas
 satisfaisants, ils peuvent s'adapter à l'aide d'@code{\override}s. Ces
 amendements doivent intervenir au même moment que la commande
 @code{\newSpacingSection} ; ils produiront leurs effets jusqu'à ce
@@ -3511,7 +3508,7 @@ de celui de gauche. @code{space-alist} prend la forme d'une liste
 associative mettant en correspondance les éléments non musicaux
 autorisant la survenue d'un saut avec des paires
 @code{(@var{style-@/d-@/espacement} . @var{valeur})}. Le type d'élément
-non musical est caractérisé par sa propiété
+non musical est caractérisé par sa propriété
 @code{break-@/align-@/symbol}. Les possibilités standard sont listées
 dans @rinternals{break-alignment-interface}, et les styles d'espacement
 dans @rinternals{break-aligned-interface}. Parmi les options
@@ -4076,7 +4073,7 @@ espace les notes d'ornement de manière stricte (@pxref{Positioning grace
 notes with floating space,, Positionnement des notes d'ornement avec
 espace flottant})
 @item \set tupletFullLength = ##t
-étend le crochet de n-olet pour indiquer rhytmiquement ses points de
+étend le crochet de n-olet pour indiquer rythmiquement ses points de
 début et de fin
 @item \override Beam.breakable = ##t
 permet d'interrompre des ligatures (@pxref{Beams across line breaks,,

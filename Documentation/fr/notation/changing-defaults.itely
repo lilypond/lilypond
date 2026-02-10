@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
+   Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -278,7 +278,7 @@ Portée destinée à noter du grégorien dans un style moderne.
 
 @item ChordGrid
 @funindex ChordGrid
-Crée une otation en grilles harmoniques. Ce contexte est toujours
+Crée une notation en grilles harmoniques. Ce contexte est toujours
 attaché à un contexte @code{ChordGridScore}.
 
 @item StandaloneRhythmStaff
@@ -353,7 +353,7 @@ gère l'impression d'une ligne de paroles.
 @funindex VaticanaLyrics
 Identique au contexte @code{Lyrics}, à ceci près qu'il fournit un style
 d'hyphénation (trait d'union simple aligné sur la syllabe de gauche)
-tels qu'utilisé end @cite{Editio Vaticana}.
+tels qu'utilisé en @cite{Editio Vaticana}.
 
 @item GregorianTranscriptionLyrics
 @funindex GregorianTranscriptionLyrics
@@ -390,7 +390,7 @@ Permet d'imprimer le nom des notes.
 
 @item NullVoice
 @funindex NullVoice
-Permat d'aligner des paroles san afficher les notes.
+Permet d'aligner des paroles sans afficher les notes.
 
 @c TODO: Add or reference an example or snippet.
 @item Devnull
@@ -646,8 +646,8 @@ l'aide de la commande @code{\lyricsto} ou si des événements surviennent
 Une exception cependant à cette règle : à l'intérieur d'une construction
 @code{@{@dots{}@}} (séquence musicale), la notion de construction du
 « contexte en cours » descendra dès lors qu'un élément de la séquence se
-trouve dans un sous-contexte par rapport au contexte courrant. Ceci
-évite la création intempestive de contextes implicites dans nombre de
+trouve dans un sous-contexte par rapport au contexte courant. Ceci évite
+la création intempestive de contextes implicites dans nombre de
 situations, mais signifie que le premier contexte dans lequel on descend
 sera gardé actif jusqu'à la fin de l'expression.
 
@@ -1473,7 +1473,7 @@ la copier dans un bloc @code{\midi},
 @item
 changer @code{Engraver_@/group} en @code{Performer_@/group},
 @item
-supprimer les @code{\consists} propres aus graveurs (ils ne sont pas
+supprimer les @code{\consists} propres aux graveurs (ils ne sont pas
 pertinents) et éventuellement ajouter des @code{\consists} pour les
 exécutants.
 @end itemize
@@ -1553,7 +1553,7 @@ plupart des cas. Néanmoins, la définition d'un contexte de niveau
 soit égal à @code{Score_@/engraver} (ou @code{Score_@/performer} dans le
 bloc @code{\midi}) en lieu et place de @code{Engraver_@/group}. Par
 ailleurs, affecter au contexte sommital l'alias @code{Score} est
-fortement recommandé dans la mesure où un certin nombre de graveurs ont
+fortement recommandé dans la mesure où un certain nombre de graveurs ont
 besoin d'accéder au contexte sommital par son alias.
 
 
@@ -1577,7 +1577,7 @@ La liste des « agréments » d'un contexte se gère à l'aide des
 instructions @code{\accepts} ou @code{\denies} -- @code{\accepts} pour
 ajouter un contexte à la liste, @code{\denies} pour retirer l'agrément.
 
-Par exemple, un @code{TabStaff} accepte par défaut des contextex
+Par exemple, un @code{TabStaff} accepte par défaut des contextes
 @code{TabVoice} mais ne supporte pas de contextes @code{Voice}. Un
 contexte @code{Voice} apparaissant dans un @code{TabStaff} se verrait
 repositionné sur une portée séparée.
@@ -1807,8 +1807,8 @@ sujettes à ajustements.
 La Référence des propriétés internes n'est pas traduite en français --
 notamment du fait qu'elle est en évolution constante, tout comme
 LilyPond. En revanche, les termes musicaux font l'objet d'un
-@rglosnamed{Top, glossaire} fort utile pour les utilisateurs
-francophones.
+@rglosnamed{Top, glossaire} fort utile pour les utilisateurs non
+anglophones.
 
 
 @node Layout interfaces
@@ -1927,7 +1927,7 @@ documentation}), en l'occurrence le fichier
 @end example
 
 @noindent
-@dots{}où l'on découvre que l'objet @code{Fingering} n'est rien de plus
+…où l'on découvre que l'objet @code{Fingering} n'est rien de plus
 qu'un amas de variables et de réglages. La page de la Référence des
 propriétés internes est en fait directement engendrée par cette
 définition.
@@ -2046,7 +2046,7 @@ Les propriétés des contextes se libellent sous la forme
 @code{minusculeMajuscule}. Leur rôle consiste principalement à traduire
 la musique en notation : par exemple, @code{localAlterations}
 déterminera quand imprimer une altération accidentelle, et
-@code{currentBarNumber} quelnuméro de mesure imprimer. La valeur des
+@code{currentBarNumber} quel numéro de mesure imprimer. La valeur des
 propriétés des contextes peut évoluer au fur et à mesure que l'on avance
 dans le morceau -- @code{currentBarNumber} en est l'illustration
 parfaite.
@@ -2184,7 +2184,7 @@ d'une propriété de contexte. Néanmoins, il est parfois utile de
 temporairement modifier une valeur puis de revenir à la précédente. Les
 deux commandes @code{\pushContextProperty} et @code{\popContextProperty}
 sont prévues à cet effet : la première insère la valeur courante dans
-une pile, alors que la seconde suprime cette valeur de la pile et
+une pile, alors que la seconde supprime cette valeur de la pile et
 restaure la propriété à sa valeur initiale.
 
 @lilypond[quote,verbatim]
@@ -2427,7 +2427,7 @@ dont la syntaxe est :
 
 La commande @code{\tweak} s'applique à l'objet qui apparaît
 immédiatement après @code{valeur}. Mention de l'@var{objet-de-rendu} est
-requise pour lever toute ambiguité dans le cas où l'expression musicale
+requise pour lever toute ambiguïté dans le cas où l'expression musicale
 viendrait à générer indirectement d'autres objets de type différent --
 par exemple, @code{NoteHead} est à l'origine de @code{Stem}.
 
@@ -2587,6 +2587,7 @@ tantôt comme un @code{\tweak}, tantôt comme un @code{\override}. Les
 différences entre ces utilisations seront abordées après avoir recensé
 les propriétés qui peuvent être soumises à un @code{\offset}.
 
+
 @subsubheading Propriétés acceptant des décalages
 @c VO Properties which may be offset
 
@@ -2665,7 +2666,7 @@ Aucune référence à @code{color} n'est mentionnée dans
 @item @code{Hairpin.circled-tip}
 La référence à @code{Hairpin.circled-tip} dans @rinternalsnamed{Hairpin,
 Soufflet} indique que cette propriété prend une valeur @code{boolean}.
-Les boléens ne sont pas des nombres.
+Les booléens ne sont pas des nombres.
 
 @item @code{Stem.details.lengths}
 Bien que mentionnée dans @rinternalsnamed{Stem, Hampe} et ayant par
@@ -2778,6 +2779,7 @@ longStem = \offset length 6 Stem
 }
 @end lilypond
 
+
 @subsubheading @code{\offset} en tant qu'affinage
 @c VO offset as a tweak
 
@@ -2820,7 +2822,7 @@ explicite pour renvoyer un objet @code{BreathingSign}. Puisque la cible
 de la commande était sans ambiguïté, point n'était besoin de spécifier
 le nom de l'objet. Cependant, lorsqu'un objet est créé
 @emph{indirectement}, mention du nom de l'objet devient requise. Il en
-va de même pour la commende @code{\tweak}.
+va de même pour la commande @code{\tweak}.
 
 Dans l'exemple qui suit, l'objet @code{Beam} est abaissé de deux espaces
 de portée par application de @code{\offset} à la propriété
@@ -2850,7 +2852,7 @@ un unique @code{number} s'appliquera aux deux membres d'un
 
 Il est aussi possible de modifier indépendamment les segments d'un objet
 étendu rencontrant des sauts de ligne. Dans ce cas, @var{décalages} est
-consitué d'une liste de valeurs pour le type de donnée requis par la
+constitué d'une liste de valeurs pour le type de donnée requis par la
 propriété.
 
 Utilisée de telle manière, la commande @code{\offset} est similaire à la
@@ -3363,7 +3365,7 @@ s'applique aussi bien avant qu'après le saut de ligne.
 
 La commande @code{\alterBroken} permet de modifier indépendamment
 l'apparence de chacune des parties d'un bandeau. Selon le cas, cette
-commande génèrera soit un @code{\override}, soit un @code{\tweak} qui
+commande générera soit un @code{\override}, soit un @code{\tweak} qui
 s'appliquera à la propriété du bandeau.
 
 La commande @code{\alterBroken} répond à la syntaxe :
@@ -4127,6 +4129,7 @@ dehors d'un début de ligne ; il faudra en pareil cas forcer la
 }
 @end lilypond
 
+
 @subsubheading Visibilité des bécarres de précaution
 
 L'impression d'altérations de précaution au moment d'un changement
@@ -4515,7 +4518,7 @@ example shows the difference:
 Indications de repère, marques textuelles, numéros de mesure et plus
 généralement tous les objets disposant de la
 @rinternals{break-alignable-interface} -- que l'on pourrait regrouper
-sous l'apellation de « jalons » -- sont susceptibles de se positionner
+sous l'appellation de « jalons » -- sont susceptibles de se positionner
 sur des objets de notation tels que barre de mesure, armure, métrique et
 plus communément tout objet disposant de la
 @rinternals{break-aligned-interface}. Pour être plus précis, ces
@@ -4804,8 +4807,8 @@ des plus heureuses, même en optant pour un @code{\tieDown}.
 >>
 @end lilypond
 
-L'ajustement des points de contrôle de cette liaison de tenue à
-l'aide de @code{\shape} permet d'éviter les collisions.
+L'ajustement des points de contrôle de cette liaison de tenue à l'aide
+de @code{\shape} permet d'éviter les collisions.
 
 L'instruction @code{\shape} obéit à la syntaxe
 
@@ -4958,7 +4961,7 @@ liste de quatre paires de nombres décimaux (ou nombres réels). L'une des
 manières de procéder consiste à tout d'abord estimer les coordonnées des
 deux extrémités puis, par tâtonnement, déterminer les deux points
 intermédiaires. Gardez à l'esprit que ces valeurs pourront devoir être
-revues si la musique ou sa mise en forme sont modifées.
+revues si la musique ou sa mise en forme sont modifiées.
 
 L'une des situation où spécifier explicitement les points de contrôle se
 révèle être tout à fait appropriée est lorsqu'ils se réfèrent à une

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+   Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -48,14 +48,12 @@ principalement à la respiration et à l'attaque :
 
 @item Les différents types d'attaque -- @emph{legato}, détaché ou piqué
 -- s'indiquent en principe par des signes d'articulation, parfois
-agrémentés de liaisons.  Voir à ce sujet
-@ref{Articulations and ornamentations} et
-@ref{List of articulations}.
+agrémentés de liaisons. Voir à ce sujet @ref{Articulations and
+ornamentations} et @ref{List of articulations}.
 
 @item Un @emph{Flatterzunge} (trémolo dental ou trémolo en roulant
 les r) s'indique par une marque de trémolo et une étiquette textuelle
-attachée à la note concernée.  Voir à ce sujet
-@ref{Tremolo repeats}.
+attachée à la note concernée. Voir à ce sujet @ref{Tremolo repeats}.
 @end itemize
 
 D'autres aspects de la notation s'appliquent aussi aux instruments à
@@ -69,25 +67,24 @@ vent :
 coulisse, bien que d'autres instruments puissent y parvenir en jouant
 sur les pistons ou des clés ; consulter @ref{Glissando}.
 
-@item Des glissandos harmoniques sont réalisables par les cuivres.  Ils
+@item Des glissandos harmoniques sont réalisables par les cuivres. Ils
 sont traditionnellement indiqués par des @ref{Grace notes}.
 
 @item Les inflexions en fin de note sont abordées au chapitre
 @ref{Falls and doits}.
 
-@item Les « bruitage » de clé ou de piston s'indiquent souvent par le
+@item Les « bruitageS » de clé ou de piston s'indiquent souvent par le
 style @code{cross} ou des @ref{Special note heads}.
 
 @item Les bois peuvent émettre des harmoniques dans le bas de leur
-registre.  On les indique avec un @code{flageolet} -- voir
-@ref{List of articulations}.
+registre. On les indique avec un @code{flageolet} -- voir @ref{List of
+articulations}.
 
 @item En ce qui concerne les cuivres, la sourdine s'indique en principe
-par une étiquette textuelle.  Cependant, lorsque les changements sont
+par une étiquette textuelle. Cependant, lorsque les changements sont
 nombreux et rapides, il est d'usage de recourir aux articulations
 @code{stopped} et @code{open}. Pour de plus amples détails, voir
-@ref{Articulations and ornamentations} et
-@ref{List of articulations}.
+@ref{Articulations and ornamentations} et @ref{List of articulations}.
 
 @item La sourdine du cor d'harmonie s'indique par un @code{stopped}.
 Voir le chapitre @ref{Articulations and ornamentations}.
@@ -115,7 +112,7 @@ Morceaux choisis :
 @subsection Doigtés pour vents
 
 Tout instrument à vent, hormis le trombone à coulisse, fait appel à
-plusieurs doigts pour produire un son.  Les exemples ci-dessous vous
+plusieurs doigts pour produire un son. Les exemples ci-dessous vous
 donnent un aperçu de différentes manières d'indiquer des doigtés.
 
 La gestion des diagrammes de doigté spécifiques aux bois est abordée
@@ -171,8 +168,8 @@ cornemuse écossaise ; pour les utiliser, il suffit d'ajouter
 @end example
 
 @noindent
-en début de fichier.  Vous bénéficierez ainsi de commandes courtes pour
-les appoggiatures spéciales et idiomatiques de la cornemuse.  Par
+en début de fichier. Vous bénéficierez ainsi de commandes courtes pour
+les appoggiatures spéciales et idiomatiques de la cornemuse. Par
 exemple, @code{\taor} est un raccourci pour
 
 @example
@@ -190,7 +187,7 @@ pour la cornemuse ; vous n'avez donc pas à vous soucier d'employer
 
 La musique pour cornemuse est traditionnellement écrite en ré majeur.
 Dans la mesure où c'est la seule tonalité possible, l'usage est de ne
-pas indiquer l'armure explicitement.  À cet effet, pensez à commencer
+pas indiquer l'armure explicitement. À cet effet, pensez à commencer
 votre partition par @code{\hideKeySignature} -- ou bien
 @code{\showKeySignature} si, pour une raison ou pour une autre, vous
 tenez à afficher l'armure.
@@ -200,9 +197,9 @@ traditionnelle, auquel cas les do et fa devraient être abaissés en
 utilisant @code{c-flat} ou @code{f-flat} ; ils seront représentés par
 une note en forme de croix.
 
-Lorsqu'on joue des œuvres moins cérémonieuses que pour une parade
-ou un défilé, peut survenir un sol aigu, au doux nom de
-« Piobaireachd », et que l'on indiquera par @code{g-flat}.
+Lorsqu'on joue des œuvres moins cérémonieuses que pour une parade ou un
+défilé, peut survenir un sol aigu, au doux nom de « Piobaireachd », et
+que l'on indiquera par @code{g-flat}.
 
 @morerefs
 Morceaux choisis :
@@ -272,7 +269,7 @@ Nous allons ici nous intéresser aux spécificités de la section des bois.
 @subsection Diagrammes pour bois
 
 Les doigtés pour obtenir une note particulière peuvent s'afficher sous
-forme graphique.  LilyPond dispose de diagrammes pour la plupart des
+forme graphique. LilyPond dispose de diagrammes pour la plupart des
 bois, et tout particulièrement les instruments suivants :
 
 @itemize
@@ -421,14 +418,14 @@ possibles :
 
 Bien que cela ne produise pas de notation, vous pouvez obtenir la liste
 de toutes les possibilités pour un instrument donné, en utilisant dans
-un fichier les instructions
-@code{#(print-keys-verbose '@var{vent})} -- affichage à l'écran -- ou
-@code{#(print-keys-verbose '@var{vent} (current-error-port))}
--- génération d'un fichier de journalisation.
+un fichier les instructions @code{#(print-keys-verbose '@var{vent})} --
+affichage à l'écran -- ou
+@code{#(print-keys-verbose '@var{vent} (current-error-port))} --
+génération d'un fichier de journalisation.
 
 De nouveaux diagrammes sont réalisables, bien que ceci requiert de
 maîtriser le langage Scheme et n'est pas à la portée de tous les
-utilisateurs.  Des gabarits sont contenus dans les fichiers
+utilisateurs. Des gabarits sont contenus dans les fichiers
 @file{scm/define-@/woodwind-@/diagrams.scm} et
 @file{scm/display-@/woodwind-@/diagrams.scm}.
 

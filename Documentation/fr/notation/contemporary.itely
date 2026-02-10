@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
+    Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -164,12 +164,12 @@ portées) sont abordées à la rubrique @ref{Grouping staves}.
 
 @funindex \-
 
-Les éléments rythmiques peuvent se prolongar par une ligne de durée
+Les éléments rythmiques peuvent se prolonger par une ligne de durée
 représentée par un objet graphique @code{DurationLine}. Cette ligne peut
 adopter différents styles : @code{'beam}, @code{'line},
 @code{'dashed-line}, @code{'dotted-line}, @code{'zigzag}, @code{'trill}
 ou @code{'none}. La ligne peut se terminer par un crochet (uniquement
-pour le style @code{'beam}) ou une flêche.
+pour le style @code{'beam}) ou une flèche.
 
 @lilypond[quote,verbatim]
 \layout {

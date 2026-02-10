@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-  Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
+  Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
 
   When revising a translation, copy the HEAD committish of the
   version that you are working on.  For details, see the Contributors'
@@ -54,8 +54,9 @@ La liste suivante répertorie les noms des accords selon la dénomination
 standard de LilyPond ainsi que ce qu'ils représentent. D'autres systèmes
 de nommage, non pris en charge, sont indiqués dans le morceau choisi
 « Noms d'accords alternatifs » (@emph{chord-names-alternative}) dans
-@rlsrnamed{Chord notation,Accords}, qui inclut une notation inspirée par Harald
-Banter (1982) utilisée par défaut dans LilyPond jusqu’à sa version 1.7.
+@rlsrnamed{Chord notation,Accords}, qui inclut une notation inspirée par
+Harald Banter (1982) utilisée par défaut dans LilyPond jusqu’à sa
+version 1.7.
 
 @lilypondfile[quote,staffsize=18]{en/included/chord-names-jazz.ly}
 
@@ -682,7 +683,7 @@ Group}, à l'usage des enfants}
 @end quotation
 
 @noindent
-@strong{Formats anciens, toujours en vigueur dans le Royaume Uni}
+@strong{Formats anciens, toujours en vigueur au Royaume Uni}
 
 @quotation
 @multitable {@code{"government-letter "}} { (abcd x abcd mm)}
@@ -754,9 +755,9 @@ documentation, basé sur un A8 à l'italienne.}
 @appendixsec Instruments MIDI
 
 La liste suivante répertorie les différentes dénominations que vous
-pouvez affecter à la propriété @code{midiInstrument}.  Est affecté à
-chaque instrument son numéro dans l'ordre des 128 programmes du
-standard @emph{General MIDI}.
+pouvez affecter à la propriété @code{midiInstrument}. Est affecté à
+chaque instrument son numéro dans l'ordre des 128 programmes du standard
+@emph{General MIDI}.
 
 @include en/included/midi-instruments.itexi
 
@@ -792,17 +793,17 @@ suivantes : @code{green}, @code{grey}, @code{maroon}, @code{purple}.
 
 @subsubheading Noms de couleur X
 
-Les @uref{https://en.wikipedia.org/wiki/X11_color_names,
-noms de couleur X 11} offrent un choix plus large que les noms CSS. Ils
-peuvent s'employer de différentes manières.
+Les @uref{https://en.wikipedia.org/wiki/X11_color_names, noms de couleur
+X 11} offrent un choix plus large que les noms CSS. Ils peuvent
+s'employer de différentes manières.
 
 @itemize
 @item
 Un nom de couleur peut s'écrire sous la forme d'un mot composé et sans
 espace auquel chaque élément prend une initiale capitalisée (par ex.
-@code{LightSlateBlue}).  Il peut aussi s'exprimer sous la forme d'une
-suite de mots, auquel cas les initiales ne sont pas capitalisées
-(par ex. @code{light slate blue}).
+@code{LightSlateBlue}). Il peut aussi s'exprimer sous la forme d'une
+suite de mots, auquel cas les initiales ne sont pas capitalisées (par
+ex. @code{light slate blue}).
 
 @item
 Le @emph{gris} accepte aussi bien l'orthographe « grey » que
@@ -854,8 +855,8 @@ Une échelle de gris, compris entre 0 et 100, est aussi disponible.
 @cindex daltonien
 
 La fonction Scheme @code{universal-@/color} procure un
-@uref{https://jfly.uni-koeln.de/color, jeu de huit couleurs} conçu
-pour lever toute ambiquïté aux personnes souffrant de daltonisme.
+@uref{https://jfly.uni-koeln.de/color, jeu de huit couleurs} conçu pour
+lever toute ambiguïté aux personnes souffrant de daltonisme.
 
 @include en/universal-colors.tely
 
@@ -2143,7 +2144,7 @@ Résultat
 @node List of special characters
 @appendixsec Liste des caractères spéciaux
 
-Voici une table des caractères spéciaux disponibles.  Pour plus de
+Voici une table des caractères spéciaux disponibles. Pour plus de
 précisions, voir @ref{ASCII aliases}.
 
 Cette liste utilise la syntaxe HTML, à l'instar de la plupart des
@@ -2171,19 +2172,19 @@ Dans la logique interne de LilyPond, une « articulation » est un objet,
 hormis les nuances, qui peut s'attacher directement après un événement
 rythmique, qu'il s'agisse d'une note ou d'un accord, y compris un
 silence, un saut ou bien une construction en accord vide @code{<>} (voir
-@rlearningnamed{Structure of a note entry, Structuration de la saisie des notes}). Même les liaisons,
-doigtés et scripts textuels sont techniquement des articulations, bien
-qu'ils ne soient pas indiqués ici.
+@rlearningnamed{Structure of a note entry, Structuration de la saisie
+des notes}). Même les liaisons, doigtés et scripts textuels sont
+techniquement des articulations, bien qu'ils ne soient pas indiqués ici.
 
 Les listes qui suivent recensent les articulations et autres symboles
 prédéfinis dans la fonte Emmentaler, que vous pouvez attacher à une note
 (par ex. @code{f\accent} ou @code{f->}). Chaque exemple illustre les
 trois positionnements : en surplomb (@emph{up}), en dessous
 (@emph{down}) et à l'appréciation de LilyPond (@emph{neutral}).
-Consultez aussi @ref{Script glyphs} pour un recensement plus
-exhaustif des glyphes accessibles par la commande de @emph{markup}
-@code{\musicglyph} en suivant les préceptes énoncés dans
-@ref{Music notation inside markup}.
+Consultez aussi @ref{Script glyphs} pour un recensement plus exhaustif
+des glyphes accessibles par la commande de @emph{markup}
+@code{\musicglyph} en suivant les préceptes énoncés dans @ref{Music
+notation inside markup}.
 
 @c Articulations and ornamentations
 @c Fingering instructions (for "thumb")
@@ -3231,7 +3232,8 @@ représentés par des instances de la classe @code{grob}.
 
 Voir aussi :
 @rlearningnamed{Objects and interfaces, Objets et interfaces},
-@rlearningnamed{Properties of layout objects, Propriétés des objets de rendu}.@*
+@rlearningnamed{Properties of layout objects,
+ Propriétés des objets de rendu}.@*
 @ref{Naming conventions}.@*
 @rinternals{grob-interface},
 @rinternals{All layout objects}.
@@ -3464,8 +3466,8 @@ Voir aussi @rinternals{grob-interface}.
 
 Dans le tableau suivant, le premier argument d'une fonction est présenté
 en italique avec son type entre parenthèses. Vient ensuite le deuxième
-argument avec, lui aussi, son type entre parenthèses, et aisni de suite.
-Est indiqué, après la flêche, le type de valeur de retour.
+argument avec, lui aussi, son type entre parenthèses, et ainsi de suite.
+Est indiqué, après la flèche, le type de valeur de retour.
 
 Lorsqu'un argument et son type sont placés entre crochets, cet argument
 est optionnel et peut être omis, indiquant à LilyPond de prendre une
@@ -3497,8 +3499,8 @@ défaut, soit A4. Les variables du style @code{@var{xxx}-default} ici
 mentionnées sont aussi des variables de papier.
 
 Certaines valeurs comme @code{mm} or @code{pt} sont des constantes et
-normalement en lecture seule ; les modifier pourait grandement perturber
-LilyPond.
+normalement en lecture seule ; les modifier pourrait grandement
+perturber LilyPond.
 
 La plupart de ces variables peuvent se définir dans un bloc
 @code{\paper} ou @code{\layout}, @pxref{The layout block}.

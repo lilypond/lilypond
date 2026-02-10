@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
+   Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -160,8 +160,8 @@ jeu différents s'ajoutent aux notes de la manière suivante :
 @var{note}\@var{nom}
 @end example
 
-Les valeurs de @var{nom} sont répertoriées dans l'annexe
-@ref{List of articulations}. En voici un exemple :
+Les valeurs de @var{nom} sont répertoriées dans l'annexe @ref{List of
+articulations}. En voici un exemple :
 
 @lilypond[verbatim,quote]
 \relative {
@@ -208,7 +208,7 @@ indiqué au chapitre @ref{Direction and placement}.
 @cindex ornament, horizontally
 @cindex horizontal ornament
 
-Le @code{bachschleifer} se positionne sue la gauche d'un @code{NoteHead}.
+Le @code{bachschleifer} se positionne sur la gauche d'un @code{NoteHead}.
 Cet ornement peut comporter des lignes supplémentaires.
 
 @lilypond[verbatim,quote]
@@ -610,7 +610,7 @@ est fonctionnel, mais
 @end example
 
 @noindent
-ne l'est pas.  Il faudra donc écrire
+ne l'est pas. Il faudra donc écrire
 
 @example
 @bs{}tweak DynamicLineSpanner.Y-offset 5 @bs{}p
@@ -781,16 +781,15 @@ sfzp = #(make-dynamic-script "sfzp")
 @end lilypond
 
 @code{make-dynamic-script} accepte en argument tout objet de type
-@emph{markup}. Notez bien que la police des nuances ne contient
-que les caractères +@code{f}, @code{m}, @code{p}, @code{r},
-@code{s}, @code{z} et @code{n}, et que les marques de nuance
-possèdent des propriétés particulières et prédéfinies quant à leur
-police. Aussi, lorsque vous créez du texte en pareille situation,
-nous vous recommandons d'utiliser @code{\normal-text} pour annuler
-ces propriétés. Recourir à la fonction @code{make-dynamic-script}
-plutôt qu'à un simple @emph{markup} permet de s'assurer que ces
-objets personnalisés et les soufflets seront alignés
-lorsqu'attachés à une même note.
+@emph{markup}. Notez bien que la police des nuances ne contient que les
+caractères @code{f}, @code{m}, @code{p}, @code{r}, @code{s}, @code{z} et
+@code{n}, et que les marques de nuance possèdent des propriétés
+particulières et prédéfinies quant à leur police. Aussi, lorsque vous
+créez du texte en pareille situation, nous vous recommandons d'utiliser
+@code{\normal-text} pour annuler ces propriétés. Recourir à la fonction
+@code{make-dynamic-script} plutôt qu'à un simple @emph{markup} permet de
+s'assurer que ces objets personnalisés et les soufflets seront alignés
+lorsque attachés à une même note.
 
 @lilypond[verbatim,quote]
 roundF = \markup { \center-align \concat {
@@ -827,8 +826,8 @@ moltoF = #(make-dynamic-script
 }
 @end lilypond
 
-L'utilisation d'un @code{\tweak} permettra d'aligner par la gauche
-cette nuance textuelle sur la tête de note, plutôt qu'un centrage :
+L'utilisation d'un @code{\tweak} permettra d'aligner par la gauche cette
+nuance textuelle sur la tête de note, plutôt qu'un centrage :
 
 @lilypond[verbatim,quote]
 moltoF = \tweak DynamicText.self-alignment-X #LEFT
@@ -1314,7 +1313,7 @@ d'aspect linéaire, tels les glissandos, arpèges et trilles.
 @funindex \glissando
 
 Un glissando relie une hauteur à une autre en passant par chaque hauteur
-intermédiaire.  On l'obtient en accolant la commande @code{\glissando} à
+intermédiaire. On l'obtient en accolant la commande @code{\glissando} à
 la première note.
 
 @lilypond[verbatim,quote]
@@ -1561,7 +1560,7 @@ pour que le crochet d'arpège couvre plusieurs voix au niveau
 @end example
 
 @noindent
-pour obtenir un arpège à terminaison en flêche (pointant vers le haut)
+pour obtenir un arpège à terminaison en flèche (pointant vers le haut)
 couvrant les portées d'un contexte @code{PianoStaff}.
 
 @cindex arpège, style parenthèse
@@ -1572,7 +1571,7 @@ connectées.
 
 La manière simple de créer des lignes d'arpège sous forme de parenthèse
 n'est pas opérationnelle pour des arpèges inter-portées ;
-@pxref{Cross-staff stems,, Hampes et changements de portée}.
+@pxref{Cross-staff arpeggio brackets, crochets d'arpeggio interportée}.
 
 
 @node Trills
@@ -1585,7 +1584,7 @@ n'est pas opérationnelle pour des arpèges inter-portées ;
 @funindex \stopTrillSpan
 
 Les trilles brefs s'indiquent comme n'importe quelle ponctuation, avec
-un simple @code{\trill} ; voir @ref{Articulations and ornamentations}.
+un simple @code{\trill} ; @pxref{Articulations and ornamentations}.
 
 Les trilles plus longs sont délimités par @code{\startTrillSpan} et
 @code{\stopTrillSpan} :

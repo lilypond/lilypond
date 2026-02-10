@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
+   Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -150,7 +150,7 @@ La valeur par défaut de @code{font-size} est mentionnée, pour chaque
 objet de rendu, dans la référence des propriétés internes. La propriété
 @code{font-size} ne peut intervenir que pour les objets qui utilisent
 des polices, autrement dit ceux qui disposent de l'interface de rendu
-@code{font-interface}. L'abence de @code{font-size} dans la liste des
+@code{font-interface}. L'absence de @code{font-size} dans la liste des
 « réglages par défaut » d'un objet signifie qu'elle est de 0 -- voir
 @rinternals{All layout objects} @emph{(Tous les objets de rendu)}.
 
@@ -829,7 +829,7 @@ daltonisme ou non. Il est accessible sous le nom de
 Un autre moyen consiste à fournir à la fonction Scheme @code{rgb-color}
 les composantes de la couleur exacte au format rouge-vert-bleu
 (@emph{RGB}) -- chacune étant exprimée en en fraction de 256 (le 0.5 de
-l'exemple suivant correspond à 128). ainsi qu'éventuellement un nombre
+l'exemple suivant correspond à 128) -- ainsi qu'éventuellement un nombre
 définissant le niveau de transparence. Une fois de plus, cette
 transparence n'est effective que dans le cadre du format SVG, où la clef
 de l'extrait ci-dessous sera affectée.
@@ -906,6 +906,7 @@ s'interrompt par la commande @code{\stopStaffHighlight}.
   c2
 }
 @end lilypond
+
 Lorsque plusieurs surlignages se succèdent, nul n'est besoin de stipuler
 un @code{\stopStaffHighlight}, dans la mesure où @code{\staffHighlight}
 interrompt implicitement l'éventuel surlignage en cours. Il n'est pas
@@ -1053,7 +1054,7 @@ ci-dessus permet alors de contourner le problème.
 @subsection Crochets de matériau optionel
 
 L'addition de matériau optionnel peut s'indiquer à l'aide de crochets
-englobat la portée.
+englobant la portée.
 
 @lilypond[verbatim,quote]
 {
@@ -1133,7 +1134,7 @@ doit cependant être précédée d'un tiret.
 @end lilypond
 
 Lorsque seulement certaines notes d'un accord doivent être mises entre
-parenthèses, est requise l'utilisation d'une contruction en parallèle
+parenthèses, est requise l'utilisation d'une construction en parallèle
 @w{@code{<< @dots{} >>}}.
 
 @lilypond[verbatim,quote]
@@ -1146,7 +1147,7 @@ parenthèses, est requise l'utilisation d'une contruction en parallèle
 }
 @end lilypond
 
-Dans le cas d'un tablature devra être spécifié @code{NoteColumn} pour
+Dans le cas d'une tablature devra être spécifié @code{NoteColumn} pour
 mettre un accord entre parenthèses.
 
 @lilypond[verbatim,quote]
@@ -1216,8 +1217,8 @@ parenthèses correcte dans le cas des accords entre autres.
 @funindex \stemNeutral
 
 Dès qu'une note est rencontrée, un objet @code{Stem} se crée
-automatiquement.  Pour les rondes et les silences, ils sont aussi
-créés, mais en mode invisible.
+automatiquement. Pour les rondes et les silences, ils sont aussi créés,
+mais en mode invisible.
 
 L'orientation des hampes peut être définie manuellement -- voir
 @ref{Direction and placement} à ce sujet.
@@ -1273,10 +1274,10 @@ la portée par des éléments qui lui seront externes.
 @funindex noteNameSeparator
 @funindex printAccidentalNames
 
-Le nom des notes peut s'imprimer sous forme de texte à l'aide du contexte
-@code{NoteNames}. Utilisé conjointement à une portée standard, chaque
-hauteur sera synchronisée avec son nom, qu'il soit imprimé au-dessus ou
-en dessous de  la portée.
+Le nom des notes peut s'imprimer sous forme de texte à l'aide du
+contexte @code{NoteNames}. Utilisé conjointement à une portée standard,
+chaque hauteur sera synchronisée avec son nom, qu'il soit imprimé
+au-dessus ou en dessous de la portée.
 
 @lilypond[verbatim,quote]
 \language "italiano"
@@ -1297,10 +1298,9 @@ melody = \relative do'' {
 
 Le nom des notes est imprimé par défaut dans la langue utilisée pour la
 saisie ; la propriété @code{printNotesLanguage} permet cependant de
-sélectionner l'une des autres langues disponibles -- voir
-@ref{Note names in other languages}. La présentation des
-altérations se gère à l'aide de la propriété
-@code{printAccidentalNames}.
+sélectionner l'une des autres langues disponibles -- @pxref{Note names
+in other languages}. La présentation des altérations se gère à l'aide de
+la propriété @code{printAccidentalNames}.
 
 L'utilisation conjointe de ces deux propriétés et l'activation de
 @code{printOctaveNames} donnera une représentation comparable à la
@@ -1378,7 +1378,7 @@ Référence des propriété internes :
 @funindex \balloonLengthOff
 
 Vous pouvez marquer et nommer des éléments de notation à l'aide de
-bulles.  L'objectif premier de cette fonctionnalité est d'expliquer la
+bulles. L'objectif premier de cette fonctionnalité est d'expliquer la
 notation.
 
 En voici un exemple :
@@ -1418,8 +1418,8 @@ peut toutefois le gérer ainsi :
 }
 @end lilypond
 
-Le comportement par défaut en matière de point d'attachement du
-trait entre l'encadrement et le texte est indiqué ci-dessous.
+Le comportement par défaut en matière de point d'attachement du trait
+entre l'encadrement et le texte est indiqué ci-dessous.
 
 @lilypond
 \new Voice \with {
@@ -1486,10 +1486,10 @@ Vous pouvez tracer des lignes entre les portées, synchronisées avec
 les notes.
 
 LilyPond a recours à deux graveurs distincts afin d'afficher le
-quadrillage :  le @code{Grid_point_engraver} se charge de déterminer
+quadrillage : le @code{Grid_point_engraver} se charge de déterminer
 l'envergure du crochet, alors que le @code{Grid_line_span_engraver} se
-consacrera au tracé des lignes.  Les lignes sont par défaut centrées
-horizontalement sous les notes et alignées sur la gauche des têtes.  La
+consacrera au tracé des lignes. Les lignes sont par défaut centrées
+horizontalement sous les notes et alignées sur la gauche des têtes. La
 propriété @code{gridInterval} spécifie quant à elle l'espace de temps
 entre chaque ligne.
 
@@ -1557,8 +1557,8 @@ Référence des propriétés internes :
 @funindex \startGroup
 @funindex \stopGroup
 
-On utilise des crochets en analyse musicale, pour indiquer la
-structure d'une pièce.
+On utilise des crochets en analyse musicale, pour indiquer la structure
+d'une pièce.
 
 @lilypond[verbatim,quote]
 \layout {
@@ -1573,7 +1573,7 @@ structure d'une pièce.
 }
 @end lilypond
 
-Les crochets d'analyses sont susceptibles d'être imbriqués :
+Les crochets d'analyse sont susceptibles d'être imbriqués :
 
 @lilypond[verbatim,quote]
 \layout {

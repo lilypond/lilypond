@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
+   Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -38,7 +38,7 @@ s'impriment en séquence, avec un crochet et un numéro de @emph{volta}.
 Ceci permet de gérer différentes formes de @emph{da capo} et @emph{dal
 segno}. Le fragment repris débute par une indication de segno hormis
 dans le cas où il s'agit du début du morceau. Les fins alternatives
-apparaîssent en séquence, indiquées par des marques de coda, et un
+apparaissent en séquence, indiquées par des marques de coda, et un
 libellé de section, tel que « Coda », peut éventuellement apparaître
 avec la dernière alternative. Le fragment répété se termine par une
 instruction telle que @emph{D.S.}
@@ -48,8 +48,8 @@ La musique répétée est développée dans la partition autant de fois
 qu'indiqué.
 
 @item percent
-Des barres obliques ou signes de pourcentage indiquent la répétition
-de temps ou de mesures.
+Des barres obliques ou signes de pourcentage indiquent la répétition de
+temps ou de mesures.
 
 @item tremolo
 Ce type permet de réaliser des trémolos sous forme de liens de croches.
@@ -74,7 +74,7 @@ Cette section présente la syntaxe des répétitions longues.
 @funindex \repeat
 @funindex \repeat unfold
 
-Adjoindre à la commande @code{\repeat} l'opion @code{unfold} permet de
+Adjoindre à la commande @code{\repeat} l'option @code{unfold} permet de
 s'affranchir de ressaisir de la musique répétitive. La syntaxe est
 identique à celle des commandes @code{\repeat volta} et @code{\repeat
 segno} abordées plus avant.
@@ -108,7 +108,7 @@ unfold}, ce qui n'est pas aussi simple avec @code{\repeat volta} ou
 
 @warning{L'insertion d'un @code{@bs{}relative} dans une section
 @code{@bs{}repeat} sans déclaration explicite du contexte @code{Voice}
-génèrera une portée supplémentaire -- voir @rprogramnamed{An extra staff
+générera une portée supplémentaire -- voir @rprogramnamed{An extra staff
 appears, Apparition d'une portée supplémentaire}.}
 
 @morerefs
@@ -302,7 +302,7 @@ music = \fixed c' {
 @end lilypond
 
 @warning{Tout élément inclus dans un bloc @code{@bs{}alternative} sera
-traîté en tant qu'alternative. Quelque chose d'aussi simple qu'un
+traité en tant qu'alternative. Quelque chose d'aussi simple qu'un
 contrôle de mesure placé du mauvais côté d'une accolade peut générer des
 résultats inattendus.}
 
@@ -391,7 +391,7 @@ music = \fixed c' {
 @end lilypond
 
 @warning{Les commandes @code{@bs{}volta} et @code{@bs{}unfolded}
-fontionnent en respectant la répétition la plus imbriquée qui les
+fonctionnent en respectant la répétition la plus imbriquée qui les
 entoure.}
 
 
@@ -404,7 +404,7 @@ La commande @code{\fine} met un point final à la musique, sans toutefois
 le forcer. Lorsqu'une reprise contenant @code{\fine} est expansée, la
 commande @code{\fine} est déroulée avec le reste de la musique et
 interviendra là où elle doit se produire dans la musique expansée. Il
-est donc nécessaire de bien spécifier à quelle occurence le @emph{Fine}
+est donc nécessaire de bien spécifier à quelle occurrence le @emph{Fine}
 doit se réaliser -- @pxref{Other variation in repeated sections}.
 
 @lilypond[quote,verbatim]
@@ -500,7 +500,6 @@ Lorsque la numérotation des mesures est activée pour les alternatives,
 elle s'applique en présence de crochets, qu'il soient créés par
 @code{\repeat segno} ou @code{\repeat volta}, mais pas en présence
 d'indications de coda.
-
 
 Les cas habituels d'utilisation sont les suivants.
 @indentedblock
@@ -625,7 +624,7 @@ Il est possible de forcer une reprise @emph{dal-segno} en début de
 partition -- @pxref{Segno repeat appearance}.
 
 @item retour multiple
-L'instruction pour une reprise qui doît être exécutée plus d'une fois
+L'instruction pour une reprise qui doit être exécutée plus d'une fois
 inclue « @emph{@dots{}@tie{}V.} ». Le passage concerné devra être joué
 une fois de plus que le nombre indiqué par l'instruction.
 
@@ -744,7 +743,7 @@ une reprise @emph{da-capo}.
 Au lieu d'afficher un @emph{segno} en tant que repère surplombant la
 portée, il est possible de l'imprimer sous forme de barre de mesure en
 affectant la propriété @code{segnoStyle} à @code{bar-line}. Afin de
-lever toute ambiguité, seule la première barre de @emph{segno} sera
+lever toute ambiguïté, seule la première barre de @emph{segno} sera
 dépourvue de marque.
 
 @lilypond[verbatim,quote]
@@ -876,10 +875,11 @@ la reprise.
 L'aspect visuel d'une liaison se continuant dans les autres
 alternatives, peut être simulé à l'aide de la commande @code{\repeatTie}
 lorsqu'elle s'arrête sur sa première note -- méthode qui cependant ne
-fonctionne pas pour un @code{TabStaff} ; @pxref{Repeat tie,, Tenue et reprise}.
-D'autres moyens existent pour indiquer la prolongation d'une liaison sur
-des alternatives, y compris dans un @code{TabStaff}, en suivant les
-préceptes donnés à la rubrique @ref{Modifying ties and slurs}.
+fonctionne pas pour un @code{TabStaff} ; @pxref{Repeat tie,, Tenue et
+reprise}. D'autres moyens existent pour indiquer la prolongation d'une
+liaison sur des alternatives, y compris dans un @code{TabStaff}, en
+suivant les préceptes donnés à la rubrique @ref{Modifying ties and
+slurs}.
 
 L'aspect visuel d'un glissando se continuant dans les autres
 alternatives peut être simulé à l'aide d'un glissando partant d'une note
@@ -929,7 +929,7 @@ reprises du style « volta ». On la définit par une liste de commandes en
 Scheme. En règle générale, chaque élément est lui-même une liste de la
 forme @code{'(@var{commande} @var{args@dots{}})}, tout en sachant qu'une
 commande sans argument peut s'abrégér en un symbole -- par exemple,
-@code{'((start-@/repeat))} peut se libéller simplement en
+@code{'((start-@/repeat))} peut se libeller simplement en
 @code{'(start-@/repeat)}.
 
 @table @code
@@ -1277,7 +1277,7 @@ seront pas répété.
 
 @noindent
 Tout changement de métrique ou insertion d'une commande @code{\partial}
-devra impérativement se traîter sous forme de construction parallèle,
+devra impérativement se traiter sous forme de construction parallèle,
 @strong{en dehors} de la répétition en pourcentage :
 
 @lilypond[quote,verbatim,relative=2]
@@ -1296,7 +1296,7 @@ devra impérativement se traîter sous forme de construction parallèle,
 
 @funindex \repeat tremolo
 
-Il y a deux formes de trémolo : la répétition alernative de deux notes
+Il y a deux formes de trémolo : la répétition alternative de deux notes
 ou accords, et la répétition rapide d'une seule note ou d'un accord.
 Lorsqu'il est constitué d'une alternance répétitive, le trémolo
 s'indique en ajoutant des barres de ligature entre les deux notes ou

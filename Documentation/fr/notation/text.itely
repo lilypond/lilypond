@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
+   Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -58,14 +58,14 @@ dans tout objet @code{TextScript} attaché à des notes par @code{-},
 @code{^} ou@tie{}@code{_} ; voir @ref{Text scripts} ;
 
 @item
-en tant que bandeau (@emph{spanner}) lorsqu'une indication se prolongge
+en tant que bandeau (@emph{spanner}) lorsqu'une indication se prolonge
 sur plusieurs temps ou mesures ; voir
 @ref{Text spanners} ;
 
 @item
 dans toute marque affichée au-dessus de la partition, tels les objets
 @code{RehearsalMark} ou @code{MetronomeMark} introduits respectivement
-par les mots-clé @code{\mark} ou @code{\tempo} ; voir
+par les mots-clés @code{\mark} ou @code{\tempo} ; voir
 @ref{Text marks} ;
 
 @item
@@ -93,8 +93,7 @@ qu'ils sont introduits par la commande @code{\finger} ; voir
 
 @item
 Les syllabes des paroles peuvent être formatées avec une commande
-@code{\markup} ; voir
-@ref{Common notation for vocal music}.
+@code{\markup} ; voir @ref{Common notation for vocal music}.
 
 @item
 Les noms des accords sont en fait définis sous forme de blocs de
@@ -104,12 +103,11 @@ adapter les modificateurs d'accord ou les exceptions ; voir
 
 @item
 Les nuances se saisissent de la manière la plus simple. Il est néanmoins
-possible de définir sa
-@ref{New dynamic marks, propre indication}
-sous forme d'objet @emph{markup}. Certaines nuances, comme
-un crescendo, sont affichées sous forme de bandeau et peuvent être
-redéfinies au travers de certaines propriétés telle que
-@code{crescendoText} ; voir @ref{Dynamics}.
+possible de définir sa @ref{New dynamic marks, propre indication} sous
+forme d'objet @emph{markup}. Certaines nuances, comme un crescendo, sont
+affichées sous forme de bandeau et peuvent être redéfinies au travers de
+certaines propriétés telle que @code{crescendoText} ; voir
+@ref{Dynamics}.
 
 @item
 Des objets moins courants sont constitués de blocs @emph{markup}, tels
@@ -120,8 +118,8 @@ Il est en fait possible d'utiliser @code{\markup} pour personnaliser
 l'apparence de pratiquement n'importe quel objet graphique (@emph{grob})
 en appliquant une dérogation soit à sa propriété @code{text} s'il en
 dispose ou de sa propriété @code{stencil}. Une partie de la logique qui
-rend ceci possible est expliquée dans
-@ressaynamed{Flexible architecture, Flexibilité architecturale}.
+rend ceci possible est expliquée dans @ressaynamed{Flexible
+architecture, Flexibilité architecturale}.
 
 L'exemple qui suit illustre l'ubiquité des blocs @emph{markup} non
 seulement comme les objets ci-dessus présentés, mais aussi en remplaçant
@@ -208,10 +206,10 @@ au-dessus ou au-dessous de la portée selon la syntaxe utilisée -- cf.
 \relative { a'8^"pizz." g f e a4-"scherz." f }
 @end lilypond
 
-Cette syntaxe est en fait un raccourci.  Des constructions plus
-élaborées d'annotation peuvent être obtenues en ayant recours à un bloc
-@code{\markup} et selon les préceptes énoncés dans
-@ref{Formatting text}.
+Cette syntaxe est en fait un raccourci. Des constructions plus élaborées
+d'annotation peuvent être obtenues en ayant recours à un bloc
+@code{\markup} et selon les préceptes énoncés dans @ref{Formatting
+text}.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -233,8 +231,8 @@ l'espacement, à l'inverse du second.
 @end lilypond
 
 En plus d'indications textuelles, les notes peuvent se voir attacher des
-articulations, comme indiqué au chapitre
-@ref{Articulations and ornamentations}.
+articulations, comme indiqué au chapitre @ref{Articulations and
+ornamentations}.
 
 Pour de plus amples détails sur la manière de combiner indications
 textuelles et articulations, reportez-vous au chapitre
@@ -306,10 +304,9 @@ suivante :
 
 @noindent
 Le texte à imprimer est spécifié en tant que propriété de l'objet
-@code{TextSpanner}.  Il apparaîtra par défaut en italique ;
-cependant, rien ne s'oppose à un autre graphisme dès lors que vous
-faites appel à un bloc @code{\markup} --
-voir @ref{Formatting text}.
+@code{TextSpanner}. Il apparaîtra par défaut en italique ; cependant,
+rien ne s'oppose à un autre graphisme dès lors que vous faites appel à
+un bloc @code{\markup} -- voir @ref{Formatting text}.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -362,7 +359,7 @@ Référence des propriétés internes :
 @knownissues
 LilyPond ne peut traiter qu'un seul extenseur à la fois par voix.
 
-Les textes aux extrémites d'un bandeau peuvent être amenés à se
+Les textes aux extrémités d'un bandeau peuvent être amenés à se
 chevaucher.
 
 @lilypond[verbatim,quote]
@@ -373,8 +370,8 @@ chevaucher.
 }
 @end lilypond
 
-Un moyen de contournement est disponible à la rubrique
-@ref{Horizontal spacing}.
+Un moyen de contournement est disponible à la rubrique @ref{Horizontal
+spacing}.
 
 
 @node Section labels
@@ -438,26 +435,25 @@ des notes, mais entre elles, et souvent alignées sur une barre de mesure.
 
 @warning{Les versions précédentes de LilyPond utilisaient l'instruction
 @code{@bs{}mark} pour les indications textuelles, bien quelle ait été
-initialement conçue pour les repères de répétition (voir
-@ref{Rehearsal marks}). Les commandes @code{@bs{}textMark} et
-@code{@bs{}textEndMark} sont plus appropriées en matière d'indications
-textuelles de par leurs réglages par défaut et la capacité qu'elles
-offrent de présenter plusieurs indications en un même endroit. Il est
-donc préférable d'utiliser @code{@bs{}textMark} et
-@code{@bs{}textEndMark} en lieu et place de @code{@bs{}mark "Texte"} ou
-@code{@bs{}mark @bs{}markup @dots{}}. Pour la conversion de code utilisant
-@code{@bs{}mark}, les dérogations portées à @code{RehearsalMark}
-devraient être modifiées en @code{TextMark}.}
+initialement conçue pour les repères de répétition (voir @ref{Rehearsal
+marks}). Les commandes @code{@bs{}textMark} et @code{@bs{}textEndMark}
+sont plus appropriées en matière d'indications textuelles de par leurs
+réglages par défaut et la capacité qu'elles offrent de présenter
+plusieurs indications en un même endroit. Il est donc préférable
+d'utiliser @code{@bs{}textMark} et @code{@bs{}textEndMark} en lieu et
+place de @code{@bs{}mark "Texte"} ou @code{@bs{}mark @bs{}markup
+@dots{}}. Pour la conversion de code utilisant @code{@bs{}mark}, les
+dérogations portées à @code{RehearsalMark} devraient être modifiées en
+@code{TextMark}.}
 
 Avant d'insérer une indication textuelle, il peut être judicieux de
 chercher une commande qui serait plus appropriée. Lorsque le texte
-identifie une section, utilisez @code{\sectionLabel} (voir
-@ref{Section labels}). Pour un saut ou un renvoi arbitraire, il vaut
-mieux utiliser @code{\jump} (voir
-@ref{Manual repeat marks}). Ces instructions disposent de
-mises en forme par défaut différentes et créent d'autres objets qui
-peuvent être personnalisés indépendamment des indications textuelles
-génériques à l'aide de feuilles de style.
+identifie une section, utilisez @code{\sectionLabel} (voir @ref{Section
+labels}). Pour un saut ou un renvoi arbitraire, il vaut mieux utiliser
+@code{\jump} (voir @ref{Manual repeat marks}). Ces instructions
+disposent de mises en forme par défaut différentes et créent d'autres
+objets qui peuvent être personnalisés indépendamment des indications
+textuelles génériques à l'aide de feuilles de style.
 
 Une indication textuelle se saisit à l'aide de @code{\textMark} ou
 @code{\textEndMark}. La commande @code{\textMark} affiche une marque
@@ -555,10 +551,9 @@ Les indications textuelles peuvent se présenter en dessous de la portée.
 
 Plusieurs indications peuvent intervenir en un même moment. L'ordre dans
 lequel elles s'empileront peut se gérer à l'aide de la propriété
-@code{outside-staff-priority} (voir
-@ref{Vertical collision avoidance}). Une autre façon de procéder
-pourrait consister à utiliser une seule indication sous la forme
-@code{\markup \column @{ @dots{} @} }.
+@code{outside-staff-priority} (voir @ref{Vertical collision avoidance}).
+Une autre façon de procéder pourrait consister à utiliser une seule
+indication sous la forme @code{\markup \column @{ @dots{} @} }.
 
 @lilypond[verbatim,quote]
 \fixed c' {
@@ -645,8 +640,8 @@ Référence des propriétés internes :
 @cindex texte indépendant
 @cindex texte isolé
 @cindex texte en préambule
-@cindex top-level, texte
-@cindex texte, top-level
+@cindex @emph{top-level}, texte
+@cindex texte, @emph{top-level}
 @cindex indépendant, texte
 
 @funindex \markup
@@ -679,11 +674,11 @@ au chapitre @ref{Multiple scores in a book}.
 }
 @end lilypond
 
-Les blocs de textes peuvent s'étendre sur plusieurs pages à l'aide
-de la commande @code{\markuplist}. Ceci permet
-de générer des ouvrages complets uniquement grâce à LilyPond.  Cette
-fonctionnalité, ainsi que la syntaxe appropriée, est abordée plus en
-détail au chapitre @ref{Text markup introduction}.
+Les blocs de textes peuvent s'étendre sur plusieurs pages à l'aide de la
+commande @code{\markuplist}. Ceci permet de générer des ouvrages
+complets uniquement grâce à LilyPond. Cette fonctionnalité, ainsi que la
+syntaxe appropriée, est abordée plus en détail au chapitre @ref{Text
+markup introduction}.
 
 @predefined
 @funindex \markup
@@ -885,7 +880,7 @@ nouveau le comportement que nous venons de voir.
 @end lilypond
 
 L'application de la commande @code{\line} à une liste de @emph{markups}
-permet qu'lle soit traitee comme un argument @emph{markup} unique.
+permet qu'elle soit traitée comme un argument @emph{markup} unique.
 
 @lilypond[verbatim,quote]
 \markup \box { Karl Amadeus \smallCaps Hartmann }
@@ -931,7 +926,7 @@ cette différence.
 @end lilypond
 
 Vous pouvez stocker les étiquettes textuelles en tant que variables,
-et attacher ces identificateurs à des notes, comme ici :
+et attacher ces identifiants à des notes, comme ici :
 
 @lilypond[quote,verbatim]
 allegro = \markup \bold \large Allegro
@@ -954,7 +949,8 @@ personnalisés utilisables dans le cadre des commandes @code{\markup}.
 @end lilypond
 
 Le fonctionnement interne de ces commandes et la façon d'en implémenter
-de nouveaux est abordée dans @rextendnamed{Markup functions, Fonctions pour markups}.
+de nouveaux est abordée dans @rextendnamed{Markup functions, Fonctions
+pour markups}.
 
 @morerefs
 Manuel de notation :
@@ -1019,16 +1015,16 @@ fonte :
 @funindex \larger
 @funindex \magnify
 
-La taille globale du texte apparaissaant dans les @emph{markups} peut se
+La taille globale du texte apparaissant dans les @emph{markups} peut se
 régler à l'aide de la variable de papier @code{text-font-size}. Ceci
-permet d'ajuster une fonte pricipale qui pourrait paraître plus grande
+permet d'ajuster une fonte principale qui pourrait paraître plus grande
 ou plus petite bien qu'ayant la même taille nominale. La valeur est
 exprimée en points (sans mention de l'unité) : la valeur par défaut
 dépend de la taille de portée et résulte du calcul @code{(staff-height /
 20 * 11)}.
 
 @xref{Distances and measurements} pour de plus amples informations quant
-aux dimensions utilisé'es par LilyPond.
+aux dimensions utilisées par LilyPond.
 
 @lilypond[quote,verbatim]
 \score {
@@ -1103,7 +1099,7 @@ taille des espaces et celle des autres caractères :
 @funindex \sub
 @funindex \normal-size-super
 
-Vous pouvez imprimer du texte en indice ou en exposant.  Celui-ci sera
+Vous pouvez imprimer du texte en indice ou en exposant. Celui-ci sera
 dans une taille plus petite, mais rien ne s'oppose à ce que vous lui
 affectiez une taille normale :
 
@@ -1145,7 +1141,7 @@ dans les chapitres @ref{New dynamic marks} et @ref{Manual repeat marks}.
 @c a font-switching command). But we need it here. -vv
 
 Lorsqu'un changement survient au milieu d'un mot, il se peut qu'un
-espacement supplémentaire apparaisse.  Il suffit en pareil cas de
+espacement supplémentaire apparaisse. Il suffit en pareil cas de
 concaténer les différents éléments :
 
 @lilypond[quote,verbatim]
@@ -1223,9 +1219,9 @@ espacements nettement moins réguliers que si vous utilisez
 @cindex @emph{markups}, alignement
 
 Cette partie traite de la manière de positionner du texte en mode
-@emph{markup}.  On déplace l'intégralité d'un objet @emph{markup} en
-utilisant la syntaxe décrite au chapitre
-@rlearningnamed{Moving objects, Déplacement d'objets}.
+@emph{markup}. On déplace l'intégralité d'un objet @emph{markup} en
+utilisant la syntaxe décrite au chapitre @rlearningnamed{Moving objects,
+Déplacement d'objets}.
 
 @cindex texte, alignement horizontal
 @cindex alignement horizontal du texte
@@ -1235,8 +1231,8 @@ utilisant la syntaxe décrite au chapitre
 @funindex \right-align
 
 Les objets de type @emph{markup} peuvent s'aligner de différentes
-manières.  Une indication textuelle est par défaut alignée sur son
-extrémité gauche.  Dans l'exemple qui suit, il n'y a aucune différence
+manières. Une indication textuelle est par défaut alignée sur son
+extrémité gauche. Dans l'exemple qui suit, il n'y a aucune différence
 entre les deux premiers @emph{markups}. Cet exemple indique aussi
 différentes syntaxes pour les commandes d'alignement.
 
@@ -1295,9 +1291,9 @@ l'exemple ci-dessous :
 @noindent
 Certains objets possèdent leurs propres procédures d'alignement, qui
 annuleront toute spécification d'alignement que vous pourriez leur
-affecter.  La solution consiste alors à déplacer l'intégralité de ces
-objets @emph{markup}, comme indiqué par exemple au chapitre
-@ref{Text marks}.
+affecter. La solution consiste alors à déplacer l'intégralité de ces
+objets @emph{markup}, comme indiqué par exemple au chapitre @ref{Text
+marks}.
 
 @cindex texte, alignement vertical
 @cindex alignement vertical du texte
@@ -1307,14 +1303,14 @@ objets @emph{markup}, comme indiqué par exemple au chapitre
 
 @c QUERY Should the function of ``\null'' be clarified? rp
 
-L'alignement vertical est quant à lui un peu plus compliqué.  Comme nous
+L'alignement vertical est quant à lui un peu plus compliqué. Comme nous
 l'avons vu ci-avant, les objets @emph{markup} peuvent être déplacés dans
-leur intégralité.  Il est néanmoins possible de déplacer certains
-éléments spécifiques au sein d'un bloc @emph{markup}.  En pareil cas,
+leur intégralité. Il est néanmoins possible de déplacer certains
+éléments spécifiques au sein d'un bloc @emph{markup}. En pareil cas,
 l'élément à déplacer doit être précédé d'un « point d'ancrage » -- un
-autre élément du @emph{markup} ou un objet invisible.  L'exemple qui
-suit illustre ces deux possibilités.  Vous noterez par ailleurs que le
-dernier @emph{markup}, dépourvu de point d'ancrage, n'est de ce fait pas
+autre élément du @emph{markup} ou un objet invisible. L'exemple qui suit
+illustre ces deux possibilités. Vous noterez par ailleurs que le dernier
+@emph{markup}, dépourvu de point d'ancrage, n'est de ce fait pas
 déplacé.
 
 @lilypond[quote,verbatim]
@@ -1364,7 +1360,7 @@ textuels en mode @emph{markup}, tant au niveau horizontal que vertical.
 @cindex @emph{markup} et décalage vertical
 @funindex \vspace
 
-En raison de la manière dont est implémenté le colonnage, @code{\vspace}
+En raison de la manière dont est implémenté le colonage, @code{\vspace}
 @strong{ne peut pas} s'utiliser pour bouger arbitrairement vers le haut
 ou le bas des objets d'un @emph{markup} @code{\column}. La naïveté de
 l'approche suivante est donc vouée à l'échec.
@@ -1459,7 +1455,7 @@ sa propre ligne, tantôt alignée à gauche, tantôt centrée.
 
 Pareillement, une liste d'éléments ou d'expressions sera répartie sur
 une ligne entière, voire même centrée sur toute la page s'il n'y a qu'un
-seul élément.  De telles expressions peuvent à leur tour contenir du
+seul élément. De telles expressions peuvent à leur tour contenir du
 texte multiligne ou une autre expression @emph{markup}.
 
 @lilypond[quote,verbatim]
@@ -1511,8 +1507,8 @@ défaut à @code{#f}, autrement dit l'entièreté de la ligne :
 
 Les indications textuelles, lorsqu'elles sont relativement longues,
 peuvent se répartir sur plusieurs lignes en fonction de la largeur de
-ligne.  Le texte sera alors soit aligné à gauche, soit justifié, comme
-le montre l'exemple suivant :
+ligne. Le texte sera alors soit aligné à gauche, soit justifié, comme le
+montre l'exemple suivant :
 
 @lilypond[quote,verbatim]
 \markup {
@@ -1545,8 +1541,8 @@ le montre l'exemple suivant :
 @cindex alignement du texte, commandes
 
 Une liste des différentes commandes permettant d'aligner du texte en
-mode @emph{markup} est disponible à l'annexe
-@ref{Markup for text alignment}.
+mode @emph{markup} est disponible à l'annexe @ref{Markup for text
+alignment}.
 
 @morerefs
 Manuel d'initiation :
@@ -1663,9 +1659,9 @@ leur description.
 @funindex \draw-line
 @funindex \arrow-head
 
-Vous pouvez imprimer certains graphismes ou symboles sans qu'il n'y
-ait de texte.  Ces objets peuvent même se combiner, à l'instar de
-n'importe quelle expression @emph{markup}.
+Vous pouvez imprimer certains graphismes ou symboles sans qu'il n'y ait
+de texte. Ces objets peuvent même se combiner, à l'instar de n'importe
+quelle expression @emph{markup}.
 
 @lilypond[quote,verbatim]
 \markup {
@@ -1695,7 +1691,7 @@ Des fonctionnalités graphiques avancées vous permettent même d'inclure
 dans une partition un fichier image converti au format PostScript
 encapsulé (extension @code{eps}), ou bien de tracer un graphique
 directement dans le fichier source à partir d'instructions PostScript
-pures.  Nous vous conseillons, en pareil cas, de toujours spécifier les
+pures. Nous vous conseillons, en pareil cas, de toujours spécifier les
 dimensions du dessin, comme dans ce qui suit :
 
 @lilypond[quote,verbatim,fragment]
@@ -1791,7 +1787,7 @@ notation :
 @end lilypond
 
 En règle générale, tout symbole musical peut être inclus dans un
-@emph{markup}, comme le montre l'exemple qui suit.  Ces différents
+@emph{markup}, comme le montre l'exemple qui suit. Ces différents
 symboles sont répertoriés dans l'annexe @ref{The Emmentaler font}.
 
 @lilypond[quote,verbatim]
@@ -1836,7 +1832,7 @@ La documentation sur ces diagrammes se trouve à l'annexe
 @cindex partition incluse dans un @emph{markup}
 @cindex @emph{markup}, inclusion de partition
 
-Rien ne s'oppose à ce qu'une étiquette ne comporte une partition.
+Rien ne s'oppose à ce qu'une étiquette comporte une partition.
 
 @lilypond[quote,verbatim]
 \relative {
@@ -1912,7 +1908,7 @@ déficients.
 Ce format de fonte est devenu ces dernières années le format par défaut
 des fontes OpenType (@file{.otf}). Bien que son prédécesseur (CFF, qui
 utilise aussi une extension @file{.otf}) soit pris en charge, le CFF2 --
-plus compact  -- ne l'est pas. LilyPond émet un avertissement en console
+plus compact -- ne l'est pas. LilyPond émet un avertissement en console
 s'il rencontre une telle fonte, et la conversion en PDF échouera ou bien
 certains glyphes de la fonte seront absents du PDF.
 
@@ -1920,7 +1916,7 @@ certains glyphes de la fonte seront absents du PDF.
 @cindex format de fonte, Font Variations (VF)
 @cindex Variation Font, format (VF)
 De telles fontes comportent habituellement un « VF » dans leur nom ;
-elles ne sont malheuresement pas prises en charge, qu'elles soient en
+elles ne sont malheureusement pas prises en charge, qu'elles soient en
 TrueType ou en OpenType, et sont donc exclues d'entrée de jeu.
 
 @item fontes colorisées
@@ -1939,7 +1935,7 @@ pris en charge.
 @cindex format de fonte OTC
 @cindex OpenType collections (@file{.otc})
 Il s'agit d'un format de type conteneur (habituellement avec une
-extension @file{.otc}) où de pultiples fontes sont dans un même fichier.
+extension @file{.otc}) où de multiples fontes sont dans un même fichier.
 Il est à ce jour souvent utilisé en dernier ressort par le système
 d'exploitation lorsqu'aucune fonte ne convient, quelle qu'en soit la
 raison.
@@ -1969,8 +1965,9 @@ permet de prendre en charge CFF2 (et aussi les OpenType collections).
 @cindex fonte, fichiers externes
 
 En sus de celles déjà installées sur le système, d'autres fontes peuvent
-s'ajouter au répertoire de FontConfig, ce qui les rendra donc disponibles
-pour les partitions LilyPond, à l'aide des commandes suivantes :
+s'ajouter au répertoire de FontConfig, ce qui les rendra donc
+disponibles pour les partitions LilyPond, à l'aide des commandes
+suivantes :
 
 @example
 #(ly:font-config-add-font "@var{chemin/au/fichier-fonte}")
@@ -1978,8 +1975,8 @@ pour les partitions LilyPond, à l'aide des commandes suivantes :
 @end example
 
 @noindent
-Le chemin fourni à ces deux commandes peut être absolu ou relatif, ce qui
-permet de compiler une partition sur n'importe quel système dans la
+Le chemin fourni à ces deux commandes peut être absolu ou relatif, ce
+qui permet de compiler une partition sur n'importe quel système dans la
 mesure où les fichiers de fontes concernés sont transmis avec les
 fichiers sources de la partition.
 
@@ -1993,7 +1990,6 @@ différent du nom du fichier. Par ailleurs, lancer @command{lilypond
 
 @node Font families
 @subsection Familles de fontes
-
 
 Vous disposez de trois familles de fontes@footnote{Dans sa forme la plus
 simple, une @emph{famille de fonte} contient habituellement les styles
@@ -2015,8 +2011,8 @@ Pour le moteur @code{svg} :
 @end indentedblock
 
 @noindent
-« serif », « sans-serif » et « monospace » sont des
-« generic-family » au titre des spécifications SVG et CSS.
+« serif », « sans-serif » et « monospace » sont des « generic-family »
+au titre des spécifications SVG et CSS.
 
 Pour les autres moteurs :
 
@@ -2062,10 +2058,10 @@ Il est à noter que les fontes URW distribuées avec LilyPond (« C059 »,
 « Nimbus Mono PS » et « Nimbus Sans ») disposent d'une particularité :
 par défaut, et en complément des ligatures standard telles que « fl » ou
 « ffi », elles substituent la chaîne « Nr. » par le caractère « Numero
-Sign » (U+2116) dès lors que le  script « latn » est sélectionné. On
-peut toutefois s'en préserver temporairement par l'insertion d'un
-caractère de largeur nulle et non jointant (@emph{zero-width non-joiner}
-ZWNJ, U+200C) entre les caractères « N » et « r ». Les lignes ci-dessous
+Sign » (U+2116) dès lors que le script « latn » est sélectionné. On peut
+toutefois s'en préserver temporairement par l'insertion d'un caractère
+de largeur nulle et non jointant (@emph{zero-width non-joiner} ZWNJ,
+U+200C) entre les caractères « N » et « r ». Les lignes ci-dessous
 auront pour conséquence que LilyPond insérera toujours un caractère
 @emph{ZWNJ}.
 
@@ -2100,8 +2096,8 @@ c''4^smaller
 
 @noindent
 Cette syntaxe s'applique aussi en mode @emph{markup}, bien que celui-ci
-dispose d'une syntaxe allégée comme nous l'avons vu dans
-@ref{Selecting font and font size} :
+dispose d'une syntaxe allégée comme nous l'avons vu dans @ref{Selecting
+font and font size} :
 
 @lilypond[quote,verbatim]
 \markup {
@@ -2181,8 +2177,6 @@ Manuel de notation :
 @endmorerefs
 
 
-
-
 @node Changing fonts
 @subsection Choix des fontes
 
@@ -2207,7 +2201,7 @@ On peut tout à fait modifier le jeu de polices par défaut de LilyPond.
 }
 @end lilypond
 
-Il est aussi posible de substituer les fontes musicales à l'aide de la
+Il est aussi possible de substituer les fontes musicales à l'aide de la
 même syntaxe -- @pxref{Replacing the notation font}.
 
 Il est possible de changer de fonte pour un objet particulier ou une

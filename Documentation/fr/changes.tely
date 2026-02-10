@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: fafad7372f36503c8b698069950fbb42a6388b90
+    Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -58,23 +58,23 @@ vous avez écrits avec des versions précédentes, de telle sorte qu'ils
 restent fonctionnels avec les nouvelles versions. Afin de mettre à jour
 vos fichiers, il est @strong{fortement conseillé} d'utiliser
 l'utilitaire @command{convert-ly} distribué avec LilyPond et qui est
-abordé dans @rprogramnamed{Updating files with convert-ly,
-Mise à jour avec convert-ly}. @command{convert-ly} est capable de
-réaliser la plupart des modifications de syntaxe automatiquement. Les
-utilisateurs de Frescobaldi peuvent lancer @command{convert-ly}
-directement à partir du menu de Frescobaldi en faisant « Outils > Mettre
-à jour avec convert-ly@dots{} ». D'autres environnements prenant en
-charge LilyPond sont susceptibles de fournir un moyen graphique de
-lancer @command{convert-ly}.}
+abordé dans @rprogramnamed{Updating files with convert-ly, Mise à jour
+avec convert-ly}. @command{convert-ly} est capable de réaliser la
+plupart des modifications de syntaxe automatiquement. Les utilisateurs
+de Frescobaldi peuvent lancer @command{convert-ly} directement à partir
+du menu de Frescobaldi en faisant « Outils > Mettre à jour avec
+convert-ly… ». D'autres environnements prenant en charge LilyPond sont
+susceptibles de fournir un moyen graphique de lancer
+@command{convert-ly}.}
 
 
 @c Don't remove this top-level menu; it is needed to suppress automatic
 @c generation of a `@detailmenu` block by `texi2any` up to version 7.2.
 @menu
-* Major changes in LilyPond::
-* New for musical notation::
-* New for specialist notation::
-* Miscellaneous improvements::
+* Major changes in LilyPond::   Modifications majeures de LilyPond
+* New for musical notation::    Nouveautés en matière de notation musicale
+* New for specialist notation:: Nouveautés en matière de notation spécialisée
+* Miscellaneous improvements::  Autres améliorations diverses
 @end menu
 
 
@@ -87,7 +87,7 @@ lancer @command{convert-ly}.}
 @itemize
 
 @item
-Le marges sont désormais plus larges, suivant ainsi les mises en pages
+Les marges sont désormais plus larges, suivant ainsi les mises en pages
 de nombreux éditeurs, et conformément aux recommandations d'Elaine
 Gould.
 
@@ -261,7 +261,7 @@ noms est désormais tout en minuscules, passant de @code{LilyPond-} à
 @code{lilypond-} et, par conséquent, toutes les fonctions, variables,
 etc. ont toutes leur préfixe en minuscules. Ce changement est apporté
 pour se conformer aux conventions de nommage d'Emacs et, plus
-particilièrement, afin que le nom du mode corresponde au paquetage qui
+particulièrement, afin que le nom du mode corresponde au paquetage qui
 le fournit. Il en sera ainsi plus facile aux nouveaux utilisateurs
 d'utiliser LilyPond au sein d'Emacs.
 
@@ -338,7 +338,7 @@ Certains faux changements de clef ont été réglés.
 
 @item
 La commande @code{\time} prend désormais en charge les métriques
-complèxes qui auparavant nécessitaient @code{\compoundMeter}, même si la
+complexes qui auparavant nécessitaient @code{\compoundMeter}, même si la
 syntaxe est quelque peu différente. La commande @code{\compoundMeter} a
 été renommée en @code{\timeAbbrev}.
 
@@ -600,7 +600,7 @@ faisait auparavant (réduction de la fréquence des subdivisions de
 ligatures). @code{beamMaximumSubdivision} limite globalement le nombre
 de tronçons supprimés aux emplacements de subdivision.
 @code{respectIncompleteBeams} limite le nombre de moignons lorsque le
-temps restant ne complèterait pas la métrique de la subdivision. Régler
+temps restant ne compléterait pas la métrique de la subdivision. Régler
 @code{beamMinimumSubdivision} à la valeur de @code{beatBase} dans tous
 les cas, y compris lorsque @code{beatBase} varie implicitement, préserve
 le comportement antérieur.
@@ -864,7 +864,7 @@ horizontalement par défaut.
 
 @itemize
 @item
-Des tês de note de forme triangulaire ont été ajoutées à la fonte
+Des têtes de note de forme triangulaire ont été ajoutées à la fonte
 Emmentaler. Elles sont utilisables en réglant @code{NoteHead@/.style} à
 @code{arrow}.
 
@@ -1255,7 +1255,7 @@ automatiques dans le cadre d'un @code{\crossStaff}.
 @itemize
 @item
 Les indications @code{\upbow} et @code{\downbow} sont désormais
-correctement inversées lorsque placées sous la portée. En consésquence,
+correctement inversées lorsque placées sous la portée. En conséquence,
 les glyphes @code{scripts.upbow} et @code{scripts.downbow} ont été
 respectivement renommés en @code{script.uupbow} et
 @code{scripts.udownbow}, et les glyphes inversés nommés
@@ -1411,8 +1411,8 @@ permettant d'indiquer quelque hampe non nécessaire.
 
 @item
 L'utilisation du fichier @file{gregorian.ly} est désuète. Bien que
-toujours distribué pour raison de compatibilté ascendante, son inclusion
-devrait être remplacée par l'utilisation d'un contexte
+toujours distribué pour raison de compatibilité ascendante, son
+inclusion devrait être remplacée par l'utilisation d'un contexte
 @code{VaticanaScore}, avec si besoin des adaptations manuelles dans le
 bloc @code{\layout}. Un code tel que
 
@@ -1450,7 +1450,7 @@ devrait devenir
 @itemize
 @item
 La langue de saisie « arabic » est dépréciée. Bien que toujours
-fonctionnelle pour des raisons de rétrocompatiblité -- si l'on charge
+fonctionnelle pour des raisons de rétrocompatibilité -- si l'on charge
 @file{hel-arabic} --, il est recommandé d'utiliser « english »,
 « italiano » ou votre langue de saisie préférée.
 
@@ -1488,8 +1488,8 @@ automatiquement.
 Les commandes de @emph{markup} @code{\hspace} et @code{\vspace}
 permettent d'insérer de l'espace, qui peut être négatif. Les autres
 objets sont déplacées en conséquence. Ce déplacement peut s'indiquer par
-une flêche qui s'imprimera à l'aide de la nouvelle commande
-@code{annotate-moving}. Il est à noter que ces flêches ne reflètent pas
+une flèche qui s'imprimera à l'aide de la nouvelle commande
+@code{annotate-moving}. Il est à noter que ces flèches ne reflètent pas
 l'étendue réelle des objets créés par @code{\vspace} et @code{\hspace} ;
 on pourrait utiliser @code{\box} à cette fin.
 
@@ -1580,16 +1580,16 @@ ajoute son argument au chemin de recherche courant de l'analyseur.
 
 @item
 La valeur de la propriété de contexte @code{timeSignatureSettings}
-utilise désormais le symbole @code{beatBase} en remplacemeent de
+utilise désormais le symbole @code{beatBase} en remplacement de
 @code{baseMoment}. @command{convert-ly} n'est pas en mesure de traiter
 ce changement.
 
 @item
 L'inclusion d'images PNG est désormais possible à l'aide de la commande
-de @emph{markup} @code{\image}. Ceci vient en supplement de la commande
+de @emph{markup} @code{\image}. Ceci vient en supplément de la commande
 @code{\epsfile} pour les images EPS.
 
-La commande @code{\image} traîte aussi bien les images PNG que EPS, à
+La commande @code{\image} traite aussi bien les images PNG que EPS, à
 ceci près que la commande @code{\image} insère un fond blanc,
 contrairement à @code{\epsfile}.
 
@@ -1646,7 +1646,7 @@ lilypond -dlast=R1*5 ...
 @end example
 
 @noindent
-aura pour résultat que LilyPond génèrera seulement les cinq dernières
+aura pour résultat que LilyPond générera seulement les cinq dernières
 mesure (partant du principe d'une métrique à 4/4).
 
 @item
@@ -1752,7 +1752,7 @@ exemple :
 Le positionnement des crochets horizontaux d'analyse a été amélioré.
 En particulier, l'objet @code{HorizontalBracket} a désormais une valeur
 de @code{outside-staff-priority} fixée à 800. Par conséquent, il se
-pourrait que des crochets imbriqués voient leur positionement modifié.
+pourrait que des crochets imbriqués voient leur positionnement modifié.
 Ceci peut se corriger en ajustant les valeurs de
 @code{outside-staff-priority} par un @code{\tweak}, tout en sachant que
 le crochet externe doit garder une valeur de priorité supérieure.
@@ -1796,7 +1796,7 @@ cette nouvelle implémentation.
 @itemize @minus{}
 @item
 Sur la ligne de commande, l'argument à l'option @option{-dpaper-size} ne
-nécéssite plus d'être mis entre guillemets. En d'autres termes,
+nécessite plus d'être mis entre guillemets. En d'autres termes,
 mentionner @code{-dpaper-size=a3} est tout à fait valide.
 
 @item
@@ -1834,7 +1834,7 @@ axes peut requérir des valeurs différentes.
 @code{\pushContextProperty} et @code{\popContextProperty} sont deux
 nouvelles commandes permettant de manipuler les propriétés de contexte.
 La première insère la valeur courante dans une pile, alors que la
-seconde suprime cette valeur de la pile et restaure la valeur initiale.
+seconde supprime cette valeur de la pile et restaure la valeur initiale.
 
 @lilypond[quote,verbatim]
 {
@@ -1875,7 +1875,7 @@ corrections de bogue.
 on est en droit de s'y attendre.
 
 @item Meilleure prise en charge automatique pour contrecarrer l'infâme
-ticket 34 de LilyPond (problème de synchronisation avec une appogiature
+ticket 34 de LilyPond (problème de synchronisation avec une appoggiature
 en début de pièce avec plusieurs portées).
 
 @item Prise en charge des trémolos sur deux hampes et n-olets imbriqués.
@@ -1977,6 +1977,12 @@ sous-propriété @code{bottom-space} de @code{line-break-system-details} a
 été renommée en @code{bottom-padding}. Alors qu'elle existait depuis la
 version 2.13.4 sortie en 2009, cette sous-propriété n'était pour
 l'instant pas documentée.
+
+@item
+Il est désormais possible de modifier des regroupements de balises créés
+par @code{\tagGroup} ou @code{\tagGroupRef}, à l'aide des commandes
+@code{\resetTagGroups}, @code{\resetTagGroup}, @code{\addToTagGroup} et
+@code{\removeFromTagGroup}.
 
 @end itemize
 

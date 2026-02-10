@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
+   Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -177,7 +177,7 @@ mode paroles, accords, ou tout autre mode, et que vous deviez insérer un
 @node Input structure
 @chapter Agencement du code
 
-LilyPond traite des fichiers textuels.  Ces fichiers portent par
+LilyPond traite des fichiers textuels. Ces fichiers portent par
 convention une extension @code{.ly}.
 
 
@@ -608,9 +608,8 @@ simple expression musicale sera traduit en
 @end example
 
 Vous pouvez modifier ce comportement à l'aide de la variable
-@code{toplevel-music-handler} placée en tête.  Le gestionnaire par
-défaut est défini dans le fichier d'initialisation
-@file{../scm/lily.scm}.
+@code{toplevel-music-handler} placée en tête. Le gestionnaire par défaut
+est défini dans le fichier d'initialisation @file{../scm/lily.scm}.
 
 @item
 Du texte sous forme de @emph{markup} comme les paroles d'un couplet
@@ -677,12 +676,11 @@ faudrait l'entourer de guillemets informatiques ou, encore mieux, opter
 pour un autre nom ou une autre clé.
 
 Pour des raisons techniques, accéder à des listes associatives
-imbriquées peut échouer dans certaines circonstances. En particulier,
-on ne peut y accéder aux niveaux de premier rang -- autrement dit en
-dehors d'un bloc de musique. Si @command{lilypond} venait à à avorter
-avec un message d'erreur « mauvais type d'expression », il faudrait
-remplacer la liste associative imbriquée par une variable entre
-guillemets.
+imbriquées peut échouer dans certaines circonstances. En particulier, on
+ne peut y accéder aux niveaux de premier rang -- autrement dit en dehors
+d'un bloc de musique. Si @command{lilypond} venait à à avorter avec un
+message d'erreur « mauvais type d'expression », il faudrait remplacer la
+liste associative imbriquée par une variable entre guillemets.
 
 @end itemize
 
@@ -879,7 +877,7 @@ du bloc @code{\header} permettent d'obtenir différents styles de
 publication musicale. Par exemple, si la publication comprend plusieurs
 pièces du même compositeur, un bloc @code{\header} placé en tête de
 fichier définira le titre de l'ouvrage et le compositeur, que l'on
-complètera par un bloc @code{\header} dans chaque bloc @code{\score}
+complétera par un bloc @code{\header} dans chaque bloc @code{\score}
 pour définir les champs @code{piece} et @code{opus}, comme ici :
 
 @lilypond[papersize=a5,line-width=14.5\cm,quote,verbatim,noragged-right]
@@ -1080,7 +1078,7 @@ commande @code{\pageBreak}.
 
 La variable @code{breakbefore} activée dans un bloc @code{\header} situé
 dans un bloc @code{\score} force le saut de page avant le morceau
-contenu dans ce @code{\score}.  Vous pourrez ainsi séparer le titre
+contenu dans ce @code{\score}. Vous pourrez ainsi séparer le titre
 principal de la musique.
 
 @lilypond[papersize=c7landscape,verbatim,noragged-right]
@@ -1904,7 +1902,7 @@ de note est :
 \markup @{ @dots{} \auto-footnote @var{texte} @var{annotation} @dots{} @}
 @end example
 
-Ses les éléments sont :
+Ses éléments sont :
 
 @table @var
 
@@ -2326,7 +2324,7 @@ numéro de page peuvent se rejoindre par une ligne pointillée :
 @funindex add-toc-item!
 @cindex table des matières, personnalisation
 
-Au-delà de ces mécanismes de mise en forme, il est posssible de définir
+Au-delà de ces mécanismes de mise en forme, il est possible de définir
 d'autres commandes et @emph{markups} afin de construire une table plus
 élaborée. Dans l'exemple qui suit, nous créons un nouveau style
 d'élément dans le but de mentionner les actes et scènes dans la table
@@ -2452,7 +2450,7 @@ pour former le fichier « conducteur ». Les différentes variables
 définies dans les fichiers séparés seront normalement reprises et
 utilisables dans le fichier formant le conducteur. Les sections balisées
 dans les fichiers individuels peuvent être réutilisées en différents
-endroit de la partition, comme expliqué à la rubrique @ref{Different
+endroits de la partition, comme expliqué à la rubrique @ref{Different
 editions from one source}.
 
 Lorsque le fichier auquel il est fait référence se trouve dans le même
@@ -2482,9 +2480,9 @@ etc.
 Les fichiers à inclure peuvent eux-mêmes contenir des instructions
 @code{\include}. Ces instructions @code{\include} de second niveau
 seront, par défaut, interprétées par rapport à leur situation dans
-l'arborescence. Tel sera, par exemple, le cas d'une biblothèque générale
-« libA » créée pour utiliser des sous-fichiers à l'aide d'inclusions
-dans un fichier catalogue, comme ici :
+l'arborescence. Tel sera, par exemple, le cas d'une bibliothèque
+générale « libA » créée pour utiliser des sous-fichiers à l'aide
+d'inclusions dans un fichier catalogue, comme ici :
 
 @example
 libA/
@@ -2580,11 +2578,10 @@ LilyPond aura préséance.
 @section Différentes éditions à partir d'une même source
 
 Plusieurs méthodes permettent de générer différentes versions d'une
-partition à partir d'une même source. Les variables -- ou
-identificateurs -- sont sûrement le moyen le plus simple de combiner de
-différentes manières des passages relativement longs, alors que les
-balises permettront de sélectionner de courts fragments selon leur
-utilisation.
+partition à partir d'une même source. Les variables -- ou identifiants
+-- sont sûrement le moyen le plus simple de combiner de différentes
+manières des passages relativement longs, alors que les balises
+permettront de sélectionner de courts fragments selon leur utilisation.
 
 Quelle que soit la méthode utilisée, séparer la notation de la structure
 de la partition vous donnera plus de liberté dans l'agencement de
@@ -2746,7 +2743,7 @@ L'argument des commandes @code{\tag}, @code{\keepWithTag} et
 @code{\removeWithTag} doit être un symbole ou une liste de symboles (tel
 que @code{#'conducteur} ou @code{#'(violonI violonII)}), suivi d'une
 expression musicale. Si, @emph{et seulement si} les symboles sont des
-indentifiants LilyPond valides (caractères alphabétiques uniquement,
+identifiants LilyPond valides (caractères alphabétiques uniquement,
 sans chiffre, souligné ou tiret) qui ne peuvent se confondre avec des
 notes, le préfixe @code{#'} peut s'omettre et, pour raccourcir, une
 liste de symboles peut utiliser la virgule en séparateur -- autrement
@@ -2919,15 +2916,19 @@ music = \relative c'' {
 }
 @end lilypond
 
+
+@subsubsubheading Utilisation de regroupements de balises
+@c VO Using tag groups
+
 @cindex regroupements de balises
 @cindex balises, regroupement
 @funindex \tagGroup
 
 Bien que @code{\keepWithTag} soit efficace pour gérer @emph{un} jeu
-d'alternatives, le rejet de musique filtrée par des balises
-étrangères se révèle problématique lorsque les @code{\tag} sont
-utilisés à plusieurs fins. Des « groupements de balises » peuvent alors
-être déclarés à l'aide de @code{\tagGroup}. Un code tel que
+d'alternatives, le rejet de musique filtrée par des balises étrangères
+se révèle problématique lorsque les @code{\tag} sont utilisés à
+plusieurs fins. Des « groupements de balises » peuvent alors être
+déclarés à l'aide de @code{\tagGroup}. Un code tel que
 
 @example
 \tagGroup violinI,violinII,viola,cello
@@ -2966,6 +2967,137 @@ music = \relative {
 
 Il est à noter que les balises ne peuvent être incluses que dans un seul
 regroupement.
+
+@funindex \tagGroupRef
+
+Il est possible de modifier des regroupements de balises. Une autre
+manière de les définir consiste à utiliser @code{\tagGroupRef} dans le
+but de références le groupement pour modification ultérieure. Libeller
+
+@example
+tg = \tagGroupRef violinI,violinII
+@end example
+
+@noindent
+revient à mentionner
+
+@example
+tg = #'(violinI violinII)
+\tagGroup \tg
+@end example
+
+Diverses possibilités permettent de modifier des regroupements de
+balises existant.
+
+@itemize
+@funindex \resetTagGroups
+
+@item
+L'annulation de tous les effets induits de tous les @code{\tagGroup} ou
+@code{\tagGroupRef} s'obtient simplement par un @code{\resetTagGroups}.
+
+@lilypond[verbatim,quote]
+\tagGroup tagI,tagII
+
+music = \relative {
+  \tag tagI { c''4^"tagI" c c c }
+  \tag tagII { a2^"tagII" a }
+  \tag otherI { d4^"otherI" d d d }
+  \tag otherII { f,4^"otherII" g a c }
+}
+
+\new Voice {
+  \keepWithTag tagI \music
+}
+
+\resetTagGroups
+
+\new Voice {
+  \keepWithTag tagI \music
+}
+@end lilypond
+
+@funindex \resetTagGroup
+
+@item
+L'annulation des effets d'un regroupement particulier s'obtient à l'aide
+d'un @code{\resetTagGroup} auquel est fourni le regroupement considéré,
+donc toutes ses balises. @code{\tagGroupRef} se révèle très pratique
+pour définir le regroupement de balises.
+
+@lilypond[verbatim,quote]
+tgI = \tagGroupRef tagI,tagII
+tgII = \tagGroupRef otherI,otherII
+
+music = \relative {
+  \tag tagI { c''4^"tagI" c c c }
+  \tag tagII { a2^"tagII" a }
+  \tag otherI { d4^"otherI" d d d }
+  \tag otherII { f,4^"otherII" g a c }
+  \tag test { c8^"test" a g f e2 }
+}
+
+% 'otherI', 'otherII' and 'test' are not in the same group
+% as 'tagI' so they stay untouched.
+\new Voice {
+  \keepWithTag tagI \music
+}
+
+\resetTagGroup \tgI
+
+% now only 'otherI' and 'otherII' are in a tag group,
+% so '\keepWithTag tagI' filters 'tagII' and 'test'.
+\new Voice {
+  \keepWithTag tagI \music
+}
+@end lilypond
+
+@funindex \addToTagGroup
+@funindex \removeFromTagGroup
+
+@item
+L'ajout ou le retrait d'une balise à un regroupement à l'aide de
+@code{\addToTagGroup} et @code{\removeFromTagGroup} constituent d'autres
+moyens de modifier des regroupements.
+
+@lilypond[verbatim,quote]
+tgI = \tagGroupRef tagI,tagII
+tgII = \tagGroupRef otherI,otherII
+
+music = \relative {
+  \tag tagI { c''4^"tagI" c c c }
+  \tag tagII { a2^"tagII" a }
+  \tag otherI { d4^"otherI" d d d }
+  \tag otherII { f,4^"otherII" g a c }
+  \tag test { c8^"test" a g f e2 }
+}
+
+% 'otherI', 'otherII' and 'test' are not in the same group
+% as 'tagI' so they stay untouched.
+\new Voice {
+  \keepWithTag tagI \music
+}
+
+\addToTagGroup \tgI test
+
+% now 'tagI', 'tagII' and 'test' are in the same group
+% so 'tagII' and 'test' are removed.
+\new Voice {
+  \keepWithTag tagI \music
+}
+
+\removeFromTagGroup \tgII otherII
+\addToTagGroup \tgI otherII
+
+% now 'otherII' is removed from 'tgII' and
+% added to 'tgI' so only 'otherI' is in its
+% own tag group and is not filtered.
+\new Voice {
+  \keepWithTag tagI \music
+}
+@end lilypond
+
+@end itemize
 
 
 @subsubheading Préposition et apposition a de la musique balisée
@@ -3029,7 +3161,8 @@ music = { \tag #'here { \tag #'here <<c''>> } }
 
 @funindex \replaceWithTag
 
-Il est possible de remplace de la musique balisée par une autre musique.
+Il est possible de remplacer de la musique balisée par une autre
+musique.
 
 @lilypond[verbatim,quote]
 music = { c' \tag #'ici { d' } e' }
@@ -3108,7 +3241,7 @@ music = \relative {
 Il est aussi possible d'insérer ou ajouter quelque chose à un
 @code{\markup} attaché aux objets musicaux. On ne peut toutefois
 utiliser @code{\pushToTag}, @code{\appendToTag} ou
-@code{\replaceWithTag} puisqu'ils ne traîtent que de la musique ;
+@code{\replaceWithTag} puisqu'ils ne traitent que de la musique ;
 cependant, @code{\pushToTagMarkup}, @code{\appendToTagMarkup} et
 @code{\replaceWithTagMarkup} sont conçus pour rajouter un @emph{markup}.
 
@@ -3144,8 +3277,8 @@ music = \relative {
 
 Une attention particulière doit toutefois être portée lors de
 l'utilisation de balises avec des listes de @emph{markups}. Les
-fonctions de filtrage fonctionent comme prévu, mais les commandes telles
-que @code{\push-to-tag}, @code{\append-to-tag} et
+fonctions de filtrage fonctionnent comme prévu, mais les commandes
+telles que @code{\push-to-tag}, @code{\append-to-tag} et
 @code{\replace-with-tag} posent problème.
 
 @lilypond[verbatim,quote]
@@ -3204,7 +3337,7 @@ instruction @code{\relative} qui précède les commandes
 @code{\keepWithTag} ou @code{\removeWithTag} permet d'éviter ce risque,
 dans la mesure où elle viendra « recaler » ces hauteurs récupérées.
 
-Même lors de l'utilisation de regroupements de balises, les commands
+Même lors de l'utilisation de regroupements de balises, les commandes
 telles que @code{\keepWithTag} ne sont pas cumulatives. du code comme
 
 @example
@@ -3217,6 +3350,7 @@ ne produira pas le même résultat que
 @example
 \keepWithTag violonI \keepWithTag original \laMusique
 @end example
+
 
 @node Using global settings
 @subsection Globalisation des réglages
@@ -3295,9 +3429,9 @@ où
 doit renvoyer @code{#t}.
 
 @item @code{@var{@dots{}musique@dots{}}}
-@tab Du code LilyPond tout ce qu'il y a de plus ordinaire, avec
-des @samp{$} (là où seule une construction LilyPond est autorisée) et
-des @samp{#} (lorsqu'il s'agit d'une valeur en Scheme, d'un argument de
+@tab Du code LilyPond tout ce qu'il y a de plus ordinaire, avec des
+@samp{$} (là où seule une construction LilyPond est autorisée) et des
+@samp{#} (lorsqu'il s'agit d'une valeur en Scheme, d'un argument de
 fonction musicale ou de musique faisant partie d'une liste) pour
 référencer les arguments (par ex. @samp{#arg1}).
 @end multitable
@@ -3490,13 +3624,13 @@ simpleAccompaniment =
 
 Alors que les notes de basse sont correctes, l'accord n'est pas
 transposé comme il faut -- il est en fait transposé deux fois. La raison
-tient au fait que l'expressin musiclae @var{chord} est utilisé deux fois
-dans le résultat de la fonction sansn le recopier. Les fonctions telles
-que @code{\transpose} modifient directement l'objet musical -- dans le
-cas de @code{\transpose}, les hauteurs sont changées. Lorsqu'un même
-objet musical est réutilisé, les modifications appliquées à l'un des
-endroits où il est utilisé affectent les deux puisqu'ils concernent le
-même objet. Dans le cas présent, @code{\transpose} rencontre l'objet
+tient au fait que l'expression musicale @var{chord} est utilisé deux
+fois dans le résultat de la fonction sans le recopier. Les fonctions
+telles que @code{\transpose} modifient directement l'objet musical --
+dans le cas de @code{\transpose}, les hauteurs sont changées. Lorsqu'un
+même objet musical est réutilisé, les modifications appliquées à l'un
+des endroits où il est utilisé affectent les deux puisqu'ils concernent
+le même objet. Dans le cas présent, @code{\transpose} rencontre l'objet
 deux fois, donc le transpose deux fois.
 
 L'un des moyens de corriger cette fonction consiste à utiliser @samp{$}
@@ -3578,7 +3712,7 @@ forme @code{#@{ @dots{} #@}} contenant les variables dans l'ordre.
 Attention à ne pas réaliser de copie dans l'expression de référence --
 en particulier, il faut y utiliser @samp{#}, pas @samp{$}. L'exemple
 précédent peut se corriger à l'aide de @code{make-relative} de la
-maniière suivante :
+manière suivante :
 
 @lilypond[verbatim,quote]
 simpleAccompaniment =
@@ -3850,13 +3984,12 @@ inclus.
 Les notes d'ornement en terminaison du fragment extrait ne seront pas
 incluses.
 
-Chaque fragment fait l'objet d'un fichier particulier.
-La musique extraite est rendue comme si elle avait été littéralement
-« découpée » dans la partition. Par voie de conséquence, un fragment
-dépassant une ligne fera l'objet d'autant de fichiers séparés que de
-lignes de la partition complète. Partant de l'exemple ci-dessus couvre
-deux lignes  du PDF résultant de @file{toto.ly}, les fichiers
-d'extraction s'appelleront
+Chaque fragment fait l'objet d'un fichier particulier. La musique
+extraite est rendue comme si elle avait été littéralement « découpée »
+dans la partition. Par voie de conséquence, un fragment dépassant une
+ligne fera l'objet d'autant de fichiers séparés que de lignes de la
+partition complète. Partant de l'exemple ci-dessus couvre deux lignes du
+PDF résultant de @file{toto.ly}, les fichiers d'extraction s'appelleront
 @file{toto-@/from-5.1.2-@/to-7.3.4-@/clip.pdf} et
 @file{toto-@/from-5.1.2-@/to-7.3.4-@/clip-1.pdf}.
 
@@ -3909,7 +4042,7 @@ all contexts}.
 Ce commutateur agit aussi sur la sortie MIDI. Notez bien que tous les
 événements seront escamotés, y compris les changements de tempo ou
 d'instrument qui interviendraient avant que @code{skipTypesetting} ne
-+soit désactivé.
+soit désactivé.
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c' {
@@ -4070,15 +4203,16 @@ Si vous disposez des fichiers @file{gonville-*.svg}, copiez les dans
 @file{@dots{}/@/share/@/lilypond/@/@var{X.Y.Z}/@/fonts/@/svg}.
 @end itemize
 
-Pour de plus amples informations, reportez-vous à
-@rlearningnamed{Other sources of information, Autres sources de documentation}.
+Pour de plus amples informations, reportez-vous à @rlearningnamed{Other
+sources of information, Autres sources de documentation}.
 
 Il est à noter que les fichiers @file{gonville-*.otf} sont destinés aux
 moteurs @code{ps} et @code{cairo} (pour obtenir des fichiers PDF ou
 PostScript, ainsi que tous les formats de sortie pour le moteur Cairo) ;
 les fichiers @file{gonville-*.svg} sont destinés au moteur @code{svg}.
-Pour de plus amles informations, consultez @rprogramnamed{Advanced
-command-line options for LilyPond, Options avancées de @command{lilypond}}.
+Pour de plus amples informations, consultez @rprogramnamed{Advanced
+command-line options for LilyPond, Options avancées de
+@command{lilypond}}.
 
 La syntaxe suivante substitue aux fontes musicales les fontes Gonville.
 
@@ -4092,7 +4226,8 @@ Pour plus d'informations, @pxref{Changing fonts}.
 
 @morerefs
 Manuel d'initiation :
-@rlearningnamed{Other sources of information, Autres sources de documentation}.
+@rlearningnamed{Other sources of information,
+Autres sources de documentation}.
 
 Manuel de notation :
 @ref{Changing fonts},
@@ -4118,7 +4253,7 @@ disposez de fichiers @file{@var{nomfonte}-*@/.svg}, copiez les dans
 @file{@dots{}/@/share/@/lilypond/@/@var{X.Y.Z}/@/fonts/@/svg}.
 
 Note : à ce jour, et pour fonctionner correctement, LilyPond requiert la
-présence des suffixes suivants dans les dossiers d'instalation :
+présence des suffixes suivants dans les dossiers d'installation :
 @file{-11}, @file{-13}, @file{-14}, @file{-16}, @file{-18}, @file{-20},
 @file{-23}, @file{-26} et @file{-brace}. Par exemple,
 @file{emmentaler-11.otf}, @file{emmentaler-20.svg}, etc.
@@ -4142,7 +4277,7 @@ La syntaxe suivante substitue aux fontes musicales les fontes
 
 LilyPond peut produire des fichiers conformes au standard MIDI (Musical
 Instrument Digital Interface), ce qui permet de vérifier le rendu à
-l'oreille grace à un logiciel ou un périphérique sachant interpréter le
+l'oreille grâce à un logiciel ou un périphérique sachant interpréter le
 MIDI. L'écoute du rendu en MIDI permet de contrôler aisément ce que vous
 avez saisi : octaves et altérations erronées heurteront votre oreille
 avertie !
@@ -4396,7 +4531,7 @@ entre 0,2 et 0,5 :
 @end example
 
 La définition de l'amplitude du volume MIDI au niveau d'un contexte
-@code{Staff} -- grace aux propriétés @code{midiMinimumVolume} et
+@code{Staff} -- grâce aux propriétés @code{midiMinimumVolume} et
 @code{midiMaximumVolume} -- permet en quelque sorte d'égaliser un
 instrument MIDI.
 
@@ -4516,7 +4651,7 @@ tout point identique à celle que vous utilisez dans le bloc
 
 Ces quelques lignes ont pour effet de supprimer l'application des
 nuances à la sortie MIDI. Vous aurez noté que les modules de traduction
-de LilyPond en matière de son s'appelent @emph{performers} -- des
+de LilyPond en matière de son s'appellent @emph{performers} -- des
 « interprètes ».
 
 @morerefs
@@ -4737,7 +4872,7 @@ les voix dénommées différemment de la première se verront attribué
 l'instrument et le effets par défaut.
 
 Note : l'affectation d'instruments ou d'effets différents aux
-differentes voix d'une même portée s'obtient dès lors que le
+différentes voix d'une même portée s'obtient dès lors que le
 @code{Staff_performer} est déplacé du contexte @code{Staff} au contexte
 @code{Voice} tout en maintenant le @code{midiChannelMapping} dans le
 contexte @code{'staff} ou en le réglant sur @code{'instrument}.
@@ -4855,7 +4990,6 @@ entre 0.0 (pas de chorus) et 1.0 (effet maximal).
 @end table
 
 @knownissues
-
 Dans la mesure où les fichiers MIDI ne comportent effectivement aucune
 donnée audio, les modifications des propriétés de contexte ne se
 traduisent qu'en requêtes de changement des contrôles du canal MIDI
@@ -4903,7 +5037,7 @@ tête de fichier la commande @code{\include} appropriée :
 \include "articulate.ly"
 @end example
 
-Le script créera une sortie MIDI dont les notes seront échelonées de
+Le script créera une sortie MIDI dont les notes seront échelonnées de
 sorte à tenir compte de toute articulation ou changement de tempo. La
 sortie imprimable sera toutefois modifiée en profondeur, pour refléter
 littéralement la sortie MIDI.
@@ -5031,11 +5165,11 @@ répétés soient des multiples entiers du cycle de @emph{swing}.
 
 @item
 Ces fonctions sont agnostiques en matière de métrique et de mesure,
-raison pour laquelle des décallages doivent être fournis à l'aide de
+raison pour laquelle des décalages doivent être fournis à l'aide de
 @code{\applySwingWithOffset} lorsque la musique démarre sur une levée.
 
 @item
-Les appogiatures sont ignorées et laissées telles quelles, tout comme
+Les appoggiatures sont ignorées et laissées telles quelles, tout comme
 les triolets.
 @end itemize
 
@@ -5100,8 +5234,8 @@ pour effet de l'exclure du fichier résultant.
 @node Displaying Scheme music expressions
 @section Affichage de la musique sous forme d'expression Scheme
 
-Voir @rextendnamed{Displaying music expressions,
-Affichage d'expressions musicales}.
+Voir @rextendnamed{Displaying music expressions, Affichage d'expressions
+musicales}.
 
 
 @node Saving music events to a file

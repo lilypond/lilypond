@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
+   Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -115,7 +115,7 @@ besoins, en suivant les indications fournies au chapitre
 @ref{Defining new contexts}.
 
 @morerefs
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{staff},
 @rglosnamed{staves,portées}.
 
@@ -130,7 +130,7 @@ Manuel de notation :
 @ref{Staff symbol},
 @ref{Default tablatures}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Staff notation, Notation sur la portée}.
 
 Référence des propriétés internes :
@@ -415,10 +415,10 @@ vous pouvez l'activer par une option au sein du bloc @code{\paper}.
 @end lilypond
 
 @morerefs
-Manuel de notation :
+Manuel de notation :
 @ref{Page layout}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Staff notation,Notation sur la portée}.
 @endmorerefs
 
@@ -857,7 +857,7 @@ de contexte @code{keepAliveInterfaces} telle que définie dans le fichier
 @funindex remove-first
 
 @code{\RemoveEmptyStaves} et @code{\RemoveAllEmptyStaves} sont tous deux
-des racourcis prédéfinis qui déterminent les propriétés telles que
+des raccourcis prédéfinis qui déterminent les propriétés telles que
 @code{remove-empty} et @code{remove-first}, attachées à l'objet
 @code{VerticalAxisGroup}, comme indiqué dans @ref{Context modification
 identifiers}.
@@ -1145,8 +1145,8 @@ recourir aux dérogations suivantes :
 @end example
 
 En ce qui concerne les désagréments et messages liés à l'utilisation de
-l'instruction @code{\RemoveEmptyStaves}, consultez
-@ref{Changing context default settings}.
+l'instruction @code{\RemoveEmptyStaves}, consultez @ref{Changing context
+default settings}.
 
 
 @node Writing parts
@@ -1209,9 +1209,9 @@ d'instrument particuliers, tels que
 @end lilypond
 
 @cindex noms d'instrument, centrés
-
 @cindex instrument, centrage du nom
 @cindex nom d'instrument, centrage
+
 Lorsque plusieurs contextes de portée sont regroupés, les noms
 d'instrument, que ce soit sous leur forme développée ou abrégée, sont
 par défaut centrés. Si l'un d'entre eux est libellé sur plusieurs
@@ -1322,10 +1322,10 @@ Manuel de notation :
 @ref{Modifying context plug-ins},
 @ref{paper variables for shifts and indents}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Staff notation,Notation sur la portée}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{InstrumentName},
 @rinternals{PianoStaff},
 @rinternals{Staff}.
@@ -1403,7 +1403,7 @@ oboeNotes = \relative {
 
 Lorsqu'une commande @code{\unfoldRepeats} est requise dans une
 expression musicale de telle sorte que la musique soit réimprimée par
-@code{\quoteDuring}, l'instruction @code{\addQuote} doit elle-mêeme
+@code{\quoteDuring}, l'instruction @code{\addQuote} doit elle-même
 contenir la commande @code{\unfoldRepeats} :
 
 @lilypond[verbatim,quote]
@@ -1504,17 +1504,17 @@ les utiliser de différentes manières. Pour de plus amples détails à ce
 propos, consultez le chapitre @ref{Using tags}.
 
 @morerefs
-Manuel de notation :
+Manuel de notation :
 @ref{Instrument transpositions},
 @ref{Using tags}.
 
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{scm/define-event-classes.scm}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Staff notation, Notation sur la portée}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Music classes},
 @rinternals{QuoteMusic},
 @rinternals{Voice}.
@@ -1816,10 +1816,10 @@ Manuel de notation :
 @ref{Instrument names},
 @ref{Using tags}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Staff notation, Notation sur la portée}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{CueVoice},
 @rinternals{Voice}.
 @endmorerefs

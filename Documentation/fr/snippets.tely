@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+   Translation of GIT committish: c2ea1fa2792532a1a123f08504fc8677defb7a96
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -118,7 +118,7 @@ Autres collections
 
 Ce document regroupe un certain nombre d'exemples, trucs et astuces pour
 LilyPond issus du @uref{https://wiki.lilypond.community, LilyPond Wiki},
-successseur du LilyPond Snippet Repository (LSR).
+successeur du LilyPond Snippet Repository (LSR).
 
 Nous profitons de ces lignes pour adresser tous nos remerciements à
 Sebastiano Vigna pour la maintenance du site LSR et à Jean Abou Samra
@@ -134,13 +134,13 @@ alors que ce manuel correspond à la version @version{}.
 
 Les extraits sont regroupés par
 @uref{https://wiki.lilypond.community/wiki/Special@/:Categories,
-catégorie}, correspondant dans la mesure du poosible au découpage du
+catégorie}, correspondant dans la mesure du possible au découpage du
 manuel de notation de LilyPond. Un même extrait peut se voir attribuer
 plusieurs catégories, et toutes les catégories du Wiki ne sont pas
 forcément reprises.
 
-Tous les extraits ici présentés voient l'indentation des sytèmes réduit
-à zéro.
+Tous les extraits ici présentés voient l'indentation des systèmes
+réduite à zéro.
 
 Si vous consultez la version HTML de cet ouvrage, un clic sur le nom du
 fichier ou sur l'image vous affichera le code sous-jacent.

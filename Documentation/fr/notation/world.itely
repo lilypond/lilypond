@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
+    Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -34,9 +34,9 @@ appellent aussi @emph{Common practice period}.
 
 Les formes de notation propres à la musique classique traditionnelle
 sont employées dans toutes sortes de musique autres que le
-« classique ». Nous en avons déjà parlé dans le chapitre
-@ref{Writing pitches}, et plus particulièrement à la
-rubrique @ref{Note names in other languages}.
+« classique ». Nous en avons déjà parlé dans le chapitre @ref{Writing
+pitches}, et plus particulièrement à la rubrique @ref{Note names in
+other languages}.
 
 De nombreuses musiques autres qu'occidentales -- et même certaines
 formes de musique traditionnelle occidentales -- ont cependant recours à
@@ -44,12 +44,12 @@ des systèmes de notation alternatifs ou étendus, qui ne s'intègrent pas
 forcément dans notre système standard.
 
 Dans certains cas où la notation standard est utilisée, ces différences
-de hauteur seront implicites.  Par exemple, la musique arabe est
+de hauteur seront implicites. Par exemple, la musique arabe est
 reproduite en notation standard et utilise des quarts de ton,
-l'altération réelle dépendant du contexte.  Elle utilise
+l'altération réelle dépendant du contexte. Elle utilise
 traditionnellement la dénomination italienne, étendue dans le fichier
-@file{arabic.ly} par un certain nombre de macros -- voir
-@ref{Arabic music} pour plus de détails.
+@file{arabic.ly} par un certain nombre de macros -- voir @ref{Arabic
+music} pour plus de détails.
 
 @cindex accordage non-occidental
 @cindex makam
@@ -69,13 +69,12 @@ actuel des pratiques de notation, il est possible d'utiliser les notes
 occidentales (do, ré, mi…) auxquelles on ajoutera l'altération
 spécifique à la musique turque. Ces différentes altérations sont
 définies dans le fichier @file{turkish-makam.ly}. Pour de plus amples
-informations, reportez-vous à la rubrique
-@ref{Turkish classical music}.
+informations, reportez-vous à la rubrique @ref{Turkish classical music}.
 
 Pour savoir où se trouvent les fichiers @file{hel-arabic.ly} et
 @file{makam.ly} sur votre système, reportez vous au chapitre
-@rlearningnamed{Other sources of information, Autres sources de documentation}.
-
+@rlearningnamed{Other sources of information, Autres sources de
+documentation}.
 
 @morerefs
 Glossaire musicologique :
@@ -132,8 +131,8 @@ ailleurs :
 
 @itemize
 @item Les noms des notes et altérations (y compris les quarts de tons)
-peuvent être adaptés comme l'explique
-@ref{Common notation for non-Western music}.
+peuvent être adaptés comme l'explique @ref{Common notation for
+non-Western music}.
 
 @item Les armures peuvent également être adaptées comme expliqué dans
 @ref{Key signature}.
@@ -164,7 +163,7 @@ Morceaux choisis :
 @cindex arabe, nom de note
 
 Les noms de note les plus traditionnels en arabe -- tels que « rast »,
-« dukah », « sikah », etc. -- peuvent être très longs et ne conviennent
+« dukah », « sikah », etc. -- peuvent être très longs et ne conviennent
 pas à l'écriture de la musique.
 
 Les noms de note sont accessibles à travers le fichier @file{arabic.ly}.
@@ -201,22 +200,20 @@ arabe ». Pour une liste exhaustive des gammes arabes disponibles,
 consultez @ref{Arabic key signatures}.
 
 L'utilisation des standards occidentaux pour noter la musique non
-occidentale est abordée dans
-@ref{Common notation for non-Western music} ; consulter aussi
-@ref{Note names in other languages}
+occidentale est abordée dans @ref{Common notation for non-Western
+music} ; consulter aussi @ref{Note names in other languages}
 
 @cindex symbole arabe d'un demi-bémol
 @cindex aspect d'un symbole de demi-bémol
 @cindex demi-bémol
 @funindex \dwn
 
-Le symbole indiquant un demi-bémol ne correspond pas au symbole
-utilisé dans la notation arabe.  Si le symbole particulier du
-demi-bémol arabe doit absolument être utilisé, il est possible
-de s'en approcher en faisant précéder la note par la commande
-@code{\dwn} définie dans le fichier @file{arabic.ly}.
-Cette méthode ne peut toutefois pas être utilisée pour modifier
-l'aspect du demi-bémol dans l'armure.
+Le symbole indiquant un demi-bémol ne correspond pas au symbole utilisé
+dans la notation arabe. Si le symbole particulier du demi-bémol arabe
+doit absolument être utilisé, il est possible de s'en approcher en
+faisant précéder la note par la commande @code{\dwn} définie dans le
+fichier @file{arabic.ly}. Cette méthode ne peut toutefois pas être
+utilisée pour modifier l'aspect du demi-bémol dans l'armure.
 
 @lilypond[quote,verbatim]
 \include "arabic.ly"
@@ -256,7 +253,7 @@ maqams des plus courants.
 
 En général, un maqam utilise l'armure de son groupe ou d'un groupe
 voisin et diverses altérations accidentelles sont indiquées tout au long
-de la musique. Paar exemple, on trouve rarement le maqam @notation{saba}
+de la musique. Par exemple, on trouve rarement le maqam @notation{saba}
 ailleurs que dans un contexte de maqam @notation{bayati}, tout en lui
 ajoutant une seule altération. Les maqams arabes autorisent peu de
 modulations en raison de la nature des instruments arabes.
@@ -272,7 +269,7 @@ Ici, @var{re} est la tonalité par défaut du maqam muayer, et
 @notation{bayati} le nom du maqam de base dans le groupe.
 
 Alors que l'armure correspond à un groupe, il est courant que le titre
-mentionne un maqam en particulier.  Ainsi, dans cet exemple, le titre
+mentionne un maqam en particulier. Ainsi, dans cet exemple, le titre
 devrait faire apparaître le nom du maqam muhayer.
 
 D'autres maqams du même groupe bayati, comme l'explique le tableau
@@ -431,12 +428,11 @@ Quelques formes de musique classique arabes et turques telles que
 @notation{Semai} utilisent des métriques inhabituelles comme le 10/8.
 Ceci peut impliquer une manière de grouper les notes fort différente de
 la musique écrite existante, où les notes ne sont pas groupées par temps
-mais d'une façon difficile à reproduire automatiquement.
-Il est possible d'y remédier en désactivant la ligature automatique et
-en groupant les notes manuellement.  Lorsque l'enjeu n'est pas de
-reproduire exactement un texte existant, il est toujours possible
-d'ajuster le comportement de ligature automatique ou d'utiliser des
-chiffres de mesure complexes.
+mais d'une façon difficile à reproduire automatiquement. Il est possible
+d'y remédier en désactivant la ligature automatique et en groupant les
+notes manuellement. Lorsque l'enjeu n'est pas de reproduire exactement
+un texte existant, il est toujours possible d'ajuster le comportement de
+ligature automatique ou d'utiliser des chiffres de mesure complexes.
 
 @snippets
 
@@ -593,7 +589,6 @@ caractéristiques remarquables, se trouve l'usage de micro-intervalles
 fondés sur des « commas » d'un neuvième de ton, dont sont dérivées les
 formes mélodiques @notation{makam} (pluriel @notation{makamlar}).
 
-
 Quelques questions relatives à la musique classique turque sont traitées
 dans d'autres chapitres. Les noms de notes et altérations sont
 mentionnés dans @ref{Common notation for non-Western music}.
@@ -622,8 +617,7 @@ de 1/9, 4/9, 5/9 et 8/9 de ton. Ces altérations sont définies dans le
 fichier @file{turkish-makam.ly}.
 
 Pour plus d'information sur les formes de notation non-occidentales,
-reportez-vous au chapitre
-@ref{Common notation for non-Western music}.
+reportez-vous au chapitre @ref{Common notation for non-Western music}.
 
 
 @morerefs
@@ -645,7 +639,7 @@ nettement moins que ce qui peut être utilisé en musique classique turque
 (appelée « karar » en turc).
 
 Il est important de garder à l'esprit la hauteur finale de chaque makam.
-Voici un esmemple où @var{g} (sol) est la tonique par défaut et
+Voici un exemple où @var{g} (sol) est la tonique par défaut et
 @var{rast} le nom du makam.
 
 @example
@@ -656,7 +650,6 @@ Voici un esmemple où @var{g} (sol) est la tonique par défaut et
 Les altérations adéquates, koma bémol (@var{b1}) et koma dièse
 (@code{f4}), tous deux en relation avec la tonique @var{g}, seront
 affichés automatiquement.
-
 
 @snippets
 
@@ -716,7 +709,7 @@ musique classique perse.
 
 La notation de musique classique perse utilise couramment deux
 altérations microtonales, @dfn{sori} et @dfn{koron}. Inventées par
-Ali-Naqi vers 1935, elles indiquent, respectivement à la hausse et à la
+Ali-Naqi vers 1935, elles indiquent, respectivement à la hausse et à la
 baisse, un écart d'approximativement un quart de ton pour la hauteur
 considérée.
 
@@ -742,7 +735,7 @@ des armures ne l'est plus.} fournit ce qu'il faut pour le koron et le
 sori. Ils s'obtiennent en ajoutant un « k » (koron) ou un « o » aux noms
 de note en anglais.
 
-Lilypond prend en charge l'accordage de tous les modes perses majeurs
+LilyPond prend en charge l'accordage de tous les modes perses majeurs
 dans toutes les tonalités nécessaires à la notation des @dfn{gusheh}s
 (courts thèmes mélodiques) de tous les @dfn{dastgah}s (systèmes de
 musique modale).
@@ -751,9 +744,9 @@ La note qui suit immédiatement un koron est parfois@footnote{Si
 l'intervalle entre la note qui précède le koron et celle qui le suit est
 d'une tierce mineure. Il en va de même pour la note en dessous de la
 finale du dastgah « Esfahan » selon certains (mais pas tous) musiciens
-iraniens.} abaisée d'environ 20 centièmes. Bien que ce ne soit pas noté,
-ceci est considéré comme faisant partie de l'accordage. Néanmoins, et
-dans le but d'un meilleur rendu MIDI, on peut bémoliser un son en
+iraniens.} abaissée d'environ 20 centièmes. Bien que ce ne soit pas
+noté, ceci est considéré comme faisant partie de l'accordage. Néanmoins,
+et dans le but d'un meilleur rendu MIDI, on peut bémoliser un son en
 ajoutant un « v » au nom de la note (« @emph{v}lat »). Cette note
 devrait par ailleurs être affublée d'un fort vibrato qui, lui aussi,
 sera intégré de manière perceptible (@emph{sérialisme}).
@@ -846,7 +839,7 @@ dastgahs secondaires « Dashti », « Abuata » et « Bayat-e-tork »
 utilisent @code{\shur}, et le dasgah dérivé « Afshari » @code{\shurk}.
 « Nava » en sol est comme « Shur » en ré (à la quarte). La tonalité de
 « Segah » est @code{\shurk}. Les autres tonalités sont @code{\esfahan}
-(« Homayoun » en ut est comme  « Esfahan » en sol, à la quinte),
+(« Homayoun » en ut est comme « Esfahan » en sol, à la quinte),
 @code{\chahargah} et @code{\mokhalefsegah}. Les dastgahs « Mahur » et
 « Rast-panjgah » peuvent utiliser la même tonalité @code{\mahur}.
 
@@ -873,7 +866,7 @@ aussi la tonalité @code{\delkashMahur}).
 @subsection Armures perses
 
 Par défaut, l'ordre des altérations dans une armure perse est la
-suivant : bémols uivis des korons, puis dièses suivis des soris (puis
+suivant : bémols suivis des korons, puis dièses suivis des soris (puis
 doubles bémols et enfin doubles dièses). L'ordre sera alors bémols ou
 korons (ou doubles bémols) puis dièses ou soris (ou doubles dièses).
 Autrement dit, korons et soris sont respectivement considérés comme

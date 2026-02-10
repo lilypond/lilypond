@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 327adf674429e7bd55c19cb7211fe849202e7f72
+   Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -137,7 +137,7 @@ Manuel de notation :
 @ref{Relative octave entry},
 @ref{Multiple voices}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Simultaneous notes, Notes simultanées}.
 @endmorerefs
 
@@ -257,11 +257,11 @@ de saisie intervient à un moment où toutes les instances de
 @code{\relative} ont déjà été interprétées.
 
 @morerefs
-Manuel de notation :
+Manuel de notation :
 @ref{Articulations and ornamentations},
 @ref{Chord notation}.
 
-Fichiers d'initialisation :
+Fichiers d'initialisation :
 @file{ly/chord-repetition-init.ly}.
 @endmorerefs
 
@@ -374,7 +374,7 @@ Des notes ordinaires et des clusters peuvent cohabiter sur une même
 portée, y compris simultanément -- en pareil cas, rien ne sera fait pour
 tenter d'empêcher les chevauchements entre notes et clusters.
 
-Plusieurs styles de clsuter sont disponibles : @code{ramp},
+Plusieurs styles de cluster sont disponibles : @code{ramp},
 @code{leftsided-stairs}, @code{rightsided-stairs} et
 @code{centered-stairs}.
 
@@ -404,10 +404,10 @@ fragment = { <e' d''>4 <g' a'> <e' a'> r }
 @end lilypond
 
 @morerefs
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{cluster}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Simultaneous notes, Notation simultanée}.
 
 Référence des propriétés internes :
@@ -453,7 +453,6 @@ portées.
 @funindex \voiceFour
 @funindex Voice
 @funindex \oneVoice
-
 
 La manière la plus facile d'entrer des fragments avec plus d'une voix
 sur une portée est la suivante :
@@ -587,7 +586,7 @@ nouveaux contextes @code{Bottom} du même type, à savoir @code{Voice} ou
 @code{TabVoice}. Ces nouveaux contextes @code{Bottom}, créés
 implicitement, portent les noms @code{"1"}, @code{"2"}, etc. Dans chacun
 de ces contextes, le positionnement des liaisons, la direction des
-hampes, etc. sont réglés de manière appropriée. En voici un exemple :
+hampes, etc. sont réglés de manière appropriée. En voici un exemple :
 
 @lilypond[quote,verbatim]
 <<
@@ -607,7 +606,7 @@ Dans l'exemple qui suit, la voix intermédiaire a des hampes vers le
 haut. Nous la plaçons donc en troisième position, de telle sorte qu'elle
 adopte les réglages de @code{\voiceThree} qui correspondent à ce que
 nous voulons. Grâce à des espaces invisibles, nous évitons de surcharger
-la portée avec des demis soupirs.
+la portée avec des demi-soupirs.
 
 @lilypond[quote,verbatim]
 <<
@@ -683,7 +682,7 @@ La commande @code{\voices} permet de gérer l'ordre de saisie des voix :
 >>
 @end lilypond
 
-@warning{Paroles et objets étendus (liaisons, soufflets, etc.) ne peuvent
+@warning{Paroles et objets étendus (liaisons, soufflets, etc.) ne peuvent
 passer d'une voix à l'autre.}
 
 @subsubheading Identité rythmique
@@ -714,7 +713,7 @@ messages d'avertissement.
 @endpredefined
 
 @morerefs
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearningnamed{Explicitly instantiating voices,
 Instanciation explicite des voix},
 @rlearningnamed{Voices contain music, Les voix contiennent la musique}.
@@ -724,7 +723,7 @@ Manuel de notation :
 @ref{Percussion staves},
 @ref{Invisible rests}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Simultaneous notes, Notation simultanée}.
 @endmorerefs
 
@@ -769,11 +768,11 @@ présentation normale.
 @endpredefined
 
 @morerefs
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearningnamed{Other sources of information, Autres sources de documentation},
 @rlearningnamed{I'm hearing voices, J'entends des voix}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Simultaneous notes, Notation simultanée}.
 @endmorerefs
 
@@ -1255,7 +1254,6 @@ adjoindre des paroles, le combinateur de parties cessera de fonctionner.
 Toutefois, le recours à un contexte @code{NullVoice} permet d'obtenir
 les effets escomptés -- @pxref{Polyphony with shared lyrics}.
 
-
 @snippets
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/combining-two-parts-on-the-same-staff.ly}
@@ -1266,17 +1264,17 @@ les effets escomptés -- @pxref{Polyphony with shared lyrics}.
 {snippets/changing--partcombine-texts.ly}
 
 @morerefs
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{a due},
 @rglosnamed{part,partie}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Writing parts}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Simultaneous notes, Notation simultanée}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{PartCombineMusic},
 @rinternals{Voice}.
 @endmorerefs
@@ -1297,7 +1295,7 @@ plus d'une fois par mesure.
 @code{\partCombine} n'examine que l'attaque des notes. Il n'est donc pas
 en mesure de déterminer si une note attaquée précédemment est encore
 jouée ou non, ce qui peut engendrer quelques problèmes, entre autres des
-indications de « Solo » ou « Unison » incorrectement placées.
+indications de « Solo » ou « Unisono » incorrectement placées.
 
 @code{\partCombine} conserve les objets étendus (liaisons, soufflets,
 etc.) dans la même voix de sorte à éviter qu'ils soient improprement ou
@@ -1451,10 +1449,10 @@ global = {
 @end lilypond
 
 @morerefs
-Manuel d'initiation :
+Manuel d'initiation :
 @rlearningnamed{Organizing pieces with variables,
 Organisation du code source avec des variables}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Simultaneous notes,Notation simultanée}.
 @endmorerefs

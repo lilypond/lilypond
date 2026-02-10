@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: fafad7372f36503c8b698069950fbb42a6388b90
+   Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -18,8 +18,8 @@
 
 @lilypondfile[quote]{snippets/rhythms-headword.ly}
 
-Cette section traite du rythme : durées, silences, barres de
-ligature et de mesure.
+Cette section traite du rythme : durées, silences, barres de ligature et
+de mesure.
 
 
 @need 1500
@@ -475,7 +475,7 @@ Morceaux choisis :
 Le calcul de la position au sein d'une mesure doit prendre en
 considération tous les facteurs d'échelonnement appliqués aux notes de
 cette mesure ainsi que tous les reliquats des mesures précédentes. Ce
-calcul utilise des nombres rationnels. Dès lors qu'un calcul recontrera
+calcul utilise des nombres rationnels. Dès lors qu'un calcul rencontrera
 un numérateur ou dénominateur intermédiaire d'une valeur supérieure
 à 2^30, LilyPond s'arrêtera à ce point précis sans pour autant signaler
 d'erreur.
@@ -840,7 +840,7 @@ disponibles ne couvre que les silences allant du
 Il existe deux formes de silence invisible -- que l'on pourrait appeler
 « saut » : le @dfn{silence d'espacement} qui se note @code{s}, et la
 commande @code{\skip}. Le silence d'espacement est une note qui ne
-produit pas de rélultat. Comme pour toute autre note ou silence, la
+produit pas de résultat. Comme pour toute autre note ou silence, la
 durée qui lui est affectée définit la durée par défaut des notes qui le
 suivent.
 
@@ -1294,8 +1294,8 @@ D'autres dénominateurs inusuels peuvent s'utiliser pour ajouter un point
 d'augmentation à la note présentée ; toutefois, et afin de bénéficier
 des fonctionnalités présentées de part et d'autre, l'utilisation d'une
 fraction conventionnelle pour @code{\time} associée à une dérogation à
-@code{TimeSignature@/.time-signature} est fotement recommandée en pareil
-cas.
+@code{TimeSignature@/.time-signature} est fortement recommandée en
+pareil cas.
 
 @lilypond[quote,verbatim,fragment]
 \override Timing.TimeSignature.denominator-style = #'note
@@ -1311,8 +1311,8 @@ Les changements de métrique en cours de mesure sont abordés dans
 
 La métrique est imprimée en début de morceau, et à chaque fois qu'elle
 est modifiée. Si cette modification intervient au niveau d'un saut de
-ligne, une métrique @qq{de précaution} sera imprimée avant de passer à
-la ligne suivante. Ce comportement par défaut peut être modifié, comme
+ligne, une métrique « de précaution » sera imprimée avant de passer à la
+ligne suivante. Ce comportement par défaut peut être modifié, comme
 indiqué au chapitre @ref{Visibility of objects}.
 
 @lilypond[quote,verbatim]
@@ -1351,8 +1351,8 @@ changé pour un style numérique :
 }
 @end lilypond
 
-Les métriques anciennes font l'objet d'un
-@ref{Mensural time signatures, chapitre particulier}.
+Les métriques anciennes font l'objet d'un @ref{Mensural time signatures,
+chapitre particulier}.
 
 @cindex métrique par défaut
 @cindex ligature et métrique
@@ -1604,7 +1604,7 @@ Une indication métronomique s'insère tout simplement comme ceci :
 }
 @end lilypond
 
-La vitesse donnée n'est paas forcément un entier, mais elle doit être un
+La vitesse donnée n'est pas forcément un entier, mais elle doit être un
 nombre exact.
 
 @lilypond[verbatim,quote]
@@ -1884,7 +1884,7 @@ accidentelles, etc. La musique placée entre @code{\cadenzaOn} et
 @end lilypond
 
 Afin de diviser un passage non mesuré, il suffit de réactiver
-temporairement la temorisation grâce à l'utilisation de @code{\partial}
+temporairement la temporisation grâce à l'utilisation de @code{\partial}
 pour créer une mesure réduite. La commande @code{\bar} n'entame pas de
 nouvelle mesure, même si une barre est imprimée.
 
@@ -2026,7 +2026,6 @@ contexte @code{Timing} s'obtient par un @code{\polymetric \default}.
 
 L'exemple suivant utilise parallèlement des mesures à 3/4, 9/8 et 10/8,
 et 3/4 est choisi comme longueur de référence des mesures.
-
 
 Pour la deuxième portée les durées sont multipliées par 2/3 de telle
 sorte que 2/3 × 9/8 = 3/4 ; pour la troisième elles sont multipliées par
@@ -2281,7 +2280,7 @@ diviser les notes.
 @end lilypond
 
 Ces graveurs découperont les notes de durée altérée, telles celles d'un
-triolet, en notes ayant le même facteur d'échelle que les otes saisies.
+triolet, en notes ayant le même facteur d'échelle que les notes saisies.
 
 @lilypond[quote,verbatim]
 \new Voice \with {
@@ -2602,7 +2601,7 @@ variables ne s'applique qu'à la métrique alors en vigueur, raison pour
 laquelle elles doivent se placer à la suite de la commande @code{\time}
 qui entame un fragment ayant une nouvelle métrique, non au préalable.
 Les nouvelles valeurs affectées à une métrique particulière resteront en
-vigueur et ré-instaurées si cette métrique réapparaît plus tard.
+vigueur et réinstaurées si cette métrique réapparaît plus tard.
 
 @lilypond[quote,verbatim]
 \relative c'' {
@@ -3141,7 +3140,7 @@ s'ajuster grâce aux sous-propriétés @code{details}
 @code{over-beam-height}, @code{slash-slope}, @code{slash-side},
 @code{slash-stem-fraction}, @code{slash-thickness} et
 @code{slash-X-positions}. Il est à noter que ces sous-propriétés
-s'accomodent entre elles afin d'obtenir un meilleur rendu ; autrement
+s'accommodent entre elles afin d'obtenir un meilleur rendu ; autrement
 dit, modifier l'une peut avoir un impact sur les autres.
 
 @lilypond[verbatim,quote]
@@ -3286,7 +3285,7 @@ et de différents types de barre de reprise :
 }
 @end lilypond
 
-De plus, une barre de mesure peut s'imprimer racourcie ou sous la forme
+De plus, une barre de mesure peut s'imprimer raccourcie ou sous la forme
 d'une coche. Dans le cadre du chant grégorien, nous vous invitons à
 plutôt utiliser @code{\divisioMinima} et @code{\divisioMaior} comme
 indiqué au paragraphe @ref{Divisiones}.
@@ -3518,11 +3517,11 @@ apparaîtra entre les portées regroupées. Cet argument est composé d'une
 chaîne d'éléments de barre, de même longueur que @var{type_de_barre} ou
 plus court -- tout élément supplémentaire sera ignoré. Chaque élément
 sera imprimé dans le prolongement de l'élément correspondant de
-@var{type_de_barre}. Le caractère espace @code{" "} permer de préserver
+@var{type_de_barre}. Le caractère espace @code{" "} permet de préserver
 de l'espace et ainsi aligner correctement les différents tronçons d'une
 barre d'un seul tenant entre les portées d'un système. Régler
 @var{extension} à @code{#t} revient à sélectionner le glyphe utilisé en
-cours de ligne. Le régler à @code{#f} omet la barre inter-portées et lui
+cours de ligne. Le régler à @code{#f} omet la barre interportées et lui
 affecter @code{""} (une chaîne vide) générera une extension de largeur
 zéro. Voici quelques exemples :
 
@@ -3549,7 +3548,7 @@ zéro. Voici quelques exemples :
 
 Lorsqu'intervient un saut de ligne seront utilisés, en lieu et place de
 @var{extension}, @var{fin} et @var{début} pour déterminer la barre
-inter-portées à afficher. Dans le cas d'un regroupement de portées,
+interportées à afficher. Dans le cas d'un regroupement de portées,
 LilyPond émettra un avertissement si @var{fin} et @var{début} ne font
 pas référence à des types de barre définis, et aucune prolongation ne
 sera imprimée. Il est toujours possible d'affecter @code{#f} à @var{fin}
@@ -3578,12 +3577,12 @@ le type de prolongation à utiliser à l'endroit correspondant.
 }
 @end lilypond
 
-Notez bien que dans le cas où @var{extension} est consitué d'une chaîne,
-celle-ci devrait comporter @emph{uniquement} des éléments de barre de
-mesure ou une espace (@samp{ }), et sans annotation comme c'est possible
-pour les autres arguments -- LilyPond émettra un avertissement lorsque
-@var{extension} contient une annotation. La seule exception à cette
-règle est une valeur égale à @var{type_de_barre} qui, lui, peut
+Notez bien que dans le cas où @var{extension} est constitué d'une
+chaîne, celle-ci devrait comporter @emph{uniquement} des éléments de
+barre de mesure ou une espace (@samp{ }), et sans annotation comme c'est
+possible pour les autres arguments -- LilyPond émettra un avertissement
+lorsque @var{extension} contient une annotation. La seule exception à
+cette règle est une valeur égale à @var{type_de_barre} qui, lui, peut
 comporter une annotation.
 
 Les différents éléments de barre de mesure sont indiqués ci-dessous. La
@@ -3657,7 +3656,7 @@ Le type de barre de mesure utilisé pour l'insertion automatique de
 barres de mesure est @code{"|"}. Vous pouvez en changer à tout moment
 grâce à @samp{\set Timing@/.measureBarType = @var{type_de_barre}}.
 
-Il est aussi possible de définir pusieurs types de barre de mesure dans
+Il est aussi possible de définir plusieurs types de barre de mesure dans
 une partition à portées multiples, à partir des commandes ou propriétés
 mentionnées ci-après (@pxref{Automatic bar lines}). Bien entendu, ceci
 peut amener à des incohérences entre portion de barre inscrite dans la
@@ -3674,7 +3673,7 @@ par la droite, l'instruction
 @noindent
 doit s'appliquer, avec @var{Contexte} correspondant à un contexte
 spécifique aux portées multiples comme@var{Score}, @var{StaffGroup},
-@var{Grandstaff}, etc.
+@var{Grandstaff}, etc.
 
 @lilypond[quote,verbatim]
 \new StaffGroup
@@ -3728,10 +3727,10 @@ Référence des propriétés internes :
 @cindex barre de mesure automatique
 
 Diverses commandes, autres que @code{\bar}, peuvent créer des barres de
-mesure en raison de leurs effets. Les barres générées en pariel cas
+mesure en raison de leurs effets. Les barres générées en pareil cas
 peuvent se modifier en réglant des propriétés de contexte. Lorsqu'une
-des propriétés est réglée sur @code{'()} ou n'est pas définie, eslle est
-ignorée ; la valeur doit être l'un des types prédéfinis ou bein l'un de
+des propriétés est réglée sur @code{'()} ou n'est pas définie, elle est
+ignorée ; la valeur doit être l'un des types prédéfinis ou bien l'un de
 ceux précédemment définis à l'aide de la commande @code{\defineBarLine}
 -- @pxref{Bar lines}.
 
@@ -3768,8 +3767,8 @@ emploient ce type de barre : @code{\codaMark}, @code{\inStaffSegno},
 @cindex phrase, barre de mesure
 @funindex \caesura
 
-S'utilise avec @code{\caesura} -- voir
-@ref{Phrase bar lines in hymn tunes}.
+S'utilise avec @code{\caesura} -- voir @ref{Phrase bar lines in hymn
+tunes}.
 
 @item submeasureBarType
 @cindex barre de mesure pointillée
@@ -3856,9 +3855,9 @@ l'instruction @code{\fine}.
 @end table
 @end quotation
 
-La priorité s'aplique indépendamment du fait que la barre soit en début,
-en cours ou en fin de ligne, ce qui permet à des barres de mesure de
-priorité inférieure d'apparaître là où des types de barre de priorité
+La priorité s'applique indépendamment du fait que la barre soit en
+début, en cours ou en fin de ligne, ce qui permet à des barres de mesure
+de priorité inférieure d'apparaître là où des types de barre de priorité
 supérieure n'auraient pas de glyphe défini -- @pxref{Bar lines}.
 
 @lilypond[quote,verbatim]
@@ -4771,7 +4770,6 @@ Morceaux choisis :
 @cindex musique non mesurée
 @cindex non mesurée, musique
 
-
 Le temps est administré par le @code{Timing_translator}, qui réside en
 principe dans le contexte @code{Score}. Un alias, @code{Timing}, sera
 ajouté au contexte auquel le @code{Timing_translator} est rattaché.
@@ -4811,7 +4809,7 @@ explicitement ; on peut la modifier par la commande @code{\partial}.
 @funindex timing
 Lorsqu'on lui assigne la valeur @code{#t}, les valeurs ci-dessus
 mentionnées sont mises à jour à chaque pas. Fixée à @code{#f}, leur
-valeur estera figée indéfiniment.
+valeur restera figée indéfiniment.
 
 @end table
 
