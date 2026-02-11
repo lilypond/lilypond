@@ -212,7 +212,6 @@ class Music_xml_node(Xml_node):
         Xml_node.__init__(self)
         self._when = None
         self._duration = None
-        self.converted = False
         self.voice_id = None
 
 
@@ -2350,6 +2349,7 @@ class Direction(Measure_element):
         # For chaining with another `<direction>` element.
         self.prev = None
         self.next = None
+        self.converted = False
 
     # We assume there is only a single pedal spanner in the `<Direction>`
     # element.  Additionally, we only consider the `line` attribute at the
