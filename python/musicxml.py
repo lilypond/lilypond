@@ -1966,15 +1966,6 @@ class Part(Music_xml_node):
             return attributes
 
     def extract_voices(part):
-        # LilyPond needs to know properties of the end of some spanners
-        # before the spanner code gets actually emitted (and sometimes vice
-        # versa).  To enable that we set links between a spanner's start
-        # part and its end part.
-        #
-        # Similarly, middle parts of spanners sometimes need to know details
-        # of the start spanner element (for example, accidental marks
-        # attached to a middle part of a wavy line need to know the
-        # `placement` attribute of the start part).
         def link_spanners(elements, structure, type, one_child=True):
             spanner_starts = {}
 
@@ -2015,19 +2006,6 @@ class Part(Music_xml_node):
                         else:
                             warnings.warn(_('%s end seen without %s start'
                                             % (type, type)))
-
-        measures = part.get_typed_children(Measure)
-        elements = []
-        for m in measures:
-            elements.append(m)
-            if m.partial > 0:
-                elements.append(Partial(m.partial))
-            elements.extend(m.get_all_children())
-
-        link_spanners(elements, [Direction, DirType], 'bracket')
-        link_spanners(elements, [Direction, DirType], 'dashes')
-        link_spanners(elements, [Note, Notations, Ornaments], 'wavy-line',
-                      one_child=False)
 
         def handle_cross_staff_chords(chord_elements,
                                       min_sid, max_sid, stem_dir):
@@ -2095,6 +2073,29 @@ class Part(Music_xml_node):
                 stem = Stem()
                 stem._children = [hash_text]
                 main_note._content['stem'] = stem
+
+        # Fill `elements` array.
+        measures = part.get_typed_children(Measure)
+        elements = []
+        for m in measures:
+            elements.append(m)
+            if m.partial > 0:
+                elements.append(Partial(m.partial))
+            elements.extend(m.get_all_children())
+
+        # LilyPond needs to know properties of the end of some spanners
+        # before the spanner code gets actually emitted (and sometimes vice
+        # versa).  To enable that we set links between a spanner's start
+        # part and its end part.
+        #
+        # Similarly, middle parts of spanners sometimes need to know details
+        # of the start spanner element (for example, accidental marks
+        # attached to a middle part of a wavy line need to know the
+        # `placement` attribute of the start part).
+        link_spanners(elements, [Direction, DirType], 'bracket')
+        link_spanners(elements, [Direction, DirType], 'dashes')
+        link_spanners(elements, [Note, Notations, Ornaments], 'wavy-line',
+                      one_child=False)
 
         # The following pre-pass scans for cross-staff chords, setting the
         # `Note.cross_staff` field to either 'U' or 'D' where necessary.
