@@ -518,7 +518,11 @@ sub format_navigation_button {
     if (!defined($name)) {
         $name = '';
     } elsif ($name ne 'Top') {
-        $name = lilypond_from_element_direction($converter, $direction, 'section');
+        if ($texinfo_version lt '7.2.90') {
+            $name = lilypond_from_element_direction($converter, $direction, 'section');
+        } else {
+            $name = lilypond_from_element_direction($converter, $direction, 'section_nonumber');
+        }
     }
     my $text;
     if ($texinfo_version lt '7.1') {
