@@ -185,22 +185,22 @@ Stem::support_head (Grob *me)
   if (heads.size () == 1)
     return heads[0];
 
-  // In a whole-note chord, harmonic heads are centered on the normal heads.
-  // They don't accurately represent the extent of the chord, so we ignore them.
-  if (is_invisible (me))
-    {
-      auto ext_heads = extremal_heads_if (me, [] (auto *h) {
-        return !scm_is_eq (get_property (h, "style"),
-                           ly_symbol2scm ("harmonic"));
-      });
-      const auto d = get_grob_direction (me);
-      if (d && ext_heads[-d])
-        {
-          return ext_heads[-d];
-        }
-    }
+  const auto d = get_grob_direction (me);
 
-  return first_head (me);
+  // Calculate the width of the part of a head that is inside the stem, i.e.,
+  // leftward of an up-stem or rightward of a down-stem.
+  const auto inside_width = [&] (Grob *head) {
+    const auto x_ext = head->extent (head, X_AXIS);
+    auto attach = internal_calc_stem_offset_from_head (me, head);
+    return std::abs (x_ext[-d] - attach);
+  };
+
+  // Choose the head with the widest part inside the stem.
+  auto it = std::max_element (
+    heads.begin (), heads.end (), [&] (Grob *head_a, Grob *head_b) {
+      return inside_width (head_a) < inside_width (head_b);
+    });
+  return (it != heads.end ()) ? *it : first_head (me);
 }
 
 vsize
@@ -625,32 +625,44 @@ Stem::calc_positioning_done (SCM smob)
   Real thick = thickness (me);
 
   // Align other heads relative to the "support head."
-  {
-    const bool i_am_invisible = is_invisible (me);
-    auto *const sup = support_head (me);
-    const auto sup_extent = sup->extent (sup, X_AXIS);
-    for (auto *const h : heads)
-      {
-        if (h == sup)
-          {
-            // Skipping the calculations below is a performance optimization.
-            // Even if they were performed, they shouldn't move the support head
-            // relative to itself.
-            continue;
-          }
-        // In a whole-note chord, center harmonic heads on the normal heads.
-        // Otherwise, justify all heads to the invisible stem.
-        const bool align_on_center = i_am_invisible
-                                     && scm_is_eq (get_property (h, "style"),
-                                                   ly_symbol2scm ("harmonic"));
-        const auto h_extent = h->extent (h, X_AXIS);
-        const auto amount = align_on_center
-                              ? (sup_extent.center () - h_extent.center ())
-                              : (sup_extent[dir] - h_extent[dir]);
-        if (!std::isnan (amount)) // empty heads can produce NaN
-          h->translate_axis (amount, X_AXIS);
-      }
-  }
+  if (heads.size () > 1)
+    {
+      const bool i_am_invisible = is_invisible (me);
+      auto *const sup = support_head (me);
+      const auto stem_offset = internal_calc_stem_offset_from_head (me, sup);
+      for (auto *const h : heads)
+        {
+          if (h == sup)
+            {
+              // Skipping the calculations below is a performance optimization.
+              // Even if they were performed, they shouldn't move the support
+              // head relative to itself.
+              continue;
+            }
+
+          const auto amount = [&] {
+            // In a whole-note chord, center harmonic heads on the normal heads.
+            // Otherwise, attach all heads to the stem as defined by the font.
+            if (i_am_invisible
+                && scm_is_eq (get_property (h, "style"),
+                              ly_symbol2scm ("harmonic")))
+              {
+                const auto sup_extent = sup->extent (sup, X_AXIS);
+                const auto h_extent = h->extent (h, X_AXIS);
+                return sup_extent.center () - h_extent.center ();
+              }
+            else
+              {
+                const auto h_offset
+                  = internal_calc_stem_offset_from_head (me, h);
+                return stem_offset - h_offset;
+              }
+          }();
+
+          if (!std::isnan (amount)) // empty heads can produce NaN
+            h->translate_axis (amount, X_AXIS);
+        }
+    }
 
   bool parity = true;
   Real lastpos = Staff_symbol_referencer::get_position (heads[0]);
@@ -937,7 +949,7 @@ Stem::internal_calc_stem_begin_position (Grob *me, bool calc_beam)
 
   Real pos = Staff_symbol_referencer::get_position (lh);
 
-  if (Grob *head = support_head (me))
+  if (Grob *head = first_head (me))
     {
       Interval head_height = head->extent (head, Y_AXIS);
       Real y_attach = Note_head::stem_attachment_coordinate (head, Y_AXIS);
@@ -1035,6 +1047,46 @@ Stem::print (SCM smob)
   return mol.smobbed_copy ();
 }
 
+Real
+Stem::internal_calc_stem_offset_from_head (Grob *me, Grob *head,
+                                           bool center_invisible)
+{
+  Interval head_wid = head->extent (head, X_AXIS);
+  Real attach = 0.0;
+
+  // To align the notes associated with this stem (whether the stem is visible
+  // or not), we always use the attachment point specified by the font.  When
+  // finally setting the stem offset, we center an invisible stem on the support
+  // head because some things depend on that (e.g., tremolo marks).  It might be
+  // cleaner overall for those things to compensate on their own: if the stem is
+  // invisible, center on the support head.
+  if (center_invisible && is_invisible (me))
+    attach = 0.0;
+  else
+    attach = Note_head::stem_attachment_coordinate (head, X_AXIS);
+
+  Real real_attach = head_wid.linear_combination (attach);
+  Real r = std::isnan (real_attach) ? 0.0 : real_attach;
+
+  /* If not centered: correct for stem thickness.  */
+  const Real epsilon = 1e-3; // compensate rounding in font
+  std::string style
+    = robust_symbol2string (get_property (head, "style"), "default");
+  if (std::abs (attach) > epsilon && style != "neomensural"
+      && style != "petrucci" && style != "blackpetrucci"
+      && style != "semipetrucci")
+    {
+      Direction d = get_grob_direction (me);
+      Real rule_thick = thickness (me);
+      if (style == "mensural")
+        {
+          rule_thick /= -2;
+        }
+      r += -d * rule_thick * 0.5;
+    }
+  return r;
+};
+
 /*
   move the stem to right of the notehead if it is up.
 */
@@ -1052,36 +1104,9 @@ Stem::offset_callback (SCM smob)
       return to_scm (r);
     }
 
-  if (Grob *f = first_head (me))
+  if (Grob *head = support_head (me))
     {
-      Interval head_wid = f->extent (f, X_AXIS);
-      Real attach = 0.0;
-
-      if (is_invisible (me))
-        attach = 0.0;
-      else
-        attach = Note_head::stem_attachment_coordinate (f, X_AXIS);
-
-      Real real_attach = head_wid.linear_combination (attach);
-      Real r = std::isnan (real_attach) ? 0.0 : real_attach;
-
-      /* If not centered: correct for stem thickness.  */
-      const Real epsilon = 1e-3; // compensate rounding in font
-      std::string style
-        = robust_symbol2string (get_property (f, "style"), "default");
-      if (std::abs (attach) > epsilon && style != "neomensural"
-          && style != "petrucci" && style != "blackpetrucci"
-          && style != "semipetrucci")
-        {
-          Direction d = get_grob_direction (me);
-          Real rule_thick = thickness (me);
-          if (style == "mensural")
-            {
-              rule_thick /= -2;
-            }
-          r += -d * rule_thick * 0.5;
-        }
-      return to_scm (r);
+      return to_scm (internal_calc_stem_offset_from_head (me, head, true));
     }
 
   programming_error ("Weird stem.");

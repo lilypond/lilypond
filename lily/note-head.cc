@@ -164,11 +164,20 @@ Note_head::get_stem_attachment (Font_metric *fm, const std::string &key,
 {
   Offset att;
 
-  size_t k = fm->name_to_index (key);
+  auto mangled_key = [&key] {
+    // TODO: This is a bandage on an inconsistent Font_metric interface.
+    // Font_metric::find_by_name() does this automatically but other methods do
+    // not.  This affects names of breve, longa, and maxima heads.
+    auto copy = key;
+    replace_all (&copy, '-', 'M');
+    return copy;
+  }();
+
+  size_t k = fm->name_to_index (mangled_key);
   if (k != GLYPH_INDEX_INVALID)
     {
       Box b = fm->get_indexed_char_dimensions (k);
-      const auto [wxwy, rotate] = fm->attachment_point (key, dir);
+      const auto [wxwy, rotate] = fm->attachment_point (mangled_key, dir);
       for (const auto a : {X_AXIS, Y_AXIS})
         {
           Interval v = b[a];
