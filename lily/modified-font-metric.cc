@@ -79,7 +79,7 @@ Modified_font_metric::count () const
 }
 
 Interval
-Modified_font_metric::ledger_shortening_range(
+Modified_font_metric::ledger_shortening_range (
   const std::string &glyph_name) const
 {
   Interval range = orig_->ledger_shortening_range (glyph_name);
