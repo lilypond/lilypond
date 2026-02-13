@@ -2421,11 +2421,10 @@ SATB (S: ソプラノ、A: アルト、T: テナー、B: バス) ボーカル譜
 
 @cindex voice, divided (ボイスの分割)
 @cindex divided voices (ボイスの分割)
-@cindex arpeggio bracket, marking divided voices (アルペジオ囲みによってボイスの分割を示す)
 @cindex bracket, vertical, marking divided voices (縦方向の囲みによってボイスの分割を示す)
-
+@funindex \nonArpeggiato
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/using--arpeggiobracket-to-make-divisi-more-visible.ly}
+{snippets/using-a-bracket-to-clarify-divisi.ly}
 
 @morerefs
 記譜法リファレンス:

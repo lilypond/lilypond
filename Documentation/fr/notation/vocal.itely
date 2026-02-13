@@ -2541,8 +2541,9 @@ Référence des propriétés internes :
 @snippets
 @cindex voix, division
 @cindex division de voix
+@funindex \nonArpeggiato
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/using--arpeggiobracket-to-make-divisi-more-visible.ly}
+{snippets/using-a-bracket-to-clarify-divisi.ly}
 
 @morerefs
 Manuel de notation :

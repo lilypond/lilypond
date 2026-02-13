@@ -2445,9 +2445,9 @@ Referència de funcionament interno:
 @unnumberedsubsubsec Veus dividides
 
 @cindex veus dividides
-
+@funindex \nonArpeggiato
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/using--arpeggiobracket-to-make-divisi-more-visible.ly}
+{snippets/using-a-bracket-to-clarify-divisi.ly}
 
 @morerefs
 Referència de la notació:

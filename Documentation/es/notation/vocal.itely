@@ -2592,10 +2592,10 @@ Referencia de funcionamiento interno:
 
 @cindex voz, dividida
 @cindex dividida, voz
-@cindex arpegio, corchete, señalar voces divididas
 @cindex corchete, vertical, señalar voces divididas
+@funindex \nonArpeggiato
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/using--arpeggiobracket-to-make-divisi-more-visible.ly}
+{snippets/using-a-bracket-to-clarify-divisi.ly}
 
 
 @morerefs

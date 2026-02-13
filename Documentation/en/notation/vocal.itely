@@ -2498,10 +2498,10 @@ Internals Reference:
 
 @cindex voice, divided
 @cindex divided voices
-@cindex arpeggio bracket, marking divided voices
 @cindex bracket, vertical, marking divided voices
+@funindex \nonArpeggiato
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
-{snippets/using--arpeggiobracket-to-make-divisi-more-visible.ly}
+{snippets/using-a-bracket-to-clarify-divisi.ly}
 
 
 @morerefs
