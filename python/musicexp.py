@@ -3640,34 +3640,38 @@ class NotestyleEvent(Event):
         self.style = None
         self.filled = None
 
+    # Value tuple holds NoteHead tweaks: (style, direction).  LilyPond's sense
+    # of head direction may seem backward for some styles, but it is
+    # consistently the direction of the stem to which the head is designed to
+    # attach.
     notehead_styles_dict = {
-        'arrow down': "'arrow",  # LilyPond uses this for down-stem
-        'arrow up': "'arrow",  # LilyPond uses this for up-stem
-        'back slashed': None,  # TODO: Implement
-        'circle dot': None,  # TODO: Implement
-        'circle-x': "'xcircle",
-        'circled': None,  # TODO: Implement
-        'cluster': None,  # TODO: Implement
-        'cross': None,  # TODO: + shaped note head
-        'diamond': "'harmonic-mixed",
-        'do': "'do",
-        'fa': "'fa",  # LilyPond uses this for down-stem
-        'fa up': "'fa",  # LilyPond uses this for up-stem
-        'inverted triangle': None,  # TODO: Implement
-        'la': "'la",
-        'left triangle': None,  # TODO: Implement
-        'mi': "'mi",
-        'none': '',
-        'normal': None,
-        're': "'re",
-        'rectangle': None,  # TODO: Implement
-        'slash': "'slash",
-        'slashed': None,  # TODO: Implement
-        'so': "'sol",
-        'square': "'la",  # TODO: Proper squared note head
-        'ti': "'ti",
-        'triangle': "'do",
-        'x': "'cross",
+        'arrow down': ("'arrow", 'UP'),
+        'arrow up': ("'arrow", 'DOWN'),
+        'back slashed': (None, None),  # TODO: Implement
+        'circle dot': (None, None),  # TODO: Implement
+        'circle-x': ("'xcircle", None),
+        'circled': (None, None),  # TODO: Implement
+        'cluster': (None, None),  # TODO: Implement
+        'cross': (None, None),  # TODO: + shaped note head
+        'diamond': ("'harmonic-mixed", None),
+        'do': ("'do", None),
+        'fa': ("'fa", None),  # LilyPond uses this for down-stem
+        'fa up': ("'fa", None),  # LilyPond uses this for up-stem
+        'inverted triangle': (None, None),  # TODO: Implement
+        'la': ("'la", None),
+        'left triangle': (None, None),  # TODO: Implement
+        'mi': ("'mi", None),
+        'none': ('', None),
+        'normal': (None, None),
+        're': ("'re", None),
+        'rectangle': (None, None),  # TODO: Implement
+        'slash': ("'slash", None),
+        'slashed': (None, None),  # TODO: Implement
+        'so': ("'sol", None),
+        'square': ("'la", None),  # TODO: Proper squared note head
+        'ti': ("'ti", None),
+        'triangle': ("'do", None),
+        'x': ("'cross", None),
     }
 
     def pre_chord_ly(self):
@@ -3677,11 +3681,15 @@ class NotestyleEvent(Event):
         res = []
 
         if is_chord_element:
-            style = self.notehead_styles_dict.get(self.style, None)
+            (style, direction) = self.notehead_styles_dict.get(self.style,
+                                                               (None, None))
             if style == '':
                 res.append(r'\tweak transparent ##t')
             elif style is not None:
                 res.append(r'\tweak style #%s' % style)
+
+            if direction is not None:
+                res.append(r'\tweak direction #%s' % direction)
 
             if style != '':
                 if self.duration < 0.5 and self.filled == 'no':
