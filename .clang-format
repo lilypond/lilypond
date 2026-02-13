@@ -1,5 +1,6 @@
 ---
 Language:        Cpp
+BasedOnStyle:    GNU
 
 # Put a function on a single line if possible, but only in a class (typically
 # for accessors and mutators).
@@ -12,10 +13,12 @@ AlwaysBreakAfterReturnType: TopLevelDefinitions
 # Newline after `template` line.
 AlwaysBreakTemplateDeclarations: Yes
 
-# Break before operators, not after (including assignment operator).
-BreakBeforeBinaryOperators: All
-
-BreakBeforeBraces: GNU
+# TODO: The first sentence of the GNU formatting standards is, "Please keep the
+# length of source lines to 79 characters or less, for maximum readability in
+# the widest range of environments."  We should therefore remove this setting
+# (using 79 by default from BasedOnStyle: GNU) and also update .dir-locals.el.
+# https://www.gnu.org/prep/standards/standards.html#Formatting
+ColumnLimit: 80
 
 # Indentation width in initializers.
 ConstructorInitializerIndentWidth: 2
@@ -25,6 +28,9 @@ ContinuationIndentWidth: 2
 
 # No spaces inside braced list.
 Cpp11BracedListStyle: true
+
+# Add missing end comments for namespaces and fix invalid existing ones.
+FixNamespaceComments: true
 
 # Always put each constructor initializer on its own line.
 PackConstructorInitializers: Never
@@ -44,4 +50,4 @@ SpaceAfterCStyleCast: true
 #        ^
 SpaceBeforeCpp11BracedList: true
 
-SpaceBeforeParens: Always
+Standard: Latest
