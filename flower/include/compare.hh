@@ -29,15 +29,17 @@
      make the operators{<,<=,==,>=,>} and the MAX and MIN of two.
      Please fill a & in the type argument if necessary.
 */
+// C++20: operator <=>
+// clang-format off
 #define TEMPLATE_INSTANTIATE_COMPARE(type, function, prefix)                   \
-  prefix ONE_OPERATOR (type, function, >) prefix ONE_OPERATOR (type, function, \
-                                                               >=) prefix      \
-  ONE_OPERATOR (type, function, ==) prefix                                     \
-  ONE_OPERATOR (type, function, !=) prefix                                     \
-  ONE_OPERATOR (type, function, <) prefix                                      \
-  ONE_OPERATOR (type, function, <=) /* stupid fix to allow ; */                \
-    prefix bool                                                                \
-    operator<(type t1, type t2)
+  prefix ONE_OPERATOR (type, function, >)                                      \
+  prefix ONE_OPERATOR (type, function, >=)                                     \
+  prefix ONE_OPERATOR (type, function, ==)                                     \
+  prefix ONE_OPERATOR (type, function, !=)                                     \
+  prefix ONE_OPERATOR (type, function, <)                                      \
+  prefix ONE_OPERATOR (type, function, <=)                                     \
+  prefix bool operator<(type t1, type t2) // stupid fix to allow ;
+// clang-format on
 
 #define INSTANTIATE_COMPARE(type, func)                                        \
   TEMPLATE_INSTANTIATE_COMPARE (type, func, )
