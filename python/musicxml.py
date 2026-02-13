@@ -1851,6 +1851,9 @@ class Part(Music_xml_node):
                     instr = instruments[0]
                     n.instrument_name = part_list.get_instrument(instr.id)
 
+            for i in assign_to_next_voice:
+                i.voice_id = '1'  # Fallback.
+
             self.process_arpeggios(arpeggios)
 
             if grace_length > 0:
@@ -1875,6 +1878,71 @@ class Part(Music_xml_node):
                         if measure_end != now:
                             m.partial = now
             previous_measure = m
+
+        # For cross-staff voices we need two arrays: `voices_first_staff` to
+        # collect the staff ID of the first `<note>` element for each voice
+        # together with the moment of the last `<note>` element, and
+        # `staves_last` to get the last moment of `<note>` elements that use
+        # staves not in `voices_first_staff`.
+        voices_first_staff = {}
+        staves_last = {}
+
+        for m in measures:
+            for n in m.get_all_children():
+                if isinstance(n, Note) and 'grace' not in n:
+                    voice_id = n.get_voice_id()
+                    end_moment = n._when + n._duration
+
+                    if voice_id not in voices_first_staff:
+                        voices_first_staff[voice_id] = [n.get('staff', '1'), 0]
+                    voices_first_staff[voice_id][1] = end_moment
+
+                    staff_id = n.get('staff', '1')
+                    first_staff = voices_first_staff[voice_id]
+
+                    if staff_id != first_staff[0]:
+                        if staff_id not in staves_last:
+                            staves_last[staff_id] = end_moment
+                        else:
+                            staves_last[staff_id] = \
+                                max(staves_last[staff_id], end_moment)
+
+        # To keep `Voice` contexts alive in cross-staff situations, emit
+        # `Keep_alive` elements that eventually trigger the insertion of
+        # skips.  If a new voice is necessary for that, it gets the suffix
+        # 'S'.
+        #
+        # Note that this situation only happens if there isn't a final
+        # barline in the affected voices.
+        last_measure = measures[-1]
+        for (sid, sid_last) in staves_last.items():
+            # Search voices that use `sid` as a start staff and take the one
+            # that has the largest last moment.
+            max_vid = None
+            max_vid_last = 0
+            for (vid, (first_sid, vid_last)) in voices_first_staff.items():
+                if sid == first_sid and vid_last > max_vid_last:
+                    max_vid = vid
+                    max_vid_last = vid_last
+
+            if max_vid_last < sid_last:
+                if max_vid is None:
+                    # No voice in this staff; we must construct a unique ID.
+                    max_vid = sid
+                    suffix = 'S'
+                    while max_vid + suffix in voices_first_staff:
+                        max_vid += 'x'
+                    max_vid += suffix
+
+                # Synthesize a `Keep_alive` element and append it to the
+                # last measure.
+                    elem = Keep_alive()
+                    elem._content['staff'] = sid
+                    elem._content['voice'] = max_vid
+                    elem.voice_id = max_vid
+                    elem._when = sid_last
+                    elem._duration = 0
+                    measures[-1]._children.append(elem)
 
         if senza_misura_mode and previous_senza_misura:
             previous_senza_misura.senza_misura_length = \
