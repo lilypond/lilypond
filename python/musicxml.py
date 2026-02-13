@@ -213,6 +213,13 @@ class Music_xml_node(Xml_node):
         self.voice_id = None
 
 
+# This class gets injected by `musicxml.py` to keep voices alive for
+# cross-staff situations.
+class Keep_alive(Music_xml_node):
+    def __init__(self):
+        Music_xml_node.__init__(self)
+
+
 class Music_xml_spanner(Music_xml_node):
     def __init__(self):
         Music_xml_node.__init__(self)
@@ -1439,8 +1446,11 @@ class Musicxml_voice:
         self._lyrics = []
         self._has_lyrics = False
 
-    def add_element(self, e):
+    def add_element(self, e, start_staff=None):
         self._elements.append(e)
+        if start_staff is not None:
+            self._start_staff = start_staff
+
         if isinstance(e, Note):
             name = e.get('staff', '1')
             if not self._start_staff and 'grace' not in e:
@@ -2285,6 +2295,7 @@ class Part(Music_xml_node):
                                   Barline,
                                   Harmony,
                                   FiguredBass,
+                                  Keep_alive,
                                   Print)):
                 continue
 
@@ -2312,6 +2323,10 @@ class Part(Music_xml_node):
 
                 for v in voices.keys():
                     voices[v].add_element(n)
+                continue
+
+            if isinstance(n, Keep_alive):
+                voices[id].add_element(n, n.get('staff'))
                 continue
 
             if isinstance(n, Print):

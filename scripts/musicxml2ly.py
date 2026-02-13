@@ -4244,6 +4244,9 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
             chordnames_builder.jump_forward(n._when)
             fretboards_builder.jump_forward(n._when)
 
+        if isinstance(n, musicxml.Keep_alive):
+            continue
+
         if isinstance(n, musicxml.Barline):
             last_elem = voice_builder.elements[-1]
 
