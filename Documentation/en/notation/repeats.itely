@@ -253,7 +253,9 @@ chosen from the range 1 to @code{@var{repeatcount}}.
 @noindent
 An older syntax where the @code{\alternative} block follows
 outside the repeated music expression is still supported and has
-the same effect.
+the same effect.  This syntax requires @code{\repeat} to appear
+literally: a trailing @code{\alternative} does not attach to a
+music function or variable containing @code{\repeat}.
 
 @example
 \repeat volta @var{repeatcount} @var{musicexpr}
@@ -906,7 +908,8 @@ If a repeat that begins with an incomplete measure has an
 @code{measureLength} property, using @code{\unfoldRepeats} will
 result in wrongly-placed bar lines and bar check warnings.
 
-A nested repeat like
+A nested repeat using the old @code{\alternative} syntax is
+ambiguous:
 
 @example
 \repeat @dots{}
@@ -915,10 +918,11 @@ A nested repeat like
 @end example
 
 @noindent
-is ambiguous, since it is not clear to which @code{\repeat} the
-@code{\alternative} belongs.  This ambiguity is resolved by always
-having the @code{\alternative} belong to the inner @code{\repeat}.
-For clarity, it is advisable to use braces in such situations.
+It is not clear to which @code{\repeat} the @code{\alternative}
+belongs.  This ambiguity is resolved by always having the
+@code{\alternative} belong to the inner @code{\repeat}.  For
+clarity, it is advised to add braces and place the
+@code{\alternative} block inside the body of its repeat.
 
 
 @node Manual repeat marks
