@@ -456,11 +456,12 @@ music = {
 現時点でこのエングラーバは、名前をダブル クォートで囲っても指定することができません。@c
 その代わり、名前の前にハッシュ記号 (@code{#}) を置くことで指定しなければなりません。
 
-@cindex cross-staff arpeggio bracket (譜を跨ぐアルペジオのブラケット)
-@cindex arpeggio bracket, cross-staff (譜を跨ぐアルペジオのブラケット)
+@cindex cross-staff chord bracket (譜を跨ぐアルペジオのブラケット)
+@cindex chord bracket, cross-staff (譜を跨ぐアルペジオのブラケット)
 @cindex bracket, cross-staff (譜を跨ぐブラケット)
+@funindex \nonArpeggiato
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/indicating-cross-staff-chords-with-arpeggio-bracket.ly}
+{snippets/indicating-cross-staff-chords-with-a-bracket.ly}
 
 @morerefs
 コード断片集:

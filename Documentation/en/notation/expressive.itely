@@ -1658,7 +1658,7 @@ arpeggios in one @code{PianoStaff} at the same point in
 time.
 
 The simple way of setting parenthesis-style arpeggio brackets does
-not work for cross-staff arpeggios; see @ref{Cross-staff arpeggio
+not work for cross-staff arpeggios; see @ref{Cross-staff chord
 brackets}.
 
 

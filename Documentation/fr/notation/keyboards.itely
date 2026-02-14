@@ -484,12 +484,13 @@ Référence des propriétés internes :
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/cross-staff-stems.ly}
 
-@anchor{Cross-staff arpeggio brackets}
+@anchor{Cross-staff chord brackets}
 @cindex crochet d'arpeggio interportée
 @cindex arpeggio, crochet interportée
 @cindex crochet interportée
+@funindex \nonArpeggiato
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/indicating-cross-staff-chords-with-arpeggio-bracket.ly}
+{snippets/indicating-cross-staff-chords-with-a-bracket.ly}
 
 @morerefs
 Morceaux choisis :

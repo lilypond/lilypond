@@ -446,8 +446,9 @@ cometes, sinó prefixant el nom amb un símbol de coixinet @code{#},
 a causa de com està implementat.
 
 @snippets
+@funindex \nonArpeggiato
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/indicating-cross-staff-chords-with-arpeggio-bracket.ly}
+{snippets/indicating-cross-staff-chords-with-a-bracket.ly}
 
 @morerefs
 Fragments de codi:

@@ -453,12 +453,13 @@ Internals Reference:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/cross-staff-stems.ly}
 
-@anchor{Cross-staff arpeggio brackets}
-@cindex cross-staff arpeggio bracket
-@cindex arpeggio bracket, cross-staff
+@anchor{Cross-staff chord brackets}
+@cindex cross-staff chord bracket
+@cindex chord bracket, cross-staff
 @cindex bracket, cross-staff
+@funindex \nonArpeggiato
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/indicating-cross-staff-chords-with-arpeggio-bracket.ly}
+{snippets/indicating-cross-staff-chords-with-a-bracket.ly}
 
 
 @morerefs

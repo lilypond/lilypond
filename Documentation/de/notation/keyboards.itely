@@ -432,8 +432,9 @@ mit Balken versieht, wenn es auf dem anderen nicht nötig wäre.
 {snippets/cross-staff-stems.ly}
 
 @snippets
+@funindex \nonArpeggiato
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/indicating-cross-staff-chords-with-arpeggio-bracket.ly}
+{snippets/indicating-cross-staff-chords-with-a-bracket.ly}
 
 @morerefs
 Schnipsel:

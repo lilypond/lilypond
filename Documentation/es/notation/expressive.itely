@@ -1657,7 +1657,7 @@ No es posible mezclar arpegios conectados y no conectados en un
 
 La forma sencilla de especificar el corchete en los arpegios de
 paréntesis no funciona para los arpegios de pentagrama cruzado;
-@pxref{Cross-staff arpeggio brackets,, Corchetes de arpegio de pentagrama cruzado}.
+@pxref{Cross-staff chord brackets,, Corchetes de arpegio de pentagrama cruzado}.
 
 
 @node Trills

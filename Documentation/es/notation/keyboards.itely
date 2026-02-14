@@ -482,12 +482,13 @@ Referencia de funcionamiento interno:
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/cross-staff-stems.ly}
 
-@anchor{Cross-staff arpeggio brackets}
+@anchor{Cross-staff chord brackets}
 @cindex cruzado, pentagrama, corchete de arpegio
 @cindex arpegio, corchete de pentagrama cruzado
 @cindex corchete, de pentagrama cruzado
+@funindex \nonArpeggiato
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/indicating-cross-staff-chords-with-arpeggio-bracket.ly}
+{snippets/indicating-cross-staff-chords-with-a-bracket.ly}
 
 
 @morerefs

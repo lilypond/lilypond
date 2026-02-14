@@ -465,8 +465,9 @@ Guida al funzionamento interno:
 @cindex parentesi dell'arpeggio trasversale ai righi
 @cindex trasversale ai righi, parentesi dell'arpeggio
 @cindex arpeggio, parentesi, trasversale ai righi
+@funindex \nonArpeggiato
 @lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/indicating-cross-staff-chords-with-arpeggio-bracket.ly}
+{snippets/indicating-cross-staff-chords-with-a-bracket.ly}
 
 @morerefs
 Frammenti:
