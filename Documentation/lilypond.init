@@ -187,6 +187,26 @@ if ($texinfo_version lt '7.0') {
                                               \&lilypond_label_target_name);
 }
 
+sub lilypond_redirection_file_names {
+    my ($converter, $target_element, $filename, $node_redirection_filename,
+        $reference_redirection_files) = @_;
+    # NOTE the extension is lower-cased too
+    my $added_redirection_file = lc($node_redirection_filename);
+    return @$reference_redirection_files
+      if ($added_redirection_file eq $filename);
+    foreach my $redirection_file (@$reference_redirection_files) {
+        if ($added_redirection_file eq $redirection_file) {
+            return @$reference_redirection_files;
+        }
+    }
+    return @$reference_redirection_files, $added_redirection_file;
+}
+
+if ($texinfo_version ge '7.2.92') {
+    texinfo_register_file_id_setting_function('redirection_file_names',
+                                              \&lilypond_redirection_file_names);
+}
+
 
 ### Format references, either internal or external.
 sub lilypond_format_ref {
