@@ -430,11 +430,10 @@ frets in tablature.")
 
 
      (glissandoMap ,list? "A map in the form of
-'((source1 . target1) (source2 . target2) (sourcen . targetn))
-showing the glissandi to be drawn for note columns.
-The value '() will default to
-'((0 . 0) (1 . 1) (n . n)),
-where n is the minimal number of note-heads in
+@code{'((source1 . target1) (source2 . target2) ... (source@var{n} .
+target@var{n}))}, showing the glissandi to be drawn for note columns.
+The value @code{'()} defaults to @code{'((0 . 0) (1 . 1) ... (@var{n} .
+@var{n}))}, where @var{n} is the minimum number of note heads in
 the two note columns between which the glissandi occur.")
      (gridInterval ,positive-musical-length-as-number? "Interval for which to
 generate @code{GridPoint}s.")
