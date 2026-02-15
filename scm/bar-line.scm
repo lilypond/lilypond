@@ -1138,10 +1138,12 @@ of the volta brackets relative to the bar lines."
          (volta-half-line-thickness (* (ly:grob-property grob 'thickness 1.6)
                                        line-thickness
                                        1/2))
-         (left-bar-array (ly:grob-object grob 'bars-left))
+         (left-bar-array (let ((a (ly:grob-object grob 'bars-left #f)))
+                           (and a (ly:grob-array-filter grob::is-live? a))))
          (left-bar-array-length (and (ly:grob-array? left-bar-array)
                                      (ly:grob-array-length left-bar-array)))
-         (right-bar-array (ly:grob-object grob 'bars-right))
+         (right-bar-array (let ((a (ly:grob-object grob 'bars-right #f)))
+                            (and a (ly:grob-array-filter grob::is-live? a))))
          (right-bar-array-length (and (ly:grob-array? right-bar-array)
                                       (ly:grob-array-length right-bar-array)))
          ;; left-bar-array starts with the uppermost bar line grob that is
