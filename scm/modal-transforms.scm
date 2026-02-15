@@ -262,7 +262,7 @@ Typically used to construct a scale for input to
           ((music-is-of-type? m 'rhythmic-event)
            (filter-ties! m carryover 'articulations))
 
-          ;; The following is hardly correct but tie-ing inside of
+          ;; The following is hardly correct but tying inside of
           ;; <<...>> is really beyond our pay grade.
           ((music-is-of-type? m 'simultaneous-music)
            (append-map! (lambda (m) (loop m (ly:music-deep-copy carryover)))

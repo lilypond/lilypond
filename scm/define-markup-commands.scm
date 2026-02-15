@@ -956,7 +956,10 @@ provided value to the one of @code{offset}.
                 (height-limit 0.7)
                 (shorten-pair '(0 . 0)))
   "
-@cindex tie-ing text
+@cindex tie, above text
+@cindex tie, below text
+@cindex text, with a tie above
+@cindex text, with a tie below
 
 Add a horizontal bow at the bottom or top of @var{arg}.
 
@@ -1008,7 +1011,8 @@ function."
   #:category font
   #:properties (tie-markup)
   "
-@cindex undertie-ing text
+@cindex tie, below text
+@cindex text, with a tie below
 
 Print a tie under @var{arg}.
 
@@ -1029,9 +1033,10 @@ Print a tie under @var{arg}.
   #:category font
   #:properties (tie-markup)
   "
-@cindex overtie-ing text
+@cindex tie, above text
+@cindex text, with a tie above
 
-Overtie @var{arg}.
+Print a tie over @var{arg}.
 
 @lilypond[verbatim,quote]
 \\markup \\line {
