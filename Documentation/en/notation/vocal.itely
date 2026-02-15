@@ -1187,6 +1187,12 @@ To make this change for all lyrics in the score, set the property in the
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/lyrics-alignment.ly}
 
+@cindex melisma, horizontal alignment
+@cindex alignment, horizontal, melisma
+@cindex horizontal alignment, melisma
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/aligning-syllables-with-melisma.ly}
+
 
 @knownissues
 
