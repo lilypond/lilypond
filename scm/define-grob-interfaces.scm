@@ -238,7 +238,7 @@ default style."
 
 (ly:add-interface
  'dots-interface
- "The dots to go with a notehead or rest.  @code{direction} sets the preferred
+ "The dots to go with a note head or rest.  @code{direction} sets the preferred
 direction to move in case of staff line collisions.  @code{style} defaults to
 undefined, which is normal 19th/20th century traditional style.  Set
 @code{style} to @code{vaticana} for ancient type dots."

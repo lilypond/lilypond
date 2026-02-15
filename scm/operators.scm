@@ -24,7 +24,7 @@
 (define-method (+ (a <Moment>) (b <Moment>)) (ly:moment-add a b))
 (define-method (- (a <Moment>) (b <Moment>)) (ly:moment-sub a b))
 (define-method (- (a <Moment>)) (ly:moment-sub ZERO-MOMENT a))
-;; Guile has a bug where it "optimises" (- x) to (- 0 x)
+;; Guile has a bug where it "optimizes" (- x) to (- 0 x)
 ;; so we use an ugly workaround making the latter "legal"
 ;; Cf. https://debbugs.gnu.org/cgi/bugreport.cgi?bug=64508
 (define-method (- (a <number>) (b <Moment>))
@@ -56,7 +56,7 @@
 (define-method (+ (a <Pitch>) (b <Pitch>)) (ly:pitch-transpose a b))
 (define-method (- (a <Pitch>) (b <Pitch>)) (ly:pitch-diff a b))
 (define-method (- (a <Pitch>)) (ly:pitch-negate a))
-;; Guile optimiser bug workaround for negation:
+;; Guile optimizer bug workaround for negation:
 (define-method (- (a <number>) (b <Pitch>))
   (ly:pitch-diff (ly:make-pitch 0 a) b))
 (define-method (< (a <Pitch>) (b <Pitch>)) (ly:pitch<? a b))

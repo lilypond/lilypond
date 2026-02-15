@@ -539,7 +539,7 @@ ADD_INTERFACE (Spacing_spanner,
 The space taken by a note is dependent on its duration.  Doubling a duration
 adds @code{spacing-increment} to the space.  The most common shortest note gets
 @code{shortest-duration-space}.  Notes that are even shorter are spaced
-proportonial to their duration.
+proportional to their duration.
 
 Typically, the increment is the width of a black note head.  In a piece with
 lots of 8th notes, and some 16th notes, the eighth note gets a 2@tie{}note

@@ -373,7 +373,7 @@ beats to be distinguished."
 ;; clusters.
 
 (define-public (note-to-cluster music)
-  "Replace @code{NoteEvents} by @code{ClusterNoteEvents}."
+  "Replace @code{NoteEvent}s by @code{ClusterNoteEvent}s."
   (if (eq? (ly:music-property music 'name) 'NoteEvent)
       (make-music 'ClusterNoteEvent
                   'pitch (ly:music-property music 'pitch)
@@ -1011,7 +1011,7 @@ from the predecessor note/chord if available."
 voicify-list :: [ [Music ] ] -> id -> [Music]
 LST is a list music-lists.
 
-id is 1-based, i.e., Voice=1 (upstems) has number 1.
+id is 1-based, i.e., Voice=1 (up-stems) has number 1.
 
 id may be a symbol or string giving a specific voice id: in this
 case, no \\voiceXXX style is selected, merely the context given.
@@ -1803,7 +1803,7 @@ For convenience, returns @code{0} if entry is @code{#f}."
 
 (define-public (find-pitch-entry keysig pitch accept-global accept-local)
   "Return the first entry in @var{keysig} that matches @var{pitch}
-by notename and octave.  Alteration is not considered.
+by note name and octave.  Alteration is not considered.
 @var{accept-global} states whether key signature entries should be included.
 @var{accept-local} states whether local accidentals should be included.
 If no matching entry is found, @code{#f} is returned."
@@ -2303,7 +2303,7 @@ are expanded using the default settings of the parser."
 
 (define-public (music-pitches music)
   "Return a list of all pitches from @var{music}."
-  ;; Opencoded for efficiency.
+  ;; Open-coded for efficiency.
   (reverse!
    (let loop ((music music) (pitches '()))
      (let ((p (ly:music-property music 'pitch)))
@@ -2451,7 +2451,7 @@ abba =
        ;; Horizontal positions of the stems must be almost the same
        (close-enough? (car (ly:grob-extent root ref X))
                       (car (ly:grob-extent stem ref X)))
-       ;; The stem must be in the direction away from the root's notehead
+       ;; The stem must be in the direction away from the root's note head
        (positive? (* (ly:grob-property root 'direction)
                      (- (car (ly:grob-extent stem ref Y))
                         (car (ly:grob-extent root ref Y))))))))

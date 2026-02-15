@@ -209,7 +209,7 @@ The underlying register model is
 <<
   \\new Staff \\with { \\omit TimeSignature }
   { <c' c' c''>\\glissando <f' f' f''>
-    <fis fis' fis''>\\glissando <b b'b''> }
+    <fis fis' fis''>\\glissando <b b' b''> }
   \\new Staff \\with { \\omit TimeSignature }
   { \\clef bass
     <c, c>\\glissando <f, f>
@@ -484,7 +484,7 @@ The layout is
 <<
   \\new Staff \\with { \\omit TimeSignature }
   { <c' c' c''>\\glissando <f' f' f''>
-    <fis fis' fis''>\\glissando <b b'b''> }
+    <fis fis' fis''>\\glissando <b b' b''> }
   \\new Staff \\with { \\omit TimeSignature }
   { \\clef bass
     <c, c c'>\\glissando <f, f f'>
@@ -495,7 +495,7 @@ The layout is
 
 The registers are effectively quite similar to that of
 @code{\\stdBass}.  An additional bass reed at alto pitch is omitted
-for esthetical reasons from the @samp{Master} setting, so the symbols
+for aesthetical reasons from the @samp{Master} setting, so the symbols
 are almost the same except for the @samp{Alto/@/Soprano} register with
 bass notes at Alto pitch and chords at Soprano pitch.
 

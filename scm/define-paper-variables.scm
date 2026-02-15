@@ -195,7 +195,7 @@ direction @code{DOWN} (@samp{tie/pos dir}), tie is too short
 (@samp{tipline}), collision with dot (@samp{dot collision}), center of
 tie is too close to a staff line (@samp{line center}), y-position
 (edge or center) of currently considered tie is less than the
-y-position of the previous tie (@samp{monoton edge}/ @samp{monoton
+y-position of the previous tie (@samp{monotone edge}/ @samp{monotone
 cent}), edge or center of tie is too close to the one considered
 previously (@samp{tietie center}/@samp{tietie edge}), unsymmetrical
 horizontal positioning with respect to the note heads (@samp{length
@@ -390,7 +390,7 @@ the scaling.  Default: 1.7573, which corresponds to a 20@dmn{pt} staff
 size.")
     (output-suffix ,string? "If set, use this value as the output file
 name suffix for LilyPond output, appended to the output name with a dash
-inbetween.  See also @code{output-filename}.  The default is no output
+in between.  See also @code{output-filename}.  The default is no output
 suffix if there is only a single book block (either implicit or
 explicit), and a running integer starting with value@tie{}1
 otherwise.")

@@ -2075,7 +2075,7 @@ function returns a list of paddings."
      ;; Last padding.
      ((= (length text-widths) 2)
       (list (- width (/ (car text-widths) 2) (cadr text-widths))))
-     ;; Padding inbetween.
+     ;; Padding in between.
      (else
       (cons (- width (/ (+ (car text-widths) (cadr text-widths)) 2))
             (get-spaces word-count width (cdr text-widths))))))
@@ -2920,7 +2920,7 @@ Align @var{arg} in @var{axis} direction to the @var{dir} side.
 Print @var{arg} with horizontal alignment set to @var{dir}.
 
 If @var{dir} is -1, @var{arg} is left-aligned, while +1 makes it right-aligned.
-Values inbetween interpolate the alignment accordingly.
+Values in between interpolate the alignment accordingly.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -5144,7 +5144,8 @@ Changes of @code{font-size} are respected.
 The default of @code{height} is 4@tie{}staff-space units.
 Apart from the bracket tips of a bracket bar line and the segno bar line all
 other bar lines are scaled with @code{height}.  We don't scale bracket tips and
-segno to meet the behaviour of @code{SystemStartBracket} and the segno barline.
+segno to meet the behavior of @code{SystemStartBracket} and the segno bar
+line.
 
 @code{\\bar-line} is further customizable by overriding @code{dot-count} and
 @code{dash-count} for dotted and dashed bar lines.
@@ -5207,9 +5208,9 @@ customizable as well; defaults are the same as the values of the corresponding
 
   ;; dotted bar-line
   (define (make-dotted-bar-line height font-size)
-    "Draw a dotted barline."
+    "Draw a dotted bar line."
     ;; Usually dots are printed between the five staff lines.  We keep this
-    ;; behaviour even in the absence of said staff lines and draw a line of
+    ;; behavior even in the absence of said staff lines and draw a line of
     ;; four dots.
     ;; To get more dots override the `dot-count' property.
     (let* ((font
@@ -6577,7 +6578,7 @@ Patterns are spaced apart by @var{space} (defined as for @code{\\hspace} or
                               #:layout layout
                               #:props props)
   "Put @var{left} and @var{right} at the start and end of a line, respectively, and
-fill the space inbetween with repeated @var{pattern} markups.
+fill the space in between with repeated @var{pattern} markups.
 
 Patterns are spaced apart by @var{space} and aligned to direction @var{dir}.
 The width of the line is given by the @code{line-width} property.
@@ -7149,7 +7150,7 @@ between rows.
 
   (define (split-lst initial-lst lngth result-lst)
     ;; split a list into a list of sublists of length lngth
-    ;; eg. (split-lst '(1 2 3 4 5 6) 2 '())
+    ;; e.g., (split-lst '(1 2 3 4 5 6) 2 '())
     ;; -> ((1 2) (3 4) (5 6))
     (cond ((not (integer? (/ (length initial-lst) lngth)))
            (ly:warning

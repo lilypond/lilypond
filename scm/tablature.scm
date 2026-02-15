@@ -196,9 +196,9 @@ can be done manually or using @code{hideSplitTiedTabNotes}.
 
 A @code{TabNoteHead} with @code{\\repeatTie} is printed parenthesized as well,
 the same holds if @code{\\repeatTie} is applied to a chord. This is useful for
-seconda volta blocks. This behaviour can be switched off with
+seconda volta blocks. This behavior can be switched off with
 @code{hideSplitTiedTabNotes}."
-  ;; TODO move behaviour for repeatTie and 'span-start to the stencil-procedure?
+  ;; TODO move behavior for repeatTie and 'span-start to the stencil-procedure?
   (let* (;; get PaperColumn
          (pc (ly:item-get-column grob))
          ;; get NonMusicalPaperColumn
@@ -217,7 +217,7 @@ seconda volta blocks. This behaviour can be switched off with
                (and tied? at-line-begin? tied-visible? tied-parenthesized?))
            (ly:grob-set-property! grob 'parenthesized #t)
            ;; The stencil procedure needs to be run again, otherwise
-           ;; 'dparenthesized would have no effect.
+           ;; 'parenthesized would have no effect.
            (ly:grob-set-property! grob 'stencil tab-note-head::print))
           ((or tied? repeat-tied?)
            (ly:grob-set-property! grob 'transparent #t)))))
@@ -280,7 +280,7 @@ seconda volta blocks. This behaviour can be switched off with
   ;; 1/2
   ;; 1/3 2/3
   ;; 1/4 2/4 3/4 etc.
-  ;; The value for 2/4 is irrelevant in practical, bacause the string sounds
+  ;; The value for 2/4 is irrelevant in practical, because the string sounds
   ;; only one octave higher, not two, but since scheme normalizes the fractions
   ;; anyway, these values are simply placeholders for easier indexing.
   ;; According to the arithmetic sum, the position of m/n is at 1/2*(n-2)(n-1)+(m-1)

@@ -41,7 +41,7 @@ wants to evaluate this bit of Scheme code, it will just call that thunk
 
 While this implementation is an artifact of history, it is being kept because it
 has features that would not be possible with local-eval.  For example, it plays
-nicely with quasiquotation. Example from David K.:
+nicely with quasi-quotation. Example from David K.:
 
 #(define-macro (pattern args result)
 `(define-music-function (parser location ,@args) ,(make-list (length args) 'ly:music?)
@@ -49,7 +49,7 @@ nicely with quasiquotation. Example from David K.:
 
 $(pattern (A B C D) (A B D A C D)) { a' } { b' } { c'' } { d'' }
 
-This works because quasiquoting a Scheme expression that includes a #{ #} that
+This works because quasi-quoting a Scheme expression that includes a #{ #} that
 in turn includes an inner Scheme expression, and unquoting in that inner Scheme
 expression indeed performs the substitution.  The code (lambda () <expr>) is
 generated and includes an unquote form, which is replaced during macro expansion.

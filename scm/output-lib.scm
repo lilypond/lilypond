@@ -179,10 +179,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; beam slope
 
-;; even though kievan noteheads do not have stems, their
+;; even though Kievan note heads do not have stems, their
 ;; invisible stems help with beam placement
-;; this assures that invisible stems for kievan notes are aligned
-;; to the center of kievan noteheads. that is thus where the beams'
+;; this assures that invisible stems for Kievan notes are aligned
+;; to the center of Kievan note heads. that is thus where the beams'
 ;; x extrema will fall
 (define-public (stem::kievan-offset-callback grob)
   (let* ((note-heads (ly:grob-object grob 'note-heads #f))
@@ -308,14 +308,14 @@ beam.  This value serves to get the y-coordinate of the top or bottom right
 corner of the beam later on."
 
   ;; A Beam may have several beam-segments.
-  ;; Their vertical appearence is numbered as (vertical-count . <integer>) in
+  ;; Their vertical appearance is numbered as (vertical-count . <integer>) in
   ;; 'beam-segments.
   ;; The beam-segment at first Stem with the greatest distance to the NoteHead
   ;; has (vertical-count . 0).
   ;; Additional beam-segments at first Stem take positive integers, if this Stem
   ;; points down; negative integers if it points up.
   ;; See 'beam-segments of: { c''32[ c'' c''] c'32[ c' c'] }
-  ;; Ofcourse NoteHeads with different durations may be beamed. In case of
+  ;; Of course NoteHeads with different durations may be beamed. In case of
   ;; a kneed Beam this may lead to beam-segments above *and/or* below the
   ;; beam-segment with (vertical-count . 0).
   ;; See 'beam-segments of: {  c16[ c'''64 c] c16[ c''' c64] }
@@ -1673,7 +1673,7 @@ and draws the stencil based on its coordinates.
           CENTER))))
 
 (define-public (lyric-text::print grob)
-  "Allow interpretation of tildes as lyric tieing marks."
+  "Allow interpretation of tildes as lyric tie-ing marks."
   ;; See also similar code in Lyric_performer.
   (let ((text (ly:grob-property grob 'text)))
 
@@ -2236,7 +2236,7 @@ disambiguate between different glyphs")))
                (head-up (ly:grob-array-ref heads 1))
                (fraction (ly:grob-property grob 'length-fraction 0.7))
                (max-gap (ly:grob-property grob 'maximum-gap 0.45))
-               ;; distance between noteheads:
+               ;; distance between note heads:
                (distance (- (interval-start (ly:grob-extent head-up common Y))
                             (interval-end (ly:grob-extent head-down common Y))))
                (gap (* 0.5 distance (- 1 fraction))))
@@ -3290,12 +3290,12 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
               0))
          ;; `left-X' is line-starting X-coordinate relative to grob's system
          ;; NB the final line-stencil will start at left-bound not at `left-X'
-         ;;    we need this value to calculate `right-end' lateron
+         ;;    we need this value to calculate `right-end' later on
          (left-X
           (ly:grob-relative-coordinate
            left-bound (ly:grob-system left-bound) X))
          (left-info-X (assoc-get 'X left-bound-details))
-         ;; `left-Y' is line-starting Y-coordinate, taken from staff-postion
+         ;; `left-Y' is line-starting Y-coordinate, taken from staff-position
          ;; of grob's first initiating NoteHead.
          (left-bound-original (ly:spanner-bound (ly:grob-original grob) LEFT))
          (raw-left-Y

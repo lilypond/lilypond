@@ -62,7 +62,7 @@
     (export name)))
 (export define-syntax-rule-public)
 
-;; Internationalisation: (_i "to be translated") gets an entry in the
+;; Internationalization: (_i "to be translated") gets an entry in the
 ;; POT file; (gettext ...) must be invoked explicitly to do the actual
 ;; "translation".
 (define-syntax-rule-public (_i x) x)
@@ -392,7 +392,7 @@ belong to a music font.")
                 "Set default paper size."
                 #:type string)
     (pixmap-format "png16m"
-                   "Set GhostScript's output format for pixel
+                   "Set Ghostscript's output format for pixel
 images."
                    #:type string)
     (png-width 0

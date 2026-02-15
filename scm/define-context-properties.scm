@@ -804,7 +804,7 @@ element for each time signature contains entries for @code{beatBase},
 @code{beatStructure}, and @code{beamExceptions}.")
      (timing ,boolean? "Keep administration of measure length,
 position, bar number, etc.?  Switch off for cadenzas.")
-     (toeHeelStyle ,symbol? "The style for the glyph shape and behaviour of
+     (toeHeelStyle ,symbol? "The style for the glyph shape and behavior of
 @code{\\rtoe} and siblings.  Possible values are @code{default},
 @code{standard}, @code{reversed}, @code{circleheels}, and @code{below}.  If not
 set (the default), use value @code{default}.")
@@ -868,12 +868,12 @@ property contains the grobs which are still busy (e.g., note heads,
 spanners, etc.).")
 
 
-     (codaMarkCount ,index? "Updated at the end of each timestep in
-which a coda mark appears: not set during the first timestep,
+     (codaMarkCount ,index? "Updated at the end of each time step in
+which a coda mark appears: not set during the first time step,
 0@tie{}up to the first coda mark, 1@tie{}from the first to the second,
 2@tie{}from the second to the third, etc.")
      (currentBarLine ,ly:grob? "Set to the @code{BarLine} that
-@code{Bar_@/engraver} has created in the current timestep.")
+@code{Bar_@/engraver} has created in the current time step.")
      (currentChordCause ,ly:stream-event? "Event cause of the chord
 that should be created in this time step (if any).")
      (currentChordText ,markup? "In contexts printing chord names,
@@ -928,7 +928,7 @@ also contain @code{((@var{octave} . @var{name}) . (@var{alter}
      (measurePosition ,ly:moment? "The current point within the measure.")
      (measureStartNow ,boolean? "True at the beginning of a measure.")
      (melismaBusy ,boolean? "Signifies whether a melisma is active.
-This can be used to signal melismas on top of those automatically
+This can be used to signal melismata on top of those automatically
 detected.")
      (meterScalingFactor ,number? "The factor by which local nominal time
 signature settings must be scaled to fit the measure defined in the
@@ -938,7 +938,8 @@ Readers should use@tie{}1 as the default when this property is not set.")
 account for time skipped via @code{skipTypesetting}.")
 
 
-     (partialBusy ,boolean? "Signal that \\partial acts at the current timestep.")
+     (partialBusy ,boolean? "Signal that \\partial acts at the current time
+step.")
      (propertyStacks ,alist? "An alist used by @code{\\pushContextProperty} and
 @code{\\popContextProperty} to emulate a context property stack.  Each element
 of a stack is a list: either an empty list representing the unset state or a
@@ -959,8 +960,8 @@ is not set")
      (scriptDefinitions ,list? "The description of scripts.  This is
 used by the @code{Script_engraver} for typesetting note-superscripts
 and subscripts.  See @file{scm/@/script.scm} for more information.")
-     (segnoMarkCount ,index? "Updated at the end of each timestep in
-which a segno appears: not set during the first timestep, 0@tie{}up to
+     (segnoMarkCount ,index? "Updated at the end of each time step in
+which a segno appears: not set during the first time step, 0@tie{}up to
 the first segno, 1@tie{}from the first to the second segno,
 2@tie{}from the second to the third segno, etc.")
      (slurMelismaBusy ,boolean? "Signal if a slur is present.")

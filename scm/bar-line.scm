@@ -299,13 +299,13 @@ is not used within the routine."
          (dot (ly:font-get-glyph (ly:grob-default-font grob) "dots.dot"))
          (dot-y-length (interval-length (ly:stencil-extent dot Y)))
          (stencil empty-stencil)
-         ;; the two dots of the repeat sign should be centred at the
+         ;; the two dots of the repeat sign should be centered at the
          ;; middle of the staff and neither should collide with staff
          ;; lines.
          ;; the required space is measured in line positions,
          ;; i.e., in half staff spaces.
 
-         ;; dots are to fall into distict spaces, except when there's
+         ;; dots are to fall into distinct spaces, except when there's
          ;; only one space (and it's big enough to hold two dots and
          ;; some space between them)
 
@@ -367,10 +367,10 @@ is not used within the routine."
       stencil)))
 
 ;; A dotted line obviously contains a lined up amount of dots with space
-;; inbetween, and probably before and behind.
+;; in between, and probably before and behind.
 ;; Caused by different sized staves and user settings like \magnifyStaff,
 ;; layout-set-staff-size etc., the space between dots and the even the size of
-;; the dots itself may differ, making a dotted bar line a beasty thing...
+;; the dots itself may differ, making a dotted bar line a beastly thing...
 (define (make-dotted-bar-line is-span grob extent)
   "Draw a dotted bar line."
   (let* ((staff-space (ly:staff-symbol-staff-space grob))
@@ -442,7 +442,7 @@ is not used within the routine."
       ;; center of a dot is within the reduced interval, then the
       ;; whole dot is within the original interval.
       ;; If `layout-set-staff-size` is used, the thickness of staff lines change,
-      ;; take it into account. `blot-diamter` as well
+      ;; take it into account. `blot-diameter` as well
       (let* ((extent-less-dot
               (interval-widen
                extent

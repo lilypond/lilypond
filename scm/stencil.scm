@@ -51,7 +51,7 @@ Limitation: s-curves are currently not supported.
 ;;;;     user settable `bow-height' and `thickness' are scaled down.
 ;;;; (2) move control-points to match `start' and `stop'
 
-  (let* (;; we use a fixed line-width as border for different behaviour
+  (let* (;; we use a fixed line-width as border for different behavior
          ;; for larger and (very) small lengths
          (line-width 0.1)
          ;; `start'-`stop' distances

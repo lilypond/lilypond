@@ -312,15 +312,15 @@ ignoring @var{landscape?}."
        ;; The cadr indicates whether a value is a vertical dimension.
        ;; Output_def::normalize () needs to know
        ;; whether the user set the value or not.
-       (scaleable-values '(("left-margin" #f . #t)
-                           ("right-margin" #f . #t)
-                           ("inner-margin" #f . #t)
-                           ("outer-margin" #f . #t)
-                           ("binding-offset" #f . #f)
-                           ("top-margin" #t . #f)
-                           ("bottom-margin" #t . #f)
-                           ("indent" #f . #f)
-                           ("short-indent" #f . #f)))
+       (scalable-values '(("left-margin" #f . #t)
+                          ("right-margin" #f . #t)
+                          ("inner-margin" #f . #t)
+                          ("outer-margin" #f . #t)
+                          ("binding-offset" #f . #f)
+                          ("top-margin" #t . #f)
+                          ("bottom-margin" #t . #f)
+                          ("indent" #f . #f)
+                          ("short-indent" #f . #f)))
        (scaled-values
         (map
          (lambda (entry)
@@ -335,7 +335,7 @@ ignoring @var{landscape?}."
                              (/ (eval-carefully entry-symbol m 0)
                                 ((if vertical? cdr car)
                                  paper-default)))))))
-         scaleable-values)))
+         scalable-values)))
 
     (module-define! m 'paper-width w)
     (module-define! m 'paper-height h)

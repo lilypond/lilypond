@@ -17,7 +17,7 @@
 
 ;;  Determine whether an auto beam should be extended to the right
 ;;  of the current stem.  We start anywhere, except mid-measure in
-;;  3/4 time. We end according to the follwing rules, in order of
+;;  3/4 time. We end according to the following rules, in order of
 ;;  decreasing priority:
 ;;
 ;;  1. end <type>

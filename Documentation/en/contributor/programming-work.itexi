@@ -1304,8 +1304,8 @@ too short (@samp{minlength}), tip of tie collides with staff line
 (@samp{tipline}), collision with dot (@samp{dot collision}),
 center of tie is too close to a staff line (@samp{line center}),
 y-position (edge or center) of currently considered tie is less
-than the y-position of the previous tie (@samp{monoton edge}/
-@samp{monoton cent}), edge or center of tie is too close to the
+than the y-position of the previous tie (@samp{monotone edge}/
+@samp{monotone cent}), edge or center of tie is too close to the
 one considered previously (@samp{tietie center}/@samp{tietie edge}),
 unsymmetrical horizontal positioning with respect to the note heads
 (@samp{length symm}), unsymmetrical vertical positioning with respect

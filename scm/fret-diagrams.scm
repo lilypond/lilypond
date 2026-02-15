@@ -55,8 +55,8 @@ list derived from a fret-diagram-definition-string)."
   (1+ (- (cdr fret-range) (car fret-range))))
 
 (define (dot-has-color dot-settings)
-  "Return a color-name as symbol, if found in @var{dot-settings}
-otherwise @code{#f}.  Campared with color-names from @code{x11-color-list}."
+  "Return a color name as symbol if found in @var{dot-settings},
+otherwise @code{#f}.  Compared with color names from @code{x11-color-list}."
   ;; `x11-color-list' is not available for a toplevel definition here, thus avoid
   ;; to call it again and again by a recursion use simple filter instead.
   (let* ((colors
@@ -705,8 +705,8 @@ fret-diagram overall parameters."
                                   ;; (1) Move the below-string-finger-codes to
                                   ;;     the bottom edge of the string, i.e.
                                   ;;       (* (1+  my-fret-count) fret-distance)
-                                  ;; (2) add `finger-label-padding' (a hardcoded
-                                  ;;     correction-value to get a bit default
+                                  ;; (2) add `finger-label-padding' (a hard-coded
+                                  ;;     correction value to get a bit default
                                   ;;     padding).
                                   ;;     TODO: make it a property?
                                   ;; (3) scale this with `size'

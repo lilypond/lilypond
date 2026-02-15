@@ -236,7 +236,7 @@ engraver this music expression is processed.")
 
      (value ,scheme? "Assignment value for a translation property.")
      (void ,boolean? "If this property is @code{#t}, then the
-music expression is to be discarded by the toplevel music handler.")
+music expression is to be discarded by the top-level music handler.")
      (volta-depth ,index? "The depth in the repeat structure.")
      (volta-numbers ,number-list? "Volte to which this music applies.")
 

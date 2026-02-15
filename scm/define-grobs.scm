@@ -81,7 +81,7 @@ enclosed in parentheses.")))))
         (direction .  ,LEFT)
         (positioning-done . ,ly:accidental-placement::calc-positioning-done)
         ;; this is quite small, but it is very ugly to have
-        ;; accs closer to the previous note than to the next one.
+        ;; accidentals closer to the previous note than to the next one.
         (right-padding . 0.15)
         ;; for horizontally stacked scripts.
         (script-priority .  -100)
@@ -1361,7 +1361,7 @@ contain mixed durations.  See also @iref{PercentRepeat},
                                     (end-on-break-align-group . #f)
                                     (end-on-arpeggio . #t)
                                     (padding . 0.4)
-                                    ;; possible values for endstyle: arrow, hook
+                                    ;; possible values for end style: arrow, hook
                                     (end-style . #f)))
                           (right-broken . ((padding . 0.4)
                                            (end-style . #f)))
@@ -1477,7 +1477,7 @@ or @q{mp}.  See also @iref{DynamicLineSpanner}.")))))
                           ))
         (dash-fraction . 0.2)
         (dash-period . 3.0)
-        ;; rather ugh with NCSB
+        ;; rather ugh with New Century Schoolbook
         ;; (font-series . bold)
         (font-shape . italic)
         ;; need to blend with dynamic texts.
@@ -3451,7 +3451,7 @@ lyrics.")))))
                     ;; Flagged stems we shorten only half a staff space.
                     (stem-shorten . (1.0 0.5 0.25))))
         ;; We use the normal minima as minimum for the ideal lengths,
-        ;; and the extreme minima as abolute minimum length.
+        ;; and the extreme minima as absolute minimum length.
         (direction . ,ly:stem::calc-direction)
         (double-stem-separation . 0.5)
         (duration-log . ,stem::calc-duration-log)
@@ -3654,7 +3654,7 @@ All other grobs are descendants of it.")))))
      . (
         (collapse-height . 5.0)
         (direction . ,LEFT)
-        ;; ugh--hardcoded.
+        ;; ugh -- hard-coded.
         (padding . -0.1)  ;; bar must cover rounded ending of staff line.
         (stencil . ,ly:system-start-delimiter::print)
         (style . bar-line)

@@ -35,7 +35,7 @@
 ;;; a
 ;;;
      (accidental-padding ,number? "Property used by Beam to avoid
-accidentals in whole note tremolos.")
+accidentals in whole-note tremolos.")
      (add-stem-support ,boolean? "If set, the @code{Stem} object is
 included in this script's support.")
      (after-line-breaking ,boolean? "Dummy property, used to trigger
@@ -316,7 +316,7 @@ left side of the item and adding the @q{cdr} on the right side of the
 item).  In order to make a grob take up no horizontal space at all,
 set this to @code{(+inf.0 . -inf.0)}.")
      (extroversion ,number? "For polygons, how the thickness of the
-line is spread on each side of the exact polygon whith ideal zero
+line is spread on each side of the exact polygon with ideal zero
 thickness.  If this is@tie{}0, the middle of line is on the polygon.
 If@tie{}1, the line sticks out of the polygon.  If@tie{}-1, the outer
 side of the line is exactly on the polygon.  Other numeric values
@@ -346,7 +346,7 @@ If the list contains a single element it applies for all clefs.
 A single number in place of a pair sets accidentals within the octave
 ending at that staff position.")
      (font-encoding ,symbol? "The font encoding is the broadest
-category for selecting a font.  Currently, only lilypond's system
+category for selecting a font.  Currently, only LilyPond's system
 fonts (Emmentaler) are using this property.  Available
 values are @code{fetaMusic} (Emmentaler), @code{fetaBraces},
 @code{fetaText} (Emmentaler).")
@@ -610,7 +610,7 @@ left and one to the right of this grob.")
 ;;; i
 ;;;
      (id ,string? "An id string for the grob.")
-     (ignore-ambitus ,boolean? "If set, don't consider this notehead
+     (ignore-ambitus ,boolean? "If set, don't consider this note head
 for ambitus calculation.")
      (ignore-collision ,boolean? "If set, don't do note collision
 resolution on this @code{NoteColumn}.")
@@ -657,7 +657,7 @@ possibly removing ledger lines.")
 lines.  It is the sum of two numbers: The first is the factor for line
 thickness, and the second for staff space.  Both contributions are added.")
      (ledger-positions ,list? "A list of vertical positions of ledger lines.
-Its exact behaviour depends on the grob; see @iref{StaffSymbol},
+Its exact behavior depends on the grob; see @iref{StaffSymbol},
 @iref{NoteHead}, @iref{Custos}, and @iref{Script}.")
      (ledger-positions-function ,scheme? "A quoted Scheme procedure that takes
 a @code{StaffSymbol} grob and the vertical position of a note head as arguments
@@ -770,12 +770,12 @@ and notes or beam.")
 this long, normally in the horizontal direction.  This requires an
 appropriate callback for the @code{springs-and-rods} property.  If
 added to a @code{Tie}, this sets the minimum distance between
-noteheads.")
+note heads.")
      (minimum-length-after-break ,ly:dimension? "If set, try to make
 a broken spanner starting a line this long.  This requires an
 appropriate callback for the @code{springs-and-rods} property.  If
 added to a @code{Tie}, this sets the minimum distance to the
-notehead.")
+note head.")
      (minimum-length-fraction ,number? "Minimum length of ledger line
 as fraction of note head size.")
      (minimum-space ,ly:dimension? "Minimum distance that the victim
@@ -883,7 +883,7 @@ produces
 <g id=\"123\" class=\"foo\" data-whatever=\"bar\"> @dots{} </g>
 @end example
 
-In the Postscript backend, where there is no way to group items, the
+In the PostScript backend, where there is no way to group items, the
 setting of the @code{output-@/attributes} property has no effect.")
      (outside-staff-horizontal-padding ,number? "By default, an
 outside-staff-object can be placed so that is it very close to another
@@ -1301,7 +1301,7 @@ bounding box and 1@tie{}is the right/top edge.")
 
      (stem-begin-position ,number? "User override for the
 begin position of a stem.")
-     ;;[TODO: doco]
+     ;;[TODO: documentation]
      (stem-spacing-correction ,number? "Optical correction amount for
 stems that are placed in tight configurations.  For opposite
 directions, this amount is the correction for two normal sized stems
@@ -1455,7 +1455,7 @@ texts.")
 ;;; x
 ;;;
      (X-align-on-main-noteheads ,boolean? "If true, this grob will
-ignore suspended noteheads when aligning itself on NoteColumn.")
+ignore suspended note heads when aligning itself on NoteColumn.")
      (X-alignment-extent ,number-pair? "If a grob wants to align
 itself on a @code{PaperColumn} grob that doesn't contain note heads,
 use this horizontal extent as a placeholder.")
@@ -1793,9 +1793,9 @@ an additional stem on the right side?")
 
      (cavum ,boolean? "Is this neume outlined?")
      (context-info ,integer? "Within a ligature, the final glyph or shape of
-a head may be affected by the left and/@/or right neighbour head.
+a head may be affected by the left and/@/or right neighbor head.
 @code{context-info} holds for each head such information about the left and
-right neighbour, encoded as a bit mask.")
+right neighbor, encoded as a bit mask.")
 
      (deminutum ,boolean? "Is this neume diminished?")
      (descendens ,boolean? "Is this neume of descendant type?")

@@ -680,13 +680,13 @@ one voice.")))
       ;; we then wouldn't know if a skip-event needs to be respected.
 
       (if rhyth-event
-          (let* ((rhyhtmic-evt-start (car rhyth-event))
-                 (rhyhtmic-evt-length
+          (let* ((rhythmic-evt-start (car rhyth-event))
+                 (rhythmic-evt-length
                   (ly:prob-property (cdr rhyth-event) 'length ZERO-MOMENT))
-                 (rhyhtmic-evt-end
-                  (ly:moment-add rhyhtmic-evt-start rhyhtmic-evt-length))
+                 (rhythmic-evt-end
+                  (ly:moment-add rhythmic-evt-start rhythmic-evt-length))
                  (current-moment (ly:context-current-moment context)))
-            (if (and (equal? current-moment rhyhtmic-evt-end)
+            (if (and (equal? current-moment rhythmic-evt-end)
                      (pair? current-dur-grobs)
                      stop-duration-line)
                 (begin
@@ -1421,7 +1421,7 @@ the sticky spanner attached to it has its end announced too.")))
     (make-engraver
 
      ((process-music engraver)
-      ;; If we created an ellipsis in a prior timestep, we know now that it
+      ;; If we created an ellipsis in a prior time step, we know now that it
       ;; doesn't qualify as a STOP ellipsis since we're typesetting again.
       (set! ellipsis #f)
       (when was-skipping?
@@ -1622,7 +1622,7 @@ creating a chord name grob is left to other engravers.")))
         ;; latest BarLine afterwards.
         (left-bound #f)
         ;; Was a bar line found in this time step?  Reset after each
-        ;; timestep, unlike left-bound.
+        ;; time step, unlike left-bound.
         (bar-found #f)
         ;; GridChordName being created.
         (chord-name #f)
@@ -1631,7 +1631,7 @@ creating a chord name grob is left to other engravers.")))
         (accumulated-chord-names '()))
     (make-engraver
      ((process-music engraver)
-      (when (not left-bound) ; first timestep
+      (when (not left-bound) ; first time step
         (set! left-bound (ly:context-property context 'currentCommandColumn)))
       (let ((text (ly:context-property context 'currentChordText #f)))
         (when text
@@ -1681,7 +1681,7 @@ adapted for typesetting within a chord grid.")))
         ;; List of moments at which the measure is split (triggered by chords or
         ;; rests or skips).  Used to determine measure-division property.
         (moms '())
-        ;; Whether this is the first timestep.
+        ;; Whether this is the first time step.
         (first-timestep #t)
         ;; Chord name found.  Expect only one chord name per time step.
         (chord-name #f)
@@ -1689,7 +1689,7 @@ adapted for typesetting within a chord grid.")))
         (in-skip #f)
         ;; Moment at which the latest chord stops playing.
         (chord-end-mom (ly:make-moment -inf.0))
-        ;; Whether the ChordSquare was created at this timestep.
+        ;; Whether the ChordSquare was created at this time step.
         (new-square-created #f)
         ;; Index for the next chord name we will find.  Reset after terminating
         ;; a ChordSquare.
@@ -1764,7 +1764,7 @@ adapted for typesetting within a chord grid.")))
          ;; is a skip or something similar.  Record the moment where the skip
          ;; started -- unless it already started earlier, in which case it is
          ;; merged with the previous one (also happens if another voice has
-         ;; material that causes timesteps in the middle of the skip in the
+         ;; material that causes time steps in the middle of the skip in the
          ;; chord grid).
          ((and (or (not chord-end-mom)
                    (let ((now (ly:context-current-moment context)))
@@ -1776,7 +1776,7 @@ adapted for typesetting within a chord grid.")))
       (set! first-timestep #f))
      ((finalize engraver)
       ;; Avoid a dangling ChordSquare at the end.  If it was created in this
-      ;; timestep, the music ends on a bar line, as most music does, or perhaps
+      ;; time step, the music ends on a bar line, as most music does, or perhaps
       ;; the music has zero length.  In that case, kill it silently.  Else, we
       ;; have an unterminated measure, so warn about it.
       (when (not new-square-created)
@@ -2150,7 +2150,7 @@ adapted for typesetting within a chord grid.")))
          last-fall
          RIGHT
          (if (ly:grob? (ly:context-property context 'currentBarLine))
-             ;; don't cross a barline!
+             ;; don't cross a bar line!
              (ly:context-property context 'currentCommandColumn)
              (ly:context-property context 'currentMusicalColumn))))
       (when (and fall
@@ -2204,7 +2204,7 @@ adapted for typesetting within a chord grid.")))
                ;; here, setting the `repeat-tied` sub-property.
                ;; Otherwise tab-note-head may be part of an event-chord with
                ;; \repeatTie in 'elements, thus store and accumulate them and
-               ;; check for RepeaTie later
+               ;; check for RepeatTie later
                (let* ((cause (ly:grob-property grob 'cause))
                       (repeat-tie?
                        (event-has-articulation? 'repeat-tie-event cause)))
@@ -2390,7 +2390,7 @@ adapted for typesetting within a chord grid.")))
                 ;; Catch it.
                 ;; Script applied to an event-chord has note-column as
                 ;; X-parent. Best we can do is to catch the first note-head.
-                ;; This may not fullfill what a user has in mind, better to
+                ;; This may not fulfill what a user has in mind, better to
                 ;; use in-chord script then.
                 (for-each
                   (lambda (sc)

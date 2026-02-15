@@ -860,10 +860,10 @@ Tie_formatting_problem::score_ties_configuration (
         {
           if (edge <= last_edge)
             ties->add_score (details_.tie_column_monotonicity_penalty_,
-                             "monoton edge");
+                             "monotone edge");
           if (center <= last_center)
             ties->add_score (details_.tie_column_monotonicity_penalty_,
-                             "monoton cent");
+                             "monotone cent");
 
           ties->add_score (
             details_.tie_tie_collision_penalty_

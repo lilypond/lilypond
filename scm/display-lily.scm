@@ -154,7 +154,7 @@ display method will be called."
 Generate an form that checks if the properties of `expr'
 match thoses described in `pattern'."
   (let* (;; all (property . value) found at the first depth in pattern,
-         ;; including a (name . <Musictype>) pair.
+         ;; including a (name . <MusicType>) pair.
          (pat-all-props (cons (cons 'name (second pattern))
                               (key-val-list->alist (cddr pattern))))
          ;; all (property . value) pairs found in pattern, where value is not
@@ -208,7 +208,7 @@ match thoses described in `pattern'."
   "Helper function for `with-music-match'.
 Generate binding forms by looking for ?var symbol in pattern."
   (let* (;; all (property . value) found at the first depth of pattern,
-         ;; including a (name . <Musictype>) pair.
+         ;; including a (name . <MusicType>) pair.
          (pat-all-props (cons (cons 'name (second pattern))
                               (key-val-list->alist (cddr pattern))))
          ;; all (property . ?var) pairs

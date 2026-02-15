@@ -230,7 +230,7 @@
          (d-attr (regexp-exec glyph-path-regexp glyph))
          (d-attr-value "")
          (d-attr? (regexp-match? d-attr))
-         ;; TODO: not urgent, but do not hardcode this value
+         ;; TODO: not urgent, but do not hard-code this value
          (units-per-em 1000)
          (font-scale (ly:format "~4f" (/ size units-per-em)))
          (path ""))

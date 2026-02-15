@@ -216,7 +216,7 @@ way the transposition number is displayed."
           (mark-formatter repeat-count context)))))
 
 (define-public (format-mark-generic options)
-  ;; Select "alphabet", frame, font-series, letter-case and double letter behaviour
+  ;; Select "alphabet", frame, font series, letter case and double-letter behavior
   ;; from options list; if none is given, default to first available.
   (let ((ab (select-option options '(alphabet-omit-i alphabet alphabet-omit-j barnumbers numbers roman roman-ij)))
         (fr (select-option options '(noframe box circle oval)))

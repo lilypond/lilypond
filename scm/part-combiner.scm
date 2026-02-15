@@ -166,7 +166,7 @@ return the previous voice state."
 
 (define (make-split-state vs1 vs2)
   "Merge lists VS1 and VS2, containing Voice-state objects into vector
-of Split-state objects, crosslinking the Split-state vector and
+of Split-state objects, cross-linking the Split-state vector and
 Voice-state objects
 "
   (define (helper ss-idx ss-list idx1 idx2)
@@ -196,23 +196,23 @@ Voice-state objects
           ss-list)))
   (list->vector (reverse! (helper 0 '() 0  0) '())))
 
-(define (analyse-spanner-states voice-state-vec)
+(define (analyze-spanner-states voice-state-vec)
 
   (define (helper index active)
-    "Analyse EVS at INDEX, given state ACTIVE."
+    "Analyze EVS at INDEX, given state ACTIVE."
 
-    (define (analyse-tie-start active ev)
+    (define (analyze-tie-start active ev)
       (if (ly:in-event-class? ev 'tie-event)
           (acons 'tie (split-index (vector-ref voice-state-vec index))
                  active)
           active))
 
-    (define (analyse-tie-end active ev)
+    (define (analyze-tie-end active ev)
       (if (ly:in-event-class? ev 'note-event)
           (assoc-remove! active 'tie)
           active))
 
-    (define (analyse-absdyn-end active ev)
+    (define (analyze-absdyn-end active ev)
       (if (or (ly:in-event-class? ev 'absolute-dynamic-event)
               (and (ly:in-event-class? ev 'span-dynamic-event)
                    (equal? STOP (ly:event-property ev 'span-direction))))
@@ -224,7 +224,7 @@ Voice-state objects
             ((symbol<? (car b) (car a)) #f)
             (else (< (cdr a) (cdr b)))))
 
-    (define (analyse-span-event active ev)
+    (define (analyze-span-event active ev)
       (let* ((name (car (ly:event-property ev 'class)))
              (key (cond ((equal? name 'slur-event) 'slur)
                         ((equal? name 'phrasing-slur-event) 'tie)
@@ -241,7 +241,7 @@ Voice-state objects
                        active))
             active)))
 
-    (define (analyse-events active evs)
+    (define (analyze-events active evs)
       "Run all analyzers on ACTIVE and EVS"
       (define (run-analyzer analyzer active evs)
         (if (pair? evs)
@@ -253,17 +253,17 @@ Voice-state objects
                            (run-analyzer (car analyzers) active evs)
                            evs)
             active))
-      (sort ;; todo: use fold or somesuch.
-       (run-analyzers (list analyse-absdyn-end analyse-span-event
+      (sort ;; todo: use fold or some such.
+       (run-analyzers (list analyze-absdyn-end analyze-span-event
                             ;; note: tie-start/span comes after tie-end/absdyn.
-                            analyse-tie-end analyse-tie-start)
+                            analyze-tie-end analyze-tie-start)
                       active evs)
        active<?))
 
     ;; must copy, since we use assoc-remove!
     (if (< index (vector-length voice-state-vec))
         (begin
-          (set! active (analyse-events active (events (vector-ref voice-state-vec index))))
+          (set! active (analyze-events active (events (vector-ref voice-state-vec index))))
           (set! (span-state (vector-ref voice-state-vec index))
                 (list-copy active))
           (helper (1+ index) active))))
@@ -351,7 +351,7 @@ in steps between notes that may be combined into a chord or unison."
     ;; moment contain a part-combine-force-event override. If so, store its
     ;; value in the forced-configuration field, which will override. The
     ;; previous configuration is used to determine non-terminated settings.
-    (define (analyse-forced-combine result-idx prev-res)
+    (define (analyze-forced-combine result-idx prev-res)
 
       (define (get-forced-event x)
         (cond
@@ -370,7 +370,7 @@ in steps between notes that may be combined into a chord or unison."
             (filter-map get-forced-event (events vs))))
       ;; end part-combine-events
 
-      ;; forced-result: Take the previous config and analyse whether
+      ;; forced-result: Take the previous config and analyze whether
       ;; any change happened.... Return new once and permanent config
       (define (forced-result evt state)
         ;; sanity check, evt should always be (new-state . once)
@@ -383,7 +383,7 @@ in steps between notes that may be combined into a chord or unison."
                 (cons (car state) (car evt)))))
       ;; end forced-combine-result
 
-      ;; body of analyse-forced-combine:
+      ;; body of analyze-forced-combine:
       (if (< result-idx (vector-length result))
           (let* ((now-state (vector-ref result result-idx)) ; current result
                  ;; Extract all part-combine force events
@@ -392,7 +392,7 @@ in steps between notes that may be combined into a chord or unison."
                             (part-combine-events (car (voice-states now-state)))
                             (part-combine-events (cdr (voice-states now-state))))
                            '()))
-                 ;; result is (once-state permament-state):
+                 ;; result is (once-state permanent-state):
                  (state (fold forced-result (cons 'automatic prev-res) evts))
                  ;; Now let once override permanent changes:
                  (force-state (if (equal? (car state) 'automatic)
@@ -402,11 +402,11 @@ in steps between notes that may be combined into a chord or unison."
                   force-state)
             ;; For the next moment, ignore the once override (car stat)
             ;; and pass on the permanent override, stored as (cdr state)
-            (analyse-forced-combine (1+ result-idx) (cdr state)))))
-    ;; end analyse-forced-combine
+            (analyze-forced-combine (1+ result-idx) (cdr state)))))
+    ;; end analyze-forced-combine
 
 
-    (define (analyse-time-step result-idx)
+    (define (analyze-time-step result-idx)
       (define (put x . index)
         "Put the result to X, starting from INDEX backwards.
 
@@ -428,7 +428,7 @@ Only set if not set previously.
                 (put prev))))
         (for-each copy-one-state (span-state vs)))
 
-      (define (analyse-notes now-state)
+      (define (analyze-notes now-state)
         (let* ((vs1 (car (voice-states now-state)))
                (vs2 (cdr (voice-states now-state)))
                (notes1 (comparable-note-events vs1))
@@ -495,21 +495,21 @@ Only set if not set previously.
                      (if (and (synced? now-state)
                               (equal? active1 active2)
                               (equal? new-active1 new-active2))
-                         (analyse-notes now-state)
+                         (analyze-notes now-state)
 
                          ;; active states different:
                          (put 'apart)))
 
                    ;; go to the next one, if it exists.
-                   (analyse-time-step (1+ result-idx)))))))
+                   (analyze-time-step (1+ result-idx)))))))
 
-    (define (analyse-a2 result-idx)
+    (define (analyze-a2 result-idx)
       (if (< result-idx (vector-length result))
           (let* ((now-state (vector-ref result result-idx))
                  (vs1 (car (voice-states now-state)))
                  (vs2 (cdr (voice-states now-state))))
 
-            (define (analyse-synced-silence)
+            (define (analyze-synced-silence)
               (let ((rests1 (if vs1 (silence-events vs1) '()))
                     (rests2 (if vs2 (silence-events vs2) '())))
                 (cond
@@ -532,7 +532,7 @@ Only set if not set previously.
 
                  )))
 
-            (define (analyse-unsynced-silence vs1 vs2)
+            (define (analyze-unsynced-silence vs1 vs2)
               (let ((any-mmrests1 (if vs1 (any-mmrest-events vs1) #f))
                     (any-mmrests2 (if vs2 (any-mmrest-events vs2) #f)))
                 (cond
@@ -562,7 +562,7 @@ Only set if not set previously.
                         ((synced? now-state)
                          (if (and (= 0 (length notes1))
                                   (= 0 (length notes2)))
-                             (analyse-synced-silence)))
+                             (analyze-synced-silence)))
 
                         (else ;; not synchronized
                          (let* ((vss
@@ -572,11 +572,11 @@ Only set if not set previously.
                            (if (and
                                 (or (not vs1) (= 0 (length (note-events vs1))))
                                 (or (not vs2) (= 0 (length (note-events vs2)))))
-                               (analyse-unsynced-silence vs1 vs2))))
+                               (analyze-unsynced-silence vs1 vs2))))
                         )))
-            (analyse-a2 (1+ result-idx)))))
+            (analyze-a2 (1+ result-idx)))))
 
-    (define (analyse-solo12 result-idx)
+    (define (analyze-solo12 result-idx)
 
       (define (previous-config vs)
         (let* ((pvs (previous-voice-state vs))
@@ -607,7 +607,7 @@ Only set if not set previously.
         "Find a maximum stretch that can be marked as solo.  Only set
 the mark when there are no spanners active.
 
-      return next idx to analyse.
+      return next idx to analyze.
 "
         (if (< current-idx (vector-length result))
             (let* ((now-state (vector-ref result current-idx))
@@ -638,10 +638,10 @@ the mark when there are no spanners active.
             ;; try-solo
             start-idx))
 
-      (define (analyse-apart-silence result-idx)
-        "Analyse 'apart-silence starting at RESULT-IDX.  Return next index."
+      (define (analyze-apart-silence result-idx)
+        "Analyze 'apart-silence starting at RESULT-IDX.  Return next index."
 
-        (define (analyse-synced-apart-silence vs1 vs2)
+        (define (analyze-synced-apart-silence vs1 vs2)
           (let* ((rests1 (silence-events vs1))
                  (rests2 (silence-events vs2)))
             (cond
@@ -673,7 +673,7 @@ the mark when there are no spanners active.
              (else
               (put 'apart-silence)))))
 
-        (define (analyse-unsynced-apart-silence vs1 vs2)
+        (define (analyze-unsynced-apart-silence vs1 vs2)
           (let* ((prev-state (if (> result-idx 0)
                                  (vector-ref result (- result-idx 1))
                                  #f))
@@ -704,15 +704,15 @@ the mark when there are no spanners active.
             (put 'silence1))
 
            ((synced? now-state)
-            (analyse-synced-apart-silence vs1 vs2))
+            (analyze-synced-apart-silence vs1 vs2))
 
            (else
-            (analyse-unsynced-apart-silence vs1 vs2)))
+            (analyze-unsynced-apart-silence vs1 vs2)))
 
           (1+ result-idx)))
 
-      (define (analyse-apart result-idx)
-        "Analyse 'apart starting at RESULT-IDX.  Return next index."
+      (define (analyze-apart result-idx)
+        "Analyze 'apart starting at RESULT-IDX.  Return next index."
         (let* ((now-state (vector-ref result result-idx))
                (vs1 (current-voice-state now-state 1))
                (vs2 (current-voice-state now-state 2))
@@ -729,7 +729,7 @@ the mark when there are no spanners active.
                   ;; If we hit this, it means that the previous passes
                   ;; have designated as 'apart what is really
                   ;; 'apart-silence.
-                  (analyse-apart-silence result-idx))
+                  (analyze-apart-silence result-idx))
                  ((and (= n2 0)
                        (equal? (moment vs1) (moment now-state))
                        (null? (previous-span-state vs1)))
@@ -740,21 +740,21 @@ the mark when there are no spanners active.
                   (try-solo 'solo2 result-idx result-idx))
 
                  (else (1+ result-idx)))
-           ;; analyse-moment
+           ;; analyze-moment
            (1+ result-idx))))
 
       (if (< result-idx (vector-length result))
           (let ((conf (configuration (vector-ref result result-idx))))
             (cond
              ((equal? conf 'apart)
-              (analyse-solo12 (analyse-apart result-idx)))
+              (analyze-solo12 (analyze-apart result-idx)))
              ((equal? conf 'apart-silence)
-              (analyse-solo12 (analyse-apart-silence result-idx)))
+              (analyze-solo12 (analyze-apart-silence result-idx)))
              (else
-              (analyse-solo12 (1+ result-idx))))))) ; analyse-solo12
+              (analyze-solo12 (1+ result-idx))))))) ; analyze-solo12
 
-    (analyse-spanner-states voice-state-vec1)
-    (analyse-spanner-states voice-state-vec2)
+    (analyze-spanner-states voice-state-vec1)
+    (analyze-spanner-states voice-state-vec2)
     (if #f
         (begin
           (display voice-state-vec1)
@@ -766,18 +766,18 @@ the mark when there are no spanners active.
 
     ;; Extract all forced combine strategies, i.e. events inserted by
     ;; \partCombine(Apart|Automatic|SoloI|SoloII|Chords)[Once]
-    ;; They will in the end override the automaically determined ones.
+    ;; They will in the end override the automatically determined ones.
     ;; Initial state for both voices is no override
-    (analyse-forced-combine 0 #f)
+    (analyze-forced-combine 0 #f)
     ;; Now go through all time steps in a loop and find a combination strategy
     ;; based only on the events of that one moment (i.e. neglecting longer
     ;; periods of solo/apart, etc.)
-    (analyse-time-step 0)
+    (analyze-time-step 0)
     ;; (display result)
     ;; Check for unisono or unisilence moments
-    (analyse-a2 0)
+    (analyze-a2 0)
     ;;(display result)
-    (analyse-solo12 0)
+    (analyze-solo12 0)
     ;; (display result)
     (set! result (map
                   ;; forced-configuration overrides, if it is set
@@ -851,7 +851,7 @@ transform a split-list of (moment . split-state) into a state-list of
 
 Accepts next-state-proc: a procedure taking two symbols <label, split-state>
 as arguments, and returning a state (label voice-id [rest...]). If
-next-state-proc traverses a state machine table, this flattens the depedencies
+next-state-proc traverses a state machine table, this flattens the dependencies
 between elements.
 
 Provide (simple-split->state mapping-alist) if each split-state should
@@ -900,7 +900,7 @@ A segment is of the form:
     (state0 moment-interval0 [state1 moment-interval1 [...]]),
 
 where all states in each segment have the same voice-id, and a moment-interval
-is a list consisting of the moments from the states adjecent to it, which might
+is a list consisting of the moments from the states adjacent to it, which might
 belong to the next segment.
 
 Note that the list of states is expected to be ordered end->beginning, and
