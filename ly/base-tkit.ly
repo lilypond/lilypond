@@ -71,8 +71,6 @@ parser variable of that name."
 % Define the derived variables to be populated
 #(define all-music-lyrics-names '())  % eg "SopranoLyrics"
 #(define AllMusic (make-music 'Music))
-#(define have-music #f)        % -> #t when at least one music name
-                                %    contains music
 #(define voice-postfixes
    ;; These names are used verbatim in code, so may not be changed
    '("InstrumentName"
@@ -125,8 +123,4 @@ parser variable of that name."
               (map
                (lambda (x)
                  (tkit-lookup x))
-               all-music-names))))
-   (set! have-music
-         (ly:moment<?
-          (ly:make-moment 0)
-          (ly:music-length AllMusic))))
+               all-music-names)))))

@@ -313,19 +313,19 @@ Piano = \make-pianostaff
 }
 
 \score {
-  \keepWithTag #'print
-  #(if have-music
-       #{ << \SSAATTBB \Piano >> #}
-       #{ #} )
+  \keepWithTag #'print <<
+    \SSAATTBB
+    \Piano
+  >>
   \layout { $(if Layout Layout) }
 }
 
 
 \score {
-  \keepWithTag #'play
-  #(if have-music
-       #{ << \SSAATTBB \Piano >> #}
-       #{ #} )
+  \keepWithTag #'play <<
+    \SSAATTBB
+    \Piano
+  >>
   \midi {
     \context {
       \Score

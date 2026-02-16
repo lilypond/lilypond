@@ -192,19 +192,19 @@ Piano = \make-pianostaff
 }
 
 \score {
-  \keepWithTag #'print
-  #(if have-music
-       #{ << \SATB \Piano >> #}
-       #{ #} )
+  \keepWithTag #'print <<
+    \SATB
+    \Piano
+  >>
   \layout { $(if Layout Layout) }
 }
 
 
 \score {
-  \keepWithTag #'play
-  #(if have-music
-       #{ << \SATB \Piano >> #}
-       #{ #} )
+  \keepWithTag #'play <<
+    \SATB
+    \Piano
+  >>
   \midi {
     \context {
       \Score
