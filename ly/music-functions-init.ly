@@ -930,7 +930,7 @@ generate a @code{KeyChangeEvent}, which prints the current key signature again."
          ((null? pitch-alist)
           (ly:parser-error (G_ "second argument must be pitch list")
                            (*location*))
-          (make-music 'SequentialMusic 'void #t))
+          (make-music 'Music))
          (else
           (ly:music-transpose
            (make-music 'KeyChangeEvent

@@ -428,6 +428,7 @@ Syntax: @code{R-\\markup @{ \"bla\" @}}")
 
     (Music
      . ((description . "Unspecified music expression.")
+        (iterator-ctor . ,ly:music-iterator::constructor)
         (types . ())
         (void . #t)
         ))
