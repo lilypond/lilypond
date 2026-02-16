@@ -1126,6 +1126,9 @@ class Note(Measure_element):
 
         event.visible = (getattr(self, 'print-object', 'yes') == 'yes')
         event.spacing = (getattr(self, 'print-spacing', 'yes') == 'yes')
+        if not is_rest:
+            event.ledger = (getattr(self, 'print-leger', 'yes') == 'yes')
+        event.dot = (getattr(self, 'print-dot', 'yes') == 'yes')
 
         return event
 

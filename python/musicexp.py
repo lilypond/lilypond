@@ -3899,6 +3899,7 @@ class RestEvent(RhythmicEvent):
         self.full_measure_glyph = False
         self.visible = True
         self.spacing = True
+        self.dot = True  # Whether to print a dot or not.
 
     def pre_note_ly(self, is_chord_element):
         elements = super().pre_note_ly(is_chord_element)
@@ -3906,6 +3907,15 @@ class RestEvent(RhythmicEvent):
         if not self.visible:
             elements.append(r'\hideNote')
         else:
+            # We don't support the case
+            #
+            #   print-object="no" print-dot="yes"    (show only dots)
+            #
+            # since its practical use is questionable.  Additionally, no
+            # other major application handles this.
+            if not self.dot:
+                elements.append(r'\tweak Dots.stencil ##f')
+
             color = color_to_ly(self.color)
             if color is not None:
                 elements.append(r'\tweak color %s' % color)
@@ -3986,6 +3996,8 @@ class NoteEvent(RhythmicEvent):
         self.accidental_font_size = None
         self.visible = True
         self.spacing = True
+        self.ledger = True  # Whether to print a ledger line or not.
+        self.dot = True  # Whether to print a dot or not.
 
     def get_properties(self):
         s = RhythmicEvent.get_properties(self)
@@ -4043,6 +4055,18 @@ class NoteEvent(RhythmicEvent):
         if not self.visible:
             elements.append(r'\hideNote')
         else:
+            # We don't support the cases
+            #
+            #   print-object="no" print-leger="yes"  (show only ledger lines)
+            #   print-object="no" print-dot="yes"    (show only dots)
+            #
+            # since their practical use is questionable.  Additionally, no
+            # other major application handles this.
+            if not self.ledger:
+                elements.append(r'\tweak no-ledgers ##t')
+            if not self.dot:
+                elements.append(r'\tweak Dots.stencil ##f')
+
             accidental_color = color_to_ly(self.accidental_color)
             if accidental_color is not None:
                 elements.append(r'\tweak Accidental.color %s'
