@@ -25,7 +25,7 @@
 
 #include <vector>
 
-class Grob_array : public Simple_smob<Grob_array>
+class Grob_array : public Simple_smob<Grob_array>, private std::vector<Grob *>
 {
 public:
   int print_smob (SCM, scm_print_state *) const;
@@ -33,7 +33,6 @@ public:
   static const char *const type_p_name_;
 
 private:
-  std::vector<Grob *> grobs_;
   bool ordered_;
 
   Grob_array ();
@@ -41,17 +40,28 @@ private:
 public:
   bool ordered () const { return ordered_; }
   void set_ordered (bool b) { ordered_ = b; }
-  Grob *grob (vsize i) const { return grobs_.at (i); }
-  vsize size () const { return grobs_.size (); }
-  bool empty () const { return grobs_.empty (); }
+  Grob *grob (vsize i) const { return at (i); }
   void remove_duplicates ();
-  void clear () { grobs_.clear (); }
-  void add (Grob *x) { grobs_.push_back (x); }
-  void set_array (std::vector<Grob *> const &src) { grobs_ = src; }
-  std::vector<Grob *> &array_reference () { return grobs_; }
-  const std::vector<Grob *> &array_reference () const { return grobs_; }
-  std::vector<Grob *> const &array () const { return grobs_; }
+  void add (Grob *x) { push_back (x); }
+  void set_array (std::vector<Grob *> const &src) { vector::operator= (src); }
+  std::vector<Grob *> &array_reference ()
+  {
+    return static_cast<std::vector<Grob *> &> (*this);
+  }
+  const std::vector<Grob *> &array_reference () const
+  {
+    return static_cast<const std::vector<Grob *> &> (*this);
+  }
+  std::vector<Grob *> const &array () const
+  {
+    return static_cast<const std::vector<Grob *> &> (*this);
+  }
   static SCM make_array ();
+
+public: // exposed subset of vector interface
+  using vector::clear;
+  using vector::empty;
+  using vector::size;
 };
 
 std::vector<Grob *> const &ly_scm2link_array (SCM x);

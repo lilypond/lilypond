@@ -31,7 +31,7 @@ Grob_array::mark_smob () const
 {
   /* grobs[0]->protection_pool_ should be hotter in cache, but returning it here
      does not make a dent in benchmarks */
-  return grobs_.empty () ? SCM_UNDEFINED : grobs_[0]->self_scm ();
+  return empty () ? SCM_UNDEFINED : front ()->self_scm ();
 }
 
 int
@@ -59,7 +59,7 @@ Grob_array::remove_duplicates ()
 {
   assert (!ordered_);
 
-  uniquify (grobs_);
+  uniquify (static_cast<std::vector<Grob *> &> (*this));
 }
 
 const char *const Grob_array::type_p_name_ = "ly:grob-array?";
