@@ -70,7 +70,7 @@ parser variable of that name."
 
 % Define the derived variables to be populated
 #(define all-music-lyrics-names '())  % eg "SopranoLyrics"
-#(define AllMusic (make-music 'SequentialMusic 'void #t))
+#(define AllMusic (make-music 'Music))
 #(define have-music #f)        % -> #t when at least one music name
                                 %    contains music
 #(define voice-postfixes

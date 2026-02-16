@@ -81,7 +81,7 @@ make-one-voice-staff =
          \make-voice #name
        }
      #}
-     (make-music 'SequentialMusic 'void #t)))
+     #{ #} ))
 
 
 make-two-voice-staff =
@@ -179,4 +179,4 @@ make-two-voice-staff =
            >>
          >>
        #}
-        (make-music 'SequentialMusic 'void #t)))
+       #{ #} ))

@@ -316,7 +316,7 @@ Piano = \make-pianostaff
   \keepWithTag #'print
   #(if have-music
        #{ << \SSAATTBB \Piano >> #}
-       #{ { } #} )
+       #{ #} )
   \layout { $(if Layout Layout) }
 }
 
@@ -325,7 +325,7 @@ Piano = \make-pianostaff
   \keepWithTag #'play
   #(if have-music
        #{ << \SSAATTBB \Piano >> #}
-       #{ { } #} )
+       #{ #} )
   \midi {
     \context {
       \Score

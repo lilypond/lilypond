@@ -38,7 +38,7 @@ make-one-voice-vocal-staff =
             (lambda (lyrics-postfix)
               (make-one-stanza "Below" name name lyrics-postfix))
               lyrics-postfixes)))))
-      (make-music 'SequentialMusic 'void #t)))
+      (make-music 'Music)))
 
 make-two-voice-vocal-staff =
 #(define-music-function (name clef v1name v2name)

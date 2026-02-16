@@ -52,7 +52,7 @@ make-one-stanza =
                     #(string-append "align" pos "Context") = #staff-name
                   }
                #}
-               (make-music 'SequentialMusic 'void #t)))
+               #{ #} ))
           (stanza (if (member lyrics lyrics-postfixes)
                         (tkit-lookup voicePrefix lyrics)
                         (tkit-lookup lyrics))))
@@ -65,4 +65,4 @@ make-one-stanza =
           \lyricsto #(string-append assoc-voice-name "Voice")
           { #stanza }
         #}
-        (make-music 'SequentialMusic 'void #t))))
+        #{ #} )))
