@@ -121,7 +121,7 @@ System::typeset_grob (Grob *elem)
   else
     {
       elem->layout_ = pscore_->layout ();
-      all_elements ()->add (elem);
+      all_elements ()->push_back (elem);
       if (scm_is_false (elem->protection_pool_))
         elem->protection_pool_ = protection_pool_;
       else
@@ -512,7 +512,7 @@ System::add_column (Paper_column *p)
 
   p->set_rank (static_cast<vsize> (ga->size ()));
 
-  ga->add (p);
+  ga->push_back (p);
   Axis_group_interface::add_element (this, p);
 }
 

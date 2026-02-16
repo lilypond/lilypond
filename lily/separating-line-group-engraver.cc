@@ -106,7 +106,7 @@ Separating_line_group_engraver::acknowledge_item (Grob_info_t<Item> info)
             }
 
           ga->clear ();
-          ga->add (col);
+          ga->push_back (col);
         }
     }
 }

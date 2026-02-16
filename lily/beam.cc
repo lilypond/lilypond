@@ -171,7 +171,7 @@ Beam::calc_normal_stems (SCM smob)
   for (auto *const stem : stems)
     {
       if (Stem::is_normal_stem (stem))
-        ga->add (stem);
+        ga->push_back (stem);
     }
 
   return val;

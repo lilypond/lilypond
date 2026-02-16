@@ -65,7 +65,7 @@ Like @code{filter}, return a new grob array containing the elements of
     {
       if (scm_is_true (ly_call (predicate, g->self_scm ())))
         {
-          dst->add (g);
+          dst->push_back (g);
         }
     }
   return dst_scm;

@@ -42,7 +42,6 @@ public:
   void set_ordered (bool b) { ordered_ = b; }
   Grob *grob (vsize i) const { return at (i); }
   void remove_duplicates ();
-  void add (Grob *x) { push_back (x); }
   void set_array (std::vector<Grob *> const &src) { vector::operator= (src); }
   std::vector<Grob *> &array_reference ()
   {
@@ -61,6 +60,7 @@ public:
 public: // exposed subset of vector interface
   using vector::clear;
   using vector::empty;
+  using vector::push_back;
   using vector::size;
 };
 

@@ -71,21 +71,21 @@ Keep_alive_together_engraver::finalize ()
               if (scm_is_eq (this_layer, ly_symbol2scm ("any")))
                 {
                   // layer is kept alive by any other layer
-                  live->add (group_spanners_[j]);
+                  live->push_back (group_spanners_[j]);
                   continue;
                 }
               else if (scm_is_eq (this_layer, ly_symbol2scm ("above")))
                 {
                   // layer is kept alive by the layer preceding it
                   if (i == j + 1)
-                    live->add (group_spanners_[j]);
+                    live->push_back (group_spanners_[j]);
                   continue;
                 }
               else if (scm_is_eq (this_layer, ly_symbol2scm ("below")))
                 {
                   // layer is kept alive by the layer following it
                   if (i == j - 1)
-                    live->add (group_spanners_[j]);
+                    live->push_back (group_spanners_[j]);
                   continue;
                 }
               else
@@ -104,16 +104,16 @@ Keep_alive_together_engraver::finalize ()
           if (!scm_is_integer (this_layer))
             {
               // unset layers are kept alive by all but ignored layers
-              live->add (group_spanners_[j]);
+              live->push_back (group_spanners_[j]);
               continue;
             }
           // an explicit layer is only affected by explicit layers
           if (!scm_is_integer (that_layer))
             continue;
           if (scm_is_true (scm_num_eq_p (that_layer, this_layer)))
-            live->add (group_spanners_[j]);
+            live->push_back (group_spanners_[j]);
           else if (scm_is_true (scm_less_p (that_layer, this_layer)))
-            dead->add (group_spanners_[j]);
+            dead->push_back (group_spanners_[j]);
         }
       if (!live->empty ())
         set_object (group_spanners_[i], "keep-alive-with", live_scm);

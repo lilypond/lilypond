@@ -113,7 +113,7 @@ do_break_substitution (Crit break_criterion, SCM src)
       new_arr->set_ordered (ga->ordered ());
       for (Grob *og : ga->array_reference ())
         if (Grob *g = substitute_grob (break_criterion, og))
-          new_arr->add (g);
+          new_arr->push_back (g);
       return new_arr->smobbed_copy ();
     }
   else if (scm_is_vector (src))
@@ -281,13 +281,13 @@ Spanner::fast_substitute_grob_array (SCM sym, Grob_array const *grob_array)
         {
           auto *og = items[j].grob_;
           if (auto *g = substitute_grob (system, og))
-            new_array->add (g);
+            new_array->push_back (g);
         }
 
       for (auto *og : spanners)
         {
           if (auto *g = substitute_grob (system, og))
-            new_array->add (g);
+            new_array->push_back (g);
         }
     }
 

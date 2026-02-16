@@ -75,14 +75,14 @@ void
 Pointer_group_interface::add_grob (Grob *me, SCM sym, Grob *p)
 {
   Grob_array *arr = get_grob_array (me, sym);
-  arr->add (p);
+  arr->push_back (p);
 }
 
 void
 Pointer_group_interface::add_unordered_grob (Grob *me, SCM sym, Grob *p)
 {
   Grob_array *arr = get_grob_array (me, sym);
-  arr->add (p);
+  arr->push_back (p);
   arr->set_ordered (false);
 }
 

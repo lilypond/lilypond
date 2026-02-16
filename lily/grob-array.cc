@@ -77,7 +77,7 @@ grob_list_to_grob_array (SCM lst)
         warning (
           _f ("ly:grob-list->grob-array encountered a non-grob object"));
       else
-        ga->add (g);
+        ga->push_back (g);
     }
   if (!scm_is_null (s))
     warning (_f ("ly:grob-list->grob-array expected a list"));

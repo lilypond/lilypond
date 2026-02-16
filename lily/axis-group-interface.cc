@@ -566,7 +566,7 @@ Axis_group_interface::internal_calc_pure_relevant_grobs (
   SCM grobs_scm = Grob_array::make_array ();
   Grob_array *grobs = unsmob<Grob_array> (grobs_scm);
   for (auto const &g : relevant_grobs)
-    grobs->add (g.grob_);
+    grobs->push_back (g.grob_);
 
   return grobs_scm;
 }
