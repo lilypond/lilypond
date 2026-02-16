@@ -5,12 +5,29 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">A lyrics syllable can have both
-          a number and a name attribute. The question is: What should be used
-          to put syllables of the same voice together. This example uses
-          different number/name combinations to check how different
-          applications handle this unspecified case (The advice on the
-          MusicXML mailing list was "there is no correct way, each
-          application can do what it thinks is best").</miscellaneous-field>
+          a ‘number’ and a ‘name’ attribute.  The question is: What should be
+          used to put syllables of the same voice together?  This example uses
+          different combinations of ‘number’ and ‘name’ attributes to check how
+          different applications handle this unspecified case.  (The advice on
+          the MusicXML mailing list was “there is no correct way, each
+          application can do what it thinks is best.”)
+
+          The following combinations are tested, shown as (‘number’, ‘name’,
+          &lt;text&gt;) tuplets in the order given in the MusicXML file; missing
+          entries are indicated with ‘—’.
+
+          Note 1: (1, Verse, Verse1A), (1, Chorus, Chorus1A), (1, Chorus,
+          AnotherChorus1A), (2, Chorus, Chorus2A).
+
+          Note 2: (1, —, 1B), (2, —, 2B).
+
+          Note 3: (1, Verse, Verse1C), (2, Chorus, Chorus2C).
+
+          Note 4: (1, Chorus, Chorus1D).
+
+          Note 5: (—, Verse, VerseE).
+
+          Note 6: (—, —, NoneF).</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -23,9 +40,18 @@
     <measure number="1">
       <attributes>
         <divisions>1</divisions>
-        <key><fifths>0</fifths><mode>major</mode></key>
-        <time><beats>6</beats><beat-type>4</beat-type></time>
-        <clef><sign>G</sign><line>2</line></clef>
+        <key>
+          <fifths>0</fifths>
+          <mode>major</mode>
+        </key>
+        <time>
+          <beats>6</beats>
+          <beat-type>4</beat-type>
+        </time>
+        <clef>
+          <sign>G</sign>
+          <line>2</line>
+        </clef>
       </attributes>
       <note>
         <pitch>
@@ -53,7 +79,10 @@
         </lyric>
       </note>
       <note>
-        <pitch><step>G</step><octave>4</octave></pitch>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
@@ -67,7 +96,10 @@
         </lyric>
       </note>
       <note>
-        <pitch><step>G</step><octave>4</octave></pitch>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
@@ -81,7 +113,10 @@
         </lyric>
       </note>
       <note>
-        <pitch><step>G</step><octave>4</octave></pitch>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
@@ -91,7 +126,10 @@
         </lyric>
       </note>
       <note>
-        <pitch><step>G</step><octave>4</octave></pitch>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
@@ -101,7 +139,10 @@
         </lyric>
       </note>
       <note>
-        <pitch><step>G</step><octave>4</octave></pitch>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>

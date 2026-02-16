@@ -4,14 +4,25 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">Beaming or slurs can indicate
-          melismata for lyrics.  Also make sure that notes without an explicit
-          syllable are treated as if they were part of a
-          melisma.
+      <miscellaneous-field name="description">In standard music notation,
+          beaming or slurs normally indicate melismata for lyrics (in MusicXML
+          there is no such interdependency).  Also make sure that notes without
+          an explicit syllable are treated as if they were part of a melisma.
 
-          In the second bar, ‘start’, ‘continue’, and ‘stop’ types are used for
-          &lt;extend&gt;, together with a red color for the extender
-          line.</miscellaneous-field>
+          In all measures, the melisma starts on note 1 and ends on note 7;
+          there are lyrics on notes 1, 4, and 5, followed by an extender line
+          from note 5 to 7.
+
+          Measure 1 has beams from notes 1 to 3 and 5 to 7.
+
+          In measure 2, there are neither beams nor slurs.  ‘start’, ‘continue’,
+          and ‘stop’ types are used for &lt;extend&gt;, together with a red
+          color for the extender line.
+
+          Measure 3 uses slurs (and no beams) for notes 1 to 3 and 5 to 7.
+
+          Measure 4 uses a single slur (and no beams) from note 1
+          to 7.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

@@ -4,9 +4,17 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">Some notes with simple lyrics:
-          Syllables, notes without a syllable, syllable
-          spanners.</miscellaneous-field>
+      <miscellaneous-field name="description">Some notes with simple lyrics.
+
+          The values of the &lt;syllabic&gt; elements of the four notes in
+          measure 1 are ‘begin’, ‘middle’, ‘end’, and ‘single’, respectively.
+
+          Measure 2's first note has no lyrics; the lyrics starts on the second
+          note, skips the third note, and ends at the fourth one.
+
+          A similar situation is present for measure 3: no lyrics at the first
+          note, a single syllable on the second note, and the third note has
+          again no lyrics.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

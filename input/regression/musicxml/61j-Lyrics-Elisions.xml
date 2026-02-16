@@ -5,17 +5,17 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">Multiple lyrics syllables assigned
-          to a single note are implemented either using a space in the lyrics'
-          &lt;text&gt; element or by using &lt;elision&gt;.
+          to a single note are implemented either using a space in the
+          &lt;text&gt; child of &lt;lyric&gt;, or by using &lt;elision&gt;.
 
           The first note has a single syllable, the second note has two
           syllables separated by a space, the third has two syllables with
-          &lt;elision&gt; set to an undertie, and the fourth has three
-          syllables (the first and third one in red, and the second one
-          being in italic and overriding the color with blue), with a green
-          undertie between the first and second syllable and an empty
-          &lt;elision&gt; element between the second and third syllable, causing
-          an application-specific elision glyph.
+          &lt;elision&gt; set to an undertie, and the fourth has three syllables
+          (the first and third one in red, and the second one being in italic
+          and overriding the color with blue), with a green undertie between the
+          first and second syllable and an empty &lt;elision&gt; element between
+          the second and third syllable, causing an application-specific elision
+          glyph.
 
           None of the &lt;lyric&gt; elements has the ‘number’ attribute
           set.</miscellaneous-field>

@@ -4,9 +4,9 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">How to treat lyrics and slurred
-          notes. Normally, a slurred group of notes is assigned only one lyrics
-          syllable.</miscellaneous-field>
+      <miscellaneous-field name="description">How to treat lyrics in combination
+          with slurred or tied notes. Normally, a slurred or tied group of notes
+          is assigned only one lyrics syllable.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

@@ -4,9 +4,23 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">Multiple (simple) lyrics. The
-          order of the exported stanzas is relevant (identified by the number
-          attribute in this test case)</miscellaneous-field>
+      <miscellaneous-field name="description">Multiple, simple lyrics. The
+          order of the exported stanzas is relevant; in this example, the three
+          lines have the ‘number’ attribute set to ‘1’, ‘2’, and ‘iij’,
+          respectively.
+
+          MusicXML doesn't provide any means to semantically separate stanza
+          numbers from actual lyrics; it is thus the job of the application to
+          do something sensible.  Here, the first &lt;text&gt; elements in each
+          line also hold the stanza number: for lines 1 to 3, the values are
+          ‘1.Tra’, ‘2.-4./5. tra’, and ‘6., 7.TRA’.
+
+          The lyrics on the last note in measure 1 start extender lines.  In the
+          top two lyric lines, there is an &lt;extend&gt; element without an
+          attribute (compliant to MusicXML versions before 3.0).  In the third
+          lyric line, the fourth note has attribute ‘start’, and the first note
+          of measure 2 has attribute ‘stop’, using the extended syntax
+          introduced in MusicXML 3.0.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -116,7 +130,7 @@
         <lyric number="iij">
           <syllabic>single</syllabic>
           <text>JA!</text>
-          <extend/>
+          <extend type="start"/>
         </lyric>
       </note>
     </measure>
@@ -130,6 +144,9 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
+        <lyric number="iij">
+          <extend type="stop"/>
+        </lyric>
       </note>
       <note>
         <pitch>
