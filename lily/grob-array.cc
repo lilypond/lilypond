@@ -62,17 +62,6 @@ Grob_array::remove_duplicates ()
   uniquify (grobs_);
 }
 
-void
-Grob_array::filter (bool (*predicate) (const Grob *))
-{
-  vsize new_size = 0;
-  for (vsize i = 0; i < grobs_.size (); ++i)
-    if (predicate (grobs_[i]))
-      grobs_[new_size++] = grobs_[i];
-  grobs_.resize (new_size);
-  grobs_.shrink_to_fit ();
-}
-
 const char *const Grob_array::type_p_name_ = "ly:grob-array?";
 
 SCM

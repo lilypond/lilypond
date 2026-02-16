@@ -52,10 +52,6 @@ public:
   const std::vector<Grob *> &array_reference () const { return grobs_; }
   std::vector<Grob *> const &array () const { return grobs_; }
   static SCM make_array ();
-
-  // Remove grobs that do not satisfy the predicate, leaving the order
-  // unchanged.
-  void filter (bool (*predicate) (const Grob *));
 };
 
 std::vector<Grob *> const &ly_scm2link_array (SCM x);
