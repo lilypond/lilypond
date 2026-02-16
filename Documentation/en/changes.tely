@@ -1884,6 +1884,24 @@ It is now possible to modify tag groups created with
 commands @code{\resetTagGroups}, @code{\resetTagGroup},
 @code{\addToTagGroup} and @code{\removeFromTagGroup}.
 
+@item
+The new function @code{\breakAlignInsert} makes it easy to
+change the order of notational elements like clefs, time
+signatures, bar lines etc.  Previously, this required
+re-defining the @code{Score.BreakAlignment.break-align-orders}
+vector.
+
+@lilypond[quote,verbatim]
+{
+  g'1
+  \key f \major
+  g'
+  \breakAlignInsert staff-bar after key-signature
+  \key g \minor
+  g'
+}
+@end lilypond
+
 @end itemize
 
 

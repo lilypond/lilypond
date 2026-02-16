@@ -3357,7 +3357,8 @@ order.  For instance, with the set of items in the picture below,
 the default order places the breathing sign first, then the clef,
 then the bar line, the key cancellation and key signature, and
 finally the time signature (this is controlled by the
-@code{BreakAlignment@/.break@/-align@/-orders} property).
+@code{BreakAlignment@/.break@/-align@/-orders} property, which
+may conveniently be changed using @code{\breakAlignInsert}).
 
 @lilypond[verbatim,quote]
 \relative {

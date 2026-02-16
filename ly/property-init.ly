@@ -55,20 +55,7 @@ context name, the settings are applied to that context (example:
 ambitusAfter =
 #(define-music-function (target) (symbol?)
   (_i "Move the ambitus after the break-align symbol @var{target}.")
-  (make-apply-context
-   (lambda (context)
-     (define (move-ambitus order)
-       (let* ((without-ambitus (delq 'ambitus order))
-              (target-index (list-index (lambda (x) (eq? x target)) without-ambitus))
-              (head (take without-ambitus (1+ target-index)))
-              (tail (drop without-ambitus (1+ target-index))))
-           (append head '(ambitus) tail)))
-     (and-let* ((score (ly:context-find context 'Score))
-                (grob-def (ly:context-grob-definition score 'BreakAlignment))
-                (break-align-def (assoc-get 'break-align-orders grob-def))
-                (orders (vector->list break-align-def))
-                (new-orders (list->vector (map move-ambitus orders))))
-       (ly:context-pushpop-property score 'BreakAlignment 'break-align-orders new-orders)))))
+  (breakAlignInsert 'ambitus 'after target))
 
 %% arpeggios
 
@@ -207,6 +194,83 @@ bassFigureStaffAlignmentNeutral =
 skipNCs = \override NoteColumn.bend-me = ##f
 skipNC = \once \skipNCs
 endSkipNCs = \revert NoteColumn.bend-me
+
+
+%% break align order
+
+breakAlignInsert =
+#(define-music-function
+  (positions symbol-to-move sorting-symbol anchor-symbol)
+  ((vector? all-visible) symbol? symbol? symbol?)
+  (_i "Re-order break-align symbols.
+
+This function is for tasks like putting a clef change after the bar line,
+which would be accomplished by @code{\\breakAlignInsert clef after staff-bar}.
+
+@var{sorting-symbol} can be @code{before} or @code{after}. Depending
+on its value, the break-align symbol @var{symbol-to-move} gets moved
+directly before/@/after the symbol @var{anchor-symbol} in the
+@code{break-align-orders} vector of @code{Score@/.BreakAlignment}.
+
+Available break-align symbols are:
+@code{ambitus}, @code{breathing-sign}, @code{clef}, @code{cue-clef},
+@code{cue-end-clef}, @code{custos}, @code{key-cancellation},
+@code{key-signature}, @code{left-edge}, @code{signum-repetitionis},
+@code{staff-bar}, @code{staff-ellipsis}, @code{time-signature}.
+
+The optional argument @var{positions} determines whether the specified
+change should become visible at the beginning/@/the end/@/the middle of a line.
+Possible values are: @code{#all-visible} (default),
+@code{#begin-of-line-invisible}, @code{#center-invisible},
+@code{#end-of-line-invisible}, @code{#begin-of-line-visible},
+@code{#center-visible}, @code{#end-of-line-visible},
+@code{#all-invisible}.")
+  (define (modify-list lst)
+    (let*
+     ((new-lst (delq symbol-to-move lst))
+      (anchor-point (memq anchor-symbol new-lst)))
+     (cond
+      ((not anchor-point)
+       (ly:warning
+        (G_ "Could not find given break alignment symbol '~a'")
+        anchor-symbol)
+       (set! new-lst lst))
+      ((eq? sorting-symbol 'before)
+       (set-cdr! anchor-point
+                 (cons (car anchor-point)
+                       (cdr anchor-point)))
+       (set-car! anchor-point
+                 symbol-to-move))
+      ((eq? sorting-symbol 'after)
+       (set-cdr! anchor-point
+                 (cons symbol-to-move
+                       (cdr anchor-point))))
+      (else
+       (ly:warning
+        (G_ "Unknown ordering symbol '~a' (use 'before' or 'after')")
+        sorting-symbol)
+       (set! new-lst lst)))
+     new-lst))
+  (define (change-break-align-order context)
+    (and-let*
+     ((break-alignment-def
+       (ly:context-grob-definition context 'BreakAlignment))
+      (orders
+       (assoc-get 'break-align-orders break-alignment-def))
+      (new-orders
+       (map
+        (lambda (n work?)
+          (if work?
+              (modify-list (vector-ref orders n))
+              (vector-ref orders n)))
+        (iota 3) (vector->list positions))))
+     (ly:context-pushpop-property context
+                                  'BreakAlignment
+                                  'break-align-orders
+                                  (list->vector new-orders))))
+  (context-spec-music
+   (make-apply-context change-break-align-order)
+   'Score))
 
 
 %% cadenzas
