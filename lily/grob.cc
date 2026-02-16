@@ -324,7 +324,13 @@ Grob::suicide ()
   for (const auto a : {X_AXIS, Y_AXIS})
     dim_cache_[a].clear ();
 
-  mutable_property_alist_ = SCM_EOL;
+  // Preserve the cause for debugging.  For example, using a dead grob might
+  // trigger a programming error, and it could be very helpful to know a source
+  // location.
+  SCM cause_ent
+    = scm_sloppy_assq (ly_symbol2scm ("cause"), mutable_property_alist_);
+  mutable_property_alist_
+    = scm_is_true (cause_ent) ? ly_list (cause_ent) : SCM_EOL;
   object_alist_ = SCM_EOL;
   immutable_property_alist_ = SCM_EOL;
   interfaces_ = SCM_EOL;
