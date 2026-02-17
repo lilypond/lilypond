@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 4.0 Partwise//EN"
+                                "http://www.musicxml.org/dtds/partwise.dtd">
+<score-partwise version="4.0">
+  <identification>
+    <miscellaneous>
+      <miscellaneous-field name="description">Testing print attribute
+          combinations of &lt;note&gt;.
+
+          Measure 1:
+
+          A: No attributes.
+
+          B: print-leger="no"
+
+          C: print-dot="no" (middle note of chord)
+
+          D: print-lyric="no"
+
+          E: print-object="no"
+
+          Measure 2:
+
+          F: print-object="no", print-leger="yes"
+
+          G: print-object="no", print-dot="yes"
+
+          H: print-object="no", print-lyric="yes"
+
+          Measure 3:
+
+          I: print-object="no" for &lt;lyric&gt; (middle lyric line ‘I2’)
+
+          J: print-lyric="no", print-object="yes" for &lt;lyric&gt;
+          (middle lyric line ‘J2’)
+
+          K: print-object="no" print-lyric="yes", print-object="no" for
+          &lt;lyric&gt; (middle lyric line ‘K2’)
+
+          L: print-object="no" print-lyric="no", print-object="yes" for
+          &lt;lyric&gt; (middle lyric line ‘L2’)
+
+        </miscellaneous-field>
+    </miscellaneous>
+  </identification>
+  <part-list>
+    <score-part id="P1"><part-name></part-name></score-part>
+  </part-list>
+  <part id="P1">
+    <measure number="1">
+      <attributes>
+        <divisions>8</divisions>
+        <time>
+          <beats>15</beats>
+          <beat-type>8</beat-type>
+        </time>
+        <clef>
+          <sign>G</sign>
+          <line>2</line>
+        </clef>
+      </attributes>
+
+      <note>
+        <pitch>
+          <step>A</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>12</duration>
+        <type>quarter</type>
+        <dot/>
+        <lyric number="1">
+          <text>A</text>
+        </lyric>
+      </note>
+
+      <note print-leger="no">
+        <pitch>
+          <step>A</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>12</duration>
+        <type>quarter</type>
+        <dot/>
+        <lyric number="1">
+          <text>B</text>
+        </lyric>
+      </note>
+
+      <note>
+        <pitch>
+          <step>D</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>12</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot/>
+        <lyric number="1">
+          <text>C</text>
+        </lyric>
+      </note>
+      <note print-dot="no">
+        <chord/>
+        <pitch>
+          <step>F</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>12</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot/>
+      </note>
+      <note>
+        <chord/>
+        <pitch>
+          <step>A</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>12</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot/>
+      </note>
+
+      <note print-lyric="no">
+        <pitch>
+          <step>A</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>12</duration>
+        <type>quarter</type>
+        <dot/>
+        <lyric number="1">
+          <text>D</text>
+        </lyric>
+      </note>
+
+      <note print-object="no">
+        <pitch>
+          <step>A</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>12</duration>
+        <type>quarter</type>
+        <dot/>
+        <lyric number="1">
+          <text>E</text>
+        </lyric>
+      </note>
+    </measure>
+
+    <!--=======================================================-->
+    <measure number="2">
+      <attributes>
+        <time>
+          <beats>9</beats>
+          <beat-type>8</beat-type>
+        </time>
+      </attributes>
+
+      <note print-object="no" print-leger="yes">
+        <pitch>
+          <step>A</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>12</duration>
+        <type>quarter</type>
+        <dot/>
+        <lyric number="1">
+          <text>F</text>
+        </lyric>
+      </note>
+
+      <note print-object="no" print-dot="yes">
+        <pitch>
+          <step>A</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>12</duration>
+        <type>quarter</type>
+        <dot/>
+        <lyric number="1">
+          <text>G</text>
+        </lyric>
+      </note>
+
+      <note print-object="no" print-lyric="yes">
+        <pitch>
+          <step>A</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>12</duration>
+        <type>quarter</type>
+        <dot/>
+        <lyric number="1">
+          <text>H</text>
+        </lyric>
+      </note>
+    </measure>
+
+    <!--=======================================================-->
+    <measure number="3">
+      <attributes>
+        <time>
+          <beats>12</beats>
+          <beat-type>8</beat-type>
+        </time>
+      </attributes>
+
+      <note>
+        <pitch>
+          <step>A</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>12</duration>
+        <type>quarter</type>
+        <dot/>
+        <lyric number="1">
+          <text>I1</text>
+        </lyric>
+        <lyric number="2" print-object="no">
+          <text>I2</text>
+        </lyric>
+        <lyric number="3">
+          <text>I3</text>
+        </lyric>
+      </note>
+
+      <note print-lyric="no">
+        <pitch>
+          <step>A</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>12</duration>
+        <type>quarter</type>
+        <dot/>
+        <lyric number="1">
+          <text>J1</text>
+        </lyric>
+        <lyric number="2" print-object="yes">
+          <text>J2</text>
+        </lyric>
+        <lyric number="3">
+          <text>J3</text>
+        </lyric>
+      </note>
+
+      <note print-object="no" print-lyric="yes">
+        <pitch>
+          <step>A</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>12</duration>
+        <type>quarter</type>
+        <dot/>
+        <lyric number="1">
+          <text>K1</text>
+        </lyric>
+        <lyric number="2" print-object="no">
+          <text>K2</text>
+        </lyric>
+        <lyric number="3">
+          <text>K3</text>
+        </lyric>
+      </note>
+
+      <note print-object="no" print-lyric="no">
+        <pitch>
+          <step>A</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>12</duration>
+        <type>quarter</type>
+        <dot/>
+        <lyric number="1">
+          <text>L1</text>
+        </lyric>
+        <lyric number="2" print-object="yes">
+          <text>L2</text>
+        </lyric>
+        <lyric number="3">
+          <text>L3</text>
+        </lyric>
+      </note>
+
+    </measure>
+  </part>
+</score-partwise>

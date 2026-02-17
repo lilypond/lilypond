@@ -4002,6 +4002,18 @@ def extract_lyrics(voice, lyric_key, lyrics_dict):
 
         lyrics = elem.get('lyric', [])
 
+        # There are three attributes that control the visibility of lyrics:
+        # `print-object` of `<note>`, `print-lyric` of `<note>`, and
+        # `print-object` of `<lyric>`.  All attributes have 'yes' as the
+        # default value, and the lower-level (i.e., nested) value overrides
+        # the higher-level value.  If `print-lyric` is set to 'no', the
+        # default of the `<lyric>`'s `print-object` attribute changes to
+        # 'no'.
+        #
+        # See https://github.com/w3c/musicxml/issues/592 for more.
+        note_print_object = getattr(elem, 'print-object', 'yes')
+        note_print_lyric = getattr(elem, 'print-lyric', note_print_object)
+
         if is_chord(elem):
             if is_rest(elem):
                 type = 'chord rest'
@@ -4037,6 +4049,10 @@ def extract_lyrics(voice, lyric_key, lyrics_dict):
                 result.append(r' \skip1 ')
 
         for lyric in lyrics:
+            print_object = getattr(lyric, 'print-object', note_print_lyric)
+            if print_object != 'yes':
+                continue
+
             # If there is more than a single entry with the same `number`
             # attribute, the existing one gets overwritten.  Note that we
             # ignore the `name` attribute.

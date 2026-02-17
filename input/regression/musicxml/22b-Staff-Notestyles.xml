@@ -6,7 +6,11 @@
     <miscellaneous>
       <miscellaneous-field name="description">Staff-connected note styles: slash
           notation, hidden notes (with and without hidden staff
-          lines).</miscellaneous-field>
+          lines).
+
+          The lyrics (used as descriptive text) in bars 4 and 5 are visible due
+          to the ‘print-lyric="yes"’ attribute of
+          &lt;note&gt;.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -183,7 +187,7 @@
     <!--=======================================================-->
     <measure number="4">
       <print new-system="yes"/>
-      <note print-object="no">
+      <note print-object="no" print-lyric="yes">
         <pitch>
           <step>A</step>
           <octave>4</octave>
@@ -229,7 +233,7 @@
           <staff-lines>0</staff-lines>
         </staff-details>
       </attributes>
-      <note print-object="no">
+      <note print-object="no" print-lyric="yes">
         <pitch>
           <step>A</step>
           <octave>4</octave>
