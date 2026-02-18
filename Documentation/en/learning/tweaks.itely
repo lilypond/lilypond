@@ -4746,28 +4746,20 @@ file with @code{\include "../global.ily"}, which contains
 The Internals Reference documentation contains a lot of information
 about LilyPond, but even more information can be gathered by
 looking at the internal LilyPond files.  To explore these, you must
-first find the directory appropriate to your system.  The location
-of this directory depends on whether you obtained LilyPond
-by downloading a precompiled binary from @code{lilypond.org}
-or whether you installed it from a package manager (i.e.,
-distributed with GNU/Linux, or installed under MacPorts, Homebrew,
-Cygwin, Chocolatey, etc.) or compiled it from source.
+first find the directory appropriate to your system.  If you say
 
-@itemize
-@item Downloaded from @code{lilypond.org}
-
-Navigate to
 @example
-@file{@var{INSTALLDIR}/lilypond-@version{}/share/lilypond/@version{}/}
+lilypond --help
 @end example
 
-@item Installed from a package manager or compiled from source
+@noindent
+on the command line, the top-level directory of LilyPond's data
+tree is shown near the end of the help output, for example
 
-Navigate to
-@file{@var{PREFIX}/share/lilypond/@version{}/}, where
-@var{PREFIX} is set by your package manager or @code{configure}
-script.
-@end itemize
+@example
+Top-level directory of LilyPond's data tree:
+  '/usr/local/share/lilypond/@version{}'
+@end example
 
 Within this directory the two interesting subdirectories are
 
