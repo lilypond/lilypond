@@ -33,7 +33,7 @@ horizontalTuplets =
 largeTimeSignatures =
   \override TimeSignature.stencil =
     #(lambda (grob)
-       (let ((fraction (ly:grob-property grob 'fraction '(4 . 4))))
+       (let ((fraction (ly:grob-property grob 'time-signature '(4 . 4))))
          (grob-interpret-markup
            grob
            (markup #:override '(font-size . 6)
