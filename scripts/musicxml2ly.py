@@ -3295,24 +3295,27 @@ chordkind_dict = {
     'suspended-fourth': ':sus4',
     # Functional sixths:
     # TODO
-    # 'Neapolitan': '???',
-    # 'Italian': '???',
-    # 'French': '???',
-    # 'German': '???',
+    'Neapolitan': 'unsupported',  # e.g., f-as-des; N6; D♭/F
+    'Italian': 'unsupported',  # e.g., as-c-(c)-fis; It+6; A♭7
+    'French': 'unsupported',  # e.g., as-c-d-fis; Fr+6; D7(♭5)/A♭
+    'German': 'unsupported', # e.g., as-c-es-fis; Ger+6; enh A♭7
     # Other:
-    # 'pedal': '???',(pedal-point bass)
+    'pedal': 'unsupported',  # pedal-point bass; no symbol exists, needs text
     'power': ':1.5',
-    # 'Tristan': '???',
+    'Tristan': 'unsupported',  # e.g., d-as-c-f; Tr; Dm7(♭5)
     'other': ':1',
     'none': None,
 }
 
 
 def musicxml_chordkind_to_lily(kind):
-    res = chordkind_dict.get(kind, None)
-    # Check for None, since a major chord is converted to ''
-    if res is None:
-        ly.warning(_("Unable to convert chord type %s to lilypond.") % kind)
+    res = chordkind_dict.get(kind, 'unknown')
+    if res == 'unsupported':
+        ly.warning(_("Chord type '%s' is not supported.") % kind)
+        return None
+    elif res == 'unknown':
+        ly.warning(_("Unknown chord type '%s'") % kind)
+        return None
     return res
 
 
