@@ -372,7 +372,7 @@ Snippets:
 @endmorerefs
 
 @knownissues
-Each step can only be present in a chord once.  The following
+Later entries for a given step override earlier entries.  The following
 simply produces the augmented chord, since @code{5+} is
 interpreted last.
 
