@@ -53,6 +53,7 @@
      -1/12 -3/12 -4/12 -5/12 -6/12 -10/12))) ; -11/12 -> flatflat, ignored
 
 (define-public (alteration->text-accidental-markup alteration)
+  "Return accidental glyph markup for @var{alteration}, to be used in text."
   (make-smaller-markup
    (make-translate-scaled-markup
     (if (short-glyph? alteration)
@@ -69,7 +70,8 @@
        (narrow-glyph? alteration) 0.094725)))
 
 (define (accidental->markup-italian alteration)
-  "Return accidental markup for ALTERATION, for use after an italian chord root name."
+  "Return accidental markup for ALTERATION, for use after an Italian
+(or French) chord root name."
   (if (= alteration 0)
       (make-hspace-markup 0.2)
       (make-line-markup
@@ -83,10 +85,12 @@
         ))))
 
 (define*-public (note-name->string pitch #:optional language)
-  "Return pitch string for @var{pitch}, without accidentals or octaves.
+  "Return name of @var{pitch} without accidentals or octaves.
 
-Optional argument @var{language} sets the input language for pitch
-names; if missing, it defaults to the current input language."
+Optional argument @var{language} sets the language used to display
+the pitch name (see file @file{define-note-names.scm} for
+available values); if this symbol is missing or set to @code{#f},
+the current input language is used."
   ;; See also note-name->lily-string if accidentals are needed.
   (let* ((pitch-alist
           (if (not language)
@@ -104,9 +108,10 @@ names; if missing, it defaults to the current input language."
     (if result (symbol->string (car result)))))
 
 (define-public (note-name->markup pitch lowercase?)
-  "Return pitch markup for @var{pitch}, including accidentals
-printed as glyphs.  If @var{lowercase?} is set to @code{#f}, the
-note names are capitalized."
+  "Return note name markup with accidental glyphs for @var{pitch}.
+
+If @var{lowercase?} is not @code{#f}, a lowercase note name is
+returned, otherwise the first character gets capitalized."
   (let ((str (note-name->string pitch)))
     (make-line-markup
      (list
@@ -116,16 +121,20 @@ note names are capitalized."
 (define (pitch-alteration-semitones pitch)
   (inexact->exact (round (* (ly:pitch-alteration pitch) 2))))
 
-(define-public ((chord-name->german-markup B-instead-of-Bb)
+(define-public ((chord-name->german-markup b-instead-of-bflat)
                 pitch lowercase?)
-  "Return pitch markup for PITCH, using german note names.
-   If B-instead-of-Bb is set to #t real german names are returned.
-   Otherwise semi-german names (with Bb and below keeping the british names)
-"
+  "Return German note name markup with accidental glyphs for @var{pitch}.
+
+If @var{b-instead-of-bflat} is set to @code{#t}, return real
+German note names, otherwise return semi-German names (with Bb and
+below keeping British names).
+
+If @var{lowercase?} is not @code{#f}, a lowercase note name is
+returned, otherwise the first character gets capitalized."
   (let* ((name (ly:pitch-notename pitch))
-         (alt-semitones  (pitch-alteration-semitones pitch))
+         (alt-semitones (pitch-alteration-semitones pitch))
          (n-a (if (member (cons name alt-semitones) `((6 . -1) (6 . -2)))
-                  (cons 7 (+ (if B-instead-of-Bb 1 0) alt-semitones))
+                  (cons 7 (+ (if b-instead-of-bflat 1 0) alt-semitones))
                   (cons name alt-semitones))))
     (make-line-markup
      (list
@@ -136,6 +145,7 @@ note names are capitalized."
       (accidental->markup (/ (cdr n-a) 2))))))
 
 (define-public (note-name->german-markup pitch lowercase?)
+  "Return German note name markup for @var{pitch}."
   ;; TODO: rewrite using note-name->lily-string.
   ;; FIXME: lowercase? is ignored.
   (let* ((name (ly:pitch-notename pitch))
@@ -152,10 +162,13 @@ note names are capitalized."
            (list-ref '("eses" "es" "" "is" "isis") (+ 2 (cdr n-a)))))))))
 
 (define-public ((chord-name->italian-markup french?) pitch lowercase?)
-  "Return pitch markup for @var{pitch}, using Italian/@/French note names.
-If @var{french?} is set to @code{#t}, french `ré' is returned for
-pitch@tie{}D instead of `re'."
+  "Return Italian note name markup with accidental glyphs for @var{pitch}.
 
+If @var{french?} is not @code{#f}, French note names are
+returned (for example, @q{ré} instead of @q{re} for pitch@tie{}D).
+
+If @var{lowercase?} is not @code{#f}, a lowercase note name is
+returned, otherwise the first character gets capitalized."
   (let* ((name (note-name->string pitch
                                   (if french? 'français 'italiano)))
          (alt (ly:pitch-alteration pitch)))
