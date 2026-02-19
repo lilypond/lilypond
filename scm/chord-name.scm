@@ -40,20 +40,17 @@
 
 ;; natural, single flat and mirrored flat have a narrower X-extent.
 (define (narrow-glyph? alteration)
-  (member alteration
-          ;; flat-based glyphs in various notation systems.
-          ;; (duplicates come from the input files, for
-          ;; consistency's sake) -vv
-          '(0
-            ;; western accidentals
-            -1/2 -1/4
-            ;; makam
-            -1/9 -5/18 -6/18 -4/9 -5/9 -8/9
-            ;; turkish makam
-            -1/12 -3/12 -4/12 -5/12 -6/12 -10/12
-            ;; hel-arabic
-            -1/4 -3/4 ; -5/2 -> flatflat, ignored
-            -7/2)))
+  (member
+   alteration
+   ;; Flat-based glyphs in various notation systems;
+   ;; duplicates come from the input files, for consistency's sake.
+   '(0
+     ;; Western accidentals
+     -1/2 -1/4
+     ;; makam
+     -1/9 -5/18 -6/18 -4/9 -5/9 -8/9
+     ;; Turkish makam
+     -1/12 -3/12 -4/12 -5/12 -6/12 -10/12))) ; -11/12 -> flatflat, ignored
 
 (define-public (alteration->text-accidental-markup alteration)
   (make-smaller-markup
