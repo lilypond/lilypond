@@ -38,6 +38,7 @@ extern Variable make_module;
 extern Variable min;
 extern Variable module_export_all_x;
 extern Variable module_export_x;
+extern Variable module_p;
 extern Variable module_public_interface;
 extern Variable module_use_x;
 extern Variable symbol_p;
