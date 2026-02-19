@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: f32c2f70c0297f0a84d2a4301d395cd04032b72d
+    Translation of GIT committish: 6fc84f9d8c63a341d503aa1dfccf97e1ae5cd343
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1727,7 +1727,7 @@ No es posible mezclar arpegios conectados y no conectados en un
 
 La forma sencilla de especificar el corchete en los arpegios de
 paréntesis no funciona para los arpegios de pentagrama cruzado;
-@pxref{Cross-staff chord brackets,, Corchetes de arpegio de pentagrama cruzado}.
+@pxref{Cross-staff chord brackets,, Corchetes de acorde de pentagrama cruzado}.
 
 
 @node Trills

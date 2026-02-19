@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: bb0c37bd08beca748b6dab0fec77feebd04d44cd
+    Translation of GIT committish: b867930d88612695e07e23dfda1ae35ab1a6ac2a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -259,7 +259,10 @@ desde 1 hasta @code{@var{número_de_veces}}.
 @noindent
 Una sintaxis anterior, en la que el bloque @code{\alternative} se
 escribía a continuación fuera de la expresión musical repetida,
-aún está contemplada y tiene el mismo efecto.
+aún está contemplada y tiene el mismo efecto.  Esta sintaxis
+requiere que @code{\repeat} aparezca literalmente: una cláusula
+@code{\alternative} escrita después no se enlaza con una función
+musical ni variable que contenga @code{\repeat}.
 
 @example
 \repeat volta @var{número_de_veces} @var{expresión}
@@ -937,7 +940,8 @@ propiedad @code{measureLength}, el uso de @code{\unfoldRepeats}
 dará lugar a líneas divisorias descolocadas y advertencias de
 comprobación de compás.
 
-Una repetición anidada como la siguiente
+Una repetición anidada que usa la sintaxis antigua
+@code{\alternative} es ambigua:
 
 @example
 \repeat @dots{}
@@ -946,11 +950,12 @@ Una repetición anidada como la siguiente
 @end example
 
 @noindent
-es ambigua porque no está claro a qué @code{\repeat} pertenece la
+No está claro a qué @code{\repeat} pertenece la
 @code{\alternative}.  Esta ambigüedad se resuelve haciendo que la
 @code{\alternative} pertenezca siempre a la @code{\repeat} más
-interna.  Para más claridad, se recomienda usar llaves en tales
-situaciones.
+interna.  Para más claridad, se recomienda usar llaves y poner el
+bloque @code{\alternative} dentro del cuerpo de su propia
+repetición.
 
 
 @node Manual repeat marks

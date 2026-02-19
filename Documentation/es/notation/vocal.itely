@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+    Translation of GIT committish: 4b8e9a10f207087887e0413a49cf8c78d0b3dcdc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1232,6 +1232,12 @@ ajuste la propiedad dentro del bloque @code{\layout}.
 @cindex horizontal, alineación, letra
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/lyrics-alignment.ly}
+
+@cindex melisma, alineción horizontal
+@cindex alineación, horizontal, melisma
+@cindex horizontal, alineación, melisma
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/aligning-syllables-with-melisma.ly}
 
 
 @knownissues
