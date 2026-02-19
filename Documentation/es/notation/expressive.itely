@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 01bf9131e8f6e7e52e0e9705edde65060b71e320
+    Translation of GIT committish: f32c2f70c0297f0a84d2a4301d395cd04032b72d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1515,8 +1515,28 @@ acorde quebrado) sobre un acorde, se denota adjuntando
 \relative { <c' e g c>1\arpeggio }
 @end lilypond
 
-Se pueden escribir distintos tipos de acordes arpegiados.
-@code{\arpeggioNormal} produce la vuelta al arpegio normal:
+Se pueden conectar arpegios entre pentagramas o voces distintas
+mediante el establecimiento de la propiedad
+@code{connectArpeggios} dentro de un contexto de agrupación de
+pentagramas.  Esto conecta a todos los arpegios que estén dentro
+de dicho contecto:
+
+@lilypond[verbatim,quote]
+\new PianoStaff \fixed c' <<
+  \new Staff {
+    \once \set PianoStaff.connectArpeggios = ##t
+    <e g>2\arpeggio q\arpeggio
+  }
+  \new Staff {
+    \clef "bass"
+    <a, c>2\arpeggio q\arpeggio
+  }
+>>
+@end lilypond
+
+Existen instrucciones para especificar la dirección en la
+ejecución. @code{\arpeggioNormal} produce la vuelta al arpegio
+normal:
 
 @lilypond[verbatim,quote]
 \relative {
@@ -1544,7 +1564,8 @@ completas en el archivo @file{ly/property-init.ly}.
 @funindex \arpeggioParenthesis
 @funindex \arpeggioParenthesisDashed
 
-Se pueden crear símbolos especiales de arpegio @emph{con corchete}:
+Se puede cambiar el símbolo que crea la instrucción
+@code{\arpeggio}:
 
 @lilypond[verbatim,quote]
 \relative {
@@ -1569,11 +1590,60 @@ propiedad @code{stencil} del objeto @code{Arpeggio}, y puede
 también adaptar su @code{X-extent} (esto es, la dimensión
 horizontal que le supone no colisionar con otros objetos).
 
-Las propiedades de discontinuidad del paréntesis del arpegio se
-controlan mediante la propiedad @code{dash-definition} (@pxref{Slurs}).
+@cindex bloque, acorde
+@cindex corchete, non-arpeggiato
+@cindex acorde, corchete de
+@cindex acorde, en bloque
+@cindex non-arpeggiato
+@funindex \nonArpeggiato
+
+Para hacer un corchete que designe un acorde no arpegiado, es
+mejor usar @code{\nonArpeggiato} que usar @code{\arpeggio} y
+alterar la apariencia.  Esto crea un objeto @code{ChordBracket}.
+
+@lilypond[verbatim,quote]
+\new PianoStaff \fixed c' <<
+  \new Staff {
+    \once \set PianoStaff.connectChordBrackets = ##t
+    <e g>2\nonArpeggiato q\nonArpeggiato
+  }
+  \new Staff {
+    \clef "bass"
+    <a, c>2\nonArpeggiato q\nonArpeggiato
+  }
+>>
+@end lilypond
+
+@cindex acorde, ligadura
+@cindex ligadura vertical
+@cindex vertical, ligadura
+@funindex \chordSlur
+
+Para hacer una ligadura vertical que designa un acorde @emph{quasi
+no arpegiado}, es mejor usar @code{\chordSlur} que usar
+@code{\arpeggio} y alterar la apariencia.  Esto crea un objeto
+@code{ChordSlur}.
+
+@lilypond[verbatim,quote]
+\new PianoStaff \fixed c <<
+  \new Staff {
+    \once \set PianoStaff.connectChordSlurs = ##t
+    <e' g' g''>2\chordSlur q\chordSlur
+  }
+  \new Staff {
+    \clef "bass"
+    <a, a c'>2\chordSlur q\chordSlur
+  }
+>>
+@end lilypond
+
+Las propiedades de discontinuidad de @code{ChordSlur} y del
+paréntesis del arpegio se controlan mediante la propiedad
+@code{dash-definition} (@pxref{Slurs}).
 
 Los acordes arpegiados se pueden desarrollar explícitamente
-utilizando @notation{ligaduras de unión}. Para más información, @pxref{Ties}.
+utilizando @notation{ligaduras de unión}. Para más información,
+@pxref{Ties}.
 
 
 @predefined
@@ -1583,16 +1653,13 @@ utilizando @notation{ligaduras de unión}. Para más información, @pxref{Ties}.
 @code{\arpeggioNormal},
 @code{\arpeggioBracket},
 @code{\arpeggioParenthesis},
-@code{\arpeggioParenthesisDashed}.
+@code{\arpeggioParenthesisDashed},
+@code{\chordSlur},
+@code{\nonArpeggiato}.
 @endpredefined
 
 
 @snippets
-
-@cindex arpegio, entre pautas
-@cindex pautas, arpegio entre
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/creating-cross-staff-arpeggios-in-a-piano-staff.ly}
 
 @cindex arpegio, entre voces
 @cindex voces, arpegio entre
@@ -1615,6 +1682,8 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{Arpeggio},
+@rinternals{ChordBracket},
+@rinternals{ChordSlur},
 @rinternals{Slur},
 @rinternals{PianoStaff}.
 @endmorerefs
@@ -1634,6 +1703,7 @@ ejemplo:
 
 @example
 \override Staff.Arpeggio.stencil = #ly:chord-bracket::print
+\override Staff.Arpeggio.X-extent = #ly:chord-bracket::width
 @end example
 
 @noindent
