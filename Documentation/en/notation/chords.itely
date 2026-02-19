@@ -255,8 +255,8 @@ As a special exception, @code{c:5} produces a @q{power chord} only
 consisting of root and fifth.
 
 Since an unaltered 11 does not sound good when combined with an
-unaltered 13, the 11 is removed from a @code{:13} chord (unless it
-is added explicitly).
+unaltered 13, the 11 is removed from a @code{:13} major chord
+(unless it is added explicitly).
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode {
@@ -309,7 +309,7 @@ initial @code{^}.
 
 @lilypond[quote,verbatim]
 \chordmode {
-  c1^3 c:7^5 c:9^3 c:9^3.5 c:13.11^3.7
+  c1^3 c:7^5 c:9^3 c:9^3.5 c:13.11^3.7 c:m13^11
 }
 @end lilypond
 
