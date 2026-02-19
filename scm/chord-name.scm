@@ -85,20 +85,22 @@
         (make-hspace-markup (if (= alteration SHARP) 0.2 0.1))
         ))))
 
-(define-public (note-name->string pitch . language)
+(define*-public (note-name->string pitch #:optional language)
   "Return pitch string for @var{pitch}, without accidentals or octaves.
-Current input language is used for pitch names, except if an
-other @var{language} is specified."
+
+Optional argument @var{language} sets the input language for pitch
+names; if missing, it defaults to the current input language."
   ;; See also note-name->lily-string if accidentals are needed.
   (let* ((pitch-alist
-          (if (null? language) pitchnames
-              (assoc-get (car language)
+          (if (not language)
+              pitchnames
+              (assoc-get language
                          language-pitch-names '())))
          (result (rassoc pitch
-                         (filter  (lambda (p)
-                                    ;; TODO: add exception for German B?
-                                    (eq? (ly:pitch-alteration (cdr p)) 0))
-                                  pitch-alist)
+                         (filter (lambda (p)
+                                   ;; TODO: add exception for German B?
+                                   (eq? (ly:pitch-alteration (cdr p)) 0))
+                                 pitch-alist)
                          (lambda (a b)
                            (= (ly:pitch-notename a)
                               (ly:pitch-notename b))))))
@@ -165,7 +167,7 @@ pitch@tie{}D instead of `re'."
       (conditional-string-capitalize name lowercase?)
       (accidental->markup-italian alt)))))
 
-(define-public (sequential-music-to-chord-exceptions seq . rest)
+(define*-public (sequential-music-to-chord-exceptions seq #:optional omit-root)
   "Transform sequential music @var{seq} to chord exceptions.
 
 @var{seq} is music that contains a sequence of chords with
@@ -183,15 +185,14 @@ two-element list: its first element is a list representing the
 pitches @var{pitch1}, @var{pitch2}, etc., in a normalized form;
 the second element holds a procedure that generates @var{markup}.
 
-If optional argument @var{rest} is set and not equal to @code{#f},
-@var{pitch1} (i.e., the root of the chord) is omitted while
-constructing the chord exception.
+If optional argument @var{omit-root} is set and not equal to
+@code{#f}, @var{pitch1} (i.e., the root of the chord) is omitted
+while constructing the chord exception.
 
 The function returns a list of all chord exceptions given in
 @var{seq}."
   (define (chord-to-exception-entry m)
     (let* ((elts (ly:music-property m 'elements))
-           (omit-root (and (pair? rest) (car rest)))
            (pitches (map (lambda (x) (ly:music-property x 'pitch))
                          (filter
                           (lambda (y) (memq 'note-event
