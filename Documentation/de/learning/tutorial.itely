@@ -425,7 +425,7 @@ Notationsreferenz: @rnotationnamed{Writing pitches, Tonhöhen setzen},
 
 @funindex \version
 @funindex @{ ... @}
-@funindex %
+@funindexpre %
 @funindex %@{ ... %@}
 
 

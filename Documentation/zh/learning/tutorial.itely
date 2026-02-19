@@ -366,7 +366,7 @@ See @rnotation{Note names in other languages}.
 
 @funindex \version
 @funindex @{ ... @}
-@funindex %
+@funindexpre %
 @funindex %@{ ... %@}
 
 LilyPond 输入文件和很多编程语言的源文件非常类似。他们都包含版本声明，都是区分大小写的，都会自动忽略掉空格。表达式用大括号 @w{@code{@{ @}}} 组织，注释用 @code{%} 或 @w{@code{%@{ @dots{} %@}}}@tie{} 表示。

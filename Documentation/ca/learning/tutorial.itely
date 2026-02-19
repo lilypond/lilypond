@@ -421,7 +421,7 @@ Referència de la notació:
 
 @funindex \version
 @funindex @{ ... @}
-@funindex %
+@funindexpre %
 @funindex %@{ ... %@}
 
 Els fitxers d'entrada del LilyPond són com els fitxers font de

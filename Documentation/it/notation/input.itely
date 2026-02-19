@@ -81,7 +81,7 @@ gli esempi seguenti sono espressioni musicali:
 @}
 @end example
 
-@funindex %
+@funindexpre %
 @funindex %@{ @dots{} %@}
 @cindex commento
 @cindex linea di commento
@@ -479,7 +479,7 @@ in qualsiasi punto di un file:
 @funindex \sourcefilename
 @funindex \sourcefileline
 
-@funindex %
+@funindexpre %
 @funindex %@{ @dots{} %@}
 @cindex commento
 @cindex linea di commento

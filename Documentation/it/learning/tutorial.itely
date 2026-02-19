@@ -398,7 +398,7 @@ Guida alla notazione: @rnotationnamed{Writing pitches, Inserimento delle altezze
 
 @funindex \version
 @funindex @{ ... @}
-@funindex %
+@funindexpre %
 @funindex %@{ ... %@}
 
 I file di input di LilyPond sono simili ai file sorgenti di molti comuni

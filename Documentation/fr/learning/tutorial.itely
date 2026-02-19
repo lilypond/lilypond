@@ -444,7 +444,7 @@ Manuel de notation :
 
 @funindex \version
 @funindex @{ ... @}
-@funindex %
+@funindexpre %
 @funindex %@{ ... %@}
 
 Le traitement des fichiers source de LilyPond est semblable à celui du
