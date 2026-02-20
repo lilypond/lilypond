@@ -44,6 +44,7 @@
                     "document-paper-variables"
                     "document-outside-staff-priorities"
                     "document-script-priorities"
+                    "document-break-align-symbols"
                     "document-paper-sizes"
                     "document-colors"
                     "hyphenate-internal-words"))
@@ -90,6 +91,14 @@
 (display
  script-priorities-doc-string
  (open-output-file "script-priorities.tely" #:encoding "UTF-8"))
+
+(display
+ break-align-grobs-by-symbols-doc-string
+ (open-output-file "break-align-grobs-by-symbols.tely" #:encoding "UTF-8"))
+
+(display
+ break-align-symbols-by-grobs-doc-string
+ (open-output-file "break-align-symbols-by-grobs.tely" #:encoding "UTF-8"))
 
 (display
  paper-sizes-doc-string

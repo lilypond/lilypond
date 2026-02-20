@@ -162,6 +162,9 @@ environment."
     ((one two) (string-append one " " last-word " " two))
     ((one . rest) (string-append one ", " (human-listify rest)))))
 
+(define (symbol->@code symb)
+  (format #f "@code{~a}" (symbol->string symb)))
+
 (define (writing-wip x)
   (ly:message (G_ "Writing ~S...") x))
 

@@ -3017,6 +3017,38 @@ as the default @code{script-priority} value.
 @include en/script-priorities.tely
 
 
+@node Grobs and their break-align symbols
+@appendixsec Grobs and their break-align symbols
+
+@funindex break-align-symbol
+
+The ordering and spacing of notational elements like clefs, time signatures,
+bar lines, etc., is determined using certain Scheme symbols, the so-called
+@dfn{break-align symbols}.  More precisely, their ordering is determined
+by lists of break-align symbols in the
+@code{BreakAlignment@/.break-@/align-@/orders} vector (see
+@rinternals{break-alignment-interface}); their spacing is controlled
+by the @code{space-@/alist} properties of the respective grobs, whose elements
+are in turn indexed by break-align symbols: For instance, the spacing
+of a @code{Clef} grob to a bar line following it is determined by the value of
+@code{Clef@/.space-@/alist@/.staff-@/bar}.
+
+This table lists the default correspondence between break-align symbols
+and grobs:
+
+@include en/break-align-grobs-by-symbols.tely
+
+Furthermore, there are three abstract break-align symbols that
+may be used in @code{space-@/alist} definitions, namely @code{first-@/note},
+@code{next-@/note} and @code{right-@/edge}.  For details, see the
+documentation of the @code{space-@/alist} grob property in
+@rinternals{break-aligned-interface}.
+
+The next table lists the break-align symbol used by each grob:
+
+@include en/break-align-symbols-by-grobs.tely
+
+
 @node Technical glossary
 @appendixsec Technical glossary
 
