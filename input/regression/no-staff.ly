@@ -3,9 +3,6 @@
 
 \header {
   texidoc = "
-@cindex staff, removing
-@cindex removing staff
-
 The printing of the staff lines may be suppressed by removing the 
 corresponding engraver.
 "

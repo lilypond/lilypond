@@ -1,9 +1,6 @@
 \version "2.21.0"
 \header  {
   texidoc = "
-@cindex chord names, German
-@cindex German chord names
-
 The english naming of chords (default) can be changed to german 
 (@code{\\germanChords} replaces B and Bes to H and B), semi-german
 (@code{\\semiGermanChords} replaces B and Bes to H and Bb), italian

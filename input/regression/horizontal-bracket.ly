@@ -2,15 +2,8 @@
 \version "2.19.21"
 
 \header {
-
   texidoc = "Note grouping events are used to indicate where
 analysis brackets start and end.
-
-@cindex bracket
-@cindex note groups
-@cindex music analysis
-@cindex analysis
-
 "
   
 }

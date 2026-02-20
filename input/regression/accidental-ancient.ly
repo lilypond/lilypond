@@ -1,9 +1,6 @@
 
 \header {
 texidoc = "
-@cindex ancient accidentals
-@cindex accidental, ancient
-
 Accidentals are available in different ancient styles, which all
 are collected here.
 "

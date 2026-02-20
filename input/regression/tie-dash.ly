@@ -1,11 +1,6 @@
 \version "2.19.2"
 \header {
   texidoc = "
-@cindex tie, dotted
-@cindex tie, dashed
-@cindex dotted tie
-@cindex dashed tie
-
 The appearance of ties may be changed from solid to dotted or dashed.
 "
 } 

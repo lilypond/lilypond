@@ -4,8 +4,6 @@
 
 \header {
   texidoc = "
-@cindex grace notes, at end
-
 Grace notes after the last note do not confuse the timing code.
 "
 }
