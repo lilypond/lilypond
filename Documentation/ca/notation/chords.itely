@@ -549,7 +549,7 @@ predefinides @code{\germanChords}, @code{\semiGermanChords},
 @code{\italianChords} i @code{\frenchChords} estableixen el valor
 d'aquestes variables.  L'efecte es mostra aquí:
 
-@lilypondfile[ragged-right]{chord-names-languages.ly}
+@lilypondfile{chord-names-languages.ly}
 
 
 @funindex chordNameLowercaseMinor

@@ -616,7 +616,7 @@ fundamental. Entre ellos están @code{\germanChords},
 @code{\semiGermanChords}, @code{\italianChords} y
 @code{\frenchChords}:
 
-@lilypondfile[ragged-right]{chord-names-languages.ly}
+@lilypondfile{chord-names-languages.ly}
 
 
 @funindex chordNameLowercaseMinor

@@ -1,47 +1,51 @@
 \version "2.21.0"
-\header  {
+
+\header {
   texidoc = "
-The english naming of chords (default) can be changed to german 
-(@code{\\germanChords} replaces B and Bes to H and B), semi-german
-(@code{\\semiGermanChords} replaces B and Bes to H and Bb), italian
-(@code{\\italianChords} uses Do Re Mi Fa Sol La Si), or french
-(@code{\\frenchChords} replaces Re to Ré).
+The English naming of chords (default) can be changed to German
+(@code{\\germanChords} replaces B and Bes with H and B), semi-German
+(@code{\\semiGermanChords} replaces B and Bes with H and Bb), Italian
+(@code{\\italianChords} uses Do Re Mi Fa Sol La Si), or French
+(@code{\\frenchChords} uses Do Ré Mi Fa Sol La Si).
 "
 }
 
 scm = \chordmode {
-    e1/d c:m
-    % c/c cis/cis
-    % yeah, we get the idea. -hwn
-    
-    % cisis/cisis ces/ces ceses/ceses
-    b/b bis/bis bes/bes
-    % beses/beses
-} 
-
+  e1/d c:m b/b bis/bis bes/bes beses/beses
+}
 
 \layout {
-    ragged-right = ##t 
-    \context {\ChordNames \consists "Instrument_name_engraver" }
+  indent = 3\cm
+  ragged-right = ##t
+
+  \context {
+    \ChordNames
+    \consists "Instrument_name_engraver"
+  }
+  \context {
+    \Score
+    \override InstrumentName.self-alignment-Y = -1.2
+    \override InstrumentName.self-alignment-X = #RIGHT
+  }
 }
 
 <<
-    \new ChordNames {
-	\set instrumentName = "default"
-	\scm
-    }
-    \new ChordNames {
-	\set instrumentName = "german"
-	\germanChords \scm }
-    \new ChordNames {
-	\set instrumentName = "semi-german"
-	\semiGermanChords \scm }
-    \new ChordNames {
-	\set instrumentName = "italian"
-	\italianChords \scm }
-    \new ChordNames {
-	\set instrumentName = "french"
-	\frenchChords \scm }
+  \new ChordNames {
+    \set instrumentName = "default"
+    \scm
+  }
+  \new ChordNames {
+    \set instrumentName = "German"
+    \germanChords \scm }
+  \new ChordNames {
+    \set instrumentName = "semi-German"
+    \semiGermanChords \scm }
+  \new ChordNames {
+    \set instrumentName = "Italian"
+    \italianChords \scm }
+  \new ChordNames {
+    \set instrumentName = "French"
+    \frenchChords \scm }
 
-    \context Voice { \scm }
+  \context Voice \scm
 >>

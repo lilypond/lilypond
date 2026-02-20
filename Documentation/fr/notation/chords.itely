@@ -587,8 +587,6 @@ alternative, sont illustrés dans le morceau choisi
 @rlsrsnippetnamed{Chord notation, Chord names alternative, Noms d’accord
 alternatifs} .
 
-@c FIXME: move the chord-names-alternative snippet to a new section. -vv
-
 @funindex \germanChords
 @funindex \semiGermanChords
 @funindex \italianChords
@@ -599,8 +597,7 @@ varie selon la langue utilisée. Les instructions @code{\germanChords},
 @code{\semiGermanChords}, @code{\italianChords} et @code{\frenchChords}
 permettent de définir la langue, comme vous pouvez le constater :
 
-@lilypondfile[ragged-right]
-{chord-names-languages.ly}
+@lilypondfile{chord-names-languages.ly}
 
 @funindex chordNameLowercaseMinor
 Nombre de carnets de chant allemands indiquent un accord mineur par

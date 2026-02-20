@@ -576,7 +576,6 @@ chordmusic = \relative {
 コード断片集の @rlsr{Chord notation} にある
 @qq{Chord names alternative} に例があります。)
 一般的なジャズ音楽用のコード表記のリストは、@ref{Chord name chart} にあります。
-@c FIXME: move the chord-names-alternative snippet to a new section. -vv
 
 @funindex \germanChords
 @funindex \semiGermanChords
@@ -590,7 +589,7 @@ chordmusic = \relative {
 @code{\italianChords}, @code{\frenchChords}
 の定義済みコマンドを使用できます:
 
-@lilypondfile[ragged-right]{chord-names-languages.ly}
+@lilypondfile{chord-names-languages.ly}
 
 
 @funindex chordNameLowercaseMinor

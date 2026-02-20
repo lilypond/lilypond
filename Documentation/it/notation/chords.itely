@@ -586,7 +586,7 @@ di usare lingue diverse per l'altezza fondamentale.  I comandi predefiniti
 sono @code{\germanChords}, @code{\semiGermanChords}, @code{\italianChords}
 e @code{\frenchChords}:
 
-@lilypondfile[ragged-right]{chord-names-languages.ly}
+@lilypondfile{chord-names-languages.ly}
 
 
 @funindex chordNameLowercaseMinor

@@ -577,7 +577,6 @@ naming systems may be implemented through Scheme functions, as
 demonstrated by the @qq{Chord names alternative} snippet in @rlsr{Chord notation}.)
 A list of common jazz chords notations may be found on the chart in
 @ref{Chord name chart}.
-@c FIXME: move the chord-names-alternative snippet to a new section. -vv
 
 @funindex \germanChords
 @funindex \semiGermanChords
@@ -590,7 +589,7 @@ different languages for the root pitch.  These include
 @code{\germanChords}, @code{\semiGermanChords},
 @code{\italianChords} and @code{\frenchChords}:
 
-@lilypondfile[ragged-right]{chord-names-languages.ly}
+@lilypondfile{chord-names-languages.ly}
 
 
 @funindex chordNameLowercaseMinor

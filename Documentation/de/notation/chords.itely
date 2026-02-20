@@ -593,7 +593,7 @@ Die vordefinierten Befehle @code{\germanChords},
 setzen diese Variablen. Die Auswirkungen werden im nächsten Beispiel
 gezeigt.
 
-@lilypondfile[ragged-right]{chord-names-languages.ly}
+@lilypondfile{chord-names-languages.ly}
 
 @funindex chordNameLowercaseMinor
 
