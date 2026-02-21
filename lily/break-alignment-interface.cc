@@ -509,26 +509,8 @@ Each of these interfaces supports grob properties that use
 specify the alignment, ordering, and spacing of certain notational elements
 (@q{breakable} items).
 
-@need 800
-@subsubheading Available break-align symbols
-
-@indentedblock
-@example
-ambitus
-breathing-sign
-clef
-cue-clef
-cue-end-clef
-custos
-key-cancellation
-key-signature
-left-edge
-signum-repetitionis
-staff-bar
-staff-ellipsis
-time-signature
-@end example
-@end indentedblock
+The break-align symbols used by the various grobs are listed in
+@rnotation{Grobs and their break-align symbols}.
                )",
 
                /* properties */

@@ -140,7 +140,8 @@ aligning an anchor to a grob's extent.")
      (break-align-orders ,vector? "This is a vector of 3@tie{}lists:
 @w{@code{#(@var{end-of-line} @var{unbroken} @var{start-of-line}}}).
 Each list contains @w{@emph{break-align symbols}} that specify an
-order of breakable items (see @rinternals{break-alignment-interface}).
+order of breakable items (see @rnotation{Grobs and their break-align symbols}
+and @rinternals{break-alignment-interface}).
 
 For example, this places time signatures before clefs:
 
@@ -157,7 +158,14 @@ For example, this places time signatures before clefs:
                     key-cancellation
                     key-signature
                     custos))
-@end example")
+@end example
+
+The same result can be achieved more conveniently by:
+
+@example
+\\breakAlignInsert time-signature before clef
+@end example
+")
      (break-align-symbol ,symbol? "This key is used for aligning,
 ordering, and spacing breakable items.  See
 @rinternals{break-alignment-interface}.")
@@ -166,7 +174,7 @@ ordering, and spacing breakable items.  See
 items to align this to.  If the grob selected by the first symbol
 in the list is invisible due to @w{@code{break-visibility}}, we
 will align to the next grob (and so on).  Choices are listed in
-@rinternals{break-alignment-interface}.")
+@rnotation{Grobs and their break-align symbols}.")
      (break-overshoot ,number-pair? "A pair of numbers specifying how much a
 broken spanner sticks out of its bounds horizontally on the broken side(s).  For
 broken beams and broken tuplet brackets, the bounds are given by the prefatory
@@ -1136,8 +1144,8 @@ this grob to other breakable items, using the format:
 @end example
 
 Standard choices for @code{@var{break-align-symbol}} are listed in
-@rinternals{break-alignment-interface}.  Additionally, three special
-break-align symbols available to @code{space-alist} are:
+@rnotation{Grobs and their break-align symbols}.  Additionally, three
+special break-align symbols available to @code{space-alist} are:
 
 @quotation
 @table @code

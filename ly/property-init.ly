@@ -220,11 +220,8 @@ on its value, the break-align symbol @var{symbol-to-move} gets moved
 directly before/@/after the symbol @var{anchor-symbol} in the
 @code{break-align-orders} vector of @code{Score@/.BreakAlignment}.
 
-Available break-align symbols are:
-@code{ambitus}, @code{breathing-sign}, @code{clef}, @code{cue-clef},
-@code{cue-end-clef}, @code{custos}, @code{key-cancellation},
-@code{key-signature}, @code{left-edge}, @code{signum-repetitionis},
-@code{staff-bar}, @code{staff-ellipsis}, @code{time-signature}.
+The available break-align symbols and their corresponding grobs are listed
+in @rnotation{Grobs and their break-align symbols}.
 
 The optional argument @var{positions} determines whether the specified
 change should become visible at the beginning/@/the end/@/the middle of a line.
