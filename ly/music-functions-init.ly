@@ -1380,7 +1380,7 @@ overrideProperty =
 well.
 
 As opposed to @code{\\override}, which overrides the context-dependent defaults
-with which a grob is created, this command uses @code{Output_property_engraver}
+with which a grob is created, this command uses @code{Apply_output_engraver}
 at the grob acknowledge stage.  This may be necessary for overriding values set
 after the initial grob creation.")
    (let ((p (check-grob-path grob-property-path

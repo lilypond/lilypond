@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.24.0"
+\version "2.25.35"
 
 \header {
   categories = "Contexts and engravers, Staff notation"
@@ -54,7 +54,7 @@ strings = \repeat unfold 240 { c''8 }
   \context {
     \name MarkLine
     \type Engraver_group
-    \consists Output_property_engraver
+    \consists Apply_output_engraver
     \consists Axis_group_engraver
     \consists Mark_engraver
     \consists Metronome_mark_engraver

@@ -113,7 +113,6 @@ class Music_wrapper_iterator;
 class Note_performer;
 class Output_def;
 class Open_type_font;
-class Output_property;
 class Page_breaking;
 class Pango_font;
 class Paper_book;

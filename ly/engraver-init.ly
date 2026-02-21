@@ -41,7 +41,7 @@ to be modified directly."
   \description "A context for displaying fret diagrams."
 
   \consists Fretboard_engraver
-  \consists Output_property_engraver
+  \consists Apply_output_engraver
   \consists Axis_group_engraver
   \consists Separating_line_group_engraver
   \consists Font_size_engraver
@@ -60,7 +60,7 @@ to be modified directly."
   \type Engraver_group
   \name Staff
 
-  \consists Output_property_engraver
+  \consists Apply_output_engraver
   \consists Skip_typesetting_engraver
   \consists Bar_engraver
   \consists Caesura_engraver
@@ -325,7 +325,7 @@ multiple variants of mensural notation."
   \override Stem.neutral-direction = #UP
   \override Beam.neutral-direction = #UP
 
-  \consists Output_property_engraver
+  \consists Apply_output_engraver
   \consists Font_size_engraver
   \consists Separating_line_group_engraver
   \consists Dot_column_engraver
@@ -369,7 +369,7 @@ multiple voices on the same staff."
   \consists Font_size_engraver
 
   \consists Pitched_trill_engraver
-  \consists Output_property_engraver
+  \consists Apply_output_engraver
   \consists Arpeggio_engraver
   \consists Multi_measure_rest_engraver
   \consists Text_spanner_engraver
@@ -477,7 +477,7 @@ created implicitly."
   \override DynamicText.extra-spacing-width = ##f
   \consists Span_bar_stub_engraver
   \consists Span_arpeggio_engraver
-  \consists Output_property_engraver
+  \consists Apply_output_engraver
   systemStartDelimiter = #'SystemStartBracket
   %% explicitly set instrument, so it is not inherited from the parent
   instrumentName = #'()
@@ -592,7 +592,7 @@ it with a different one.  Often used with @code{\\stopStaff} and
   \name Dynamics
   \alias Voice
   \alias Staff
-  \consists Output_property_engraver
+  \consists Apply_output_engraver
   %% The bar lines are invisible, but allow the to-barline
   %% property to work.
   \consists Bar_engraver
@@ -707,7 +707,7 @@ printing of a single line of lyrics."
 				% \key, \transposition
   \description "Typesets chord names."
 
-  \consists Output_property_engraver
+  \consists Apply_output_engraver
   \consists Separating_line_group_engraver
   \consists Current_chord_text_engraver
   \consists Chord_name_engraver
@@ -757,7 +757,7 @@ run."
 
   %% timing translator must come BEFORE bar number engraver
   \consists Timing_translator
-  \consists Output_property_engraver
+  \consists Apply_output_engraver
   \consists Tweak_engraver
   \consists Spanner_tracking_engraver
   \consists System_start_delimiter_engraver
@@ -1085,7 +1085,7 @@ settings like removing bar numbers."
   \alias Staff
   \description "Creates chord grid notation.  This context is always part of
 a @code{ChordGridScore} context."
-  \consists Output_property_engraver
+  \consists Apply_output_engraver
   \consists Current_chord_text_engraver
   \consists Grid_chord_name_engraver
   \consists Chord_square_engraver

@@ -5619,6 +5619,7 @@ def conv(s):
 
 
 @rule((2, 25, 35), r"""
+Output_property_engraver -> Apply_output_engraver
 remove \% = \repeat percent \etc
 remove \* = \repeat unfold \etc
 alteration->text-accidental-markup -> accidental->text-markup
@@ -5630,6 +5631,7 @@ note-name->string -> pitch->name
 \semiGermanChords -> \norwegianChords
 """)
 def conv(s):
+    s = re.sub(r'Output_property_engraver', r'Apply_output_engraver', s)
     s = re.sub(r'"?\\\\?\%"?\s*=\s*\\repeat\s*percent\s*\\etc\b', '', s)
     if re.search(r'"?\\\\?\%"?\s*=', s):
         stderr_write(NOT_SMART % _(r'assignment of \%'))

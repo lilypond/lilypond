@@ -2638,7 +2638,7 @@ style @code{\\rtoe} and its siblings, based on the data in the
    (properties-written . ())
    (description . "Engrave custodes.")))
 
-(define-public (Output_property_engraver context)
+(define-public (Apply_output_engraver context)
 ;;; This engraver is the engine that makes \applyOutput work.
 ;;;
 ;;; At each timestep, we collect \applyOutput requests (i.e.
@@ -2669,7 +2669,7 @@ style @code{\\rtoe} and its siblings, based on the data in the
       (set! requests '())))))
 
 (ly:register-translator
- Output_property_engraver 'Output_property_engraver
+ Apply_output_engraver 'Apply_output_engraver
  '((events-accepted . (apply-output-event))
    (grobs-created . ())
    (properties-read . ())
