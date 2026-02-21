@@ -151,7 +151,8 @@ Variable type_name ("type-name");
 Variable unbroken_spanner_p ("unbroken-spanner?");
 Variable
   unbroken_or_first_broken_spanner_p ("unbroken-or-first-broken-spanner?");
-Variable unbroken_or_last_broken_spanner_p ("unbroken-or-last-broken-spanner?");
+Variable
+  unbroken_or_last_broken_spanner_p ("unbroken-or-last-broken-spanner?");
 Variable
   volta_bracket_calc_hook_visibility ("volta-bracket::calc-hook-visibility");
 Variable write_performances_midis ("write-performances-midis");

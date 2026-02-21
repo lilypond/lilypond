@@ -53,8 +53,8 @@ Lyric_hyphen::print (SCM smob)
   Interval span_points;
   for (const auto d : {LEFT, RIGHT})
     {
-      Interval iv = Axis_group_interface::generic_bound_extent (bounds[d],
-                                                                common, X_AXIS);
+      Interval iv = Axis_group_interface::generic_bound_extent (
+        bounds[d], common, X_AXIS);
 
       span_points[d] = iv.is_empty ()
                          ? bounds[d]->relative_coordinate (common, X_AXIS)
@@ -146,8 +146,8 @@ Lyric_hyphen::print (SCM smob)
               w = w.in_color (whiteout_color_r, whiteout_color_g,
                               whiteout_color_b, whiteout_color_a);
             }
-          w.translate_axis (span_points[LEFT] + i * dash_period + space_left / 2
-                              - whiteout * lt,
+          w.translate_axis (span_points[LEFT] + i * dash_period
+                              + space_left / 2 - whiteout * lt,
                             X_AXIS);
           total.add_stencil (w);
         }

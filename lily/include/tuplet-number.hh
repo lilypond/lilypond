@@ -34,7 +34,8 @@ struct Tuplet_number
 
   static Grob *select_reference_stem (Spanner *me,
                                       std::vector<Grob *> const &cols);
-  static Drul_array<Grob *> adjacent_note_columns (Spanner *me, Grob *ref_stem);
+  static Drul_array<Grob *> adjacent_note_columns (Spanner *me,
+                                                   Grob *ref_stem);
   static bool knee_position_against_beam (Spanner *me, Grob *ref_stem);
 };
 

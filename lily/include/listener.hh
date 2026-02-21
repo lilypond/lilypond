@@ -139,7 +139,7 @@ public:
 };
 
 // Get a listener for given pointer
-#define GET_LISTENER(ptr, proc)                                                \
+#define GET_LISTENER(ptr, proc)                                               \
   Listener::get<MFP_ARGS (MFP_CREATE (ptr, proc))> ((ptr)->self_scm ())
 
 #endif /* LISTENER_HH */

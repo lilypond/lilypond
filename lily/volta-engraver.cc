@@ -486,8 +486,8 @@ Volta_engraver::stop_translation_timestep ()
 
           if (layer.spanner_)
             {
-              layer.spanner_->set_bound (RIGHT,
-                                         layer.end_bracket_->get_bound (RIGHT));
+              layer.spanner_->set_bound (
+                RIGHT, layer.end_bracket_->get_bound (RIGHT));
             }
 
           if (!layer.bracket_)
@@ -521,7 +521,8 @@ Volta_engraver::stop_translation_timestep ()
       if (layer.bracket_ && !layer.bracket_->get_bound (LEFT))
         layer.bracket_->set_bound (LEFT, ci);
 
-      if (layer.spanner_ && layer.bracket_ && !layer.spanner_->get_bound (LEFT))
+      if (layer.spanner_ && layer.bracket_
+          && !layer.spanner_->get_bound (LEFT))
         layer.spanner_->set_bound (LEFT, layer.bracket_->get_bound (LEFT));
 
       layer.start_ev_ = nullptr;

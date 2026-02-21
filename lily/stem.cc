@@ -1238,8 +1238,8 @@ Stem::calc_stem_info (SCM smob)
          staffline */
       ideal_y = std::max (ideal_y, 0.0);
       /* Lowest beam of (UP) beam must never be lower than second staffline */
-      ideal_y = std::max (ideal_y,
-                          (-staff_space - beam_thickness + height_of_my_beams));
+      ideal_y = std::max (
+        ideal_y, (-staff_space - beam_thickness + height_of_my_beams));
     }
 
   ideal_y -= from_scm<double> (get_property (beam, "shorten"), 0);

@@ -64,8 +64,8 @@ load_font_table (FT_Face face, std::string const &tag_str)
     }
   else
     {
-      programming_error (
-        _f ("FreeType error: %s", freetype_error_string (error_code).c_str ()));
+      programming_error (_f ("FreeType error: %s",
+                             freetype_error_string (error_code).c_str ()));
       return "";
     }
 }

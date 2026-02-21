@@ -158,8 +158,9 @@ check_pitch_against_rules (Pitch const &pitch, Context *origin, SCM rules,
   SCM barnum_scm = to_scm (bar_number);
 
   if (scm_is_pair (rules) && !scm_is_symbol (scm_car (rules)))
-    warning (_f ("accidental typesetting list must begin with context-name: %s",
-                 from_scm<std::string> (scm_car (rules)).c_str ()));
+    warning (
+      _f ("accidental typesetting list must begin with context-name: %s",
+          from_scm<std::string> (scm_car (rules)).c_str ()));
 
   for (; scm_is_pair (rules) && origin; rules = scm_cdr (rules))
     {
@@ -279,7 +280,8 @@ Accidental_engraver::create_accidental (Accidental_entry *entry,
 
 Grob *
 Accidental_engraver::make_standard_accidental (Stream_event * /* note */,
-                                               Grob *note_head, Engraver *trans,
+                                               Grob *note_head,
+                                               Engraver *trans,
                                                bool cautionary)
 {
   /*

@@ -38,9 +38,9 @@
 */
 Stencil
 Bracket::make_bracket (Grob *me, // for line properties.
-                       Axis protrusion_axis, Offset dz, Drul_array<Real> height,
-                       Interval gap, Drul_array<Real> flare,
-                       Drul_array<Real> shorten)
+                       Axis protrusion_axis, Offset dz,
+                       Drul_array<Real> height, Interval gap,
+                       Drul_array<Real> flare, Drul_array<Real> shorten)
 {
   Drul_array<Offset> corners (Offset (0, 0), dz);
 
@@ -137,7 +137,8 @@ Bracket::make_enclosing_bracket (Grob *me, Grob *refpoint,
                                  Direction dir)
 {
   Grob *common = common_refpoint_of_array (grobs, refpoint, a);
-  Interval ext = Axis_group_interface::relative_group_extent (grobs, common, a);
+  Interval ext
+    = Axis_group_interface::relative_group_extent (grobs, common, a);
 
   if (ext.is_empty ())
     {

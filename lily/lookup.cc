@@ -45,25 +45,29 @@ Lookup::beam (Real slope, Real width, Real thick, Real blot)
 
   SCM points = SCM_EOL;
 
-  points = scm_cons (to_scm (p[X_AXIS]), scm_cons (to_scm (p[Y_AXIS]), points));
+  points
+    = scm_cons (to_scm (p[X_AXIS]), scm_cons (to_scm (p[Y_AXIS]), points));
 
   p = Offset (0, -thick / 2);
   b.add_point (p);
   p += Offset (1, 1) * (blot / 2);
 
-  points = scm_cons (to_scm (p[X_AXIS]), scm_cons (to_scm (p[Y_AXIS]), points));
+  points
+    = scm_cons (to_scm (p[X_AXIS]), scm_cons (to_scm (p[Y_AXIS]), points));
 
   p = Offset (width, width * slope - thick / 2);
   b.add_point (p);
   p += Offset (-1, 1) * (blot / 2);
 
-  points = scm_cons (to_scm (p[X_AXIS]), scm_cons (to_scm (p[Y_AXIS]), points));
+  points
+    = scm_cons (to_scm (p[X_AXIS]), scm_cons (to_scm (p[Y_AXIS]), points));
 
   p = Offset (width, width * slope + thick / 2);
   b.add_point (p);
   p += Offset (-1, -1) * (blot / 2);
 
-  points = scm_cons (to_scm (p[X_AXIS]), scm_cons (to_scm (p[Y_AXIS]), points));
+  points
+    = scm_cons (to_scm (p[X_AXIS]), scm_cons (to_scm (p[Y_AXIS]), points));
 
   SCM expr
     = ly_list (ly_symbol2scm ("polygon"), points, to_scm (blot), SCM_BOOL_T);
@@ -155,8 +159,9 @@ Lookup::round_filled_box (Box b, Real blotdiameter)
   if (blotdiameter < 0.0)
     {
       if (!std::isinf (blotdiameter))
-        warning (_f ("Not drawing a box with negative dimension, %.2f by %.2f.",
-                     width, height));
+        warning (
+          _f ("Not drawing a box with negative dimension, %.2f by %.2f.",
+              width, height));
       return Stencil (b, SCM_EOL);
     }
 
@@ -418,8 +423,10 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick, SCM dash_details)
           SCM dash_pattern = scm_list_ref (dash_details, to_scm (i));
           Real t_min = from_scm<double> (scm_car (dash_pattern), 0);
           Real t_max = from_scm<double> (scm_cadr (dash_pattern), 1.0);
-          Real dash_fraction = from_scm<double> (scm_caddr (dash_pattern), 1.0);
-          Real dash_period = from_scm<double> (scm_cadddr (dash_pattern), 0.75);
+          Real dash_fraction
+            = from_scm<double> (scm_caddr (dash_pattern), 1.0);
+          Real dash_period
+            = from_scm<double> (scm_cadddr (dash_pattern), 0.75);
           Bezier back_segment = back.extract (t_min, t_max);
           Bezier curve_segment = curve.extract (t_min, t_max);
           if (dash_fraction == 1.0)
@@ -515,11 +522,12 @@ Lookup::repeat_slash (Real w, Real s, Real t)
   Real x_width = hypot (t, t / s);
   Real height = w * s;
 
-  SCM controls = ly_list (
-    ly_symbol2scm ("moveto"), to_scm (0), to_scm (0), ly_symbol2scm ("rlineto"),
-    to_scm (x_width), to_scm (0), ly_symbol2scm ("rlineto"), to_scm (w),
-    to_scm (height), ly_symbol2scm ("rlineto"), to_scm (-x_width), to_scm (0),
-    ly_symbol2scm ("closepath"));
+  SCM controls
+    = ly_list (ly_symbol2scm ("moveto"), to_scm (0), to_scm (0),
+               ly_symbol2scm ("rlineto"), to_scm (x_width), to_scm (0),
+               ly_symbol2scm ("rlineto"), to_scm (w), to_scm (height),
+               ly_symbol2scm ("rlineto"), to_scm (-x_width), to_scm (0),
+               ly_symbol2scm ("closepath"));
 
   SCM slashnodot
     = ly_list (ly_symbol2scm ("path"), to_scm (0), controls,

@@ -188,8 +188,9 @@ the same value is returned as when the property value is @code{'()}.
   SCM default_value = null_alternative_value;
   SCM search_ancestors = SCM_BOOL_T;
   scm_c_bind_keyword_arguments ( //
-    "ly:context-property", rest, static_cast<scm_t_keyword_arguments_flags> (0),
-    ly_keyword2scm ("default"), &default_value,              //
+    "ly:context-property", rest,
+    static_cast<scm_t_keyword_arguments_flags> (0), ly_keyword2scm ("default"),
+    &default_value,                                          //
     ly_keyword2scm ("search-ancestors?"), &search_ancestors, //
     SCM_UNDEFINED);
 
@@ -281,7 +282,8 @@ Return a list with the children contexts of @var{context}.
 }
 
 // TODO: Optionally constrain the search with a context ID.
-LY_DEFINE (ly_context_find, "ly:context-find", 2, 0, 0, (SCM context, SCM name),
+LY_DEFINE (ly_context_find, "ly:context-find", 2, 0, 0,
+           (SCM context, SCM name),
            R"(
 Find a context with name or alias @var{name}, first considering @var{context}
 and then searching its ancestors.  Return @code{#f} if not found.

@@ -97,7 +97,8 @@ public:
   static bool less (Spanner *const &, Spanner *const &);
   Spanner *find_broken_piece (System *) const override;
 
-  Spanner *pure_find_visible_prebroken_piece (vsize, vsize) const final override
+  Spanner *pure_find_visible_prebroken_piece (vsize,
+                                              vsize) const final override
   {
     return const_cast<Spanner *> (this);
   }

@@ -75,8 +75,8 @@ Return the parent output definition of @var{output-def}, or
   return default_value;
 }
 
-LY_DEFINE (ly_output_def_set_variable_x, "ly:output-def-set-variable!", 3, 0, 0,
-           (SCM def, SCM sym, SCM val),
+LY_DEFINE (ly_output_def_set_variable_x, "ly:output-def-set-variable!", 3, 0,
+           0, (SCM def, SCM sym, SCM val),
            R"(
 Set an output definition @var{def} variable @var{sym} to @var{val}.
            )")

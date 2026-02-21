@@ -238,19 +238,19 @@ private:
   // correct number of SCM arguments and returning SCM.  The function
   // itself has to be defined separately.
 
-#define LY_DECLARE_STATIC_SMOB_PROC(FUN, REQ, OPT, VAR)                        \
-  static void smob_proc_init (scm_t_bits smob_tag)                             \
-  {                                                                            \
-    /* Strange but true: function-like smobs are allowed fewer arguments */    \
-    /* than normal procedures.  See smob.c in the libguile source. */          \
-    static_assert (REQ + OPT + VAR <= 3);                                      \
-    /* + 1 because scm_set_smob_apply () does not count the smob argument. */  \
-    constexpr auto fun = ly_subr_ptr<1 + REQ, OPT, VAR> {FUN};                 \
-    scm_set_smob_apply (smob_tag, static_cast<scm_t_subr> (fun), REQ, OPT,     \
-                        VAR);                                                  \
+#define LY_DECLARE_STATIC_SMOB_PROC(FUN, REQ, OPT, VAR)                       \
+  static void smob_proc_init (scm_t_bits smob_tag)                            \
+  {                                                                           \
+    /* Strange but true: function-like smobs are allowed fewer arguments */   \
+    /* than normal procedures.  See smob.c in the libguile source. */         \
+    static_assert (REQ + OPT + VAR <= 3);                                     \
+    /* + 1 because scm_set_smob_apply () does not count the smob argument. */ \
+    constexpr auto fun = ly_subr_ptr<1 + REQ, OPT, VAR> {FUN};                \
+    scm_set_smob_apply (smob_tag, static_cast<scm_t_subr> (fun), REQ, OPT,    \
+                        VAR);                                                 \
   }
 
-#define LY_DECLARE_SMOB_PROC(PMF, REQ, OPT, VAR)                               \
+#define LY_DECLARE_SMOB_PROC(PMF, REQ, OPT, VAR)                              \
   LY_DECLARE_STATIC_SMOB_PROC (smob_trampoline<PMF>, REQ, OPT, VAR)
 
 protected:
@@ -343,7 +343,7 @@ ly_assert_smob (SCM var, int number, const char *fun)
 
 // This is a variation on LY_ASSERT_TYPE for smobs.  On success, this returns a
 // pointer to the smob so that the caller does not have to call unsmob again.
-#define LY_ASSERT_SMOB(klass, var, number)                                     \
+#define LY_ASSERT_SMOB(klass, var, number)                                    \
   ly_assert_smob<klass> (var, number, __FUNCTION__)
 
 // Simple smobs
@@ -447,14 +447,14 @@ public:
   static SCM readout ();
 };
 
-#define ASSERT_LIVE_IS_ALLOWED(arg)                                            \
-  [&] {                                                                        \
-    if constexpr (CHECKING)                                                    \
-      {                                                                        \
-        static parsed_dead pass_here;                                          \
-        if (parsed_objects_should_be_dead)                                     \
-          pass_here.checkin (arg);                                             \
-      }                                                                        \
+#define ASSERT_LIVE_IS_ALLOWED(arg)                                           \
+  [&] {                                                                       \
+    if constexpr (CHECKING)                                                   \
+      {                                                                       \
+        static parsed_dead pass_here;                                         \
+        if (parsed_objects_should_be_dead)                                    \
+          pass_here.checkin (arg);                                            \
+      }                                                                       \
   }()
 
 #include "smobs.tcc"

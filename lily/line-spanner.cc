@@ -148,8 +148,8 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
 
   if (!scm_is_number (ly_assoc_get (ly_symbol2scm ("X"), details, SCM_BOOL_F)))
     {
-      auto *commonx
-        = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
+      auto *commonx = me->get_bound (LEFT)->common_refpoint (
+        me->get_bound (RIGHT), X_AXIS);
       commonx = me->common_refpoint (commonx, X_AXIS);
 
       Direction attach = from_scm (
@@ -186,8 +186,8 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
             {
               /* Our bound may be a note head or rest, so try the parent
                  axis group. */
-              Grob *ag
-                = unsmob<Grob> (get_object (bound_grob, "axis-group-parent-Y"));
+              Grob *ag = unsmob<Grob> (
+                get_object (bound_grob, "axis-group-parent-Y"));
               if (has_interface<Note_column> (ag))
                 maybe_note_column = ag;
             }
@@ -203,8 +203,8 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
 
       Grob *dot = unsmob<Grob> (get_object (bound_grob, "dot"));
       if (dot
-          && from_scm<bool> (
-            ly_assoc_get (ly_symbol2scm ("start-at-dot"), details, SCM_BOOL_F)))
+          && from_scm<bool> (ly_assoc_get (ly_symbol2scm ("start-at-dot"),
+                                           details, SCM_BOOL_F)))
         x_coord = robust_relative_extent (dot, commonx, X_AXIS)
                     .linear_combination (attach);
 
@@ -423,7 +423,8 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
 
       if (y_needed)
         {
-          Real extra_dy = from_scm<double> (get_property (me, "extra-dy"), 0.0);
+          Real extra_dy
+            = from_scm<double> (get_property (me, "extra-dy"), 0.0);
           y += dir * extra_dy / 2;
           details = scm_acons (ly_symbol2scm ("Y"), to_scm (y), details);
         }
@@ -572,7 +573,8 @@ Line_spanner::print (SCM smob)
         }
     }
 
-  Grob *my_common_y = common_y[LEFT]->common_refpoint (common_y[RIGHT], Y_AXIS);
+  Grob *my_common_y
+    = common_y[LEFT]->common_refpoint (common_y[RIGHT], Y_AXIS);
   for (const auto d : {LEFT, RIGHT})
     span_points[d][Y_AXIS]
       += common_y[d]->relative_coordinate (my_common_y, Y_AXIS);

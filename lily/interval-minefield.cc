@@ -20,7 +20,8 @@
 
 #include "interval-minefield.hh"
 
-Interval_minefield::Interval_minefield (Interval feasible_placements, Real bulk)
+Interval_minefield::Interval_minefield (Interval feasible_placements,
+                                        Real bulk)
 {
   feasible_placements_ = feasible_placements;
   bulk_ = bulk;
@@ -69,7 +70,8 @@ Interval_minefield::solve ()
               else if (forbidden_intervals_[i].contains (feasible_widened[d])
                        || forbidden_intervals_[i].contains (
                          feasible_widened[-d])
-                       || feasible_widened.contains (forbidden_intervals_[i][d])
+                       || feasible_widened.contains (
+                         forbidden_intervals_[i][d])
                        || feasible_widened.contains (
                          forbidden_intervals_[i][-d]))
                 {

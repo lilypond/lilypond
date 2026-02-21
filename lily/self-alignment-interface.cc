@@ -45,7 +45,8 @@ Self_alignment_interface::x_aligned_on_self (SCM element)
 }
 
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, pure_y_aligned_on_self,
-                      "ly:self-alignment-interface::pure-y-aligned-on-self", 3);
+                      "ly:self-alignment-interface::pure-y-aligned-on-self",
+                      3);
 SCM
 Self_alignment_interface::pure_y_aligned_on_self (SCM smob, SCM start, SCM end)
 {
@@ -178,7 +179,8 @@ void
 Self_alignment_interface::set_aligned_on_parent (Grob *me, Axis a)
 {
   add_offset_callback (
-    me, (a == X_AXIS) ? aligned_on_x_parent_proc : aligned_on_y_parent_proc, a);
+    me, (a == X_AXIS) ? aligned_on_x_parent_proc : aligned_on_y_parent_proc,
+    a);
 }
 
 ADD_INTERFACE (Self_alignment_interface,

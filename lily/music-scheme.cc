@@ -241,7 +241,8 @@ Compress @var{mus} by factor @var{fact}, which is a @code{Moment}.
 
   Duration *d = unsmob<Duration> (get_property (m, "duration"));
   if (d)
-    set_property (m, "duration", d->compressed (f->main_part_).smobbed_copy ());
+    set_property (m, "duration",
+                  d->compressed (f->main_part_).smobbed_copy ());
   return SCM_UNSPECIFIED;
 }
 

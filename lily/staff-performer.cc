@@ -144,7 +144,8 @@ Staff_performer::new_audio_staff (const std::string &voice)
   audio_staff->track_name_ = context ()->id_string () + ":" + voice;
   if (audio_staff->track_name_ != ":")
     {
-      name_ = new Audio_text (Audio_text::TRACK_NAME, audio_staff->track_name_);
+      name_
+        = new Audio_text (Audio_text::TRACK_NAME, audio_staff->track_name_);
       audio_staff->add_audio_item (name_);
       announce_element (Audio_element_info (name_, 0));
     }

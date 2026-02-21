@@ -123,8 +123,8 @@ Pure_from_neighbor_engraver::finalize ()
         {
           if ((p != VPOS) && (p < need_pure_heights_from_neighbors.size ()))
             {
-              for (vsize k = 0; k < need_pure_heights_from_neighbors[p].size ();
-                   k++)
+              for (vsize k = 0;
+                   k < need_pure_heights_from_neighbors[p].size (); k++)
                 {
                   if (!in_same_column (need_pure_heights_from_neighbors[p][k],
                                        pure_relevant))

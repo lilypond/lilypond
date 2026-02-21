@@ -224,9 +224,9 @@ For example, this extracts the components of a date in YYYY-MM-DD format:
   unique_stdlib_ptr<char> s = ly_scm2str0 (string);
   GError *error = nullptr;
   GMatchInfo *match_info = nullptr;
-  bool matched = g_regex_match_full (r->regex (), s.get (),
-                                     NULL_TERMINATED_STRING, START_AT_BEGINNING,
-                                     DEFAULT_MATCH_FLAGS, &match_info, &error);
+  bool matched = g_regex_match_full (
+    r->regex (), s.get (), NULL_TERMINATED_STRING, START_AT_BEGINNING,
+    DEFAULT_MATCH_FLAGS, &match_info, &error);
   // Make sure r->regex () is not freed while matching
   scm_remember_upto_here (regex);
   check_error (error, "ly:regex-exec");
@@ -260,9 +260,9 @@ instead of the first match only."
   unique_stdlib_ptr<char> s = ly_scm2str0 (string);
   GError *error = nullptr;
   GMatchInfo *match_info = nullptr;
-  bool matched = g_regex_match_full (r->regex (), s.get (),
-                                     NULL_TERMINATED_STRING, START_AT_BEGINNING,
-                                     DEFAULT_MATCH_FLAGS, &match_info, &error);
+  bool matched = g_regex_match_full (
+    r->regex (), s.get (), NULL_TERMINATED_STRING, START_AT_BEGINNING,
+    DEFAULT_MATCH_FLAGS, &match_info, &error);
   // Make sure r->regex () is not freed while matching.
   scm_remember_upto_here (regex);
   check_error (error, "ly:regex-exec->list");
@@ -417,8 +417,9 @@ This example does the same, using a procedure:
   GError *error = nullptr;
   unique_glib_ptr<char> result (g_regex_replace_eval (
     r->regex (), s.get (), NULL_TERMINATED_STRING, START_AT_BEGINNING,
-    DEFAULT_MATCH_FLAGS, static_cast<GRegexEvalCallback> (replacement_callback),
-    &replacement_data, &error));
+    DEFAULT_MATCH_FLAGS,
+    static_cast<GRegexEvalCallback> (replacement_callback), &replacement_data,
+    &error));
   check_error (error, "ly:regex-replace");
   scm_remember_upto_here (regex);
   return scm_from_utf8_string (result.get ());

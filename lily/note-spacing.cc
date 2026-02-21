@@ -269,7 +269,8 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn, Real increment,
           if (!hp.is_empty ())
             {
               Real ss = Staff_symbol_referencer::staff_space (stem);
-              stem_posns[d] = stem->pure_y_extent (stem, 0, INT_MAX) * (2 / ss);
+              stem_posns[d]
+                = stem->pure_y_extent (stem, 0, INT_MAX) * (2 / ss);
               head_posns[d].unite (hp);
             }
         }
@@ -292,8 +293,8 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn, Real increment,
         }
       else
         {
-          correction
-            = different_directions_correction (me, stem_posns, stem_dirs[LEFT]);
+          correction = different_directions_correction (me, stem_posns,
+                                                        stem_dirs[LEFT]);
 
           if (!bar_yextent.is_empty ())
             correction *= 0.5;

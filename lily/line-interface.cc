@@ -177,9 +177,9 @@ Line_interface::make_dashed_line (Real thick, Offset from, Offset to,
 Stencil
 Line_interface::make_line (Real th, Offset from, Offset to)
 {
-  SCM at
-    = ly_list (ly_symbol2scm ("draw-line"), to_scm (th), to_scm (from[X_AXIS]),
-               to_scm (from[Y_AXIS]), to_scm (to[X_AXIS]), to_scm (to[Y_AXIS]));
+  SCM at = ly_list (ly_symbol2scm ("draw-line"), to_scm (th),
+                    to_scm (from[X_AXIS]), to_scm (from[Y_AXIS]),
+                    to_scm (to[X_AXIS]), to_scm (to[Y_AXIS]));
 
   Box box;
   box.add_point (from);
@@ -202,7 +202,8 @@ Line_interface::arrows (Grob *me, Offset from, Offset to, bool from_arrow,
                    * from_scm<double> (get_property (me, "thickness"), 1);
       Real ss = Staff_symbol_referencer::staff_space (me);
 
-      Real len = from_scm<double> (get_property (me, "arrow-length"), 1.3 * ss);
+      Real len
+        = from_scm<double> (get_property (me, "arrow-length"), 1.3 * ss);
       Real wid = from_scm<double> (get_property (me, "arrow-width"), 0.5 * ss);
 
       if (to_arrow)

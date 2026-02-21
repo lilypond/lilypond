@@ -224,8 +224,8 @@ spanned_time_interval (Item *l, Item *r)
     {
       if (bounds[d] && bounds[d]->get_column ())
         {
-          iv[d]
-            = from_scm (get_property (bounds[d]->get_column (), "when"), iv[d]);
+          iv[d] = from_scm (get_property (bounds[d]->get_column (), "when"),
+                            iv[d]);
         }
     }
 

@@ -58,6 +58,6 @@ std::string
 _f (char const *format, const std::string &s, const std::string &s2,
     const std::string &s3)
 {
-  return String_convert::form_string (gettext (format), s.c_str (), s2.c_str (),
-                                      s3.c_str ());
+  return String_convert::form_string (gettext (format), s.c_str (),
+                                      s2.c_str (), s3.c_str ());
 }

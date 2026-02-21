@@ -53,8 +53,8 @@ Spacing_spanner::get_columns (Spanner *me)
       programming_error ("spanner's right bound is not a paper column");
       return std::vector<Paper_column *> ();
     }
-  return get_root_system (me)->used_columns_in_range (l_bound->get_rank (),
-                                                      r_bound->get_rank () + 1);
+  return get_root_system (me)->used_columns_in_range (
+    l_bound->get_rank (), r_bound->get_rank () + 1);
 }
 
 MAKE_SCHEME_CALLBACK (Spacing_spanner, set_springs,
@@ -364,7 +364,8 @@ Spacing_spanner::musical_column_spacing (Grob *me, Paper_column *left_col,
           if (found_matching_column && has_interface<Note_spacing> (wish))
             {
               Real inc = options->increment_;
-              Grob *gsp = unsmob<Grob> (get_object (left_col, "grace-spacing"));
+              Grob *gsp
+                = unsmob<Grob> (get_object (left_col, "grace-spacing"));
               if (gsp && Paper_column::when_mom (left_col).grace_part_)
                 {
                   Spacing_options grace_opts;

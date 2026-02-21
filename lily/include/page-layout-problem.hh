@@ -42,12 +42,14 @@ public:
   static std::vector<Grob *> get_footnote_grobs (SCM lines);
   static vsize get_footnote_count (SCM lines);
   static SCM get_footnotes_from_lines (SCM lines);
-  static void add_footnotes_to_lines (SCM lines, vsize counter, Paper_book *pb);
+  static void add_footnotes_to_lines (SCM lines, vsize counter,
+                                      Paper_book *pb);
   static Stencil get_footnote_separator_stencil (Output_def *paper);
   static SCM get_spacing_spec (Grob *before, Grob *after, bool pure,
                                vsize start, vsize end);
-  static Real get_fixed_spacing (Grob *before, Grob *after, int spaceable_index,
-                                 bool pure, vsize start, vsize end);
+  static Real get_fixed_spacing (Grob *before, Grob *after,
+                                 int spaceable_index, bool pure, vsize start,
+                                 vsize end);
   static Stencil add_footnotes_to_footer (SCM footnotes, Stencil foot,
                                           Paper_book *pb);
 
@@ -63,7 +65,8 @@ protected:
   static void build_system_skyline (std::vector<Grob *> const &,
                                     std::vector<Real> const &, Skyline *up,
                                     Skyline *down);
-  static std::vector<Grob *> filter_dead_elements (std::vector<Grob *> const &);
+  static std::vector<Grob *>
+  filter_dead_elements (std::vector<Grob *> const &);
 
   // This is a union (in spirit).
   // Either staves must be empty or prob must be null.

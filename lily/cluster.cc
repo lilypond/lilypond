@@ -51,7 +51,8 @@ brew_cluster_piece (Grob *me, std::vector<Offset> bottom_points,
     shape = ly_symbol2string (shape_scm);
   else
     {
-      programming_error ("ClusterSpanner.style should be defined as a symbol.");
+      programming_error (
+        "ClusterSpanner.style should be defined as a symbol.");
       me->suicide ();
       return Stencil ();
     }
@@ -129,8 +130,8 @@ brew_cluster_piece (Grob *me, std::vector<Offset> bottom_points,
   return out;
 }
 
-MAKE_SCHEME_CALLBACK (Cluster, calc_cross_staff, "ly:cluster::calc-cross-staff",
-                      1);
+MAKE_SCHEME_CALLBACK (Cluster, calc_cross_staff,
+                      "ly:cluster::calc-cross-staff", 1);
 SCM
 Cluster::calc_cross_staff (SCM smob)
 {

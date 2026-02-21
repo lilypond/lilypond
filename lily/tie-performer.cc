@@ -140,7 +140,8 @@ Tie_performer::acknowledge_audio_element (Audio_element_info inf)
 void
 Tie_performer::start_translation_timestep ()
 {
-  set_property (context (), "tieMelismaBusy", to_scm (!heads_to_tie_.empty ()));
+  set_property (context (), "tieMelismaBusy",
+                to_scm (!heads_to_tie_.empty ()));
 }
 
 // a predicate implemented as a class, used to delete all tied notes with end

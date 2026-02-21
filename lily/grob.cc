@@ -74,9 +74,10 @@ Grob::Grob (SCM basicprops)
   if (scm_is_null (get_property_data (this, "X-extent")))
     set_property (this, "X-extent", Grob::stencil_width_proc);
   if (scm_is_null (get_property_data (this, "Y-extent")))
-    set_property (this, "Y-extent",
-                  Unpure_pure_container::make_smob (
-                    Grob::stencil_height_proc, Grob::pure_stencil_height_proc));
+    set_property (
+      this, "Y-extent",
+      Unpure_pure_container::make_smob (Grob::stencil_height_proc,
+                                        Grob::pure_stencil_height_proc));
   if (scm_is_null (get_property_data (this, "vertical-skylines")))
     set_property (this, "vertical-skylines",
                   Unpure_pure_container::make_smob (
@@ -149,7 +150,8 @@ Grob::get_print_stencil ()
           Real line_thickness
             = layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
           SCM whiteout_color = get_property (this, "whiteout-color");
-          if (!(scm_is_string (whiteout_color) || scm_is_pair (whiteout_color)))
+          if (!(scm_is_string (whiteout_color)
+                || scm_is_pair (whiteout_color)))
             {
               whiteout_color = to_scm ("white");
             }
@@ -438,8 +440,8 @@ Grob::pure_relative_y_coordinate (Grob const *refp, vsize start, vsize end)
     {
       Real trans = 0;
       if (has_interface<Align_interface> (p) && !dim_cache_[Y_AXIS].offset_)
-        trans
-          = Align_interface::get_pure_child_y_translation (p, this, start, end);
+        trans = Align_interface::get_pure_child_y_translation (p, this, start,
+                                                               end);
 
       return off + trans + p->pure_relative_y_coordinate (refp, start, end);
     }
@@ -708,8 +710,8 @@ Grob::get_vertical_axis_group_index (Grob *g)
   for (vsize i = 0; i < elts.size (); i++)
     if (elts[i] == vax)
       return static_cast<int> (i);
-  g->programming_error (
-    "could not find this grob's vertical axis group in the vertical alignment");
+  g->programming_error ("could not find this grob's vertical axis group in "
+                        "the vertical alignment");
   return -1;
 }
 
@@ -904,8 +906,8 @@ Grob::stencil_height (SCM smob)
   return grob_stencil_extent (me, Y_AXIS);
 }
 
-MAKE_SCHEME_CALLBACK (Grob, pure_stencil_height, "ly:grob::pure-stencil-height",
-                      3);
+MAKE_SCHEME_CALLBACK (Grob, pure_stencil_height,
+                      "ly:grob::pure-stencil-height", 3);
 SCM
 Grob::pure_stencil_height (SCM smob, SCM /* beg */, SCM /* end */)
 {
@@ -1002,7 +1004,8 @@ robust_relative_extent (Grob *me, Grob *refpoint, Axis a)
 }
 
 Interval
-robust_relative_pure_y_extent (Grob *me, Grob *refpoint, vsize start, vsize end)
+robust_relative_pure_y_extent (Grob *me, Grob *refpoint, vsize start,
+                               vsize end)
 {
   Interval ext = me->pure_y_extent (refpoint, start, end);
   if (ext.is_empty ())

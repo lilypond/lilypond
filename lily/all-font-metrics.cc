@@ -104,7 +104,8 @@ All_font_metrics::All_font_metrics (File_path search_path,
       emmentaler_pango_ft2_fontmap_ = make_font_map ();
       PangoFcFontMap *fc_fontmap
         = PANGO_FC_FONT_MAP (emmentaler_pango_ft2_fontmap_);
-      pango_fc_font_map_set_config (fc_fontmap, emmentaler_font_config_.get ());
+      pango_fc_font_map_set_config (fc_fontmap,
+                                    emmentaler_font_config_.get ());
     }
 }
 
@@ -208,7 +209,8 @@ display_fontset (FcFontSet *fs)
       FcChar8 *str;
       if (FcPatternGetString (fs->fonts[j], FC_FILE, 0, &str) == FcResultMatch)
         retval += String_convert::form_string ("FILE %s\n", str);
-      if (FcPatternGetString (fs->fonts[j], FC_INDEX, 0, &str) == FcResultMatch)
+      if (FcPatternGetString (fs->fonts[j], FC_INDEX, 0, &str)
+          == FcResultMatch)
         retval += String_convert::form_string ("INDEX %s\n", str);
       if (FcPatternGetString (fs->fonts[j], FC_FAMILY, 0, &str)
           == FcResultMatch)
@@ -304,7 +306,8 @@ void
 All_font_metrics::add_font_directory (const std::string &name)
 {
   if (!FcConfigAppFontAddDir (
-        font_config_.get (), reinterpret_cast<const FcChar8 *> (name.c_str ())))
+        font_config_.get (),
+        reinterpret_cast<const FcChar8 *> (name.c_str ())))
     error (_f ("failed adding font directory: %s", name.c_str ()));
   else
     debug_output (_f ("Adding font directory: %s", name.c_str ()));
@@ -316,7 +319,8 @@ void
 All_font_metrics::add_font_file (const std::string &name)
 {
   if (!FcConfigAppFontAddFile (
-        font_config_.get (), reinterpret_cast<const FcChar8 *> (name.c_str ())))
+        font_config_.get (),
+        reinterpret_cast<const FcChar8 *> (name.c_str ())))
     error (_f ("failed adding font file: %s", name.c_str ()));
   else
     debug_output (_f ("Adding font file: %s", name.c_str ()));

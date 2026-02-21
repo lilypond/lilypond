@@ -54,7 +54,8 @@ Engraver::announce_grob (Grob_info inf, Direction start_end, Context *ctx)
 {
   if (ctx)
     {
-      if (auto *group = dynamic_cast<Engraver_group *> (ctx->implementation ()))
+      if (auto *group
+          = dynamic_cast<Engraver_group *> (ctx->implementation ()))
         {
           group->add_grob_to_announce (inf, start_end);
           return;
@@ -129,8 +130,8 @@ Engraver::Engraver (Context *c)
 
 static Protected_scm creation_callback (SCM_EOL);
 
-LY_DEFINE (ly_set_grob_creation_callback, "ly:set-grob-creation-callback", 1, 0,
-           0, (SCM cb),
+LY_DEFINE (ly_set_grob_creation_callback, "ly:set-grob-creation-callback", 1,
+           0, 0, (SCM cb),
            R"(
 Specify a procedure that gets called every time a new grob is created.  The
 callback receives as arguments the grob that was created, the name of the C++
@@ -200,8 +201,8 @@ Engraver::choose_grob_type<Grob> (SCM classes, SCM props)
    This is used by ly:engraver-make-grob. */
 template <typename T>
 T *
-Engraver::internal_make_grob (SCM symbol, SCM cause, char const *file, int line,
-                              char const *fun)
+Engraver::internal_make_grob (SCM symbol, SCM cause, char const *file,
+                              int line, char const *fun)
 {
   SCM props = Grob_property_info (context (), symbol).updated ();
   if (!scm_is_pair (props))
@@ -262,7 +263,8 @@ Engraver::internal_make_sticky (SCM x, Grob *host, SCM cause, char const *file,
                                 int line, char const *fun)
 {
   Grob *sticky = host->make_sticky_same_type (this, x, cause, file, line, fun);
-  if (!sticky->internal_has_interface (ly_symbol2scm ("sticky-grob-interface")))
+  if (!sticky->internal_has_interface (
+        ly_symbol2scm ("sticky-grob-interface")))
     {
       programming_error (
         to_string_f ("sticky grob %s created with a type that does not have"

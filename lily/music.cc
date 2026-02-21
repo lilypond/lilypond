@@ -171,8 +171,8 @@ Music::to_relative_octave (Pitch last)
   SCM callback = get_property (this, "to-relative-callback");
   if (ly_is_procedure (callback))
     {
-      Pitch *p
-        = unsmob<Pitch> (ly_call (callback, self_scm (), last.smobbed_copy ()));
+      Pitch *p = unsmob<Pitch> (
+        ly_call (callback, self_scm (), last.smobbed_copy ()));
       return *p;
     }
 

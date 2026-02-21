@@ -135,7 +135,8 @@ Multi_measure_rest_engraver::initialize_grobs ()
       for (vsize i = 0; i < articulation_events_.size (); i++)
         {
           Stream_event *e = articulation_events_[i];
-          Spanner *sp = make_spanner ("MultiMeasureRestScript", e->self_scm ());
+          Spanner *sp
+            = make_spanner ("MultiMeasureRestScript", e->self_scm ());
           make_script_from_event (sp, context (),
                                   get_property (e, "articulation-type"), i);
           SCM dir = get_property (e, "direction");
@@ -251,7 +252,8 @@ Multi_measure_rest_engraver::process_music ()
           last_command_item_ = nullptr;
         }
 
-      start_measure_ = from_scm<int> (get_property (this, "internalBarNumber"));
+      start_measure_
+        = from_scm<int> (get_property (this, "internalBarNumber"));
       number_threshold_
         = from_scm (get_property (this, "restNumberThreshold"), 1);
     }

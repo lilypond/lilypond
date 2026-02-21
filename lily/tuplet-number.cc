@@ -91,8 +91,8 @@ Tuplet_number::select_reference_stem (Spanner *me,
       int beam_count_L_R = Stem::get_beaming (bounding_stems[LEFT], RIGHT);
       int beam_count_R_L = Stem::get_beaming (bounding_stems[RIGHT], LEFT);
       if (beam_count_L_R == beam_count_R_L)
-        ref_stem
-          = (dir_left == me_dir) ? bounding_stems[LEFT] : bounding_stems[RIGHT];
+        ref_stem = (dir_left == me_dir) ? bounding_stems[LEFT]
+                                        : bounding_stems[RIGHT];
       else
         ref_stem = (beam_count_L_R > beam_count_R_L) ? bounding_stems[LEFT]
                                                      : bounding_stems[RIGHT];
@@ -269,7 +269,8 @@ Tuplet_number::calc_x_offset (SCM smob)
   Grob *commonx = me->get_system ();
   if (!commonx)
     {
-      programming_error ("TupletNumber.X-offset accessed before line breaking");
+      programming_error (
+        "TupletNumber.X-offset accessed before line breaking");
       return to_scm (0);
     }
 

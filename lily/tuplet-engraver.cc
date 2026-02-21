@@ -175,10 +175,12 @@ Tuplet_engraver::process_music ()
       number->set_y_parent (bracket);
 
       if (i + 1 < tuplets_.size () && tuplets_[i + 1]->bracket_)
-        Tuplet_bracket::add_tuplet_bracket (bracket, tuplets_[i + 1]->bracket_);
+        Tuplet_bracket::add_tuplet_bracket (bracket,
+                                            tuplets_[i + 1]->bracket_);
 
       if (i > 0 && tuplets_[i - 1]->bracket_)
-        Tuplet_bracket::add_tuplet_bracket (tuplets_[i - 1]->bracket_, bracket);
+        Tuplet_bracket::add_tuplet_bracket (tuplets_[i - 1]->bracket_,
+                                            bracket);
     }
 }
 

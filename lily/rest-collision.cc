@@ -174,7 +174,8 @@ Rest_collision::calc_positioning_done (SCM smob)
             }
         }
 
-      Grob *common = common_refpoint_of_array (ordered_rests[DOWN], me, Y_AXIS);
+      Grob *common
+        = common_refpoint_of_array (ordered_rests[DOWN], me, Y_AXIS);
       common = common_refpoint_of_array (ordered_rests[UP], common, Y_AXIS);
 
       Real diff = (ordered_rests[DOWN].back ()->extent (common, Y_AXIS)[UP]
@@ -194,7 +195,8 @@ Rest_collision::calc_positioning_done (SCM smob)
         {
           for (vsize i = ordered_rests[d].size () - 1; i-- > 0;)
             {
-              Real last_y = ordered_rests[d][i + 1]->extent (common, Y_AXIS)[d];
+              Real last_y
+                = ordered_rests[d][i + 1]->extent (common, Y_AXIS)[d];
               Real y = ordered_rests[d][i]->extent (common, Y_AXIS)[-d];
 
               Real diff = d * ((last_y - y) / staff_space);

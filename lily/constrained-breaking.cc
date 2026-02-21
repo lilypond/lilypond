@@ -109,8 +109,8 @@ Constrained_breaking::calc_subproblem (vsize start, vsize sys, vsize brk)
       if (std::isinf (prev_dem))
         continue;
 
-      Real dem
-        = combine_demerits (cur.force_, prev_f) + prev_dem + cur.break_penalty_;
+      Real dem = combine_demerits (cur.force_, prev_f) + prev_dem
+                 + cur.break_penalty_;
       Constrained_break_node &n = st.at (max_index, sys);
       if (dem < n.demerits_)
         {
@@ -193,8 +193,8 @@ Constrained_breaking::solve (vsize start, vsize end, vsize sys_count)
                 {
                   brk = st.at (brk, sys).prev_;
                   sys--;
-                  warning (
-                    _ ("cannot find line breaking that satisfies constraints"));
+                  warning (_ (
+                    "cannot find line breaking that satisfies constraints"));
                   ret.push_back (space_line (brk, end_brk));
                 }
 
@@ -345,7 +345,8 @@ Constrained_breaking::max_system_count (vsize start, vsize end) const
 }
 
 vsize
-Constrained_breaking::prepare_solution (vsize start, vsize end, vsize sys_count)
+Constrained_breaking::prepare_solution (vsize start, vsize end,
+                                        vsize sys_count)
 {
   assert (start < start_.size () && (end == VPOS || end <= start_.size ()));
   assert (start < end);
@@ -430,8 +431,8 @@ Constrained_breaking::initialize (
   Page_layout_problem::read_spacing_spec (title_spec, &system_markup_space_,
                                           ly_symbol2scm ("basic-distance"));
 
-  Page_layout_problem::read_spacing_spec (spacing_spec, &system_system_padding_,
-                                          ly_symbol2scm ("padding"));
+  Page_layout_problem::read_spacing_spec (
+    spacing_spec, &system_system_padding_, ly_symbol2scm ("padding"));
   Page_layout_problem::read_spacing_spec (
     between_scores_spec, &score_system_padding_, ly_symbol2scm ("padding"));
   Page_layout_problem::read_spacing_spec (page_breaking_spacing_spec,
@@ -538,11 +539,11 @@ Constrained_breaking::fill_line_details (Line_details *const out, vsize start,
                           || std::isnan (begin_of_line_extent[RIGHT]))
                            ? Interval (0, 0)
                            : begin_of_line_extent;
-  rest_of_line_extent
-    = (rest_of_line_extent.is_empty () || std::isnan (rest_of_line_extent[LEFT])
-       || std::isnan (rest_of_line_extent[RIGHT]))
-        ? Interval (0, 0)
-        : rest_of_line_extent;
+  rest_of_line_extent = (rest_of_line_extent.is_empty ()
+                         || std::isnan (rest_of_line_extent[LEFT])
+                         || std::isnan (rest_of_line_extent[RIGHT]))
+                          ? Interval (0, 0)
+                          : rest_of_line_extent;
   out->shape_ = Line_shape (begin_of_line_extent, rest_of_line_extent);
   out->padding_ = last ? score_system_padding_ : system_system_padding_;
   out->title_padding_ = score_markup_padding_;
@@ -623,7 +624,8 @@ Line_details::Line_details (Prob *pb, Output_def *paper)
   page_permission_ = get_property (pb, "page-break-permission");
   turn_permission_ = get_property (pb, "page-turn-permission");
   break_penalty_ = 0;
-  page_penalty_ = from_scm<double> (get_property (pb, "page-break-penalty"), 0);
+  page_penalty_
+    = from_scm<double> (get_property (pb, "page-break-penalty"), 0);
   turn_penalty_ = from_scm<double> (get_property (pb, "page-turn-penalty"), 0);
   title_ = from_scm<bool> (get_property (pb, "is-title"));
   compressed_lines_count_ = 1;
@@ -673,10 +675,11 @@ Line_shape::Line_shape (Interval begin, Interval rest)
 Line_shape
 Line_shape::piggyback (Line_shape mount, Real padding) const
 {
-  Real elevation
-    = std::max (begin_[UP] - mount.begin_[DOWN], rest_[UP] - mount.rest_[DOWN]);
+  Real elevation = std::max (begin_[UP] - mount.begin_[DOWN],
+                             rest_[UP] - mount.rest_[DOWN]);
   Interval begin
     = Interval (begin_[DOWN], elevation + mount.begin_[UP] + padding);
-  Interval rest = Interval (rest_[DOWN], elevation + mount.rest_[UP] + padding);
+  Interval rest
+    = Interval (rest_[DOWN], elevation + mount.rest_[UP] + padding);
   return Line_shape (begin, rest);
 }

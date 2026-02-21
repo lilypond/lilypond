@@ -47,8 +47,9 @@ Global_context::Global_context (Output_def *odef, Context_def *cdef)
   prev_mom_.main_part_ = -Rational::infinity ();
 
   /* We only need the most basic stuff to bootstrap the context tree */
-  event_source ()->add_listener (GET_LISTENER (this, create_context_from_event),
-                                 ly_symbol2scm ("CreateContext"));
+  event_source ()->add_listener (
+    GET_LISTENER (this, create_context_from_event),
+    ly_symbol2scm ("CreateContext"));
   event_source ()->add_listener (GET_LISTENER (this, prepare),
                                  ly_symbol2scm ("Prepare"));
   events_below ()->register_as_listener (event_source_);

@@ -126,7 +126,8 @@ Interval_set::complement () const
       Interval (intervals_[i - 1][RIGHT], intervals_[i][LEFT]));
 
   if (intervals_.back ()[RIGHT] < infinity_f)
-    ret.intervals_.push_back (Interval (intervals_.back ()[RIGHT], infinity_f));
+    ret.intervals_.push_back (
+      Interval (intervals_.back ()[RIGHT], infinity_f));
 
   return ret;
 }

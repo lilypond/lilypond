@@ -130,7 +130,8 @@ Tie_engraver::process_music ()
 {
   bool busy = event_;
   for (vsize i = 0; !busy && i < heads_to_tie_.size (); i++)
-    busy |= (heads_to_tie_[i].tie_event_ || heads_to_tie_[i].tie_stream_event_);
+    busy
+      |= (heads_to_tie_[i].tie_event_ || heads_to_tie_[i].tie_stream_event_);
 
   if (busy)
     set_property (context (), "tieMelismaBusy", SCM_BOOL_T);
@@ -240,7 +241,8 @@ Tie_engraver::start_translation_timestep ()
         }
     }
 
-  set_property (context (), "tieMelismaBusy", to_scm (!heads_to_tie_.empty ()));
+  set_property (context (), "tieMelismaBusy",
+                to_scm (!heads_to_tie_.empty ()));
 }
 
 void

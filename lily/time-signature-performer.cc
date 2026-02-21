@@ -116,7 +116,8 @@ Time_signature_performer::process_music ()
       const auto beat_base
         = from_scm (get_property (this, "beatBase"), Rational (1, 4));
       Rational beat_base_clocks = 96 * beat_base;
-      SCM common_beat = calc_common_beat (get_property (this, "beatStructure"));
+      SCM common_beat
+        = calc_common_beat (get_property (this, "beatStructure"));
       if (is_scm<Rational> (common_beat)
           && scm_is_false (scm_zero_p (common_beat)))
         beat_base_clocks *= from_scm<Rational> (common_beat);

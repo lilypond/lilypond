@@ -364,8 +364,8 @@ default value of @var{idx} is@tie{}0.
     }
 
   fclose (fp);
-  warning (
-    _f ("font `%s' index %d does not have `CFF' table", file_name.c_str (), i));
+  warning (_f ("font `%s' index %d does not have `CFF' table",
+               file_name.c_str (), i));
   return SCM_BOOL_F;
 }
 

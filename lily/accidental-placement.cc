@@ -100,8 +100,8 @@ Accidental_placement::split_accidentals (Grob *accs,
 }
 
 std::vector<Grob *>
-Accidental_placement::get_relevant_accidentals (std::vector<Grob *> const &elts,
-                                                Grob *left)
+Accidental_placement::get_relevant_accidentals (
+  std::vector<Grob *> const &elts, Grob *left)
 {
   std::vector<Grob *> br;
   std::vector<Grob *> ra;
@@ -333,7 +333,8 @@ extract_heads_and_stems (
       if (has_interface<Note_collision_interface> (c))
         {
           extract_grob_set (c, "elements", columns);
-          note_cols.insert (note_cols.end (), columns.begin (), columns.end ());
+          note_cols.insert (note_cols.end (), columns.begin (),
+                            columns.end ());
         }
     }
 

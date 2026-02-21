@@ -107,15 +107,16 @@ Vertical_align_engraver::process_music ()
     {
       if (from_scm<bool> (get_property (this, "hasAxisGroup")))
         {
-          warning (_ ("Ignoring Vertical_align_engraver in VerticalAxisGroup"));
+          warning (
+            _ ("Ignoring Vertical_align_engraver in VerticalAxisGroup"));
           id_to_group_hashtab_ = SCM_EOL;
           return;
         }
 
       top_level_ = from_scm<bool> (get_property (this, "topLevelAlignment"));
 
-      valign_ = make_spanner (top_level_ ? "VerticalAlignment" : "StaffGrouper",
-                              SCM_EOL);
+      valign_ = make_spanner (
+        top_level_ ? "VerticalAlignment" : "StaffGrouper", SCM_EOL);
       auto *col = unsmob<Grob> (get_property (this, "currentCommandColumn"));
       valign_->set_bound (LEFT, col);
     }

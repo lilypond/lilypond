@@ -57,7 +57,10 @@ public:
   Real ideal_distance () const { return ideal_distance_; }
   Real min_distance () const { return min_distance_; }
   Real inverse_stretch_strength () const { return inverse_stretch_strength_; }
-  Real inverse_compress_strength () const { return inverse_compress_strength_; }
+  Real inverse_compress_strength () const
+  {
+    return inverse_compress_strength_;
+  }
   Real blocking_force () const { return blocking_force_; }
 
   Real length (Real force) const;

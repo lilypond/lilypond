@@ -230,7 +230,8 @@ Book::process_score (SCM score_scm, Paper_book *output_paper_book,
   if (Score *score = unsmob<Score> (score_scm))
     {
       auto trace_slice = tracer_global.log_scope ("score"sv);
-      SCM outputs = score->book_rendering (output_paper_book->paper (), layout);
+      SCM outputs
+        = score->book_rendering (output_paper_book->paper (), layout);
 
       while (scm_is_pair (outputs))
         {

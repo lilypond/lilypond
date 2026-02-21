@@ -93,8 +93,8 @@ Break_alignment_interface::add_element (Item *me, Item *toadd)
 }
 
 Grob *
-Break_alignment_interface::find_nonempty_break_align_group (Item *me,
-                                                            SCM break_align_sym)
+Break_alignment_interface::find_nonempty_break_align_group (
+  Item *me, SCM break_align_sym)
 {
   SCM property_sym = ly_symbol2scm ("break-align-symbol");
   extract_grob_set (me, "elements", elts);
@@ -116,8 +116,8 @@ return @code{#f} if the group has empty @code{X-extent}, which can happen if
 it contains only omitted items.
                                  )")
 SCM
-Break_alignment_interface::find_nonempty_break_align_group (SCM grob,
-                                                            SCM break_align_sym)
+Break_alignment_interface::find_nonempty_break_align_group (
+  SCM grob, SCM break_align_sym)
 {
   auto *const me = LY_ASSERT_SMOB (Item, grob, 1);
   Grob *result = find_nonempty_break_align_group (me, break_align_sym);
@@ -412,9 +412,9 @@ Break_aligned_interface::calc_average_anchor (Grob *me)
   return 0;
 }
 
-MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_joint_anchor_alignment,
-                      "ly:break-aligned-interface::calc-joint-anchor-alignment",
-                      1)
+MAKE_SCHEME_CALLBACK (
+  Break_aligned_interface, calc_joint_anchor_alignment,
+  "ly:break-aligned-interface::calc-joint-anchor-alignment", 1)
 SCM
 Break_aligned_interface::calc_joint_anchor_alignment (SCM grob)
 {
@@ -459,8 +459,8 @@ SCM
 Break_aligned_interface::calc_extent_aligned_anchor (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  Real alignment
-    = from_scm<double> (get_property (me, "break-align-anchor-alignment"), 0.0);
+  Real alignment = from_scm<double> (
+    get_property (me, "break-align-anchor-alignment"), 0.0);
   Interval iv = me->extent (me, X_AXIS);
 
   if (std::isinf (iv[LEFT]) && std::isinf (iv[RIGHT])) /* avoid NaN */

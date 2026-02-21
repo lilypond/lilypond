@@ -26,7 +26,7 @@
 #define LOG_NONE 0
 #define LOG_ERROR 1 << 0
 #define LOG_WARN 1 << 1
-#define LOG_BASIC                                                              \
+#define LOG_BASIC                                                             \
   1 << 2 // undocumented basic_progress, i.e. input file name and success
 #define LOG_PROGRESS 1 << 3
 #define LOG_INFO 1 << 4
@@ -70,7 +70,8 @@ error (std::string s, const std::string &location = "")
 {
   WarningAsErrorExitDeferrer::non_deferrable_error (s, location);
 }
-void programming_error (const std::string &s, const std::string &location = "");
+void programming_error (const std::string &s,
+                        const std::string &location = "");
 void non_fatal_error (const std::string &, const std::string &location = "");
 void warning (const std::string &s, const std::string &location = "");
 void basic_progress (const std::string &s, const std::string &location = "");

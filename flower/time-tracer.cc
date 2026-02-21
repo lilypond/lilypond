@@ -205,7 +205,8 @@ Time_tracer::include_file (const char *included_file_name)
         if (fread (buf, sizeof (char), size, included_file) != size)
           {
             log_instant_event (String_convert::form_string (
-              "error reading included time-trace file %s", included_file_name));
+              "error reading included time-trace file %s",
+              included_file_name));
             goto return_error;
           }
         if (fwrite (buf, sizeof (char), size, to_FILE (file_)) != size)

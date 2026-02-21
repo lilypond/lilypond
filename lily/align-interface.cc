@@ -126,9 +126,8 @@ get_skylines (Grob *g, Axis a, Grob *other_common, bool pure, vsize start,
 }
 
 std::vector<Real>
-Align_interface::get_minimum_translations (Grob *me,
-                                           std::vector<Grob *> const &all_grobs,
-                                           Axis a)
+Align_interface::get_minimum_translations (
+  Grob *me, std::vector<Grob *> const &all_grobs, Axis a)
 {
   return internal_get_minimum_translations (me, all_grobs, a, true, false, 0,
                                             0);
@@ -139,8 +138,8 @@ Align_interface::get_pure_minimum_translations (
   Grob *me, std::vector<Grob *> const &all_grobs, Axis a, vsize start,
   vsize end)
 {
-  return internal_get_minimum_translations (me, all_grobs, a, true, true, start,
-                                            end);
+  return internal_get_minimum_translations (me, all_grobs, a, true, true,
+                                            start, end);
 }
 
 std::vector<Real>

@@ -48,8 +48,8 @@ public:
 
   Paper_column *clone () const override { return new Paper_column (*this); }
   [[noreturn]] Paper_column *make_sticky_same_type (Engraver *eng, SCM type,
-                                                    SCM cause, char const *file,
-                                                    int line,
+                                                    SCM cause,
+                                                    char const *file, int line,
                                                     char const *fun) override;
   Paper_column *original () const
   {

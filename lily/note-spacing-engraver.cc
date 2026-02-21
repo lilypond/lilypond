@@ -69,8 +69,8 @@ Note_spacing_engraver::add_spacing_item (Grob *g)
 
   if (spacing_)
     {
-      Pointer_group_interface::add_grob (spacing_, ly_symbol2scm ("left-items"),
-                                         g);
+      Pointer_group_interface::add_grob (spacing_,
+                                         ly_symbol2scm ("left-items"), g);
 
       if (last_spacing_)
         Pointer_group_interface::add_grob (last_spacing_,

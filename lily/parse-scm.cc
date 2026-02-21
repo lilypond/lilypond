@@ -153,8 +153,8 @@ struct Parse_start
         // universal tab width.
         SCM context = scm_make_string (column, space);
         non_fatal_error (
-          _ ("Guile signaled an error for the expression beginning here") + "\n"
-            + from_scm<std::string> (before_substring) + "\n"
+          _ ("Guile signaled an error for the expression beginning here")
+            + "\n" + from_scm<std::string> (before_substring) + "\n"
             + from_scm<std::string> (context)
             + from_scm<std::string> (after_substring),
           from_scm<std::string> (filename) + ":"
@@ -165,8 +165,8 @@ struct Parse_start
     // If enabled, print a backtrace.  "enabled" means that Guile would print a
     // backtrace if the error were not handled.  This can be turned on with
     // #(debug-enable 'backtrace) or by running with -ddebug-eval.
-    if (scm_is_true (
-          scm_memq (ly_symbol2scm ("backtrace"), Guile_user::debug_options ())))
+    if (scm_is_true (scm_memq (ly_symbol2scm ("backtrace"),
+                               Guile_user::debug_options ())))
       {
         // Use scm_display_backtrace and not the scm_backtrace convenience
         // wrapper because the latter outputs to stdout whereas we want stderr.
@@ -249,8 +249,8 @@ internal_parse_embedded_scheme (void *p)
   if (ps->parser_->lexer_->top_input ())
     {
       // Find any precompiled form.
-      SCM c
-        = scm_assv_ref (ps->parser_->closures_, scm_from_ssize_t (byte_offset));
+      SCM c = scm_assv_ref (ps->parser_->closures_,
+                            scm_from_ssize_t (byte_offset));
       if (scm_is_true (c))
         return c;
     }

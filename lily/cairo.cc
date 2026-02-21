@@ -175,7 +175,8 @@ public:
         // when embedding the produced PDF with XeTeX, which currently defaults
         // to PDF 1.5.  Set a fixed version of 1.4, which is also the basis of
         // the standard PDF/A and has all features we need.
-        cairo_pdf_surface_restrict_to_version (surface_, CAIRO_PDF_VERSION_1_4);
+        cairo_pdf_surface_restrict_to_version (surface_,
+                                               CAIRO_PDF_VERSION_1_4);
         break;
       case PS:
       case EPS:
@@ -262,7 +263,8 @@ protected:
     image.height = height_;
     image.format = PNG_FORMAT_RGBA;
 
-    if (!png_image_write_to_file (&image, filename_.c_str (), 0, data, 0, NULL))
+    if (!png_image_write_to_file (&image, filename_.c_str (), 0, data, 0,
+                                  NULL))
       {
         error (_f ("error writing %s", filename_.c_str ()));
       }
@@ -282,7 +284,8 @@ struct Pair_hash
 class Cairo_outputter : public Stencil_sink
 {
   // (filename, index) => FT_Face unowned
-  std::unordered_map<std::pair<std::string, int>, FT_Face, Pair_hash> ft_faces_;
+  std::unordered_map<std::pair<std::string, int>, FT_Face, Pair_hash>
+    ft_faces_;
   FT_Face ft_font (std::string const &file, int index);
 
   // Keys unowned, values owned.
@@ -341,7 +344,8 @@ class Cairo_outputter : public Stencil_sink
   void cairo_link (std::string const &attr);
   void paint_image_surface (cairo_surface_t *surface, Real width, Real height,
                             Real scale, bool paint_background, Real rgba[4]);
-  void eps_file (std::string const &content, std::vector<int> bbox, Real scale);
+  void eps_file (std::string const &content, std::vector<int> bbox,
+                 Real scale);
   void eps_file (SCM, SCM, SCM);
   void png_file (SCM, SCM, SCM);
   void embedded_ps (SCM);
@@ -503,7 +507,8 @@ Cairo_outputter::print_glyphs (SCM size, SCM glyphs, SCM filename,
       cairo_show_text_glyphs (
         context (), text_str.c_str (), static_cast<int> (text_str.size ()),
         cairo_glyphs.data (), static_cast<int> (cairo_glyphs.size ()),
-        cluster_array.data (), static_cast<int> (cluster_array.size ()), flags);
+        cluster_array.data (), static_cast<int> (cluster_array.size ()),
+        flags);
     }
 }
 
@@ -651,11 +656,11 @@ Cairo_outputter::create_surface (Stencil const *stencil)
   for (const auto a : {X_AXIS, Y_AXIS})
     scaled_box[a][LEFT] = std::floor (scaled_box[a][LEFT]);
   for (const auto a : {X_AXIS, Y_AXIS})
-    scaled_box[a][RIGHT]
-      = std::ceil (std::max (scaled_box[a][RIGHT],
-                             // Make sure that the box is at least 1 staff-space
-                             // in either direction.
-                             scaled_box[a][LEFT] + scale_factor_));
+    scaled_box[a][RIGHT] = std::ceil (
+      std::max (scaled_box[a][RIGHT],
+                // Make sure that the box is at least 1 staff-space
+                // in either direction.
+                scaled_box[a][LEFT] + scale_factor_));
 
   b = scaled_box;
   b.scale (1 / scale_factor_);
@@ -666,9 +671,9 @@ Cairo_outputter::create_surface (Stencil const *stencil)
     }
   else
     {
-      surface_
-        = new Vanilla_surface (format_, filename_, scaled_box[X_AXIS].length (),
-                               scaled_box[Y_AXIS].length ());
+      surface_ = new Vanilla_surface (format_, filename_,
+                                      scaled_box[X_AXIS].length (),
+                                      scaled_box[Y_AXIS].length ());
     }
 
   surface_->set_original_extent (Offset (stencil->extent (X_AXIS).length (),
@@ -852,9 +857,10 @@ Cairo_outputter::draw_ellipse (SCM xradius, SCM yradius, SCM thickness,
 }
 
 void
-Cairo_outputter::draw_partial_ellipse (SCM xradius, SCM yradius, SCM startangle,
-                                       SCM endangle, SCM thickness,
-                                       SCM connected, SCM filled)
+Cairo_outputter::draw_partial_ellipse (SCM xradius, SCM yradius,
+                                       SCM startangle, SCM endangle,
+                                       SCM thickness, SCM connected,
+                                       SCM filled)
 {
   Real xrad = from_scm<Real> (xradius);
   Real yrad = from_scm<Real> (yradius);
@@ -961,8 +967,8 @@ Cairo_outputter::eps_file (std::string const &content, std::vector<int> bbox,
   assert (cairo_surface_status (image) == CAIRO_STATUS_SUCCESS);
 
   {
-    auto duped_content
-      = std::unique_ptr<unsigned char[]> (new unsigned char[content.length ()]);
+    auto duped_content = std::unique_ptr<unsigned char[]> (
+      new unsigned char[content.length ()]);
     std::uninitialized_copy (content.begin (), content.end (),
                              duped_content.get ());
 
@@ -1162,7 +1168,8 @@ Cairo_outputter::grob_cause (SCM offset, SCM grob_scm)
     }
 
   bool is_list = false, found_sym = false;
-  for (SCM p = point_and_click_; !found_sym && scm_is_pair (p); p = scm_cdr (p))
+  for (SCM p = point_and_click_; !found_sym && scm_is_pair (p);
+       p = scm_cdr (p))
     {
       is_list = true;
       if (ev->internal_in_event_class (scm_car (p)))
@@ -1307,8 +1314,8 @@ Cairo_outputter::Cairo_outputter (Cairo_output_format format,
   format_ = format;
   outfile_basename_ = basename;
 
-  scale_factor_
-    = paper->get_dimension (ly_symbol2scm ("output-scale")) / bigpoint_constant;
+  scale_factor_ = paper->get_dimension (ly_symbol2scm ("output-scale"))
+                  / bigpoint_constant;
 }
 
 void
@@ -1594,7 +1601,8 @@ dump book through cairo backend
           continue;
         }
 
-      Cairo_outputter outputter (format, base, odef, /* no left margin */ false,
+      Cairo_outputter outputter (format, base, odef,
+                                 /* no left margin */ false,
                                  /* page links */ true);
       outputter.create_surface (unsmob<const Stencil> (scm_car (stencils)));
       outputter.handle_metadata (header);

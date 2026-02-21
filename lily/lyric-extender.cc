@@ -100,8 +100,8 @@ Lyric_extender::print (SCM smob)
     auto *const rb = me->get_bound (RIGHT);
     if (rb->break_status_dir ())
       {
-        auto limit
-          = robust_relative_extent (rb, common, X_AXIS)[LEFT] - paddings[RIGHT];
+        auto limit = robust_relative_extent (rb, common, X_AXIS)[LEFT]
+                     - paddings[RIGHT];
         right_point = std::max (right_point, limit);
       }
   }
@@ -125,8 +125,8 @@ Lyric_extender::print (SCM smob)
         }
     }
 
-  Stencil mol (
-    Lookup::round_filled_box (Box (Interval (0, w), Interval (0, h)), 0.8 * h));
+  Stencil mol (Lookup::round_filled_box (
+    Box (Interval (0, w), Interval (0, h)), 0.8 * h));
   mol.translate_axis (left_point - me->relative_coordinate (common, X_AXIS),
                       X_AXIS);
   return mol.smobbed_copy ();

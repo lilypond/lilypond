@@ -128,7 +128,8 @@ Ledger_line_spanner::set_spacing_rods (SCM smob)
         continue;
 
       current_extents[vdir].unite (head_extent);
-      current_head_width = std::max (current_head_width, head_extent.length ());
+      current_head_width
+        = std::max (current_head_width, head_extent.length ());
     }
 
   if (previous_column && current_column)
@@ -311,7 +312,8 @@ Ledger_line_spanner::print (SCM smob)
 
               for (const auto which : {LEFT, RIGHT})
                 {
-                  Ledger_request &lr = ((which == LEFT) ? *last : *i).second[d];
+                  Ledger_request &lr
+                    = ((which == LEFT) ? *last : *i).second[d];
 
                   Real limit = (center + (both ? which * gap / 2 : 0));
                   lr.max_ledger_extent_.at (-which)

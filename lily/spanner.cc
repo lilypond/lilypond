@@ -309,7 +309,8 @@ Spanner::Spanner (Spanner const &s)
 Real
 Spanner::spanner_length ()
 {
-  Interval lr = from_scm (get_property (this, "X-positions"), Interval (1, -1));
+  Interval lr
+    = from_scm (get_property (this, "X-positions"), Interval (1, -1));
 
   if (lr.is_empty ())
     {
@@ -422,8 +423,8 @@ add_bound_item (Spanner *sp, Grob *it)
     sp->set_bound (RIGHT, it);
 }
 
-MAKE_SCHEME_CALLBACK (Spanner, set_spacing_rods, "ly:spanner::set-spacing-rods",
-                      1);
+MAKE_SCHEME_CALLBACK (Spanner, set_spacing_rods,
+                      "ly:spanner::set-spacing-rods", 1);
 SCM
 Spanner::set_spacing_rods (SCM smob)
 {

@@ -72,8 +72,8 @@ Enclosing_bracket::width (SCM grob)
 
   Stencil left_br = Bracket::make_axis_constrained_bracket (me, 10.0, Y_AXIS,
                                                             LEFT, Interval ());
-  Stencil right_br = Bracket::make_axis_constrained_bracket (me, 10.0, Y_AXIS,
-                                                             LEFT, Interval ());
+  Stencil right_br = Bracket::make_axis_constrained_bracket (
+    me, 10.0, Y_AXIS, LEFT, Interval ());
 
   xext.widen (from_scm<double> (get_property (me, "padding"), 0.25));
   left_br.translate_axis (xext[LEFT], X_AXIS);

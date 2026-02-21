@@ -72,8 +72,8 @@ Part_combine_iterator::kill_mmrest (Context *c)
 {
   if (!mmrest_event_)
     {
-      mmrest_event_ = new Stream_event (
-        Lily::ly_make_event_class (ly_symbol2scm ("multi-measure-rest-event")));
+      mmrest_event_ = new Stream_event (Lily::ly_make_event_class (
+        ly_symbol2scm ("multi-measure-rest-event")));
       set_property (mmrest_event_, "duration", SCM_EOL);
       mmrest_event_->unprotect ();
     }

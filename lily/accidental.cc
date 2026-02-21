@@ -62,7 +62,8 @@ Accidental_interface::horizontal_skylines (SCM smob)
 
   const auto glyph_name = from_scm (get_property (me, "glyph-name"), "");
 
-  if ((glyph_name == "accidentals.flat" || glyph_name == "accidentals.flatflat")
+  if ((glyph_name == "accidentals.flat"
+       || glyph_name == "accidentals.flatflat")
       && !from_scm<bool> (parenthesized))
     {
       // a bit more padding for the right of the stem
@@ -91,7 +92,8 @@ Accidental_interface::height (SCM smob)
   Grob *tie = unsmob<Grob> (get_object (me, "tie"));
 
   if (tie && !from_scm<bool> (get_property (me, "forced"))
-      && from_scm<bool> (get_property (me, "hide-tied-accidental-after-break")))
+      && from_scm<bool> (
+        get_property (me, "hide-tied-accidental-after-break")))
     return to_scm (Interval ());
 
   return Grob::stencil_height (smob);
@@ -106,7 +108,8 @@ Accidental_interface::remove_tied (SCM smob)
   Grob *tie = unsmob<Grob> (get_object (me, "tie"));
 
   if (tie && !from_scm<bool> (get_property (me, "forced"))
-      && (from_scm<bool> (get_property (me, "hide-tied-accidental-after-break"))
+      && (from_scm<bool> (
+            get_property (me, "hide-tied-accidental-after-break"))
           || !tie->original ()))
     me->suicide ();
 

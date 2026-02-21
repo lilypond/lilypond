@@ -202,8 +202,8 @@ Bar_engraver::calc_bar_type () const
     user_artic_types = scm_reverse_x (user_artic_types, SCM_EOL);
 
     // Add the user's articulations to the caesuraType value.
-    caesura_type = scm_acons (ly_symbol2scm ("articulations"), user_artic_types,
-                              caesura_type);
+    caesura_type = scm_acons (ly_symbol2scm ("articulations"),
+                              user_artic_types, caesura_type);
     // Pass caesuraType through the transform function, if it is set.
     SCM transform = get_property (ctx, "caesuraTypeTransform");
     if (ly_is_procedure (transform))

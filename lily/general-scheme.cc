@@ -347,8 +347,8 @@ Return a list of keys in @var{tab}.
   return ly_scm_hash_fold (accumulate_symbol, nullptr, SCM_EOL, tab);
 }
 
-LY_DEFINE (ly_camel_case_2_lisp_identifier, "ly:camel-case->lisp-identifier", 1,
-           0, 0, (SCM name_sym),
+LY_DEFINE (ly_camel_case_2_lisp_identifier, "ly:camel-case->lisp-identifier",
+           1, 0, 0, (SCM name_sym),
            R"(
 Convert @code{FooBar_Bla} to @code{foo-bar-bla} style symbol.
            )")

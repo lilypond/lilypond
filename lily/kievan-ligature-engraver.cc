@@ -122,8 +122,8 @@ Kievan_ligature_engraver::fold_up_primitives (
 }
 
 void
-Kievan_ligature_engraver::build_ligature (Spanner *ligature,
-                                          std::vector<Item *> const &primitives)
+Kievan_ligature_engraver::build_ligature (
+  Spanner *ligature, std::vector<Item *> const &primitives)
 {
   Real min_length;
 

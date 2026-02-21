@@ -97,8 +97,9 @@ Span_bar_stub_engraver::process_acknowledged ()
 
   if (axis_groups_.empty ())
     {
-      programming_error ("At least one vertical axis group needs to be created "
-                         "in the first time step.");
+      programming_error (
+        "At least one vertical axis group needs to be created "
+        "in the first time step.");
       return;
     }
   Grob *vertical_alignment = Grob::get_root_vertical_alignment (
@@ -155,8 +156,9 @@ Span_bar_stub_engraver::process_acknowledged ()
       for (vsize j = 0; j < affected_contexts.size (); j++)
         {
           auto *const ctx = affected_contexts[j];
-          auto *const it = new Item (
-            Grob_property_info (ctx, ly_symbol2scm ("SpanBarStub")).updated ());
+          auto *const it
+            = new Item (Grob_property_info (ctx, ly_symbol2scm ("SpanBarStub"))
+                          .updated ());
           it->set_x_parent (spanbar);
           auto gi = make_grob_info (it, spanbar->self_scm ());
           announce_grob (gi, ctx);

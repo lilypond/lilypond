@@ -707,8 +707,9 @@ add_grobs_of_one_priority (
 
   SCM directive = valid_outside_staff_placement_directive (me);
 
-  bool l2r = (scm_is_eq (directive, ly_symbol2scm ("left-to-right-greedy"))
-              || scm_is_eq (directive, ly_symbol2scm ("left-to-right-polite")));
+  bool l2r
+    = (scm_is_eq (directive, ly_symbol2scm ("left-to-right-greedy"))
+       || scm_is_eq (directive, ly_symbol2scm ("left-to-right-polite")));
 
   bool polite
     = (scm_is_eq (directive, ly_symbol2scm ("left-to-right-polite"))
@@ -783,8 +784,10 @@ add_grobs_of_one_priority (
               if (is_scm<Skyline_pair> (v_rider_scm))
                 {
                   Skyline_pair v_rider = from_scm<Skyline_pair> (v_rider_scm);
-                  v_rider.shift (rider->relative_coordinate (x_common, X_AXIS));
-                  v_rider.raise (rider->relative_coordinate (y_common, Y_AXIS));
+                  v_rider.shift (
+                    rider->relative_coordinate (x_common, X_AXIS));
+                  v_rider.raise (
+                    rider->relative_coordinate (y_common, Y_AXIS));
                   rider_v_skylines.push_back (v_rider);
                 }
             }

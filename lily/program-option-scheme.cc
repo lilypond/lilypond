@@ -148,7 +148,8 @@ get_help_string (SCM alist)
         continue;
 
       auto opt_spec = std::string (INDENT, ' ') + ly_symbol2string (sym) + " ("
-                      + from_scm<std::string> (Lily::scm_to_string (val)) + ")";
+                      + from_scm<std::string> (Lily::scm_to_string (val))
+                      + ")";
 
       if (opt_spec.length () + SEPARATION > HELP_INDENT)
         opt_spec += '\n' + std::string (HELP_INDENT, ' ');
@@ -321,10 +322,10 @@ check_value_type (SCM key, SCM val)
     {
       if (scm_is_false (ly_call (type, val)))
         {
-          const auto key_str
-            = from_scm<std::string> (scm_object_to_string (key, SCM_UNDEFINED));
-          const auto val_str
-            = from_scm<std::string> (scm_object_to_string (val, SCM_UNDEFINED));
+          const auto key_str = from_scm<std::string> (
+            scm_object_to_string (key, SCM_UNDEFINED));
+          const auto val_str = from_scm<std::string> (
+            scm_object_to_string (val, SCM_UNDEFINED));
           warning (_f ("ignoring option -d%s=\"%s\": value has wrong type",
                        key_str, val_str));
           return false;
@@ -334,10 +335,10 @@ check_value_type (SCM key, SCM val)
     {
       if (scm_is_false (scm_member (val, type)))
         {
-          const auto key_str
-            = from_scm<std::string> (scm_object_to_string (key, SCM_UNDEFINED));
-          const auto val_str
-            = from_scm<std::string> (scm_object_to_string (val, SCM_UNDEFINED));
+          const auto key_str = from_scm<std::string> (
+            scm_object_to_string (key, SCM_UNDEFINED));
+          const auto val_str = from_scm<std::string> (
+            scm_object_to_string (val, SCM_UNDEFINED));
           const auto type_str = from_scm<std::string> (
             scm_object_to_string (type, SCM_UNDEFINED));
           warning (_f ("ignoring option -d%s=\"%s\":\n"
@@ -427,8 +428,8 @@ Return a key-value alist, with keys being symbols and values being strings.
   SCM options = SCM_EOL;
   for (const auto &keyval : init_scheme_variables_global)
     {
-      options = scm_acons (ly_symbol2scm (keyval.first), to_scm (keyval.second),
-                           options);
+      options = scm_acons (ly_symbol2scm (keyval.first),
+                           to_scm (keyval.second), options);
     }
   return scm_reverse_x (options, SCM_EOL);
 }

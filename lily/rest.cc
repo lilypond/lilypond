@@ -30,7 +30,8 @@
 #include "grob.hh"
 
 // -> offset callback
-MAKE_SCHEME_CALLBACK (Rest, y_offset_callback, "ly:rest::y-offset-callback", 1);
+MAKE_SCHEME_CALLBACK (Rest, y_offset_callback, "ly:rest::y-offset-callback",
+                      1);
 SCM
 Rest::y_offset_callback (SCM smob)
 {
@@ -86,8 +87,8 @@ Rest::staff_position_internal (Grob *me, int duration_log, Direction dir)
   if (!staff)
     return pos;
 
-  std::vector<Real> linepos
-    = from_scm_list<std::vector<Real>> (get_property (staff, "line-positions"));
+  std::vector<Real> linepos = from_scm_list<std::vector<Real>> (
+    get_property (staff, "line-positions"));
 
   if (linepos.empty ())
     return pos;
@@ -169,7 +170,8 @@ Rest::glyph_name (Grob *me, int durlog, const std::string &style,
   bool is_ledgered = false;
   if (try_ledgers && (durlog == -1 || durlog == 0 || durlog == 1))
     {
-      int const pos = int (Staff_symbol_referencer::get_position (me) + offset);
+      int const pos
+        = int (Staff_symbol_referencer::get_position (me) + offset);
       /*
         half rests need ledger if not lying on a staff line,
         whole rests need ledger if not hanging from a staff line,

@@ -91,7 +91,8 @@ Set nested property @var{symlist} in grob @var{grob} to value @var{val}.
     for (SCM s = symlist; scm_is_pair (s) && type_ok; s = scm_cdr (s))
       type_ok &= ly_is_symbol (scm_car (s));
 
-  SCM_ASSERT_TYPE (type_ok, symlist, SCM_ARG2, __FUNCTION__, "list of symbols");
+  SCM_ASSERT_TYPE (type_ok, symlist, SCM_ARG2, __FUNCTION__,
+                   "list of symbols");
 
   if (scm_is_pair (scm_cdr (symlist)))
     set_nested_property (sc, symlist, val);
@@ -283,8 +284,9 @@ Get the coordinate in @var{axis} direction of @var{grob} relative to the grob
   return to_scm (sc->relative_coordinate (ref, a));
 }
 
-LY_DEFINE (ly_grob_pure_relative_coordinate, "ly:grob-pure-relative-coordinate",
-           4, 0, 0, (SCM grob, SCM refp, SCM start, SCM end),
+LY_DEFINE (ly_grob_pure_relative_coordinate,
+           "ly:grob-pure-relative-coordinate", 4, 0, 0,
+           (SCM grob, SCM refp, SCM start, SCM end),
            R"(
 Return the pure vertical coordinate of @var{grob} relative to
 @var{refp} between @var{start} and @var{end}.
@@ -423,8 +425,9 @@ Find the common refpoint of @var{grob} and @var{other} for @var{axis}.
   return refp ? refp->self_scm () : SCM_BOOL_F;
 }
 
-LY_DEFINE (ly_grob_common_refpoint_of_array, "ly:grob-common-refpoint-of-array",
-           3, 0, 0, (SCM grob, SCM others, SCM axis),
+LY_DEFINE (ly_grob_common_refpoint_of_array,
+           "ly:grob-common-refpoint-of-array", 3, 0, 0,
+           (SCM grob, SCM others, SCM axis),
            R"(
 Find the common refpoint of @var{grob} and @var{others} (a grob-array) for
 @var{axis}.

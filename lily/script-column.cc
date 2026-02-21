@@ -176,9 +176,9 @@ Script_column::order_grobs (std::vector<Grob *> grobs)
                 of previous grob in order to preserve ordering.
               */
               else if ((!scm_is_number (initial_outside_staff))
-                       || (fabs (
-                             from_scm<double> (initial_outside_staff)
-                             - from_scm<double> (last_initial_outside_staff, 0))
+                       || (fabs (from_scm<double> (initial_outside_staff)
+                                 - from_scm<double> (
+                                   last_initial_outside_staff, 0))
                            < 0.001))
                 set_property (
                   g, "outside-staff-priority",

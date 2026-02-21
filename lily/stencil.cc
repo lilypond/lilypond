@@ -120,7 +120,8 @@ Stencil::rotate_degrees_absolute (Real a, Offset absolute_off)
     Offset (shifted_box.x ().at (RIGHT), shifted_box.y ().at (DOWN)));
   pts.push_back (
     Offset (shifted_box.x ().at (RIGHT), shifted_box.y ().at (UP)));
-  pts.push_back (Offset (shifted_box.x ().at (LEFT), shifted_box.y ().at (UP)));
+  pts.push_back (
+    Offset (shifted_box.x ().at (LEFT), shifted_box.y ().at (UP)));
 
   const Offset rot (offset_directed (a));
   dim_.set_empty ();

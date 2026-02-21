@@ -59,7 +59,8 @@ public:
   static Interval sum_partial_pure_heights (Grob *me, vsize, vsize);
   static Interval begin_of_line_pure_height (Grob *me, vsize);
   static Interval rest_of_line_pure_height (Grob *me, vsize, vsize);
-  static Interval part_of_line_pure_height (Grob *me, bool begin, vsize, vsize);
+  static Interval part_of_line_pure_height (Grob *me, bool begin, vsize,
+                                            vsize);
 
   static Grob *outside_staff_ancestor (Grob *me);
   static Skyline_pair skyline_spacing (Grob *me);

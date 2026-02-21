@@ -31,19 +31,19 @@
 #define __AT__ __YAFFUT_AT__
 #endif
 
-#define YAFFUT_EQUAL(e, a)                                                     \
+#define YAFFUT_EQUAL(e, a)                                                    \
   yaffut::equal (e, a, __YAFFUT_AT__, "EQUAL(" #e " == " #a ") failed ")
 #ifndef EQUAL
 #define EQUAL YAFFUT_EQUAL
 #endif
 
-#define YAFFUT_UNEQUAL(e, a)                                                   \
+#define YAFFUT_UNEQUAL(e, a)                                                  \
   yaffut::unequal (e, a, __YAFFUT_AT__, "UNEQUAL(" #e " != " #a ") failed ")
 #ifndef UNEQUAL
 #define UNEQUAL YAFFUT_UNEQUAL
 #endif
 
-#define YAFFUT_CHECK(e)                                                        \
+#define YAFFUT_CHECK(e)                                                       \
   yaffut::check (static_cast<bool> (e), __YAFFUT_AT__, "CHECK(" #e ") failed ")
 #ifndef CHECK
 #define CHECK YAFFUT_CHECK
@@ -54,14 +54,14 @@
 #define FAIL YAFFUT_FAIL
 #endif
 
-#define YAFFUT_ASSERT_THROW(s, e)                                              \
-  try                                                                          \
-    {                                                                          \
-      s;                                                                       \
-      throw yaffut::failure (__YAFFUT_AT__, #s " failed to throw");            \
-    }                                                                          \
-  catch (const e &)                                                            \
-    {                                                                          \
+#define YAFFUT_ASSERT_THROW(s, e)                                             \
+  try                                                                         \
+    {                                                                         \
+      s;                                                                      \
+      throw yaffut::failure (__YAFFUT_AT__, #s " failed to throw");           \
+    }                                                                         \
+  catch (const e &)                                                           \
+    {                                                                         \
     }
 #ifndef ASSERT_THROW
 #define ASSERT_THROW YAFFUT_ASSERT_THROW
@@ -460,26 +460,26 @@ assert_throw (void (*pf) (), const char *at = "")
 } // namespace yaffut
 
 //and for those who prefer macro obscurity over typing
-#define TEST(Suite, Case)                                                      \
-  namespace                                                                    \
-  {                                                                            \
-  struct Case : public yaffut::Test<Suite, Case>                               \
-  {                                                                            \
-    Case ();                                                                   \
-  };                                                                           \
-  }                                                                            \
-  template struct yaffut::Test<Suite, Case>;                                   \
+#define TEST(Suite, Case)                                                     \
+  namespace                                                                   \
+  {                                                                           \
+  struct Case : public yaffut::Test<Suite, Case>                              \
+  {                                                                           \
+    Case ();                                                                  \
+  };                                                                          \
+  }                                                                           \
+  template struct yaffut::Test<Suite, Case>;                                  \
   Case::Case ()
 
-#define FUNC(Case)                                                             \
-  namespace                                                                    \
-  {                                                                            \
-  struct Case : public yaffut::Test<Case>                                      \
-  {                                                                            \
-    Case ();                                                                   \
-  };                                                                           \
-  }                                                                            \
-  template struct yaffut::Test<Case>;                                          \
+#define FUNC(Case)                                                            \
+  namespace                                                                   \
+  {                                                                           \
+  struct Case : public yaffut::Test<Case>                                     \
+  {                                                                           \
+    Case ();                                                                  \
+  };                                                                          \
+  }                                                                           \
+  template struct yaffut::Test<Case>;                                         \
   Case::Case ()
 
 #ifdef YAFFUT_MAIN

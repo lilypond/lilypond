@@ -98,7 +98,8 @@ Bar_number_engraver::create_bar_number (SCM text)
 {
   if (scm_is_true (get_property (this, "centerBarNumbers")))
     {
-      Grob *column = unsmob<Grob> (get_property (this, "currentCommandColumn"));
+      Grob *column
+        = unsmob<Grob> (get_property (this, "currentCommandColumn"));
       span_ = make_spanner ("CenteredBarNumber", SCM_EOL);
       span_->set_bound (LEFT, column);
       set_property (span_, "text", text);
@@ -184,8 +185,9 @@ Bar_number_engraver::stop_translation_timestep ()
 {
   if (text_)
     {
-      set_object (text_, "side-support-elements",
-                  grob_list_to_grob_array (get_property (this, "stavesFound")));
+      set_object (
+        text_, "side-support-elements",
+        grob_list_to_grob_array (get_property (this, "stavesFound")));
 
       if (break_allowed_now_ && !saw_bar_line_
           && scm_is_false (get_property (context (), "centerBarNumbers")))

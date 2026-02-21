@@ -136,7 +136,8 @@ Paper_book::add_performance (SCM s)
 
 long
 Paper_book::output_aux (SCM output_channel, bool is_last,
-                        long *first_page_number, long *first_performance_number)
+                        long *first_page_number,
+                        long *first_performance_number)
 {
   long page_number = 0;
   if (scm_is_pair (performances_))
@@ -290,7 +291,8 @@ Paper_book::output (SCM output_channel)
     }
 
   if (get_program_option ("aux-files"))
-    Lily::write_lilypond_book_aux_files (output_channel, scm_length (pages ()));
+    Lily::write_lilypond_book_aux_files (output_channel,
+                                         scm_length (pages ()));
 }
 
 void
@@ -501,9 +503,11 @@ set_system_penalty (SCM sys, SCM header)
         {
           if (from_scm<bool> (SCM_VARIABLE_REF (force)))
             {
-              set_page_permission (sys, ly_symbol2scm ("page-break-permission"),
+              set_page_permission (sys,
+                                   ly_symbol2scm ("page-break-permission"),
                                    ly_symbol2scm ("force"));
-              set_page_permission (sys, ly_symbol2scm ("line-break-permission"),
+              set_page_permission (sys,
+                                   ly_symbol2scm ("line-break-permission"),
                                    ly_symbol2scm ("force"));
             }
           else
@@ -525,8 +529,9 @@ set_labels (SCM sys, SCM labels)
           set_property (col, "labels",
                         ly_append (get_property (col, "labels"), labels));
           Paper_column *col_right = col->find_prebroken_piece (RIGHT);
-          set_property (col_right, "labels",
-                        ly_append (get_property (col_right, "labels"), labels));
+          set_property (
+            col_right, "labels",
+            ly_append (get_property (col_right, "labels"), labels));
         }
     }
   else if (Prob *pb = unsmob<Prob> (sys))

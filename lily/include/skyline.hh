@@ -71,7 +71,8 @@ public:
   Skyline ();
   Skyline (Direction sky);
   Skyline (std::vector<Box> const &bldgs, Axis a, Direction sky);
-  Skyline (std::vector<Drul_array<Offset>> const &bldgs, Axis a, Direction sky);
+  Skyline (std::vector<Drul_array<Offset>> const &bldgs, Axis a,
+           Direction sky);
   Skyline (std::vector<Skyline_pair> const &skypairs, Direction sky);
   Skyline (Box const &b, Axis a, Direction sky);
 

@@ -168,8 +168,8 @@ Stem_tremolo::raw_stencil (Grob *me, Real slope, Direction dir)
   return mol;
 }
 
-MAKE_SCHEME_CALLBACK (Stem_tremolo, pure_height, "ly:stem-tremolo::pure-height",
-                      3);
+MAKE_SCHEME_CALLBACK (Stem_tremolo, pure_height,
+                      "ly:stem-tremolo::pure-height", 3);
 SCM
 Stem_tremolo::pure_height (SCM smob, SCM, SCM)
 {

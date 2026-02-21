@@ -73,7 +73,8 @@ internal_print (Grob *me, std::string *font_char)
         }
     }
 
-  if (style == "kievan" && 3 == from_scm (get_property (me, "duration-log"), 2))
+  if (style == "kievan"
+      && 3 == from_scm (get_property (me, "duration-log"), 2))
     {
       Grob *stem = unsmob<Grob> (get_object (me, "stem"));
       Grob *beam = unsmob<Grob> (get_object (stem, "beam"));
@@ -97,7 +98,8 @@ internal_print (Grob *me, std::string *font_char)
 /*
   TODO: make stem X-parent of notehead.
  */
-MAKE_SCHEME_CALLBACK (Note_head, stem_x_shift, "ly:note-head::stem-x-shift", 1);
+MAKE_SCHEME_CALLBACK (Note_head, stem_x_shift, "ly:note-head::stem-x-shift",
+                      1);
 SCM
 Note_head::stem_x_shift (SCM smob)
 {

@@ -93,16 +93,16 @@ public:
   Engraver (Context *);
 };
 
-#define make_item(x, cause)                                                    \
-  internal_make_item (ly_symbol2scm (x), cause, __FILE__, __LINE__,            \
+#define make_item(x, cause)                                                   \
+  internal_make_item (ly_symbol2scm (x), cause, __FILE__, __LINE__,           \
                       __FUNCTION__)
-#define make_spanner(x, cause)                                                 \
-  internal_make_spanner (ly_symbol2scm (x), cause, __FILE__, __LINE__,         \
+#define make_spanner(x, cause)                                                \
+  internal_make_spanner (ly_symbol2scm (x), cause, __FILE__, __LINE__,        \
                          __FUNCTION__)
-#define make_paper_column(x)                                                   \
+#define make_paper_column(x)                                                  \
   internal_make_column (ly_symbol2scm (x), __FILE__, __LINE__, __FUNCTION__)
-#define make_sticky(x, host, cause)                                            \
-  internal_make_sticky (ly_symbol2scm (x), host, cause, __FILE__, __LINE__,    \
+#define make_sticky(x, host, cause)                                           \
+  internal_make_sticky (ly_symbol2scm (x), host, cause, __FILE__, __LINE__,   \
                         __FUNCTION__)
 
 bool ly_is_grob_cause (SCM obj);

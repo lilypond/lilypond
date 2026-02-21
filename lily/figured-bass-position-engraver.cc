@@ -72,7 +72,8 @@ Figured_bass_position_engraver::stop_spanner ()
 {
   if (positioner_ && !positioner_->get_bound (RIGHT))
     {
-      positioner_->set_bound (RIGHT, bass_figure_alignment_->get_bound (RIGHT));
+      positioner_->set_bound (RIGHT,
+                              bass_figure_alignment_->get_bound (RIGHT));
     }
 
   positioner_ = nullptr;
@@ -86,7 +87,8 @@ Figured_bass_position_engraver::finalize ()
 }
 
 void
-Figured_bass_position_engraver::acknowledge_note_column (Grob_info_t<Item> info)
+Figured_bass_position_engraver::acknowledge_note_column (
+  Grob_info_t<Item> info)
 {
   support_.push_back (info.grob ());
 }

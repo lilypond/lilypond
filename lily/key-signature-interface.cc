@@ -51,8 +51,8 @@ Key_signature_interface::print (SCM smob)
 
   SCM c0s = get_property (me, "c0-position");
 
-  bool is_cancellation
-    = me->internal_has_interface (ly_symbol2scm ("key-cancellation-interface"));
+  bool is_cancellation = me->internal_has_interface (
+    ly_symbol2scm ("key-cancellation-interface"));
 
   /*
     SCM lists are stacks, so we work from right to left, ending with

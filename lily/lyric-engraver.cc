@@ -141,7 +141,8 @@ get_current_note_head (Context *voice)
 
       // It's a bit irritating that we just have the length and
       // duration of the Grob.
-      const auto end_from_now = now + get_event_length (g->event_cause (), now);
+      const auto end_from_now
+        = now + get_event_length (g->event_cause (), now);
       // We cannot actually include more than a single grace note
       // using busyGrobs on ungraced lyrics since a grob ending on
       // grace time will just have disappeared from busyGrobs by the

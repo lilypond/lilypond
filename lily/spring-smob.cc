@@ -27,7 +27,8 @@ Spring::equal_p (SCM a, SCM b)
   return scm_is_eq (a, b) ? SCM_BOOL_T : SCM_BOOL_F;
 }
 
-LY_DEFINE (ly_make_spring, "ly:make-spring", 2, 0, 0, (SCM ideal, SCM min_dist),
+LY_DEFINE (ly_make_spring, "ly:make-spring", 2, 0, 0,
+           (SCM ideal, SCM min_dist),
            R"(
 Make a spring.  @var{ideal} is the ideal distance of the spring, and
 @var{min-dist} is the minimum distance.

@@ -455,7 +455,8 @@ Tie_formatting_problem::get_configuration (int pos, Direction dir,
                                            Drul_array<int> columns,
                                            bool tune_dy) const
 {
-  const Tie_configuration_map_key key {pos, dir, columns[LEFT], columns[RIGHT]};
+  const Tie_configuration_map_key key {pos, dir, columns[LEFT],
+                                       columns[RIGHT]};
 
   Tie_configuration_map::const_iterator f = possibilities_.find (key);
   if (f != possibilities_.end ())
@@ -526,7 +527,8 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir,
           || head_positions_slice (columns[RIGHT]).contains (pos)
           || within_staff)
         {
-          if (h < details_.intra_space_threshold_ * 0.5 * details_.staff_space_)
+          if (h
+              < details_.intra_space_threshold_ * 0.5 * details_.staff_space_)
             {
               if (Staff_symbol_referencer::on_line (
                     details_.staff_symbol_referencer_, pos))
@@ -638,7 +640,8 @@ Tie_formatting_problem::score_aptitude (Tie_configuration *conf,
                                         vsize tie_idx) const
 {
   Real penalty = 0.0;
-  Real curve_y = conf->position_ * details_.staff_space_ * 0.5 + conf->delta_y_;
+  Real curve_y
+    = conf->position_ * details_.staff_space_ * 0.5 + conf->delta_y_;
   Real tie_y = spec.position_ * details_.staff_space_ * 0.5;
   if (Direction (curve_y - tie_y) != conf->dir_)
     {
@@ -748,7 +751,8 @@ Tie_formatting_problem::score_configuration (Tie_configuration *conf) const
   conf->add_score (details_.min_length_penalty_factor_ * length_penalty,
                    "minlength");
 
-  Real tip_pos = conf->position_ + conf->delta_y_ / 0.5 * details_.staff_space_;
+  Real tip_pos
+    = conf->position_ + conf->delta_y_ / 0.5 * details_.staff_space_;
   Real tip_y = tip_pos * details_.staff_space_ * 0.5;
   Real height = conf->height (details_);
 
@@ -1136,8 +1140,9 @@ Tie_formatting_problem::generate_single_tie_variations (
             {
               Tie_configuration_variation var;
               var.add_suggestion (
-                0, get_configuration (p, d, specifications_[0].column_ranks_,
-                                      !specifications_[0].has_manual_delta_y_));
+                0,
+                get_configuration (p, d, specifications_[0].column_ranks_,
+                                   !specifications_[0].has_manual_delta_y_));
               vars.push_back (var);
             }
         }
@@ -1219,9 +1224,10 @@ Tie_formatting_problem::generate_collision_variations (
             {
               Tie_configuration_variation var;
               var.add_suggestion (
-                i, get_configuration (ties[i].position_ + ties[i].dir_,
-                                      ties[i].dir_, ties[i].column_ranks_,
-                                      !specifications_[i].has_manual_delta_y_));
+                i,
+                get_configuration (ties[i].position_ + ties[i].dir_,
+                                   ties[i].dir_, ties[i].column_ranks_,
+                                   !specifications_[i].has_manual_delta_y_));
               vars.push_back (var);
             }
         }

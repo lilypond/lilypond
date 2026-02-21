@@ -206,7 +206,8 @@ Slur::replace_breakable_encompass_objects (Grob *me)
         new_encompasses.push_back (g);
     }
 
-  if (Grob_array *a = unsmob<Grob_array> (get_object (me, "encompass-objects")))
+  if (Grob_array *a
+      = unsmob<Grob_array> (get_object (me, "encompass-objects")))
     a->set_array (new_encompasses);
 }
 

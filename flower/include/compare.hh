@@ -19,10 +19,10 @@
 #ifndef COMPARE_HH
 #define COMPARE_HH
 
-#define ONE_OPERATOR(type, function, op)                                       \
-  inline bool operator op (type t1, type t2)                                   \
-  {                                                                            \
-    return function (t1, t2) op 0;                                             \
+#define ONE_OPERATOR(type, function, op)                                      \
+  inline bool operator op (type t1, type t2)                                  \
+  {                                                                           \
+    return function (t1, t2) op 0;                                            \
   }
 
 /**  handy notations for a signed comparison.
@@ -41,7 +41,7 @@
   prefix bool operator<(type t1, type t2) // stupid fix to allow ;
 // clang-format on
 
-#define INSTANTIATE_COMPARE(type, func)                                        \
+#define INSTANTIATE_COMPARE(type, func)                                       \
   TEMPLATE_INSTANTIATE_COMPARE (type, func, )
 
 #endif

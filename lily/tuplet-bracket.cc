@@ -230,8 +230,8 @@ Tuplet_bracket::calc_x_positions (SCM smob)
         }
     }
 
-  return to_scm (x_span
-                 - me->get_bound (LEFT)->relative_coordinate (commonx, X_AXIS));
+  return to_scm (
+    x_span - me->get_bound (LEFT)->relative_coordinate (commonx, X_AXIS));
 }
 
 Stencil
@@ -385,7 +385,8 @@ Tuplet_bracket::print (SCM smob)
                       if (Text_interface::is_markup (text))
                         {
                           auto &es = edge_stencils[d];
-                          es = Text_interface::grob_interpret_markup (me, text);
+                          es
+                            = Text_interface::grob_interpret_markup (me, text);
                           es.translate_axis (x_span[d] - x_span[LEFT], X_AXIS);
                         }
                     }
@@ -394,7 +395,8 @@ Tuplet_bracket::print (SCM smob)
 
           Stencil brack;
           if (tuplet_slur)
-            brack = make_tuplet_slur (me, points[LEFT], points[RIGHT], shorten);
+            brack
+              = make_tuplet_slur (me, points[LEFT], points[RIGHT], shorten);
           else
             brack = Bracket::make_bracket (
               me, Y_AXIS, points[RIGHT] - points[LEFT], height,
@@ -511,8 +513,9 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
 
       points.push_back (Offset (
         stems[LEFT]->relative_coordinate (commonx, X_AXIS) - x0, poss[LEFT]));
-      points.push_back (Offset (
-        stems[RIGHT]->relative_coordinate (commonx, X_AXIS) - x0, poss[RIGHT]));
+      points.push_back (
+        Offset (stems[RIGHT]->relative_coordinate (commonx, X_AXIS) - x0,
+                poss[RIGHT]));
     }
   else
     {

@@ -107,7 +107,8 @@ get_measure_length (Paper_column *column)
 /* Basic spring based on duration alone */
 Spring
 Spacing_spanner::note_spacing (Grob * /* me */, Paper_column *lc,
-                               Paper_column *rc, Spacing_options const *options)
+                               Paper_column *rc,
+                               Spacing_options const *options)
 {
   auto shortest_playing_len
     = from_scm (get_property (lc, "shortest-playing-duration"), Rational (0));
@@ -156,7 +157,8 @@ Spacing_spanner::note_spacing (Grob * /* me */, Paper_column *lc,
       ret = Spring (fraction * len, fraction * min);
 
       // Stretch proportional to the space between canonical bare noteheads
-      ret.set_inverse_stretch_strength (fraction * std::max (0.1, (len - min)));
+      ret.set_inverse_stretch_strength (fraction
+                                        * std::max (0.1, (len - min)));
     }
   else if (delta_t.grace_part_)
     {

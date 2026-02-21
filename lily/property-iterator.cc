@@ -50,9 +50,9 @@ Property_unset_iterator::process (Moment mom)
   Context *o = get_context ();
   Music *m = get_music ();
 
-  send_stream_event (o, "UnsetProperty", m->origin (), ly_symbol2scm ("symbol"),
-                     get_property (m, "symbol"), ly_symbol2scm ("once"),
-                     get_property (m, "once"));
+  send_stream_event (o, "UnsetProperty", m->origin (),
+                     ly_symbol2scm ("symbol"), get_property (m, "symbol"),
+                     ly_symbol2scm ("once"), get_property (m, "once"));
 
   Simple_music_iterator::process (mom);
 }
@@ -95,9 +95,9 @@ Push_property_iterator::process (Moment m)
 
       if (from_scm<bool> (get_property (get_music (), "pop-first"))
           && !from_scm<bool> (once))
-        send_stream_event (get_context (), "Revert", origin (),
-                           ly_symbol2scm ("symbol"), sym,
-                           ly_symbol2scm ("property-path"), grob_property_path);
+        send_stream_event (
+          get_context (), "Revert", origin (), ly_symbol2scm ("symbol"), sym,
+          ly_symbol2scm ("property-path"), grob_property_path);
 
       send_stream_event (
         get_context (), "Override", origin (), ly_symbol2scm ("symbol"), sym,

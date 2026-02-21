@@ -60,8 +60,8 @@ Multi_measure_rest::bar_width (Spanner *me)
   return iv;
 }
 
-MAKE_SCHEME_CALLBACK (Multi_measure_rest, print, "ly:multi-measure-rest::print",
-                      1);
+MAKE_SCHEME_CALLBACK (Multi_measure_rest, print,
+                      "ly:multi-measure-rest::print", 1);
 SCM
 Multi_measure_rest::print (SCM smob)
 {
@@ -292,8 +292,8 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont,
           Rest::glyph_name (me, dl, "", true, (dl == 0) ? 2 : 0));
       if (dl < 0)
         {
-          Real fs
-            = pow (2, from_scm<double> (get_property (me, "font-size"), 0) / 6);
+          Real fs = pow (
+            2, from_scm<double> (get_property (me, "font-size"), 0) / 6);
           r.translate_axis (ss * 0.5 * (spi - pos) + (ss - fs), Y_AXIS);
         }
       else
@@ -310,8 +310,8 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont,
   */
   Real outer_padding_factor = 1.5;
   /* Widest gap between symbols; to be limited by max-symbol-separation */
-  Real inner_padding
-    = (space - symbols_width) / (2 * outer_padding_factor + (symbol_count - 1));
+  Real inner_padding = (space - symbols_width)
+                       / (2 * outer_padding_factor + (symbol_count - 1));
   if (inner_padding < 0)
     inner_padding = 1.0;
 
@@ -360,7 +360,8 @@ Multi_measure_rest::calculate_spacing_rods (Spanner *me, Real length)
       const auto mlen
         = from_scm (get_property (lc, "measure-length"), Moment (1));
       length
-        += from_scm<double> (get_property (lc, "full-measure-extra-space"), 0.0)
+        += from_scm<double> (get_property (lc, "full-measure-extra-space"),
+                             0.0)
            + options.get_duration_space (mlen.main_part_)
            + (from_scm<double> (get_property (me, "space-increment"), 0.0)
               * std::log2 (from_scm (get_property (me, "measure-count"), 1)));

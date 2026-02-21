@@ -99,7 +99,8 @@ any).
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_basic_progress, "ly:basic-progress", 1, 0, 1, (SCM str, SCM rest),
+LY_DEFINE (ly_basic_progress, "ly:basic-progress", 1, 0, 1,
+           (SCM str, SCM rest),
            R"(
 A Scheme callable function to issue a basic progress message @var{str}.  The
 message is formatted with @code{format}; @var{rest} holds the formatting
@@ -154,7 +155,8 @@ location in an input file.  The message is formatted with @code{format};
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_expect_warning, "ly:expect-warning", 1, 0, 1, (SCM str, SCM rest),
+LY_DEFINE (ly_expect_warning, "ly:expect-warning", 1, 0, 1,
+           (SCM str, SCM rest),
            R"delim(
 Register @var{str} as an expected warning that should be suppressed.
 

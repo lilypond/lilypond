@@ -97,8 +97,8 @@ Set up a global interpretation context, using the output block
   return glob->unprotect ();
 }
 
-LY_DEFINE (ly_interpret_music_expression, "ly:interpret-music-expression", 2, 0,
-           0, (SCM mus, SCM ctx),
+LY_DEFINE (ly_interpret_music_expression, "ly:interpret-music-expression", 2,
+           0, 0, (SCM mus, SCM ctx),
            R"(
 Interpret the music expression @var{mus} in the global context @var{ctx}.  The
 context is returned in its final state.

@@ -114,7 +114,8 @@ Pitched_trill_engraver::make_trill (Stream_event *ev)
         handle = SCM_BOOL_F;
     }
 
-  bool print_acc = scm_is_false (handle) || p->get_alteration () == Rational (0)
+  bool print_acc = scm_is_false (handle)
+                   || p->get_alteration () == Rational (0)
                    || from_scm<bool> (get_property (ev, "force-accidental"));
 
   if (trill_head_)

@@ -28,8 +28,8 @@
 #include <string>
 
 void
-Repeat_styler::report_end_event (SCM event_sym, long alt_num, long repeat_count,
-                                 long return_count)
+Repeat_styler::report_end_event (SCM event_sym, long alt_num,
+                                 long repeat_count, long return_count)
 {
   SCM ev_scm = Lily::make_music (event_sym);
   auto *const ev = unsmob<Music> (ev_scm);

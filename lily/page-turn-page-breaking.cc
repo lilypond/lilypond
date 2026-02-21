@@ -79,7 +79,8 @@ Page_turn_page_breaking::put_systems_on_pages (vsize start, vsize end,
   /* If [START, END] does not contain an intermediate
      breakpoint, we may need to consider solutions that result in a bad turn.
      In this case, we won't abort if the min_page_count is too big */
-  if (start < end - 1 && min_p_count + (auto_first ? 0 : (page_number % 2)) > 2)
+  if (start < end - 1
+      && min_p_count + (auto_first ? 0 : (page_number % 2)) > 2)
     return Break_node ();
 
   /* if PAGE-NUMBER is odd, we are starting on a right hand page. That is, we
@@ -106,7 +107,8 @@ Page_turn_page_breaking::put_systems_on_pages (vsize start, vsize end,
           = space_systems_on_n_pages (configuration, min_p_count, page_number);
     }
   else if (((page_number % 2) == 0) == ((min_p_count % 2) == 0))
-    result = space_systems_on_n_pages (configuration, min_p_count, page_number);
+    result
+      = space_systems_on_n_pages (configuration, min_p_count, page_number);
   else
     result = space_systems_on_n_or_one_more_pages (
       configuration, min_p_count, page_number, blank_page_penalty ());
@@ -153,8 +155,9 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
   for (vsize start = end; start--;)
     {
       if (start < end - 1
-          && scm_is_eq (breakpoint_property (start + 1, "page-turn-permission"),
-                        ly_symbol2scm ("force")))
+          && scm_is_eq (
+            breakpoint_property (start + 1, "page-turn-permission"),
+            ly_symbol2scm ("force")))
         break;
 
       if (start > 0 && best.demerits_ < state_[start - 1].demerits_)
@@ -238,8 +241,9 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
 
       if (start == 0 && end == 1 && this_start_best.first_page_number_ == 1
           && this_start_best.page_count_ > 1)
-        warning (_ ("cannot fit the first page turn onto a single page."
-                    "  Consider setting first-page-number to an even number."));
+        warning (
+          _ ("cannot fit the first page turn onto a single page."
+             "  Consider setting first-page-number to an even number."));
 
       if (this_start_best.demerits_ < best.demerits_)
         best = this_start_best;
@@ -251,8 +255,9 @@ SCM
 Page_turn_page_breaking::solve ()
 {
   state_.clear ();
-  message (_f ("Calculating page and line breaks (%zu possible page breaks)...",
-               last_break_position ()));
+  message (
+    _f ("Calculating page and line breaks (%zu possible page breaks)...",
+        last_break_position ()));
   for (vsize i = 0; i < last_break_position (); i++)
     {
       calc_subproblem (i);

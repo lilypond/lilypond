@@ -212,13 +212,13 @@ private:
 
 bool is_child_context (Context *me, Context *child);
 
-#define IMPLEMENT_CTOR_CALLBACK(Class)                                         \
-  LY_DEFINE_MEMBER_FUNCTION (                                                  \
-    Class, constructor,                                                        \
-    mangle_cxx_identifier (#Class "::constructor").c_str (), 0, 0, 0, (), "")  \
-  {                                                                            \
-    Class *c = (new Class);                                                    \
-    return c->unprotect ();                                                    \
+#define IMPLEMENT_CTOR_CALLBACK(Class)                                        \
+  LY_DEFINE_MEMBER_FUNCTION (                                                 \
+    Class, constructor,                                                       \
+    mangle_cxx_identifier (#Class "::constructor").c_str (), 0, 0, 0, (), "") \
+  {                                                                           \
+    Class *c = (new Class);                                                   \
+    return c->unprotect ();                                                   \
   }
 
 #endif // MUSIC_ITERATOR_HH

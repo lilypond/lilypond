@@ -164,17 +164,18 @@ Hairpin::print (SCM smob)
   auto shorten
     = from_scm (get_property (me, "shorten-pair"), Drul_array (0.0, 0.0));
 
-  auto endpoint_alignments = from_scm (get_property (me, "endpoint-alignments"),
-                                       Drul_array (-1.0, 1.0));
+  auto endpoint_alignments = from_scm (
+    get_property (me, "endpoint-alignments"), Drul_array (-1.0, 1.0));
 
   for (const auto d : {LEFT, RIGHT})
     {
       const auto sanitized_alignment = sign (endpoint_alignments[d]);
       if (endpoint_alignments[d] != sanitized_alignment)
         {
-          me->warning (_f ("hairpin: '%f' is not a valid direction for property"
-                           " 'endpoint-alignments', setting to '%d'",
-                           endpoint_alignments[d], sanitized_alignment));
+          me->warning (
+            _f ("hairpin: '%f' is not a valid direction for property"
+                " 'endpoint-alignments', setting to '%d'",
+                endpoint_alignments[d], sanitized_alignment));
           endpoint_alignments[d] = sanitized_alignment;
         }
     }

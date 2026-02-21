@@ -70,7 +70,8 @@ Percent_repeat_interface::x_percent (Grob *me, int count)
     = from_scm<double> (get_property (me, "dot-negative-kern"), 0.75)
       * staff_space;
 
-  Stencil d1 = Font_interface::get_default_font (me)->find_by_name ("dots.dot");
+  Stencil d1
+    = Font_interface::get_default_font (me)->find_by_name ("dots.dot");
   Stencil d2 = d1;
   d1.translate_axis (0.5 * staff_space, Y_AXIS);
   d2.translate_axis (-0.5 * staff_space, Y_AXIS);

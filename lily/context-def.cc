@@ -228,9 +228,10 @@ Context_def::internal_path_to_acceptable_context (
   std::vector<Context_def *> best_result;
   for (vsize i = 0; i < accepteds.size (); i++)
     {
-      bool valid = instantiable
-                     ? ly_is_equal (accepteds[i]->get_context_name (), type_sym)
-                     : accepteds[i]->is_alias (type_sym);
+      bool valid
+        = instantiable
+            ? ly_is_equal (accepteds[i]->get_context_name (), type_sym)
+            : accepteds[i]->is_alias (type_sym);
       if (valid)
         {
           best_result.push_back (accepteds[i]);
@@ -264,7 +265,8 @@ Context_def::internal_path_to_acceptable_context (
 }
 
 std::vector<Context_def *>
-Context_def::path_to_bottom_context (Output_def *odef, SCM first_child_type_sym)
+Context_def::path_to_bottom_context (Output_def *odef,
+                                     SCM first_child_type_sym)
 {
   std::vector<Context_def *> path;
   if (!internal_path_to_bottom_context (odef, &path, first_child_type_sym))
@@ -280,7 +282,8 @@ Context_def::internal_path_to_bottom_context (Output_def *odef,
   if (!scm_is_symbol (next_type_sym))
     return true; // the caller is the bottom
 
-  Context_def *t = unsmob<Context_def> (find_context_def (odef, next_type_sym));
+  Context_def *t
+    = unsmob<Context_def> (find_context_def (odef, next_type_sym));
   if (!is_instantiable (t))
     {
       warning (_f ("cannot create default child context: %s",
@@ -366,11 +369,12 @@ Context_def::to_alist () const
   SCM ell = SCM_EOL;
 
   ell = scm_cons (
-    scm_cons (ly_symbol2scm ("consists"), get_translator_names (SCM_EOL)), ell);
+    scm_cons (ly_symbol2scm ("consists"), get_translator_names (SCM_EOL)),
+    ell);
   ell = scm_cons (scm_cons (ly_symbol2scm ("description"), description_), ell);
   ell = scm_cons (scm_cons (ly_symbol2scm ("aliases"), context_aliases_), ell);
-  ell = scm_cons (scm_cons (ly_symbol2scm ("accepts"), acceptance_.get_list ()),
-                  ell);
+  ell = scm_cons (
+    scm_cons (ly_symbol2scm ("accepts"), acceptance_.get_list ()), ell);
   if (acceptance_.has_default ())
     {
       ell = scm_acons (ly_symbol2scm ("default-child"),

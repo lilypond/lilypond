@@ -170,10 +170,10 @@ Audio_span_dynamic::get_volume (Moment mom) const
     {
       if (when < 0)
         {
-          programming_error (
-            to_string_f ("asked to compute volume at %f for "
-                         "dynamic span of duration %f starting at %s",
-                         when, duration_, start_moment_.to_string ().c_str ()));
+          programming_error (to_string_f (
+            "asked to compute volume at %f for "
+            "dynamic span of duration %f starting at %s",
+            when, duration_, start_moment_.to_string ().c_str ()));
         }
       return start_volume_;
     }

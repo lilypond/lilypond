@@ -68,8 +68,8 @@ Interval_t<T>::to_string () const
   return s + to_string (left ()) + ',' + to_string (right ()) + ']';
 }
 
-#define INTERVAL__INSTANTIATE(T)                                               \
-  struct Interval_t<T>;                                                        \
+#define INTERVAL__INSTANTIATE(T)                                              \
+  struct Interval_t<T>;                                                       \
   template int Interval__compare (const Interval_t<T> &, Interval_t<T> const &)
 
 #endif // INTERVAL_TCC

@@ -130,12 +130,13 @@ Metronome_mark_engraver::stop_translation_timestep ()
           if (Grob *mc
               = unsmob<Grob> (get_property (this, "currentMusicalColumn")))
             text_->set_x_parent (mc);
-          else if (Grob *cc
-                   = unsmob<Grob> (get_property (this, "currentCommandColumn")))
+          else if (Grob *cc = unsmob<Grob> (
+                     get_property (this, "currentCommandColumn")))
             text_->set_x_parent (cc);
         }
-      set_object (text_, "side-support-elements",
-                  grob_list_to_grob_array (get_property (this, "stavesFound")));
+      set_object (
+        text_, "side-support-elements",
+        grob_list_to_grob_array (get_property (this, "stavesFound")));
       text_ = nullptr;
       support_ = nullptr;
       bar_ = nullptr;

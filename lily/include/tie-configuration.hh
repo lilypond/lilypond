@@ -54,7 +54,8 @@ public:
   Real height (Tie_details const &) const;
   int column_span_length () const;
 
-  static Real distance (Tie_configuration const &a, Tie_configuration const &b);
+  static Real distance (Tie_configuration const &a,
+                        Tie_configuration const &b);
 };
 
 class Ties_configuration : private std::vector<Tie_configuration>

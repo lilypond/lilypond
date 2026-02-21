@@ -525,9 +525,9 @@ bool
 Beaming_pattern::at_span_start (vsize i) const
 {
   return start_moment (i)
-         == (infos_[i].tuplet_
-               ? std::max (infos_[i].tuplet_->tuplet_start (), start_moment (0))
-               : start_moment (0));
+         == (infos_[i].tuplet_ ? std::max (infos_[i].tuplet_->tuplet_start (),
+                                           start_moment (0))
+                               : start_moment (0));
 }
 bool
 Beaming_pattern::at_span_stop (vsize i) const

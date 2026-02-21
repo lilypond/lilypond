@@ -105,9 +105,9 @@ axis_aligned_side_helper (Grob *me, Axis a, bool pure, vsize start, vsize end,
                                                 current_off_ptr);
 }
 
-MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Side_position_interface, x_aligned_side,
-                                   "ly:side-position-interface::x-aligned-side",
-                                   2, 1, "");
+MAKE_SCHEME_CALLBACK_WITH_OPTARGS (
+  Side_position_interface, x_aligned_side,
+  "ly:side-position-interface::x-aligned-side", 2, 1, "");
 SCM
 Side_position_interface::x_aligned_side (SCM smob, SCM current_off)
 {
@@ -120,9 +120,9 @@ Side_position_interface::x_aligned_side (SCM smob, SCM current_off)
   return axis_aligned_side_helper (me, X_AXIS, true, 0, 0, current_off);
 }
 
-MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Side_position_interface, y_aligned_side,
-                                   "ly:side-position-interface::y-aligned-side",
-                                   2, 1, "");
+MAKE_SCHEME_CALLBACK_WITH_OPTARGS (
+  Side_position_interface, y_aligned_side,
+  "ly:side-position-interface::y-aligned-side", 2, 1, "");
 SCM
 Side_position_interface::y_aligned_side (SCM smob, SCM current_off)
 {
@@ -186,8 +186,9 @@ Side_position_interface::calc_cross_staff (SCM smob)
 // long function - each stage is clearly marked
 
 SCM
-Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, vsize start,
-                                       vsize end, Real *current_off)
+Side_position_interface::aligned_side (Grob *me, Axis a, bool pure,
+                                       vsize start, vsize end,
+                                       Real *current_off)
 {
   Direction dir = get_grob_direction (me);
 
@@ -292,11 +293,11 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, vsize start,
                           : e->relative_coordinate (common[X_AXIS], X_AXIS);
               // same logic as above
               // we assume horizontal spacing is always pure
-              Real yc
-                = a == X_AXIS
-                    ? e->pure_relative_y_coordinate (common[Y_AXIS], start, end)
-                    : e->maybe_pure_coordinate (common[Y_AXIS], Y_AXIS, pure,
-                                                start, end);
+              Real yc = a == X_AXIS
+                          ? e->pure_relative_y_coordinate (common[Y_AXIS],
+                                                           start, end)
+                          : e->maybe_pure_coordinate (common[Y_AXIS], Y_AXIS,
+                                                      pure, start, end);
               Skyline_pair skyp = from_scm<Skyline_pair> (skyp_scm);
               if (a == Y_AXIS && has_interface<Stem> (e)
                   && from_scm<bool> (get_maybe_pure_property (
@@ -445,8 +446,9 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, vsize start,
             = staff->maybe_pure_coordinate (common, Y_AXIS, pure, start, end);
           Interval staff_extent
             = staff->maybe_pure_extent (staff, a, pure, start, end);
-          Real diff = (dir * staff_extent[dir] + staff_padding - dir * total_off
-                       + dir * (staff_position - parent_position));
+          Real diff
+            = (dir * staff_extent[dir] + staff_padding - dir * total_off
+               + dir * (staff_position - parent_position));
           total_off += dir * std::max (diff, 0.0);
         }
     }
@@ -459,12 +461,12 @@ Side_position_interface::set_axis (Grob *me, Axis a)
   if (!scm_is_number (get_property (me, "side-axis")))
     {
       set_property (me, "side-axis", to_scm (a));
-      chain_offset_callback (me,
-                             (a == X_AXIS)
-                               ? x_aligned_side_proc
-                               : Unpure_pure_container::make_smob (
-                                 y_aligned_side_proc, pure_y_aligned_side_proc),
-                             a);
+      chain_offset_callback (
+        me,
+        (a == X_AXIS) ? x_aligned_side_proc
+                      : Unpure_pure_container::make_smob (
+                        y_aligned_side_proc, pure_y_aligned_side_proc),
+        a);
     }
 }
 

@@ -92,7 +92,8 @@ One_line_page_breaking::solve_and_provide_max_height (Real &max_height)
   Real left_margin
     = from_scm<double> (book_->paper ()->c_variable ("left-margin"), 0.0);
   Real width = max_width + right_margin + left_margin;
-  book_->paper ()->set_variable (ly_symbol2scm ("paper-width"), to_scm (width));
+  book_->paper ()->set_variable (ly_symbol2scm ("paper-width"),
+                                 to_scm (width));
 
   return scm_reverse_x (all_pages, SCM_EOL);
 }

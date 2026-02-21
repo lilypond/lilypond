@@ -51,7 +51,8 @@ Measure_spanner::print (SCM smob)
     {
       align_syms = (scm_is_pair (sp) ? index_get_cell (sp, d)
                                      : ly_symbol2scm ("staff-bar"));
-      x_points[d] = Paper_column::break_align_width (bounds[d], align_syms)[-d];
+      x_points[d]
+        = Paper_column::break_align_width (bounds[d], align_syms)[-d];
     }
 
   Stencil bracket_text;

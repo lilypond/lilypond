@@ -104,7 +104,8 @@ Span_arpeggio_engraver::process_acknowledged ()
 
       */
       if (!info->span_item_ && info->items_.size () > 1
-          && from_scm<bool> (get_property (this, info->connect_property_name_)))
+          && from_scm<bool> (
+            get_property (this, info->connect_property_name_)))
         info->span_item_ = make_item (info->item_name_, SCM_EOL);
 
       if (info->span_item_)

@@ -222,8 +222,10 @@ New_fingering_engraver::position_scripts (SCM orientations,
   std::sort (scripts->begin (), scripts->end ());
 
   bool up_p = scm_is_true (scm_c_memq (ly_symbol2scm ("up"), orientations));
-  bool down_p = scm_is_true (scm_c_memq (ly_symbol2scm ("down"), orientations));
-  bool left_p = scm_is_true (scm_c_memq (ly_symbol2scm ("left"), orientations));
+  bool down_p
+    = scm_is_true (scm_c_memq (ly_symbol2scm ("down"), orientations));
+  bool left_p
+    = scm_is_true (scm_c_memq (ly_symbol2scm ("left"), orientations));
   bool right_p
     = scm_is_true (scm_c_memq (ly_symbol2scm ("right"), orientations));
   Direction hordir = (right_p) ? RIGHT : LEFT;
@@ -314,10 +316,12 @@ New_fingering_engraver::position_scripts (SCM orientations,
         {
           Finger_tuple ft = vertical[d][i];
           Grob *f = ft.script_;
-          int finger_prio = from_scm (get_property (f, "script-priority"), 200);
+          int finger_prio
+            = from_scm (get_property (f, "script-priority"), 200);
 
           if (heads_.size () > 1
-              && from_scm<bool> (get_property (f, "X-align-on-main-noteheads")))
+              && from_scm<bool> (
+                get_property (f, "X-align-on-main-noteheads")))
             f->set_x_parent (note_column_);
           else
             {

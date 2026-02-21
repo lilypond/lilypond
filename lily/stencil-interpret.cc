@@ -93,7 +93,8 @@ interpret_stencil_expression (SCM expr, Stencil_sink *sink, Offset o)
 
           sink->output (ly_list (ly_symbol2scm ("setrotation"), angle, x, y));
           interpret_stencil_expression (scm_caddr (expr), sink, o);
-          sink->output (ly_list (ly_symbol2scm ("resetrotation"), angle, x, y));
+          sink->output (
+            ly_list (ly_symbol2scm ("resetrotation"), angle, x, y));
 
           return;
         }
@@ -105,7 +106,8 @@ interpret_stencil_expression (SCM expr, Stencil_sink *sink, Offset o)
           Offset unscaled (o[X_AXIS] / from_scm<double> (x_scale),
                            o[Y_AXIS] / from_scm<double> (y_scale));
 
-          sink->output (ly_list (ly_symbol2scm ("setscale"), x_scale, y_scale));
+          sink->output (
+            ly_list (ly_symbol2scm ("setscale"), x_scale, y_scale));
           interpret_stencil_expression (scm_caddr (expr), sink, unscaled);
           sink->output (ly_list (ly_symbol2scm ("resetscale")));
 

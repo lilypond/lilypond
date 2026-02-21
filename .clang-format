@@ -13,13 +13,6 @@ AlwaysBreakAfterReturnType: TopLevelDefinitions
 # Newline after `template` line.
 AlwaysBreakTemplateDeclarations: Yes
 
-# TODO: The first sentence of the GNU formatting standards is, "Please keep the
-# length of source lines to 79 characters or less, for maximum readability in
-# the widest range of environments."  We should therefore remove this setting
-# (using 79 by default from BasedOnStyle: GNU) and also update .dir-locals.el.
-# https://www.gnu.org/prep/standards/standards.html#Formatting
-ColumnLimit: 80
-
 # Indentation width in initializers.
 ConstructorInitializerIndentWidth: 2
 

@@ -26,8 +26,8 @@
 #include "spanner.hh"
 #include "item.hh"
 
-MAKE_SCHEME_CALLBACK (Horizontal_bracket, print, "ly:horizontal-bracket::print",
-                      1);
+MAKE_SCHEME_CALLBACK (Horizontal_bracket, print,
+                      "ly:horizontal-bracket::print", 1);
 SCM
 Horizontal_bracket::print (SCM smob)
 {

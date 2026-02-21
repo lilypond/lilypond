@@ -60,7 +60,8 @@ Context::check_removal ()
       if (ctx->is_removable ())
         {
           recurse_over_translators (ctx, MFP_WRAP (&Translator::finalize),
-                                    MFP_WRAP (&Translator_group::finalize), UP);
+                                    MFP_WRAP (&Translator_group::finalize),
+                                    UP);
           send_stream_event (ctx, "RemoveContext", 0);
         }
     }
@@ -308,8 +309,8 @@ Context::set_property_from_event (SCM sev)
   if (scm_is_symbol (sym))
     {
       SCM val = get_property (ev, "value");
-      std::tie (sym, val)
-        = type_check_assignment (sym, val, ly_symbol2scm ("translation-type?"));
+      std::tie (sym, val) = type_check_assignment (
+        sym, val, ly_symbol2scm ("translation-type?"));
       if (scm_is_symbol (sym))
         {
           if (from_scm<bool> (get_property (ev, "once")))
@@ -389,7 +390,8 @@ Context::create_context_from_event (SCM sev)
     GET_LISTENER (new_context, unset_property_from_event),
     ly_symbol2scm ("UnsetProperty"));
 
-  new_context->events_below_->register_as_listener (new_context->event_source_);
+  new_context->events_below_->register_as_listener (
+    new_context->event_source_);
   add_context (new_context);
 
   new_context->unprotect ();
@@ -560,7 +562,8 @@ Context::get_user_accessible_interpreter ()
   auto c = this;
   for (const auto &cdef : path)
     {
-      c = c->find_create_context (DOWN, cdef->get_context_name (), "", SCM_EOL);
+      c = c->find_create_context (DOWN, cdef->get_context_name (), "",
+                                  SCM_EOL);
       if (!c || c->is_accessible_to_user ())
         return c;
     }
@@ -619,25 +622,29 @@ send_stream_event macro.
 void
 Context::internal_send_stream_event (SCM type, Input *origin)
 {
-  Stream_event *e = new Stream_event (Lily::ly_make_event_class (type), origin);
+  Stream_event *e
+    = new Stream_event (Lily::ly_make_event_class (type), origin);
   event_source_->broadcast (e);
   e->unprotect ();
 }
 
 void
-Context::internal_send_stream_event (SCM type, Input *origin, SCM prop, SCM val)
+Context::internal_send_stream_event (SCM type, Input *origin, SCM prop,
+                                     SCM val)
 {
-  Stream_event *e = new Stream_event (Lily::ly_make_event_class (type), origin);
+  Stream_event *e
+    = new Stream_event (Lily::ly_make_event_class (type), origin);
   set_property (e, prop, val);
   event_source_->broadcast (e);
   e->unprotect ();
 }
 
 void
-Context::internal_send_stream_event (SCM type, Input *origin, SCM prop, SCM val,
-                                     SCM prop2, SCM val2)
+Context::internal_send_stream_event (SCM type, Input *origin, SCM prop,
+                                     SCM val, SCM prop2, SCM val2)
 {
-  Stream_event *e = new Stream_event (Lily::ly_make_event_class (type), origin);
+  Stream_event *e
+    = new Stream_event (Lily::ly_make_event_class (type), origin);
   set_property (e, prop, val);
   set_property (e, prop2, val2);
   event_source_->broadcast (e);
@@ -645,10 +652,12 @@ Context::internal_send_stream_event (SCM type, Input *origin, SCM prop, SCM val,
 }
 
 void
-Context::internal_send_stream_event (SCM type, Input *origin, SCM prop, SCM val,
-                                     SCM prop2, SCM val2, SCM prop3, SCM val3)
+Context::internal_send_stream_event (SCM type, Input *origin, SCM prop,
+                                     SCM val, SCM prop2, SCM val2, SCM prop3,
+                                     SCM val3)
 {
-  Stream_event *e = new Stream_event (Lily::ly_make_event_class (type), origin);
+  Stream_event *e
+    = new Stream_event (Lily::ly_make_event_class (type), origin);
   set_property (e, prop, val);
   set_property (e, prop2, val2);
   set_property (e, prop3, val3);
@@ -657,11 +666,12 @@ Context::internal_send_stream_event (SCM type, Input *origin, SCM prop, SCM val,
 }
 
 void
-Context::internal_send_stream_event (SCM type, Input *origin, SCM prop, SCM val,
-                                     SCM prop2, SCM val2, SCM prop3, SCM val3,
-                                     SCM prop4, SCM val4)
+Context::internal_send_stream_event (SCM type, Input *origin, SCM prop,
+                                     SCM val, SCM prop2, SCM val2, SCM prop3,
+                                     SCM val3, SCM prop4, SCM val4)
 {
-  Stream_event *e = new Stream_event (Lily::ly_make_event_class (type), origin);
+  Stream_event *e
+    = new Stream_event (Lily::ly_make_event_class (type), origin);
   set_property (e, prop, val);
   set_property (e, prop2, val2);
   set_property (e, prop3, val3);

@@ -81,10 +81,10 @@ Beam_quant_parameters::fill (Grob *him)
     = get_detail (details, ly_symbol2scm ("secondary-beam-demerit"), 10.0)
       // For stems that are non-standard, the forbidden beam quanting
       // doesn't really work, so decrease their importance.
-      * exp (
-        -8
-        * fabs (
-          1.0 - from_scm<double> (get_property (him, "length-fraction"), 1.0)));
+      * exp (-8
+             * fabs (1.0
+                     - from_scm<double> (get_property (him, "length-fraction"),
+                                         1.0)));
   STEM_LENGTH_DEMERIT_FACTOR
     = get_detail (details, ly_symbol2scm ("stem-length-demerit-factor"), 5);
   HORIZONTAL_INTER_QUANT_PENALTY
@@ -150,7 +150,8 @@ Beam_configuration::add (Real demerit, const std::string &reason)
 }
 
 std::unique_ptr<Beam_configuration>
-Beam_configuration::new_config (Drul_array<Real> start, Drul_array<Real> offset)
+Beam_configuration::new_config (Drul_array<Real> start,
+                                Drul_array<Real> offset)
 {
   auto qs = std::make_unique<Beam_configuration> ();
   qs->y = {static_cast<int> (start[LEFT]) + offset[LEFT],
@@ -304,8 +305,8 @@ Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> ys,
           dirs_found[si.dir_] = true;
 
           Beam_stem_end stem_end
-            = Beam::calc_stem_y (beams[i], s, common, x_pos[LEFT], x_pos[RIGHT],
-                                 CENTER, Interval (0), 0);
+            = Beam::calc_stem_y (beams[i], s, common, x_pos[LEFT],
+                                 x_pos[RIGHT], CENTER, Interval (0), 0);
           Real y = stem_end.stem_y_;
           /* Remark:  French Beaming is irrelevant for beam quanting */
           base_lengths_.push_back (y / staff_space_);
@@ -716,7 +717,8 @@ Beam_scoring_problem::calc_concaveness ()
           the beam.
         */
 
-        auto close_pos = static_cast<int> (rint (head_positions_[i][beam_dir]));
+        auto close_pos
+          = static_cast<int> (rint (head_positions_[i][beam_dir]));
         close_positions.push_back (close_pos);
         auto far_pos = static_cast<int> (rint (head_positions_[i][-beam_dir]));
         far_positions.push_back (far_pos);
@@ -724,8 +726,8 @@ Beam_scoring_problem::calc_concaveness ()
 
   Real concaveness = 0.0;
 
-  if (is_concave_single_notes (beam_dir == UP ? close_positions : far_positions,
-                               beam_dir))
+  if (is_concave_single_notes (
+        beam_dir == UP ? close_positions : far_positions, beam_dir))
     {
       concaveness = 10000;
     }
@@ -880,8 +882,8 @@ Beam_scoring_problem::shift_region_to_valid ()
   else
     {
       // We are completely screwed.
-      beam_->warning (_ (
-        "no viable initial configuration found: may not find good beam slope"));
+      beam_->warning (_ ("no viable initial configuration found: may not find "
+                         "good beam slope"));
     }
 
   unquanted_y_ = {beam_left_y, (beam_left_y + beam_dy)};
@@ -1088,8 +1090,9 @@ Beam_scoring_problem::solve () const
             completed++;
         }
 
-      std::string card = best->score_card_
-                         + to_string_f (" c%d/%zu", completed, configs.size ());
+      std::string card
+        = best->score_card_
+          + to_string_f (" c%d/%zu", completed, configs.size ());
       set_property (beam_, "annotation", to_scm (card));
     }
 
@@ -1130,8 +1133,8 @@ Beam_scoring_problem::score_stem_lengths (Beam_configuration *config) const
       Stem_info info = stem_infos_[i];
       Direction d = info.dir_;
 
-      score[d]
-        += limit_penalty * std::max (0.0, (d * (info.shortest_y_ - current_y)));
+      score[d] += limit_penalty
+                  * std::max (0.0, (d * (info.shortest_y_ - current_y)));
 
       Real ideal_diff = d * (current_y - info.ideal_y_);
       Real ideal_score = shrink_extra_weight (ideal_diff, 1.5);
@@ -1297,7 +1300,8 @@ Beam_scoring_problem::score_forbidden_quants (Beam_configuration *config) const
           for (Real k = -staff_radius_; k <= staff_radius_ + eps; k += 1.0)
             if (gap.contains (k))
               {
-                Real dist = std::min (fabs (gap[UP] - k), fabs (gap[DOWN] - k));
+                Real dist
+                  = std::min (fabs (gap[UP] - k), fabs (gap[DOWN] - k));
 
                 /*
                   this parameter is tuned to grace-stem-length.ly

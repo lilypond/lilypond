@@ -56,8 +56,9 @@ Direct time-trace output to file @var{file-name}.  If @var{file-name} is
       const auto f = from_scm<std::string> (file_name);
       if (!tracer_global.set_file (f.c_str ()))
         {
-          error (_f ("failed redirecting time-trace output to `%s'", f.c_str ())
-                   .c_str ());
+          error (
+            _f ("failed redirecting time-trace output to `%s'", f.c_str ())
+              .c_str ());
         }
     }
   else

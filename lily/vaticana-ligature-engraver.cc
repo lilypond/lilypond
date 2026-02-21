@@ -237,7 +237,8 @@ Vaticana_ligature_engraver::align_heads (std::vector<Item *> const &primitives,
       int delta_pitch = 0;
       if (prev_primitive) /* urgh, need prev_primitive only here */
         {
-          SCM delta_pitch_scm = get_property (prev_primitive, "delta-position");
+          SCM delta_pitch_scm
+            = get_property (prev_primitive, "delta-position");
           if (!scm_is_null (delta_pitch_scm))
             delta_pitch = from_scm<int> (delta_pitch_scm);
           else

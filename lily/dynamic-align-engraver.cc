@@ -82,8 +82,9 @@ Dynamic_align_engraver::acknowledge_end_dynamic (Grob_info_t<Spanner> info)
   /* If the break flag is set, store the current spanner and let new dynamics
    * create a new spanner
    */
-  bool spanner_broken = (current_dynamic_spanner_ == sp)
-                        && from_scm<bool> (get_property (sp, "spanner-broken"));
+  bool spanner_broken
+    = (current_dynamic_spanner_ == sp)
+      && from_scm<bool> (get_property (sp, "spanner-broken"));
   if (spanner_broken)
     {
       if (ended_line_)
@@ -152,7 +153,8 @@ Dynamic_align_engraver::acknowledge_dynamic (Grob_info info)
 
   if (cause)
     {
-      if (Direction d = from_scm<Direction> (get_property (cause, "direction")))
+      if (Direction d
+          = from_scm<Direction> (get_property (cause, "direction")))
         set_grob_direction (line_, d);
     }
 }

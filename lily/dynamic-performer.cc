@@ -291,9 +291,9 @@ Dynamic_performer::finish_queued_spans (Real next_vol)
       // direction of growth, choose a reasonable target.
       if ((next_vol < 0) || (depart_dir_ != Direction (next_vol - start_vol)))
         {
-          depart_vol = calc_departure_volume (depart_dir_, start_vol, start_vol,
-                                              depart_queue_.min_target_vol_,
-                                              depart_queue_.max_target_vol_);
+          depart_vol = calc_departure_volume (
+            depart_dir_, start_vol, start_vol, depart_queue_.min_target_vol_,
+            depart_queue_.max_target_vol_);
         }
 
       depart_queue_.set_volume (start_vol, depart_vol);

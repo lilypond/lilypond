@@ -88,9 +88,8 @@ private:
     SCM type_string, bool instantiable, Output_def *, SCM,
     std::unordered_set<const Context_def *> *seen) const;
 
-  static bool internal_path_to_bottom_context (Output_def *,
-                                               std::vector<Context_def *> *path,
-                                               SCM next_type_sym);
+  static bool internal_path_to_bottom_context (
+    Output_def *, std::vector<Context_def *> *path, SCM next_type_sym);
 };
 
 #endif /* CONTEXT_DEF_HH */

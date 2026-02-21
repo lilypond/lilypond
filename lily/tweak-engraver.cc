@@ -73,7 +73,8 @@ Tweak_engraver::acknowledge_grob (Grob_info info)
                     }
                 }
               else if (direct)
-                set_nested_property (info.grob (), scm_cdaar (s), scm_cdar (s));
+                set_nested_property (info.grob (), scm_cdaar (s),
+                                     scm_cdar (s));
             }
           else if (direct)
             set_property (info.grob (), scm_caar (s), scm_cdar (s));

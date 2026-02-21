@@ -95,10 +95,12 @@ public:
   DECLARE_SCHEME_CALLBACK (vertical_skylines_from_stencil, (SCM smob));
   DECLARE_SCHEME_CALLBACK (pure_vertical_skylines_from_element_stencils,
                            (SCM smob, SCM, SCM));
-  DECLARE_SCHEME_CALLBACK (vertical_skylines_from_element_stencils, (SCM smob));
+  DECLARE_SCHEME_CALLBACK (vertical_skylines_from_element_stencils,
+                           (SCM smob));
   DECLARE_SCHEME_CALLBACK (pure_simple_horizontal_skylines_from_extents,
                            (SCM smob, SCM, SCM));
-  DECLARE_SCHEME_CALLBACK (simple_horizontal_skylines_from_extents, (SCM smob));
+  DECLARE_SCHEME_CALLBACK (simple_horizontal_skylines_from_extents,
+                           (SCM smob));
   DECLARE_SCHEME_CALLBACK (horizontal_skylines_from_stencil, (SCM smob));
   DECLARE_SCHEME_CALLBACK (pure_horizontal_skylines_from_element_stencils,
                            (SCM smob, SCM, SCM));

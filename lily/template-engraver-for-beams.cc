@@ -47,7 +47,8 @@ Template_engraver_for_beams::begin_beam ()
   if (beam_start_position.grace_part_)
     beam_start_position.main_part_ = beam_start_position.grace_part_;
   beam_pattern_ = std::make_unique<Beaming_pattern> (
-    measure_position (context (), beam_start_position, beaming_options_.period_)
+    measure_position (context (), beam_start_position,
+                      beaming_options_.period_)
       .main_part_);
 }
 

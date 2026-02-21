@@ -260,7 +260,8 @@ static void
 empty_skyline (std::vector<Building> *const ret)
 {
   assert (ret->empty ());
-  ret->push_back (Building (-infinity_f, -infinity_f, -infinity_f, infinity_f));
+  ret->push_back (
+    Building (-infinity_f, -infinity_f, -infinity_f, infinity_f));
 }
 
 /*

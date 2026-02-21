@@ -422,8 +422,8 @@ Pango_font::pango_item_string_stencil (PangoGlyphItem const *glyph_item,
 
       b_sub.scale (scale_);
 
-      SCM glyph_desc
-        = get_glyph_desc (pgs->glyphs[i], b_sub, file_name, ftface, &cid_keyed);
+      SCM glyph_desc = get_glyph_desc (pgs->glyphs[i], b_sub, file_name,
+                                       ftface, &cid_keyed);
 
       if (scm_is_false (glyph_desc))
         {
@@ -571,7 +571,8 @@ Pango_font::text_stencil (Output_def * /* state */, const std::string &str,
 
   g_object_unref (layout);
 
-  if (!scm_is_null (dest.expr ()) && (!music_string || !music_strings_to_paths))
+  if (!scm_is_null (dest.expr ())
+      && (!music_string || !music_strings_to_paths))
     {
       // Encapsulate to allow a short-cut for backends that also use
       // Pango for rendering.

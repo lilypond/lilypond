@@ -409,7 +409,8 @@ main_with_guile (void *, int, char **)
   prepend_scheme_list (lilypond_datadir + "/scm", scm_pct_load_path);
 
   std::string scm_pct_load_compiled_path = "%load-compiled-path";
-  prepend_scheme_list (lilypond_libdir + "/ccache", scm_pct_load_compiled_path);
+  prepend_scheme_list (lilypond_libdir + "/ccache",
+                       scm_pct_load_compiled_path);
 
   // TODO: consider introducing a -dbytecode-path option.
   scm_variable_set_x (

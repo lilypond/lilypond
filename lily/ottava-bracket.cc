@@ -152,7 +152,8 @@ Ottava_bracket::print (SCM smob)
   Stencil b;
   Interval empty;
 
-  if (!bracket_span_points.is_empty () && bracket_span_points.length () > 0.001)
+  if (!bracket_span_points.is_empty ()
+      && bracket_span_points.length () > 0.001)
     b = Bracket::make_bracket (me, Y_AXIS,
                                Offset (bracket_span_points.length (), 0),
                                edge_height, empty, flare, {});

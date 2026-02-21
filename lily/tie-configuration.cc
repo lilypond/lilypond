@@ -155,8 +155,8 @@ std::string
 Ties_configuration::complete_tie_card (vsize i) const
 {
   std::string s;
-  s += to_string_f ("%d (%.2f) %c: ", (*this)[i].position_, (*this)[i].delta_y_,
-                    ((*this)[i].dir_ == UP ? 'u' : 'd'))
+  s += to_string_f ("%d (%.2f) %c: ", (*this)[i].position_,
+                    (*this)[i].delta_y_, ((*this)[i].dir_ == UP ? 'u' : 'd'))
        + (*this)[i].card () + tie_card (i);
 
   /*

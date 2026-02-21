@@ -215,8 +215,8 @@ defined.
     return SCM_EOL;
 }
 
-LY_DEFINE (ly_parser_append_to_include_path, "ly:parser-append-to-include-path",
-           1, 0, 0, (SCM path),
+LY_DEFINE (ly_parser_append_to_include_path,
+           "ly:parser-append-to-include-path", 1, 0, 0, (SCM path),
            R"(
 Append @var{path} to the current parser's include path.
            )")
@@ -383,7 +383,8 @@ Clear error flag for @var{parser}, defaulting to current parser.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_parser_has_error_p, "ly:parser-has-error?", 0, 1, 0, (SCM parser),
+LY_DEFINE (ly_parser_has_error_p, "ly:parser-has-error?", 0, 1, 0,
+           (SCM parser),
            R"(
 Does @var{parser} (defaulting to current parser) have an error flag?
            )")

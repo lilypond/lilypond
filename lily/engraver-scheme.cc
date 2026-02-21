@@ -94,8 +94,8 @@ is announced with the end of the host.
   return g->self_scm ();
 }
 
-LY_DEFINE (ly_engraver_announce_end_grob, "ly:engraver-announce-end-grob", 3, 0,
-           0, (SCM engraver, SCM grob, SCM cause),
+LY_DEFINE (ly_engraver_announce_end_grob, "ly:engraver-announce-end-grob", 3,
+           0, 0, (SCM engraver, SCM grob, SCM cause),
            R"(
 Announce the end of a grob (i.e., the end of a spanner) originating from given
 @var{engraver} instance, with @var{grob} being a grob.  @var{cause} should

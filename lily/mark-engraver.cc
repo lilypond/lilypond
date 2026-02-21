@@ -158,8 +158,8 @@ Mark_engraver::get_current_rehearsal_mark_text (Context *context)
 }
 
 SCM
-Mark_engraver::get_current_rehearsal_mark (Context *ctx, const char **grob_name,
-                                           SCM *text)
+Mark_engraver::get_current_rehearsal_mark (Context *ctx,
+                                           const char **grob_name, SCM *text)
 {
   *grob_name = nullptr;
   *text = SCM_EOL;

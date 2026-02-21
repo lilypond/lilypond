@@ -250,7 +250,8 @@ Simple_spacer::compress_line (vsize left, vsize right, Real line_len,
   for (vsize i = left; i < right; i++)
     sorted_springs.push_back (&springs_[i]);
 
-  sort (sorted_springs.begin (), sorted_springs.end (), spring_pointer_greater);
+  sort (sorted_springs.begin (), sorted_springs.end (),
+        spring_pointer_greater);
 
   /* inv_hooke is the total flexibility of currently-active springs */
   double inv_hooke = 0;

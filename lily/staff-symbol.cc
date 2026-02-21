@@ -74,8 +74,9 @@ Staff_symbol::print (SCM smob)
           // now, so we just reimplement.
           else
             {
-              SCM where = (d == RIGHT ? get_property (me, "break-align-symbols")
-                                      : ly_symbol2scm ("break-alignment"));
+              SCM where
+                = (d == RIGHT ? get_property (me, "break-align-symbols")
+                              : ly_symbol2scm ("break-alignment"));
               span_points[d] = Paper_column::break_align_width (x, where)[d];
             }
         }

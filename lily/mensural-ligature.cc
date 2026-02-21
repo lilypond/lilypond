@@ -77,7 +77,8 @@ brew_flexa (Grob *me, bool solid, Real width, Real thickness, bool begin)
     }
   else // outline
     {
-      stencil = Lookup::beam (corrected_slope, thickness, height, blotdiameter);
+      stencil
+        = Lookup::beam (corrected_slope, thickness, height, blotdiameter);
       if (!begin)
         {
           stencil.translate_axis (width * 0.5 - thickness, X_AXIS);
@@ -90,8 +91,8 @@ brew_flexa (Grob *me, bool solid, Real width, Real thickness, bool begin)
       bottom_edge.translate_axis (-0.5 * height, Y_AXIS);
       stencil.add_stencil (bottom_edge);
 
-      Stencil top_edge = Lookup::beam (corrected_slope, width * 0.5,
-                                       horizontal_line_thickness, blotdiameter);
+      Stencil top_edge = Lookup::beam (
+        corrected_slope, width * 0.5, horizontal_line_thickness, blotdiameter);
       top_edge.translate_axis (+0.5 * height, Y_AXIS);
       stencil.add_stencil (top_edge);
     }

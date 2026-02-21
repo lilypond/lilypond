@@ -100,7 +100,8 @@ Separating_line_group_engraver::acknowledge_item (Grob_info_t<Item> info)
           if (!ga)
             {
               SCM ga_scm = Grob_array::make_array ();
-              set_object (last_spacings_.staff_spacing_, "right-items", ga_scm);
+              set_object (last_spacings_.staff_spacing_, "right-items",
+                          ga_scm);
               ga = unsmob<Grob_array> (ga_scm);
             }
 
@@ -111,7 +112,8 @@ Separating_line_group_engraver::acknowledge_item (Grob_info_t<Item> info)
 }
 
 void
-Separating_line_group_engraver::acknowledge_break_aligned (Grob_info_t<Item> gi)
+Separating_line_group_engraver::acknowledge_break_aligned (
+  Grob_info_t<Item> gi)
 {
   break_aligned_.push_back (gi.grob ());
 }

@@ -167,7 +167,8 @@ Engraver_group::pending_grobs () const
 {
   if (!announce_infos_.empty ())
     return true;
-  for (SCM s = context_->children_contexts (); scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = context_->children_contexts (); scm_is_pair (s);
+       s = scm_cdr (s))
     {
       Context *c = unsmob<Context> (scm_car (s));
       Engraver_group *group

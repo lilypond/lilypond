@@ -33,7 +33,8 @@ Spacing_options::init_from_grob (Grob *me)
   increment_ = from_scm<double> (get_property (me, "spacing-increment"), 1);
 
   packed_ = from_scm<bool> (get_property (me, "packed-spacing"));
-  stretch_uniformly_ = from_scm<bool> (get_property (me, "uniform-stretching"));
+  stretch_uniformly_
+    = from_scm<bool> (get_property (me, "uniform-stretching"));
   float_nonmusical_columns_
     = from_scm<bool> (get_property (me, "strict-note-spacing"));
   float_grace_columns_

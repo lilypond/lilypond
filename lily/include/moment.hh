@@ -53,7 +53,10 @@ public:
   }
 
   // positive infinity
-  static constexpr Moment infinity () { return Moment (Rational::infinity ()); }
+  static constexpr Moment infinity ()
+  {
+    return Moment (Rational::infinity ());
+  }
 
   // Allow implicit conversion from integer.
   // TODO: Why "int" but not other fundamental types? (see rational.hh)

@@ -492,10 +492,10 @@ Slur_configuration::score_slopes (Slur_score_state const &state)
   Real slur_dy = slur_dz[Y_AXIS];
   Real demerit = 0.0;
 
-  demerit
-    += std::max (
-         (fabs (slur_dy / slur_dz[X_AXIS]) - state.parameters_.max_slope_), 0.0)
-       * state.parameters_.max_slope_factor_;
+  demerit += std::max ((fabs (slur_dy / slur_dz[X_AXIS])
+                        - state.parameters_.max_slope_),
+                       0.0)
+             * state.parameters_.max_slope_factor_;
 
   /* 0.2: account for staffline offset. */
   Real max_dy = (fabs (dy) + 0.2);
@@ -506,10 +506,10 @@ Slur_configuration::score_slopes (Slur_score_state const &state)
     demerit += state.parameters_.steeper_slope_factor_
                * (std::max (fabs (slur_dy) - max_dy, 0.0));
 
-  demerit
-    += std::max (
-         (fabs (slur_dy / slur_dz[X_AXIS]) - state.parameters_.max_slope_), 0.0)
-       * state.parameters_.max_slope_factor_;
+  demerit += std::max ((fabs (slur_dy / slur_dz[X_AXIS])
+                        - state.parameters_.max_slope_),
+                       0.0)
+             * state.parameters_.max_slope_factor_;
 
   // This morally checks for 0, but account for rounding errors.  TODO: use a
   // detail to set a threshold for what a 'horizontal' slur is?

@@ -46,7 +46,10 @@ public:
   void remove (SCM k);
   SCM to_alist () const;
   static SCM make_smob ();
-  static bool is_smob (SCM arg) { return scm_is_true (scm_hash_table_p (arg)); }
+  static bool is_smob (SCM arg)
+  {
+    return scm_is_true (scm_hash_table_p (arg));
+  }
 
 private:
   SCM hash_tab () const { return self_scm (); }

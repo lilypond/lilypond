@@ -83,7 +83,8 @@ Copy @var{m} and all sub-expressions of@tie{}@var{m}.
   return copy;
 }
 
-LY_DEFINE (ly_event_length, "ly:event-length", 1, 1, 0, (SCM event, SCM moment),
+LY_DEFINE (ly_event_length, "ly:event-length", 1, 1, 0,
+           (SCM event, SCM moment),
            R"(
 Return the length of a stream event. If @code{moment} is not given, this is just
 the event's @code{length} property.  If @code{moment} is given and is an in-grace

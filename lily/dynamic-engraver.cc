@@ -83,7 +83,8 @@ Dynamic_engraver::listen_break_dynamic_span (Stream_event *)
 
 SCM
 Dynamic_engraver::get_property_setting (Stream_event const *evt,
-                                        char const *evprop, char const *ctxprop)
+                                        char const *evprop,
+                                        char const *ctxprop)
 {
   SCM spanner_type = get_property (evt, evprop);
   if (scm_is_null (spanner_type))
@@ -113,8 +114,8 @@ Dynamic_engraver::process_music ()
   if (auto *const starter = span_dynamic_listener_.get_start ())
     {
       std::string start_type = get_spanner_type (starter);
-      SCM cresc_type = get_property_setting (starter, "span-type",
-                                             (start_type + "Spanner").c_str ());
+      SCM cresc_type = get_property_setting (
+        starter, "span-type", (start_type + "Spanner").c_str ());
 
       if (scm_is_eq (cresc_type, ly_symbol2scm ("text")))
         {

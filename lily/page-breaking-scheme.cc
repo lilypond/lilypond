@@ -87,8 +87,8 @@ Put each score on a single line, and put each line on its own page.  Modify the
   return b.solve ();
 }
 
-LY_DEFINE (ly_one_line_auto_height_breaking, "ly:one-line-auto-height-breaking",
-           1, 0, 0, (SCM paper_book),
+LY_DEFINE (ly_one_line_auto_height_breaking,
+           "ly:one-line-auto-height-breaking", 1, 0, 0, (SCM paper_book),
            R"(
 Put each score on a single line, and put each line on its own page.  Modify the
 @code{paper-width} setting so that every page is wider than the widest line.

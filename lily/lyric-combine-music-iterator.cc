@@ -112,7 +112,8 @@ Lyric_combine_music_iterator::set_music_context (Context *to)
   if (music_context_)
     {
       auto *const d = music_context_->events_below ();
-      d->remove_listener (GET_LISTENER (this, forward_event), struct_event_sym);
+      d->remove_listener (GET_LISTENER (this, forward_event),
+                          struct_event_sym);
       d->remove_listener (GET_LISTENER (this, set_busy), melodic_event_sym);
     }
 
@@ -220,7 +221,8 @@ Lyric_combine_music_iterator::create_contexts ()
     }
 
   lyricsto_voice_name_ = get_property (get_music (), "associated-context");
-  lyricsto_voice_type_ = get_property (get_music (), "associated-context-type");
+  lyricsto_voice_type_
+    = get_property (get_music (), "associated-context-type");
   if (!scm_is_symbol (lyricsto_voice_type_))
     lyricsto_voice_type_ = ly_symbol2scm ("Voice");
 
@@ -281,7 +283,8 @@ Lyric_combine_music_iterator::find_voice ()
 
   if (scm_is_string (voice_name)
       && (!music_context_
-          || from_scm<std::string> (voice_name) != music_context_->id_string ())
+          || from_scm<std::string> (voice_name)
+               != music_context_->id_string ())
       && scm_is_symbol (voice_type))
     {
       return find_context_below (find_top_context (get_context ()), voice_type,

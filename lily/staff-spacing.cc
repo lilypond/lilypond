@@ -59,8 +59,8 @@ Staff_spacing::optical_correction (Grob *me, Grob *g, Interval bar_height)
           stem_posns.intersect (bar_height);
 
           ret = std::min (std::abs (stem_posns.length () / 7.0), 1.0);
-          ret *= from_scm<double> (get_property (me, "stem-spacing-correction"),
-                                   1);
+          ret *= from_scm<double> (
+            get_property (me, "stem-spacing-correction"), 1);
         }
     }
   return ret;
@@ -103,8 +103,8 @@ Staff_spacing::next_notes_correction (Grob *me, Grob *last_grob)
   Real max_optical = 0.0;
 
   for (vsize i = 0; i < note_columns.size (); i++)
-    max_optical = std::max (max_optical,
-                            optical_correction (me, note_columns[i], bar_size));
+    max_optical = std::max (
+      max_optical, optical_correction (me, note_columns[i], bar_size));
 
   return max_optical;
 }

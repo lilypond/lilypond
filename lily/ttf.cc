@@ -76,7 +76,8 @@ print_header (std::ostream &stream, FT_Face face)
   stream << "/FontBBox [" << float (ht->xMin) / float (ht->Units_Per_EM) << " "
          << float (ht->yMin) / float (ht->Units_Per_EM) << " "
          << float (ht->xMax) / float (ht->Units_Per_EM) << " "
-         << float (ht->yMax) / float (ht->Units_Per_EM) << "] def" << std::endl;
+         << float (ht->yMax) / float (ht->Units_Per_EM) << "] def"
+         << std::endl;
 
   stream << "/FontType 42 def" << std::endl
          << "/FontInfo 8 dict dup begin" << std::endl;
@@ -364,10 +365,10 @@ print_body (std::ostream &stream, FT_Face face)
       if (tag == head_tag)
         {
           /* in the second pass simply store the computed font checksum */
-          buf[8]
-            = static_cast<unsigned char> ((font_checksum & 0xFF000000UL) >> 24);
-          buf[9]
-            = static_cast<unsigned char> ((font_checksum & 0x00FF0000UL) >> 16);
+          buf[8] = static_cast<unsigned char> ((font_checksum & 0xFF000000UL)
+                                               >> 24);
+          buf[9] = static_cast<unsigned char> ((font_checksum & 0x00FF0000UL)
+                                               >> 16);
           buf[10]
             = static_cast<unsigned char> ((font_checksum & 0x0000FF00UL) >> 8);
           buf[11] = font_checksum & 0x000000FFUL;

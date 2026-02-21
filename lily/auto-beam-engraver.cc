@@ -564,7 +564,8 @@ private:
   Moment last_grace_position_; // Measure position of same
   void process_music ();
   bool is_same_grace_state (Moment const &, Moment const &) const override;
-  bool test_moment (Direction, Moment const &, Rational const &) const override;
+  bool test_moment (Direction, Moment const &,
+                    Rational const &) const override;
 };
 
 Grace_auto_beam_engraver::Grace_auto_beam_engraver (Context *c)

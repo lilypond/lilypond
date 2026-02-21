@@ -128,7 +128,8 @@ make_script_from_event (Grob *p, Context *tg, SCM art_type, size_t index)
       SCM type = scm_object_property (sym, ly_symbol2scm ("backend-type?"));
       if (!ly_is_procedure (type))
         {
-          std::string msg ("invalid grob property name in script definition: ");
+          std::string msg (
+            "invalid grob property name in script definition: ");
           msg += ly_scm_write_string (sym);
           p->programming_error (msg);
           continue;

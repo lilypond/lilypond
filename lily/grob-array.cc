@@ -74,7 +74,8 @@ grob_list_to_grob_array (SCM lst)
     {
       Grob *g = unsmob<Grob> (scm_car (s));
       if (!g)
-        warning (_f ("ly:grob-list->grob-array encountered a non-grob object"));
+        warning (
+          _f ("ly:grob-list->grob-array encountered a non-grob object"));
       else
         ga->add (g);
     }

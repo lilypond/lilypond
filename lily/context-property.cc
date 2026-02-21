@@ -296,8 +296,8 @@ Grob_property_info::matched_pop (SCM cell)
               cell = scm_cdr (cell);
               if (scm_is_symbol (scm_car (cell)))
                 props_->nested_--;
-              props_->alist_ = partial_list_copy (current_alist, p,
-                                                  scm_cons (cell, scm_cdr (p)));
+              props_->alist_ = partial_list_copy (
+                current_alist, p, scm_cons (cell, scm_cdr (p)));
               return;
             }
           if (!scm_is_symbol (key))

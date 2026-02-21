@@ -139,8 +139,8 @@ Getopt_long::report (Errorcod c)
   switch (c)
     {
     case E_ARGEXPECT:
-      str
-        += _f ("option `%s' requires an argument", found_option_->to_string ());
+      str += _f ("option `%s' requires an argument",
+                 found_option_->to_string ());
       break;
     case E_NOARGEXPECT:
       str += _f ("option `%s' does not allow an argument",
@@ -191,7 +191,8 @@ Getopt_long::parseshort ()
       optional_argument_str0_ = 0;
       return found_option_;
     }
-  optional_argument_str0_ = arg_value_char_a_a_[array_index_] + argument_index_;
+  optional_argument_str0_
+    = arg_value_char_a_a_[array_index_] + argument_index_;
 
   array_index_++;
   argument_index_ = 0;
@@ -323,7 +324,8 @@ Long_option_init::table_string (Long_option_init *l)
 }
 
 int
-Long_option_init::compare (Long_option_init const &a, Long_option_init const &b)
+Long_option_init::compare (Long_option_init const &a,
+                           Long_option_init const &b)
 {
   if (a.shortname_char_ && b.shortname_char_
       && a.shortname_char_ - b.shortname_char_)

@@ -94,8 +94,9 @@ Midi_instrument::to_string () const
   else
     warning (_f ("no such MIDI instrument: `%s'", audio_->str_.c_str ()));
 
-  std::string str (1, static_cast<char> (
-                        0xc0 + channel_)); //YIKES! FIXME : Should be track. -rz
+  std::string str (
+    1,
+    static_cast<char> (0xc0 + channel_)); //YIKES! FIXME : Should be track. -rz
   str += program_byte;
   return str;
 }
@@ -259,14 +260,14 @@ Midi_time_signature::to_string () const
 Midi_note::Midi_note (Audio_note *a)
   : Midi_channel_item (a),
     audio_ (a),
-    velocity_ (std::min (
-      std::max (
-        uint8_t ((a->dynamic_
-                    ? a->dynamic_->get_volume (a->audio_column_->when ()) * 0x7f
-                    : 0x5a)
-                 + a->extra_velocity_),
-        uint8_t (0)),
-      uint8_t (0x7f)))
+    velocity_ (
+      std::min (std::max (uint8_t ((a->dynamic_ ? a->dynamic_->get_volume (
+                                                    a->audio_column_->when ())
+                                                    * 0x7f
+                                                : 0x5a)
+                                   + a->extra_velocity_),
+                          uint8_t (0)),
+                uint8_t (0x7f)))
 {
 }
 

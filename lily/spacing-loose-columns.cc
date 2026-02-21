@@ -42,7 +42,8 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 
   for (vsize i = 0; i < loose_col_count; i++)
     {
-      Paper_column *loose = static_cast<Paper_column *> (posns->loose_cols_[i]);
+      Paper_column *loose
+        = static_cast<Paper_column *> (posns->loose_cols_[i]);
 
       Paper_column *left = 0;
       Paper_column *right = 0;
@@ -195,9 +196,9 @@ set_loose_columns (System *which, Column_x_positions const *posns)
           sum_spacing += clique_spacing[j];
         }
       Real scale_factor = std::max (
-        0.0,
-        std::min (1.0, (permissible_distance - left_padding - sum_tight_spacing)
-                         / (sum_spacing - sum_tight_spacing)));
+        0.0, std::min (
+               1.0, (permissible_distance - left_padding - sum_tight_spacing)
+                      / (sum_spacing - sum_tight_spacing)));
       for (vsize j = clique.size () - 2; j > 0; j--)
         {
           Paper_column *clique_col = clique[j];

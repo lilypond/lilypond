@@ -54,7 +54,8 @@ Forbid_line_break_engraver::pre_process_music ()
   while (scm_is_pair (busy))
     {
       Grob *g = unsmob<Grob> (scm_cdar (busy));
-      if (g->internal_has_interface (ly_symbol2scm ("rhythmic-grob-interface")))
+      if (g->internal_has_interface (
+            ly_symbol2scm ("rhythmic-grob-interface")))
         set_property (find_score_context (), "forbidBreak", SCM_BOOL_T);
       busy = scm_cdr (busy);
     }

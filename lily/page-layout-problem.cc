@@ -149,7 +149,8 @@ Page_layout_problem::add_footnotes_to_lines (SCM lines, vsize counter,
   SCM numbering_function = paper->c_variable ("footnote-numbering-function");
   SCM layout = paper->self_scm ();
   SCM props = Lily::layout_extract_page_properties (layout);
-  Real padding = from_scm<double> (paper->c_variable ("footnote-padding"), 0.0);
+  Real padding
+    = from_scm<double> (paper->c_variable ("footnote-padding"), 0.0);
   Real in_note_padding
     = from_scm<double> (paper->c_variable ("in-note-padding"), 0.0);
   Real number_raise
@@ -509,8 +510,8 @@ Page_layout_problem::Page_layout_problem (Paper_book *pb, SCM page_scm,
 
           Spring spring (0, 0);
           Real padding = 0.0;
-          Real indent = line_dimension_interval (sys->paper_score ()->layout (),
-                                                 sys->get_rank ())[LEFT];
+          Real indent = line_dimension_interval (
+            sys->paper_score ()->layout (), sys->get_rank ())[LEFT];
           alter_spring_from_spacing_spec (spec, &spring);
           read_spacing_spec (spec, &padding, ly_symbol2scm ("padding"));
 
@@ -740,8 +741,8 @@ Page_layout_problem::append_prob (Prob *prob, Spring const &spring,
   if (is_scm<Skyline_pair> (sky_scm))
     {
       const Skyline_pair &sky = from_scm<Skyline_pair> (sky_scm);
-      minimum_distance
-        = std::max (sky[UP].distance (bottom_skyline_), bottom_loose_baseline_);
+      minimum_distance = std::max (sky[UP].distance (bottom_skyline_),
+                                   bottom_loose_baseline_);
       bottom_skyline_ = sky[DOWN];
     }
   else if (auto *sten = unsmob<const Stencil> (get_property (prob, "stencil")))
@@ -1029,8 +1030,8 @@ Page_layout_problem::distribute_loose_lines (
   Simple_spacer spacer;
   for (vsize i = 0; i + 1 < loose_lines.size (); ++i)
     {
-      SCM spec = get_spacing_spec (loose_lines[i], loose_lines[i + 1], false, 0,
-                                   INT_MAX);
+      SCM spec = get_spacing_spec (loose_lines[i], loose_lines[i + 1], false,
+                                   0, INT_MAX);
       Spring spring (1.0, 0.0);
       alter_spring_from_spacing_spec (spec, &spring);
       spring.ensure_min_distance (min_distances[i]);
@@ -1045,8 +1046,8 @@ Page_layout_problem::distribute_loose_lines (
   for (vsize i = 1; i + 1 < solution.size (); ++i)
     if (loose_lines[i])
       {
-        Real system_offset
-          = from_scm<double> (get_property (loose_lines[i], "system-Y-offset"));
+        Real system_offset = from_scm<double> (
+          get_property (loose_lines[i], "system-Y-offset"));
         loose_lines[i]->translate_axis (
           first_translation - solution[i] - system_offset, Y_AXIS);
       }
@@ -1283,11 +1284,11 @@ Page_layout_problem::get_spacing_spec (Grob *before, Grob *after, bool pure,
           Direction affinity = from_scm<Direction> (get_maybe_pure_property (
             after, "staff-affinity", pure, start, end));
           return (affinity == DOWN)
-                   ? add_stretchability (
-                     get_maybe_pure_property (after,
-                                              "nonstaff-unrelatedstaff-spacing",
-                                              pure, start, end),
-                     LARGE_STRETCH)
+                   ? add_stretchability (get_maybe_pure_property (
+                                           after,
+                                           "nonstaff-unrelatedstaff-spacing",
+                                           pure, start, end),
+                                         LARGE_STRETCH)
                    : get_maybe_pure_property (
                      after, "nonstaff-relatedstaff-spacing", pure, start, end);
         }
@@ -1298,14 +1299,14 @@ Page_layout_problem::get_spacing_spec (Grob *before, Grob *after, bool pure,
         {
           Direction affinity = from_scm<Direction> (get_maybe_pure_property (
             before, "staff-affinity", pure, start, end));
-          return (affinity == UP)
-                   ? add_stretchability (
-                     get_maybe_pure_property (before,
-                                              "nonstaff-unrelatedstaff-spacing",
-                                              pure, start, end),
-                     LARGE_STRETCH)
-                   : get_maybe_pure_property (
-                     before, "nonstaff-relatedstaff-spacing", pure, start, end);
+          return (affinity == UP) ? add_stretchability (
+                   get_maybe_pure_property (before,
+                                            "nonstaff-unrelatedstaff-spacing",
+                                            pure, start, end),
+                   LARGE_STRETCH)
+                                  : get_maybe_pure_property (
+                                    before, "nonstaff-relatedstaff-spacing",
+                                    pure, start, end);
         }
       else
         {
@@ -1322,11 +1323,11 @@ Page_layout_problem::get_spacing_spec (Grob *before, Grob *after, bool pure,
               warned = true;
             }
           if (before_affinity != UP)
-            return get_maybe_pure_property (before, "nonstaff-nonstaff-spacing",
-                                            pure, start, end);
+            return get_maybe_pure_property (
+              before, "nonstaff-nonstaff-spacing", pure, start, end);
           else if (after_affinity != DOWN)
-            return get_maybe_pure_property (before, "nonstaff-nonstaff-spacing",
-                                            pure, start, end);
+            return get_maybe_pure_property (
+              before, "nonstaff-nonstaff-spacing", pure, start, end);
           return add_stretchability (
             get_maybe_pure_property (before, "nonstaff-unrelatedstaff-spacing",
                                      pure, start, end),

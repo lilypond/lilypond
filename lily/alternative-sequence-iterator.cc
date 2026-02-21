@@ -50,8 +50,9 @@ Alternative_sequence_iterator::create_children ()
   auto *const repeat_iter = dynamic_cast<Volta_repeat_iterator *> (
     find_above_by_music_type (ly_symbol2scm ("folded-repeated-music")));
 
-  repeat_styler_ = repeat_iter ? repeat_iter->get_repeat_styler ()
-                               : Repeat_styler::create_null (this); // defensive
+  repeat_styler_ = repeat_iter
+                     ? repeat_iter->get_repeat_styler ()
+                     : Repeat_styler::create_null (this); // defensive
 }
 
 // Peek at the alternatives to figure out how they should be presented.

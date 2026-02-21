@@ -77,7 +77,8 @@ public:
       }
     else
       {
-        return Callback_wrapper::unchecked_unsmob (self)->trampoline_ (args...);
+        return Callback_wrapper::unchecked_unsmob (self)->trampoline_ (
+          args...);
       }
   }
 
@@ -211,7 +212,7 @@ public:
 
 // Wrapper macro for member function pointers
 
-#define MFP_WRAP(mfp)                                                          \
+#define MFP_WRAP(mfp)                                                         \
   get_callback_wrapper_smob<Callbacks::trampoline<MFP_ARGS (mfp)>> ()
 
 // Wrap a member object's member function.  The resulting procedure expects to
@@ -222,12 +223,12 @@ public:
 // base class, which we call the "owner" in this context.
 //
 // The function to be called is `delegate.method ()`.
-#define MOMF_WRAP(target, delegate, method)                                    \
-  [] () {                                                                      \
-    using Delegate = decltype (std::declval<target> ().delegate);              \
-    using Owner = typename mop_baseclass<decltype (&target::delegate)>::type;  \
-    return get_callback_wrapper_smob<Callbacks::trampoline<                    \
-      target, Owner, Delegate, &target::delegate, &Delegate::method>> ();      \
+#define MOMF_WRAP(target, delegate, method)                                   \
+  [] () {                                                                     \
+    using Delegate = decltype (std::declval<target> ().delegate);             \
+    using Owner = typename mop_baseclass<decltype (&target::delegate)>::type; \
+    return get_callback_wrapper_smob<Callbacks::trampoline<                   \
+      target, Owner, Delegate, &target::delegate, &Delegate::method>> ();     \
   }()
 
 // The following will usually be used unsmobbified, relying on its

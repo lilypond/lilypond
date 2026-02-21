@@ -223,7 +223,8 @@ vaticana_brew_primitive (Grob *me)
   else
     delta_pitch = 0;
 
-  Real head_x_offset = from_scm<double> (get_property (me, "head-x-offset"), 0);
+  Real head_x_offset
+    = from_scm<double> (get_property (me, "head-x-offset"), 0);
 
   bool add_stem = from_scm<bool> (get_property (me, "add-stem"));
   bool add_cauda = from_scm<bool> (get_property (me, "add-cauda"));
@@ -256,8 +257,8 @@ vaticana_brew_primitive (Grob *me)
 
   if (add_cauda)
     {
-      Stencil cauda = vaticana_brew_cauda (me, pos, delta_pitch, line_thickness,
-                                           blotdiameter);
+      Stencil cauda = vaticana_brew_cauda (me, pos, delta_pitch,
+                                           line_thickness, blotdiameter);
       out.add_stencil (cauda);
     }
 

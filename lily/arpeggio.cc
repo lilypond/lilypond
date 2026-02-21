@@ -264,7 +264,8 @@ SCM
 Chord_slur::print (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  const auto positions = from_scm (get_property (me, "positions"), Interval ());
+  const auto positions
+    = from_scm (get_property (me, "positions"), Interval ());
   return print (me, positions).smobbed_copy ();
 }
 

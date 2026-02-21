@@ -58,8 +58,8 @@ struct Pedal_align_info
     bool do_continue = carrying_item_;
 
     do_continue |= (carrying_spanner_ && !finished_carrying_spanner_);
-    do_continue
-      |= (carrying_spanner_ && finished_carrying_spanner_ != carrying_spanner_);
+    do_continue |= (carrying_spanner_
+                    && finished_carrying_spanner_ != carrying_spanner_);
 
     return !do_continue;
   }

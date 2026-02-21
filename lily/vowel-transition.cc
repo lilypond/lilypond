@@ -96,7 +96,8 @@ Vowel_transition::set_spacing_rods (SCM smob)
             or property after-line-breaking is set to #t.
           */
           if ((segment_time.length () != Moment (0, 0))
-              || from_scm<bool> (get_property_data (me, "after-line-breaking")))
+              || from_scm<bool> (
+                get_property_data (me, "after-line-breaking")))
             {
               rod_after_break.distance_
                 = (scm_is_number (broken_length)
@@ -104,7 +105,8 @@ Vowel_transition::set_spacing_rods (SCM smob)
                      : from_scm<double> (minimum_length, 0));
               rod_after_break.distance_ += padding_broken[LEFT];
               rod_after_break.distance_ += padding[RIGHT];
-              rod_after_break.distance_ += rod_after_break.bounds_protrusion ();
+              rod_after_break.distance_
+                += rod_after_break.bounds_protrusion ();
               rod_after_break.add_to_cols ();
             }
         }

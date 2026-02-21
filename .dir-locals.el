@@ -7,8 +7,7 @@
  (nil ; all file types
   ;; No tabs
   (indent-tabs-mode . nil)
-  ;; Usually use an 80-characters line length limit
-  (fill-column . 80))
+  (fill-column . 79))
  (c++-mode
   (c-file-style . "gnu"))
  (scheme-mode

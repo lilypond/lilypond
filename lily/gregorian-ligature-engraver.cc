@@ -88,10 +88,12 @@ fix_prefix_set (int *current_set, int min_set, int max_set, Grob *primitive)
   fix_prefix ("auctum", AUCTUM, current_set, min_set, max_set, primitive);
   fix_prefix ("descendens", DESCENDENS, current_set, min_set, max_set,
               primitive);
-  fix_prefix ("ascendens", ASCENDENS, current_set, min_set, max_set, primitive);
+  fix_prefix ("ascendens", ASCENDENS, current_set, min_set, max_set,
+              primitive);
   fix_prefix ("oriscus", ORISCUS, current_set, min_set, max_set, primitive);
   fix_prefix ("quilisma", QUILISMA, current_set, min_set, max_set, primitive);
-  fix_prefix ("deminutum", DEMINUTUM, current_set, min_set, max_set, primitive);
+  fix_prefix ("deminutum", DEMINUTUM, current_set, min_set, max_set,
+              primitive);
   fix_prefix ("cavum", CAVUM, current_set, min_set, max_set, primitive);
   fix_prefix ("linea", LINEA, current_set, min_set, max_set, primitive);
   fix_prefix ("pes_or_flexa", LINEA, current_set, min_set, max_set, primitive);
@@ -112,10 +114,12 @@ check_and_fix_all_prefixes (std::vector<Item *> const &primitives)
           | (AUCTUM * from_scm<bool> (get_property (primitive, "auctum")))
           | (DESCENDENS
              * from_scm<bool> (get_property (primitive, "descendens")))
-          | (ASCENDENS * from_scm<bool> (get_property (primitive, "ascendens")))
+          | (ASCENDENS
+             * from_scm<bool> (get_property (primitive, "ascendens")))
           | (ORISCUS * from_scm<bool> (get_property (primitive, "oriscus")))
           | (QUILISMA * from_scm<bool> (get_property (primitive, "quilisma")))
-          | (DEMINUTUM * from_scm<bool> (get_property (primitive, "deminutum")))
+          | (DEMINUTUM
+             * from_scm<bool> (get_property (primitive, "deminutum")))
           | (CAVUM * from_scm<bool> (get_property (primitive, "cavum")))
           | (LINEA * from_scm<bool> (get_property (primitive, "linea")))
           | (PES_OR_FLEXA
@@ -200,7 +204,8 @@ provide_context_info (std::vector<Item *> const &primitives)
       Grob *primitive = primitives[i];
       Stream_event *event_cause = primitive->event_cause ();
       int context_info = 0;
-      int pitch = unsmob<Pitch> (get_property (event_cause, "pitch"))->steps ();
+      int pitch
+        = unsmob<Pitch> (get_property (event_cause, "pitch"))->steps ();
       int prefix_set = from_scm<int> (get_property (primitive, "prefix-set"));
 
       if (prefix_set & PES_OR_FLEXA)

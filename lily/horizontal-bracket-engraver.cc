@@ -76,8 +76,8 @@ Horizontal_bracket_engraver::acknowledge_note_column (Grob_info_t<Item> gi)
   for (vsize i = 0; i < bracket_stack_.size (); i++)
     {
       Side_position_interface::add_support (bracket_stack_[i], gi.grob ());
-      Pointer_group_interface::add_grob (bracket_stack_[i],
-                                         ly_symbol2scm ("columns"), gi.grob ());
+      Pointer_group_interface::add_grob (
+        bracket_stack_[i], ly_symbol2scm ("columns"), gi.grob ());
       add_bound_item (bracket_stack_[i], gi.grob ());
       add_bound_item (text_stack_[i], gi.grob ());
     }
@@ -88,7 +88,8 @@ Horizontal_bracket_engraver::process_music ()
 {
   for (vsize k = 0; k < push_count_; k++)
     {
-      Spanner *sp = make_spanner ("HorizontalBracket", events_[k]->self_scm ());
+      Spanner *sp
+        = make_spanner ("HorizontalBracket", events_[k]->self_scm ());
 
       Spanner *hbt = make_spanner ("HorizontalBracketText", sp->self_scm ());
 

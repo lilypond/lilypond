@@ -75,7 +75,8 @@ on points given either as complex number or real number pair.  See also
     .smobbed_copy ();
 }
 
-LY_DEFINE (ly_make_scaling, "ly:make-scaling", 1, 1, 0, (SCM scale, SCM scaley),
+LY_DEFINE (ly_make_scaling, "ly:make-scaling", 1, 1, 0,
+           (SCM scale, SCM scaley),
            R"(
 Create a scaling transform from argument @var{scale} and optionally
 @var{scaley}.  When both arguments are given, they must be real and give the

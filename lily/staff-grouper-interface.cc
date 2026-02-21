@@ -72,7 +72,8 @@ Staff_grouper_interface::maybe_pure_within_group (Grob *me, Grob *child,
 
   for (++i; i != elts.end (); ++i)
     if (Page_layout_problem::is_spaceable (*i)
-        && ((pure && !Hara_kiri_group_spanner::request_suicide (*i, start, end))
+        && ((pure
+             && !Hara_kiri_group_spanner::request_suicide (*i, start, end))
             || (!pure && (*i)->is_live ())))
       return me == unsmob<Grob> (get_object (*i, "staff-grouper"));
 

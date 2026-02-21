@@ -185,7 +185,8 @@ Paper_column_engraver::process_music ()
   if (measure_start_now)
     {
       Moment mlen = Moment (measure_length (context ()));
-      Grob *column = unsmob<Grob> (get_property (this, "currentCommandColumn"));
+      Grob *column
+        = unsmob<Grob> (get_property (this, "currentCommandColumn"));
       if (column)
         set_property (column, "measure-length", to_scm (mlen));
       else

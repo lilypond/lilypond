@@ -157,9 +157,10 @@ struct Path_interpreter
     funcs.line_to = [] (const FT_Vector *to, void *user) {
       return static_cast<Path_interpreter *> (user)->lineto (*to);
     };
-    funcs.conic_to = [] (const FT_Vector *c1, const FT_Vector *to, void *user) {
-      return static_cast<Path_interpreter *> (user)->curve2to (*c1, *to);
-    };
+    funcs.conic_to
+      = [] (const FT_Vector *c1, const FT_Vector *to, void *user) {
+          return static_cast<Path_interpreter *> (user)->curve2to (*c1, *to);
+        };
     funcs.cubic_to = [] (const FT_Vector *c1, const FT_Vector *c2,
                          const FT_Vector *to, void *user) {
       return static_cast<Path_interpreter *> (user)->curve3to (*c1, *c2, *to);

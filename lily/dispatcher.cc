@@ -25,7 +25,7 @@
 
 #if defined(__MINGW32__)
 #include <malloc.h>
-#elif defined(__DragonFly__) || defined(__FreeBSD__) || defined(__NetBSD__)    \
+#elif defined(__DragonFly__) || defined(__FreeBSD__) || defined(__NetBSD__)   \
   || defined(__OpenBSD__)
 #include <stdlib.h>
 #else
@@ -305,7 +305,8 @@ Dispatcher::register_as_listener (Dispatcher *disp)
       return;
     }
 
-  dispatchers_ = scm_acons (disp->self_scm (), to_scm (priority), dispatchers_);
+  dispatchers_
+    = scm_acons (disp->self_scm (), to_scm (priority), dispatchers_);
 
   SCM list = GET_LISTENER (this, dispatch).smobbed_copy ();
   for (SCM cl = listen_classes_; scm_is_pair (cl); cl = scm_cdr (cl))

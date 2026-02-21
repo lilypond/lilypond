@@ -40,14 +40,15 @@ public:
 SCM
 Unpure_pure_container::pure_part () const
 {
-  return SCM_UNBNDP (scm2 ()) ? Unpure_pure_call::make_smob (scm1 ()) : scm2 ();
+  return SCM_UNBNDP (scm2 ()) ? Unpure_pure_call::make_smob (scm1 ())
+                              : scm2 ();
 }
 
 const char *const Unpure_pure_container::type_p_name_
   = "ly:unpure-pure-container?";
 
-LY_DEFINE (ly_make_unpure_pure_container, "ly:make-unpure-pure-container", 1, 1,
-           0, (SCM unpure, SCM pure),
+LY_DEFINE (ly_make_unpure_pure_container, "ly:make-unpure-pure-container", 1,
+           1, 0, (SCM unpure, SCM pure),
            R"(
 Make an unpure-pure container.  @var{unpure} should be an unpure expression,
 and @var{pure} should be a pure expression.  If @var{pure} is omitted, the

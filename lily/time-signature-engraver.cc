@@ -101,7 +101,8 @@ Time_signature_engraver::process_music ()
       && (scm_is_pair (spec) || scm_is_false (spec)))
     {
       auto ev = local_event_ ? local_event_ : event_;
-      time_signature_ = make_item ("TimeSignature", ev ? to_scm (ev) : SCM_EOL);
+      time_signature_
+        = make_item ("TimeSignature", ev ? to_scm (ev) : SCM_EOL);
 
       // check value before setting to respect overrides
       SCM tsig_sym = ly_symbol2scm ("time-signature");

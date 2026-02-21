@@ -40,8 +40,8 @@ Separation_item::add_item (Grob *s, Item *i)
 void
 Separation_item::add_conditional_item (Grob *me, Grob *e)
 {
-  Pointer_group_interface::add_grob (me, ly_symbol2scm ("conditional-elements"),
-                                     e);
+  Pointer_group_interface::add_grob (
+    me, ly_symbol2scm ("conditional-elements"), e);
 }
 
 Real

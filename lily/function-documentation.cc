@@ -55,8 +55,8 @@ ly_check_name (const char *cxx, const char *scm_name)
 }
 
 void
-ly_add_function_documentation (SCM func, const char *fname, const char *varlist,
-                               const char *doc)
+ly_add_function_documentation (SCM func, const char *fname,
+                               const char *varlist, const char *doc)
 {
   // doc is a null-terminated character string, so check if it is empty.
   if (*doc == 0)
@@ -145,7 +145,8 @@ init_func_doc ()
   ly_predicate_info<is_scm<int>>::init (int_text (0));
   ly_predicate_info<is_scm<long>>::init (int_text (0L));
   ly_predicate_info<is_scm<long long>>::init (int_text (0LL));
-  ly_predicate_info<is_scm<unsigned short>>::init (int_text<unsigned short> ());
+  ly_predicate_info<is_scm<unsigned short>>::init (
+    int_text<unsigned short> ());
   ly_predicate_info<is_scm<unsigned>>::init (int_text (0U));
   ly_predicate_info<is_scm<unsigned long>>::init (int_text (0UL));
   ly_predicate_info<is_scm<unsigned long long>>::init (int_text (0ULL));

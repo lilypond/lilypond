@@ -70,7 +70,8 @@ Breathing_sign::set_breath_properties (Grob *me, Context *ctx, SCM breath_type)
       SCM type = scm_object_property (sym, ly_symbol2scm ("backend-type?"));
       if (!ly_is_procedure (type))
         {
-          std::string msg ("invalid grob property name in breath definition: ");
+          std::string msg (
+            "invalid grob property name in breath definition: ");
           msg += ly_scm_write_string (sym);
           me->programming_error (msg);
           continue;
@@ -229,7 +230,8 @@ Breathing_sign::divisio_maxima (SCM smob)
 /*
   Gregorian chant finalis.
 */
-MAKE_SCHEME_CALLBACK (Breathing_sign, finalis, "ly:breathing-sign::finalis", 1);
+MAKE_SCHEME_CALLBACK (Breathing_sign, finalis, "ly:breathing-sign::finalis",
+                      1);
 SCM
 Breathing_sign::finalis (SCM smob)
 {

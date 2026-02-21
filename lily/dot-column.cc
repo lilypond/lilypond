@@ -80,7 +80,8 @@ Dot_column::calc_positioning_done (SCM smob)
 
   Interval base_x;
   for (vsize i = 0; i < parent_stems.size (); i++)
-    base_x.unite (Stem::first_head (parent_stems[i])->extent (commonx, X_AXIS));
+    base_x.unite (
+      Stem::first_head (parent_stems[i])->extent (commonx, X_AXIS));
 
   // TODO: could this be refactored using side-position-interface?
   for (vsize i = 0; i < support.size (); i++)
@@ -200,7 +201,8 @@ Dot_column::calc_positioning_done (SCM smob)
       if (note)
         {
           if (has_interface<Note_head> (note))
-            dp.dir_ = from_scm<Direction> (get_property (dp.dot_, "direction"));
+            dp.dir_
+              = from_scm<Direction> (get_property (dp.dot_, "direction"));
 
           dp.x_extent_ = note->extent (commonx, X_AXIS);
         }

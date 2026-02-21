@@ -75,7 +75,8 @@ sane_putenv (char const *key, const std::string &value, bool overwrite,
 }
 
 static int
-set_env_file (char const *key, const std::string &value, bool overwrite = false)
+set_env_file (char const *key, const std::string &value,
+              bool overwrite = false)
 {
   if (is_file (value))
     return sane_putenv (key, value, overwrite);
@@ -222,7 +223,8 @@ setup_paths (char const *argv0_ptr)
 
   std::string bindir
     = File_name (dir_name (argv0_abs)).canonicalized ().to_string ();
-  std::string prefix = File_name (bindir + "/..").canonicalized ().to_string ();
+  std::string prefix
+    = File_name (bindir + "/..").canonicalized ().to_string ();
 
   // set INSTALLER_PREFIX environment variable
   sane_putenv ("INSTALLER_PREFIX", prefix.c_str (), true, true);

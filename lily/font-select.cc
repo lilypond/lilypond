@@ -121,8 +121,8 @@ select_font (Output_def *layout, SCM chain)
       || scm_is_eq (encoding, ly_symbol2scm ("fetaBraces"))
       || scm_is_eq (encoding, ly_symbol2scm ("fetaText")))
     {
-      family
-        = ly_chain_assoc_get (ly_symbol2scm ("font-family"), chain, SCM_BOOL_F);
+      family = ly_chain_assoc_get (ly_symbol2scm ("font-family"), chain,
+                                   SCM_BOOL_F);
       if (scm_is_false (family)
           // This is ugly and should be improved. It happens with things like
           // \markup \sans { più \dynamic p }
@@ -161,8 +161,9 @@ select_font (Output_def *layout, SCM chain)
       || scm_is_eq (encoding, ly_symbol2scm ("fetaBraces"))
       || scm_is_eq (encoding, ly_symbol2scm ("fetaText")))
     {
-      rounded_size = best_rounded_design_size (requested_size,
-                                               /* out-parameter */ actual_size);
+      rounded_size
+        = best_rounded_design_size (requested_size,
+                                    /* out-parameter */ actual_size);
       name += "-";
       if (scm_is_eq (encoding, ly_symbol2scm ("fetaMusic"))
           || scm_is_eq (encoding, ly_symbol2scm ("fetaText")))

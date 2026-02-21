@@ -92,8 +92,8 @@ make_font_config (bool emmentaler)
 
   std::string dir (lilypond_datadir + "/fonts/otf");
 
-  if (!FcConfigAppFontAddDir (conf.get (),
-                              reinterpret_cast<const FcChar8 *> (dir.c_str ())))
+  if (!FcConfigAppFontAddDir (
+        conf.get (), reinterpret_cast<const FcChar8 *> (dir.c_str ())))
     error (_f ("failed adding font directory: %s", dir.c_str ()));
   else
     debug_output (_f ("Adding font directory: %s", dir.c_str ()));

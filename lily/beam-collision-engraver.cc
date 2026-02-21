@@ -84,7 +84,8 @@ private:
 public:
   TRANSLATOR_DECLARATIONS (Beam_collision_engraver);
 
-  static bool grob_less (const Grob_with_context &a, const Grob_with_context &b)
+  static bool grob_less (const Grob_with_context &a,
+                         const Grob_with_context &b)
   {
     return Grob::less (a.grob_, b.grob_);
   }
@@ -138,8 +139,9 @@ Beam_collision_engraver::finalize ()
         = beam_grob->spanned_column_rank_interval ();
       // Start considering grobs at the first grob whose
       // end falls at or after the beam's beginning.
-      while (covered_grobs_[start].grob_->spanned_column_rank_interval ()[RIGHT]
-             < beam_spanned_rank[LEFT])
+      while (
+        covered_grobs_[start].grob_->spanned_column_rank_interval ()[RIGHT]
+        < beam_spanned_rank[LEFT])
         {
           start++;
         }
@@ -168,9 +170,9 @@ Beam_collision_engraver::finalize ()
               && !(from_scm<bool> (
                      get_property (beam_grob, "collision-voice-only"))
                    && (covered_grob_context != beam_context))
-              && !(
-                has_interface<Beam> (covered_grob)
-                && (covered_grob_spanned_rank[LEFT] <= beam_spanned_rank[LEFT]))
+              && !(has_interface<Beam> (covered_grob)
+                   && (covered_grob_spanned_rank[LEFT]
+                       <= beam_spanned_rank[LEFT]))
               && covered_grob_has_interface (covered_grob, beam_grob))
             {
               // Do not consider note heads attached to the beam.
@@ -178,7 +180,8 @@ Beam_collision_engraver::finalize ()
                 if (unsmob<Grob> (get_object (covered_grob, "beam")))
                   continue;
 
-              if (Grob *stem = unsmob<Grob> (get_object (covered_grob, "stem")))
+              if (Grob *stem
+                  = unsmob<Grob> (get_object (covered_grob, "stem")))
                 if (Grob *beam = unsmob<Grob> (get_object (stem, "beam")))
                   if (beam == beam_grob)
                     continue;

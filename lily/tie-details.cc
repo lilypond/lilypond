@@ -28,10 +28,10 @@
 /*
   this is a macro because we want ly_symbol2scm()
  */
-#define get_real_detail(src, defvalue)                                         \
-  from_scm<double> (ly_assoc_get (ly_symbol2scm (src), details, SCM_EOL),      \
+#define get_real_detail(src, defvalue)                                        \
+  from_scm<double> (ly_assoc_get (ly_symbol2scm (src), details, SCM_EOL),     \
                     defvalue)
-#define get_int_detail(src, defvalue)                                          \
+#define get_int_detail(src, defvalue)                                         \
   from_scm (ly_assoc_get (ly_symbol2scm (src), details, SCM_EOL), defvalue)
 
 void
@@ -61,7 +61,8 @@ Tie_details::from_grob (Grob *me)
   // in half-space
   center_staff_line_clearance_
     = get_real_detail ("center-staff-line-clearance", 0.4);
-  tip_staff_line_clearance_ = get_real_detail ("tip-staff-line-clearance", 0.4);
+  tip_staff_line_clearance_
+    = get_real_detail ("tip-staff-line-clearance", 0.4);
   staff_line_collision_penalty_
     = get_real_detail ("staff-line-collision-penalty", 5);
   dot_collision_clearance_ = get_real_detail ("dot-collision-clearance", 0.25);

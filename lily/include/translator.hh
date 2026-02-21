@@ -66,10 +66,10 @@ public:
   LY_DECLARE_SMOB_PROC (&Translator_creator::call, 1, 0, 0);
 };
 
-#define TRANSLATOR_FAMILY_DECLARATIONS(NAME)                                   \
-public:                                                                        \
-  OVERRIDE_CLASS_NAME (NAME);                                                  \
-  void fetch_precomputable_methods (SCM methods[]) override;                   \
+#define TRANSLATOR_FAMILY_DECLARATIONS(NAME)                                  \
+public:                                                                       \
+  OVERRIDE_CLASS_NAME (NAME);                                                 \
+  void fetch_precomputable_methods (SCM methods[]) override;                  \
   /* end #define */
 
 /*
@@ -79,34 +79,34 @@ public:                                                                        \
   announced in a context.
 */
 
-#define TRANSLATOR_DECLARATIONS(NAME)                                          \
-private:                                                                       \
-  using self_type = NAME; /* no decltype(*this) in static methods */           \
-public:                                                                        \
-  TRANSLATOR_FAMILY_DECLARATIONS (NAME)                                        \
-  static Drul_array<Protected_scm> acknowledge_static_array_drul_;             \
-  static Protected_scm listener_list_;                                         \
-  static SCM static_get_acknowledger (SCM sym, Direction start_end);           \
-  SCM get_acknowledger (SCM sym, Direction start_end) override                 \
-  {                                                                            \
-    return static_get_acknowledger (sym, start_end);                           \
-  }                                                                            \
-                                                                               \
-public:                                                                        \
-  NAME (Context *);                                                            \
-  static void boot ();                                                         \
-  static SCM static_translator_description ();                                 \
-  SCM get_listener_list () const override                                      \
-  {                                                                            \
-    return listener_list_;                                                     \
-  }                                                                            \
-                                                                               \
-private:                                                                       \
-  static void add_listener (SCM event_class_sym, SCM proc)                     \
-  {                                                                            \
-    listener_list_ = scm_acons (event_class_sym, proc, listener_list_);        \
-  }                                                                            \
-                                                                               \
+#define TRANSLATOR_DECLARATIONS(NAME)                                         \
+private:                                                                      \
+  using self_type = NAME; /* no decltype(*this) in static methods */          \
+public:                                                                       \
+  TRANSLATOR_FAMILY_DECLARATIONS (NAME)                                       \
+  static Drul_array<Protected_scm> acknowledge_static_array_drul_;            \
+  static Protected_scm listener_list_;                                        \
+  static SCM static_get_acknowledger (SCM sym, Direction start_end);          \
+  SCM get_acknowledger (SCM sym, Direction start_end) override                \
+  {                                                                           \
+    return static_get_acknowledger (sym, start_end);                          \
+  }                                                                           \
+                                                                              \
+public:                                                                       \
+  NAME (Context *);                                                           \
+  static void boot ();                                                        \
+  static SCM static_translator_description ();                                \
+  SCM get_listener_list () const override                                     \
+  {                                                                           \
+    return listener_list_;                                                    \
+  }                                                                           \
+                                                                              \
+private:                                                                      \
+  static void add_listener (SCM event_class_sym, SCM proc)                    \
+  {                                                                           \
+    listener_list_ = scm_acons (event_class_sym, proc, listener_list_);       \
+  }                                                                           \
+                                                                              \
 public:
 /* end #define */
 
@@ -185,8 +185,10 @@ protected:
 
   virtual void derived_mark () const;
   static SCM event_class_symbol (const char *ev_class);
-  static SCM static_translator_description (const char *grobs, const char *desc,
-                                            SCM listener_list, const char *read,
+  static SCM static_translator_description (const char *grobs,
+                                            const char *desc,
+                                            SCM listener_list,
+                                            const char *read,
                                             const char *write);
 
   friend class Translator_group;

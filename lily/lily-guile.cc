@@ -277,7 +277,8 @@ internal_type_check (SCM sym, SCM val, SCM type_symbol)
   if (!scm_is_symbol (sym))
     return {SCM_BOOL_F, SCM_UNSPECIFIED};
 
-  if (SCM type = scm_object_property (sym, type_symbol); ly_is_procedure (type))
+  if (SCM type = scm_object_property (sym, type_symbol);
+      ly_is_procedure (type))
     {
       if (unset || value_type_check (sym, val, type_symbol, type))
         return {sym, val};

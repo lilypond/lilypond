@@ -71,7 +71,8 @@ Like @code{filter}, return a new grob array containing the elements of
   return dst_scm;
 }
 
-LY_DEFINE (ly_grob_array_2_list, "ly:grob-array->list", 1, 0, 0, (SCM grob_arr),
+LY_DEFINE (ly_grob_array_2_list, "ly:grob-array->list", 1, 0, 0,
+           (SCM grob_arr),
            R"(
 Return the elements of @var{grob-arr} as a Scheme list.
            )")

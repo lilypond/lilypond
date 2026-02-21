@@ -214,8 +214,8 @@ get_layout (Lily_parser *parser)
 Output_def *
 get_midi (Lily_parser *parser)
 {
-  SCM id
-    = parser->lexer_->lookup_identifier_symbol (ly_symbol2scm ("$defaultmidi"));
+  SCM id = parser->lexer_->lookup_identifier_symbol (
+    ly_symbol2scm ("$defaultmidi"));
   Output_def *layout = unsmob<Output_def> (id);
   layout = layout ? layout->clone () : new Output_def;
   layout->set_variable (ly_symbol2scm ("output-def-kind"),

@@ -271,7 +271,8 @@ System::get_footnote_grobs_in_range (vsize start, vsize end)
             continue;
           if (pos == end && item->break_status_dir () != LEFT)
             continue;
-          if (pos != end && pos != start && item->break_status_dir () != CENTER)
+          if (pos != end && pos != start
+              && item->break_status_dir () != CENTER)
             continue;
         }
 
@@ -314,7 +315,8 @@ System::get_in_note_heights_in_range (vsize start, vsize end)
 std::vector<Real>
 System::internal_get_note_heights_in_range (vsize start, vsize end, bool foot)
 {
-  std::vector<Grob *> footnote_grobs = get_footnote_grobs_in_range (start, end);
+  std::vector<Grob *> footnote_grobs
+    = get_footnote_grobs_in_range (start, end);
   std::vector<Real> out;
 
   for (vsize i = footnote_grobs.size (); i--;)
@@ -799,7 +801,8 @@ System::get_vertical_alignment (SCM smob)
 
   if (!ret)
     {
-      me->programming_error ("didn't find a vertical alignment in this system");
+      me->programming_error (
+        "didn't find a vertical alignment in this system");
       return SCM_EOL;
     }
   return ret->self_scm ();
@@ -879,19 +882,19 @@ System::part_of_line_pure_height (vsize start, vsize end, bool begin)
   Interval ret;
   for (vsize i = 0; i < staves.size (); ++i)
     {
-      Interval iv
-        = begin
-            ? Axis_group_interface::begin_of_line_pure_height (staves[i], start)
-            : Axis_group_interface::rest_of_line_pure_height (staves[i], start,
-                                                              end);
+      Interval iv = begin ? Axis_group_interface::begin_of_line_pure_height (
+                      staves[i], start)
+                          : Axis_group_interface::rest_of_line_pure_height (
+                            staves[i], start, end);
       if (i < offsets.size ())
         iv.translate (offsets[i]);
       ret.unite (iv);
     }
 
   Interval other_elements
-    = begin ? Axis_group_interface::begin_of_line_pure_height (this, start)
-            : Axis_group_interface::rest_of_line_pure_height (this, start, end);
+    = begin
+        ? Axis_group_interface::begin_of_line_pure_height (this, start)
+        : Axis_group_interface::rest_of_line_pure_height (this, start, end);
 
   ret.unite (other_elements);
 

@@ -77,8 +77,8 @@ public:
                                       permission_, new_pen));
 
     if (penalty.duration_[RIGHT] < duration_[RIGHT])
-      ret.push_back (Page_turn_event (penalty.duration_[RIGHT],
-                                      duration_[RIGHT], permission_, penalty_));
+      ret.push_back (Page_turn_event (
+        penalty.duration_[RIGHT], duration_[RIGHT], permission_, penalty_));
 
     return ret;
   }
@@ -128,8 +128,9 @@ Page_turn_engraver::breakable_column (Page_turn_event const &brk)
   auto start
     = std::lower_bound (breakable_moments_.begin (), breakable_moments_.end (),
                         brk.duration_[LEFT]);
-  auto end = std::upper_bound (breakable_moments_.begin (),
-                               breakable_moments_.end (), brk.duration_[RIGHT]);
+  auto end
+    = std::upper_bound (breakable_moments_.begin (), breakable_moments_.end (),
+                        brk.duration_[RIGHT]);
 
   if (start == breakable_moments_.end ())
     return NULL;
@@ -149,8 +150,8 @@ Page_turn_engraver::breakable_column (Page_turn_event const &brk)
 Real
 Page_turn_engraver::penalty (Rational rest_len)
 {
-  const auto min_turn
-    = from_scm (get_property (this, "pageTurnMinimumRestLength"), Rational (1));
+  const auto min_turn = from_scm (
+    get_property (this, "pageTurnMinimumRestLength"), Rational (1));
 
   return (rest_len < min_turn) ? infinity_f : 0;
 }
@@ -282,16 +283,18 @@ Page_turn_engraver::stop_translation_timestep ()
       if (scm_is_eq (command, ly_symbol2scm ("start-repeat")))
         {
           constexpr auto dflt = 2L;
-          auto rep_count
-            = scm_is_pair (options) ? from_scm (scm_car (options), dflt) : dflt;
+          auto rep_count = scm_is_pair (options)
+                             ? from_scm (scm_car (options), dflt)
+                             : dflt;
           if (rep_count >= 2) // ignore trivial repeats
             start = true;
         }
       else if (scm_is_eq (command, ly_symbol2scm ("end-repeat")))
         {
           constexpr auto dflt = 1L;
-          auto ret_count
-            = scm_is_pair (options) ? from_scm (scm_car (options), dflt) : dflt;
+          auto ret_count = scm_is_pair (options)
+                             ? from_scm (scm_car (options), dflt)
+                             : dflt;
           if (ret_count >= 1) // ignore trivial repeats
             end = true;
         }
@@ -305,7 +308,8 @@ Page_turn_engraver::stop_translation_timestep ()
 
       const auto pageTurnMinimumRepeatLength = from_scm (
         get_property (this, "pageTurnMinimumRepeatLength"), Rational (0));
-      if (pageTurnMinimumRepeatLength > (now_mom () - repeat_begin_).main_part_)
+      if (pageTurnMinimumRepeatLength
+          > (now_mom () - repeat_begin_).main_part_)
         pen = infinity_f;
 
       if (pen == infinity_f)
@@ -379,7 +383,8 @@ Page_turn_engraver::finalize ()
               split.pop_back ();
               i--;
             }
-          auto_breaks.insert (auto_breaks.end (), split.begin (), split.end ());
+          auto_breaks.insert (auto_breaks.end (), split.begin (),
+                              split.end ());
         }
     }
 

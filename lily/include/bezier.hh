@@ -73,7 +73,7 @@ void translate (std::vector<Offset> *array, Offset o);
 
 Bezier slur_shape (Real width, Real height_limit, Real height_proportion);
 Real slur_height (Real width, Real height_limit, Real height_proportion);
-void get_slur_indent_height (Real *indent, Real *height, Real width, Real h_inf,
-                             Real r_0);
+void get_slur_indent_height (Real *indent, Real *height, Real width,
+                             Real h_inf, Real r_0);
 
 #endif // BEZIER_HH

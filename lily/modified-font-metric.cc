@@ -32,7 +32,8 @@ Preinit_Modified_font_metric::Preinit_Modified_font_metric ()
   orig_ = 0;
 }
 
-Modified_font_metric::Modified_font_metric (Font_metric *fm, Real magnification)
+Modified_font_metric::Modified_font_metric (Font_metric *fm,
+                                            Real magnification)
 {
   magnification_ = magnification;
 
@@ -87,7 +88,8 @@ Modified_font_metric::ledger_shortening_range (
 }
 
 std::pair<Offset, bool>
-Modified_font_metric::attachment_point (const std::string &s, Direction d) const
+Modified_font_metric::attachment_point (const std::string &s,
+                                        Direction d) const
 {
   auto point = orig_->attachment_point (s, d);
   point.first *= magnification_;

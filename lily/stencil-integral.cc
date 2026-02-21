@@ -171,8 +171,9 @@ add_partial_ellipse_segments (Lazy_skyline_pair *skyline,
   Offset first;
   for (vsize i = 0; i <= quantization; i++)
     {
-      Real ang = linear_interpolate (
-        static_cast<Real> (i), 0, static_cast<Real> (quantization), start, end);
+      Real ang
+        = linear_interpolate (static_cast<Real> (i), 0,
+                              static_cast<Real> (quantization), start, end);
       Offset pt (offset_directed (ang));
       pt[X_AXIS] *= rad[X_AXIS];
       pt[Y_AXIS] *= rad[Y_AXIS];
@@ -519,8 +520,8 @@ add_polygon_segments (Lazy_skyline_pair *skyline, Transform const &transform,
   SCM l = SCM_EOL;
   for (SCM s = coords; scm_is_pair (s); s = scm_cddr (s))
     {
-      l = scm_cons (first ? ly_symbol2scm ("moveto") : ly_symbol2scm ("lineto"),
-                    l);
+      l = scm_cons (
+        first ? ly_symbol2scm ("moveto") : ly_symbol2scm ("lineto"), l);
       l = scm_cons (scm_car (s), l);
       l = scm_cons (scm_cadr (s), l);
       first = false;
@@ -791,7 +792,8 @@ Grob::maybe_pure_internal_simple_skylines_from_extents (Grob *me, Axis a,
 }
 
 MAKE_SCHEME_CALLBACK (Grob, pure_simple_vertical_skylines_from_extents,
-                      "ly:grob::pure-simple-vertical-skylines-from-extents", 3);
+                      "ly:grob::pure-simple-vertical-skylines-from-extents",
+                      3);
 SCM
 Grob::pure_simple_vertical_skylines_from_extents (SCM smob, SCM begscm,
                                                   SCM endscm)
@@ -811,8 +813,8 @@ SCM
 Grob::simple_vertical_skylines_from_extents (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  return maybe_pure_internal_simple_skylines_from_extents (me, X_AXIS, false, 0,
-                                                           0, false, false);
+  return maybe_pure_internal_simple_skylines_from_extents (me, X_AXIS, false,
+                                                           0, 0, false, false);
 }
 
 MAKE_SCHEME_CALLBACK (Grob, pure_simple_horizontal_skylines_from_extents,
@@ -898,7 +900,8 @@ Grob::horizontal_skylines_from_stencil (SCM smob)
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Skyline_pair p = skylines_from_stencil (
     get_property (me, "stencil"), get_property (me, "rotation"), Y_AXIS);
-  p.pad (from_scm<double> (get_property (me, "skyline-vertical-padding"), 0.0));
+  p.pad (
+    from_scm<double> (get_property (me, "skyline-vertical-padding"), 0.0));
   return to_scm (p);
 }
 
@@ -976,9 +979,9 @@ Grob::pure_vertical_skylines_from_element_stencils (SCM smob, SCM beg_scm,
   return internal_skylines_from_element_stencils (me, X_AXIS, true, beg, end);
 }
 
-MAKE_SCHEME_CALLBACK (Grob, pure_horizontal_skylines_from_element_stencils,
-                      "ly:grob::pure-horizontal-skylines-from-element-stencils",
-                      3);
+MAKE_SCHEME_CALLBACK (
+  Grob, pure_horizontal_skylines_from_element_stencils,
+  "ly:grob::pure-horizontal-skylines-from-element-stencils", 3);
 SCM
 Grob::pure_horizontal_skylines_from_element_stencils (SCM smob, SCM beg_scm,
                                                       SCM end_scm)

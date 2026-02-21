@@ -308,16 +308,17 @@ Slur_score_state::fill (Spanner *me)
                 ly_symbol2scm ("time-signature-interface"))))
         {
           for (const auto d : {LEFT, RIGHT})
-            additional_ys[d] = minmax (
-              dir_, additional_ys[d],
-              (dir_
-               * (parameters_.encompass_object_range_overshoot_
-                  + (y_place - encompass_place)
-                      * (normalize (
-                           extra_encompass_infos_[i].extents_[X_AXIS].center (),
-                           base_attachments_[RIGHT][X_AXIS],
-                           base_attachments_[LEFT][X_AXIS])
-                         + (dir_ == LEFT ? 0 : -1)))));
+            additional_ys[d]
+              = minmax (dir_, additional_ys[d],
+                        (dir_
+                         * (parameters_.encompass_object_range_overshoot_
+                            + (y_place - encompass_place)
+                                * (normalize (extra_encompass_infos_[i]
+                                                .extents_[X_AXIS]
+                                                .center (),
+                                              base_attachments_[RIGHT][X_AXIS],
+                                              base_attachments_[LEFT][X_AXIS])
+                                   + (dir_ == LEFT ? 0 : -1)))));
         }
     }
 
@@ -347,8 +348,8 @@ Slur_score_state::fill (Spanner *me)
     musical_dy_ = 0.0;
 }
 
-MAKE_SCHEME_CALLBACK (Slur, calc_control_points, "ly:slur::calc-control-points",
-                      1)
+MAKE_SCHEME_CALLBACK (Slur, calc_control_points,
+                      "ly:slur::calc-control-points", 1)
 SCM
 Slur::calc_control_points (SCM smob)
 {
@@ -649,8 +650,8 @@ Slur_score_state::move_away_from_staffline (Real y, Grob *on_staff) const
              * 2.0 / staff_space_;
 
   if (fabs (pos - round_halfway_up (pos)) < 0.2
-      && Staff_symbol_referencer::on_staff_line (on_staff,
-                                                 static_cast<int> (rint (pos))))
+      && Staff_symbol_referencer::on_staff_line (
+        on_staff, static_cast<int> (rint (pos))))
     y += 1.5 * staff_space_ * dir_ / 10;
 
   return y;
@@ -738,7 +739,8 @@ Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
           for (const auto d : {LEFT, RIGHT})
             {
               os[d][X_AXIS] = base_attachments_[d][X_AXIS];
-              if (extremes_[d].stem_ && !Stem::is_invisible (extremes_[d].stem_)
+              if (extremes_[d].stem_
+                  && !Stem::is_invisible (extremes_[d].stem_)
                   && extremes_[d].stem_dir_ == dir_)
                 {
                   Interval stem_y = extremes_[d].stem_extent_[Y_AXIS];
@@ -753,7 +755,8 @@ Slur_score_state::enumerate_attachments (Drul_array<Real> end_ys) const
                              < dir_ * os[d][Y_AXIS]
                            && !extremes_[d].stem_extent_[X_AXIS].is_empty ())
 
-                    os[d][X_AXIS] = extremes_[d].stem_extent_[X_AXIS].center ();
+                    os[d][X_AXIS]
+                      = extremes_[d].stem_extent_[X_AXIS].center ();
                 }
             }
 

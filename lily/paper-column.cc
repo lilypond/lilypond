@@ -288,14 +288,14 @@ Paper_column::get_interface_extent (Grob *column, SCM iface, Axis a)
   to your score.
   Also, as of 2013-10-16 there's a switch in Frescobaldi that turns this on.
 */
-MAKE_DOCUMENTED_SCHEME_CALLBACK (Paper_column, print, "ly:paper-column::print",
-                                 1,
-                                 "Optional stencil for @code{PaperColumn} or"
-                                 " @code{NonMusicalPaperColumn}."
-                                 "  Draws the @dfn{rank number} of each column,"
-                                 " its moment in time, a blue arrow showing the"
-                                 " ideal distance, and a red arrow showing the"
-                                 " minimum distance between columns.");
+MAKE_DOCUMENTED_SCHEME_CALLBACK (
+  Paper_column, print, "ly:paper-column::print", 1,
+  "Optional stencil for @code{PaperColumn} or"
+  " @code{NonMusicalPaperColumn}."
+  "  Draws the @dfn{rank number} of each column,"
+  " its moment in time, a blue arrow showing the"
+  " ideal distance, and a red arrow showing the"
+  " minimum distance between columns.");
 SCM
 Paper_column::print (SCM p)
 {
@@ -352,8 +352,8 @@ Paper_column::print (SCM p)
       Real y = -2.5;
       y -= j * (num_height + small_pad + big_pad);
       // horizontally center number on the arrow, excluding arrowhead.
-      Offset num_off = Offset ((sp->ideal_distance () - num_len - head_len) / 2,
-                               y + small_pad);
+      Offset num_off = Offset (
+        (sp->ideal_distance () - num_len - head_len) / 2, y + small_pad);
 
       std::vector<Offset> pts;
       pts.push_back (Offset (0, y));
@@ -384,7 +384,8 @@ Paper_column::print (SCM p)
       arrowhead.scale (1, 1.66);
       Real head_len = arrowhead.extent (X_AXIS).length ();
 
-      SCM number_markup = to_scm (String_convert::form_string ("%5.2lf", dist));
+      SCM number_markup
+        = to_scm (String_convert::form_string ("%5.2lf", dist));
       auto number_stc
         = Text_interface::grob_interpret_markup (me, number_markup);
       number_stc.scale (1, 1.1);

@@ -135,7 +135,8 @@ Performance::write_output (std::string out,
     {
       // The only known way to get here is to skip the entire piece with
       // skipTypesetting.
-      warning (_f ("cannot create a zero-track MIDI file; skipping `%s'", out));
+      warning (
+        _f ("cannot create a zero-track MIDI file; skipping `%s'", out));
       return;
     }
 

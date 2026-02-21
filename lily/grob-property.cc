@@ -348,8 +348,8 @@ call_pure_function (SCM value, SCM args, vsize start, vsize end)
       value = upc->pure_part ();
 
       if (ly_is_procedure (value))
-        return scm_apply_3 (value, scm_car (args), to_scm (start), to_scm (end),
-                            scm_cdr (args));
+        return scm_apply_3 (value, scm_car (args), to_scm (start),
+                            to_scm (end), scm_cdr (args));
 
       return value;
     }

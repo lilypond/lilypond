@@ -227,11 +227,12 @@ Mensural_ligature_engraver::transform_heads (
                 }
               else
                 {
-                  nr->warning (_ ("invalid ligature ending:\n"
-                                  "when the last note is a descending brevis,\n"
-                                  "the penultimate note must be another one,\n"
-                                  "or the ligature must be longa-brevis or\n"
-                                  "semibrevis-semibrevis-brevis"));
+                  nr->warning (
+                    _ ("invalid ligature ending:\n"
+                       "when the last note is a descending brevis,\n"
+                       "the penultimate note must be another one,\n"
+                       "or the ligature must be longa-brevis or\n"
+                       "semibrevis-semibrevis-brevis"));
                   prim = MLP_NONE;
                   break;
                 }
@@ -314,8 +315,8 @@ Mensural_ligature_engraver::transform_heads (
           */
           set_property (prev_primitive, "primitive",
                         to_scm (MLP_FLEXA_BEGIN
-                                | (from_scm<int> (
-                                     get_property (prev_primitive, "primitive"))
+                                | (from_scm<int> (get_property (prev_primitive,
+                                                                "primitive"))
                                    & MLP_STEM)));
           set_property (prev_primitive, "flexa-interval",
                         to_scm (pitch - prev_pitch));
@@ -355,7 +356,8 @@ void
 Mensural_ligature_engraver::propagate_properties (
   Spanner *ligature, std::vector<Item *> const &primitives, Real &min_length)
 {
-  Real thickness = from_scm<double> (get_property (ligature, "thickness"), 1.3);
+  Real thickness
+    = from_scm<double> (get_property (ligature, "thickness"), 1.3);
   thickness
     *= ligature->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
 
@@ -443,7 +445,8 @@ Mensural_ligature_engraver::fold_up_primitives (
 
       move_related_items_to_column (current, first->get_column (), distance);
 
-      Real head_width = from_scm<double> (get_property (current, "head-width"));
+      Real head_width
+        = from_scm<double> (get_property (current, "head-width"));
       distance += head_width - thickness;
 
       if (size_t const dot_count = Rhythmic_head::dot_count (current))
@@ -471,8 +474,9 @@ Mensural_ligature_engraver::fold_up_primitives (
               int const delta
                 = from_scm<int> (get_property (current, "delta-position"));
               if (flexa_begin)
-                vert_shift += delta < 0 ? staff_space
-                                        : (on_line ? -2.0 : -1.0) * staff_space;
+                vert_shift += delta < 0
+                                ? staff_space
+                                : (on_line ? -2.0 : -1.0) * staff_space;
               else if (on_line)
                 {
                   if (0 < delta && delta < 3)
@@ -499,9 +503,10 @@ Mensural_ligature_engraver::fold_up_primitives (
           const Stencil *stil
             = unsmob<const Stencil> (get_property (dot_gr, "dot-stencil"));
           Real dot_width = stil ? stil->extent (X_AXIS).length () : 0.0;
-          dot_gr->translate_axis ((flexa_begin ? staff_space * 0.6 : head_width)
-                                    - 2.0 * thickness + dot_width,
-                                  X_AXIS);
+          dot_gr->translate_axis (
+            (flexa_begin ? staff_space * 0.6 : head_width) - 2.0 * thickness
+              + dot_width,
+            X_AXIS);
         }
     }
 }

@@ -51,7 +51,8 @@ private:
   Context *create_hierarchy (const std::vector<Context_def *> &path,
                              const std::string &intermediate_id,
                              const std::string &leaf_id, SCM leaf_operations);
-  Context *find_child_to_adopt_grandchild (SCM child_name, SCM grandchild_name);
+  Context *find_child_to_adopt_grandchild (SCM child_name,
+                                           SCM grandchild_name);
   SCM make_revert_finalization (SCM sym);
 
   enum FindMode
@@ -310,7 +311,7 @@ void preorder_walk (Context *context,
                     const std::function<void (Context *)> &visit);
 
 /* Shorthand for creating and broadcasting stream events. */
-#define send_stream_event(ctx, type, origin, ...)                              \
+#define send_stream_event(ctx, type, origin, ...)                             \
   ctx->internal_send_stream_event (ly_symbol2scm (type), origin, ##__VA_ARGS__)
 
 SCM nested_property_alist (SCM alist, SCM prop_path, SCM value);

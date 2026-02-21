@@ -196,8 +196,8 @@ compress_lines (const std::vector<Line_details> &orig)
             compressed.footnote_heights_.begin (),
             old.footnote_heights_.begin (), old.footnote_heights_.end ());
           compressed.in_note_heights_.insert (
-            compressed.in_note_heights_.begin (), old.in_note_heights_.begin (),
-            old.in_note_heights_.end ());
+            compressed.in_note_heights_.begin (),
+            old.in_note_heights_.begin (), old.in_note_heights_.end ());
 
           ret.back () = compressed;
         }
@@ -260,8 +260,8 @@ Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break,
   ragged_ = from_scm<bool> (pb->paper ()->c_variable ("ragged-bottom"));
   ragged_last_
     = from_scm<bool> (pb->paper ()->c_variable ("ragged-last-bottom"));
-  systems_per_page_
-    = std::max (0, from_scm (pb->paper ()->c_variable ("systems-per-page"), 0));
+  systems_per_page_ = std::max (
+    0, from_scm (pb->paper ()->c_variable ("systems-per-page"), 0));
   max_systems_per_page_ = std::max (
     0, from_scm (pb->paper ()->c_variable ("max-systems-per-page"), 0));
   min_systems_per_page_ = std::max (
@@ -943,9 +943,9 @@ Page_breaking::set_current_breakpoints (vsize start, vsize end,
           cache_line_details (i);
           Real dem = 0;
           for (vsize j = 0; j < cached_line_details_.size (); j++)
-            dem
-              += cached_line_details_[j].force_ * cached_line_details_[j].force_
-                 + cached_line_details_[j].break_penalty_;
+            dem += cached_line_details_[j].force_
+                     * cached_line_details_[j].force_
+                   + cached_line_details_[j].break_penalty_;
 
           dems_and_indices.push_back (std::pair<Real, vsize> (dem, i));
         }
@@ -1122,7 +1122,8 @@ Page_breaking::calc_line_heights ()
           Line_details const &prev = cached_line_details_[i - 1];
           if (!cur.tight_spacing_)
             padding = title ? prev.title_padding_ : prev.padding_;
-          Real min_dist = title ? prev.title_min_distance_ : prev.min_distance_;
+          Real min_dist
+            = title ? prev.title_min_distance_ : prev.min_distance_;
           refpoint_hanging
             = std::max (refpoint_hanging + padding,
                         prev_refpoint_hanging - prev.refpoint_extent_[DOWN]
@@ -1270,9 +1271,9 @@ Page_breaking::space_systems_on_n_pages (vsize configuration, vsize n,
     }
 
   if (n == 1 && valid_n)
-    ret = space_systems_on_1_page (cached_line_details_,
-                                   page_height (first_page_num, is_last ()),
-                                   ragged () || (is_last () && ragged_last ()));
+    ret = space_systems_on_1_page (
+      cached_line_details_, page_height (first_page_num, is_last ()),
+      ragged () || (is_last () && ragged_last ()));
   else if (n == 2 && valid_n)
     ret = space_systems_on_2_pages (configuration, first_page_num);
   else
@@ -1298,9 +1299,11 @@ Page_breaking::blank_page_penalty () const
 
   Break_position const &pos = breaks_[current_end_breakpoint_];
   if (Paper_score *ps = system_specs_[pos.system_spec_index_].pscore_)
-    return from_scm<double> (ps->layout ()->lookup_variable (penalty_sym), 0.0);
+    return from_scm<double> (ps->layout ()->lookup_variable (penalty_sym),
+                             0.0);
 
-  return from_scm<double> (book_->paper ()->lookup_variable (penalty_sym), 0.0);
+  return from_scm<double> (book_->paper ()->lookup_variable (penalty_sym),
+                           0.0);
 }
 
 // If systems_per_page_ is positive, we don't really try to space on N
@@ -1452,8 +1455,9 @@ Page_breaking::pack_systems_on_least_pages (vsize configuration,
       if ((line > page_first_line)
           && (std::isinf (space.force_)
               || ((line > 0)
-                  && scm_is_eq (cached_line_details_[line - 1].page_permission_,
-                                ly_symbol2scm ("force")))))
+                  && scm_is_eq (
+                    cached_line_details_[line - 1].page_permission_,
+                    ly_symbol2scm ("force")))))
         {
           res.systems_per_page_.push_back (line - page_first_line);
           res.force_.push_back (prev_force);
@@ -1585,10 +1589,11 @@ Page_breaking::space_systems_on_2_pages (vsize configuration,
     if (scm_is_eq (cached_line_details_[i].page_permission_,
                    ly_symbol2scm ("force")))
       {
-        std::vector<Line_details> lines1 (
-          cached_line_details_.begin (), cached_line_details_.begin () + i + 1);
-        std::vector<Line_details> lines2 (cached_line_details_.begin () + i + 1,
-                                          cached_line_details_.end ());
+        std::vector<Line_details> lines1 (cached_line_details_.begin (),
+                                          cached_line_details_.begin () + i
+                                            + 1);
+        std::vector<Line_details> lines2 (
+          cached_line_details_.begin () + i + 1, cached_line_details_.end ());
         Page_spacing_result p1
           = space_systems_on_1_page (lines1, page1_height, ragged1);
         Page_spacing_result p2
@@ -1737,7 +1742,8 @@ Page_breaking::last_break_position () const
 Real
 Page_breaking::min_whitespace_at_top_of_page (Line_details const &line) const
 {
-  SCM first_system_spacing = book_->paper ()->c_variable ("top-system-spacing");
+  SCM first_system_spacing
+    = book_->paper ()->c_variable ("top-system-spacing");
   if (line.title_)
     first_system_spacing = book_->paper ()->c_variable ("top-markup-spacing");
 
@@ -1755,9 +1761,11 @@ Page_breaking::min_whitespace_at_top_of_page (Line_details const &line) const
 }
 
 Real
-Page_breaking::min_whitespace_at_bottom_of_page (Line_details const &line) const
+Page_breaking::min_whitespace_at_bottom_of_page (
+  Line_details const &line) const
 {
-  SCM last_system_spacing = book_->paper ()->c_variable ("last-bottom-spacing");
+  SCM last_system_spacing
+    = book_->paper ()->c_variable ("last-bottom-spacing");
   Real min_distance = -infinity_f;
   Real padding = 0;
 
@@ -1767,7 +1775,8 @@ Page_breaking::min_whitespace_at_bottom_of_page (Line_details const &line) const
                                           ly_symbol2scm ("padding"));
 
   // FIXME: take into account the height of the footer
-  Real translate = std::min (line.shape_.begin_[DOWN], line.shape_.rest_[DOWN]);
+  Real translate
+    = std::min (line.shape_.begin_[DOWN], line.shape_.rest_[DOWN]);
   return std::max (0.0, std::max (padding, min_distance + translate));
 }
 

@@ -149,8 +149,8 @@ Axis_group_engraver::process_acknowledged ()
           if (staffline_->get_y_parent ()
               && staffline_->get_y_parent () == elts_[i])
             {
-              staffline_->warning (
-                _ ("Axis_group_engraver: vertical group already has a parent"));
+              staffline_->warning (_ (
+                "Axis_group_engraver: vertical group already has a parent"));
               staffline_->warning (_ ("are there two Axis_group_engravers?"));
               staffline_->warning (_ ("removing this vertical group"));
               staffline_->suicide ();

@@ -134,7 +134,8 @@ Mark_tracking_translator::stop_translation_timestep ()
     case Event_type::default_rehearsal_mark:
     case Event_type::specific_rehearsal_mark:
       {
-        const auto label = get_rehearsal_mark_label (context (), rehearsal_ev_);
+        const auto label
+          = get_rehearsal_mark_label (context (), rehearsal_ev_);
         if (label > 0)
           set_property (context (), "rehearsalMark", to_scm (label + 1));
         break;

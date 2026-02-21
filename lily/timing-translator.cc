@@ -153,7 +153,8 @@ Timing_translator::pre_process_music ()
         {
           auto *const dur
             = unsmob<Duration> (get_property (partial_event_, "duration"));
-          if (dur) // paranoia: listen_partial() should have rejected this event
+          if (
+            dur) // paranoia: listen_partial() should have rejected this event
             {
               if (isfinite (mlen))
                 {
