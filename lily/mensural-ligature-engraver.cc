@@ -43,8 +43,7 @@
  * (like \[ a\breve g as \])
  *
  * TODO: do something with multiple voices within a ligature.  See
- * for example:
- * Ockeghem: Missa Ecce ancilla domini, bassus part, end of Christe.
+ * for example: Trent 91, f178v or Aosta 15 f135r
  *
  * TODO: enhance robustness: in case of an invalid ligature (e.g. the
  * input specifies a ligature that contains a minima), automatically
@@ -89,12 +88,11 @@ void
 Mensural_ligature_engraver::transform_heads (
   std::vector<Item *> const &primitives)
 {
-  if (primitives.size () < 2)
+  if (primitives.empty ())
     {
-      warning (_ ("ligature with less than 2 heads; skipping"));
-      return;
+      warning (_ ("empty ligature"));
     }
-  int prev_pitch = 0;
+  int prev_pitch = 0, prev_prim = 0;
   bool at_beginning = true;
 
   // needed so that we can check whether
@@ -125,99 +123,44 @@ Mensural_ligature_engraver::transform_heads (
       int pitch = unsmob<Pitch> (get_property (nr, "pitch"))->steps ();
       int prim = 0;
       bool const is_last = i == s - 1;
+      auto *const next_primitive = is_last ? nullptr : primitives[i + 1];
+      int const next_pitch = is_last
+        ? 0
+        : unsmob<Pitch> (get_property (next_primitive->event_cause (),
+                                       "pitch"))
+            ->steps ();
+      int const next_dur
+        = is_last ? 0 : Rhythmic_head::duration_log (next_primitive);
 
-      if (at_beginning)
-        {
-          if (is_last)
-            {
-              // we can get here after invalid input
-              nr->warning (_ ("single note ligature; skipping"));
-              break;
-            }
-          prev_semibrevis = prev_brevis_shape = false;
-          prev_primitive = NULL;
-        }
-      else if (pitch == prev_pitch)
-        {
-          nr->warning (_ ("prime interval within ligature; skipping"));
-          at_beginning = true;
-          prim = MLP_NONE;
-          continue;
-        }
+      if (!at_beginning && pitch == prev_pitch)
+        nr->warning (_ ("unison within ligature"));
+
+      bool general_case = true;
+      bool make_flexa = false;
+      bool const is_brevis = duration_log == -1;
+      bool const is_longa = duration_log == -2;
 
       if (duration_log < -3 // is this possible at all???
           || duration_log > 0)
         {
           nr->warning (
             _ ("mensural ligature:"
-               " duration none of maxima, longa, breve, or semibreve;"
-               " skipping"));
-          prim = MLP_NONE;
-          at_beginning = true;
-          continue;
+               " duration none of maxima, longa, breve, or semibreve"));
+          prim = MLP_INVALID;
         }
-
-      bool general_case = true;
-      bool make_flexa = false;
-      bool allow_flexa = true;
-      bool const is_brevis = duration_log == -1;
-
-      // first check special cases
-      // 1. initial longa or brevis
-      if (at_beginning && 0 > duration_log && duration_log > -3)
+      else if (at_beginning && is_last)
+        nr->warning (_ ("single note ligature"));
+      // check descending cases
+      // 1. at start
+      else if (at_beginning && next_pitch < pitch && (is_brevis || is_longa))
         {
-          // descendens
-          if (unsmob<Pitch> (
-                get_property (primitives[i + 1]->event_cause (), "pitch"))
-                  ->steps ()
-                < pitch
-              || (is_brevis
-                  && from_scm<bool> (
-                    get_property (primitive, "left-down-stem"))))
-            {
-              int left_stem = is_brevis ? MLP_DOWN : 0;
-              prim = left_stem | MLP_BREVIS;
-              general_case = false;
-            }
+          int const left_stem = is_brevis ? MLP_DOWN : 0;
+          prim = left_stem | MLP_BREVIS;
         }
-      // 2. semibrevis must not be followed by a brevis
-      //    (theoretical sources require semibrevis, but
-      //     longa and maxima can be denoted unambiguously,
-      //     and in extremely rare cases these are used,
-      //     see e.g. Wylkynson's five part Salve regina
-      //     in the Eton Choirbook: fol. i2, Bassus part at words Et Jesum)
-      else if (prev_semibrevis && duration_log > -2)
-        {
-          prev_semibrevis = false;
-          if (duration_log == 0)
-            {
-              prim = MLP_BREVIS;
-              general_case = false;
-            }
-          else
-            {
-              nr->warning (
-                _ ("semibrevis must not be followed by a brevis; skipping"));
-              prim = MLP_NONE;
-              at_beginning = true;
-              continue;
-            }
-        }
-      // 3. semibreves are denoted by an upward tail on the left
-      //    (theoretical sources require them at the beginning, but
-      //     an upward tail is not used for anything else in the middle,
-      //     and in extremely rare cases it's used to denote semibreves,
-      //     see e.g. Fayrfax's Aeternae laudis lilium
-      //     in the Lambeth Choirbook: fol. 58v, start of the fourth line)
-      else if (duration_log == 0)
-        {
-          prim = MLP_UP | MLP_BREVIS;
-          general_case = false;
-        }
-      // 4. end, descendens
+      // 2. at end
       else if (is_last && pitch < prev_pitch)
         {
-          // brevis; previous note must be turned into flexa
+          // brevis; should form a flexa with the previous note
           if (is_brevis)
             {
               if (prev_brevis_shape)
@@ -226,103 +169,187 @@ Mensural_ligature_engraver::transform_heads (
                   general_case = false;
                 }
               else
-                {
-                  nr->warning (
-                    _ ("invalid ligature ending:\n"
-                       "when the last note is a descending brevis,\n"
-                       "the penultimate note must be another one,\n"
-                       "or the ligature must be longa-brevis or\n"
-                       "semibrevis-semibrevis-brevis"));
-                  prim = MLP_NONE;
-                  break;
-                }
+                /*
+                  flexa impossible;
+                  instead of refusal, add right stem to the previous note
+                */
+                prim = MLP_BREVIS | MLP_DOWN;
             }
           // longa
-          else if (duration_log == -2 && !prev_semibrevis
-                   && !from_scm<bool> (
-                     get_property (primitive, "right-down-stem")))
-            {
-              prim = MLP_BREVIS;
-              general_case = allow_flexa = false;
-              if (from_scm<bool> (get_property (primitive, "right-up-stem")))
-                {
-                  prim |= MLP_JOIN_UP;
-                }
-            }
-          // else maxima (or longa-after-semibrevis);
-          // fall through to regular case below
+          else if (is_longa && !prev_semibrevis)
+            prim = MLP_BREVIS;
+          // else fall through to regular case below
         }
 
-      if (allow_flexa
-          && from_scm<bool> (get_property (primitive, "ligature-flexa")))
+      if (from_scm<bool> (get_property (primitive, "ligature-pes")))
         {
-          /*
-            flexa requested, check whether allowed:
-            - there should be a previous note
-            - both of the notes must be of brevis shape
-              (i.e. can't be maxima or flexa;
-              longa is forbidden as well - it's nonexistent anyway)
-            - there mustn't be a stem here
-            - no compulsory flexa for the next note,
-              i.e. it's not an ultimate descending breve
-          */
-          make_flexa = !at_beginning && prev_brevis_shape && duration_log > -2
-                       && !(prim & MLP_STEM);
-          if (make_flexa && i == s - 2)
+          if (is_last && duration_log < -1 && prev_pitch + 1 < pitch)
             {
-              /*
-                check last condition: look ahead to next note
-              */
-              auto *const next_primitive = primitives[i + 1];
-              if (Rhythmic_head::duration_log (next_primitive) == -1)
-                {
-                  /*
-                    breve: check whether descending
-                  */
-                  int const next_pitch
-                    = unsmob<Pitch> (
-                        get_property (next_primitive->event_cause (), "pitch"))
-                        ->steps ();
-                  if (next_pitch < pitch)
-                    /*
-                      sorry, forbidden
-                    */
-                    make_flexa = false;
-                }
+              prim = (is_longa ? MLP_BREVIS : MLP_MAXIMA) | MLP_PES;
             }
+          else
+            nr->warning (_ ("only a final longa higher at least by a third "
+                            "than the previous note\n"
+                            "can be drawn pes-like"));
         }
 
-      if (general_case)
+      if (general_case && !(prim & MLP_ANY))
         {
-          static int const shape[3] = {MLP_MAXIMA, MLP_LONGA, MLP_BREVIS};
+          static int const shape[4] = {MLP_MAXIMA, MLP_BREVIS | MLP_JOIN_DOWN,
+                                       MLP_BREVIS, MLP_BREVIS};
 
           prim = shape[duration_log + 3];
-          if (duration_log == -3)
+          if (prev_semibrevis)
             {
-              if (from_scm<bool> (get_property (primitive, "right-down-stem")))
-                prim |= MLP_JOIN_DOWN;
-              else if (is_last
-                       && from_scm<bool> (
-                         get_property (primitive, "right-up-stem")))
-                prim |= MLP_JOIN_UP;
+              if (is_brevis)
+                {
+                  nr->warning
+                    (_ ("single semibreve must not be followed by a breve"));
+                  /*
+                    nevertheless show breve by a left down stem
+                  */
+                  prim |= MLP_DOWN;
+                }
             }
+          else if (duration_log == 0)
+            /*
+              semibreve pairs are denoted by an upward tail on the left
+              (theoretical sources require them at the beginning, but
+              an upward tail is not used for anything else in the middle,
+              and a few codices use it to denote semibreves,
+              see e.g. Fayrfax's Aeternae laudis lilium in the
+              Lambeth Choirbook: fol. 58v, start of the fourth line)
+            */
+            prim |= MLP_UP;
         }
 
-      if (make_flexa)
+      /*
+        check whether this and the previous note
+        may/must/can't be turned into flexa:
+        - there should be a previous note
+        - both of the notes must be of brevis shape
+          (i.e. can't be maxima or flexa)
+        - there mustn't be a stem between the two notes
+        - if the next note is an ultimate descending breve,
+          this note must form a flexa with that, not with the previous one
+        - if the next note is a high enough pes-like final longa
+          and the previous note is higher than the current one,
+          then the three note must form a porrectus (i.e. flexa here)
+          to avoid collision of the previous and the next note
+      */
+      bool flexa_possible = !at_beginning && prev_brevis_shape
+                            && !(prim & (MLP_STEM | MLP_MAXIMA | MLP_INVALID));
+      bool const flexa_requested
+        = from_scm<bool> (get_property (primitive, "ligature-flexa"));
+      if (flexa_requested && !flexa_possible && !(prim & MLP_INVALID))
+        {
+          if (at_beginning)
+            nr->warning
+              (_ ("tweak ligature-flexa between the two required notes"));
+          else if ((prev_prim | prim) & MLP_MAXIMA)
+            nr->warning (_ ("maxima cannot form part of a flexa"));
+          else
+            nr->warning (_ ("flexa cannot have stem in the middle"));
+        }
+
+      if (flexa_possible && i == s - 2)
+        {
+          /*
+            penultimate note:
+            final note is to be checked for the must/can't conditions
+          */
+
+          if (next_dur == -1)
+            {
+              /*
+                breve: check whether descending
+              */
+              if (next_pitch < pitch)
+                {
+                  flexa_possible = false;
+                  if (flexa_requested)
+                    nr->warning
+                      (_ ("this note must form a flexa with the next note,\n"
+                          "not the previous one"));
+                }
+            }
+          else if (next_dur == -2)
+            {
+              /*
+                longa: check whether ascending high enough
+                and pes is requested
+              */
+              if (next_pitch < prev_pitch + 4 && pitch < prev_pitch
+                  && pitch + 1 < next_pitch
+                  && from_scm<bool> (get_property (next_primitive,
+                                                   "ligature-pes")))
+                {
+                  make_flexa = true;
+                }
+            }
+        }
+      if (!make_flexa)
+        make_flexa = flexa_requested && flexa_possible;
+
+      if (make_flexa && !(prim & (MLP_PES | MLP_INVALID)))
         {
           /*
             turn the note with the previous one into a flexa
           */
-          set_property (prev_primitive, "primitive",
-                        to_scm (MLP_FLEXA_BEGIN
-                                | (from_scm<int> (get_property (prev_primitive,
-                                                                "primitive"))
-                                   & MLP_STEM)));
+          set_property (
+            prev_primitive, "primitive",
+            to_scm (
+              MLP_FLEXA_BEGIN
+              | (from_scm<int> (get_property (prev_primitive, "primitive"), 0)
+                 & MLP_STEM)));
           set_property (prev_primitive, "flexa-interval",
                         to_scm (pitch - prev_pitch));
-          prim = MLP_FLEXA_END;
+          prim &= ~MLP_BREVIS;
+          prim |= MLP_FLEXA_END;
           set_property (primitive, "flexa-interval",
                         to_scm (pitch - prev_pitch));
+
+          if (is_longa)
+            {
+              /*
+                flexa ending in a longa:
+                right stem needed explicitly even at descending end of ligature
+              */
+              prim |= MLP_JOIN_DOWN;
+            }
+        }
+
+      if (from_scm<bool> (get_property (primitive, "left-down-stem")))
+        {
+          if (at_beginning && is_brevis)
+            prim |= MLP_DOWN;
+          else
+            nr->warning
+              (_ (" only an initial breve can have downward left stem"));
+        }
+
+      if (from_scm<bool> (get_property (primitive, "right-down-stem")))
+        {
+          if (duration_log < -1)
+            prim |= MLP_JOIN_DOWN;
+          else
+            nr->warning (_ ("only longae and maximae may have right stem"));
+        }
+
+      if (from_scm<bool> (get_property (primitive, "right-up-stem")))
+        {
+          if (duration_log < -1)
+            {
+              if (i + 2 < s && next_dur > -2)
+                nr->warning
+                  (_ ("in the middle of the ligature an upward stem\n"
+                      "belongs more often to the next note"));
+
+              prim &= ~MLP_JOIN_DOWN;
+              prim |= MLP_JOIN_UP;
+            }
+          else
+            nr->warning (_ ("only longae and maximae may have right stem"));
         }
 
       // join_primitives replacement
@@ -332,8 +359,9 @@ Mensural_ligature_engraver::transform_heads (
       at_beginning = false;
       prev_primitive = primitive;
       prev_pitch = pitch;
+      prev_prim = prim;
       set_property (primitive, "primitive", to_scm (prim));
-      prev_brevis_shape = (prim & MLP_BREVIS) != 0;
+      prev_brevis_shape = (prim & (MLP_ANY | MLP_RIGHT_STEM)) == MLP_BREVIS;
       prev_semibrevis = (prim & MLP_UP) != 0;
     }
 }
@@ -369,8 +397,14 @@ Mensural_ligature_engraver::propagate_properties (
                              ->find_by_name ("noteheads.sM3ligmensural")
                              .extent (X_AXIS)
                              .length ();
+  /*
+    start with the width of the first vertical edge,
+    then let each note head add its own increment,
+    considering that its left edge is taken account of
+    (with either this initialization or the right edge of the previous head)
+  */
+  min_length = thickness;
 
-  min_length = 0.0;
   Item *prev_primitive = NULL;
   int prev_output;
   for (const auto &primitive : primitives)
@@ -381,13 +415,14 @@ Mensural_ligature_engraver::propagate_properties (
 
       switch (output & MLP_ANY)
         {
+        case MLP_INVALID:
         case MLP_BREVIS:
-        case MLP_LONGA:
-          min_length += head_width;
+          if (!(output & MLP_PES))
+            min_length += head_width - thickness;
           set_property (primitive, "head-width", to_scm (head_width));
           break;
         case MLP_MAXIMA:
-          min_length += maxima_head_width;
+          min_length += maxima_head_width - thickness;
           set_property (primitive, "head-width", to_scm (maxima_head_width));
           break;
         case MLP_FLEXA_BEGIN:
@@ -399,7 +434,7 @@ Mensural_ligature_engraver::propagate_properties (
           {
             SCM flexa_scm = get_property (primitive, "flexa-width");
             Real const flexa_width = from_scm<double> (flexa_scm, 2.0);
-            min_length += flexa_width + thickness;
+            min_length += flexa_width;
             SCM head_width = to_scm (0.5 * (flexa_width + thickness));
             set_property (primitive, "head-width", head_width);
             set_property (prev_primitive, "head-width", head_width);
@@ -416,9 +451,10 @@ Mensural_ligature_engraver::propagate_properties (
         let it know when this note has a left stem,
         as it mustn't be hidden by the join
       */
-      if (prev_primitive && (output & MLP_UP))
-        set_property (prev_primitive, "primitive",
-                      to_scm (prev_output | MLP_JOIN_UP));
+      if (prev_primitive)
+        if (int const stem = output & MLP_STEM)
+          set_property (prev_primitive, "primitive",
+                        to_scm (prev_output | stem * (MLP_JOIN_UP / MLP_UP)));
 
       prev_primitive = primitive;
       prev_output = output;
@@ -434,21 +470,24 @@ Mensural_ligature_engraver::fold_up_primitives (
   Real staff_space = 0.0;
   Real thickness = 0.0;
 
-  for (vsize i = 0; i < primitives.size (); i++)
+  for (vsize i = 0, pnum = primitives.size (); i < pnum; i++)
     {
       auto *const current = primitives[i];
       if (i == 0)
         {
           first = current;
           staff_space = Staff_symbol_referencer::staff_space (first);
-          thickness = from_scm<double> (get_property (current, "thickness"));
+          thickness
+            = from_scm<double> (get_property (current, "thickness"), 0.13);
         }
 
       move_related_items_to_column (current, first->get_column (), distance);
 
+      int const prim = from_scm<int> (get_property (current, "primitive"), 0);
       Real head_width
         = from_scm<double> (get_property (current, "head-width"), 0.0);
-      distance += head_width - thickness;
+      if (!(prim & MLP_PES))
+        distance += head_width - thickness;
 
       if (size_t const dot_count = Rhythmic_head::dot_count (current))
         /*
@@ -461,11 +500,9 @@ Mensural_ligature_engraver::fold_up_primitives (
           bool const on_line = Staff_symbol_referencer::on_line (
             current, from_scm (get_property (current, "staff-position"), 0));
           Real vert_shift = on_line ? staff_space * 0.5 : 0.0;
-          bool const flexa_begin
-            = from_scm<int> (get_property (current, "primitive"))
-              & MLP_FLEXA_BEGIN;
+          bool const flexa_begin = prim & MLP_FLEXA_BEGIN;
 
-          if (i + 1 < primitives.size ())
+          if (i + 1 < pnum)
             /*
               dot in the midst => avoid next note;
               what to avoid and where depends on
@@ -473,11 +510,15 @@ Mensural_ligature_engraver::fold_up_primitives (
             */
             {
               int const delta
-                = from_scm<int> (get_property (current, "delta-position"));
+                = from_scm<int> (get_property (current, "delta-position"), 0);
               if (flexa_begin)
-                vert_shift += delta < 0
-                                ? staff_space
-                                : (on_line ? -2.0 : -1.0) * staff_space;
+                {
+                  if ((0 < delta && delta < 3 + 2 * on_line)
+                      || (!on_line && -3 < delta && delta < 0))
+                    {
+                      vert_shift += delta < 0 ? staff_space : -staff_space;
+                    }
+                }
               else if (on_line)
                 {
                   if (0 < delta && delta < 3)
@@ -499,14 +540,17 @@ Mensural_ligature_engraver::fold_up_primitives (
             be disconnected from their dot column.  See
             move_related_items_to_column.
 
-            This also means the padding isn't configurable as DotColumn.padding is.
+            This also means the padding isn't configurable
+            as DotColumn.padding is.
           */
           const Stencil *stil
             = unsmob<const Stencil> (get_property (dot_gr, "dot-stencil"));
           Real dot_width = stil ? stil->extent (X_AXIS).length () : 0.0;
           dot_gr->translate_axis (
-            (flexa_begin ? staff_space * 0.6 : head_width) - 2.0 * thickness
-              + dot_width,
+            (flexa_begin
+             ? staff_space * 0.6
+             : prim & MLP_PES ? 0.0 : head_width - 0.2 * staff_space)
+            - 2.0 * thickness + dot_width,
             X_AXIS);
         }
     }

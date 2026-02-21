@@ -1727,8 +1727,6 @@ as opposed to a group of several dots.")
      (font ,ly:font-metric? "A cached font metric object.")
      (forced ,boolean? "Manually forced accidental.")
 
-     (head-width ,ly:dimension? "The width of this ligature head.")
-
      (ideal-distances ,list? "@code{(@var{obj} . (@var{dist} .
 @var{strength}))} pairs.")
      (important-column-ranks ,vector? "A cache of columns that contain
@@ -1816,13 +1814,17 @@ grob (in @code{staff-space} units).")
 flexa shape (1 is a second, 7 is an octave).")
      (flexa-width ,ly:dimension? "The width of a flexa shape in a
 ligature grob (in @code{staff-space} units).")
-     (left-down-stem ,boolean? "request a downward left stem for an
-initial breve in a ligature.")
-     (ligature-flexa ,boolean? "request joining note to the previous one
-in a flexa.")
+
+     (head-width ,ly:dimension? "The width of this ligature head.")
 
      (inclinatum ,boolean? "Is this neume an inclinatum?")
 
+     (left-down-stem ,boolean? "Request a downward left stem for an
+initial breve in a ligature.")
+     (ligature-flexa ,boolean? "Request joining note to the previous one
+in a flexa.")
+     (ligature-pes ,boolean? "Request drawing a final longa of a ligature
+turning backwards.")
 
      (linea ,boolean? "Attach vertical lines to this neume?")
 
@@ -1837,9 +1839,9 @@ similar to a note head that is part of a ligature.")
 
      (quilisma ,boolean? "Is this neume a quilisma?")
 
-     (right-down-stem ,boolean? "request a downward right stem for a
+     (right-down-stem ,boolean? "Request a downward right stem for a
 maxima in a ligature.")
-     (right-up-stem ,boolean? "request an upward right stem for a final
+     (right-up-stem ,boolean? "Request an upward right stem for a final
 longa or maxima in a ligature.")
 
      (shortest-playing-duration ,positive-musical-length-as-number? "The

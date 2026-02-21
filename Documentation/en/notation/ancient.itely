@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.5"
+@c \version "2.27.0"
 
 
 @node Ancient notation
@@ -860,6 +860,298 @@ Internals Reference:
 @endmorerefs
 
 
+@node Historical overview of ligatures
+@subsection Historical overview of ligatures
+
+Early polyphony used modal rhythm, and encoded the meter
+by ligatures (as they existed in Gregorian neume notation,
+@pxref{Gregorian square neume ligatures}),
+breaking the flow of notes @emph{not by feet}, but after each metric stress,
+i.e., the last note of a ligature was stressed, the preceding ones were not.
+The most common ligatures had two or three notes
+(ligatura binaria/ternaria: binary/ternary ligature),
+corresponding to the stress distribution of the common meters
+iamb (short-long), trochee (long-short), dactyl (long-short-short),
+and anapaest (short-short-long).
+(Note that long-short is the quantitative concept;
+stress is the qualitative counterpart of long.)
+
+When modal rhythm was abandoned and note shapes encoded length,
+ligatures were not abandoned, but
+(interpreting the meter strictly quantitatively)
+read as breves followed by a final longa.
+For binary ligatures that meant the pes for an ascending ligature:
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\score {
+  \relative {
+    \[ g'\breve \tweak ligature-pes ##t d'\longa \]
+  }
+}
+@end lilypond
+and the climacus for a descending one:
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\score { { \[ d''\breve a'\longa \] } }
+@end lilypond
+.
+
+New shapes were introduced to encode other length sequences
+preferably independently of context,
+so that ligatures of arbitrary length became possible.
+Shapes for binary brevis-brevis ligaturae might have been taken
+from the first two notes of the existing ternary ligatures
+(meaning brevis-brevis-longa):
+the torculus
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\score {
+  \relative {
+    \[ a'\breve d c\longa \]
+  }
+}
+@end lilypond
+and the modified scandici
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\score {
+  \relative {
+    \[ a'\breve d e \]
+  }
+}
+@end lilypond
+start the same way,
+which is usable as an ascending binary brevis-brevis ligature:
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\score {
+  \relative {
+    \[ a'\breve d \]
+  }
+}
+@end lilypond
+.  Climacus must have been abandoned,
+as it is indistinguishable from a sequence of non-ligated notes:
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\score {
+  {
+    \override NoteHead.style = #'petrucci
+    d''\longa c''1 b'
+  }
+}
+@end lilypond
+, so only the porrectus
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\score {
+  \relative {
+    \[ b'\breve a \tweak ligature-pes ##t d\longa \]
+  }
+}
+@end lilypond
+remained to use its start as the descending form:
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\score { { \[ d''\breve c'' \] } }
+@end lilypond
+(this oblique parallelogram will be referred to as a @dfn{flexa};
+it always denotes @emph{two} notes (at the starting and ending pitches),
+not a scale of all pitches between the two.)
+
+Binary ligatures starting with a longa were crafted by tweaking
+the existing brevis-brevis or brevis-longa shapes.
+In the descending case the initial stem was removed:
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\score {
+  \relative {
+    \[ d''\longa c\breve \]
+    \[ d\longa c \]
+  }
+}
+@end lilypond
+, in the ascending case a right downward stem was added to the first note:
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\score {
+  \relative {
+    \[ b'\longa e\breve \]
+    \[ g,\longa \tweak ligature-pes ##t d' \]
+  }
+}
+@end lilypond
+.
+
+The pes shape was difficult to draw with void heads
+if the penultimate pitch is close (porrectus too),
+so such final notes were replaced by virgae
+(perhaps inspired by the scandicus):
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\score {
+  \relative {
+    \[ a'\breve d\longa \]
+    \[ d\breve \tweak ligature-flexa ##t b d\longa \]
+  }
+}
+@end lilypond
+.  Nevertheless, the original shape remained in use for quite long, even though
+it looks like a divisi, and at end of sections
+it may be impossible to tell which is meant.
+
+A binary ligature for semibreve pairs were introduced,
+denoted by an upward left stem:
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\score {
+  \relative {
+    \[ g'1 a \]
+    \[ a g \]
+    \[ a \tweak ligature-flexa ##t g \]
+  }
+}
+@end lilypond
+.
+
+Here is a summarizing table of the customary binary ligatures:
+
+@multitable @columnfractions .25 .15 .15 .15 .15 .15
+
+@item
+Lengths
+@tab
+S S
+@tab
+B B
+@tab
+L B
+@tab
+B L
+@tab
+L L
+
+@item
+Ascending
+@tab
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\score {
+  { \[ g'1 a' \] }
+}
+@end lilypond
+@tab
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\score {
+  { \[ b'\breve c'' \] }
+}
+@end lilypond
+@tab
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\score {
+  { \[ c''\longa d''\breve \] }
+}
+@end lilypond
+@tab
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\score {
+  { \[ c''\breve d''\longa \] }
+}
+@end lilypond
+@tab
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\score {
+  { \[ c''\longa d'' \] }
+}
+@end lilypond
+
+@item
+Descending
+@tab
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\score {
+  { \[ a'1 g' \] \[ a' \tweak ligature-flexa ##t g' \] }
+}
+@end lilypond
+@tab
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\score {
+  { \[ d''\breve c'' \] }
+}
+@end lilypond
+@tab
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\score {
+  { \[ c''\longa b'\breve \] }
+}
+@end lilypond
+@tab
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\score {
+  { \[ d''\breve c''\longa \] }
+}
+@end lilypond
+@tab
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\score {
+  { \[ c''\longa b' \] }
+}
+@end lilypond
+@end multitable
+
+Maximae were easy to introduce into ligatures,
+because they post-date the era of modal rhythm,
+so they do not have to comply with old customs:
+they can appear anywhere within a ligature in their customary form,
+with or without a downward right stem.
+In the middle of a ligature, breves and longae were also written
+in their customary shape (stems of longae point always downwards),
+except when a pair of two brevis shaped noteheads is merged to form a flexa
+(which can be compulsory only at the end,
+but frequently used in the middle too).
+Rarely initial breves got a left stem even in an ascending configuration,
+or final longae got a right stem even in descending configurations.
+
+Gregorian neume ligatures could not have been abandoned,
+since plainchant notation remained in use
+(some manuscripts contain plainchant and mensural notation side by side).
+Evolution of mensural ligatures must have been influenced by that --
+that may be the cause of using almost exclusively breves
+in the middle of a ligature;
+that the flexa shape is mostly used
+when the second note is lower than its neighbors,
+is probably also a heritage of neumes.
+
+The table above is a quite practical cheat sheet
+for reading @emph{any} mensural ligature:
+the first and last notes should be decoded from this table,
+the rest can be read roughly as is
+(for ``exact'' rules @pxref{Reading white mensural ligatures}).
+The flexa shape poses some practical difficulties:
+pitches can be hard to decide whether on a line or in a neighboring space;
+also notes could be dotted (such a dot appears above or below the next note),
+and it may be hard to decide whether a dot above a flexa belongs
+to the first note of the flexa or the preceding one:
+
+@lilypond[quote,verbatim]
+\new PetrucciVoice {
+  \relative {
+    \[ b'\breve. a\breve g\breve \]
+    \[ b\breve. a\breve. g\breve \]
+    \[ b\breve a\breve. g\breve \]
+  }
+}
+@end lilypond
+
 @node White mensural ligatures
 @subsection White mensural ligatures
 
@@ -908,12 +1200,12 @@ of the ligatures.
 @cindex flexa, in mensural ligatures
 @cindex mensural ligature, flexa
 
-At certain places two consecutive notes can be represented either
-as two squares or as an oblique parallelogram (a @dfn{flexa}
-shape).  In such cases the default is the two squares, but a flexa
-can be required by setting the @code{ligature-flexa} property of
-the @emph{second} note head.  The width of a flexa can be set by
-the note head property @code{flexa-width}.
+By default optional stems and flexae are not drawn,
+and final ascending longae are drawn as virgae.
+To draw alternatives, some tweaks are provided:
+An optional flexa can be requested
+by setting the @code{ligature-flexa} property of the @emph{second} note head.
+The width of a flexa can be set by the note head property @code{flexa-width}.
 
 @noindent
 For example,
@@ -923,22 +1215,24 @@ For example,
   \[ c''\maxima g \]
   \[ d'\longa
      \tweak ligature-flexa ##t
-     \tweak flexa-width #3.2 c\breve f e d \]
+     \tweak flexa-width #3.2 c\breve f e
+     \tweak flexa-width #4.3 d \]
   \[ c\maxima d\longa \]
   \[ e1 a, g\breve \]
 }
 @end lilypond
 
 @noindent
-Without replacing @code{Ligature_bracket_engraver} with
-@code{Mensural_ligature_engraver}, the same music looks as follows:
+After replacing @code{Mensural_ligature_engraver} with
+@code{Ligature_bracket_engraver}, the same music looks as follows:
 
 @lilypond[quote]
 \new PetrucciStaff \relative {
   \[ c''\maxima g \]
   \[ d'\longa
      \tweak ligature-flexa ##t
-     \tweak flexa-width #3.2 c\breve f e d \]
+     \tweak flexa-width #3.2 c\breve f e
+     \tweak flexa-width #4.3 d \]
   \[ c\maxima d\longa \]
   \[ e1 a, g\breve \]
 }
@@ -951,22 +1245,21 @@ Without replacing @code{Ligature_bracket_engraver} with
 }
 @end lilypond
 
-There are also cases where a stem is not required to unambiguously
-encode the note length, but is also not forbidden:
+Optional stems can be requested by the following properties:
 
 @itemize
-@item
-an initial breve (with a lower pitch than the next note) may or
-may not have a downward left stem;
-@item
-a maxima may or may not have a downward right stem;
-@item
-a final longa (with a lower pitch than the previous note) may or
-may not have a right stem.
+
+@item @code{left-down-stem} for downward left stem for an initial breve;
+
+@item @code{right-down-stem} for downward right stem for a maxima or a longa
+(which is by default stemless in descending start/end circumstances);
+
+@item @code{right-up-stem} for upward right stem for a final maxima/longa.
+
 @end itemize
 
 @noindent
-Here is an example that demonstrates this tweaking.
+Here is an example that demonstrates these tweaks.
 
 @lilypond[quote,ragged-right,verbatim]
 \new PetrucciStaff \relative {
@@ -979,13 +1272,51 @@ Here is an example that demonstrates this tweaking.
 @end lilypond
 
 @noindent
-Without tweaking the same ligatures look as follows.
+Without tweaking, the same ligatures look as follows:
 
 @lilypond[quote,ragged-right,verbatim]
 \new PetrucciStaff \relative {
   \clef "petrucci-c4"
   \[ a\breve b g\longa \]
   \[ b\maxima g\longa \]
+}
+@end lilypond
+
+Pes-style final ascending longa can be drawn by @code{ligature-pes}:
+
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 16 1)
+  }
+}
+\new PetrucciStaff {
+  \clef "petrucci-c4"
+  \[ d\breve \tweak ligature-pes ##t a\longa \]
+  \[ e \tweak ligature-pes ##t b \]
+  \[ c\breve d c \tweak ligature-pes ##t c'\longa \]
+  \[ f\breve d \tweak ligature-pes ##t a\longa \]
+}
+@end lilypond
+
+In the last case LilyPond draws the breves as flexa,
+otherwise the initial note would collide with the final one.
+Without tweaking these ligatures look like
+
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 16 1)
+  }
+}
+\new PetrucciStaff {
+  \clef "petrucci-c4"
+  \[ d\breve a\longa \]
+  \[ e b \]
+  \[ c\breve d c c'\longa \]
+  \[ f\breve d a\longa \]
 }
 @end lilypond
 
@@ -1003,6 +1334,239 @@ Horizontal spacing of ligatures may be poor.
 
 Accidentals may collide with previous notes.
 
+
+@node Reading white mensural ligatures
+@subsection Reading white mensural ligatures
+
+Ligatures are read from left to right and
+(if, very rarely, two notes appear vertically aligned) bottom up.
+First the ligature is to be parsed into notes
+(a flexa shape denotes two notes,
+any note may be dotted (see above) or colored),
+and each stem is to be assigned to a note:
+a final or downward middle stem belongs to the preceding note,
+or, if two vertically aligned notes precede the stem, to the lower of those
+(so is a right stem of that note),
+while an initial or upward middle stem belongs to the next note
+(so is a left stem -- upward middle stems are extremely rare).
+
+Then each note is assigned a length as follows:
+
+@enumerate
+
+@item (rule of maxima) if the shape of the note is maxima,
+  then the length is @code{\maxima}, otherwise
+
+@item (rule of pes) if the note is aligned above the previous note,
+  then the length is @code{\longa}, otherwise
+
+@item (rule of stems) if the note has a stem, then the length is
+  semibreve (@code{1}) for an upward left stem,
+  @code{\breve} for a downward left stem, and
+  @code{\longa} for a right stem; otherwise
+
+@item (appendix to the stem rule) if the previous note has an upward left stem,
+  then the length is semibreve (@code{1}), otherwise
+
+@item (rule of descending start) if the note is the first one, and is
+  higher then the next note, then the length is @code{\longa}, otherwise
+
+@item (rule of descending end) if the note is the final one,
+  and lower then the penultimate note, and of breve shape,
+  then the length is @code{\longa}, otherwise
+
+@item the length is @code{\breve}.
+
+@end enumerate
+
+(Note that lengths shorter than the semibreve cannot be ligated.)
+Some examples showing which rule applies on which note:
+
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 16 1)
+  }
+}
+\new PetrucciStaff {
+  \clef "petrucci-f3"
+  \[ e1-3 \tweak ligature-flexa ##t d-4 \]
+  \[ f1-3 e-4 d\longa-6 \]
+  \[ f1-3 e-4 d\breve-7 \]
+  \[ a\breve-3 g-7 f-7 \]
+  \[ a\breve-3 g-7 a\longa-3 \]
+  \[ b\longa-5 a\breve-7 g-7 f-7 e-7 d\longa-6 \]
+  \[ e\breve-7 f-7 g-7 a-7 \]
+  \[ g\maxima-1 c'\longa-3 \]
+  \[ f\longa-3 g-3 \tweak right-down-stem ##t f-3 \]
+  \[ f\breve-7 a\maxima-1 g\longa-6 \]
+  \[ f\breve_3 e_7 \tweak ligature-pes ##t b\longa-2 \]
+}
+@end lilypond
+
+Besides these rules, there are some restrictions/conventions:
+
+@enumerate 8
+
+@item successive notes must not have the same pitch.
+
+@item vertically aligned notes can occur only at the end of a ligature.
+
+@item a ligature contains at least two notes
+  (occasionally one may encounter
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\score { { \[ a'1 \] } }
+@end lilypond
+looking like a unary ligature, but it probably fixes scribal mistakes,
+  correcting a breve to semibreve by adding the stem).
+
+@item semibreves can appear only at the beginning and just one pair of them
+  (some English manuscripts have ligatures with four or six semibreves).
+
+@item flexae are descending
+  (however, ascending flexae are ubiquitous
+  in manuscripts not respecting this convention).
+
+@item non-final flexae are turning,
+  i.e., descending flexae are followed by a higher,
+  ascending ones by a lower note.
+
+@item second note of a flexa must not be a longa;
+  in other words, a flexa must not have a right stem.
+
+@item middle notes are breves;
+  this is actually an explicit rule of Tinctoris,
+  does not exactly match praxis, but can be refined in several steps:
+
+@item middle longae and maximae occur in ligatures
+  consisting only of longae and maximae;
+
+@item middle longae are higher than the previous note;
+
+@item middle longae are lower than the next note.
+
+@end enumerate
+
+There is also a tendence that maximae in a mixed (not all maxima) ligature
+have a right stem, except for descending starts and ends.
+
+Some examples showing these restrictions in action:
+
+@itemize
+
+@item In Obrecht's Missa Salve diva parens,
+the same four note motif is written in decreasing lengths;
+while (dotted) maximae or breves can form a four note ligature,
+longae and semibreves cannot (restrictions 18 and 11).
+
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 16 1)
+  }
+}
+\new PetrucciStaff {
+  \clef "petrucci-c3"
+  \[ a\maxima. b c' b \]
+  \[ a\longa. b \] \[ c' b \]
+  \[ a\breve. b c' b \]
+  \[ a1. b \] \[ c' \tweak ligature-flexa ##t b \]
+}
+@end lilypond
+
+@item The Amen in a Credo by Vaqueras is a long melisma;
+that in the tenor part is written mostly in ligatures,
+broken by restrictions 11, 17, 18 (while ignoring 15 and 16):
+
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 16 1)
+  }
+}
+\new PetrucciStaff {
+  \clef "petrucci-c5"
+  \[ f1 g \] \[ e\longa g a \] d\breve
+  \[ e1 \tweak ligature-flexa ##t d f\breve g\longa a b \]
+  c'1 \[ a\breve. g\longa \] \[ f e \] \[ d1 e \]
+}
+@end lilypond
+
+Observing restriction 15 would result in
+
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 16 1)
+  }
+}
+\new PetrucciStaff {
+  \clef "petrucci-c5"
+  \[ f1 g \] \[ e\longa g \] \[ a d\breve \]
+  \[ e1 \tweak ligature-flexa ##t d f\breve g\longa \] \[ a b \]
+  c'1 \[ a\breve. g\longa \] \[ f e \] \[ d1 e \]
+}
+@end lilypond
+
+while ignoring all restrictions results in
+
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 16 1)
+  }
+}
+\new PetrucciStaff {
+  \clef "petrucci-c5"
+  \[ f1 g e\longa g a d\breve
+     e1 \tweak ligature-flexa ##t d f\breve g\longa a b \]
+  c'1 \[ a\breve. g\longa f e d1 e \]
+}
+@end lilypond
+
+@end itemize
+
+Rule 6 presents a conundrum:
+how to draw a final brevis if the penultimate note has a right stem
+(which is extremely rare because of restriction 18)?
+The easy answer is ``stop the ligature after the stem'',
+but there are examples when
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\score { { \[ \tweak right-down-stem ##t d''\longa c''\breve \] } }
+@end lilypond
+is to be read as longa-brevis
+(note that a final longa could always be disambiguated by adding a right stem).
+LilyPond draws both a @code{\breve} and a @code{\longa} as a brevis head,
+and allows tweaking @code{right-down-stem} to disambiguate the latter:
+
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 16 1)
+  }
+}
+\new PetrucciStaff {
+  \clef "petrucci-c5"
+  \[ \tweak right-down-stem ##t g\longa d\breve \]
+  \[ a\breve \tweak right-down-stem ##t c'\maxima b\longa \]
+  \[ a\longa b \tweak right-down-stem ##t a \]
+}
+@end lilypond
+
+(All examples are real; in fact the middle one was originally written as
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\score { { \[ b'\breve d''\maxima c''\longa \] } }
+@end lilypond
+, and the stem is a later addition.)
 
 @node Typesetting Gregorian chant
 @section Typesetting Gregorian chant

@@ -142,8 +142,20 @@ The chord name input @code{@var{x}:1/@var{x}} gets now rendered as
 \chords { d:1/d }
 @end lilypond
 
-@end itemize
+@item
+White mensural ligatures now support final ascending longae facing backwards,
+obey tweaks in more cases, and handle errors more gracefully.
 
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  \new PetrucciStaff {
+    \clef "petrucci-c4"
+    \[ g\breve f \tweak ligature-pes ##t c'\longa \]
+  }
+}
+@end lilypond
+
+@end itemize
 
 @node Miscellaneous improvements
 @unnumbered Miscellaneous improvements

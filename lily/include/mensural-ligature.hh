@@ -39,20 +39,22 @@
 #define MLP_JOIN_DOWN 0x08
 // mensural brevis head
 #define MLP_BREVIS 0x10
-// mensural brevis head with right cauda
-#define MLP_LONGA 0x20
 // mensural maxima head without stem
-#define MLP_MAXIMA 0x40
+#define MLP_MAXIMA 0x20
 // start of obliqua
-#define MLP_FLEXA_BEGIN 0x80
+#define MLP_FLEXA_BEGIN 0x40
 // end of obliqua
-#define MLP_FLEXA_END 0x100
+#define MLP_FLEXA_END 0x80
+// final ascending longa drawn like pes
+#define MLP_PES 0x100
+// mark invalid duration (with well defined pitch)
+#define MLP_INVALID 0x8000
 
 #define MLP_STEM (MLP_UP | MLP_DOWN)
 #define MLP_RIGHT_STEM (MLP_JOIN_UP | MLP_JOIN_DOWN)
-#define MLP_SINGLE_HEAD (MLP_BREVIS | MLP_LONGA | MLP_MAXIMA)
+#define MLP_SINGLE_HEAD (MLP_BREVIS | MLP_MAXIMA)
 #define MLP_FLEXA (MLP_FLEXA_BEGIN | MLP_FLEXA_END)
-#define MLP_ANY (MLP_FLEXA | MLP_SINGLE_HEAD)
+#define MLP_ANY (MLP_FLEXA | MLP_SINGLE_HEAD | MLP_INVALID)
 
 struct Mensural_ligature
 {

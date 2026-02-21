@@ -40,22 +40,10 @@
  * TODO: move this function to class Lookup?
  */
 Stencil
-brew_flexa (Grob *me, bool solid, Real width, Real thickness, bool begin)
+brew_flexa (Grob *me, bool solid, bool semi, Real width, Real thickness,
+            bool begin)
 {
   Real staff_space = Staff_symbol_referencer::staff_space (me);
-
-  /*
-    The thickness of the horizontal lines of the flexa shape
-    should be equal to that of the horizontal lines of the
-    neomensural brevis note head (see mf/parmesan-heads.mf).
-  */
-  Real const horizontal_line_thickness = staff_space * 0.35;
-
-  // URGH!  vertical_line_thickness is adjustable (via thickness
-  // property), while horizontal_line_thickness is constant.
-  // Maybe both should be adjustable independently?
-
-  Real height = staff_space - horizontal_line_thickness;
   Stencil stencil;
   Real const interval
     = from_scm<double> (get_property (me, "flexa-interval"), 0.0);
@@ -63,7 +51,6 @@ brew_flexa (Grob *me, bool solid, Real width, Real thickness, bool begin)
 
   // Compensate optical illusion regarding vertical position of left
   // and right endings due to slope.
-  Real ypos_correction = -0.1 * staff_space * sign (slope);
   Real slope_correction = 0.2 * staff_space * sign (slope);
   Real corrected_slope = slope + slope_correction / width;
   Real blotdiameter
@@ -77,8 +64,21 @@ brew_flexa (Grob *me, bool solid, Real width, Real thickness, bool begin)
     }
   else // outline
     {
-      stencil
-        = Lookup::beam (corrected_slope, thickness, height, blotdiameter);
+      /*
+        The thickness of the horizontal lines of the flexa shape
+        should be equal to that of the horizontal lines of the
+        neomensural brevis note head (see mf/parmesan-heads.mf);
+        thickness of the bottom line is half space for semi-colored notes.
+      */
+      Real const top_line_thickness = staff_space * (semi ? 0.5 : 0.35);
+      Real const bottom_line_thickness = staff_space * 0.35;
+
+      /*
+        start with the small vertical element...
+      */
+      Real const vertical_height = staff_space * 0.65;
+      stencil = Lookup::beam (corrected_slope, thickness, vertical_height,
+                              blotdiameter);
       if (!begin)
         {
           stencil.translate_axis (width * 0.5 - thickness, X_AXIS);
@@ -86,19 +86,27 @@ brew_flexa (Grob *me, bool solid, Real width, Real thickness, bool begin)
                                   Y_AXIS);
         }
 
-      Stencil bottom_edge = Lookup::beam (
-        corrected_slope, width * 0.5, horizontal_line_thickness, blotdiameter);
-      bottom_edge.translate_axis (-0.5 * height, Y_AXIS);
+      /*
+        ... and add the inclined ones
+      */
+      Stencil bottom_edge = Lookup::beam (corrected_slope, width * 0.5,
+                                          bottom_line_thickness, blotdiameter);
+      bottom_edge.translate_axis (-0.5 * (staff_space - bottom_line_thickness),
+                                  Y_AXIS);
       stencil.add_stencil (bottom_edge);
 
-      Stencil top_edge = Lookup::beam (
-        corrected_slope, width * 0.5, horizontal_line_thickness, blotdiameter);
-      top_edge.translate_axis (+0.5 * height, Y_AXIS);
+      Stencil top_edge = Lookup::beam (corrected_slope, width * 0.5,
+                                       top_line_thickness, blotdiameter);
+      top_edge.translate_axis (+0.5 * (staff_space - top_line_thickness),
+                               Y_AXIS);
       stencil.add_stencil (top_edge);
     }
 
   if (begin)
-    stencil.translate_axis (ypos_correction, Y_AXIS);
+    {
+      Real const ypos_correction = -0.1 * staff_space * sign (slope);
+      stencil.translate_axis (ypos_correction, Y_AXIS);
+    }
   else
     {
       stencil.translate_axis (0.5 * thickness - blotdiameter, X_AXIS);
@@ -160,10 +168,7 @@ internal_brew_primitive (Grob *me)
     case MLP_NONE:
       return Lookup::blank (Box (Interval (0, 0), Interval (0, 0)));
     case MLP_MAXIMA:
-      duration_log--;
-      [[fallthrough]];
-    case MLP_LONGA:
-      duration_log--;
+      duration_log -= 2;
       [[fallthrough]];
     case MLP_BREVIS:
       duration_log--;
@@ -177,9 +182,12 @@ internal_brew_primitive (Grob *me)
         index += "r";
       out = fm->find_by_name (index + suffix);
       break;
+    case MLP_INVALID:
+      out = fm->find_by_name ("noteheads.s2cross");
+      break;
     case MLP_FLEXA_BEGIN:
     case MLP_FLEXA_END:
-      out = brew_flexa (me, black, flexa_width, thickness,
+      out = brew_flexa (me, black, semi, flexa_width, thickness,
                         note_shape == MLP_FLEXA_BEGIN);
       break;
     default:
@@ -194,9 +202,12 @@ internal_brew_primitive (Grob *me)
   */
   Real blotdiameter = thickness;
   /*
-    instead of 5.0 the length of a longa stem should be used:
-    Font_interface::get_default_font (???)->find_by_name
-    ("noteheads.sM2ligmensural???").extent (Y_AXIS).length ()
+    instead of 5.0 the length of a longa stem should be used, but
+
+    Font_interface::get_default_font (me)->find_by_name
+    ("noteheads.sM2ligmensural").extent (Y_AXIS).length ()
+
+    doesn't work
   */
   int const longa_stem_length = 5;
   Real stem_length = longa_stem_length * 0.5 * staff_space;
@@ -224,50 +235,47 @@ internal_brew_primitive (Grob *me)
   bool const has_right_stem = primitive & MLP_RIGHT_STEM;
   if (has_join || has_right_stem)
     {
-      int join_right = has_join
-                         ? from_scm<int> (get_property (me, "delta-position"))
-                       : primitive & MLP_JOIN_UP ? longa_stem_length
-                                                 : -longa_stem_length;
-      if (join_right)
+      int join_right
+        = has_join ? from_scm<int> (get_property (me, "delta-position"), 0)
+                   : 0;
+      Real y_top = join_right * 0.5 * staff_space;
+      Real y_bottom = 0.0;
+
+      if (y_top < 0.0)
         {
-          Real y_top = join_right * 0.5 * staff_space;
-          Real y_bottom = 0.0;
-
-          if (y_top < 0.0)
-            {
-              y_bottom = y_top;
-              y_top = 0.0;
-
-              if (has_join)
-                {
-                  /*
-                    if the previous note is longa-shaped,
-                    the joining line may hide the stem,
-                    so make join longer to serve as stem as well
-                  */
-                  if (primitive & (MLP_LONGA | MLP_JOIN_DOWN))
-                    y_bottom -= stem_length + 0.25 * blotdiameter;
-
-                  /*
-                    if next note has a left upward stem,
-                    the joining line may hide that,
-                    so make join longer to serve as stem as well
-                  */
-                  if (primitive & MLP_JOIN_UP)
-                    y_top = stem_length + 0.25 * blotdiameter;
-                }
-            }
-
-          Interval x_extent (width - thickness, width);
-          Interval y_extent (y_bottom, y_top);
-          Box join_box (x_extent, y_extent);
-          Stencil join = Lookup::round_filled_box (join_box, blotdiameter);
-
-          out.add_stencil (join);
+          y_bottom = y_top;
+          y_top = 0.0;
         }
-      else
-        programming_error ("Mensural_ligature: (join_right == 0)");
+
+      if (has_right_stem)
+        {
+          /*
+            if the previous note has a right downward stem,
+            the joining line may hide that,
+            so make join longer to serve as stem as well
+          */
+          if (primitive & MLP_JOIN_DOWN)
+            y_bottom -= stem_length + 0.25 * blotdiameter;
+
+          /*
+            if next note has a left upward stem,
+            the joining line may hide that,
+            so make join longer to serve as stem as well
+          */
+          if (primitive & MLP_JOIN_UP)
+            y_top += stem_length + 0.25 * blotdiameter;
+        }
+
+      Interval x_extent (width - thickness, width);
+      Interval y_extent (y_bottom, y_top);
+      Box join_box (x_extent, y_extent);
+      Stencil join = Lookup::round_filled_box (join_box, blotdiameter);
+
+      out.add_stencil (join);
     }
+
+  if (primitive & MLP_PES)
+    out.translate_axis (-width, X_AXIS);
 
 #if 0 /* what happend with the ledger lines? */
   int pos = Staff_symbol_referencer::get_rounded_position (me);
@@ -307,6 +315,7 @@ A mensural ligature.
                R"(
 delta-position
 ligature-flexa
+ligature-pes
 left-down-stem
 right-down-stem
 right-up-stem
