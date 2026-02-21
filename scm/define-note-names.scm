@@ -34,6 +34,7 @@
 
 ;;; Variable declaration
 (define-session-public pitchnames '())
+(define-session-public input-language #f)
 (define-session-public default-language "")
 
 (define-session-public language-pitch-names
@@ -51,9 +52,6 @@
     ;;  isis = double-sharp
     ;;  ih   = quarter-tone sharp
     ;;  isih = three-quarter-tones sharp
-    ;;
-    ;;  English: c  d  e  f  g  a  bf b
-    ;;    Dutch: c  d  e  f  g  a  b  h
 
     (nederlands . (
                    (ceses . ,(ly:make-pitch -1 0 DOUBLE-FLAT))
@@ -1302,11 +1300,11 @@
 
 (define-public (note-names-language str)
   (G_ "Select note names language.")
-  (let ((alist (assoc-get (string->symbol str)
-                          language-pitch-names
-                          '())))
+  (let* ((lang (string->symbol str))
+         (alist (assoc-get lang language-pitch-names '())))
     (if (pair? alist)
         (begin
           (ly:debug (G_ "Using `~a' note names...") str)
-          (ly:parser-set-note-names alist))
+          (ly:parser-set-note-names alist)
+          (set! input-language lang))
         (ly:warning (G_ "Could not find language `~a'.  Ignoring.") str))))

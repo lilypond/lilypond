@@ -3192,6 +3192,7 @@ installation.
 @funindex output-suffix
 @funindex partCombineListener
 @funindex pitchnames
+@funindex input-language
 @funindex toplevel-bookparts
 @funindex toplevel-scores
 @funindex showLastLength
@@ -3214,6 +3215,7 @@ Among others, the following parser variables are used by LilyPond:
 
 @itemize @w{}
 @item @code{afterGraceFraction}
+@item @code{input-language}
 @item @code{musicQuotes}
 @item @code{output-count}
 @item @code{output-suffix}

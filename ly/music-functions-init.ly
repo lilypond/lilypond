@@ -979,11 +979,15 @@ language =
 #(define-void-function (language) (string?)
    (_i "
 @funindex pitchnames
+@funindex input-language
 
 Set note names for language @var{language}.
 
-The value is stored in the @code{pitchnames} alist.")
-   (note-names-language language))
+This function updates the Scheme variables @code{pitchnames} and
+@code{input-language}.  The former is an alist that holds the
+pitches of all note names for the selected language; the latter
+holds the language name itself (as a symbol).")
+  (note-names-language language))
 
 languageSaveAndChange =
 #(define-void-function (language) (string?)

@@ -1908,7 +1908,12 @@ documented before.
 It is now possible to modify tag groups created with
 @code{\tagGroup} or @code{\tagGroupRef} by using the
 commands @code{\resetTagGroups}, @code{\resetTagGroup},
-@code{\addToTagGroup} and @code{\removeFromTagGroup}.
+@code{\addToTagGroup}, and @code{\removeFromTagGroup}.
+
+@item
+The current input language (as selected with @code{\language}) can
+be accessed in the new Scheme variable @code{input-language} (as a
+symbol).
 
 @item
 The new function @code{\breakAlignInsert} makes it easy to
