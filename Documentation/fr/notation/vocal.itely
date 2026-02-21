@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
+   Translation of GIT committish: 8f9c0c7447cf84d0566af732d06dc065dec00dca
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1189,6 +1189,12 @@ le bloc @code{\layout}.
 @cindex horizontal, alignement des paroles
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/lyrics-alignment.ly}
+
+@cindex mélisme, alignement horizontal
+@cindex alignement horizontal, mélisme
+@cindex horizontal, alignement, mélisme
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/aligning-syllables-with-melisma.ly}
 
 @knownissues
 
@@ -2541,6 +2547,7 @@ Référence des propriétés internes :
 @snippets
 @cindex voix, division
 @cindex division de voix
+@cindex crochet vertical, division de voix
 @funindex \nonArpeggiato
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
 {snippets/using-a-bracket-to-clarify-divisi.ly}

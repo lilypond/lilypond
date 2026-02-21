@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
+   Translation of GIT committish: 8f9c0c7447cf84d0566af732d06dc065dec00dca
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1432,8 +1432,26 @@ commande @code{\arpeggio} :
 \relative { <c' e g c>1\arpeggio }
 @end lilypond
 
-LilyPond dispose de différents graphismes pour indiquer un arpège ;
-@code{\arpeggioNormal} reviendra au style par défaut.
+Il est possible de distribuer un arpège sur plusieurs voix ou portées
+en activant la propriété @code{connectArpeggios} dans un contexte de
+regroupement de portées. Ceci aura pour résultat que tous les arpéges de
+ce contexte seront connectés :
+
+@lilypond[verbatim,quote]
+\new PianoStaff \fixed c' <<
+  \new Staff {
+    \once \set PianoStaff.connectArpeggios = ##t
+    <e g>2\arpeggio q\arpeggio
+  }
+  \new Staff {
+    \clef "bass"
+    <a, c>2\arpeggio q\arpeggio
+  }
+>>
+@end lilypond
+
+LilyPond dispose de différents graphismes pour indiquer l'exécution d'un
+arpège ; @code{\arpeggioNormal} reviendra au style par défaut.
 
 @lilypond[verbatim,quote]
 \relative {
@@ -1461,7 +1479,7 @@ fichier @file{ly/property-init.ly}.
 @funindex \arpeggioParenthesis
 @funindex \arpeggioParenthesisDashed
 
-Des crochets indiquent que l'accord devra être plaqué et non arpégé :
+Le symbole créé par la commande @code{\arpeggio} peut se modifier :
 
 @lilypond[verbatim,quote]
 \relative {
@@ -1486,6 +1504,58 @@ Ces commandes prédéfinies apportent une dérogation à la propriété
 @code{X-extent} (en la matière son étendue horizontale, de telle sorte
 qu'il n'entre pas en collision avec d'autres objets).
 
+@cindex accord plaqué
+@cindex bloc d'accord
+@cindex plaqué, accord
+@cindex crochet d'accord
+@cindex accord, crochet
+@cindex accord en bloc
+@cindex @emph{non-arpeggiato}
+@funindex \nonArpeggiato
+
+Pour un crochet indiquant qu'un accord ne doit pas être arpégé, mieux
+vaut recourir à la commande @code{\nonArpeggiato} que de modifier
+l'apparence rendue par @code{\arpeggio}. @code{\nonArpeggiato} crée un
+objet @code{ChordBracket}.
+
+@lilypond[verbatim,quote]
+\new PianoStaff \fixed c' <<
+  \new Staff {
+    \once \set PianoStaff.connectChordBrackets = ##t
+    <e g>2\nonArpeggiato q\nonArpeggiato
+  }
+  \new Staff {
+    \clef "bass"
+    <a, c>2\nonArpeggiato q\nonArpeggiato
+  }
+>>
+@end lilypond
+
+@cindex chord slur
+@cindex chord, rolled
+@cindex rolled chord
+@cindex slur, vertical
+@cindex vertical slur
+@funindex \chordSlur
+
+Pour une liaison verticale indiquant qu'un accord n'est presque pas
+arpégé, mieux vaut recourir à la commande @code{\chordSlur} que de
+modifier l'apparence rendue par @code{\arpeggio}. @code{\chordSlur} crée
+un objet @code{ChordSlur}.
+
+@lilypond[verbatim,quote]
+\new PianoStaff \fixed c <<
+  \new Staff {
+    \once \set PianoStaff.connectChordSlurs = ##t
+    <e' g' g''>2\chordSlur q\chordSlur
+  }
+  \new Staff {
+    \clef "bass"
+    <a, a c'>2\chordSlur q\chordSlur
+  }
+>>
+@end lilypond
+
 Les indications d'arpeggio peuvent se présenter sous la forme de ligne
 discontinue à l'aide de la propriété @code{dash-definition}. Pour plus
 de détails à ce propos, consultez @ref{Slurs}.
@@ -1500,16 +1570,12 @@ liaisons de tenue. Pour plus d'information, @pxref{Ties}.
 @code{\arpeggioNormal},
 @code{\arpeggioBracket},
 @code{\arpeggioParenthesis}
-@code{\arpeggioParenthesisDashed}.
+@code{\arpeggioParenthesisDashed},
+@code{\chordSlur},
+@code{\nonArpeggiato}.
 @endpredefined
 
 @snippets
-
-@cindex arpège, portée, enjambement
-@cindex portée, arpège, enjambement
-@cindex enjambement de portée, arpège
-@lilypondfile[verbatim,quote,texidoc,doctitle]
-{snippets/creating-cross-staff-arpeggios-in-a-piano-staff.ly}
 
 @cindex arpège, voix, enjambement
 @cindex voix, arpège, enjambement
@@ -1517,21 +1583,23 @@ liaisons de tenue. Pour plus d'information, @pxref{Ties}.
 {snippets/creating-arpeggios-across-notes-in-different-voices.ly}
 
 @morerefs
-Glossaire musicologique :
+Glossaire musicologique :
 @rglos{arpeggio}.
 
-Manuel de notation :
+Manuel de notation :
 @ref{Slurs},
 @ref{Ties}.
 
 Fichiers d'initialisation :
 @file{ly/property-init.ly}.
 
-Morceaux choisis :
+Morceaux choisis :
 @rlsrnamed{Expressive marks,Signes d'interprétation}.
 
-Référence des propriétés internes :
+Référence des propriétés internes :
 @rinternals{Arpeggio},
+@rinternals{ChordBracket},
+@rinternals{ChordSlur},
 @rinternals{PianoStaff},
 @rinternals{Slur}.
 @endmorerefs
@@ -1549,6 +1617,7 @@ contexte approprié, comme par exemple
 
 @example
 \override Staff.Arpeggio.stencil = #ly:chord-bracket::print
+\override Staff.Arpeggio.X-extent = #ly:chord-bracket::width
 @end example
 
 @noindent
