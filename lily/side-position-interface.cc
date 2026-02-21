@@ -252,7 +252,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure,
       Real yc = a == X_AXIS
                   ? me->pure_relative_y_coordinate (common[Y_AXIS], start, end)
                   : me->get_y_parent ()->maybe_pure_coordinate (
-                    common[Y_AXIS], Y_AXIS, pure, start, end);
+                      common[Y_AXIS], Y_AXIS, pure, start, end);
       Skyline_pair skyp = from_scm<Skyline_pair> (skyp_scm);
       skyp.shift (a == X_AXIS ? yc : xc);
       skyp.raise (a == X_AXIS ? xc : yc);
@@ -465,7 +465,7 @@ Side_position_interface::set_axis (Grob *me, Axis a)
         me,
         (a == X_AXIS) ? x_aligned_side_proc
                       : Unpure_pure_container::make_smob (
-                        y_aligned_side_proc, pure_y_aligned_side_proc),
+                          y_aligned_side_proc, pure_y_aligned_side_proc),
         a);
     }
 }

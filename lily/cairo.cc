@@ -1429,8 +1429,8 @@ Cairo_outputter::handle_outline (Output_def *paper)
           int parent_cairo_id
             = scm_is_false (parent)
                 ? CAIRO_PDF_OUTLINE_ROOT
-                : from_scm<int> (
-                  scm_hashq_ref (bookmark_cairo_id_table, parent, SCM_BOOL_F));
+                : from_scm<int> (scm_hashq_ref (bookmark_cairo_id_table,
+                                                parent, SCM_BOOL_F));
 
           std::string attributes = String_convert::form_string (
             "page=%d pos=[0.0 0.0]", page_number);

@@ -85,7 +85,7 @@ public:
 
   // comparison
   friend constexpr bool operator!= (M a, M b) { return a.v_ != b.v_; }
-  friend constexpr bool operator<(M a, M b) { return a.v_ < b.v_; }
+  friend constexpr bool operator< (M a, M b) { return a.v_ < b.v_; }
   friend constexpr bool operator<= (M a, M b) { return a.v_ <= b.v_; }
   friend constexpr bool operator== (M a, M b) { return a.v_ == b.v_; }
   friend constexpr bool operator> (M a, M b) { return a.v_ > b.v_; }

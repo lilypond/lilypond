@@ -45,7 +45,7 @@ struct Finger_tuple final
 };
 
 bool
-operator<(Finger_tuple const &a, Finger_tuple const &b)
+operator< (Finger_tuple const &a, Finger_tuple const &b)
 {
   return a.position_ < b.position_;
 }

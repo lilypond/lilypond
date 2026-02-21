@@ -283,14 +283,8 @@ protected:
   }
 
 private:
-  static bool is_smob (SCM s)
-  {
-    return SCM_SMOB_PREDICATE (smob_tag (), s);
-  }
-  static SCM smob_p (SCM s)
-  {
-    return is_smob (s) ? SCM_BOOL_T : SCM_BOOL_F;
-  }
+  static bool is_smob (SCM s) { return SCM_SMOB_PREDICATE (smob_tag (), s); }
+  static SCM smob_p (SCM s) { return is_smob (s) ? SCM_BOOL_T : SCM_BOOL_F; }
 
   template <class T>
   friend auto unsmob (SCM s)

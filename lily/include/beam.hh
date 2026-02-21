@@ -57,7 +57,7 @@ struct Beam_stem_segment
   int max_connect_;
 };
 
-bool operator<(Beam_stem_segment const &a, Beam_stem_segment const &b);
+bool operator< (Beam_stem_segment const &a, Beam_stem_segment const &b);
 
 class Beam
 {

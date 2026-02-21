@@ -600,7 +600,7 @@ struct Layer_entry
 };
 
 bool
-operator<(Layer_entry const &a, Layer_entry const &b)
+operator< (Layer_entry const &a, Layer_entry const &b)
 {
   return a.layer_ < b.layer_;
 }
@@ -904,9 +904,9 @@ System::part_of_line_pure_height (vsize start, vsize end, bool begin)
   for (vsize i = 0; i < staves.size (); ++i)
     {
       Interval iv = begin ? Axis_group_interface::begin_of_line_pure_height (
-                      staves[i], start)
+                              staves[i], start)
                           : Axis_group_interface::rest_of_line_pure_height (
-                            staves[i], start, end);
+                              staves[i], start, end);
       if (i < offsets.size ())
         iv.translate (offsets[i]);
       ret.unite (iv);

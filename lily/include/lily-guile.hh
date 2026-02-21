@@ -648,9 +648,8 @@ public:
         static_assert (std::is_same_v<Element, const char>, "unsupported");
         return scm_from_utf8_stringn (s, array_len - 1); // -1 null terminator
       }
-    else if constexpr (std::is_same_v<
-                         T_value,
-                         const char *> || std::is_same_v<T_value, char *>)
+    else if constexpr (std::is_same_v<T_value, const char *>
+                       || std::is_same_v<T_value, char *>)
       {
         return scm_from_utf8_string (s);
       }

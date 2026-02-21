@@ -34,7 +34,7 @@ struct Grob_pq_entry
 };
 
 bool
-operator<(Grob_pq_entry const &a, Grob_pq_entry const &b)
+operator< (Grob_pq_entry const &a, Grob_pq_entry const &b)
 {
   return a.end_ < b.end_;
 }

@@ -1289,8 +1289,9 @@ Page_layout_problem::get_spacing_spec (Grob *before, Grob *after, bool pure,
                                            "nonstaff-unrelatedstaff-spacing",
                                            pure, start, end),
                                          LARGE_STRETCH)
-                   : get_maybe_pure_property (
-                     after, "nonstaff-relatedstaff-spacing", pure, start, end);
+                   : get_maybe_pure_property (after,
+                                              "nonstaff-relatedstaff-spacing",
+                                              pure, start, end);
         }
     }
   else
@@ -1299,14 +1300,15 @@ Page_layout_problem::get_spacing_spec (Grob *before, Grob *after, bool pure,
         {
           Direction affinity = from_scm<Direction> (get_maybe_pure_property (
             before, "staff-affinity", pure, start, end));
-          return (affinity == UP) ? add_stretchability (
-                   get_maybe_pure_property (before,
-                                            "nonstaff-unrelatedstaff-spacing",
-                                            pure, start, end),
-                   LARGE_STRETCH)
-                                  : get_maybe_pure_property (
-                                    before, "nonstaff-relatedstaff-spacing",
-                                    pure, start, end);
+          return (affinity == UP)
+                   ? add_stretchability (get_maybe_pure_property (
+                                           before,
+                                           "nonstaff-unrelatedstaff-spacing",
+                                           pure, start, end),
+                                         LARGE_STRETCH)
+                   : get_maybe_pure_property (before,
+                                              "nonstaff-relatedstaff-spacing",
+                                              pure, start, end);
         }
       else
         {

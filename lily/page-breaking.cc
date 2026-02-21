@@ -641,10 +641,9 @@ Page_breaking::make_pages (const std::vector<vsize> &lines_per_page,
   // Track absolute page counter across all bookparts
   SCM absolute_page_counter_scm
     = book_->top_paper ()->c_variable ("absolute-page-counter");
-  int absolute_page_counter
-    = SCM_UNBNDP (absolute_page_counter_scm)
-        ? 0
-        : from_scm<int> (absolute_page_counter_scm);
+  int absolute_page_counter = SCM_UNBNDP (absolute_page_counter_scm)
+                                ? 0
+                                : from_scm<int> (absolute_page_counter_scm);
 
   int first_page_number
     = from_scm (book_->paper ()->c_variable ("first-page-number"), 1);
@@ -720,9 +719,8 @@ Page_breaking::make_pages (const std::vector<vsize> &lines_per_page,
             {
               label_page_table
                 = scm_acons (label, page_num_scm, label_page_table);
-              label_absolute_page_table
-                = scm_acons (label, absolute_page_num_scm,
-                             label_absolute_page_table);
+              label_absolute_page_table = scm_acons (
+                label, absolute_page_num_scm, label_absolute_page_table);
               label_page_string_table
                 = scm_acons (label, page_string, label_page_string_table);
             }

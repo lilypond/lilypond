@@ -54,8 +54,8 @@ public:
 
   ~PangoFont_accessor () { g_object_unref (pango_font_); }
 
-  operator PangoFont * () { return pango_font_; }
-  operator PangoFcFont * () { return PANGO_FC_FONT (pango_font_); }
+  operator PangoFont *() { return pango_font_; }
+  operator PangoFcFont *() { return PANGO_FC_FONT (pango_font_); }
 };
 
 // RAII for extracting FT_Face from PangoFcFont

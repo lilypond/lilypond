@@ -348,7 +348,7 @@ clang-format -i @var{filename}
 @end example
 
 The version of @command{clang-format} currently being used is version
-14.0.
+21.1.
 
 Bindings for @command{clang-format} are available for many editors,
 including Emacs and Vim.

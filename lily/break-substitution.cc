@@ -211,7 +211,7 @@ struct Substitution_entry
     right_ = sr[RIGHT];
   }
 
-  bool operator<(Substitution_entry const &other) const
+  bool operator< (Substitution_entry const &other) const
   {
     return left_ < other.left_;
   }

@@ -292,8 +292,7 @@ int _Interval__compare (const Interval_t<T> &a, Interval_t<T> const &b);
 #include "compare.hh"
 
 TEMPLATE_INSTANTIATE_COMPARE (Interval_t<T> &, Interval__compare,
-                              template <class T>
-);
+                              template <class T>);
 
 template <>
 constexpr Real

@@ -72,9 +72,10 @@ Hairpin::broken_bound_padding (SCM smob)
   Drul_array<Grob *> vertical_axis_groups;
   for (const auto d : {DOWN, UP})
     vertical_axis_groups[d]
-      = d == dir ? sys->get_neighboring_staff (
-          d, my_vertical_axis_group, me->spanned_column_rank_interval ())
-                 : my_vertical_axis_group;
+      = d == dir
+          ? sys->get_neighboring_staff (d, my_vertical_axis_group,
+                                        me->spanned_column_rank_interval ())
+          : my_vertical_axis_group;
 
   if (!vertical_axis_groups[dir])
     return to_scm (0.0);

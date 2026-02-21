@@ -117,7 +117,8 @@ Duration::compressed (Rational m) const
   return d;
 }
 
-Duration::operator Rational () const
+Duration::
+operator Rational () const
 {
   Rational mom (1 << std::abs (durlog_));
 

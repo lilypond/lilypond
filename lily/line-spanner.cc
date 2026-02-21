@@ -170,7 +170,7 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir, bool horizontal)
 
       Real x_coord = (has_interface<Paper_column> (bound_grob)
                         ? Axis_group_interface::generic_bound_extent (
-                          bound_grob, commonx, X_AXIS)
+                            bound_grob, commonx, X_AXIS)
                         : robust_relative_extent (bound_grob, commonx, X_AXIS))
                        .linear_combination (attach);
 

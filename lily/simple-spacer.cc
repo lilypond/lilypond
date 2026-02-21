@@ -326,7 +326,10 @@ struct Rod_description
   vsize right_;
   Real dist_;
 
-  bool operator<(const Rod_description right) { return right_ < right.right_; }
+  bool operator< (const Rod_description right)
+  {
+    return right_ < right.right_;
+  }
 
   Rod_description ()
   {

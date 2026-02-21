@@ -56,7 +56,7 @@ class Scm_variable
   void import (SCM module, const char *name);
 
 public:
-  operator SCM & ()
+  operator SCM &()
   {
     // One could conceivably work with variables even before the
     // module is initialized

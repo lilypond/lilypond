@@ -176,7 +176,7 @@ Ottava_spanner_engraver::typeset_all ()
               // Usually, end the bracket just after the last note head.
               auto *col = last_note_col_ ? last_note_col_
                                          : unsmob<Item> (get_property (
-                                           this, "currentCommandColumn"));
+                                             this, "currentCommandColumn"));
               finished_->set_bound (RIGHT, col);
             }
         }

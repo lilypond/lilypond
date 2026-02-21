@@ -89,7 +89,7 @@ struct Break_position
   /*
     lexicographic in (system_spec_index_, score_break_)
    */
-  bool operator<(const Break_position &other) const
+  bool operator< (const Break_position &other) const
   {
     return (system_spec_index_ == VPOS && other.system_spec_index_ != VPOS)
            || (system_spec_index_ < other.system_spec_index_)

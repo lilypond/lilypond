@@ -13,6 +13,35 @@ AlwaysBreakAfterReturnType: TopLevelDefinitions
 # Newline after `template` line.
 AlwaysBreakTemplateDeclarations: Yes
 
+# TODO: Using just BreakBeforeBraces=GNU would be preferred, but the Emacs
+# settings in .dir-locals.el don't agree well with how it indents lambdas.
+# https://gcc.gnu.org/codingconventions.html#Lambda_Form suggests an Emacs
+# configuration, but I'm not sure how to effect it in .dir-locals.el.
+#
+# This workaround to keep LilyPond's legacy formatting is verbose, but the idea
+# is simple: match the effect of BreakBeforeBraces=GNU except for
+# BeforeLambdaBody=false.
+BreakBeforeBraces: Custom
+BraceWrapping:
+  AfterCaseLabel:  true
+  AfterClass:      true
+  AfterControlStatement: Always
+  AfterEnum:       true
+  AfterExternBlock: true
+  AfterFunction:   true
+  AfterNamespace:  true
+  AfterObjCDeclaration: true
+  AfterStruct:     true
+  AfterUnion:      true
+  BeforeCatch:     true
+  BeforeElse:      true
+  BeforeLambdaBody: false
+  BeforeWhile:     true
+  IndentBraces:    true
+  SplitEmptyFunction: true
+  SplitEmptyRecord: true
+  SplitEmptyNamespace: true
+
 # Indentation width in initializers.
 ConstructorInitializerIndentWidth: 2
 

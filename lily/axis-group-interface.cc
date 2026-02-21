@@ -532,7 +532,7 @@ struct Grob_with_priority
 };
 
 bool
-operator<(const Grob_with_priority &g1, const Grob_with_priority &g2)
+operator< (const Grob_with_priority &g1, const Grob_with_priority &g2)
 {
   return g1.priority_ < g2.priority_;
 }
@@ -839,7 +839,7 @@ struct Skyline_key
 };
 
 bool
-operator<(const Skyline_key &k1, const Skyline_key &k2)
+operator< (const Skyline_key &k1, const Skyline_key &k2)
 {
   if (k1.priority_ != k2.priority_)
     return k1.priority_ < k2.priority_;

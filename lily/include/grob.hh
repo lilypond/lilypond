@@ -162,7 +162,8 @@ public:
   // get the relevant piece of this grob in the context of a line running from
   // `start` to `end` -- nullptr if the grob would not be visible
   virtual Grob *pure_find_visible_prebroken_piece (vsize start,
-                                                   vsize end) const = 0;
+                                                   vsize end) const
+    = 0;
 
   /* printing */
   const Stencil *get_stencil ();
