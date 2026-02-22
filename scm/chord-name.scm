@@ -52,6 +52,31 @@
      ;; Turkish makam
      -1/12 -3/12 -4/12 -5/12 -6/12 -10/12))) ; -11/12 -> flatflat, ignored
 
+(define*-public (pitch->alteration pitch #:optional language)
+  "Return the alteration of @var{pitch}.
+
+Optional argument @var{language} sets the language used to display
+the pitch name (see file @file{define-note-names.scm} for
+available values); if this symbol is missing or set to @code{#f},
+the current input language is used."
+  (let* ((lang (or language input-language))
+         (note-name (ly:pitch-notename pitch))
+         (alteration (ly:pitch-alteration pitch))
+         (german-type (assq lang pitch-names-german-type))
+         (type (and german-type (cdr german-type))))
+    ;; Handle 'H', 'B', and 'Bb'.
+    (if (= note-name 6)
+        (cond
+         ((and (= alteration FLAT)
+               (eq? type 'only-b))
+          0)
+         ((and (<= alteration FLAT)
+               (eq? type 'b-and-bes))
+          (- alteration FLAT))
+         (else
+          alteration))
+        alteration)))
+
 (define-public (alteration->text-accidental-markup alteration)
   "Return accidental glyph markup for @var{alteration}, to be used in text."
   (make-smaller-markup
@@ -92,57 +117,63 @@ the pitch name (see file @file{define-note-names.scm} for
 available values); if this symbol is missing or set to @code{#f},
 the current input language is used."
   ;; See also note-name->lily-string if accidentals are needed.
-  (let* ((pitch-alist
+  (let* ((lang (or language input-language))
+         (pitch-alist
           (if (not language)
               pitchnames
               (assoc-get language
                          language-pitch-names '())))
-         (result (rassoc pitch
-                         (filter (lambda (p)
-                                   ;; TODO: add exception for German B?
-                                   (eq? (ly:pitch-alteration (cdr p)) 0))
-                                 pitch-alist)
-                         (lambda (a b)
-                           (= (ly:pitch-notename a)
-                              (ly:pitch-notename b))))))
+         (note-name (ly:pitch-notename pitch))
+         (alteration (ly:pitch-alteration pitch))
+         (german-type (assq lang pitch-names-german-type))
+         (type (and german-type (cdr german-type)))
+         ;; Handle 'H', 'B', and 'Bb'.
+         (result (if (and (= note-name 6)
+                          (or (and (= alteration FLAT)
+                                   (eq? type 'only-b))
+                              (and (<= alteration FLAT)
+                                   (eq? type 'b-and-bes))))
+                     '(b)
+                     (rassoc pitch
+                             (filter (lambda (p)
+                                       (eq? (ly:pitch-alteration (cdr p)) 0))
+                                     pitch-alist)
+                             (lambda (a b)
+                               (= (ly:pitch-notename a)
+                                  (ly:pitch-notename b)))))))
     (if result (symbol->string (car result)))))
 
-(define-public (note-name->markup pitch lowercase?)
+(define*-public (note-name->markup pitch lowercase? #:optional language)
   "Return note name markup with accidental glyphs for @var{pitch}.
 
 If @var{lowercase?} is not @code{#f}, a lowercase note name is
-returned, otherwise the first character gets capitalized."
-  (let ((str (note-name->string pitch)))
+returned, otherwise the first character gets capitalized.
+
+Optional argument @var{language} sets the language used to display
+the pitch name (see file @file{define-note-names.scm} for
+available values); if this symbol is missing or set to @code{#f},
+the current input language is used."
+  (let* ((str (note-name->string pitch language))
+         (alt (pitch->alteration pitch language)))
     (make-line-markup
-     (list
-      (conditional-string-capitalize str lowercase?)
-      (accidental->markup (ly:pitch-alteration pitch))))))
+     (list (conditional-string-capitalize str lowercase?)
+           (accidental->markup alt)))))
 
 (define (pitch-alteration-semitones pitch)
   (inexact->exact (round (* (ly:pitch-alteration pitch) 2))))
 
-(define-public ((chord-name->german-markup b-instead-of-bflat)
+(define-public ((chord-name->german-markup german?)
                 pitch lowercase?)
   "Return German note name markup with accidental glyphs for @var{pitch}.
 
-If @var{b-instead-of-bflat} is set to @code{#t}, return real
-German note names, otherwise return semi-German names (with Bb and
-below keeping British names).
+If @var{german?} is not @code{#f}, return German note names,
+otherwise return Norwegian note names (for example, @q{B-flat}
+instead of @q{H-flatflat}).
 
 If @var{lowercase?} is not @code{#f}, a lowercase note name is
 returned, otherwise the first character gets capitalized."
-  (let* ((name (ly:pitch-notename pitch))
-         (alt-semitones (pitch-alteration-semitones pitch))
-         (n-a (if (member (cons name alt-semitones) `((6 . -1) (6 . -2)))
-                  (cons 7 (+ (if b-instead-of-bflat 1 0) alt-semitones))
-                  (cons name alt-semitones))))
-    (make-line-markup
-     (list
-      (conditional-string-capitalize
-       ;; TODO: use note-name->string with an exception for B.
-       (vector-ref #("c" "d" "e" "f" "g" "a" "h" "b") (car n-a))
-       lowercase?)
-      (accidental->markup (/ (cdr n-a) 2))))))
+  (let ((language (if german? 'deutsch 'norsk)))
+    (note-name->markup pitch lowercase? language)))
 
 (define-public (note-name->german-markup pitch lowercase?)
   "Return German note name markup for @var{pitch}."

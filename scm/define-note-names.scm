@@ -1288,6 +1288,18 @@
                ))
     ))
 
+;; For languages that use note names similar to German, the English pitches 'b',
+;; 'bqf', 'bf', 'btqf', and 'bff' are mapped as follows if displayed as a pitch
+;; with an accidental.
+;;
+;; * 'only-b': 'H', 'H semi-flat', 'B', 'H three-q-flat', 'H double-flat'
+;; * 'b-and-bes: 'H', 'H semi-flat', 'B', 'B one-q-flat', 'B flat'
+(define-session-public pitch-names-german-type
+  '((deutsch . only-b)
+    (norsk .  b-and-bes)
+    (suomi . b-and-bes)
+    (svenska . only-b)))
+
 
 ;; Add some historic aliases.  Pairs obey cp-like order: '(name alias)
 (for-each
