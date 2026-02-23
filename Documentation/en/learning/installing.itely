@@ -45,10 +45,14 @@ If you download from another source, please be sure that you are getting
 at least version 4.0.0, which introduced automatic LilyPond installation.
 
 Choose the bundle appropriate to your operating system:
-Windows users should simply download and double click the .msi asset.
+Windows users should simply download and double-click the .msi asset.
 Users on macOS would do the same with the proper .dmg file.
 GNU/Linux users may have the latest version in their distribution's
-software repository or Flatpak hub.
+software repository or
+@uref{https://flathub.org/apps/org.frescobaldi.Frescobaldi, the Flatpak hub.  }
+You will find more information for all platforms on the
+@uref{https://github.com/frescobaldi/frescobaldi/blob/master/INSTALL.md,
+Frescobaldi install page.  }
 
 @center @sourceimage{Frescobaldi_download,10cm,}
 
@@ -76,8 +80,8 @@ To verify the installation, enter the following two lines in the left
 window, exactly as in this example.  Be sure to use your version number.
 
 @example
- {\version "2.24.5" }
- { c' }
+\version "@versionStable{}"
+ c'
 @end example
 
 @center @sourceimage{Frescobaldi_test_install,10cm,}
@@ -117,7 +121,7 @@ This compiles @code{file.ly}, and produces @code{file.pdf}.
 To test your setup, you can use this minimal file:
 
 @example
-\version "@version{}"
+\version "@versionStable{}"
 
 @{ c' @}
 @end example
