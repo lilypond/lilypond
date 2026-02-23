@@ -77,7 +77,7 @@ the current input language is used."
           alteration))
         alteration)))
 
-(define-public (alteration->text-accidental-markup alteration)
+(define-public (accidental->text-markup alteration)
   "Return accidental glyph markup for @var{alteration}, to be used in text."
   (make-smaller-markup
    (make-translate-scaled-markup
@@ -87,11 +87,11 @@ the current input language is used."
     (make-accidental-markup alteration))))
 
 (define (accidental->markup alteration)
-  "Return accidental markup for ALTERATION."
+  "A wrapper around 'accidental->text-markup', adding some kerning."
   (if (= alteration 0)
       (make-line-markup (list empty-markup))
       (conditional-kern-before
-       (alteration->text-accidental-markup alteration)
+       (accidental->text-markup alteration)
        (narrow-glyph? alteration) 0.094725)))
 
 (define (accidental->markup-italian alteration)
@@ -105,18 +105,17 @@ the current input language is used."
         (make-hspace-markup (if (= alteration FLAT) 0.57285385 0.5))
         (make-translate-scaled-markup
          '(0 . 0.7)
-         (alteration->text-accidental-markup alteration))
+         (accidental->text-markup alteration))
         (make-hspace-markup (if (= alteration SHARP) 0.2 0.1))
         ))))
 
-(define*-public (note-name->string pitch #:optional language)
+(define*-public (pitch->name pitch #:optional language)
   "Return name of @var{pitch} without accidentals or octaves.
 
 Optional argument @var{language} sets the language used to display
 the pitch name (see file @file{define-note-names.scm} for
 available values); if this symbol is missing or set to @code{#f},
 the current input language is used."
-  ;; See also note-name->lily-string if accidentals are needed.
   (let* ((lang (or language input-language))
          (pitch-alist
           (if (not language)
@@ -143,23 +142,35 @@ the current input language is used."
                                   (ly:pitch-notename b)))))))
     (if result (symbol->string (car result)))))
 
-(define*-public (note-name->markup pitch lowercase? #:optional language)
+
+;;; Callback functions for `chordRootNamer` and `chordNoteNamer` context
+;;; properties.  Both properties expect the same arguments:
+;;;
+;;;   (callback-func pitch lowercase?)
+;;;
+;;; Note that `chordNoteNamer` calls `callback-func` with `lowercase?` always
+;;; set to `#f`.
+
+(define-public ((chord-name:markup language) pitch lowercase?)
   "Return note name markup with accidental glyphs for @var{pitch}.
+
+Argument @var{language} sets the language used to display the
+pitch name (see file @file{define-note-names.scm} for available
+values); if this symbol is missing or set to @code{#f}, the
+current input language is used.
 
 If @var{lowercase?} is not @code{#f}, a lowercase note name is
 returned, otherwise the first character gets capitalized.
 
-Optional argument @var{language} sets the language used to display
-the pitch name (see file @file{define-note-names.scm} for
-available values); if this symbol is missing or set to @code{#f},
-the current input language is used."
-  (let* ((str (note-name->string pitch language))
+This is a callback function for either the @code{chordRootNamer}
+or the @code{chordNoteNamer} context property."
+  (let* ((str (pitch->name pitch language))
          (alt (pitch->alteration pitch language)))
     (make-line-markup
      (list (conditional-string-capitalize str lowercase?)
            (accidental->markup alt)))))
 
-(define-public ((chord-name->german-markup german?) pitch lowercase?)
+(define-public ((chord-name:german-markup german?) pitch lowercase?)
   "Return German note name markup with accidental glyphs for @var{pitch}.
 
 If @var{german?} is not @code{#f}, return German note names,
@@ -167,22 +178,28 @@ otherwise return Norwegian note names (for example, @q{B-flat}
 instead of @q{H-flatflat}).
 
 If @var{lowercase?} is not @code{#f}, a lowercase note name is
-returned, otherwise the first character gets capitalized."
-  (let ((language (if german? 'deutsch 'norsk)))
-    (note-name->markup pitch lowercase? language)))
+returned, otherwise the first character gets capitalized.
 
-(define*-public (pitch->name-markup pitch lowercase? #:optional language)
+This is a callback function for either the @code{chordRootNamer}
+or the @code{chordNoteNamer} context property."
+  (let ((language (if german? 'deutsch 'norsk)))
+    ((chord-name:markup language) pitch lowercase?)))
+
+(define-public ((chord-name:name-markup language) pitch lowercase?)
   "Return note name markup for @var{pitch}.
 
 If @var{lowercase?} is not @code{#f}, a lowercase note name is
 returned, otherwise the first character gets capitalized.
 
-Optional argument @var{language} sets the language used to
-display the pitch name; if this symbol is missing or set to
-@code{#f}, the current input language is used.
-
 Use function @code{pitch->name} to get a pitch name without
-accidentals."
+accidentals.
+
+Argument @var{language} sets the language used to display the
+pitch name; if this symbol is missing or set to @code{#f}, the
+current input language is used.
+
+This is a callback function for either the @code{chordRootNamer}
+or the @code{chordNoteNamer} context property."
   (define (pitch= pitch1 pitch2)
     (and (= (ly:pitch-notename pitch1) (ly:pitch-notename pitch2))
          (= (ly:pitch-alteration pitch1) (ly:pitch-alteration pitch2))))
@@ -197,23 +214,25 @@ accidentals."
       (conditional-string-capitalize (symbol->string (car result))
                                      lowercase?))))
 
-(define-public (note-name->german-markup pitch lowercase?)
-  "Return German note name markup for @var{pitch}.
+(define-public (chord-name:german-lowercase-name-markup pitch lowercase?)
+  "Return German lowercase note name markup for @var{pitch}.
 
-Argument @var{lowercase?} is ignored; this function always returns
-lowercase note names."
-  (pitch->name-markup pitch #t 'deutsch))
+Argument @var{lowercase?} is ignored."
+  ((chord-name:name-markup 'deutsch) pitch #t))
 
-(define-public ((chord-name->italian-markup french?) pitch lowercase?)
+(define-public ((chord-name:italian-markup french?) pitch lowercase?)
   "Return Italian note name markup with accidental glyphs for @var{pitch}.
 
 If @var{french?} is not @code{#f}, French note names are
 returned (for example, @q{ré} instead of @q{re} for pitch@tie{}D).
 
 If @var{lowercase?} is not @code{#f}, a lowercase note name is
-returned, otherwise the first character gets capitalized."
-  (let* ((name (note-name->string pitch
-                                  (if french? 'français 'italiano)))
+returned, otherwise the first character gets capitalized.
+
+This is a callback function for either the @code{chordRootNamer}
+or the @code{chordNoteNamer} context property."
+  (let* ((name (pitch->name pitch
+                            (if french? 'français 'italiano)))
          (alt (ly:pitch-alteration pitch)))
     (make-line-markup
      (list

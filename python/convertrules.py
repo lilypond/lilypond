@@ -5621,6 +5621,12 @@ def conv(s):
 @rule((2, 25, 35), r"""
 remove \% = \repeat percent \etc
 remove \* = \repeat unfold \etc
+alteration->text-accidental-markup -> accidental->text-markup
+chord-name->german-markup -> chord-name:german-markup
+chord-name->italian-markup -> chord-name:italian-markup
+note-name->german-markup -> chord-name:german-lowercase-name-markup
+note-name->markup -> chord-name:markup
+note-name->string -> pitch->name
 """)
 def conv(s):
     s = re.sub(r'"?\\\\?\%"?\s*=\s*\\repeat\s*percent\s*\\etc\b', '', s)
@@ -5639,6 +5645,18 @@ differently, you may wish to change the name to avoid confusion.
 differently, you may wish to change the name to avoid confusion.
 """))
         stderr_write(UPDATE_MANUALLY)
+
+    s = re.sub(r'\balteration->text-accidental-markup\b',
+               r'accidental->text-markup', s)
+    s = re.sub(r'\bchord-name->german-markup\b',
+               r'chord-name:german-markup', s)
+    s = re.sub(r'\bchord-name->italian-markup\b',
+               r'chord-name:italian-markup', s)
+    s = re.sub(r'\bnote-name->german-markup\b',
+               r'chord-name:german-lowercase-name-markup', s)
+    s = re.sub(r'\bnote-name->markup\b', r'(chord-name:markup #f)', s)
+    s = re.sub(r'\bnote-name->string\b', r'pitch->name', s)
+
     return s
 
 

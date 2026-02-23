@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.24.0"
+\version "2.25.35"
 
 \header {
   categories = "Chords, Contexts and engravers, Scheme, Staff notation"
@@ -41,7 +41,7 @@ property."
            (ly:context-set-property! ctx 'chordNoteNamer
                                      (if (procedure? chord-note-namer)
                                          chord-note-namer
-                                         note-name->markup))))
+                                         (chord-name:markup #f)))))
 
         (listeners
          ((note-event this-engraver event)

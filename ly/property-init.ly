@@ -290,19 +290,19 @@ cadenzaOff = \set Timing.timing = ##t
 %% chord names
 
 frenchChords = {
-  \set chordRootNamer = #(chord-name->italian-markup #t)
+  \set chordRootNamer = #(chord-name:italian-markup #t)
   \set chordPrefixSpacer = #0.4
 }
 germanChords = {
-  \set chordRootNamer = #(chord-name->german-markup #t)
-  \set chordNoteNamer = #note-name->german-markup
+  \set chordRootNamer = #(chord-name:german-markup #t)
+  \set chordNoteNamer = #chord-name:german-lowercase-name-markup
 }
 semiGermanChords = {
-  \set chordRootNamer = #(chord-name->german-markup #f)
-  \set chordNoteNamer = #note-name->german-markup
+  \set chordRootNamer = #(chord-name:german-markup #f)
+  \set chordNoteNamer = #chord-name:german-lowercase-name-markup
 }
 italianChords = {
-  \set chordRootNamer = #(chord-name->italian-markup #f)
+  \set chordRootNamer = #(chord-name:italian-markup #f)
   \set chordPrefixSpacer = #0.4
 }
 

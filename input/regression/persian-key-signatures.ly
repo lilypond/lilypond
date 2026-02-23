@@ -22,7 +22,7 @@ showKey =
     #{
       \key $to #(eval-string key)
       <>^\markup { $key
-                   \concat { "(" #(note-name->string to) ")" } }
+                   \concat { "(" #(pitch->name to) ")" } }
       \transpose $from $to { #music }
       \bar $bar
     #})

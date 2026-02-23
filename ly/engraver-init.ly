@@ -950,7 +950,7 @@ run."
   slashChordSeparator = "/"
   chordNameExceptions = #ignatzekExceptions
   chordNoteNamer = #'()
-  chordRootNamer = #note-name->markup
+  chordRootNamer = #(chord-name:markup #f)
   chordPrefixSpacer = #0
   noChordSymbol = "N.C."
 

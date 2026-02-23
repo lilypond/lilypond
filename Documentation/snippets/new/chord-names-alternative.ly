@@ -1,4 +1,4 @@
-\version "2.25.6"
+\version "2.25.35"
 
 \header {
   categories = "Chords, Legacy code"
@@ -59,7 +59,7 @@ exceptions.  Contains @code{(@var{chord} . (@var{prefix-markup}
   "Entry point for @code{Chord_name_engraver}.
 @var{pitches}, @var{bass}, and @var{inversion} are lily pitches."
   (define (default-note-namer pitch)
-    (note-name->markup pitch #f))
+    ((chord-name:markup #f) pitch #f))
 
   (define (markup-or-empty-markup markup)
     "Return MARKUP if markup, else empty-markup"
@@ -70,7 +70,7 @@ exceptions.  Contains @code{(@var{chord} . (@var{prefix-markup}
     (if (= alteration 0)
         (make-line-markup (list empty-markup))
         (conditional-kern-before
-         (alteration->text-accidental-markup alteration)
+         (accidental->text-markup alteration)
          (= alteration FLAT) 0.094725)))
 
   (define (list-minus a b)

@@ -1118,8 +1118,8 @@ original @var{semitone->pitch} function."
          (lang (ly:context-property context 'printNotesLanguage))
          (lily-str (symbol->string (note-name->lily-string pitch)))
          (basic-str (if (not (null? lang))
-                        (note-name->string pitch (string->symbol lang))
-                        (note-name->string pitch))))
+                        (pitch->name pitch (string->symbol lang))
+                        (pitch->name pitch))))
     (set! markuplist
           (append markuplist
                   (if acc-style
