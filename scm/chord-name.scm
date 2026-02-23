@@ -159,11 +159,7 @@ the current input language is used."
      (list (conditional-string-capitalize str lowercase?)
            (accidental->markup alt)))))
 
-(define (pitch-alteration-semitones pitch)
-  (inexact->exact (round (* (ly:pitch-alteration pitch) 2))))
-
-(define-public ((chord-name->german-markup german?)
-                pitch lowercase?)
+(define-public ((chord-name->german-markup german?) pitch lowercase?)
   "Return German note name markup with accidental glyphs for @var{pitch}.
 
 If @var{german?} is not @code{#f}, return German note names,
@@ -175,22 +171,38 @@ returned, otherwise the first character gets capitalized."
   (let ((language (if german? 'deutsch 'norsk)))
     (note-name->markup pitch lowercase? language)))
 
+(define*-public (pitch->name-markup pitch lowercase? #:optional language)
+  "Return note name markup for @var{pitch}.
+
+If @var{lowercase?} is not @code{#f}, a lowercase note name is
+returned, otherwise the first character gets capitalized.
+
+Optional argument @var{language} sets the language used to
+display the pitch name; if this symbol is missing or set to
+@code{#f}, the current input language is used.
+
+Use function @code{pitch->name} to get a pitch name without
+accidentals."
+  (define (pitch= pitch1 pitch2)
+    (and (= (ly:pitch-notename pitch1) (ly:pitch-notename pitch2))
+         (= (ly:pitch-alteration pitch1) (ly:pitch-alteration pitch2))))
+
+  (let* ((pitch-alist
+          (if (not language)
+              pitchnames
+              (assoc-get language
+                         language-pitch-names '())))
+         (result (rassoc pitch pitch-alist pitch=)))
+    (when result
+      (conditional-string-capitalize (symbol->string (car result))
+                                     lowercase?))))
+
 (define-public (note-name->german-markup pitch lowercase?)
-  "Return German note name markup for @var{pitch}."
-  ;; TODO: rewrite using note-name->lily-string.
-  ;; FIXME: lowercase? is ignored.
-  (let* ((name (ly:pitch-notename pitch))
-         (alt-semitones (pitch-alteration-semitones pitch))
-         (n-a (if (member (cons name alt-semitones) `((6 . -1) (6 . -2)))
-                  (cons 7 (+ 1 alt-semitones))
-                  (cons name alt-semitones))))
-    (make-line-markup
-     (list
-      (string-append
-       (list-ref '("c" "d" "e" "f" "g" "a" "h" "b") (car n-a))
-       (if (or (equal? (car n-a) 2) (equal? (car n-a) 5))
-           (list-ref '( "ses" "s" "" "is" "isis") (+ 2 (cdr n-a)))
-           (list-ref '("eses" "es" "" "is" "isis") (+ 2 (cdr n-a)))))))))
+  "Return German note name markup for @var{pitch}.
+
+Argument @var{lowercase?} is ignored; this function always returns
+lowercase note names."
+  (pitch->name-markup pitch #t 'deutsch))
 
 (define-public ((chord-name->italian-markup french?) pitch lowercase?)
   "Return Italian note name markup with accidental glyphs for @var{pitch}.
