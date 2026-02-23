@@ -31,9 +31,9 @@
           - flex
           - fontforge
           - gcc
-          - gcc-mingw-w64-x86-64
+          - gcc-mingw-w64-x86-64-win32
           - g++
-          - g++-mingw-w64-x86-64
+          - g++-mingw-w64-x86-64-win32
           - gettext
           - gperf
           - icoutils
