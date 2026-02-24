@@ -273,13 +273,15 @@ into a @code{MultiMeasureTextEvent}."
      (lambda (cmd prev) (append cmd (list prev)))
      (append (car commands) rest)
      (cdr commands)))
-  (let ((chain (lambda (layout props . rest)
-                 (interpret-markup layout props (compose rest)))))
-    (set! (markup-command-signature chain)
+  (let ((chain-markup (lambda (layout props . rest)
+                        (interpret-markup layout props (compose rest)))))
+    (set! (markup-command-signature chain-markup)
           (list-tail
            (markup-command-signature (caar commands))
            (length (cdar commands))))
-    chain))
+    ;; Store the original commands so they can be expanded when displayed
+    (set! (partial-markup-commands chain-markup) commands)
+    chain-markup))
 
 ;; See create-script-function for the rationale of using
 ;; define-syntax-function instead of define-music-function here.

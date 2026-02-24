@@ -277,6 +277,9 @@ one."
 
 (define-public markup-command-signature (make-object-property))
 
+;; Property for storing the original commands in a partial markup
+(define-public partial-markup-commands (make-object-property))
+
 ;;;;;;;;;;;;;;;;;;;;;;
 ;;; markup type predicates
 

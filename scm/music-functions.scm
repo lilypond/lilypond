@@ -152,12 +152,31 @@ For instance,
            (inner-markup->make-markup arg))
           (else                                  ;; scheme arg
            (music->make-music arg))))
+  (define (expand-partial-markup proc args)
+    "Expand a partial markup by composing its stored commands with the given args."
+    (let ((commands (partial-markup-commands proc)))
+      (if commands
+          ;; Compose the commands with the args
+          (let ((result (fold
+                         (lambda (cmd prev) (append cmd (list prev)))
+                         (append (car commands) args)
+                         (cdr commands))))
+            (inner-markup->make-markup result))
+          ;; Fallback if no commands stored (shouldn't happen)
+          `(,(proc->command-keyword proc) ,@(map transform-arg args)))))
   (define (inner-markup->make-markup mrkup)
     (if (string? mrkup)
         `(,mrkup)
-        (let ((cmd (proc->command-keyword (car mrkup)))
-              (args (map transform-arg (cdr mrkup))))
-          `(,cmd ,@args))))
+        (let* ((proc (car mrkup))
+               (args (cdr mrkup))
+               (commands (partial-markup-commands proc)))
+          (if commands
+              ;; This is a partial markup, expand it
+              (expand-partial-markup proc args)
+              ;; Regular markup command
+              (let ((cmd (proc->command-keyword proc))
+                    (transformed-args (map transform-arg args)))
+                `(,cmd ,@transformed-args))))))
   ;; body:
   (if (string? markup-expression)
       markup-expression
