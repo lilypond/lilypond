@@ -787,8 +787,13 @@ When the denominator is a note, @code{note-@/flag-@/style} and
 @code{note-head-@/style} control its appearance, and
 @code{note-@/dots-@/direction} and @code{note-@/staff-@/position} control its
 placement.
+
+The @code{fraction} property has been superseded by @code{time-signature}.  By
+default, getting @code{fraction} returns the value of @code{time-signature}
+reduced to a fraction.  Setting @code{fraction} has no effect.
 "
  '(denominator-style
+   fraction
    nested-fraction-mixed
    nested-fraction-orientation
    nested-fraction-relative-font-size
