@@ -830,18 +830,14 @@ This only works in the PDF backend.
     (ly:stencil-add
      (ly:make-stencil
       `(delay-stencil-evaluation
-        ,(delay (let* ((table (ly:output-def-lookup layout 'label-page-table))
-                       (table-page-number
-                        (if (list? table)
-                            (assoc-get label table)
-                            #f))
-                       (first-page-number (book-first-page layout props))
-                       (current-page-number
-                        (if table-page-number
-                            (1+ (- table-page-number first-page-number))
+        ,(delay (let* ((abs-table
+                        (ly:output-def-lookup
+                         layout 'label-absolute-page-table))
+                       (absolute-page-number
+                        (if (list? abs-table)
+                            (assoc-get label abs-table)
                             #f)))
-                  `(page-link ,current-page-number
-                              ,x-ext ,y-ext))))
+                  `(page-link ,absolute-page-number ,x-ext ,y-ext))))
       x-ext
       y-ext)
      arg-stencil)))
@@ -6484,25 +6480,34 @@ width may require additional tweaking."
      (ly:make-stencil
       `(delay-stencil-evaluation
         ,(delay (ly:stencil-expr
-                 (let* ((table (ly:output-def-lookup layout 'label-page-table))
-                        (alist-table (ly:output-def-lookup layout 'label-alist-table))
+                 (let* ((string-table
+                         (ly:output-def-lookup
+                          layout 'label-page-string-table))
+                        (alist-table
+                         (ly:output-def-lookup
+                          layout 'label-alist-table))
                         (retrieve-id (if (list? alist-table)
-                                         (let ((entry (assoc-name-get label alist-table)))
+                                         (let ((entry
+                                                (assoc-name-get
+                                                 label alist-table)))
                                            (if (null? entry)
                                                #f
                                                (caar entry)))
                                          #f))
-                        (page-number (if (list? table)
-                                         (assoc-get (or retrieve-id label) table)
-                                         #f))
-                        (number-type (ly:output-def-lookup layout 'page-number-type))
-                        (page-markup (if page-number
-                                         (number-format number-type page-number)
-                                         default))
-                        (page-stencil (interpret-markup layout props page-markup))
+                        (page-string
+                         (if (list? string-table)
+                             (assoc-get (or retrieve-id label)
+                                        string-table)
+                             #f))
+                        (page-markup
+                          (or page-string default))
+                        (page-stencil
+                         (interpret-markup layout props page-markup))
                         (gap (- (interval-length x-ext)
-                                (interval-length (ly:stencil-extent page-stencil X))))
-                        (space-from-left-gauge-edge (* (/ (1+ x-align) 2) gap)))
+                                (interval-length
+                                 (ly:stencil-extent page-stencil X))))
+                        (space-from-left-gauge-edge
+                         (* (/ (1+ x-align) 2) gap)))
                    (interpret-markup layout props
                                      (make-line-markup
                                       (list

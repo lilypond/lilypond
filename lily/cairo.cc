@@ -1367,12 +1367,12 @@ Cairo_outputter::handle_outline (Output_def *paper)
     toc_alist = SCM_EOL;
 
   SCM page_numbers
-    = paper->lookup_variable (ly_symbol2scm ("label-page-table"));
+    = paper->lookup_variable (ly_symbol2scm ("label-absolute-page-table"));
   for (SCM entry : as_ly_scm_list (page_numbers))
     {
       if (!scm_is_pair (entry))
         {
-          programming_error ("non-pair in label-page-table");
+          programming_error ("non-pair in label-absolute-page-table");
           return;
         }
     }

@@ -772,7 +772,7 @@ mark {ly~a_stream} /CLOSE pdfmark
     (if (ly:get-option 'outline-bookmarks)
         (dump-pdf-bookmarks
          (ly:output-def-lookup paper 'label-alist-table)
-         (ly:output-def-lookup paper 'label-page-table)
+         (ly:output-def-lookup paper 'label-absolute-page-table)
          port))
     (display "%%Trailer\n%%EOF\n" port)
     (ly:outputter-close outputter)

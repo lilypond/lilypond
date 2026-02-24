@@ -622,9 +622,29 @@ Page_breaking::make_pages (const std::vector<vsize> &lines_per_page,
   // Note that the order in which pages are iterated matters for
   // building this table.  For a label straddling at a page break, we
   // want to choose the last occurrence.
+
   SCM label_page_table = book_->top_paper ()->c_variable ("label-page-table");
   if (SCM_UNBNDP (label_page_table))
     label_page_table = SCM_EOL;
+
+  // New tables for absolute page numbers and page appearance strings
+  SCM label_absolute_page_table
+    = book_->top_paper ()->c_variable ("label-absolute-page-table");
+  if (SCM_UNBNDP (label_absolute_page_table))
+    label_absolute_page_table = SCM_EOL;
+
+  SCM label_page_string_table
+    = book_->top_paper ()->c_variable ("label-page-string-table");
+  if (SCM_UNBNDP (label_page_string_table))
+    label_page_string_table = SCM_EOL;
+
+  // Track absolute page counter across all bookparts
+  SCM absolute_page_counter_scm
+    = book_->top_paper ()->c_variable ("absolute-page-counter");
+  int absolute_page_counter
+    = SCM_UNBNDP (absolute_page_counter_scm)
+        ? 0
+        : from_scm<int> (absolute_page_counter_scm);
 
   int first_page_number
     = from_scm (book_->paper ()->c_variable ("first-page-number"), 1);
@@ -643,6 +663,7 @@ Page_breaking::make_pages (const std::vector<vsize> &lines_per_page,
   Real last_page_force = 0;
 
   const vsize page_count = lines_per_page.size ();
+
   for (vsize i = 0; i < page_count; i++)
     {
       int page_num = first_page_number + static_cast<int> (i);
@@ -671,6 +692,16 @@ Page_breaking::make_pages (const std::vector<vsize> &lines_per_page,
 
       /* collect labels */
       SCM page_num_scm = to_scm (page_num);
+      absolute_page_counter++; // Increment for each page across all bookparts
+      int absolute_page_num = absolute_page_counter; // PDF page number
+      SCM absolute_page_num_scm = to_scm (absolute_page_num);
+
+      // Format page number using bookpart's page-number-type
+      SCM page_number_type = book_->paper ()->c_variable ("page-number-type");
+      SCM number_format = scm_c_public_ref ("lily", "number-format");
+      SCM page_string
+        = scm_call_2 (number_format, page_number_type, page_num_scm);
+
       // Iterate over lines backwards so that labels come out in the
       // same order as the lines.  This matters for PDF bookmarks.
       for (SCM line : ly_scm_list (scm_reverse (lines)))
@@ -686,8 +717,15 @@ Page_breaking::make_pages (const std::vector<vsize> &lines_per_page,
           // The list of labels is in reverse order.  By aconsing elements one
           // by one onto label_page_table, we get them in forward order.
           for (SCM label : as_ly_scm_list (labels))
-            label_page_table
-              = scm_acons (label, page_num_scm, label_page_table);
+            {
+              label_page_table
+                = scm_acons (label, page_num_scm, label_page_table);
+              label_absolute_page_table
+                = scm_acons (label, absolute_page_num_scm,
+                             label_absolute_page_table);
+              label_page_string_table
+                = scm_acons (label, page_string, label_page_string_table);
+            }
         }
 
       ret = scm_cons (page, ret);
@@ -698,6 +736,12 @@ Page_breaking::make_pages (const std::vector<vsize> &lines_per_page,
 
   book_->top_paper ()->set_variable (ly_symbol2scm ("label-page-table"),
                                      label_page_table);
+  book_->top_paper ()->set_variable (
+    ly_symbol2scm ("label-absolute-page-table"), label_absolute_page_table);
+  book_->top_paper ()->set_variable (ly_symbol2scm ("label-page-string-table"),
+                                     label_page_string_table);
+  book_->top_paper ()->set_variable (ly_symbol2scm ("absolute-page-counter"),
+                                     to_scm (absolute_page_counter));
   return scm_reverse_x (ret, SCM_EOL);
 }
 
