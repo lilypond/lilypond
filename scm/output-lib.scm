@@ -1725,22 +1725,33 @@ If the property is not set, use a hyphen character."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; general inheritance
 
-(define*-public ((grob::directional-value
-                  value-when-negative value-when-positive
-                  #:key
-                  (controlling-property 'direction)
-                  (default '()))
-                 grob)
+(define*-public (grob::directional-value
+                 value-when-negative value-when-positive
+                 #:key
+                 (controlling-property 'direction)
+                 (default '()))
   "@var{grob} callback generator for returning a value depending on the sign of
 the numeric property identified by the @code{#:controlling-property} argument.
 
 Values for negative and positive cases are required.  The @code{#:default}
-argument specifies the return value when the controlling property is zero."
-  (let ((n (ly:grob-property grob controlling-property 0)))
-    (cond
-     ((negative? n) value-when-negative)
-     ((positive? n) value-when-positive)
-     (else default))))
+argument specifies the return value when the controlling property is zero.
+
+The three possible return values of the callback are stored as a list
+in the callback's @code{callback-range} object property from where they can be
+retrieved for documentation purposes.
+"
+  (define (callback grob)
+    (let ((n (ly:grob-property grob controlling-property 0)))
+      (cond
+       ((negative? n) value-when-negative)
+       ((positive? n) value-when-positive)
+       (else default))))
+  (set-object-property! callback
+                        'callback-range
+                        (list value-when-negative
+                              value-when-positive
+                              default))
+  callback)
 
 (define-public ((grob::inherit-parent-property axis property . default) grob)
   "@var{grob} callback generator for inheriting a @var{property} from
