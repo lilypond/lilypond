@@ -628,6 +628,7 @@ System::get_paper_system ()
     }
 
   std::sort (entries.begin (), entries.end ());
+  Box stencil_bbox;
   for (vsize j = 0; j < entries.size (); j++)
     {
       Grob *g = entries[j].grob_;
@@ -648,16 +649,36 @@ System::get_paper_system ()
 
       st.translate (o + extra);
 
+      // Accumulate the actual drawn stencil extents
+      for (const auto a : {X_AXIS, Y_AXIS})
+        stencil_bbox[a].unite (st.extent (a));
+
       *tail = scm_cons (st.expr (), SCM_EOL);
       tail = SCM_CDRLOC (*tail);
     }
 
   Stencil me = get_print_stencil ();
   if (!scm_is_null (me.expr ()))
-    exprs = scm_cons (me.expr (), exprs);
+    {
+      exprs = scm_cons (me.expr (), exprs);
+      // Unite with the system's own stencil extent
+      for (const auto a : {X_AXIS, Y_AXIS})
+        stencil_bbox[a].unite (me.extent (a));
+    }
 
+  // Start with the System's extent (used for layout calculations)
   Interval x (extent (this, X_AXIS));
   Interval y (extent (this, Y_AXIS));
+
+  // Extend the bounding box to include all drawn stencil content.
+  // This ensures that elements like extended ledger lines and bar numbers
+  // are included in the bounding box for cropping purposes, while preserving
+  // the layout-based extent for positioning.
+  if (!stencil_bbox[X_AXIS].is_empty ())
+    x.unite (stencil_bbox[X_AXIS]);
+  if (!stencil_bbox[Y_AXIS].is_empty ())
+    y.unite (stencil_bbox[Y_AXIS]);
+
   Stencil sys_stencil (Box (x, y),
                        scm_cons (ly_symbol2scm ("combine-stencil"), exprs));
 

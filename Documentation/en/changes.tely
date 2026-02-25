@@ -1915,6 +1915,11 @@ vector.
 }
 @end lilypond
 
+@item
+The output option @option{-dcrop} now takes all stencils
+into account while calculating the bounding box.
+This can change the size of cropped output.
+
 @end itemize
 
 
