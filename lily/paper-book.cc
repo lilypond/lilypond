@@ -658,6 +658,11 @@ Paper_book::get_system_specs ()
               // non-null.
               auto *t = unsmob<const Stencil> (scm_car (list));
 
+              // Skip completely empty stencils - they can cause invalid
+              // spring min_distance calculations in page layout.
+              if (t->is_empty ())
+                continue;
+
               // TODO: init props
               Prob *ps = make_paper_system (SCM_EOL);
               set_property (ps, "page-break-permission",
