@@ -197,22 +197,30 @@ Bind @var{symbol} to @var{val} in current parser's module.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_parser_lookup, "ly:parser-lookup", 1, 0, 0, (SCM symbol),
+LY_DEFINE (ly_parser_lookup, "ly:parser-lookup", 1, 0, 1, (SCM id, SCM rest),
            R"(
-Look up @var{symbol} in current parser's module.  Return @code{'()} if not
-defined.
+Look up @var{id} in the current parser's module.
+
+The @var{rest} arguments may contain the @code{#:default} keyword option with
+the value to return when the variable is not defined.  When the @code{#:default}
+option is absent, @code{'()} is used.
            )")
 {
   SCM parser = scm_fluid_ref (Lily::f_parser);
   auto *const p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
 
-  LY_ASSERT_TYPE (ly_is_symbol, symbol, 1);
+  LY_ASSERT_TYPE (ly_is_symbol, id, 1);
 
-  SCM val = p->lexer_->lookup_identifier_symbol (symbol);
+  SCM val = p->lexer_->lookup_identifier_symbol (id);
   if (!SCM_UNBNDP (val))
     return val;
-  else
-    return SCM_EOL;
+
+  SCM default_value = SCM_EOL;
+  scm_c_bind_keyword_arguments ( //
+    "ly:parser-lookup", rest, static_cast<scm_t_keyword_arguments_flags> (0),
+    ly_keyword2scm ("default"), &default_value, //
+    SCM_UNDEFINED);
+  return default_value;
 }
 
 LY_DEFINE (ly_parser_append_to_include_path,

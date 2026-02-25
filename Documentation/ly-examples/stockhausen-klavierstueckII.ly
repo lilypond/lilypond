@@ -1,4 +1,4 @@
-\version "2.25.8"
+\version "2.25.35"
 
 
 \paper {
@@ -6,6 +6,14 @@
   paper-height = 70\mm
 }
 
+\layout {
+  \context {
+    \Score
+    % Put the change clef after the bar line and time signature.
+    \breakAlignInsert #center-visible clef after time-signature
+    \override TimeSignature.space-alist.clef = #'(minimum-space . 0)
+  }
+}
 
 % This function makes all tuplet brackets horizontal.
 horizontalTuplets =
@@ -51,15 +59,6 @@ moveDyn =
        \offset DynamicLineSpanner.Y-offset #y
        #event #})
 
-
-% Put the change clef after the bar line and time signature.
-clefAfterBarline = {
-  \once \override Score.TimeSignature.space-alist.clef =
-    #'(minimum-space . 0)
-  \once \override Score.BreakAlignment.break-align-orders =
-    #(make-vector 3 '(staff-bar
-                      time-signature
-                      clef)) }
 
 % Color shorthands.
 blue = \override NoteHead.color = #blue
@@ -160,7 +159,7 @@ LH = {
 
   % 2
   \tupletUp
-  \clefAfterBarline \clef "treble"
+  \clef "treble"
   \tuplet 5/4 {
     \blue
     \set stemRightBeamCount = #1
