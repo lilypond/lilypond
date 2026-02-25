@@ -45,8 +45,8 @@ If you download from another source, please be sure that you are getting
 at least version 4.0.0, which introduced automatic LilyPond installation.
 
 Choose the bundle appropriate to your operating system:
-Windows users should simply download and double-click the .msi asset.
-Users on macOS would do the same with the proper .dmg file.
+Windows users should simply download and double-click the @file{.msi} asset.
+Users on macOS would do the same with the proper @file{.dmg} file.
 GNU/Linux users may have the latest version in their distribution's
 software repository or
 @uref{https://flathub.org/apps/org.frescobaldi.Frescobaldi, the Flatpak hub.  }
