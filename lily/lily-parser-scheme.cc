@@ -182,18 +182,33 @@ is a valid location, it becomes the source of all music expressions inside.
   return clone->unprotect ();
 }
 
-LY_DEFINE (ly_parser_define_x, "ly:parser-define!", 2, 0, 0,
-           (SCM symbol, SCM val),
+LY_DEFINE (ly_parser_define_x, "ly:parser-define!", 2, 0, 0, (SCM id, SCM val),
            R"(
-Bind @var{symbol} to @var{val} in current parser's module.
+Bind @var{id} to @var{val} in current parser's module.
            )")
 {
   SCM parser = scm_fluid_ref (Lily::f_parser);
   auto *const p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
 
-  LY_ASSERT_TYPE (ly_is_symbol, symbol, 1);
+  LY_ASSERT_TYPE (ly_is_symbol, id, 1);
 
-  p->lexer_->set_identifier (scm_symbol_to_string (symbol), val);
+  p->lexer_->set_identifier (scm_symbol_to_string (id), val);
+  return SCM_UNSPECIFIED;
+}
+
+LY_DEFINE (ly_parser_define_once_x, "ly:parser-define-once!", 2, 0, 0,
+           (SCM id, SCM val),
+           R"(
+If @var{id} is unbound, bind it to @var{val} in current parser's module.
+           )")
+{
+  SCM parser = scm_fluid_ref (Lily::f_parser);
+  auto *const p = LY_ASSERT_SMOB (Lily_parser, parser, 0);
+
+  LY_ASSERT_TYPE (ly_is_symbol, id, 1);
+
+  if (SCM_UNBNDP (p->lexer_->lookup_identifier_symbol (id)))
+    p->lexer_->set_identifier (scm_symbol_to_string (id), val);
   return SCM_UNSPECIFIED;
 }
 
