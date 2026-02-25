@@ -192,7 +192,7 @@ Bind @var{id} to @var{val} in current parser's module.
 
   LY_ASSERT_TYPE (ly_is_symbol, id, 1);
 
-  p->lexer_->set_identifier (scm_symbol_to_string (id), val);
+  p->lexer_->set_identifier (id, val);
   return SCM_UNSPECIFIED;
 }
 
@@ -208,7 +208,7 @@ If @var{id} is unbound, bind it to @var{val} in current parser's module.
   LY_ASSERT_TYPE (ly_is_symbol, id, 1);
 
   if (SCM_UNBNDP (p->lexer_->lookup_identifier_symbol (id)))
-    p->lexer_->set_identifier (scm_symbol_to_string (id), val);
+    p->lexer_->set_identifier (id, val);
   return SCM_UNSPECIFIED;
 }
 
