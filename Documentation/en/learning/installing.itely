@@ -49,10 +49,10 @@ Windows users should simply download and double-click the @file{.msi} asset.
 Users on macOS would do the same with the proper @file{.dmg} file.
 GNU/Linux users may have the latest version in their distribution's
 software repository or
-@uref{https://flathub.org/apps/org.frescobaldi.Frescobaldi, the Flatpak hub.  }
+@uref{https://flathub.org/apps/org.frescobaldi.Frescobaldi, the Flatpak hub.}
 You will find more information for all platforms on the
 @uref{https://github.com/frescobaldi/frescobaldi/blob/master/INSTALL.md,
-Frescobaldi install page.  }
+Frescobaldi install page.}
 
 
 @center @sourceimage{Frescobaldi_download,10cm,}
@@ -83,7 +83,7 @@ window, exactly as in this example.  Be sure to use your version number.
 @example
 
 \version "@versionStable{}"
- c'
+@{ c' @}
 
 @end example
 
