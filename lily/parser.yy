@@ -379,6 +379,7 @@ If we give names, Bison complains.
 %token MARKUP_LIST_FUNCTION
 %token MARKUP_IDENTIFIER
 %token MARKUPLIST_IDENTIFIER
+%token MODULE_IDENTIFIER
 %token MUSIC_FUNCTION
 %token MUSIC_IDENTIFIER
 %token NOTENAME_PITCH
@@ -524,6 +525,40 @@ lookup:
 	{
 		$$ = loc_on_copy (parser, @$,
 				  nested_property ($1, scm_reverse_x ($3, SCM_EOL)));
+	}
+	| MODULE_IDENTIFIER
+	| MODULE_IDENTIFIER '.' symbol_list_rev
+	{
+		SCM val = $1;
+		SCM path = scm_reverse_x ($3, SCM_EOL);
+		// Look up modules until we find a non-module or reach the end
+		// of the path.
+		while (true)
+		{
+			SCM var = scm_module_variable (val, scm_car (path));
+			if (scm_is_false (var))
+			{
+				parser->parser_error (@$, _("not found"));
+				val = SCM_UNDEFINED;
+				break;
+			}
+			val = scm_variable_ref (var);
+			path = scm_cdr (path);
+			if (scm_is_null (path))
+			{
+				// Return the found value, whatever it is.
+				break;
+			}
+			else if (scm_is_false (Guile_user::module_p (val)))
+			{
+				// We have reached the end of the modules but
+				// not the end of the path.  Drop into the alist
+				// implementation.
+				val = nested_property (val, path);
+				break;
+			}
+		}
+		$$ = loc_on_copy (parser, @$, val);
 	}
 	;
 
@@ -4393,6 +4428,9 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 		   && scm_is_true (Lily::key_p (scm_caar (sid)))) {
 		*destination = sid;
 		return LOOKUP_IDENTIFIER;
+	} else if (scm_is_true (Guile_user::module_p (sid))) {
+		*destination = sid;
+		return MODULE_IDENTIFIER;
 	}
 	return -1;
 }

@@ -33,6 +33,7 @@ Variable make_module ("make-module");
 Variable min ("min");
 Variable module_export_all_x ("module-export-all!");
 Variable module_export_x ("module-export!");
+Variable module_p ("module?");
 Variable module_public_interface ("module-public-interface");
 Variable module_use_x ("module-use!");
 Variable symbol_p ("symbol?");
