@@ -108,8 +108,9 @@ class meta_formatter (formatter):
 
 class tempo_formatter (formatter):
     def format_vals(self, val1, val2):
-        return str(ord(val2[0]) * 65536 + ord(val2[1]) * 256 + ord(val2[2])) \
-            + " msec/quarter"
+        us_per_q = ord(val2[0]) * 65536 + ord(val2[1]) * 256 + ord(val2[2])
+        qpm = 60000000 / us_per_q
+        return f"{us_per_q} µs/quarter ({qpm:.0f} qpm)"
 
 
 class time_signature_formatter (formatter):
