@@ -33,6 +33,9 @@ defaultNoteHeads = {
   \revert TabNoteHead.style
 }
 
+
+%% accidental style
+
 accidentalStyle =
 #(define-music-function (style) (symbol-list?)
    (_i "Set accidental style to @var{style}.
@@ -50,12 +53,14 @@ context name, the settings are applied to that context (example:
       (*location*))
      (make-music 'Music))))
 
+
 %% ambitus
 
 ambitusAfter =
 #(define-music-function (target) (symbol?)
   (_i "Move the ambitus after the break-align symbol @var{target}.")
   (breakAlignInsert 'ambitus 'after target))
+
 
 %% arpeggios
 
@@ -128,6 +133,7 @@ appearance.")
     \override Arpeggio.dash-definition = #'((0 1 0.4 0.75))
   #})
 
+
 %% auto beaming
 
 autoBeamOn  = \set autoBeaming = ##t
@@ -172,6 +178,7 @@ defineBarLine =
 submeasureBarsOn = \set Staff.submeasureBarsEnabled = ##t
 submeasureBarsOff = \set Staff.submeasureBarsEnabled = ##f
 
+
 %% bass figures
 
 bassFigureExtendersOn = {
@@ -191,6 +198,7 @@ bassFigureStaffAlignmentNeutral =
 
 
 %% bend-spanner
+
 skipNCs = \override NoteColumn.bend-me = ##f
 skipNC = \once \skipNCs
 endSkipNCs = \revert NoteColumn.bend-me
@@ -276,8 +284,8 @@ Possible values are: @code{#all-visible} (default),
 %% cadenzas
 
 cadenzaOn  = \set Timing.timing = ##f
-
 cadenzaOff = \set Timing.timing = ##t
+
 
 %% chord names
 
@@ -304,6 +312,7 @@ medianChordGridStyle = {
   \override ChordSquare.measure-division-lines-alist =
     #median-measure-division-lines-alist
 }
+
 
 %% compressEmptyMeasures
 
@@ -376,6 +385,7 @@ harmonicNote =
    (_i "Print @var{note} with a diamond-shaped note head.")
    (style-note-heads 'NoteHead 'harmonic note))
 
+
 %% hideNotes
 
 hideNotes = {
@@ -416,6 +426,7 @@ improvisationOff = {
   \revert Accidental.stencil
   \revert AccidentalCautionary.stencil
 }
+
 
 %% incipit
 
@@ -484,7 +495,9 @@ In the special case that @var{incipit-music} has the form @code{\\new @var{xxx}
          (system-start-text::print grob)))
   #})
 
+
 %% kievan
+
 kievanOn = {
  \override NoteHead.style = #'kievan
  \override Stem.X-offset = #stem::kievan-offset-callback
@@ -513,6 +526,7 @@ kievanOff = {
  \revert Beam.quantized-positions
  \revert NoteHead.duration-log
 }
+
 
 %% line and page breaking controls
 
@@ -561,6 +575,7 @@ senzaMisuraTimeSignatureX =
     #ly:time-signature::print-x
 senzaMisuraTimeSignatureOff = \revert Timing.TimeSignature.senza-misura-stencil
 
+
 %% palm mutes
 
 palmMuteOn =
@@ -573,6 +588,7 @@ palmMute =
 #(define-music-function (note) (ly:music?)
    (_i "Print @var{note} with a triangle-shaped note head.")
    (style-note-heads 'NoteHead 'do note))
+
 
 %% part combiner
 
@@ -666,6 +682,7 @@ pointAndClickTypes =
 of music expressions.")
   (ly:set-option 'point-and-click types))
 
+
 %% predefined fretboards
 
 predefinedFretboardsOff =
@@ -748,6 +765,7 @@ staffHighlight =
 
 stopStaffHighlight =
 #(make-music 'StaffHighlightEvent 'span-direction STOP)
+
 
 %% staff switches
 
@@ -854,6 +872,7 @@ showSplitTiedTabNotes = {
   \override TabVoice.TabNoteHead.details.tied-properties.parenthesize = ##t
 }
 
+
 %% text length
 
 textLengthOn = {
@@ -888,6 +907,7 @@ markLengthOff = {
   \revert Score.RehearsalMark.extra-spacing-height
   \revert Score.TextMark.extra-spacing-height
 }
+
 
 %% text spanners
 
@@ -1023,6 +1043,7 @@ xNote =
    (if (eq? (ly:music-property note 'name) 'NoteEvent)
        #{ \tweak style #cross-style $note #}
        #{ \xNotesOn $note \xNotesOff #}))
+
 
 %% dead notes (these need to come after "x notes")
 

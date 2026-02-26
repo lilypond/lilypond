@@ -168,26 +168,33 @@ env_var_info (FILE *out, char const *key)
 static void
 dir_info (FILE *out)
 {
-  fputs ("\n", out);
-  env_var_info (out, "LILYPOND_DATADIR");
-  env_var_info (out, "LILYPOND_LOCALEDIR");
-  env_var_info (out, "LILYPOND_RELOCDIR");
+  if (is_loglevel (LOG_DEBUG))
+    {
+      env_var_info (out, "LILYPOND_DATADIR");
+      env_var_info (out, "LILYPOND_LOCALEDIR");
+      env_var_info (out, "LILYPOND_RELOCDIR");
+    }
 
   fputs (_f ("\n"
-             "Effective prefix: '%s'\n",
+             "Top-level directory of LilyPond's data tree:\n"
+             "  '%s'\n"
+             "\n",
              lilypond_datadir)
            .c_str (),
          out);
 
-  env_var_info (out, "FONTCONFIG_FILE");
-  env_var_info (out, "FONTCONFIG_PATH");
-  env_var_info (out, "GS_FONTPATH");
-  env_var_info (out, "GS_LIB");
-  env_var_info (out, "GUILE_LOAD_PATH");
-  env_var_info (out, "PANGO_RC_FILE");
-  env_var_info (out, "PANGO_PREFIX");
-  env_var_info (out, "PATH");
-  fputs ("\n", out);
+  if (is_loglevel (LOG_DEBUG))
+    {
+      env_var_info (out, "FONTCONFIG_FILE");
+      env_var_info (out, "FONTCONFIG_PATH");
+      env_var_info (out, "GS_FONTPATH");
+      env_var_info (out, "GS_LIB");
+      env_var_info (out, "GUILE_LOAD_PATH");
+      env_var_info (out, "PANGO_RC_FILE");
+      env_var_info (out, "PANGO_PREFIX");
+      env_var_info (out, "PATH");
+      fputs ("\n", out);
+    }
 }
 
 static std::string
@@ -417,8 +424,7 @@ main_with_guile (void *, int, char **)
     scm_c_lookup ("%compile-fallback-path"),
     scm_from_locale_string ((lilypond_datadir + "/guile-bytecode").c_str ()));
 
-  if (is_loglevel (LOG_DEBUG))
-    dir_info (stderr);
+  dir_info (stderr);
 
   init_scheme_code_global = "(begin " + init_scheme_code_global + ")";
 
@@ -659,8 +665,8 @@ parse_argv (int argc, char **argv)
   if (show_help)
     {
       ly_usage ();
-      if (is_loglevel (LOG_DEBUG))
-        dir_info (stdout);
+      setup_paths (argv[0]);
+      dir_info (stdout);
       exit (0);
     }
 }

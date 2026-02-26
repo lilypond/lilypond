@@ -250,9 +250,11 @@ Encode the Unicode codepoint @var{wc}, an integer, as UTF-8.
 
 LY_DEFINE (ly_effective_prefix, "ly:effective-prefix", 0, 0, 0, (),
            R"(
-Return effective prefix.  For example, if LilyPond Scheme files are stored in
-directory @file{/foo/bar/scm} and PS files in @file{/foo/bar/ps}, the effective
-prefix is @file{/foo/bar}.
+Return the top-level directory of LilyPond's data tree.
+
+For example, if LilyPond Scheme files are stored in directory
+@file{/foo/bar/scm} and PS files in @file{/foo/bar/ps}, the effective prefix
+is @file{/foo/bar}.
            )")
 {
   return to_scm (lilypond_datadir);

@@ -2,9 +2,6 @@
 \version "2.16.0"
 \header {
   texidoc = "
-@cindex beam damp
-@cindex damp, beam
-
 Beams are less steep than the notes they encompass.
 " }
 

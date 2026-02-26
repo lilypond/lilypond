@@ -2,8 +2,6 @@
 \version "2.16.0"
 \header {
   texidoc = "
-@cindex beam, with knee
-
 Beams can be placed across a @code{PianoStaff}.
 "
 }

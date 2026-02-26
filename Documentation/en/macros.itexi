@@ -167,8 +167,8 @@ For LilyPond version @version{}
 
 
 @macro snippets
-@need 1000
-@subheading Selected Snippets
+@need 1500
+@subheading Selected snippets
 @end macro
 
 

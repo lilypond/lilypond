@@ -977,21 +977,30 @@ previous-pitchnames = #'()
 
 language =
 #(define-void-function (language) (string?)
-   (_i "Set note names for language @var{language}.
+   (_i "
+@funindex pitchnames
+
+Set note names for language @var{language}.
 
 The value is stored in the @code{pitchnames} alist.")
    (note-names-language language))
 
 languageSaveAndChange =
 #(define-void-function (language) (string?)
-  (_i "Save current @code{pitchnames} alist and change note names to
+  (_i "
+@funindex pitchnames
+
+Save current @code{pitchnames} alist and change note names to
 @var{language}.")
   (set! previous-pitchnames pitchnames)
   (note-names-language language))
 
 languageRestore =
 #(define-void-function () ()
-   (_i "Restore the previously-saved @code{pitchnames} alist.")
+   (_i "
+@funindex pitchnames
+
+Restore the previously-saved @code{pitchnames} alist.")
    (if previous-pitchnames
        (begin
         (set! pitchnames previous-pitchnames)
