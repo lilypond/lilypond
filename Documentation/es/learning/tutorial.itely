@@ -442,7 +442,7 @@ endmorerefs
 
 @funindex \version
 @funindex @{ ... @}
-@funindex %
+@funindexpre %
 @funindex %@{ ... %@}
 
 Los archivos de entrada de LilyPond son como los archivos fuente

@@ -428,7 +428,7 @@ Notation Reference:
 
 @funindex \version
 @funindex @{ ... @}
-@funindex %
+@funindexpre %
 @funindex %@{ ... %@}
 
 LilyPond input files are similar to source files in many common

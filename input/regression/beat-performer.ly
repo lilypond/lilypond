@@ -1,4 +1,4 @@
-\version "2.23.5"
+\version "2.25.35"
 
 \header {
   texidoc = "Show the effect of the @code{Beat_performer} on drum
@@ -8,7 +8,7 @@ syncopes in less distance than the last `regular' beat precede,
 indicated with one of those two articulations explicitly."
 }
 
-"\*" = \repeat unfold \etc
+#(ly:set-option 'warning-as-error #t)
 
 music = \drummode {
   \* 32 sn32 | 1 |

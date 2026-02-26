@@ -5618,6 +5618,30 @@ def conv(s):
     return s
 
 
+@rule((2, 25, 35), r"""
+remove \% = \repeat percent \etc
+remove \* = \repeat unfold \etc
+""")
+def conv(s):
+    s = re.sub(r'"?\\\\?\%"?\s*=\s*\\repeat\s*percent\s*\\etc\b', '', s)
+    if re.search(r'"?\\\\?\%"?\s*=', s):
+        stderr_write(NOT_SMART % _(r'assignment of \%'))
+        stderr_write(_(r"""
+\% is now a built-in abbreviation for \repeat percent.  If you have defined it
+differently, you may wish to change the name to avoid confusion.
+"""))
+        stderr_write(UPDATE_MANUALLY)
+    s = re.sub(r'"?\\\\?\*"?\s*=\s*\\repeat\s*unfold\s*\\etc\b', '', s)
+    if re.search(r'"?\\\\?\*"?\s*=', s):
+        stderr_write(NOT_SMART % _(r'assignment of \*'))
+        stderr_write(_(r"""
+\* is now a built-in abbreviation for \repeat unfold.  If you have defined it
+differently, you may wish to change the name to avoid confusion.
+"""))
+        stderr_write(UPDATE_MANUALLY)
+    return s
+
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

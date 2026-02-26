@@ -238,7 +238,7 @@ Voici quelques exemples d'expression musicale :
 @}
 @end example
 
-@funindex %
+@funindexpre %
 @funindex %@{ @dots{} %@}
 @cindex commentaire
 @cindex ligne de commentaire
@@ -716,7 +716,7 @@ suivantes :
 @funindex \sourcefileline
 
 @item
-@funindex %
+@funindexpre %
 @cindex commentaire, ligne
 @cindex ligne de commentaire
 Une ligne de commentaire, introduite par le signe @code{%}.

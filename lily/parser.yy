@@ -551,7 +551,7 @@ embedded_scm_bare_arg:
 	| partial_markup
 	| full_markup_list
 	| context_modification
-	| header_block
+	| header_modification
 	| score_block
 	| context_def_spec_block
 	| book_block
@@ -673,9 +673,21 @@ lilypond_header:
 	}
 	;
 
+// Appears at block scope (book, bookpart, score).  Attaches to its container.
+// Retains values defined earlier, constrained by scoping.
 header_block:
 	{
 		parser->lexer_->add_scope (get_header (parser));
+	} lilypond_header {
+		$$ = $2;
+	}
+	;
+
+// Appears on RH side of assignment, function argument, etc.  Initialized clean
+// to hold only the contained values for later application in block scope.
+header_modification:
+	{
+		parser->lexer_->add_scope (ly_make_module ());
 	} lilypond_header {
 		$$ = $2;
 	}
@@ -746,7 +758,7 @@ identifier_init:
 	;
 
 identifier_init_nonumber:
-	header_block
+	header_modification
 	| score_block
 	| book_block
 	| bookpart_block

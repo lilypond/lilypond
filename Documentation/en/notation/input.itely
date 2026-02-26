@@ -224,7 +224,7 @@ are music expressions:
 @}
 @end example
 
-@funindex %
+@funindexpre %
 @funindex %@{ @dots{} %@}
 @cindex comment
 @cindex line comment
@@ -691,7 +691,7 @@ be entered:
 @funindex \sourcefileline
 
 @item
-@funindex %
+@funindexpre %
 @cindex comment
 @cindex line comment
 @cindex single-line comment

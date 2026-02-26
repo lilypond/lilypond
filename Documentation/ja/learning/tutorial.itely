@@ -421,7 +421,7 @@ A, G, F である場合は B の下に置かれます。
 
 @funindex \version
 @funindex @{ ... @}
-@funindex %
+@funindexpre %
 @funindex %@{ ... %@}
 
 LilyPond 入力ファイルは多くの一般的なプログラミング言語のソース ファイルと@c

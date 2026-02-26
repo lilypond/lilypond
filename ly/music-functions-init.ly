@@ -18,7 +18,7 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.25.33"
+\version "2.25.35"
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -736,6 +736,16 @@ in the format of @code{all-grob-descriptions}.")
    (ly:make-context-mod `((grob-descriptions ,descriptions))))
 
 
+
+"\\%" =
+#(define-music-function (count music) (number? ly:music?)
+   (_i "This is the same as @code{\\repeat percent} @var{count} @var{music}.")
+   #{ \repeat percent #count $music #} )
+
+"\\*" =
+#(define-music-function (count music) (number? ly:music?)
+   (_i "This is the same as @code{\\repeat unfold} @var{count} @var{music}.")
+   #{ \repeat unfold #count $music #} )
 
 "\\=" =
 #(define-event-function (id event) (key? ly:event?)

@@ -68,6 +68,7 @@ repeats.
 @cindex repeat, written-out
 @cindex repeat, unfolded
 @cindex unfolding repeat
+@funindex \*
 @funindex \repeat
 @funindex \repeat unfold
 
@@ -75,6 +76,13 @@ The @code{\repeat unfold} command repeats music by writing it out
 a number of times.  The syntax is the same as the @code{\repeat
 volta} and @code{\repeat segno} commands, which are documented in
 following sections.
+
+There is also a short form, @code{\*}, which can be convenient in
+a work that uses unfolded repetition heavily:
+
+@lilypond[verbatim,quote]
+\*2 { c'8 d' e' f' }
+@end lilypond
 
 To avoid redundancy, unfolding is not demonstrated in detail here;
 however, some of the examples in following sections illustrate
@@ -1179,6 +1187,7 @@ single note, a single measure or two measures, and tremolos otherwise.
 @cindex repeat, measure
 @cindex repeat, short
 @cindex repeat, slash
+@funindex \%
 @funindex \repeat percent
 
 Repeated short patterns are printed once, and the repeated pattern
@@ -1192,6 +1201,13 @@ The syntax is
 
 @noindent
 where @code{@var{musicexpr}} is a music expression.
+
+There is also a short form, @code{\%}, which can be convenient in
+a work that uses percent repetition heavily:
+
+@lilypond[verbatim,quote]
+\%3 { c'4 d' e' f' }
+@end lilypond
 
 Patterns that are shorter than one measure are replaced by slashes.
 

@@ -676,6 +676,15 @@ space now.
 @itemize
 
 @item
+The new music functions @code{\%} and @code{\*} serve as
+abbreviations for @code{\repeat percent} and @code{\repeat
+unfolded}.
+
+@lilypond[quote,verbatim]
+\%3 \*4 cis''4
+@end lilypond
+
+@item
 @code{\repeat volta} alternative endings no longer create
 invisible bar lines.  This may affect line breaking, horizontal
 spacing, and @code{VoltaBracket} length where an alternative

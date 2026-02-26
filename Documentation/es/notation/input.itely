@@ -240,7 +240,7 @@ musicales:
 @}
 @end example
 
-@funindex %
+@funindexpre %
 @funindex %@{ @dots{} %@}
 @cindex comentario
 @cindex línea, comentario de
@@ -738,7 +738,7 @@ las instrucciones léxicas siguientes:
 @funindex \sourcefileline
 
 @item
-@funindex %
+@funindexpre %
 @cindex comentario
 @cindex comentario de una línea
 Un comentario de una línea, determinado por un símbolo @code{%}
