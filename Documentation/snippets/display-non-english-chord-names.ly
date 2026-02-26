@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.24.0"
+\version "2.25.35"
 
 \header {
   categories = "Chords, Really simple"
@@ -48,19 +48,19 @@ scm = \chordmode {
     \scm
   }
   \new ChordNames {
-    \set instrumentName = #"german"
+    \set instrumentName = #"German"
     \germanChords \scm
   }
   \new ChordNames {
-    \set instrumentName = #"semi-german"
-    \semiGermanChords \scm
+    \set instrumentName = #"Norwegian"
+    \norwegianChords \scm
   }
   \new ChordNames {
-    \set instrumentName = #"italian"
+    \set instrumentName = #"Italian"
     \italianChords \scm
   }
   \new ChordNames {
-    \set instrumentName = #"french"
+    \set instrumentName = #"French"
     \frenchChords \scm
   }
   \context Voice { \scm }

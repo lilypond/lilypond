@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.28"
+@c \version "2.25.35"
 
 
 @node Chord notation
@@ -571,23 +571,25 @@ names and symbols displayed for chord names are customizable.
 @cindex chord, alternative name
 @cindex alternative chord name
 
-The basic chord name layout is a system for Jazz music, proposed
-by Klaus Ignatzek (see @ressay{Literature list}).  (Other chord
-naming systems may be implemented through Scheme functions, as
-demonstrated by the @qq{Chord names alternative} snippet in @rlsr{Chord notation}.)
-A list of common jazz chords notations may be found on the chart in
+The basic chord name layout is a system for Jazz music proposed by
+Klaus Ignatzek (see @ressay{Literature list}).  (Other chord
+naming systems may be implemented through Scheme functions, see
+@rlsrsnippet{Chord notation, Chord names alternative} for an
+example.)  A list of common jazz chords notations can be found in
 @ref{Chord name chart}.
 
 @funindex \germanChords
-@funindex \semiGermanChords
+@funindex \norwegianChords
 @funindex \italianChords
 @funindex \frenchChords
+@funindex \englishChords
 
-The default naming system may be tweaked easily in a number
-of ways.  To begin with, predefined commands allow to use
+The default naming system may be tweaked easily in a number of
+ways.  To begin with, predefined commands allow the display of
 different languages for the root pitch.  These include
-@code{\germanChords}, @code{\semiGermanChords},
-@code{\italianChords} and @code{\frenchChords}:
+@code{\germanChords}, @code{\norwegianChords},
+@code{\italianChords}, @code{\frenchChords}, and
+@code{\englishChords}.
 
 @lilypondfile{chord-names-languages.ly}
 
@@ -595,7 +597,7 @@ different languages for the root pitch.  These include
 @funindex chordNameLowercaseMinor
 
 German songbooks may indicate minor chords as lowercase letters,
-without any @var{m} suffix.  This can be obtained by setting the
+without any @q{m} suffix.  This can be obtained by setting the
 @code{chordNameLowercaseMinor} property:
 
 @lilypond[verbatim,quote,ragged-right]
@@ -605,18 +607,19 @@ without any @var{m} suffix.  This can be obtained by setting the
 }
 @end lilypond
 
-The chord name display can also be tuned through the following properties.
+The chord name display can also be tuned by adjusting the
+following properties.
 
 @table @code
 
 @item chordRootNamer
 @funindex chordRootNamer
 
-The chord name is usually printed as a letter for the root with an
-optional alteration.  The transformation from pitch to letter is
-done by this function.  Special note names (for example, the German
-@q{H} for a B-chord) can be produced by storing a new function in
-this property.
+The default setup is to print the chord name as a letter for the
+root with an optional alteration.  The transformation from pitch
+to letter is done by this function.  Special note names (for
+example, the German @q{H} for a B-chord) can be produced by
+storing a different function in this property.
 
 @item majorSevenSymbol
 @funindex majorSevenSymbol
@@ -624,23 +627,22 @@ this property.
 @funindex \blackTriangleMarkup
 @funindex \whiteTriangleMarkup
 
-This property contains the markup object used to follow the output
-of @code{chordRootNamer} to identify a major 7 chord.  Predefined
-options are @code{whiteTriangleMarkup} and
+This property holds the markup object that identifies a
+major@tie{}7 chord, to be printed right after the chord root.
+Predefined values are @code{whiteTriangleMarkup} (the default) and
 @code{blackTriangleMarkup}.
 
 @item additionalPitchPrefix
 @funindex additionalPitchPrefix
 
-When the chord name contains additional pitches, they can optionally
-be prefixed with some text.  The default is no prefix, in order to
-avoid too much visual clutter, but for small numbers of additional
-pitches this can be visually effective.
+If the chord name contains additional pitches, they normally have
+the prefix @q{add}, which is LilyPond's default.  This prefix can
+be changed or suppressed.
 
 @lilypond[verbatim,quote,ragged-right]
 \new ChordNames {
   <c e g d'>    % add9
-  \set additionalPitchPrefix = "add"
+  \set additionalPitchPrefix = ""
   <c e g d'>    % add9
 }
 @end lilypond
@@ -648,19 +650,21 @@ pitches this can be visually effective.
 @item chordNoteNamer
 @funindex chordNoteNamer
 
-When the chord name contains additional pitches other than the root
-(e.g., an added bass note), this function is used to print the
-additional pitch.  By default the pitch is printed using
-@code{chordRootNamer}.  The @code{chordNoteNamer} property can be set
-to a specialized function to change this behavior.  For example, the
-bass note can be printed in lower case.
+If a chord name contains additional pitches other than the root
+(e.g., an added bass note), the function assigned to this property
+is used to print them.  If not set or set to @code{'()}, use the
+function assigned to @code{chordRootNamer} instead.
+
+As an example, the function
+@code{chord-name@/:german-lowercase-name-markup} is used by
+@code{\germanChords} to print bass notes in lower case.
 
 @item chordNameSeparator
 @funindex chordNameSeparator
 
 Different parts of a chord name are normally separated by a small
 amount of horizontal space.  By setting @code{chordNameSeparator}, you
-can use any desired markup for a separator.  This does not affect the
+can use any desired markup as a separator.  This does not affect the
 separator between a chord and its bass note; to customize that, use
 @code{slashChordSeparator}.
 
@@ -681,7 +685,7 @@ of the chord.  These are known as @qq{inversions} or @qq{slash chords},
 because the default way of notating them is with a forward slash
 between the main chord and the bass note.  Therefore the value of
 @code{slashChordSeparator} defaults to a forward slash, but you can
-change it to any markup you choose.
+change it to other markup.
 
 @lilypond[verbatim,quote,ragged-right]
 \chords {
@@ -697,15 +701,15 @@ change it to any markup you choose.
 
 This property is a list of pairs.  The first item in each pair
 is a set of pitches used to identify the steps present in the chord.
-The second item is a markup that will follow the @code{chordRootNamer}
+The second item is a markup that follows the @code{chordRootNamer}
 output to create the chord name.
 
 @item minorChordModifier
 @funindex minorChordModifier
 
-Minor chords are often denoted via a @q{m} suffix to the right of the
-root of the chord.  However some idioms prefer other suffices, such as
-a minus sign.
+Minor chords are often denoted via an @q{m} suffix to the right of
+the root of the chord (this is LilyPond's default).  However, some
+idioms prefer other suffixes, such as a minus sign.
 
 @lilypond[verbatim,quote,ragged-right]
 \chords {
@@ -720,10 +724,11 @@ a minus sign.
 @funindex chordPrefixSpacer
 
 The modifier for minor chords as determined by
-@code{minorChordModifier} is usually printed immediately to the right
-of the root of the chord.  A spacer can be placed between the root and
-the modifier by setting @code{chordPrefixSpacer}.  The spacer is not
-used when the root is altered.
+@code{minorChordModifier} is by default printed immediately to the
+right of the chord root.  Some whitespace can be placed between
+the root and the modifier by setting @code{chordPrefixSpacer}
+(used, for example, in @code{\italianChords}).  No whitespace is
+inserted if the root is altered.
 
 @end table
 
@@ -734,9 +739,10 @@ used when the root is altered.
 @code{\whiteTriangleMarkup},
 @code{\blackTriangleMarkup},
 @code{\germanChords},
-@code{\semiGermanChords},
+@code{\norwegianChords},
 @code{\italianChords},
-@code{\frenchChords}.
+@code{\frenchChords},
+@code{\englishChords}.
 @endpredefined
 
 

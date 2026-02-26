@@ -5627,6 +5627,7 @@ chord-name->italian-markup -> chord-name:italian-markup
 note-name->german-markup -> chord-name:german-lowercase-name-markup
 note-name->markup -> chord-name:markup
 note-name->string -> pitch->name
+\semiGermanChords -> \norwegianChords
 """)
 def conv(s):
     s = re.sub(r'"?\\\\?\%"?\s*=\s*\\repeat\s*percent\s*\\etc\b', '', s)
@@ -5657,6 +5658,20 @@ differently, you may wish to change the name to avoid confusion.
     s = re.sub(r'\bnote-name->markup\b', r'(chord-name:markup #f)', s)
     s = re.sub(r'\bnote-name->string\b', r'pitch->name', s)
 
+    if re.search(r'''(?sx)
+\\language \b
+.*
+\\ ( german | semiGerman | italian | french ) Chords \b
+    ''', s):
+        stderr_write(NOT_SMART
+                     % _(r'chord names in combination with \language'))
+        stderr_write(_(r"""
+\germanChords and its siblings no longer depend on the input note names
+as selected with \language.  This might cause different note names in the
+shown chord names.
+"""))
+
+    s = re.sub(r'\\semiGermanChords\b', r'\\norwegianChords', s)
     return s
 
 

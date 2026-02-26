@@ -1341,6 +1341,49 @@ automatically for words ending in a melisma.
 @end lilypond
 
 @item
+By default, chord names are now always shown with English pitch
+names, no longer dependent on @code{\language}.  Similarly,
+commands like @code{\germanChords} are no longer dependent on
+@code{\language} either.
+
+This change might cause differences in displayed chord names.
+
+@item
+Two new commands have been added: @code{\norwegianChords} and
+@code{\englishChords}.  The former is a better name for the now
+deprecated @code{\semiGermanChords} command, the latter makes it
+possible to switch back to English chord names.
+
+@item
+Some Scheme functions related to chord names have been renamed.
+
+@indentedblock
+@multitable @columnfractions .5 .5
+@headitem old @tab new
+@item @code{note-name->string}
+  @tab @code{pitch->name}
+@item @code{alteration->text-accidental-markup}
+  @tab @code{accidental->text-markup}
+@item @code{note-name->markup}
+  @tab @code{chord-name:markup}
+@item @code{chord-name->german-markup}
+  @tab @code{chord-name:german-markup}
+@item @code{note-name->german-markup}
+  @tab @code{chord-name:german-lowercase-name-markup}
+@item @code{chord-name->italian-markup}
+  @tab @code{chord-name:italian-markup}
+@end multitable
+@end indentedblock
+
+@command{convert-ly} handles this automatically.
+
+@item
+Two new Scheme functions related to chord names are now available:
+@code{pitch->alteration} returns the accidental for a given pitch
+and language; @code{chord-name:name-markup} returns note name
+markup for a given pitch and language.
+
+@item
 LilyPond now follows the Ignatzek chord name scheme more closely.
 This reverts changes introduced in version 2.15.21 (in 2011),
 which are now considered as incorrect and/or ambiguous.

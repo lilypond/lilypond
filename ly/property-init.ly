@@ -289,22 +289,32 @@ cadenzaOff = \set Timing.timing = ##t
 
 %% chord names
 
+englishChords = {
+  \set chordRootNamer = #(chord-name:markup 'english)
+  \set chordNoteNamer = #(chord-name:markup 'english)
+  \set chordPrefixSpacer = #0
+}
 frenchChords = {
   \set chordRootNamer = #(chord-name:italian-markup #t)
+  \set chordNoteNamer = #(chord-name:italian-markup #t)
   \set chordPrefixSpacer = #0.4
 }
 germanChords = {
   \set chordRootNamer = #(chord-name:german-markup #t)
   \set chordNoteNamer = #chord-name:german-lowercase-name-markup
-}
-semiGermanChords = {
-  \set chordRootNamer = #(chord-name:german-markup #f)
-  \set chordNoteNamer = #chord-name:german-lowercase-name-markup
+  \set chordPrefixSpacer = #0
 }
 italianChords = {
   \set chordRootNamer = #(chord-name:italian-markup #f)
+  \set chordNoteNamer = #(chord-name:italian-markup #f)
   \set chordPrefixSpacer = #0.4
 }
+norwegianChords = {
+  \set chordRootNamer = #(chord-name:german-markup #f)
+  \set chordNoteNamer = #(chord-name:name-markup 'norsk)
+  \set chordPrefixSpacer = #0
+}
+semiGermanChords = \norwegianChords % for backward compatibility
 
 medianChordGridStyle = {
   \override ChordSquare.measure-division-chord-placement-alist =

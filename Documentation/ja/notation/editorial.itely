@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.23"
+@c \version "2.25.35"
 
 
 @c Translators: Tomohiro Tatejima, Yoshiki Sawada, Hiroshi Fukuhara
@@ -764,7 +764,7 @@ somechords = \relative c' {
   \new NoteNames {
     \set noteNameFunction =
       #(lambda (pitch ctx)
-         (alteration->text-accidental-markup
+         (accidental->text-markup
           (ly:pitch-alteration pitch)))
     \somechords
   }

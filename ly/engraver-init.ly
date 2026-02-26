@@ -949,10 +949,9 @@ run."
   chordNameSeparator = #(make-hspace-markup 0.5)
   slashChordSeparator = "/"
   chordNameExceptions = #ignatzekExceptions
-  chordNoteNamer = #'()
-  chordRootNamer = #(chord-name:markup #f)
-  chordPrefixSpacer = #0
   noChordSymbol = "N.C."
+
+  \englishChords
 
   %% tablature:
   stringOneTopmost = ##t

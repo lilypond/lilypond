@@ -1,9 +1,5 @@
 \version "2.25.35"
 
-scm = \chordmode {
-  e1/d c:m b/b bis/bis bes/bes beses/beses
-}
-
 \layout {
   indent = 3\cm
   ragged-right = ##t
