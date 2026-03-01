@@ -19,7 +19,7 @@
 
 % included from ./out-www/voice-5.header
 \header {
-texidoc="midi2ly still produces output for a staff with five voices.  However, in such cases, most probably the the correct \voiceOne, \voiceX... mapping is lost."
+texidoc="midi2ly still produces output for a staff with five voices.  However, in such cases, most probably the the correct \\voiceOne, \\voiceX... mapping is lost."
 options=""
 }
 % end

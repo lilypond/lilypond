@@ -1,7 +1,7 @@
 \version "2.25.22"
 
 \header {
-  texidoc = "@code{\set} warns and refuses to assign a value that does not
+  texidoc = "@code{\\set} warns and refuses to assign a value that does not
 match a deprecated property's type predicate."
 }
 

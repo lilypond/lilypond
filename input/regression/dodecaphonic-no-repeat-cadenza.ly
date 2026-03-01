@@ -1,7 +1,7 @@
 \version "2.23.4"
 
 \header {
-  texidoc = "@code{\cadenzaOn} should not confuse the
+  texidoc = "@code{\\cadenzaOn} should not confuse the
 @code{dodecaphonic-no-repeat} accidental style.
 In this test, the second C should have a printed
 accidental since it is not immediately repeated."

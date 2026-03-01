@@ -1,7 +1,7 @@
 \version "2.23.3"
 
 \header {
-  texidoc = "@code{\startMeasureCount} and @code{\stopMeasureCount} coming
+  texidoc = "@code{\\startMeasureCount} and @code{\\stopMeasureCount} coming
 in the same time step in this order do not cause a warning."
 }
 

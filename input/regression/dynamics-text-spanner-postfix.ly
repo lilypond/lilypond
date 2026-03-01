@@ -1,10 +1,10 @@
 \version "2.19.21"
 
 \header {
-texidoc = "The \cresc, \dim and \decresc spanners are now postfix operators
+texidoc = "The \\cresc, \\dim and \\decresc spanners are now postfix operators
 and produce one text spanner.  Defining custom spanners is also easy.
-Hairpin and text crescendi can be easily mixed. \< and \> produce
-hairpins by default, \cresc etc. produce text spanners by default."
+Hairpin and text crescendi can be easily mixed. \\< and \\> produce
+hairpins by default, \\cresc etc. produce text spanners by default."
 }
 
 % Some sample text dynamic spanners, to be used as postfix operators

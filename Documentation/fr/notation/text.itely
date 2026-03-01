@@ -772,7 +772,7 @@ inverse.
 @c KEEP LY
 @lilypond[quote,verbatim]
 \relative {
-  a'1^"\italic markup..."
+  a'1^"\\italic markup..."
   a_\markup { \italic "... imprime des lettres en \"italique\" !" }
   a a
 }

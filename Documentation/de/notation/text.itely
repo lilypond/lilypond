@@ -456,7 +456,7 @@ können gesetzt werden, indem man ihnen einen Backslash voranstellt.
 @c KEEP LY
 @lilypond[quote,verbatim]
 \relative {
-  a'1^"\italic Text..."
+  a'1^"\\italic Text..."
   a_\markup { \italic "... setzt \"kursive\" Buchstaben!" }
   a a
 }

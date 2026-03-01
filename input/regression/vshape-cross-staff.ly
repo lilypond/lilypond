@@ -1,7 +1,7 @@
 \version "2.23.4"
 
 \header {
-  texidoc = "@code{\vshape} works on cross-staff slurs."
+  texidoc = "@code{\\vshape} works on cross-staff slurs."
 }
 
 \new PianoStaff <<

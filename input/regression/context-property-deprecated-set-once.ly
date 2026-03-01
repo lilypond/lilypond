@@ -1,7 +1,7 @@
 \version "2.25.22"
 
 \header {
-  texidoc = "@code{\once \set} works on a deprecated context property.  The
+  texidoc = "@code{\\once \\set} works on a deprecated context property.  The
 output should be a single measure with a B@tie{}note."
 }
 

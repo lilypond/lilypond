@@ -108,7 +108,7 @@ possible to change the custom definition on the fly.
   \revert Tie.details.height-limit
 
   <>^\markup \small \typewriter
-             "\shape #'((0 . 0) (0 . -1) (0 . -1) (0 . 0))"
+             "\\shape #'((0 . 0) (0 . -1) (0 . -1) (0 . 0))"
   \shape #'((0 . 0) (0 . -1) (0 . -1) (0 . 0)) Tie
   a4~ a
   \once \override Tie.stencil = #flare-tie

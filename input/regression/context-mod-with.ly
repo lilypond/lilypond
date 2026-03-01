@@ -2,7 +2,7 @@
 
 \header  {
 texidoc = "Context modifications can be stored into a variable as a
-\with object. They can be later inserted into another \with block."
+\\with object. They can be later inserted into another \\with block."
 }
 
 % Some sample modifications to be inserted into a \with block later on
@@ -30,7 +30,7 @@ music = \relative { \key fis \minor c''1 d e }
   }
   % Some context modifications manually written in a \with block
   \new Staff \with { \ctxmod } {
-    <>^\markup { "The same mods using a variable and \with" }
+    <>^\markup { "The same mods using a variable and \\with" }
     \music
   }
   % Mods before a context mod in a with block are working:

@@ -1,7 +1,7 @@
 \version "2.25.22"
 
 \header {
-  texidoc = "@code{\once \unset} works on a deprecated context property.  The
+  texidoc = "@code{\\once \\unset} works on a deprecated context property.  The
 output should have three bar lines: the middle line should be normal and the
 outer lines should be dotted."
 }

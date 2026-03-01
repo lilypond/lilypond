@@ -1,7 +1,7 @@
 \version "2.17.6"
 
 \header {
-  texidoc = "StaffGrouper interacts correctly with @code{\RemoveEmptyStaves}.
+  texidoc = "StaffGrouper interacts correctly with @code{\\RemoveEmptyStaves}.
 In both systems, there should be a large space between the staff groups."
 }
 

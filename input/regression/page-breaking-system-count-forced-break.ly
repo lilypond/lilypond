@@ -3,7 +3,7 @@
 #(set-default-paper-size "a6")
 
 \header {
-  texidoc = "system-count and \pageBreak are compatible."
+  texidoc = "system-count and \\pageBreak are compatible."
 }
 
 \book {

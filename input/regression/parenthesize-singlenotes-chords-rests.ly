@@ -1,17 +1,17 @@
 
 \header {
-  texidoc = "The @code{\parenthesize} function should also work on single
+  texidoc = "The @code{\\parenthesize} function should also work on single
 notes (not inside chords), rests, and on whole chords.  Also,
 parenthesizing articulations, dynamics and text markup is possible.
-On all other music expressions, @code{\parenthesize} does not have
+On all other music expressions, @code{\\parenthesize} does not have
 an effect.
 
 Measure 1: Three parenthesized notes (staccato not parenthesized), one
 note with staccato in parentheses; Measure 2: Chord and two rests in
 parentheses (accent and markup not); Measure 3: note (no parentheses)
-with @code{\p} in parentheses, with text in parentheses, and note in
-parentheses with @code{\p} not in parentheses, rest (no parentheses);
-Measure 4: shows that @code{\parenthesize} does not apply to other
+with @code{\\p} in parentheses, with text in parentheses, and note in
+parentheses with @code{\\p} not in parentheses, rest (no parentheses);
+Measure 4: shows that @code{\\parenthesize} does not apply to other
 expressions like @code{SequentialMusic}."
 }
 

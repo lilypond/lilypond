@@ -1,7 +1,7 @@
 \version "2.16.0"
 \header {
-    texidoc = "\modalTranspose, \retrograde, \inversion and
-\modalInversion work for an octatonic motif."
+    texidoc = "\\modalTranspose, \\retrograde, \\inversion and
+\\modalInversion work for an octatonic motif."
 }
 
 cOctatonicScale = {

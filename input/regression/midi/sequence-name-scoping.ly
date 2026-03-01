@@ -1,14 +1,14 @@
 \version "2.19.25"
 
 \header {
-  texidoc="If a score has a @code{\header} block which defines a title,
-  this title should override any title defined in a @code{\header} block
-  of the score's enclosing @code{\bookpart} or @code{\book} (or a title
-  defined in a top-level @code{\header} block) when naming the MIDI
+  texidoc="If a score has a @code{\\header} block which defines a title,
+  this title should override any title defined in a @code{\\header} block
+  of the score's enclosing @code{\\bookpart} or @code{\\book} (or a title
+  defined in a top-level @code{\\header} block) when naming the MIDI
   sequence generated from the score.  Otherwise, if the score has no title
   defined, the MIDI sequence generated from the score should get named
-  using the title defined in the @code{\header} block of the nearest
-  enclosing @code{\bookpart}, @code{\book}, or top-level scope that
+  using the title defined in the @code{\\header} block of the nearest
+  enclosing @code{\\bookpart}, @code{\\book}, or top-level scope that
   contains a title definition."
   title = "Top-level title"
 }

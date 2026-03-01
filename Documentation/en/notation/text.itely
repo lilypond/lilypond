@@ -750,7 +750,7 @@ printed by preceding them with backslashes.
 
 @lilypond[quote,verbatim]
 \relative {
-  a'1^"\italic markup..."
+  a'1^"\\italic markup..."
   a_\markup { \italic "... prints \"italic\" letters!" }
   a a
 }

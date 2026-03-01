@@ -1,7 +1,7 @@
 \version "2.25.21"
 
 \header {
-  texidoc = "Printing slashed beams is the default for @code{\slashedGrace}."
+  texidoc = "Printing slashed beams is the default for @code{\\slashedGrace}."
 }
 
 mus = {

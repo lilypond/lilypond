@@ -38,7 +38,7 @@
       r8
       <>^\markup \column { "smoother samba swing, start off-beat"
                            "\\applySwingWithOffset 16 #'(4 3 3 4)"
-                           "    \musicLength 8" }
+                           "    \\musicLength 8" }
       \applySwingWithOffset 16 #'(4 3 3 4) \musicLength 8 {
         c'16 c'
         c' c' c' c'

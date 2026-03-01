@@ -1,7 +1,7 @@
 \version "2.25.21"
 
 \header {
-  texidoc = "@code{\unset} warns if the property does not exist."
+  texidoc = "@code{\\unset} warns if the property does not exist."
 }
 
 #(ly:set-option 'warning-as-error)

@@ -1,7 +1,7 @@
 \version "2.23.4"
 
 \header {
-  texidoc = "The @code{\vshape} command acts like the @code{\shape}
+  texidoc = "The @code{\\vshape} command acts like the @code{\\shape}
 command, and additionally displays control points and polygons for
 easier tweaking of the values.
 

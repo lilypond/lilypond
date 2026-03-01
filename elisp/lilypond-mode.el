@@ -72,7 +72,7 @@
   :group 'LilyPond)
 
 (defun lilypond-words-filename ()
-  "The file containing LilyPond \keywords \Identifiers and ReservedWords.
+  "The file containing LilyPond \\keywords \\Identifiers and ReservedWords.
 Finds file lilypond-words.el from load-path."
   (let ((fn nil)
 	(lp load-path)
@@ -87,7 +87,7 @@ Finds file lilypond-words.el from load-path."
     fn))
 
 (defun lilypond-add-dictionary-word (x)
-  "Contains all words: \keywords \Identifiers and ReservedWords."
+  "Contains all words: \\keywords \\Identifiers and ReservedWords."
   (nconc '(("" . 1)) x))
 
 (if (> emacs-major-version 20)
@@ -926,8 +926,8 @@ command."
       (progn
        (setq p (point))
        (goto-char (+ p distance))))
-     ((string-equal "\?" copy) (setq query t))
-     ((string-equal "\!" copy) (setq query nil))
+     ((string-equal "\\?" copy) (setq query t))
+     ((string-equal "\\!" copy) (setq query nil))
      ((string-equal "\\n" copy)
       (if (not query)
        (progn (lilypond-indent-line) (insert "\n") (lilypond-indent-line))))

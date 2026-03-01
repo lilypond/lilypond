@@ -17,11 +17,11 @@
   tagline = ##f
 }
 testMusic = {
-  c'4_\markup \abs-fontsize #10 "\abs-fontsize #10 text"
-     _\markup \abs-fontsize #10 \line { "\abs-fontsize #10
-                                        \dynamic" \dynamic "fff" }
-     ^\markup \fontsize #0 "\fontsize #0"
-     ^\markup \fontsize #6 "\fontsize #6"
+  c'4_\markup \abs-fontsize #10 "\\abs-fontsize #10 text"
+     _\markup \abs-fontsize #10 \line { "\\abs-fontsize #10
+                                        \\dynamic" \dynamic "fff" }
+     ^\markup \fontsize #0 "\\fontsize #0"
+     ^\markup \fontsize #6 "\\fontsize #6"
   d' e' f'
 }
 

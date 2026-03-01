@@ -1,7 +1,7 @@
 \version "2.25.30"
 
 \header {
-  texidoc = "@code{\enablePerStaffTiming} can also be used with MIDI output.
+  texidoc = "@code{\\enablePerStaffTiming} can also be used with MIDI output.
 This test should not produce bar check errors."
 }
 

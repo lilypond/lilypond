@@ -61,7 +61,7 @@ To fix this, multiple workarounds are available, as demonstrated below.
                                             (BarLine hair-thickness)
                                             (BarLine kern))) } {
           \textMark \markup \tiny \column { "cancelling"
-                                            \typewriter "\magnifyStaff"
+                                            \typewriter "\\magnifyStaff"
                                             "only for bar lines" }
           b1 b \bar "|."
         }
@@ -78,7 +78,7 @@ To fix this, multiple workarounds are available, as demonstrated below.
       \new StaffGroup <<
         \new Staff \with { \magnifyStaff #1/2 } {
           \textMark \markup \tiny \column { "mimicking"
-                                            \typewriter "\magnifyStaff"
+                                            \typewriter "\\magnifyStaff"
                                             "on the other staves" }
           b1 b \bar "|." }
         \new Staff \with { #(scale-props 'magnifyStaff 1/2 #t

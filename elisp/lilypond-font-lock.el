@@ -90,10 +90,10 @@
       (cons (concat "\\(" rwregex "\\)") 'font-lock-variable-name-face)
 
 ;; ... note or rest with (an accidental and) a duration, e.g., b,?16.*3/4
-      (cons (concat "\\(^\\|[ <\{[/~(!)\t\\\|]\\)\\(\\(\\(" ncrwregex "\\)[,']*[?!]?\\|[srR]\\)" duration "?\\)") '(2 font-lock-type-face))
+      (cons (concat "\\(^\\|[ <{[/~(!)\t\\|]\\)\\(\\(\\(" ncrwregex "\\)[,']*[?!]?\\|[srR]\\)" duration "?\\)") '(2 font-lock-type-face))
 
 ;; "on top", ... notes and rests with a long duration
-      (cons (concat "\\(^\\|[ <\{[/~(!)\t\\\|]\\)\\(\\(\\(" ncrwregex "\\)[,']*[?!]?\\|[srR]\\)" longduration "\\)") '(2 font-lock-type-face t))
+      (cons (concat "\\(^\\|[ <{[/~(!)\t\\|]\\)\\(\\(\\(" ncrwregex "\\)[,']*[?!]?\\|[srR]\\)" longduration "\\)") '(2 font-lock-type-face t))
 
 ;; "on top", ... lyrics-mode: fontify everything between '<'...'>' or '{'...'}'
 ;            URGH, does not know anything about inner brackets.

@@ -1,9 +1,9 @@
 \version "2.23.4"
 
 \header {
-  texidoc = "When @code{\parenthesize} applies to a chord, the
+  texidoc = "When @code{\\parenthesize} applies to a chord, the
 parentheses enclose all notes in the chord.  In tablature one needs to enter
-@code{\parenthesize NoteColumn}"
+@code{\\parenthesize NoteColumn}"
 }
 
 \new Voice \relative c {

@@ -201,7 +201,7 @@ If next note has no duration, returns t"
 ))))))
 
 (defun find-measure-start ()
-  (let ((start (re-search-backward "\|" 0 t)))
+  (let ((start (re-search-backward "|" 0 t)))
     (if (null start)
 	-1
       (if (looking-at "[^ \n\t]*\"")

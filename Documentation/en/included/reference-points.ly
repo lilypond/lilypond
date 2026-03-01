@@ -187,7 +187,7 @@ mus =
 \new Staff \with { \printRefpoint ##t #'all-grobs } \mus
 
 \markup { red dot once for \typewriter Script using
-	  \typewriter "\onceRedScript" }
+	  \typewriter "\\onceRedScript" }
 {
   \override NoteHead.style = #'altdefault
   g'2->

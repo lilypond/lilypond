@@ -25,17 +25,17 @@ music = \relative {
   f' b d ] r8 r2 |
 }
 
-\markup { "\override Beam.positions = #beam::place-broken-parts-individually (default)" }
+\markup { "\\override Beam.positions = #beam::place-broken-parts-individually (default)" }
 { \music }
 
-\markup { "\override Beam.positions = #beam::align-with-broken-parts" }
+\markup { "\\override Beam.positions = #beam::align-with-broken-parts" }
 \markup { \justify { Returns y-positions at the ends of the beam such that beams align-across-breaks. } }
 {
   \override Beam.positions = #beam::align-with-broken-parts
   \music
 }
 
-\markup { "\override Beam.positions = #beam::slope-like-broken-parts" }
+\markup { "\\override Beam.positions = #beam::slope-like-broken-parts" }
 \markup { \justify { Approximates broken beam positioning in turn-of-the-century Editions Peters scores. } }
 {
   \override Beam.positions = #beam::slope-like-broken-parts

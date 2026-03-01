@@ -1,7 +1,7 @@
 \version "2.23.6"
 
 \header {
-  texidoc = "@code{\magnifyStaff} also works for @code{Dynamics} contexts.
+  texidoc = "@code{\\magnifyStaff} also works for @code{Dynamics} contexts.
 This test should print a huge forte dynamic."
 }
 

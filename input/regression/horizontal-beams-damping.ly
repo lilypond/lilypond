@@ -1,7 +1,7 @@
 \version "2.21.4"
 
 \header {
-  texidoc = "Using @code{\override Beam.damping = #+inf.0} should
+  texidoc = "Using @code{\\override Beam.damping = #+inf.0} should
   always make beams horizontal.  A threshold is implemented to avoid
   rounding errors that would cause non-horizontal beams otherwise.
   

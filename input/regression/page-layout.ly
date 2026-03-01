@@ -5,9 +5,9 @@
 
 \header {
 
-     texidoc = "This shows how different settings on \paper modify the
-general page layout. Basically \paper will set the values for the
-whole paper while \layout for each \score block.
+     texidoc = "This shows how different settings on \\paper modify the
+general page layout. Basically \\paper will set the values for the
+whole paper while \\layout for each \\score block.
 
 This file is best viewed outside the collated files document.
 "
