@@ -60,18 +60,19 @@ lilypond scheme-sandbox
 @end example
 
 @noindent
-Once the sandbox is running, you will receive a guile prompt
+Once the sandbox is running, you get the Guile prompt
 
-@lisp
-guile>
-@end lisp
+@example
+lily-guile@@()>
+@end example
 
 @noindent
-which you can use to enter Scheme expressions.
+to enter Scheme expressions.  In the following, however, we use
+the shorter string @code{guile>} to indicate the prompt.
 
 The file containing the sandbox code (@file{ly/scheme-sandbox.ly})
 tries to activate the GNU readline library for nicer editing on
-the Guile prompt (for example, using the up and down arrow keys to
+the prompt (for example, using the up- and down-arrow keys to
 access previously typed commands).  Currently, this only works
 with a LilyPond binary dynamically linked with Guile, which is not
 the case for the @q{officially} distributed binaries.  Two

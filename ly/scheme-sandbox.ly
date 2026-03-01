@@ -20,7 +20,12 @@
 
 % Set a default prompt.
 #(use-modules (system repl common))
-#(repl-default-option-set! 'prompt "guile>")
+#(define (lily-prompt repl)
+   (format #f "lily-guile@()~a> "
+           (let ((level (length (cond ((fluid-ref *repl-stack*) => cdr)
+                                      (else '())))))
+             (if (zero? level) "" (format #f " [~a]" level)))))
+#(repl-default-option-set! 'prompt lily-prompt)
 
 % The next command loads the user's init file (usually `~/.guile`) for
 % interactive sessions.
