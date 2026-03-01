@@ -26,7 +26,15 @@ fi
 
 ### get the build directory
 if [ -z $LILYPOND_BUILD_DIR ]; then
-  LILYPOND_BUILD_DIR=.
+  if [ -f ./build/out/bin/convert-ly ]; then
+    LILYPOND_BUILD_DIR=./build
+  elif [ -f ./out/bin/convert-ly ]; then
+    LILYPOND_BUILD_DIR=.
+  else
+    echo "Could not find convert-ly (tried ./build/out/bin/convert-ly and ./out/bin/convert-ly)." >&2
+    echo "Please set LILYPOND_BUILD_DIR variable. Aborting." >&2
+    exit 1
+  fi
 fi
 
 ### update manuals
