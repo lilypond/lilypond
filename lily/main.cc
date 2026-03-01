@@ -424,7 +424,8 @@ main_with_guile (void *, int, char **)
     scm_c_lookup ("%compile-fallback-path"),
     scm_from_locale_string ((lilypond_datadir + "/guile-bytecode").c_str ()));
 
-  dir_info (stderr);
+  if (is_loglevel (LOG_DEBUG))
+    dir_info (stderr);
 
   init_scheme_code_global = "(begin " + init_scheme_code_global + ")";
 
