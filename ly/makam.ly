@@ -139,9 +139,7 @@ makamPitchNames = #`(
                (list `(makam . ,makamPitchNames))))
 \language "makam"
 
-#(define eksikMirroredSlashedFlat
-  (if (defined? 'eksikMirroredSlashedFlat)
-       eksikMirroredSlashedFlat #f))
+#(ly:parser-define-once! 'eksikMirroredSlashedFlat #f)
 
 makamGlyphs = #`((1 . "accidentals.doublesharp")
        (8/9 . "accidentals.sharp.slashslashslash.stemstem")

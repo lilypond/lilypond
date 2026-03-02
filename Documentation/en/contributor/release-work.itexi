@@ -236,17 +236,9 @@ upload the files to GitLab:
 @end example
 
 @item
-Extract the web documentation from
-@file{lilypond-2.@var{x}.@var{y}-webdoc.tar.xz}
-and adjust the group permissions:
+Upload the documentation to @code{lilypond.org}:
 @example
-chmod -R g+w lilypond-2.@var{x}.@var{y}-webdoc
-@end example
-
-@item
-Synchronize the documentation to @code{lilypond.org}:
-@example
-rsync --delay-updates --delete --delete-after --progress -prtvuz lilypond-2.@var{x}.@var{y}-webdoc/ graham@@gcp.lilypond.org:/var/www/lilypond/doc/v2.@var{x}/
+/path/to/lilypond/release/doc/upload-webdoc.sh 2.@var{x}.@var{y}
 @end example
 
 @end enumerate

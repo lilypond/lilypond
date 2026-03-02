@@ -15,6 +15,16 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
+(define-public (ly:time-signature::calc-fraction grob)
+  "Compatibility callback for the deprecated @code{fraction} property.
+
+Returns the value of @code{time-signature} reduced to a fraction."
+  ;; TODO: Emit a warning, ideally only once per session.
+  (let ((spec (ly:grob-property grob 'time-signature)))
+    (if (null? spec)
+        spec
+        (time-signature->fraction spec))))
+
 (define-public (ly:time-signature::print grob)
   "Print routine for time signatures."
   (let ((spec (ly:grob-property grob 'time-signature #f)))

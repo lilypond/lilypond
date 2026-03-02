@@ -160,9 +160,7 @@ turkishMakamPitchNames = #`(
                (list `(turkish-makam . ,turkishMakamPitchNames))))
 \language "turkish-makam"
 
-#(define eksikMirroredSlashedFlat
-  (if (defined? 'eksikMirroredSlashedFlat)
-  eksikMirroredSlashedFlat #t))
+#(ly:parser-define-once! 'eksikMirroredSlashedFlat #t)
 
 turkishMakamGlyphs = #`(
        (,TANINI  . "accidentals.doublesharp")

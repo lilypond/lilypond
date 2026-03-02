@@ -3931,6 +3931,7 @@ direction and shape of stacked @iref{Tie} grobs.")))))
         (extra-spacing-height
          . ,pure-from-neighbor-interface::extra-spacing-height-including-staff)
         (extra-spacing-width . (0.0 . 0.8))
+        (fraction . ,ly:time-signature::calc-fraction)
         (nested-fraction-mixed . #t)
         (nested-fraction-orientation . default)
         (non-musical . #t)

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 7ac0dd1495161592599f5fdf9bb1233b3d588a02
+    Translation of GIT committish: c95d569e9013276fd0595366c79eebdf772bea77
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -32,8 +32,6 @@ translations should be in macros.itexi.
 @c To get decent quotes in `foo' and ``foo''.
 @c FIXME: Use thin spaces for @qq.
 
-@ifnotinfo
-
 @macro q{TEXT}
 @quoteleft{}\TEXT\@quoteright{}
 @end macro
@@ -41,20 +39,6 @@ translations should be in macros.itexi.
 @macro qq{TEXT}
 @guillemetleft{}@tie{}\TEXT\@tie{}@guillemetright{}
 @end macro
-
-@end ifnotinfo
-
-@ifinfo
-
-@macro q{TEXT}
-`\TEXT\'
-@end macro
-
-@macro qq{TEXT}
-« \TEXT\ »
-@end macro
-
-@end ifinfo
 
 
 @ifhtml
@@ -90,8 +74,8 @@ translations should be in macros.itexi.
 
 @macro docMain
 @cartouche
-Pour connaître la place qu'occupe ce manuel dans la
-documentation, consultez la page @rwebnamed{Manuals,Manuels}.
+Pour connaître la place qu'occupe ce manuel dans la documentation,
+consultez la page @rwebnamed{Manuals,Manuels}.
 
 Si vous ne disposez pas de certains manuels, la documentation complète
 se trouve sur @w{@uref{https://@/lilypond@/.org/}}.
@@ -110,7 +94,7 @@ se trouve sur @w{@uref{https://@/lilypond@/.org/}}.
 
 @macro lilyTitlePage{TITLE}
 @c  This produces the unified index
-@syncodeindex vr cp
+@syncodeindex fn cp
 
 
 @c   ***** Copyright stuff *****
@@ -131,7 +115,8 @@ Vous avez le droit de copier, distribuer et/ou modifier ce document
 selon les termes de la Licence GNU de documentation libre, version 1.1
 ou tout autre version ultérieure publiée par la Free Software
 Foundation, ``sans aucune section invariante''.@*
-Une copie de la licence est fournie à la section ``Licence GNU de documentation libre''.
+Une copie de la licence est fournie à la section ``Licence GNU de
+documentation libre''.
 @end quotation
 
 @quotation
@@ -204,13 +189,8 @@ Pour LilyPond version @version{}
 
 
 @macro snippets
+@need 1500
 @subheading Morceaux choisis
-@end macro
-
-
-@c obsolete, remove when translation is fully updated
-@macro commonprop
-@subheading Propriétés couramment modifiées
 @end macro
 
 

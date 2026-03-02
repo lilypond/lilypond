@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: c2ea1fa2792532a1a123f08504fc8677defb7a96
+   Translation of GIT committish: c95d569e9013276fd0595366c79eebdf772bea77
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -4890,28 +4890,22 @@ musique par @code{\include "../global.ily"} qui contient :
 La référence des propriétés internes contient beaucoup d'informations
 sur LilyPond. Cependant vous pouvez en découvrir encore plus en
 consultant les fichiers internes de LilyPond. Pour cela, il vous faut
-d'abord connaître le répertoire @emph{ad hoc} sur votre système.
-L'emplacement du répertoire dépend du fait que, pour vous procurer
-LilyPond, vous avez téléchargé un paquet précompilé sur
-@code{lilypond.org} ou vous l'avez installé grâce à votre gestionnaire
-de paquetages (c'est-à-dire distribué avec GNU/Linux ou installé avec
-MacPorts, Homebrew, Cygwin, Chocolatey, etc.), ou encore vous l'avez
-compilé directement à partir des sources.
+d'abord connaître le répertoire @emph{ad hoc} sur votre système. Si vous
+tapez
 
-@itemize
-@item Téléchargé depuis @code{lilypond.org}
-
-Accédez au dossier
 @example
-@file{@var{INSTALLDIR}/lilypond-@version{}/share/lilypond/@version{}/}
+lilypond --help
 @end example
 
-@item Installé par un gestionnaire de paquetages ou compilé d'après les sources
+@noindent
+sur la ligne de commande, le dossier racine de l'aborescence des données
+de LilyPond s'affiche vers la fin de la fenêtre d'aide ; quelque chose
+comme
 
-Accédez au dossier @file{@var{PREFIX}/share/lilypond/@version{}/}, où
-@var{PREFIX} est déterminé par votre gestionnaire de paquetages ou par
-le script @code{configure}.
-@end itemize
+@example
+Répertoire racine des données de LilyPond :
+  '/usr/local/share/lilypond/@version{}'
+@end example
 
 Dans ce répertoire, deux sous-répertoires sont particulièrement
 intéressants :

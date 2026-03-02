@@ -375,7 +375,8 @@ Mensural_ligature_engraver::propagate_properties (
   int prev_output;
   for (const auto &primitive : primitives)
     {
-      int const output = from_scm<int> (get_property (primitive, "primitive"));
+      int const output
+        = from_scm<int> (get_property (primitive, "primitive"), 0);
       set_property (primitive, "thickness", to_scm (thickness));
 
       switch (output & MLP_ANY)
@@ -446,7 +447,7 @@ Mensural_ligature_engraver::fold_up_primitives (
       move_related_items_to_column (current, first->get_column (), distance);
 
       Real head_width
-        = from_scm<double> (get_property (current, "head-width"));
+        = from_scm<double> (get_property (current, "head-width"), 0.0);
       distance += head_width - thickness;
 
       if (size_t const dot_count = Rhythmic_head::dot_count (current))

@@ -190,13 +190,21 @@
   <>^"BLSS "               \[ a\breve b\longa d1 e \]
   \bar "|" \break
 
-% invalid ligatures (those commented out are rejected with explanation)
+% invalid ligatures
   \textMark "invalid ligatures"
 
-% <>^"SS "   \[ a1 as \]
+  <>^"S "    \[ a1 \]
+  <>^"B "    \[ a\breve \]
+  <>^"L "    \[ a\longa \]
+  <>^"M "    \[ a\maxima \]
+  <>^"S2 "   \[ a1 g2 \]
+  <>^"SS "   \[ a1 as \]
+  <>^"BB "   \[ a\breve \tweak ligature-flexa ##t a \]
+  <>^"LL "   \[ a\longa a \]
+  <>^"MB "   \[ b\maxima g\breve \]
   <>^"BBB "  \[ a\breve g as \]
-% <>^"LLB "  \[ f\longa g f\breve \]
-% <>^"BSB "  \[ f\breve a1 g\breve \]
+  <>^"LLB "  \[ f\longa g f\breve \]
+  <>^"BSB "  \[ f\breve a1 g\breve \]
 }
 
 

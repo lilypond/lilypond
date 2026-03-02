@@ -52,9 +52,7 @@ parser variable of that name."
    their value to #f"
    (for-each
       (lambda (id)
-        (define sym (string->symbol id))
-          (if (null? (ly:parser-lookup sym))
-            (ly:parser-define! sym #f)))
+        (ly:parser-define-once! (string->symbol id) #f))
       ids))
 
 % Define the lists used to hold the names and

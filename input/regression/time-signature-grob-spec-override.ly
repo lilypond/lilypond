@@ -19,28 +19,44 @@ The marginal labels show the values of the @code{style} and
   }
 }
 
+%% Covering the deprecated 'fraction property is a separate concern, but this
+%% is a good place for it.
+#(define (expect-fraction expected)
+  (lambda (grob org cur)
+   (let ((actual (ly:grob-property grob 'fraction *unspecified*)))
+    (if (not (equal? actual expected))
+     (ly:input-warning (*location*) "Unexpected fraction:
+  expected: ~a
+  actual  : ~a" expected actual)))))
+
 music = \fixed c' {
   \once \override Timing.TimeSignature.time-signature = 2/2
+  \applyOutput Timing.TimeSignature #(expect-fraction '(2 . 2))
   \time 2/4
   s2
 
   \once \override Timing.TimeSignature.time-signature = #'(0 . 16/127)
+  \applyOutput Timing.TimeSignature #(expect-fraction '(0 . 16/127))
   \time 2/4
   s2
 
   \once \override Timing.TimeSignature.time-signature = #'(3.14 . -4)
+  \applyOutput Timing.TimeSignature #(expect-fraction '(3.14 . -4))
   \time 2/4
   s2
 
   \once \override Timing.TimeSignature.time-signature = #'(2/3 . 0)
+  \applyOutput Timing.TimeSignature #(expect-fraction '(2/3 . 0))
   \time 2/4
   s2
 
   \once \override Timing.TimeSignature.time-signature = #'((2 3) . 8)
+  \applyOutput Timing.TimeSignature #(expect-fraction '(5 . 8))
   \time 2/4
   s2
 
   \once \override Timing.TimeSignature.time-signature = #'((1 . 2) (3 . 4))
+  \applyOutput Timing.TimeSignature #(expect-fraction '(5 . 4))
   \time 2/4
   s2
 }

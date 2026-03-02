@@ -397,6 +397,7 @@ up-stem voice note is taken instead.  This is used by
 @rinternals{note-collision-interface}.")
      (forced-spacing ,number? "Spacing forced between grobs, used in
 various ligature engravers.")
+     (fraction ,number-pair? "A fraction.")
      (french-beaming ,boolean? "Use French beaming style for this
 stem.  The stem stops at the innermost beams.")
      (fret-diagram-details ,symbol-key-alist? "An alist of detailed grob

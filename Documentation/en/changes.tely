@@ -1384,6 +1384,10 @@ music = { <c e g d'>1 | <c es g f'> | <c e g b fis'> }
 @itemize
 
 @item
+The new Scheme function @code{ly:parser-define-once!} defines a
+variable if it is not already defined.
+
+@item
 The @code{timeSignatureFraction} context property is deprecated in
 favor of @code{timeSignature}.  The new property accepts
 subdivided and alternating time signatures in addition to the
