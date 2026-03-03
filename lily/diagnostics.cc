@@ -58,6 +58,15 @@ Diagnostics::warning (const std::string &arg) const
 }
 
 void
+Diagnostics::deprecation_warning (const std::string &arg) const
+{
+  if (Input *input = origin ())
+    input->deprecation_warning (arg);
+  else
+    ::deprecation_warning (arg);
+}
+
+void
 Diagnostics::message (const std::string &arg) const
 {
   if (Input *input = origin ())

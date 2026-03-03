@@ -26,11 +26,12 @@
 #include <cstdio>
 #include <cstdlib>
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 /** We have several different loglevels, each with its own message function(s):
       ERROR: error, non_fatal_error, programming_error
-      WARN: warning
+      WARN: warning, deprecation_warning
       BASIC: success/...
       PROGRESS: progress_indication
       INFO: message
@@ -42,6 +43,8 @@
 /* Define the loglevel (default is INFO) */
 int loglevel = LOGLEVEL_INFO;
 bool warning_as_error = false;
+
+static std::unordered_set<std::string> logged_deprecation_warnings;
 
 bool
 is_loglevel (int level)
@@ -258,6 +261,19 @@ warning (const std::string &s, const std::string &location)
     WarningAsErrorExitDeferrer::deferrable_error (s, location);
   else
     print_message (LOG_WARN, location, _f ("warning: %s", s) + "\n");
+}
+
+bool
+deprecation_warning (const std::string &s, const std::string &location)
+{
+  const bool log_it = logged_deprecation_warnings.find (s)
+                      == logged_deprecation_warnings.end ();
+  if (log_it)
+    {
+      logged_deprecation_warnings.insert (s);
+      warning (s, location);
+    }
+  return log_it;
 }
 
 /* Display a success message.  */

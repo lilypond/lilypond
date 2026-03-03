@@ -74,6 +74,12 @@ void programming_error (const std::string &s,
                         const std::string &location = "");
 void non_fatal_error (const std::string &, const std::string &location = "");
 void warning (const std::string &s, const std::string &location = "");
+/* A deprecation_warning is automatically limited to once per process.  The
+ * message must be an exact match for this to work.  This function returns true
+ * if the warning was logged, enabling the caller to log additional information
+ * the first time only. */
+bool deprecation_warning (const std::string &s,
+                          const std::string &location = "");
 void basic_progress (const std::string &s, const std::string &location = "");
 /* progress_indication does by default *NOT* start on a new line */
 void progress_indication (const std::string &s, bool newline = false,

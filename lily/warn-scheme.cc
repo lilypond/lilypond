@@ -85,6 +85,30 @@ any).
   return SCM_UNSPECIFIED;
 }
 
+LY_DEFINE (ly_deprecation_warning, "ly:deprecation-warning", 1, 0, 1,
+           (SCM str, SCM rest),
+           R"(
+Issue the warning @var{str} about the use of a deprecated feature.
+
+The message is formatted with @code{format}; @var{rest} holds the formatting
+arguments (if any).
+
+Duplicate warnings are suppressed.  Duplicates are recognized by the formatted
+message, not by the format string alone.  Including highly variable information
+in the message (e.g., the arguments passed to a deprecated function) will
+defeat this check and consume more memory.  This function returns @code{#f} if
+it did not log the message.
+
+Do not use this function merely as a rate-limited warning.  There may be
+program options affecting the handling of deprecation warnings that are not
+appropriate for warnings in general.
+           )")
+{
+  LY_ASSERT_TYPE (scm_is_string, str, 1);
+  str = scm_simple_format (SCM_BOOL_F, str, rest);
+  return to_scm (deprecation_warning (from_scm<std::string> (str)));
+}
+
 LY_DEFINE (ly_progress, "ly:progress", 1, 0, 1, (SCM str, SCM rest),
            R"(
 A Scheme callable function to print progress @var{str}.  The message is

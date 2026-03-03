@@ -6,6 +6,12 @@
   expected: ~a
   actual  : ~a" description expected actual)))
 
+#(define (expect-false description actual)
+  (expect-equal description actual #f))
+
+#(define (expect-true description actual)
+  (expect-equal description actual #t))
+
 testStartAndLength =
 #(define-void-function (music expected-start expected-length)
   (ly:music? ly:moment? ly:moment?)

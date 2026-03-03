@@ -106,6 +106,12 @@ Input::warning (const std::string &s) const
 }
 
 void
+Input::deprecation_warning (const std::string &s) const
+{
+  ::deprecation_warning (message_string (s), message_location ());
+}
+
+void
 Input::message (const std::string &s) const
 {
   ::message (message_string (s), true, message_location ());

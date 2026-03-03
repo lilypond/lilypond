@@ -50,6 +50,7 @@ public:
   void programming_error (const std::string &) const;
   void non_fatal_error (const std::string &) const;
   void warning (const std::string &) const;
+  void deprecation_warning (const std::string &) const;
   void message (const std::string &) const;
   void debug_output (const std::string &) const;
   void set_spot (Input const &);
