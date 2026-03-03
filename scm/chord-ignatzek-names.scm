@@ -33,11 +33,11 @@
 
 ;; TODO: naming is confusing: steps (0 based) vs. steps (1 based).
 (define (pitch-step p)
-  "Musicological notation for an interval.  Eg. C to D is 2."
+  "Musicological notation for an interval.  E.g., C to D is 2."
   (+ 1 (ly:pitch-steps p)))
 
 (define (get-step x ps)
-  "Does PS have the X step? Return that step if it does."
+  "Does PS have the X step?  Return that step if it does."
   (if (null? ps)
       #f
       (if (= (- x 1) (ly:pitch-steps (car ps)))
@@ -76,6 +76,18 @@
 ;;; German style, and possibly others. -vv
 
 (define-public (ignatzek-chord-names in-pitches bass inversion context)
+  "Default callback function for the @code{chordNameFunction} property.
+
+@var{in-pitches} is a list of (sorted) pitches that specifies the
+chord; the first one is taken as the root.  @var{bass} gives the
+chord's bass note; however, if @var{inversion} is a pitch, this
+note is taken as the bass (and the @var{bass} argument is
+ignored).
+
+This function listens to the various properties of @var{context};
+see @rnotation{Customizing chord names} for documentation.
+
+This is the entry point for @iref{Chord_name_engraver}."
 
   (define (remove-uptil-step x ps)
     "Copy PS, but leave out everything below the Xth step."
@@ -109,8 +121,7 @@
            bass-pitch
            lowercase-root?)
 
-    "Format for the given (lists of) pitches.  This is actually more
-work than classifying the pitches."
+    "Format the given (lists of) pitches."
 
     (define (filter-main-name p)
       "The main name: don't print anything for natural 5 or 3."
@@ -151,14 +162,17 @@ work than classifying the pitches."
        '()
        (let* ((lst (filter altered? alters))
               (lp (last-pair alters)))
-
-         ;; we want the highest also if unaltered
+         ;; Don't filter out highest pitch larger than a 5 even if
+         ;; unaltered.
          (if (and (not (altered? (car lp)))
                   (> (pitch-step (car lp)) 5))
              (append lst (last-pair alters))
              lst))))
 
     (define (name-step pitch)
+      "Format PITCH for alterations and additions.  The result is either an
+accidental (if any) followed by a number or the major-seven symbol."
+
       (define (step-alteration pitch)
         (- (ly:pitch-alteration pitch)
            (natural-chord-alteration pitch)))
