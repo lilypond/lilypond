@@ -97,7 +97,9 @@ This is the entry point for @iref{Chord_name_engraver}."
             (remove-uptil-step x (cdr ps))
             ps)))
 
-  (define name-root (ly:context-property context 'chordRootNamer))
+  (define name-root
+    (ly:context-property context 'chordRootNamer))
+
   (define name-note
     (let ((nn (ly:context-property context 'chordNoteNamer)))
       (if (eq? nn '())
@@ -107,27 +109,24 @@ This is the entry point for @iref{Chord_name_engraver}."
   (define (is-natural-alteration? p)
     (= (natural-chord-alteration p) (ly:pitch-alteration p)))
 
-  (define (ignatzek-format-chord-name
-           root
-           prefix-modifiers
-           main-name
-           alteration-pitches
-           addition-pitches
-           suffix-modifiers
-           bass-pitch
-           lowercase-root?)
-
+  (define (ignatzek-format-chord-name root
+                                      prefix-modifiers
+                                      main-name
+                                      alteration-pitches
+                                      addition-pitches
+                                      suffix-modifiers
+                                      bass-pitch
+                                      lowercase-root?)
     "Format the given (lists of) pitches."
 
     (define (filter-main-name p)
       "The main name: don't print anything for natural 5 or 3."
-      (if
-       (or (not (ly:pitch? p))
-           (and (is-natural-alteration? p)
-                (or (= (pitch-step p) 5)
-                    (= (pitch-step p) 3))))
-       '()
-       (list (name-step p))))
+      (if (or (not (ly:pitch? p))
+              (and (is-natural-alteration? p)
+                   (or (= (pitch-step p) 5)
+                       (= (pitch-step p) 3))))
+          '()
+          (list (name-step p))))
 
     (define (glue-word-to-step word x)
       (make-line-markup
@@ -153,17 +152,16 @@ This is the entry point for @iref{Chord_name_engraver}."
       (define (altered? p)
         (not (is-natural-alteration? p)))
 
-      (if
-       (null? alters)
-       '()
-       (let* ((lst (filter altered? alters))
-              (lp (last-pair alters)))
-         ;; Don't filter out highest pitch larger than a 5 even if
-         ;; unaltered.
-         (if (and (not (altered? (car lp)))
-                  (> (pitch-step (car lp)) 5))
-             (append lst (last-pair alters))
-             lst))))
+      (if (null? alters)
+          '()
+          (let* ((lst (filter altered? alters))
+                 (lp (last-pair alters)))
+            ;; Don't filter out highest pitch larger than a 5 even if
+            ;; unaltered.
+            (if (and (not (altered? (car lp)))
+                     (> (pitch-step (car lp)) 5))
+                (append lst (last-pair alters))
+                lst))))
 
     (define (name-step pitch)
       "Format PITCH for alterations and additions.  The result is either an
@@ -174,56 +172,54 @@ accidental (if any) followed by a number or the major-seven symbol."
            (natural-chord-alteration pitch)))
 
       (let* ((num-string (number->string (pitch-step pitch)))
-             (major-seven-symbol (ly:context-property context 'majorSevenSymbol))
-             (total
-              (if (and (= (ly:pitch-alteration pitch) 0)
-                       (= (pitch-step pitch) 7)
-                       (markup? major-seven-symbol))
-                  (list major-seven-symbol)
-                  (list (accidental->markup (step-alteration pitch))
-                        num-string))))
-
+             (major-seven-symbol (ly:context-property context
+                                                      'majorSevenSymbol))
+             (total (if (and (= (ly:pitch-alteration pitch) 0)
+                             (= (pitch-step pitch) 7)
+                             (markup? major-seven-symbol))
+                        (list major-seven-symbol)
+                        (list (accidental->markup (step-alteration pitch))
+                              num-string))))
         (make-line-markup total)))
 
     ;; Body of `ignatzek-format-chord-name`.
     (let* ((sep (ly:context-property context 'chordNameSeparator))
            (slashsep (ly:context-property context 'slashChordSeparator))
            (root-markup (name-root root lowercase-root?))
-           (add-pitch-prefix (ly:context-property context 'additionalPitchPrefix))
-           (add-markups (map (lambda (x) (glue-word-to-step add-pitch-prefix x))
+           (add-pitch-prefix (ly:context-property context
+                                                  'additionalPitchPrefix))
+           (add-markups (map (lambda (x)
+                               (glue-word-to-step add-pitch-prefix x))
                              addition-pitches))
            (filtered-alterations (filter-alterations alteration-pitches))
            (alterations (map name-step filtered-alterations))
            (suffixes (map suffix-modifier->markup suffix-modifiers))
            (prefixes (map prefix-modifier->markup prefix-modifiers))
            (main-markups (filter-main-name main-name))
-           (to-be-raised-stuff (markup-join
-                                (append
-                                 main-markups
-                                 alterations
-                                 suffixes
-                                 add-markups) sep))
+           (to-be-raised-stuff (markup-join (append main-markups
+                                                    alterations
+                                                    suffixes
+                                                    add-markups)
+                                            sep))
            (base-stuff (if (ly:pitch? bass-pitch)
                            (list slashsep (name-note bass-pitch #f))
                            '())))
-
       (set! base-stuff
             (append
-             (list root-markup
-                   (conditional-kern-before (markup-join prefixes sep)
-                                            (and (not (null? prefixes))
-                                                 (= (ly:pitch-alteration root) NATURAL))
-                                            (ly:context-property context 'chordPrefixSpacer))
+             (list root-markup (conditional-kern-before
+                                (markup-join prefixes sep)
+                                (and (not (null? prefixes))
+                                     (= (ly:pitch-alteration root) NATURAL))
+                                (ly:context-property context
+                                                     'chordPrefixSpacer))
                    (make-super-markup to-be-raised-stuff))
              base-stuff))
       (make-line-markup base-stuff)))
 
-  (define (ignatzek-format-exception
-           root
-           exception-markup
-           bass-pitch
-           lowercase-root?)
-
+  (define (ignatzek-format-exception root
+                                     exception-markup
+                                     bass-pitch
+                                     lowercase-root?)
     (make-line-markup
      `(
        ,(name-root root lowercase-root?)
