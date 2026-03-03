@@ -789,6 +789,9 @@ fret number.  It returns the text as a markup.")
      (tabStaffLineLayoutFunction ,procedure? "A function determining the
 staff position of a tablature note head.  Called with two arguments:
 the context and the string.")
+     (tempoCountPrecision ,positive-exact-rational? "Rounding precision for
+metronome rate.  Readers should use@tie{}1 as the default when this property is
+not set.")
      (tempoHideNote ,boolean? "Hide the note = count in tempo marks.")
      (tempoWholesPerMinute ,positive-musical-length-as-number? "The tempo in
 whole notes per minute.")

@@ -1562,15 +1562,20 @@ A basic metronome mark is simple to write:
 }
 @end lilypond
 
+@funindex tempoCountPrecision
 The stated rate does not have to be an integer, but it must be an
-exact number.  The default formatter rounds to the nearest 0.25.
+exact number.  The default formatter rounds to the nearest 0.25;
+the context property @code{tempoCountPrecision} controls this.
 
 @lilypond[verbatim,quote]
 tempoI = 100
 \fixed c' {
-  \tempo 4 = #(* tempoI 2/3)
+  \tempo 4 = #(* tempoI 2/3)   % 66.66...
   e2 e4 d
+  \once \set Timing.tempoCountPrecision = #1/1000000
+  \tempo 4 = #(* tempoI 8/11)  % 72.72...
   c2 g2
+  g4 e2 f4
 }
 @end lilypond
 

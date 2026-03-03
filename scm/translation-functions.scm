@@ -98,23 +98,20 @@ way the transposition number is displayed."
 ;; metronome marks
 
 (define-public (format-metronome-markup event context)
-  (let ((hide-note (ly:context-property context 'tempoHideNote #f))
+  (let ((precision (ly:context-property context 'tempoCountPrecision 1))
+        (hide-note (ly:context-property context 'tempoHideNote #f))
         (text (ly:event-property event 'text))
         (dur (ly:event-property event 'tempo-unit))
         (count (ly:event-property event 'metronome-count)))
-    (metronome-markup text dur count hide-note)))
+    (metronome-markup text dur count precision hide-note)))
 
-(define (metronome-markup text dur count hide-note)
+(define (metronome-markup text dur count precision hide-note)
   (define (format-number count)
-    (and (positive? count)
-         (finite? count)
-         ;; www.karlheinzstockhausen.org/orchestra_finalisten_english.htm has
-         ;; tempo counts ending in .25, .5, and .75, so we round to the nearest
-         ;; 1/4 bpm.  Should we just display the full precison that we can?  It
-         ;; would be an untidy default.  Computed counts like 2/3 of 100 would
-         ;; be unnecessarily long.  Should we add a tempoCountPrecision context
-         ;; property to configure rounding?
-         (let ((rounded (/ (round (* (inexact->exact count) 4)) 4)))
+    (and (positive? count) (finite? count)
+         (positive? precision) (finite? precision)
+         (let* ((count (inexact->exact count))
+                (precision (inexact->exact precision))
+                (rounded (* (round (/ count precision)) precision)))
            (number->string (if (integer? rounded)
                                rounded ; avoid ".0" on integers
                                (exact->inexact rounded))))))

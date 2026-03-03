@@ -978,6 +978,9 @@ run."
     (9 . "figbass.ninestroked"))
 
   metronomeMarkFormatter = #format-metronome-markup
+  %% https://www.karlheinzstockhausen.org/orchestra_finalisten_english.htm has
+  %% metronome rates ending in .25, .5, and .75.
+  tempoCountPrecision = #1/4
 
   %% See also make-voice-props-set
   graceSettings = #score-grace-settings

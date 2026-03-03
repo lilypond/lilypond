@@ -1385,7 +1385,16 @@ music = { <c e g d'>1 | <c es g f'> | <c e g b fis'> }
 
 @item
 The @code{\tempo} command now accepts exact rational values.  The
-default formatter rounds them to the nearest 0.25.
+default formatter rounds to the nearest 0.25; the context property
+@code{tempoCountPrecision} controls this.
+
+@lilypond[quote, verbatim]
+\fixed c' {
+  \once \set Timing.tempoCountPrecision = #1/1000000
+  \tempo 4 = #200/3
+  g4 e2 f4
+}
+@end lilypond
 
 @item
 The new Scheme function @code{ly:parser-define-once!} defines a
