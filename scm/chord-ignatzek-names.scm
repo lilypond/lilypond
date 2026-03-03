@@ -101,11 +101,7 @@ This is the entry point for @iref{Chord_name_engraver}."
   (define name-note
     (let ((nn (ly:context-property context 'chordNoteNamer)))
       (if (eq? nn '())
-          ;; replacing the next line with name-root gives guile-error...? -rz
-
-          ;; apparently sequence of defines is equivalent to let, not let* ? -hwn
-          (ly:context-property context 'chordRootNamer)
-          ;; name-root
+          name-root
           nn)))
 
   (define (is-natural-alteration? p)
