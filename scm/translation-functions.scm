@@ -108,9 +108,16 @@ way the transposition number is displayed."
   (define (format-number count)
     (and (positive? count)
          (finite? count)
-         ;; Non-integers might be useful for fine-tuning MIDI tempo, but there's
-         ;; no use case for carrying the fractional part into the layout.
-         (number->string (round (inexact->exact count)))))
+         ;; www.karlheinzstockhausen.org/orchestra_finalisten_english.htm has
+         ;; tempo counts ending in .25, .5, and .75, so we round to the nearest
+         ;; 1/4 bpm.  Should we just display the full precison that we can?  It
+         ;; would be an untidy default.  Computed counts like 2/3 of 100 would
+         ;; be unnecessarily long.  Should we add a tempoCountPrecision context
+         ;; property to configure rounding?
+         (let ((rounded (/ (round (* (inexact->exact count) 4)) 4)))
+           (number->string (if (integer? rounded)
+                               rounded ; avoid ".0" on integers
+                               (exact->inexact rounded))))))
   (let* ((note-mark
           (if (and (not hide-note) (ly:duration? dur))
               (make-smaller-markup

@@ -1563,7 +1563,7 @@ A basic metronome mark is simple to write:
 @end lilypond
 
 The stated rate does not have to be an integer, but it must be an
-exact number.
+exact number.  The default formatter rounds to the nearest 0.25.
 
 @lilypond[verbatim,quote]
 tempoI = 100

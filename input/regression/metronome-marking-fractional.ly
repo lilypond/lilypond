@@ -1,8 +1,8 @@
 \version "2.25.23"
 
 \header {
-  texidoc = "Non-integer metronome rates are rounded for printing.  The counts
-should be 0, 50, 0-50, and@tie{}75-100."
+  texidoc = "Non-integer metronome rates are rounded to the nearest 0.25 for
+printing.  The counts should be 0.25, 49.75, 0.25-49.75, and@tie{}75-100."
 }
 
 tempoA = #1/3

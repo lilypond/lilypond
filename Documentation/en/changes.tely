@@ -1384,6 +1384,10 @@ music = { <c e g d'>1 | <c es g f'> | <c e g b fis'> }
 @itemize
 
 @item
+The @code{\tempo} command now accepts exact rational values.  The
+default formatter rounds them to the nearest 0.25.
+
+@item
 The new Scheme function @code{ly:parser-define-once!} defines a
 variable if it is not already defined.
 
