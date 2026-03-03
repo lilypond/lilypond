@@ -136,7 +136,7 @@ This is the entry point for @iref{Chord_name_engraver}."
       (if (or (= 4 (pitch-step mod))
               (= 2 (pitch-step mod)))
           (glue-word-to-step "sus" mod)
-          (glue-word-to-step "huh" mod)))
+          (glue-word-to-step "???" mod)))
 
     (define (prefix-modifier->markup mod)
       (if (and (= 3 (pitch-step mod))
@@ -144,7 +144,7 @@ This is the entry point for @iref{Chord_name_engraver}."
           (if lowercase-root?
               empty-markup
               (ly:context-property context 'minorChordModifier))
-          "huh"))
+          "???"))
 
     (define (filter-alterations alters)
       "Filter out uninteresting (natural) pitches from ALTERS."
@@ -160,7 +160,7 @@ This is the entry point for @iref{Chord_name_engraver}."
             ;; unaltered.
             (if (and (not (altered? (car lp)))
                      (> (pitch-step (car lp)) 5))
-                (append lst (last-pair alters))
+                (append lst lp)
                 lst))))
 
     (define (name-step pitch)
