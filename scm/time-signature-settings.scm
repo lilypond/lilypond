@@ -983,23 +983,40 @@ make a numbered time signature instead."
 
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 ;;; Legacy compound-meter functions
-;;;
-;;; TODO: Print a deprecation warning when any of these is called (once per
-;;; function per process, ideally).
 
 (define-public (calculate-compound-measure-length time-sig-abbr)
+  (ly:deprecation-warning
+   (G_ "the function '~a' is deprecated; use '~a'")
+   "calculate-compound-measure-length"
+   "calc-measure-length")
   (calc-measure-length (tsig-abbr-expand time-sig-abbr)))
 
 (define-public (calculate-compound-measure-length-as-moment time-sig-abbr)
+  (ly:deprecation-warning
+   (G_ "the function '~a' is deprecated; use '~a'")
+   "calculate-compound-measure-length-as-moment"
+   "calc-measure-length") ; calculate-compound-measure-length is deprecated too
   (ly:make-moment (calculate-compound-measure-length time-sig-abbr)))
 
 (define-public (calculate-compound-beat-base time-sig-abbr)
+  (ly:deprecation-warning
+   (G_ "the function '~a' is deprecated; use '~a'")
+   "calculate-compound-beat-base"
+   "beat-base")
   (beat-base (tsig-abbr-expand time-sig-abbr) '()))
 
 (define-public (calculate-compound-beat-base-as-moment time-sig-abbr)
+  (ly:deprecation-warning
+   (G_ "the function '~a' is deprecated; use '~a'")
+   "calculate-compound-beat-base-as-moment"
+   "beat-base") ; calculate-compound-beat-base is deprecated too
   (ly:make-moment (calculate-compound-beat-base time-sig-abbr)))
 
 (define-public (calculate-compound-beat-grouping time-sig-abbr)
+  (ly:deprecation-warning
+   (G_ "the function '~a' is deprecated; use '~a'")
+   "calculate-compound-beat-grouping"
+   "beat-structure")
   (let* ((time-signature-settings '())
          (time-sig (tsig-abbr-expand time-sig-abbr))
          (base (beat-base time-sig time-signature-settings)))
