@@ -260,19 +260,17 @@ accidental (if any) followed by a number or the major-seven symbol."
           ;; 'sus2' or 'sus4', we explicitly say 'add3'.
           (for-each
            (lambda (j)
-             (if (get-step j pitches)
-                 (begin
-                   (if (get-step 3 pitches)
-                       (begin
-                         (set! add-steps (cons (get-step 3 pitches) add-steps))
-                         (set! pitches (remove-step 3 pitches))))
-                   (set! suffixes (cons (get-step j pitches) suffixes)))))
+             (when (get-step j pitches)
+               (when (get-step 3 pitches)
+                 (set! add-steps (cons (get-step 3 pitches) add-steps))
+                 (set! pitches (remove-step 3 pitches)))
+               (set! suffixes (cons (get-step j pitches) suffixes))))
            '(2 4))
 
-          (if (and (get-step 3 pitches)
-                   (= (ly:pitch-alteration (get-step 3 pitches)) FLAT))
-              (set! prefixes (cons (get-step 3 pitches) prefixes)))
           ;; Handle minor-3rd modifier.
+          (when (and (get-step 3 pitches)
+                     (= (ly:pitch-alteration (get-step 3 pitches)) FLAT))
+            (set! prefixes (cons (get-step 3 pitches) prefixes)))
 
           ;; Get preliminary version of the 'main chord name', only considering
           ;; intervals equal to or smaller than a 7.
@@ -298,15 +296,13 @@ accidental (if any) followed by a number or the major-seven symbol."
             ;; Chords with the standard (7 9 11 ...) series of intervals (or a
             ;; subset of it) are named by the top pitch, without any further
             ;; alterations.
-            (if (and
-                 (ly:pitch? main-name)
-                 (= 7 (pitch-step main-name))
-                 (is-natural-alteration? main-name)
-                 (pair? (remove-uptil-step 7 alterations))
-                 (every is-natural-alteration? alterations))
-                (begin
-                  (set! main-name (last alterations))
-                  (set! alterations '())))
+            (when (and (ly:pitch? main-name)
+                       (= 7 (pitch-step main-name))
+                       (is-natural-alteration? main-name)
+                       (pair? (remove-uptil-step 7 alterations))
+                       (every is-natural-alteration? alterations))
+              (set! main-name (last alterations))
+              (set! alterations '()))
 
             (ignatzek-format-chord-name
              root prefixes main-name alterations add-steps suffixes bass-note
