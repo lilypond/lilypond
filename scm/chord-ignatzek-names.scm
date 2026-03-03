@@ -18,21 +18,20 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
-;; after Klaus Ignatzek,   Die Jazzmethode fuer Klavier 1.
+;; After Klaus Ignatzek, “Die Jazzmethode für Klavier 1”.
 ;;
-;; The idea is: split chords into
+;; The idea is to split chords into
 ;;
 ;;  ROOT PREFIXES MAIN-NAME ALTERATIONS SUFFIXES ADDITIONS
 ;;
 ;; and put that through a layout routine.
 ;;
-;; the split is a procedural process, with lots of set!.
+;; The split is a procedural process, with lots of `set!`.
 ;;
 
 
-;; todo: naming is confusing: steps  (0 based) vs. steps (1 based).
+;; TODO: naming is confusing: steps (0 based) vs. steps (1 based).
 (define (pitch-step p)
   "Musicological notation for an interval.  Eg. C to D is 2."
   (+ 1 (ly:pitch-steps p)))
@@ -73,8 +72,8 @@
 
 ;;; TODO: reimplement alternative chord-naming functions.
 ;;; Early pre-1.7.20 LilyPond versions had `Banter' style,
-;;; `American' style (later renamed as jazz-chord-names)
-;;; German style and possibly others. -vv
+;;; `American' style (later renamed as jazz-chord-names),
+;;; German style, and possibly others. -vv
 
 (define-public (ignatzek-chord-names in-pitches bass inversion context)
 
@@ -176,6 +175,7 @@ work than classifying the pitches."
 
         (make-line-markup total)))
 
+    ;; Body of `ignatzek-format-chord-name`.
     (let* ((sep (ly:context-property context 'chordNameSeparator))
            (slashsep (ly:context-property context 'slashChordSeparator))
            (root-markup (name-root root lowercase-root?))
@@ -224,7 +224,10 @@ work than classifying the pitches."
                   (name-note bass-pitch #f))
             '()))))
 
+  ;; Body of `ignatzek-chord-names`.
   (let* ((root (car in-pitches))
+         ;; Normalize `in-pitches`: `pitches` holds the intervals relative to
+         ;; the root note but without the root note itself.
          (pitches (map (lambda (x) (- x root)) (cdr in-pitches)))
          (lowercase-root?
           (and (ly:context-property context 'chordNameLowercaseMinor)
@@ -243,12 +246,12 @@ work than classifying the pitches."
          (alterations '()))
 
     (if exception
+        ;; `exception` contains ready-to-run markup.
         (ignatzek-format-exception root exception bass-note lowercase-root?)
-
+        ;; Otherwise parse the chord.
         (begin
-          ;; no exception.
-          ;; handle sus4 and sus2 suffix: if there is a 3 together with
-          ;; sus2 or sus4, then we explicitly say add3.
+          ;; Handle 'sus4' and 'sus2' suffix: if there is a 3 together with
+          ;; 'sus2' or 'sus4', we explicitly say 'add3'.
           (for-each
            (lambda (j)
              (if (get-step j pitches)
@@ -260,12 +263,13 @@ work than classifying the pitches."
                    (set! suffixes (cons (get-step j pitches) suffixes)))))
            '(2 4))
 
-          ;; do minor-3rd modifier.
           (if (and (get-step 3 pitches)
                    (= (ly:pitch-alteration (get-step 3 pitches)) FLAT))
               (set! prefixes (cons (get-step 3 pitches) prefixes)))
+          ;; Handle minor-3rd modifier.
 
-          ;; lazy bum. Should write loop.
+          ;; Get preliminary version of the 'main chord name', only considering
+          ;; intervals equal to or smaller than a 7.
           (cond
            ((get-step 7 pitches) (set! main-name (get-step 7 pitches)))
            ((get-step 6 pitches) (set! main-name (get-step 6 pitches)))
@@ -275,6 +279,9 @@ work than classifying the pitches."
 
           (let* ((3-diff? (lambda (x y)
                             (= (- (pitch-step y) (pitch-step x)) 2)))
+                 ;; Take pitches larger than or equal to a 5 and split at the
+                 ;; first element that doesn't fit the interval sequence 5, 7,
+                 ;; 9, ... (or 6, 8, 10, ...).
                  (split (split-at-predicate
                          3-diff? (remove-uptil-step 5 pitches))))
             (set! alterations (append alterations (car split)))
@@ -282,9 +289,8 @@ work than classifying the pitches."
             (set! alterations (delq main-name alterations))
             (set! add-steps (delq main-name add-steps))
 
-
-            ;; chords with natural (5 7 9 11 13) or leading subsequence.
-            ;; etc. are named by the top pitch, without any further
+            ;; Chords with the standard (7 9 11 ...) series of intervals (or a
+            ;; subset of it) are named by the top pitch, without any further
             ;; alterations.
             (if (and
                  (ly:pitch? main-name)
