@@ -864,6 +864,7 @@ determines the number of scale steps that make up an octave.  Usually the
     (,number-pair? . "pair of numbers")
     (,number-pair-list? . "list of number pairs")
     (,optionally-grouped-beat-structure? . "a number list or a list of them")
+    (,positive-exact-rational? . "a positive, exact rational number")
     (,positive-fraction? . "positive, finite fraction, as pair")
     (,positive-musical-length?
      . "positive exact rational, fraction (as pair), moment, or +inf.0")
