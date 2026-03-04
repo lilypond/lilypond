@@ -57,7 +57,7 @@ Return #f if there is no match."
             (cons (car ps) t)))))
 
 (define (natural-chord-alteration p)
-  "Return the natural alteration for step P."
+  "Return the natural alteration for pitch P."
   (if (= (interval p) 7)
       FLAT
       0))
@@ -126,17 +126,17 @@ This is the entry point for @iref{Chord_name_engraver}."
                    (or (= (interval p) 5)
                        (= (interval p) 3))))
           '()
-          (list (name-step p))))
+          (list (interval->markup p))))
 
-    (define (glue-word-to-step word x)
+    (define (glue-word-to-interval word x)
       (make-line-markup
-       (list word (name-step x))))
+       (list word (interval->markup x))))
 
     (define (suffix-modifier->markup mod)
       (if (or (= 4 (interval mod))
               (= 2 (interval mod)))
-          (glue-word-to-step "sus" mod)
-          (glue-word-to-step "???" mod)))
+          (glue-word-to-interval "sus" mod)
+          (glue-word-to-interval "???" mod)))
 
     (define (chord-type->markup type)
       (if (and (eq? type 'minor)
@@ -161,11 +161,11 @@ This is the entry point for @iref{Chord_name_engraver}."
                 (append lst lp)
                 lst))))
 
-    (define (name-step pitch)
+    (define (interval->markup pitch)
       "Format PITCH for alterations and additions.  The result is either an
 accidental (if any) followed by a number or the major-seven symbol."
 
-      (define (step-alteration pitch)
+      (define (interval-alteration pitch)
         (- (ly:pitch-alteration pitch)
            (natural-chord-alteration pitch)))
 
@@ -176,7 +176,7 @@ accidental (if any) followed by a number or the major-seven symbol."
                              (= (interval pitch) 7)
                              (markup? major-seven-symbol))
                         (list major-seven-symbol)
-                        (list (accidental->markup (step-alteration pitch))
+                        (list (accidental->markup (interval-alteration pitch))
                               num-string))))
         (make-line-markup total)))
 
@@ -187,10 +187,10 @@ accidental (if any) followed by a number or the major-seven symbol."
            (add-pitch-prefix (ly:context-property context
                                                   'additionalPitchPrefix))
            (add-markups (map (lambda (x)
-                               (glue-word-to-step add-pitch-prefix x))
+                               (glue-word-to-interval add-pitch-prefix x))
                              addition-pitches))
            (filtered-alterations (filter-alterations alteration-pitches))
-           (alterations (map name-step filtered-alterations))
+           (alterations (map interval->markup filtered-alterations))
            (suffixes (map suffix-modifier->markup suffix-modifiers))
            (type-markup (chord-type->markup chord-type))
            (main-markups (filter-main-name main-name))
@@ -241,7 +241,7 @@ accidental (if any) followed by a number or the major-seven symbol."
          (exception (assoc-get pitches exceptions))
          (type #f)
          (suffixes '())
-         (add-steps '())
+         (add-pitches '())
          (main-name #f)
          (bass-note
           (if (ly:pitch? inversion)
@@ -260,7 +260,7 @@ accidental (if any) followed by a number or the major-seven symbol."
            (lambda (j)
              (when (get-interval j pitches)
                (when (get-interval 3 pitches)
-                 (set! add-steps (cons (get-interval 3 pitches) add-steps))
+                 (set! add-pitches (cons (get-interval 3 pitches) add-pitches))
                  (set! pitches (remove-interval 3 pitches)))
                (set! suffixes (cons (get-interval j pitches) suffixes))))
            '(2 4))
@@ -287,9 +287,9 @@ accidental (if any) followed by a number or the major-seven symbol."
                  (split (split-at-predicate
                          3-diff? (remove-uptil-interval 5 pitches))))
             (set! alterations (append alterations (car split)))
-            (set! add-steps (append add-steps (cdr split)))
+            (set! add-pitches (append add-pitches (cdr split)))
             (set! alterations (delq main-name alterations))
-            (set! add-steps (delq main-name add-steps))
+            (set! add-pitches (delq main-name add-pitches))
 
             ;; Chords with the standard (7 9 11 ...) series of intervals (or a
             ;; subset of it) are named by the top interval, without any further
@@ -303,5 +303,5 @@ accidental (if any) followed by a number or the major-seven symbol."
               (set! alterations '()))
 
             (ignatzek-format-chord-name
-             root type main-name alterations add-steps suffixes bass-note
+             root type main-name alterations add-pitches suffixes bass-note
              lowercase-root?))))))
