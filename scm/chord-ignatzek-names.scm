@@ -23,7 +23,7 @@
 ;;
 ;; The idea is to split chords into
 ;;
-;;  ROOT PREFIXES MAIN-NAME ALTERATIONS SUFFIXES ADDITIONS
+;;  ROOT TYPE MAIN-NAME ALTERATIONS SUFFIXES ADDITIONS
 ;;
 ;; and put that through a layout routine.
 ;;
@@ -110,7 +110,7 @@ This is the entry point for @iref{Chord_name_engraver}."
     (= (natural-chord-alteration p) (ly:pitch-alteration p)))
 
   (define (ignatzek-format-chord-name root
-                                      prefix-modifiers
+                                      chord-type
                                       main-name
                                       alteration-pitches
                                       addition-pitches
@@ -138,13 +138,11 @@ This is the entry point for @iref{Chord_name_engraver}."
           (glue-word-to-step "sus" mod)
           (glue-word-to-step "???" mod)))
 
-    (define (prefix-modifier->markup mod)
-      (if (and (= 3 (pitch-step mod))
-               (= FLAT (ly:pitch-alteration mod)))
-          (if lowercase-root?
-              empty-markup
-              (ly:context-property context 'minorChordModifier))
-          "???"))
+    (define (chord-type->markup type)
+      (if (and (eq? type 'minor)
+               (not lowercase-root?))
+          (ly:context-property context 'minorChordModifier)
+          empty-markup))
 
     (define (filter-alterations alters)
       "Filter out uninteresting (natural) pitches from ALTERS."
@@ -194,7 +192,7 @@ accidental (if any) followed by a number or the major-seven symbol."
            (filtered-alterations (filter-alterations alteration-pitches))
            (alterations (map name-step filtered-alterations))
            (suffixes (map suffix-modifier->markup suffix-modifiers))
-           (prefixes (map prefix-modifier->markup prefix-modifiers))
+           (type-markup (chord-type->markup chord-type))
            (main-markups (filter-main-name main-name))
            (to-be-raised-stuff (markup-join (append main-markups
                                                     alterations
@@ -207,8 +205,8 @@ accidental (if any) followed by a number or the major-seven symbol."
       (set! base-stuff
             (append
              (list root-markup (conditional-kern-before
-                                (markup-join prefixes sep)
-                                (and (not (null? prefixes))
+                                type-markup
+                                (and chord-type
                                      (= (ly:pitch-alteration root) NATURAL))
                                 (ly:context-property context
                                                      'chordPrefixSpacer))
@@ -241,7 +239,7 @@ accidental (if any) followed by a number or the major-seven symbol."
                  (and third (= (ly:pitch-alteration third) FLAT)))))
          (exceptions (ly:context-property context 'chordNameExceptions))
          (exception (assoc-get pitches exceptions))
-         (prefixes '())
+         (type #f)
          (suffixes '())
          (add-steps '())
          (main-name #f)
@@ -270,7 +268,7 @@ accidental (if any) followed by a number or the major-seven symbol."
           ;; Handle minor-3rd modifier.
           (when (and (get-step 3 pitches)
                      (= (ly:pitch-alteration (get-step 3 pitches)) FLAT))
-            (set! prefixes (cons (get-step 3 pitches) prefixes)))
+            (set! type 'minor))
 
           ;; Get preliminary version of the 'main chord name', only considering
           ;; intervals equal to or smaller than a 7.
@@ -305,5 +303,5 @@ accidental (if any) followed by a number or the major-seven symbol."
               (set! alterations '()))
 
             (ignatzek-format-chord-name
-             root prefixes main-name alterations add-steps suffixes bass-note
+             root type main-name alterations add-steps suffixes bass-note
              lowercase-root?))))))
