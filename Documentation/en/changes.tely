@@ -132,7 +132,18 @@ None so far.
 @node New for specialist notation
 @unnumbered New for specialist notation
 
-None so far.
+@itemize
+
+@item
+The chord name input @code{@var{x}:1/@var{x}} gets now rendered as
+@q{N.C./@var{x}}.
+
+@lilypond[quote, verbatim]
+\chords { d:1/d }
+@end lilypond
+
+@end itemize
+
 
 @node Miscellaneous improvements
 @unnumbered Miscellaneous improvements

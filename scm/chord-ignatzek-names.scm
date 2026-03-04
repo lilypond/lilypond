@@ -183,6 +183,7 @@ accidental (if any) followed by a number or the major-seven symbol."
     ;; Body of `ignatzek-format-chord-name`.
     (let* ((sep (ly:context-property context 'chordNameSeparator))
            (slashsep (ly:context-property context 'slashChordSeparator))
+           (nc-symbol (ly:context-property context 'noChordSymbol))
            (root-markup (name-root root lowercase-root?))
            (add-pitch-prefix (ly:context-property context
                                                   'additionalPitchPrefix))
@@ -202,16 +203,29 @@ accidental (if any) followed by a number or the major-seven symbol."
            (base-stuff (if (ly:pitch? bass-pitch)
                            (list slashsep (name-note bass-pitch #f))
                            '())))
-      (set! base-stuff
-            (append
-             (list root-markup (conditional-kern-before
-                                type-markup
-                                (and chord-type
-                                     (= (ly:pitch-alteration root) NATURAL))
-                                (ly:context-property context
-                                                     'chordPrefixSpacer))
-                   (make-super-markup to-be-raised-stuff))
-             base-stuff))
+      (if (and (not main-name)
+               (not (null? bass-pitch))
+               (= (ly:pitch-notename root) (ly:pitch-notename bass-pitch))
+               (= (ly:pitch-alteration root) (ly:pitch-alteration bass-pitch))
+               (null? alteration-pitches)
+               (null? addition-pitches)
+               (null? suffix-modifiers))
+          ;; We have `x:1/x` as input.  Display 'N.C./x'.
+          (set! base-stuff
+                (append
+                 (list nc-symbol)
+                 base-stuff))
+          ;; Otherwise combine all collected markup elements.
+          (set! base-stuff
+                (append
+                 (list root-markup (conditional-kern-before
+                                    type-markup
+                                    (and chord-type
+                                         (= (ly:pitch-alteration root) NATURAL))
+                                    (ly:context-property context
+                                                         'chordPrefixSpacer))
+                       (make-super-markup to-be-raised-stuff))
+             base-stuff)))
       (make-line-markup base-stuff)))
 
   (define (ignatzek-format-exception root

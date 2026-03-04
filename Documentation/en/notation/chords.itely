@@ -491,6 +491,22 @@ myChords = \chordmode {
 >>
 @end lilypond
 
+It is also possible to display @qq{N.C.} with a bass note by
+forcing the chord to be a single note identical to the bass.
+
+@lilypond[verbatim, quote]
+myChords = \chordmode {
+  c1
+  b1:1/b
+  a,1
+}
+
+<<
+  \new ChordNames \myChords
+  \new Staff \myChords
+>>
+@end lilypond
+
 @funindex \chords
 
 @code{\chords @{ @dots{} @}} is a shortcut notation for
