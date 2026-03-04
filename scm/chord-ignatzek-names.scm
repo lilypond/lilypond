@@ -47,15 +47,6 @@ Return #f if there is no match."
           (car ps)
           (get-interval x (cdr ps)))))
 
-(define (replace-step p ps)
-  "Copy PS, but replace the step of P in PS."
-  (if (null? ps)
-      '()
-      (let* ((t (replace-step p (cdr ps))))
-        (if (= (ly:pitch-steps p) (ly:pitch-steps (car ps)))
-            (cons p t)
-            (cons (car ps) t)))))
-
 (define (remove-interval x ps)
   "Copy pitch list PS, omitting pitches that equal interval X."
   (if (null? ps)
@@ -64,6 +55,12 @@ Return #f if there is no match."
         (if (= x (interval (car ps)))
             t
             (cons (car ps) t)))))
+
+(define (natural-chord-alteration p)
+  "Return the natural alteration for step P."
+  (if (= (interval p) 7)
+      FLAT
+      0))
 
 (define (conditional-kern-before markup bool amount)
   "Add AMOUNT of space before MARKUP if BOOL is true."

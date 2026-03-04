@@ -19,12 +19,6 @@
 (use-modules ((ice-9 list)
               #:select (rassoc)))
 
-(define (natural-chord-alteration p)
-  "Return the natural alteration for step P."
-  (if (= (ly:pitch-steps p) 6)
-      FLAT
-      0))
-
 (define (conditional-string-capitalize str condition)
   (if condition
       str

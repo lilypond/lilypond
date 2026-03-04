@@ -231,6 +231,15 @@ non-inverted note."
 ;;;;;;;;;;;;;;;;
 ;; chord modifiers change the pitch list.
 
+(define (replace-step p ps)
+  "Copy PS, but replace the step of P in PS."
+  (if (null? ps)
+      '()
+      (let* ((t (replace-step p (cdr ps))))
+        (if (= (ly:pitch-steps p) (ly:pitch-steps (car ps)))
+            (cons p t)
+            (cons (car ps) t)))))
+
 (define (aug-modifier pitches)
   (set! pitches (replace-step (ly:make-pitch 0 4 SHARP) pitches))
   (replace-step (ly:make-pitch 0 2 0) pitches))
