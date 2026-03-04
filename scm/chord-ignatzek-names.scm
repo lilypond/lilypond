@@ -89,12 +89,12 @@ see @rnotation{Customizing chord names} for documentation.
 
 This is the entry point for @iref{Chord_name_engraver}."
 
-  (define (remove-uptil-interval x ps)
+  (define (truncate-at-interval x ps)
     "Copy pitch list PS, omitting pitches that are smaller than interval X."
     (if (null? ps)
         '()
         (if (< (interval (car ps)) x)
-            (remove-uptil-interval x (cdr ps))
+            (truncate-at-interval x (cdr ps))
             ps)))
 
   (define name-root
@@ -285,7 +285,7 @@ accidental (if any) followed by a number or the major-seven symbol."
                  ;; first element that doesn't fit the interval sequence 5, 7,
                  ;; 9, ... (or 6, 8, 10, ...).
                  (split (split-at-predicate
-                         3-diff? (remove-uptil-interval 5 pitches))))
+                         3-diff? (truncate-at-interval 5 pitches))))
             (set! alterations (append alterations (car split)))
             (set! add-pitches (append add-pitches (cdr split)))
             (set! alterations (delq main-name alterations))
@@ -297,7 +297,7 @@ accidental (if any) followed by a number or the major-seven symbol."
             (when (and (ly:pitch? main-name)
                        (= 7 (interval main-name))
                        (is-natural-alteration? main-name)
-                       (pair? (remove-uptil-interval 7 alterations))
+                       (pair? (truncate-at-interval 7 alterations))
                        (every is-natural-alteration? alterations))
               (set! main-name (last alterations))
               (set! alterations '()))
