@@ -17,6 +17,9 @@
 
 (use-modules (ice-9 receive))
 
+
+;; We locally use the word 'interval' in the musicological sense.
+
 (define-public (construct-chord-elements root duration modifications)
   "Build a chord on @var{root} using modifiers in @var{modifications}.
 @code{NoteEvents} have duration @var{duration}.
@@ -57,7 +60,7 @@ Entry point for the parser."
     (define (interpret-removals  chord mods)
       (define (inner-interpret chord mods)
         (if (and (pair? mods) (ly:pitch? (car mods)))
-            (inner-interpret (remove-step (+ 1  (ly:pitch-steps (car mods))) chord)
+            (inner-interpret (remove-interval (interval (car mods)) chord)
                              (cdr mods))
             (interpret-inversion chord mods)))
       (if (and (pair? mods) (eq? (car mods) 'chord-caret))
@@ -68,11 +71,11 @@ Entry point for the parser."
       "Interpret additions.  TODO: should restrict modifier use?"
       (cond ((null? mods) chord)
             ((ly:pitch? (car mods))
-             (case (pitch-step (car mods))
+             (case (interval (car mods))
                ((11) (set! explicit-11 #t))
                ((2 4) (set! explicit-2/4 #t))
                ((3) (set! omit-3 #f)))
-             (interpret-additions (cons (car mods) (remove-step (pitch-step (car mods)) chord))
+             (interpret-additions (cons (car mods) (remove-interval (interval (car mods)) chord))
                                   (cdr mods)))
             ((procedure? (car mods))
              (interpret-additions ((car mods) chord)
@@ -133,7 +136,7 @@ the bass specified.
              (ly:pitch?  (car flat-mods))
              (not (eq? lead-mod sus-modifier)))
         (begin
-          (cond ((= (pitch-step (car flat-mods)) 11)
+          (cond ((= (interval (car flat-mods)) 11)
                  (set! explicit-11 #t))
                 ((equal? (ly:make-pitch 0 4 0) (car flat-mods))
                  (set! omit-3 #t)))
@@ -155,15 +158,15 @@ the bass specified.
     ;; If natural 11 + natural 3 is present, but not given explicitly,
     ;; we remove the 11.
     (if (and (not explicit-11)
-             (get-step 11 complete-chord)
-             (get-step 3 complete-chord)
-             (= 0 (ly:pitch-alteration (get-step 11 complete-chord)))
-             (= 0 (ly:pitch-alteration (get-step 3 complete-chord))))
-        (set! complete-chord (remove-step 11 complete-chord)))
+             (get-interval 11 complete-chord)
+             (get-interval 3 complete-chord)
+             (= 0 (ly:pitch-alteration (get-interval 11 complete-chord)))
+             (= 0 (ly:pitch-alteration (get-interval 3 complete-chord))))
+        (set! complete-chord (remove-interval 11 complete-chord)))
     ;; if omit-3 has been set (and not reset by an explicit 3
     ;; somewhere), we remove the 3
     (if omit-3
-        (set! complete-chord (remove-step 3 complete-chord)))
+        (set! complete-chord (remove-interval 3 complete-chord)))
     ;; must do before processing inversion/bass, since they are
     ;; not relative to the root.
     (set! complete-chord (map (lambda (x) (+ x root))
@@ -236,7 +239,7 @@ non-inverted note."
   (replace-step (ly:make-pitch 0 2 FLAT) pitches))
 
 (define (maj7-modifier pitches)
-  (set! pitches (remove-step 7 pitches))
+  (set! pitches (remove-interval 7 pitches))
   (cons (ly:make-pitch 0 6 0) pitches))
 
 (define (dim-modifier pitches)
@@ -246,7 +249,7 @@ non-inverted note."
   pitches)
 
 (define (sus-modifier pitches)
-  (remove-step (pitch-step (ly:make-pitch 0 2 0)) pitches))
+  (remove-interval 3 pitches))
 
 (define-public default-chord-modifier-list
   `((m . ,minor-modifier)

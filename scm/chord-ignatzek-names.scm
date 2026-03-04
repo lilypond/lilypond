@@ -31,18 +31,21 @@
 ;;
 
 
-;; TODO: naming is confusing: steps (0 based) vs. steps (1 based).
-(define (pitch-step p)
-  "Musicological notation for an interval.  E.g., C to D is 2."
+;; We locally use the word 'interval' in the musicological sense.
+
+(define (interval p)
+  "Get interval (as a number) from the middle C to pitch P."
   (+ 1 (ly:pitch-steps p)))
 
-(define (get-step x ps)
-  "Does PS have the X step?  Return that step if it does."
+(define (get-interval x ps)
+  "Return pitch from pitch list PS that equals interval X.
+
+Return #f if there is no match."
   (if (null? ps)
       #f
-      (if (= (- x 1) (ly:pitch-steps (car ps)))
+      (if (= x (interval (car ps)))
           (car ps)
-          (get-step x (cdr ps)))))
+          (get-interval x (cdr ps)))))
 
 (define (replace-step p ps)
   "Copy PS, but replace the step of P in PS."
@@ -53,12 +56,12 @@
             (cons p t)
             (cons (car ps) t)))))
 
-(define (remove-step x ps)
-  "Copy PS, but leave out the Xth step."
+(define (remove-interval x ps)
+  "Copy pitch list PS, omitting pitches that equal interval X."
   (if (null? ps)
       '()
-      (let* ((t (remove-step x (cdr ps))))
-        (if (= (- x 1) (ly:pitch-steps (car ps)))
+      (let* ((t (remove-interval x (cdr ps))))
+        (if (= x (interval (car ps)))
             t
             (cons (car ps) t)))))
 
@@ -89,12 +92,12 @@ see @rnotation{Customizing chord names} for documentation.
 
 This is the entry point for @iref{Chord_name_engraver}."
 
-  (define (remove-uptil-step x ps)
-    "Copy PS, but leave out everything below the Xth step."
+  (define (remove-uptil-interval x ps)
+    "Copy pitch list PS, omitting pitches that are smaller than interval X."
     (if (null? ps)
         '()
-        (if (< (ly:pitch-steps (car ps)) (- x 1))
-            (remove-uptil-step x (cdr ps))
+        (if (< (interval (car ps)) x)
+            (remove-uptil-interval x (cdr ps))
             ps)))
 
   (define name-root
@@ -123,8 +126,8 @@ This is the entry point for @iref{Chord_name_engraver}."
       "The main name: don't print anything for natural 5 or 3."
       (if (or (not (ly:pitch? p))
               (and (is-natural-alteration? p)
-                   (or (= (pitch-step p) 5)
-                       (= (pitch-step p) 3))))
+                   (or (= (interval p) 5)
+                       (= (interval p) 3))))
           '()
           (list (name-step p))))
 
@@ -133,8 +136,8 @@ This is the entry point for @iref{Chord_name_engraver}."
        (list word (name-step x))))
 
     (define (suffix-modifier->markup mod)
-      (if (or (= 4 (pitch-step mod))
-              (= 2 (pitch-step mod)))
+      (if (or (= 4 (interval mod))
+              (= 2 (interval mod)))
           (glue-word-to-step "sus" mod)
           (glue-word-to-step "???" mod)))
 
@@ -157,7 +160,7 @@ This is the entry point for @iref{Chord_name_engraver}."
             ;; Don't filter out highest pitch larger than a 5 even if
             ;; unaltered.
             (if (and (not (altered? (car lp)))
-                     (> (pitch-step (car lp)) 5))
+                     (> (interval (car lp)) 5))
                 (append lst lp)
                 lst))))
 
@@ -169,11 +172,11 @@ accidental (if any) followed by a number or the major-seven symbol."
         (- (ly:pitch-alteration pitch)
            (natural-chord-alteration pitch)))
 
-      (let* ((num-string (number->string (pitch-step pitch)))
+      (let* ((num-string (number->string (interval pitch)))
              (major-seven-symbol (ly:context-property context
                                                       'majorSevenSymbol))
              (total (if (and (= (ly:pitch-alteration pitch) 0)
-                             (= (pitch-step pitch) 7)
+                             (= (interval pitch) 7)
                              (markup? major-seven-symbol))
                         (list major-seven-symbol)
                         (list (accidental->markup (step-alteration pitch))
@@ -235,7 +238,7 @@ accidental (if any) followed by a number or the major-seven symbol."
          (pitches (map (lambda (x) (- x root)) (cdr in-pitches)))
          (lowercase-root?
           (and (ly:context-property context 'chordNameLowercaseMinor)
-               (let ((third (get-step 3 pitches)))
+               (let ((third (get-interval 3 pitches)))
                  (and third (= (ly:pitch-alteration third) FLAT)))))
          (exceptions (ly:context-property context 'chordNameExceptions))
          (exception (assoc-get pitches exceptions))
@@ -258,46 +261,46 @@ accidental (if any) followed by a number or the major-seven symbol."
           ;; 'sus2' or 'sus4', we explicitly say 'add3'.
           (for-each
            (lambda (j)
-             (when (get-step j pitches)
-               (when (get-step 3 pitches)
-                 (set! add-steps (cons (get-step 3 pitches) add-steps))
-                 (set! pitches (remove-step 3 pitches)))
-               (set! suffixes (cons (get-step j pitches) suffixes))))
+             (when (get-interval j pitches)
+               (when (get-interval 3 pitches)
+                 (set! add-steps (cons (get-interval 3 pitches) add-steps))
+                 (set! pitches (remove-interval 3 pitches)))
+               (set! suffixes (cons (get-interval j pitches) suffixes))))
            '(2 4))
 
           ;; Handle minor-3rd modifier.
-          (when (and (get-step 3 pitches)
-                     (= (ly:pitch-alteration (get-step 3 pitches)) FLAT))
+          (when (and (get-interval 3 pitches)
+                     (= (ly:pitch-alteration (get-interval 3 pitches)) FLAT))
             (set! type 'minor))
 
           ;; Get preliminary version of the 'main chord name', only considering
           ;; intervals equal to or smaller than a 7.
           (cond
-           ((get-step 7 pitches) (set! main-name (get-step 7 pitches)))
-           ((get-step 6 pitches) (set! main-name (get-step 6 pitches)))
-           ((get-step 5 pitches) (set! main-name (get-step 5 pitches)))
-           ((get-step 4 pitches) (set! main-name (get-step 4 pitches)))
-           ((get-step 3 pitches) (set! main-name (get-step 3 pitches))))
+           ((get-interval 7 pitches) (set! main-name (get-interval 7 pitches)))
+           ((get-interval 6 pitches) (set! main-name (get-interval 6 pitches)))
+           ((get-interval 5 pitches) (set! main-name (get-interval 5 pitches)))
+           ((get-interval 4 pitches) (set! main-name (get-interval 4 pitches)))
+           ((get-interval 3 pitches) (set! main-name (get-interval 3 pitches))))
 
           (let* ((3-diff? (lambda (x y)
-                            (= (- (pitch-step y) (pitch-step x)) 2)))
+                            (= (- (interval y) (interval x)) 2)))
                  ;; Take pitches larger than or equal to a 5 and split at the
                  ;; first element that doesn't fit the interval sequence 5, 7,
                  ;; 9, ... (or 6, 8, 10, ...).
                  (split (split-at-predicate
-                         3-diff? (remove-uptil-step 5 pitches))))
+                         3-diff? (remove-uptil-interval 5 pitches))))
             (set! alterations (append alterations (car split)))
             (set! add-steps (append add-steps (cdr split)))
             (set! alterations (delq main-name alterations))
             (set! add-steps (delq main-name add-steps))
 
             ;; Chords with the standard (7 9 11 ...) series of intervals (or a
-            ;; subset of it) are named by the top pitch, without any further
+            ;; subset of it) are named by the top interval, without any further
             ;; alterations.
             (when (and (ly:pitch? main-name)
-                       (= 7 (pitch-step main-name))
+                       (= 7 (interval main-name))
                        (is-natural-alteration? main-name)
-                       (pair? (remove-uptil-step 7 alterations))
+                       (pair? (remove-uptil-interval 7 alterations))
                        (every is-natural-alteration? alterations))
               (set! main-name (last alterations))
               (set! alterations '()))
