@@ -196,6 +196,11 @@ Example:
 @example
 (ly:expect-warning (G_ "Bar number is ~a; expected ~a") 3 15)
 @end example
+
+It is also possible to use a truncated version of the expected warning as
+the value for @var{str} (i.e., the beginning of the two strings must match).
+However, it is recommended to compare @var{str} with the full message to
+avoid potential hits with other, almost identical warnings.
            )delim")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
