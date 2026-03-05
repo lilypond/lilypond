@@ -60,12 +60,9 @@ Timing_translator::listen_bar_check (Stream_event *ev)
 
   // barCheckSynchronize is implemented here so that changes to timing
   // properties occur before any translator's pre_process_music () is called.
-  //
-  // TODO: barCheckSynchronize is untested.
-  // TODO: Formally deprecate barCheckSynchronize.
   const auto &now = now_mom ();
   if ((now.main_part_ != measure_start_mom_.main_part_)
-      && from_scm<bool> (get_property (this, "barCheckSynchronize")))
+      && from_scm<bool> (get_property (this, "deprecatedBarCheckSynchronize")))
     {
       SCM mp_sym = ly_symbol2scm ("measurePosition");
       const auto mp = from_scm (get_property (context (), mp_sym), Moment ());

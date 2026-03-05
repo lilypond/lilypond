@@ -688,6 +688,7 @@ determines the number of scale steps that make up an octave.  Usually the
   ;; TODO: Guile raises errors if compilation is disabled and these symbols do
   ;; not appear literally somewhere in this procedure.  It smells like a bug in
   ;; Guile (3.0.9).
+  'barCheckSynchronize
   'baseMoment
   'completionUnitAsMoment
   'gridIntervalAsMoment

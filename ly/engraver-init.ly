@@ -932,7 +932,7 @@ run."
   )
   alterationGlyphs = ##f
 
-  barCheckSynchronize = ##f
+  deprecatedBarCheckSynchronize = ##f
 
   %% note names:
   noteNameFunction = #note-name-markup

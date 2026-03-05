@@ -135,8 +135,6 @@ case of draw, a normal accidental is typeset.")
 syllables in melismata that are not followed by a hyphen.")
 
 
-     (barCheckSynchronize ,boolean? "If true then reset
-@code{measurePosition} when finding a bar check.")
      (barExtraVelocity ,integer? "Extra MIDI velocity added by the
 @samp{Beat_performer} at the start of each measure.")
      (barNumberFormatter ,procedure? "A procedure that takes a bar
@@ -860,6 +858,8 @@ deprecated.  Use @code{\\bar} or related commands to set it."))))
 @code{Voice} that has the melody for this @code{Lyrics}.")
 
 
+     (deprecatedBarCheckSynchronize ,boolean? "If true then reset
+@code{measurePosition} when finding a bar check.")
      (beamMelismaBusy ,boolean? "Signal if a beam is present.")
      (breathMarkDefinitions ,list? "The description of breath marks.
 This is used by the @code{Breathing_@/sign_@/engraver}.  See
@@ -997,6 +997,15 @@ This property is deprecated; overriding the @code{musical-@/length} property of
 (define-public default-melisma-properties
   '(melismaBusy slurMelismaBusy tieMelismaBusy beamMelismaBusy completionBusy))
 
+
+(define-deprecated-property
+  'translation-type? 'barCheckSynchronize boolean?
+  #:new-symbol 'deprecatedBarCheckSynchronize
+  #:old->new identity
+  #:new->old identity
+  ;; barCheckSynchronize isn't properly documented or tested and we don't
+  ;; intend to maintain it or replace it.
+  #:warning (G_ "the property 'barCheckSynchronize' is deprecated"))
 
 (define-deprecated-property
   'translation-type? 'baseMoment positive-musical-length-as-moment?
