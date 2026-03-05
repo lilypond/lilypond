@@ -19,7 +19,10 @@
 %%%% You should have received a copy of the GNU General Public License
 %%%% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-\version "2.25.5"
+\version "2.25.80"
+
+#(ly:deprecation-warning
+  (G_ "gregorian.ly is deprecated; use VaticanaScore context"))
 
 %
 % Declare default layout; here for Vaticana style.  In case there will
