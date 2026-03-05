@@ -19,6 +19,9 @@
 
 #include "moment.hh"
 
+#include "international.hh"
+#include "warn.hh"
+
 #include <cstdint>
 
 /* TODO: add optional factor argument. */
@@ -124,12 +127,14 @@ Divide moment @var{a} by a number @var{b} (or by the main part of another moment
   return to_scm (*ma / from_scm<Rational> (b));
 }
 
-// TODO: Formally deprecate ly:moment-mod.
 LY_DEFINE (ly_moment_mod, "ly:moment-mod", 2, 0, 0, (SCM a, SCM b),
            R"(
 Modulo of two moments.
            )")
 {
+  deprecation_warning (
+    _f ("the function '%s' is deprecated", "ly:moment-mod"));
+
   auto *const ma = LY_ASSERT_SMOB (Moment, a, 1);
   auto *const mb = LY_ASSERT_SMOB (Moment, b, 2);
 
