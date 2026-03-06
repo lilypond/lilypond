@@ -32,9 +32,12 @@ public:
   ~Tempo_performer ();
 
 protected:
+  void listen_tempo_change (Stream_event *);
   void process_music ();
+  void stop_translation_timestep ();
 
 private:
+  Stream_event *tempo_ev_ = nullptr;
   Rational wpm_ = -Rational::infinity ();
 };
 
@@ -48,20 +51,32 @@ Tempo_performer::~Tempo_performer ()
 }
 
 void
+Tempo_performer::listen_tempo_change (Stream_event *ev)
+{
+  assign_event_once (tempo_ev_, ev);
+}
+
+void
 Tempo_performer::process_music ()
 {
   auto wpm = from_scm (get_property (this, "tempoWholesPerMinute"), wpm_);
   if (wpm != wpm_)
     {
-      Stream_event *cause = nullptr;
-      announce<Audio_tempo> (cause, wpm);
+      announce<Audio_tempo> (tempo_ev_, wpm);
       wpm_ = wpm;
     }
 }
 
 void
+Tempo_performer::stop_translation_timestep ()
+{
+  tempo_ev_ = nullptr;
+}
+
+void
 Tempo_performer::boot ()
 {
+  ADD_LISTENER (tempo_change);
 }
 
 ADD_TRANSLATOR (Tempo_performer,

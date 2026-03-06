@@ -379,18 +379,26 @@ Midi_tempo::Midi_tempo (Audio_tempo *a)
 std::string
 Midi_tempo::to_string () const
 {
+  // I don't see any statement in the MIDI spec about what 0 might do.  I
+  // assume it could cause trouble. [DE]
+  constexpr auto min_us_per_q = int64_t {1};
+  constexpr auto max_us_per_q = int64_t {0xff'ff'ff};
+
   const auto us_per_min = Rational {std::chrono::microseconds {1min}.count ()};
-  const auto us_per_quarter = us_per_min / (audio_->wholes_per_minute_ * 4);
-  // I don't see any statement in the MIDI spec about what 0 might do.
-  // I assume it could cause trouble. [DE]
-  const auto midi_val = static_cast<uint32_t> (std::clamp (
-    us_per_quarter.trunc_int (), int64_t {1}, int64_t {0xff'ff'ff}));
+  auto us_per_q = (us_per_min / (audio_->wholes_per_minute_ * 4)).trunc_int ();
+  if ((us_per_q < min_us_per_q) || (max_us_per_q < us_per_q))
+    {
+      us_per_q = std::clamp (us_per_q, min_us_per_q, max_us_per_q);
+      warning (_f ("Unsupported MIDI tempo (wholes/minute): %s",
+                   ::to_string (audio_->wholes_per_minute_)));
+    }
+
   auto str = std::string {
     static_cast<char> (0xff),
     static_cast<char> (0x51),
     static_cast<char> (0x03),
   };
-  return str + String_convert::be_u24 (midi_val);
+  return str + String_convert::be_u24 (static_cast<uint32_t> (us_per_q));
 }
 
 Midi_text::Midi_text (Audio_text *a)
