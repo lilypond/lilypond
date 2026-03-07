@@ -129,7 +129,8 @@ the current input language is used."
          ;; Handle 'H', 'B', and 'Bb'.
          (result (if (and (= note-name 6)
                           (or (and (= alteration FLAT)
-                                   (eq? type 'only-b))
+                                   (or (eq? type 'only-b)
+                                       (eq? type 'only-b-flat)))
                               (and (<= alteration FLAT)
                                    (eq? type 'b-and-bes))))
                      '(b)
@@ -173,16 +174,17 @@ or the @code{chordNoteNamer} context property."
 (define-public ((chord-name:german-markup german?) pitch lowercase?)
   "Return German note name markup with accidental glyphs for @var{pitch}.
 
-If @var{german?} is not @code{#f}, return German note names,
-otherwise return Norwegian note names (for example, @q{B-flat}
-instead of @q{H-flatflat}).
+This function displays pitch@tie{}B as letter@tie{}H.  If
+@var{german?} is not @code{#f}, display pitch B-flat as
+letter@tie{}B.  If equal to @code{#f}, display this pitch as
+letter@tie{}B with a flat.
 
 If @var{lowercase?} is not @code{#f}, a lowercase note name is
 returned, otherwise the first character gets capitalized.
 
 This is a callback function for either the @code{chordRootNamer}
 or the @code{chordNoteNamer} context property."
-  (let ((language (if german? 'deutsch 'norsk)))
+  (let ((language (if german? 'deutsch 'semi-german)))
     ((chord-name:markup language) pitch lowercase?)))
 
 (define-public ((chord-name:name-markup language) pitch lowercase?)

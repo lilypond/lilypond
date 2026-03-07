@@ -1,4 +1,4 @@
-\version "2.25.35"
+\version "2.25.80"
 
 scm = \chordmode {
   e1/d c:m b/b bis/bis bes/bes beses/beses
@@ -32,8 +32,8 @@ scm = \chordmode {
     \set instrumentName = "German"
     \germanChords \scm }
   \new ChordNames {
-    \set instrumentName = "Norwegian"
-    \norwegianChords \scm }
+    \set instrumentName = "semi-German"
+    \semiGermanChords \scm }
   \new ChordNames {
     \set instrumentName = "Italian"
     \italianChords \scm }

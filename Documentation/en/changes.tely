@@ -1349,9 +1349,7 @@ commands like @code{\germanChords} are no longer dependent on
 This change might cause differences in displayed chord names.
 
 @item
-Two new commands have been added: @code{\norwegianChords} and
-@code{\englishChords}.  The former is a better name for the now
-deprecated @code{\semiGermanChords} command, the latter makes it
+A new command @code{\englishChords} is now available, making it
 possible to switch back to English chord names.
 
 @item

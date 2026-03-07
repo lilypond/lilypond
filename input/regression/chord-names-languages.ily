@@ -1,4 +1,4 @@
-\version "2.25.35"
+\version "2.25.80"
 
 \layout {
   indent = 3\cm
@@ -28,8 +28,8 @@
     \set instrumentName = "German"
     \germanChords \scm }
   \new ChordNames {
-    \set instrumentName = "Norwegian"
-    \norwegianChords \scm }
+    \set instrumentName = "semi-German"
+    \semiGermanChords \scm }
   \new ChordNames {
     \set instrumentName = "Italian"
     \italianChords \scm }

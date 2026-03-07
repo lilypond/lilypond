@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.35"
+@c \version "2.25.80"
 
 
 @node Chord notation
@@ -579,7 +579,6 @@ example.)  A list of common jazz chords notations can be found in
 @ref{Chord name chart}.
 
 @funindex \germanChords
-@funindex \norwegianChords
 @funindex \italianChords
 @funindex \frenchChords
 @funindex \englishChords
@@ -587,9 +586,16 @@ example.)  A list of common jazz chords notations can be found in
 The default naming system may be tweaked easily in a number of
 ways.  To begin with, predefined commands allow the display of
 different languages for the root pitch.  These include
-@code{\germanChords}, @code{\norwegianChords},
-@code{\italianChords}, @code{\frenchChords}, and
-@code{\englishChords}.
+@code{\germanChords}, @code{\italianChords}, @code{\frenchChords},
+and @code{\englishChords}.
+
+@funindex \semiGermanChords
+
+A special case is @code{\semiGermanChords}, which is intended for
+educational purposes in German-speaking countries while addressing
+an international audience.  It displays letter B with a flat for
+German pitch@tie{}B; everything else is identical to
+@code{\germanChords}.
 
 @lilypondfile{chord-names-languages.ly}
 
@@ -739,7 +745,7 @@ inserted if the root is altered.
 @code{\whiteTriangleMarkup},
 @code{\blackTriangleMarkup},
 @code{\germanChords},
-@code{\norwegianChords},
+@code{\semiGermanChords},
 @code{\italianChords},
 @code{\frenchChords},
 @code{\englishChords}.

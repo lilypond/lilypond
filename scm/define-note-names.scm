@@ -1327,23 +1327,32 @@
 ;; 'bqf', 'bf', 'btqf', and 'bff' are mapped as follows if displayed as a pitch
 ;; with an accidental.
 ;;
-;; * 'only-b': 'H', 'H semi-flat', 'B', 'H three-q-flat', 'H double-flat'
-;; * 'b-and-bes: 'H', 'H semi-flat', 'B', 'B one-q-flat', 'B flat'
+;;               | b   bqf           bf       btqf             bff
+;;   ------------+-----------------------------------------------------------
+;;   only-b      | H   H semi-flat   B        H three-q-flat   H double-flat
+;;   only-b-flat | H   H semi-flat   B flat   H three-q-flat   H double-flat
+;;   b-and-bes   | H   H semi-flat   B        B one-q-flat     B flat
 (define-session-public pitch-names-german-type
   '((deutsch . only-b)
     (norsk . b-and-bes)
+    (semi-german . only-b-flat)
     (suomi . b-and-bes)
     (svenska . only-b)))
 
-
-;; Add some historic aliases.  Pairs obey cp-like order: '(name alias)
+;; Add some historic aliases and also the pseudo-language 'semi-german' (which
+;; gets used for output only).
+;;
+;; Pairs obey cp-like order: '(name alias)
 (for-each
  (lambda (pair)
    (set! language-pitch-names
          (append language-pitch-names
                  (list (cons (cadr pair)
                              (cdr (assoc (car pair) language-pitch-names)))))))
- '((català catalan) (español espanol) (português portugues)))
+ '((català catalan)
+   (español espanol)
+   (deutsch semi-german)
+   (português portugues)))
 
 (define-public (note-names-language str)
   (G_ "Select note names language.")

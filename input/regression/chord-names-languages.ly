@@ -4,8 +4,8 @@
   texidoc = "
 The English naming of chords (the default) can be changed to
 German (@code{\\germanChords} replaces B and Bes with H and B),
-Norwegian (@code{\\norwegianChords} replaces B, Bes, and Beses
-with H, B, and Bes), Italian (@code{\\italianChords} uses Do Re Mi
+semi-German (the same as @code{\\germanChords} but B gets displayed
+as B with a flat), Italian (@code{\\italianChords} uses Do Re Mi
 Fa Sol La Si), or French (@code{\\frenchChords} uses Do Ré Mi Fa
 Sol La Si).  Command @code{\\englishChords} sets the chord names
 back to English.

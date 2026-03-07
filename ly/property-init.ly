@@ -309,12 +309,11 @@ italianChords = {
   \set chordNoteNamer = #(chord-name:italian-markup #f)
   \set chordPrefixSpacer = #0.4
 }
-norwegianChords = {
+semiGermanChords = {
   \set chordRootNamer = #(chord-name:german-markup #f)
-  \set chordNoteNamer = #(chord-name:name-markup 'norsk)
+  \set chordNoteNamer = #chord-name:german-lowercase-name-markup
   \set chordPrefixSpacer = #0
 }
-semiGermanChords = \norwegianChords % for backward compatibility
 
 medianChordGridStyle = {
   \override ChordSquare.measure-division-chord-placement-alist =
