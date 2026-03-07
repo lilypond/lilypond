@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.25.34\n"
+"Project-Id-Version: lilypond 2.25.35\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
-"POT-Creation-Date: 2026-02-21 11:10+0100\n"
+"POT-Creation-Date: 2026-03-07 10:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1008,6 +1008,42 @@ msgid ""
 "    instead of specifying explicit directions (preferred)\n"
 "  - use normal articulations \\toe, \\vartoe, \\heel, or \\varheel\n"
 "  - remove `Toe_heel_engraver`\n"
+msgstr ""
+
+#: convertrules.py:5635
+msgid "assignment of \\%"
+msgstr ""
+
+#: convertrules.py:5636
+msgid ""
+"\n"
+"\\% is now a built-in abbreviation for \\repeat percent.  If you have "
+"defined it\n"
+"differently, you may wish to change the name to avoid confusion.\n"
+msgstr ""
+
+#: convertrules.py:5643
+msgid "assignment of \\*"
+msgstr ""
+
+#: convertrules.py:5644
+msgid ""
+"\n"
+"\\* is now a built-in abbreviation for \\repeat unfold.  If you have defined "
+"it\n"
+"differently, you may wish to change the name to avoid confusion.\n"
+msgstr ""
+
+#: convertrules.py:5667
+msgid "chord names in combination with \\language"
+msgstr ""
+
+#: convertrules.py:5668
+msgid ""
+"\n"
+"\\germanChords and its siblings no longer depend on the input note names\n"
+"as selected with \\language.  This might cause different note names in the\n"
+"shown chord names.\n"
 msgstr ""
 
 #: lilylib.py:50
@@ -2053,7 +2089,7 @@ msgstr ""
 msgid "Unable to find input file %s"
 msgstr ""
 
-#: getopt-long.cc:143
+#: getopt-long.cc:142
 #, c-format
 msgid "option `%s' requires an argument"
 msgstr ""
@@ -2073,7 +2109,7 @@ msgstr ""
 msgid "invalid argument `%s' to option `%s'"
 msgstr ""
 
-#: time-tracer.cc:63 time-tracer.cc:118 time-tracer.cc:213
+#: time-tracer.cc:63 time-tracer.cc:118 time-tracer.cc:214
 msgid "failed to write to time-trace file"
 msgstr ""
 
@@ -2122,51 +2158,51 @@ msgstr ""
 msgid "suppressed warning: %s"
 msgstr ""
 
-#: accidental-engraver.cc:161
+#: accidental-engraver.cc:162
 #, c-format
 msgid "accidental typesetting list must begin with context-name: %s"
 msgstr ""
 
-#: accidental-engraver.cc:189
+#: accidental-engraver.cc:190
 #, c-format
 msgid "procedure or context-name expected for accidental rule, found %s"
 msgstr ""
 
-#: accidental.cc:126
+#: accidental.cc:129
 #, c-format
 msgid "cannot find glyph %s"
 msgstr ""
 
-#: accidental.cc:137
+#: accidental.cc:140
 msgid "natural alteration glyph not found"
 msgstr ""
 
-#: all-font-metrics.cc:165
+#: all-font-metrics.cc:166
 #, c-format
 msgid "cannot find font '%s' (search path: %s)"
 msgstr ""
 
-#: all-font-metrics.cc:308 font-config.cc:97
+#: all-font-metrics.cc:311 font-config.cc:97
 #, c-format
 msgid "failed adding font directory: %s"
 msgstr ""
 
-#: all-font-metrics.cc:310 font-config.cc:99
+#: all-font-metrics.cc:313 font-config.cc:99
 #, c-format
 msgid "Adding font directory: %s"
 msgstr ""
 
-#: all-font-metrics.cc:320
+#: all-font-metrics.cc:324
 #, c-format
 msgid "failed adding font file: %s"
 msgstr ""
 
-#: all-font-metrics.cc:322
+#: all-font-metrics.cc:326
 #, c-format
 msgid "Adding font file: %s"
 msgstr ""
 
-#: alternative-sequence-iterator.cc:94
+#: alternative-sequence-iterator.cc:95
 msgid "missing volta specification on alternative element"
 msgstr ""
 
@@ -2195,11 +2231,11 @@ msgstr ""
 msgid "\"%s\" is not a valid outside-staff-placement-directive"
 msgstr ""
 
-#: axis-group-interface.cc:757
+#: axis-group-interface.cc:758
 msgid "an outside-staff object should have a direction, defaulting to up"
 msgstr ""
 
-#: axis-group-interface.cc:891
+#: axis-group-interface.cc:894
 msgid "Cannot set outside-staff-priority for element and elements' Y parent."
 msgstr ""
 
@@ -2223,11 +2259,12 @@ msgstr ""
 msgid "beam was started here"
 msgstr ""
 
-#: beam-quanting.cc:884
+#. We are completely screwed.
+#: beam-quanting.cc:885
 msgid "no viable initial configuration found: may not find good beam slope"
 msgstr ""
 
-#: beam.cc:200
+#: beam.cc:201
 msgid "removing beam with no stems"
 msgstr ""
 
@@ -2246,48 +2283,48 @@ msgstr ""
 msgid "Cairo surface status '%s'"
 msgstr ""
 
-#: cairo.cc:210
+#: cairo.cc:211
 #, c-format
 msgid "libpng error: '%s'"
 msgstr ""
 
-#: cairo.cc:212
+#: cairo.cc:213
 msgid "libpng error, no details given."
 msgstr ""
 
-#: cairo.cc:267
+#: cairo.cc:269
 #, c-format
 msgid "error writing %s"
 msgstr ""
 
-#: cairo.cc:525 cairo.cc:538
+#: cairo.cc:530 cairo.cc:543
 #, c-format
 msgid "unknown line-cap-style: %s"
 msgstr ""
 
-#: cairo.cc:637
+#: cairo.cc:642
 #, c-format
 msgid "Layout output to `%s'...\n"
 msgstr ""
 
-#: cairo.cc:945
+#: cairo.cc:951
 msgid ""
 "embedding EPS only supported for PS/EPS output.\n"
 "Use Ghostscript to create other output formats."
 msgstr ""
 
-#: cairo.cc:1013
+#: cairo.cc:1019
 msgid ""
 "embedded-ps only supported for PS/EPS. Use Ghostscript to create output in "
 "other formats"
 msgstr ""
 
-#: cairo.cc:1052
+#: cairo.cc:1058
 #, c-format
 msgid "error while reading PNG image: %s"
 msgstr ""
 
-#: cairo.cc:1530
+#: cairo.cc:1537
 #, c-format
 msgid "unknown output format %s"
 msgstr ""
@@ -2315,12 +2352,12 @@ msgstr ""
 msgid "clef `%s' not found"
 msgstr ""
 
-#: cluster.cc:128
+#: cluster.cc:129
 #, c-format
 msgid "unknown cluster style `%s'"
 msgstr ""
 
-#: cluster.cc:159
+#: cluster.cc:160
 msgid "junking empty cluster"
 msgstr ""
 
@@ -2333,12 +2370,12 @@ msgstr ""
 msgid "cannot find line breaking that satisfies constraints"
 msgstr ""
 
-#: context-def.cc:286
+#: context-def.cc:289
 #, c-format
 msgid "cannot create default child context: %s"
 msgstr ""
 
-#: context-def.cc:293
+#: context-def.cc:296
 #, c-format
 msgid "default child context begins a cycle: %s"
 msgstr ""
@@ -2352,14 +2389,14 @@ msgstr ""
 #. failure, so we have to log here if we want to log at all.  It would be
 #. more flexible to return null and let the caller decide whether to warn in
 #. its situation.  The caller might know a useful source location too.
-#: context-specced-music-iterator.cc:73 context.cc:544 quote-iterator.cc:140
+#: context-specced-music-iterator.cc:73 context.cc:546 quote-iterator.cc:140
 #, c-format
 msgid "cannot find or create context: %s"
 msgstr ""
 
 #. Though we called find_create_context (), UP mode just searches
 #. existing contexts.
-#: context-specced-music-iterator.cc:90 lyric-combine-music-iterator.cc:366
+#: context-specced-music-iterator.cc:90 lyric-combine-music-iterator.cc:369
 #, c-format
 msgid "cannot find context: %s"
 msgstr ""
@@ -2391,35 +2428,35 @@ msgstr ""
 msgid "unrecognised percussion sign: \"%s\""
 msgstr ""
 
-#: dynamic-engraver.cc:143
+#: dynamic-engraver.cc:144
 #, c-format
 msgid ""
 "unknown crescendo style: %s\n"
 "defaulting to hairpin."
 msgstr ""
 
-#: dynamic-engraver.cc:206 slur-engraver.cc:174
+#: dynamic-engraver.cc:207 slur-engraver.cc:174
 #, c-format
 msgid "unterminated %s"
 msgstr ""
 
-#: engraver.cc:168
+#: engraver.cc:169
 #, c-format
 msgid "meta.classes must be non-empty list, found %s"
 msgstr ""
 
-#: engraver.cc:173
+#: engraver.cc:174
 msgid ""
 "must have only one element in meta.classes to create a grob without "
 "specifying the class"
 msgstr ""
 
-#: engraver.cc:186
+#: engraver.cc:187
 #, c-format
 msgid "grob class should be 'Item, 'Spanner or 'Paper_column, found %s"
 msgstr ""
 
-#: engraver.cc:210
+#: engraver.cc:211
 #, c-format
 msgid "No grob definition found for `%s'."
 msgstr ""
@@ -2530,47 +2567,47 @@ msgstr ""
 msgid "cannot rename `%s' to `%s'"
 msgstr ""
 
-#: general-scheme.cc:310
+#: general-scheme.cc:312
 msgid "failed redirecting stderr"
 msgstr ""
 
-#: general-scheme.cc:329
+#: general-scheme.cc:331
 #, c-format
 msgid "failed redirecting stderr to `%s'"
 msgstr ""
 
-#: general-scheme.cc:379
+#: general-scheme.cc:381
 msgid "Found infinity or nan in output.  Substituting 0.0"
 msgstr ""
 
-#: general-scheme.cc:502
+#: general-scheme.cc:504
 #, c-format
 msgid "g_spawn_sync failed (%d): %s: %s"
 msgstr ""
 
-#: general-scheme.cc:569
+#: general-scheme.cc:571
 msgid "Exiting current GhostScript instance...\n"
 msgstr ""
 
-#: general-scheme.cc:610
+#: general-scheme.cc:612
 msgid "Mismatch of GhostScript arguments!\n"
 msgstr ""
 
-#: general-scheme.cc:617
+#: general-scheme.cc:619
 #, c-format
 msgid "Starting GhostScript instance with arguments: %s\n"
 msgstr ""
 
-#: general-scheme.cc:641
+#: general-scheme.cc:643
 msgid "Could not start GhostScript instance!"
 msgstr ""
 
-#: general-scheme.cc:651
+#: general-scheme.cc:653
 #, c-format
 msgid "Running GhostScript command: %s\n"
 msgstr ""
 
-#: general-scheme.cc:660
+#: general-scheme.cc:662
 msgid "Error when running GhostScript command!"
 msgstr ""
 
@@ -2587,11 +2624,11 @@ msgid "to suppress this, consider adding a spacer rest"
 msgstr ""
 
 #. The top-level music is LyricCombineMusic or something similar.
-#: global-context.cc:159
+#: global-context.cc:160
 msgid "cannot determine music length"
 msgstr ""
 
-#: global-context.cc:210
+#: global-context.cc:211
 #, c-format
 msgid "elapsed time: %.2f seconds"
 msgstr ""
@@ -2606,19 +2643,19 @@ msgstr ""
 msgid "implied \\%s added"
 msgstr ""
 
-#: gregorian-ligature-engraver.cc:210
+#: gregorian-ligature-engraver.cc:215
 msgid "cannot apply `\\~' on first head of ligature"
 msgstr ""
 
-#: gregorian-ligature-engraver.cc:223
+#: gregorian-ligature-engraver.cc:228
 msgid "cannot apply `\\~' on heads with identical pitch"
 msgstr ""
 
-#: grob-array.cc:77
+#: grob-array.cc:78
 msgid "ly:grob-list->grob-array encountered a non-grob object"
 msgstr ""
 
-#: grob-array.cc:82
+#: grob-array.cc:83
 msgid "ly:grob-list->grob-array expected a list"
 msgstr ""
 
@@ -2626,7 +2663,7 @@ msgstr ""
 msgid "To use grob debug callbacks, configure with --enable-checking"
 msgstr ""
 
-#: grob.cc:538
+#: grob.cc:540
 #, c-format
 msgid "ignored infinite %s-offset"
 msgstr ""
@@ -2640,14 +2677,14 @@ msgstr ""
 msgid "Asking for broken bound padding at a non-broken bound."
 msgstr ""
 
-#: hairpin.cc:175
+#: hairpin.cc:176
 #, c-format
 msgid ""
 "hairpin: '%f' is not a valid direction for property 'endpoint-alignments', "
 "setting to '%d'"
 msgstr ""
 
-#: hairpin.cc:294
+#: hairpin.cc:295
 msgid "decrescendo too small"
 msgstr ""
 
@@ -2737,7 +2774,7 @@ msgstr ""
 msgid "the property '%s' must be of type '%s', ignoring invalid value '%s'"
 msgstr ""
 
-#: lily-guile.cc:321
+#: lily-guile.cc:322
 #, c-format
 msgid "the property '%s' does not exist (perhaps a typing error)"
 msgstr ""
@@ -2771,24 +2808,24 @@ msgstr ""
 msgid "Parsing..."
 msgstr ""
 
-#: lily-parser-scheme.cc:245
+#: lily-parser-scheme.cc:268
 msgid ""
 "ly:parser-parse-string is only valid with a new parser.  Use ly:parser-"
 "include-string instead."
 msgstr ""
 
-#: lily-parser-scheme.cc:277
+#: lily-parser-scheme.cc:300
 msgid ""
 "ly:parse-string-expression is only valid with a new parser.  Use ly:parser-"
 "include-string instead."
 msgstr ""
 
-#: lookup.cc:158
+#: lookup.cc:163
 #, c-format
 msgid "Not drawing a box with negative dimension, %.2f by %.2f."
 msgstr ""
 
-#: lyric-combine-music-iterator.cc:219
+#: lyric-combine-music-iterator.cc:220
 msgid "argument of \\lyricsto should contain Lyrics context"
 msgstr ""
 
@@ -2943,19 +2980,21 @@ msgstr ""
 msgid "be verbose (equivalent to --loglevel=DEBUG)"
 msgstr ""
 
-#: main.cc:176
+#: main.cc:178
 #, c-format
 msgid ""
 "\n"
-"Effective prefix: '%s'\n"
+"Top-level directory of LilyPond's data tree:\n"
+"  '%s'\n"
+"\n"
 msgstr ""
 
-#: main.cc:205
+#: main.cc:212
 #, c-format
 msgid "%s %s (running Guile %s)"
 msgstr ""
 
-#: main.cc:215
+#: main.cc:222
 #, c-format
 msgid ""
 "Copyright (c) %s by\n"
@@ -2963,25 +3002,25 @@ msgid ""
 msgstr ""
 
 #. No version number or newline here.  It confuses help2man.
-#: main.cc:245
+#: main.cc:252
 #, c-format
 msgid "Usage: %s [OPTION]... FILE..."
 msgstr ""
 
-#: main.cc:247
+#: main.cc:254
 msgid "Typeset music and/or produce MIDI from FILE."
 msgstr ""
 
-#: main.cc:249
+#: main.cc:256
 msgid "LilyPond produces beautiful music notation."
 msgstr ""
 
-#: main.cc:251
+#: main.cc:258
 #, c-format
 msgid "For more information, see %s"
 msgstr ""
 
-#: main.cc:253
+#: main.cc:260
 msgid "Options:"
 msgstr ""
 
@@ -2989,70 +3028,70 @@ msgstr ""
 #. "Report bugs in English via %s",
 #. or if there is a LilyPond users list or forum in your language
 #. "Report bugs in English via %s or in YOUR_LANG via URI"
-#: main.cc:261
+#: main.cc:268
 #, c-format
 msgid "You found a bug? Please read %s"
 msgstr ""
 
-#: main.cc:281
+#: main.cc:288
 msgid "linked against Ghostscript:"
 msgstr ""
 
-#: main.cc:333
+#: main.cc:340
 #, c-format
 msgid "expected %d arguments with jail, found: %zu"
 msgstr ""
 
-#: main.cc:347
+#: main.cc:354
 #, c-format
 msgid "no such user: %s"
 msgstr ""
 
-#: main.cc:349
+#: main.cc:356
 #, c-format
 msgid "cannot get user id from user name: %s: %s"
 msgstr ""
 
-#: main.cc:363
+#: main.cc:370
 #, c-format
 msgid "no such group: %s"
 msgstr ""
 
-#: main.cc:365
+#: main.cc:372
 #, c-format
 msgid "cannot get group id from group name: %s: %s"
 msgstr ""
 
-#: main.cc:373
+#: main.cc:380
 #, c-format
 msgid "cannot chroot to: %s: %s"
 msgstr ""
 
-#: main.cc:379
+#: main.cc:386
 #, c-format
 msgid "cannot change group id to: %d: %s"
 msgstr ""
 
-#: main.cc:385
+#: main.cc:392
 #, c-format
 msgid "cannot change user id to: %d: %s"
 msgstr ""
 
-#: main.cc:391
+#: main.cc:398
 #, c-format
 msgid "cannot change working directory to: %s: %s"
 msgstr ""
 
-#: main.cc:529
+#: main.cc:537
 msgid "The --relocate option is no longer relevant."
 msgstr ""
 
-#: main.cc:743
+#: main.cc:751
 #, c-format
 msgid "Changing working directory to: `%s'"
 msgstr ""
 
-#: main.cc:746
+#: main.cc:754
 #, c-format
 msgid "unable to change directory to: `%s'"
 msgstr ""
@@ -3088,7 +3127,7 @@ msgstr ""
 msgid "semibrevis must not be followed by a brevis; skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:230
+#: mensural-ligature-engraver.cc:231
 msgid ""
 "invalid ligature ending:\n"
 "when the last note is a descending brevis,\n"
@@ -3097,7 +3136,7 @@ msgid ""
 "semibrevis-semibrevis-brevis"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:407
+#: mensural-ligature-engraver.cc:410
 msgid "unexpected case fall-through"
 msgstr ""
 
@@ -3111,7 +3150,7 @@ msgstr ""
 msgid "no such MIDI instrument: `%s'"
 msgstr ""
 
-#: midi-item.cc:183
+#: midi-item.cc:184
 #, c-format
 msgid "Unsupported MIDI time signature: (%s)/(%s)"
 msgstr ""
@@ -3154,11 +3193,11 @@ msgstr ""
 msgid "cannot add text scripts to individual note heads"
 msgstr ""
 
-#: new-fingering-engraver.cc:261
+#: new-fingering-engraver.cc:263
 msgid "no placement found for fingerings"
 msgstr ""
 
-#: new-fingering-engraver.cc:262
+#: new-fingering-engraver.cc:264
 msgid "placing below"
 msgstr ""
 
@@ -3170,7 +3209,7 @@ msgstr ""
 msgid "cannot have note heads and rests together on a stem"
 msgstr ""
 
-#: note-head.cc:87
+#: note-head.cc:88
 #, c-format
 msgid "none of note heads `%s' or `%s' found"
 msgstr ""
@@ -3186,12 +3225,12 @@ msgstr ""
 
 #: open-type-font-scheme.cc:145 open-type-font-scheme.cc:192
 #: open-type-font-scheme.cc:238 open-type-font-scheme.cc:388 otf-scheme.cc:43
-#: ttf.cc:488 ttf.cc:537
+#: ttf.cc:489 ttf.cc:538
 msgid "font index must be non-negative, using index 0"
 msgstr ""
 
 #: open-type-font-scheme.cc:159 open-type-font-scheme.cc:206
-#: open-type-font-scheme.cc:285 otf-scheme.cc:58 ttf.cc:455 ttf.cc:504
+#: open-type-font-scheme.cc:285 otf-scheme.cc:58 ttf.cc:456 ttf.cc:505
 #, c-format
 msgid "font index %d too large for font `%s', using index 0"
 msgstr ""
@@ -3208,7 +3247,7 @@ msgstr ""
 msgid "cannot read %s of `%s'"
 msgstr ""
 
-#: open-type-font-scheme.cc:368
+#: open-type-font-scheme.cc:367
 #, c-format
 msgid "font `%s' index %d does not have `CFF' table"
 msgstr ""
@@ -3303,7 +3342,7 @@ msgstr ""
 msgid "cannot load font table: %s"
 msgstr ""
 
-#: open-type-font.cc:68
+#: open-type-font.cc:67
 #, c-format
 msgid "FreeType error: %s"
 msgstr ""
@@ -3410,7 +3449,7 @@ msgstr ""
 msgid "best score for this sys-count: %f"
 msgstr ""
 
-#: optimal-page-breaking.cc:250 page-turn-page-breaking.cc:271
+#: optimal-page-breaking.cc:250 page-turn-page-breaking.cc:276
 #: paper-score.cc:155
 msgid "Drawing systems..."
 msgstr ""
@@ -3447,31 +3486,31 @@ msgstr ""
 msgid "page %d has been compressed"
 msgstr ""
 
-#: page-breaking.cc:1263
+#: page-breaking.cc:1308
 #, c-format
 msgid "too few pages: %ld (should have at least %ld)"
 msgstr ""
 
-#: page-breaking.cc:1268
+#: page-breaking.cc:1313
 #, c-format
 msgid "too many pages: %ld (should have at most %ld)"
 msgstr ""
 
-#: page-layout-problem.cc:431
+#: page-layout-problem.cc:432
 msgid ""
 "A page layout problem has been initiated that cannot accommodate footnotes."
 msgstr ""
 
-#: page-layout-problem.cc:810
+#: page-layout-problem.cc:811
 msgid "ragged-bottom was specified, but page must be compressed"
 msgstr ""
 
-#: page-layout-problem.cc:814
+#: page-layout-problem.cc:815
 #, c-format
 msgid "compressing over-full page by %.1f staff-spaces"
 msgstr ""
 
-#: page-layout-problem.cc:1321
+#: page-layout-problem.cc:1322
 msgid "staff-affinities should only decrease"
 msgstr ""
 
@@ -3479,43 +3518,43 @@ msgstr ""
 msgid "tried to space systems on a bad number of pages"
 msgstr ""
 
-#: page-turn-page-breaking.cc:187
+#: page-turn-page-breaking.cc:190
 #, c-format
 msgid "page-turn-page-breaking: breaking from %zu to %zu"
 msgstr ""
 
-#: page-turn-page-breaking.cc:241
+#: page-turn-page-breaking.cc:245
 msgid ""
 "cannot fit the first page turn onto a single page.  Consider setting first-"
 "page-number to an even number."
 msgstr ""
 
-#: page-turn-page-breaking.cc:254
+#: page-turn-page-breaking.cc:259
 #, c-format
 msgid "Calculating page and line breaks (%zu possible page breaks)..."
 msgstr ""
 
-#: page-turn-page-breaking.cc:325
+#: page-turn-page-breaking.cc:330
 #, c-format
 msgid "break starting at page %d"
 msgstr ""
 
-#: page-turn-page-breaking.cc:326
+#: page-turn-page-breaking.cc:331
 #, c-format
 msgid "\tdemerits: %f"
 msgstr ""
 
-#: page-turn-page-breaking.cc:327
+#: page-turn-page-breaking.cc:332
 #, c-format
 msgid "\tsystem count: %zu"
 msgstr ""
 
-#: page-turn-page-breaking.cc:328
+#: page-turn-page-breaking.cc:333
 #, c-format
 msgid "\tpage count: %zu"
 msgstr ""
 
-#: page-turn-page-breaking.cc:329
+#: page-turn-page-breaking.cc:334
 #, c-format
 msgid "\tprevious break: %zu"
 msgstr ""
@@ -3562,18 +3601,18 @@ msgid ""
 "and ultra-expanded"
 msgstr ""
 
-#: paper-book.cc:357
+#: paper-book.cc:359
 #, c-format
 msgid ""
 "program option -dclip-systems/-dcrop/-dpreview not supported by backend `%s'"
 msgstr ""
 
-#: paper-book.cc:411
+#: paper-book.cc:413
 #, c-format
 msgid "multi-page output not supported by backend `%s'"
 msgstr ""
 
-#: paper-column.cc:450
+#: paper-column.cc:451
 #, c-format
 msgid ""
 "refusing to create a grob sticking to Paper_column grob %s; paper columns "
@@ -3606,14 +3645,12 @@ msgstr ""
 msgid "Track..."
 msgstr ""
 
-#. The only known way to get here is to skip the entire piece with
-#. skipTypesetting.
-#: performance.cc:138
+#: performance.cc:139
 #, c-format
 msgid "cannot create a zero-track MIDI file; skipping `%s'"
 msgstr ""
 
-#: performance.cc:143
+#: performance.cc:144
 #, c-format
 msgid "MIDI output to `%s'...\n"
 msgstr ""
@@ -3637,30 +3674,30 @@ msgstr ""
 msgid "cannot find start of piano pedal"
 msgstr ""
 
-#: program-option-scheme.cc:328
+#: program-option-scheme.cc:329
 #, c-format
 msgid "ignoring option -d%s=\"%s\": value has wrong type"
 msgstr ""
 
-#: program-option-scheme.cc:343
+#: program-option-scheme.cc:344
 #, c-format
 msgid ""
 "ignoring option -d%s=\"%s\":\n"
 "  invalid value; possible values are %s"
 msgstr ""
 
-#: program-option-scheme.cc:376
+#: program-option-scheme.cc:377
 #, c-format
 msgid ""
 "option %s is accumulative; use ly:append-to-option instead of ly:set-option"
 msgstr ""
 
-#: program-option-scheme.cc:383 program-option-scheme.cc:404
+#: program-option-scheme.cc:384 program-option-scheme.cc:405
 #, c-format
 msgid "no such program option: %s"
 msgstr ""
 
-#: program-option-scheme.cc:409
+#: program-option-scheme.cc:410
 #, c-format
 msgid ""
 "option %s is not accumulative; use ly:set-option instead of ly:add-to-option"
@@ -3685,63 +3722,63 @@ msgstr ""
 msgid "%s%s not overwritten\n"
 msgstr ""
 
-#: relocate.cc:83
+#: relocate.cc:84
 #, c-format
 msgid "No such file '%s' for %s"
 msgstr ""
 
-#: relocate.cc:93 relocate.cc:113
+#: relocate.cc:94 relocate.cc:114
 #, c-format
 msgid "No such directory '%s' for %s"
 msgstr ""
 
-#: relocate.cc:102
+#: relocate.cc:103
 #, c-format
 msgid "  Prepending '%s' to %s\n"
 msgstr ""
 
-#: relocate.cc:128
+#: relocate.cc:129
 #, c-format
 msgid ""
 "  Found %s environment variable,\n"
 "    setting %s to '%s'\n"
 msgstr ""
 
-#: relocate.cc:143
+#: relocate.cc:144
 #, c-format
 msgid ""
 "  Using run-time value for %s,\n"
 "    setting it to '%s'\n"
 msgstr ""
 
-#: relocate.cc:151
+#: relocate.cc:152
 #, c-format
 msgid ""
 "  Using compile-time value for %s,\n"
 "    setting it to '%s'\n"
 msgstr ""
 
-#: relocate.cc:162
+#: relocate.cc:163
 msgid ""
 "\n"
 "Relocation\n"
 msgstr ""
 
-#: relocate.cc:170
+#: relocate.cc:171
 #, c-format
 msgid ""
 "  LilyPond binary has absolute file name:\n"
 "    %s\n"
 msgstr ""
 
-#: relocate.cc:177
+#: relocate.cc:178
 #, c-format
 msgid ""
 "  LilyPond binary has relative file name:\n"
 "    %s\n"
 msgstr ""
 
-#: relocate.cc:198
+#: relocate.cc:199
 #, c-format
 msgid ""
 "  Absolute file name of LilyPond binary computed from PATH:\n"
@@ -3749,33 +3786,33 @@ msgid ""
 "    argv0=%s\n"
 msgstr ""
 
-#: relocate.cc:232
+#: relocate.cc:234
 msgid "LILYPONDPREFIX is obsolete, use LILYPOND_DATADIR"
 msgstr ""
 
-#: relocate.cc:353
+#: relocate.cc:355
 #, c-format
 msgid "  Relocation file '%s'\n"
 msgstr ""
 
-#: relocate.cc:357
+#: relocate.cc:359
 #, c-format
 msgid "cannot open file '%s', ignored"
 msgstr ""
 
-#: relocate.cc:389
+#: relocate.cc:391
 #, c-format
 msgid "Unknown relocation command '%s'"
 msgstr ""
 
-#: relocate.cc:401
+#: relocate.cc:403
 #, c-format
 msgid ""
 "\n"
 "  Using relocation config directory '%s'\n"
 msgstr ""
 
-#: relocate.cc:412
+#: relocate.cc:414
 #, c-format
 msgid "No relocation config directory '%s'"
 msgstr ""
@@ -3784,11 +3821,11 @@ msgstr ""
 msgid "cannot resolve rest collision: rest direction not set"
 msgstr ""
 
-#: rest-collision.cc:171 rest-collision.cc:286
+#: rest-collision.cc:171 rest-collision.cc:288
 msgid "too many colliding rests"
 msgstr ""
 
-#: rest.cc:244
+#: rest.cc:246
 #, c-format
 msgid "rest `%s' not found"
 msgstr ""
@@ -3825,12 +3862,12 @@ msgstr ""
 msgid "music is shorter than anticipated"
 msgstr ""
 
-#: side-position-interface.cc:492
+#: side-position-interface.cc:494
 #, c-format
 msgid "no side-axis setting found for grob %s."
 msgstr ""
 
-#: skyline.cc:560
+#: skyline.cc:561
 msgid "Cannot have negative horizon padding.  Junking."
 msgstr ""
 
@@ -3856,15 +3893,15 @@ msgstr ""
 msgid "cannot end %s"
 msgstr ""
 
-#: slur-scoring.cc:364
+#: slur-scoring.cc:365
 msgid "no viable slur configuration found"
 msgstr ""
 
-#: slur-scoring.cc:494
+#: slur-scoring.cc:495
 msgid "slur trying to encompass an empty note column."
 msgstr ""
 
-#: slur.cc:403
+#: slur.cc:404
 #, c-format
 msgid "Ignoring grob for slur: %s.  avoid-slur not set?"
 msgstr ""
@@ -3884,11 +3921,11 @@ msgstr ""
 msgid "expected to read %zu characters, got %zu"
 msgstr ""
 
-#: staff-performer.cc:295
+#: staff-performer.cc:296
 msgid "MIDI channel wrapped around"
 msgstr ""
 
-#: staff-performer.cc:296
+#: staff-performer.cc:297
 msgid "remapping modulo 16"
 msgstr ""
 
@@ -3917,16 +3954,16 @@ msgstr ""
 msgid "weird stem size, check for narrow beams"
 msgstr ""
 
-#: stencil-integral.cc:474
+#: stencil-integral.cc:475
 msgid "Malformed path for path stencil."
 msgstr ""
 
-#: stream-event.cc:112
+#: stream-event.cc:113
 #, c-format
 msgid "conflict with event: `%s'"
 msgstr ""
 
-#: stream-event.cc:115
+#: stream-event.cc:116
 #, c-format
 msgid "discarding event: `%s'"
 msgstr ""
@@ -3936,12 +3973,12 @@ msgstr ""
 msgid "Element count %zu"
 msgstr ""
 
-#: system.cc:534
+#: system.cc:536
 #, c-format
 msgid "Grob count %zu"
 msgstr ""
 
-#: system.cc:1055
+#: system.cc:1079
 msgid ""
 "refusing to create a grob sticking to a System grob; systems should not be "
 "created from custom engravers."
@@ -3973,19 +4010,19 @@ msgstr ""
 msgid "unterminated tie"
 msgstr ""
 
-#: tie-engraver.cc:356
+#: tie-engraver.cc:358
 msgid "lonely tie"
 msgstr ""
 
-#: time-signature-engraver.cc:134
+#: time-signature-engraver.cc:135
 msgid "mid-measure time signature without \\partial"
 msgstr ""
 
-#: time-signature-performer.cc:127
+#: time-signature-performer.cc:128
 msgid "bad beatBase/beatStructure for MIDI time signature"
 msgstr ""
 
-#: time-tracer-scheme.cc:59
+#: time-tracer-scheme.cc:60
 #, c-format
 msgid "failed redirecting time-trace output to `%s'"
 msgstr ""
@@ -3995,22 +4032,22 @@ msgid ""
 "cannot calculate a finite measurePosition from an infinite measureLength"
 msgstr ""
 
-#: timing-translator.cc:196
+#: timing-translator.cc:197
 #, c-format
 msgid "conflicting measure length: %s"
 msgstr ""
 
-#: timing-translator.cc:198
+#: timing-translator.cc:199
 #, c-format
 msgid "measure length in Timing context: %s"
 msgstr ""
 
-#: timing-translator.cc:240
+#: timing-translator.cc:241
 #, c-format
 msgid "bar check failed at: %s"
 msgstr ""
 
-#: timing-translator.cc:464
+#: timing-translator.cc:465
 msgid "found music after \\fine"
 msgstr ""
 
@@ -4035,20 +4072,20 @@ msgstr ""
 msgid "No tuplet to end"
 msgstr ""
 
-#: vaticana-ligature-engraver.cc:377
+#: vaticana-ligature-engraver.cc:378
 #, c-format
 msgid ""
 "ignored prefix(es) `%s' of this head according to restrictions of the "
 "selected ligature style"
 msgstr ""
 
-#: vaticana-ligature-engraver.cc:440
+#: vaticana-ligature-engraver.cc:441
 msgid ""
 "Ambiguous use of dots in ligature: there are multiple dotted notes with the "
 "same pitch.  The ligature should be split."
 msgstr ""
 
-#: vaticana-ligature-engraver.cc:498
+#: vaticana-ligature-engraver.cc:499
 msgid ""
 "This ligature has a dotted head followed by a non-dotted head.  The ligature "
 "should be split after the last dotted head before this head."
@@ -4062,16 +4099,16 @@ msgstr ""
 msgid "ascending vaticana style flexa"
 msgstr ""
 
-#: vertical-align-engraver.cc:110
+#: vertical-align-engraver.cc:111
 msgid "Ignoring Vertical_align_engraver in VerticalAxisGroup"
 msgstr ""
 
-#: vertical-align-engraver.cc:164
+#: vertical-align-engraver.cc:165
 #, c-format
 msgid "alignAboveContext not found: %s"
 msgstr ""
 
-#: vertical-align-engraver.cc:169
+#: vertical-align-engraver.cc:170
 #, c-format
 msgid "alignBelowContext not found: %s"
 msgstr ""
@@ -4090,154 +4127,158 @@ msgstr ""
 msgid "no VoltaBracket to end"
 msgstr ""
 
-#: parser.yy:504 parser.yy:666 parser.yy:1054 parser.yy:1136 parser.yy:1373
+#: parser.yy:505 parser.yy:701 parser.yy:1101 parser.yy:1183 parser.yy:1420
 msgid "bad expression type"
 msgstr ""
 
-#: parser.yy:712
+#: parser.yy:541
+msgid "not found"
+msgstr ""
+
+#: parser.yy:759
 msgid "Not a markup function"
 msgstr ""
 
-#: parser.yy:966 parser.yy:1572 parser.yy:1634
+#: parser.yy:1013 parser.yy:1619 parser.yy:1681
 msgid "not a context mod"
 msgstr ""
 
-#: parser.yy:1048 parser.yy:1128 parser.yy:1282
+#: parser.yy:1095 parser.yy:1175 parser.yy:1329
 msgid "need \\paper for paper block"
 msgstr ""
 
-#: parser.yy:1162
+#: parser.yy:1209
 msgid "Missing music in \\score"
 msgstr ""
 
-#: parser.yy:1200
+#: parser.yy:1247
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr ""
 
-#: parser.yy:1251
+#: parser.yy:1298
 msgid "Spurious expression in \\score"
 msgstr ""
 
-#: parser.yy:1454
+#: parser.yy:1501
 msgid "music expected"
 msgstr ""
 
-#: parser.yy:1495
+#: parser.yy:1542
 msgid "Ignoring non-music expression"
 msgstr ""
 
-#: parser.yy:1815 parser.yy:1836
+#: parser.yy:1862 parser.yy:1883
 msgid "not a key"
 msgstr ""
 
-#: parser.yy:2733 parser.yy:2864 parser.yy:2880
+#: parser.yy:2780 parser.yy:2911 parser.yy:2927
 msgid "bad grob property path"
 msgstr ""
 
-#: parser.yy:2835
+#: parser.yy:2882
 msgid "only \\consists and \\remove take non-string argument."
 msgstr ""
 
-#: parser.yy:2900
+#: parser.yy:2947
 msgid "bad context property path"
 msgstr ""
 
-#: parser.yy:2987
+#: parser.yy:3034
 msgid "markup expected"
 msgstr ""
 
-#: parser.yy:3000
+#: parser.yy:3047
 msgid "simple string expected"
 msgstr ""
 
-#: parser.yy:3013 parser.yy:3023
+#: parser.yy:3060 parser.yy:3070
 msgid "symbol expected"
 msgstr ""
 
-#: parser.yy:3166
+#: parser.yy:3213
 msgid "not a rhythmic event"
 msgstr ""
 
-#: parser.yy:3203
+#: parser.yy:3250
 msgid "post-event expected"
 msgstr ""
 
-#: parser.yy:3214 parser.yy:3219
+#: parser.yy:3261 parser.yy:3266
 msgid "have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:3299
+#: parser.yy:3346
 msgid "expecting post-event as script definition"
 msgstr ""
 
-#: parser.yy:3476 parser.yy:3543
+#: parser.yy:3523 parser.yy:3590
 msgid "not a duration"
 msgstr ""
 
-#: parser.yy:3529
+#: parser.yy:3576
 msgid "not a multiplier"
 msgstr ""
 
-#: parser.yy:3565
+#: parser.yy:3612
 msgid "bass number expected"
 msgstr ""
 
-#: parser.yy:3595
+#: parser.yy:3642
 msgid "Dropping surplus alteration symbols for bass figure."
 msgstr ""
 
-#: parser.yy:3673
+#: parser.yy:3720
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:3682
+#: parser.yy:3729
 msgid "octave marks must precede duration"
 msgstr ""
 
-#: parser.yy:3684
+#: parser.yy:3731
 msgid "badly placed octave marks"
 msgstr ""
 
-#: parser.yy:3732
+#: parser.yy:3779
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
-#: parser.yy:3775
+#: parser.yy:3822
 msgid "markup outside of text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3780
+#: parser.yy:3827
 #, c-format
 msgid "not a note name: %s"
 msgstr ""
 
-#: parser.yy:3785
+#: parser.yy:3832
 msgid "string outside of text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3937 parser.yy:3947
+#: parser.yy:3984 parser.yy:3994
 msgid "not an exact unsigned number"
 msgstr ""
 
-#: parser.yy:3960 parser.yy:3969
+#: parser.yy:4007 parser.yy:4016
 msgid "not an unsigned integer"
 msgstr ""
 
-#: parser.yy:4080
+#: parser.yy:4127
 msgid "not a markup"
 msgstr ""
 
-#: parser.yy:4799
+#: parser.yy:4849
 #, c-format
 msgid "Unattached %s"
 msgstr ""
 
-#: parser.yy:4801
+#: parser.yy:4851
 #, c-format
 msgid "Dropping unattachable %s"
 msgstr ""
 
-#: parser.yy:4864
+#: parser.yy:4914
 #, c-format
 msgid "deprecated: missing `.' in property path %s"
 msgstr ""
@@ -4412,13 +4453,13 @@ msgstr ""
 msgid "symbol ~S redefined"
 msgstr ""
 
-#: define-context-properties.scm:1069
+#: define-context-properties.scm:1072
 msgid ""
 "'voltaSpannerDuration' is deprecated; use the grob property "
 "VoltaBracket.musical-length"
 msgstr ""
 
-#: define-context-properties.scm:1081
+#: define-context-properties.scm:1084
 msgid ""
 "'voltaSpannerDurationAsMoment' is deprecated; use the grob property "
 "VoltaBracket.musical-length"
@@ -4443,12 +4484,12 @@ msgstr ""
 msgid "Can't print a line - setting on/off to default"
 msgstr ""
 
-#: define-markup-commands.scm:1768
+#: define-markup-commands.scm:1764
 #, scheme-format
 msgid "unrecognized image file, should have .png or .eps extension: ~a"
 msgstr ""
 
-#: define-markup-commands.scm:1778
+#: define-markup-commands.scm:1774
 #, scheme-format
 msgid "EPS image dimensions could not be determined; is '~a' a valid EPS file?"
 msgstr ""
@@ -4477,16 +4518,16 @@ msgstr ""
 msgid "bad make-music argument: ~S"
 msgstr ""
 
-#: define-note-names.scm:1304
+#: define-note-names.scm:1349
 msgid "Select note names language."
 msgstr ""
 
-#: define-note-names.scm:1310
+#: define-note-names.scm:1354
 #, scheme-format
 msgid "Using `~a' note names..."
 msgstr ""
 
-#: define-note-names.scm:1312
+#: define-note-names.scm:1357
 #, scheme-format
 msgid "Could not find language `~a'.  Ignoring."
 msgstr ""
@@ -4870,37 +4911,37 @@ msgstr ""
 msgid "note scale expected: ~S"
 msgstr ""
 
-#: lily.scm:1012
+#: lily.scm:1013
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:1013
+#: lily.scm:1014
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:1127
+#: lily.scm:1128
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:1130
+#: lily.scm:1131
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:1134
+#: lily.scm:1135
 #, scheme-format
 msgid "Children ~a exited with errors."
 msgstr ""
 
-#: lily.scm:1150
+#: lily.scm:1151
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:1183
+#: lily.scm:1184
 #, scheme-format
 msgid "Processing `~a'\n"
 msgstr ""
@@ -4923,22 +4964,22 @@ msgstr ""
 msgid "sequential music required"
 msgstr ""
 
-#: markup-macros.scm:369
+#: markup-macros.scm:372
 #, scheme-format
 msgid "~A: Not a markup (list) function: ~S"
 msgstr ""
 
-#: markup-macros.scm:376
+#: markup-macros.scm:379
 #, scheme-format
 msgid "~A: Wrong number of arguments.  Expect: ~A, found ~A: ~S"
 msgstr ""
 
-#: markup-macros.scm:380
+#: markup-macros.scm:383
 #, scheme-format
 msgid "~A: Invalid argument in position ~A.  Expect: ~A, found: ~S."
 msgstr ""
 
-#: markup-macros.scm:416
+#: markup-macros.scm:419
 #, scheme-format
 msgid "Not a markup command: ~A"
 msgstr ""
@@ -4987,105 +5028,105 @@ msgid ""
 "@var{n} is zero-based and can be negative to count from the end."
 msgstr ""
 
-#: music-functions.scm:287
+#: music-functions.scm:306
 #, scheme-format
 msgid "unknown repeat type `~S': must be volta, unfold, percent, or tremolo"
 msgstr ""
 
-#: music-functions.scm:300
+#: music-functions.scm:319
 msgid "alternative music expected"
 msgstr ""
 
-#: music-functions.scm:313
+#: music-functions.scm:332
 msgid "More alternatives than repeats.  Junking excess alternatives"
 msgstr ""
 
-#: music-functions.scm:417
+#: music-functions.scm:436
 #, scheme-format
 msgid "unknown repeat-type ~a, ignoring."
 msgstr ""
 
-#: music-functions.scm:507
+#: music-functions.scm:526
 #, scheme-format
 msgid "bad grob property path ~a"
 msgstr ""
 
-#: music-functions.scm:537
+#: music-functions.scm:556
 #, scheme-format
 msgid "bad context property ~a"
 msgstr ""
 
-#: music-functions.scm:568
+#: music-functions.scm:587
 #, scheme-format
 msgid "bad music property ~a"
 msgstr ""
 
-#: music-functions.scm:922
+#: music-functions.scm:941
 msgid "Bad chord repetition"
 msgstr ""
 
-#: music-functions.scm:1037
+#: music-functions.scm:1056
 #, scheme-format
 msgid "Bad voice id: ~a"
 msgstr ""
 
-#: music-functions.scm:1048
+#: music-functions.scm:1067
 msgid "\\voices needs more ids"
 msgstr ""
 
-#: music-functions.scm:1067
+#: music-functions.scm:1086
 #, scheme-format
 msgid "music expected: ~S"
 msgstr ""
 
-#: music-functions.scm:1443
+#: music-functions.scm:1462
 #, scheme-format
 msgid "cannot find quoted music: `~S'"
 msgstr ""
 
-#: music-functions.scm:1610
+#: music-functions.scm:1629
 msgid "Add @var{octave-shift} to the octave of @var{pitch}."
 msgstr ""
 
-#: music-functions.scm:1673
+#: music-functions.scm:1692
 #, scheme-format
 msgid "Unknown octaveness type: ~S "
 msgstr ""
 
-#: music-functions.scm:1674
+#: music-functions.scm:1693
 msgid "Defaulting to 'any-octave."
 msgstr ""
 
-#: music-functions.scm:2077
+#: music-functions.scm:2096
 #, scheme-format
 msgid "unknown accidental style: ~S"
 msgstr ""
 
-#: music-functions.scm:2563
+#: music-functions.scm:2582
 msgid "giving up on cloned grob transform"
 msgstr ""
 
-#: music-functions.scm:2626
+#: music-functions.scm:2645
 #, scheme-format
 msgid "default '~a of ~a is ~a and can't be offset"
 msgstr ""
 
-#: music-functions.scm:2657
+#: music-functions.scm:2676
 #, scheme-format
 msgid "the property '~a of ~a cannot be offset"
 msgstr ""
 
-#: music-functions.scm:2882
+#: music-functions.scm:2901
 #, scheme-format
 msgid "not a symbol list: ~a"
 msgstr ""
 
-#: music-functions.scm:2885
+#: music-functions.scm:2904
 #, scheme-format
 msgid "conflicting tag group ~a"
 msgstr ""
 
-#: music-functions.scm:2909
+#: music-functions.scm:2928
 #, scheme-format
 msgid "tag group ~a not found"
 msgstr ""
@@ -5102,49 +5143,49 @@ msgid ""
 "one in alterationGlyphs"
 msgstr ""
 
-#: output-lib.scm:2102
+#: output-lib.scm:2057
 msgid ""
 "script needs an explicit direction specifier to disambiguate between "
 "different glyphs"
 msgstr ""
 
-#: output-lib.scm:2121
+#: output-lib.scm:2076
 #, scheme-format
 msgid "script-stencil property must be pair: ~a"
 msgstr ""
 
-#: output-lib.scm:2587
+#: output-lib.scm:2541
 #, scheme-format
 msgid "~a with two line-breaks is not yet supported"
 msgstr ""
 
-#: output-lib.scm:2904
+#: output-lib.scm:2858
 #, scheme-format
 msgid "Factor ~a needs to be an integer value."
 msgstr ""
 
-#: output-lib.scm:3426
+#: output-lib.scm:3380
 msgid ""
 "Not enough space to print a nice arrow.\n"
 "Please consider to increase 'minimum-length or decrease 'arrow-length."
 msgstr ""
 
-#: output-lib.scm:3442
+#: output-lib.scm:3396
 msgid "Please consider to increase 'minimum-length"
 msgstr ""
 
-#: output-lib.scm:3764
+#: output-lib.scm:3718
 #, scheme-format
 msgid "no entry in measure-division-lines-alist for measure division ~a"
 msgstr ""
 
-#: output-lib.scm:3788
+#: output-lib.scm:3742
 #, scheme-format
 msgid ""
 "no entry in measure-division-chord-placement-alist for measure division ~a"
 msgstr ""
 
-#: output-lib.scm:4232
+#: output-lib.scm:4270
 #, scheme-format
 msgid "custos `~a' not found"
 msgstr ""
@@ -5355,54 +5396,54 @@ msgstr ""
 msgid "Both angle-increments and radial-increments must be positive numbers."
 msgstr ""
 
-#: translation-functions.scm:402
+#: translation-functions.scm:406
 #, scheme-format
 msgid "no accidental glyph found for alteration ~a"
 msgstr ""
 
-#: translation-functions.scm:668
+#: translation-functions.scm:672
 #, scheme-format
 msgid "Negative fret for pitch ~a on string ~a"
 msgstr ""
 
-#: translation-functions.scm:673
+#: translation-functions.scm:677
 #, scheme-format
 msgid "Missing fret for pitch ~a on string ~a"
 msgstr ""
 
-#: translation-functions.scm:678
+#: translation-functions.scm:682
 #, scheme-format
 msgid "Open fret on string ~a has finger of ~a"
 msgstr ""
 
-#: translation-functions.scm:721
+#: translation-functions.scm:725
 #, scheme-format
 msgid "No open string for pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:744 translation-functions.scm:756
+#: translation-functions.scm:748 translation-functions.scm:760
 #, scheme-format
 msgid "Requested string for pitch requires negative fret: string ~a pitch ~a"
 msgstr ""
 
-#: translation-functions.scm:747
+#: translation-functions.scm:751
 msgid "Ignoring string request and recalculating."
 msgstr ""
 
-#: translation-functions.scm:759
+#: translation-functions.scm:763
 msgid "Ignoring note in tablature."
 msgstr ""
 
-#: translation-functions.scm:784
+#: translation-functions.scm:788
 #, scheme-format
 msgid "No string for pitch ~a (given frets ~a)"
 msgstr ""
 
-#: translation-functions.scm:823
+#: translation-functions.scm:827
 msgid "additional bass strings are not supported by FretBoards"
 msgstr ""
 
-#: translation-functions.scm:907
+#: translation-functions.scm:911
 #, scheme-format
 msgid ""
 "No label for fret ~a (on string ~a);\n"
