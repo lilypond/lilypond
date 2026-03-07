@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.25.35"
+\version "2.25.80"
 
 \header {
   categories = "Contexts and engravers, Staff notation"
