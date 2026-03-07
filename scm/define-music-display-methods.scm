@@ -1098,6 +1098,16 @@ Otherwise, return #f."
             (markup->lily-string text)
             (new-line->lily-string))))
 
+(define-display-method TempoGradualChangeEvent (expr)
+  (let* ((text (ly:music-property expr 'text #f)))
+    (if (= START (ly:music-property expr 'span-direction))
+        (format #f "\\startGradualTempoChange ~a"
+                (if text (markup->lily-string text) "\\default"))
+        (format #f "\\stopGradualTempoChange ~@[~a ~]~a #~a"
+                (and text (markup->lily-string text))
+                (duration->lily-string (ly:music-property expr 'tempo-unit))
+                (ly:music-property expr 'metronome-count)))))
+
 ;;; \clef
 (define clef-name-alist #f)
 (define-public (memoize-clef-names clefs)

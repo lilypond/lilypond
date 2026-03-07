@@ -50,7 +50,13 @@ Midi_item::get_midi (Audio_item *a)
   else if (Audio_piano_pedal *i = dynamic_cast<Audio_piano_pedal *> (a))
     return new Midi_piano_pedal (i);
   else if (Audio_tempo *i = dynamic_cast<Audio_tempo *> (a))
-    return new Midi_tempo (i);
+    {
+      // Filter out tempo changes that cover no time.  It's trickier to avoid
+      // creating them in the first place than to ignore them here.
+      return (i->get_start_moment () < i->get_end_moment ())
+               ? new Midi_tempo (i)
+               : nullptr;
+    }
   else if (Audio_time_signature *i = dynamic_cast<Audio_time_signature *> (a))
     return new Midi_time_signature (i);
   else if (Audio_text *i = dynamic_cast<Audio_text *> (a))
@@ -385,12 +391,13 @@ Midi_tempo::to_string () const
   constexpr auto max_us_per_q = int64_t {0xff'ff'ff};
 
   const auto us_per_min = Rational {std::chrono::microseconds {1min}.count ()};
-  auto us_per_q = (us_per_min / (audio_->wholes_per_minute_ * 4)).trunc_int ();
+  const auto w_per_min = audio_->calc_wpm ();
+  auto us_per_q = (us_per_min / (w_per_min * 4)).trunc_int ();
   if ((us_per_q < min_us_per_q) || (max_us_per_q < us_per_q))
     {
       us_per_q = std::clamp (us_per_q, min_us_per_q, max_us_per_q);
       warning (_f ("Unsupported MIDI tempo (wholes/minute): %s",
-                   ::to_string (audio_->wholes_per_minute_)));
+                   ::to_string (w_per_min)));
     }
 
   auto str = std::string {

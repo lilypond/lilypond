@@ -71,6 +71,7 @@
                    pedal-event
                    phrasing-slur-event slur-event
                    span-dynamic-event
+                   tempo-gradual-change-event
                    staff-span-event text-span-event
                    trill-span-event tremolo-span-event
                    tuplet-span-event volta-span-event))

@@ -231,6 +231,11 @@ line.  To activate this feature, set the @code{stanzaReminders} property to
 @itemize
 
 @item
+The new commands @code{\startGradualTempoChange} and
+@code{\stopGradualTempoChange} describe a temporary departure from
+the prevailing tempo.  Currently, these affect only MIDI output.
+
+@item
 These functions, which have been deprecated since version 2.13.19,
 have been removed: @code{\deprecatedcresc},
 @code{\deprecatedendcresc}, @code{\deprecateddim}, and

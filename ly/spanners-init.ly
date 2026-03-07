@@ -29,6 +29,42 @@ enddecr = #(make-span-event 'DecrescendoEvent STOP)
 endcr = #(make-span-event 'CrescendoEvent STOP)
 
 
+startGradualTempoChange =
+#(define-music-function (text) ((markup?))
+   (_i "Start an accelerando or ritardando.
+
+Begin a gradual departure from the tempo most recently set with @code{\\tempo}.
+The gradual change extends to the next @code{\\stopGradualTempoChange} or
+@code{\\tempo} command.  When @code{\\stopGradualTempoChange} is used, it
+defines the target tempo; otherwise, @code{\\tempo} defines it.
+
+The @var{text} argument is a placeholder.  Only @code{\\default} is accepted.
+It is intended eventually to serve the same purpose as the text argument to
+@code{\\tempo}.")
+   (when text
+     (ly:input-warning (*location*) (G_ "text option not implemented")))
+   (make-span-event 'TempoGradualChangeEvent START))
+
+stopGradualTempoChange =
+#(define-music-function (text tempo-unit metronome-count)
+   ((markup?) ly:duration? number?)
+   (_i "End an accelerando or ritardando.
+
+End a gradual tempo change at the tempo defined by @var{tempo-unit} and
+@var{metronome-count}.  Unless there is a simultaneous @code{\\tempo} command
+setting a new tempo, resume the tempo most recently set with @code{\\tempo}.
+
+The @var{text} argument is a placeholder.  Only @code{\\default} is accepted.
+It is intended eventually to serve the same purpose as the text argument to
+@code{\\tempo}.")
+   (when text
+     (ly:input-warning (*location*) (G_ "text option not implemented")))
+   (make-music 'TempoGradualChangeEvent
+               'span-direction STOP
+               'tempo-unit tempo-unit
+               'metronome-count metronome-count))
+
+
 startMeasureSpanner = #(make-span-event 'MeasureSpannerEvent START)
 stopMeasureSpanner = #(make-span-event 'MeasureSpannerEvent STOP)
 

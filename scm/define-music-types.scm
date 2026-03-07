@@ -811,6 +811,11 @@ Syntax: @code{\\rightHandFinger @var{text}}")
         (types . (event tempo-change-event))
         ))
 
+    (TempoGradualChangeEvent
+     . ((description . "Begin a gradual change in tempo.")
+        (types . (event span-event tempo-gradual-change-event))
+        ))
+
     (TextMarkEvent
      . ((description . "A textual mark.
 

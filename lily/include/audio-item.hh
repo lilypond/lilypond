@@ -21,6 +21,8 @@
 #define AUDIO_ITEM_HH
 
 #include "audio-element.hh"
+
+#include "drul-array.hh"
 #include "lily-guile.hh"
 #include "moment.hh"
 #include "piano-pedal.hh"
@@ -149,15 +151,34 @@ public:
   std::string text_string_;
 };
 
-class Audio_tempo final : public Audio_item
+// Audio_span_tempo represents an interval of a piecewise-linear tempo
+// function.  It is open at the end of the interval: the tempo grows or
+// diminishes toward a target, but whether it reaches the target depends on the
+// next Audio_span_tempo in the performance.
+//
+// This stores its life span measured within the full timeline of the score to
+// handle skipTypesetting: we don't want tempo values computed for any
+// subinterval to "take up the slack" when another subinterval is omitted from
+// the output.
+class Audio_span_tempo final : public Audio_element
 {
 public:
-  explicit Audio_tempo (Rational wholes_per_minute)
-    : wholes_per_minute_ (wholes_per_minute)
-  {
-  }
+  static inline const Rational DEFAULT_WPM = 60 / 4;
 
-  Rational wholes_per_minute_;
+private:
+  Drul_array<Moment> life_span_; // a right-open interval
+  Rational start_wpm_ = DEFAULT_WPM;
+  Real duration_ = 0; // = target moment - start moment
+  Real gain_ = 0;     // = target wpm - start wpm
+
+public:
+  Audio_span_tempo (Moment start, Rational initial_wpm);
+  Moment get_start_moment () const { return life_span_.front (); }
+  Rational get_start_wpm () const { return start_wpm_; }
+  void set_end_moment (Moment);
+  void set_end_wpm (Rational);
+  // return the average tempo over the given right-open interval
+  Rational calc_average_wpm (const Drul_array<Moment> &interval) const;
 };
 
 class Audio_time_signature final : public Audio_item
@@ -173,6 +194,44 @@ public:
   Rational num_;
   Rational den_;
   int beat_base_clocks_;
+};
+
+// Audio_tempo represents an instantaneous change in tempo, which is
+// appropriate for MIDI, but it also stores the time of the next change to
+// support computing a playback-time-preserving average tempo from a more
+// descriptive model.
+//
+// This stores its life span measured within the full timeline of the score to
+// handle skipTypesetting: we don't want tempo values computed for any
+// subinterval of the model function to "take up the slack" when another
+// subinterval is left unused.
+class Audio_tempo final : public Audio_item
+{
+private:
+  Drul_array<Moment> life_span_; // a right-open interval
+  Audio_span_tempo *span_tempo_ = nullptr;
+
+public:
+  explicit Audio_tempo (Audio_span_tempo *span_tempo, Moment start)
+    : life_span_ {start, Moment::infinity ()},
+      span_tempo_ (span_tempo)
+  {
+  }
+
+  Moment get_start_moment () const { return life_span_.front (); }
+  Moment get_end_moment () const { return life_span_.back (); }
+
+  bool has_end_moment () const
+  {
+    return life_span_.back () < Moment::infinity ();
+  }
+
+  void set_end_moment (Moment end) { life_span_.back () = end; }
+
+  Rational calc_wpm () const
+  {
+    return span_tempo_->calc_average_wpm (life_span_);
+  }
 };
 
 class Audio_control_change final : public Audio_item

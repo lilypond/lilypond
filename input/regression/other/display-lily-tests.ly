@@ -245,6 +245,8 @@ are reported on the stderr of this run."
 \test ##[ \tempo 4 = #108 - #116 #]
 \test ##[ \tempo "Allegro" 4 = #132 #]
 \test ##[ \tempo "Andante" #]
+\test ##[ \startGradualTempoChange \default #]	% TempoGradualChangeEvent
+\test ##[ \stopGradualTempoChange 4. #400/3 #]
 \test ##[ \jump \markup \italic "Gavotte I D.C." #]	% AdHocJumpEvent
 \test ##[ \sectionLabel \markup \italic "Gavotte" #]	% SectionLabelEvent
 

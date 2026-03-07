@@ -19,6 +19,7 @@
 
 #include "audio-item.hh"
 
+#include "drul-array.hh"
 #include "audio-column.hh"
 #include "international.hh"
 #include "lily-imports.hh"
@@ -188,6 +189,98 @@ Audio_span_dynamic::get_volume (Moment mom) const
     }
 
   return start_volume_ + gain_ * (when / duration_);
+}
+
+Audio_span_tempo::Audio_span_tempo (Moment mom, Rational wpm)
+  : life_span_ {mom, mom},
+    start_wpm_ (wpm)
+{
+  if (!isfinite (start_wpm_) || (start_wpm_ < 0))
+    {
+      programming_error (to_string_f ("invalid start tempo: %s",
+                                      to_string (start_wpm_).c_str ()));
+      start_wpm_ = DEFAULT_WPM;
+    }
+}
+
+void
+Audio_span_tempo::set_end_moment (Moment end_mom)
+{
+  const auto &start_mom = life_span_.front ();
+  if (end_mom < start_mom)
+    {
+      programming_error (to_string_f ("end moment (%s) < start moment (%s)",
+                                      to_string (end_mom).c_str (),
+                                      to_string (start_mom).c_str ()));
+      end_mom = start_mom;
+    }
+
+  life_span_.back () = end_mom;
+  duration_ = moment_to_real (end_mom - start_mom);
+}
+
+void
+Audio_span_tempo::set_end_wpm (Rational target)
+{
+  gain_ = static_cast<Real> (target) - static_cast<Real> (start_wpm_);
+}
+
+Rational
+Audio_span_tempo::calc_average_wpm (
+  const Drul_array<Moment> &interval_mom) const
+{
+  // In a MIDI file, tempo is a piecewise constant function.  The interface of
+  // this function is tailored to that: the caller chooses the intervals and
+  // this function computes the average tempo for a given interval.
+  //
+  // It is highly desirable for the playback time not to depend on the caller's
+  // choice of intervals.
+
+  if (!(life_span_.front () <= interval_mom.front ())
+      || !(interval_mom.back () <= life_span_.back ()))
+    {
+      programming_error (
+        to_string_f ("asked to compute tempo over [%s, %s), "
+                     "which is outside tempo span [%s, %s)",
+                     to_string (interval_mom.front ()).c_str (),
+                     to_string (interval_mom.back ()).c_str (),
+                     to_string (life_span_.front ()).c_str (),
+                     to_string (life_span_.back ()).c_str ()));
+      return start_wpm_;
+    }
+
+  // Convert the Moment endpoints to scalars relative to the life span.
+  const auto start
+    = moment_to_real (interval_mom.front () - life_span_.front ());
+  const auto end = moment_to_real (interval_mom.back () - life_span_.front ());
+  if (!(0 <= start) || !(end <= duration_) || !(start < end))
+    {
+      programming_error (
+        to_string_f ("asked to compute tempo over [%f, %f) relative to "
+                     "tempo span [%s, %s), which has duration %f",
+                     start, end, to_string (life_span_.front ()).c_str (),
+                     to_string (life_span_.back ()).c_str (), duration_));
+      return start_wpm_;
+    }
+
+  // We choose to model gradual tempo changes as linear in tempo.  It seems
+  // likely that there are better models of how people perform gradual tempo
+  // changes.
+  auto instant_wpm = [&] (Real when) {
+    return static_cast<Real> (start_wpm_) + gain_ * (when / duration_);
+  };
+  const auto tl = instant_wpm (start);
+  const auto tr = instant_wpm (end);
+
+  // Given the linear model, the logarithmic mean tempo yields equal playback
+  // time for the piecewise constant function in MIDI.
+  const auto num = tr - tl;
+  const auto den = log (tr / tl); // == log (tr) - log (tl)
+  if ((num == 0) || (den == 0))
+    {
+      return start_wpm_;
+    }
+  return Rational (num / den);
 }
 
 std::string
