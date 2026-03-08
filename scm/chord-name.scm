@@ -24,85 +24,6 @@
       str
       (string-capitalize str)))
 
-;;
-;; TODO: make into markup.
-;;
-
-;; flat and flat-based glyphs have a lesser Y-extent than sharps.
-(define (short-glyph? alteration)
-  (< alteration 0))
-
-;; natural, single flat and mirrored flat have a narrower X-extent.
-(define (narrow-glyph? alteration)
-  (member
-   alteration
-   ;; Flat-based glyphs in various notation systems;
-   ;; duplicates come from the input files, for consistency's sake.
-   '(0
-     ;; Western accidentals
-     -1/2 -1/4
-     ;; makam
-     -1/9 -5/18 -6/18 -4/9 -5/9 -8/9
-     ;; Turkish makam
-     -1/12 -3/12 -4/12 -5/12 -6/12 -10/12))) ; -11/12 -> flatflat, ignored
-
-(define*-public (pitch->alteration pitch #:optional language)
-  "Return the alteration of @var{pitch}.
-
-Optional argument @var{language} sets the language used to display
-the pitch name (see file @file{define-note-names.scm} for
-available values); if this symbol is missing or set to @code{#f},
-the current input language is used."
-  (let* ((lang (or language input-language))
-         (note-name (ly:pitch-notename pitch))
-         (alteration (ly:pitch-alteration pitch))
-         (german-type (assq lang pitch-names-german-type))
-         (type (and german-type (cdr german-type))))
-    ;; Handle 'H', 'B', and 'Bb'.
-    (if (= note-name 6)
-        (cond
-         ((and (= alteration FLAT)
-               (eq? type 'only-b))
-          0)
-         ((and (<= alteration FLAT)
-               (eq? type 'b-and-bes))
-          (- alteration FLAT))
-         (else
-          alteration))
-        alteration)))
-
-(define-public (accidental->text-markup alteration)
-  "Return accidental glyph markup for @var{alteration}, to be used in text."
-  (make-smaller-markup
-   (make-translate-scaled-markup
-    (if (short-glyph? alteration)
-        '(0 . 0.3)
-        '(0 . 0.6))
-    (make-accidental-markup alteration))))
-
-(define (accidental->markup alteration)
-  "A wrapper around 'accidental->text-markup', adding some kerning."
-  (if (= alteration 0)
-      (make-line-markup (list empty-markup))
-      (conditional-kern-before
-       (accidental->text-markup alteration)
-       (narrow-glyph? alteration) 0.094725)))
-
-(define (accidental->markup-italian alteration)
-  "Return accidental markup for ALTERATION, for use after an Italian
-(or French) chord root name."
-  (if (= alteration 0)
-      (make-hspace-markup 0.2)
-      (make-line-markup
-       (list
-        ;; FIXME -- see issue 3330.
-        (make-hspace-markup (if (= alteration FLAT) 0.57285385 0.5))
-        (make-translate-scaled-markup
-         '(0 . 0.7)
-         (accidental->text-markup alteration))
-        (make-hspace-markup (if (= alteration SHARP) 0.2 0.1))
-        ))))
-
 (define*-public (pitch->name pitch #:optional language)
   "Return name of @var{pitch} without accidentals or octaves.
 
@@ -136,6 +57,81 @@ the current input language is used."
                                (= (ly:pitch-notename a)
                                   (ly:pitch-notename b)))))))
     (if result (symbol->string (car result)))))
+
+(define*-public (pitch->alteration pitch #:optional language)
+  "Return the alteration of @var{pitch}.
+
+Optional argument @var{language} sets the language used to display
+the pitch name (see file @file{define-note-names.scm} for
+available values); if this symbol is missing or set to @code{#f},
+the current input language is used."
+  (let* ((lang (or language input-language))
+         (note-name (ly:pitch-notename pitch))
+         (alteration (ly:pitch-alteration pitch))
+         (german-type (assq lang pitch-names-german-type))
+         (type (and german-type (cdr german-type))))
+    ;; Handle 'H', 'B', and 'Bb'.
+    (if (= note-name 6)
+        (cond
+         ((and (= alteration FLAT)
+               (eq? type 'only-b))
+          0)
+         ((and (<= alteration FLAT)
+               (eq? type 'b-and-bes))
+          (- alteration FLAT))
+         (else
+          alteration))
+        alteration)))
+
+;; flat and flat-based glyphs have a lesser Y-extent than sharps.
+(define (short-glyph? alteration)
+  (< alteration 0))
+
+;; natural, single flat and mirrored flat have a narrower X-extent.
+(define (narrow-glyph? alteration)
+  (member
+   alteration
+   ;; Flat-based glyphs in various notation systems;
+   ;; duplicates come from the input files, for consistency's sake.
+   '(0
+     ;; Western accidentals
+     -1/2 -1/4
+     ;; makam
+     -1/9 -5/18 -6/18 -4/9 -5/9 -8/9
+     ;; Turkish makam
+     -1/12 -3/12 -4/12 -5/12 -6/12 -10/12))) ; -11/12 -> flatflat, ignored
+
+(define-public (accidental->text-markup alteration)
+  "Return accidental glyph markup for @var{alteration}, to be used in text."
+  (make-smaller-markup
+   (make-translate-scaled-markup
+    (if (short-glyph? alteration)
+        '(0 . 0.3)
+        '(0 . 0.6))
+    (make-accidental-markup alteration))))
+
+(define (accidental->markup alteration)
+  "A wrapper around 'accidental->text-markup', adding some kerning."
+  (if (= alteration 0)
+      (make-line-markup (list empty-markup))
+      (conditional-kern-before
+       (accidental->text-markup alteration)
+       (narrow-glyph? alteration) 0.094725)))
+
+(define (accidental->markup-italian alteration)
+  "Return accidental markup for ALTERATION, for use after an Italian
+(or French) chord root name."
+  (if (= alteration 0)
+      (make-hspace-markup 0.2)
+      (make-line-markup
+       (list
+        ;; FIXME -- see issue 3330.
+        (make-hspace-markup (if (= alteration FLAT) 0.57285385 0.5))
+        (make-translate-scaled-markup
+         '(0 . 0.7)
+         (accidental->text-markup alteration))
+        (make-hspace-markup (if (= alteration SHARP) 0.2 0.1))
+        ))))
 
 
 ;;; Callback functions for `chordRootNamer` and `chordNoteNamer` context
