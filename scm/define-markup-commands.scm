@@ -4585,25 +4585,74 @@ fit and align well with text.
   (interpret-markup layout props
                     (make-accidental-markup -1)))
 
+;; The Emmentaler font provides text variants for natural, flat, sharp,
+;; double-sharp, and double-flat accidentals, which we are going to use.  They
+;; all have the same width except the double-flat; this width is the actual
+;; width of the sharp accidental, with some left and right bearing for the flat
+;; and natural accidentals.
+;;
+;; For all other, non-text accidentals we have to make the appearance fit.  The
+;; alist below provides the vertical offset, the bearing, and the font size
+;; adjustment (in this order).  Offset and bearing values are expected to be
+;; applied before the font size change.
+;;
+;; TODO: Add entries for ancient accidentals.
+(define accidental-adjustment-alist
+  '(
+    ;; accidentals.sharp.figbass
+    ("accidentals.sharp.arrowdown" . (1.0 0.15 -1.4))
+    ("accidentals.sharp.arrowup" . (1.0 0.15 -1.4))
+    ("accidentals.sharp.arrowboth" . (1.0 0.15 -1.4))
+    ("accidentals.sharp.slash.stem" . (1.0 0.2 -1.4))
+    ("accidentals.sharp.slashslash.stem" . (1.0 0.2 -1.4))
+    ("accidentals.sharp.slashslash.stemstemstem" . (1.0 0.1 -1.4))
+    ("accidentals.sharp.slashslashslash.stem" . (1.0 0.175 -1.4))
+    ("accidentals.sharp.slashslashslash.stemstem" . (1.0 0.15 -1.4))
+    ;; accidentals.doublesharp.figbass
+
+    ;; accidentals.flat.figbass
+    ("accidentals.flat.slash" . (0.48 0.15 -0.45))
+    ("accidentals.flat.arrowdown" . (0.48 0.15 -0.45))
+    ("accidentals.flat.arrowup" . (0.48 0.15 -0.45))
+    ("accidentals.flat.arrowboth" . (0.48 0.15 -0.45))
+    ("accidentals.flat.slashslash" . (0.48 0.15 -0.45))
+    ;; accidentals.flatflat.figbass
+    ("accidentals.flatflat.slash" . (0.48 0.1 -0.45))
+    ("accidentals.mirroredflat" . (0.48 0.15 -0.45))
+    ("accidentals.mirroredflat.backslash" . (0.48 0.2 -0.45))
+    ("accidentals.mirroredflat.flat" . (0.48 0.1 -0.45))
+
+    ;; accidentals.natural.figbass
+    ("accidentals.natural.arrowdown" . (1 0.2 -1.5))
+    ("accidentals.natural.arrowup" . (1 0.2 -1.5))
+    ("accidentals.natural.arrowboth" . (1 0.2 -1.5))
+   ))
+
 (define-markup-command (text-accidental layout props alteration)
   (exact-rational?)
   #:category music
   #:properties ((alteration-glyph-name-alist))
-  "Select an accidental glyph for @var{alteration} (given as a rational number)
-that aligns well with text.
+  "Get an accidental for @var{alteration} that aligns well with text.
+
+@var{alteration} must be a rational number; the function uses the
+@code{alteration-glyph-name-alist} property to map this number to
+an accidental glyph.
+
+If no text variant glyph for the accidental is found, markup is
+constructed to fittingly scale and position the (non-text)
+accidental glyph.
 
 @lilypond[verbatim,quote]
 \\markup {
   text
-  \\tiny { \\text-accidental #1/2 \\text-accidental #-1/2 }
+  \\tiny { \\text-accidental #3/4 \\text-accidental #1/2
+           \\text-accidental #-1/4 \\text-accidental #-1/2 }
   text
 }
 @end lilypond"
-
   (let* ((acc (assv-ref alteration-glyph-name-alist alteration)))
-    ;; If no accidental for current alteration can be found, warn and use
-    ;; a crossed note head as substitute. Otherwise try to get accidentals for
-    ;; text or fall back to music accidentals.
+    ;; If no accidental for the current alteration can be found, emit a warning
+    ;; and use a crossed note head as a substitute.
     (if (not acc)
         (begin
           (ly:warning (G_ "no accidental glyph found for alteration ~a")
@@ -4616,12 +4665,23 @@ that aligns well with text.
                                                        (font-name . #f))
                                                      props)))
                (text-acc-stil (ly:font-get-glyph font text-acc)))
-
           (if (ly:stencil-empty? text-acc-stil)
-              (begin
-                (ly:warning (G_ "no text accidental glyph found for alteration ~a, falling back to music accidental.")
-                            alteration)
-                (ly:font-get-glyph font acc))
+              ;; We provide some bearing for the text variant glyphs.
+              (let* ((adjustment (assoc-get acc accidental-adjustment-alist
+                                            '(0 0.1 0)))
+                     (offset (cons 0 (first adjustment)))
+                     (bearing (second adjustment))
+                     (font-size (third adjustment)))
+                (interpret-markup layout props
+                                  (make-line-markup
+                                   (list
+                                    (make-hspace-markup bearing)
+                                    (make-translate-scaled-markup
+                                     offset
+                                     (make-fontsize-markup
+                                      font-size
+                                      (make-musicglyph-markup acc)))
+                                    (make-hspace-markup bearing)))))
               text-acc-stil)))))
 
 (define-markup-command (text-doublesharp layout props)
