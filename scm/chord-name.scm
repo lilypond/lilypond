@@ -103,10 +103,9 @@ markup function, providing smaller glyphs."
       (make-hspace-markup 0.2)
       (make-line-markup
        (list
-        (make-hspace-markup 0.5)
-        (make-translate-scaled-markup
-         '(0 . 0.4)
-         (accidental->markup alteration))))))
+        (make-hspace-markup 0.2)
+        (accidental->markup alteration)
+        (make-hspace-markup 0.1)))))
 
 ;;; Callback functions for `chordRootNamer` and `chordNoteNamer` context
 ;;; properties.  Both properties expect the same arguments:
