@@ -1,6 +1,6 @@
 $(outdir)/collated-files.list: $(COLLATED_FILES)
 	$(call ly_progress,Making,$@,< $(words $^) files)
-	@true ; $(file >$@,$^)
+	@true ; $(file >$@,$(if $(NEED_ABSOLUTE_PATHS),$(abspath $^),$^))
 
 $(outdir)/collated-files.tely: $(outdir)/collated-files.list $(LYBOOK_FILES)
 	$(call ly_progress,Making,$@,)
