@@ -1,39 +1,50 @@
+@comment ATTENTION: Don't insert a space after the comma separating the
+@comment            first and second argument of the `uref` command!
+@comment            Otherwise the `bibtex` program might break a line
+@comment            exactly at this place, triggering a bug in `makeinfo`
+@comment            and `texi2any --html` (tested with version 7.3):
+@comment            the line break makes both programs insert an extra
+@comment            space in the output.
 
 @inproceedings{percival08,
   title = {Generating Targeted Rhythmic Exercises for Music Students
-with Constraint Satisfaction Programming},
-  author = {Graham Percival and Tosten Anders and George Tzanetakis},
+           with Constraint Satisfaction Programming},
+  author = {Graham Percival and Torsten Anders and George Tzanetakis},
   booktitle = {International Computer Music Conference},
   year = 2008,
+  note = {(@uref{https://webhome.cs.uvic.ca/~gtzan/work/pubs/icmc08gtzanB.pdf,PDF 196kB})},
 }
 
 @inproceedings{passos09,
   title = {Functional Harmonic Analysis and Computational Musicology
-in Rameau},
+           in Rameau},
   author = {Alexandre Tachard Passos and Marcos Sampaio and Pedro
-Kröger and Givaldo de Cidra},
+            Kröger and Givaldo de Cidra},
   booktitle = {Proceedings of the 12th Brazilian Symposium on Computer
-Music},
+               Music},
   year = 2009,
   pages = {207--210},
+  note = {(@uref{https://www.ic.unicamp.br/~tachard/docs/sbcm2009.pdf,PDF 97kB})},
 }
 
 @inproceedings{simoes07,
   title = {Using Text Mining Techniques for Classical Music Scores
-Analysis},
+           Analysis},
   author = {Alberto Simões and Anália Lourenço and José João Almeida},
   booktitle = {New Trends in Artificial Intelligence},
   editor = {J. Neves et al.},
   year = 2007,
+  note = {(@uref{https://scispace.com/pdf/using-text-mining-techniques-for-classical-music-scores-3doiixbw0j.pdf,PDF 107kB})},
 }
 
 @inproceedings{baird05,
-  title = {Real-time generation of music notation via audience interaction using
-python and GNU LilyPond},
+  title = {Real-time Generation of Music Notation via Audience
+           Interaction Using Python and GNU Lilypond},
   author = {Kevin C. Baird},
   booktitle = {New Interfaces for Music Expression},
   year = 2005,
   month = "May",
-  location = "Vancouver, Canada"
+  location = "Vancouver, Canada",
+  note = {(@uref{https://www.nime.org/proceedings/2005/nime2005_240.pdf,PDF 180kB})},
 }
 

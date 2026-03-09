@@ -1,25 +1,34 @@
+@comment ATTENTION: Don't insert a space after the comma separating the
+@comment            first and second argument of the `uref` command!
+@comment            Otherwise the `bibtex` program might break a line
+@comment            exactly at this place, triggering a bug in `makeinfo`
+@comment            and `texi2any --html` (tested with version 7.3):
+@comment            the line break makes both programs insert an extra
+@comment            space in the output.
+
 @book{acim13,
-  title = {GNU/LilyPond (Turkish Language)},
+  title = {GNU/LilyPond Özgür Bir Nota Yazma Programı},
   author = {Server Acim},
   year = 2013,
-  note = {(@uref{http://library.inonu.edu.tr/dosya/files/gnulilypond-serveracim.pdf, PDF 2100k})}
+  note = {(@uref{https://acimanasayfa.wordpress.com/wp-content/uploads/2013/11/gnulilypond-serveracim.pdf,PDF 2.2MB},
+          in Turkish)},
 }
 
 @inproceedings{hanwen06,
-  title = {LilyPond, Automated music formatting and the Art of Shipping},
+  title = {LilyPond, Automated music formatting and The Art of Shipping},
   author = {Han-Wen Nienhuys},
   booktitle = {Forum Internacional Software Livre 2006 (FISL7.0)},
   year = 2006,
-  note = {(@staticFile{media/FISL7-slides.pdf, PDF 1095k})}
+  note = {(@staticFile{media/FISL7-slides.pdf, PDF 1095kB})},
 }
 
 @mastersthesis{sandberg06,
-  title = {Separating input language and formatter in GNU LilyPond},
+  title = {Separating input language and formatter in GNU Lilypond},
   author = {Erik Sandberg},
   year = 2006,
   month = "March",
   school = {Uppsala University, Department of Information Technology},
-  note = {(@staticFile{media/thesis-erik-sandberg, PDF 750k})}
+  note = {(@staticFile{media/thesis-erik-sandberg.pdf, PDF 750kB})},
 }
 
 @inproceedings{hanwen03,
@@ -29,15 +38,16 @@
   year = 2003,
   month = "May",
   location = {Firenze, Italy},
-  note = {(@staticFile{media/xivcim.pdf, PDF 95k})}
+  note = {(@staticFile{media/xivcim.pdf, PDF 95kB})},
 }
 
 @inproceedings{reinhold01,
-  title = {OrchestralLily: A Package for Professional Music Publishing with LilyPond and LATEX},
+  title = {OrchestralLily: A Package for Professional Music Publishing
+           with LilyPond and LaTeX},
   author = {Reinhold Kainhofer},
   booktitle = {The Linux Audio Conference 2010 (LAC2010)},
   year = 2010,
-  note = {(@staticFile{media/reinhold-LAC-2010.pdf, PDF 767k})}
+  note = {(@staticFile{media/reinhold-LAC-2010.pdf, PDF 767kB})},
 }
 
 @inproceedings{graham01,
@@ -45,21 +55,23 @@
   author = {Graham Percival},
   booktitle = {Rencontres Mondiales du Logiciel Libre 2010 (RMLL2010)},
   year = 2010,
-  note = {(@staticFile{media/graham-sustainability-FOSS.pdf, PDF 333k})}
+  note = {(@staticFile{media/graham-sustainability-FOSS.pdf, PDF 333kB})},
 }
 
 @inproceedings{hollerweger01,
-  title = {Lilypond: music notation for everyone!},
+  title = {Lilypond: ... music notation for everyone!},
   author = {Margarethe Maierhofer-Lischka & Florian Hollerweger},
   booktitle = {Linux Audio Conference 2013 (LAC2013)},
   year = 2013,
-  note = {(@staticFile{media/lilypond_lac2013.pdf, PDF 890k})}
+  note = {(@staticFile{media/lilypond_lac2013.pdf, PDF 890kB})},
 }
 
 @phdthesis{vila01,
-  title = {Tipografía musical para la educación y análisis de la dinámica del software libre (Spanish language)},
-  author = {Francisco Vila},
+  title = {Tipografía musical para la educación y análisis de la dinámica
+           del software libre},
+  author = {Francisco Vila Doncel},
   school = {Universidad de Extremadura},
   year = 2015,
-  note = {(@uref{https://paconet.org/wiki/index.php?title=Tesis, PDF 20M})}
+  note = {(@uref{https://dehesa.unex.es/bitstreams/360a2414-8e2c-49f2-953b-446d70ee51ae/download,PDF 18.4MB},
+          in Spanish)},
 }
