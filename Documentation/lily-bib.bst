@@ -1,7 +1,26 @@
-% This template file was written by Phil Holmes to replace the one used for the bibliogrphy
-% on the LilyPond project.  18 Feb 2011
+% This file is part of LilyPond, the GNU music typesetter.
+%
+% Copyright (C) 2011--2026 Phil Holmes
+%
+% LilyPond is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% LilyPond is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-% This section lists the possible fields, although not all are handled by the template
+
+% A BibTeX style file for use with LilyPond's bibliography.
+
+
+% This section lists the possible fields, although not all are handled by the
+% template.
 ENTRY
   { abstract
     address
@@ -36,22 +55,23 @@ ENTRY
   {}
   { label extra.label sort.label }
 
-% s and t came from the original.  The other strings are self explanatory
+% `s` and `t` came from the original.  The other strings are self-explanatory.
 STRINGS { s t }
 STRINGS { ThesisType ReportType }
 
-% from the original
+% From the original.
 INTEGERS { nameptr namesleft numnames }
 
-% This was simply copied and pasted from the original
+% This was simply copied and pasted from the original.
 FUNCTION {format.names}
 { 's :=
   #1 'nameptr :=
   s num.names$ 'numnames :=
   numnames 'namesleft :=
     { namesleft #0 > }
-    % This line was changed: the {ff{ } } entry outputs the first name without allowing bibtex to use
-    % a ~ to replace the spaces where it thinks fit.  The downside is that we lose hyphens...
+    % This line was changed: the `{ff{ } }` entry outputs the first name
+    % without allowing bibtex to use a `~` to replace the spaces where it
+    % thinks fit.  The downside is that we lose hyphens...
     { s nameptr "{ff{ } }{vv }{ll}{, jj}" format.name$ 't :=
       nameptr #1 >
 	{ namesleft #1 >
@@ -76,18 +96,20 @@ FUNCTION {format.names}
 }
 
 FUNCTION {format.authors}
-% This is a very common construct.  It means "if the author is empty, process the lines in the first pair
-% of braces {}.  Otherwise process the lines in the second pair.  So if it's empty, an empty string is
-% stacked.
+% This is a very common construct.  It means "if the 'author' field is empty,
+% process the lines in the first pair of braces {}.  Otherwise process the
+% lines in the second pair".  So if it's empty, an empty string is stacked.
 { author empty$
     { "" }
-    % If it's not empty, it formats author (and stacks the result) and then checks whether editor is empty
+    % If it's not empty, it formats 'author' (and stacks the result) and then
+    % checks whether 'editor' is empty.
     { author format.names
       editor empty$
-        % If editor is empty, it appends an empty string (the * is a postfix operator meaning append this
-        % string to the top entry on the stack
+        % If 'editor' is empty, it appends an empty string (the `*` is a
+        % postfix operator meaning to append this string to the top entry on
+        % the stack).
         { "" * }
-        % Otherwise it appends a period, parenthesis.
+        % Otherwise it appends a period and a parenthesis.
         { ". (" * }
       if$
     }
@@ -197,7 +219,8 @@ FUNCTION {format.title}
 
 FUNCTION {format.number}
 {
-  % ReportType is set by us when we call the correct function for the bibliography type
+  % 'ReportType' is set by us when we call the correct function for the
+  % bibliography type.
   ReportType empty$
   {
     volume empty$
@@ -263,7 +286,7 @@ FUNCTION {format.series}
 { series empty$
     { "" }
     { series
-      % This is an inbuilt function that adds a period when appropriate.
+      % This is an built-in function that adds a period when appropriate.
       add.period$
       " " *
     }
@@ -289,7 +312,8 @@ FUNCTION {format.thesis}
   if$
 }
 
-% This is the function that runs the formatting code.  It's called when the biblio type is @Book
+% This is the function that runs the formatting code.  It's called when the
+% bibliography type is `@Book`.
 FUNCTION {book}
 { output.bibitem
   format.authors write$
@@ -318,7 +342,7 @@ FUNCTION {book}
 % All the following functions are called for the other biblio types. This is @article
 FUNCTION {article}
 {
-  % And we just call the book function
+  % And we just call the book function.
   book
 }
 
@@ -329,10 +353,10 @@ FUNCTION {booklet}
 
 FUNCTION {PhDThesis}
 {
-  % This sets the string ThesisType to be equal to "PhD Thesis"
+  % This sets the string `ThesisType` to be equal to "PhD Thesis".
   "PhD thesis, " 'ThesisType :=
   book
-  % And this sets it back to an empty string
+  % And this sets it back to an empty string.
   "" 'ThesisType :=
 }
 
@@ -360,34 +384,37 @@ FUNCTION {InBook}
   book
 }
 
-% Haven't dug too deeply into this, but it seems to set the sort key
+% Haven't dug too deeply into this, but it seems to set the sort key.
 FUNCTION {presort}
 { cite$
   #1 entry.max$ substring$
   'sort.key$ :=
 }
 
+
 % The entry point for processing
 
-% Read the .bib file
+% Read the `.bib` file.
 READ
 
-% Work through the entries, calling the presort function
+% Work through the entries, calling the `presort` function.
 ITERATE {presort}
 
-% Sort the entries
+% Sort the entries.
 SORT
 
-% This could go higher with all the other functions, but it _has_ to be above the call
+% This could go higher with all the other functions, but it _has_ to be above
+% the call.
 FUNCTION {begin.bib}
 { "@c bib -> itexi intro" write$ newline$
   "@itemize" write$ newline$
 }
 
-% Run the begin.bib function
+% Run the `begin.bib` function.
 EXECUTE {begin.bib}
 
-% For each bibliogrpahy entry call the relevant function (e.g. book, article, booklet, etc.)
+% For each bibliogrpahy entry call the relevant function (e.g., book, article,
+% booklet, etc.).
 ITERATE {call.type$}
 
 FUNCTION {end.bib}
