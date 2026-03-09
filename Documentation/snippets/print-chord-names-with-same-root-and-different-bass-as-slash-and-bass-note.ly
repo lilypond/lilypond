@@ -14,9 +14,9 @@
   categories = "Chords, Contexts and engravers, Scheme, Staff notation"
 
   texidoc = "
-To print subsequent @code{ChordNames} only differing in its bass note
-as slash and bass note, use the Scheme engraver defined in this
-snippet. The behaviour may be controlled in detail by the
+To print subsequent chord names only differing in their bass note as
+slash and bass note without a root symbol, use the Scheme engraver
+defined in this snippet. The behaviour is controlled by the
 @code{chordChanges} context property.
 "
 
@@ -26,10 +26,13 @@ snippet. The behaviour may be controlled in detail by the
 
 #(define Bass_changes_equal_root_engraver
    (lambda (ctx)
-     "For sequential `ChordNames` with the same root but a different bass,
-the root markup is dropped: D D/C D/B -> D /C /B.
-The behaviour may be controlled by setting the `chordChanges` context
-property."
+     "Drop root for follow-up chord names that differ only in bass.
+
+In other words, the chord name sequence 'D D/C D/B' gets actually
+printed as 'D /C /B'.
+
+Set the `chordChanges` context property to `#t` to activate this
+feature."
      (let ((chord-pitches '())
            (last-chord-pitches '())
            (bass-pitch #f))
@@ -37,7 +40,8 @@ property."
         ((initialize this-engraver)
          (let ((chord-note-namer (ly:context-property ctx
                                                       'chordNoteNamer)))
-           ;; Set 'chordNoteNamer, respect user setting if already done
+           ;; Set `chordNoteNamer`, respecting user setting if already
+           ;; done.
            (ly:context-set-property! ctx 'chordNoteNamer
                                      (if (procedure? chord-note-namer)
                                          chord-note-namer
@@ -50,14 +54,16 @@ property."
                  (pitch-alt (ly:pitch-alteration pitch))
                  (bass (ly:event-property event 'bass #f))
                  (inversion (ly:event-property event 'inversion #f)))
-            ;; Collect notes of the chord
-            ;;  - to compare inversed chords we need to collect the
-            ;;    bass note as usual member of the chord, whereas an
-            ;;    added bass must be treated separate from the usual
-            ;;    chord-notes
-            ;;  - notes are stored as pairs containing their
-            ;;    pitch-name (an integer), i.e. disregarding their
-            ;;    octave and their alteration
+            ;; We look at the `bass` and `inversion` event properties
+            ;; to decide how to handle the current note event.  If
+            ;; `inversion` is set we add the bass note to the chord as
+            ;; an ordinary member so that we can compare inversed
+            ;; chords; if `bass` is set the bass note is not added to
+            ;; the chord.
+            ;;
+            ;; In the `chord-pitches` list we actually collect only
+            ;; the notes' pitch names (which are integers) and pitch
+            ;; alterations as pairs, ignoring the octave.
             (cond (bass (set! bass-pitch pitch))
                   (inversion
                    (set! bass-pitch pitch)
@@ -74,16 +80,19 @@ property."
           (let ((chord-changes (ly:context-property ctx
                                                     'chordChanges #f)))
             ;; If subsequent chords are equal apart from their bass,
-            ;; reset the 'text-property.
-            ;; Equality is done by comparing the sorted lists of this
-            ;; chord's elements and the previous chord.  Sorting is
-            ;; needed because inverted chords may have a different
-            ;; order of pitches.  `chord-changes` needs to be true.
+            ;; we change the `text` property to print only the slash
+            ;; and the bass note (via the formatter stored in the
+            ;; `chordNoteNamer` context property).
+            ;;
+            ;; Equality is tested by comparing the sorted lists of
+            ;; this chord's elements and the previous chord.  Sorting
+            ;; is needed because inverted chords may have a different
+            ;; order of pitches.  Note that we only do a simplified
+            ;; sorting using the pitch name, ignoring the alteration.
             (if (and bass-pitch
                      chord-changes
-                     (equal?
-                      (sort chord-pitches car<)
-                      (sort last-chord-pitches car<)))
+                     (equal? (sort chord-pitches car<)
+                             (sort last-chord-pitches car<)))
                 (ly:grob-set-property!
                  grob 'text
                  (make-line-markup

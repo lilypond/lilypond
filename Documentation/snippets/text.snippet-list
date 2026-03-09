@@ -11,7 +11,6 @@ changing-the-default-text-font-family.ly
 combining-dynamics-with-markup-texts.ly
 combining-dynamics-with-markup-texts-2.ly
 combining-two-parts-on-the-same-staff.ly
-creating--real--parenthesized-dynamics.ly
 creating-text-spanners.ly
 demonstrating-all--header-fields.ly
 embedding-native-postscript-in-a--markup-block.ly
@@ -26,6 +25,7 @@ piano-template-with-centered-lyrics.ly
 printing-marks-on-every-staff.ly
 printing-text-from-right-to-left.ly
 putting-lyrics-inside-the-staff.ly
+slanted-parentheses-around-dynamics.ly
 stand-alone-two-column-markup.ly
 string-number-extender-lines.ly
 three-sided-box.ly

@@ -8,7 +8,6 @@ center-text-below-hairpin-dynamics.ly
 changing-properties-for-individual-grobs.ly
 chord-name-exceptions.ly
 coloring-notes-depending-on-their-pitch.ly
-creating--real--parenthesized-dynamics.ly
 creating-a-sequence-of-notes-on-various-pitches.ly
 creating-custom-dynamics-in-midi-output.ly
 customizing-the-position-and-number-of-dots-in-repeat-sign-bar-lines.ly
@@ -32,6 +31,7 @@ positioning-grace-notes-with-floating-space.ly
 print-chord-names-with-same-root-and-different-bass-as-slash-and-bass-note.ly
 replacing-default-midi-instrument-equalization.ly
 separating-key-cancellations-from-key-signature-changes.ly
+slanted-parentheses-around-dynamics.ly
 string-number-extender-lines.ly
 three-sided-box.ly
 transposing-pitches-with-minimum-accidentals--smart--transpose.ly

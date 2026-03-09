@@ -34,4 +34,4 @@ circle = \tweak NoteHead.stencil
             (ly:stencil-extent note Y))))
   \etc
 
-{ \circle c'' }
+{ a' b' \circle c'' d'' }

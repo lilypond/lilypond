@@ -14,7 +14,7 @@
   categories = "Keyboards, Real music"
 
   texidoc = "
-An non-arpeggiato bracket can indicate that notes on two different staves
+A non-arpeggiato bracket can indicate that notes on two different staves
 are to be played with the same hand.  In order to do this, the
 @code{PianoStaff} must be set to accept cross-staff brackets.
 

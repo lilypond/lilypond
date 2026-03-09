@@ -43,5 +43,5 @@ Scheme prefix for negative numbers!
   \once \override LyricText.self-alignment-X = 1
   "right-aligned"
   \once \override LyricText.self-alignment-X = #-1.5
-  "very right"
+  "overly left-aligned"
 }

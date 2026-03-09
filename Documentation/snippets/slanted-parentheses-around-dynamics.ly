@@ -14,18 +14,15 @@
   categories = "Expressive marks, Scheme, Text, Workaround"
 
   texidoc = "
-Although the easiest way to add parentheses to a dynamic mark is to use
-a @code{\\markup} block, this method has a downside: the created
-objects behave like text markups and not like dynamics.
-
-However, it is possible to create a similar object using the equivalent
-Scheme code (as described in the Notation Reference), combined with the
-@code{make-dynamic-script} function. This way, the markup is regarded
-as a dynamic and therefore remains compatible with commands such as
-@code{\\dynamicUp} or @code{\\dynamicDown}.
+The easiest way to parenthesize dynamics is to use the normal
+@code{\\parenthesize} command and adjust the font size, e.g.,
+@code{@{ c'4\\tweak Parentheses.font-size 2 \\parenthesize \\f @}}.
+However, this results in upright parentheses, while dynamic marks are
+normally slanted. This snippet gives a method to make the parentheses
+slanted as well.
 "
 
-  doctitle = "Creating @qq{real} parenthesized dynamics"
+  doctitle = "Slanted parentheses around dynamics"
 } % begin verbatim
 
 

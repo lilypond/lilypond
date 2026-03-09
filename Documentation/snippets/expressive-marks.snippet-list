@@ -19,7 +19,6 @@ contemporary-glissando.ly
 controlling-spanner-visibility-after-a-line-break.ly
 controlling-the-placement-of-chord-fingerings.ly
 controlling-the-vertical-ordering-of-scripts.ly
-creating--real--parenthesized-dynamics.ly
 creating-a-delayed-turn.ly
 creating-arpeggios-across-notes-in-different-voices.ly
 creating-cross-staff-arpeggios-in-a-piano-staff.ly
@@ -47,7 +46,9 @@ printing-metronome-and-rehearsal-marks-below-the-staff.ly
 setting-hairpin-behavior-at-bar-lines.ly
 setting-the-minimum-length-of-hairpins.ly
 showing-the-same-articulation-above-and-below-a-note-or-chord.ly
+slanted-parentheses-around-dynamics.ly
 snap-pizzicato--bartok--pizzicato.ly
+using--arpeggiobracket-to-make-divisi-more-visible.ly
 using-a-bracket-to-clarify-divisi.ly
 using-a-tick-as-the-breath-mark-symbol.ly
 using-double-slurs-for-legato-chords.ly
