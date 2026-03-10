@@ -1281,8 +1281,13 @@ there.  This default behavior may be changed, see
 }
 @end lilypond
 
-@cindex time signature, style
+@cindex alla breve
+@cindex common time
+@cindex cut time
 @cindex meter, style
+@cindex time signature, style
+@cindex time, common
+@cindex time, cut
 
 @funindex \numericTimeSignature
 @funindex \defaultTimeSignature
@@ -1313,7 +1318,6 @@ Mensural time signatures are covered in
 
 @subsubheading Complex time signatures
 
-@funindex \time
 @cindex additive time signature
 @cindex alternating time signature
 @cindex complex time signature
@@ -1324,8 +1328,8 @@ Mensural time signatures are covered in
 @cindex time signature, alternating
 @cindex time signature, complex
 
-These are created using the @code{\time} function with the time
-signature represented as a Scheme expression.  Fractions are
+The @code{\time} function supports a variety of complex time
+signatures represented as Scheme expressions.  Fractions are
 represented as pairs, @code{(@var{numerator}
 .@tie{}@var{denominator})}, where the denominator is always a
 number.  The numerator is one number or a list of two or more
@@ -1500,9 +1504,9 @@ established for different staves by enabling polymetric notation
 }
 @end lilypond
 
-A further method of changing these time-signature-related variables,
-which avoids reprinting the time signature at the time of the change,
-is shown in @ref{Setting automatic beam behavior}.
+A further method of changing these metric properties, which avoids
+reprinting the time signature at the time of the change, is shown
+in @ref{Setting automatic beam behavior}.
 
 @predefined
 @code{\numericTimeSignature},
