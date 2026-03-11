@@ -3498,7 +3498,7 @@ which is the default."
                               (grob::has-interface
                                 left-bound
                                 'non-musical-paper-column-interface))
--                           (member style '(stub-left stub-both)))
+                            (member style '(stub-left stub-both)))
                       (make-line-stencil
                        (* line-thick thick)
                        x-start
@@ -3511,7 +3511,7 @@ which is the default."
                               (grob::has-interface
                                 right-bound
                                 'non-musical-paper-column-interface))
--                           (member style '(stub-right stub-both)))
+                            (member style '(stub-right stub-both)))
                       (make-line-stencil
                        (* line-thick thick)
                        (- x-end (car right-stub-x-y))
@@ -4270,7 +4270,7 @@ lines for grobs with @code{'staff-position} @var{staff-pos}.
         (ly:warning (G_ "custos `~a' not found") font-char))
     ;; right-align ledgers to stil and combine stencils.
     ;; `stil` needs to be last, otherwise a probably colored ledger
--   ;; would print above the note head.
+    ;; would print above the note head.
     (ly:stencil-add (ly:stencil-translate-axis
                       (stencil-squash-extent
                         (ly:stencil-aligned-to ledgers X RIGHT)
