@@ -59,5 +59,9 @@ tabChordRepetition =
    (_i "Include the string and fingering information in a chord repetition.
 
 This function is deprecated; use @code{\\tabChordRepeats} instead.")
+   (ly:deprecation-warning
+    (G_ "the function '~a' is deprecated; use '~a'")
+    "\\tabChordRepetition"
+    "\\tabChordRepeats")
    (ly:parser-define! '$chord-repeat-events
                       '(string-number-event fingering-event)))
