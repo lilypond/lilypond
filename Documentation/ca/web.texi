@@ -14,7 +14,7 @@
 @afourpaper
 
 @c @macro copyrightDeclare
-@c Copyright @copyright{} 2009--2023 by the authors.
+@c Copyright @copyright{} 2009--2026 by the authors.
 @c @end macro
 
 @set FDL
@@ -28,7 +28,7 @@
 
 
 @copying
-Copyright @copyright{} 2009--2023 pels autors
+Copyright @copyright{} 2009--2026 pels autors
 
 @c next line is necessary for broken pre-4.13 texinfo's
 @c install-info, so leave it there until we officially

@@ -26,7 +26,7 @@ automatitzat dins del LilyPond versió @version{}.
 @c   file: Documentation/user/introduction.itely
 
 @macro copyrightDeclare
-Copyright @copyright{} 2002--2024 pels autors.
+Copyright @copyright{} 2002--2026 pels autors.
 @end macro
 
 @set FDL

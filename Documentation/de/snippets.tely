@@ -39,7 +39,7 @@ or figure for each example to see the corresponding input file.
 @end macro
 
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2023 by the authors.
+Copyright @copyright{} 1999--2026 by the authors.
 @end macro
 
 @include de/macros.itexi

@@ -22,7 +22,7 @@ Il est dans le domaine public.
 @end macro
 
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2023 par les auteurs.
+Copyright @copyright{} 1999--2026 par les auteurs.
 @end macro
 
 @c no dircategory nor direntry in  French

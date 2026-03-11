@@ -2,8 +2,8 @@
 #
 # This file is part of LilyPond, the GNU music typesetter.
 #
-# Copyright (C) 2016--2024 John Gourlay <john@weathervanefarm.net>
-# Copyright (C) 2024--2024 Werner Lemberg <wl@gnu.org>
+# Copyright (C) 2016--2026 John Gourlay <john@weathervanefarm.net>
+# Copyright (C) 2024--2026 Werner Lemberg <wl@gnu.org>
 #
 # LilyPond is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

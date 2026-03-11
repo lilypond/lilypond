@@ -45,7 +45,7 @@ corresponent.
 @end macro
 
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2023 pels autors.
+Copyright @copyright{} 1999--2026 pels autors.
 @end macro
 
 @include es/macros.itexi

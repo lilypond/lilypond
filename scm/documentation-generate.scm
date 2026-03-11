@@ -1,6 +1,6 @@
 ;;;; This file is part of LilyPond, the GNU music typesetter.
 ;;;;
-;;;; Copyright (C) 2000--2023 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; Copyright (C) 2000--2026 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;; Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;
 ;;;; LilyPond is free software: you can redistribute it and/or modify
@@ -187,7 +187,7 @@ simple output settings to advanced Scheme programming.
 @c   file: scm/generate-documentation.scm
 
 @macro copyrightDeclare
-Copyright @copyright{} 2000--2023 by the authors
+Copyright @copyright{} 2000--2026 by the authors
 @end macro
 
 @dircategory LilyPond -- the music typesetter

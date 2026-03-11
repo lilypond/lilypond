@@ -25,7 +25,7 @@ the reader is familiar with the material in the @rlearning{Top}.
 @c   file: Documentation/tex/refman.yo
 
 @macro copyrightDeclare
-Copyright @copyright{} 1998--2023 by the authors.
+Copyright @copyright{} 1998--2026 by the authors.
 @end macro
 
 @dircategory LilyPond -- the music typesetter

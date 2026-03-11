@@ -2,7 +2,7 @@
 /*
   lyric-extender.hh -- part of GNU LilyPond
 
-  Copyright (C) 1998--2025 Jan Nieuwenhuizen <janneke@gnu.org>
+  Copyright (C) 1998--2026 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef LYRIC_EXTENDER_HH

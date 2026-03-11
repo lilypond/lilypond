@@ -41,7 +41,7 @@ sull'immagine di ciascun esempio per vedere il corrispondente file di input.
 @end macro
 
 @macro copyrightDeclare
-Copyright @copyright{} 1999--2023 degli autori.
+Copyright @copyright{} 1999--2026 degli autori.
 @end macro
 
 @include it/macros.itexi
