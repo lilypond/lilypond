@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.27.0"
 
 \header {
   texidoc = "In a TabStaff, the chord repetition function needs
@@ -7,6 +7,12 @@ to save the string information.  The obsolete function
 Nowadays, you would rather use just @code{\\tabChordRepeat} on the
 music in the tabstaff, not affecting other contexts."
 }
+
+#(ly:set-option 'warning-as-error #t)
+#(ly:expect-warning
+  (G_ "the function '~a' is deprecated; use '~a'")
+  "\\tabChordRepetition"
+  "\\tabChordRepeats")
 
 \tabChordRepetition
 
