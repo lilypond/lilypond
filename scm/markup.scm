@@ -153,8 +153,8 @@ and the modified value is updated accordingly."
   (map-some-music
     (lambda (m)
       (or
-        ; the most markups are in 'text property
+        ;; most markups are in 'text property
         (detect-tag-markup-and-modify m 'text)
-        ; some markups like stanzas are in 'value property
+        ;; some markups like stanzas are in 'value property
         (detect-tag-markup-and-modify m 'value)))
     music))
