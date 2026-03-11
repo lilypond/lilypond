@@ -1,4 +1,4 @@
-\version "2.25.30"
+\version "2.27.0"
 
 \header {
   texidoc = "It is possible to override @code{TimeSignature@/.time-signature} to
@@ -21,6 +21,10 @@ The marginal labels show the values of the @code{style} and
 
 %% Covering the deprecated 'fraction property is a separate concern, but this
 %% is a good place for it.
+#(ly:expect-warning
+  (G_ "the grob property '~a' is deprecated; use '~a'")
+  "fraction"
+  "time-signature")
 #(define (expect-fraction expected)
   (lambda (grob org cur)
    (let ((actual (ly:grob-property grob 'fraction *unspecified*)))

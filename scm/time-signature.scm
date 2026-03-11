@@ -19,7 +19,10 @@
   "Compatibility callback for the deprecated @code{fraction} property.
 
 Returns the value of @code{time-signature} reduced to a fraction."
-  ;; TODO: Emit a warning, ideally only once per session.
+  (ly:deprecation-warning
+   (G_ "the grob property '~a' is deprecated; use '~a'")
+   "fraction"
+   "time-signature")
   (let ((spec (ly:grob-property grob 'time-signature)))
     (if (null? spec)
         spec
