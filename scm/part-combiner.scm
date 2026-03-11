@@ -945,9 +945,9 @@ fold transforms it into a segment list ordered beginning->end."
      ;; don't bother creating zero-duration skips
      (else #f))))
 
-(define*-public (make-part-combine-marks split-list
-                 #:optional (get-next-state (simple-split->state
-                                              default-part-combine-mark-alist)))
+(define*-public (make-part-combine-marks
+                 split-list #:optional (get-next-state (simple-split->state
+                                                        default-part-combine-mark-alist)))
   "Generate a sequence of segments alternating skips and part-combine-events for
 each active voice. There may be an initial skip that is not specced to any
 Voice context."
