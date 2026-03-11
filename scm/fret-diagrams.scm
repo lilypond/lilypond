@@ -316,10 +316,10 @@ with magnification @var{mag} of the string @var{text}."
          (my-fret-count (fret-count fret-range))
          (barre-list (assoc-get 'barre-list parameters))
          (barre-type (assoc-get 'barre-type details 'curved))
-	 (string-overhang
+         (string-overhang
           (assoc-get 'string-overhang details 1.0))
-	 (barre-thickness
-          (assoc-get 'barre-thickness details 1.0))         
+         (barre-thickness
+          (assoc-get 'barre-thickness details 1.0))
          (fret-diagram-stencil '()))
 
     ;;  Here are the fret diagram helper functions that depend on the

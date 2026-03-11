@@ -532,7 +532,7 @@ one voice.")))
                         (ly:grob-property dur-line 'bound-details))
                        (right-details (assoc-get 'right bound-details))
                        (end-on-break-align-group?
-                         (assoc-get 'end-on-break-align-group right-details)))
+                        (assoc-get 'end-on-break-align-group right-details)))
                   (ly:spanner-set-bound! dur-line RIGHT
                                          (if end-on-break-align-group?
                                              (ly:context-property context 'currentCommandColumn)
@@ -933,95 +933,95 @@ Then it is moved to @var{rl} as a sublist. @var{rl} is the final result and
 return value."
 
   (let* ((finger-glide?
-           (lambda (ev)
-             (eq? (ly:prob-property ev 'name) 'FingerGlideEvent)))
+          (lambda (ev)
+            (eq? (ly:prob-property ev 'name) 'FingerGlideEvent)))
          (fingering?
-           (lambda (ev)
-             (eq? (ly:prob-property ev 'name) 'FingeringEvent)))
+          (lambda (ev)
+            (eq? (ly:prob-property ev 'name) 'FingeringEvent)))
          (string-number?
-           (lambda (ev)
-             (eq? (ly:prob-property ev 'name) 'StringNumberEvent)))
+          (lambda (ev)
+            (eq? (ly:prob-property ev 'name) 'StringNumberEvent)))
          (stroke-finger?
-           (lambda (ev)
-             (eq? (ly:prob-property ev 'name) 'StrokeFingerEvent))))
+          (lambda (ev)
+            (eq? (ly:prob-property ev 'name) 'StrokeFingerEvent))))
     (if (null? mus-arts)
         rl
         (cond
-          ((finger-glide? (car mus-arts))
-             (let ((glide-others
-                     ;; We need to get finger-glide-stream-events, which
-                     ;; (car mus-arts) is not.
-                     ;; Replace (car mus-arts) with the relevant stream-event,
-                     ;; looking at the 'origin of (car mus-arts) and 'origin
-                     ;; of the 'music-cause of stream-events in `glide`.
-                     ;;
-                     ;; Thus we split `glide` into two list, the first only
-                     ;; takes the current finger-glide-stream-event, the
-                     ;; second the others.
-                     ;;
-                     ;; TODO The direct call of equal? is always #t, why do
-                     ;;      we have to compare 'origin?
-                     (call-with-values
-                       (lambda ()
-                         (partition
-                           (lambda (gl)
-                             (equal?
-                               (ly:prob-property (car mus-arts) 'origin)
-                               (ly:prob-property
-                                 (ly:event-property gl 'music-cause)
-                                 'origin)))
-                           glides))
-                       (lambda (a b) (list (car a) b)))))
-               (finger-key-glide
+         ((finger-glide? (car mus-arts))
+          (let ((glide-others
+                 ;; We need to get finger-glide-stream-events, which
+                 ;; (car mus-arts) is not.
+                 ;; Replace (car mus-arts) with the relevant stream-event,
+                 ;; looking at the 'origin of (car mus-arts) and 'origin
+                 ;; of the 'music-cause of stream-events in `glide`.
+                 ;;
+                 ;; Thus we split `glide` into two list, the first only
+                 ;; takes the current finger-glide-stream-event, the
+                 ;; second the others.
+                 ;;
+                 ;; TODO The direct call of equal? is always #t, why do
+                 ;;      we have to compare 'origin?
+                 (call-with-values
+                     (lambda ()
+                       (partition
+                        (lambda (gl)
+                          (equal?
+                           (ly:prob-property (car mus-arts) 'origin)
+                           (ly:prob-property
+                            (ly:event-property gl 'music-cause)
+                            'origin)))
+                        glides))
+                   (lambda (a b) (list (car a) b)))))
+            (finger-key-glide
+             (cdr mus-arts)
+             (cons (car glide-others) il)
+             rl
+             (cadr glide-others))))
+         ((fingering? (car mus-arts))
+          (if (null? il)
+              (finger-key-glide (cdr mus-arts) il rl glides)
+              (let ((digit (ly:prob-property (car mus-arts) 'digit #f))
+                    (text (ly:prob-property (car mus-arts) 'text #f))
+                    (id (ly:prob-property (car mus-arts) 'id #f)))
+                (finger-key-glide (cdr mus-arts)
+                                  '()
+                                  (cons (cons* 'Fingering (or id digit text) il) rl)
+                                  glides))))
+         ((string-number? (car mus-arts))
+          (if (null? il)
+              (finger-key-glide (cdr mus-arts) il rl glides)
+              (let ((string-number
+                     (ly:prob-property (car mus-arts) 'string-number #f))
+                    (id (ly:prob-property (car mus-arts) 'id #f)))
+                (finger-key-glide (cdr mus-arts)
+                                  '()
+                                  (cons (cons* 'StringNumber (or id string-number) il) rl)
+                                  glides))))
+         ((stroke-finger? (car mus-arts))
+          (if (null? il)
+              (finger-key-glide (cdr mus-arts) il rl glides)
+              (let ((stroke-finger-digit
+                     (ly:prob-property
+                      (car mus-arts)
+                      'stroke-finger-digit
+                      #f))
+                    (stroke-finger-text
+                     (ly:prob-property
+                      (car mus-arts)
+                      'stroke-finger-text
+                      #f))
+                    (id (ly:prob-property (car mus-arts) 'id #f)))
+                (finger-key-glide
                  (cdr mus-arts)
-                 (cons (car glide-others) il)
-                 rl
-                 (cadr glide-others))))
-          ((fingering? (car mus-arts))
-             (if (null? il)
-                 (finger-key-glide (cdr mus-arts) il rl glides)
-                 (let ((digit (ly:prob-property (car mus-arts) 'digit #f))
-                       (text (ly:prob-property (car mus-arts) 'text #f))
-                       (id (ly:prob-property (car mus-arts) 'id #f)))
-                   (finger-key-glide (cdr mus-arts)
-                      '()
-                      (cons (cons* 'Fingering (or id digit text) il) rl)
-                      glides))))
-          ((string-number? (car mus-arts))
-             (if (null? il)
-                  (finger-key-glide (cdr mus-arts) il rl glides)
-                  (let ((string-number
-                          (ly:prob-property (car mus-arts) 'string-number #f))
-                        (id (ly:prob-property (car mus-arts) 'id #f)))
-                    (finger-key-glide (cdr mus-arts)
-                      '()
-                      (cons (cons* 'StringNumber (or id string-number) il) rl)
-                      glides))))
-          ((stroke-finger? (car mus-arts))
-             (if (null? il)
-                 (finger-key-glide (cdr mus-arts) il rl glides)
-                  (let ((stroke-finger-digit
-                         (ly:prob-property
-                           (car mus-arts)
-                           'stroke-finger-digit
-                           #f))
-                        (stroke-finger-text
-                          (ly:prob-property
-                            (car mus-arts)
-                            'stroke-finger-text
-                            #f))
-                        (id (ly:prob-property (car mus-arts) 'id #f)))
-                   (finger-key-glide
-                     (cdr mus-arts)
-                     '()
-                     (cons
-                       (cons*
-                         'StrokeFinger
-                         (or id stroke-finger-digit stroke-finger-text)
-                         il)
-                       rl)
-                     glides))))
-          (else (finger-key-glide (cdr mus-arts) il rl glides))))))
+                 '()
+                 (cons
+                  (cons*
+                   'StrokeFinger
+                   (or id stroke-finger-digit stroke-finger-text)
+                   il)
+                  rl)
+                 glides))))
+         (else (finger-key-glide (cdr mus-arts) il rl glides))))))
 
 (define-public Finger_glide_engraver
   (lambda (context)
@@ -1049,8 +1049,8 @@ return value."
            ;; NB These are stream-events.
            (for-each
             (lambda (art-ev)
-             (when (memq 'finger-glide-event (ly:event-property art-ev 'class))
-               (set! glide-events (cons art-ev glide-events))))
+              (when (memq 'finger-glide-event (ly:event-property art-ev 'class))
+                (set! glide-events (cons art-ev glide-events))))
             event-arts)
 
            ;; Fill the lists finger-glide-event, string-number-glide-event, and
@@ -1058,27 +1058,27 @@ return value."
            ;; starting finger-glide-event.
            (for-each
             (lambda (ls)
-             (when (eq? (car ls) 'Fingering)
-               (set! finger-glide-event
-                     (acons (cadr ls) (last ls) finger-glide-event)))
-             (when (eq? (car ls) 'StringNumber)
-               (set! string-number-glide-event
-                     (acons (cadr ls) (last ls) string-number-glide-event)))
-             (when (eq? (car ls) 'StrokeFinger)
-               (set! stroke-finger-glide-event
-                     (acons (cadr ls) (last ls) stroke-finger-glide-event))))
+              (when (eq? (car ls) 'Fingering)
+                (set! finger-glide-event
+                      (acons (cadr ls) (last ls) finger-glide-event)))
+              (when (eq? (car ls) 'StringNumber)
+                (set! string-number-glide-event
+                      (acons (cadr ls) (last ls) string-number-glide-event)))
+              (when (eq? (car ls) 'StrokeFinger)
+                (set! stroke-finger-glide-event
+                      (acons (cadr ls) (last ls) stroke-finger-glide-event))))
             (finger-key-glide music-arts '() '() glide-events)))))
        (acknowledgers
         ((stroke-finger-interface this-engraver grob source-engraver)
          (let* ((cause (ly:grob-property grob 'cause))
                 (stroke-finger-digit
-                  (ly:prob-property cause 'stroke-finger-digit #f))
+                 (ly:prob-property cause 'stroke-finger-digit #f))
                 (stroke-finger-text
-                  (ly:prob-property cause 'stroke-finger-text #f))
+                 (ly:prob-property cause 'stroke-finger-text #f))
                 (id (ly:prob-property cause 'id #f))
                 (stroke-finger-glide-evt
-                  (assoc-get (or id stroke-finger-digit stroke-finger-text)
-                             stroke-finger-glide-event))
+                 (assoc-get (or id stroke-finger-digit stroke-finger-text)
+                            stroke-finger-glide-event))
                 (new-glide-grob
                  (if stroke-finger-glide-evt
                      (ly:engraver-make-grob
@@ -1090,15 +1090,15 @@ return value."
            ;; stroke-finger-digit/text from `stroke-finger-glide-grobs`,
            ;; 'id is preferred.
            (let* ((relevant-grob
-                    (assoc-get (or id stroke-finger-digit stroke-finger-text)
-                               stroke-finger-glide-grobs)))
+                   (assoc-get (or id stroke-finger-digit stroke-finger-text)
+                              stroke-finger-glide-grobs)))
              (when relevant-grob
                (ly:spanner-set-bound! relevant-grob RIGHT grob)
                (ly:engraver-announce-end-grob this-engraver relevant-grob grob)
                (set! stroke-finger-glide-grobs
                      (assoc-remove!
-                       stroke-finger-glide-grobs
-                       (or id stroke-finger-digit stroke-finger-text)))))
+                      stroke-finger-glide-grobs
+                      (or id stroke-finger-digit stroke-finger-text)))))
            ;; Set left bound and store the 'id or stroke-finger-digit/text with
            ;; the created grob as a pair in local `stroke-finger-glide-grobs`,
            ;; 'id is preferred.
@@ -1110,14 +1110,14 @@ return value."
              (ly:spanner-set-bound! new-glide-grob LEFT grob)
              (set! stroke-finger-glide-event
                    (assoc-remove!
-                     stroke-finger-glide-event
-                     (or id stroke-finger-digit stroke-finger-text))))))
+                    stroke-finger-glide-event
+                    (or id stroke-finger-digit stroke-finger-text))))))
         ((string-number-interface this-engraver grob source-engraver)
          (let* ((cause (ly:grob-property grob 'cause))
                 (string-number (ly:prob-property cause 'string-number #f))
                 (id (ly:prob-property cause 'id #f))
                 (string-number-glide-evt
-                    (assoc-get (or id string-number) string-number-glide-event))
+                 (assoc-get (or id string-number) string-number-glide-event))
                 (new-glide-grob
                  (if string-number-glide-evt
                      (ly:engraver-make-grob
@@ -1128,8 +1128,8 @@ return value."
            ;; Set right bound, select the grob via its 'id or string-number from
            ;; `string-number-glide-grobs`, 'id is preferred.
            (let* ((relevant-grob
-                    (assoc-get (or id string-number)
-                               string-number-glide-grobs)))
+                   (assoc-get (or id string-number)
+                              string-number-glide-grobs)))
              (when relevant-grob
                (ly:spanner-set-bound! relevant-grob RIGHT grob)
                (ly:engraver-announce-end-grob this-engraver relevant-grob grob)
@@ -1153,7 +1153,7 @@ return value."
                 (text (ly:prob-property cause 'text #f))
                 (id (ly:prob-property cause 'id #f))
                 (digit-glide-evt
-                  (assoc-get (or id digit text) finger-glide-event))
+                 (assoc-get (or id digit text) finger-glide-event))
                 (new-glide-grob
                  (if digit-glide-evt
                      (ly:engraver-make-grob
@@ -1187,9 +1187,9 @@ return value."
             (G_ "unterminated finger glide spanner"))
            (ly:grob-suicide! (cdr grob-entry)))
          (append
-           finger-glide-grobs
-           string-number-glide-grobs
-           stroke-finger-glide-grobs)))))))
+          finger-glide-grobs
+          string-number-glide-grobs
+          stroke-finger-glide-grobs)))))))
 
 (ly:register-translator
  Finger_glide_engraver 'Finger_glide_engraver
@@ -1309,9 +1309,9 @@ vertical position.")))
         (let ((grob (ly:engraver-make-grob engraver 'OptionalMaterialBracket
                                            end-event)))
           (ly:grob-set-property! grob 'passage-direction STOP)))
-        (when (ly:stream-event? start-event)
-          (let ((grob (ly:engraver-make-grob engraver 'OptionalMaterialBracket
-                                             start-event)))
+      (when (ly:stream-event? start-event)
+        (let ((grob (ly:engraver-make-grob engraver 'OptionalMaterialBracket
+                                           start-event)))
           (ly:grob-set-property! grob 'passage-direction START))))
 
      ((stop-translation-timestep engraver)
@@ -2300,131 +2300,131 @@ adapted for typesetting within a chord grid.")))
           (dot-col #f)
           (script-row #f))
       (make-engraver
-        (acknowledgers
-          ;; NB 'script-interface is currently used in
-          ;; AccidentalSuggestion, CaesuraScript, DynamicText,
-          ;; MultiMeasureRestScript and Script, thus we use
-          ;; 'ledgered-grob-interface (used for Script and Custos).
-          ((ledgered-grob-interface this-engraver grob source-engraver)
-            (set! raw-scripts (cons grob raw-scripts)))
-          ((script-column-interface this-engraver grob source-engraver)
-            (when (eq? (grob::name grob) 'ScriptRow)
-              (set! script-row grob)))
-          ((note-column-interface this-engraver grob source-engraver)
-            (set! nc grob))
-          ((note-head-interface this-engraver grob source-engraver)
-            (set! nhds (cons grob nhds)))
-          ((stem-interface this-engraver grob source-engraver)
-            (set! stem grob))
-          ((accidental-placement-interface this-engraver grob source-engraver)
-            (set! acc-placement grob))
-          ((dot-column-interface this-engraver grob source-engraver)
-            (set! dot-col grob)))
-        ((process-music this-engraver)
-          (let ((scripts
-                 ;; late filtration supports \tweak
-                 (filter
+       (acknowledgers
+        ;; NB 'script-interface is currently used in
+        ;; AccidentalSuggestion, CaesuraScript, DynamicText,
+        ;; MultiMeasureRestScript and Script, thus we use
+        ;; 'ledgered-grob-interface (used for Script and Custos).
+        ((ledgered-grob-interface this-engraver grob source-engraver)
+         (set! raw-scripts (cons grob raw-scripts)))
+        ((script-column-interface this-engraver grob source-engraver)
+         (when (eq? (grob::name grob) 'ScriptRow)
+           (set! script-row grob)))
+        ((note-column-interface this-engraver grob source-engraver)
+         (set! nc grob))
+        ((note-head-interface this-engraver grob source-engraver)
+         (set! nhds (cons grob nhds)))
+        ((stem-interface this-engraver grob source-engraver)
+         (set! stem grob))
+        ((accidental-placement-interface this-engraver grob source-engraver)
+         (set! acc-placement grob))
+        ((dot-column-interface this-engraver grob source-engraver)
+         (set! dot-col grob)))
+       ((process-music this-engraver)
+        (let ((scripts
+               ;; late filtration supports \tweak
+               (filter
+                (lambda (sc)
+                  (and (grob::has-interface sc 'script-interface)
+                       (eqv? (ly:grob-property sc 'side-axis) X)))
+                raw-scripts)))
+          ;; Proceed only if script-grobs with side-axis X are found
+          (when (pair? scripts)
+            (let* ((dots-array (if dot-col (ly:grob-object dot-col 'dots) #f))
+                   (dots
+                    (if dots-array
+                        (ly:grob-array->list dots-array)
+                        '())))
+              (if script-row
+                  ;; If ScriptRow is present, its 'side-support-elements
+                  ;; already contains probable Arpeggio, Accidental and
+                  ;; AccidentalPlacement grobs. We add dots in order to avoid
+                  ;; collisions for Script added at right side of a dotted
+                  ;; note.
+                  (for-each
                    (lambda (sc)
-                     (and (grob::has-interface sc 'script-interface)
-                          (eqv? (ly:grob-property sc 'side-axis) X)))
-                   raw-scripts)))
-            ;; Proceed only if script-grobs with side-axis X are found
-            (when (pair? scripts)
-              (let* ((dots-array (if dot-col (ly:grob-object dot-col 'dots) #f))
-                     (dots
-                       (if dots-array
-                           (ly:grob-array->list dots-array)
-                           '())))
-                (if script-row
-                    ;; If ScriptRow is present, its 'side-support-elements
-                    ;; already contains probable Arpeggio, Accidental and
-                    ;; AccidentalPlacement grobs. We add dots in order to avoid
-                    ;; collisions for Script added at right side of a dotted
-                    ;; note.
+                     (let* ((side-support-elements
+                             (ly:grob-object sc 'side-support-elements '())))
+                       (ly:grob-set-object! sc 'side-support-elements
+                                            (ly:grob-list->grob-array
+                                             (append
+                                              dots
+                                              (ly:grob-array->list side-support-elements))))))
+                   scripts)
+                  ;; If ScriptRow does not exist yet, we manually add
+                  ;; Accidentals, 'conditional-elements (i.e. Arpeggio),
+                  ;; Stem, NoteHeads and Dots to 'side-support-elements of
+                  ;; the Script.
+                  ;; Script_row_engraver may then create a ScriptRow-grob.
+                  (let* ((acc-alist
+                          (if (ly:grob? acc-placement)
+                              (ly:grob-object acc-placement 'accidental-grobs)
+                              #f))
+                         (accs
+                          (if acc-alist
+                              (map cadr acc-alist)
+                              '()))
+                         (conditional-elts-array
+                          (if nc
+                              (ly:grob-object nc 'conditional-elements #f)
+                              #f))
+                         (conditional-elts
+                          (if conditional-elts-array
+                              (ly:grob-array->list conditional-elts-array)
+                              '())))
                     (for-each
-                      (lambda (sc)
-                        (let* ((side-support-elements
-                                (ly:grob-object sc 'side-support-elements '())))
-                          (ly:grob-set-object! sc 'side-support-elements
-                            (ly:grob-list->grob-array
-                              (append
-                                dots
-                                (ly:grob-array->list side-support-elements))))))
-                      scripts)
-                    ;; If ScriptRow does not exist yet, we manually add
-                    ;; Accidentals, 'conditional-elements (i.e. Arpeggio),
-                    ;; Stem, NoteHeads and Dots to 'side-support-elements of
-                    ;; the Script.
-                    ;; Script_row_engraver may then create a ScriptRow-grob.
-                    (let* ((acc-alist
-                            (if (ly:grob? acc-placement)
-                                (ly:grob-object acc-placement 'accidental-grobs)
-                                #f))
-                           (accs
-                            (if acc-alist
-                                (map cadr acc-alist)
-                                '()))
-                           (conditional-elts-array
-                            (if nc
-                                (ly:grob-object nc 'conditional-elements #f)
-                                #f))
-                           (conditional-elts
-                            (if conditional-elts-array
-                                (ly:grob-array->list conditional-elts-array)
-                                '())))
-                      (for-each
-                        (lambda (sc)
-                          (ly:grob-set-object! sc 'side-support-elements
-                            (ly:grob-list->grob-array
-                              (append
-                                (list stem)
-                                conditional-elts
-                                accs
-                                nhds
-                                dots))))
-                        scripts)))
-                ;; Set Script's Y-parent to NoteHead
-                ;;
-                ;; Script applied to a stand-alone note-head or inside of an
-                ;; event-chord has already note-head as X- or Y-parent.
-                ;; Catch it.
-                ;; Script applied to an event-chord has note-column as
-                ;; X-parent. Best we can do is to catch the first note-head.
-                ;; This may not fulfill what a user has in mind, better to
-                ;; use in-chord script then.
-                (for-each
-                  (lambda (sc)
-                    (let* ((par-X (ly:grob-parent sc X))
-                           (par-Y (ly:grob-parent sc Y))
-                           (new-par-Y
-                             (cond
-                               ((and (ly:grob? par-X)
-                                     (grob::has-interface
-                                       par-X 'note-column-interface))
-                                 (car
-                                   (ly:grob-array->list
-                                     (ly:grob-object par-X 'note-heads))))
-                               ((and (ly:grob? par-X)
-                                     (grob::has-interface
-                                       par-X 'note-head-interface))
-                                 par-X)
-                               ((and (ly:grob? par-Y)
-                                     (grob::has-interface
-                                       par-Y 'note-head-interface))
-                                     par-Y)
-                               (else
-                                 (ly:warning
-                                   "Need NoteHead as parent for Script.")))))
-                      (ly:grob-set-parent! sc Y new-par-Y)))
-                  scripts)))
+                     (lambda (sc)
+                       (ly:grob-set-object! sc 'side-support-elements
+                                            (ly:grob-list->grob-array
+                                             (append
+                                              (list stem)
+                                              conditional-elts
+                                              accs
+                                              nhds
+                                              dots))))
+                     scripts)))
+              ;; Set Script's Y-parent to NoteHead
+              ;;
+              ;; Script applied to a stand-alone note-head or inside of an
+              ;; event-chord has already note-head as X- or Y-parent.
+              ;; Catch it.
+              ;; Script applied to an event-chord has note-column as
+              ;; X-parent. Best we can do is to catch the first note-head.
+              ;; This may not fulfill what a user has in mind, better to
+              ;; use in-chord script then.
+              (for-each
+               (lambda (sc)
+                 (let* ((par-X (ly:grob-parent sc X))
+                        (par-Y (ly:grob-parent sc Y))
+                        (new-par-Y
+                         (cond
+                          ((and (ly:grob? par-X)
+                                (grob::has-interface
+                                 par-X 'note-column-interface))
+                           (car
+                            (ly:grob-array->list
+                             (ly:grob-object par-X 'note-heads))))
+                          ((and (ly:grob? par-X)
+                                (grob::has-interface
+                                 par-X 'note-head-interface))
+                           par-X)
+                          ((and (ly:grob? par-Y)
+                                (grob::has-interface
+                                 par-Y 'note-head-interface))
+                           par-Y)
+                          (else
+                           (ly:warning
+                            "Need NoteHead as parent for Script.")))))
+                   (ly:grob-set-parent! sc Y new-par-Y)))
+               scripts)))
 
-            (set! raw-scripts '())
-            (set! nhds '())
-            (set! nc #f)
-            (set! stem #f)
-            (set! acc-placement #f)
-            (set! dot-col #f)
-            (set! script-row #f)))))))
+          (set! raw-scripts '())
+          (set! nhds '())
+          (set! nc #f)
+          (set! stem #f)
+          (set! acc-placement #f)
+          (set! dot-col #f)
+          (set! script-row #f)))))))
 
 (ly:register-translator
  Horizontal_script_engraver 'Horizontal_script_engraver
@@ -2501,92 +2501,92 @@ style @code{\\rtoe} and its siblings, based on the data in the
         (if (number-pair-list? lst)
             (let* ((user-start-stops (map start-stop lst))
                    (start-stops
-                     (filter
-                       (lambda (n)
-                         (and (index? n) (<= n (1- (length grobs)))))
-                       user-start-stops)))
+                    (filter
+                     (lambda (n)
+                       (and (index? n) (<= n (1- (length grobs)))))
+                     user-start-stops)))
               (map
-                (lambda (start-stop) (list-ref grobs start-stop))
-                start-stops))
+               (lambda (start-stop) (list-ref grobs start-stop))
+               start-stops))
             grobs))
 
       (make-engraver
-        (listeners
-           ((glissando-event this-engraver event)
-             (set! glissando-event event)
-             (set! start-glissando-line #t)))
+       (listeners
+        ((glissando-event this-engraver event)
+         (set! glissando-event event)
+         (set! start-glissando-line #t)))
 
-        (acknowledgers
-          ((note-column-interface this-engraver grob source-engraver)
-           (let* ((note-heads-array (ly:grob-object grob 'note-heads #f))
-                  (note-heads
-                    (if note-heads-array
-                        (ly:grob-array->list note-heads-array)
-                        '()))
-                  (glissando-skip?
-                    (ly:grob-property grob 'glissando-skip #f)))
+       (acknowledgers
+        ((note-column-interface this-engraver grob source-engraver)
+         (let* ((note-heads-array (ly:grob-object grob 'note-heads #f))
+                (note-heads
+                 (if note-heads-array
+                     (ly:grob-array->list note-heads-array)
+                     '()))
+                (glissando-skip?
+                 (ly:grob-property grob 'glissando-skip #f)))
 
-        ;; Do not start a new Glissando, if the last is not yet ended.
-        ;; This may happen if 'glissando-skip is used.
-        (when (and glissando-skip? start-glissando-line stop-glissando-line)
-          (ly:warning (G_ "overwriting glissando"))
-          (set! glissando-event #f)
-          (set! start-glissando-line #f))
+           ;; Do not start a new Glissando, if the last is not yet ended.
+           ;; This may happen if 'glissando-skip is used.
+           (when (and glissando-skip? start-glissando-line stop-glissando-line)
+             (ly:warning (G_ "overwriting glissando"))
+             (set! glissando-event #f)
+             (set! start-glissando-line #f))
 
-        (when (and (not glissando-skip?) stop-glissando-line)
-          ;; set 'glissando-index
-          (for-each
-            (lambda (gliss i) (ly:grob-set-property! gliss 'glissando-index i))
-            current-glissando-grobs
-            (iota (length note-heads)))
+           (when (and (not glissando-skip?) stop-glissando-line)
+             ;; set 'glissando-index
+             (for-each
+              (lambda (gliss i) (ly:grob-set-property! gliss 'glissando-index i))
+              current-glissando-grobs
+              (iota (length note-heads)))
 
-          (let ((possible-right-bounds (bounds gliss-map note-heads cdr)))
+             (let ((possible-right-bounds (bounds gliss-map note-heads cdr)))
 
-            ;; Set right bound.
-            (for-each
-              (lambda (bound gliss )
-                (ly:spanner-set-bound! gliss RIGHT bound)
-                (ly:engraver-announce-end-grob this-engraver gliss bound))
-              possible-right-bounds
-              current-glissando-grobs)
+               ;; Set right bound.
+               (for-each
+                (lambda (bound gliss )
+                  (ly:spanner-set-bound! gliss RIGHT bound)
+                  (ly:engraver-announce-end-grob this-engraver gliss bound))
+                possible-right-bounds
+                current-glissando-grobs)
 
-            ;; Throw away Glissandi not right-bounded by a rhythmic grob.
-            (for-each
-              (lambda (gliss)
-                (when (not (ly:grob? (ly:spanner-bound gliss RIGHT)))
-                  (ly:grob-suicide! gliss)))
-              current-glissando-grobs)
+               ;; Throw away Glissandi not right-bounded by a rhythmic grob.
+               (for-each
+                (lambda (gliss)
+                  (when (not (ly:grob? (ly:spanner-bound gliss RIGHT)))
+                    (ly:grob-suicide! gliss)))
+                current-glissando-grobs)
 
-            (set! stop-glissando-line #f)
-            (set! current-glissando-grobs '())))
+               (set! stop-glissando-line #f)
+               (set! current-glissando-grobs '())))
 
-        (when start-glissando-line
-          (set! gliss-map (ly:context-property context 'glissandoMap #f))
-          (let ((possible-left-bounds (bounds gliss-map note-heads car)))
-            (set! start-glissando-line #f)
-            (set! stop-glissando-line #t)
-            (set! current-glissando-grobs
-                  (append
-                    (map
-                      (lambda (bound)
-                        (let ((gliss
+           (when start-glissando-line
+             (set! gliss-map (ly:context-property context 'glissandoMap #f))
+             (let ((possible-left-bounds (bounds gliss-map note-heads car)))
+               (set! start-glissando-line #f)
+               (set! stop-glissando-line #t)
+               (set! current-glissando-grobs
+                     (append
+                      (map
+                       (lambda (bound)
+                         (let ((gliss
                                 (ly:engraver-make-grob
-                                  this-engraver 'Glissando glissando-event)))
-                          (ly:spanner-set-bound! gliss LEFT bound)
-                          gliss))
-                      possible-left-bounds)
-                    current-glissando-grobs))
-            (set! glissando-event #f))))))
-        ((finalize this-engraver)
-         (when (pair? current-glissando-grobs)
-           (for-each
-             (lambda (gliss)
-               (ly:warning (G_ "unterminated Glissando"))
-               (ly:grob-suicide! gliss))
-             current-glissando-grobs)
-           (set! current-glissando-grobs '())
-           (set! gliss-map #f)
-           (set! stop-glissando-line #f)))))))
+                                 this-engraver 'Glissando glissando-event)))
+                           (ly:spanner-set-bound! gliss LEFT bound)
+                           gliss))
+                       possible-left-bounds)
+                      current-glissando-grobs))
+               (set! glissando-event #f))))))
+       ((finalize this-engraver)
+        (when (pair? current-glissando-grobs)
+          (for-each
+           (lambda (gliss)
+             (ly:warning (G_ "unterminated Glissando"))
+             (ly:grob-suicide! gliss))
+           current-glissando-grobs)
+          (set! current-glissando-grobs '())
+          (set! gliss-map #f)
+          (set! stop-glissando-line #f)))))))
 
 (ly:register-translator
  Glissando_engraver 'Glissando_engraver

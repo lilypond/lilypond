@@ -137,24 +137,24 @@ and the modified value is updated accordingly."
   (define (detect-tag-markup-and-modify m prop)
     (let ((m-prop-val (ly:music-property m prop)))
       (and
-        (pair? m-prop-val)
-        (let* ((tag-markup? #f))
-          (when (pair? m-prop-val)
-            (list-map
-              (lambda (x)
-                (when
+       (pair? m-prop-val)
+       (let* ((tag-markup? #f))
+         (when (pair? m-prop-val)
+           (list-map
+            (lambda (x)
+              (when
                   (and (procedure? x) (eq? (procedure-name x) 'tag-markup))
-                  (set! tag-markup? #t))
-                x)
-              m-prop-val))
-          (when tag-markup?
-            (ly:music-set-property! m prop (prop-val-modificator m-prop-val)))
-          m))))
+                (set! tag-markup? #t))
+              x)
+            m-prop-val))
+         (when tag-markup?
+           (ly:music-set-property! m prop (prop-val-modificator m-prop-val)))
+         m))))
   (map-some-music
-    (lambda (m)
-      (or
-        ;; most markups are in 'text property
-        (detect-tag-markup-and-modify m 'text)
-        ;; some markups like stanzas are in 'value property
-        (detect-tag-markup-and-modify m 'value)))
-    music))
+   (lambda (m)
+     (or
+      ;; most markups are in 'text property
+      (detect-tag-markup-and-modify m 'text)
+      ;; some markups like stanzas are in 'value property
+      (detect-tag-markup-and-modify m 'value)))
+   music))

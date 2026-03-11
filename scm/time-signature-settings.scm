@@ -539,7 +539,7 @@ prev-beam-type to beam-type."
                (set! gls-prev gls)
                (cons beam-type (concatenate gls))))
            beam-types)))
-  
+
   (define (compose-beaming-exceptions)
     "Compose beam exceptions for a strictly alternating time signature."
     (let* (;; 'end exceptions for each component of the alternating time sig.
@@ -556,7 +556,7 @@ prev-beam-type to beam-type."
            (beam-types (uniq-list (sort
                                    (concatenate
                                     (map alist-keys component-end-exceptions))
-                                    >))))
+                                   >))))
       (if (null? beam-types)
           '()
           (list (cons 'end (compose-end-exceptions

@@ -2925,12 +2925,12 @@ there is a conflicting tag group definition."
 Returns @code{#f} if successful, and an error message if
 the given tag group could not be found."
   (cond ((not (tag-group-defined? tag-group))
-          (format #f (G_ "tag group ~a not found") tag-group))
+         (format #f (G_ "tag group ~a not found") tag-group))
         (else
-          (for-each
-           (lambda (elt) (hashq-remove! tag-groups elt))
-           tag-group)
-          #f)))
+         (for-each
+          (lambda (elt) (hashq-remove! tag-groups elt))
+          tag-group)
+         #f)))
 
 (define-public (add-to-tag-group tag-group tags)
   "Add the given @var{tags} to the existing @var{tag-group} symbol list.

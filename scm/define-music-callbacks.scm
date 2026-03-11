@@ -237,21 +237,21 @@ depth-first through MUSIC."
              (my-beam-exceptions
               (beam-exceptions spec time-signature-settings))
              (my-mlen (calc-measure-length spec)))
-          (ly:context-set-property! context 'timeSignature spec)
-          ;; meterScalingFactor should not be set unless the meter is scaled
-          (when scaled-duration
-            (ly:context-set-property!
-             context 'meterScalingFactor scaling-factor))
-          (ly:context-set-property! context 'beatBase my-beat-base)
-          (ly:context-set-property! context 'beatStructure my-beat-structure)
-          (ly:context-set-property! context 'submeasureStructure
-                                    my-submeasure-structure)
-          (ly:context-set-property! context 'beamExceptions my-beam-exceptions)
-          ;; measureLength should be set in Timing only, so that the user can
-          ;; explicitly change Timing.measureLength to create irregular
-          ;; measures.
-          (when (not scaled-duration)
-            (ly:context-set-property! context 'measureLength my-mlen))))
+        (ly:context-set-property! context 'timeSignature spec)
+        ;; meterScalingFactor should not be set unless the meter is scaled
+        (when scaled-duration
+          (ly:context-set-property!
+           context 'meterScalingFactor scaling-factor))
+        (ly:context-set-property! context 'beatBase my-beat-base)
+        (ly:context-set-property! context 'beatStructure my-beat-structure)
+        (ly:context-set-property! context 'submeasureStructure
+                                  my-submeasure-structure)
+        (ly:context-set-property! context 'beamExceptions my-beam-exceptions)
+        ;; measureLength should be set in Timing only, so that the user can
+        ;; explicitly change Timing.measureLength to create irregular
+        ;; measures.
+        (when (not scaled-duration)
+          (ly:context-set-property! context 'measureLength my-mlen))))
 
     (define (do-unsets context)
       (ly:context-unset-property context 'meterScalingFactor)

@@ -611,8 +611,8 @@ opening bracket will be drawn, for @code{RIGHT} we get the closing bracket."
                           (get-tip "brackettips.up")
                           empty-stencil))
          (tip-down-stil (if (not (car has-span-bar))
-                          (get-tip "brackettips.down")
-                          empty-stencil))
+                            (get-tip "brackettips.down")
+                            empty-stencil))
          (stencil (ly:stencil-add
                    thick-stil
                    (ly:stencil-translate-axis tip-up-stil

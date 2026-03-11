@@ -41,7 +41,7 @@
    "\n"
    "@indentedblock\n"
    "@multitable @columnfractions "
-     (number->string width) " " (number->string (- .98 width)) "\n"
+   (number->string width) " " (number->string (- .98 width)) "\n"
    "@headitem Type predicate @tab Description\n"
    (string-concatenate
     (sort (map document-type-predicate alist)

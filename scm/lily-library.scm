@@ -890,8 +890,8 @@ right (@var{dir}=@code{+1})."
   "Return a new list based upon @var{iv}, supposed to be an ordered interval of
 numbers.  This new list contains the interval bounds and every integer between
 them."
-;; Example:
-;; (fill-integer-interval '(-3 . 2)) -> '(-3 -2 -1 0 1 2)
+  ;; Example:
+  ;; (fill-integer-interval '(-3 . 2)) -> '(-3 -2 -1 0 1 2)
 
   (if (and (integer? (car iv)) (integer? (cdr iv)))
       (iota (1+ (- (cdr iv) (car iv))) (car iv) 1)

@@ -331,16 +331,16 @@ corner of the beam later on."
                (x-positions (ly:grob-property grob 'X-positions))
                (beam-segments (ly:grob-property grob 'beam-segments))
                (segments-at-last-stem
-                 (filter
-                   (lambda (beam-sgmnt)
-                     (eqv? (cdr (assoc-get 'horizontal beam-sgmnt))
-                           (cdr x-positions)))
-                   beam-segments))
+                (filter
+                 (lambda (beam-sgmnt)
+                   (eqv? (cdr (assoc-get 'horizontal beam-sgmnt))
+                         (cdr x-positions)))
+                 beam-segments))
                (last-vertical-counts
-                 (map
-                   (lambda (beam-sgmnt)
-                     (assoc-get 'vertical-count beam-sgmnt))
-                   segments-at-last-stem)))
+                (map
+                 (lambda (beam-sgmnt)
+                   (assoc-get 'vertical-count beam-sgmnt))
+                 segments-at-last-stem)))
 
           (if (positive? last-stem-dir)
               (apply max last-vertical-counts)
@@ -352,101 +352,101 @@ corner of the beam later on."
     (let* ((staff-space (ly:staff-symbol-staff-space grob))
            (details (ly:grob-property grob 'details '()))
            (slash-side
-             (assoc-get 'slash-side details LEFT))
+            (assoc-get 'slash-side details LEFT))
            (stems-array (ly:grob-object grob 'stems))
            (stems (ly:grob-array->list stems-array))
            (relevant-stem ((if (negative? slash-side) car last) stems))
            (stem-begin
-             ;; We need half-staff-space units, thus divide by 2
-             (/ (ly:grob-property relevant-stem 'stem-begin-position) 2))
+            ;; We need half-staff-space units, thus divide by 2
+            (/ (ly:grob-property relevant-stem 'stem-begin-position) 2))
            ;; If kneed, 'direction from Beam is not sufficient , get it from
            ;; the relevant Stem instead.
            (stem-dir (ly:grob-property relevant-stem 'direction))
            (slash-stem-fraction
-             (assoc-get 'slash-stem-fraction details 0.3))
+            (assoc-get 'slash-stem-fraction details 0.3))
            (over-beam-height
-             (* stem-dir
-                (assoc-get 'over-beam-height details 0.75)))
+            (* stem-dir
+               (assoc-get 'over-beam-height details 0.75)))
            (slash-X-positions
-             (assoc-get 'slash-X-positions details '(-0.5 . 1)))
+            (assoc-get 'slash-X-positions details '(-0.5 . 1)))
            (slash-slope
-             (* stem-dir
-                (assoc-get 'slash-slope details 2)))
+            (* stem-dir
+               (assoc-get 'slash-slope details 2)))
            (y-positions (ly:grob-property grob 'positions))
            (y-pos ((if (negative? slash-side) car cdr) y-positions))
            (x-positions (ly:grob-property grob 'X-positions))
            (x-pos ((if (negative? slash-side) car cdr) x-positions))
            (beam-width (interval-length x-positions))
            (beam-slope
-             (/ (- (cdr y-positions) (car y-positions))
-                (- (cdr x-positions) (car x-positions))))
+            (/ (- (cdr y-positions) (car y-positions))
+               (- (cdr x-positions) (car x-positions))))
            ;; Try to get 'slash-thickness from 'details. As fallback
            ;; use the same method as for slashed straight Flags in
            ;; flag-styles.scm
            (line-thickness
-             (ly:output-def-lookup
-               (ly:grob-layout relevant-stem)
-               'line-thickness))
+            (ly:output-def-lookup
+             (ly:grob-layout relevant-stem)
+             'line-thickness))
            (slash-thickness
-             (* staff-space
-                (assoc-get 'slash-thickness details
-                  (let* ((grob-stem-thickness
-                           (ly:grob-property relevant-stem 'thickness)))
-                    (* grob-stem-thickness line-thickness)))))
+            (* staff-space
+               (assoc-get 'slash-thickness details
+                          (let* ((grob-stem-thickness
+                                  (ly:grob-property relevant-stem 'thickness)))
+                            (* grob-stem-thickness line-thickness)))))
            (beam-thick (ly:grob-property grob 'beam-thickness))
            (beam-dir (ly:grob-property grob 'direction))
            (extra-vertical-count
-             (if (and (ly:grob-property grob 'knee #f)
-                      (positive? slash-side))
-                 (beam::calc-right-extreme-vertical-count grob)
-                 0))
+            (if (and (ly:grob-property grob 'knee #f)
+                     (positive? slash-side))
+                (beam::calc-right-extreme-vertical-count grob)
+                0))
            (x-left
-             (* (- slash-side) (car slash-X-positions)))
+            (* (- slash-side) (car slash-X-positions)))
            (x-right
-             (* (- slash-side) (cdr slash-X-positions)))
+            (* (- slash-side) (cdr slash-X-positions)))
            (stem-y-part
-             (* (- y-pos stem-begin)
-                slash-stem-fraction
-                (- stem-dir)))
+            (* (- y-pos stem-begin)
+               slash-stem-fraction
+               (- stem-dir)))
            (x-start
-             (if (negative? slash-side)
-                 x-left
-                 (+ x-left beam-width)))
+            (if (negative? slash-side)
+                x-left
+                (+ x-left beam-width)))
            (y-start
-             (if (and (positive? slash-side)
-                      (ly:grob-property grob 'cross-staff #f))
-                 (* staff-space
-                    (+ (* x-left (* -1 slash-side slash-slope))
-                       y-pos))
-                 (* staff-space
-                    (+ (* x-left (* -1 slash-side slash-slope))
-                         y-pos
-                       (* stem-dir stem-y-part)
-                       extra-vertical-count))))
+            (if (and (positive? slash-side)
+                     (ly:grob-property grob 'cross-staff #f))
+                (* staff-space
+                   (+ (* x-left (* -1 slash-side slash-slope))
+                      y-pos))
+                (* staff-space
+                   (+ (* x-left (* -1 slash-side slash-slope))
+                      y-pos
+                      (* stem-dir stem-y-part)
+                      extra-vertical-count))))
            (x-end
-             (if (negative? slash-side)
-                 x-right
-                 (+ x-right beam-width)))
+            (if (negative? slash-side)
+                x-right
+                (+ x-right beam-width)))
            (y-end
-             (* staff-space
-                (+ (* x-right beam-slope)
-                   over-beam-height
-                   extra-vertical-count
-                   y-pos)))
+            (* staff-space
+               (+ (* x-right beam-slope)
+                  over-beam-height
+                  extra-vertical-count
+                  y-pos)))
            (slash-stencil
-             (make-line-stencil
-               ;; thick
-               slash-thickness
-               ;; start-coords
-               x-start
-               y-start
-               ;; end-coords
-               x-end
-               y-end)))
+            (make-line-stencil
+             ;; thick
+             slash-thickness
+             ;; start-coords
+             x-start
+             y-start
+             ;; end-coords
+             x-end
+             y-end)))
 
       (ly:stencil-add
-        (ly:beam::print grob)
-        slash-stencil))))
+       (ly:beam::print grob)
+       slash-stencil))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; cross-staff stuff
@@ -807,12 +807,12 @@ duration log @var{log}."
                             line-thickness))
          (font-size (ly:grob-property grob 'font-size 0))
          (radius
-           (*
-              ;; To get a proper radius for easy note heads, we use half of the
-              ;; grob-layout's staff space plus line-thickness scaled with
-              ;; font-size.
-              (magstep font-size)
-              (/ (+ layout-staff-space line-thickness) 2)))
+          (*
+           ;; To get a proper radius for easy note heads, we use half of the
+           ;; grob-layout's staff space plus line-thickness scaled with
+           ;; font-size.
+           (magstep font-size)
+           (/ (+ layout-staff-space line-thickness) 2)))
          (letter (make-fontsize-markup
                   -8
                   (make-center-align-markup (make-vcenter-markup pitch-string))))
@@ -910,11 +910,11 @@ extent of the grob to the extent of the staff."
         '(0 . 0))))
 
 (define-public ((direction-scaled val) grob)
-    "Returns @var{val}, scaled by @code{'direction} of @var{grob}.  The return
+  "Returns @var{val}, scaled by @code{'direction} of @var{grob}.  The return
 value is used for @code{extra-spacing-height} to push note columns right in
 @code{markLengthOn}."
-    (let ((dir (ly:grob-property grob 'direction)))
-      (cons (* (car val) dir) (* (cdr val) dir))))
+  (let ((dir (ly:grob-property grob 'direction)))
+    (cons (* (car val) dir) (* (cdr val) dir))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; neighbor-interface routines
@@ -1442,10 +1442,10 @@ If @var{data} is @code{#f} or @code{'()}, it is not included in the sum."
     (or (ly:event-property event 'stroke-finger-text #f)
         (let ((digit-names (ly:grob-property grob 'digit-names)))
           (vector-ref
-            digit-names
-            (1- (max 1
-                     (min (vector-length digit-names)
-                          (ly:event-property event 'stroke-finger-digit)))))))))
+           digit-names
+           (1- (max 1
+                    (min (vector-length digit-names)
+                         (ly:event-property event 'stroke-finger-digit)))))))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1754,12 +1754,12 @@ parent or the parent has no setting."
      (else '()))))
 
 (define*-public ((grob::relay-directional-property
-          negative-property positive-property
-          #:key
-          (controlling-property 'direction)
-          (default '())
-          default-property)
-          grob)
+                  negative-property positive-property
+                  #:key
+                  (controlling-property 'direction)
+                  (default '())
+                  default-property)
+                 grob)
   "@var{grob} callback generator for returning the value of another property
 depending on the sign of the numeric property identified by the
 @code{#:controlling-property} argument.
@@ -1876,7 +1876,7 @@ visible, just that they exist."
         (ly:grob-property grob 'positioning-done)
         (let* ((shift-when-alone (ly:grob-property grob 'toward-stem-shift 0.0))
                (shift-in-column
-                 (ly:grob-property grob 'toward-stem-shift-in-column))
+                (ly:grob-property grob 'toward-stem-shift-in-column))
                (script-column (ly:grob-object grob 'script-column #f))
                (shift
                 (if (and script-column
@@ -1887,8 +1887,8 @@ visible, just that they exist."
                                 (and (not (eq? s grob))
                                      (grob::has-interface s 'script-interface)
                                      (not (grob::has-interface
-                                            s
-                                            'accidental-suggestion-interface))))
+                                           s
+                                           'accidental-suggestion-interface))))
                               (ly:grob-array->list
                                (ly:grob-object script-column 'scripts))))
                     shift-in-column shift-when-alone))
@@ -1907,16 +1907,16 @@ visible, just that they exist."
                        (dir2 (ly:grob-property stem-grob 'direction)))
                    (if (equal? dir1 dir2)
                        (let* ((common-refp
-                                (ly:grob-common-refpoint grob stem-grob X))
+                               (ly:grob-common-refpoint grob stem-grob X))
                               (stem-location
                                (ly:grob-relative-coordinate
-                                 stem-grob common-refp X)))
+                                stem-grob common-refp X)))
                          (* shift (- stem-location note-head-location)))
                        0.0))
                  0.0))))))
 
 (define-public ((horizontal-script::calc-staff-position val) grob)
-"Set @code{staff-position} for horizontal script definitions in the alist for
+  "Set @code{staff-position} for horizontal script definitions in the alist for
 context property @code{scriptDefinitions}.  This opens the possibility to set
 @code{Y-offset} or @code{staff-position} by @code{override} or @code{tweak}.
 Directly setting @code{Y-offset} in script definitions blocks this.
@@ -1931,7 +1931,7 @@ some offset from zero in y-axis direction."
       #f))
 
 (define-public (horizontal-script::extra-spacing-height grob)
-"Set @code{extra-spacing-height} for horizontal script to
+  "Set @code{extra-spacing-height} for horizontal script to
 @code{item::extra-spacing-height-including-staff} to avoid overlapping with
 surrounding note columns."
   (if (zero? (ly:grob-property grob 'side-axis))
@@ -1939,40 +1939,40 @@ surrounding note columns."
       '()))
 
 (define-public script-interface::calc-y-offset
-;; If Script is positioned above or below we use
-;; `side-position-interface::y-aligned-side`, an unpure-pure-container.
-;; If Script is positioned left or right we try to get 'staff-position from
-;; Script and parent NoteHead in order to calculate the vertical offset.
-;; Otherwise we fall back to zero.
+  ;; If Script is positioned above or below we use
+  ;; `side-position-interface::y-aligned-side`, an unpure-pure-container.
+  ;; If Script is positioned left or right we try to get 'staff-position from
+  ;; Script and parent NoteHead in order to calculate the vertical offset.
+  ;; Otherwise we fall back to zero.
   (let ((variant
          (lambda (accessor)
            (lambda (grob . rest)
              (if (zero? (ly:grob-property grob 'side-axis Y))
                  (let* ((head (ly:grob-parent grob Y))
                         (head-y
-                          (if (grob::has-interface head 'note-head-interface)
-                              (ly:grob-property head 'staff-position #f)
-                              #f))
+                         (if (grob::has-interface head 'note-head-interface)
+                             (ly:grob-property head 'staff-position #f)
+                             #f))
                         (staff-pos
-                          (ly:grob-property grob 'staff-position #f))
+                         (ly:grob-property grob 'staff-position #f))
                         (staff-space (ly:staff-symbol-staff-space grob))
                         (y-off
-                          (if (and head-y staff-pos)
-                              (* staff-space (/ (- staff-pos head-y) 2))
-                              0)))
+                         (if (and head-y staff-pos)
+                             (* staff-space (/ (- staff-pos head-y) 2))
+                             0)))
                    y-off)
                  (apply
-                   accessor
-                   side-position-interface::y-aligned-side
-                   grob
-                   rest))))))
+                  accessor
+                  side-position-interface::y-aligned-side
+                  grob
+                  rest))))))
 
-   (ly:make-unpure-pure-container
+    (ly:make-unpure-pure-container
      (variant ly:unpure-call)
      (variant ly:pure-call))))
 
 (define-public (ly:script-interface::calc-direction grob)
-"Usually the @code{'direction} of an articulation is set in
+  "Usually the @code{'direction} of an articulation is set in
 @code{default-script-alist}. If the @code{'direction} is not specified there and
 not specified by user settings, this procedure steps in.
 
@@ -2011,9 +2011,9 @@ As a last resort @code{CENTER} is returned."
 (define-public ((script::ledger-lines stencil) grob)
   (if (zero? (ly:grob-property grob 'side-axis Y))
       (ledgered-grob::ledger-lines
-        grob
-        stencil
-        #:alternative-grob (ly:grob-parent grob Y))
+       grob
+       stencil
+       #:alternative-grob (ly:grob-parent grob Y))
       empty-stencil))
 
 ;; For `\rtoeheel` and siblings.
@@ -2043,7 +2043,7 @@ As a last resort @code{CENTER} is returned."
              (make-musicglyph-markup right-glyph)))))))
 
 (define-public (ly:script-interface::print grob)
-"The @code{stencil} of a script grob."
+  "The @code{stencil} of a script grob."
   (define (pick-name name-entry)
     (if (not (pair? name-entry))
         name-entry
@@ -2060,22 +2060,22 @@ disambiguate between different glyphs")))
 
   (let* ((script-stencil (ly:grob-property grob 'script-stencil))
          (raw-stencil
-           (if (pair? script-stencil)
-               (let ((key (car script-stencil)))
-                 (if (eq? key 'feta)
-                     (let ((name (pick-name (cdr script-stencil)))
-                           (font (ly:grob-default-font grob)))
-                       (ly:font-get-glyph font (string-append "scripts." name)))
-                     (begin
-                       (ly:programming-error
-                        "cannot deal with script-stencil key other than 'feta")
-                       empty-stencil)))
-               (begin
-                 (ly:event-warning
-                   (event-cause grob)
-                   (G_ "script-stencil property must be pair: ~a")
-                   script-stencil)
-                 empty-stencil))))
+          (if (pair? script-stencil)
+              (let ((key (car script-stencil)))
+                (if (eq? key 'feta)
+                    (let ((name (pick-name (cdr script-stencil)))
+                          (font (ly:grob-default-font grob)))
+                      (ly:font-get-glyph font (string-append "scripts." name)))
+                    (begin
+                      (ly:programming-error
+                       "cannot deal with script-stencil key other than 'feta")
+                      empty-stencil)))
+              (begin
+                (ly:event-warning
+                 (event-cause grob)
+                 (G_ "script-stencil property must be pair: ~a")
+                 script-stencil)
+                empty-stencil))))
     (ly:stencil-add ((script::ledger-lines raw-stencil) grob) raw-stencil)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -3298,25 +3298,25 @@ The final stencil is adjusted vertically using @var{staff-space}, which is
          (end-on-bag? (assoc-get 'end-on-break-align-group right-bound-details))
          (right-bound-column (ly:item-get-column right-bound))
          (right-bound-left-column
-           (ly:grob-object right-bound-column 'left-neighbor))
+          (ly:grob-object right-bound-column 'left-neighbor))
          (relevant-elts
-           (cond ((grob::has-interface right-bound 'paper-column-interface)
-                  (ly:grob-object right-bound 'elements #f))
-                 ((and
-                    (ly:grob? right-bound-left-column)
-                    (not (equal? right-bound-left-column left-bound)))
-                  (ly:grob-object right-bound-left-column 'elements #f))
-                 (else #f)))
+          (cond ((grob::has-interface right-bound 'paper-column-interface)
+                 (ly:grob-object right-bound 'elements #f))
+                ((and
+                  (ly:grob? right-bound-left-column)
+                  (not (equal? right-bound-left-column left-bound)))
+                 (ly:grob-object right-bound-left-column 'elements #f))
+                (else #f)))
          (bag-elts
-           (if relevant-elts
-               (filter
-                 (lambda (elt) (grob::has-interface elt 'break-aligned-interface))
-                 (ly:grob-array->list relevant-elts))
-               '()))
+          (if relevant-elts
+              (filter
+               (lambda (elt) (grob::has-interface elt 'break-aligned-interface))
+               (ly:grob-array->list relevant-elts))
+              '()))
          (bag-start
-           (if (and end-on-bag? (pair? bag-elts))
-               (car (ly:relative-group-extent bag-elts system X))
-               #f))
+          (if (and end-on-bag? (pair? bag-elts))
+              (car (ly:relative-group-extent bag-elts system X))
+              #f))
     ;;;;
     ;;;; adjust for Arpeggio of right NoteColumn
     ;;;;
@@ -3494,11 +3494,11 @@ which is the default."
                  (right-stub-x-y
                   (ly:directed (cons x-length y-height) right-info-stub-length))
                  (left-stub-stil
-                   (if (and (not
-                              (grob::has-interface
-                                left-bound
-                                'non-musical-paper-column-interface))
-                            (member style '(stub-left stub-both)))
+                  (if (and (not
+                            (grob::has-interface
+                             left-bound
+                             'non-musical-paper-column-interface))
+                           (member style '(stub-left stub-both)))
                       (make-line-stencil
                        (* line-thick thick)
                        x-start
@@ -3507,11 +3507,11 @@ which is the default."
                        (+ y-start (cdr left-stub-x-y)))
                       empty-stencil))
                  (right-stub-stil
-                   (if (and (not
-                              (grob::has-interface
-                                right-bound
-                                'non-musical-paper-column-interface))
-                            (member style '(stub-right stub-both)))
+                  (if (and (not
+                            (grob::has-interface
+                             right-bound
+                             'non-musical-paper-column-interface))
+                           (member style '(stub-right stub-both)))
                       (make-line-stencil
                        (* line-thick thick)
                        (- x-end (car right-stub-x-y))
@@ -4032,15 +4032,15 @@ for measure division ~a")
   "Return the line-position of @var{staff-symbol} which is closest to
 @var{nhd-staff-pos}."
   (let* ((staff-symbol-line-positions
-           (ly:grob-property staff-symbol 'line-positions)))
+          (ly:grob-property staff-symbol 'line-positions)))
     (fold-right
-      (lambda (x y)
-        (if (<= (abs (- (car-or-identity x) nhd-staff-pos))
-                (abs (- (car-or-identity y) nhd-staff-pos)))
-            x
-            y))
-      +inf.0
-      staff-symbol-line-positions)))
+     (lambda (x y)
+       (if (<= (abs (- (car-or-identity x) nhd-staff-pos))
+               (abs (- (car-or-identity y) nhd-staff-pos)))
+           x
+           y))
+     +inf.0
+     staff-symbol-line-positions)))
 
 (define-public (calc-pattern-element pattern-list factor)
   "First and last relevant value of the probably nested number list
@@ -4051,11 +4051,11 @@ list drops the first element of @var{pattern-list}."
          (relevant-last-elt (car-or-identity (last pattern-list)))
          (covered (- relevant-last-elt relevant-first-elt)))
     (map
-      (lambda (x)
-        (if (pair? x)
-            (map (lambda (y) (+ y (* factor covered))) x)
-            (+ x (* factor covered))))
-      (cdr pattern-list))))
+     (lambda (x)
+       (if (pair? x)
+           (map (lambda (y) (+ y (* factor covered))) x)
+           (+ x (* factor covered))))
+     (cdr pattern-list))))
 
 (define-public
   (ledger-lines::positions-from-ledgered-grob ledgered-grob staff-pos)
@@ -4068,92 +4068,92 @@ lines for grobs with @code{'staff-position} @var{staff-pos}.
         '()
         (let* ((staff-space (ly:grob-property staff-symbol 'staff-space 1))
                (staff-line-pos
-                 (closest-staff-line staff-symbol staff-pos))
+                (closest-staff-line staff-symbol staff-pos))
                ;; By default, the first ledger line is two staff-spaces
                ;; above/below the relevant staff line.
                (default-pos
                  (list staff-line-pos (+ staff-line-pos (* 2 staff-space))))
                (staff-symbol-ledger-positions
-                 ;; If StaffSymbol.ledger-positions is not set fall back to
-                 ;; `default-pos`
-                 ;; NB user input may not be sorted
-                 (ly:grob-property staff-symbol 'ledger-positions default-pos))
+                ;; If StaffSymbol.ledger-positions is not set fall back to
+                ;; `default-pos`
+                ;; NB user input may not be sorted
+                (ly:grob-property staff-symbol 'ledger-positions default-pos))
                (ledger-extra
-                 (or
-                   (ly:grob-property ledgered-grob 'ledger-extra #f)
-                   (ly:grob-property staff-symbol 'ledger-extra #f)
-                   0))
+                (or
+                 (ly:grob-property ledgered-grob 'ledger-extra #f)
+                 (ly:grob-property staff-symbol 'ledger-extra #f)
+                 0))
                (dist (- staff-pos staff-line-pos))
                (dir (sign dist))
                (stripped-down-pos-list
-                 (map car-or-identity staff-symbol-ledger-positions))
+                (map car-or-identity staff-symbol-ledger-positions))
                (min-pos
-                 (apply min stripped-down-pos-list))
+                (apply min stripped-down-pos-list))
                (max-pos
-                 (apply max stripped-down-pos-list))
+                (apply max stripped-down-pos-list))
                (cycle (- max-pos min-pos))
                (min-max-ledger-proc
-                 (lambda (pos)
-                   (floor (/ (- (+ pos (* 0.5 dir)) min-pos) cycle))))
+                (lambda (pos)
+                  (floor (/ (- (+ pos (* 0.5 dir)) min-pos) cycle))))
                (modified-pos (+ staff-pos (* ledger-extra dir)))
                (init-ledgers
-                 (ordered-cons
-                   (min-max-ledger-proc modified-pos)
-                   (min-max-ledger-proc staff-line-pos)))
+                (ordered-cons
+                 (min-max-ledger-proc modified-pos)
+                 (min-max-ledger-proc staff-line-pos)))
                (delete-adjacent-duplicates
-                 (lambda (lst)
-                   (if (pair? lst)
-                       (fold-right
-                         (lambda (elem ret)
-                           (if (equal? elem (first ret))
-                               ret
-                               (cons elem ret)))
-                         (list (last lst))
-                         lst)
-                       lst)))
+                (lambda (lst)
+                  (if (pair? lst)
+                      (fold-right
+                       (lambda (elem ret)
+                         (if (equal? elem (first ret))
+                             ret
+                             (cons elem ret)))
+                       (list (last lst))
+                       lst)
+                      lst)))
                (calculated-ledgers
-                 (if (> (abs dist) 0.5)
-                     (append-map
-                       (lambda (x)
-                         (let ((current-pattern
-                                (calc-pattern-element
-                                  staff-symbol-ledger-positions x)))
-                           ;; Remove unwanted ledgers.
-                           (remove
-                             (lambda (y)
-                               (cond
-                                 ((= (abs staff-pos)
-                                     (- (abs staff-line-pos)
-                                        (abs ledger-extra)))
-                                   #t)
-                                 ((and (negative? ledger-extra)
-                                       (>= (abs ledger-extra) (abs dist)))
-                                   (if (<= dist 0)
-                                       (or
-                                         (>= (car-or-identity y)
-                                             modified-pos)
-                                         (< (last-or-identity y)
-                                             staff-line-pos))
-                                       (or
-                                         (<= (last-or-identity y)
-                                             modified-pos)
-                                         (> (car-or-identity y)
-                                             staff-line-pos))))
-                                 ((<= dist 0)
-                                   (or
-                                     (< (last-or-identity y) modified-pos)
-                                     (>= (car-or-identity y) staff-line-pos)))
-                                 ((> dist 0)
-                                   (or
-                                     (> (car-or-identity y) modified-pos)
-                                     (<= (last-or-identity y) staff-line-pos)))
-                                 (else #f)))
-                             current-pattern)))
-                       (fill-integer-interval init-ledgers))
-                     '())))
+                (if (> (abs dist) 0.5)
+                    (append-map
+                     (lambda (x)
+                       (let ((current-pattern
+                              (calc-pattern-element
+                               staff-symbol-ledger-positions x)))
+                         ;; Remove unwanted ledgers.
+                         (remove
+                          (lambda (y)
+                            (cond
+                             ((= (abs staff-pos)
+                                 (- (abs staff-line-pos)
+                                    (abs ledger-extra)))
+                              #t)
+                             ((and (negative? ledger-extra)
+                                   (>= (abs ledger-extra) (abs dist)))
+                              (if (<= dist 0)
+                                  (or
+                                   (>= (car-or-identity y)
+                                       modified-pos)
+                                   (< (last-or-identity y)
+                                      staff-line-pos))
+                                  (or
+                                   (<= (last-or-identity y)
+                                       modified-pos)
+                                   (> (car-or-identity y)
+                                      staff-line-pos))))
+                             ((<= dist 0)
+                              (or
+                               (< (last-or-identity y) modified-pos)
+                               (>= (car-or-identity y) staff-line-pos)))
+                             ((> dist 0)
+                              (or
+                               (> (car-or-identity y) modified-pos)
+                               (<= (last-or-identity y) staff-line-pos)))
+                             (else #f)))
+                          current-pattern)))
+                     (fill-integer-interval init-ledgers))
+                    '())))
           ;; Unnest, sort and delete duplicates
           (delete-adjacent-duplicates
-            (sort (flatten-list calculated-ledgers) <))))))
+           (sort (flatten-list calculated-ledgers) <))))))
 
 (define*-public (ledgered-grob::ledger-lines
                  grob
@@ -4189,14 +4189,14 @@ lines for grobs with @code{'staff-position} @var{staff-pos}.
                 grob staff-pos)))
              ;; calculate horizontal extent of ledger lines
              (length-fraction
-                (ly:grob-property
-                 grob
-                 'length-fraction
-                 default-length-fraction))
+              (ly:grob-property
+               grob
+               'length-fraction
+               default-length-fraction))
              (ledger-X-ext
-                (interval-scale
-                 (ly:stencil-extent stencil X)
-                 length-fraction))
+              (interval-scale
+               (ly:stencil-extent stencil X)
+               length-fraction))
              ;; create ledger line stencils
              (single-ledger
               (ly:round-filled-box
@@ -4272,9 +4272,9 @@ lines for grobs with @code{'staff-position} @var{staff-pos}.
     ;; `stil` needs to be last, otherwise a probably colored ledger
     ;; would print above the note head.
     (ly:stencil-add (ly:stencil-translate-axis
-                      (stencil-squash-extent
-                        (ly:stencil-aligned-to ledgers X RIGHT)
-                        X)
-                      (cdr (ly:stencil-extent stil X))
+                     (stencil-squash-extent
+                      (ly:stencil-aligned-to ledgers X RIGHT)
                       X)
+                     (cdr (ly:stencil-extent stil X))
+                     X)
                     stil)))
