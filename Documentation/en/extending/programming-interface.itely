@@ -1014,24 +1014,25 @@ stencils are combined using @code{ly:stencil-add}:
 
 @lilypond[quote,verbatim,ragged-right]
 #(define-markup-command (my-draw-line layout props dest)
-  (number-pair?)
-  #:properties ((thickness 1)
-                (line-gap 0.6))
-  "..documentation.."
-  (let* ((th (* (ly:output-def-lookup layout 'line-thickness)
-                thickness))
-         (dx (car dest))
-         (dy (cdr dest))
-         (w (/ line-gap 2.0))
-         (x (cond ((= dx 0) w)
-                  ((= dy 0) 0)
-                  (else (/ w (sqrt (+ 1 (* (/ dx dy) (/ dx dy))))))))
-         (y (* (if (< (* dx dy) 0) 1 -1)
-               (cond ((= dy 0) w)
-                     ((= dx 0) 0)
-                     (else (/ w (sqrt (+ 1 (* (/ dy dx) (/ dy dx))))))))))
-     (ly:stencil-add (make-line-stencil th x y (+ dx x) (+ dy y))
-                     (make-line-stencil th (- x) (- y) (- dx x) (- dy y)))))
+   (number-pair?)
+   #:properties ((thickness 1)
+                 (line-gap 0.6))
+   "..documentation.."
+   (let* ((th (* (ly:output-def-lookup layout 'line-thickness)
+                 thickness))
+          (dx (car dest))
+          (dy (cdr dest))
+          (w (/ line-gap 2.0))
+          (x (cond ((= dx 0) w)
+                   ((= dy 0) 0)
+                   (else (/ w (sqrt (+ 1 (* (/ dx dy) (/ dx dy))))))))
+          (y (cond ((= dy 0) w)
+                   ((= dx 0) 0)
+                   (else (/ w (sqrt (+ 1 (* (/ dy dx) (/ dy dx))))))))
+          (y (* (if (< (* dx dy) 0) 1 -1) y)))
+     (ly:stencil-add
+      (make-line-stencil th x y (+ dx x) (+ dy y))
+      (make-line-stencil th (- x) (- y) (- dx x) (- dy y)))))
 
 \markup \my-draw-line #'(4 . 3)
 \markup \override #'(line-gap . 1.2) \my-draw-line #'(4 . 3)
@@ -1092,9 +1093,10 @@ result.
 @lilypond[verbatim,quote]
 #(define-markup-command (authors-and layout props authorA authorB)
                         (markup? markup?)
-   #:as-string (format #f "~a and ~a"
-                       (markup->string authorA #:layout layout #:props props)
-                       (markup->string authorB #:layout layout #:props props))
+   #:as-string (format
+                #f "~a and ~a"
+                (markup->string authorA #:layout layout #:props props)
+                (markup->string authorB #:layout layout #:props props))
    (interpret-markup layout props
     #{
       \markup \fill-line { \box #authorA and \box #authorB }
@@ -1115,10 +1117,14 @@ the command argument, and optionally the properties.
 #(define-markup-command (authors-and layout props authorA authorB)
                         (markup? markup?)
    #:properties ((author-separator " and "))
-   #:as-string (format #f "~a~a~a"
-                       (markup->string authorA #:layout layout #:props props)
-                       (markup->string author-separator #:layout layout #:props props)
-                       (markup->string authorB #:layout layout #:props props))
+   #:as-string (format
+                #f "~a~a~a"
+                (markup->string authorA
+                                #:layout layout #:props props)
+                (markup->string author-separator
+                                #:layout layout #:props props)
+                (markup->string authorB
+                                #:layout layout #:props props))
    (interpret-markup layout props
     #{
       \markup { \box #authorA #author-separator \box #authorB }
@@ -1300,8 +1306,11 @@ desaturate =
      (define (desaturate-grob grob)
        (let* ((grob-def (ly:context-grob-definition context grob))
               (color (ly:assoc-get 'color grob-def black))
-              (new-color (map (lambda (x) (min 1 (/ (1+ x) 2))) color)))
-         (ly:context-pushpop-property context grob 'color new-color)))
+              (new-color (map (lambda (x)
+                                (min 1 (/ (1+ x) 2)))
+                              color)))
+         (ly:context-pushpop-property context grob
+                                      'color new-color)))
      (for-each desaturate-grob '(NoteHead Stem Beam)))
 
 \relative {
@@ -1322,16 +1331,18 @@ restrict the modifications to a single music block.  Notice how
 
 @lilypond[quote,verbatim]
 desaturate =
-#(define-music-function
-   (music) (ly:music?)
+#(define-music-function (music) (ly:music?)
    #{
      \applyContext
      #(lambda (context)
         (define (desaturate-grob grob)
           (let* ((grob-def (ly:context-grob-definition context grob))
                  (color (ly:assoc-get 'color grob-def black))
-                 (new-color (map (lambda (x) (min 1 (/ (1+ x) 2))) color)))
-            (ly:context-pushpop-property context grob 'color new-color)))
+                 (new-color (map (lambda (x)
+                                   (min 1 (/ (1+ x) 2)))
+                                 color)))
+            (ly:context-pushpop-property context grob
+                                         'color new-color)))
         (for-each desaturate-grob '(NoteHead Stem Beam)))
      #music
      \applyContext
@@ -1738,9 +1749,11 @@ command.  If you still find yourself needing @code{\overrideProperty},
 a bug report would be appreciated.}
 
 @example
-\overrideProperty [@var{ContextName}].@var{GrobName}.@var{property-name}[.@var{subproperty-name}] @var{value}
+\overrideProperty [@var{ContextName}]
+                  .@var{GrobName}
+                  .@var{property-name}
+                  [.@var{subproperty-name}] @var{value}
 @end example
-
 
 @end itemize
 
