@@ -136,6 +136,7 @@ lower-case alphabetic characters.  Other characters are used
 verbatim.
 
 @indentedblock
+@raggedright
 @multitable {Layout Object Properties} {@code{Aaaa} or @code{AaaaAaaaAaaa}} {@code{break-aligned-interface}}
 @headitem Object/property type
   @tab Naming convention
@@ -159,6 +160,7 @@ verbatim.
   @tab @code{aaa} or @code{aaa-aaa-aaa}
   @tab @code{direction},@* @code{beam-thickness}
 @end multitable
+@end raggedright
 @end indentedblock
 
 As we shall see shortly, the properties of different types of object are
