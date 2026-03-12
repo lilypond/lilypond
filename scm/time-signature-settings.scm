@@ -953,15 +953,32 @@ make a numbered time signature instead."
 
 (define-public (make-c-time-signature-markup spec)
   "Make markup for the @q{C} time signature style."
-  (if (number-pair? spec)
-      (let ((n (car spec))
-            (d (cdr spec)))
-        ;; check specific fractions to avoid warnings when no glyph exists
-        (if (or (and (= n 2) (= d 2))
-                (and (= n 4) (= d 4)))
-            (make-glyph-time-signature-markup 'C spec)
-            (make-compound-meter-markup spec)))
-      (make-compound-meter-markup spec)))
+  (define (glyph-available? spec)
+    ;; fractions for which we know glyphs exist
+    (or (equal? spec '(2 . 2))
+        (equal? spec '(4 . 4))))
+  (cond
+   ((glyph-available? spec)
+    (make-glyph-time-signature-markup 'C spec))
+   ;; Interpretation of the CC and cut-CC time signatures is complicated.
+   ;; We support these by rendering a strictly alternating list of special
+   ;; fractions as the concatenation of their glyphs.  Advantages:
+   ;;
+   ;; - this avoids debate about how 4/2 should be printed (it's just 4/2)
+   ;; - these seem unlikely to collide with other use cases
+   ;; - the interpretation seems not unreasonable
+   ;; - the default beat structure is likely suitable
+   ;; - users who prefer other metric properties can easily use another
+   ;;   \time spec (e.g., 4/2) and override TimeSignature.time-signature
+   ;;   to print using this general scheme
+   ((and (list? spec) (every glyph-available? spec))
+    (make-concat-markup
+     (list-insert-separator
+      (map (lambda (x) (make-glyph-time-signature-markup 'C x)) spec)
+      "\u2009" ; thin space
+      )))
+   (else ; modern numeric notation
+    (make-compound-meter-markup spec))))
 
 
 ;;;%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

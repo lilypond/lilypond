@@ -93,7 +93,21 @@ None so far.
 @node Rhythm improvements
 @unnumberedsec Rhythm improvements
 
-None so far.
+@itemize
+
+@item
+By default, strictly alternating meters consisting of 4/4 and 2/2
+are printed in a historic style using multiple C or cut-C symbols.
+
+@lilypond[quote,verbatim]
+{
+  \time #'((2 . 2) (2 . 2))
+  b'1 2 2
+}
+@end lilypond
+
+@end itemize
+
 
 @node Expressive mark improvements
 @unnumberedsec Expressive mark improvements

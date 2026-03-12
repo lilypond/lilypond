@@ -1366,6 +1366,26 @@ rhythms.
 }
 @end lilypond
 
+@cindex alla breve
+
+By default, strictly alternating meters consisting of 4/4 and 2/2
+are printed in a historic style using multiple C or cut-C symbols.
+It is not necessary to use this interpretation of these time
+signatures for the underlying meter: it is also possible to
+override @code{TimeSignature@/.time-signature} to print these
+symbols while setting a different meter with @code{\time}.
+
+@lilypond[quote,verbatim]
+\fixed c' {
+  \time #'((4 . 4) (4 . 4))
+  \repeat unfold 4 c2
+  \once \override Timing.TimeSignature.time-signature
+    = #'((2 . 2) (2 . 2))
+  \time 4/2
+  \repeat unfold 4 c2
+}
+@end lilypond
+
 
 @subsubheading Metric properties
 
