@@ -60,36 +60,6 @@ enddim =  #(make-span-event 'DecrescendoEvent STOP)
 decresc = #(make-music 'DecrescendoEvent 'span-direction START 'span-type 'text 'span-text "decresc.")
 enddecresc =  #(make-span-event 'DecrescendoEvent STOP)
 
-% Deprecated functions:
-% TODO: DEPRECATED_2_13_19
-deprecatedcresc =  {
-  $(make-event-chord (list cr))
-  \once \set crescendoText = \markup { \italic "cresc." }
-  \once \set crescendoSpanner = #'text
-}
-
-
-deprecateddim =  {
-  $(make-event-chord (list decr))
-  \once \set decrescendoText = \markup { \italic "dim." }
-  \once \set decrescendoSpanner = #'text
-}
-
-deprecatedenddim =  {
-  $(make-event-chord (list enddecr))
-%  \unset decrescendoText
-%  \unset decrescendoSpanner
-}
-
-deprecatedendcresc =  {
-  $(make-event-chord (list endcr))
-%  \unset crescendoText
-%  \unset crescendoSpanner
-}
-
-
-%%%%%%%%%%%%%%%%
-
 crescTextCresc = {
     \set crescendoText = \markup { \italic "cresc." }
     \set crescendoSpanner = #'text

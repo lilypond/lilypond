@@ -137,7 +137,16 @@ None so far.
 @node Miscellaneous improvements
 @unnumbered Miscellaneous improvements
 
-None so far.
+@itemize
+
+@item
+These functions, which have been deprecated since version 2.13.19,
+have been removed: @code{\deprecatedcresc},
+@code{\deprecatedendcresc}, @code{\deprecateddim}, and
+@code{\deprecatedenddim}.
+
+@end itemize
+
 
 @ifhtml
 For older news, go to
