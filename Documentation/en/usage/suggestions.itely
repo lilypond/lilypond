@@ -375,12 +375,15 @@ name @code{Makefile} in the top directory of the project:
 @warning{When a target or pattern rule is defined, the
 subsequent lines must begin with tabs, not spaces.}
 
-@example
+@c tabs aren't correctly displayed in `@example` environments
+@need 800
+@indentedblock
+@verbatim
 # the name stem of the output files
 piece := symphony
 # The command to run lilypond
 LILY_CMD := lilypond -ddelete-intermediate-files \
-                    -dno-point-and-click
+                     -dno-point-and-click
 
 # The suffixes used in this Makefile.
 .SUFFIXES: .ly .ily .pdf .midi
@@ -404,15 +407,15 @@ VPATH := \
 # The .pdf output files are put into the `PDF` subdirectory, and the
 # .midi files go into the `MIDI` subdirectory.
 %.pdf %.midi: %.ly | $(PDFDIR) $(MIDIDIR)
-	$(LILY_CMD) $<          	# this line begins with a tab
-	mv "$*.pdf" $(PDFDIR)/		# this line begins with a tab
-	mv "$*.midi" $(MIDIDIR)/	# this line begins with a tab
+	$(LILY_CMD) $<            # this line begins with a tab
+	mv "$*.pdf" $(PDFDIR)/    # this line begins with a tab
+	mv "$*.midi" $(MIDIDIR)/  # this line begins with a tab
 
 $(PDFDIR):
-	mkdir $(PDFDIR)
+	mkdir $(PDFDIR)           # this line begins with a tab
 
 $(MIDIDIR):
-	mkdir $(MIDIDIR)
+	mkdir $(MIDIDIR)          # this line begins with a tab
 
 common := symphonyDefs.ily
 
@@ -425,19 +428,19 @@ notes := \
   violinTwo.ily
 
 # The dependencies of the movements.
-$(piece)I.pdf: $(piece)I.ly $(notes) $(common)
-$(piece)II.pdf: $(piece)II.ly $(notes) $(common)
+$(piece)I.pdf:   $(piece)I.ly $(notes) $(common)
+$(piece)II.pdf:  $(piece)II.ly $(notes) $(common)
 $(piece)III.pdf: $(piece)III.ly $(notes) $(common)
-$(piece)IV.pdf: $(piece)IV.ly $(notes) $(common)
+$(piece)IV.pdf:  $(piece)IV.ly $(notes) $(common)
 
 # The dependencies of the full score.
 $(piece).pdf: $(piece).ly $(notes) $(common)
 
 # The dependencies of the parts.
-$(piece)-cello.pdf: $(piece)-cello.ly cello.ily $(common)
-$(piece)-horn.pdf: $(piece)-horn.ly horn.ily $(common)
-$(piece)-oboe.pdf: $(piece)-oboe.ly oboe.ily $(common)
-$(piece)-viola.pdf: $(piece)-viola.ly viola.ily $(common)
+$(piece)-cello.pdf:     $(piece)-cello.ly cello.ily $(common)
+$(piece)-horn.pdf:      $(piece)-horn.ly horn.ily $(common)
+$(piece)-oboe.pdf:      $(piece)-oboe.ly oboe.ily $(common)
+$(piece)-viola.pdf:     $(piece)-viola.ly viola.ily $(common)
 $(piece)-violinOne.pdf: $(piece)-violinOne.ly violinOne.ily $(common)
 $(piece)-violinTwo.pdf: $(piece)-violinTwo.ly violinTwo.ily $(common)
 
@@ -466,9 +469,8 @@ movements: $(piece)I.pdf \
            $(piece)IV.pdf
 
 all: score parts movements
-
-@end example
-
+@end verbatim
+@end indentedblock
 
 There are special complications on the Windows platform.  After
 downloading and installing GNU Make for Windows, you must set the
@@ -489,17 +491,19 @@ commands and to deal with spaces that are present
 in some default system directories.  Windows also has a different default 
 extension for midi files.
 
-
-@example
+@c tabs aren't correctly displayed in `@example` environments
+@need 800
+@indentedblock
+@verbatim
 ## WINDOWS VERSION
 ##
 piece := symphony
 LILY_CMD := lilypond -ddelete-intermediate-files \
-                    -dno-point-and-click
+                     -dno-point-and-click
 
-#get the 8.3 name of CURDIR (workaround for spaces in PATH)
+# get the 8.3 name of CURDIR (workaround for spaces in PATH)
 workdir := $(shell for /f "tokens=*" %%b in ("$(CURDIR)") \
-          do @@echo %%~sb)
+             do @@echo %%~sb)
 
 .SUFFIXES: .ly .ily .pdf .mid
 
@@ -516,15 +520,15 @@ VPATH := \
   $(workdir)/$(MIDIDIR)
 
 %.pdf %.mid: %.ly | $(PDFDIR) $(MIDIDIR)
-        $(LILY_CMD) $<			# this line begins with a tab
-        move /Y "$*.pdf"  $(PDFDIR)/	# begin with tab
-        move /Y "$*.mid" $(MIDIDIR)/	# begin with tab
+	$(LILY_CMD) $<                # this line begins with a tab
+	move /Y "$*.pdf"  $(PDFDIR)/  # this line begins with a tab
+	move /Y "$*.mid" $(MIDIDIR)/  # this line begins with a tab
 
 $(PDFDIR):
-    mkdir $(PDFDIR)/
+	mkdir $(PDFDIR)/              # this line begins with a tab
 
 $(MIDIDIR):
-    mkdir $(MIDIDIR)/
+	mkdir $(MIDIDIR)/             # this line begins with a tab
 
 notes := \
   cello.ily \
@@ -538,17 +542,17 @@ notes := \
 
 common := symphonyDefs.ily
 
-$(piece)I.pdf: $(piece)I.ly $(notes) $(common)
-$(piece)II.pdf: $(piece)II.ly $(notes) $(common)
+$(piece)I.pdf:   $(piece)I.ly $(notes) $(common)
+$(piece)II.pdf:  $(piece)II.ly $(notes) $(common)
 $(piece)III.pdf: $(piece)III.ly $(notes) $(common)
-$(piece)IV.pdf: $(piece)IV.ly $(notes) $(common)
+$(piece)IV.pdf:  $(piece)IV.ly $(notes) $(common)
 
 $(piece).pdf: $(piece).ly $(notes) $(common)
 
-$(piece)-cello.pdf: $(piece)-cello.ly cello.ily $(common)
-$(piece)-horn.pdf: $(piece)-horn.ly horn.ily $(common)
-$(piece)-oboe.pdf: $(piece)-oboe.ly oboe.ily $(common)
-$(piece)-viola.pdf: $(piece)-viola.ly viola.ily $(common)
+$(piece)-cello.pdf:     $(piece)-cello.ly cello.ily $(common)
+$(piece)-horn.pdf:      $(piece)-horn.ly horn.ily $(common)
+$(piece)-oboe.pdf:      $(piece)-oboe.ly oboe.ily $(common)
+$(piece)-viola.pdf:     $(piece)-viola.ly viola.ily $(common)
 $(piece)-violinOne.pdf: $(piece)-violinOne.ly violinOne.ily $(common)
 $(piece)-violinTwo.pdf: $(piece)-violinTwo.ly violinTwo.ily $(common)
 
@@ -570,8 +574,8 @@ movements: $(piece)I.pdf \
            $(piece)IV.pdf
 
 all: score parts movements
-@end example
-
+@end verbatim
+@end indentedblock
 
 The next Makefile is for a @command{lilypond-book} document done in
 LaTeX.  This project has an index, which requires that the
@@ -579,54 +583,62 @@ LaTeX.  This project has an index, which requires that the
 all stored in the @code{out} directory for .pdf output and in the
 @code{htmlout} directory for the html output.
 
-@example
-SHELL=/bin/sh
-FILE=myproject
-OUTDIR=out
-WEBDIR=htmlout
-VIEWER=acroread
-BROWSER=firefox
-LILYBOOK_PDF=lilypond-book --output=$(OUTDIR) --pdf $(FILE).lytex
-LILYBOOK_HTML=lilypond-book --output=$(WEBDIR) $(FILE).lytex
-PDF=cd $(OUTDIR) && pdflatex $(FILE)
-HTML=cd $(WEBDIR) && latex2html $(FILE)
-INDEX=cd $(OUTDIR) && makeindex $(FILE)
-PREVIEW=$(VIEWER) $(OUTDIR)/$(FILE).pdf &
+@c tabs aren't correctly displayed in `@example` environments
+@need 800
+@indentedblock
+@verbatim
+SHELL = /bin/sh
+FILE = myproject
+OUTDIR = out
+WEBDIR = htmlout
+VIEWER = acroread
+BROWSER = firefox
+
+LILYBOOK_PDF = lilypond-book --output=$(OUTDIR) --pdf $(FILE).lytex
+LILYBOOK_HTML = lilypond-book --output=$(WEBDIR) $(FILE).lytex
+
+PDF = cd $(OUTDIR) && pdflatex $(FILE)
+HTML = cd $(WEBDIR) && latex2html $(FILE)
+INDEX = cd $(OUTDIR) && makeindex $(FILE)
+PREVIEW = $(VIEWER) $(OUTDIR)/$(FILE).pdf &
 
 all: pdf web keep
 
 pdf:
-        $(LILYBOOK_PDF)  # begin with tab
-        $(PDF)           # begin with tab
-        $(INDEX)         # begin with tab
-        $(PDF)           # begin with tab
-        $(PREVIEW)       # begin with tab
+	$(LILYBOOK_PDF)  # this line begins with a tab
+	$(PDF)           # this line begins with a tab
+	$(INDEX)         # this line begins with a tab
+	$(PDF)           # this line begins with a tab
+	$(PREVIEW)       # this line begins with a tab
 
 web:
-        $(LILYBOOK_HTML) # begin with tab
-        $(HTML)          # begin with tab
-        cp -R $(WEBDIR)/$(FILE)/ ./  # begin with tab
-        $(BROWSER) $(FILE)/$(FILE).html &  # begin with tab
+	$(LILYBOOK_HTML)                   # this line begins with a tab
+	$(HTML)                            # this line begins with a tab
+	cp -R $(WEBDIR)/$(FILE)/ ./        # this line begins with a tab
+	$(BROWSER) $(FILE)/$(FILE).html &  # this line begins with a tab
 
 keep: pdf
-        cp $(OUTDIR)/$(FILE).pdf $(FILE).pdf  # begin with tab
+        # the next line begins with a tab
+	cp $(OUTDIR)/$(FILE).pdf $(FILE).pdf
 
 clean:
-        rm -rf $(OUTDIR) # begin with tab
+	rm -rf $(OUTDIR) # begin with tab  # this line begins with a tab
 
 web-clean:
-        rm -rf $(WEBDIR) # begin with tab
+	rm -rf $(WEBDIR) # begin with tab  # this line begins with a tab
 
 archive:
-        tar -cvvf myproject.tar \ # begin this line with tab
-        --exclude=out/* \
-        --exclude=htmlout/* \
-        --exclude=myproject/* \
-        --exclude=*midi \
-        --exclude=*pdf \
-        --exclude=*~ \
-        ../MyProject/*
-@end example
+        # the next line begins with a tab
+	tar -cvvf myproject.tar \
+            --exclude=out/* \
+            --exclude=htmlout/* \
+            --exclude=myproject/* \
+            --exclude=*midi \
+            --exclude=*pdf \
+            --exclude=*~ \
+            ../MyProject/*
+@end verbatim
+@end indentedblock
 
 TODO: make this thing work on Windows
 
