@@ -1979,6 +1979,12 @@ The output option @option{-dcrop} now takes all stencils
 into account while calculating the bounding box.
 This can change the size of cropped output.
 
+@item
+These functions, which have been deprecated since version 2.13.19,
+have been removed: @code{\deprecatedcresc},
+@code{\deprecatedendcresc}, @code{\deprecateddim}, and
+@code{\deprecatedenddim}.
+
 @end itemize
 
 
