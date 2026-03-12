@@ -1942,7 +1942,7 @@ some offset from zero in y-axis direction."
       #f))
 
 (define-public (horizontal-script::extra-spacing-height grob)
-  "Set @code{extra-spacing-height} for horizontal script to
+  "Set @code{extra-spacing-height} property for horizontal script @var{grob} to
 @code{item::extra-spacing-height-including-staff} to avoid overlapping with
 surrounding note columns."
   (if (zero? (ly:grob-property grob 'side-axis))

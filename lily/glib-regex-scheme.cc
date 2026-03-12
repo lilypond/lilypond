@@ -204,7 +204,7 @@ functions for what you can do with the match object.
 
 For example, this extracts the components of a date in YYYY-MM-DD format:
 
-@quotation
+@indentedblock
 @verbatim
 #(define date-components
    (let ((date-regex (ly:make-regex "^(\\d{4})-(\\d{2})-(\\d{2})$")))
@@ -216,7 +216,7 @@ For example, this extracts the components of a date in YYYY-MM-DD format:
                    (string->number (ly:regex-match-substring match 3)))
              (error "not a date"))))))
 @end verbatim
-@end quotation
+@end indentedblock
            )delim")
 {
   Regex *r = LY_ASSERT_SMOB (Regex, regex, 1);

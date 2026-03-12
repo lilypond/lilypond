@@ -171,13 +171,21 @@ generating the documentation.
 
 (display
  (string-append
-  "\\input texinfo @c -*-texinfo-*-\n"
-  "@settitle LilyPond Internals Reference\n"
-  "@documentencoding UTF-8\n"
-  "@documentlanguage en\n"
-  "@afourpaper\n"
+  "\\input texinfo @c -*-texinfo-*-
+@settitle LilyPond Internals Reference
+@documentencoding UTF-8
+@documentlanguage en
+@afourpaper
 
-  "@macro manualIntro
+@tex
+% Increase right skip value to accommodate for extremely long
+% identifiers.
+\\global\\envdef\\raggedright{%
+  \\rightskip0pt plus8em \\spaceskip.3333em \\xspaceskip.5em\\relax
+}
+@end tex
+
+@macro manualIntro
 This manual is a technical reference for all internal elements used
 by LilyPond version @version{} and all Scheme functions it provides.
 This information can be used to create tweaks and extensions, from

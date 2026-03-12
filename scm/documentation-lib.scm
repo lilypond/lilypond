@@ -206,9 +206,10 @@ also emit `@anchor` for SYM."
                         "")
                     "@code{" name "} (" typename ")"
                     (if init-value-pair
-                        (string-append ":"
+                        (string-append ":\n"
+                                       "@raggedright"
                                        (scm->texi (cdr init-value-pair))
-                                       "\n")
+                                       "\n@end raggedright\n")
                         ""))
      desc)))
 
