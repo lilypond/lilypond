@@ -418,7 +418,11 @@ class BookTexinfoOutputFormat (book_base.BookOutputFormat):
                 substr = highlight_ly(ly_code)
             else:
                 rep['verb'] = ly_code
-                substr = self.output[book_snippets.VERBATIM] % rep
+                # Avoid start of `@verbatim` environment at the bottom of a
+                # page with a single line.
+                if s.count(ly_code) > 1:
+                    substr += "@need 800\n"
+                substr += self.output[book_snippets.VERBATIM] % rep
         substr += self.output_info(basename, snippet)
         if book_snippets.QUOTE in snippet.option_dict:
             substr = self.output[book_snippets.QUOTE] % {'str': substr}

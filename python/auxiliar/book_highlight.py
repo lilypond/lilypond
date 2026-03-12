@@ -135,7 +135,12 @@ def highlight_ly(s):
     # Escape literal "@" for Texinfo.
     out += html.getvalue().replace("@", "@@")
     out += "</pre>\n"
-    out += "@end html\n\n@ifnothtml\n@pygments\n"
+    out += "@end html\n\n@ifnothtml\n"
+    # Avoid start of `@pygments` environment at the bottom of a page with a
+    # single line.
+    if s.count('\n') > 1:
+        out += "@need 800\n"
+    out += "@pygments\n"
     lines = []
     for token_type, value in tokens:
         # Escape literal "@", "{" and "}" because we're in
