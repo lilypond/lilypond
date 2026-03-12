@@ -254,7 +254,8 @@ at the top of the @file{.ly} file.
 Generate EPS files.
 
 This option is equivalent to specifying
-@code{-dseparate-page-formats=eps -dtall-page-formats=eps}.
+@code{-dseparate-page-formats=eps} combined with
+@code{-dtall-page-formats=eps}.
 
 @cindex output, format
 @cindex format, output

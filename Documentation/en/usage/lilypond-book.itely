@@ -62,6 +62,7 @@ explanatory text, so we will not comment on it further.
 
 @subheading Input
 
+@need 800
 @quotation
 @verbatim
 \documentclass[a4paper]{article}
@@ -1031,6 +1032,7 @@ extensions: @file{.tex}, @file{.texi}, @file{.html} or @file{.xml},
 depending on the output format.  All of @file{.tex}, @file{.texi} and
 @file{.xml} files need further processing.
 
+@need 1500
 @subheading Format-specific instructions
 
 @subsubheading @LaTeX{}
@@ -1371,6 +1373,7 @@ with this program, please refer to
 
 You can include LilyPond fragments in a @LaTeX{} document.
 
+@need 800
 @quotation
 @verbatim
 \documentclass{article}
@@ -1523,7 +1526,8 @@ output file.
              (outfile (open-output-file outfilename)))
         (if (output-port? outfile)
             (display whole-string outfile)
-            (ly:warning (G_ "Unable to open output file ~a for the TOC information") outfilename))
+            (ly:warning (G_ "Unable to open output file ~a for the TOC information")
+                        outfilename))
         (close-output-port outfile)))))
 
 \paper @{

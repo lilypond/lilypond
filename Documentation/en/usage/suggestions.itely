@@ -199,7 +199,7 @@ in a new version of LilyPond.
 
 @example
 violin = \relative @{
-g'4 c'8. e16
+  g'4 c'8. e16
 @}
 @dots{}
 \score @{
@@ -220,8 +220,9 @@ need to do this once, and we can still avoid touching anything inside
 @example
 fthenp = _\markup@{
   \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p @}
+
 violin = \relative @{
-g'4\fthenp c'8. e16
+  g'4\fthenp c'8. e16
 @}
 @end example
 

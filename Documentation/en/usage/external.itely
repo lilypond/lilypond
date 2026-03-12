@@ -62,6 +62,7 @@ and this will invoke
 atom %(file)s:%(line)s:%(column)s
 @end example
 
+@noindent
 where @code{%(file)s}, @code{%(line)s} and @code{%(column)s} are replaced with
 the file, line and column respectively.
 
@@ -289,7 +290,8 @@ your @var{load-path} by appending the following line (as modified) to your
 
 @c any reason we do not advise:  (push "~/site-lisp" load-path)
 @example
-(setq load-path (append (list (expand-file-name "~/site-lisp")) load-path))
+(setq load-path
+      (append (list (expand-file-name "~/site-lisp")) load-path))
 @end example
 
 
@@ -787,7 +789,7 @@ each containing a single page.
 For embedding the images in a PostScript file, you can create
 @file{EPS} files, using @code{-dseparate-page-formats=eps}.  In
 this case, you may also want to specify
-@code{-dno-gs-load-fonts -dinclude-eps-fonts}, otherwise the
+@code{-dno-gs-load-@/fonts} and @code{-dinclude-eps-fonts}, otherwise the
 @file{EPS} files will not render if they are copied to another computer.
 
 HTML documents are not printed, so they usually don't have to
@@ -810,7 +812,9 @@ Specifying either @code{-dseparate-page-formats} or
 of formats and can be specified together, e.g.
 
 @example
-lilypond -dseparate-page-formats=eps,pdf -dtall-page-formats=png,svg myfile.ly
+lilypond -dseparate-page-formats=eps,pdf \
+         -dtall-page-formats=png,svg \
+         myfile.ly
 @end example
 
 To reduce the margins around the pages pass the
