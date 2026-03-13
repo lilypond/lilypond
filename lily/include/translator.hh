@@ -107,7 +107,8 @@ private:                                                                      \
     listener_list_ = scm_acons (event_class_sym, proc, listener_list_);       \
   }                                                                           \
                                                                               \
-public:
+public:                                                                       \
+  static_assert (true, "present to require a semicolon here ->")
 /* end #define */
 
 enum Translator_precompute_index
