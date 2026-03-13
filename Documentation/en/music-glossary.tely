@@ -2339,29 +2339,16 @@ FI: konserttikorkeus.
 
 The pitch at which the piano and other nontransposing instruments play: such
 instruments are said to be @q{in C}.  The following list includes some (but not
-all) instruments that play in concert pitch:
+all) instruments that play in concert pitch.
 
-@c Let's see how easy (or hard) it is to put bulleted lists in tables.
-
-@multitable {bassoon} {violoncello}
+@indentedblock
+@multitable {@b{Woodwinds}} {violoncello}
 @headitem Woodwinds @tab Strings
-
-@item
-@itemize
-@item flute
-@item oboe
-@item bassoon
-@end itemize
-
-@tab
-
-@itemize
-@item violin
-@item viola
-@item violoncello
-@end itemize
-
+@item flute @tab violin
+@item oboe @tab viola
+@item bassoon @tab violoncello
 @end multitable
+@end indentedblock
 
 @c This needs to be reworked.
 @ignore
@@ -7088,24 +7075,26 @@ first element is the root note (or simply @q{root}) of the chord, the second
 note is the @q{third} of the chord, and the last note is the @q{fifth} of
 the chord.  These are described below:
 
-@multitable {Chord name} {Component intervals} {Example} {C, CM, Cma, Cmaj, CΔ}
+@indentedblock
+@multitable {augmented triad} {major third/augmented fifth} {Example} {C, CM, Cma, Cmaj, C@sup{Δ}}
 @headitem Chord name
   @tab Component intervals
   @tab Example
   @tab Symbol
 @item major triad @tab major third/perfect fifth
   @tab C-E-G
-  @tab C, CM, Cma, Cmaj, CΔ
+  @tab C, CM, Cma, Cmaj, C@sup{Δ}
 @item minor triad @tab minor third/perfect fifth
   @tab C-E♭-G
   @tab Cm, Cmi, Cmin, C-
 @item augmented triad @tab major third/augmented fifth
   @tab C-E-G♯
-  @tab C+, C^+, Caug
+  @tab C+, C@sup{+}, Caug
 @item diminished triad @tab minor third/diminished fifth
   @tab C-E♭-G♭
-  @tab Cm(♭5), Cº, Cdim
+  @tab Cm(♭5), C°, Cdim
 @end multitable
+@end indentedblock
 
 There are various types of seventh chords depending on the quality of the
 original chord and the quality of the seventh added.
@@ -9104,9 +9093,8 @@ No cross-references.
 @node Duration names notes and rests
 @chapter Duration names notes and rests
 
-@multitable @columnfractions .12 .22 .22 .22 .22
-
-@headitem Lang. @tab note name
+@multitable {@b{DK}} {neljäsosanuotti} {pausa di semiminima,} {kahdeksasosanuotti} {kahdeksasosatauko}
+@headitem @tab note name
   @tab rest name
   @tab note name
   @tab rest name
@@ -9131,9 +9119,9 @@ No cross-references.
   @tab brève
   @tab double-pause
 @item @strong{DE} @tab Longa
-  @tab longa Pause
+  @tab Longa-Pause
   @tab Brevis
-  @tab brevis Pause
+  @tab Brevis-Pause
 @item @strong{NL} @tab longa
   @tab longa rust
   @tab brevis
@@ -9148,14 +9136,16 @@ No cross-references.
   @tab brevispaus
 @item @strong{FI} @tab longa-nuotti
   @tab longa-tauko
-  @tab brevis-nuotti, kaksoiskoko@-nuotti
-  @tab brevis-tauko, kaksoiskoko@-tauko
-
+  @tab brevis-nuotti,@*
+       kaksoiskoko@-nuotti
+  @tab brevis-tauko,@*
+       kaksoiskoko@-tauko
 @end multitable
 
-@multitable @columnfractions .12 .22 .22 .22 .22
+@sp 1
 
-@headitem Lang. @tab note name
+@multitable {@b{DK}} {neljäsosanuotti} {pausa di semiminima,} {kahdeksasosanuotti} {kahdeksasosatauko}
+@headitem @tab note name
   @tab rest name
   @tab note name
   @tab rest name
@@ -9199,12 +9189,12 @@ No cross-references.
   @tab kokotauko
   @tab puolinuotti
   @tab puolitauko
-
 @end multitable
 
-@multitable @columnfractions .12 .22 .22 .22 .22
+@sp 1
 
-@headitem Lang. @tab note name
+@multitable {@b{DK}} {neljäsosanuotti} {pausa di semiminima,} {kahdeksasosanuotti} {kahdeksasosatauko}
+@headitem @tab note name
   @tab rest name
   @tab note name
   @tab rest name
@@ -9220,8 +9210,10 @@ No cross-references.
   @tab silencio de negra
   @tab corchea
   @tab silencio de corchea
-@item @strong{IT} @tab semiminima, nera
-  @tab pausa di semiminima, pausa di nera
+@item @strong{IT} @tab semiminima,@*
+                       nera
+  @tab pausa di semiminima,@*
+       pausa di nera
   @tab croma
   @tab pausa di croma
 @item @strong{FR} @tab noire
@@ -9245,10 +9237,9 @@ No cross-references.
   @tab åttondelsnot
   @tab åttondelspaus
 @item @strong{FI} @tab neljäsosa@-nuotti
-  @tab neljäsosa@-tauko
-  @tab kahdeksasosa@-nuotti
-  @tab kahdeksasosa@-tauko
-
+  @tab neljäsosatauko
+  @tab kahdeksasosanuotti
+  @tab kahdeksasosatauko
 @end multitable
 
 * About the French naming system: @notation{croche} refers to the note's
@@ -9273,11 +9264,11 @@ that means @q{note} with the part that means @q{rest}, for example:
 
 Editor's note: I put a dash @q{-} when I could not find a language-specific
 abbreviation for a duration name.  If you know of one that I missed, please
-send it to me, care of the lilypond-user discussion list.
+send it this information to @q{lilypond-user} e-mail list.
 
-@multitable @columnfractions .10 .35 .35 .20
-
-@headitem Lang. @tab Note name
+@raggedright
+@multitable @columnfractions .04 .38 .38 .20
+@headitem @tab Note name
   @tab Rest name
   @tab Abbr.
 @item @strong{US} @tab sixteenth note
@@ -9310,12 +9301,14 @@ send it to me, care of the lilypond-user discussion list.
 @item @strong{FI} @tab kuudes@-toistaosa@-nuotti
   @tab kuudes@-toistaosa@-tauko
   @tab 16-osanuotti
-
 @end multitable
+@end raggedright
 
-@multitable @columnfractions .10 .35 .35 .20
+@sp 1
 
-@headitem Lang. @tab Note name
+@raggedright
+@multitable @columnfractions .04 .38 .38 .20
+@headitem @tab Note name
   @tab Rest name
   @tab Abbr.
 @item @strong{US} @tab thirty-second note
@@ -9348,12 +9341,14 @@ send it to me, care of the lilypond-user discussion list.
 @item @strong{FI} @tab kolmas@-kymmenes@-kahdesosa@-nuotti
   @tab kolmas@-kymmenes@-kahdesosa@-tauko
   @tab 32-osanuotti
-
 @end multitable
+@end raggedright
 
-@multitable @columnfractions .10 .35 .35 .20
+@sp 1
 
-@headitem Lang. @tab Note name
+@raggedright
+@multitable @columnfractions .04 .38 .38 .20
+@headitem @tab Note name
   @tab Rest name
   @tab Abbr.
 @item @strong{US} @tab sixty-fourth note
@@ -9386,12 +9381,14 @@ send it to me, care of the lilypond-user discussion list.
 @item @strong{FI} @tab kuudes@-kymmenes@-neljäsosa@-nuotti
   @tab kuudes@-kymmenes@-neljäsosa@-tauko
   @tab 64-osanuotti
-
 @end multitable
+@end raggedright
 
-@multitable @columnfractions .10 .35 .35 .20
+@sp 1
 
-@headitem Lang. @tab Note name
+@raggedright
+@multitable @columnfractions .04 .38 .38 .20
+@headitem @tab Note name
   @tab Rest name
   @tab Abbr.
 @item @strong{US} @tab one-hundred-twenty-eighth note
@@ -9407,9 +9404,11 @@ send it to me, care of the lilypond-user discussion list.
   @tab pausa di fusa
   @tab -
 @item @strong{FR} @tab quintuple croche
-  @tab trente-deuxième de soupir  @tab -
+  @tab trente-deuxième de soupir
+  @tab -
 @item @strong{DE} @tab Hundert@-achtundzwanzigstel@-note
-  @tab Hundert@-achtundzwanzigstel@-pause  @tab 128tel-Note
+  @tab Hundert@-achtundzwanzigstel@-pause
+  @tab 128tel-Note
 @item @strong{NL} @tab honderd@-acht@-en@-twintigste noot
   @tab honderd@-acht@-en@-twintigste rust
   @tab 128e noot
@@ -9422,12 +9421,14 @@ send it to me, care of the lilypond-user discussion list.
 @item @strong{FI} @tab sadas@-kahdes@-kymmenes@-kahdeksasosa@-nuotti
   @tab sadas@-kahdes@-kymmenes@-kahdeksasosa@-tauko
   @tab 128-osanuotti
-
 @end multitable
+@end raggedright
 
-@multitable @columnfractions .10 .35 .35 .20
+@sp 1
 
-@headitem Lang. @tab Note name
+@raggedright
+@multitable @columnfractions .04 .38 .38 .20
+@headitem @tab Note name
   @tab Rest name
   @tab Abbr.
 @item @strong{US} @tab two-hundred-fifty-sixth note
@@ -9437,14 +9438,17 @@ send it to me, care of the lilypond-user discussion list.
   @tab demisemihemidemisemiquaver rest
   @tab -
 @item @strong{ES} @tab semigarrapatea
-  @tab silencio de semigarrapatea  @tab -
+  @tab silencio de semigarrapatea
+  @tab -
 @item @strong{IT} @tab semifusa
   @tab pausa di semifusa
   @tab -
 @item @strong{FR} @tab sextuple croche
-  @tab soixante-quatrième de soupir  @tab -
+  @tab soixante-quatrième de soupir
+  @tab -
 @item @strong{DE} @tab Zweihundert@-sechsundfünfzigstel@-note
-  @tab Zweihundert@-sechsundfünfzigstelpause  @tab 256tel-Note
+  @tab Zweihundert@-sechsundfünfzigstelpause
+  @tab 256tel-Note
 @item @strong{NL} @tab tweehonderd@-zesenvijftigste noot
   @tab tweehonderd@-zesenvijftigste rust
   @tab 256e noot
@@ -9457,8 +9461,8 @@ send it to me, care of the lilypond-user discussion list.
 @item @strong{FI} @tab kahdes@-sadas@-viides@-kymmenes@-kuudesosa@-nuotti
   @tab kahdes@-sadas@-viides@-kymmenes@-kuudesosa@-tauko
   @tab 256-osanuotti
-
 @end multitable
+@end raggedright
 
 @morerefs
 @ref{mensural notation}.
@@ -9481,7 +9485,7 @@ send it to me, care of the lilypond-user discussion list.
 	except for g (sol) ... so there you go.)
 @end ignore
 
-@multitable {g-sharp} {sol sostenido} {sol diesis} {sol dièse} {Gis} {gis} {gis} {giss} {gis}
+@multitable {@b{b-sharp} = c} {sol sostenido} {sol bemolle} {sol dièse} {Gis} {gis} {gis} {giss} {gis}
 @headitem EN @tab ES @tab I @tab F @tab D @tab NL @tab DK @tab S @tab FI
 @item @strong{c} @tab do @tab do @tab ut @tab C @tab c @tab c @tab c @tab c
 @item @strong{c-sharp} @tab do sostenido @tab do diesis @tab ut dièse
