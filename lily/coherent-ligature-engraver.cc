@@ -114,7 +114,7 @@ Coherent_ligature_engraver::move_related_items_to_column (
           sibling_parent->warning (_f ("Coherent_ligature_engraver: "
                                        "setting `spacing-increment="
                                        "0.01': ptr=%p",
-                                       sibling_parent));
+                                       static_cast<void *> (sibling_parent)));
           set_property (sibling_parent, "forced-spacing", to_scm (0.01));
         }
 
