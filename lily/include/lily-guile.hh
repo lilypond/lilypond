@@ -35,6 +35,7 @@
 #include "interval.hh"
 #include "lily-guile-macros.hh"
 
+#include <array>
 #include <functional>
 #include <string>
 #include <string_view>
@@ -180,8 +181,8 @@ template <typename... Args>
 inline SCM
 ly_call (SCM proc, Args &&...args)
 {
-  SCM argv[] = {std::forward<Args> (args)...};
-  return scm_call_n (proc, argv, sizeof...(args));
+  auto argv = std::array<SCM, sizeof...(Args)> {std::forward<Args> (args)...};
+  return scm_call_n (proc, argv.data (), argv.size ());
 }
 
 // Same with scm_list_...  It's tempting to use scm_list_n (args..., SCM_UNDEFINED),

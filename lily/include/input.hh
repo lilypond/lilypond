@@ -23,6 +23,7 @@
 #include "lily-proto.hh"
 #include "smobs.hh"
 
+#include <array>
 #include <functional>
 #include <utility>
 
@@ -88,8 +89,8 @@ template <typename... Args>
 inline SCM
 with_location (SCM loc, SCM proc, Args &&...args)
 {
-  SCM argv[] = {std::forward<Args> (args)...};
-  return with_location_n (loc, proc, argv, sizeof...(args));
+  auto argv = std::array<SCM, sizeof...(Args)> {std::forward<Args> (args)...};
+  return with_location_n (loc, proc, argv.data (), argv.size ());
 }
 
 #endif // INPUT_HH
