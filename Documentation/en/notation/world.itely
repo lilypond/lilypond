@@ -298,7 +298,8 @@ maqam}.
 Here is the grouping that maps the more common maqams to
 key signatures as defined in the file @file{arabic.ly}:
 
-@multitable @columnfractions 0.15 0.1 0.1 0.6
+@indentedblock
+@multitable {@b{maqam group}} {@code{hijaz_kar}} {@b{finalis}} {hussaini, muhayer, saba, ushaq, nawa (sol)}
 @headitem maqam group
   @tab key
   @tab finalis
@@ -348,6 +349,7 @@ key signatures as defined in the file @file{arabic.ly}:
   @tab misb
   @tab -
 @end multitable
+@end indentedblock
 
 In case you are missing a specific maqam, you can define it yourself
 in your sheet music before using it.
