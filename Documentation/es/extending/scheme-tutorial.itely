@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 7beb9b71e8605f31b8d1448dae3f4a64a36abd78
+    Translation of GIT committish: a92c99af98b89533e89c0981a3de0a44ebda3e64
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -63,20 +63,22 @@ lilypond scheme-sandbox
 @end example
 
 @noindent
-Una vez está funcionando el cajón de arena, verá un indicador del
-sistema de Guile
+Una vez está funcionando el cajón de arena, obtendrá el indicador
+del sistema de Guile
 
-@lisp
-guile>
-@end lisp
+@example
+lily-guile@@()>
+@end example
 
 @noindent
-que podemos usar para introducir expresiones de Scheme.
+para introducir expresiones de Scheme.  Sin embargo, en los
+ejemplos siguentes utilizaremos la cadena más corta @code{guile>}
+para referirnos al indicador del sistema.
 
 El archivo que contiene el código del cajó de arena
 (@file{ly/scheme-sandbox.ly}) trata de activar la biblioteca
 readline de GNU para una más cómoda edición sobre la línea de
-órdenes de Guile (por ejemplo, usando las teclas del cursor flecha
+órdenes (por ejemplo, usando las teclas del cursor flecha
 arriba y flecha abajo para acceder a instrucciones tecleadas con
 anterioridad).  Por el momento, esto solamente funciona con un
 ejecutable binario de LilyPond que esté enlazado dinámicamente con

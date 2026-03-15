@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 328b50854c744c8567e51bd62317e4e08ccf37d4
+    Translation of GIT committish: 9dd4749ca8bfc1bd78a63d862a8936ad1307624e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -271,7 +271,8 @@ que tiene solamente la fundamental y la quinta.
 
 Puesto que una oncena sin alteración no suena bien cuando se
 combina con una trecena sin alteración, se elimina la oncena de
-los acordes de @code{:13} (a no ser que se añada explícitamente).
+los acordes de @code{:13} mayores (a no ser que se añada
+explícitamente).
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode {
@@ -324,7 +325,7 @@ una cadena modificadora.
 
 @lilypond[quote,verbatim]
 \chordmode {
-  c1^3 c:7^5 c:9^3 c:9^3.5 c:13.11^3.7
+  c1^3 c:7^5 c:9^3 c:9^3.5 c:13.11^3.7 c:m13^11
 }
 @end lilypond
 
@@ -389,9 +390,9 @@ Fragmentos de código:
 @endmorerefs
 
 @knownissues
-Cada nota solo puede estar presente en el acorde una sola vez.  Lo
-que sigue produce simplemente el acorde aumentado, porque
-@code{5+} se interpreta en último lugar.
+Las apariciones posteriores de una nota del acorde sobreescriben a
+las apariciones anteriores.  Lo que sigue produce simplemente el
+acorde aumentado, porque @code{5+} se interpreta en último lugar.
 
 @lilypond[quote,ragged-right,verbatim]
 \chordmode { c1:3.5.5-.5+ }
@@ -595,26 +596,32 @@ para los nombres de acorde dados se pueden personalizar.
 @cindex alternativo, nombre de acorde
 
 El esquema de nomenclatura de acordes predeterminado es un sistema
-para música de Jazz, propuesto por Klaus Ignatzek (véase
+para música de Jazz propuesto por Klaus Ignatzek (véase
 @ressaynamed{Literature list, Lista de referencias
 bibliográficas}. Se pueden implementar otros sistemas de
-nomenclatura de acordes mediante funciones de Scheme, como se
-muestra en el fragmento de código @qq{Chord names alternative}
-dentro de la sección @rlsrnamed{Chord notation,Notación de los acordes}.)).  Hay una lista de
-notaciones comunes para acordes de jazz en la tabla de la sección
-@ref{Chord name chart}.
+nomenclatura de acordes mediante funciones de Scheme, véase el
+ejemplo en @rlsrsnippet{Chord notation, Chord names alternative}.
+Hay una lista de notaciones comunes para acordes de jazz en la
+tabla de la sección @ref{Chord name chart}.
 
 @funindex \germanChords
-@funindex \semiGermanChords
 @funindex \italianChords
 @funindex \frenchChords
+@funindex \englishChords
 
 Se puede trucar fácilmente el sistema de nomenclatura de acordes
 predeterminado.  Para empezar, ciertas órdenes predefinidas
-permiten la utilización de distintos idiomas para la nota
-fundamental. Entre ellos están @code{\germanChords},
-@code{\semiGermanChords}, @code{\italianChords} y
-@code{\frenchChords}:
+permiten imprimir la nota fundamental en distintos idiomas. Entre
+ellas están @code{\germanChords}, @code{\italianChords},
+@code{\frenchChords} y @code{\englishChords}.
+
+@funindex \semiGermanChords
+
+Un caso especial es @code{\semiGermanChords}, que está pensado
+para un uso didáctico en países de habla alemana al mismo tiempo
+que se dirigen a un público internacional.  Imprime la nota
+alemana B (si bemol) con el símbolo de alteración del bemol; el
+resto es idéntico a @code{\germanChords}.
 
 @lilypondfile{chord-names-languages.ly}
 
@@ -622,7 +629,7 @@ fundamental. Entre ellos están @code{\germanChords},
 @funindex chordNameLowercaseMinor
 
 Algunos cancioneros alemanes indican los acordes menores como
-letras minúsculas, sin el sufijo @var{m}.  Esto se puede conseguir
+letras minúsculas, sin el sufijo @q{m}.  Esto se puede conseguir
 estableciendo la propiedad @code{chordNameLowercaseMinor}:
 
 @lilypond[verbatim,quote,ragged-right]
@@ -633,19 +640,19 @@ estableciendo la propiedad @code{chordNameLowercaseMinor}:
 @end lilypond
 
 También se puede afinar la presentación de los nombres de acorde
-a través de las siguientes propiedades.
+a través del ajuste de las siguientes propiedades.
 
 @table @code
 
 @item chordRootNamer
 @funindex chordRootNamer
 
-El nombre de acorde se imprime normalmente como una letra para la
-fundamental con una alteración opcional.  La transformación de la
-nota en la letra se realiza por parte de esta función.  Los
-nombres de nota especiales (por ejemplo, la @q{H} alemana para un
-acorde de Si) se pueden producir almacenando una función nueva en
-esta propiedad.
+La configuración predeterminada es imprimir el nombre de acorde
+como una letra para la fundamental con una alteración opcional.
+La transformación de la nota en la letra se realiza por parte de
+esta función.  Los nombres de nota especiales (por ejemplo, la
+@q{H} alemana para un acorde de Si) se pueden producir almacenando
+una función diferente en esta propiedad.
 
 @item majorSevenSymbol
 @funindex majorSevenSymbol
@@ -653,26 +660,23 @@ esta propiedad.
 @funindex \blackTriangleMarkup
 @funindex \whiteTriangleMarkup
 
-Esta propiedad contiene el objeto de marcado que se usa para hacer
-el seguimiento de la salida de @code{chordRootNamer} para
-identificar un acorde de séptima mayor. Las opciones predefinidas
-son @code{whiteTriangleMarkup} (triángulo blanco) y
-@code{blackTriangleMarkup} (triángulo negro).
+Esta propiedad contiene el objeto de marcado que identifica a un
+acorde de séptima mayor, que se imprimirá justo después de la nota
+fundamental del acorde.  Los valores predeterminados son
+@code{whiteTriangleMarkup} (triángulo blanco, el valor por
+omisión) y @code{blackTriangleMarkup} (triángulo negro).
 
 @item additionalPitchPrefix
 @funindex additionalPitchPrefix
 
-@item additionalPitchPrefix
-
-Cuando el acorde contiene notas añadidas, se pueden prefijar
-opcionalmente por un texto.  Por omisión no hay ningún prefijo,
-para evitar la sobrecarga visual, pero para pequeñas cantidades de
-notas añadidas puede ser visualmente efectivo.
+Si el nombre del acorde contiene notas añadidas, normalmente
+llevan el prefijo @q{add}, que es la opción predeterminada de
+LilyPond.  Este prefijo se puede modificar o eliminar.
 
 @lilypond[verbatim,quote,ragged-right]
 \new ChordNames {
   <c e g d'>    % add9
-  \set additionalPitchPrefix = "add"
+  \set additionalPitchPrefix = ""
   <c e g d'>    % add9
 }
 @end lilypond
@@ -680,13 +684,16 @@ notas añadidas puede ser visualmente efectivo.
 @item chordNoteNamer
 @funindex chordNoteNamer
 
-Cuando el nombre del acorde contiene notas adicionales aparte de
-la fundamental (p.ej., un bajo añadido), se utiliza esta función
-para imprimir la nota adicional.  De forma predeterminada se
-imprime la nota usando @code{chordRootNamer}.  La propiedad
-@code{chordNoteNamer} se puede establecer a una función
-especializada para cambiar este comportamiento.  Por ejemplo, el
-bajo se puede imprimir en minúscula.
+Si un nombre de acorde contiene notas añadidas distintas a la
+fundamental (p. ej. una nota añadida en el bajo), se usa la
+función asignada a esta propiedad para imprimir dichas notas.  Si
+no está establecida o está fijada a @code{'()}, use en su lugar la
+función asignada a @code{chordRootNamer}.
+
+Como ejemplo, la función
+@code{chord-name@/:german-lowercase-name-markup} se use por parte
+de @code{\germanChords} para imprimir las notas del bajo en letras
+minúsculas.
 
 @item chordNameSeparator
 @funindex chordNameSeparator
@@ -715,8 +722,8 @@ fundamental.  Se llaman @qq{inversiones} o @qq{acordes de barra
 inclinada} porque la manera predeterminada de efectuar su notación
 es con una barra inclinada entre el acorde y la nota del bajo.
 Por tanto, el valor de @code{slashChordSeparator} es, por omisión,
-una barra inclinada, pero podemos cambiarlo a cualquier elemento
-de marcado que queramos.
+una barra inclinada, pero podemos cambiarlo a cualquier otro
+elemento de marcado.
 
 @lilypond[verbatim,quote,ragged-right]
 \chords {
@@ -741,8 +748,9 @@ para crear el nombre del acorde.
 
 La notación de los acordes menores se suele hacer por medio del
 sufijo @q{m} a la derecha de la letra que indica la fundamental
-del acorde.  Sin embargo, otras convenciones dan preferencia a
-sufijos diferentes, como un signo menos.
+del acorde (es la opción predeterminada de LilyPond).  Sin
+embargo, otras convenciones dan preferencia a sufijos diferentes,
+como un signo menos.
 
 @lilypond[verbatim,quote,ragged-right]
 \chords {
@@ -757,11 +765,12 @@ sufijos diferentes, como un signo menos.
 @funindex chordPrefixSpacer
 
 El modificador de los acordes menores tal y como viene determinado
-por @code{minorChordModifier} se imprime por lo general
+por @code{minorChordModifier} se imprime de manera predeterminada
 inmediatamente a la derecha de la fundamental.  Se puede insertar
-un símbolo separador entre la fundamental y el modificador
-estableciendo @code{chordPrefixSpacer}.  El símbolo separador no
-se usa cuando el acorde está alterado.
+un espacio entre la fundamental y el modificador estableciendo
+@code{chordPrefixSpacer} (utilizado, por ejemplo, en el caso de
+@code{\italianChords}).  No se inserta ningún espacio si la
+fundamental es una nota alterada.
 
 @end table
 
@@ -774,7 +783,8 @@ se usa cuando el acorde está alterado.
 @code{\germanChords},
 @code{\semiGermanChords},
 @code{\italianChords},
-@code{\frenchChords}.
+@code{\frenchChords},
+@code{\englishChords}.
 @endpredefined
 
 

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 7ac0dd1495161592599f5fdf9bb1233b3d588a02
+    Translation of GIT committish: f7dfdb90b6d7f9ffd3d1c990dfc26ff65e5825d1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -184,7 +184,7 @@ Para la versión de LilyPond @version{}
 
 
 @macro snippets
-@need 1000
+@need 1500
 @subheading Fragmentos de código seleccionados
 @end macro
 
