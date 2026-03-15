@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: f629c63b9a178b7f8b0cc2175a4f15696cae52b7
+    Translation of GIT committish: 529afdde7d3d154bb79044057dc02cc83d7ba4c3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1335,6 +1335,9 @@ predeterminado, véase @ref{Visibility of objects}.
 }
 @end lilypond
 
+@cindex alla breve
+@cindex compás, estilo de
+@cindex indicación de compás, estilo de la
 @cindex compás, estilo de la indicación de
 @cindex metro, estilo de
 
@@ -1364,9 +1367,87 @@ estilo numérico:
 Las indicaciones de compás de la música mensural se tratan en
 @ref{Mensural time signatures}.
 
+
+@subsubheading Indicaciones de compás complejo o de amalgama
+
 @cindex compás, indicación de, ajustes predeterminados
 @cindex autobarrado, propiedades para indicaciones de compás
 @cindex barrado, propiedades predefinidas para el compás
+@cindex compuesto, indicación de compás
+@cindex compás, compuesto, indicación de
+@cindex indicación de compás aditiva
+@cindex indicación de compás alterna
+@cindex indicación de compás de amalgama
+@cindex aditivo, indicación de compás
+@cindex alterno, indicación de compás
+@cindex amalgama, indicación de compás de
+
+La función @code{\time} contempla diversos compases complejos o de
+amalgama representados como expresiones de Scheme.  Las fracciones
+se representan como parejas, @code{(@var{numerador}
+.@tie{}@var{denominador})}, donde el denominador siempre es un
+número.  El numerador es un número o una lista de dos o más
+números.  Una lista representa una concatenación.
+
+@lilypond[quote,verbatim]
+\fixed c' {
+  \time #'((2 2 2) . 8)
+  \repeat unfold 6 c8
+  \repeat unfold 12 c16
+}
+@end lilypond
+
+Se pueden construir compases que alternan de forma estricta una
+serie de fracciones, agrupándolas en una lista.  Los ajustes de
+barrado automático se ajustarán dependiendo de los valores.  Se
+pueden habilitar barras de compás secundarias como ayuda para
+aclarar los ritmos complejos.
+
+@lilypond[quote,verbatim]
+\fixed c' {
+  \time #'((1 . 4) (3 . 8))
+  \repeat unfold 5 c8
+  \repeat unfold 10 c16
+}
+@end lilypond
+
+@lilypond[quote,verbatim]
+\fixed c' {
+  \time #'(((1 2 3) . 8) (3 . 4))
+  \repeat unfold 12 c8
+  \submeasureBarsOn
+  \repeat unfold 12 c8
+}
+@end lilypond
+
+@cindex alla breve
+
+De forma predeterminada, los tipos de compás que se alternan
+estrictamente y que consisten en 4/4 and 2/2 se imprimen en un
+estilo histórico que utiliza varios símbolos de C o de C partida.
+No es necesario usar esta interpretación de las indicaciones de
+compás para el compás subyacente: se puede sobreescribir
+@code{TimeSignature@/.time-signature} para imprimir estos símbolos
+al mismo tiempo que se establece un compás distinto con
+@code{\time}.
+
+@lilypond[quote,verbatim]
+\fixed c' {
+  \time #'((4 . 4) (4 . 4))
+  \repeat unfold 4 c2
+  \once \override Timing.TimeSignature.time-signature
+    = #'((2 . 2) (2 . 2))
+  \time 4/2
+  \repeat unfold 4 c2
+}
+@end lilypond
+
+
+@subsubheading Propiedades métricas
+
+@cindex indicación de compás, ajustes predeterminados
+@cindex barrado automático, propiedades para las indicaciones de compás
+@cindex barrado, propiedades predeterminadas de la indicación de compás
 
 Además de ajustar la indicación de compás que se imprime, la
 instrucción @code{\time} establece también los valores de las
@@ -1443,7 +1524,6 @@ beam behavior}.
 @end enumerate
 
 
-
 @cindex compás, propiedades, restaurar los valores predeterminados
 @cindex restaurar, las propiedades predeterminadas del tipo de compás
 @funindex \revertTimeSignatureSettings
@@ -1502,9 +1582,7 @@ notation}).
 }
 @end lilypond
 
-Otro método para cambiar estas variables relacionadas con el tipo
-de compás, que evita la reimpresión de la indicación de compás en
-el momento del cambio, se muestra en @ref{Setting automatic beam behavior}.
+Otro método para cambiar estas propiedades métricas que evita la reimpresión de la indicación de compás en el momento del cambio, se muestra en @ref{Setting automatic beam behavior}.
 
 @predefined
 @code{\numericTimeSignature},
@@ -1622,15 +1700,21 @@ Es muy sencillo escribir una indicación metronómica básica:
 }
 @end lilypond
 
+@funindex tempoCountPrecision
 El tempo indicado no tiene que ser un número entero, pero debe ser
-un número exacto.
+un número exacto.  El formateador por omisión redondea al 0.25 más
+cercano; esto se controla a través de la propiedad de contexto
+@code{tempoCountPrecision}.
 
 @lilypond[verbatim,quote]
 tempoI = 100
 \fixed c' {
-  \tempo 4 = #(* tempoI 2/3)
+  \tempo 4 = #(* tempoI 2/3)   % 66.66...
   e2 e4 d
+  \once \set Timing.tempoCountPrecision = #1/1000000
+  \tempo 4 = #(* tempoI 8/11)  % 72.72...
   c2 g2
+  g4 e2 f4
 }
 @end lilypond
 
@@ -2196,56 +2280,6 @@ también @code{\enablePerStaffTiming} dentro del bloque @code{\midi}.
 @end verbatim
 @end quotation
 
-
-@subsubheading Indicaciones de compás complejo o de amalgama
-
-@funindex \time
-@cindex compuesto, indicación de compás
-@cindex compás, compuesto, indicación de
-@cindex indicación de compás aditiva
-@cindex indicación de compás alterna
-@cindex indicación de compás de amalgama
-@cindex aditivo, indicación de compás
-@cindex alterno, indicación de compás
-@cindex amalgama, indicación de compás de
-
-Se crean usando la función @code{\time} con la indicación de
-compás representada como una expresión de Scheme.  Las fracciones
-se representan como parejas, @code{(@var{numerador}
-.@tie{}@var{denominador})}, donde el denominador siempre es un
-número.  El numerador es un número o una lista de dos o más
-números.  Una lista representa una concatenación.
-
-@lilypond[quote,verbatim]
-\fixed c' {
-  \time #'((2 2 2) . 8)
-  \repeat unfold 6 c8
-  \repeat unfold 12 c16
-}
-@end lilypond
-
-Se pueden construir compases que alternan de forma estricta una
-serie de fracciones, agrupándolas en una lista.  Los ajustes de
-barrado automático se ajustarán dependiendo de los valores.  Se
-pueden habilitar barras de compás secundarias como ayuda para
-aclarar los ritmos complejos.
-
-@lilypond[quote,verbatim]
-\fixed c' {
-  \time #'((1 . 4) (3 . 8))
-  \repeat unfold 5 c8
-  \repeat unfold 10 c16
-}
-@end lilypond
-
-@lilypond[quote,verbatim]
-\fixed c' {
-  \time #'(((1 2 3) . 8) (3 . 4))
-  \repeat unfold 12 c8
-  \submeasureBarsOn
-  \repeat unfold 12 c8
-}
-@end lilypond
 
 @morerefs
 Glosario musical:

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 95af071e7c2db32d2e80ab7ba89fbffeafa96297
+    Translation of GIT committish: e6de344af011092b04d339e1157d7c8eb4c8a572
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3037,6 +3037,43 @@ relacionados con las inscripciones) tienen un valor por omisión de
 @include en/script-priorities.tely
 
 
+@node Grobs and their break-align symbols
+@appendixsec Objetos gráficos (grobs) y sus símbolos de break-align
+
+@funindex break-align-symbol
+
+La ordenación y espaciado de los elementos de notación tales como
+las claves, indicaciones de compás, barras de compás, etc., se
+determina usando ciertos símbolos de Scheme, conocidos como
+@dfn{símbolos de break-align}.  De manera más precisa, el orden
+viene determinado por listas de cómbolos de break-align que están
+dentro del vector @code{BreakAlignment@/.break-@/align-@/orders}
+(véase @rinternals{break-alignment-interface}); el espaciado se
+controla por medio de las propiedades de @code{space-@/alist} de
+los objetos gráficos respectivos, cuyos elementos a su vez están
+indezados a través de símbolos de break-align: por ejemplo, el
+espaciado desde un objeto @code{Clef} (clave) hasta una barra de
+compás que le sigue, está determinado por el valor de
+@code{Clef@/.space-@/alist@/.staff-@/bar}.
+
+Esta tabla relaciona la correspondencia predeterminada entre los
+símbolos de break-align y los objetos gráficos:
+
+@include en/break-align-grobs-by-symbols.tely
+
+Además, existen tres símbolos de break-align abstractos que se
+pueden usar dentro de las definiciones de @code{space-@/alist},
+concretamente @code{first-@/note}, @code{next-@/note} y
+@code{right-@/edge}.  Para ver más detalles, consulte la
+documentación de la propiedad de objeto @code{space-@/alist}
+dentro de @rinternals{break-aligned-interface}.
+
+La tabla siguiente presenta la lista del símbolo de break-align
+que se usa por cada objeto gráfico:
+
+@include en/break-align-symbols-by-grobs.tely
+
+
 @node Technical glossary
 @appendixsec Glosario técnico
 
@@ -3229,6 +3266,7 @@ instalación binaria de LilyPond.
 @funindex output-suffix
 @funindex partCombineListener
 @funindex pitchnames
+@funindex input-language
 @funindex toplevel-bookparts
 @funindex toplevel-scores
 @funindex showLastLength
@@ -3248,10 +3286,12 @@ a los archivos externos añadidos con la instrucción
 y en proyectos de composición tipográfica complejos puede ser
 difícil de rastrear.
 
-LilyPond utiliza las siguientes variables del analizador sintáctico, entre otras:
+LilyPond utiliza las siguientes variables del analizador
+sintáctico, entre otras:
 
 @itemize @w{}
 @item @code{afterGraceFraction}
+@item @code{input-language}
 @item @code{musicQuotes}
 @item @code{output-count}
 @item @code{output-suffix}
@@ -3292,19 +3332,19 @@ información en el archivo @file{lily/includes/smob.hh}.
 @cindex extensión, elemento de
 
 @item spanner (objeto de extensión)
-Los @dfn{Spanners}, elementos u objetos de extensión, son una clase de
-objetos gráficos que no están situados en un lugar fijo de la
-partitura sino que se extienden de un punto a otro.  Entre ellos
-podemos encontrar las barras de corchea, las ligaduras de unión y
-las ligaduras de expresión, así como los reguladores y las líneas
-de pentagrama.  Así como los objetos que no son @emph{spanners}
-slo se pueden dividir en un máximo de dos piezas visibles (por
-ejemplo, una clave duplicada al final de una línea y el comienzo
-de la siguiente), los spanners u objetos de extensión se dividen
-en tantas partes como sea necesario dependiendo de sus puntos de
-comienzo y final (como un crescendo largo que se extiende a lo
-largo de tres sistemas, o las líneas del pentagrama, que siempre
-se extienden a lo largo de la partitura completa).
+Los @dfn{Spanners}, elementos u objetos de extensión, son una
+clase de objetos gráficos que no están situados en un lugar fijo
+de la partitura sino que se extienden de un punto a otro.  Entre
+ellos podemos encontrar las barras de corchea, las ligaduras de
+unión y las ligaduras de expresión, así como los reguladores y las
+líneas de pentagrama.  Así como los objetos que no son
+@emph{spanners} slo se pueden dividir en un máximo de dos piezas
+visibles (por ejemplo, una clave duplicada al final de una línea y
+el comienzo de la siguiente), los spanners u objetos de extensión
+se dividen en tantas partes como sea necesario dependiendo de sus
+puntos de comienzo y final (como un crescendo largo que se
+extiende a lo largo de tres sistemas, o las líneas del pentagrama,
+que siempre se extienden a lo largo de la partitura completa).
 
 Técnicamente, los objetos de extensión se definen como objetos
 gráficos que tienen la interfaz @code{spanner-@/interface}; en la

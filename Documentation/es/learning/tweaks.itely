@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: 3bd2cf9507986d1bb2b22da4b07ffafe9e5b3c9f
+    Translation of GIT committish: c95d569e9013276fd0595366c79eebdf772bea77
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -5000,27 +5000,21 @@ La documentación del manual de Referencia de Funcionamiento
 Interno contiene montañas de información sobre LilyPond, pero se
 puede obtener más información aún leyendo los archivos internos de
 LilyPond.  Para echarles un vistazo, en primer lugar debe buscar
-la carpeta correspondiente a su sistema.  La ubicación de esta
-carpeta depende de si consiguió el programa LilyPond descargando
-un binario precompilado desde el sitio web @code{lilypond.org} o
-si lo instaló mediante un gestor de paquetes (es decir,
-distribuido con GNU/Linux, o instalado bajo MacPorts, Homebrew,
-Cygwin, Chocolatey, etc.) o fue compilado a partir de la fuente.
+la carpeta correspondiente a su sistema.  Si decimos
 
-@itemize
-@item Descargado de @code{lilypond.org}
-
-Diríjase a
 @example
-@file{@var{CARPETA_DE_INSTALACIÓN}/lilypond-@version{}/share/lilypond/@version{}/}
+lilypond --help
 @end example
 
-@item Instalado mediante un gestor de paquetes o compilado a partir de la fuente
+@noindent
+en la línea de órdenes, el directorio de nivel superior del árbol
+de datos de LilyPond se muestra hacia el final de la salida de la
+ayuda, por ejemplo
 
-Diríjase a @file{@var{PREFIJO}/share/lilypond/@version{}/}, donde
-@var{PREFIJO} se encuentra determinado por su administrador de
-paquetes o guión @code{configure}.
-@end itemize
+@example
+Top-level directory of LilyPond's data tree:
+  '/usr/local/share/lilypond/@version{}'
+@end example
 
 Dentro de esta carpeta, las dos subcarpetas interesantes son
 

@@ -1,7 +1,8 @@
-%% Translation of GIT committish: 4f16fa98fd258f08e64203c793028ea3e363b1c0
+%% Translation of GIT committish: d304582e9b791c7e9d54a5bbda3e37dc49a87fd1
   texidoces = "
-Los nombres de acorde se generan a partir de una lista de alturas.
-Las funciones que construyen estos nombres se pueden personalizar.
+Los nombres de acorde se generan a partir de una lista de
+alturas. Las funciones que construyen estos nombres se pueden
+personalizar.
 
 Aquí se muestran acordes que siguen el libro de Ignatzek
 (pp. 17-18, 1995), empleado por omisión desde LilyPond 1.7.20,

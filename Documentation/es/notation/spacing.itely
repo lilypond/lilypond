@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 
 @ignore
-    Translation of GIT committish: e14f3b2735ee559b06211f1b9a082923705f0970
+    Translation of GIT committish: b29e4a7ec4796951eb92b596fd04b9f7f719ab02
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -3574,7 +3574,9 @@ de la imagen que aparece a continuación, el orden predeterminado
 sitúa primero el signo de respiración, después la clave, luego la
 barra de compás, la armadura de cancelación, la armadura normal, y
 por último la indicación de compás (esto se controla por parte de
-la propiedad @code{BreakAlignment@/.break@/-align@/-orders}).
+la propiedad @code{BreakAlignment@/.break@/-align@/-orders}, que
+se puede cambiar de forma conveniente usando
+@code{\breakAlignInsert}).
 
 @lilypond[verbatim,quote]
 \relative {

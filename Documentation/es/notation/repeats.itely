@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: b867930d88612695e07e23dfda1ae35ab1a6ac2a
+    Translation of GIT committish: 4d53ba28fc715d7f354823d25a6cc1d87e6fad6f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -68,6 +68,7 @@ largas, normalmente de varios compases.
 @cindex repetición, explícita
 @cindex repetición, desplegada
 @cindex desplegada, repetición
+@funindex \*
 @funindex \repeat
 @funindex \repeat unfold
 
@@ -76,6 +77,13 @@ escribiéndola entera un cierto número de veces.  La sintaxis es la
 misma que la de las instrucciones @code{\repeat volta} y
 @code{\repeat segno}, que aparecen documentadas en las secciones
 siguientes.
+
+También existe una forma abreviada, @code{\*}, que puede convenir
+dentro de una pieza que use profusamente repeticiones desplegadas:
+
+@lilypond[verbatim,quote]
+\*2 { c'8 d' e' f' }
+@end lilypond
 
 Para evitar la redundancia, el desplegado de repeticiones no se
 estudia aquí con mucho detalle; sin embargo, algunos de los
@@ -1221,6 +1229,7 @@ sola nota, un compás o dos compases, y trémolos en caso contrario.
 @cindex compás, repetición
 @cindex repetición, corta
 @cindex barra inclinada, repetición
+@funindex \%
 @funindex \repeat percent
 
 Los patrones cortos que se repiten se imprimen una sola vez, y el
@@ -1234,6 +1243,14 @@ La sintaxis es:
 
 @noindent
 donde @code{@var{expresión_musical}} es una expresión musical.
+
+También existe una forma abreviada, @code{\%}, que puede convenir
+dentro de una pieza que use profusamente repeticiones de
+porcentaje:
+
+@lilypond[verbatim,quote]
+\%3 { c'4 d' e' f' }
+@end lilypond
 
 Los patrones más cortos que un compás se sustituyen por barras
 inclinadas.
