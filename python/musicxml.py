@@ -205,11 +205,15 @@ class LilyPond_markup(Xml_node):
         Xml_node.__init__(self)
 
 
+# Most MusicXML elements are mapped to classes derived from this base class.
+# The fields `_when` and `_measure_position` are based on accumulated musical
+# length values derived from the elements' `<duration>` field.
 class Music_xml_node(Xml_node):
     def __init__(self):
         Xml_node.__init__(self)
         self._when = None
         self._duration = None
+        self._measure_position = None
         self.voice_id = None
 
 
@@ -572,7 +576,6 @@ class Attributes(Measure_element):
             # Simple (maybe compound) time signature of the form
             # `[beat, ..., type]`.
             return self.single_time_sig_to_fraction(sig)
-        return 0
 
     # Return time signature as a
     #
@@ -947,9 +950,9 @@ class Note(Measure_element):
 
     def initialize_duration(self):
         from musicexp import Duration
-        # If the note has no Type child return None.  In that case, use the
-        # <duration> tag instead.  If that doesn't exist either, report an
-        # error.
+        # If `<note>` has no `<type>` child, `get_duration_info` returns `None`
+        # (except for grace notes).  In that case, use the `<duration>` element
+        # instead.  If that doesn't exist either, report an error.
         dur = self.get_duration_info()
         if dur:
             d = Duration()
@@ -1633,7 +1636,7 @@ class Part(Music_xml_node):
         last_moment = -1
         last_measure_position = -1
         measure_position = 0
-        measure_start_moment = now
+        measure_start_moment = 0
         is_first_measure = True
         previous_measure = None
 
@@ -1945,6 +1948,7 @@ class Part(Music_xml_node):
                     elem.voice_id = max_vid
                     elem._when = sid_last
                     elem._duration = 0
+                    elem._measure_position = 0
                     measures[-1]._children.append(elem)
 
         if senza_misura_mode and previous_senza_misura:

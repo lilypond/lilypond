@@ -4229,7 +4229,7 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
                 is_senza_misura = False
             continue
 
-        if isinstance(n, musicxml.Partial) and n.partial > 0:
+        if isinstance(n, musicxml.Partial):
             a = musicxml_partial_to_lily(n.partial)
             if a:
                 voice_builder.add_partial(a)
@@ -4322,18 +4322,17 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
                 voice_builder.add_command(a, False)
             continue
 
-        # Print bar checks between measures.  We do this after
-        # `jump_forward()` calls so that a skip filling up the previous bar
-        # (if any) has already been emitted.
+        # Finish the previous measure.
         #
         # `_elements[0]` is always a `Measure` element that gets filtered
         # out above.
         if n._measure_position == 0 and n != voice._elements[1]:
             curr_alterations = alterations.copy()
 
-            # When we reach this point in the loop we are at the beginning
-            # of a MusicXML measure.  However, we want to emit a bar check
-            # *after* the measure, so we start with num == 2.
+            # Print bar checks between measures.  We do this after
+            # `jump_forward()` calls so that a skip filling up the previous
+            # bar (if any) has already been emitted.  We want to emit a bar
+            # check *after* the measure, so we start with num == 2.
             num = voice_builder.bar_number
             if num > 1 and num > last_bar_check:
                 voice_builder.add_bar_check()
@@ -4342,11 +4341,9 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
                 fretboards_builder.add_bar_check()
                 last_bar_check = num
 
-        if (n._measure_position == 0
-                and n != voice._elements[1]
-                and senza_misura_time_signature):
-            voice_builder.add_command(senza_misura_time_signature)
-            senza_misura_time_signature = None
+            if senza_misura_time_signature:
+                voice_builder.add_command(senza_misura_time_signature)
+                senza_misura_time_signature = None
 
         if isinstance(n, musicxml.Direction):
             # Check whether `<direction>` has already been converted in
@@ -4969,7 +4966,7 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
     ce = musicexp.ChordEvent()
     voice_builder.add_music(ce, 0)
 
-    last_voice_elem = voice._elements[len(voice._elements) - 1]
+    last_voice_elem = voice._elements[-1]
     music_length = last_voice_elem._when
     if (hasattr(last_voice_elem, '_duration')
             and last_voice_elem._duration is not None):
