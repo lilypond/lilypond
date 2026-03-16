@@ -5,7 +5,10 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">No &lt;divisions&gt;
-          element.</miscellaneous-field>
+          element.  The generally agreed default value is 1, and MusicXML
+          version 4.1 will mention this explicitly.
+
+          This test holds a single whole note.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

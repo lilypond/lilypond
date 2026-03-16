@@ -6,10 +6,13 @@
     <miscellaneous>
       <miscellaneous-field name="description">A score without
           a time signature at the beginning (but with &lt;key&gt; and
-          &lt;clef&gt; elements).  The second bar sets a 2/2 time with
-          ‘print-object="no"’ for both staves, and the third bar sets a 4/4 time
-          with ‘print-object="no"’ only for the lower
-          staff.</miscellaneous-field>
+          &lt;clef&gt; elements).  The second bar sets a 2/2 time signature
+          with ‘print-object="no"’ for both staves, and the third bar sets a
+          4/4 time signature with ‘print-object="no"’ only for the lower staff.
+
+          Whether a time signature is actually displayed at the very beginning
+          (if there is no &lt;time&gt; element) is
+          application-dependent.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

@@ -13,7 +13,7 @@
           A trailing up-arrow indicates a ‘placement="above"’ attribute, and a
           down-arrow means ‘placement="below"’.  An exception to that is the
           positioning of the natural below the turn in the first beat of
-          measure 10: here, the position is determined by ‘default-y’
+          measure 11: here, the position is determined by ‘default-y’
           attributes.</miscellaneous-field>
     </miscellaneous>
   </identification>

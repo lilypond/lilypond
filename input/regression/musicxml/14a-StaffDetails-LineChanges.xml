@@ -6,7 +6,7 @@
     <miscellaneous>
       <miscellaneous-field name="description">Testing staff line configurations
           and pitched notes.  The number of staff lines can be modified by using
-          the &lt;staff-lines&gt; child of the &lt;staff-details&gt; attribute.
+          the &lt;staff-lines&gt; child of the &lt;staff-details&gt; element.
           This can happen globally (the first staff has one line globally) or
           during the part at the beginning of a measure and even inside a
           measure (the second part has five lines initially, four at the

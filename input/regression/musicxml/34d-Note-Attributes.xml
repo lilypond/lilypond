@@ -5,42 +5,51 @@
   <identification>
     <miscellaneous>
       <miscellaneous-field name="description">Testing print attribute
-          combinations of &lt;note&gt;.
+          combinations of &lt;note&gt;.  The third beat is a chord with the
+          pitches D-F-A, all other notes have the same pitch A.
+
+          It is expected that only a subset of the possible combinations are
+          supported by applications.
 
           Measure 1:
 
           A: No attributes.
 
-          B: print-leger="no"
+          B: print-leger="no" – the ledger line should be omitted.
 
-          C: print-dot="no" (middle note of chord)
+          C: print-dot="no" (middle note of chord) – the middle dot of the
+          chord should be omitted.
 
-          D: print-lyric="no"
+          D: print-lyric="no" – the lyric ‘D’ should be omitted.
 
-          E: print-object="no"
+          E: print-object="no" – everything should be omitted.
 
           Measure 2:
 
-          F: print-object="no", print-leger="yes"
+          F: print-object="no", print-leger="yes" – only the ledger line should
+          be visible.
 
-          G: print-object="no", print-dot="yes"
+          G: print-object="no", print-dot="yes" – only the dot should be
+          visible.
 
-          H: print-object="no", print-lyric="yes"
+          H: print-object="no", print-lyric="yes" – only the lyric ‘H’ should
+          be visible.
 
           Measure 3:
 
-          I: print-object="no" for &lt;lyric&gt; (middle lyric line ‘I2’)
+          I: print-object="no" for &lt;lyric&gt; (middle lyric line ‘I2’) – the
+          lyrics ‘I2’ should be omitted.
 
-          J: print-lyric="no", print-object="yes" for &lt;lyric&gt;
-          (middle lyric line ‘J2’)
+          J: print-lyric="no", print-object="yes" for &lt;lyric&gt; (middle
+          lyric line ‘J2’) – the lyrics ‘J1’ and ‘J3’ should be omitted.
 
           K: print-object="no" print-lyric="yes", print-object="no" for
-          &lt;lyric&gt; (middle lyric line ‘K2’)
+          &lt;lyric&gt; (middle lyric line ‘K2’) – only the lyrics ‘K1’ and
+          ‘K3’ should be visible.
 
           L: print-object="no" print-lyric="no", print-object="yes" for
-          &lt;lyric&gt; (middle lyric line ‘L2’)
-
-        </miscellaneous-field>
+          &lt;lyric&gt; (middle lyric line ‘L2’) – only the lyrics ‘L2’ should
+          be visible.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>

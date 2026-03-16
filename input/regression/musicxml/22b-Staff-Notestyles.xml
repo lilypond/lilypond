@@ -242,8 +242,7 @@
         <voice>1</voice>
         <type>quarter</type>
         <lyric number="1"><text>hidden notes,</text></lyric>
-        <lyric number="2"><text>hidden</text></lyric>
-        <lyric number="3"><text>staff lines</text></lyric>
+        <lyric number="2"><text>no staff lines</text></lyric>
       </note>
       <note print-object="no">
         <pitch>

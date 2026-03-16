@@ -7,7 +7,7 @@
       <miscellaneous-field name="description">Displaying tuplet note types that
           might not coincide with the displayed note.  The tuplets in measure 1
           derive the type from the note, the tuplets in measure 2 use the
-          &lt;normal-type&rt; and &lt;normal-dot&gt; children of the
+          &lt;normal-type&gt; and &lt;normal-dot&gt; children of the
           &lt;time-modification&gt; element, and the remaining tuplets use the
           &lt;tuplet-type&gt; and &lt;tuplet-dot&gt; children of the
           &lt;tuplet&gt; element.

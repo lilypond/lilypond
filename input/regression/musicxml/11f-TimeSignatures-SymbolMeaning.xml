@@ -4,10 +4,13 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">A time signature of 3/8 with the
-          ‘symbol="cut"’ attribute and two ‘symbol="single-number"’ attributes
-          with complex time signatures.  Shall ‘symbol’ be ignored in this
-          case?</miscellaneous-field>
+      <miscellaneous-field name="description">Semantically invalid use cases
+          for the ‘symbol’ attribute of &lt;time&gt;.  The actual display is
+          application-dependent.
+
+          This test shows a 3/8 time signature with ‘symbol="cut"’ and a
+          complex 1/8+2/4 time signature with
+          ‘symbol="single-number"’.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -42,33 +45,6 @@
         <voice>1</voice>
         <type>quarter</type>
         <dot/>
-      </note>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2">
-      <attributes>
-        <time symbol="single-number">
-          <beats>3+2</beats>
-          <beat-type>8</beat-type>
-        </time>
-      </attributes>
-      <note>
-        <pitch>
-          <step>B</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>eighth</type>
-      </note>
-      <note>
-        <pitch>
-          <step>B</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>4</duration>
-        <voice>1</voice>
-        <type>half</type>
       </note>
     </measure>
     <!--=======================================================-->
