@@ -3643,7 +3643,6 @@ class LilyPondVoiceBuilder(musicexp.Base):
         self.pending_last = []
         self.end_moment = 0
         self.begin_moment = 0
-        self.ignore_skips = False
         self.has_relevant_elements = False
         self.bar_number = 0
         self.multi_measure_count = 0
@@ -3784,7 +3783,6 @@ class LilyPondVoiceBuilder(musicexp.Base):
         self.has_relevant_elements = has_relevant
 
     def add_partial(self, command):
-        self.ignore_skips = True
         # insert the partial, but restore relevant_elements (partial is not
         # relevant)
         relevant = self.has_relevant_elements
@@ -3808,14 +3806,6 @@ class LilyPondVoiceBuilder(musicexp.Base):
         current_end = self.end_moment
         diff = moment - current_end
         if diff > 0:
-            if self.ignore_skips and (moment == 0):
-                # TODO: This seems convoluted and fragile.  LilyPond
-                # regression tests still pass without this block, so what's
-                # the problem?  Is test coverage lacking or is ignore_skips
-                # bogus?
-                self.ignore_skips = False
-                return
-
             # TODO: Use the time signature for skips, too. Problem: The
             #       skip might not start at a measure boundary!
             skip = musicexp.SkipEvent()
