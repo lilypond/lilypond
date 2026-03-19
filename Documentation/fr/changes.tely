@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: c95d569e9013276fd0595366c79eebdf772bea77
+    Translation of GIT committish: 606ac3c3b22c41d84aa5fa938d42da5125ac572a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1339,6 +1339,48 @@ multiples de @code{dot-radius}. Elle n'est définit que pour
 
 @itemize
 @item
+Désormais, les noms d'accord sont par défaut toujours affichés en
+anglais et ne dépendent plus de @code{\language}. De la même manière,
+les commandes telles que @code{\germanChords} ne dépendent plus de
+@code{\language}.
+
+Ceci pourrait causer des différences dans l'affichage des noms d'accord.
+
+@item
+La nouvelle commande @code{\englishChords} permet de revenir aux noms
+d'accord en anglais.
+
+@item
+Certaines fonctions Scheme en lien avec les noms d'accord ont été
+renommées.
+
+@indentedblock
+@multitable @columnfractions .5 .5
+@headitem ancien @tab nouveau
+@item @code{note-name->string}
+  @tab @code{pitch->name}
+@item @code{alteration->text-accidental-markup}
+  @tab @code{accidental->text-markup}
+@item @code{note-name->markup}
+  @tab @code{chord-name:markup}
+@item @code{chord-name->german-markup}
+  @tab @code{chord-name:german-markup}
+@item @code{note-name->german-markup}
+  @tab @code{chord-name:german-lowercase-name-markup}
+@item @code{chord-name->italian-markup}
+  @tab @code{chord-name:italian-markup}
+@end multitable
+@end indentedblock
+
+@command{convert-ly} gère ceci automatiquement.
+
+@item
+Two new Scheme functions related to chord names are now available:
+@code{pitch->alteration} returns the accidental for a given pitch
+and language; @code{chord-name:name-markup} returns note name
+markup for a given pitch and language.
+
+@item
 LilyPond suit désormais plus rigoureusement la nomenclature de
 nommage des accords par Ignatzek. Ceci annule des modifications
 intervenues fin 2011 avec la version 2.15.21, et que l'on pourrait
@@ -1478,6 +1520,23 @@ fonctionnelle pour des raisons de rétrocompatibilité -- si l'on charge
 @unnumbered Autres améliorations diverses
 
 @itemize
+
+@item
+La commande @code{\tempo} accepte désormais des valeurs rationnelles
+exactes. Le formateur par défaut arrondi au quart le plus proche ; la
+propriété de contexte @code{tempoCountPrecision} permet de le contrôler.
+
+@lilypond[quote, verbatim]
+\fixed c' {
+  \once \set Timing.tempoCountPrecision = #1/1000000
+  \tempo 4 = #200/3
+  g4 e2 f4
+}
+@end lilypond
+
+@item
+La nouvelle fonction Scheme @code{ly:parser-define-once!} définit une
+variable qui ne l'aurait pas déjà été.
 
 @item
 La propriété de contexte @code{timeSignatureFraction} est déclarée
@@ -2002,6 +2061,11 @@ par @code{\tagGroup} ou @code{\tagGroupRef}, à l'aide des commandes
 @code{\removeFromTagGroup}.
 
 @item
+La langue de saisie -- telle que définie par @code{\language} -- est
+accessible au travers de la la nouvelle variable Scheme
+@code{input-language}, en tant que symbole.
+
+@item
 La nouvelle fonction @code{\breakAlignInsert} facilite la modification
 de l'ordre des éléments de notation tels que clefs, métriques, barres de
 mesure, etc. Jusqu'à présent, ceci demandait de redéfinir le vecteur
@@ -2017,6 +2081,11 @@ mesure, etc. Jusqu'à présent, ceci demandait de redéfinir le vecteur
   g'
 }
 @end lilypond
+
+@item
+L'option de sortie @option{-dcrop} tient désormais compte de tous les
+stencils pour déterminer la boîte englobante. Ceci peut modifier la
+taille des sorties rognées.
 
 @end itemize
 
