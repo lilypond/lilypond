@@ -413,9 +413,11 @@ Skyline::Skyline (std::vector<Box> const &boxes, Axis horizon_axis,
   buildings.reserve (boxes.size ());
   sky_ = sky;
 
-  for (vsize i = 0; i < boxes.size (); i++)
-    if (!boxes[i].is_empty (X_AXIS) && !boxes[i].is_empty (Y_AXIS))
-      buildings.push_back (Building (boxes[i], horizon_axis, sky));
+  for (auto &box : boxes)
+    {
+      if (!box.is_empty (X_AXIS) && !box.is_empty (Y_AXIS))
+        buildings.push_back (Building (box, horizon_axis, sky));
+    }
 
   buildings_ = internal_build_skyline (&buildings);
 }
@@ -433,9 +435,8 @@ Skyline::Skyline (std::vector<Drul_array<Offset>> const &segments,
   buildings.reserve (segments.size ());
   sky_ = sky;
 
-  for (vsize i = 0; i < segments.size (); i++)
+  for (const auto &seg : segments)
     {
-      Drul_array<Offset> const &seg = segments[i];
       Offset left = seg[LEFT];
       Offset right = seg[RIGHT];
       if (left[horizon_axis] > right[horizon_axis])
@@ -458,8 +459,8 @@ Skyline::Skyline (std::vector<Skyline_pair> const &skypairs, Direction sky)
   sky_ = sky;
 
   std::deque<Skyline> partials;
-  for (vsize i = 0; i < skypairs.size (); i++)
-    partials.push_back (Skyline ((skypairs[i])[sky]));
+  for (auto &skypair : skypairs)
+    partials.push_back (Skyline (skypair[sky]));
 
   while (partials.size () > 1)
     {
@@ -511,18 +512,18 @@ Skyline::merge (Skyline const &other)
 void
 Skyline::raise (Real r)
 {
-  for (auto i = buildings_.begin (); i != buildings_.end (); i++)
-    i->y_intercept_ += sky_ * r;
+  for (auto &b : buildings_)
+    b.y_intercept_ += sky_ * r;
 }
 
 void
 Skyline::shift (Real s)
 {
-  for (auto i = buildings_.begin (); i != buildings_.end (); i++)
+  for (auto &b : buildings_)
     {
-      i->x_[LEFT] += s;
-      i->x_[RIGHT] += s;
-      i->y_intercept_ -= s * i->slope_;
+      b.x_[LEFT] += s;
+      b.x_[RIGHT] += s;
+      b.y_intercept_ -= s * b.slope_;
     }
 }
 
@@ -737,8 +738,10 @@ Skyline::to_points (Axis horizon_axis) const
     }
 
   if (horizon_axis == Y_AXIS)
-    for (vsize i = 0; i < out.size (); i++)
-      out[i] = out[i].swapped ();
+    {
+      for (auto &offset : out)
+        offset = offset.swapped ();
+    }
 
   return out;
 }
