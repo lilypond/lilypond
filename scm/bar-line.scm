@@ -195,9 +195,10 @@ See @rnotation{List of bar lines}.
 
 (define-public (add-bar-glyph-print-procedure glyph proc)
   "Specify the single glyph @var{glyph} that calls print procedure @var{proc}.
+
 The procedure @var{proc} has to be defined in the form
-@code{(make-...-bar-line grob extent)} even if the @var{extent}
-is not used within the routine."
+@code{(make-...-bar-line is-span grob extent)} even if the arguments
+@var{is-span} and @var{extent} are not used within the routine."
   (if (or (not (string? glyph))
           (> (string-length glyph) 1))
       (ly:warning
@@ -212,8 +213,8 @@ is not used within the routine."
 ;; drawing functions for various bar line types
 ;; to include them and other user-defined functions,
 ;; all of them have the form
-;; (make-...-bar-line grob extent)
-;; even if the extent is not used.
+;; (make-...-bar-line is-span grob extent)
+;; even if 'is-span' or 'extent' are not used.
 
 (define (make-no-bar-line is-span grob extent)
   "Return an empty stencil."
