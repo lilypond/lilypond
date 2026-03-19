@@ -133,12 +133,12 @@ Tuplet_bracket::bracket_basic_visibility (Spanner *me)
   */
   if (!from_scm<bool> (bracket_vis_prop))
     {
-      const auto bounds = me->get_bounds ();
-      auto *const start_col = bounds[LEFT]->get_column ();
-      auto *const end_col = bounds[RIGHT]->get_column ();
+      const auto [lb, rb] = me->get_bounds ();
+      auto *const start_col = lb->get_column ();
+      auto *const end_col = rb->get_column ();
       auto start_mom = from_scm (get_property (start_col, "when"), Moment (0));
       auto end_mom = from_scm (get_property (end_col, "when"), Moment (0));
-      if (start_mom == end_mom && !bounds[LEFT]->break_status_dir ())
+      if (start_mom == end_mom && !lb->break_status_dir ())
         bracket_visibility = false;
     }
 
@@ -522,9 +522,7 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
       /*
         Use outer non-rest columns to determine slope
       */
-      const auto bounds = get_bounds (me);
-      auto *const left_col = bounds[LEFT];
-      auto *const right_col = bounds[RIGHT];
+      const auto [left_col, right_col] = get_bounds (me);
       if (left_col && right_col)
         {
           Interval rv = Note_column::cross_staff_extent (right_col, commony);

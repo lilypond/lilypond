@@ -24,6 +24,7 @@
 #include "real.hh"
 
 #include <cassert>
+#include <tuple>
 #include <utility>
 
 /**
@@ -97,7 +98,46 @@ public:
   constexpr T const &back () const & { return array_[1]; }
   constexpr T &&back () && { return std::move (array_[1]); }
   constexpr T const &&back () const && { return std::move (array_[1]); }
+
+  template <std::size_t index, class U>
+  static constexpr decltype (auto) internal_drul_array_get (U &&arr)
+  {
+    static_assert (index < 2);
+    return std::forward<U> (arr).array_[index];
+  }
 };
+
+namespace std // specializations for a tuple-like interface
+{
+
+template <class T>
+struct tuple_size<::Drul_array<T>>
+{
+  static constexpr size_t value = 2;
+};
+
+template <size_t Index, class T>
+struct tuple_element<Index, ::Drul_array<T>>
+  : tuple_element<Index, tuple<T, T>>
+{
+};
+
+} // namespace std
+
+// a tuple-like interface supports structured binding
+template <std::size_t index, class T>
+constexpr auto
+get (T &&arr) -> decltype (arr.template internal_drul_array_get<index> (
+  std::forward<T> (arr)))
+{
+  // The trailing return type provides SFINAE: this get() matches when T has an
+  // internal_drul_array_get() function, which should only be Drul_array.
+  //
+  // Passing the array as a seemingly redundant function argument lets us
+  // define the function once with a forwarding reference instead of defining
+  // overrides for T&, const T&, T&&, and const T&&.
+  return arr.template internal_drul_array_get<index> (std::forward<T> (arr));
+}
 
 template <class T1, class T2>
 constexpr void

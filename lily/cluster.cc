@@ -149,9 +149,7 @@ Cluster::print (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Spanner, smob, 1);
 
-  Item *left_bound = me->get_bound (LEFT);
-  Item *right_bound = me->get_bound (RIGHT);
-
+  const auto [left_bound, right_bound] = me->get_bounds ();
   Grob *commonx = left_bound->common_refpoint (right_bound, X_AXIS);
 
   std::vector<Grob *> const &cols = extract_grob_array (me, "columns");

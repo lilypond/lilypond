@@ -682,13 +682,12 @@ System::get_paper_system ()
   Stencil sys_stencil (Box (x, y),
                        scm_cons (ly_symbol2scm ("combine-stencil"), exprs));
 
-  Paper_column *left_bound = get_bound (LEFT);
+  const auto [left_bound, right_bound] = get_bounds ();
   SCM prop_init = get_property (left_bound, "line-break-system-details");
   Prob *pl = make_paper_system (prop_init);
   paper_system_set_stencil (pl, sys_stencil);
 
   /* information that the page breaker might need */
-  Paper_column *right_bound = get_bound (RIGHT);
   set_property (pl, "vertical-skylines",
                 get_property (this, "vertical-skylines"));
   set_property (pl, "page-break-permission",

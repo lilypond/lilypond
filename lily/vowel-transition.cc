@@ -40,11 +40,11 @@ Vowel_transition::set_spacing_rods (SCM smob)
   if (scm_is_number (minimum_length) || scm_is_number (broken_length))
     {
       System *root = get_root_system (me);
-      const auto bounds = me->get_bounds ();
-      if (!bounds[LEFT] || !bounds[RIGHT])
+      const auto [lb, rb] = me->get_bounds ();
+      if (!lb || !rb)
         return SCM_UNSPECIFIED;
-      std::vector<Item *> cols (root->broken_col_range (
-        bounds[LEFT]->get_column (), bounds[RIGHT]->get_column ()));
+      std::vector<Item *> cols (
+        root->broken_col_range (lb->get_column (), rb->get_column ()));
       Drul_array padding = {0.0, 0.0};
       Drul_array padding_broken = {0.0, 0.0};
       for (const auto d : {LEFT, RIGHT})
@@ -72,7 +72,7 @@ Vowel_transition::set_spacing_rods (SCM smob)
         {
           /* Before line break */
           Rod rod_before_break;
-          rod_before_break.item_drul_[LEFT] = bounds[LEFT];
+          rod_before_break.item_drul_[LEFT] = lb;
           rod_before_break.item_drul_[RIGHT]
             = cols[0]->find_prebroken_piece (LEFT);
           rod_before_break.distance_ = from_scm<double> (minimum_length, 0);
@@ -85,7 +85,7 @@ Vowel_transition::set_spacing_rods (SCM smob)
           Rod rod_after_break;
           rod_after_break.item_drul_[LEFT]
             = cols.back ()->find_prebroken_piece (RIGHT);
-          rod_after_break.item_drul_[RIGHT] = bounds[RIGHT];
+          rod_after_break.item_drul_[RIGHT] = rb;
           Interval_t<Moment> segment_time
             = spanned_time_interval (rod_after_break.item_drul_[LEFT],
                                      rod_after_break.item_drul_[RIGHT]);
@@ -113,13 +113,13 @@ Vowel_transition::set_spacing_rods (SCM smob)
 
       Rod rod;
       rod.distance_ = from_scm<double> (minimum_length, 0);
-      rod.item_drul_ = bounds;
+      rod.item_drul_ = {lb, rb};
       for (const auto d : {LEFT, RIGHT})
         rod.distance_ += padding[d];
       rod.distance_ += rod.bounds_protrusion ();
       rod.add_to_cols ();
 
-      if (Item *left_pbp = bounds[RIGHT]->find_prebroken_piece (LEFT))
+      if (Item *left_pbp = rb->find_prebroken_piece (LEFT))
         {
           rod.item_drul_[RIGHT] = left_pbp;
           rod.add_to_cols ();

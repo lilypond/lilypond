@@ -36,8 +36,7 @@ void
 Spanner::do_break_processing ()
 {
   //break_into_pieces
-  Item *left = get_bound (LEFT);
-  Item *right = get_bound (RIGHT);
+  const auto [left, right] = get_bounds ();
 
   if (!left || !right || !is_live ())
     return;
@@ -434,23 +433,23 @@ Spanner::set_spacing_rods (SCM smob)
   if (scm_is_number (num_length) || scm_is_number (broken_length))
     {
       System *root = get_root_system (me);
-      const auto bounds = me->get_bounds ();
-      if (!bounds[LEFT] || !bounds[RIGHT])
+      const auto [lb, rb] = me->get_bounds ();
+      if (!lb || !rb)
         return SCM_UNSPECIFIED;
 
-      std::vector<Item *> cols (root->broken_col_range (
-        bounds[LEFT]->get_column (), bounds[RIGHT]->get_column ()));
+      std::vector<Item *> cols (
+        root->broken_col_range (lb->get_column (), rb->get_column ()));
 
       if (cols.size ())
         {
           Rod r;
-          r.item_drul_[LEFT] = bounds[LEFT];
+          r.item_drul_[LEFT] = lb;
           r.item_drul_[RIGHT] = cols[0]->find_prebroken_piece (LEFT);
           r.distance_ = from_scm<double> (num_length, 0);
           r.add_to_cols ();
 
           r.item_drul_[LEFT] = cols.back ()->find_prebroken_piece (RIGHT);
-          r.item_drul_[RIGHT] = bounds[RIGHT];
+          r.item_drul_[RIGHT] = rb;
           if (scm_is_number (broken_length))
             /*
               r.distance_ may have been modified by add_to_cols ()
@@ -469,7 +468,7 @@ Spanner::set_spacing_rods (SCM smob)
         As r is a fresh rod, we can set distance_ with no complication.
       */
       r.distance_ = from_scm<double> (num_length, 0);
-      r.item_drul_ = bounds;
+      r.item_drul_ = {lb, rb};
       r.add_to_cols ();
 
       /*
@@ -483,7 +482,7 @@ Spanner::set_spacing_rods (SCM smob)
         two rods will be in the column vector used for spacing in
         simple-spacer.cc get_line_configuration.
       */
-      if (Item *left_pbp = bounds[RIGHT]->find_prebroken_piece (LEFT))
+      if (Item *left_pbp = rb->find_prebroken_piece (LEFT))
         {
           r.item_drul_[RIGHT] = left_pbp;
           r.add_to_cols ();
@@ -544,8 +543,7 @@ SCM
 Spanner::bounds_width (SCM grob)
 {
   auto *const me = unsmob<Spanner> (grob);
-  auto *const lb = me->get_bound (LEFT);
-  auto *const rb = me->get_bound (RIGHT);
+  const auto [lb, rb] = me->get_bounds ();
   auto *const common = lb->common_refpoint (rb, X_AXIS);
 
   Interval w (lb->relative_coordinate (common, X_AXIS),

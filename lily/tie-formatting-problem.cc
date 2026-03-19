@@ -337,8 +337,7 @@ Tie_formatting_problem::from_ties (std::vector<Spanner *> const &ties)
   y_refpoint_ = ties[0];
   for (auto *const tie : ties)
     {
-      Item *l = tie->get_bound (LEFT);
-      Item *r = tie->get_bound (RIGHT);
+      const auto [l, r] = tie->get_bounds ();
 
       x_refpoint_ = l->common_refpoint (x_refpoint_, X_AXIS);
       x_refpoint_ = r->common_refpoint (x_refpoint_, X_AXIS);

@@ -98,6 +98,8 @@ public:
     const Drul_array<int> arr {12, 34};
     EQUAL (12, arr.front ());
     EQUAL (34, arr.back ());
+    EQUAL (12, get<0> (arr));
+    EQUAL (34, get<1> (arr));
   }
 
   static constexpr void test_access_unchecked_const_temp ()
@@ -105,10 +107,14 @@ public:
     using CD = const Drul_array<int>;
     EQUAL (12, (CD {12, 34}).front ());
     EQUAL (34, (CD {12, 34}).back ());
+    EQUAL (12, get<0> (CD {12, 34}));
+    EQUAL (34, get<1> (CD {12, 34}));
 
     // no backdoor to create an lvalue reference to a temporary
     CHECK (!is_lvalue_ref (CD {}.front ()));
     CHECK (!is_lvalue_ref (CD {}.back ()));
+    CHECK (!is_lvalue_ref (get<0> (CD {})));
+    CHECK (!is_lvalue_ref (get<1> (CD {})));
   }
 
   static constexpr void test_access_unchecked_mutable ()
@@ -119,21 +125,29 @@ public:
 
     EQUAL (13, arr.front ());
     EQUAL (34, arr.back ());
+    EQUAL (13, get<0> (arr));
+    EQUAL (34, get<1> (arr));
 
     --arr.back ();
 
     EQUAL (13, arr.front ());
     EQUAL (33, arr.back ());
+    EQUAL (13, get<0> (arr));
+    EQUAL (33, get<1> (arr));
   }
 
   static constexpr void test_access_unchecked_mutable_temp ()
   {
     EQUAL (12, (Drul_array<int> {12, 34}).front ());
     EQUAL (34, (Drul_array<int> {12, 34}).back ());
+    EQUAL (12, get<0> (Drul_array<int> {12, 34}));
+    EQUAL (34, get<1> (Drul_array<int> {12, 34}));
 
     // no backdoor to create an lvalue reference to a temporary
     CHECK (!is_lvalue_ref (Drul_array<int> {}.front ()));
     CHECK (!is_lvalue_ref (Drul_array<int> {}.back ()));
+    CHECK (!is_lvalue_ref (get<0> (Drul_array<int> {})));
+    CHECK (!is_lvalue_ref (get<1> (Drul_array<int> {})));
   }
 
   static void test_init_default_int ()
@@ -209,6 +223,52 @@ public:
     EQUAL (24, arr.front ());
     EQUAL (68, arr.back ());
   }
+
+  static constexpr void test_structured_bind_const_lval ()
+  {
+    constexpr Drul_array<int> arr {12, 34};
+    const auto &[left, right] = arr;
+
+    EQUAL (12, left);
+    EQUAL (34, right);
+  }
+
+  static constexpr void test_structured_bind_const_rval ()
+  {
+    const auto [left, right] = Drul_array<int> {12, 34};
+
+    EQUAL (12, left);
+    EQUAL (34, right);
+  }
+
+  static constexpr void test_structured_bind_mutable_lval ()
+  {
+    Drul_array<int> arr {12, 34};
+    auto &[left, right] = arr;
+
+    left = 11;
+    right = 22;
+
+    EQUAL (11, arr.front ());
+    EQUAL (22, arr.back ());
+  }
+
+  static constexpr void test_structured_bind_mutable_rval ()
+  {
+    auto [left, right] = Drul_array<int> {9, 11};
+
+    left += 1;
+    right -= 1;
+
+    EQUAL (left, right);
+  }
+
+  static constexpr void test_tuple_size ()
+  {
+    constexpr auto z = std::tuple_size<Drul_array<int>>::value;
+
+    EQUAL (2U, z);
+  }
 };
 
 static_assert ((Drul_array_test::test_access_checked_const (), true));
@@ -222,3 +282,13 @@ static_assert ((Drul_array_test::test_access_unchecked_mutable (), true));
 static_assert ((Drul_array_test::test_access_unchecked_mutable_temp (), true));
 
 static_assert ((Drul_array_test::test_scaling (), true));
+
+static_assert ((Drul_array_test::test_structured_bind_const_lval (), true));
+
+static_assert ((Drul_array_test::test_structured_bind_const_rval (), true));
+
+static_assert ((Drul_array_test::test_structured_bind_mutable_lval (), true));
+
+static_assert ((Drul_array_test::test_structured_bind_mutable_rval (), true));
+
+static_assert ((Drul_array_test::test_tuple_size (), true));

@@ -76,8 +76,7 @@ public:
 Drul_array<Real>
 offsets_maybe (Drul_array<Grob *> grobs, Grob *&common)
 {
-  Grob *g1 = grobs[LEFT];
-  Grob *g2 = grobs[RIGHT];
+  const auto &[g1, g2] = grobs;
   if (g1 && g2)
     {
       common = g1->common_refpoint (g2, Y_AXIS);
@@ -515,8 +514,7 @@ Line_spanner::calc_cross_staff (SCM smob)
   if (!me)
     return SCM_BOOL_F;
 
-  auto *const lb = me->get_bound (LEFT);
-  auto *const rb = me->get_bound (RIGHT);
+  const auto [lb, rb] = me->get_bounds ();
   return to_scm (Staff_symbol_referencer::get_staff_symbol (lb)
                  != Staff_symbol_referencer::get_staff_symbol (rb));
 }

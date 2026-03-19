@@ -37,8 +37,7 @@ Measure_grouping::print (SCM grob)
 
   Real t = Staff_symbol_referencer::line_thickness (me)
            * from_scm<double> (get_property (me, "thickness"), 1);
-  auto *const lb = me->get_bound (LEFT);
-  auto *const rb = me->get_bound (RIGHT);
+  const auto [lb, rb] = me->get_bounds ();
   auto *const common = lb->common_refpoint (rb, X_AXIS);
 
   Real right_point = robust_relative_extent (rb, common, X_AXIS).center ();

@@ -435,10 +435,8 @@ Skyline::Skyline (std::vector<Drul_array<Offset>> const &segments,
   buildings.reserve (segments.size ());
   sky_ = sky;
 
-  for (const auto &seg : segments)
+  for (auto [left, right] : segments)
     {
-      Offset left = seg[LEFT];
-      Offset right = seg[RIGHT];
       if (left[horizon_axis] > right[horizon_axis])
         std::swap (left, right);
 
