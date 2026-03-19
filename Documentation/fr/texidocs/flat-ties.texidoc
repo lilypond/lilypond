@@ -1,4 +1,4 @@
-%% Translation of GIT committish: de1e42ce512f3690387cdd065109bddff1b7bd6d
+%% Translation of GIT committish: 606ac3c3b22c41d84aa5fa938d42da5125ac572a
   texidocfr = "
 La fonction @code{flared-tie} ici présentée permet de dessiner une
 liaison de prolongation constituée de lignes droites. Elle est sensée
