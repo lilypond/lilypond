@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-  Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
+  Translation of GIT committish: 606ac3c3b22c41d84aa5fa938d42da5125ac572a
 
   When revising a translation, copy the HEAD committish of the
   version that you are working on.  For details, see the Contributors'
@@ -3151,6 +3151,43 @@ des scripts voient leur @code{script-priority} fixée à 200 par défaut.
 @include en/script-priorities.tely
 
 
+@node Grobs and their break-align symbols
+@appendixsec Objets graphiques et leurs symboles d'alignement après rupture
+
+@funindex break-align-symbol
+
+L'ordre et l'espacement des éléments de notation tels que clefs,
+métriques, barres de mesure, etc. sont déterminés à l'aide de certains
+symboles Scheme, appelés en anglais des @dfn{break-align symbols} et
+qu'on pourrait traduire par symboles d'alignement après rupture. Plus
+précisément, leur ordre est déterminé par des listes de symboles
+@emph{break-align} dans le vecteur
+@code{BreakAlignment@/.break-@/align-@/orders} (voir
+@rinternals{break-alignment-interface}) et leur espacement est contrôlé
+par les propriétés @code{space-@/alist} des objets respectifs, dont les
+éléments sont à leur tour indexés selon les symboles @emph{break-align}
+Par exemple, l'espacement entre un objet @code{Clef} et la barre de
+mesure qui le suit est déterminé par la valeur de
+@code{Clef@/.space-@/alist@/.staff-@/bar}.
+
+Ce tableau recense la correspondance par défaut entre les symboles
+@emph{break-align} et les objets graphiques.
+
+@include en/break-align-grobs-by-symbols.tely
+
+Pour aller plus loin, il existe trois symboles @emph{break-align}
+abstraits susceptible de s'utiliser dans des définitions de
+@code{space-@/alist}, à savoir @code{first-@/note}, @code{next-@/note}
+et @code{right-@/edge}. De plus amples détails sur la propriété
+@code{space-@/alist} des objets graphiques sont disponibles en
+consultant @rinternals{break-aligned-interface}.
+
+Le tableau suivant liste les symboles @emph{break-align} utilisés par
+chacun des objets graphiques.
+
+@include en/break-align-symbols-by-grobs.tely
+
+
 @node Technical glossary
 @appendixsec Glossaire technique
 
@@ -3349,6 +3386,7 @@ distribué avec les programmes binaires de LilyPond.
 @funindex output-suffix
 @funindex partCombineListener
 @funindex pitchnames
+@funindex input-language
 @funindex toplevel-bookparts
 @funindex toplevel-scores
 @funindex showLastLength
@@ -3370,6 +3408,7 @@ LilyPond utilise, entre autres, les variables suivantes :
 
 @itemize @w{}
 @item @code{afterGraceFraction}
+@item @code{input-language}
 @item @code{musicQuotes}
 @item @code{output-count}
 @item @code{output-suffix}

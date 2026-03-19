@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: c95d569e9013276fd0595366c79eebdf772bea77
+   Translation of GIT committish: 606ac3c3b22c41d84aa5fa938d42da5125ac572a
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.28"
+@c \version "2.25.80"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: J.-C. Malahieude, John Mandereau, Jean Abou Samra
@@ -585,23 +585,31 @@ LilyPond dispose d'un système alternatif de chiffrage jazz qui a été
 élaboré grâce à ces même propriétés. Les deux notations, Ignatzek et
 alternative, sont illustrés dans le morceau choisi
 @rlsrsnippetnamed{Chord notation, Chord names alternative, Noms d’accord
-alternatifs} .
+alternatifs}. Différentes notations courrantes de jazz sont prrésentées
+dans @ref{Chord name chart}.
 
 @funindex \germanChords
-@funindex \semiGermanChords
 @funindex \italianChords
 @funindex \frenchChords
+@funindex \englishChords
 
 En plus des différents systèmes de nommage, le nom de la fondamentale
 varie selon la langue utilisée. Les instructions @code{\germanChords},
-@code{\semiGermanChords}, @code{\italianChords} et @code{\frenchChords}
-permettent de définir la langue, comme vous pouvez le constater :
+@code{\italianChords} et @code{\frenchChords} permettent de définir la
+langue.
+
+@funindex \semiGermanChords
+
+Un système spécifique, @code{\semiGermanChords}, originellement dédié à
+l'enseignment musical dans les pays germanophones, a acquis une audience
+internationale. Il représente un si germanique par un B affublé d'un
+bémol ; tout le reste est identique à @code{\germanChords}.
 
 @lilypondfile{chord-names-languages.ly}
 
 @funindex chordNameLowercaseMinor
 Nombre de carnets de chant allemands indiquent un accord mineur par
-l'emploi de caractères en minuscule, sans le suffixe @code{m}. Cette
+l'emploi de caractères en minuscule, sans le suffixe « m ». Cette
 fonctionnalité est gérée par la propriété
 @code{chordNameLowercaseMinor} :
 
@@ -620,13 +628,14 @@ suivantes :
 @item chordRootNamer
 @funindex chordRootNamer
 
-Dans les chiffrages d'accord jazz, la note fondamentale de chaque accord
-est exprimée par une lettre capitale, parfois suivie d'une altération,
-correspondant à la notation anglo-saxonne de la musique. Cette propriété
-a pour valeur la fonction qui transforme la hauteur de la note
-fondamentale en nom de note ; c'est donc en assignant une nouvelle
-fonction à cette propriété que l'on peut produire des noms de note
-spéciaux adaptés par exemple aux systèmes de notation d'autres pays.
+Le réglage par défaut pour le chiffrage d'accords jazz consiste à
+afficher la note fondamentale de chaque accord, exprimée par une lettre
+capitale, parfois suivie d'une altération, correspondant à la notation
+anglo-saxonne de la musique. Cette propriété a pour valeur la fonction
+qui transforme la hauteur de la note fondamentale en nom de note ; c'est
+donc en assignant une nouvelle fonction à cette propriété que l'on peut
+produire des noms de note spéciaux adaptés par exemple aux systèmes de
+notation d'autres pays comme le « H » pour un accord de si en allemand.
 
 @item majorSevenSymbol
 @funindex majorSevenSymbol
@@ -635,7 +644,7 @@ spéciaux adaptés par exemple aux systèmes de notation d'autres pays.
 
 Cette propriété définit l'objet ajouté au @code{chordRootNamer} pour
 indiquer une septième majeure. Les options prédéfinies sont
-@code{whiteTriangleMarkup} (triangle blanc) et
+@code{whiteTriangleMarkup} (triangle blanc) -- par défaut -- et
 @code{blackTriangleMarkup} (triangle noir).
 
 @item additionalPitchPrefix
@@ -649,7 +658,7 @@ apparaître si elles sont visuellement efficaces.
 @lilypond[verbatim,quote,ragged-right]
 \new ChordNames {
   <c e g d'>    % add9
-  \set additionalPitchPrefix = "add"
+  \set additionalPitchPrefix = ""
   <c e g d'>    % add9
 }
 @end lilypond
@@ -661,7 +670,10 @@ Lorsqu'un chiffrage mentionne une note ajoutée (par exemple la basse),
 les règles utilisées sont par défaut celles définies par la propriété
 @code{chordRootNamer} ci-dessus. Cependant, la propriété
 @code{chordNoteNamer} permet de régler cet élément indépendamment, par
-exemple pour imprimer la basse en caractères minuscules.
+exemple pour imprimer la basse en caractères minuscules -- c'est le cas
+de la fonction @code{chord-name@/:german-lowercase-name-markup} utilisée
+pour @code{\germanChords}.
+
 
 @item chordNameSeparator
 @funindex chordNameSeparator
@@ -711,9 +723,10 @@ lors de l'impression du chiffrage.
 @item minorChordModifier
 @funindex minorChordModifier
 
-Les accords mineurs sont habituellement identifiés par un @code{m} après
-leur fondamentale. Certaines nomenclatures ont cependant adopté un autre
-suffixe, comme le signe moins.
+Les accords mineurs sont habituellement identifiés par un « m » après
+leur fondamentale, ce qui est le comportement par défaut de LilyPond.
+Certaines nomenclatures ont cependant adopté un autre suffixe, comme le
+signe moins.
 
 @lilypond[verbatim,quote,ragged-right]
 \chords {
@@ -728,10 +741,10 @@ suffixe, comme le signe moins.
 @funindex chordPrefixSpacer
 
 Le modificateur pour accord mineur, géré par la propriété
-@code{minorChordModifier}, est en principe accolé à la fondamentale.
-Vous pouvez cependant l'espacer de la fondamentale à l'aide de la
-propriété @code{chordPrefixSpacer}. Notez bien que cet espacement sera
-réduit à néant si la fondamentale est altérée.
+@code{minorChordModifier}, est par défaut accolé à la fondamentale. Vous
+pouvez cependant l'espacer de la fondamentale à l'aide de la propriété
+@code{chordPrefixSpacer} comme avec @code{\italianChords}. Notez bien
+que cet espacement sera réduit à néant si la fondamentale est altérée.
 
 @end table
 
@@ -744,7 +757,8 @@ réduit à néant si la fondamentale est altérée.
 @code{\germanChords},
 @code{\semiGermanChords},
 @code{\italianChords},
-@code{\frenchChords}.
+@code{\frenchChords},
+@code{\englishChords}.
 @endpredefined
 
 

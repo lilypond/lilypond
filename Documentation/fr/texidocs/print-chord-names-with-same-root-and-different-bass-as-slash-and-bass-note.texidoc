@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 1abe87de51b9b00a391da1be4cf4b5ebe4021ca9
+%% Translation of GIT committish: 606ac3c3b22c41d84aa5fa938d42da5125ac572a
   texidocfr = "
 Voici comment imprimer une suite d'accords nommés (objets
 @code{ChordNames}) dont seule la basse diffère, indiquée par une oblique

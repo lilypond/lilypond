@@ -1,0 +1,12 @@
+%% Translation of GIT committish: 606ac3c3b22c41d84aa5fa938d42da5125ac572a
+  texidocfr = "
+Le moyen le plus simple pour ajouter des parenthèses à une indication de
+nuance consiste à utiliser la commande @code{\\parenthesize} et et
+d'ajuster la taille de la fonte, comme par exemple @code{@{ c'4\\tweak
+Parentheses.font-size 2 \\parenthesize \\f @}}. Toutefois, ces
+parenthèses se présentent droit alors que les indications de nuance
+apparaissent normalement en italique. Le code ci-dessous offre une
+solution pour présenter les parenthèses elles aussi en italique.
+"
+
+  doctitlefr = "Indications de nuance entre parenthèses en italique"
