@@ -424,12 +424,12 @@ Cairo_outputter::show_named_glyph (SCM scaled_font, SCM glyphname)
 
   cairo_set_font_face (context (), cairo_font_for_ft_font (ft_face));
   cairo_matrix_t m = {
-    .xx = font_scale_factor_,
-    .yx = 0,
-    .xy = 0,
-    .yy = -font_scale_factor_,
-    .x0 = 0,
-    .y0 = 0,
+    /* .xx = */ font_scale_factor_,
+    /* .yx = */ 0,
+    /* .xy = */ 0,
+    /* .yy = */ -font_scale_factor_,
+    /* .x0 = */ 0,
+    /* .y0 = */ 0,
   };
   cairo_set_font_matrix (context (), &m);
 
@@ -459,12 +459,12 @@ Cairo_outputter::print_glyphs (SCM size, SCM glyphs, SCM filename,
   // TODO - why do we need to scale with scale_factor here?
   Real scale = from_scm<Real> (size) / (bigpoint_constant * scale_factor_);
   cairo_matrix_t m = {
-    .xx = scale,
-    .yx = 0,
-    .xy = 0,
-    .yy = -scale,
-    .x0 = 0,
-    .y0 = 0,
+    /* .xx = */ scale,
+    /* .yx = */ 0,
+    /* .xy = */ 0,
+    /* .yy = */ -scale,
+    /* .x0 = */ 0,
+    /* .y0 = */ 0,
   };
   cairo_set_font_matrix (context (), &m);
 
@@ -478,9 +478,9 @@ Cairo_outputter::print_glyphs (SCM size, SCM glyphs, SCM filename,
       auto glyph_idx = from_scm<int> (scm_cadddr (scm_cdr (whxyggn)));
 
       cairo_glyphs.push_back (cairo_glyph_t ({
-        .index = static_cast<long unsigned int> (glyph_idx),
-        .x = startx + (x + sumw),
-        .y = starty - y,
+        /* .index = */ static_cast<long unsigned int> (glyph_idx),
+        /* .x = */ startx + (x + sumw),
+        /* .y = */ starty - y,
       }));
       sumw = sumw + w;
     }
@@ -497,8 +497,8 @@ Cairo_outputter::print_glyphs (SCM size, SCM glyphs, SCM filename,
       for (SCM c = clusters; scm_is_pair (c); c = scm_cdr (c))
         {
           cairo_text_cluster_t entry = {
-            .num_bytes = from_scm<int> (scm_caar (c)),
-            .num_glyphs = from_scm<int> (scm_cdar (c)),
+            /* .num_bytes = */ from_scm<int> (scm_caar (c)),
+            /* .num_glyphs = */ from_scm<int> (scm_cdar (c)),
           };
 
           cluster_array.push_back (entry);
