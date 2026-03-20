@@ -331,17 +331,17 @@ void ly_check_name (const char *cxx, const char *fname);
   through intermediate Grob::instrumented_set_property( .. __LINE__ ).
  */
 #define set_property(p, x, y)                                                 \
-  [&] {                                                                       \
+  [] (auto *obj, SCM sym, SCM val) {                                          \
     if constexpr (CHECKING)                                                   \
       {                                                                       \
-        return (p)->instrumented_set_property (                               \
-          ly_symbol2scm (x), y, __FILE__, __LINE__, __FUNCTION__);            \
+        return obj->instrumented_set_property (sym, val, __FILE__, __LINE__,  \
+                                               __FUNCTION__);                 \
       }                                                                       \
     else                                                                      \
       {                                                                       \
-        return (p)->internal_set_property (ly_symbol2scm (x), y);             \
+        return obj->internal_set_property (sym, val);                         \
       }                                                                       \
-  }()
+  }((p), ly_symbol2scm (x), (y))
 
 // Note: For Smobs, use LY_ASSERT_SMOB instead.
 #define LY_ASSERT_TYPE(pred, var, number)                                     \
