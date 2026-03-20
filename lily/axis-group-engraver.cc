@@ -45,8 +45,8 @@ protected:
   void finalize () override;
   void acknowledge_grob (Grob_info) override;
   void process_acknowledged ();
-  virtual Spanner *get_spanner ();
-  virtual void add_element (Grob *);
+  Spanner *get_spanner ();
+  void add_element (Grob *);
   bool must_be_last () const override;
   void derived_mark () const override;
 

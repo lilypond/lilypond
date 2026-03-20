@@ -38,8 +38,8 @@ protected:
   bool first_start_ = true;
 
 protected:
-  virtual void start_spanner ();
-  virtual void stop_spanner ();
+  void start_spanner ();
+  void stop_spanner ();
 
   void stop_translation_timestep ();
   virtual ~Staff_symbol_engraver ();
