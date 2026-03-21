@@ -4895,7 +4895,7 @@ class StaffGroup(Base):
         self.print_chords(printer)
         self.print_fretboards(printer)
         if self.stafftype:
-            if isinstance(self, Staff) and self.stafftype != 'PianoStaff':
+            if isinstance(self, Staff):
                 printer(r'\new %s = "%s"' % (self.stafftype, self.id))
             else:
                 printer(r'\new %s' % self.stafftype)
