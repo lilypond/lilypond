@@ -301,9 +301,10 @@ bool break_allowed (Context const *);
 void preorder_walk (Context *context,
                     const std::function<void (Context *)> &visit);
 
-/* Shorthand for creating and broadcasting stream events. */
-#define send_stream_event(ctx, type, origin, ...)                             \
-  ctx->internal_send_stream_event (ly_symbol2scm (type), origin, ##__VA_ARGS__)
+// send_stream_event(ctx, type, origin, ...)
+// Shorthand for creating and broadcasting stream events.
+#define send_stream_event(ctx, type, ...)                                     \
+  ctx->internal_send_stream_event (ly_symbol2scm (type), __VA_ARGS__)
 
 SCM nested_property_alist (SCM alist, SCM prop_path, SCM value);
 SCM nested_property (SCM alist, SCM prop_path, SCM fallback = SCM_EOL);
