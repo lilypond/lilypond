@@ -27,26 +27,6 @@ Scheme_hash_table::make_smob ()
   return scm_c_make_hash_table (119);
 }
 
-bool
-Scheme_hash_table::try_retrieve (SCM k, SCM *v)
-{
-
-  SCM handle = scm_hashq_get_handle (hash_tab (), k);
-  if (scm_is_pair (handle))
-    {
-      *v = scm_cdr (handle);
-      return true;
-    }
-  else
-    return false;
-}
-
-bool
-Scheme_hash_table::contains (SCM k) const
-{
-  return scm_is_pair (scm_hashq_get_handle (hash_tab (), k));
-}
-
 void
 Scheme_hash_table::set (SCM k, SCM v)
 {
@@ -54,16 +34,14 @@ Scheme_hash_table::set (SCM k, SCM v)
   scm_set_cdr_x (handle, v);
 }
 
-SCM
+std::optional<SCM>
 Scheme_hash_table::get (SCM k) const
 {
-  /* SCM_UNDEFINED is the default for unset elements, but
-     scm_hashq_ref cannot return it, so we do it a bit more awkwardly.
-  */
+  auto result = std::optional<SCM> {};
   SCM handle = scm_hashq_get_handle (hash_tab (), k);
   if (scm_is_pair (handle))
-    return scm_cdr (handle);
-  return SCM_UNDEFINED;
+    result = scm_cdr (handle);
+  return result;
 }
 
 void

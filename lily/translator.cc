@@ -220,7 +220,8 @@ generic_get_acknowledger (SCM sym, SCM ack_hash)
   if (SCM_UNBNDP (ack_hash))
     return SCM_UNDEFINED;
 
-  return unsmob<Scheme_hash_table> (ack_hash)->get (sym);
+  auto var = unsmob<Scheme_hash_table> (ack_hash)->get (sym);
+  return var.value_or (SCM_UNDEFINED);
 }
 
 Moment

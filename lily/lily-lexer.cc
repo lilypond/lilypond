@@ -203,9 +203,8 @@ Lily_lexer::set_current_scope ()
 int
 Lily_lexer::lookup_keyword (SCM s)
 {
-  SCM val;
-  if (unsmob<Scheme_hash_table> (keytable_)->try_retrieve (s, &val))
-    return from_scm<int> (val);
+  if (auto val = unsmob<Scheme_hash_table> (keytable_)->get (s))
+    return from_scm<int> (*val);
   return -1;
 }
 

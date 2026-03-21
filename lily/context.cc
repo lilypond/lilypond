@@ -583,8 +583,11 @@ Context::internal_where_defined (SCM sym, SCM *value) const
         note_property_access (&context_property_lookup_table, sym);
     }
 
-  if (properties_dict ()->try_retrieve (sym, value))
-    return const_cast<Context *> (this);
+  if (auto var = properties_dict ()->get (sym))
+    {
+      *value = *var;
+      return const_cast<Context *> (this);
+    }
 
   return parent_ ? parent_->internal_where_defined (sym, value) : nullptr;
 }
@@ -600,7 +603,13 @@ Context::internal_here_defined (SCM sym, SCM *value) const
         note_property_access (&context_property_lookup_table, sym);
     }
 
-  return properties_dict ()->try_retrieve (sym, value);
+  if (auto var = properties_dict ()->get (sym))
+    {
+      *value = *var;
+      return true;
+    }
+
+  return false;
 }
 
 /*

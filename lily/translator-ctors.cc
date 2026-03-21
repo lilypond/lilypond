@@ -114,16 +114,14 @@ symbol @var{name} and the given @var{description} alist.
 SCM
 get_translator_creator (SCM sym)
 {
-  SCM v = SCM_BOOL_F;
-  Scheme_hash_table *dict = unsmob<Scheme_hash_table> (global_translator_dict);
-  if (dict)
-    dict->try_retrieve (sym, &v);
-
-  if (scm_is_false (v))
+  if (auto *dict = unsmob<Scheme_hash_table> (global_translator_dict))
     {
-      warning (
-        _f ("unknown translator: `%s'", ly_symbol2string (sym).c_str ()));
+      if (auto creator = dict->get (sym))
+        {
+          return *creator;
+        }
     }
 
-  return v;
+  warning (_f ("unknown translator: `%s'", ly_symbol2string (sym)));
+  return SCM_BOOL_F;
 }

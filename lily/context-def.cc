@@ -341,8 +341,8 @@ Context_def::get_translator_names (SCM user_mod) const
   iter_mods ([&] (vsize i, SCM tag, SCM arg) {
     if (scm_is_eq (tag, ly_symbol2scm ("consists")))
       {
-        SCM index = added_index->get (arg);
-        if (!SCM_UNBNDP (index) && from_scm<vsize> (index) == i)
+        auto index = added_index->get (arg);
+        if (index && from_scm<vsize> (*index) == i)
           ret = scm_cons (arg, ret);
       }
   });

@@ -131,8 +131,8 @@ All_font_metrics::find_pango_font (PangoFontDescription const *description,
   gchar *pango_fn = pango_font_description_to_filename (description);
   SCM key = ly_symbol2scm (pango_fn);
 
-  SCM val;
-  if (!pango_dict_->try_retrieve (key, &val))
+  auto val = pango_dict_->get (key);
+  if (!val)
     {
       debug_output ("[" + std::string (pango_fn), true); // start on a new line
 
@@ -141,7 +141,7 @@ All_font_metrics::find_pango_font (PangoFontDescription const *description,
       Pango_font *pf = new Pango_font (map, description, output_scale);
 
       val = pf->self_scm ();
-      pango_dict_->set (key, val);
+      pango_dict_->set (key, *val);
       pf->unprotect ();
 
       debug_output ("]", false);
@@ -149,7 +149,7 @@ All_font_metrics::find_pango_font (PangoFontDescription const *description,
       pf->description_ = scm_cons (SCM_BOOL_F, to_scm (1.0));
     }
   g_free (pango_fn);
-  return unsmob<Pango_font> (val);
+  return unsmob<Pango_font> (*val);
 }
 
 Open_type_font *
@@ -157,8 +157,8 @@ All_font_metrics::find_otf_font (const std::string &name)
 {
   SCM sname = ly_symbol2scm (name);
   Open_type_font *ret;
-  SCM val;
-  if (!otf_dict_->try_retrieve (sname, &val))
+  auto val = otf_dict_->get (sname);
+  if (!val)
     {
       std::string file_name = search_path_.find (name + ".otf");
       if (file_name.empty ())
@@ -179,7 +179,7 @@ All_font_metrics::find_otf_font (const std::string &name)
     }
   else
     {
-      ret = unsmob<Open_type_font> (val);
+      ret = unsmob<Open_type_font> (*val);
       assert (ret);
     }
   return ret;
