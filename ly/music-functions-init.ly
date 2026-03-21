@@ -49,6 +49,8 @@ addInstrumentDefinition =
    (_i "Create instrument @var{name} with properties @var{lst}.
 
 This function is deprecated.")
+   (ly:deprecation-warning (G_ "the function '~a' is deprecated")
+                           "\\addInstrumentDefinition")
    (set! instrument-definitions (acons name lst instrument-definitions)))
 
 addQuote =
@@ -871,6 +873,8 @@ instrumentSwitch =
 @code{\\addInstrumentDefinition}.
 
 This function is deprecated.")
+   (ly:deprecation-warning (G_ "the function '~a' is deprecated")
+                           "\\instrumentSwitch")
    (let* ((handle (assoc name instrument-definitions))
           (instrument-def (if handle (cdr handle) '())))
 

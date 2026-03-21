@@ -1,3 +1,4 @@
+\version "2.25.80"
 
 \header {
 
@@ -5,7 +6,12 @@
 properties for an in staff instrument switch. "
   }
 
-\version "2.21.0"
+#(ly:set-option 'warning-as-error #t)
+#(ly:expect-warning (G_ "the function '~a' is deprecated")
+  "\\addInstrumentDefinition")
+#(ly:expect-warning (G_ "the function '~a' is deprecated")
+  "\\instrumentSwitch")
+
 \addInstrumentDefinition "bassClar"
   #`((instrumentTransposition . ,(ly:make-pitch -1 6 FLAT))
      (instrumentName . "bla") 
