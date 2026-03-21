@@ -187,23 +187,27 @@ Lily_parser::parser_error (Input const *i, Lily_parser *parser, SCM *, const std
 - delay application of the function
 */
 
-#define LOWLEVEL_MAKE_SYNTAX(location, proc, ...)			\
-	with_location							\
-		(parser->lexer_->override_input (location).smobbed_copy (), \
-		 proc,							\
-		 ##__VA_ARGS__)
+template <typename... Args>
+inline SCM
+make_syntax (Lily_parser *parser, SCM proc, const Input &loc, Args &&...args)
+{
+	return with_location
+		(parser->lexer_->override_input (loc).smobbed_copy (),
+		 proc,
+		 std::forward<Args> (args)...);
+}
 
 /* Syntactic Sugar. */
-#define MAKE_SYNTAX(name, location, ...)				\
-	LOWLEVEL_MAKE_SYNTAX (location, Syntax::name, ##__VA_ARGS__)
+// MAKE_SYNTAX(name, location, ...)
+#define MAKE_SYNTAX(name, ...) make_syntax (parser, Syntax::name, __VA_ARGS__)
 
-#define START_MAKE_SYNTAX(name, ...)					\
-	ly_list (Syntax::name, ##__VA_ARGS__)
+#define START_MAKE_SYNTAX(name, ...) ly_list (Syntax::name, __VA_ARGS__)
 
 #define FINISH_MAKE_SYNTAX(start, location, ...)			\
-	LOWLEVEL_MAKE_SYNTAX						\
-		(location,						\
+	make_syntax							\
+		(parser,						\
 		 Guile_user::apply,					\
+		 location,						\
 		 scm_car (start),					\
 		 scm_append_x						\
 		 (ly_list (scm_cdr (start),				\
