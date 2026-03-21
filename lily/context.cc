@@ -283,10 +283,9 @@ Context::acknowledge_infant (SCM sev)
 SCM
 Context::make_revert_finalization (SCM sym)
 {
-  SCM val = SCM_UNDEFINED;
-  if (here_defined (this, sym, &val))
+  if (auto val = here_defined (this, sym))
     {
-      return ly_list (ly_context_set_property_x_proc, self_scm (), sym, val);
+      return ly_list (ly_context_set_property_x_proc, self_scm (), sym, *val);
     }
   else
     {
@@ -594,8 +593,8 @@ Context::internal_where_defined (SCM sym, SCM *value) const
 
 /* Quick variant of where_defined.  Checks only the context itself. */
 
-bool
-Context::internal_here_defined (SCM sym, SCM *value) const
+std::optional<SCM>
+Context::internal_here_defined (SCM sym) const
 {
   if constexpr (CHECKING)
     {
@@ -603,13 +602,7 @@ Context::internal_here_defined (SCM sym, SCM *value) const
         note_property_access (&context_property_lookup_table, sym);
     }
 
-  if (auto var = properties_dict ()->get (sym))
-    {
-      *value = *var;
-      return true;
-    }
-
-  return false;
+  return properties_dict ()->get (sym);
 }
 
 /*

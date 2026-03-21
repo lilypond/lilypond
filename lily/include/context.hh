@@ -30,6 +30,7 @@
 #include "virtual-methods.hh"
 
 #include <functional>
+#include <optional>
 #include <vector>
 
 class Context_def;
@@ -165,12 +166,7 @@ public:
     return internal_where_defined (name_sym, &value);
   }
   Context *internal_where_defined (SCM name_sym, SCM *value) const;
-  bool internal_here_defined (SCM name_sym) const
-  {
-    SCM value;
-    return internal_here_defined (name_sym, &value);
-  }
-  bool internal_here_defined (SCM name_sym, SCM *value) const;
+  std::optional<SCM> internal_here_defined (SCM name_sym) const;
   void unset_property (SCM var_sym);
 
   void instrumented_set_property (SCM, SCM, const char *, int, const char *);
