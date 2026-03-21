@@ -4,6 +4,7 @@ ALL_LDFLAGS = $(LDFLAGS) $(CONFIG_LDFLAGS) $(MODULE_LDFLAGS) $(CONFIG_LDFLAGS)
 EXTRA_CXXFLAGS = \
 	-std=c++17 \
 	-fno-exceptions \
+	-pedantic \
 	-Wall \
 	-Wconversion -Wno-sign-conversion \
 	-Wextra \

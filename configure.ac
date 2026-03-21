@@ -100,6 +100,17 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],
                    test_CXXFLAGS=""])
 CXXFLAGS="$save_CXXFLAGS"
 
+# -Wc++20-extensions is present in GCC >= 12 and Clang >= 10.
+# (Older versions of Clang had -Wc++2a-extensions.)
+AC_MSG_CHECKING([whether $CXX supports -Wc++20-extensions])
+save_CXXFLAGS="$CXXFLAGS"
+CXXFLAGS="$test_CXXFLAGS -std=c++17 -Wc++20-extensions"
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([])],
+                  [AC_MSG_RESULT([yes])
+                   CXXFLAGS="$save_CXXFLAGS -Wc++20-extensions"],
+                  [AC_MSG_RESULT([no])
+                   CXXFLAGS="$save_CXXFLAGS"])
+
 PKG_CHECK_MODULES(BDWGC, bdw-gc)
 GUILE_CFLAGS="${GUILE_CFLAGS} ${BDWGC_CFLAGS}"
 
