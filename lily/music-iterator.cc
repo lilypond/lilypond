@@ -257,8 +257,8 @@ Music_iterator::find_above_by_music_type (SCM type_sym) const
   return nullptr;
 }
 
-Music_iterator *
-Music_iterator::internal_where_defined (SCM sym, SCM *value_out) const
+std::tuple<Music_iterator *, SCM>
+Music_iterator::internal_where_defined (SCM sym) const
 {
   // TODO: Abstract Context property features into a reusable base class?
   for (auto scope = const_cast<Music_iterator *> (this); scope;
@@ -269,16 +269,12 @@ Music_iterator::internal_where_defined (SCM sym, SCM *value_out) const
           SCM val = get_property (m, sym);
           if (!scm_is_null (val))
             {
-              if (value_out)
-                *value_out = val;
-              return scope;
+              return {scope, val};
             }
         }
     }
 
-  if (value_out)
-    *value_out = SCM_EOL;
-  return nullptr;
+  return {nullptr, SCM_EOL};
 }
 
 Music_iterator *
@@ -290,18 +286,15 @@ Music_iterator::where_tagged (SCM tag_sym) const
     {
       for (Music_iterator *candidate = scope; candidate; /**/)
         {
-          SCM tags = SCM_EOL;
-          candidate = where_defined (candidate, "tags", &tags);
-          if (candidate)
+          auto [where, tags] = where_defined (candidate, "tags");
+          if (!where)
+            break;
+          if (scm_is_true (scm_member (tag_sym, tags)))
             {
-              if (scm_is_true (scm_member (tag_sym, tags)))
-                {
-                  scope = candidate;
-                  break;
-                }
-              else
-                candidate = candidate->get_parent ();
+              scope = where;
+              break;
             }
+          candidate = where->get_parent ();
         }
     }
 

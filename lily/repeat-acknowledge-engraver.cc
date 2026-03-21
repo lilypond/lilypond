@@ -58,9 +58,7 @@ void
 Repeat_acknowledge_engraver::add_repeat_command (SCM new_cmd)
 {
   SCM sym = ly_symbol2scm ("repeatCommands");
-  SCM cmds = SCM_EOL;
-  auto *where = where_defined (context (), sym, &cmds);
-
+  auto [where, cmds] = where_defined (context (), sym);
   if (where && ly_cheap_is_list (cmds))
     {
       cmds = scm_cons (new_cmd, cmds);
@@ -71,7 +69,7 @@ Repeat_acknowledge_engraver::add_repeat_command (SCM new_cmd)
 void
 Repeat_acknowledge_engraver::start_translation_timestep ()
 {
-  auto *tr = where_defined (context (), "repeatCommands");
+  auto *tr = std::get<0> (where_defined (context (), "repeatCommands"));
   if (!tr)
     tr = context ();
 

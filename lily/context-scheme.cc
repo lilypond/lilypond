@@ -26,6 +26,8 @@
 #include "lily-imports.hh"
 #include "output-def.hh"
 
+#include <tuple>
+
 LY_DEFINE (ly_context_alias_p, "ly:context-alias?", 2, 0, 0,
            (SCM context, SCM name),
            R"(
@@ -128,10 +130,11 @@ Set value of property @var{name} in @var{context} to @var{val}.
   return SCM_UNSPECIFIED;
 }
 
-static Context *
-where_defined_with_deprecation_check (Context *ctx, SCM sym, SCM *val)
+static std::tuple<Context *, SCM>
+where_defined_with_deprecation_check (Context *ctx, SCM sym)
 {
-  auto *found = where_defined (ctx, sym, val);
+  auto result = where_defined (ctx, sym);
+  auto &[found, val] = result;
   if (!found)
     {
       SCM desc = Deprecated_property::getter_desc (
@@ -141,15 +144,15 @@ where_defined_with_deprecation_check (Context *ctx, SCM sym, SCM *val)
           // desc is ('newSymbol new->old-value-function)
           sym = scm_car (desc);
           desc = scm_cdr (desc);
-          found = where_defined (ctx, sym, val);
-          if (found && val)
+          result = where_defined (ctx, sym);
+          if (found)
             {
               SCM new_to_old = scm_car (desc);
-              *val = ly_call (new_to_old, *val);
+              val = ly_call (new_to_old, val);
             }
         }
     }
-  return found;
+  return result;
 }
 
 LY_DEFINE_WITH_SETTER (ly_context_property, "ly:context-property",
@@ -194,8 +197,7 @@ the same value is returned as when the property value is @code{'()}.
     ly_keyword2scm ("search-ancestors?"), &search_ancestors, //
     SCM_UNDEFINED);
 
-  SCM result = SCM_EOL;
-  auto *found = where_defined_with_deprecation_check (t, name, &result);
+  auto [found, result] = where_defined_with_deprecation_check (t, name);
   if (scm_is_false (search_ancestors))
     {
       // TODO: Instead of calling where_defined_with_deprecation_check and
@@ -232,8 +234,7 @@ Return the context above @var{context} where property @var{name} is defined, or
   auto *tr = LY_ASSERT_SMOB (Context, context, 1);
   LY_ASSERT_TYPE (ly_is_symbol, name, 2);
 
-  SCM value;
-  tr = where_defined_with_deprecation_check (tr, name, &value);
+  tr = std::get<0> (where_defined_with_deprecation_check (tr, name));
   if (tr)
     return tr->self_scm ();
   if (SCM_UNBNDP (def))

@@ -398,9 +398,11 @@ Accidental_engraver::stop_translation_timestep ()
       Moment end_mom = note_end_mom (context (), dur);
       SCM position = scm_cons (to_scm (barnum), to_scm (end_mom));
 
-      SCM localsig = SCM_EOL;
-      while (origin && where_defined (origin, "localAlterations", &localsig))
+      while (origin)
         {
+          auto [where, localsig] = where_defined (origin, "localAlterations");
+          if (!where)
+            break;
           bool change = false;
           if (accidentals_[i].tied_
               && !(from_scm<bool> (
@@ -426,7 +428,14 @@ Accidental_engraver::stop_translation_timestep ()
             }
 
           if (change)
-            set_property (origin, "localAlterations", localsig);
+            {
+              // TODO: This is suspicious because `origin` is not necessarily
+              // where where_defined() found localAlterations.  If the intent
+              // is to update the value in place, use `where` instead; also set
+              // `origin = where->get_parent ()` below, probably.  If this is
+              // actually correct, it deserves an explanation.
+              set_property (origin, "localAlterations", localsig);
+            }
 
           origin = origin->get_parent ();
         }

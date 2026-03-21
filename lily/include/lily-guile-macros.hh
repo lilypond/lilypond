@@ -321,10 +321,10 @@ void ly_check_name (const char *cxx, const char *fname);
 #define here_defined(p, x) (p)->internal_here_defined (ly_symbol2scm (x))
 
 // Where is the variable named x defined?  Checks enclosing scopes starting
-// from p.  An optional parameter receives the value if defined.  Returns
-// pointer.
-#define where_defined(p, x, ...)                                              \
-  (p)->internal_where_defined (ly_symbol2scm (x), ##__VA_ARGS__)
+// from p.  Returns a std::tuple<scope, value> where the scope is nullish if
+// the variable is not defined, and the value is valid if the scope is not
+// nullish.
+#define where_defined(p, x) (p)->internal_where_defined (ly_symbol2scm (x))
 
 /*
   TODO: include modification callback support here, perhaps

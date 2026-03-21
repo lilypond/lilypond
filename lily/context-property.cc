@@ -97,11 +97,15 @@ Grob_property_info::find ()
 {
   if (props_)
     return *this;
-  SCM res = SCM_UNDEFINED;
-  if (auto *const c = where_defined (context_, symbol_, &res))
-    if (c != context_)
-      return Grob_property_info (c, symbol_, unsmob<Grob_properties> (res));
-  props_ = unsmob<Grob_properties> (res);
+
+  auto [c, props_scm] = where_defined (context_, symbol_);
+  if (c)
+    {
+      auto *props = unsmob<Grob_properties> (props_scm);
+      if (c != context_)
+        return Grob_property_info (c, symbol_, props);
+      props_ = props;
+    }
   return *this;
 }
 

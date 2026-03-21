@@ -215,8 +215,8 @@ Alternative_sequence_iterator::save_context_properties ()
   SCM prop_syms = get_property (get_context (), "alternativeRestores");
   for (SCM sym : as_ly_scm_list (prop_syms))
     {
-      SCM val = SCM_EOL;
-      if (auto *const c = where_defined (get_context (), sym, &val))
+      auto [c, val] = where_defined (get_context (), sym);
+      if (c)
         {
           alt_restores_
             = scm_cons (ly_list (c->self_scm (), sym, val), alt_restores_);

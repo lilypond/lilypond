@@ -119,7 +119,8 @@ Paper_column_engraver::pre_process_music ()
       // internalBarNumber is evidence that Timing_translator is working in this
       // context.  Not finding it means that we are processing a polymetric
       // score.
-      have_timing_ = where_defined (context (), "internalBarNumber");
+      have_timing_
+        = std::get<0> (where_defined (context (), "internalBarNumber"));
     }
 
   /* Use the value of skipTypesetting at the start of this time step.

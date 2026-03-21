@@ -26,6 +26,7 @@
 #include "context-handle.hh"
 
 #include <functional>
+#include <tuple>
 
 /**
    ---
@@ -152,20 +153,15 @@ public:
   // ancestors up to the top.
   SCM internal_get_property (SCM name_sym) const
   {
-    SCM value = SCM_EOL;
-    internal_where_defined (name_sym, &value);
-    return value;
+    auto [where, value] = internal_where_defined (name_sym);
+    return where ? value : SCM_EOL;
   }
 
   // Scoped property access: look in this iterator's music, then search the
   // ancestors up to the top.  Return the iterator whose music has the named
   // property (null if none does).  Optionally get the value of the property.
-  Music_iterator *internal_where_defined (SCM name_sym, SCM *value) const;
-  Music_iterator *internal_where_defined (SCM name_sym) const
-  {
-    SCM value;
-    return internal_where_defined (name_sym, &value);
-  }
+  std::tuple<Music_iterator *, SCM>
+  internal_where_defined (SCM name_sym) const;
 
   // Scoped search for taggged music: look in this iterator's music, then
   // search the ancestors up to the top.  Return the first iterator whose music

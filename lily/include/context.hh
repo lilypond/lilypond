@@ -160,12 +160,7 @@ public:
   /* properties:  */
   SCM internal_get_property (SCM name_sym) const;
   SCM properties_as_alist () const;
-  Context *internal_where_defined (SCM name_sym) const
-  {
-    SCM value;
-    return internal_where_defined (name_sym, &value);
-  }
-  Context *internal_where_defined (SCM name_sym, SCM *value) const;
+  std::tuple<Context *, SCM> internal_where_defined (SCM name_sym) const;
   std::optional<SCM> internal_here_defined (SCM name_sym) const;
   void unset_property (SCM var_sym);
 

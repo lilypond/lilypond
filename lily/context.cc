@@ -573,8 +573,8 @@ Context::get_user_accessible_interpreter ()
 /*
   PROPERTIES
 */
-Context *
-Context::internal_where_defined (SCM sym, SCM *value) const
+std::tuple<Context *, SCM>
+Context::internal_where_defined (SCM sym) const
 {
   if constexpr (CHECKING)
     {
@@ -584,11 +584,11 @@ Context::internal_where_defined (SCM sym, SCM *value) const
 
   if (auto var = properties_dict ()->get (sym))
     {
-      *value = *var;
-      return const_cast<Context *> (this);
+      return {const_cast<Context *> (this), *var};
     }
 
-  return parent_ ? parent_->internal_where_defined (sym, value) : nullptr;
+  return parent_ ? parent_->internal_where_defined (sym)
+                 : std::tuple {nullptr, SCM_UNDEFINED};
 }
 
 /* Quick variant of where_defined.  Checks only the context itself. */
@@ -611,9 +611,8 @@ Context::internal_here_defined (SCM sym) const
 SCM
 Context::internal_get_property (SCM sym) const
 {
-  SCM val = SCM_EOL;
-  internal_where_defined (sym, &val);
-  return val;
+  auto [where, val] = internal_where_defined (sym);
+  return where ? val : SCM_EOL;
 }
 
 /*

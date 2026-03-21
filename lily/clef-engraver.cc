@@ -165,7 +165,7 @@ Clef_engraver::inspect_clef_properties ()
 
   if (from_scm<bool> (force_clef))
     {
-      auto *const w = where_defined (context (), "forceClef");
+      auto *const w = std::get<0> (where_defined (context (), "forceClef"));
       set_property (w, "forceClef", SCM_EOL);
     }
 }
