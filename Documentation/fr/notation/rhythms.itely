@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
+   Translation of GIT committish: 606ac3c3b22c41d84aa5fa938d42da5125ac572a
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1605,14 +1605,19 @@ Une indication métronomique s'insère tout simplement comme ceci :
 @end lilypond
 
 La vitesse donnée n'est pas forcément un entier, mais elle doit être un
-nombre exact.
+nombre exact. Le formateur par défaut arrondi au quart le plus proche ;
+la propriété de contexte @code{tempoCountPrecision} permet de le
+contrôler.
 
 @lilypond[verbatim,quote]
 tempoI = 100
 \fixed c' {
-  \tempo 4 = #(* tempoI 2/3)
+  \tempo 4 = #(* tempoI 2/3)  % 66,66...
   e2 e4 d
+  \once \set Timing.tempoCountPrecision = #1/1000000
+  \tempo 4 = #(* tempoI 8/11)  % 72.72...
   c2 g2
+  g4 e2 f4
 }
 @end lilypond
 

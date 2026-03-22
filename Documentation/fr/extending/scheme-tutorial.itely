@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: c2ea1fa2792532a1a123f08504fc8677defb7a96
+   Translation of GIT committish: 606ac3c3b22c41d84aa5fa938d42da5125ac572a
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -65,12 +65,13 @@ lilypond scheme-sandbox
 @noindent
 Une fois le bac à sable actif, vous obtiendrez l'invite de Guile
 
-@lisp
-guile>
-@end lisp
+@example
+lily-guile@@()>
+@end example
 
 @noindent
-à laquelle vous pouvez saisir des expressions Scheme.
+qui permet de saisir des expressions Scheme. Dans ce qui suit, nous
+utiliserons simplement @code{guile>} pour indiquer le prompt.
 
 Le fichier contenant le code du bac à sable --
 @file{ly/Scheme-sandbox.ly} -- essaie d'activer la bibliothèque GNU
