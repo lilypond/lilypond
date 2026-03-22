@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.25.35\n"
+"Project-Id-Version: lilypond 2.25.80\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
-"POT-Creation-Date: 2026-03-07 10:14+0100\n"
+"POT-Creation-Date: 2026-03-22 12:16+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -140,7 +140,7 @@ msgstr ""
 msgid "%s has been replaced by %s"
 msgstr ""
 
-#: convertrules.py:46 lilylib.py:87 warn.cc:260
+#: convertrules.py:46 lilylib.py:87 warn.cc:263
 #, c-format, python-format
 msgid "warning: %s"
 msgstr ""
@@ -1056,7 +1056,7 @@ msgstr ""
 msgid "Unknown or invalid loglevel '%s'"
 msgstr ""
 
-#: lilylib.py:83 warn.cc:247
+#: lilylib.py:83 warn.cc:250
 #, c-format, python-format
 msgid "error: %s"
 msgstr ""
@@ -2113,47 +2113,47 @@ msgstr ""
 msgid "failed to write to time-trace file"
 msgstr ""
 
-#: warn.cc:57
+#: warn.cc:60
 #, c-format
 msgid "Log level set to %d\n"
 msgstr ""
 
-#: warn.cc:91
+#: warn.cc:94
 #, c-format
 msgid "unknown log level `%s', using default (INFO)"
 msgstr ""
 
 #. Some expected warning was not triggered, so print out a warning.
-#: warn.cc:115
+#: warn.cc:118
 #, c-format
 msgid "%zu expected warning(s) not encountered: "
 msgstr ""
 
-#: warn.cc:194
+#: warn.cc:197
 #, c-format
 msgid "fatal error: %s"
 msgstr ""
 
-#: warn.cc:226
+#: warn.cc:229
 #, c-format
 msgid "suppressed programming error: %s"
 msgstr ""
 
-#: warn.cc:232
+#: warn.cc:235
 #, c-format
 msgid "programming error: %s"
 msgstr ""
 
-#: warn.cc:234
+#: warn.cc:237
 msgid "continuing, cross fingers"
 msgstr ""
 
-#: warn.cc:243
+#: warn.cc:246
 #, c-format
 msgid "suppressed error: %s"
 msgstr ""
 
-#: warn.cc:256
+#: warn.cc:259
 #, c-format
 msgid "suppressed warning: %s"
 msgstr ""
@@ -2677,14 +2677,14 @@ msgstr ""
 msgid "Asking for broken bound padding at a non-broken bound."
 msgstr ""
 
-#: hairpin.cc:176
+#: hairpin.cc:177
 #, c-format
 msgid ""
 "hairpin: '%f' is not a valid direction for property 'endpoint-alignments', "
 "setting to '%d'"
 msgstr ""
 
-#: hairpin.cc:295
+#: hairpin.cc:296
 msgid "decrescendo too small"
 msgstr ""
 
@@ -2714,7 +2714,7 @@ msgstr ""
 msgid "(search path: `%s')"
 msgstr ""
 
-#: input.cc:125 source-file.cc:129 source-file.cc:144
+#: input.cc:131 source-file.cc:129 source-file.cc:144
 msgid "position unknown"
 msgstr ""
 
@@ -3155,6 +3155,11 @@ msgstr ""
 msgid "Unsupported MIDI time signature: (%s)/(%s)"
 msgstr ""
 
+#: midi-item.cc:392
+#, c-format
+msgid "Unsupported MIDI tempo (wholes/minute): %s"
+msgstr ""
+
 #: midi-stream.cc:53
 #, c-format
 msgid "cannot create temp file: %s: %s"
@@ -3177,6 +3182,11 @@ msgstr ""
 
 #: minimal-page-breaking.cc:44
 msgid "Calculating page breaks..."
+msgstr ""
+
+#: moment-scheme.cc:136
+#, c-format
+msgid "the function '%s' is deprecated"
 msgstr ""
 
 #: multi-measure-rest.cc:131
@@ -3486,12 +3496,12 @@ msgstr ""
 msgid "page %d has been compressed"
 msgstr ""
 
-#: page-breaking.cc:1308
+#: page-breaking.cc:1306
 #, c-format
 msgid "too few pages: %ld (should have at least %ld)"
 msgstr ""
 
-#: page-breaking.cc:1313
+#: page-breaking.cc:1311
 #, c-format
 msgid "too many pages: %ld (should have at most %ld)"
 msgstr ""
@@ -3510,7 +3520,7 @@ msgstr ""
 msgid "compressing over-full page by %.1f staff-spaces"
 msgstr ""
 
-#: page-layout-problem.cc:1322
+#: page-layout-problem.cc:1324
 msgid "staff-affinities should only decrease"
 msgstr ""
 
@@ -4027,27 +4037,27 @@ msgstr ""
 msgid "failed redirecting time-trace output to `%s'"
 msgstr ""
 
-#: timing-translator.cc:141
+#: timing-translator.cc:138
 msgid ""
 "cannot calculate a finite measurePosition from an infinite measureLength"
 msgstr ""
 
-#: timing-translator.cc:197
+#: timing-translator.cc:194
 #, c-format
 msgid "conflicting measure length: %s"
 msgstr ""
 
-#: timing-translator.cc:199
+#: timing-translator.cc:196
 #, c-format
 msgid "measure length in Timing context: %s"
 msgstr ""
 
-#: timing-translator.cc:241
+#: timing-translator.cc:238
 #, c-format
 msgid "bar check failed at: %s"
 msgstr ""
 
-#: timing-translator.cc:465
+#: timing-translator.cc:462
 msgid "found music after \\fine"
 msgstr ""
 
@@ -4453,13 +4463,19 @@ msgstr ""
 msgid "symbol ~S redefined"
 msgstr ""
 
-#: define-context-properties.scm:1072
+#. barCheckSynchronize isn't properly documented or tested and we don't
+#. intend to maintain it or replace it.
+#: define-context-properties.scm:1008
+msgid "the property 'barCheckSynchronize' is deprecated"
+msgstr ""
+
+#: define-context-properties.scm:1081
 msgid ""
 "'voltaSpannerDuration' is deprecated; use the grob property "
 "VoltaBracket.musical-length"
 msgstr ""
 
-#: define-context-properties.scm:1084
+#: define-context-properties.scm:1093
 msgid ""
 "'voltaSpannerDurationAsMoment' is deprecated; use the grob property "
 "VoltaBracket.musical-length"
@@ -4518,16 +4534,16 @@ msgstr ""
 msgid "bad make-music argument: ~S"
 msgstr ""
 
-#: define-note-names.scm:1349
+#: define-note-names.scm:1358
 msgid "Select note names language."
 msgstr ""
 
-#: define-note-names.scm:1354
+#: define-note-names.scm:1363
 #, scheme-format
 msgid "Using `~a' note names..."
 msgstr ""
 
-#: define-note-names.scm:1357
+#: define-note-names.scm:1366
 #, scheme-format
 msgid "Could not find language `~a'.  Ignoring."
 msgstr ""
@@ -4566,17 +4582,17 @@ msgstr ""
 msgid "Processing ~S..."
 msgstr ""
 
-#: documentation-lib.scm:166
+#: documentation-lib.scm:169
 #, scheme-format
 msgid "Writing ~S..."
 msgstr ""
 
-#: documentation-lib.scm:178
+#: documentation-lib.scm:181
 #, scheme-format
 msgid "cannot find description for property `~S' (~S)"
 msgstr ""
 
-#: documentation-lib.scm:198
+#: documentation-lib.scm:201
 #, scheme-format
 msgid "cannot find description for property ~S (~S)"
 msgstr ""
@@ -4911,37 +4927,37 @@ msgstr ""
 msgid "note scale expected: ~S"
 msgstr ""
 
-#: lily.scm:1013
+#: lily.scm:1014
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:1014
+#: lily.scm:1015
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:1128
+#: lily.scm:1129
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:1131
+#: lily.scm:1132
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:1135
+#: lily.scm:1136
 #, scheme-format
 msgid "Children ~a exited with errors."
 msgstr ""
 
-#: lily.scm:1151
+#: lily.scm:1152
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:1184
+#: lily.scm:1185
 #, scheme-format
 msgid "Processing `~a'\n"
 msgstr ""
@@ -5143,49 +5159,49 @@ msgid ""
 "one in alterationGlyphs"
 msgstr ""
 
-#: output-lib.scm:2057
+#: output-lib.scm:2068
 msgid ""
 "script needs an explicit direction specifier to disambiguate between "
 "different glyphs"
 msgstr ""
 
-#: output-lib.scm:2076
+#: output-lib.scm:2087
 #, scheme-format
 msgid "script-stencil property must be pair: ~a"
 msgstr ""
 
-#: output-lib.scm:2541
+#: output-lib.scm:2552
 #, scheme-format
 msgid "~a with two line-breaks is not yet supported"
 msgstr ""
 
-#: output-lib.scm:2858
+#: output-lib.scm:2869
 #, scheme-format
 msgid "Factor ~a needs to be an integer value."
 msgstr ""
 
-#: output-lib.scm:3380
+#: output-lib.scm:3391
 msgid ""
 "Not enough space to print a nice arrow.\n"
 "Please consider to increase 'minimum-length or decrease 'arrow-length."
 msgstr ""
 
-#: output-lib.scm:3396
+#: output-lib.scm:3407
 msgid "Please consider to increase 'minimum-length"
 msgstr ""
 
-#: output-lib.scm:3718
+#: output-lib.scm:3729
 #, scheme-format
 msgid "no entry in measure-division-lines-alist for measure division ~a"
 msgstr ""
 
-#: output-lib.scm:3742
+#: output-lib.scm:3753
 #, scheme-format
 msgid ""
 "no entry in measure-division-chord-placement-alist for measure division ~a"
 msgstr ""
 
-#: output-lib.scm:4270
+#: output-lib.scm:4281
 #, scheme-format
 msgid "custos `~a' not found"
 msgstr ""
@@ -5394,6 +5410,18 @@ msgstr ""
 
 #: stencil.scm:796
 msgid "Both angle-increments and radial-increments must be positive numbers."
+msgstr ""
+
+#: time-signature-settings.scm:989 time-signature-settings.scm:996
+#: time-signature-settings.scm:1003 time-signature-settings.scm:1010
+#: time-signature-settings.scm:1017
+#, scheme-format
+msgid "the function '~a' is deprecated; use '~a'"
+msgstr ""
+
+#: time-signature.scm:23
+#, scheme-format
+msgid "the grob property '~a' is deprecated; use '~a'"
 msgstr ""
 
 #: translation-functions.scm:406
