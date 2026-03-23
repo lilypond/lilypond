@@ -475,7 +475,7 @@ LilyPond is available online at
 but you can also build them locally from the source code.  This
 process requires the following tools and packages, in addition to
 the build and run-time packages (@pxref{Requirements for compiling
-LilyPond}, and @ref{Requirements for compiling LilyPond}).
+LilyPond}, and @ref{Requirements for running LilyPond}).
 
 @warning{If the instructions for one of the GNU/Linux
 distributions listed earlier (@pxref{Requirements for compiling
@@ -541,7 +541,7 @@ Notation Reference shrinks from approx.@: 30@dmn{MB} to 7@dmn{MB}.
 
 @item
 Finally, to convert LilyPond's documentation (in Texinfo format)
-to PDF files, including more than thousand PDF snippets generated
+to PDF files, including more than a thousand PDF snippets generated
 by LilyPond, @uref{https://tug.org/xetex/, Xe@TeX{}} is used by
 default.  If not available,
 @uref{https://tug.org/applications/pdftex/index.html, pdf@TeX{}} is
