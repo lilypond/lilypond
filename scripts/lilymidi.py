@@ -194,73 +194,96 @@ meta_dict = {0x00: meta_formatter("Seq.Nr.:    "),
              0x59: key_signature_formatter("Key signature: ")
              }
 
+class midi_dumper:
+    def __init__(self):
+        self.tempo_map = {0: 500000} # midi_clock_time: µs/quarter
 
-def dump_event(ev, time, padding):
-    ch = ev[0] & 0x0F
-    func = ev[0] & 0xF0
-    f = None
-    if ev[0] == 0xFF:
-        f = meta_dict.get(ev[1], formatter())
-    if func == 0x80:
-        f = note_formatter("Note off: ", ch)
-    elif func == 0x90:
-        if ev[2] == 0:
-            desc = "Note off: "
+    def dump_event(self, ev, time, padding):
+        ch = ev[0] & 0x0F
+        func = ev[0] & 0xF0
+        f = None
+        if ev[0] == 0xFF:
+            if ev[1] == 0x2F: # end of track
+                self.tempo_map[time] = 0
+            if ev[1] == 0x51: # set tempo
+                us_per_q = ord(ev[2][0]) * 65536 + ord(ev[2][1]) * 256 + ord(ev[2][2])
+                self.tempo_map[time] = us_per_q
+            f = meta_dict.get(ev[1], formatter())
+        if func == 0x80:
+            f = note_formatter("Note off: ", ch)
+        elif func == 0x90:
+            if ev[2] == 0:
+                desc = "Note off: "
+            else:
+                desc = "Note on: "
+            f = note_formatter(desc, ch)
+        elif func == 0xA0:
+            f = note_formatter("Polyphonic aftertouch: ",
+                               ch, "Aftertouch pressure: ")
+        elif func == 0xB0:
+            f = control_mode_formatter("Control mode change: ", ch)
+        elif func == 0xC0:
+            f = channel_formatter("Program Change: ", ch)
+        elif func == 0xD0:
+            f = channel_formatter("Channel aftertouch: ", ch)
+        elif func == 0xE0:
+            f = bend_formatter("Pitch bend: ", ch)
+        elif ev[0] in [0xF0, 0xF7]:
+            f = meta_formatter("System-exclusive event: ")
+
+        if f:
+            if len(ev) > 2:
+                print(padding + f.format(ev[1], ev[2]))
+            elif len(ev) > 1:
+                print(padding + f.format(ev[1]))
+            else:
+                print(padding + f.format())
         else:
-            desc = "Note on: "
-        f = note_formatter(desc, ch)
-    elif func == 0xA0:
-        f = note_formatter("Polyphonic aftertouch: ",
-                           ch, "Aftertouch pressure: ")
-    elif func == 0xB0:
-        f = control_mode_formatter("Control mode change: ", ch)
-    elif func == 0xC0:
-        f = channel_formatter("Program Change: ", ch)
-    elif func == 0xD0:
-        f = channel_formatter("Channel aftertouch: ", ch)
-    elif func == 0xE0:
-        f = bend_formatter("Pitch bend: ", ch)
-    elif ev[0] in [0xF0, 0xF7]:
-        f = meta_formatter("System-exclusive event: ")
+            print(padding + "Unrecognized MIDI event: " + str(ev))
 
-    if f:
-        if len(ev) > 2:
-            print(padding + f.format(ev[1], ev[2]))
-        elif len(ev) > 1:
-            print(padding + f.format(ev[1]))
-        else:
-            print(padding + f.format())
-    else:
-        print(padding + "Unrecognized MIDI event: " + str(ev))
-
-
-def dump_midi(data, midi_file, options):
-    if not options.pretty:
-        print(data)
-        return
-    # First, dump general info, #tracks, etc.
-    print("Filename:     " + midi_file)
-    i = data[0]
-    m_formats = {
-        0: 'single multi-channel track',
-        1: "one or more simultaneous tracks",
-        2: "one or more sequentially independent single-track patterns"}
-    print("MIDI format:  " + str(i[0]) + " (" + m_formats.get(i[0], "") + ")")
-    print("Divisions:    " + str(i[1]) + " per whole note")
-    print("#Tracks:      " + str(len(data[1])))
-    n = 0
-    for tr in data[1]:
-        time = 0
-        n += 1
-        print()
-        print("Track " + str(n) + ":")
-        print("    Time 0:")
-        for ev in tr:
-            if ev[0] > time:
-                time = ev[0]
-                print("    Time " + str(time) + ": ")
-            dump_event(ev[1], time, "        ")
-
+    def dump_midi(self, data, midi_file, options):
+        if not options.pretty:
+            print(data)
+            return
+        # First, dump general info, #tracks, etc.
+        print("Filename:     " + midi_file)
+        i = data[0]
+        m_formats = {
+            0: 'single multi-channel track',
+            1: "one or more simultaneous tracks",
+            2: "one or more sequentially independent single-track patterns"}
+        print("MIDI format:  " + str(i[0]) + " (" + m_formats.get(i[0], "") + ")")
+        ticks_per_w = i[1]
+        print("Divisions:    " + str(ticks_per_w) + " per whole note")
+        print("#Tracks:      " + str(len(data[1])))
+        n = 0
+        for tr in data[1]:
+            time = 0
+            n += 1
+            print()
+            print("Track " + str(n) + ":")
+            print("    Time 0:")
+            for ev in tr:
+                if ev[0] > time:
+                    time = ev[0]
+                    print("    Time " + str(time) + ": ")
+                self.dump_event(ev[1], time, "        ")
+            # The MIDI spec puts tempo events in the first track.
+            if n == 1:
+                cumul_ticks = 0
+                cumul_us = 0
+                us_per_q = self.tempo_map[0] # current tempo
+                for t in sorted(self.tempo_map):
+                    # since last time
+                    delta_ticks = t - cumul_ticks
+                    delta_q = delta_ticks / (ticks_per_w / 4)
+                    delta_us = delta_q * us_per_q
+                    # accumulate
+                    cumul_us += delta_us
+                    # for next time
+                    cumul_ticks = t
+                    us_per_q = self.tempo_map[t]
+                print(f"    Playback time: {cumul_us/1000000:.1f} s")
 
 def go():
     options, args = process_options(sys.argv[1:])
@@ -268,7 +291,7 @@ def go():
     midi_data = read_midi(midi_file)
     info = track_info(midi_data)
     if (options.dump or options.pretty):
-        dump_midi(midi_data, midi_file, options)
+        midi_dumper().dump_midi(midi_data, midi_file, options)
     elif options.regexp:
         import re
         regexp = re.compile(options.regexp)
