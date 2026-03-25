@@ -2292,7 +2292,7 @@ class Part(Music_xml_node):
         # The used algorithm has two major flaws.
         #
         # * Staff switches might mix up the correct voice order in a staff.
-        #   `<attribute>` might be affected, too.
+        #   `<attributes>` might be affected, too.
         #
         # * Relying on a global top-to-bottom order can fail easily; see
         #   large comment in function `Staff::print_ly_contents` (in file
@@ -2375,12 +2375,31 @@ class Part(Music_xml_node):
                 continue
 
             if isinstance(n, Attributes):
-                # assign these only to the voices they really belong to!
+                # Assign attributes to corresponding voices.
                 for (s, vids) in staff_to_voice_dict.items():
                     staff_attributes = part.extract_attributes_for_staff(n, s)
                     if staff_attributes:
                         for v in vids:
-                            voices[v].add_element(staff_attributes)
+                            # `musicxml2ly` expects that after a `<backup>`
+                            # element a new voice begins.  However, the
+                            # `<clef>`, `<key>`, and `<time>` children of
+                            # `<attributes>` apply to all staves (and thus
+                            # all voices) of a part in case the `number`
+                            # attribute isn't set (this attribute gets
+                            # handled at a later stage).  For this reason we
+                            # have to search backward in the voices to find
+                            # the right musical moment for inserting
+                            # `<attributes>`.
+                            elements = voices[v]._elements
+                            for i in range(len(elements) - 1, -1, -1):
+                                el = elements[i]
+                                el_dur = el._duration \
+                                    if el._duration is not None else 0
+                                # `<backup>` is restricted to current measure.
+                                if (isinstance(el, Measure)
+                                        or n._when >= el._when + el_dur):
+                                    elements.insert(i + 1, staff_attributes)
+                                    break
                 continue
 
             if isinstance(n, (Measure,
