@@ -1466,8 +1466,8 @@ enclosed in parentheses.  The same can be said of the
 @funindex x11-color
 
 @code{x11-color}, again, maps predefined color names
-to internal values -- but offers many more choices
-than CSS names, as you can see in @rnotation{List of colors}).
+to internal values, but offers many more choices
+than CSS names, as you can see in @rnotation{List of colors}.
 For example, the X11 set of colors includes an extensive
 grey scale, whose names range from black, @code{'grey0},
 to white, @code{'grey100}, in steps of@tie{}1.  Let's illustrate
@@ -1604,7 +1604,7 @@ The default values of layout object properties can also be set
 in @code{\with} clauses.  Simply use the normal @code{\override}
 command leaving out the context name, since this is unambiguously
 defined as the context which the @code{\with} clause is modifying.
-If fact, an error will be generated if a context is specified
+In fact, an error will be generated if a context is specified
 in this location.
 
 So we could replace the example above with
