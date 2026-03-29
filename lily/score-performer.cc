@@ -148,30 +148,22 @@ Score_performer::one_time_step (SCM)
 
   if (!audio_column_)
     audio_column_ = new Audio_column (context ()->now_mom ());
-  if (from_scm<bool> (get_property (context (), "skipTypesetting")))
-    {
-      if (!skipping_)
-        {
-          skipping_ = true;
-        }
-      else
-        {
-          offset_mom_ -= audio_column_->when () - skip_last_mom_;
-          set_property (context (), "midiSkipOffset", to_scm (offset_mom_));
-        }
-      skip_last_mom_ = audio_column_->when ();
-      audio_column_->offset_when (offset_mom_);
-    }
-  else
-    {
-      if (skipping_)
-        {
-          offset_mom_ -= audio_column_->when () - skip_last_mom_;
-          set_property (context (), "midiSkipOffset", to_scm (offset_mom_));
-          skipping_ = false;
-        }
 
-      audio_column_->offset_when (offset_mom_);
+  if (skipping_)
+    {
+      offset_mom_ -= audio_column_->when () - skip_last_mom_;
+      set_property (context (), "midiSkipOffset", to_scm (offset_mom_));
+    }
+
+  skipping_ = from_scm<bool> (get_property (context (), "skipTypesetting"));
+
+  if (skipping_)
+    skip_last_mom_ = audio_column_->when ();
+
+  audio_column_->offset_when (offset_mom_);
+
+  if (!skipping_)
+    {
       precomputed_recurse_over_translators (context (), PRE_PROCESS_MUSIC, UP);
       precomputed_recurse_over_translators (context (), PROCESS_MUSIC, UP);
       do_announces ();
