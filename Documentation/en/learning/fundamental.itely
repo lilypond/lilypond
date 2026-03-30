@@ -1770,7 +1770,9 @@ In the above table, a @dfn{Boolean} is either @code{#t} (true) or
 positive), a @dfn{real} is a positive or negative decimal number,
 and @dfn{text} is string enclosed in doublequote characters.  Note
 the use of an additional hash sign (@samp{#}), which must always
-be used if a Scheme expression follows.
+be used if a Scheme expression follows.@footnote{@q{Scheme} is the
+extension language used by LilyPond to make many of its internals
+accessible by the user.  See @rextend{Scheme tutorial} for more.}
 
 @cindex property, operating in contexts
 @cindex setting properties, within contexts
@@ -1881,7 +1883,7 @@ default font size, not to the most recently set value.
 @end lilypond
 
 We have now seen how to set the values of several different types of
-properties.  Note that Scheme expressions are introduced with a
+properties.  Remember that Scheme expressions are introduced with a
 hash sign, @samp{#}, so the @q{true} and @q{false} values are specified by
 @code{##t} and @code{##f}, respectively, with two hash signs.  A text property
 should be enclosed in double quotation signs, as above, although we

@@ -22,17 +22,19 @@
 @cindex LISP
 
 LilyPond uses the Scheme programming language, both as part of the
-input syntax, and as internal mechanism to glue modules of the program
-together.  This section is a very brief overview of entering data in
-Scheme.  If you want to know more about Scheme, see
-@uref{https://@/www@/.schemers@/.org}.
+input syntax and as the internal mechanism to glue modules of the
+program together.  This section is a very brief overview of
+entering data in Scheme.  If you want to know more about Scheme in
+general, see @uref{https://www.schemers.org}.
 
 LilyPond uses the GNU Guile implementation of Scheme, which is
-based on the Scheme @qq{R5RS} standard.  If you are learning Scheme
-to use with LilyPond, working with a different implementation (or
-referring to a different standard) is not recommended.  Information
-on guile can be found at @uref{https://www.gnu.org/software/guile/}.
-The @qq{R5RS} Scheme standard is located at
+based on the Scheme @qq{R5RS} standard.  If you are learning
+Scheme to use with LilyPond, working with a different
+implementation (or referring to a different standard) is not
+recommended.  The Guile Reference Manual can be found at
+@uref{https://www.gnu.org/software/guile/manual/html_node/index.html};
+this should be the first reference to look up.  The @qq{R5RS}
+Scheme standard itself is located at
 @uref{https://www.schemers.org/Documents/Standards/R5RS/}.
 
 
