@@ -116,9 +116,26 @@ typing the variable name:
 
 @lisp
 guile> a
-2
+$1 = 2
 guile>
 @end lisp
+
+The dollar sign followed by a number is a reference to the result
+of the just evaluated expression (the variable @samp{a}), which
+you can find on the right side of the equal sign; it can be used
+later on for evaluation:
+
+@lisp
+guile> (+ $1 $1)
+$2 = 4
+guile>
+@end lisp
+
+@noindent
+If a Scheme expression evaluates to nothing (as does the call to
+@code{define} above), no such reference is shown.  Don't be
+worried if the number after the dollar sign shown in this tutorial
+differs from what you get while playing around with the sandbox.
 
 Scheme variables can be printed on the display by using the display function:
 
@@ -145,7 +162,7 @@ Once a variable has been created, its value can be changed with @code{set!}:
 @lisp
 guile> (set! a 12345)
 guile> a
-12345
+$3 = 12345
 guile>
 @end lisp
 
@@ -227,7 +244,7 @@ The operator used to form a pair is called @code{cons}.
 
 @lisp
 guile> (cons 4 5)
-(4 . 5)
+$4 = (4 . 5)
 guile>
 @end lisp
 
@@ -241,7 +258,7 @@ a single quote character.
 
 @lisp
 guile> '(4 . 5)
-(4 . 5)
+$5 = (4 . 5)
 guile>
 @end lisp
 
@@ -249,22 +266,24 @@ The two elements of a pair may be any valid Scheme value:
 
 @lisp
 guile> (cons #t #f)
-(#t . #f)
+$6 = (#t . #f)
 guile> '("blah-blah" . 3.1415926535)
-("blah-blah" . 3.1415926535)
+$7 = ("blah-blah" . 3.1415926535)
 guile>
 @end lisp
 
 The first and second elements of the pair can be accessed by the
-Scheme procedures @code{car} and @code{cdr}, respectively.
+Scheme procedures @code{car} and @code{cdr}, respectively.  The
+dots shown instead of the Guile prompt indicate that the just
+entered expression is not complete yet.
 
 @lisp
 guile> (define mypair (cons 123 "hello there")
 @dots{} )
 guile> (car mypair)
-123
+$8 = 123
 guile> (cdr mypair)
-"hello there"
+$9 = "hello there"
 guile>
 @end lisp
 
@@ -288,7 +307,8 @@ with the @code{list} procedure:
 
 @lisp
 guile> (list 1 2 3 "abc" 17.5)
-(1 2 3 "abc" 17.5)
+$10 = (1 2 3 "abc" 17.5)
+guile>
 @end lisp
 
 Representing a list as individual
@@ -307,7 +327,8 @@ list by enclosing its elements in parentheses:
 
 @lisp
 guile> '(17 23 "foo" "bar" "bazzle")
-(17 23 "foo" "bar" "bazzle")
+$11 = (17 23 "foo" "bar" "bazzle")
+guile>
 @end lisp
 
 Lists are a central part of Scheme.  In, fact, Scheme is considered
@@ -330,11 +351,11 @@ retrieve the value:
 @lisp
 guile> (define my-alist '((1  . "A") (2 . "B") (3 . "C")))
 guile> my-alist
-((1 . "A") (2 . "B") (3 . "C"))
+$12 = ((1 . "A") (2 . "B") (3 . "C"))
 guile> (assoc 2 my-alist)
-(2 . "B")
+$13 = (2 . "B")
 guile> (cdr (assoc 2 my-alist))
-"B"
+$14 = "B"
 guile>
 @end lisp
 
@@ -357,22 +378,28 @@ can see examples of it in the LilyPond source.
 @lisp
 guile> (define h (make-hash-table 10))
 guile> h
-#<hash-table 0/31>
+$15 = #<hash-table 1b9e0640 0/31>
 guile> (hashq-set! h 'key1 "val1")
-"val1"
+$16 = "val1"
 guile> (hashq-set! h 'key2 "val2")
-"val2"
+$17 "val2"
 guile> (hashq-set! h 3 "val3")
-"val3"
+$18 = "val3"
+guile>
 @end lisp
+
+@noindent
+(The hexadecimal number @code{1b9e0640}, uniquely identifying the
+hash, might be different on your computer.  We don't need this
+information here.)
 
 Values are retrieved from hash tables with @code{hashq-ref}.
 
 @lisp
 guile> (hashq-ref h 3)
-"val3"
+$19 = "val3"
 guile> (hashq-ref h 'key2)
-"val2"
+$20 = "val2"
 guile>
 @end lisp
 
@@ -382,9 +409,9 @@ not found.
 
 @lisp
 guile> (hashq-get-handle h 'key1)
-(key1 . "val1")
+$21 = (key1 . "val1")
 guile> (hashq-get-handle h 'frob)
-#f
+$22 = #f
 guile>
 @end lisp
 
@@ -417,7 +444,8 @@ traditional @math{1+2}.
 
 @lisp
 guile> (+ 1 2)
-3
+$23 = 3
+guile>
 @end lisp
 
 Calculations may be nested; the result of a function may
@@ -425,7 +453,8 @@ be used for another calculation.
 
 @lisp
 guile> (+ 1 (* 3 4))
-13
+$24 = 13
+guile>
 @end lisp
 
 These calculations are examples of evaluations; an expression like
@@ -437,9 +466,10 @@ are calculated to the appropriate limits of precision:
 
 @lisp
 guile> (/ 7 3)
-7/3
+$25 = 7/3
 guile> (/ 7.0 3.0)
-2.33333333333333
+$26 = 2.3333333333333335
+guile>
 @end lisp
 
 When the Scheme interpreter encounters an expression that is a list,
@@ -453,14 +483,11 @@ occur:
 
 @lisp
 guile> (1 2 3)
+ice-9/boot-9.scm:1676:22: In procedure raise-exception:
+Wrong type to apply: 1
 
-Backtrace:
-In current input:
-  52: 0* [1 2 3]
-
-<unnamed port>:52:1: In expression (1 2 3):
-<unnamed port>:52:1: Wrong type to apply: 1
-ABORT: (misc-error)
+Entering a new prompt.  Type `,bt' for a backtrace or `,q' to continue.
+guile [1]> ,q
 guile>
 @end lisp
 
@@ -473,9 +500,9 @@ quote the list so that the interpreter will not try to evaluate it.
 
 @lisp
 guile> (list 1 2 3)
-(1 2 3)
+$27 = (1 2 3)
 guile> '(1 2 3)
-(1 2 3)
+$28 = (1 2 3)
 guile>
 @end lisp
 
@@ -529,7 +556,8 @@ For example, we could define a procedure to calculate the average:
 @lisp
 guile> (define (average x y) (/ (+ x y) 2))
 guile> average
-#<procedure average (x y)>
+$29 = #<procedure average (x y)>
+guile>
 @end lisp
 
 Once a procedure is defined, it is called by putting the procedure
@@ -538,7 +566,8 @@ the average of 3 and 12:
 
 @lisp
 guile> (average 3 12)
-15/2
+$30 = 15/2
+guile>
 @end lisp
 
 
@@ -552,9 +581,10 @@ typically end in a question mark:
 @lisp
 guile> (define (less-than-ten? x) (< x 10))
 guile> (less-than-ten? 9)
-#t
+$31 = #t
 guile> (less-than-ten? 15)
-#f
+$32 = #f
+guile>
 @end lisp
 
 
@@ -574,7 +604,8 @@ the last expression.
 
 @lisp
 guile> (begin (+ 1 2) (- 5 8) (* 2 2))
-4
+$33 = 4
+guile>
 @end lisp
 
 The second way to combine multiple expressions is in a @code{let} block.
@@ -586,7 +617,8 @@ statement in the let block:
 @lisp
 guile> (let ((x 2) (y 3) (z 4)) (display (+ x y)) (display (- z 4))
 @dots{} (+ (* x y) (/ z x)))
-508
+50$34 = 8
+guile>
 @end lisp
 
 
@@ -613,7 +645,8 @@ it returns the value of @var{false-expression}.
 guile> (define a 3)
 guile> (define b 5)
 guile> (if (> a b) "a is greater than b" "a is not greater than b")
-"a is not greater than b"
+$35 = "a is not greater than b"
+guile>
 @end lisp
 
 
@@ -635,9 +668,10 @@ For example:
 guile> (define a 6)
 guile> (define b 8)
 guile> (cond ((< a b) "a is less than b")
-...          ((= a b) "a equals b")
-...          ((> a b) "a is greater than b"))
-"a is less than b"
+@dots{} ((= a b) "a equals b")
+@dots{} ((> a b) "a is greater than b"))
+$36 = "a is less than b"
+guile>
 @end lisp
 
 
