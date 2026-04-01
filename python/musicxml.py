@@ -1627,22 +1627,23 @@ class Part(Music_xml_node):
     # that the starting point of the very first note is 0.
     def interpret(self):
         # Warn about possibly incomplete or overfull measures.
-        def check_measure(prev_m, now):
+        def check_measure(prev_m, now, is_last=False):
             if (attributes_object
                     and prev_m
                     and prev_m.partial == 0):
-                if not senza_misura_in_previous_measure:
-                    length = attributes_object.get_measure_length()
+                length = attributes_object.get_measure_length()
+                if not senza_misura_in_previous_measure and length > 0:
                     new_now = measure_start_moment + length
                     if now != new_now:
-                        problem = _('Incomplete')
-                        if now > new_now:
-                            problem = _('Overfull')
-                        # Only for verbose operation.
-                        if problem != _('Incomplete'):
+                        problem = \
+                            _('Overfull') if now > new_now else _('Incomplete')
+                        # Don't warn for incomplete measures at the very end
+                        # of a piece.
+                        if not (is_last and now < new_now):
                             prev_m.message(
-                                _('%s measure? Expected: %s, difference: %s')
-                                % (problem, now, new_now - now))
+                                _('%s measure? Expected length: %s, seen: %s')
+                                % (problem, length,
+                                   now - measure_start_moment))
 
         part_list = self.get_part_list()
 
@@ -1884,6 +1885,10 @@ class Part(Music_xml_node):
                         if measure_end != now:
                             m.partial = now
             previous_measure = m
+
+        # Check last measure after loop.
+        if not previous_measure.is_implicit():
+            check_measure(previous_measure, now, is_last=True)
 
         # For cross-staff voices we need two arrays: `voices_first_staff` to
         # collect the staff ID of the first `<note>` element for each voice
