@@ -1679,8 +1679,7 @@ class Part(Music_xml_node):
             # only then we know whether the next measure is implicit and
             # continues that measure).
             if not m.is_implicit():
-                # Warn about possibly incomplete or overfull measures and
-                # reset the position.
+                # Warn about possibly incomplete or overfull measures.
                 if (attributes_object
                         and previous_measure
                         and previous_measure.partial == 0):
@@ -1697,7 +1696,6 @@ class Part(Music_xml_node):
                                     _('%s measure? '
                                       'Expected: %s, difference: %s')
                                     % (problem, now, new_now - now))
-                        now = new_now
 
                 measure_start_moment = now
                 measure_position = 0
