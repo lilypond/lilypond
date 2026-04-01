@@ -1657,13 +1657,27 @@ class Part(Music_xml_node):
                     if now != new_now:
                         problem = \
                             _('Overfull') if now > new_now else _('Incomplete')
-                        # Don't warn for incomplete measures at the very end
-                        # of a piece.
-                        if not (is_last and now < new_now):
+                        if is_last and now < new_now:
+                            prev_m.length = prev_m.real_length
+                        else:
+                            # Don't warn for incomplete measures at the very
+                            # end of a piece.
                             prev_m.message(
                                 _('%s measure? Expected length: %s, seen: %s')
                                 % (problem, length,
                                    now - measure_start_moment))
+
+                        # We treat a zero-length measure (i.e., a measure
+                        # not containing music) as having the length given
+                        # by the currently active time signature.  The
+                        # reason to do that is to make displayed bar numbers
+                        # stay in sync with MusicXML measure numbers.
+                        if prev_m.real_length == 0:
+                            prev_m.real_length = length
+                            prev_m.length = length
+                            now = new_now
+
+            return now
 
         part_list = self.get_part_list()
 
@@ -1719,7 +1733,7 @@ class Part(Music_xml_node):
             # only then we know whether the next measure is implicit and
             # continues that measure).
             if not m.is_implicit():
-                check_measure(previous_measure)
+                now = check_measure(previous_measure)
 
                 measure_start_moment = now
                 measure_position = 0
@@ -1905,7 +1919,7 @@ class Part(Music_xml_node):
 
         # Check last measure after loop.
         if not previous_measure.is_implicit():
-            check_measure(previous_measure, is_last=True)
+            now = check_measure(previous_measure, is_last=True)
 
         # For cross-staff voices we need two arrays: `voices_first_staff` to
         # collect the staff ID of the first `<note>` element for each voice

@@ -1941,6 +1941,18 @@ class Partial(Music):
             printer(r'\partial %s' % self.partial.ly_expression())
 
 
+class MeasureLengthEvent(Music):
+    def __init__(self, length):
+        Music.__init__(self)
+        self.length = length
+
+    def print_ly(self, printer):
+        if self.length > 0:
+            printer(r'\measureLength #%s' % self.length)
+        else:
+            printer(r'\measureLengthReset')
+
+
 class BarLine(Music):
     def __init__(self):
         Music.__init__(self)

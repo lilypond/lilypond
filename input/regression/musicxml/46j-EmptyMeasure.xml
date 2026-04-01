@@ -4,18 +4,19 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">Measures can contain less notes
-          than the time signature says.  Some applications use this approach
-          for ‘frenched’ scores, i.e., for staves that are present but hidden
-          and not printed.
+      <miscellaneous-field name="description">Measure two is empty;
+          it only contains a time signature but not anything else.  Some
+          applications use this approach to insert time signatures for purely
+          visual reasons, for example, displaying a final time signature at the
+          end of a line, followed by a forced line break.
 
-          While doing so is valid MusicXML, having measures with lengths that
-          differ from their designated time signatures is semantically invalid.
-          A better approach is to actually use time signatures, setting their
-          ‘print-object’ property to ‘no’.
-
-          Here, the first and third measure contain only two quarters instead of
-          four.</miscellaneous-field>
+          While doing so is valid MusicXML, having measures with a zero length
+          is semantically questionable.  In particular, if the displayed bar
+          number is derived from ‘&lt;measure number="..."&gt;’ (as it usually
+          is), such empty measures make the bar numbers being off.
+          Additionally, it is not portable, since other applications ‘rectify’
+          it by displaying this empty measure, giving it a default
+          length.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -39,7 +40,7 @@
       </attributes>
       <note>
         <pitch>
-          <step>A</step>
+          <step>D</step>
           <octave>4</octave>
         </pitch>
         <duration>1</duration>
@@ -48,7 +49,25 @@
       </note>
       <note>
         <pitch>
-          <step>A</step>
+          <step>E</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+      </note>
+      <note>
+        <pitch>
+          <step>F</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
           <octave>4</octave>
         </pitch>
         <duration>1</duration>
@@ -58,75 +77,22 @@
     </measure>
     <!--=======================================================-->
     <measure number="2">
-      <note>
-        <pitch>
-          <step>A</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-      </note>
-      <note>
-        <pitch>
-          <step>A</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-      </note>
-      <note>
-        <pitch>
-          <step>A</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-      </note>
-      <note>
-        <pitch>
-          <step>A</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-      </note>
+      <attributes>
+        <time>
+          <beats>3</beats>
+          <beat-type>4</beat-type>
+        </time>
+      </attributes>
     </measure>
     <!--=======================================================-->
     <measure number="3">
-      <note>
-        <pitch>
-          <step>A</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-      </note>
-      <note>
-        <pitch>
-          <step>A</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-      </note>
-    </measure>
-    <!--=======================================================-->
-    <measure number="4">
-      <note>
-        <pitch>
-          <step>A</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-      </note>
+      <print new-system="yes"/>
+      <attributes>
+        <time>
+          <beats>3</beats>
+          <beat-type>4</beat-type>
+        </time>
+      </attributes>
       <note>
         <pitch>
           <step>A</step>

@@ -435,6 +435,17 @@ bracketAcc =
         (cons (* dir left-height) (* dir right-height))))))
 """,
 
+    "measure-length":"""\
+measureLength =
+#(define-music-function (length)
+   (positive-musical-length-as-number?)
+   #{
+     \\pushContextProperty Timing.measureLength
+     \\set Timing.measureLength = #length
+   #})
+measureLengthReset = \\popContextProperty Timing.measureLength
+""",
+
     "pluck": """\
 RH = \\rightHandFinger \\etc
 """,

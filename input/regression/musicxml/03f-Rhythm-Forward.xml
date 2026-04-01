@@ -4,9 +4,10 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">A voice with two &lt;forward&gt;
-          elements, putting the first note on the third beat and the second note
-          on the last 16th of the measure.  There are no visible
+      <miscellaneous-field name="description">A voice with three &lt;forward&gt;
+          elements in the first measure, putting a quarter note on the second
+          beat, a 16th note on the fourth beat, then filling up the measure to
+          have the correct length.  There are no visible
           rests.</miscellaneous-field>
     </miscellaneous>
   </identification>
@@ -30,7 +31,7 @@
         </clef>
       </attributes>
       <forward>
-        <duration>8</duration>
+        <duration>4</duration>
       </forward>
       <note>
         <pitch>
@@ -42,7 +43,7 @@
         <type>quarter</type>
       </note>
       <forward>
-        <duration>3</duration>
+        <duration>4</duration>
       </forward>
       <note>
         <pitch>
@@ -52,6 +53,21 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>16th</type>
+      </note>
+      <forward>
+        <duration>3</duration>
+      </forward>
+    </measure>
+    <!--=======================================================-->
+    <measure number="2">
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>4</duration>
+        <voice>1</voice>
+        <type>quarter</type>
       </note>
     </measure>
   </part>
