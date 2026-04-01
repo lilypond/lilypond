@@ -1170,8 +1170,9 @@ class Measure(Music_xml_node):
         self.partial = 0
         self.senza_misura_length = 0
 
+    # There are many scores that only set the `number` attribute to zero.
     def is_implicit(self):
-        return getattr(self, 'implicit', None) == 'yes'
+        return getattr(self, 'implicit', None) == 'yes' or self.number == '0'
 
     def get_notes(self):
         return self.get_typed_children(get_class('note'))
@@ -1874,16 +1875,9 @@ class Part(Music_xml_node):
             # partial.
             if is_first_measure:
                 is_first_measure = False
-                # Upbeats should be marked explicitly with the 'implicit'
-                # attribute.  However, for the first measure we also support
-                # the case that this attribute is missing and a time
-                # signature is already set.
-                if attributes_object:
-                    length = attributes_object.get_measure_length()
-                    if m.is_implicit() or isinstance(length, Fraction):
-                        measure_end = measure_start_moment + length
-                        if measure_end != now:
-                            m.partial = now
+                if m.is_implicit():
+                    m.partial = now  # The musical length from the start.
+
             previous_measure = m
 
         # Check last measure after loop.
