@@ -1626,6 +1626,24 @@ class Part(Music_xml_node):
     # Set durations and starting points of all notes and measures.  Note
     # that the starting point of the very first note is 0.
     def interpret(self):
+        # Warn about possibly incomplete or overfull measures.
+        def check_measure(prev_m, now):
+            if (attributes_object
+                    and prev_m
+                    and prev_m.partial == 0):
+                if not senza_misura_in_previous_measure:
+                    length = attributes_object.get_measure_length()
+                    new_now = measure_start_moment + length
+                    if now != new_now:
+                        problem = _('Incomplete')
+                        if now > new_now:
+                            problem = _('Overfull')
+                        # Only for verbose operation.
+                        if problem != _('Incomplete'):
+                            prev_m.message(
+                                _('%s measure? Expected: %s, difference: %s')
+                                % (problem, now, new_now - now))
+
         part_list = self.get_part_list()
 
         now = 0
@@ -1679,23 +1697,7 @@ class Part(Music_xml_node):
             # only then we know whether the next measure is implicit and
             # continues that measure).
             if not m.is_implicit():
-                # Warn about possibly incomplete or overfull measures.
-                if (attributes_object
-                        and previous_measure
-                        and previous_measure.partial == 0):
-                    if not senza_misura_in_previous_measure:
-                        length = attributes_object.get_measure_length()
-                        new_now = measure_start_moment + length
-                        if now != new_now:
-                            problem = _('Incomplete')
-                            if now > new_now:
-                                problem = _('Overfull')
-                            # Only for verbose operation.
-                            if problem != _('Incomplete') and previous_measure:
-                                previous_measure.message(
-                                    _('%s measure? '
-                                      'Expected: %s, difference: %s')
-                                    % (problem, now, new_now - now))
+                check_measure(previous_measure, now)
 
                 measure_start_moment = now
                 measure_position = 0
