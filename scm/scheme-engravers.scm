@@ -2675,3 +2675,74 @@ style @code{\\rtoe} and its siblings, based on the data in the
    (properties-read . ())
    (properties-written . ())
    (description . "Apply a procedure to any grob acknowledged.")))
+
+(define (Stanza_number_engraver context)
+  (let
+   ((stanza-grob #f)
+    (last-stanza '()))
+   (make-engraver
+    ((process-music engraver)
+     (let ((stanza (ly:context-property context 'stanza)))
+       (when (and (markup? stanza)
+                  (not (eq? stanza last-stanza)))
+         (set! last-stanza stanza)
+         (set! stanza-grob (ly:engraver-make-grob engraver 'StanzaNumber '()))
+         (ly:grob-set-property! stanza-grob 'text stanza))))
+    (acknowledgers
+     ((lyric-syllable-interface engraver lyric-grob source-engraver)
+      ;; This is done more thoroughly by the Stanza_number_align_engraver:
+      ;; It makes sure that lyric syllables are neatly aligned across
+      ;; *all* Lyrics contexts (i.e., that all lyric syllables appear
+      ;; in the side-support-elements array of all stanza numbers occurring
+      ;; at the same timestep).
+      ;; But if this is not desired, removing the Stanza_number_align_engraver
+      ;; from Score should be possible without messing up the alignment of
+      ;; stanza numbers in a specific Lyrics context. Hence, we make sure that
+      ;; the Stanza numbers at least become aware of their own context's lyric
+      ;; syllables.
+      (when stanza-grob
+        (ly:pointer-group-interface::add-grob stanza-grob
+                                              'side-support-elements
+                                              lyric-grob))))
+    ((stop-translation-timestep engraver)
+     (set! stanza-grob #f)))))
+
+(ly:register-translator
+ Stanza_number_engraver 'Stanza_number_engraver
+ '((grobs-created . (StanzaNumber))
+   (events-accepted . ())
+   (properties-read . (stanza))
+   (properties-written . ())
+   (description . "Engrave stanza numbers.")))
+
+(define (Stanza_number_align_engraver context)
+  (let
+   ((lyric-syllables '())
+    (stanza-numbers '()))
+   (make-engraver
+    (acknowledgers
+     ((lyric-syllable-interface engraver lyric-syllable source-engraver)
+      (set! lyric-syllables (cons lyric-syllable lyric-syllables)))
+     ((stanza-number-interface engraver stanza-number source-engraver)
+      (set! stanza-numbers (cons stanza-number stanza-numbers))))
+    ((stop-translation-timestep engraver)
+     (for-each
+      (lambda (stanza-number)
+        (for-each
+         (lambda (lyric-syllable)
+           (ly:pointer-group-interface::add-grob stanza-number
+                                                 'side-support-elements
+                                                 lyric-syllable))
+         lyric-syllables))
+      stanza-numbers)
+     (set! lyric-syllables '())
+     (set! stanza-numbers '())))))
+
+(ly:register-translator
+ Stanza_number_align_engraver 'Stanza_number_align_engraver
+ '((grobs-created . ())
+   (events-accepted . ())
+   (properties-read . ())
+   (properties-written . ())
+   (description . "This engraver ensures that stanza numbers are neatly
+aligned across all lyrics contexts.")))
