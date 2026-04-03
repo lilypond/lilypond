@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.3"
+@c \version "2.27.0"
 
 @c Translators: Federico Bruni
 @c Translation checkers:
@@ -1811,10 +1811,10 @@ I numeri di strofa si aggiungono impostando @code{stanza}:
 \new Voice \relative {
   \time 3/4 g'2 e4 a2 f4 g2.
 } \addlyrics {
-  \set stanza = "1. "
+  \stanza "1. "
   Hi, my name is Bert.
 } \addlyrics {
-  \set stanza = "2. "
+  \stanza "2. "
   Oh, ché -- ri, je t'aime
 }
 @end lilypond
@@ -1832,7 +1832,7 @@ leftbrace = \markup {
 }
 
 stanzaOneOne = \lyricmode {
-  \set stanza = \markup {
+  \stanza \markup {
     \column { \vspace #.33 "1. "}
     \leftbrace
   }
@@ -1868,7 +1868,7 @@ impostare la strofa fuori da @code{\lyricmode}:
 
 @lilypond[quote,ragged-right,verbatim]
 text = {
-  \set stanza = \markup { \dynamic "ff" "1. " }
+  \stanza \markup { \dynamic "ff" "1. " }
   \lyricmode {
     Big bang
   }
@@ -2096,7 +2096,7 @@ d d e d | c1 |
 }
 
 text = \lyricmode {
-\set stanza = "1." Ma- ry had a lit- tle lamb,
+\stanza "1." Ma- ry had a lit- tle lamb,
 its fleece was white as snow.
 }
 
@@ -2153,7 +2153,7 @@ melody = \relative {
 }
 
 text = \lyricmode {
-  \set stanza = "1."
+  \stanza "1."
   This is verse one.
   It has two lines.
 }

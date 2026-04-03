@@ -8,7 +8,7 @@
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.3"
+@c \version "2.27.0"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: Jean-Jacques Gerbaud
@@ -1842,10 +1842,10 @@ On peut ajouter un numéro aux couplets en définissant la variable
 \new Voice \relative {
   \time 3/4 g'2 e4 a2 f4 g2.
 } \addlyrics {
-  \set stanza = "1. "
+  \stanza "1. "
   Hi, my name is Bert.
 } \addlyrics {
-  \set stanza = "2. "
+  \stanza "2. "
   Oh, ché -- ri, je t'aime
 }
 @end lilypond
@@ -1857,7 +1857,7 @@ le cas d'une reprise avec des paroles différentes.
 
 @lilypond[quote,ragged-right,verbatim]
 stanzaOneOne = \lyricmode {
-  \set stanza = \markup {
+  \stanza \markup {
     \column {
       \vspace #.2
       \line { "1." \left-brace #30 }
@@ -1895,7 +1895,7 @@ dehors du mode @code{\lyricmode}.
 
 @lilypond[quote,ragged-right,verbatim]
 text = {
-  \set stanza = \markup { \dynamic "ff" "1. " }
+  \stanza \markup { \dynamic "ff" "1. " }
   \lyricmode {
     Big bang
   }
@@ -2146,7 +2146,7 @@ melody = \relative {
 }
 
 text = \lyricmode {
-  \set stanza = "1."
+  \stanza "1."
   À la clai- re fon- tai- ne,
   M'en al- lant pro- me- ner...
 }
@@ -2198,7 +2198,7 @@ melody = \relative {
 }
 
 text = \lyricmode {
-  \set stanza = "1." À la clai- re fon- tai- ne,
+  \stanza "1." À la clai- re fon- tai- ne,
   M'en al- lant pro- me- ner...
 }
 

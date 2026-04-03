@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.24.0"
+\version "2.27.0"
 
 \header {
   categories = "Chords, Template, Vocal music"
@@ -23,12 +23,12 @@ fret diagrams.
 
 
 verseI = \lyricmode {
-  \set stanza = #"1."
+  \stanza "1."
   This is the first verse
 }
 
 verseII = \lyricmode {
-  \set stanza = #"2."
+  \stanza "2."
   This is the second verse.
 }
 

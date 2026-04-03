@@ -13,7 +13,7 @@
 % - Links are not clickable in SVG output
 
 
-\version "2.25.25"
+\version "2.27.0"
 
 #(set-default-paper-size "a4")
 % #(set-default-paper-size '(cons (* 160 mm) (* (+ 673.2 4) pt)))
@@ -1073,7 +1073,7 @@ ENGRAVER \"*\"', without space inbetween."
     } \lyricsto "voice" {
       \balloon StanzaNumber #1 #-2 #-0.8 ##f 0 ##f \markup
         \docengraverlink "StanzaNumber" "Stanza_number"
-      \set stanza = "1."
+      \stanza "1."
       Lo -- rem
 
       \balloon LyricHyphen #-1 #-1.5 #-0.3 ##f ##f ##f \markup \column {

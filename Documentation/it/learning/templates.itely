@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.25"
+@c \version "2.27.0"
 
 @node Templates
 @appendix Modelli
@@ -100,11 +100,11 @@ ciascuna parte:
 @lilypond[verbatim, quote]
   SopranoMusic = \relative { a'4 a a a }
   SopranoLyricsOne = \lyricmode {
-    \set stanza = "1."
+    \stanza "1."
     Parole per prima strofa
   }
   SopranoLyricsTwo = \lyricmode {
-    \set stanza = "2."
+    \stanza "2."
     Parole per seconda strofa
   }
   \include "satb.ly"
@@ -119,15 +119,15 @@ con tre strofe.
   SopranoMusic = \relative { a' a a a }
   AltoMusic = \relative { f' f f f }
   VerseOne = \lyricmode {
-    \set stanza = "1."
+    \stanza "1."
     Parole per prima strofa
   }
   VerseTwo = \lyricmode {
-    \set stanza = "2."
+    \stanza "2."
     Parole per seconda strofa
   }
   VerseThree = \lyricmode {
-    \set stanza = "3."
+    \stanza "3."
     Parole per terza strofa
   }
   TenorMusic = \relative { a a a a }

@@ -5,7 +5,7 @@ durations and the duration of unassigned lyrics."
 
 }
 
-\version "2.25.28"
+\version "2.27.0"
 
 \paper {
   ragged-right = ##t
@@ -25,12 +25,12 @@ durations and the duration of unassigned lyrics."
   }
   \new Lyrics
     \lyricmode {
-      \set stanza = "adjusted"
+      \stanza "adjusted"
       \featherDurations 3/4 { x x x x  x x x x }
     }
   \new Lyrics
     \lyricmode {
-      \set stanza = " not adjusted:"
+      \stanza " not adjusted:"
       x x x x  x x x x
     }
 >>

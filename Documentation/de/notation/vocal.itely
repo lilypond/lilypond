@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes.
 @end ignore
 
-@c \version "2.25.3"
+@c \version "2.27.0"
 
 @c Translators: Till Paala
 
@@ -1654,10 +1654,10 @@ Strophennummerierung kann hinzugefügt werden:
 \new Voice \relative {
   \time 3/4 g'2 e4 a2 f4 g2.
 } \addlyrics {
-  \set stanza = "1. "
+  \stanza "1. "
   Hi, my name is Bert.
 } \addlyrics {
-  \set stanza = "2. "
+  \stanza "2. "
   Oh, ché -- ri, je t'aime
 }
 @end lilypond
@@ -1674,7 +1674,7 @@ leftbrace = \markup { \override #'(font-encoding . fetaBraces) \lookup
 "brace105" }
 
 stanzaOneOne = {
-  \set stanza = \markup { "1. " \leftbrace }
+  \stanza \markup { "1. " \leftbrace }
   \lyricmode { Child, you're mine and I love you.
     Lend thine ear to what I say.
 
@@ -1682,7 +1682,7 @@ stanzaOneOne = {
 }
 
 stanzaOneThree =  {
-%  \set stanza = \markup { "   "}
+%  \stanza \markup { "   "}
   \lyricmode { Child, I have no great -- er joy
     Than to have you walk in truth.
 
@@ -1709,7 +1709,7 @@ Strophe außerhalb von @code{lyricmode} gesetzt werden:
 
 @lilypond[quote,ragged-right,verbatim]
 text = {
-  \set stanza = \markup { \dynamic "ff" "1. " }
+  \stanza \markup { \dynamic "ff" "1. " }
   \lyricmode {
     Big bang
   }
@@ -1934,7 +1934,7 @@ d d e d | c1 |
 }
 
 text = \lyricmode {
-\set stanza = "1." Ma- ry had a lit- tle lamb,
+\stanza "1." Ma- ry had a lit- tle lamb,
 its fleece was white as snow.
 }
 
@@ -1975,7 +1975,7 @@ melody = \relative {
 }
 
 text = \lyricmode {
-  \set stanza = "1." This is verse one.
+  \stanza "1." This is verse one.
   It has two lines.
 }
 
@@ -3256,4 +3256,3 @@ Alte Vokalmusik  ist unterstützt, wie erklärt in
 @morerefs
 Notationsreferenz:
 @ref{Ancient notation}.
-

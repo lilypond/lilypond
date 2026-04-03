@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.24.0"
+\version "2.27.0"
 
 \header {
   categories = "Headword"
@@ -28,14 +28,14 @@ theChords = \chordmode {
 }
 
 verseOne = \lyricmode {
-  \set stanza = #"1."
+  \stanza "1."
   Fair is the sun - shine,
   Fair - er the moon - light
   And all the stars __ _  in heav'n a -- bove;
 }
 
 verseTwo = \lyricmode {
-  \set stanza = #"2."
+  \stanza "2."
   Fair are the mead - ows,
   Fair - er the wood - land,
   Robed in the flow -- ers of bloom -- ing spring;

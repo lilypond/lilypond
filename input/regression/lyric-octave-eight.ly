@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.27.0"
 
 \header {
   texidoc = "Lyrics should still slide under @code{TimeSignature} when an
@@ -11,6 +11,6 @@
   b
 }
 \addlyrics {
-  \set stanza = "1."
+  \stanza "1."
   aaa
 }

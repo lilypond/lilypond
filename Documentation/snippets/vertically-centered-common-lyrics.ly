@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.24.0"
+\version "2.27.0"
 
 \header {
   categories = "Vocal music"
@@ -43,7 +43,7 @@ skipFour = \repeat unfold 4 { \skip 8 }
 lyricsA = \lyricmode {
   The first verse has
   \dropLyrics
-  \set stanza = #"   All:"
+  \stanza "   All:"
   the com -- mon __ words
   \raiseLyrics
   used in all four.

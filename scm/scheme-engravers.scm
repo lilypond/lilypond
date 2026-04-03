@@ -2679,15 +2679,15 @@ style @code{\\rtoe} and its siblings, based on the data in the
 (define (Stanza_number_engraver context)
   (let
    ((stanza-grob #f)
-    (last-stanza '()))
+    (stanza #f))
    (make-engraver
+    (listeners
+     ((stanza-event engraver event)
+      (set! stanza (ly:event-property event 'text))))
     ((process-music engraver)
-     (let ((stanza (ly:context-property context 'stanza)))
-       (when (and (markup? stanza)
-                  (not (eq? stanza last-stanza)))
-         (set! last-stanza stanza)
-         (set! stanza-grob (ly:engraver-make-grob engraver 'StanzaNumber '()))
-         (ly:grob-set-property! stanza-grob 'text stanza))))
+     (when stanza
+       (set! stanza-grob (ly:engraver-make-grob engraver 'StanzaNumber '()))
+       (ly:grob-set-property! stanza-grob 'text stanza)))
     (acknowledgers
      ((lyric-syllable-interface engraver lyric-grob source-engraver)
       ;; This is done more thoroughly by the Stanza_number_align_engraver:
@@ -2705,13 +2705,14 @@ style @code{\\rtoe} and its siblings, based on the data in the
                                               'side-support-elements
                                               lyric-grob))))
     ((stop-translation-timestep engraver)
+     (set! stanza #f)
      (set! stanza-grob #f)))))
 
 (ly:register-translator
  Stanza_number_engraver 'Stanza_number_engraver
  '((grobs-created . (StanzaNumber))
    (events-accepted . ())
-   (properties-read . (stanza))
+   (properties-read . ())
    (properties-written . ())
    (description . "Engrave stanza numbers.")))
 

@@ -1,4 +1,4 @@
-\version "2.23.7"
+\version "2.27.0"
 
 \header {
   texidoc = "This shows the default format of @code{LyricRepeatCount}
@@ -32,15 +32,18 @@ words = \lyricmode {
       \music
     >>
 
-    \new GregorianTranscriptionLyrics \with {
-      stanza = "default:"
-    } \words
+    \new GregorianTranscriptionLyrics {
+      \stanza "default:"
+      \words
+    }
 
     \new GregorianTranscriptionLyrics \with {
-      stanza = "uppercase:"
       lyricRepeatCountFormatter = #(make-lyric-repeat-count-formatter
                                     '(roman-ij dot))
-    } \words
+    } {
+      \stanza "uppercase:"
+      \words
+    }
   >>
 }
 
@@ -52,16 +55,20 @@ words = \lyricmode {
     >>
 
     \new Lyrics \with {
-      stanza = "default:"
       \consists "Lyric_repeat_count_engraver"
-    } \words
+    } {
+      \stanza "default:"
+      \words
+    }
 
     \new Lyrics \with {
-      stanza = "silly:"
       \consists "Lyric_repeat_count_engraver"
       lyricRepeatCountFormatter = #(make-lyric-repeat-count-formatter
                                     '(bold circle numbers))
       \override LyricRepeatCount.font-shape = #'()
-    } \words
+    } {
+      \stanza "silly:"
+      \words
+    }
   >>
 }

@@ -727,8 +727,6 @@ part-combining.")
 @rinternals{Pitch_squash_engraver}.")
      (staffLineLayoutFunction ,procedure? "Layout of staff lines,
 @code{traditional}, or @code{semitone}.")
-     (stanza ,markup? "Stanza @q{number} to print before the start of a
-verse.  Use in @code{Lyrics} context.")
      (startAtNoteColumn ,boolean? "Start @code{DurationLine} grob at entire
 @code{NoteColumn}.")
      (startAtSkip ,boolean? "Start @code{DurationLine} grob at

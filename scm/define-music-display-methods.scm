@@ -727,6 +727,10 @@ expression."
           (map-in-order music->lily-string
                         (ly:music-property lyric 'articulations))))
 
+(define-display-method StanzaEvent (stanza)
+  (string-append "\\stanza "
+                 (markup->lily-string (ly:music-property stanza 'text))))
+
 (define-display-method BreathingEvent (event)
   "\\breathe")
 

@@ -11,7 +11,7 @@ lines."
   ragged-right = ##T
 }
 
-\version "2.19.2"
+\version "2.27.0"
 
 <<
   \new Voice = melody \relative c'{
@@ -19,6 +19,6 @@ lines."
     e16 e8. 
   }
   \new Lyrics \lyricsto "melody" { 
-    \set stanza = "Verse 2."
+    \stanza "Verse 2."
     _ bla bla  }
 >>

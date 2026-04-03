@@ -27,7 +27,7 @@ been lowered
 
 }
 
-\version "2.21.0"
+\version "2.27.0"
 manuscriptBreak = { \break }
 
 
@@ -82,7 +82,7 @@ ignoreMelismaOff = \unset ignoreMelismata
 
 
 firstVerse = \lyricmode {
-    \set stanza = "1."
+    \stanza "1."
     
     Sü -- ßes Licht! Aus
     \ignoreMelisma
@@ -97,7 +97,7 @@ firstVerse = \lyricmode {
     }
 
 secondVerse = \lyricmode {
-    \set stanza = "2."
+    \stanza "2."
     Ach, der Lie -- be sanf
     -- tes We -- hen schwellt mir |
     das be -- weg -- te __ Herz, sanft, wie ein ge -- lieb -- ter Schmerz. __ Dürft ich | 

@@ -1,4 +1,4 @@
-\version "2.25.33"
+\version "2.27.0"
 
 \header {
   texidoc = "Tag filters like @code{\\keepWithTag}
@@ -7,7 +7,7 @@ filter lyrics and stanza markups."
 
 music = \relative c'' { c8 c4 b8 a4 r }
 taggedLyrics = \lyricmode {
-  \set stanza = \markup {
+  \stanza \markup {
     \tag #'first first
     \tag #'last last
   }
@@ -36,7 +36,7 @@ taggedLyrics = \lyricmode {
 
     \score {
       \music
-      \addlyrics { \set stanza = "first" foo bar b }
+      \addlyrics { \stanza "first" foo bar b }
     }
     \score {
       \keepWithTag #'(first bar) {

@@ -50,6 +50,7 @@
                     note-grouping-event pes-or-flexa-event repeat-tie-event
                     section-label-event
                     spacing-section-event layout-instruction-event
+                    stanza-event
                     structural-event
                     time-signature-event
                     completize-extender-event break-span-event

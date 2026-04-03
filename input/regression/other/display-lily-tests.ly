@@ -1,4 +1,4 @@
-\version "2.25.34"
+\version "2.27.0"
 
 #(use-modules (srfi srfi-13)
               (ice-9 format)
@@ -149,6 +149,7 @@ are reported on the stderr of this run."
 \test ##[ \lyricmode { a -- b } #] 		% HyphenEvent
 \test ##[ \lyricmode { a __ b } #] 		% ExtenderEvent
 \test ##[ \lyricmode { "a " } #] 			% LyricEvent
+\test ##[ \lyricmode { \stanza "1." a b } #] 		% StanzaEvent
 \test ##[ \lyricsto "foo" { bla bla  } #]		% LyricCombineMusic
 \test ##[ { { c4 d4 }
   \addlyrics { bla bla  } } #]

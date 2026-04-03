@@ -8,7 +8,7 @@
 %%
 %% This file is in the public domain.
 
-\version "2.24.0"
+\version "2.27.0"
 
 \header {
   categories = "Tweaks and overrides, Vocal music"
@@ -28,17 +28,17 @@ are attached to different staves. To fix that, override the
 <<
   \new Staff { b b b b }
   \lyrics {
-    \set stanza = "3."
+    \stanza "3."
     a a a a
   }
 
   \new Staff { b b b b }
   \lyrics {
-    \set stanza = "1."
+    \stanza "1."
     aaaaaaaaaa a a a
   }
   \lyrics {
-    \set stanza = "2."
+    \stanza "2."
     a a a a
   }
 >>
@@ -50,18 +50,18 @@ are attached to different staves. To fix that, override the
 <<
   \new Staff { b b b b }
   \new Lyrics \lyricmode {
-    \set stanza = "3."
+    \stanza "3."
     a a a a
   }
 
   \new Staff { b b b b }
   \new Lyrics \lyricmode {
-    \set stanza = "1."
+    \stanza "1."
     \once \override LyricText.self-alignment-X = #LEFT
     aaaaaaaaaa a a a
   }
   \new Lyrics \lyricmode {
-    \set stanza = "2."
+    \stanza "2."
     a a a a
   }
 >>

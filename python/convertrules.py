@@ -5685,6 +5685,14 @@ def conv(s):
     return s
 
 
+@rule((2, 27, 0), r"""
+\set stanza = -> \stanza
+""")
+def conv(s):
+    s = re.sub(r'\\set\s+stanza\s+=\s*', r'\\stanza ', s)
+    return s
+
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

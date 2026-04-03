@@ -5096,7 +5096,7 @@ class Staff(StaffGroup):
                     printer(r'\lyricsto "%s" {' % v)
                     printer.newline()
                     if stanza_id:
-                        printer(r'\set stanza = "%s"' % stanza_id)
+                        printer(r'\stanza "%s"' % stanza_id)
                     printer(r'\%s' % l)
                     printer.newline()
                     printer('}')

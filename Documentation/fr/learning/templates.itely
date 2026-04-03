@@ -8,7 +8,7 @@
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.25"
+@c \version "2.27.0"
 
 @c Translators: Jean-Charles Malahieude
 
@@ -108,11 +108,11 @@ paroles alternatives :
 @lilypond[verbatim, quote]
 SopranoMusic = \relative { a'4 a a a }
 SopranoLyricsOne = \lyricmode {
-  \set stanza = "1."
+  \stanza "1."
   Words to verse one
 }
 SopranoLyricsTwo = \lyricmode {
-  \set stanza = "2."
+  \stanza "2."
   Words to verse two
 }
 \include "satb.ly"
@@ -127,15 +127,15 @@ suivant, dépourvu d'accompagnement, se contente de trois couplets.
 SopranoMusic = \relative { a' a a a }
 AltoMusic = \relative { f' f f f }
 VerseOne = \lyricmode {
-  \set stanza = "1."
+  \stanza "1."
   Words to verse one
 }
 VerseTwo = \lyricmode {
-  \set stanza = "2."
+  \stanza "2."
   Words to verse two
 }
 VerseThree = \lyricmode {
-  \set stanza = "3."
+  \stanza "3."
   Words to verse three
 }
 TenorMusic = \relative { a a a a }

@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.23.8"
+@c \version "2.27.0"
 
 @c Translators: Till Paala
 
@@ -2299,11 +2299,11 @@ Strophen zu setzen, muss man den Notenmodus betreten:
 @lilypond[verbatim,relative=2,quote]
 { c4 c4 c4 c4 }
 \addlyrics {
-  \notemode{ \set stanza = \markup{ \dynamic f 1. } }
+  \notemode{ \stanza \markup{ \dynamic f 1. } }
   To be sung loudly
 }
 \addlyrics {
-  \notemode{ \set stanza = \markup{ \dynamic p 2. } }
+  \notemode{ \stanza \markup{ \dynamic p 2. } }
   To be sung quietly
 }
 @end lilypond

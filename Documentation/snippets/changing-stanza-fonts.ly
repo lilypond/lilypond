@@ -8,7 +8,7 @@
 %%
 %% Note: this file needs at least LilyPond version 2.25.6.
 
-\version "2.25.6"
+\version "2.27.0"
 
 \header {
   categories = "Really simple, Vocal music"
@@ -38,12 +38,12 @@ Debian GNU/Linux, Ubuntu: fonts-dejavu-core
   g2.
 }
 \addlyrics {
-  \set stanza = #"1. "
+  \stanza "1. "
   Hi, my name is Bert.
 }
 \addlyrics {
   \override StanzaNumber.fonts.serif = "DejaVu Sans"
-  \set stanza = #"2. "
+  \stanza "2. "
   \override LyricText.font-family = #'typewriter
   Oh, ché -- ri, je t'aime
 }

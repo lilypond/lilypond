@@ -2279,6 +2279,11 @@ slashedGrace =
 
 This produces slashes through stems, but no slur."))
 
+stanza =
+#(define-music-function (text) (markup?)
+   (_i "Set and display the stanza number @var{text} in lyrics.")
+   (make-music 'StanzaEvent 'text text))
+
 styledNoteHeads =
 #(define-music-function (style heads music)
    (symbol? symbol-list-or-symbol? ly:music?)

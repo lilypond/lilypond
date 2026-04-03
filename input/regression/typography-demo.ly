@@ -8,7 +8,7 @@ heavily mutilated Edition Peters Morgenlied by Schubert"
 
 }
 
-\version "2.25.5"
+\version "2.27.0"
 
 ignoreMelisma =	\set ignoreMelismata = ##t
 ignoreMelismaOff = \unset ignoreMelismata
@@ -56,7 +56,7 @@ melody =    \relative c'' \repeat volta 2 \context Voice = "singer" {
 
 
 firstVerse = \lyricmode {
-  \set stanza = "1."
+  \stanza "1."
 
   Sü -- ßes Licht! Aus
   \ignoreMelisma
@@ -68,7 +68,7 @@ firstVerse = \lyricmode {
 }
 
 secondVerse = \lyricmode {
-  \set stanza = "2."
+  \stanza "2."
   いろはに כיף та та ほへど ちり  ぬるを
 
   Жъл  дю ля זה

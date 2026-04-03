@@ -781,6 +781,12 @@ different time than stopped.")
         (types . (event span-event staff-span-event))
         ))
 
+    (StanzaEvent
+     . ((description . "Set and display a stanza number in lyrics.
+
+Syntax: @code{\\stanza @var{markup}}.")
+        (types . (stanza-event event))))
+
     (StringNumberEvent
      . ((description . "Specify on which string to play this note.
 
