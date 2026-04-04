@@ -441,12 +441,25 @@ created."
                          (reverse to-dump-systems)))
     ))
 
+(define (stencil-valid-extent stil axis)
+  "Return the extent of @var{stil} in @var{axis}, falling back to the
+actual true extent if the positioning extent is empty,
+which can happen with negative spacing (e.g., negative @code{\\vspace})."
+  (let ((ext (ly:stencil-extent stil axis)))
+    (if (interval-empty? ext)
+        (stencil-true-extent stil axis)
+        ext)))
+
 (define-public (generate-crop-stencil paper-book)
   "Returns a stencil for the cropped output of the given Paper_book"
-  (let* ((systems (relevant-book-systems paper-book)))
-    (stack-stencils Y DOWN 0.0
-                    (map paper-system-stencil
-                         (reverse (reverse systems))))))
+  (let* ((systems (relevant-book-systems paper-book))
+         (stencil (stack-stencils Y DOWN 0.0
+                                 (map paper-system-stencil
+                                      (reverse (reverse systems))))))
+    (ly:make-stencil
+     (ly:stencil-expr stencil)
+     (stencil-valid-extent stencil X)
+     (stencil-valid-extent stencil Y))))
 
 (define (clip-systems-to-region-stencils basename systems region)
   "Returns NAME . STENCIL alist"
@@ -538,8 +551,8 @@ created."
            (ly:make-stencil
             (ly:stencil-expr stil)
             (cons left
-                  (cdr (ly:stencil-extent stil X)))
-            (ly:stencil-extent stil Y)))
+                  (cdr (stencil-valid-extent stil X)))
+            (stencil-valid-extent stil Y)))
          stencils)))
 
 (define-public font-name-split
