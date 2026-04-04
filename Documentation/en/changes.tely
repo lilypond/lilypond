@@ -155,6 +155,25 @@ obey tweaks in more cases, and handle errors more gracefully.
 }
 @end lilypond
 
+@item
+Stanza numbers in lyrics are now created with a dedicated @code{\stanza ...}
+command.  This replaces the former syntax @code{\set stanza = ...}.
+
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  c'4 c g' g
+  a a g2
+}
+\addlyrics {
+  \stanza "1."
+  Twin -- kle, twin -- kle, lit -- tle star
+}
+\addlyrics {
+  \stanza "2."
+  When the bla -- zing sun is gone
+}
+@end lilypond
+
 @end itemize
 
 @node Miscellaneous improvements
