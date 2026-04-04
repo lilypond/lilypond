@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.25.80\n"
+"Project-Id-Version: lilypond 2.25.81\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
-"POT-Creation-Date: 2026-03-22 12:16+0100\n"
+"POT-Creation-Date: 2026-04-04 17:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1174,7 +1174,7 @@ msgstr ""
 msgid "%s end seen without %s start"
 msgstr ""
 
-#: musicxml.py:2476
+#: musicxml.py:2495
 msgid "Found overlapping <direction> elements"
 msgstr ""
 
@@ -4436,13 +4436,13 @@ msgid ""
 "only."
 msgstr ""
 
-#: bar-line.scm:204
+#: bar-line.scm:205
 #, scheme-format
 msgid ""
 "add-bar-glyph-print-procedure: glyph '~a' has to be a single ASCII character."
 msgstr ""
 
-#: bar-line.scm:1026
+#: bar-line.scm:1027
 #, scheme-format
 msgid "No span bar glyph defined for bar glyph '~a'; ignoring."
 msgstr ""
