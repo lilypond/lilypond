@@ -1365,8 +1365,6 @@ Internals Reference:
 @funindex \balloonGrobText
 @funindex \balloonText
 @funindex Balloon_engraver
-@funindex \balloonLengthOn
-@funindex \balloonLengthOff
 
 Elements of notation can be marked and named with the help of a
 square balloon.  The primary purpose of this feature is to explain
@@ -1383,11 +1381,14 @@ notation.
 }
 @end lilypond
 
-There are two music functions, @code{balloonText} and
-@code{balloonGrobText}; the former is used like @code{\tweak}, but
+There are two music functions, @code{\balloonText} and
+@code{\balloonGrobText}; the former is used like @code{\tweak}, but
 only within chords, to attach text to an individual note of the
 chord; the latter is used like @code{\once \override} to attach
 text to any grob anywhere.
+
+@funindex \balloonLengthOn
+@funindex \balloonLengthOff
 
 Balloon text does not influence note spacing, but this can be altered:
 
@@ -1423,10 +1424,11 @@ frame and the alignment of the balloon text is demonstrated below.
 
 The default calculation of the attachment point can be overruled
 using the @code{X-attachment} and @code{Y-attachment} properties,
-which take values between -1 and 1, with the limits corresponding
-to the left (resp.@: bottom) and right (resp.@: top) of the frame.
-Alignment of the text is controlled by @code{text-alignment-X} and
-@code{text-alignment-Y}, which have a similar form.
+which take values between @w{-1} and@tie{}1, with the limits
+corresponding to the left (resp.@: bottom) and right (resp.@: top)
+of the frame.  Alignment of the text is controlled by the
+properties @code{text-alignment-X} and @code{text-alignment-Y},
+which have a similar form.
 
 @lilypond[verbatim,quote]
 \new Voice \with {
