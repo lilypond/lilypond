@@ -3643,7 +3643,7 @@ class LilyPondVoiceBuilder(musicexp.Base):
         self.pending_last = []
         self.end_moment = 0
         self.begin_moment = 0
-        self.has_relevant_elements = False
+        self.has_relevant_elements = False  # Shall we create an output voice?
         self.bar_number = 0
         self.multi_measure_count = 0
         self.multi_measure_rest = None
@@ -3782,9 +3782,8 @@ class LilyPondVoiceBuilder(musicexp.Base):
 
         self.has_relevant_elements = has_relevant
 
-    def add_partial(self, command):
-        # insert the partial, but restore relevant_elements (partial is not
-        # relevant)
+    def add_irrelevant(self, command):
+        # Insert code without touching the `has_relevant_elements` flag.
         relevant = self.has_relevant_elements
         self.add_command(command)
         self.has_relevant_elements = relevant
@@ -4222,10 +4221,10 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
         if isinstance(n, musicxml.Partial):
             a = musicxml_partial_to_lily(n.partial)
             if a:
-                voice_builder.add_partial(a)
-                figured_bass_builder.add_partial(a)
-                chordnames_builder.add_partial(a)
-                fretboards_builder.add_partial(a)
+                voice_builder.add_irrelevant(a)
+                figured_bass_builder.add_irrelevant(a)
+                chordnames_builder.add_irrelevant(a)
+                fretboards_builder.add_irrelevant(a)
             continue
 
         is_chord = 'chord' in n
