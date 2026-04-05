@@ -5474,7 +5474,7 @@ def conv(s):
     if re.search(r'(Unisono|SoloOne|SoloTwo)Event', s):
         stderr_write(NOT_SMART % _(r'Advanced use of partcombine music types.'))
         stderr_write(_(r"""
-UnisonoEvent, SoloOneEvent, and UnisonoEvent have been merged into
+UnisonoEvent, SoloOneEvent, and SoloTwoEvent have been merged into
 PartCombineEvent, with different values for property 'part-combine-status:
 'unisono, 'solo1, 'solo2 respectively.
 """))
@@ -5482,7 +5482,7 @@ PartCombineEvent, with different values for property 'part-combine-status:
     if re.search(r'(unisono|solo-one|solo-two)-event', s):
         stderr_write(NOT_SMART % _(r'Advanced use of partcombine event classes.'))
         stderr_write(_(r"""
-unisono-event, solo-one-event, and unisono-event have been removed. Instead,
+unisono-event, solo-one-event, and solo-two-event have been removed. Instead,
 use part-combine-event with different values for property 'part-combine-status:
 'unisono, 'solo1, 'solo2 respectively.
 """))
