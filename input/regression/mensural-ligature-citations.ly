@@ -59,14 +59,14 @@
                      e' \]
   <>^"BBfBBfBBL " \[ \override NoteHead.style = #'blackpetrucci
                      b\breve g
-                     \override NoteHead.ligature-flexa = ##t
+                     \once \override NoteHead.ligature-flexa = ##t
                      \override NoteHead.flexa-width = #3
                      f f'
+                     \once \override NoteHead.ligature-flexa = ##t
                      \override NoteHead.flexa-width = #5
                      b c'
                      \revert NoteHead.style
                      \revert NoteHead.flexa-width
-                     \revert NoteHead.ligature-flexa
                      b\longa \]
   <>^"BBdM "      \[ g\breve b
                      \tweak right-down-stem ##t
@@ -106,8 +106,8 @@
   <>^"dM.MMMM "    \[ \tweak right-down-stem ##t d\maxima. f\maxima g a g \]
 
 % f108v: mixed lengths, middle longae
-  <>^"SfSLLBfB "   \[ d'1 \tweak ligature-flexa ##t b c'\longa d'
-                      e'\breve \tweak ligature-flexa ##t d' \]
+  <>^"SfSLLBB "    \[ d'1 \tweak ligature-flexa ##t b c'\longa d'
+                      e'\breve d' \]
 
 % f42r: same rhythm twice
   <>^"BdMBL "      \[ a\breve \tweak right-down-stem ##t c'\maxima
@@ -176,6 +176,11 @@
   \textMark "earlier Italian codices"
 
 % Bodleian 213
+% large leaps: f117
+  <>^"BBB "           \[ d\breve e' \tweak flexa-width #4 c \]
+% f10r
+  <>^"LL "            \[ f\longa f' \]
+
 % f105: pes after flexae
   <>^"BfBBfBpL "       \[ g\breve \tweak ligature-flexa ##t f
                           g \tweak ligature-flexa ##t d
@@ -191,22 +196,21 @@
 % f116v: pes after longa
   <>^"LpL "            \[ b\longa \tweak ligature-pes ##t e' \]
 
-% f10r
-  <>^"LL "            \[ f\longa f' \]
-
 % SL ligatures at end of piece in all parts
 % f89v-90 Velut: Un petit oyselet
   % tenor
-  <>^"SdL "            \[ f1 \tweak right-down-stem ##t g\longa \]
+  <>^"SL "            \[ f1 g\longa \]
   % contratenor
   <>^"SuL "            \[ c'1 \tweak right-up-stem ##t g\longa \]
   % unnamed top part
   % <>^"SuL "           \[ a1 \tweak right-up-stem ##t g\longa \]
+% f101: one with a jump of seventh
+  <>^"SL "             \[ d1 c'\longa \]
 
 % f37 Hugo de Lantins: Tra quante regione
 % middle longa in mixed ligatures
   <>^"LLBL "           \[ g\longa a d'\breve c'\longa \]
-  <>^"SSfBBLB "        \[ a1 d' \tweak ligature-flexa ##t c'\breve
+  <>^"SSfBLB "         \[ a1 d' \tweak ligature-flexa ##t c'\breve
                           d'\longa e'\breve \]
   <>^"BBfBLBL "        \[ g'\breve e' \tweak ligature-flexa ##t d'
                           f'\longa g'\breve e'\longa \]
@@ -303,6 +307,11 @@
 % f10 ditto
   % <>^"dLB "        \[ \tweak right-down-stem ##t b\longa a\breve \]
   % <>^"dLB. "       \[ \tweak right-down-stem ##t a\longa g\breve. \]
+% f146 ditto
+  % <>^"dLB "        \[ \tweak right-down-stem ##t c'\longa g\breve \]
+% twice on f150
+  % <>^"dLB "        \[ \tweak right-down-stem ##t a\longa g\breve \]
+  % <>^"dLB "        \[ \tweak right-down-stem ##t d'\longa b\breve \]
 
 % f9v: an incredible left down stem in the middle
   % <>^"BlL "       \[ d'\breve \tweak left-down-stem ##t c\longa \]
@@ -312,6 +321,18 @@
 % without any other part having or needing one, looking like
   % <>^"LBdL. "     \[ f\longa g\breve\signumcongruentiae
   %                    \tweak right-down-stem ##t f\longa. \]
+
+% f10v: two accidentals
+% (signature is 1 flat, b natural is marked by a sharp
+% before the join from c to c')
+  <>^"SSfBBB "      \[ es1 d \tweak ligature-flexa ##t c\breve c' b! \]
+
+% f18r: ascending binary LL with upward stem
+  <>^"LuL "         \[ g\longa \tweak right-up-stem ##t a \]
+  % <>^"LuL "         \[ f\longa \tweak right-up-stem ##t g \]
+
+% f80v: ascending LML
+  <>^"LdML "        \[ f\longa \tweak right-down-stem ##t g\maxima d'\longa \]
 
 % f241r: 3 flexae:
   <>^"BfBBfBBB "  \[ d\breve \tweak ligature-flexa ##t c
@@ -365,6 +386,9 @@
   <>^"dMpL "      \[ \tweak right-down-stem ##t d\maxima
                      \tweak ligature-pes ##t a\longa \]
 
+% f 223: middle longa lower than previous note
+  <>^"BLL "       \[ c'\breve a\longa c' \]
+
 % f5r: flexa higher than next note
   <>^"SSfBL "     \[ g1 b \tweak ligature-flexa ##t a\breve d\longa \]
 
@@ -377,6 +401,25 @@
 
 % f299v: maximae
   <>^"MMMMMMdM "  \[ f\maxima g a g f e \tweak right-down-stem ##t f \]
+
+% f381v: most various lengths without stems
+  <>^"LBML "      \[ d'\longa c'\breve b\maxima a\longa \]
+
+% f97r: middle left down stems (instead of flexa)
+  \clef "petrucci-c3"
+  <>^"BlB "       \[ b\breve \tweak left-down-stem ##t a \]
+  <>^"BBlB "      \[ g\breve f \tweak left-down-stem ##t e \]
+% f99r: ditto
+  % <>^"BlB "       \[ b\breve \tweak left-down-stem ##t g \]
+% f100r: middle stem is right, i.e. belongs to the preceding note,
+% which is a (middle) longa lower than its neighbours
+  <>^"dLLB "      \[ \tweak right-down-stem ##t a\longa g a\breve \]
+% f100v: middle left down stems (instead of flexa)
+  % <>^"BlB "       \[ b\breve \tweak left-down-stem ##t a \]
+  % <>^"BlB "       \[ c'\breve \tweak left-down-stem ##t b \]
+% f100v: left stem even for a middle breve (and one for a final one)
+  <>^"BBBBlBBlB"  \[ e' d' f' e' \tweak left-down-stem ##t c' d'
+                     \tweak left-down-stem ##t c' \]
 
 % Tr91, f24v, a long one (broken into six in Capp.Sist.51)
   \clef "petrucci-c5"

@@ -223,6 +223,17 @@ Mensural_ligature_engraver::transform_heads (
             prim |= MLP_UP;
         }
 
+      if (from_scm<bool> (get_property (primitive, "left-down-stem")))
+        {
+          if (is_brevis)
+            {
+              prim = MLP_BREVIS | MLP_DOWN;
+              make_flexa = false;
+            }
+          else
+            nr->warning (_ ("only a breve can have downward left stem"));
+        }
+
       /*
         check whether this and the previous note
         may/must/can't be turned into flexa:
@@ -317,15 +328,6 @@ Mensural_ligature_engraver::transform_heads (
               */
               prim |= MLP_JOIN_DOWN;
             }
-        }
-
-      if (from_scm<bool> (get_property (primitive, "left-down-stem")))
-        {
-          if (at_beginning && is_brevis)
-            prim |= MLP_DOWN;
-          else
-            nr->warning
-              (_ (" only an initial breve can have downward left stem"));
         }
 
       if (from_scm<bool> (get_property (primitive, "right-down-stem")))

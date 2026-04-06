@@ -1543,7 +1543,18 @@ but there are examples when
 @end lilypond
 is to be read as longa-brevis
 (note that a final longa could always be disambiguated by adding a right stem).
-LilyPond draws both a @code{\breve} and a @code{\longa} as a brevis head,
+
+An alternative interpretation is to read this stem
+as a right stem of the last note,
+and indeed there is a piece in Trent 89, fol 97 where
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\score { { \[ d''\breve c'' \tweak left-down-stem ##t b' \] } }
+@end lilypond
+is to be read as three breves.
+
+LilyPond draws both a @code{\breve} and a @code{\longa} as a brevis head
+when descending final notes,
 and allows tweaking @code{right-down-stem} to disambiguate the latter:
 
 @lilypond[quote,verbatim]
