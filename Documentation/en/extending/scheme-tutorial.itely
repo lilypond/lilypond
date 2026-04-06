@@ -206,7 +206,7 @@ The string @code{\a said "b"} is entered as
 
 There are additional Scheme data types that are not discussed here.
 For a complete listing see the Guile reference guide,
-@uref{https://www.gnu.org/software/guile/docs/docs-1.8/guile-ref/Simple-Data-Types.html}.
+@uref{https://www.gnu.org/software/guile/manual/html_node/Data-Types.html}.
 
 
 @node Scheme compound data types
