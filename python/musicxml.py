@@ -1169,6 +1169,9 @@ class Measure(Music_xml_node):
         Music_xml_node.__init__(self)
         self.partial = 0
         self.senza_misura_length = 0
+        self.length = 0  # Based on the time signature.
+        self.real_length = 0  # The sum of the elements' durations
+                              # (if not in 'senza misura' mode).
 
     # There are many scores that only set the `number` attribute to zero.
     def is_implicit(self):
@@ -1627,12 +1630,28 @@ class Part(Music_xml_node):
     # Set durations and starting points of all notes and measures.  Note
     # that the starting point of the very first note is 0.
     def interpret(self):
-        # Warn about possibly incomplete or overfull measures.
-        def check_measure(prev_m, now, is_last=False):
+        # Set measure lengths and warn about incomplete or overfull
+        # measures.
+        def check_measure(prev_m, is_last=False):
+            # If we have a situation like the following
+            #
+            #   <note>, <note>, <note>, ...
+            #   <backup>
+            #   <note>, <note>, <note>, ...
+            #   <backup>
+            #   ...
+            #
+            # it can happen that the 'partial' measure lengths differ.  We
+            # thus use the maximum value.
+            now = measure_start_moment + measure_max_position
+
             if (attributes_object
                     and prev_m
                     and prev_m.partial == 0):
                 length = attributes_object.get_measure_length()
+                prev_m.length = length
+                prev_m.real_length = measure_max_position
+
                 if not senza_misura_in_previous_measure and length > 0:
                     new_now = measure_start_moment + length
                     if now != new_now:
@@ -1656,6 +1675,7 @@ class Part(Music_xml_node):
         last_moment = -1
         last_measure_position = -1
         measure_position = 0
+        measure_max_position = 0
         measure_start_moment = 0
         is_first_measure = True
         previous_measure = None
@@ -1699,10 +1719,11 @@ class Part(Music_xml_node):
             # only then we know whether the next measure is implicit and
             # continues that measure).
             if not m.is_implicit():
-                check_measure(previous_measure, now)
+                check_measure(previous_measure)
 
                 measure_start_moment = now
                 measure_position = 0
+                measure_max_position = 0
                 senza_misura_in_previous_measure = False
 
             voice_id = None
@@ -1841,6 +1862,8 @@ class Part(Music_xml_node):
                     last_measure_position = measure_position
                     now += dur
                     measure_position += dur
+                    measure_max_position = max(measure_max_position,
+                                               measure_position)
                 elif dur < 0:
                     # backup element, reset measure position
                     now += dur
@@ -1882,7 +1905,7 @@ class Part(Music_xml_node):
 
         # Check last measure after loop.
         if not previous_measure.is_implicit():
-            check_measure(previous_measure, now, is_last=True)
+            check_measure(previous_measure, is_last=True)
 
         # For cross-staff voices we need two arrays: `voices_first_staff` to
         # collect the staff ID of the first `<note>` element for each voice

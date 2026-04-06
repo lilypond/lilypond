@@ -4,9 +4,14 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">Voice 2 (consisting of a single
-          quarter note) should start at the second beat of the first full
-          measure.</miscellaneous-field>
+      <miscellaneous-field name="description">Using &lt;backup&gt; it is
+          possible to have ‘incomplete’ measure lengths.  This test starts with
+          a quarter note upbeat and a whole note for voice 1 in the first
+          measure, and voice 2 contains only a quarter note starting at the
+          second beat.  The second measure contains whole notes for both
+          voices.  Note that there is a discontinuity in the MusicXML timing:
+          voice 2 ‘jumps’ from the single quarter note to the whole note in the
+          second measure.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -32,44 +37,14 @@
     </measure>
     <!--=======================================================-->
     <measure number="1">
-      <attributes>
-        <divisions>1</divisions>
-      </attributes>
       <note>
         <pitch>
           <step>C</step>
           <octave>5</octave>
         </pitch>
-        <duration>1</duration>
+        <duration>4</duration>
         <voice>1</voice>
-        <type>quarter</type>
-      </note>
-      <note>
-        <pitch>
-          <step>A</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-      </note>
-      <note>
-        <pitch>
-          <step>F</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-      </note>
-      <note>
-        <pitch>
-          <step>C</step>
-          <octave>5</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
+        <type>whole</type>
       </note>
       <backup>
         <duration>3</duration>
@@ -82,6 +57,30 @@
         <duration>1</duration>
         <voice>2</voice>
         <type>quarter</type>
+      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="2">
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>4</duration>
+        <voice>1</voice>
+        <type>whole</type>
+      </note>
+      <backup>
+        <duration>4</duration>
+      </backup>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>4</duration>
+        <voice>2</voice>
+        <type>whole</type>
       </note>
     </measure>
   </part>
