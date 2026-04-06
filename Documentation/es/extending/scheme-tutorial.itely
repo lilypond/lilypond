@@ -219,7 +219,7 @@ precediéndolas de una barra invertida.  La cadena @code{\a dijo
 Existen más tipos de datos de Scheme que no se estudian aquí.
 Para ver un listado completo, consulte la guía de referencia de
 Guile,
-@uref{https://www.gnu.org/software/guile/docs/docs-1.8/guile-ref/Simple-Data-Types.html}.
+@uref{https://www.gnu.org/software/guile/manual/html_node/Data-Types.html}.
 
 @node Scheme compound data types
 @subsection Tipos de datos compuestos de Scheme

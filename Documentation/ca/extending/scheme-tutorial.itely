@@ -201,7 +201,7 @@ precedint-les d'una barra invertida.  La cadena @code{\a va dir
 Existeixen més tipus de dades de l'Scheme que no s'estudien aquí.
 Per veure un llistat complet, consulteu la guia de referència del
 Guile,
-@uref{https://www.gnu.org/software/guile/docs/docs-1.8/guile-ref/Simple-Data-Types.html}.
+@uref{https://www.gnu.org/software/guile/manual/html_node/Data-Types.html}.
 
 
 @node Scheme compound data types
