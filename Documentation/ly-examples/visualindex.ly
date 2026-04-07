@@ -701,6 +701,8 @@ ENGRAVER \"*\"', without space inbetween."
     \addLink Beam "beams"
     \addLink BendAfter "falls-and-doits"
     \addLink BreathingSign "breath-marks"
+    \addLink ChordBracket "arpeggio"
+    \addLink ChordSlur "arpeggio"
     \addLink ClusterSpanner "clusters"
     \addLink Dots "durations"
     \addLink DoublePercentRepeat "percent-repeats"
@@ -774,6 +776,31 @@ ENGRAVER \"*\"', without space inbetween."
     \newSpacingSection
     \revert Score.SpacingSpanner.spacing-increment
 
+    \balloon Flag -0.5 -2.5 0.5 ##f 0.5 ##f \markup
+      \doclink "Flag"
+    g8\noBeam
+
+    \balloon StemTremolo 1 -3.5 -0.6 ##f ##f ##f \markup
+      \doclink "StemTremolo"
+    g4:16
+
+    \balloon Beam -0.5 1.5 1 ##f 0 ##f \markup \right-column {
+      \engraverlink "Auto_beam" "Auto_beam"
+      \docengraverlink "Beam" "Beam" }
+    g16[ g]
+
+    \after 8 {
+      \balloon DoubleRepeatSlash -2.5 -4.5 0.7 ##f -0.5 ##f \markup
+        \doclink "DoubleRepeatSlash" }
+    \repeat percent 2 {
+      \balloon Dots -0.5 2 0 ##f -0.5 ##f \markup
+        \docengraverlink "Dots" "Dots"
+      e'16. e32 }
+
+    \balloon Script -1 1 -0.2 ##f -1.1 0 \markup
+      \docengraverlink "Script" "Script"
+    e4->
+
     \override DoublePercentRepeat.extra-spacing-width = #'(-6 . 6)
 
     % The correct time offset to access the `DoublePercentRepeat` grob
@@ -781,37 +808,12 @@ ENGRAVER \"*\"', without space inbetween."
     \after 1*3 {
       \balloon DoublePercentRepeat 1 -4.5 0.2 ##f 0.8 ##f \markup
         \docengraverlink "DoublePercentRepeat" "Double_percent_repeat"
-      \balloon DoublePercentRepeatCounter -0.5 1 0.05 ##f ##f ##f \markup
+      \balloon DoublePercentRepeatCounter -0.5 2 0.05 ##f ##f ##f \markup
         \doclink "DoublePercentRepeatCounter"
       \newSpacingSection
     }
 
     \repeat percent 2 {
-      \balloon Flag -0.5 -2.5 0.5 ##f 0.5 ##f \markup
-        \doclink "Flag"
-      g8\noBeam
-
-      \balloon StemTremolo 1 -3.5 -0.6 ##f ##f ##f \markup
-        \doclink "StemTremolo"
-      g4:16
-
-      \balloon Beam -0.5 1.5 1 ##f 0 ##f \markup \right-column {
-        \engraverlink "Auto_beam" "Auto_beam"
-        \docengraverlink "Beam" "Beam" }
-      g16[ g]
-
-      \after 8 {
-        \balloon DoubleRepeatSlash -2.5 -4.5 0.7 ##f -0.5 ##f \markup
-          \doclink "DoubleRepeatSlash" }
-      \repeat percent 2 {
-        \balloon Dots -0.5 2 0 ##f -0.5 ##f \markup
-          \docengraverlink "Dots" "Dots"
-        e'16. e32 }
-
-      \balloon Script -1 1 -0.2 ##f -1.1 0 \markup
-        \docengraverlink "Script" "Script"
-      e4->
-
       \balloon Fingering -2 3.5 ##f -0.5 ##f 0 \markup
         \docengraverlink "Fingering" "Fingering"
       \balloon StringNumber 1 1 ##f 0.5 0.5 1 \markup \column {
@@ -821,17 +823,27 @@ ENGRAVER \"*\"', without space inbetween."
         \doclink "StrokeFinger"
       g,4\2-1\rightHandFinger 1
 
-      \balloon Arpeggio -0.5 -4.5 0.5 ##f ##f ##f \markup
+      \balloon Arpeggio -0.5 -4.5 0.6 ##f ##f ##f \markup
         \docengraverlink "Arpeggio" "Arpeggio"
       <g b e g>4\arpeggio
 
-      \balloon Glissando -1 -2.5 0 ##f 0 -0.2 \markup
-        \docengraverlink "Glissando" "Glissando"
-      e'4\tweak springs-and-rods #ly:spanner::set-spacing-rods
-        \tweak minimum-length 4 \glissando
-      e,4
+      \balloon ChordBracket -0.5 -4 -0.7 ##f ##f ##f \markup
+        \doclink "ChordBracket"
+      <g b e g>4\nonArpeggiato
 
-      \balloon BreathingSign 0.5 -4.5 ##f ##f ##f ##f \markup
+      \balloon ChordSlur -0.5 -2.5 -0.5 ##f ##f ##f \markup
+        \doclink "ChordSlur"
+      <g b e g>4\chordSlur
+
+      \balloon Glissando -1 3.5 0 ##f 0.2 0.2 \markup
+        \docengraverlink "Glissando" "Glissando"
+      e2\tweak springs-and-rods #ly:spanner::set-spacing-rods
+        \tweak minimum-length 4 \glissando
+      \balloon ApproximatePitchNoteHead 0.5 -6.5 -0.45 ##f ##f ##f \markup
+        \doclink "ApproximatePitchNoteHead"
+      \approximatePitch c''2
+
+      \balloon BreathingSign 0.5 1 -0.7 ##f ##f ##f \markup
         \docengraverlink "BreathingSign" "Breathing_sign"
       \breathe }
 
@@ -843,7 +855,7 @@ ENGRAVER \"*\"', without space inbetween."
     \once\override TextSpanner.outside-staff-priority = ##f
     \once\override TextSpanner.padding = 0.4
     \textSpannerDown
-    f4\startTextSpan f f f\stopTextSpan
+    f,,4\startTextSpan f f f\stopTextSpan
 
     \override Staff.MultiMeasureRest.space-increment = 0
     \compressMMRests {
