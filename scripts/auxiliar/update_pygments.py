@@ -49,7 +49,7 @@ keep_paths = {
         "_mapping",
     ),
     "formatters": ("__init__", "html", "_mapping"),
-    "styles": ("default", "__init__"),
+    "styles": ("default", "__init__", "_mapping"),
     "filters": ("__init__",),
 }
 
