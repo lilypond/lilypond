@@ -4857,8 +4857,8 @@ class StaffGroup(Base):
 
     def print_chords(self, printer):
         try:
-            for [_, voices] in self.part_information:
-                for [_, _, _, chordnames, _, _] in voices:
+            for [x, voices] in self.part_information:
+                for [x, x, x, chordnames, x, x] in voices:
                     if chordnames:
                         printer(r'\context ChordNames = "%s"' % chordnames)
                         transpose = get_transpose("string")
@@ -4875,8 +4875,8 @@ class StaffGroup(Base):
 
     def print_fretboards(self, printer):
         try:
-            for [_, voices] in self.part_information:
-                for [_, _, _, _, fretboards, _] in voices:
+            for [x, voices] in self.part_information:
+                for [x, x, x, x, fretboards, x] in voices:
                     if fretboards:
                         printer(r'\context FretBoards = "%s"' % fretboards)
                         transpose = get_transpose("string")
@@ -5028,7 +5028,7 @@ class Staff(StaffGroup):
 
             voice_warning = False
 
-            for [v, lyrics, figuredbass, _, _, csc_voice] in voices:
+            for [v, lyrics, figuredbass, x, x, csc_voice] in voices:
                 n += 1
                 voice_text = ''
                 if nr_voices > 1 or csc_voice:
