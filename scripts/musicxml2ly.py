@@ -3641,10 +3641,18 @@ class LilyPondVoiceBuilder(musicexp.Base):
         self.elements = []
         self.pending_elements = []
         self.pending_last = []
+
         self.end_moment = 0
         self.begin_moment = 0
+
+        self.at_measure_start = True
+        self.measure_length = None
+        self.prev_measure_length = None
+        self.set_measure_length = False
+
         self.has_relevant_elements = False  # Shall we create an output voice?
         self.bar_number = 0
+
         self.multi_measure_count = 0
         self.multi_measure_rest = None
         self.multi_measure_ev_chord = None  # Containing `multi_measure_rest`.
@@ -4165,6 +4173,8 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
 
         staff_change = None
 
+        voice_builder.at_measure_start = (n._measure_position == 0)
+
         if isinstance(n,
                       (musicxml.Note, musicxml.Direction, musicxml.Harmony)):
             staff = n.get('staff', '1')
@@ -4199,10 +4209,58 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
             chordnames_builder.bar_number = num
             fretboards_builder.bar_number = num
 
+            # If the previous measure only contains a skip, we have to set
+            # the measure length right now, also emitting the skip.
+            if voice_builder.set_measure_length:
+                a = musicexp.MeasureLengthEvent(voice_builder.measure_length)
+                when = voice_builder.end_moment + voice_builder.measure_length
+
+                voice_builder.add_irrelevant(a)
+                voice_builder.jump_forward(when)
+                voice_builder.set_measure_length = False
+
+                figured_bass_builder.add_irrelevant(a)
+                figured_bass_builder.jump_forward(when)
+                figured_bass_builder.set_measure_length = False
+
+                chordnames_builder.add_irrelevant(a)
+                chordnames_builder.jump_forward(when)
+                chordnames_builder.set_measure_length = False
+
+                if options.fretboards:
+                    fretboards_builder.add_irrelevant(a)
+                    fretboards_builder.jump_forward(when)
+                    fretboards_builder.set_measure_length = False
+
             if voice_builder.pending_elements:
                 # Elements emitted after the last `<note>` of a measure are
                 # to be aligned at or near the following bar line.
                 voice_builder.add_pending_elements(to_barline=True)
+
+            voice_builder.prev_measure_length = voice_builder.measure_length
+
+            if voice_builder.prev_measure_length is not None:
+                # Reset a measure length change.
+                a = musicexp.MeasureLengthEvent(0)
+                voice_builder.add_irrelevant(a)
+                figured_bass_builder.add_irrelevant(a)
+                chordnames_builder.add_irrelevant(a)
+                if options.fretboards:
+                    fretboards_builder.add_irrelevant(a)
+
+            if n.length > 0 and n.real_length != n.length:
+                needed_additional_definitions.append('measure-length')
+                voice_builder.measure_length = n.real_length
+
+                # Setting the measure length must be delayed until a time
+                # signature (if any) is emitted.
+                voice_builder.set_measure_length = True
+                figured_bass_builder.set_measure_length = True
+                chordnames_builder.set_measure_length = True
+                if options.fretboards:
+                    fretboards_builder.set_measure_length = True
+            else:
+                voice_builder.measure_length = None
 
             if n.senza_misura_length:
                 is_senza_misura = True
@@ -4365,6 +4423,19 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
                 continue
 
         if isinstance(n, musicxml.Harmony):
+            if (voice_builder.at_measure_start
+                    and voice_builder.measure_length is not None):
+                a = musicexp.MeasureLengthEvent(voice_builder.measure_length)
+                if chordnames_builder.set_measure_length:
+                    chordnames_builder.add_irrelevant(a)
+                    chordnames_builder.set_measure_length = False
+                if fretboards_builder.set_measure_length:
+                    fretboards_builder.add_irrelevant(a)
+                    fretboards_builder.set_measure_length = False
+                if not options.fretboards:
+                    voice_builder.add_irrelevant(a)
+                    voice_builder.set_measure_length = False
+
             if options.fretboards:
                 # Makes fretboard diagrams in a separate FretBoards voice
                 for a in musicxml_harmony_to_lily_fretboards(n):
@@ -4376,11 +4447,18 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
                         voice_builder.add_dynamics(a)
                     else:
                         voice_builder.add_command(a)
+
             for a in musicxml_harmony_to_lily_chordname(n):
                 pending_chordnames.append(a)
             continue
 
         if isinstance(n, musicxml.FiguredBass):
+            if (voice_builder.at_measure_start
+                    and figured_bass_builder.set_measure_length):
+                a = musicexp.MeasureLengthEvent(voice_builder.measure_length)
+                figured_bass_builder.add_irrelevant(a)
+                figured_bass_builder.set_measure_length = False
+
             a = musicxml_figured_bass_to_lily(n)
             if a:
                 pending_figured_bass.append(a)
@@ -4460,6 +4538,23 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
             n.message(_('unexpected %s; expected %s or %s or %s') %
                       (n, 'Note', 'Attributes', 'Barline'))
             continue
+
+        if (voice_builder.at_measure_start
+                and voice_builder.measure_length is not None):
+            # Emit delayed measure length changes.
+            a = musicexp.MeasureLengthEvent(voice_builder.measure_length)
+            if chordnames_builder.set_measure_length:
+                chordnames_builder.add_irrelevant(a)
+                chordnames_builder.set_measure_length = False
+            if fretboards_builder.set_measure_length:
+                fretboards_builder.add_irrelevant(a)
+                fretboards_builder.set_measure_length = False
+            if figured_bass_builder.set_measure_length:
+                figured_bass_builder.add_irrelevant(a)
+                figured_bass_builder.set_measure_length = False
+            if voice_builder.set_measure_length:
+                voice_builder.add_irrelevant(a)
+                voice_builder.set_measure_length = False
 
         is_double_note_tremolo = False
 
@@ -4654,14 +4749,17 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
             figured_bass_builder.jump_forward(n._when)
 
             for fb in pending_figured_bass:
-                # if a duration is given, use that, otherwise the one of the
-                # note
-                dur = fb.real_duration
-                if not dur:
-                    dur = ev_chord.get_length()
-                if not fb.duration:
-                    fb.duration = ev_chord.get_duration()
-                figured_bass_builder.add_music(fb, dur)
+                if isinstance(fb, musicexp.FiguredBassEvent):
+                    # If a duration is given, use that, otherwise use the
+                    # one of the associated note.
+                    dur = fb.real_duration
+                    if not dur:
+                        dur = ev_chord.get_length()
+                    if not fb.duration:
+                        fb.duration = ev_chord.get_duration()
+                    figured_bass_builder.add_music(fb, dur)
+                else:
+                    figured_bass_builder.add_irrelevant(fb)
             pending_figured_bass = []
 
         if pending_chordnames:
