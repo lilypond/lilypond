@@ -3414,6 +3414,7 @@ property is set, @code{ledger-positions} and @code{ledger-extra} are ignored."))
     (StanzaNumber
      . (
         (direction . ,LEFT)
+        (extra-spacing-width . (-1 . 0))
         (font-series . bold)
         (padding . 1.0)
         (side-axis . ,X)
