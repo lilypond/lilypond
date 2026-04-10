@@ -1828,6 +1828,7 @@ words = \lyricmode { la __ la __ }
 @subsection Adding stanza numbers
 
 @cindex stanza number
+@funindex \stanza
 
 Stanza numbers can be added with the setting @code{\stanza} command, e.g.,
 
@@ -1875,6 +1876,131 @@ stanzaOneThree = \lyricmode {
 \addlyrics { \stanzaOneOne }
 \addlyrics { \stanzaOneThree }
 
+@end lilypond
+
+@node Stanza reminders
+@subsection Stanza reminders
+
+@cindex stanza reminder
+@funindex \noStanza
+@funindex stanzaReminders
+@funindex stanzaReminderText
+
+Sometimes it is desirable to repeat the stanza numbers at the beginning
+of each system.  This can be accomplished by setting the @code{stanzaReminders}
+context property:
+
+@lilypond[quote,ragged-right,verbatim]
+\layout {
+  \set stanzaReminders = ##t
+}
+
+\new Voice \relative {
+  \key e \minor
+  b'4 b a g
+  fis2 e
+  b'4 cis d b \break
+  e2 dis
+  e4 g fis fis
+  e1
+}
+\addlyrics {
+  \stanza "1."
+  Je -- su, mei -- ne Freu -- de,
+  mei -- nes Her -- zens Wei -- de,
+  Je -- su, mei -- ne Zier.
+}
+\addlyrics {
+  \stanza "2."
+  Un -- ter dei -- nem Schir -- men
+  bin ich vor den Stür -- men
+  al -- ler Fein -- de frei.
+}
+\addlyrics {
+  \stanza "3."
+  Trotz dem al -- ten Dra -- chen,
+  trotz des To -- des Ra -- chen,
+  trotz der Furcht dar -- zu!
+}
+\addlyrics {
+  \stanza "4."
+  Weg mit al -- len Schät -- zen!
+  Du bist mein Er -- göt -- zen,
+  Je -- su, mei -- ne Lust!
+}
+\addlyrics {
+  \stanza "5."
+  Gu -- te Nacht, o We -- sen,
+  das die Welt er -- le -- sen,
+  mir ge -- fällst du nicht.
+}
+\addlyrics {
+  \stanza "6."
+  Weicht, ihr Trau -- er -- geis -- ter,
+  denn mein Freu -- den -- meis -- ter,
+  Je -- sus, tritt her -- ein.
+}
+@end lilypond
+
+By default, the stanza reminders are identical to their respective stanza
+numbers.  By setting the @code{stanzaReminderText} property, this behavior
+can be changed, by either directly supplying a markup or by giving a
+function that accepts the original stanza number markup as an argument:
+
+@lilypond[quote,ragged-right,verbatim]
+\new Voice \relative {
+  \key e \minor
+  b'4 b a g
+  fis2 e \break
+  b'4 cis d b
+  e2 dis \break
+  e4 g fis fis
+  e1
+}
+\addlyrics {
+  \stanza "1."
+  \set stanzaReminders = ##t
+  \set stanzaReminderText = #make-bracket-markup
+  Je -- su, mei -- ne Freu -- de,
+  mei -- nes Her -- zens Wei -- de,
+  \set stanzaReminderText = "(1st)"
+  Je -- su, mei -- ne Zier.
+}
+@end lilypond
+
+The @code{\noStanza} command resets the stanza number so that no subsequent
+automatic stanza reminders are printed:
+
+@lilypond[quote,ragged-right,verbatim]
+\layout {
+  \set stanzaReminders = ##t
+}
+
+\new Voice \relative {
+  \repeat volta 2 {
+    a'4 e a b
+    c d b2
+    a\fermata c4 b
+    \break
+    a b c d
+    e1\fermata
+  }
+  e4 f g c, \break
+  f e d2
+  c2 \fermata
+}
+\addlyrics {
+  \stanza "1."
+  Herr, ich ha -- be miss -- ge -- han -- delt,
+  ja mich drückt der Sün -- den Last;
+  \noStanza
+  und itzt wollt’ ich gern aus Schre -- cken
+}
+\addlyrics {
+  \stanza "2."
+  ich bin nicht den Weg ge -- wan -- delt,
+  den du mir ge -- zei -- get hast;
+}
 @end lilypond
 
 @node Adding dynamics marks to stanzas
