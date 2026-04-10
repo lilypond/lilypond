@@ -1829,16 +1829,16 @@ words = \lyricmode { la __ la __ }
 
 @cindex stanza number
 
-Stanza numbers can be added by setting @code{stanza}, e.g.,
+Stanza numbers can be added with the setting @code{\stanza} command, e.g.,
 
 @lilypond[quote,ragged-right,verbatim]
 \new Voice \relative {
   \time 3/4 g'2 e4 a2 f4 g2.
 } \addlyrics {
-  \stanza "1. "
+  \stanza "1."
   Hi, my name is Bert.
 } \addlyrics {
-  \stanza "2. "
+  \stanza "2."
   Oh, ché -- ri, je t'aime
 }
 @end lilypond
@@ -1881,25 +1881,20 @@ stanzaOneThree = \lyricmode {
 @subsection Adding dynamics marks to stanzas
 
 Stanzas differing in loudness may be indicated by putting a
-dynamics mark before each stanza.  In LilyPond, everything coming in
-front of a stanza goes into the @code{StanzaNumber} object; dynamics
-marks are no different.  For technical reasons, you have to set the
-stanza outside @code{\lyricmode}:
+dynamics mark before each stanza.  While there is no special support
+for such pre-stanza markings, they can easily be included in the
+stanza number itself:
 
 @lilypond[quote,ragged-right,verbatim]
-text = {
-  \stanza \markup { \dynamic "ff" "1. " }
-  \lyricmode {
-    Big bang
-  }
-}
-
 <<
-  \new Voice = "tune" {
+  \new Voice = tune {
     \time 3/4
     g'4 c'2
   }
-\new Lyrics \lyricsto "tune" \text
+  \new Lyrics \lyricsto tune {
+    \stanza \markup { \dynamic ff 1. }
+     Big bang
+  }
 >>
 @end lilypond
 
@@ -1918,10 +1913,10 @@ the line, just like instrument names.  They are created by setting
 \new Voice \relative {
   \time 3/4 g'2 e4 a2 f4 g2.
 } \addlyrics {
-  \set vocalName = "Bert "
+  \set vocalName = "Bert"
   Hi, my name is Bert.
 } \addlyrics {
-  \set vocalName = "Ernie "
+  \set vocalName = "Ernie"
   Oh, ché -- ri, je t'aime
 }
 @end lilypond
@@ -2118,7 +2113,8 @@ melody = \relative {
 text = \lyricmode {
   \stanza "1."
   Ma- ry had a lit- tle lamb,
-  its fleece was white as snow. }
+  its fleece was white as snow.
+}
 
 \score {
   <<
@@ -2138,7 +2134,8 @@ text = \lyricmode {
 \markup \column {
   \line \italic { Verse 4. }
   \line { And so the teacher turned it out, }
-  \line { But still it lingered near. } }
+  \line { But still it lingered near. }
+}
 
 \markup \wordwrap-string "
   Verse 5.
