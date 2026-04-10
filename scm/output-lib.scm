@@ -4289,3 +4289,12 @@ lines for grobs with @code{'staff-position} @var{staff-pos}.
                      (cdr (ly:stencil-extent stil X))
                      X)
                     stil)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; stanza numbers
+
+(define-public (stanza-number::extra-spacing-width grob)
+  (if (ly:grob-property grob 'is-reminder #f)
+      empty-interval
+      '(-1 . 0)))

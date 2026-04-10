@@ -1612,6 +1612,7 @@ empty in a particular staff, then that staff is erased.")
      (in-note-system-padding ,number? "Padding between in-note and its
 associated system.")
      (in-note-stencil ,ly:stencil? "The stencil of a system's in-notes.")
+     (is-reminder ,boolean? "Is this stanza number a stanza reminder?")
 
      (keep-alive-with ,ly:grob-array? "An array of other
 @code{VerticalAxisGroup}s.  If any of them are alive, then we will stay alive.")
@@ -1706,7 +1707,7 @@ extenders.")
 
      (begin-of-line-visible ,boolean? "Set to make @code{ChordName} or
 @code{FretBoard} be visible only at beginning of line or at
-chord changes.")
+chord changes; also used for stanza reminders in lyrics.")
 
      (cause ,scheme? "Any kind of causation objects (i.e., music, or perhaps
 translator) that was the cause for this grob.")

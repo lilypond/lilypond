@@ -654,7 +654,8 @@ properties."
 (ly:add-interface
  'stanza-number-interface
  "A stanza number, to be put in from of a lyrics line."
- '())
+ '(begin-of-line-visible
+   is-reminder))
 
 (ly:add-interface
  'string-number-interface

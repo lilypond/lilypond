@@ -1269,6 +1269,12 @@ May be used at top level (i.e., between scores or markups), or inside a score.")
                'elements (list (make-music 'PageTurnEvent
                                            'break-permission '()))))
 
+noStanza =
+#(define-music-function () ()
+   (_i "Forget the current stanza setting, thereby stopping any stanza
+reminders derived from it.")
+   (make-music 'StanzaEvent))
+
 
 
 octaveCheck =

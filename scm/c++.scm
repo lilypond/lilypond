@@ -138,6 +138,9 @@
 (define-public (index-or-markup? x)
   (or (index? x) (markup? x)))
 
+(define-public (procedure-or-markup? x)
+  (or (procedure? x) (markup? x)))
+
 (define-public (key? x)
   (or (symbol? x) (index? x)))
 

@@ -2679,15 +2679,41 @@ style @code{\\rtoe} and its siblings, based on the data in the
 (define (Stanza_number_engraver context)
   (let
    ((stanza-grob #f)
-    (stanza #f))
+    (current-stanza-text #f) ;; keep around for generating dynamic stanza reminders
+    (create-new-stanza #f))
+   (define (create-stanza-grob engraver text)
+     (set! stanza-grob (ly:engraver-make-grob engraver 'StanzaNumber '()))
+     (ly:grob-set-property! stanza-grob 'text text))
    (make-engraver
     (listeners
      ((stanza-event engraver event)
-      (set! stanza (ly:event-property event 'text))))
+      (set! current-stanza-text (ly:event-property event 'text #f))
+      (when current-stanza-text
+       (set! create-new-stanza #t))))
     ((process-music engraver)
-     (when stanza
-       (set! stanza-grob (ly:engraver-make-grob engraver 'StanzaNumber '()))
-       (ly:grob-set-property! stanza-grob 'text stanza)))
+     (cond
+      (create-new-stanza
+       (create-stanza-grob engraver current-stanza-text)
+       (ly:grob-set-property! stanza-grob 'is-reminder #f))
+      ((ly:context-property context 'stanzaReminders #f)
+       (let*
+        ((stanza-reminder
+          (ly:context-property context 'stanzaReminderText #f))
+         (stanza-reminder-text
+          (cond
+           ((markup? stanza-reminder)
+            stanza-reminder)
+           ((and (procedure? stanza-reminder)
+                 (markup? current-stanza-text))
+            (stanza-reminder current-stanza-text))
+           (else current-stanza-text))))
+        (when (markup? stanza-reminder-text)
+          (create-stanza-grob engraver stanza-reminder-text)
+          (ly:grob-set-property! stanza-grob 'is-reminder #t)
+          ;; set grob property 'begin-of-line-visible' to #t,
+          ;; but do so in a way that respects explicit \override's.
+          (ly:grob-set-property! stanza-grob 'begin-of-line-visible
+            (ly:grob-property stanza-grob 'begin-of-line-visible #t)))))))
     (acknowledgers
      ((lyric-syllable-interface engraver lyric-grob source-engraver)
       ;; This is done more thoroughly by the Stanza_number_align_engraver:
@@ -2705,14 +2731,14 @@ style @code{\\rtoe} and its siblings, based on the data in the
                                               'side-support-elements
                                               lyric-grob))))
     ((stop-translation-timestep engraver)
-     (set! stanza #f)
+     (set! create-new-stanza #f)
      (set! stanza-grob #f)))))
 
 (ly:register-translator
  Stanza_number_engraver 'Stanza_number_engraver
  '((grobs-created . (StanzaNumber))
    (events-accepted . ())
-   (properties-read . ())
+   (properties-read . (stanzaReminders stanzaReminderText))
    (properties-written . ())
    (description . "Engrave stanza numbers.")))
 

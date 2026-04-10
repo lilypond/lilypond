@@ -3413,8 +3413,9 @@ property is set, @code{ledger-positions} and @code{ledger-extra} are ignored."))
 
     (StanzaNumber
      . (
+        (after-line-breaking . ,ly:chord-name::after-line-breaking)
         (direction . ,LEFT)
-        (extra-spacing-width . (-1 . 0))
+        (extra-spacing-width . ,stanza-number::extra-spacing-width)
         (font-series . bold)
         (padding . 1.0)
         (side-axis . ,X)

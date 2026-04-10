@@ -727,6 +727,10 @@ part-combining.")
 @rinternals{Pitch_squash_engraver}.")
      (staffLineLayoutFunction ,procedure? "Layout of staff lines,
 @code{traditional}, or @code{semitone}.")
+     (stanzaReminders ,boolean? "Whether to print stanza reminders.")
+     (stanzaReminderText ,procedure-or-markup? "The text for stanza reminders,
+or a procedure that generates the reminder text when given the full
+current stanza number markup.")
      (startAtNoteColumn ,boolean? "Start @code{DurationLine} grob at entire
 @code{NoteColumn}.")
      (startAtSkip ,boolean? "Start @code{DurationLine} grob at
