@@ -3824,10 +3824,6 @@ class LilyPondVoiceBuilder(musicexp.Base):
             evc.elements.append(skip)
             self.add_music(evc, diff, False)
 
-        elif diff < 0:
-            ly.warning(_('Negative skip %s (from position %s to %s)') %
-                        (diff, current_end, moment))
-
     def last_event_chord(self, starting_at):
         value = None
 
