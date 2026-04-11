@@ -1812,9 +1812,7 @@ squares.  They are used for jazz music, mainly in France.
 @lilypond[quote,indent=0\cm,noragged-right]
 \new ChordGrid \chordmode {
   g2:7+ bes4:m7 ees:7
-  \repeat percent 2 {
-    a2:m7 b2:7.11+
-  }
+  \%2 { a2:m7 b2:7.11+ }
   e4:m7 e4:m7/d a4:7/cis c4:m7
 }
 @end lilypond
@@ -7671,20 +7669,20 @@ measures.  There are other names for this symbol:
   \tweak self-alignment-X #CENTER
   \tweak non-musical ##f
   \textMark "beat (or slash) repeat"
-} \repeat percent 4 { c4 }
+} \%4 { c4 }
 \after 2*3 {
   \tweak self-alignment-X #CENTER
   \tweak direction #DOWN
   \tweak padding 1.5
   \tweak non-musical ##f
   \textMark "measure repeat"
-} \repeat percent 2 { c4 d e f }
+} \%2 { c4 d e f }
 \after 1*3 {
   \tweak self-alignment-X #CENTER
   \tweak direction #DOWN
   \tweak padding 1.5
   \textMark "multi-measure repeat"
-} \repeat percent 2 { c2 e | f4 e c g }
+} \%2 { c2 e | f4 e c g }
 \stopStaff s1
 @end lilypond
 

@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.20.0"
+@c \version "2.25.35"
 
 
 @node Simultaneous notes
@@ -93,8 +93,8 @@ elements, see @ref{Simultaneous expressions}):
 @lilypond[verbatim,quote]
 \relative {
   \grace { g'8( a b }
-  <> ) \p \< -. -\markup \italic "sempre staccato"
-  \repeat unfold 4 { c4 e }  c1\f
+  <>) \p \< -. -\markup \italic "sempre staccato"
+  \*4 { c4 e }  c1\f
 }
 @end lilypond
 

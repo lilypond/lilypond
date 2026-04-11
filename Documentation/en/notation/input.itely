@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.27"
+@c \version "2.25.35"
 
 
 @part General input and output
@@ -856,8 +856,8 @@ suitable, as here:
   \new Staff \relative {
     \clef bass
     \key g \major
-    \repeat unfold 2 { g,16( d' b') a b d, b' d, } |
-    \repeat unfold 2 { g,16( e' c') b c e, c' e, } |
+    \*2 { g,16( d' b') a b d, b' d, } |
+    \*2 { g,16( e' c') b c e, c' e, } |
   }
 }
 
@@ -1056,7 +1056,7 @@ next page.
       piece = "This is the Music"
       breakbefore = ##t
     }
-    \repeat unfold 4 { e'' e'' e'' e'' }
+    \*4 { e'' e'' e'' e'' }
   }
 }
 @end lilypond
@@ -1974,11 +1974,11 @@ music = { a4 b8 e c4 d }
   \relative c'' {
     \override Score.Footnote.footnote = ##f
 
-    \repeat unfold 5 \music
+    \*5 \music
     \footnote #'(1 . 1) "An in-note." NoteHead
-    <>-> \repeat unfold 4 \music
+    <>-> \*4 \music
     \footnote "" #'(0 . 0) "An in-note without number." NoteHead
-    <>-> \repeat unfold 2 \music
+    <>-> \*2 \music
     \footnote "" #'(0 . 0) "Another numberless in-note." NoteHead
     <>-> \music
   }
@@ -2639,7 +2639,7 @@ explicitly expanded.
 music = \relative {
   g'8. c32 d
   \tag #'trills { d8.\trill }
-  \tag #'expand { \repeat unfold 3 { e32 d } }
+  \tag #'expand { \*3 { e32 d } }
   c32 d
  }
 
@@ -2659,7 +2659,7 @@ music.
 music = \relative {
   g'8. c32 d
   \tag #'trills { d8.\trill }
-  \tag #'expand { \repeat unfold 3 { e32 d } }
+  \tag #'expand { \*3 { e32 d } }
   c32 d
  }
 
@@ -3726,7 +3726,7 @@ A list of ASCII aliases for special characters can be included:
 \markup "&flqq; &ndash; &OE;uvre incomplète&hellip; &frqq;"
 
 \score {
-  \new Staff { \repeat unfold 9 a'4 }
+  \new Staff { \*9 a'4 }
   \addlyrics {
     This is al -- so wor -- kin'~in ly -- rics: &ndash;_&OE;&hellip;
   }

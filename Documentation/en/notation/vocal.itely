@@ -1294,7 +1294,7 @@ simply enter all the words:
       \new Voice = "melody" {
         \relative {
           a'4 a a a
-          \repeat unfold 2 { b4 b b b }
+          \*2 { b4 b b b }
         }
       }
     }
@@ -1504,14 +1504,14 @@ value, irrespective of the value of the following number.}
     \new Lyrics {
       \lyricsto "melody" {
         The first time words.
-        \repeat unfold 2 { \skip 1 }
+        \*2 \skip 1
         End here.
       }
     }
     \new Lyrics {
       \lyricsto "melody" {
         Sec -- ond
-        \repeat unfold 2 { \skip 1 }
+        \*2 \skip 1
         time words.
       }
     }
@@ -1594,13 +1594,13 @@ be inserted manually, as before.
     \new Lyrics {
       \lyricsto "melody" {
         Here's a __ verse.
-        \repeat unfold 2 { \skip 1 }
+        \*2 \skip 1
       }
     }
     \new Lyrics {
       \lyricsto "melody" {
         Here's one
-        \repeat unfold 2 { \skip 1 }
+        \*2 \skip 1
         more to sing.
       }
     }
@@ -1630,7 +1630,7 @@ alternative sections these must be inserted manually.
     \new Lyrics {
       \lyricsto "melody" {
         Here's a __ verse.
-        \repeat unfold 2 { \skip 1 }
+        \*2 \skip 1
       }
     }
     \new Lyrics {
@@ -3038,7 +3038,7 @@ Here is an example illustrating how this might be done.
 
 @lilypond[quote,verbatim,ragged-right]
 music = \relative {
-  \repeat unfold 3 { a'4 a a a }
+  \*3 { a'4 a a a }
 }
 
 dialogue = \lyricmode {

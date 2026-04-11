@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.17.30"
+@c \version "2.25.35"
 
 @need 1500
 @node Percussion
@@ -208,7 +208,7 @@ For example,
   \drummode {
     bd4 sn4 bd4 sn4
     << {
-      \repeat unfold 16 hh16
+      \*16 hh16
     } \\ {
       bd4 sn4 bd4 sn4
     } >>

@@ -849,9 +849,7 @@ placing them in squares.
 @lilypond[quote,indent=0\cm,noragged-right]
 \new ChordGrid \chordmode {
   g2:7+ bes4:m7 ees:7
-  \repeat percent 2 {
-    a2:m7 b2:7.11+
-  }
+  \%2 { a2:m7 b2:7.11+ }
   e4:m7 e4:m7/d a4:7/cis c4:m7
 }
 @end lilypond
@@ -1452,20 +1450,20 @@ the bass line.
 <<
   {
     \clef bass
-    \repeat unfold 4 { f16. g32 } f8. es16 d8 es
+    \*4 { f16. g32 } f8. es16 d8 es
   }
   \figures {
     \bassFigureExtendersOn
     % The extenders are correct here,
     % with the same rhythm as the bass.
-    \repeat unfold 4 { <6 4->16. <6 4->32 }
+    \*4 { <6 4->16. <6 4->32 }
     <5>8. r16 <6>8 <6\! 5->
   }
 >>
 <<
   {
     \clef bass
-    \repeat unfold 4 { f16. g32 } f8. es16 d8 es
+    \*4 { f16. g32 } f8. es16 d8 es
   }
   \figures {
     \bassFigureExtendersOn

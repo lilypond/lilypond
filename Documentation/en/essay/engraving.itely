@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.30"
+@c \version "2.25.35"
 
 
 @node Music engraving
@@ -1424,7 +1424,7 @@ note head symbol is changed during the music fragment.
   <d f g>4
   <<
     { d8[ es-( fis^^ g] fis2-) }
-    \repeat unfold 5 { \applyOutput Voice #mc-squared s8 }
+    \*5 { \applyOutput Voice #mc-squared s8 }
   >>
 }
 @end lilypond

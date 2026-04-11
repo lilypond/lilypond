@@ -8,7 +8,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.23"
+@c \version "2.25.35"
 
 @ignore
 GDP TODO list
@@ -1565,7 +1565,7 @@ command.  In the following example, breaks are allowed everywhere,
 even in the middle of a measure, and despite the presence of beams.
 
 @lilypond[verbatim,quote]
-\repeat unfold 56 { c'8 \allowBreak }
+\*56 { c'8 \allowBreak }
 
 \paper {
   indent = 0
@@ -2667,9 +2667,9 @@ becomes more complicated.  Also see @ref{Breaks}.
           s1*5 \break
           s1*5 \break
           s1*5 \break }
-        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+        \new Voice { \*15 { c'4 c' c' c' } }
       >>
-      \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
+      \new Staff { \*15 { d'4 d' d' d' } }
     >>
   }
 }
@@ -2700,9 +2700,9 @@ subproperties of @code{line-break-system-details}.
             Score.NonMusicalPaperColumn
                  .line-break-system-details.Y-offset = 50
           s1*5 \break }
-        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+        \new Voice { \*15 { c'4 c' c' c' } }
       >>
-      \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
+      \new Staff { \*15 { d'4 d' d' d' } }
     >>
   }
 }
@@ -2731,9 +2731,9 @@ of displacements along the X- and Y-axis.
             Score.NonMusicalPaperColumn
               .line-break-system-details.extra-offset = #'(0 . 20)
           s1*5 \break }
-        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+        \new Voice { \*15 { c'4 c' c' c' } }
       >>
-      \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
+      \new Staff { \*15 { d'4 d' d' d' } }
     >>
   }
 }
@@ -2767,9 +2767,9 @@ subproperties at the same time.
               #'((Y-offset . 65)
                  (alignment-distances . (20)))
           s1*5 \break }
-        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+        \new Voice { \*15 { c'4 c' c' c' } }
       >>
-      \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
+      \new Staff { \*15 { d'4 d' d' d' } }
     >>
   }
 }
@@ -2803,11 +2803,11 @@ default value should be used.
               #'((Y-offset . 65)
                  (alignment-distances . (8 15)))
           s1*5 \break }
-        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+        \new Voice { \*15 { c'4 c' c' c' } }
       >>
       \new StaffGroup <<
-        \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
-        \new Staff { \repeat unfold 15 { e'4 e' e' e' } }
+        \new Staff { \*15 { d'4 d' d' d' } }
+        \new Staff { \*15 { e'4 e' e' e' } }
       >>
     >>
   }
@@ -2833,9 +2833,9 @@ default distance.
           s1*5 \break
           s1*5 \break
           s1*5 \break }
-        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+        \new Voice { \*15 { c'4 c' c' c' } }
       >>
-      \new Staff { \repeat unfold 15 { d'4 d' d' d' }
+      \new Staff { \*15 { d'4 d' d' d' }
       }
     >>
   }
@@ -2857,9 +2857,9 @@ Setting @code{bottom-padding} yields the following result.
             Score.NonMusicalPaperColumn.line-break-system-details =
               #'((bottom-padding . 20))
           s1*5 \break }
-        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+        \new Voice { \*15 { c'4 c' c' c' } }
       >>
-      \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
+      \new Staff { \*15 { d'4 d' d' d' } }
     >>
   }
   \paper { ragged-last-bottom = ##f }

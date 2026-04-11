@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.25.35"
 
 @node Staff notation
 @chapter Staff notation
@@ -896,9 +896,9 @@ it is part of the string section, which is playing.
     \new Staff \with { instrumentName = "Flute" } \relative c'' {
       \key c \minor
       <<
-        { \tuplet 3/2 4 { \repeat unfold 4 { g'8( g g) } } }
+        { \tuplet 3/2 4 { \*4 { g'8( g g) } } }
         \\
-        { r2 \tuplet 3/2 4 { \repeat unfold 2 { f8( f f) } } }
+        { r2 \tuplet 3/2 4 { \*2 { f8( f f) } } }
       >>
       <ees g>1~
       q16 r16 r8 r4 r2
@@ -1033,17 +1033,17 @@ where it takes place.
 }
 
 violI = {
-  \repeat unfold 24 { d'4 }
+  \*24 d'4
   \once \unset Staff.keepAliveInterfaces
   <d' g''>2
-  \repeat unfold 14 { d'4 }
+  \*14 d'4
   \bar "|."
 }
 
 violII = {
-  \repeat unfold 24 { g4 }
+  \*24 g4
   <g d'>2
-  \repeat unfold 14 { g4 }
+  \*14 g4
   \bar "|."
 }
 
