@@ -1733,17 +1733,16 @@ def musicxml_clef_staff_details_to_lily(attributes):
 
 
 def musicxml_time_to_lily(attributes):
-    change = musicexp.TimeSignatureChange()
-    # time signature function
     sig = attributes.get_time_signature().copy()
     if not sig:
         return None
 
-    # 'Senza misura' time signature.
     if not isinstance(sig[0], list) and sig[0] < 0:
-        change.fractions = [-sig[0], sig[1]]
-        change.visible = False
-        return change
+        # 'Senza misura' time signature.
+        # TODO: Handle 'senza misura' symbol.
+        return None
+
+    change = musicexp.TimeSignatureChange()
 
     if options.shift_durations:
         if not isinstance(sig[0], list):
@@ -1799,9 +1798,6 @@ def musicxml_time_to_lily(attributes):
     change.color = getattr(time_elm, 'color', None)
     change.font_size = getattr(time_elm, 'font-size', None)
 
-    # TODO: Handle 'senza misura' symbol.
-    # TODO: What shall we do if the symbol clashes with the sig? e.g. "cut"
-    #       with 3/8 or "single-number" with(2+3)/8 or 3/8+2/4?
     return change
 
 
@@ -4158,8 +4154,6 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
         extract_lyrics(voice, number, lyrics)
 
     last_bar_check = -1
-    senza_misura_time_signature = None
-    is_senza_misura = False
 
     for n in voice._elements:
         tie_started = False
@@ -4244,7 +4238,7 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
                 if options.fretboards:
                     fretboards_builder.add_irrelevant(a)
 
-            if n.length > 0 and n.real_length != n.length:
+            if n.real_length != n.length:
                 needed_additional_definitions.append('measure-length')
                 voice_builder.measure_length = n.real_length
 
@@ -4257,19 +4251,6 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
                     fretboards_builder.set_measure_length = True
             else:
                 voice_builder.measure_length = None
-
-            if n.senza_misura_length:
-                is_senza_misura = True
-
-                # Emission of this element must be delayed until a bar check
-                # gets emitted.
-                senza_misura_time_signature = musicexp.TimeSignatureChange()
-                senza_misura_time_signature.visible = False
-                senza_misura_time_signature.fractions = \
-                    [n.senza_misura_length.numerator,
-                     n.senza_misura_length.denominator]
-            else:
-                is_senza_misura = False
             continue
 
         if isinstance(n, musicxml.Partial):
@@ -4383,10 +4364,6 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
                 chordnames_builder.add_bar_check()
                 fretboards_builder.add_bar_check()
                 last_bar_check = num
-
-            if senza_misura_time_signature:
-                voice_builder.add_command(senza_misura_time_signature)
-                senza_misura_time_signature = None
 
         if isinstance(n, musicxml.Direction):
             # Check whether `<direction>` has already been converted in
@@ -4639,9 +4616,6 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
 
                 if full_measure_glyph != 'no':
                     main_event.full_measure_glyph = True
-            elif is_senza_misura and full_measure_glyph == 'yes':
-                voice_builder.multi_measure_count = 1
-                main_event.full_measure_glyph = True
 
         if voice_builder.multi_measure_count and main_event.pitch is not None:
             main_event.y_offset = \
