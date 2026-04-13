@@ -1624,7 +1624,7 @@ class Part(Music_xml_node):
     def interpret(self):
         # Set measure lengths and warn about incomplete or overfull
         # measures.
-        def check_measure(prev_m, is_last=False):
+        def check_measure(prev_m, rests, is_last=False):
             # If we have a situation like the following
             #
             #   <note>, <note>, <note>, ...
@@ -1669,6 +1669,12 @@ class Part(Music_xml_node):
                             prev_m.length = length
                             now = new_now
 
+            for r in rests:
+                if (r._measure_position == 0
+                        and r._duration == prev_m.real_length):
+                    rest = r.get('rest')
+                    rest._is_whole_measure = True
+
             return now
 
         part_list = self.get_part_list()
@@ -1690,6 +1696,10 @@ class Part(Music_xml_node):
         # the previous moment.
         pending_graces = []
 
+        # In 'senza misura' mode we can only set the `_is_whole_measure`
+        # attribute for rests after a measure has been handled completely.
+        maybe_whole_measure_rests = []
+
         # For removing cross-voice slurs, which LilyPond can't handle.
         slurs = {}
 
@@ -1707,7 +1717,9 @@ class Part(Music_xml_node):
             # only then we know whether the next measure is implicit and
             # continues that measure).
             if not m.is_implicit():
-                now = check_measure(previous_measure)
+                now = check_measure(previous_measure,
+                                    maybe_whole_measure_rests)
+                maybe_whole_measure_rests = []
 
                 measure_start_moment = now
                 measure_position = 0
@@ -1771,10 +1783,12 @@ class Part(Music_xml_node):
                         dur = 0
 
                     rest = n.get('rest')
-                    if (rest
-                            and attributes_object
-                            and attributes_object.get_measure_length() == dur):
-                        rest._is_whole_measure = True
+                    if rest and attributes_object:
+                        measure_len = attributes_object.get_measure_length()
+                        if measure_len < 0:
+                            maybe_whole_measure_rests.append(n)
+                        elif measure_len == dur:
+                            rest._is_whole_measure = True
 
                 if 'offset' in n:
                     # The standard recommends integers; however, non-integer
@@ -1878,7 +1892,8 @@ class Part(Music_xml_node):
 
         # Check last measure after loop.
         if not previous_measure.is_implicit():
-            now = check_measure(previous_measure, is_last=True)
+            now = check_measure(previous_measure, maybe_whole_measure_rests,
+                                is_last=True)
 
         # For cross-staff voices we need two arrays: `voices_first_staff` to
         # collect the staff ID of the first `<note>` element for each voice
