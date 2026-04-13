@@ -1,4 +1,4 @@
-\version "2.25.23"
+\version "2.25.35"
 
 \header {
   categories = "Rhythms"
@@ -69,14 +69,14 @@ default), a new subdivision group gets started instead.
 
   <>^"max 3/8"
   \once \set beamMaximumSubdivision = #3/8
-  \repeat unfold 16 c64
+  \*16 c64
 
   <>^"min 1/32, max 1/64"
   % Set maximum beam subdivision interval to 1/64 to limit
   % subdivision depth, despite not being metrically correct.
   \once \set beamMinimumSubdivision = #1/32
   \once \set beamMaximumSubdivision = #1/64
-  \repeat unfold 32 c128
+  \*32 c128
   \break
 
   <>^"beams with incomplete subdivisions"
