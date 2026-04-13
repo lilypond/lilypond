@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.25.35"
 
 \header {
   texidoc = "Span arpeggios that are not cross-staff do not have
@@ -16,8 +16,8 @@ horizontal spacing problems.
 {
   \set Staff.connectArpeggios = ##t
   <<
-    {r2. <ges' aes c ges'>4\arpeggio |}
+    { r2. <ges' aes c ges'>4\arpeggio | }
     \\
-    {\repeat unfold 12 aes,16 <ees aes c>4\arpeggio |}
+    { \*12 aes,16 <ees aes c>4\arpeggio | }
   >>
 }

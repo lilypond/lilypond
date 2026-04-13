@@ -1,5 +1,4 @@
-
-\version "2.19.21"
+\version "2.25.35"
 
 \header{
 
@@ -26,7 +25,7 @@ m = \relative {
     b
 }
 
-noise = \repeat unfold 6  \relative { g'16 g g g }
+noise = \*6 \relative { g'16 g g g }
 
 textI = \lyricmode {
     la2 __ la -- la __ la la la la la
@@ -42,10 +41,8 @@ textII = \lyricmode {
    \context Staff = SB { s1 }
    \context Lyrics = LB { s1 }
    \context Staff = SC \noise
-   
-   \context Staff = SB  \context Voice = "middle" \m 
+
+   \context Staff = SB  \context Voice = "middle" \m
    \context Lyrics = LA \lyricsto "middle" \textI
-   \context Lyrics = LB \lyricsto "middle" \textII 
+   \context Lyrics = LB \lyricsto "middle" \textII
 >>
-
-

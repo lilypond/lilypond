@@ -1,4 +1,4 @@
-\version "2.23.10"
+\version "2.25.35"
 
 \header {
   texidoc = "A user-defined empty bar glyph behaves like the built-in
@@ -14,6 +14,6 @@ in both measures."
 \defineBarLine "0" #'(#t #t #f)
 
 \new Score \fixed c' {
-  \repeat unfold 3 { c4 \bar "" } c
-  \repeat unfold 3 { c4 \bar "0" } c
+  \*3 { c4 \bar "" } c
+  \*3 { c4 \bar "0" } c
 }

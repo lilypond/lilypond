@@ -1,4 +1,4 @@
-\version "2.25.28"
+\version "2.25.35"
 
 \header {
   texidoc = "@code{\\overrideTimeSignatureSettings} can set beaming properties
@@ -18,5 +18,5 @@ no time signature or bar lines.  The first six notes should be grouped
     #'()      % beamExceptions
   timeSignature = ##f
 } {
-  \repeat unfold 18 c'8
+  \*18 c'8
 }

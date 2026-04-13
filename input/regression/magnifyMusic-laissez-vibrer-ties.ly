@@ -1,4 +1,4 @@
-\version "2.19.8"
+\version "2.25.35"
 
 \header {
   texidoc = "Laissez vibrer ties should be scaled along with
@@ -22,7 +22,7 @@ template = {
   \new StaffGroup <<
     \new Staff \new Voice = "upper" <<
       \template
-      \repeat unfold 7 { g'4\laissezVibrer \hide Rest r4 }
+      \*7 { g'4\laissezVibrer \hide Rest r4 }
     >>
     \new Lyrics \with {
       \override VerticalAxisGroup.staff-affinity = #DOWN
@@ -32,7 +32,7 @@ template = {
     \new Staff \new Voice <<
       \clef bass
       \template
-      \repeat unfold 7 { f4\laissezVibrer \hide Rest r4 }
+      \*7 { f4\laissezVibrer \hide Rest r4 }
     >>
   >>
 }

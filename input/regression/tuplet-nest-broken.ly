@@ -1,5 +1,4 @@
-
-\version "2.19.21"
+\version "2.25.35"
 
 \header {
     texidoc = "Broken nested tuplets avoid each other correctly.
@@ -43,7 +42,7 @@
       }
       r2
     }
-    { \repeat unfold 3 { s1 \break } }
+    { \*3 { s1 \break } }
   >>
   \layout {
     \context {

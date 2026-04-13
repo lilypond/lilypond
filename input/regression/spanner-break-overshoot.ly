@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.25.35"
 
 \header {
   texidoc = "The @code{break-overshoot} property sets the amount that
@@ -14,7 +14,7 @@ columns; for measure spanners, the left and/or right edge of the staff."
   \override Beam.break-overshoot = #'(1.0 . 2.0)
   \override Beam.breakable = ##t
   c''2.. c''8[ \time 2/2 \key e\major \break
-  \repeat unfold 8 c''8 \break
+  \*8 c''8 \break
   c''8] c''2..
 }
 

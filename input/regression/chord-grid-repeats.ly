@@ -1,4 +1,4 @@
-\version "2.25.0"
+\version "2.25.35"
 
 \header {
   texidoc = "Repeat notation can be used in chord grids.
@@ -23,11 +23,11 @@ stop at the @samp{|} part of the @samp{.|:} bar line, not at
     g4 g4 g4 g4
   }
   \break
-  \repeat percent 2 { c1 }
+  \%2 c1
   c1 c1
   \break
   %% FIXME: uneven spacing around the DoublePercentRepeat.
-  \repeat percent 2 { c1 c1 }
+  \%2 { c1 c1 }
   \break
   \repeat segno 2 {
     c2:m c4:m c4:m

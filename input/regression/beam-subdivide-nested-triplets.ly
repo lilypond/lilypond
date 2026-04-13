@@ -1,4 +1,4 @@
-\version "2.25.8"
+\version "2.25.35"
 
 \header {
   texidoc = "A triplet of any level should clearly subdivide its@tie{}3
@@ -21,24 +21,24 @@ topmost level."
 
   c32 c
   \tuplet 3/2 {
-    \repeat unfold 4 c64
-    \tuplet 3/2 { \repeat unfold 12 c128 }
-    \repeat unfold 4 c64
+    \*4 c64
+    \tuplet 3/2 { \*12 c128 }
+    \*4 c64
   }
   c32 c
   \break
 
   \tuplet 3/2 {
-    \tuplet 3/2 { \repeat unfold 12 c128 }
-    \repeat unfold 8 c64
+    \tuplet 3/2 { \*12 c128 }
+    \*8 c64
   }
-  \repeat unfold 4 c32
+  \*4 c32
   \break
 
-  \repeat unfold 4 c32
+  \*4 c32
   \tuplet 3/2 {
-    \repeat unfold 8 c64
-    \tuplet 3/2 { \repeat unfold 12 c128 }
+    \*8 c64
+    \tuplet 3/2 { \*12 c128 }
   }
   \break
 }

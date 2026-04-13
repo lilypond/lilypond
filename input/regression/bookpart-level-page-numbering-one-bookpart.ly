@@ -1,4 +1,4 @@
-\version "2.23.12"
+\version "2.25.35"
 
 \header {
   texidoc = "It is possible for one bookpart to have its independent page numbers
@@ -21,6 +21,6 @@ in commodo diam.
     }
   }
   \bookpart {
-    \repeat unfold 5 { c'1 \pageBreak }
+    \*5 { c'1 \pageBreak }
   }
 }

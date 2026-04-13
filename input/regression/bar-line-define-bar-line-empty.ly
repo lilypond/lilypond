@@ -1,4 +1,4 @@
-\version "2.23.10"
+\version "2.25.35"
 
 \header {
   texidoc = "A user-defined empty bar line with an annotation in the
@@ -15,6 +15,6 @@ between notes should be the same in both measures."
 \defineBarLine "-ann" #'(#t #f #f)
 
 \new Score \fixed c' {
-  \repeat unfold 3 { c4 \bar "" } c
-  \repeat unfold 3 { c4 \bar "-ann" } c
+  \*3 { c4 \bar "" } c
+  \*3 { c4 \bar "-ann" } c
 }

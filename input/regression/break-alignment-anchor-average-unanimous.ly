@@ -1,4 +1,4 @@
-\version "2.25.33"
+\version "2.25.35"
 
 \header {
   texidoc = "When a group of break-aligned items agree on the position
@@ -53,9 +53,6 @@ point to the stated point relative to the complex time signature."
   }
 
   \new Staff {
-    \repeat unfold 5 {
-      \time 1/1
-      c1
-    }
+    \*5 { \time 1/1 c1 }
   }
 >>

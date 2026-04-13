@@ -1,4 +1,4 @@
-\version "2.21.2"
+\version "2.25.35"
 
 \header{
   texidoc = "Lyric syllables of widely varying length do not disproportionately
@@ -17,12 +17,9 @@
 >>
 
 \new Staff <<
-  \relative f' { \repeat unfold 8 a4 }
-  \addlyrics { \repeat unfold 4 la \repeat unfold 4 straight }
+  \relative f' { \*8 a4 }
+  \addlyrics { \*4 la \*4 straight }
 >>
 \layout {
   ragged-right = ##f
 }
-
-
-

@@ -1,4 +1,4 @@
-\version "2.25.32"
+\version "2.25.35"
 
 \header {
   texidoc = "In this test, the Score time signature is 3/2.  In the staves with
@@ -15,7 +15,7 @@ written time signatures."
 \fixed c' <<
   \new Staff {
     \time 3/2
-    \repeat unfold 15 c2
+    \*15 c2
   }
   \new Staff {
     \scaleDurations 3/2 {
@@ -29,11 +29,11 @@ written time signatures."
       \contextPropertyCheck Staff.submeasureStructure #'(2)
       \contextPropertyCheck Staff.timeSignature 2/2
 
-      \repeat unfold 8 c8 |
-      \repeat unfold 4 \tuplet 3/2 { c8 c c } |
-      \repeat unfold 16 c16 |
-      \repeat unfold 8 \tuplet 3/2 { c16 c c } |
-      \repeat unfold 32 c32 |
+      \*8 c8 |
+      \*4 \tuplet 3/2 { c8 c c } |
+      \*16 c16 |
+      \*8 \tuplet 3/2 { c16 c c } |
+      \*32 c32 |
     }
   }
   \new Staff {
@@ -49,11 +49,11 @@ written time signatures."
       \contextPropertyCheck Staff.submeasureStructure #'(4)
       \contextPropertyCheck Staff.timeSignature 4/4
 
-      \repeat unfold 8 c8 |
-      \repeat unfold 4 \tuplet 3/2 { c8 c8 c8 } |
-      \repeat unfold 16 c16 |
-      \repeat unfold 8 \tuplet 3/2 { c16 c c } |
-      \repeat unfold 32 c32 |
+      \*8 c8 |
+      \*4 \tuplet 3/2 { c8 c8 c8 } |
+      \*16 c16 |
+      \*8 \tuplet 3/2 { c16 c c } |
+      \*32 c32 |
     }
   }
 >>

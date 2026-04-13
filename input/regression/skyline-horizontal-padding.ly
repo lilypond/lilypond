@@ -1,4 +1,4 @@
-\version "2.17.30"
+\version "2.25.35"
 
 \header {
   texidoc = "
@@ -13,7 +13,7 @@ interleaved with the high notes from the next system.
   \score {
     {
       \omit Staff.TimeSignature
-      \repeat unfold 3 { <c'''-1 e'''-3 g'''-5> c' <c,-1 e,-3 g,-5> c' \break}
+      \*3 { <c'''-1 e'''-3 g'''-5> c' <c,-1 e,-3 g,-5> c' \break}
     }
     \layout {
       indent = 0

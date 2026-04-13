@@ -1,4 +1,4 @@
-\version "2.23.4"
+\version "2.25.35"
 
 \header {
   texidoc = "Parenthesizing spanners is supported."
@@ -7,5 +7,5 @@
 {
   c'\parenthesize\< d'2.\!
   \parenthesize R1
-  c'1\parenthesize\< \repeat unfold 20 { 1 } 1\!
+  c'1\parenthesize\< \*20 { 1 } 1\!
 }

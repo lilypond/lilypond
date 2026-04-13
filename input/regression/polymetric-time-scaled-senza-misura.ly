@@ -1,4 +1,4 @@
-\version "2.25.32"
+\version "2.25.35"
 
 \header {
   texidoc = "This test defines a @code{\\senzaMisura} command (which may be
@@ -45,10 +45,10 @@ senzaMisura =
     \contextPropertyCheck Staff.meterScalingFactor \default
     \contextPropertyCheck Staff.submeasureStructure \default
 
-    \repeat unfold 12 c'8
+    \*12 c'8
   }
   \new Staff {
-    \repeat unfold 4 c'8
+    \*4 c'8
     \scaleDurations 2/3 {
       \context Staff \polymetric \senzaMisura
       \contextPropertyCheck Staff.beamExceptions #'()
@@ -57,9 +57,9 @@ senzaMisura =
       \contextPropertyCheck Staff.measureLength \default
       \contextPropertyCheck Staff.meterScalingFactor #2/3
       \contextPropertyCheck Staff.submeasureStructure #'()
-      c'8\( \repeat unfold 4 c'8 c'8\)
+      c'8\( \*4 c'8 c'8\)
       \context Staff \polymetric \default
     }
-    \repeat unfold 4 c'8
+    \*4 c'8
   }
 >>

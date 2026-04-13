@@ -1,4 +1,4 @@
-\version "2.25.33"
+\version "2.25.35"
 
 \header {
     texidoc = "Create complex time signatures. The argument is a Scheme list
@@ -18,28 +18,28 @@ as @code{\\timeAbbrev #'((3 2 8))} or shorter
 \relative {
   \override Staff.TimeSignature.break-visibility = ##(#f #t #t)
   \timeAbbrev #'(1 2 3 4 8)
-  \repeat unfold 10 c'8 \repeat unfold 20 c16 \break
+  \*10 c'8 \*20 c16 \break
 
   \time 3/4
-  \repeat unfold 6 c8 \repeat unfold 12 c16 \break
+  \*6 c8 \*12 c16 \break
 
   \timeAbbrev #'((1 2 3 4 8) (2 4))
-  \repeat unfold 14 c8 \repeat unfold 28 c16 \break
+  \*14 c8 \*28 c16 \break
 
   \timeAbbrev #'((1 2 3 4 8) (2 4) (2 3 8))
-  \repeat unfold 19 c8 \repeat unfold 38 c16 \break
+  \*19 c8 \*38 c16 \break
 
   \timeAbbrev #'(1 2 3 4 8)
-  \repeat unfold 10 c8 \repeat unfold 20 c16 \break
+  \*10 c8 \*20 c16 \break
 
   \timeAbbrev #'((1 8) (3 8))
-  \repeat unfold 4 c8 \repeat unfold 8 c16 \break
+  \*4 c8 \*8 c16 \break
 
   \timeAbbrev #'((3 8) (1 8))
-  \repeat unfold 4 c8 \repeat unfold 8 c16 \break
+  \*4 c8 \*8 c16 \break
 
   \time 4/4
-  \repeat unfold 8 c8 \repeat unfold 16 c16 \break
+  \*8 c8 \*16 c16 \break
 
   \bar"|."
 }

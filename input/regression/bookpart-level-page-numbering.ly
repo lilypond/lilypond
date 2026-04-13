@@ -1,4 +1,4 @@
-\version "2.23.12"
+\version "2.25.35"
 
 \header {
   texidoc = "Pages can be numbered per bookpart rather than per book."
@@ -12,9 +12,9 @@
 
 \book {
   \bookpart {
-    \repeat unfold 5 { d'1 \pageBreak }
+    \*5 { d'1 \pageBreak }
   }
   \bookpart {
-    \repeat unfold 5 { c'1 \pageBreak }
+    \*5 { c'1 \pageBreak }
   }
 }

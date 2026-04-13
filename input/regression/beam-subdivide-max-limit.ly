@@ -1,4 +1,4 @@
-\version "2.25.23"
+\version "2.25.35"
 
 \header {
   texidoc = "When @code{beamMaximumSubdivision} <
@@ -26,5 +26,5 @@ even if it is not metrically correct.
   \set subdivideBeams = ##t
   \set beamMinimumSubdivision = #1/8
   \set beamMaximumSubdivision = #1/16
-  \repeat unfold 64 c64
+  \*64 c64
 }

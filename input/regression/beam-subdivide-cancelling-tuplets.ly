@@ -1,4 +1,4 @@
-\version "2.25.8"
+\version "2.25.35"
 
 \header {
   texidoc = "Beams should subdivided as if there was no tuplet to
@@ -20,13 +20,13 @@ consider in this particular case."
   c16
   \tuplet 4/1 {
     \tuplet 1/4 {
-      \repeat unfold 3 c64
+      \*3 c64
       \tuplet 4/1 {
         \tuplet 1/4 {
           c64 c
         }
       }
-      \repeat unfold 3 c64
+      \*3 c64
     }
   }
   c16
@@ -35,13 +35,13 @@ consider in this particular case."
   c16
   \tuplet 4/1 {
     \tuplet 1/4 {
-      \repeat unfold 2 c64
+      \*2 c64
       \tuplet 4/1 {
         \tuplet 1/4 {
-          \repeat unfold 4 c64
+          \*4 c64
         }
       }
-      \repeat unfold 2 c64
+      \*2 c64
     }
   }
   c16
@@ -53,7 +53,7 @@ consider in this particular case."
       c64
       \tuplet 4/1 {
         \tuplet 1/4 {
-          \repeat unfold 6 c64
+          \*6 c64
         }
       }
       c64

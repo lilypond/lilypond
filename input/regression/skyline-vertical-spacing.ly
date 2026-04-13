@@ -7,12 +7,15 @@ systems more uniform."
 \paper {ragged-right = ##t}
 #(set-default-paper-size "a6")
 
-\version "2.16.0"
+\version "2.25.35"
+
 \book {
   \score {
     {
-      a,,1 | a'4 b' c'' d'' \break
-      \repeat unfold 2 {a' b' c'' d''} | b''''1
+      a,,1
+      a'4 b' c'' d'' \break
+      \*2 { a' b' c'' d'' }
+      b''''1
     }
   }
 }

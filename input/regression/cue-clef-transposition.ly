@@ -1,10 +1,10 @@
-\version "2.21.0"
+\version "2.25.35"
 
 \header {
   texidoc = "Transposition for clefs for cue notes."
 }
 
-vI = \relative { \clef "treble" \repeat unfold 40 g'4 }
+vI = \relative { \clef "treble" \*40 g'4 }
 \addQuote vIQuote { \vI }
 
 Solo = \relative {

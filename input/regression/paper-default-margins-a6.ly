@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.25.35"
 
 \header {
   texidoc = "Default values for margins, indents, and offsets are
@@ -7,7 +7,7 @@ paper size returned by (ly:get-option 'paper-size).  For other
 paper sizes, they are scaled linearly."
 }
 
-someNotes = \repeat unfold 20 { c4 d e f }
+someNotes = \*20 { c4 d e f }
 
 \paper {
   #(set-paper-size "a6")
@@ -21,4 +21,3 @@ someNotes = \repeat unfold 20 { c4 d e f }
     }
   }
 }
-

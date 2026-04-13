@@ -1,4 +1,4 @@
-\version "2.23.10"
+\version "2.25.35"
 
 \header {
   texidoc = "@code{\\break} forces a break, even in circumstances where
@@ -16,4 +16,4 @@ LilyPond would normally not allow a break."
 { c'2.. 8[ \break 8] 2.. }
 
 % Break bypasses percent repeat
-\after 1*3 \break \repeat percent 2 { c'1 1 }
+\after 1*3 \break \%2 { c'1 1 }

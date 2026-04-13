@@ -1,4 +1,4 @@
-\version "2.25.32"
+\version "2.25.35"
 
 \header {
   texidoc = "@code{\\time} accepts an option specifying the beat structure.  In
@@ -33,12 +33,10 @@ this case, it is applied with fractional beats, which is unusual."
     \contextPropertyCheck Timing.measureLength #5/8
     \contextPropertyCheck Timing.submeasureStructure #'(5/2)
     \contextPropertyCheck Timing.timeSignature #'(5/2 . 4)
-    \repeat unfold 10 d'16
+    \*10 d'16
   } \\ {
-    \repeat unfold 2 {
-      \tuplet 3/2 \repeat unfold 6 g16
-    }
-    \tuplet 3/2 \repeat unfold 3 g16
+    \*2 \tuplet 3/2 \*6 g16
+    \tuplet 3/2 \*3 g16
   } >>
 
   \break
@@ -51,12 +49,10 @@ this case, it is applied with fractional beats, which is unusual."
     \contextPropertyCheck Timing.measureLength #5/8
     \contextPropertyCheck Timing.submeasureStructure #'(5/2)
     \contextPropertyCheck Timing.timeSignature #'(5/2 . 4)
-    \repeat unfold 10 d'16
+    \*10 d'16
   } \\ {
-    \repeat unfold 2 {
-      \tuplet 3/2 \repeat unfold 6 g16
-    }
-    \tuplet 3/2 \repeat unfold 3 g16
+    \*2 \tuplet 3/2 \*6 g16
+    \tuplet 3/2 \*3 g16
   } >>
 
   \break
@@ -69,12 +65,10 @@ this case, it is applied with fractional beats, which is unusual."
     \contextPropertyCheck Timing.measureLength #5/8
     \contextPropertyCheck Timing.submeasureStructure #'(5/2)
     \contextPropertyCheck Timing.timeSignature #'(5/2 . 4)
-    \repeat unfold 10 d'16
+    \*10 d'16
   } \\ {
-    \tuplet 3/2 \repeat unfold 3 g16
-    \repeat unfold 2 {
-      \tuplet 3/2 \repeat unfold 6 g16
-    }
+    \tuplet 3/2 \*3 g16
+    \*2 \tuplet 3/2 \*6 g16
   } >>
 
   \break

@@ -1,4 +1,4 @@
-\version "2.23.3"
+\version "2.25.35"
 
 \header {
   texidoc = "Centered bar numbers honor the @code{barNumberVisibility}
@@ -13,4 +13,4 @@ context property."
   }
 }
 
-\repeat unfold 20 { c'1 }
+\*20 { c'1 }

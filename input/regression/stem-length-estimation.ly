@@ -1,4 +1,4 @@
-\version "2.25.0"
+\version "2.25.35"
 
 \header {
   texidoc = "Stems with overridden 'Y-extent should
@@ -27,7 +27,7 @@ on one page.
     \new Voice {
       \voiceTwo
       \override Stem.Y-extent = #'(0.0 . 0.0)
-      \repeat unfold 120 a4
+      \*120 a4
     }
     \layout {
       \context {

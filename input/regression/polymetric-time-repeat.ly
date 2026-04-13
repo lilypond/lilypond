@@ -1,4 +1,4 @@
-\version "2.25.32"
+\version "2.25.35"
 
 \header {
   texidoc = "It is possible (though complicated) to write an unfoldable
@@ -45,46 +45,46 @@ music = \fixed c' <<
   \time 2/8
   \context Staff = "RH" {
     \repeat volta 2 {
-      \repeat unfold 2 c8 |
+      \*2 c8 |
       \checkScoreTwoEight \checkStaffNonPolymetric
       \alternative {
         \volta 1 {
-          \repeat unfold 2 d8 |
-          \repeat unfold 2 d8 |
+          \*2 d8 |
+          \*2 d8 |
         }
         \volta 2 {
           \volta #'() { \checkScoreTwoEight \checkStaffNonPolymetric }
-          \repeat unfold 2 e8 |
+          \*2 e8 |
         }
       }
     }
-    \repeat unfold 2 f8 |
-    \repeat unfold 2 f8 |
+    \*2 f8 |
+    \*2 f8 |
   }
   \context Staff = "LH" {
     \scaleDurations 2/3 { \context Staff \polymetric \time 3/8 }
     \checkScoreTwoEight \checkStaffScaledThreeEight
     \repeat volta 2 {
-      \scaleDurations 2/3 { \repeat unfold 3 c8 }
+      \scaleDurations 2/3 { \*3 c8 }
       \alternative {
         \volta 1 {
-          \scaleDurations 2/3 { \repeat unfold 3 c8 } |
+          \scaleDurations 2/3 { \*3 c8 } |
           \context Staff \polymetric \default % back to 2/8 from Timing
           \checkScoreTwoEight \checkStaffNonPolymetric
-          \repeat unfold 2 c8 |
+          \*2 c8 |
           %% return to 3/8 for repeat
           \scaleDurations 2/3 { \context Staff \polymetric \time 3/8 }
           \checkScoreTwoEight \checkStaffScaledThreeEight
         }
         \volta 2 {
-          \scaleDurations 2/3 { \repeat unfold 3 c8 } |
+          \scaleDurations 2/3 { \*3 c8 } |
         }
       }
     }
-    \scaleDurations 2/3 { \repeat unfold 3 c8 } |
+    \scaleDurations 2/3 { \*3 c8 } |
     \context Staff \polymetric \default % back to 2/8 from Timing
     \checkScoreTwoEight \checkStaffNonPolymetric
-    \repeat unfold 2 c8 |
+    \*2 c8 |
   }
 >>
 

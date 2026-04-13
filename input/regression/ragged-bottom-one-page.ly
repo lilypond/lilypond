@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.25.35"
 
 \header {
   texidoc = "For a one-page score, ragged-bottom should have the
@@ -10,4 +10,4 @@ same effect as ragged-last-bottom."
   ragged-last-bottom = ##f
 }
 
-\repeat unfold 16 c'4
+\*16 c'4

@@ -7,7 +7,8 @@
   ragged-right = ##t
 }
 
-\version "2.17.6"
+\version "2.25.35"
+
 <<
   \new Staff {
     \override TextSpanner.bound-details.left.text = "*"
@@ -16,6 +17,6 @@
   }
   \new Staff {
     \override TextScript.self-alignment-X = #RIGHT
-    \repeat unfold 2 {c'4 _ \markup { "LONG" } }
+    \*2 { c'4_\markup { "LONG" } }
   }
 >>

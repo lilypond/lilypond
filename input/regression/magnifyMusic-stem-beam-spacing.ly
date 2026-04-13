@@ -1,4 +1,4 @@
-\version "2.19.8"
+\version "2.25.35"
 
 \header {
   texidoc = "Stem length/thickness, beam spacing/thickness, and
@@ -12,7 +12,7 @@ than the default, but not thinner."
     \omit Staff.TimeSignature
     \time 7/8
     <<
-      { \repeat unfold 7 \relative { g'32[ a b c] } }
+      { \*7 \relative { g'32[ a b c] } }
       {
         \magnifyMusic 0.50 s8
         \magnifyMusic 0.63 s

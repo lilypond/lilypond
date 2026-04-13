@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.25.35"
 
 #(set-default-paper-size "a6")
 
@@ -15,5 +15,5 @@ overlap because they are forced to be on the page.
     min-systems-per-page = 20
   }
 
-  \repeat unfold 21 { c'1 }
+  \*21 c'1
 }

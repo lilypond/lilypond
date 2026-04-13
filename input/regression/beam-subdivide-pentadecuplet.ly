@@ -1,4 +1,4 @@
-\version "2.25.8"
+\version "2.25.35"
 
 \header {
   texidoc = "The default subdivision of a pentadecuplet should be none
@@ -16,5 +16,5 @@ as the hamming weight of the denominator is more than@tie{}1."
   \set subdivideBeams = ##t
   \omit Staff.Clef
 
-  \tuplet 15/8 { \repeat unfold 15 c32 }
+  \tuplet 15/8 { \*15 c32 }
 }

@@ -1,11 +1,11 @@
-\version "2.21.0"
+\version "2.25.35"
 
 \header {
   texidoc = "Duration multipliers can be specified as scheme
 expressions, either as rationals or as a moment."
 }
 
-musicwithdrone = \repeat unfold 2 { c'4 e' g' c'' }
+musicwithdrone = \*2 { c'4 e' g' c'' }
 
 musiclen = #(ly:music-length musicwithdrone)
 musicrat = #(ly:moment-main musiclen)
@@ -28,4 +28,3 @@ musicrat = #(ly:moment-main musiclen)
     }
   }
 }
-

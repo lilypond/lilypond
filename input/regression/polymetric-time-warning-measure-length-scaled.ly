@@ -1,4 +1,4 @@
-\version "2.25.32"
+\version "2.25.35"
 
 \header {
   texidoc = "A warning is issued when simultaneous @code{\\time} and
@@ -48,7 +48,7 @@ case, both the @code{Score} and @code{Staff} time signatures are 4/4, but the
       \contextPropertyCheck Staff.submeasureStructure #'(4)
       \contextPropertyCheck Staff.timeSignature 4/4
 
-      \repeat unfold 4 r4
+      \*4 r4
     }
 
     \applyContext #(lambda (context) (ly:check-expected-warnings))

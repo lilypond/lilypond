@@ -1,4 +1,4 @@
-\version "2.25.33"
+\version "2.25.35"
 
 \header {
   texidoc = "Even under unusual measure lengths, beam
@@ -16,8 +16,8 @@ subdivision should not defect."
   \set beatStructure = #'(8 8 5)
   \set subdivideBeams = ##t
 
-  \repeat unfold 21 e32 \break
+  \*21 e32 \break
 
   \set beatStructure = #'(8 8 2 3)
-  \repeat unfold 21 e32 \break
+  \*21 e32 \break
 }

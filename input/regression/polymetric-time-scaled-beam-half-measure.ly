@@ -1,4 +1,4 @@
-\version "2.25.32"
+\version "2.25.35"
 
 \header {
   texidoc = "In this test, the Score time signature is 4/4.  In the staff with
@@ -14,7 +14,7 @@ scaled 3/4 time, the automatic beamer should honor the
 
 \fixed c' <<
   \new Staff {
-    \repeat unfold 16 c2
+    \*16 c2
   }
   \new Staff {
     \scaleDurations 4/3 {

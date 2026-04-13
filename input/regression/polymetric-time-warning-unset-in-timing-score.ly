@@ -1,4 +1,4 @@
-\version "2.25.32"
+\version "2.25.35"
 
 \header {
   texidoc = "@code{\\polymetric \\default} is ignored with a warning when issued
@@ -37,6 +37,6 @@ in a @code{Timing} context.  In this case, the command is issued in the default
     \contextPropertyCheck Score.submeasureStructure #'(6)
     \contextPropertyCheck Score.timeSignature 6/8
 
-    \repeat unfold 6 c8
+    \*6 c8
   }
 }

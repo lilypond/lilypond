@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.25.35"
 
 \header {
   texidoc = "By default, we start with page 1, which is on the right hand side
@@ -27,7 +27,7 @@ number to 2 in order to avoid a bad page turn."
   \score {
     {
       a b c d R1
-      \repeat unfold 30 {a4 b c d}
+      \*30 { a4 b c d }
     }
   }
 }

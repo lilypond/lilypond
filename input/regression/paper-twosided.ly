@@ -1,11 +1,11 @@
-\version "2.19.21"
+\version "2.25.35"
 
 \header {
   texidoc = "Two-sided mode allows you to use different margins for
 odd and even pages."
 }
 
-someNotes = \relative { \repeat unfold 200 { c'4 d e f } }
+someNotes = \relative { \*200 { c'4 d e f } }
 
 \paper {
   two-sided = ##t
@@ -16,4 +16,3 @@ someNotes = \relative { \repeat unfold 200 { c'4 d e f } }
 \book {
   \score { \someNotes }
 }
-

@@ -1,4 +1,4 @@
-\version "2.21.0"
+\version "2.25.35"
 
 \header {
   texidoc = "Clefs for cue notes and line breaks.  If the cue notes start in a
@@ -10,7 +10,7 @@ Cue notes going over a line break should print the standard clef on the new
 line plus an additional cue clef after the time/@/key signature."
 }
 
-vI = \relative { \clef "treble" \repeat unfold 40 g'4 }
+vI = \relative { \clef "treble" \*40 g'4 }
 \addQuote vIQuote { \vI }
 
 Solo = \relative {

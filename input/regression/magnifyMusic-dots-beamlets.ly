@@ -1,4 +1,4 @@
-\version "2.19.8"
+\version "2.25.35"
 
 \header {
   texidoc = "Dot size and beamlet length should be scaled along
@@ -10,7 +10,7 @@ with notation size when using the @code{\magnifyMusic} command."
     \omit Staff.TimeSignature
     \time 7/4
     <<
-      { \repeat unfold 7 \relative { g'8.[ g16] } }
+      { \*7 \relative { g'8.[ g16] } }
       {
         \magnifyMusic 0.50 s4
         \magnifyMusic 0.63 s

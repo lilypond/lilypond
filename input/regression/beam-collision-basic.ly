@@ -1,4 +1,5 @@
-\version "2.19.21"
+\version "2.25.35"
+
 \header {
   texidoc = "Collisions between manual beams and notes are minimized."
 }
@@ -13,7 +14,7 @@
   <<
     \new Voice {
     \voiceOne
-    \repeat unfold 8 { c'8[ c] }
+    \*8 { c'8[ c] }
   }
     \new Voice \relative {
       \voiceThree
@@ -22,7 +23,7 @@
       d r c r
       b r a r
       g r f r
-    } 
+    }
   >>
   \break
 
@@ -30,7 +31,7 @@
   <<
     \new Voice {
     \voiceOne
-    \repeat unfold 8 { c8[ c] }
+    \*8 { c8[ c] }
   }
     \new Voice \relative {
       \voiceThree
@@ -39,13 +40,13 @@
       d d c c
       b b a a
       g g f f
-    } 
+    }
   >>
   \break
-  
+
   <<
      \new Voice {
-       \repeat unfold 8 \relative {
+       \*8 \relative {
 	 \voiceOne
 	 c'8[
 	 \voiceTwo
@@ -54,7 +55,7 @@
      }
      \new Voice \relative {
        \voiceFour
-       s8 f' 
+       s8 f'
        s8 g
        s8 a
        s8 b
@@ -67,7 +68,7 @@
   \break
    <<
      \new Voice {
-       \repeat unfold 8 \relative {
+       \*8 \relative {
 	 \voiceOne
 
 	 %% We must use a wider interval, otherwise the beam will be
@@ -87,4 +88,3 @@
      }
    >>
 }
-

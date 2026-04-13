@@ -1,4 +1,4 @@
-\version "2.23.4"
+\version "2.25.35"
 
 \header {
   texidoc = "LilyPond does in-notes.
@@ -13,9 +13,9 @@
       \footnote
          "" #'(0 . 0)
          \markup { \box \fill-line { "this is a test" } } NoteHead
-      \repeat unfold 6 { a\< b c d\! } \bar "."
+      \*6 { a\< b c d\! } \bar "."
       \footnote #'(-1 . -0.2) "foobar" NoteHead
-      \repeat unfold 7 { a\< b c d\! } \bar ".."
+      \*7 { a\< b c d\! } \bar ".."
     }
   }
 }

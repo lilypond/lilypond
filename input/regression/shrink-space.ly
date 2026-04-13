@@ -1,4 +1,4 @@
-\version "2.25.10"
+\version "2.25.35"
 
 \header {
   texidoc = "The space types @code{shrink-space} and
@@ -22,8 +22,8 @@
 A = {
   \key ges \major
   \omit Staff.TimeSignature
-  \repeat unfold 16 f16 \noBreak
-  \repeat unfold 16 f16 \break
+  \*16 f16 \noBreak
+  \*16 f16 \break
 
   f4 \key c\major f \key es \major
     f \key c\major f \key es \major \noBreak
@@ -34,11 +34,11 @@ A = {
 }
 
 B = {
-  \tuplet 17/16 \repeat unfold 17 f16 \noBreak
-  \tuplet 17/16 \repeat unfold 17 f16 \break
+  \tuplet 17/16 \*17 f16 \noBreak
+  \tuplet 17/16 \*17 f16 \break
   \repeat volta 2 {
-    \tuplet 17/16 \repeat unfold 17 f16 \noBreak
-    \tuplet 17/16 \repeat unfold 17 f16 \break }
+    \tuplet 17/16 \*17 f16 \noBreak
+    \tuplet 17/16 \*17 f16 \break }
 
   f2 f
 }

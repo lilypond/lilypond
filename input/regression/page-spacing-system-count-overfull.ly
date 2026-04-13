@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.25.35"
 
 #(ly:set-option 'warning-as-error #t)
 #(ly:expect-warning (G_ "cannot find line breaking that satisfies constraints"))
@@ -15,5 +15,5 @@ is invalid."
     system-count = #1
   }
 
-  \repeat unfold 10 { c d e f }
+  \*10 { c d e f }
 }

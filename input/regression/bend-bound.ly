@@ -1,4 +1,4 @@
-\version "2.17.30"
+\version "2.25.35"
 
 \header {
   texidoc = "Bends should not be affected by the full width of a
@@ -31,7 +31,7 @@ music = \fixed c'' {
   \bar "|."
 }
 
-sixteenths = \repeat unfold 64 { c'16 }
+sixteenths = \*64 { c'16 }
 
 \new Score {
   << \music \sixteenths >>

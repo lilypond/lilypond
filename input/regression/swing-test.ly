@@ -1,4 +1,4 @@
-\version "2.25.3"
+\version "2.25.35"
 
 \include "swing.ly"
 
@@ -49,13 +49,13 @@
     \new Staff \with {
       instrumentName = \markup \center-column { "corresponding" "to" }
     }{
-      \repeat unfold 4 { \tuplet 3/2 { c'4 c'8 } }
-      \repeat unfold 4 { \tuplet 5/4 { c'8. c'8 } }
-      \repeat unfold 8 { \tuplet 3/2 { c'8 c'16 } }
-      \repeat unfold 2 { c'4. c'8 }
-      \repeat unfold 4 { \tuplet 5/4 { c'16. c'16 c' c'16. } }
+      \*4 { \tuplet 3/2 { c'4 c'8 } }
+      \*4 { \tuplet 5/4 { c'8. c'8 } }
+      \*8 { \tuplet 3/2 { c'8 c'16 } }
+      \*2 { c'4. c'8 }
+      \*4 { \tuplet 5/4 { c'16. c'16 c' c'16. } }
       r8 \tuplet 7/8 { c'32. c'16}
-         \repeat unfold 3 { \tuplet 7/8 { c'16 c'32. c' c'16 } }
+         \*3 { \tuplet 7/8 { c'16 c'32. c' c'16 } }
     }
   >>
   \header { piece = "1. Swing type demos" }
@@ -119,11 +119,10 @@ tripletFeelTestMusic = \relative es' {
                                                 "for comparison"}
       \remove "Staff_performer"
     } {
-      \repeat unfold 7 { \repeat unfold 4 { \tuplet 3/2 { c''8 c'' c'' } }}
+      \*7 \*4 { \tuplet 3/2 { c''8 c'' c'' } }
     }
   >>
   \header { piece = "2. Triplet feel in various situations"}
   \layout { indent = 3\cm }
   \midi {}
 }
-

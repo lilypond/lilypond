@@ -1,4 +1,4 @@
-\version "2.25.26"
+\version "2.25.35"
 
 \header {
   texidoc = "Ottava brackets include single-percent repeat measures.  In this
@@ -9,14 +9,14 @@ test, the percent repeat is followed by a note."
 
 \fixed c'' {
   \ottava 1
-  \repeat percent 2 { c4 d e f }
+  \%2 { c4 d e f }
   g1
   \ottava 0
 }
 
 \fixed c'' {
   \ottava 1
-  \repeat percent 2 { c4 d e f }
+  \%2 { c4 d e f }
   \ottava 0
   g,1^\markup \italic "loco"
 }

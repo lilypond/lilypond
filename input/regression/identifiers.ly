@@ -2,7 +2,8 @@
 \header {
   texidoc = "test identifiers."
   }
-\version "2.19.45"
+
+\version "2.25.35"
 
 num = #3
 mus = { c'4 }
@@ -16,7 +17,7 @@ bookHeaderId = \header { composer = "Composer" title = \stringId }
 
 scoreId = \score {
   \scoreHeaderId
-  \repeat unfold \num \mus
+  \*\num \mus
   \layout { \layoutId }
   \midi { \perfId }
   }
@@ -29,5 +30,3 @@ bookId = \book {
 
 
 \book { \bookId }
-
-

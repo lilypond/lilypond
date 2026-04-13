@@ -1,5 +1,4 @@
-
-\version "2.19.21"
+\version "2.25.35"
 
 \header {
   texidoc = "The @code{SpanBarStub} grob takes care of horizontal spacing
@@ -11,7 +10,7 @@ span bar were not there.
 
 <<
   \new Staff {
-    \repeat unfold 64 { c''8 }
+    \*64 { c''8 }
   }
   \new GrandStaff <<
     \new Staff

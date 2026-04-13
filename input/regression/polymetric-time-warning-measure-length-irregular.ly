@@ -1,4 +1,4 @@
-\version "2.25.32"
+\version "2.25.35"
 
 \header {
   texidoc = "A warning is issued when simultaneous @code{\\time} and
@@ -44,7 +44,7 @@ is 6/8."
     \contextPropertyCheck Staff.submeasureStructure #'(6)
     \contextPropertyCheck Staff.timeSignature 6/8
 
-    \repeat unfold 6 c8
+    \*6 c8
 
     \applyContext #(lambda (context) (ly:check-expected-warnings))
   }

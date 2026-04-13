@@ -1,4 +1,4 @@
-\version "2.25.3"
+\version "2.25.35"
 
 \header  {
   texidoc = "LilyPond knows that breves and longas are wider than whole notes
@@ -7,19 +7,19 @@
   accidental and note is the same for whole notes, breves and longas."
 }
 
-{ 
+{
   gis'1
   gis'\breve*1/2
   gis'\longa*1/4
-  \override NoteHead.style = #'altdefault 
+  \override NoteHead.style = #'altdefault
   gis'\breve*1/2
 }
 
 \score {
     \new Staff {
-      \repeat unfold 8 { a'\breve*1/16 }
-      \override NoteHead.style = #'altdefault 
-      \repeat unfold 8 { a'\breve*1/16 }
+      \*8 { a'\breve*1/16 }
+      \override NoteHead.style = #'altdefault
+      \*8 { a'\breve*1/16 }
     }
     \layout {
         \context {

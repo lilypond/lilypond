@@ -1,4 +1,4 @@
-\version "2.25.32"
+\version "2.25.35"
 
 \header {
   texidoc = "@code{\\polymetric \\time} may be used in a new @code{Voice}'s
@@ -42,10 +42,10 @@ checkVoiceNonPolymetric =
       \new Voice {
         \checkStaffNonPolymetric
         \checkVoiceNonPolymetric
-        \repeat unfold 8 c8
+        \*8 c8
         \checkStaffNonPolymetric
         \checkVoiceNonPolymetric
-        \repeat unfold 8 c8
+        \*8 c8
       }
     }
     \new Staff \with {
@@ -65,13 +65,13 @@ checkVoiceNonPolymetric =
         \contextPropertyCheck Voice.submeasureStructure #'(8)
         \contextPropertyCheck Voice.timeSignature 8/8
 
-        \repeat unfold 8 c8
+        \*8 c8
 
         \polymetric \default % implicitly in Voice context already
         \checkStaffNonPolymetric
         \checkVoiceNonPolymetric
 
-        \repeat unfold 8 c8
+        \*8 c8
       }
       %% Placing voiceOne and voiceTwo in reverse order in the source is hoped
       %% to be more sensitive to bugs.  The \polymetric \time in voiceTwo above
@@ -81,10 +81,10 @@ checkVoiceNonPolymetric =
       } {
         \checkStaffNonPolymetric
         \checkVoiceNonPolymetric
-        \repeat unfold 8 e8
+        \*8 e8
         \checkStaffNonPolymetric
         \checkVoiceNonPolymetric
-        \repeat unfold 8 e8
+        \*8 e8
       }
     >>
   >>

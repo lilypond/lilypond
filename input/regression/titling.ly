@@ -1,4 +1,4 @@
-\version "2.23.4"
+\version "2.25.35"
 
 \header {
   texidoc = "Demonstrate all titling variables used by default."
@@ -29,7 +29,7 @@
         piece = "Piece"
         opus = "Opus"
       }
-      \repeat unfold 3 { c'1 \break }
+      \*3 { c'1 \break }
     }
     \pageBreak
     \score {
@@ -38,7 +38,7 @@
         opus = "Opus 2"
         breakbefore = ##t
       }
-      \repeat unfold 3 { c'1 \break }
+      \*3 { c'1 \break }
     }
   }
   \bookpart {

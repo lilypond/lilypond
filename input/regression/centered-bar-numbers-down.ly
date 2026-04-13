@@ -1,4 +1,4 @@
-\version "2.23.3"
+\version "2.25.35"
 
 \header {
   texidoc = "Measure-centered bar numbers may be placed beneath
@@ -14,6 +14,6 @@ the staves."
 }
 
 \new StaffGroup <<
-  \repeat unfold 10 { c''1 }
-  \repeat unfold 10 { c''1 }
+  \*10 c''1
+  \*10 c''1
 >>

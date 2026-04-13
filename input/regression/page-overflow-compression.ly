@@ -1,4 +1,4 @@
-\version "2.25.0"
+\version "2.25.35"
 
 \header {
   texidoc = "
@@ -13,5 +13,5 @@ tagline should not collide with the bottom staff.
 }
 
 \book {
-  \repeat unfold 3 { g'''1\textMark "Long Text" g'''1\break}
+  \*3 { g'''1\textMark "Long Text" g'''1\break}
 }

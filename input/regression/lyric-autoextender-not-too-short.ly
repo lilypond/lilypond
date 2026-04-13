@@ -1,4 +1,4 @@
-\version "2.25.26"
+\version "2.25.35"
 
 \header {
   texidoc = "Auto-melismas are, be default, suppressed if the printed
@@ -12,7 +12,7 @@ melismata."
 }
 
 \relative {
-  \repeat unfold 11 { c'8( d) }
+  \*11 { c'8( d) }
   c( d \break
   e f g4)
 }

@@ -1,4 +1,4 @@
-\version "2.19.16"
+\version "2.25.35"
 
 \header { texidoc = "
 LilyPond should accept a tie between notes which are
@@ -9,9 +9,7 @@ enharmonically identical.
 {
   {
     \time 3/4
-    \repeat unfold 3 {
-      cis'4~ des'
-    }
+    \*3 { cis'4~ des' }
   }
   \layout { ragged-right = ##t }
   %\midi {}

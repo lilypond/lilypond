@@ -1,4 +1,4 @@
-\version "2.25.33"
+\version "2.25.35"
 
 \header {
   texidoc = "The @code{\\polymetric \\timeAbbrev} works like
@@ -17,12 +17,10 @@ common time."
   \fixed c' <<
     \time 4/4
     \new Staff = "A" {
-      \repeat unfold 3 {
-        \repeat unfold 8 f8
-      }
+      \*3 { \*8 f8 }
     }
     \new Staff = "B" \with { instrumentName = "Test" } {
-      \repeat unfold 8 f8
+      \*8 f8
 
       \context Staff \polymetric \timeAbbrev 3,3,2,8
 
@@ -34,7 +32,7 @@ common time."
       \contextPropertyCheck Staff.submeasureStructure #'(8)
       \contextPropertyCheck Staff.timeSignature #'((3 3 2) . 8)
 
-      \repeat unfold 8 f8
+      \*8 f8
 
       \context Staff \polymetric \default
       %% A user would be well-advised to add \time 4/4 here, but omitting it
@@ -48,12 +46,10 @@ common time."
       \contextPropertyCheck Staff.submeasureStructure \default
       \contextPropertyCheck Staff.timeSignature \default
 
-      \repeat unfold 8 f8
+      \*8 f8
     }
     \new Staff = "C" {
-      \repeat unfold 3 {
-        \repeat unfold 8 f8
-      }
+      \*3 { \*8 f8 }
     }
   >>
 }

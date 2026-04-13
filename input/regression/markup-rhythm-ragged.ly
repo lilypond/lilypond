@@ -1,4 +1,4 @@
-\version "2.23.13"
+\version "2.25.35"
 
 \header {
   texidoc = "@code{\\markup \\rhythm} is not affected by switching
@@ -9,5 +9,5 @@ off ragged-right globally."
 
 {
   \tempo \markup { \rhythm { 8[ 8] } = \rhythm { \tuplet 3/2 { 4 8 } } }
-  \repeat unfold 8 { a'8[ 8] }
+  \*8 { a'8[ 8] }
 }

@@ -1,4 +1,4 @@
-\version "2.23.4"
+\version "2.25.35"
 
 \header {
   texidoc = "Stress optimal page breaking.  This should look
@@ -63,11 +63,11 @@ nice and even on three A6 pages."
     \new Staff \relative {
       % 19: ideally cramped
       % Calculating page breaks...[8][16]
-      % \repeat unfold 19 { a b c d \break }
+      % \*19 { a b c d \break }
 
       % 15: test even distribution
       % Calculating page breaks...[8][16]
-      \repeat unfold 15 { a b c d \break }
+      \*15 { a b c d \break }
     }
   }
 }

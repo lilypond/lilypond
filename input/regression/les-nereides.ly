@@ -1,4 +1,4 @@
-\version "2.21.0"
+\version "2.25.35"
 
 \header {
     composer = "ARTHUR GRAY"
@@ -235,7 +235,7 @@ theScore = \score{
         \new Staff = "treble" <<
             \set beamExceptions =
 	      \beamExceptions { 8[ 8] 8[ 8] 8[ 8] 8[ 8] |
-				\repeat unfold 8 { 32[ 32 32 32] } }
+				\*8 { 32[ 32 32 32] } }
 	    \treble
 	    \trebleTwo
         >>
@@ -265,4 +265,3 @@ theScore = \score{
 %%% coding: utf-8
 %%% LilyPond-indent-level:2
 %%% End:
-

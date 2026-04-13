@@ -1,4 +1,4 @@
-\version "2.25.32"
+\version "2.25.35"
 
 \header {
   texidoc = "@code{\\polymetric \\time} may be used in a new @code{Staff}'s
@@ -17,8 +17,8 @@ start."
   \midi {}
   \fixed c' <<
     \new Staff {
-      \repeat unfold 2 {
-        \repeat unfold 8 f8
+      \*2 {
+        \*8 f8
       }
     }
     \new Staff \with {
@@ -33,7 +33,7 @@ start."
       \contextPropertyCheck Staff.submeasureStructure #'(8)
       \contextPropertyCheck Staff.timeSignature 8/8
     } {
-      \repeat unfold 8 f8
+      \*8 f8
 
       \context Staff \polymetric \default
       %% A user would be well-advised to add \time 4/4 here, but omitting it
@@ -47,12 +47,10 @@ start."
       \contextPropertyCheck Staff.submeasureStructure \default
       \contextPropertyCheck Staff.timeSignature \default
 
-      \repeat unfold 8 f8
+      \*8 f8
     }
     \new Staff {
-      \repeat unfold 2 {
-        \repeat unfold 8 f8
-      }
+      \*2 { \*8 f8 }
     }
   >>
 }

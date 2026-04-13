@@ -1,4 +1,4 @@
-\version "2.25.9"
+\version "2.25.35"
 
 \header {
   texidoc = "In-notes can be controlled via @code{\\paper} variables.
@@ -13,15 +13,15 @@ music = { a4 b8 e c4 d }
   \relative c'' {
     \override Score.Footnote.footnote = ##f
 
-    \repeat unfold 8 \music
+    \*8 \music
     \footnote #'(1 . 1) "An in-note." NoteHead
-    <>-> \repeat unfold 8 \music
+    <>-> \*8 \music
     \footnote "" #'(0 . 0) "An in-note without number."
               NoteHead
     <>-> \music
     \footnote "" #'(0 . 0) "Another in-note without number."
               NoteHead
-    <>-> \repeat unfold 4 \music
+    <>-> \*4 \music
   }
 
   \paper {

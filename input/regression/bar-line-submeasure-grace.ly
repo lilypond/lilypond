@@ -1,4 +1,4 @@
-\version "2.25.32"
+\version "2.25.35"
 
 \header {
   texidoc="Submeasure bar lines are placed before any grace notes in the
@@ -25,9 +25,9 @@ submeasure."
   \new Staff \fixed c' {
     \repeat unfold 2 {
       \appoggiatura d8
-      \repeat unfold 3 c4
+      \*3 c4
       \appoggiatura d8
-      \repeat unfold 3 { c8 }
+      \*3 { c8 }
     }
   }
   \new Staff \fixed c' {

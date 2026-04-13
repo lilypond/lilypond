@@ -1,4 +1,4 @@
-\version "2.25.32"
+\version "2.25.35"
 
 \header {
   texidoc = "The structure argument of @code{\\overrideTimeSignatureSettings}
@@ -15,5 +15,5 @@ and@tie{}2."
   #'((3) (2 2) (3 3) (2)) % structure
   #'()                    % beamExceptions
   \time 15/8
-  \repeat unfold 15 {c''8}
+  \*15 c''8
 }

@@ -1,4 +1,4 @@
-\version "2.25.32"
+\version "2.25.35"
 
 \header {
   texidoc = "@code{\\scaleDurations @dots{} \\polymetric \\time @dots{}} can be
@@ -12,14 +12,14 @@ staff should revert to 4/4 time."
 
 \fixed c' <<
   \new Staff {
-    \repeat unfold 8 c4
+    \*8 c4
   }
   \new Staff \with {
     \scaleDurations 1/4 { \context Staff \polymetric \time #'((3 1) . 1) }
     \clef "bass"
   } {
     \scaleDurations 1/4 {
-      \repeat unfold 4 c1
+      \*4 c1
     }
     \context Staff \polymetric \default
     \contextPropertyCheck Staff.beamExceptions \default
@@ -28,6 +28,6 @@ staff should revert to 4/4 time."
     \contextPropertyCheck Staff.measureLength \default
     \contextPropertyCheck Staff.meterScalingFactor \default
     \contextPropertyCheck Staff.submeasureStructure \default
-    \repeat unfold 4 c4
+    \*4 c4
   }
 >>

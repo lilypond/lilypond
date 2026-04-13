@@ -1,4 +1,4 @@
-\version "2.25.32"
+\version "2.25.35"
 
 \header {
   texidoc="@code{submeasureBarType} controls the type of bar line to create at
@@ -22,9 +22,7 @@ measure boundaries also."
 
 testMusic = \fixed c' {
   \time #'((3 . 4) (3 . 8))
-  \repeat unfold 2 {
-    \repeat unfold 3 c4 \repeat unfold 3 c8
-  }
+  \*2 { \*3 c4 \*3 c8 }
 }
 
 \score {

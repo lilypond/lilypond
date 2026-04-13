@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.25.35"
 
 #(set-default-paper-size "a6")
 
@@ -13,5 +13,5 @@ a minimum number of systems. Titles do not count as systems here."
     min-systems-per-page = 5
   }
 
-  { \repeat unfold 11 { c'1 } \pageBreak \repeat unfold 6 { c'1 } }
+  { \*11 c'1 \pageBreak \*6 c'1 }
 }

@@ -1,7 +1,8 @@
 \header {
   texidoc = "@option{-ddebug-skyline} draws the outline of the skyline used."
   }
-\version "2.16.0"
+
+\version "2.25.35"
 
 #(set-default-paper-size "a6" )
 
@@ -13,8 +14,10 @@
 \book {
   \score {
     {
-      a,,1 | a'4 b' c'' d'' \break
-      \repeat unfold 2 {a' b' c'' d''} | b''''1
+      a,,1
+      a'4 b' c'' d'' \break
+      \*2 { a' b' c'' d'' }
+      b''''1
     }
   }
 }

@@ -1,4 +1,4 @@
-\version "2.25.26"
+\version "2.25.35"
 
 \header {
   texidoc = "Ottava brackets include double-percent repeat measures.  In this
@@ -10,14 +10,14 @@ ottavation is canceled."
 
 \fixed c'' {
   \ottava 1
-  \repeat percent 2 { r4 d e f | g f e r }
+  \%2 { r4 d e f | g f e r }
   \ottava 0 \bar "||"
   r4
 }
 
 \fixed c'' {
   \ottava 1
-  \repeat percent 2 { r4 d e f | g f e r }
+  \%2 { r4 d e f | g f e r }
   r4
   \ottava 0 \bar "||"
 }

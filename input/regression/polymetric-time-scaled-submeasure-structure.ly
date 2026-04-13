@@ -1,4 +1,4 @@
-\version "2.25.32"
+\version "2.25.35"
 
 \header {
   texidoc = "In this test, the @code{Score} time signature is 3/2.  In the
@@ -31,7 +31,7 @@ signs in the time signatures."
       \contextPropertyCheck Staff.submeasureStructure #'(2 3)
       \contextPropertyCheck Staff.timeSignature #'((1 . 2) (3 . 4))
 
-      \repeat unfold 10 c8
+      \*10 c8
     }
   }
   \new Staff {
@@ -44,7 +44,7 @@ signs in the time signatures."
       \contextPropertyCheck Staff.submeasureStructure #'(3 4 8)
       \contextPropertyCheck Staff.timeSignature #'((3 . 16) (2 . 8) (2 . 4))
 
-      \repeat unfold 15 c16
+      \*15 c16
     }
   }
 >>

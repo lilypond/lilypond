@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.25.35"
 
 \header {
   texidoc = "The @code{X-offset} of @code{DynamicText} grobs in a
@@ -16,7 +16,7 @@
           c'4\p c c\mp c |
           c4\mf c c\f c |
           <<
-            \repeat unfold 8 c4
+            \*8 c4
             \new Dynamics = "dynamics" \with {
               alignBelowContext = "up"
             } {
@@ -28,7 +28,7 @@
       }
       \new Staff = "down" {
         \clef bass
-        \repeat unfold 16 c4
+        \*16 c4
       }
     >>
   >>

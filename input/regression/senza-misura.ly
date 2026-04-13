@@ -1,4 +1,4 @@
-\version "2.25.32"
+\version "2.25.35"
 
 \header {
   texidoc = "This placeholder test covers some internals of a future
@@ -28,7 +28,7 @@ testMusic = {
   \contextPropertyCheck Score.measureLength #+inf.0
   \contextPropertyCheck Score.submeasureStructure #'()
   \contextPropertyCheck Score.timeSignature ##f
-  \repeat unfold 8 { 8 }
+  \*8 8
 }
 
 \new Score \with { \senzaMisura } \testMusic

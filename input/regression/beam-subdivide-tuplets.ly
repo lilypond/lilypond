@@ -1,4 +1,4 @@
-\version "2.25.22"
+\version "2.25.35"
 
 \header {
   texidoc = "
@@ -13,5 +13,5 @@ the beams should be subdivided every 1/8.
     \tupletSpan 4
     \set beatBase = #1/8
     \set subdivideBeams = ##t
-    \tuplet 6/4 { \repeat unfold 24 { c16 } }
+    \tuplet 6/4 { \*24 c16 }
 }

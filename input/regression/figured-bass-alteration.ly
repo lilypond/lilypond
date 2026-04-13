@@ -1,4 +1,4 @@
-\version "2.23.4"
+\version "2.25.35"
 
 \header {
   texidoc = "Bass figures can carry alterations, which may also be
@@ -18,7 +18,7 @@ bracketed."
   \new Staff {
     \time 5/4
     \clef bass
-    \repeat unfold 20 d4
+    \*20 d4
   }
   \figures
   {

@@ -1,4 +1,4 @@
-\version "2.23.6"
+\version "2.25.35"
 
 \header {
   texidoc = "Balloons and footnotes on multi-measure rest numbers and
@@ -18,6 +18,6 @@ percent repeat counters are correctly placed."
     \footnote #'(1 . 1) "Rest during three measures" MultiMeasureRestNumber
     R1*3
     \after 1 \balloonGrobText PercentRepeatCounter #'(2 . 1) "Second repeat"
-    \repeat percent 3 { c'1 }
+    \%3 { c'1 }
   }
 }

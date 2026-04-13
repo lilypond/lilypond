@@ -1,4 +1,4 @@
-\version "2.25.32"
+\version "2.25.35"
 
 #(set-default-paper-size "a7")
 #(set-global-staff-size 11)
@@ -25,9 +25,9 @@ because a large @code{bottom-padding} value overrides the
             Score.NonMusicalPaperColumn.line-break-system-details =
               #'((bottom-padding . 45))
           s1*5 \break }
-        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+        \new Voice { \*15 { c'4 c' c' c' } }
       >>
-      \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
+      \new Staff { \*15 { d'4 d' d' d' } }
     >>
   }
   \paper { ragged-last-bottom = ##f }

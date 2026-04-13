@@ -1,4 +1,4 @@
-\version "2.25.32"
+\version "2.25.35"
 
 \header {
   texidoc = "A warning is issued when simultaneous @code{\\time} and
@@ -51,7 +51,7 @@ checks =
     \context Staff \polymetric \time 5/8
     \checks % notwithstanding the warning, the settings take effect
 
-    \repeat unfold 5 r4
+    \*5 r4
 
     \applyContext #(lambda (context) (ly:check-expected-warnings))
 
@@ -73,7 +73,7 @@ checks =
     \time 5/4
     \checks % notwithstanding the warning, the settings take effect
 
-    \repeat unfold 5 r4
+    \*5 r4
 
     \applyContext #(lambda (context) (ly:check-expected-warnings))
   }

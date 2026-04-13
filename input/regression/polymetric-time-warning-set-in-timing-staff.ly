@@ -1,4 +1,4 @@
-\version "2.25.32"
+\version "2.25.35"
 
 \header {
   texidoc = "@code{\\polymetric \\time} is ignored with a warning when issued in
@@ -90,7 +90,7 @@ testMusic = \new Staff \fixed c' {
     \contextPropertyCheck Staff.timeSignature 12/16
   }
 
-  \repeat unfold 6 c8
+  \*6 c8
 }
 
 \score {

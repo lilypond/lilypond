@@ -1,4 +1,4 @@
-\version "2.25.0"
+\version "2.25.35"
 
 \header{
     texidoc="@code{Page_@/turn_@/engraver} places a page turn after a
@@ -29,9 +29,9 @@ engraver operates in @code{Score} context."
     \relative {
       a b c d a b c d \break
       c d e f c d e f R1*4
-      \repeat unfold 13 {d4 e f g} \break
+      \*13 { d4 e f g } \break
       c d e f c d e f R1*2 \bar "||" R1*2
-      \repeat unfold 15 {d4 e f g}
+      \*15 { d4 e f g }
     }
   }
 }

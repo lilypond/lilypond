@@ -1,9 +1,9 @@
-\version "2.23.6"
+\version "2.25.35"
 
 % Helper for barNumberVisibility tests
 
 music = \relative {
-  \repeat unfold 3 { c'2 \bar "" \break 2 2 2 }
+  \*3 { c'2 \bar "" \break 2 2 2 }
 }
 
 testVisibility =

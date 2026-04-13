@@ -1,4 +1,4 @@
-\version "2.25.32"
+\version "2.25.35"
 
 \header {
   texidoc = "A warning is issued when a @code{Staff} @code{\\with} block
@@ -39,7 +39,7 @@ signature is 5/8."
         \contextPropertyCheck Staff.submeasureStructure #'(5)
         \contextPropertyCheck Staff.timeSignature 5/8
 
-        \repeat unfold 5 r4
+        \*5 r4
       }
     >>
 

@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.25.35"
 
 \header {
   texidoc = "The number of pages in a score can be forced by setting
@@ -10,5 +10,5 @@ too many systems for that number of pages, we will squeeze them in."
 
 \book {
   \paper { page-count = 1}
-  \score { { \repeat unfold 10 {c'1 \break} } }
+  \score { { \*10 { c'1 \break } } }
 }

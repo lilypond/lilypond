@@ -1,4 +1,4 @@
-\version "2.23.10"
+\version "2.25.35"
 
 #(ly:set-option 'warning-as-error #t)
 
@@ -15,7 +15,7 @@ should appear at the end under a segno."
   sectionBarType = #'()
   underlyingRepeatBarType = "." % distinguish from default sectionBarType
 } {
-  \repeat volta 2 { \repeat unfold 12 R1 } % endRepeatBarType
+  \repeat volta 2 { \*12 R1 } % endRepeatBarType
   \section % sectionBarType
   \segnoMark 1 % underlyingRepeatBarType
 }

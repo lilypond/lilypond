@@ -1,4 +1,4 @@
-\version "2.25.23"
+\version "2.25.35"
 
 
 \header {
@@ -31,7 +31,7 @@ of the current subdivision."
   \break
 
   \set beamMinimumSubdivision = #1/32
-  c64^\markup{"beamMinimumSubdivision 1/32"}[ \repeat unfold 14 {c64} c64]
+  c64^\markup{"beamMinimumSubdivision 1/32"}[ \*14 c64 c64]
   \break
 
   \unset beamMinimumSubdivision
@@ -49,6 +49,6 @@ of the current subdivision."
   \break
 
   \set beamMaximumSubdivision = #1/32
-  c64^\markup{"beamMaximumSubdivision 1/32"}[ \repeat unfold 14 {c64} c64]
+  c64^\markup{"beamMaximumSubdivision 1/32"}[ \*14 c64 c64]
   \break
 }

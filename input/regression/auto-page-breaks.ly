@@ -1,4 +1,4 @@
-\version "2.25.0"
+\version "2.25.35"
 
 \header {
   texidoc = "@code{\\autoPageBreaksOff} turns off automatic
@@ -11,11 +11,11 @@ page breaking; @code{\\autoPageBreaksOn} reenables it."
 }
 
 {
-  \repeat unfold 15 { c'1 }
+  \*15 c'1
   \autoPageBreaksOff
-  \repeat unfold 15 { d'1 }
+  \*15 d'1
   \pageBreak
-  \repeat unfold 15 { e'1 }
+  \*15 e'1
   \autoPageBreaksOn
-  \repeat unfold 15 { f'1 }
+  \*15 f'1
 }

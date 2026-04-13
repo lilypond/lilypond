@@ -1,4 +1,4 @@
-\version "2.23.10"
+\version "2.25.35"
 
 \header {
 
@@ -12,6 +12,6 @@ is expected to run off the page."
 }
 
 {
-  \repeat unfold 30 { c''2 c'2\glissando }
+  \*30 { c''2 c'2\glissando }
   c'2
 }

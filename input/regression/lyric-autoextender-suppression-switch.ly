@@ -1,4 +1,4 @@
-\version "2.25.26"
+\version "2.25.35"
 
 \header {
   texidoc = "The removal of short auto-melismas may be switched off."
@@ -9,7 +9,7 @@
 }
 
 \relative {
-  \repeat unfold 4 { c'8( d e d) }
+  \*4 { c'8( d e d) }
 }
 \addlyrics {
   Supercalifragilisticexpialidocious

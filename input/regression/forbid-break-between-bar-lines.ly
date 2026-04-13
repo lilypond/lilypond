@@ -1,4 +1,4 @@
-\version "2.23.11"
+\version "2.25.35"
 
 \header {
   texidoc = "@code{forbidBreakBetweenBarLines} controls whether
@@ -13,9 +13,4 @@ The output should have a break in the middle of a measure."
   }
 }
 
-\repeat unfold 10 {
-  c'4
-  4
-  4
-  4 \noBreak
-}
+\*10 { c'4 4 4 4 \noBreak }

@@ -5,7 +5,7 @@
 }
 
 instrument = \relative {
-  \repeat unfold 40 { c'8 }
+  \*40 { c'8 }
 }
 \addQuote "instrQuote" \instrument
 

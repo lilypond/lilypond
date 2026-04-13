@@ -1,4 +1,4 @@
-\version "2.25.8"
+\version "2.25.35"
 
 \header {
   texidoc = "When subdividing tuplet ratios whose numerators are powers
@@ -19,33 +19,33 @@ the same level different, depending on the tuplet ratio magnitude."
   \override TupletNumber.text = #tuplet-number::calc-fraction-text
 
   \tuplet 1/2 {
-    \repeat unfold 8 c64
+    \*8 c64
   }
   \break
 
   \tuplet 1/4 {
-    \repeat unfold 8 c128
+    \*8 c128
   }
   \break
 
   \tuplet 1/8 {
-    \repeat unfold 8 c256
+    \*8 c256
   }
   \break
 
   \time 1/16
   \tuplet 2/1 {
-    \repeat unfold 8 c64
+    \*8 c64
   }
   \break
 
   \tuplet 4/1 {
-    \repeat unfold 16 c64
+    \*16 c64
   }
   \break
 
   \tuplet 8/1 {
-    \repeat unfold 32 c64
+    \*32 c64
   }
   \break
 }

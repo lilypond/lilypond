@@ -1,4 +1,4 @@
-\version "2.25.26"
+\version "2.25.35"
 
 \header {
   texidoc = "Ottava brackets include single-percent repeat measures.  In this
@@ -9,10 +9,10 @@ test, the ottavation is not canceled."
 
 \fixed c'' {
   \ottava 1
-  \repeat percent 2 { s1 }
+  \%2 { s1 }
 }
 
 \fixed c'' {
   \ottava 1
-  \repeat percent 2 { R1 }
+  \%2 { R1 }
 }

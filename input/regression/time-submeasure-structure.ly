@@ -1,4 +1,4 @@
-\version "2.25.32"
+\version "2.25.35"
 
 \header {
   texidoc = "@code{\\time} accepts an option specifying measure subdivision.  A
@@ -34,11 +34,9 @@ dotted bar line should appear between beat groups as noted above each staff."
     \contextPropertyCheck Timing.measureLength #5/4
     \contextPropertyCheck Timing.submeasureStructure #'(5)
     \contextPropertyCheck Timing.timeSignature 5/4
-    \repeat unfold 20 d'16
+    \*20 d'16
   } \\ {
-    \repeat unfold 5 {
-      \tuplet 3/2 \repeat unfold 6 g16
-    }
+    \*5 \tuplet 3/2 \*6 g16
   } >>
 
   \break
@@ -51,11 +49,9 @@ dotted bar line should appear between beat groups as noted above each staff."
     \contextPropertyCheck Timing.measureLength #5/4
     \contextPropertyCheck Timing.submeasureStructure #'(3 2)
     \contextPropertyCheck Timing.timeSignature 5/4
-    \repeat unfold 20 d'16
+    \*20 d'16
   } \\ {
-    \repeat unfold 5 {
-      \tuplet 3/2 \repeat unfold 6 g16
-    }
+    \*5 \tuplet 3/2 \*6 g16
   } >>
 
   \break
@@ -68,10 +64,8 @@ dotted bar line should appear between beat groups as noted above each staff."
     \contextPropertyCheck Timing.measureLength #5/4
     \contextPropertyCheck Timing.submeasureStructure #'(2 3)
     \contextPropertyCheck Timing.timeSignature 5/4
-    \repeat unfold 20 d'16
+    \*20 d'16
   } \\ {
-    \repeat unfold 5 {
-      \tuplet 3/2 \repeat unfold 6 g16
-    }
+    \*5 \tuplet 3/2 \*6 g16
   } >>
 }

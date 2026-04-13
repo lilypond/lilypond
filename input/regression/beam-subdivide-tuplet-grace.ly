@@ -1,4 +1,4 @@
-\version "2.25.19"
+\version "2.25.35"
 
 \header {
   texidoc = "Beamed grace notes within a tuplet should be subdivided
@@ -19,7 +19,7 @@ at 16th level, 1 subdivision at 8th level."
   \omit Staff.Clef
   \omit Staff.TimeSignature
 
-  \tuplet 3/2 { \repeat unfold 3 { \grace { \repeat unfold 8 a32 } b8 } } \break
+  \tuplet 3/2 { \*3 { \grace { \*8 a32 } b8 } } \break
   \set subdivideBeams = ##t
-  \tuplet 3/2 { \repeat unfold 3 { \grace { \repeat unfold 8 a32 } b8 } } \break
+  \tuplet 3/2 { \*3 { \grace { \*8 a32 } b8 } } \break
 }

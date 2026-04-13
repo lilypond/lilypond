@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.25.35"
 
 \header {
 
@@ -24,13 +24,13 @@ mylyrics = \lyricmode {
 \score {
   <<
     \new Voice = "voice" {
-      \repeat unfold 13 \notes
+      \*13 \notes
     }
     \context NoteNames  {
-      \repeat unfold 13 \notes
+      \*13 \notes
     }
     \new Lyrics \lyricsto "voice" {
-      \repeat unfold 13 \mylyrics
+      \*13 \mylyrics
     }
   >>
 }

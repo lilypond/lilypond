@@ -1,4 +1,4 @@
-\version "2.17.6"
+\version "2.25.35"
 
 \header {
   texidoc = "Spacing corrections for kneed beams still work when
@@ -22,6 +22,6 @@ lh = \change Staff = "lh"
   }
   \new Staff ="lh" \new Voice {
     \clef bass
-    \repeat unfold 12 { \rh a'16 \lh d \rh a' \lh d \noBreak }
+    \*12 { \rh a'16 \lh d \rh a' \lh d \noBreak }
   }
 >>

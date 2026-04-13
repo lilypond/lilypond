@@ -1,4 +1,4 @@
-\version "2.23.4"
+\version "2.25.35"
 
 \header {
 
@@ -41,7 +41,7 @@
 \book {
   \score {
     \new Staff \relative {
-      \repeat unfold 18 { a b c d \break }
+      \*18 { a b c d \break }
     }
   }
 }

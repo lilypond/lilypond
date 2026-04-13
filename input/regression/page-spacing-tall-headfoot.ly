@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.25.35"
 
 #(set-default-paper-size "a6")
 
@@ -8,12 +8,10 @@
 the heights of the header and footer."
   }
   \paper {
-    oddHeaderMarkup = \markup { \fill-line { \column { t a l l h e a d e r } } } 
+    oddHeaderMarkup = \markup { \fill-line { \column { t a l l h e a d e r } } }
     oddFooterMarkup = \markup { \fill-line { \column { t a l l f o o t e r } } }
     evenFooterMarkup = \markup { \fill-line { "small footer" } }
   }
 
-  \repeat unfold 10 { c'1 \break }
+  \*10 { c'1 \break }
 }
-
-

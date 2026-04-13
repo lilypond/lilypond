@@ -5,27 +5,27 @@
 staves synchronized with the notes."
 
 }
-\version "2.25.23"
+\version "2.25.35"
 
 skips =
 {
   \time 12/8
   \once  \override Score.GridLine.thickness = #4.0
-  s8 
-  s8 
-  s8 
+  s8
+  s8
+  s8
   \once  \override Score.GridLine.thickness = #3.0
-  s8 
-  s8 
-  s8 
+  s8
+  s8
+  s8
   \once  \override Score.GridLine.thickness = #4.0
-  s8 
-  s8 
-  s8 
+  s8
+  s8
+  s8
   \once  \override Score.GridLine.thickness = #3.0
-  s8 
-  s8 
-  s8 
+  s8
+  s8
+  s8
 }
 
 
@@ -33,7 +33,7 @@ skips =
   \context {
     \Staff
     \consists "Grid_point_engraver"
-    
+
   }
 
   \context {
@@ -44,7 +44,7 @@ skips =
   }
   \context {
     \StaffGroup
-    \remove "System_start_delimiter_engraver" 
+    \remove "System_start_delimiter_engraver"
   }
   \context {
     \Score
@@ -78,10 +78,9 @@ skips =
     << \skips
 
 				% force regular spacing by introducing notes.
-       \repeat unfold 12 c8
+       \*12 c8
      >>
   }
-  
+
 >>
 }
-

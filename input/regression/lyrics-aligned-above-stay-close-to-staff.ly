@@ -1,4 +1,4 @@
-\version "2.19.21"
+\version "2.25.35"
 
 \header {
   title = "Aligned-above lyrics should stay close to their staff"
@@ -10,8 +10,7 @@ Bass staff.
 
 \paper { ragged-last-bottom = ##f }
 
-tune = \relative { \repeat unfold 2 { c4( e) g2 | \break c1 }
-\bar "|."  }
+tune = \relative { \*2 { c4( e) g2 | \break c1 } \bar "|." }
 
 \score {
 

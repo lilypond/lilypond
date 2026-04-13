@@ -1,4 +1,4 @@
-\version "2.25.28"
+\version "2.25.35"
 
 \header {
   texidoc = "Default values for time signature settings can vary by
@@ -16,7 +16,7 @@ staff if the @code{Timing_translator} is moved from @code{Score} to
           3,1        % beatStructure
           #'()       % beamExceptions
         \time 4/4
-        \repeat unfold 8 {c''8}
+        \*8 c''8
      }
      \new Staff {
         \overrideTimeSignatureSettings
@@ -25,7 +25,7 @@ staff if the @code{Timing_translator} is moved from @code{Score} to
           1,3        % beatStructure
           #'()       % beamExceptions
         \time 4/4
-        \repeat unfold 8 {c''8}
+        \*8 c''8
      }
   >>
   \layout {

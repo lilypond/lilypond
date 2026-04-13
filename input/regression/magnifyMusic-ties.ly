@@ -1,4 +1,4 @@
-\version "2.19.8"
+\version "2.25.35"
 
 \header {
   texidoc = "Ties should be scaled along with notation size when
@@ -22,11 +22,11 @@ template = {
   \new StaffGroup <<
     \new Staff \new Voice = "upper" <<
       \template
-      \repeat unfold 7 { g'32[~ g' a'~ a'] }
+      \*7 { g'32[~ g' a'~ a'] }
     >>
     \new Staff \new Voice <<
       \template
-      \repeat unfold 7 { \tieUp g'32[~ g' a'~ a'] }
+      \*7 { \tieUp g'32[~ g' a'~ a'] }
     >>
     \new Lyrics \with {
       \override VerticalAxisGroup.staff-affinity = #DOWN
@@ -36,12 +36,12 @@ template = {
     \new Staff \new Voice <<
       \clef bass
       \template
-      \repeat unfold 7 { f32[~ f e~ e] }
+      \*7 { f32[~ f e~ e] }
     >>
     \new Staff \new Voice <<
       \clef bass
       \template
-      \repeat unfold 7 { \tieDown f32[~ f e~ e] }
+      \*7 { \tieDown f32[~ f e~ e] }
     >>
   >>
 }

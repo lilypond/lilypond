@@ -1,4 +1,5 @@
-\version "2.23.14"
+\version "2.25.35"
+
 \header {
 
   texidoc = "The @code{\\removeWithTag} and @code{\\keepWithTag}
@@ -10,9 +11,9 @@ commands can name multiple tags to remove or to keep."
 
 music =
 <<
-  \tag #'flood \new Voice { \voiceOne \repeat unfold 16 { c'''8 cis'''8 } }
-  \tag #'highball \new Voice { \voiceThree \repeat unfold 8 { a'4( as') } }
-  \tag #'buffoon \new Voice { \voiceFour \repeat unfold 2 { f1~ 1 } }
+  \tag #'flood \new Voice { \voiceOne \*16 { c'''8 cis'''8 } }
+  \tag #'highball \new Voice { \voiceThree \*8 { a'4( as') } }
+  \tag #'buffoon \new Voice { \voiceFour \*2 { f1~ 1 } }
 >>
 
 demo =

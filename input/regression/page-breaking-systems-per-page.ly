@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.25.35"
 
 \header {
   texidoc = "The systems-per-page variable forces a certain number of systems
@@ -13,5 +13,5 @@ per page. Titles are not counted as systems."
     systems-per-page = 3
   }
 
-  { \repeat unfold 3 { c'1 } \pageBreak \repeat unfold 3 { c'1 } }
+  { \*3 c'1 \pageBreak \*3 c'1 }
 }

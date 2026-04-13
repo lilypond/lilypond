@@ -1,4 +1,4 @@
-\version "2.25.23"
+\version "2.25.35"
 
 \header {
   texidoc = "Properties @code{beamMaximumSubdivision} and
@@ -20,10 +20,10 @@ approriate power-of-2@tie{}counterpart.
 }
 
 first = {
-  \repeat unfold 4 c256 c128
+  \*4 c256 c128
 }
 remaining = {
-  \repeat unfold 3 \first \first c256 c c c c128^"pos=1/8" \repeat unfold 3 \first c256 c c c c32
+  \*3 \first \first c256 c c c c128^"pos=1/8" \*3 \first c256 c c c c32
   \break
 }
 
@@ -58,10 +58,10 @@ remaining = {
 }
 
 first = {
-  \repeat unfold 4 c16 c8
+  \*4 c16 c8
 }
 remaining = {
-  c8 \repeat unfold 4 \first c16 c c c c8^"pos=2" \repeat unfold 4 \first s4.
+  c8 \*4 \first c16 c c c c8^"pos=2" \*4 \first s4.
   \break
 }
 

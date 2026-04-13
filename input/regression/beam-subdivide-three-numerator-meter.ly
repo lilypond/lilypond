@@ -1,4 +1,4 @@
-\version "2.25.27"
+\version "2.25.35"
 
 \header {
   texidoc = "This test sets @code{beamExceptions} and @code{subdivideBeams} so
@@ -27,7 +27,7 @@ the full measure."
   \contextPropertyCheck Timing.beamExceptions #'((end . ((1/8 . (3)))))
   \contextPropertyCheck Timing.subdivideBeams ##f
   \set Timing.subdivideBeams = ##t
-  \repeat unfold 12 c32
+  \*12 c32
 }
 
 \relative c' {
@@ -36,7 +36,7 @@ the full measure."
   \contextPropertyCheck Timing.subdivideBeams ##f
   \set Timing.beamExceptions = #'((end . ((1/8 . (3/2)))))
   \set Timing.subdivideBeams = ##t
-  \repeat unfold 12 c64
+  \*12 c64
   c8 c16
   c16 c8
 }
@@ -47,7 +47,7 @@ the full measure."
   \contextPropertyCheck Timing.subdivideBeams ##f
   \set Timing.beamExceptions = #'((end . ((1/8 . (3/4)))))
   \set Timing.subdivideBeams = ##t
-  \repeat unfold 12 c128
+  \*12 c128
   c16 c32
   c32 c16
 }

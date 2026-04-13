@@ -1,4 +1,4 @@
-\version "2.23.12"
+\version "2.25.35"
 
 \header {
   texidoc = "The @code{\\staffHighlight} command highlights a musical passage.
@@ -31,7 +31,7 @@ of another highlight, or by the end of the music."
  % \override Staff.StaffHighlight.shorten-pair = #'(0.3 . 0)
 %  \override Staff.TimeSignature.space-alist.first-note = #'(fixed-space . -1)
   \staffHighlight darkturquoise
-  \repeat unfold 16 g'16
+  \*16 g'16
   % Explicit stop can also be used at end of piece.
   \stopStaffHighlight
 }

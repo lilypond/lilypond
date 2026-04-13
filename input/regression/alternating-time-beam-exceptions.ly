@@ -1,4 +1,4 @@
-\version "2.25.33"
+\version "2.25.35"
 
 \header {
   texidoc = "The beat structure and beaming exceptions for a component of a
@@ -14,17 +14,17 @@ strictly alternating time signature are the same as when it appears alone."
 
 \fixed c' <<
   \new Staff {
-    \time 2/2 \repeat unfold 8 { 8 }
-    \time 4/4 \repeat unfold 8 { 8 }
-    \time 3/8 \repeat unfold 3 { 8 }
+    \time 2/2 \*8 { 8 }
+    \time 4/4 \*8 { 8 }
+    \time 3/8 \*3 { 8 }
 
-    \time 2/2 \repeat unfold 16 { 16 }
-    \time 4/4 \repeat unfold 16 { 16 }
-    \time 3/8 \repeat unfold 6 { 16 }
+    \time 2/2 \*16 { 16 }
+    \time 4/4 \*16 { 16 }
+    \time 3/8 \*6 { 16 }
 
-    \time 2/2 \repeat unfold 32 { 32 }
-    \time 4/4 \repeat unfold 32 { 32 }
-    \time 3/8 \repeat unfold 12 { 32 }
+    \time 2/2 \*32 { 32 }
+    \time 4/4 \*32 { 32 }
+    \time 3/8 \*12 { 32 }
   }
   \new Staff {
     \timeAbbrev #'((2 2) (4 4) (3 8))
@@ -38,16 +38,16 @@ strictly alternating time signature are the same as when it appears alone."
                (1/12 . (6 6      3 3 3 3  9/2))
                (1/32 . (8 8 8 8  8 8 8 8  12)))))
 
-    \repeat unfold 8 { 8 } \allowBreak
-    \repeat unfold 8 { 8 } \allowBreak
-    \repeat unfold 3 { 8 } \allowBreak
+    \*8 { 8 } \allowBreak
+    \*8 { 8 } \allowBreak
+    \*3 { 8 } \allowBreak
 
-    \repeat unfold 16 { 16 } \allowBreak
-    \repeat unfold 16 { 16 } \allowBreak
-    \repeat unfold 6 { 16 } \allowBreak
+    \*16 { 16 } \allowBreak
+    \*16 { 16 } \allowBreak
+    \*6 { 16 } \allowBreak
 
-    \repeat unfold 32 { 32 } \allowBreak
-    \repeat unfold 32 { 32 } \allowBreak
-    \repeat unfold 12 { 32 } \allowBreak
+    \*32 { 32 } \allowBreak
+    \*32 { 32 } \allowBreak
+    \*12 { 32 } \allowBreak
   }
 >>

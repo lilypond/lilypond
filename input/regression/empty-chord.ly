@@ -1,10 +1,10 @@
-\version "2.19.21"
+\version "2.25.35"
 
 \header { texidoc = "Empty chords accept articulations, occupy no time,
                      and leave the current duration unchanged."
         }
 
 \relative {
-  r4 e'8( g <>) ^"sul D" \f \> \repeat unfold 8 { c-. } <>\sfz
-  <>\downbow \repeat unfold 2 { c g } c1\> <>\enddecr
+  r4 e'8( g <>) ^"sul D" \f \> \*8 c-. <>\sfz
+  <>\downbow \*2 { c g } c1\> <>\enddecr
 }

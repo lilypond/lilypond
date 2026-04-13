@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.25.35"
 
 #(set-default-paper-size "a6")
 
@@ -23,9 +23,9 @@ page should be horizontally stretched.
 
 \relative c' {
   <>_"this page stretched horizontally"
-  \repeat unfold 5 {a b c d} \pageBreak
+  \*5 { a b c d } \pageBreak
   <>_"this page with natural spacing"
-  \repeat unfold 5 {a b c d}
+  \*5 { a b c d }
 }
 
 }

@@ -1,11 +1,11 @@
-\version "2.21.0"
+\version "2.25.35"
 
 \header {
   texidoc = "Clefs for cue notes: Print a cue clef at the begin of the cue
 notes and a canceling clef after the cue notes."
 }
 
-vI = \relative { \clef "treble" \repeat unfold 16 g'4 }
+vI = \relative { \clef "treble" \*16 g'4 }
 \addQuote vIQuote { \vI }
 
 Solo = \relative {

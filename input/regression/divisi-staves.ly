@@ -1,4 +1,4 @@
-\version "2.19.13"
+\version "2.25.35"
 
 \header {
   texidoc = "The @code{VerticalAxisGroup.remove-layer}
@@ -11,16 +11,16 @@ boring = \set Staff.keepAliveInterfaces = #'()
 tricky = \unset Staff.keepAliveInterfaces
 
 violI=\relative d' {
-  \boring \repeat unfold 100 d4
+  \boring \*100 d4
   \tricky <d g'>2
-  \boring \repeat unfold 98 d4
+  \boring \*98 d4
   \bar "|."
 }
 
 violII=\relative g {
-  \boring \repeat unfold 100 g4
+  \boring \*100 g4
   \tricky <g d'>2
-  \boring \repeat unfold 98 g4
+  \boring \*98 g4
   \bar "|."
 }
 

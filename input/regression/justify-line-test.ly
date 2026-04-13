@@ -1,4 +1,4 @@
-\version "2.16.0"
+\version "2.25.35"
 
 \header {
   texidoc = "The @code{\\justify-line} markup command produces equally
@@ -35,7 +35,7 @@ collisions."
 \book {
   \score {
     \new Staff \relative c'' {
-      \repeat unfold 4 c1
+      \*4 c1
     }
   }
 }

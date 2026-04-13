@@ -1,4 +1,4 @@
-\version "2.25.8"
+\version "2.25.35"
 
 \header {
   texidoc = "Even though their tuplet ratios are the same when
@@ -13,7 +13,7 @@ subdivides an additional half."
 }
 
 notes = {
-  \repeat unfold 24 c64
+  \*24 c64
 }
 
 \relative c'' {

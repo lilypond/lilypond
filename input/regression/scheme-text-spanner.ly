@@ -1,4 +1,4 @@
-\version "2.23.6"
+\version "2.25.35"
 
 \header {
   texidoc = "Use @code{define-event-class}, scheme engraver methods,
@@ -169,10 +169,10 @@ schemeTextSpannerEnd =
 
 \relative {
   a4 b\schemeTextSpannerStart c d |
-  \repeat unfold 20 { a4 b c d | }
+  \*20 { a4 b c d | }
   a4 b c\schemeTextSpannerEnd d |
   \override SchemeTextSpanner.to-barline = ##t
   a4\schemeTextSpannerStart b d c |
-  \repeat unfold 20 { a4 b c d | }
+  \*20 { a4 b c d | }
   a1\schemeTextSpannerEnd |
 }

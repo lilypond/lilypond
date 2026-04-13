@@ -1,4 +1,5 @@
-\version "2.19.38"
+\version "2.25.35"
+
 \header {
 
   texidoc = "@code{make-relative} is a Scheme utility macro mainly
@@ -18,9 +19,9 @@ ph =
   (ly:pitch? ly:pitch? ly:pitch? ly:pitch? ly:pitch?)
   (make-relative (p1 p2 p3 p4 p5) (make-event-chord (list p1 p2 p3 p4 p5))
    #{
-     \repeat unfold 2 { $p1 2 } |
-     \repeat unfold 2 { r16 $p2 8. ~ $p2 4 } |
-     \repeat unfold 2 { r8 $p3 16 $p4 $p5 $p3 $p4 $p5 } |
+     \*2 { $p1 2 } |
+     \*2 { r16 $p2 8. ~ $p2 4 } |
+     \*2 { r8 $p3 16 $p4 $p5 $p3 $p4 $p5 } |
    #}))
 
 \parallelMusic low,middle,high
