@@ -3749,7 +3749,9 @@ class LilyPondVoiceBuilder(musicexp.Base):
     def add_command(self, command, relevant=True):
         assert isinstance(command, musicexp.Music)
 
-        self.emit_multi_measure_rest()
+        # Reset the measure length before emitting a bar line check.
+        bar_check = not isinstance(command, musicexp.MeasureLengthEvent)
+        self.emit_multi_measure_rest(bar_check)
 
         self.has_relevant_elements = self.has_relevant_elements or relevant
         self.elements.append(command)
