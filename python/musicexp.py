@@ -4555,16 +4555,19 @@ class SetEvent(Music):
 
 
 class OmitEvent(Music):
-    def __init__(self, contextprop, undo=False):
+    def __init__(self, grob, undo=False, once=False):
         Music.__init__(self)
-        self.context_prop = contextprop
+        self.grob = grob
         self.undo = undo
+        self.once = once
 
     def ly_expression(self):
-        undo_str = ''
+        prefix = ''
+        if self.once:
+            prefix += r'\once '
         if self.undo:
-            undo_str = r'\undo '
-        return r'%s\omit %s' % (undo_str, self.context_prop)
+            prefix += r'\undo '
+        return r'%s\omit %s' % (prefix, self.grob)
 
 
 class MeasureStyleEvent(Music):
