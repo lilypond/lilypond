@@ -4100,6 +4100,8 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
     key_visible = True
     note_visible = True
 
+    time_signature_at_start = False
+
     # For `<unpitched>` and pitched full-measure rests.
     curr_clef = None
 
@@ -4499,6 +4501,10 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
                         'Staff',
                         r'\override MultiMeasureRest.expand-limit = 1')
 
+                elif isinstance(a, musicexp.TimeSignatureChange):
+                    if n._when == 0:
+                        time_signature_at_start = True
+
                 voice_builder.add_command(a)
 
                 if mm_count:
@@ -4513,6 +4519,12 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
             n.message(_('unexpected %s; expected %s or %s or %s') %
                       (n, 'Note', 'Attributes', 'Barline'))
             continue
+
+        # Suppress LilyPond's default time signature if there is no time
+        # signature on the MusicXML side.
+        if n._when == 0 and not is_chord and not time_signature_at_start:
+            voice_builder.add_command(
+                musicexp.OmitEvent('Staff.TimeSignature', once=True))
 
         if (voice_builder.at_measure_start
                 and voice_builder.measure_length is not None):
