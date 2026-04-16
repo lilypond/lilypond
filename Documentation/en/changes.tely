@@ -138,7 +138,13 @@ argument to lengthen the brackets.
 @node Text and font improvements
 @unnumberedsec Text and font improvements
 
-None so far.
+@itemize
+
+@item
+An equal sign was added to the Emmentaler font.
+
+@end itemize
+
 
 @node New for specialist notation
 @unnumbered New for specialist notation

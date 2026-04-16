@@ -1031,6 +1031,19 @@ fet_beginchar ("plus", "plus");
 fet_endchar;
 
 
+fet_beginchar ("equal", "equal");
+  set_char_box (0, .5 height#, -0.32 height#, 0.68 height#);
+
+  save vthick;
+  vthick# = 2 linethickness#;
+  define_whole_blacker_pixels (vthick);
+
+
+  draw_rounded_block ((0, h - vthick), (w, h), vthick);
+  draw_rounded_block ((0, -d), (w, -d + vthick), vthick);
+fet_endchar;
+
+
 fet_beginchar ("numeral comma", "comma");
   save pat, pos;
   path pat;

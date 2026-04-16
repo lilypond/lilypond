@@ -778,6 +778,7 @@ emmentaler_glyphsets = [
         # punctuation
         "comma",
         "hyphen",
+        "equal",
         "period",
         "plus",
         "figuredash",
