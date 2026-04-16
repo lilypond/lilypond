@@ -167,10 +167,19 @@ a list of @var{paddings}."
           s))
     stils)))
 
-(define-public (bracketify-stencil stil axis thick protrusion padding)
-  "Add brackets around @var{stil}, producing a new stencil."
+(define*-public (bracketify-stencil stil axis thick protrusion padding
+                                    #:optional (widen 0))
+  "Add brackets around @var{stil}, producing a new stencil.
 
-  (let* ((ext (ly:stencil-extent stil axis))
+The brackets are constructed using function @code{ly:bracket} in direction
+@var{axis}.  They have a thickness given by @var{thick}, the wing's lengths are
+given by @var{protrusion}, and the padding between the brackets and @var{stil}
+is set to @var{padding}.
+
+Optional argument @var{widen} increases the length of the brackets by the the
+given amount at the top and at the bottom (i.e., the amount gets applied
+twice)."
+  (let* ((ext (interval-widen (ly:stencil-extent stil axis) widen))
          (lb (ly:bracket axis ext thick protrusion))
          (rb (ly:bracket axis ext thick (- protrusion))))
     (set! stil
@@ -183,7 +192,7 @@ a list of @var{paddings}."
          y-extent thickness width angularity orientation)
   "Create a parenthesis stencil.
 @var{y-extent} is the Y extent of the markup inside the parenthesis.
-@var{half-thickness} is the half thickness of the parenthesis.
+@var{thickness} is the thickness of the parenthesis.
 @var{width} is the width of a parenthesis.
 @var{orientation} is the orientation of a parenthesis.
 The higher the value of number @var{angularity},
@@ -200,17 +209,28 @@ the more angular the shape of the parenthesis."
      (interval-widen x-extent (/ line-width 2))
      (interval-widen y-extent (/ line-width 2)))))
 
-(define-public (parenthesize-stencil
-                stencil half-thickness width angularity padding)
-  "Add parentheses around @var{stencil}, returning a new stencil."
-  (let* ((y-extent (ly:stencil-extent stencil Y))
+(define*-public (parenthesize-stencil
+                 stil half-thickness width angularity padding
+                 #:optional (widen 0))
+  "Add parentheses around @var{stil}, returning a new stencil.
+
+@var{half-thickness} specifies the thickness of the parentheses.  @var{width}
+sets up the needed horizontal space, thus defining the curvature of the
+parentheses.  @var{padding} is the additional amount between @var{stil} and the
+parentheses.  Finally, the shape of the parentheses is controlled by
+@var{angularity}: the larger its value, the more angular they become.
+
+Optional argument @var{widen} increases the length of the parentheses by the
+the given amount at the top and at the bottom (i.e., the amount gets applied
+twice)."
+  (let* ((y-extent (interval-widen (ly:stencil-extent stil Y) widen))
          (lp (make-parenthesis-stencil
               y-extent half-thickness width angularity 1))
          (rp (make-parenthesis-stencil
               y-extent half-thickness width angularity -1)))
-    (set! stencil (ly:stencil-combine-at-edge stencil X LEFT lp padding))
-    (set! stencil (ly:stencil-combine-at-edge stencil X RIGHT rp padding))
-    stencil))
+    (set! stil (ly:stencil-combine-at-edge stil X LEFT lp padding))
+    (set! stil (ly:stencil-combine-at-edge stil X RIGHT rp padding))
+    stil))
 
 (define-public (make-line-stencil width startx starty endx endy)
   "Make a line stencil of given line width and set its extents accordingly."

@@ -4,7 +4,7 @@
 
 @dircategory LilyPond -- the music typesetter
 @direntry
-* Changes: (lilypond-changes).          News since version 2.24.
+* Changes: (lilypond-changes).          News since version 2.26.
 @end direntry
 
 @include en/macros.itexi
@@ -122,7 +122,18 @@ None so far.
 @node Editorial annotation improvements
 @unnumberedsec Editorial annotation improvements
 
-None so far.
+@itemize
+
+@item
+The Scheme function @code{parenthesize-stencil} got an optional
+argument to lengthen the parentheses.
+
+@item
+The Scheme function @code{bracketify-stencil} got an optional
+argument to lengthen the brackets.
+
+@end itemize
+
 
 @node Text and font improvements
 @unnumberedsec Text and font improvements
