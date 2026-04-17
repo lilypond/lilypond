@@ -1733,18 +1733,7 @@ def musicxml_clef_staff_details_to_lily(attributes):
 
 
 def musicxml_time_to_lily(attributes):
-    sig = attributes.get_time_signature().copy()
-    if not sig:
-        return None
-
-    if not isinstance(sig[0], list) and sig[0] < 0:
-        # 'Senza misura' time signature.
-        # TODO: Handle 'senza misura' symbol.
-        return None
-
-    change = musicexp.TimeSignatureChange()
-
-    if options.shift_durations:
+    def shift_durations(sig):
         if not isinstance(sig[0], list):
             sig = [sig]
 
@@ -1779,6 +1768,22 @@ def musicxml_time_to_lily(attributes):
 
         if isinstance(sig[0], list) and len(sig) == 1:
             sig = sig[0]
+
+        return sig
+
+    sig = attributes.get_time_signature().copy()
+    if not sig:
+        return None
+
+    if not isinstance(sig[0], list) and sig[0] < 0:
+        # 'Senza misura' time signature.
+        # TODO: Handle 'senza misura' symbol.
+        return None
+
+    change = musicexp.TimeSignatureChange()
+
+    if options.shift_durations:
+        sig = shift_durations(sig)
 
     change.fractions = sig
 
