@@ -8,7 +8,7 @@
           signature.  The first bar has three eighth notes, the second bar
           contains a full-measure rest (indicated by setting ‘measure="yes"’ for
           the &lt;rest&gt; element) with a length of a dotted half note, and
-          both the third bar contains four eighth notes (in two
+          both the third and fourth measure contain four eighth notes (in two
           voices).</miscellaneous-field>
     </miscellaneous>
   </identification>
