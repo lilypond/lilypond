@@ -5685,6 +5685,11 @@ def conv(s):
     return s
 
 
+@rule((2, 26, 0), "bump version for release")
+def conv(s):
+    return s
+
+
 @rule((2, 27, 0), r"""
 \set stanza = -> \stanza
 """)
