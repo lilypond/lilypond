@@ -577,6 +577,21 @@ class Attributes(Measure_element):
             # `[beat, ..., type]`.
             return self.single_time_sig_to_fraction(sig)
 
+    def get_signature(self, mxl):
+        signature = []
+        current_sig = []
+        for i in mxl.get_all_children():
+            if isinstance(i, Beats):
+                beats = i.get_text().strip().split("+")
+                current_sig = [int(j) for j in beats]
+            elif isinstance(i, BeatType):
+                current_sig.append(int(i.get_text()))
+                signature.append(current_sig)
+                current_sig = []
+        if isinstance(signature[0], list) and len(signature) == 1:
+            signature = signature[0]
+        return signature
+
     # Return time signature as a
     #
     #   [beat, beat-type]
@@ -602,18 +617,7 @@ class Attributes(Measure_element):
                 self._time_signature_cache = [-4, 4]
                 return [-4, 4]
             else:
-                signature = []
-                current_sig = []
-                for i in mxl.get_all_children():
-                    if isinstance(i, Beats):
-                        beats = i.get_text().strip().split("+")
-                        current_sig = [int(j) for j in beats]
-                    elif isinstance(i, BeatType):
-                        current_sig.append(int(i.get_text()))
-                        signature.append(current_sig)
-                        current_sig = []
-                if isinstance(signature[0], list) and len(signature) == 1:
-                    signature = signature[0]
+                signature = self.get_signature(mxl)
                 self._time_signature_cache = signature
                 return signature
         except (KeyError, ValueError):
