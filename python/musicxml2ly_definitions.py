@@ -557,4 +557,45 @@ staffLines =
 D = \\tweak Stem.direction #DOWN \\etc
 U = \\tweak Stem.direction #UP \\etc
 """,
+
+    "time-alternate": """\
+#(define ((time-alternate t ta type) grob)
+   (let ((m1 (grob-interpret-markup grob (markup #:compound-meter t)))
+         (m2 (grob-interpret-markup grob (markup #:compound-meter ta))))
+     (ly:stencil-combine-at-edge
+      m1 X RIGHT
+      (case type
+        ((bracket)
+         (bracketify-stencil m2 Y 0.15 0.4 0 0.4))
+        ((space)
+         m2)
+        ((equals)
+         (ly:stencil-combine-at-edge
+          (grob-interpret-markup grob (markup #:lower 1.0 #:number "="))
+          X RIGHT m2 0.1))
+        ((hyphen)
+         (ly:stencil-combine-at-edge
+          (grob-interpret-markup grob (markup #:lower 0.55 #:number "–"))
+          X RIGHT m2 0))
+        ((slash)
+         (ly:stencil-combine-at-edge
+          (grob-interpret-markup grob (markup #:lower 1.0 #:number "/"))
+          X RIGHT m2 0.2))
+        (else
+         (parenthesize-stencil m2 0.1 0.4 0.4 0.1)))
+      (case type
+        ((space) 0.7)
+        ((equals) 0.1)
+        ((hyphen) 0)
+        ((slash) 0.2)
+        (else 0.4)))))
+
+timeAlternate =
+#(define-music-function (t ta type)
+   (time-signature? time-signature? symbol?)
+   #{
+     \\once \\override Timing.TimeSignature.stencil = #(time-alternate t ta type)
+     \\time #t
+   #})
+""",
 }

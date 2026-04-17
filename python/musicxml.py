@@ -625,6 +625,38 @@ class Attributes(Measure_element):
                 _("Unable to interpret time signature! Falling back to 4/4."))
             return [4, 4]
 
+    def get_alternate_time_signature(self):
+        try:
+            mxl = self.get_named_attribute('time')
+            if not mxl:
+                return None
+
+            alternate = mxl.get_maybe_exist_named_child('interchangeable')
+            if not alternate:
+                return None
+            else:
+                signature = self.get_signature(alternate)
+                return signature
+        except (KeyError, ValueError):
+            self.message(
+                _('Unable to interpret <interchangeable> element, ignoring.'))
+            return None
+
+    def get_alternate_time_signature_style(self):
+        mxl = self.get_named_attribute('time')
+        if not mxl:
+            return None
+
+        alternate = mxl.get_maybe_exist_named_child('interchangeable')
+        if not alternate:
+            return None
+
+        style = alternate.get_maybe_exist_named_child('time-relation')
+        if not style:
+            return 'parentheses'  # We use this as the default.
+
+        return style.get_text()
+
     # Return clef information in the form
     #
     #   ["cleftype", position, octave-shift, color, font-size, print-object]

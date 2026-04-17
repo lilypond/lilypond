@@ -4306,6 +4306,8 @@ class TimeSignatureChange(Music):
     def __init__(self):
         Music.__init__(self)
         self.fractions = [4, 4]
+        self.alternate = None
+        self.alternate_style = None
         self.style = None
         self.visible = True
 
@@ -4354,8 +4356,13 @@ class TimeSignatureChange(Music):
         else:
             ret.append(r'\once \omit Staff.TimeSignature')
 
-        # Easy case: self.fractions = [n,d] => normal \time n/d call:
-        if len(self.fractions) == 2 and isinstance(self.fractions[0], int):
+        if self.alternate:
+            ret.append(r"\timeAlternate #'%s #'%s #'%s"
+                       % (self.format_fraction(self.fractions),
+                          self.format_fraction(self.alternate),
+                          self.alternate_style))
+        elif len(self.fractions) == 2 and isinstance(self.fractions[0], int):
+            # Easy case: self.fractions = [n,d] => normal \time n/d call.
             ret.append(r'\time %d/%d' % tuple(self.fractions))
         elif self.fractions:
             ret.append(r"\time #'%s"

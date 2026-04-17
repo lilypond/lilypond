@@ -1803,6 +1803,14 @@ def musicxml_time_to_lily(attributes):
     change.color = getattr(time_elm, 'color', None)
     change.font_size = getattr(time_elm, 'font-size', None)
 
+    change.alternate = attributes.get_alternate_time_signature()
+    if change.alternate:
+        needed_additional_definitions.append('time-alternate')
+        if options.shift_durations:
+            change.alternate = shift_durations(change.alternate)
+        change.alternate_style = \
+            attributes.get_alternate_time_signature_style()
+
     return change
 
 
