@@ -4,9 +4,10 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">All note durations, from long,
-          brevis, whole, etc., until 1024th.  First with their plain values,
-          then dotted, and finally double-dotted.</miscellaneous-field>
+      <miscellaneous-field name="description">All note durations, from maxima,
+          long, brevis, whole, etc., until 1024th.  First with their plain
+          values, then dotted, and finally
+          double-dotted.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -25,7 +26,7 @@
         </key>
         <time>
           <beats>16</beats>
-          <beat-type>4</beat-type>
+          <beat-type>2</beat-type>
         </time>
         <clef>
           <sign>G</sign>
@@ -37,13 +38,22 @@
           <step>C</step>
           <octave>5</octave>
         </pitch>
-        <duration>16384</duration>
+        <duration>32768</duration>
         <voice>1</voice>
-        <type>long</type>
+        <type>maxima</type>
       </note>
     </measure>
     <!--=======================================================-->
     <measure number="2">
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>16384</duration>
+        <voice>1</voice>
+        <type>long</type>
+      </note>
       <note>
         <pitch>
           <step>C</step>
@@ -163,13 +173,26 @@
       </note>
     </measure>
     <!--=======================================================-->
-    <measure number="4">
+    <measure number="3">
       <attributes>
         <time>
           <beats>24</beats>
-          <beat-type>4</beat-type>
+          <beat-type>2</beat-type>
         </time>
       </attributes>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>49152</duration>
+        <voice>1</voice>
+        <type>maxima</type>
+        <dot/>
+      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="4">
       <note>
         <pitch>
           <step>C</step>
@@ -180,9 +203,6 @@
         <type>long</type>
         <dot/>
       </note>
-    </measure>
-    <!--=======================================================-->
-    <measure number="5">
       <note>
         <pitch>
           <step>C</step>
@@ -315,13 +335,27 @@
       </note>
     </measure>
     <!--=======================================================-->
-    <measure number="6">
+    <measure number="5">
       <attributes>
         <time>
           <beats>28</beats>
-          <beat-type>4</beat-type>
+          <beat-type>2</beat-type>
         </time>
       </attributes>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>57344</duration>
+        <voice>1</voice>
+        <type>maxima</type>
+        <dot/>
+        <dot/>
+      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="6">
       <note>
         <pitch>
           <step>C</step>
@@ -333,9 +367,6 @@
         <dot/>
         <dot/>
       </note>
-    </measure>
-    <!--=======================================================-->
-    <measure number="7">
       <note>
         <pitch>
           <step>C</step>

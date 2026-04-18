@@ -55,8 +55,9 @@ def musicxml_duration_to_log(dur):
             'half': 1,
             'whole': 0,
             'breve': -1,
-            'longa': -2,
-            'long': -2}.get(dur, 0)
+            'longa': -2,  # non-standard name
+            'long': -2,
+            'maxima': -3}.get(dur, 0)
 
 
 def round_to_two_digits(val):

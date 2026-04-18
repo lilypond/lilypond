@@ -297,9 +297,9 @@ class Duration:
 
         if self.duration_log < 0:
             if scheme_mode:
-                longer_dict = {-1: "breve", -2: "longa"}
+                longer_dict = {-1: 'breve', -2: 'longa', -3: 'maxima'}
             else:
-                longer_dict = {-1: r"\breve", -2: r"\longa"}
+                longer_dict = {-1: r'\breve', -2: r'\longa', -3: r'\maxima'}
             dur_str = longer_dict.get(self.duration_log, "1")
         else:
             dur_str = '%d' % (1 << self.duration_log)
@@ -4095,6 +4095,10 @@ class NoteEvent(RhythmicEvent):
             dot_font_size = get_font_size(self.dot_font_size, command=False)
             if dot_font_size is not None:
                 elements.append(r'\tweak Dots.font-size %s' % dot_font_size)
+
+            if self.duration.duration_log == -3:
+                # `\maxima` doesn't work with normal note heads.
+                elements.append(r"\tweak style #'baroque")
 
             self.harmonic_pre_note_ly(elements)
 
