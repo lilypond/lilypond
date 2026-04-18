@@ -951,7 +951,10 @@ All glyphs of the @qq{Parmesan} subset.
 @appendixsec Note head styles
 
 @cindex note head, style
-The following styles may be used for note heads.
+The following styles may be used for note heads.  Shown are the
+note heads for a quarter, a dotted half, a whole, a breve, a
+longa, and a maxima.  Not all note head styles support all
+possible note lengths (in a meaningful way).
 
 @lilypondfile[noindent]{en/included/note-head-style.ly}
 

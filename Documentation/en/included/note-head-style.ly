@@ -12,6 +12,17 @@ dimensions.
 "
 }
 
+% It's easier to suppress warnings than to implement a work-around.
+#(ly:expect-warning
+  (G_ "none of note heads `noteheads.s' or `noteheads.u' found"))
+#(ly:expect-warning
+  (G_ "none of note heads `noteheads.s' or `noteheads.u' found"))
+#(ly:expect-warning
+  (G_ "none of note heads `noteheads.s' or `noteheads.d' found"))
+#(ly:expect-warning
+  (G_ "none of note heads `noteheads.s' or `noteheads.d' found"))
+
+
 \layout {
   indent = 0.0
   ragged-right = ##t
@@ -40,13 +51,13 @@ pattern =
   <>^\markup #(symbol->string head-style)
   \new Voice {
     \override Stem.direction = #UP
-    e'4 2. 1 \breve*1/2 \longa*1/4
+    e'4 2. 1 \breve*1/2 \longa*1/4 \maxima*1/8
     \once \override Score.BarLine.allow-span-bar = ##t
     \section
   }
   \new Voice {
     \override Stem.direction = #DOWN
-    a4  2. 1 \breve*1/2 \longa*1/4
+    a4  2. 1 \breve*1/2 \longa*1/4 \maxima*1/8
     \once \override Score.BarLine.allow-span-bar = ##t
     \section
   }
