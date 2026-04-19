@@ -90,9 +90,7 @@ Spanner::do_break_processing ()
 
       for (vsize i = 1; i < break_points.size (); i++)
         {
-          Drul_array<Item *> bounds;
-          bounds[LEFT] = break_points[i - 1];
-          bounds[RIGHT] = break_points[i];
+          auto bounds = Drul_array {break_points[i - 1], break_points[i]};
           for (const auto d : {LEFT, RIGHT})
             {
               if (!bounds[d]->get_system ())
@@ -313,8 +311,9 @@ Spanner::spanner_length ()
 
   if (lr.is_empty ())
     {
-      const Drul_array<SCM> bounds {get_property (this, "left-bound-info"),
-                                    get_property (this, "right-bound-info")};
+      const auto bounds
+        = Drul_array<SCM> {get_property (this, "left-bound-info"),
+                           get_property (this, "right-bound-info")};
 
       for (const auto d : {LEFT, RIGHT})
         lr[d] = from_scm<double> (

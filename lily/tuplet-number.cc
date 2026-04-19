@@ -63,9 +63,9 @@ Tuplet_number::select_reference_stem (Spanner *me,
     two stems.
   */
   Direction me_dir = from_scm (get_property (me, "direction"), UP);
-  const Drul_array<Item *> bounding_stems {
-    Note_column::get_stem (cols[col_count / 2 - 1]),
-    Note_column::get_stem (cols[col_count / 2])};
+  const auto bounding_stems
+    = Drul_array {Note_column::get_stem (cols[col_count / 2 - 1]),
+                  Note_column::get_stem (cols[col_count / 2])};
 
   for (const auto d : {LEFT, RIGHT})
     if (!bounding_stems[d])

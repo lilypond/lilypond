@@ -525,8 +525,8 @@ Line_spanner::print (SCM smob)
 {
   Spanner *me = unsmob<Spanner> (smob);
 
-  const Drul_array<SCM> bounds {get_property (me, "left-bound-info"),
-                                get_property (me, "right-bound-info")};
+  const auto bounds = Drul_array<SCM> {get_property (me, "left-bound-info"),
+                                       get_property (me, "right-bound-info")};
 
   auto *commonx
     = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);

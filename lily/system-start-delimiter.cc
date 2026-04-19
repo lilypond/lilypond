@@ -37,8 +37,8 @@ System_start_delimiter::staff_bracket (Grob *me, Real height)
 {
   Font_metric *fm = Font_interface::get_default_font (me);
 
-  const Drul_array<Stencil> tips {fm->find_by_name ("brackettips.down"),
-                                  fm->find_by_name ("brackettips.up")};
+  const auto tips = Drul_array {fm->find_by_name ("brackettips.down"),
+                                fm->find_by_name ("brackettips.up")};
 
   Real thickness = from_scm<double> (get_property (me, "thickness"), 0.25);
 

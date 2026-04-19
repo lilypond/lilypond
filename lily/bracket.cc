@@ -42,7 +42,7 @@ Bracket::make_bracket (Grob *me, // for line properties.
                        Drul_array<Real> height, Interval gap,
                        Drul_array<Real> flare, Drul_array<Real> shorten)
 {
-  const Drul_array<Offset> corners {Offset (0, 0), dz};
+  const auto corners = Drul_array {Offset (0, 0), dz};
 
   Real length = dz.length ();
   Drul_array<Offset> gap_corners;

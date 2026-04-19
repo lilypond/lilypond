@@ -84,9 +84,9 @@ Lyric_extender::print (SCM smob)
     }
 
   Real h = sl * from_scm<double> (get_property (me, "thickness"), 0);
-  const Drul_array<Real> paddings {
-    from_scm<double> (get_property (me, "left-padding"), h),
-    from_scm<double> (get_property (me, "right-padding"), h)};
+  const auto paddings
+    = Drul_array {from_scm<double> (get_property (me, "left-padding"), h),
+                  from_scm<double> (get_property (me, "right-padding"), h)};
 
   if (right_text)
     {

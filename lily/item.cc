@@ -217,7 +217,7 @@ Item::spanned_system_rank_interval () const
 Interval_t<Moment>
 spanned_time_interval (Item *l, Item *r)
 {
-  const Drul_array<Item *> bounds {l, r};
+  const auto bounds = Drul_array {l, r};
   Interval_t<Moment> iv;
 
   for (const auto d : {LEFT, RIGHT})

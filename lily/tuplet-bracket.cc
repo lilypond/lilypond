@@ -338,7 +338,7 @@ Tuplet_bracket::print (SCM smob)
 
   if (bracket_visibility)
     {
-      const Drul_array zero {0.0, 0.0};
+      const auto zero = Drul_array {0.0, 0.0};
 
       Drul_array<Real> shorten
         = from_scm (get_property (me, "shorten-pair"), zero);
@@ -495,8 +495,8 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
   if (columns.size () && follow_beam && Note_column::get_stem (columns[0])
       && Note_column::get_stem (columns.back ()))
     {
-      const Drul_array<Grob *> stems {Note_column::get_stem (columns[0]),
-                                      Note_column::get_stem (columns.back ())};
+      const auto stems = Drul_array {Note_column::get_stem (columns[0]),
+                                     Note_column::get_stem (columns.back ())};
 
       Interval poss;
       for (const auto side : {LEFT, RIGHT})

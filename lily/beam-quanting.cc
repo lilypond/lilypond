@@ -283,8 +283,8 @@ Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> ys,
       const Interval x_pos = from_scm (get_property (beams[i], "X-positions"),
                                        Interval (0.0, 0.0));
 
-      const Drul_array<Grob *> edge_stems {Beam::first_normal_stem (beams[i]),
-                                           Beam::last_normal_stem (beams[i])};
+      const auto edge_stems = Drul_array {Beam::first_normal_stem (beams[i]),
+                                          Beam::last_normal_stem (beams[i])};
 
       Drul_array<bool> dirs_found;
 
@@ -548,9 +548,9 @@ Beam_scoring_problem::least_squares_positions ()
   vsize fnx = first_normal_index ();
   vsize lnx = last_normal_index ();
 
-  const Drul_array<Real> ideal {
-    stem_infos_[fnx].ideal_y_ + stem_ypositions_[fnx],
-    stem_infos_[lnx].ideal_y_ + stem_ypositions_[lnx]};
+  const auto ideal
+    = Drul_array {stem_infos_[fnx].ideal_y_ + stem_ypositions_[fnx],
+                  stem_infos_[lnx].ideal_y_ + stem_ypositions_[lnx]};
 
   Real y = 0;
   Real slope = 0;
@@ -558,7 +558,8 @@ Beam_scoring_problem::least_squares_positions ()
   Real ldy = 0.0;
   if (delta (ideal) == 0.0)
     {
-      const Drul_array<Real> chord {chord_start_y_[0], chord_start_y_.back ()};
+      const auto chord
+        = Drul_array {chord_start_y_[0], chord_start_y_.back ()};
 
       /* Simple beams (2 stems) on middle line should be allowed to be
          slightly sloped.
