@@ -7,7 +7,7 @@
     Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.35"
+@c \version "2.27.0"
 
 @node Rhythms
 @chapter Rhythms
@@ -2955,8 +2955,9 @@ In some cases it may be necessary to override the automatic
 beaming algorithm.  For example, the auto-beamer will not put beams
 over rests or bar lines, and in choral scores the beaming is
 often set to follow the meter of the lyrics rather than the
-notes.  Such beams can be specified manually by
-marking the begin and end point with @code{[} and @code{]}.
+notes.  For complete manual control, beams can be specified by
+marking the begin and end point with @code{[} and @code{]},
+respectively:
 
 @lilypond[quote,verbatim]
 \relative { r4 r8[ g' a r] r g[ | a] r }
@@ -2965,16 +2966,38 @@ marking the begin and end point with @code{[} and @code{]}.
 @cindex manual beam, direction shorthand for
 @cindex manual beam, grace notes
 
-Beaming direction can be set manually using direction indicators:
+Beaming direction can then be set manually using direction indicators:
 
 @lilypond[quote,verbatim]
 \relative { c''8^[ d e] c,_[ d e f g] }
 @end lilypond
 
+@funindex \beamBreak
+@funindex \noBeamBreak
+
+Instead of taking full manual control over the beams, it often suffices
+to give the automatic beaming algorithm some hints.  With @code{\beamBreak},
+you demand that an automatically created beam be interrupted.  With
+@code{\noBeamBreak}, on the contrary, you force two adjoining notes to
+get connected by a beam.  This may even cause a completely new beam to be
+created:
+
+@lilypond[quote,verbatim]
+{
+  c''8 8 8 8 8 8 8 8 |
+  c''8 8 8 8 \noBeamBreak 8 8 8 8 |
+  8 8 8 8 8 8 \beamBreak 8 8 \noBeamBreak |
+  \time 3/8 |
+  8 4 |
+  4 8 \noBeamBreak |
+  8 4 |
+}
+@end lilypond
+
 @funindex \noBeam
 
-Individual notes may be marked with @code{\noBeam} to prevent them
-from being beamed:
+Also, individual notes may be marked with @code{\noBeam} to completely
+prevent them from being beamed:
 
 @lilypond[quote,verbatim]
 \relative {
