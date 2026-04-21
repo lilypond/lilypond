@@ -1,7 +1,8 @@
-%% Translation of GIT committish: 606ac3c3b22c41d84aa5fa938d42da5125ac572a
+%% Translation of GIT committish: 18cf09c1f24d22eeb0cdc187dec0af734d60cfc8
   texidocfr = "
-Le recours à des contextes @code{MarkLine} (tel qu'indiqué dans le
-@uref{https://lsr.di.unimi.it/LSR/Item?id=1010, LSR1010}) dans une
+Le recours à des contextes @code{MarkLine} (tel qu'indiqué dans
+@uref{https://wiki.lilypond.community/wiki/Placing_rehearsal_marks_other_than_above_the_top_staff,
+Inscrire les repères ailleurs que sur la première portée}) dans une
 partition « à la française » peut s'avérer problématique lorsque toutes
 les portées entre deux contextes @code{Markline} sont absentes d'un
 système. La présence du @code{Keep_alive_together_engraver} au sein de

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 606ac3c3b22c41d84aa5fa938d42da5125ac572a
+   Translation of GIT committish: 18cf09c1f24d22eeb0cdc187dec0af734d60cfc8
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1329,6 +1329,7 @@ indiqué au chapitre @ref{Visibility of objects}.
 
 @cindex métrique, style
 @cindex style de métrique
+@cindex alla breve
 @funindex \numericTimeSignature
 @funindex \defaultTimeSignature
 
@@ -1353,6 +1354,58 @@ changé pour un style numérique :
 
 Les métriques anciennes font l'objet d'un @ref{Mensural time signatures,
 chapitre particulier}.
+
+
+@subsubheading Métriques complexes
+@c VO Complex time signatures
+
+@cindex métrique composite
+@cindex composite, métrique
+@cindex complexe, métrique
+
+@funindex \time
+
+Une métrique composite se crée à l'aide de la fonction @code{\time}, la
+métrique étant représentée par un expression Scheme. Les fractions sont
+représentées par des paires @code{(@var{numérateur}
+. @var{dénominateur})} et où le « dénominateur » est toujours un nombre.
+Le « numérateur » est un nombre ou une liste de deux ou plusieurs
+nombres. Une liste représente une concaténation.
+
+@lilypond[quote,verbatim]
+\fixed c' {
+  \time #'((2 2 2) . 8)
+  \repeat unfold 6 c8
+  \repeat unfold 12 c16
+}
+@end lilypond
+
+Une métrique constituée de l'alternance stricte de plusieurs fractions
+s'obtient en plus élaborée s'obtient en regroupant ces fractions dans
+une liste. Bien entendu, les ligatures automatiques s'ajusteront aux
+différentes valeurs. Des barres de subdivision de mesures peuvent
+s'ajouter pour permettre une meilleure lecture des rythmes complexes.
+
+@lilypond[quote,verbatim]
+\fixed c' {
+  \time #'((1 . 4) (3 . 8))
+  \repeat unfold 5 c8
+  \repeat unfold 10 c16
+}
+@end lilypond
+
+@lilypond[quote,verbatim]
+\fixed c' {
+  \time #'(((1 2 3) . 8) (3 . 4))
+  \repeat unfold 12 c8
+  \submeasureBarsOn
+  \repeat unfold 12 c8
+}
+@end lilypond
+
+
+@subsubheading Propriétés de la métrique
+@c VO Metric properties
 
 @cindex métrique par défaut
 @cindex ligature et métrique
@@ -1488,7 +1541,7 @@ réglages particuliers pour les différentes portées d'un regroupement --
 }
 @end lilypond
 
-Une autre méthode de modification de ces variables liées à la métrique,
+Une autre méthode de modification de les propriétés liées à la métrique,
 et qui évite sa réimpression au moment du changement, est indiquée à la
 rubrique @ref{Setting automatic beam behavior}.
 
@@ -2165,45 +2218,6 @@ qu'elle est libellée dans le bloc @code{\midi}.
 @end verbatim
 @end quotation
 
-
-@subsubheading Métriques complexes
-@c VO Complex time signatures
-
-@cindex métrique composite
-@cindex composite, métrique
-@cindex complexe, métrique
-
-@funindex \time
-
-Une métrique composite se crée à l'aide de la fonction @code{\time}, la
-métrique étant représentée par un expression Scheme. Les fractions sont
-représentées par des paires @code{(@var{numérateur}
-. @var{dénominateur})} et où le « dénominateur » est toujours un nombre.
-Le « numérateur » est un nombre ou une liste de deux ou plusieurs
-nombres. Une liste représente une concaténation.
-
-Une métrique constituée de l'alternance stricte de plusieurs fractions
-s'obtient en plus élaborée s'obtient en regroupant ces fractions dans
-une liste. Bien entendu, les ligatures automatiques s'ajusteront aux
-différentes valeurs. Des barres de subdivision de mesures peuvent
-s'ajouter pour permettre une meilleure lecture des rythmes complexes.
-
-@lilypond[quote,verbatim]
-\fixed c' {
-  \time #'((1 . 4) (3 . 8))
-  \repeat unfold 5 c8
-  \repeat unfold 10 c16
-}
-@end lilypond
-
-@lilypond[quote,verbatim]
-\fixed c' {
-  \time #'(((1 2 3) . 8) (3 . 4))
-  \repeat unfold 12 c8
-  \submeasureBarsOn
-  \repeat unfold 12 c8
-}
-@end lilypond
 
 @morerefs
 Glossaire musicologique :

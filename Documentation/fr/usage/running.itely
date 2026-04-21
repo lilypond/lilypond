@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: c2ea1fa2792532a1a123f08504fc8677defb7a96
+   Translation of GIT committish: 18cf09c1f24d22eeb0cdc187dec0af734d60cfc8
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -413,8 +413,7 @@ lancé avec les privilèges de l'administrateur -- privilèges qu'il perd
 aussitôt --, ce qui peut nécessiter le recours à la commande
 @code{sudo}. Il est par ailleurs judicieux de limiter le temps
 processeur alloué à LilyPond -- grâce à @command{ulimit -t} par exemple
--- ainsi que, si votre système le permet, la taille de la mémoire. Voir
-aussi @ref{LilyPond in chroot jail}.
+-- ainsi que, si votre système le permet, la taille de la mémoire.
 @end table
 
 @cindex loglevel
@@ -1238,129 +1237,6 @@ Si @code{relocdir} existe, traiter tous les fichiers dans ce répertoire,
 comme indiqué dans @ref{Relocation files}.
 
 @end enumerate
-
-
-@node LilyPond in chroot jail
-@unnumberedsubsec Exécution de LilyPond en mode protégé
-
-Paramétrer un serveur afin qu'il puisse faire fonctionner LilyPond en
-mode protégé sur un pseudo-périphérique est une tâche sensible. Les
-différentes étapes à suivre sont répertoriées ci-dessous. Les exemples
-qu'elle comportent proviennent d'une distribution GNU/Linux Ubuntu et
-nécessiteront l'utilisation de @code{sudo} autant que de besoin.
-
-@itemize
-
-@item Installation des paquetages nécessaires : LilyPond, Ghostscript et
-ImageMagick.
-
-@item Création de l'utilisateur @code{lily} :
-
-@example
-adduser lily
-@end example
-
-@noindent
-Ceci, par la même occasion, créera un groupe spécifique pour
-l'utilisateur @code{lily} ainsi que son répertoire personnel
-@code{/home/lily}.
-
-@item Création, dans le répertoire personnel de l'utilisateur
-@code{lily}, d'un espace agissant en tant que système de fichiers :
-
-@example
-dd if=/dev/zero of=/home/lily/loopfile bs=1k count= 200000
-@end example
-
-@noindent
-Cette commande a créé un fichier de 200 MB utilisable par le
-« système protégé ».
-
-@item Création d'un pseudo-périphérique, génération d'un système de
-fichiers et chargement de celui-ci, puis création d'un répertoire
-accessible en écriture pour l'utilisateur @code{lily} :
-
-@example
-mkdir /mnt/lilyloop
-losetup /dev/loop0 /home/lily/loopfile
-mkfs -t ext3 /dev/loop0 200000
-mount -t ext3 /dev/loop0 /mnt/lilyloop
-mkdir /mnt/lilyloop/lilyhome
-chown lily /mnt/lilyloop/lilyhome
-@end example
-
-@item Affectation, au niveau configuration du serveur, de
-@code{/mnt/lilyloop} en tant que JAIL et @code{/lilyhome} en tant que
-DIR.
-
-@item Création d'une arborescence, dans l'espace protégé, et recopie de
-tous les fichiers nécessaires -- voir le script plus loin.
-
-Le recours à l'utilitaire @code{sed} permet de créer les commandes de
-copie de tout ce qui est nécessaire à un exécutable donné :
-
-@example
-for i in "/usr/local/lilypond/usr/bin/lilypond" "/bin/sh" "/usr/bin/;  \
-  do ldd $i | sed 's/.*=> \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\&  \
-    cp -L \/\1\2 \1\2/' | sed 's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p  \
-      \1 \&\& cp -L \/\1\2 \1\2/' | sed '/.*=>.*/d'; done
-@end example
-
-@end itemize
-
-@subheading Exemple de script fonctionnel en 32-bit sur Ubuntu 8.04
-
-@example
-#!/bin/sh
-## les réglages par défaut
-
-username=lily
-home=/home
-loopdevice=/dev/loop0
-jaildir=/mnt/lilyloop
-# le préfixe (sans slash au début !)
-lilyprefix=usr/local
-# le répertoire du système où lilypond est installé
-lilydir=/$lilyprefix/lilypond/
-
-userhome=$home/$username
-loopfile=$userhome/loopfile
-adduser $username
-dd if=/dev/zero of=$loopfile bs=1k count=200000
-mkdir $jaildir
-losetup $loopdevice $loopfile
-mkfs -t ext3 $loopdevice 200000
-mount -t ext3 $loopdevice $jaildir
-mkdir $jaildir/lilyhome
-chown $username $jaildir/lilyhome
-cd $jaildir
-
-mkdir -p bin usr/bin usr/share usr/lib usr/share/fonts $lilyprefix tmp
-chmod a+w tmp
-
-cp -r -L $lilydir $lilyprefix
-cp -L /bin/sh /bin/rm bin
-cp -L /usr/bin/convert /usr/bin/gs usr/bin
-cp -L /usr/share/fonts/truetype usr/share/fonts
-
-# la formule magique de recopie des bibliothèques
-for i in "$lilydir/usr/bin/lilypond" "$lilydir/usr/bin/guile" "/bin/sh"  \
-  "/bin/rm" "/usr/bin/gs" "/usr/bin/convert"; do ldd $i | sed 's/.*=>  \
-    \/\(.*\/\)\([^(]*\).*/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/' | sed  \
-      's/\t\/\(.*\/\)\(.*\) (.*)$/mkdir -p \1 \&\& cp -L \/\1\2 \1\2/'  \
-        | sed '/.*=>.*/d'; done | sh -s
-
-# les fichiers partagés pour Ghostscript...
-      cp -L -r /usr/share/ghostscript usr/share
-# les fichiers partagés pour ImageMagick
-      cp -L -r /usr/lib/ImageMagick* usr/lib
-
-### Partant du principe que test.ly est dans /mnt/lilyloop/lilyhome,
-### on devrait pouvoir lancer :
-### Attention : /$lilyprefix/bin/lilypond est un script qui
-### définit LD_LIBRARY_PATH - c'est primordial
-      /$lilyprefix/bin/lilypond -jlily,lily,/mnt/lilyloop,/lilyhome test.ly
-@end example
 
 
 @node Error messages
