@@ -66,6 +66,44 @@ First it recurses over the children, then the function is applied to
 @var{music}."
   (music-selective-map ly:music? function music))
 
+(define*-public (find-leading-partial music #:key (recurse-simultaneous? #t))
+  "Find and return the @code{PartialSet} music object at the start of
+@var{music}, or @code{#f} if none is found.
+
+Recurses into @code{SequentialMusic} elements (stopping at the first element
+with non-zero duration), music wrapper types (@code{ContextSpeccedMusic},
+@code{RelativeOctaveMusic}, @code{TransposedMusic}, and similar), and, unless
+@var{recurse-simultaneous?} is set to @code{#f}, @code{SimultaneousMusic}
+elements.  This detects a @code{\\partial} command preceded by @code{\\clef},
+@code{\\key}, or @code{\\time}, but not one after actual notes."
+  (let ((name (ly:music-property music 'name)))
+    (cond
+     ((eq? name 'PartialSet) music)
+     ((ly:music? (ly:music-property music 'element))
+      ;; Handles ContextSpeccedMusic, RelativeOctaveMusic, TransposedMusic,
+      ;; and any other single-element music wrapper.
+      (find-leading-partial (ly:music-property music 'element)
+                    #:recurse-simultaneous? recurse-simultaneous?))
+     ((eq? name 'SequentialMusic)
+      (let loop ((elements (ly:music-property music 'elements)))
+        (and (pair? elements)
+             (let* ((elt (car elements))
+                    (result (find-leading-partial elt
+                              #:recurse-simultaneous? recurse-simultaneous?)))
+               (cond
+                (result result)
+                ;; Stop at the first element that takes time: a \partial
+                ;; after real notes should not be detected.
+                ((positive? (ly:moment-main (ly:music-length elt))) #f)
+                (else (loop (cdr elements))))))))
+     ((eq? name 'SimultaneousMusic)
+      (and recurse-simultaneous?
+           (let loop ((elements (ly:music-property music 'elements)))
+             (and (pair? elements)
+                  (or (find-leading-partial (car elements))
+                      (loop (cdr elements)))))))
+     (else #f))))
+
 (define-public (music-selective-filter descend? pred? music)
   "Recursively filter out music expressions that do not satisfy
   @var{pred?}, but refrain from filtering the subexpressions of

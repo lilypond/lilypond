@@ -46,6 +46,12 @@
 %%   %% result: { c16*4/3 c16*2/3 },
 %%   %% corresponding to \times 2/3 { c8 c16 }
 %%
+%%   %% triplet feel with pickup measure (anacrusis) - automatically handled!
+%%
+%%   \tripletFeel 8 { \partial 4 c8 c | c8 c c c c c c c }
+%%   %% The offset from \partial is automatically detected and used.
+%%   %% Previously, this required manual use of \applySwingWithOffset.
+%%
 %%   %% samba swing
 %%
 %%   \applySwing 16 #'(3 2 2 3) { c16 c c c }
@@ -65,7 +71,11 @@
 %% * These functions are oblivious to time signatures and measures.
 %%
 %%   That is why offsets need to be supplied by the user if music
-%%   starts off-beat.
+%%   starts off-beat using \applySwingWithOffset.
+%%
+%%   However, \tripletFeel automatically detects and handles \partial
+%%   at the start of the music, calculating the correct offset from
+%%   the partial's duration.
 %%
 %% * Grace notes are ignored and simply left unaffected.
 %%
@@ -225,12 +235,34 @@ Return an alist associating old boundary positions with required shifts."
 %%   at most di*ej/swing-div each until the lengthening has been
 %%   compensated for completely.
 
+
 #(define (apply-swing swing-div wlist start-time music)
    (let* ((swing-unit (* swing-div (length wlist)))
           (delta-alist (calculate-delta-alist wlist swing-div))
-          (prev-lengthening 0)
-          (rem-lengthening 0))
-     (ly:debug "apply-swing: delta-alist: ~a" delta-alist)
+          (start-grid-pos (euclidean-remainder (ly:moment-main start-time) swing-unit))
+          ;; If we start on an off-beat position (i.e., at a boundary in delta-alist),
+          ;; initialize rem-lengthening to simulate a previous lengthening.
+          ;; This ensures the first note gets shortened appropriately.
+          (initial-lengthening (if (assoc start-grid-pos delta-alist)
+                                   (assoc-ref delta-alist start-grid-pos)
+                                   0))
+          (prev-lengthening initial-lengthening)
+          (rem-lengthening initial-lengthening))
+     ;; Compress the leading \partial duration to keep bar checks valid.
+     ;; find-leading-partial with #:recurse-simultaneous? #f stops at SimultaneousMusic,
+     ;; so partials nested in parallel voices are left alone here.  The
+     ;; simultaneous-handler below calls apply-swing for each voice, and those
+     ;; recursive calls each find and compress their own voice's partial.
+     (when (> initial-lengthening 0)
+       (let ((ratio (/ (- (ly:moment-main start-time) initial-lengthening)
+                       (ly:moment-main start-time)))
+             (p (find-leading-partial music #:recurse-simultaneous? #f)))
+         (when p
+           (ly:music-set-property! p 'duration
+             (ly:duration-compress (ly:music-property p 'duration) ratio)))))
+     (ly:debug
+       "apply-swing: delta-alist: ~a, start-grid-pos: ~a, initial-lengthening: ~a"
+       delta-alist start-grid-pos initial-lengthening)
      (map-events-with-timing
       (lambda (evt evt-start-moment)
         (let* ((evt-start (ly:moment-main evt-start-moment))
@@ -285,13 +317,13 @@ Return an alist associating old boundary positions with required shifts."
         (let ((es (ly:music-property sim-music 'elements))
               (e (ly:music-property sim-music 'element)))
           (if (pair? es)
-              (set! (ly:music-property sim-music 'elements)
-                    (map (lambda (x)
-                           (apply-swing swing-div wlist sim-start-time x))
-                      es)))
+              (ly:music-set-property! sim-music 'elements
+                (map (lambda (x)
+                       (apply-swing swing-div wlist sim-start-time x))
+                  es)))
           (if (ly:music? e)
-              (set! (ly:music-property sim-music 'element)
-                    (apply-swing swing-div wlist sim-start-time e))))))))
+              (ly:music-set-property! sim-music 'element
+                (apply-swing swing-div wlist sim-start-time e))))))))
 
 
 %%% Music function definitions
@@ -330,12 +362,16 @@ applySwingWithOffset =
 @var{music} to start off-beat.
 
 Use the argument @var{offset} to specify the start time (as a moment)
-of @var{music} relative to the start of the first swing cycle.")
+of @var{music} relative to the start of the first swing cycle.
+
+If @var{music} contains a @code{\\partial} at the start, its duration
+is adjusted to match the swung pickup timing, so that bar checks remain
+valid.")
   (apply-swing
-   (ly:duration->number swingDiv)
-   weightList
-   offset
-   music))
+    (ly:duration->number swingDiv)
+    weightList
+    offset
+    music))
 
 tripletFeel =
 #(define-music-function
@@ -343,9 +379,26 @@ tripletFeel =
   (ly:duration? ly:music?)
   (_i "Apply a triplet-feel swing to @var{music}, swinging notes of
 duration @var{swingDiv}. Equivalent to @code{\\applySwing
-swingDiv #'(2 1) music}.")
-  (apply-swing
-   (ly:duration->number swingDiv)
-   '(2 1)
-   ZERO-MOMENT
-   music))
+swingDiv #'(2 1) music}.
+
+If @var{music} starts with @code{\\partial}, the offset is automatically
+calculated from the partial's duration.  The partial duration is also
+adjusted to match the swung pickup timing, so that bar checks remain
+valid.
+
+When @var{music} contains simultaneous voices that each start with
+@code{\\partial}, the offset is derived from the @emph{first} partial
+found.  This is correct as long as all voices share the same partial
+duration and timing context.  If you use @code{\\enablePerStaffTiming},
+voices may have independent timing contexts; in that case apply
+@code{\\tripletFeel} separately to each voice.")
+  (let* ((partial (find-leading-partial music))
+         (offset  (if partial
+                      (ly:duration->moment
+                       (ly:music-property partial 'duration))
+                      ZERO-MOMENT)))
+    (apply-swing
+      (ly:duration->number swingDiv)
+      '(2 1)
+      offset
+      music)))
