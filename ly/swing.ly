@@ -106,17 +106,22 @@
    (ly:music-compress music (1+ (/ add-length
                                    (ly:moment-main (ly:music-length music))))))
 
-#(define* (map-events-with-timing
-           function
-           music
-           #:optional (start-time ZERO-MOMENT))
+#(define (map-events-with-timing
+          function
+          music
+          start-time
+          simultaneous-handler)
    "Walk through @var{music} and transform each chord or event with
 duration (e.g. NoteEvent) @code{evt} to @code{(@var{function} evt
 time)}. Here @code{time} provides the moment at which @code{evt}
 occurs, with @var{start-time} assigned to the earliest such event
 encountered in @var{music}.
 
-Ignore grace music. Do not unfold repeats for determining timings."
+Ignore grace music. Do not unfold repeats for determining timings.
+
+@var{simultaneous-handler} will be called with
+@code{(simultaneous-handler mus start-time)} when SimultaneousMusic
+is encountered."
    (map-some-music
     (lambda (mus)
       (cond
@@ -124,22 +129,10 @@ Ignore grace music. Do not unfold repeats for determining timings."
         ;; ignore grace notes (leave mus unchanged and stop recursing)
         mus)
        ((eq? (ly:music-property mus 'name) 'SimultaneousMusic)
-        ;; recursively call this function on all parallel music elements
-        (let ((es (ly:music-property mus 'elements))
-              (e (ly:music-property mus 'element)))
-          (if (pair? es)
-              (set! (ly:music-property mus 'elements)
-                    (map (lambda (x)
-                           (map-events-with-timing function x start-time))
-                      es)))
-          ;; Not sure if this can actually happen with SimultaneousMusic?
-          ;; Anyway, better safe than sorry.
-          (if (ly:music? e)
-              (set! (ly:music-property mus 'element)
-                    (map-events-with-timing function e start-time)))
-          ;; advance time counter by total length of simultaneous music
-          (set! start-time (+ start-time (ly:music-length mus)))
-          mus))
+        (simultaneous-handler mus start-time)
+        ;; advance time counter by total length of simultaneous music
+        (set! start-time (+ start-time (ly:music-length mus)))
+        mus)
        ((chord-or-with-duration? mus)
         (let ((evt-time start-time))
           ;; advance time counter
@@ -285,7 +278,20 @@ Return an alist associating old boundary positions with required shifts."
              (set! rem-lengthening (+ delta rem-lengthening))))
           evt))
       music
-      start-time)))
+      start-time
+      (lambda (sim-music sim-start-time)
+        ;; Apply swing independently to each parallel element
+        ;; to avoid sharing state between parallel voices
+        (let ((es (ly:music-property sim-music 'elements))
+              (e (ly:music-property sim-music 'element)))
+          (if (pair? es)
+              (set! (ly:music-property sim-music 'elements)
+                    (map (lambda (x)
+                           (apply-swing swing-div wlist sim-start-time x))
+                      es)))
+          (if (ly:music? e)
+              (set! (ly:music-property sim-music 'element)
+                    (apply-swing swing-div wlist sim-start-time e))))))))
 
 
 %%% Music function definitions
