@@ -44,6 +44,7 @@
 
 #include <algorithm>
 #include <cmath> // ceil.
+#include <iterator>
 #include <unordered_set>
 
 void
@@ -551,13 +552,11 @@ Side_position_interface::move_to_extremal_staff (SCM smob)
     = unsmob<Grob_array> (get_object (me, "side-support-elements"));
   if (ga)
     {
-      std::vector<Grob *> const &elts = ga->array ();
       std::vector<Grob *> new_elts;
-      for (vsize i = 0; i < elts.size (); ++i)
-        {
-          if (me->common_refpoint (elts[i], Y_AXIS) == top_staff)
-            new_elts.push_back (elts[i]);
-        }
+      std::copy_if (ga->begin (), ga->end (), std::back_inserter (new_elts),
+                    [&] (auto *g) {
+                      return me->common_refpoint (g, Y_AXIS) == top_staff;
+                    });
       ga->set_array (new_elts);
     }
   return SCM_BOOL_T;

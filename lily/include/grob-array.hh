@@ -40,17 +40,8 @@ private:
 public:
   bool ordered () const { return ordered_; }
   void set_ordered (bool b) { ordered_ = b; }
-  Grob *grob (vsize i) const { return at (i); }
   void remove_duplicates ();
   void set_array (std::vector<Grob *> const &src) { vector::operator= (src); }
-  std::vector<Grob *> &array_reference ()
-  {
-    return static_cast<std::vector<Grob *> &> (*this);
-  }
-  const std::vector<Grob *> &array_reference () const
-  {
-    return static_cast<const std::vector<Grob *> &> (*this);
-  }
   std::vector<Grob *> const &array () const
   {
     return static_cast<const std::vector<Grob *> &> (*this);
@@ -58,8 +49,23 @@ public:
   static SCM make_array ();
 
 public: // exposed subset of vector interface
+  using vector::value_type;
+
+  // We're not using vector::at because LilyPond is built without support for
+  // exceptions, so at() with invalid bounds would simply terminate -- better
+  // than undefined behavior, but not serving the user properly.  Just use
+  // operator[] and check your own indexes.
+  using vector::back;
+  using vector::begin;
+  using vector::cbegin;
+  using vector::cend;
   using vector::clear;
   using vector::empty;
+  using vector::end;
+  using vector::front;
+  using vector::insert;
+  using vector::operator[];
+  using vector::pop_back;
   using vector::push_back;
   using vector::size;
 };

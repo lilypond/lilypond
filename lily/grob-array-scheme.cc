@@ -21,6 +21,9 @@
 #include "grob-array.hh"
 #include "grob.hh"
 
+#include <algorithm>
+#include <iterator>
+
 LY_DEFINE (ly_grob_array_length, "ly:grob-array-length", 1, 0, 0,
            (SCM grob_arr),
            R"(
@@ -45,7 +48,7 @@ Retrieve the @var{index}th element of @var{grob-arr}.
   if (i == VPOS || i >= me->size ())
     scm_out_of_range (NULL, to_scm (i));
 
-  return me->grob (i)->self_scm ();
+  return (*me)[i]->self_scm ();
 }
 
 LY_DEFINE (ly_grob_array_filter, "ly:grob-array-filter", 2, 0, 0,
@@ -61,13 +64,10 @@ Like @code{filter}, return a new grob array containing the elements of
   SCM dst_scm = Grob_array::make_array ();
   auto *const dst = unsmob<Grob_array> (dst_scm);
   dst->set_ordered (src->ordered ());
-  for (auto *g : src->array_reference ())
-    {
-      if (scm_is_true (ly_call (predicate, g->self_scm ())))
-        {
-          dst->push_back (g);
-        }
-    }
+  std::copy_if (src->begin (), src->end (), std::back_inserter (*dst),
+                [&] (auto *g) {
+                  return scm_is_true (ly_call (predicate, g->self_scm ()));
+                });
   return dst_scm;
 }
 

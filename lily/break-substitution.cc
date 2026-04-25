@@ -111,7 +111,7 @@ do_break_substitution (Crit break_criterion, SCM src)
       // we'll also use the optimization available for unordered arrays
       // for arrays created by the first substitution (with directions).
       new_arr->set_ordered (ga->ordered ());
-      for (Grob *og : ga->array_reference ())
+      for (Grob *og : *ga)
         if (Grob *g = substitute_grob (break_criterion, og))
           new_arr->push_back (g);
       return new_arr->smobbed_copy ();
@@ -232,7 +232,7 @@ Spanner::fast_substitute_grob_array (SCM sym, Grob_array const *grob_array)
 
   std::vector<Substitution_entry> items;
   std::vector<Grob *> spanners;
-  for (auto *g : grob_array->array_reference ())
+  for (auto *g : *grob_array)
     {
       if (auto *it = dynamic_cast<Item *> (g))
         {

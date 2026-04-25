@@ -38,9 +38,9 @@ int
 Grob_array::print_smob (SCM port, scm_print_state *) const
 {
   scm_puts ("#<Grob_array", port);
-  for (vsize i = 0; i < size (); i++)
+  for (auto *g : *this)
     {
-      scm_display (grob (i)->self_scm (), port);
+      scm_display (g->self_scm (), port);
       scm_puts (" ", port);
     }
   scm_puts (">", port);
@@ -90,9 +90,9 @@ grob_array_to_list (Grob_array *array)
   SCM list = SCM_EOL;
   SCM *tail = &list;
 
-  for (vsize i = 0; i < array->size (); i++)
+  for (auto *g : *array)
     {
-      *tail = scm_cons (array->grob (i)->self_scm (), SCM_EOL);
+      *tail = scm_cons (g->self_scm (), SCM_EOL);
       tail = SCM_CDRLOC (*tail);
     }
   return list;

@@ -142,8 +142,8 @@ System::derived_mark () const
 void
 System::do_break_substitution_and_fixup_refpoints ()
 {
-  std::vector<Grob *> &all_elts = all_elements ()->array_reference ();
-  for (Grob *g : all_elts)
+  auto *const all_elts = all_elements ();
+  for (Grob *g : *all_elts)
     g->do_break_processing ();
 
   /*
@@ -152,22 +152,21 @@ System::do_break_substitution_and_fixup_refpoints ()
   vsize count = 0;
   for (Grob *child : broken_intos_)
     {
-      const std::vector<Grob *> &child_elts
-        = static_cast<System *> (child)->all_elements ()->array_reference ();
+      const auto *child_elts = static_cast<System *> (child)->all_elements ();
 
-      for (Grob *g : child_elts)
+      for (Grob *g : *child_elts)
         g->fixup_refpoint ();
 
-      count += child_elts.size ();
+      count += child_elts->size ();
     }
 
   /*
     needed for doing items.
   */
-  for (Grob *g : all_elts)
+  for (Grob *g : *all_elts)
     g->fixup_refpoint ();
 
-  for (Grob *g : all_elts)
+  for (Grob *g : *all_elts)
     g->handle_broken_dependencies ();
 
   handle_broken_dependencies ();
@@ -182,13 +181,13 @@ System::do_break_substitution_and_fixup_refpoints ()
       Grob_array *all_elts_ga = static_cast<System *> (child)->all_elements ();
       all_elts_ga->remove_duplicates ();
       (void) get_property (child, "after-line-breaking");
-      for (Grob *g : all_elts_ga->array_reference ())
+      for (Grob *g : *all_elts_ga)
         {
           (void) get_property (g, "after-line-breaking");
         }
     }
 
-  debug_output (_f ("Element count %zu", count + all_elts.size ()) + "\n");
+  debug_output (_f ("Element count %zu", count + all_elts->size ()) + "\n");
 }
 
 bool
@@ -530,7 +529,7 @@ System::pre_processing ()
     auto trace_slice = tracer_global.log_scope ("Break items"sv);
     vsize num_original_grobs = all->size ();
     for (vsize i = 0; i < num_original_grobs; i++)
-      all->grob (i)->break_breakable_item (this);
+      (*all)[i]->break_breakable_item (this);
   }
 
   debug_output (_f ("Grob count %zu", all->size ()));
@@ -543,19 +542,19 @@ System::pre_processing ()
   {
     auto trace_slice = tracer_global.log_scope ("Handle dependencies"sv);
     for (vsize i = all->size (); i--;)
-      all->grob (i)->handle_prebroken_dependencies ();
+      (*all)[i]->handle_prebroken_dependencies ();
   }
 
   {
     auto trace_slice = tracer_global.log_scope ("Fix up refpoints"sv);
-    for (Grob *g : all->array_reference ())
+    for (Grob *g : *all)
       g->fixup_refpoint ();
   }
 
   {
     auto trace_slice = tracer_global.log_scope ("before-line-breaking"sv);
     get_property (this, "before-line-breaking");
-    for (Grob *g : all->array_reference ())
+    for (Grob *g : *all)
       {
         (void) get_property (g, "before-line-breaking");
       }
@@ -564,7 +563,7 @@ System::pre_processing ()
   {
     auto trace_slice = tracer_global.log_scope ("springs-and-rods"sv);
     get_property (this, "springs-and-rods");
-    for (Grob *g : all->array_reference ())
+    for (Grob *g : *all)
       {
         (void) get_property (g, "springs-and-rods");
       }
@@ -617,8 +616,7 @@ System::get_paper_system ()
   post_processing ();
 
   std::vector<Layer_entry> entries;
-  auto &all_elts = all_elements ()->array ();
-  for (Grob *g : all_elts)
+  for (Grob *g : *all_elements ())
     {
       Layer_entry e;
       e.grob_ = g;

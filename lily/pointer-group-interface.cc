@@ -24,6 +24,8 @@
 #include "item.hh"
 #include "spanner.hh"
 
+#include <algorithm>
+
 vsize
 Pointer_group_interface::count (Grob *me, SCM sym)
 {
@@ -62,13 +64,9 @@ Grob *
 Pointer_group_interface::find_grob (Grob *me, SCM sym,
                                     bool (*pred) (Grob const *))
 {
-  Grob_array *arr = get_grob_array (me, sym);
-
-  for (vsize i = 0; i < arr->size (); i++)
-    if (pred (arr->grob (i)))
-      return arr->grob (i);
-
-  return 0;
+  const auto *arr = get_grob_array (me, sym);
+  auto it = std::find_if (arr->begin (), arr->end (), pred);
+  return (it != arr->end ()) ? *it : nullptr;
 }
 
 void
@@ -111,7 +109,7 @@ internal_extract_grob_subtype_array (Grob *elt, SCM symbol)
   if (auto *const ga = unsmob<Grob_array> (elt->internal_get_object (symbol)))
     {
       result.reserve (ga->size ());
-      for (auto *const grob : ga->array ())
+      for (auto *const grob : *ga)
         {
           if (auto *const specific_grob = dynamic_cast<T *> (grob))
             result.push_back (specific_grob);

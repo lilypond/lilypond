@@ -177,18 +177,17 @@ Vertical_align_engraver::acknowledge_hara_kiri_group_spanner (Grob_info i)
       Grob *after_grob = unsmob<Grob> (after);
 
       Grob_array *ga = unsmob<Grob_array> (get_object (valign_, "elements"));
-      std::vector<Grob *> &arr = ga->array_reference ();
-      Grob *added = arr.back ();
-      arr.pop_back ();
-      auto it = std::find_if (arr.begin (), arr.end (), [&] (auto *g) {
+      Grob *const added = ga->back ();
+      ga->pop_back ();
+      auto it = std::find_if (ga->begin (), ga->end (), [&] (auto *g) {
         return (g == before_grob) || (g == after_grob);
       });
-      if (it != arr.end ())
+      if (it != ga->end ())
         {
           const auto staff_affinity = (*it == after_grob) ? UP : DOWN;
           if (*it == after_grob)
             ++it;
-          arr.insert (it, added);
+          ga->insert (it, added);
           // Only set staff affinity if it already has one.  That way we won't
           // set staff-affinity on things that don't want it (like staves).
           SCM staff_affinity_sym = ly_symbol2scm ("staff-affinity");
