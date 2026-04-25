@@ -543,6 +543,7 @@ emmentaler_glyphsets = [
         # modern time signatures
         "timesig.C22",
         "timesig.C44",
+        "timesig.X",
 
         # ancient time signatures
         "timesig.mensural22",

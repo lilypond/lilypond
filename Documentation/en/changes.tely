@@ -160,6 +160,19 @@ argument to lengthen the brackets.
 @item
 An equal sign was added to the Emmentaler font.
 
+@item
+A senza-misura time signature was added to the Emmentaler font.
+
+@lilypond
+{
+  \override Staff.TimeSignature.stencil =
+    #(lambda (grob)
+       (grob-interpret-markup grob
+                              (make-musicglyph-markup "timesig.X")))
+  \time 4/4 f'1
+}
+@end lilypond
+
 @end itemize
 
 

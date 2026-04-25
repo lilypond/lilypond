@@ -116,4 +116,10 @@ fet_beginchar ("2/2 meter", "C22");
               (x2 + eccentricity + thick, top_stemlen));
 fet_endchar;
 
+
+fet_beginchar ("senza misura meter", "X");
+  draw_slash (1.2 slash_thick#, false);
+  draw_slash (1.2 slash_thick#, true);
+fet_endchar;
+
 fet_endgroup ("timesig");
