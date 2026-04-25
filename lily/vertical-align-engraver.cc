@@ -178,28 +178,22 @@ Vertical_align_engraver::acknowledge_hara_kiri_group_spanner (Grob_info i)
 
       Grob_array *ga = unsmob<Grob_array> (get_object (valign_, "elements"));
       std::vector<Grob *> &arr = ga->array_reference ();
-
       Grob *added = arr.back ();
       arr.pop_back ();
-      for (vsize i = 0; i < arr.size (); i++)
+      auto it = std::find_if (arr.begin (), arr.end (), [&] (auto *g) {
+        return (g == before_grob) || (g == after_grob);
+      });
+      if (it != arr.end ())
         {
-          if (arr[i] == before_grob)
-            {
-              arr.insert (arr.begin () + i, added);
-
-              /* Only set staff affinity if it already has one.  That way we won't
-                 set staff-affinity on things that don't want it (like staves). */
-              if (scm_is_number (get_property (added, "staff-affinity")))
-                set_property (added, "staff-affinity", to_scm (DOWN));
-              break;
-            }
-          else if (arr[i] == after_grob)
-            {
-              arr.insert (arr.begin () + i + 1, added);
-              if (scm_is_number (get_property (added, "staff-affinity")))
-                set_property (added, "staff-affinity", to_scm (UP));
-              break;
-            }
+          const auto staff_affinity = (*it == after_grob) ? UP : DOWN;
+          if (*it == after_grob)
+            ++it;
+          arr.insert (it, added);
+          // Only set staff affinity if it already has one.  That way we won't
+          // set staff-affinity on things that don't want it (like staves).
+          SCM staff_affinity_sym = ly_symbol2scm ("staff-affinity");
+          if (scm_is_number (get_property (added, staff_affinity_sym)))
+            set_property (added, staff_affinity_sym, to_scm (staff_affinity));
         }
     }
   else
