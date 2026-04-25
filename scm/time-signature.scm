@@ -43,13 +43,7 @@ Returns the value of @code{time-signature} reduced to a fraction."
 
 (define-public (ly:time-signature::print-x grob)
   "Print routine for an X-shaped sign indicating no time signature."
-  ;; TODO: Replace this kludge with a "timesig.X" glyph.
-  (let* ((slash (ly:font-get-glyph (ly:grob-default-font grob)
-                                   "noteheads.s2slash"))
-         (width (interval-length (ly:stencil-extent slash X))))
-    ;; overstrike the slash and its reflection
-    (ly:stencil-add slash (ly:stencil-translate-axis
-                           (ly:stencil-scale slash -1 1) width X))))
+  (ly:font-get-glyph (ly:grob-default-font grob) "timesig.X"))
 
 (define-public (add-simple-time-signature-style style proc)
   "Specify the procedure @var{proc} returning markup for a time signature
