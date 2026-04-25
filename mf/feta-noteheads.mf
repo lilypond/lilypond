@@ -493,21 +493,21 @@ fet_endchar;
 % twice as high as normal heads.
 %
 fet_beginchar ("whole slashhead", "s0slash");
-  draw_slash (4 slash_thick# + 0.5 staff_space#);
+  draw_slash (4 slash_thick# + 0.5 staff_space#, false);
 
   draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
 fet_beginchar ("half slashhead", "s1slash");
-  draw_slash (3.0 slash_thick# + 0.15 staff_space#);
+  draw_slash (3.0 slash_thick# + 0.15 staff_space#, false);
 
   draw_staff_if_debugging (-2, 2);
 fet_endchar;
 
 
 fet_beginchar ("quarter slashhead", "s2slash");
-  draw_slash (1.5 slash_thick#);
+  draw_slash (1.5 slash_thick#, false);
 
   draw_staff_if_debugging (-2, 2);
 fet_endchar;

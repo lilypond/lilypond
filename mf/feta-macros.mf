@@ -291,9 +291,11 @@ def draw_gridline (expr bottom_left, top_right, thickness) =
 enddef;
 
 
-def draw_slash (expr hwid_hash) =
+def draw_slash (expr hwid_hash, mirrored) =
+  save pat;
   save exact_height;
   save ne, nw_dist;
+  path pat;
   pair ne, nw_dist;
   exact_height = staff_space# + stafflinethickness# / 2;
 
@@ -323,15 +325,20 @@ def draw_slash (expr hwid_hash) =
   ne = unitvector (z3 - z4);
   nw_dist = (ne rotated 90) * 0.5 blot_diameter;
 
-  fill bot z1{left}
-       .. (z1 + nw_dist){ne}
-       -- (z2 + nw_dist){ne}
-       .. top z2{right}
-       -- top z3{right}
-       .. (z3 - nw_dist){-ne}
-       -- (z4 - nw_dist){-ne}
-       .. bot z4{left}
-       -- cycle;
+  pat := bot z1{left}
+         .. (z1 + nw_dist){ne}
+         -- (z2 + nw_dist){ne}
+         .. top z2{right}
+         -- top z3{right}
+         .. (z3 - nw_dist){-ne}
+         -- (z4 - nw_dist){-ne}
+         .. bot z4{left}
+         -- cycle;
+  if mirrored:
+    fill reverse pat xscaled -1 shifted (w - b, 0);
+  else:
+    fill pat;
+  fi;
 
   if hwid_hash > 2 slash_thick#:
     save th;
@@ -347,11 +354,16 @@ def draw_slash (expr hwid_hash) =
     z5 = z1 + whatever * ne + th * (ne rotated -90);
     z8 = z4 + whatever * ne + th * (ne rotated 90);
 
-    unfill z5
+    pat := z5
            -- z6
            -- z7
            -- z8
            -- cycle;
+    if mirrored:
+      unfill reverse pat xscaled -1 shifted (w - b, 0);
+    else:
+      unfill pat;
+    fi;
   fi
   labels (range 1 thru 10);
 enddef;
