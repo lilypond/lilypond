@@ -9,6 +9,17 @@
 @c used for news about the upcoming release; see CG on Release Work
 
 @newsItem
+@subheading LilyPond 2.27.0 released  @emph{April 25, 2026}
+
+We are happy to announce the release of LilyPond 2.27.0, the start
+of the next development cycle. This is termed a development release,
+but these are usually reliable for testing new features and recent
+bug fixes. However, for production usage, we recommend using version
+2.26.0, the current stable release.
+
+@newsEnd
+
+@newsItem
 @subheading LilyPond 2.26.0 released!  @emph{April 21, 2026}
 
 We are proud to announce the release of GNU LilyPond 2.26.0.
@@ -30,15 +41,5 @@ the Mozarteum University in Salzburg, as well as a LilyPond meeting
 which brought together developers and the wider community. Urs will
 be remembered as a kind contributor whose enthusiasm for beautiful
 music engraving inspired others.
-
-@newsEnd
-
-@newsItem
-@subheading LilyPond 2.25.81 released  @emph{April 4, 2026}
-
-We are happy to announce the release of LilyPond 2.25.81. This is
-the second release candidate towards the next stable version 2.26.0
-expected later in April. Please test your scores with this version
-and report back the experience as well as any problems you encounter.
 
 @newsEnd
