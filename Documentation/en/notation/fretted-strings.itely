@@ -455,6 +455,7 @@ ratioHarmonics = {
 @funindex \bendHold
 @funindex \preBendHold
 @funindex \bendStartLevel
+@funindexpost \^
 
 String bendings can be added to tablature notation.
 A bending is introduced by appending @code{\^} to the note or chord to be bent;

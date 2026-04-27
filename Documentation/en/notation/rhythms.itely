@@ -370,10 +370,13 @@ Internals Reference:
 
 @cindex scaling duration
 @cindex duration, scaling
+@c The index entry for `\*` is auto-generated with `@funindex`.
+@funindexpre *
+@funindex /
 
 The duration of single notes, rests or chords may be multiplied by
 a fraction @code{N/M} by appending @code{*N/M} (or @code{*N} if
-@code{M} is 1) to the duration.  Factors may also be added by
+@code{M} is@tie{}1) to the duration.  Factors may also be added by
 using Scheme expressions evaluating to a number or musical length
 like @code{*#(ly:music-length @var{music})}.  This is convenient
 for scaling a duration of @samp{1} to let a note or multi-measure

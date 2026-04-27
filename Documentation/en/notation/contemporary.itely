@@ -148,7 +148,7 @@ addressed in @ref{Grouping staves}.
 @cindex line, indicating duration
 @cindex continuation, of notes
 
-@funindex \-
+@funindexpost \-
 
 Rhythmic items may be continued by a duration line, which gets represented by a
 @code{DurationLine} grob.

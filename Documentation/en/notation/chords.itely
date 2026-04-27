@@ -1216,6 +1216,10 @@ purpose
 @tab
 example
 
+@funindex +
+@funindex -
+@funindex !
+
 @item
 @code{+}, @code{-}, @code{!}
 @tab
@@ -1226,6 +1230,9 @@ accidentals
   <7! 6+ 4-> <5++> <3-->
 }
 @end lilypond
+
+@funindexpost \+
+@funindex /
 
 @item
 @code{\+}, @code{/}
@@ -1238,6 +1245,8 @@ augmented and diminished steps
 }
 @end lilypond
 
+@funindex @sortas{@bs{}@bs{}} \\
+
 @item
 @code{\\}
 @tab
@@ -1248,6 +1257,8 @@ raised by a semitone
   <6\\> <7\\> <9\\>
 }
 @end lilypond
+
+@funindexpost \!
 
 @item
 @code{\!}
