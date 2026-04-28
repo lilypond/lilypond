@@ -16,7 +16,8 @@
 % along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-% A BibTeX style file for use with LilyPond's bibliography.
+% A BibTeX style file for use with LilyPond's bibliography, outputting Texinfo
+% syntax.
 
 
 % This section lists the possible fields, although not all are handled by the
@@ -36,6 +37,7 @@ ENTRY
     journal
     key
     keyword
+    language
     later
     month
     note
@@ -46,7 +48,9 @@ ENTRY
     publisher
     school
     series
+    subtitle
     title
+    translator
     type
     URL
     volume
@@ -160,6 +164,25 @@ FUNCTION {format.date}
   if$
 }
 
+FUNCTION {format.language}
+{ language empty$
+    { translator empty$
+        { "" }
+        { " (translated by "
+          translator format.names *
+          ")" * }
+      if$
+    }
+    { " (in " language *
+      translator empty$
+        { "" * }
+        { ", translated by " *
+          translator format.names * }
+      if$
+      ")" * }
+  if$
+}
+
 FUNCTION {format.address}
 { address empty$
     { "" }
@@ -200,6 +223,10 @@ FUNCTION {format.title}
 { title empty$
     { "" }
     { "@strong{" title * "}" *
+      subtitle empty$
+        { "" * }
+        { ": " * subtitle * }
+      if$
       journal empty$
         { volume empty$
             { "" * }
@@ -324,6 +351,7 @@ FUNCTION {book}
   format.booktitle write$
   format.thesis write$
   format.date write$
+  format.language write$
   "." write$ newline$
   format.note write$
   newline$
