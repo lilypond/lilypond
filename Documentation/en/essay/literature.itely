@@ -97,5 +97,7 @@ practices.
 
 @subheading Engraving bibliography
 
+@hyphenation{Regel-werk}
+
 @include engravingbib.itexi
 
