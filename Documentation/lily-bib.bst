@@ -74,20 +74,20 @@ FUNCTION {format.names}
     % thinks fit.  The downside is that we lose hyphens...
     { s nameptr "{ff{ } }{vv }{ll}{, jj}" format.name$ 't :=
       nameptr #1 >
-	{ namesleft #1 >
-	    { ", " * t * }
-	    { numnames #2 >
-		{ "," * }
-		'skip$
-	      if$
-	      t "others" =
-		{ " et al." * }
-		{ " and " * t * }
-	      if$
-	    }
-	  if$
-	}
-	't
+        { namesleft #1 >
+            { ", " * t * }
+            { numnames #2 >
+                { "," * }
+                'skip$
+              if$
+              t "others" =
+                { " et al." * }
+                { " and " * t * }
+              if$
+            }
+          if$
+        }
+        't
       if$
       nameptr #1 + 'nameptr :=
       namesleft #1 - 'namesleft :=
@@ -121,8 +121,8 @@ FUNCTION {format.editor}
     { "" }
     { editor format.names
       editor num.names$ #1 >
-	{ ", editors" * }
-	{ ", editor" * }
+        { ", editors" * }
+        { ", editor" * }
       if$
       author empty$
         { "" * }
@@ -130,7 +130,6 @@ FUNCTION {format.editor}
       if$
     }
   if$
-
 }
 
 FUNCTION {output.bibitem}
@@ -148,15 +147,14 @@ FUNCTION {format.edition}
 FUNCTION {format.date}
 { year empty$
     { month empty$
-	{ "" }
-	{ "there's a month but no year in " cite$ * warning$
-	  month
-	}
+        { "" }
+        { "there's a month but no year in " cite$ * warning$
+          month }
       if$
     }
     { month empty$
-	'year
-	{ month " " * year * }
+        'year
+        { month " " * year * }
       if$
     }
   if$
@@ -166,17 +164,16 @@ FUNCTION {format.address}
 { address empty$
     { "" }
     { address
-    year empty$
-      { "" * }
-      { ", " * }
-    if$
+      year empty$
+        { "" * }
+        { ", " * }
+      if$
     }
   if$
 }
 
 FUNCTION {format.publisher}
-{
-  publisher empty$
+{ publisher empty$
     { "" }
     { publisher
       address empty$
@@ -195,8 +192,7 @@ FUNCTION {format.note}
 { note empty$
     { "" }
     { note
-      add.period$
-    }
+      add.period$ }
   if$
 }
 
@@ -204,16 +200,15 @@ FUNCTION {format.title}
 { title empty$
     { "" }
     { "@strong{" title * "}" *
-    journal empty$
-    {
-      volume empty$
+      journal empty$
+        { volume empty$
+            { "" * }
+            { ", " * }
+          if$
+        }
         { "" * }
-        { ", " * }
       if$
     }
-    { "" * }
-    if$
-  }
   if$
 }
 
@@ -222,15 +217,14 @@ FUNCTION {format.number}
   % 'ReportType' is set by us when we call the correct function for the
   % bibliography type.
   ReportType empty$
-  {
-    volume empty$
-      {number empty$
+    { volume empty$
+        { number empty$
+            { "" }
+            { "Number " number * ". " * }
+          if$
+        }
         { "" }
-        { "Number " number * ". " * }
       if$
-      }
-      { "" }
-    if$
     }
     { ReportType
       number empty$
@@ -243,42 +237,41 @@ FUNCTION {format.number}
 
 FUNCTION {format.volume}
 { journal empty$
-  {
-    volume empty$
-      { "" }
-      { "volume " volume * }
-    if$
-  }
-  { "" }
+    { volume empty$
+        { "" }
+        { "volume " volume * }
+      if$
+    }
+    { "" }
   if$
 }
 
 FUNCTION {format.journal}
 { journal empty$
-  { "" write$ }
-  { "@emph{" journal * "}" *
-    write$
-    volume empty$
-      { "" }
-      { ", " volume * }
-    if$
-    write$
-    number empty$
-      { "" }
-      { "(" number * ")" * }
-    if$
-    write$
-    pages empty$
-      { "" }
-      { ":" pages * }
-    if$
-    write$
-    year empty$
-      { "" }
-      { ", " }
-    if$
-    write$
- }
+    { "" write$ }
+    { "@emph{" journal * "}" *
+      write$
+      volume empty$
+        { "" }
+        { ", " volume * }
+      if$
+      write$
+      number empty$
+        { "" }
+        { "(" number * ")" * }
+      if$
+      write$
+      pages empty$
+        { "" }
+        { ":" pages * }
+      if$
+      write$
+      year empty$
+        { "" }
+        { ", " }
+      if$
+      write$
+    }
   if$
 }
 
