@@ -1,7 +1,7 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 18cf09c1f24d22eeb0cdc187dec0af734d60cfc8
+    Translation of GIT committish: 3596756be0fac1f81066a99d2054329212172b2d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -1375,10 +1375,11 @@ renommées.
 @command{convert-ly} gère ceci automatiquement.
 
 @item
-Two new Scheme functions related to chord names are now available:
-@code{pitch->alteration} returns the accidental for a given pitch
-and language; @code{chord-name:name-markup} returns note name
-markup for a given pitch and language.
+Deux nouvelles fonctions Scheme liées aux noms d'accords sont désormais
+disponibles : @code{pitch->alteration} renvoie l'altération
+correspondant à une hauteur et à une langue données ;
+@code{chord-name:name-markup} renvoie sous forme de @emph{markup} le nom
+de la note pour une hauteur et une langue données.
 
 @item
 LilyPond suit désormais plus rigoureusement la nomenclature de
@@ -1723,7 +1724,7 @@ lilypond -dlast=R1*5 ...
 
 @noindent
 aura pour résultat que LilyPond générera seulement les cinq dernières
-mesure (partant du principe d'une métrique à 4/4).
+mesure (partant du principe d'une métrique à 4/4).
 
 @item
 Est désormais disponible un nouveau manuel constituant un index de tous
