@@ -73,10 +73,10 @@ FUNCTION {format.names}
   s num.names$ 'numnames :=
   numnames 'namesleft :=
     { namesleft #0 > }
-    % This line was changed: the `{ff{ } }` entry outputs the first name
-    % without allowing bibtex to use a `~` to replace the spaces where it
-    % thinks fit.  The downside is that we lose hyphens...
-    { s nameptr "{ff{ } }{vv }{ll}{, jj}" format.name$ 't :=
+    % We must change the formatter argument of `format.name$` to replace
+    % BibTeX's default tie character (`~`, intended for TeX and LaTeX) with
+    % Texinfo's `@tie{}` macro.
+    { s nameptr "{ff{@tie{}} }{vv{@tie{}} }{ll{@tie{}}}{, jj{@tie{}}}" format.name$ 't :=
       nameptr #1 >
         { namesleft #1 >
             { ", " * t * }
