@@ -60,22 +60,25 @@ Frescobaldi install page.}
 Install Frescobaldi from the bundle you downloaded.  It is safe to accept
 all defaults in the installation process.
 
-Open Frescobaldi.  It starts on a new file with some pre-filled
-text that will be explained later.
+Open Frescobaldi.  It starts on a new file with two panes in the window:
+on the left pane is the code window, and the music will be on the right.
 
 @center @sourceimage{Frescobaldi_first_launch,10cm,}
 
-Now, verify that Frescobaldi has installed a version of LilyPond, and
+Now, ensure that Frescobaldi has installed a version of LilyPond, and
 make note of the version number.  Navigate to Frescobaldi preferences,
 and select @qq{LilyPond Preferences} on the left.
 
 @center @sourceimage{Frescobaldi_preferences,10cm,}
 
-There will be at least one version of LilyPond already installed and
-ready for use.  Make note of the version number for the next step.
-As new versions of LilyPond are released, simply return to this area,
-click on @qq{Add}, then select the new version from the dropdown which
-appears.  Fresobaldi then downloads and installs it for you.
+To be sure you have the latest stable version of LilyPond, click on @qq{Add},
+then select the new version from the dropdown which appears.  Fresobaldi
+then downloads and installs it for you.  As new releases are announced,
+you can return to this area and use the same process to add them.
+
+While you are in the Preferences area, you can select @qq{General}, and
+change the @qq{New Document} setting to add the version statement to new
+documents.
 
 To verify the installation, enter the following two lines in the left
 window, exactly as in this example.  Be sure to use your version number.
