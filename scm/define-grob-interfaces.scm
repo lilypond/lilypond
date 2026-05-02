@@ -753,7 +753,9 @@ If set to @code{#t}, parenthesize the number for a tied note after a line break.
 
 @table @code
 @item C
-4/4 and 2/2 are typeset as C and cut-C signs, respectively.  All other time
+4/4 and 2/2 are typeset as C and cut-C signs, respectively.  Alternating time
+signatures involving just these fractions (e.g., 2/2 + 2/2) are typeset with
+multiple of these signs without intervening plus signs.  All other time
 signatures are written as numbers.
 @item default
 Equivalent to @code{C}.
