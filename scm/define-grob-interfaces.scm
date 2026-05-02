@@ -753,22 +753,22 @@ If set to @code{#t}, parenthesize the number for a tied note after a line break.
 
 @table @code
 @item C
-4/4 and 2/2 are typeset as C and struck C, respectively.  All other
-time signatures are written as two numbers.  The value
-@code{default} is equivalent to value @samp{C}.
-@item neomensural
-2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8, and 9/8 are typeset
-with neo-mensural style mensuration marks.  All other time
-signatures are written as two numbers.
+4/4 and 2/2 are typeset as C and cut-C signs, respectively.  All other time
+signatures are written as numbers.
+@item default
+Equivalent to @code{C}.
 @item mensural
-2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8, and 9/8 are typeset
-with mensural style mensuration marks.  All other time signatures
-are written as two numbers.
-@item single-number
-All time signatures are typeset as a single number, e.g., 3/2 is
-written as@tie{}3.
+2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8, and 9/8 are typeset with
+mensuration signs.  All other time signatures are written as numbers.
+@item neomensural
+2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8, and 9/8 are typeset with
+mensuration signs in the neomensural style.  All other time signatures are
+written as numbers.
 @item numbered
-All time signatures are typeset as two numbers.
+All time signatures are typeset as numbers.
+@item single-number
+Basic time signatures, @var{n}/@var{d}, are written as only@tie{}@var{n}.
+Subdivided or alternating time signatures are written in full.
 @end table
 
 When @code{style} allows printing denominators, @code{denominator@/-style} can
