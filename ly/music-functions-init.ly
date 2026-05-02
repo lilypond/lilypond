@@ -29,6 +29,14 @@
 #(use-modules (srfi srfi-1)
               (ice-9 optargs))
 
+
+"\\~" =
+#(define-music-function (music) (ly:music?)
+   (_i "Insert pes or flexa between previous and next note.")
+#{
+  \tweak pes-or-flexa ##t $music
+#})
+
 absolute =
 #(define-music-function (music) (ly:music?)
    (_i "Make @var{music} absolute.
