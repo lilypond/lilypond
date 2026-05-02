@@ -45,13 +45,6 @@
 Gregorian_ligature_engraver::Gregorian_ligature_engraver (Context *c)
   : Coherent_ligature_engraver (c)
 {
-  pes_or_flexa_req_ = 0;
-}
-
-void
-Gregorian_ligature_engraver::listen_pes_or_flexa (Stream_event *ev)
-{
-  assign_event_once (pes_or_flexa_req_, ev);
 }
 
 void
@@ -259,7 +252,6 @@ void
 Gregorian_ligature_engraver::stop_translation_timestep ()
 {
   Ligature_engraver::stop_translation_timestep ();
-  pes_or_flexa_req_ = 0;
 }
 
 // no ADD_ACKNOWLEDGER / ADD_ACKNOWLEDGER / ADD_TRANSLATOR macro calls

@@ -214,7 +214,6 @@ are reported on the stderr of this run."
 \test ##[ \breathe #]					% BreathingEvent
 \test ##[ \caesura #]					% CaesuraEvent
 \test ##[ { c4 \[ c4 \] } #]				% LigatureEvent
-\test ##[ \~ #]						% PesOrFlexaEvent
 \test ##[ \- #]						% DurationLineEvent
 \test ##[ { c4\glide-3 c4-3 } #]	% FingerGlideEvent
 \test ##[ \^ #]						% BendSpanEvent

@@ -537,13 +537,6 @@ as separate voices.")
         (types . (repeated-music percent-repeated-music))
         ))
 
-    (PesOrFlexaEvent
-     . ((description . "Within a ligature, mark the previous and the
-following note to form a pes (if melody goes up) or a flexa (if melody
-goes down).")
-        (types . (pes-or-flexa-event event))
-        ))
-
     (PhrasingSlurEvent
      . ((description . "Start or end phrasing slur.
 

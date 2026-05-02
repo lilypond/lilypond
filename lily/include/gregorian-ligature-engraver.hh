@@ -25,16 +25,12 @@
 
 class Gregorian_ligature_engraver : public Coherent_ligature_engraver
 {
-  Stream_event *pes_or_flexa_req_;
-
 public:
   // no TRANSLATOR_DECLARATIONS (Gregorian_ligature_engraver) needed
   // since this class is abstract
 
 protected:
   Gregorian_ligature_engraver (Context *);
-
-  void listen_pes_or_flexa (Stream_event *ev);
 
   void build_ligature (Spanner *ligature,
                        std::vector<Item *> const &primitives) override;

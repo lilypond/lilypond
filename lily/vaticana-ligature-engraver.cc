@@ -701,7 +701,6 @@ Vaticana_ligature_engraver::transform_heads (
 void
 Vaticana_ligature_engraver::boot ()
 {
-  ADD_LISTENER (pes_or_flexa);
   ADD_DELEGATE_LISTENER (ligature);
   ADD_ACKNOWLEDGER (rest);
   ADD_ACKNOWLEDGER (ligature_head);

@@ -690,9 +690,6 @@ expression."
 (define-display-method BarCheckEvent (check)
   (format #f "|~a" (new-line->lily-string)))
 
-(define-display-method PesOrFlexaEvent (expr)
-  "\\~")
-
 (define-display-method BassFigureEvent (figure)
   ;; TODO handle \+, / and friends as well as arbitrary levels of alteration
   (define (bracketify content) (format #f "[~a]" content))

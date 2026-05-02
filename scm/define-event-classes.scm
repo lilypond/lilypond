@@ -48,7 +48,7 @@
                     multi-measure-text-event
                     multi-measure-articulation-event
                     non-arpeggiato-event
-                    note-grouping-event pes-or-flexa-event repeat-tie-event
+                    note-grouping-event repeat-tie-event
                     section-label-event
                     spacing-section-event layout-instruction-event
                     stanza-event
