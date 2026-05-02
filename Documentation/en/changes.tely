@@ -253,7 +253,31 @@ line.  To activate this feature, set the @code{stanzaReminders} property to
 }
 @end lilypond
 
+@item
+An alternative to using @code{\pes} and @code{\flexa} (which
+internally do the same) is the command @code{\~}.  This isn't new
+(being introduced in 2003); however, it stayed undocumented and
+was broken for some time.
+
+@lilypond[quote,verbatim,staffsize=26]
+\new VaticanaScore {
+  \new VaticanaVoice \relative {
+    \[ a \pes b \flexa g \]
+  }
+}
+@end lilypond
+
+@lilypond[quote,verbatim,staffsize=26]
+\new VaticanaScore {
+  \new VaticanaVoice \relative {
+    \[ a \~ b \~ g \]
+  }
+}
+@end lilypond
+
+
 @end itemize
+
 
 @node Miscellaneous improvements
 @unnumbered Miscellaneous improvements

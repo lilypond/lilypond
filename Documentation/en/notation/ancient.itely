@@ -2086,10 +2086,16 @@ note name with any of the following commands:
 @code{\linea}.
 
 @item
+@funindex \pes
+@funindex \flexa
 Ligatures, properly speaking (i.e., notes joined together), are
 produced by placing one of the joining commands @code{\pes} or
 @code{\flexa}, for upwards and downwards movement, respectively,
 @emph{between} the notes to be joined.
+
+@funindexpost \~
+An alternative to @code{\pes} and @code{\flexa} (which internally
+do exactly the same) is the command @code{\~}.
 @end itemize
 
 A note name without any qualifiers will produce a @emph{punctum}.
@@ -2121,10 +2127,11 @@ produced by the modifier @code{\virga}.
 Unlike most other neumes notation systems, the typographical
 appearance of ligatures is not directly dictated by the input
 commands, but follows certain conventions dependent on musical
-meaning.  For example, a three-note ligature with the musical shape
-low-high-low, such as @code{\[ a \pes b \flexa g \]}, produces a
-Torculus consisting of three Punctum heads, while the shape
-high-low-high, such as @code{\[ a \flexa g \pes b \]}, produces a
+meaning.  For example, a three-note ligature with the musical
+shape low-high-low, such as @code{\[ a \pes b \flexa g \]} (or
+@code{\[ a \~ b \~ g\]}), produces a Torculus consisting of three
+Punctum heads, while the shape high-low-high, such as @code{\[ a
+\flexa g \pes b \]} (or @code{\[ a \~ g \~ b\]}), produces a
 Porrectus with a curved flexa shape and only a single Punctum
 head.  There is no command to explicitly typeset the curved flexa
 shape; the decision of when to typeset a curved flexa shape is
@@ -2374,7 +2381,8 @@ shows the code fragment that produces this ligature, using
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ b \flexa g \]}
+@code{\[ b \flexa g \]}@*
+(@code{\[ b \~ g \]})
 
 @item
 @emph{Clivis Aucta Descendens}
@@ -2434,7 +2442,8 @@ shows the code fragment that produces this ligature, using
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ g \pes b \]}
+@code{\[ g \pes b \]}@*
+(@code{\[ g \~ b \]})
 
 @item
 @emph{Pes Auctus Descendens}
@@ -2536,7 +2545,8 @@ Initio Debilis}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ a \pes b \flexa g \]}
+@code{\[ a \pes b \flexa g \]}@*
+(@code{\[ a \~ b \~ g \]})
 
 @item
 @emph{Torculus Auctus Descendens}
@@ -2631,7 +2641,8 @@ Initio Debilis}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ a \flexa g \pes b \]}
+@code{\[ a \flexa g \pes b \]}@*
+(@code{\[ a \~ g \~ b \]})
 
 @item
 @emph{Porrectus Auctus Descendens}
@@ -2989,10 +3000,11 @@ to a head, but not both to the same head.
 
 @funindex \pes
 @funindex \flexa
+@funindexpost \~
 
 Two adjacent heads can be tied together with the @code{\pes} and
 @code{\flexa} infix commands for a rising and falling line of melody,
-respectively.
+respectively.  An alternative to these commands is using @code{\~}.
 
 @funindex \augmentum
 
