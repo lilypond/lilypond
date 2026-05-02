@@ -1859,7 +1859,7 @@ Internals Reference:
 @cindex tick bar line, in Gregorian chant
 
 There are no rests in Gregorian chant notation; instead, it uses
-@ref{Divisiones}.
+divisiones.
 
 A @emph{divisio} (plural: @emph{divisiones}; Latin word for
 @q{division}) is a staff-context symbol indicating the phrase and
@@ -1877,7 +1877,7 @@ configure @code{\caesura} to produce an ancient caesura mark.
 @lilypond[quote,ragged-right,staffsize=23]
 \new VaticanaScore {
   \new VaticanaVoice {
-    \override TextScript.padding = 3
+    \override TextScript.staff-padding = 2
     g a g
     s^\markup { "divisio minima" }
     \divisioMinima
@@ -2205,9 +2205,9 @@ shows the code fragment that produces this ligature, using
 @code{g}, @code{a}, and @code{b} as example pitches.
 
 
+@need 1500
 @subsubheading Single-note neumes
 
-@need 1000
 @indentedblock
 @multitable @columnfractions .35 .13 .52
 
@@ -2355,9 +2355,9 @@ shows the code fragment that produces this ligature, using
 @end indentedblock
 
 
+@need 1500
 @subsubheading Two-note ligatures
 
-@need 1000
 @indentedblock
 @multitable @columnfractions .35 .13 .52
 
@@ -2517,9 +2517,9 @@ Initio Debilis}
 @end indentedblock
 
 
+@need 1500
 @subsubheading Multi-note ligatures
 
-@need 1000
 @indentedblock
 @multitable @columnfractions .35 .13 .52
 
@@ -2762,9 +2762,9 @@ Initio Debilis}
 @end indentedblock
 
 
+@need 1500
 @subsubheading Special signs
 
-@need 1000
 @indentedblock
 @multitable @columnfractions .35 .13 .52
 
