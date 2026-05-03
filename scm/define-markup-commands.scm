@@ -3874,12 +3874,13 @@ This command sets the @code{font-family} property to @code{sans}.
   #:category font
   "Print @var{arg} using the (music) font for numbers.
 
-This font also contains symbols for figured bass, some punctuation, spaces of
-various widths, some letters and text variants of accidentals.
+This font also contains symbols for figured bass, some
+punctuation, spaces of various widths, some letters and text
+variants of accidentals, the common time, and the cut time symbol.
 Use @code{\\dynamic} to access the (very small number of) letters.
-For accidentals you might use @code{\\number} in combination
-with Unicode characters to access the text representation
-forms of accidental glyphs, as the following table shows.
+For accidentals you might use @code{\\number} in combination with
+Unicode characters to access the text representation forms of
+accidental glyphs, as the following table shows.
 
 @lilypond[quote]
 \\paper {
@@ -3897,6 +3898,8 @@ forms of accidental glyphs, as the following table shows.
     \\typewriter \"U+266F \"   \\tiny \\number ♯
     \\typewriter \"U+1D12A\"   \\tiny \\number 𝄪
     \\typewriter \"U+1D12B\"   \\tiny \\number 𝄫
+    \\typewriter \"U+1D134\"   \\tiny \\number 𝄴
+    \\typewriter \"U+1D135\"   \\tiny \\number 𝄵
   }
 
   \\vspace #0.5
@@ -3914,10 +3917,12 @@ forms of accidental glyphs, as the following table shows.
 }
 @end lilypond
 
-To get accidentals protected against overrides of @code{font-name} it is
-preferable to use @code{\\text-doubleflat}, @code{\\text-flat},
-@code{\\text-natural}, @code{\\text-sharp}, @code{\\text-doublesharp} or the
-general @code{\\text-accidental} for the text variants of accidentals.
+To get accidentals protected against overrides of @code{font-name}
+it is preferable to use @code{\\text-doubleflat},
+@code{\\text-flat}, @code{\\text-natural}, @code{\\text-sharp},
+@code{\\text-doublesharp}, or the general @code{\\text-accidental}
+for the text variants of accidentals.  For the time signature
+symbols, use @code{\\text-common-time} and @code{\\text-cut-time}.
 
 @cindex feature, OpenType font
 @cindex font feature, OpenType
@@ -4748,6 +4753,38 @@ accidental glyph.
 @end lilypond"
   (interpret-markup layout props
                     (make-text-accidental-markup -1)))
+
+(define-markup-command (text-common-time layout props)
+  ()
+  #:category music
+  "Draw a common time symbol for text.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\text-common-time
+}
+@end lilypond"
+  (let (;; protect against overrides of 'font-name
+        (font (ly:paper-get-font layout (cons '((font-encoding . fetaMusic)
+                                                (font-name . #f))
+                                              props))))
+    (ly:font-get-glyph font "timesig.C44.text")))
+
+(define-markup-command (text-cut-time layout props)
+  ()
+  #:category music
+  "Draw a cut time symbol for text.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\text-cut-time
+}
+@end lilypond"
+  (let (;; protect against overrides of 'font-name
+        (font (ly:paper-get-font layout (cons '((font-encoding . fetaMusic)
+                                                (font-name . #f))
+                                              props))))
+    (ly:font-get-glyph font "timesig.C22.text")))
 
 (define-markup-command (with-color layout props col arg)
   (color? markup?)

@@ -163,13 +163,27 @@ An equal sign was added to the Emmentaler font.
 @item
 A senza-misura time signature was added to the Emmentaler font.
 
-@lilypond
+@lilypond[quote]
 {
   \override Staff.TimeSignature.stencil =
     #(lambda (grob)
        (grob-interpret-markup grob
                               (make-musicglyph-markup "timesig.X")))
   \time 4/4 f'1
+}
+@end lilypond
+
+@item
+Text variant glyphs for common time and cut time symbols were
+added to the Emmentaler font.  They can be either accessed
+directly as Unicode characters or using the
+@code{\text-common-time} and @code{\text-cut-time} markup
+commands.
+
+@lilypond[quote]
+\markup {
+  Common time \concat{ "(" \tiny\number{𝄴} ")," }
+  cut time \concat{ "(" \tiny\number{𝄵} ")." }
 }
 @end lilypond
 
