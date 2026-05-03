@@ -862,6 +862,10 @@ emmentaler_glyphsets = [
         "figbass.sixstroked",
         "figbass.sevenstroked",
         "figbass.ninestroked",
+
+        # modern time signatures
+        "timesig.C22.text",
+        "timesig.C44.text",
     ]),
 ]
 

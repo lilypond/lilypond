@@ -43,4 +43,7 @@ def add_code_points(font):
     add("accidentals.natural.figbass", 0x266E)      # MUSIC NATURAL SIGN
     add("accidentals.sharp.figbass", 0x266F)        # MUSIC SHARP SIGN
 
+    add("timesig.C44.text", 0x1D134)                # MUSICAL SYMBOL COMMON TIME
+    add("timesig.C22.text", 0x1D135)                # MUSICAL SYMBOL CUT TIME
+
 # eof

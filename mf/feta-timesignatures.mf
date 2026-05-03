@@ -32,13 +32,18 @@ fet_begingroup ("timesig");
 %  * Lower tip protrudes to the right very slightly.
 %
 
-def draw_C (expr slashed) =
+def draw_C (expr slashed, for_text) =
   save hair, bulb_rad, left_fatness;
   save left_width, right_width;
   save width, lower_offset;
   save eccentricity, top_stemlen, bottom_stemlen, thick, left_pos;
 
   width# := 1.8 staff_space# - stafflinethickness#;
+  define_whole_pixels (width);
+
+  left_bearing# := 0.1 width#;
+  right_bearing# := 0.1 width#;
+  define_whole_pixels (left_bearing, right_bearing);
 
   left_width := 1.0 staff_space;
   right_width := 0.8 staff_space;
@@ -49,21 +54,29 @@ def draw_C (expr slashed) =
   left_fatness := 0.55 * staff_space;
   lower_offset := 0.3 stafflinethickness;
 
-  set_char_box (0, width#, staff_space#, staff_space#);
+  if for_text:
+    set_char_box (0, left_bearing# + width# + right_bearing#,
+                  0, 2 staff_space#);
+
+    b := -left_bearing;
+    w := left_bearing + width;
+  else:
+    set_char_box (0, width#, staff_space#, staff_space#);
+  fi
 
   d := d - feta_shift;
 
   x1r = w;
-  x3r = 0;
-  y1r = .45 h;
+  x3r = -b;
+  y1r = -d + .725 (h + d);
   y2r = h + vround (.5 stafflinethickness_rounded);
   y4r = -d - vround (.5 stafflinethickness_rounded);
   x2 = x4;
-  x2 = x3r + h;
+  x2 = x3r + .5 (h + d);
   y3r = .5 (h - d);
 
   x5r = x1r + lower_offset;
-  y5r = -0.37 h;
+  y5r = -d + .315 (h + d);
 
   penpos1 (hair, 10);
   penpos2 (stafflinethickness_rounded, 90);
@@ -100,8 +113,8 @@ def draw_C (expr slashed) =
 
     bottom_stemlen := bottom_stemlen - feta_shift;
 
-    draw_block ((x2 + eccentricity, -bottom_stemlen),
-                (x2 + eccentricity + thick, top_stemlen));
+    draw_block ((x2 + eccentricity, -bottom_stemlen + .5 (h - d)),
+                (x2 + eccentricity + thick, top_stemlen + .5 (h - d)));
   fi
 
   draw_staff_if_debugging (-2, 2);
@@ -109,12 +122,22 @@ enddef;
 
 
 fet_beginchar ("4/4 meter", "C44");
-  draw_C (false);
+  draw_C (false, false);
+fet_endchar;
+
+
+fet_beginchar ("4/4 meter for text", "C44.text");
+  draw_C (false, true);
 fet_endchar;
 
 
 fet_beginchar ("2/2 meter", "C22");
-  draw_C (true);
+  draw_C (true, false);
+fet_endchar;
+
+
+fet_beginchar ("2/2 meter for text", "C22.text");
+  draw_C (true, true);
 fet_endchar;
 
 
