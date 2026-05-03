@@ -32,10 +32,11 @@ fet_begingroup ("timesig");
 %  * Lower tip protrudes to the right very slightly.
 %
 
-def draw_C =
+def draw_C (expr slashed) =
   save hair, bulb_rad, left_fatness;
   save left_width, right_width;
   save width, lower_offset;
+  save eccentricity, top_stemlen, bottom_stemlen, thick, left_pos;
 
   width# := 1.8 staff_space# - stafflinethickness#;
 
@@ -90,30 +91,30 @@ def draw_C =
 
   penlabels (1, 2, 3, 4, 5);
 
+  if slashed:
+    eccentricity = -1.75 stafflinethickness - 0.025 staff_space;
+    top_stemlen# = bottom_stemlen# = 1.4 staff_space#;
+    thick# = stafflinethickness# + 0.05 staff_space#;
+    define_whole_pixels (top_stemlen, bottom_stemlen);
+    define_whole_blacker_pixels (thick);
+
+    bottom_stemlen := bottom_stemlen - feta_shift;
+
+    draw_block ((x2 + eccentricity, -bottom_stemlen),
+                (x2 + eccentricity + thick, top_stemlen));
+  fi
+
   draw_staff_if_debugging (-2, 2);
 enddef;
 
 
 fet_beginchar ("4/4 meter", "C44");
-  draw_C;
+  draw_C (false);
 fet_endchar;
 
 
 fet_beginchar ("2/2 meter", "C22");
-  save eccentricity, top_stemlen, bottom_stemlen, thick, left_pos;
-
-  draw_C;
-
-  eccentricity = -1.75 stafflinethickness - 0.025 staff_space;
-  top_stemlen# = bottom_stemlen# = 1.4 staff_space#;
-  thick# = stafflinethickness# + 0.05 staff_space#;
-  define_whole_pixels (top_stemlen, bottom_stemlen);
-  define_whole_blacker_pixels (thick);
-
-  bottom_stemlen := bottom_stemlen - feta_shift;
-
-  draw_block ((x2 + eccentricity, -bottom_stemlen),
-              (x2 + eccentricity + thick, top_stemlen));
+  draw_C (true);
 fet_endchar;
 
 
