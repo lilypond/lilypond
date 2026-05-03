@@ -562,6 +562,20 @@ $(outdir)/%-big-page.html: \
 \
 	  "$(outdir)/$*.texi2any-html-big.log"
 
+# TODO: If we were willing to require pandoc to build documentation, we could
+# convert the checklist to itexi instead of including markdown verbatim.
+#
+#	ballot_box=$$(printf '\342\230\220') ; \
+#	pandoc -f markdown -t texinfo $< \
+#	  | sed -e "/^@node Top\$$/,/^\$$/d; s/$${ballot_box} //g" \
+#	  > $@
+#
+$(outdir)/en/code-review-checklist.md: \
+  $(top-src-dir)/.agents/skills/lilypond-code-review/assets/checklist.md
+	$(call ly_progress,Making,$@,(copy))
+	mkdir -p $(dir $@)
+	cp $< $@
+
 ### Bad hack for badly-integrated roadmap.
 # TODO: move into CG.
 $(outdir)/en/ROADMAP: $(top-src-dir)/ROADMAP
@@ -569,7 +583,9 @@ $(outdir)/en/ROADMAP: $(top-src-dir)/ROADMAP
 	mkdir -p $(dir $@)
 	cp $(top-src-dir)/ROADMAP $@
 
-$(outdir)/en/contributor.texi: $(outdir)/en/ROADMAP
+$(outdir)/en/contributor.texi: \
+  $(outdir)/en/code-review-checklist.md \
+  $(outdir)/en/ROADMAP
 
 $(outdir)/topdocs/NEWS.texi: $(outdir)/en/changes.texi
 	mkdir -p $(dir $@)

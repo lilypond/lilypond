@@ -430,6 +430,10 @@ Any non-trivial change should be reviewed as a merge request:
 @end example
 
 @item
+Before uploading, you might wish to scan @ref{Code review
+checklist} or have a coding agent do it for you.
+
+@item
 Ensure your branch differs from latest @code{master} by just the changes
 to be uploaded.
 

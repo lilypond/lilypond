@@ -1,0 +1,53 @@
+- Basic communication
+  - [ ] clean-up, fixing, and enhancements are in separate commits
+  - [ ] commit messages describe the essence of the change
+  - [ ] doc strings are accurate and informative
+  - [ ] diagnostics are accurate, informative, and well-placed
+  - [ ] diagnostics refer to a source location when possible
+  - [ ] announcement in `$REPO/Documentation/en/changes.tely`
+    - for user-visible enhancements
+    - not usually for bug fixes (maybe for well-known, long-standing bugs)
+- For a translator (engraver, performer)
+  - [ ] initialized with `\consists` in all contexts relevant to the feature
+    - layout contexts in `$REPO/ly/engraver-init.ly`
+    - midi contexts in `$REPO/ly/performer-init.ly`
+  - [ ] what if the user rearranges translators, e.g.,
+    - `\consists` it in another context
+    - `\remove`s an expected collaborating translator
+  - [ ] clarity and caution about timing assumptions, e.g.,
+    - processing order of other translators in the same context
+    - mid-score initialization (e.g., in an ossia staff)
+    - alternative source expressions the author might not have considered
+    - simultaneous music
+      - avoid assuming that iteration follows source order
+      - output order (e.g., the order of staves in a system) is not
+        constrained to source order
+      - different branches may have different lengths of grace notes
+  - [ ] edge cases involving span events, e.g.,
+    - one spanner stops as the next one starts
+    - unpaired events
+  - [ ] interactions with `skipTypesetting`
+- For an engraver
+  - [ ] respect user tweaks when setting grob properties
+  - [ ] what if grobs are acknowledged and later killed
+- For changed syntax/properties/functions (incl. public Scheme)
+  - [ ] `$REPO/python/convertrules.py` rules to upgrade user scores
+  - [ ] updates to existing docs and tests (incl. `\version` value)
+  - [ ] updates to scripts
+    - `$REPO/scripts/...`
+    - `$REPO/python/...`
+- For a new context or grob property
+  - [ ] correctly defined among either "internal" or "user" property lists
+    - "internal" properties are used just among iterators/translators/grobs
+    - "user" properties should also appear in documentation and tests
+- For new user-facing syntax/properties/functions
+  - [ ] automated regression tests
+  - [ ] `\displayLilyMusic` support
+  - [ ] preferably, additions to `$REPO/Documentation/en/notation/...`
+- For changed internals (e.g., music expressions)
+  - [ ] check for interactions with features that lack regression tests
+- At all times
+  - [ ] any other feedback that a mature software engineer would value
+- Finally, review your own tentative feedback from an adversarial POV
+  - [ ] drop unjustified criticism (but still warn of uncertain gaps)
+  - [ ] drop unfeasible action items and suggestions

@@ -2691,6 +2691,29 @@ See commit @code{6555b3841a}.
 
 
 
+@node Code review checklist
+@section Code review checklist
+
+This is a list of things that are easy to forget.  We don't
+require contributors to complete this checklist formally.  It's
+here as an optional aid.
+
+If you run a coding agent in a clone of the LilyPond repo, it
+@emph{should} automatically use this checklist when asked to
+review code, but sometimes, you might need to tell it to load the
+@code{lilypond-code-review} skill before asking for review.
+
+@c DO NOT edit the markdown source of the checklist just to
+@c improve the presentation here.  It is primarily intended for
+@c LLM consumption.  Don't add overhead.  Live with it.
+@indentedblock
+@smallformat
+@verbatiminclude code-review-checklist.md
+@end smallformat
+@end indentedblock
+
+
+
 @node LilyPond miscellany
 @section LilyPond miscellany
 
