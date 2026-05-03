@@ -116,6 +116,7 @@
 (use-modules (ice-9 receive)
              (ice-9 control)
              (ice-9 match)
+             (ice-9 copy-tree)
              ((lily qr-code) #:select (qr-encode)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -4353,6 +4354,44 @@ was used earlier.
                             (font-variant . normal))
                           props)
                     arg))
+
+(define-markup-command (font-select layout props defs arg)
+  (pair? markup?)
+  #:category font
+  "Output the markup @var{arg} using fonts specified in @var{defs}.
+
+@var{defs} is either a single pair @code{(@var{family} . @var{font-name})}
+or a non-empty list of such pairs.  Here, @code{@var{family}} is usually
+@code{serif}, @code{sans} or @code{typewriter}; @code{@var{font-name}} is
+a string.  Font families not mentioned in the call to @code{\\font-select}
+remain unchanged.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\font-select #'((sans . \"Liberation Sans\")
+                  (typewriter . \"Liberation Mono\"))
+  {
+    \\sans { Sans-serif font. }
+    \\typewriter { Typewriter font. }
+    Serif font.
+    \\font-select #'(serif . \"Liberation Serif\") {
+      Another serif font.
+    }
+  }
+}
+@end lilypond"
+  (let ((font-alist (copy-tree (chain-assoc-get 'fonts props))))
+    (for-each
+     (lambda (entry)
+       (set! font-alist
+             (assoc-set! font-alist
+                         (car entry)
+                         (cdr entry))))
+     (ensure-list defs))
+    (interpret-markup
+     layout
+     (prepend-alist-chain 'fonts font-alist props)
+     arg)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; symbols.

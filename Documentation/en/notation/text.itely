@@ -2162,12 +2162,11 @@ families.
 The same syntax can be used to change the music font;
 @pxref{Replacing the notation font}.
 
-To change the fonts used for one specific grob, or one specific
-part of a markup, override the @code{fonts} property.  The
-following example changes the font for normal tablature @qq{note
-heads} (which use the @code{serif} family) while keeping the
-default font for those that are drawn as a cross (which use the
-@code{music} family).
+To change the fonts used for one specific grob, override its
+@code{fonts} property.  The following example changes the font
+for normal tablature @qq{note heads} (which use the @code{serif}
+family) while keeping the default font for those that are drawn
+as a cross (which use the @code{music} family).
 
 @lilypond[verbatim,quote]
 \layout {
@@ -2178,11 +2177,12 @@ default font for those that are drawn as a cross (which use the
 \new TabStaff { c' d' e' \deadNote c' }
 @end lilypond
 
-Below is an example for overriding @code{fonts} in markup:
+To change the fonts in one specific markup, use the @code{\font-select}
+command:
 
 @lilypond[verbatim,quote]
-\markup \override #'(fonts . ((serif . "Linux Libertine O")
-                              (typewriter . "DejaVu Sans Mono"))) {
+\markup \font-select #'((serif . "Linux Libertine O")
+                        (typewriter . "DejaVu Sans Mono")) {
   Copyright © John Doe \typewriter john@doe.org
 }
 @end lilypond

@@ -187,6 +187,23 @@ commands.
 }
 @end lilypond
 
+@item
+Fonts may be changed in a single markup using @code{\font-select}.
+The font names for the serif, sans and typewriter families are
+chosen independently.
+
+@lilypond[quote,verbatim]
+\markup \font-select #'((sans . "DejaVu Sans")
+                        (typewriter . "DejaVu Sans Mono"))
+{
+  \sans \line { Sans-serif font. }
+  \typewriter \line { Typewriter font. }
+  \line { Default serif font. }
+  \font-select #'(serif . "DejaVu Serif")
+  \line { Changed serif font. }
+}
+@end lilypond
+
 @end itemize
 
 
