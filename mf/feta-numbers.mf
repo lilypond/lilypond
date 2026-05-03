@@ -1367,7 +1367,7 @@ fet_beginchar ("fixed-width 9", "nine");
   draw_nine (fixed_width_advance#, width#, lsb#, false);
 fet_endchar;
 
-fet_endgroup ("figbass");
+fet_endgroup ("fixedwidth");
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
