@@ -23,24 +23,14 @@ Debian GNU/Linux, Ubuntu
   property-defaults.fonts.typewriter = "DejaVu Sans Mono"
 }
 
+bold-and-italic = \markup {
+  \bold bold
+  \italic italic
+  \italic \bold { bold italic }
+}
+
 {
-  g'''4^\markup {
-    DejaVu Serif: \bold bold
-                  \italic italic
-                  \italic \bold { bold italic }
-  }
-  g4_\markup {
-    \override #'(font-family . sans) {
-      DejaVu Sans: \bold bold
-                   \italic italic
-                   \italic \bold { bold italic }
-    }
-  }
-  g''2^\markup {
-    \override #'(font-family . typewriter) {
-      DejaVu Sans Mono: \bold bold
-                        \italic italic
-                        \italic \bold { bold italic }
-    }
-  }
+  g'''4^\markup { DejaVu Serif: \bold-and-italic }
+  g4_\markup \sans { DejaVu Sans: \bold-and-italic }
+  g''2^\markup \typewriter { DejaVu Sans Mono: \bold-and-italic }
 }
