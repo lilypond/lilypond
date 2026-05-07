@@ -7251,8 +7251,7 @@ The property @code{baseline-skip} determines the space between each markup in
 
 Like @code{\\override} but for markup lists."
   (interpret-markup-list layout
-                         (cons (if (pair? (car new-prop)) new-prop (list new-prop))
-                               props)
+                         (prepend-props new-prop props)
                          args))
 
 (define-markup-list-command (table layout props column-align lst)
