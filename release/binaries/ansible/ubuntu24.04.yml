@@ -15,8 +15,8 @@
 # You should have received a copy of the GNU General Public License
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
-- name: Ubuntu 22.04
-  hosts: lily_ubuntu22_04
+- name: Ubuntu 24.04
+  hosts: lily_ubuntu24_04
   tasks:
     - name: Upgrade all packages
       apt:
@@ -51,5 +51,6 @@
     - name: Install Python packages
       pip:
         executable: pip3
+        break_system_packages: true
         name:
           - meson==1.4.0

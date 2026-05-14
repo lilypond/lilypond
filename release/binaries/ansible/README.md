@@ -19,8 +19,8 @@ An exmple `inventory.ini` could look like this:
 [lily_alma8]
 root@Lily-AlmaLinux8
 
-[lily_ubuntu22_04]
-root@Lily-Ubuntu22.04
+[lily_ubuntu24_04]
+root@Lily-Ubuntu24.04
 ```
 
 The lines with square brackets, such as `[lily_alma8]`, set the group name and **must not be changed**.
