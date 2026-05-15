@@ -732,11 +732,7 @@ duration log @var{log}."
              (number->string log)))
 
         ;; Styles with a complete set of glyphs.
-        ((mensural)
-         (string-append (number->string log) (symbol->string style)))
-        ((neomensural)
-         (string-append (number->string log) (symbol->string style)))
-        ((kievan)
+        ((mensural neomensural kievan)
          (string-append (number->string log) (symbol->string style)))
 
         ;; The next styles are similar to "baroque", using a different
