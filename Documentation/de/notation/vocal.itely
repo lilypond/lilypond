@@ -598,9 +598,9 @@ gesetzt werden.
 {
   \relative { \autoBeamOff
     r8 b' c fis, fis c' b e, }
-  \addlyrics { Che_in ques -- ta_e_in quel -- l'al -- tr'on -- da }
-  \addlyrics { "Che in" ques -- "ta e in" quel -- l'al -- tr'on -- da }
-  \addlyrics { Che~in ques -- ta~e~in quel -- l'al -- tr'on -- da }
+  \addlyrics { Che_in ques -- ta_e_in quel -- l’al -- tr’on -- da }
+  \addlyrics { "Che in" ques -- "ta e in" quel -- l’al -- tr’on -- da }
+  \addlyrics { Che~in ques -- ta~e~in quel -- l’al -- tr’on -- da }
 }
 @end lilypond
 

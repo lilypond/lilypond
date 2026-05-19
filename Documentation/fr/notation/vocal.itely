@@ -587,10 +587,10 @@ pour obtenir une liaison entre les syllabes.
   {
     % Ensure hyphens are visible
     \override LyricHyphen.minimum-distance = 1.0
-    Che_in ques -- ta_e_in quel -- l'al -- tr'on -- da
+    Che_in ques -- ta_e_in quel -- l’al -- tr’on -- da
   }
-  \addlyrics { "Che in" ques -- "ta e in" quel -- l'al -- tr'on -- da }
-  \addlyrics { Che~in ques -- ta~e~in quel -- l'al -- tr'on -- da }
+  \addlyrics { "Che in" ques -- "ta e in" quel -- l’al -- tr’on -- da }
+  \addlyrics { Che~in ques -- ta~e~in quel -- l’al -- tr’on -- da }
 }
 @end lilypond
 
