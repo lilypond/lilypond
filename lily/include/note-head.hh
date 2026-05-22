@@ -26,7 +26,7 @@
 class Note_head
 {
 public:
-  DECLARE_SCHEME_CALLBACK (print, (SCM));
+  DECLARE_SCHEME_CALLBACK (select_glyph, (SCM));
   DECLARE_SCHEME_CALLBACK (stem_x_shift, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_stem_attachment, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_tab_stem_attachment, (SCM));

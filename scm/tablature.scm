@@ -16,16 +16,17 @@
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
-;; for more control over glyph-name calculations,
-;; we use a custom callback for tab note heads
-;; which will ignore 'style = 'do
 (define-public (tab-note-head::calc-glyph-name grob)
+;; For tab noteheads, this gets called (via ly:note-head::print) only
+;; if a special 'style is set (cross or slash).  Ordinary tab noteheads
+;; are created (in tab-note-head::print) as 'text markups for
+;; ly:text-interface::print and are not represented by a single glyph name.
   (let ((style (ly:grob-property grob 'style)))
-
     (case style
-      ((cross) "2cross")
-      ((slash) "2slash")
-      (else #f))))
+      ((cross) "noteheads.s2cross")
+      ((slash) "noteheads.s2slash")
+      ;; return a string in any case to avoid type errors
+      (else ""))))
 
 ;; ensure we only call note head callback when
 ;; style is set to a known value

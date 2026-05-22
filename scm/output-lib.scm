@@ -703,18 +703,17 @@ of the staff."
                 0.0))
           (ly:grob-array->list (ly:grob-object grob 'dots)))))
 
-;; Kept separate from note-head::calc-glyph-name to allow use by
+;; Used by ly:note-head::select-glyph, but also by
 ;; markup commands \note and \note-by-number
 (define-public (select-head-glyph style log)
-  "Select a note head glyph string.
+  "Select a partial note head glyph string.
 
 The constructed name is based on note head style @var{style} and the
 duration log @var{log}."
   (if (symbol? style)
       (case style
-        ;; The style called "default" is directly handled in
-        ;; `note-head.cc`, mainly for performance reasons.  Therefore,
-        ;; it does not appear in this case statement.
+        ((default)
+         (number->string log))
 
         ;; Like "default", but the brevis is drawn with double vertical
         ;; lines.
@@ -776,10 +775,41 @@ duration log @var{log}."
       '()))
 
 (define-public (note-head::calc-glyph-name grob)
+  ;; TODO: Remove this function during the 2.29.x cycle.
+  (ly:deprecation-warning "note-head::calc-glyph-name is deprecated. \
+Please refactor your code using (ly:grob-property grob 'glyph-name) or \
+(select-head-glyph style log).")
   (let* ((style (ly:grob-property grob 'style))
          (log (min (if (eq? 'kievan style) 3 2)
                    (ly:grob-property grob 'duration-log))))
     (select-head-glyph style log)))
+
+(define-public (ly:note-head::print grob)
+  ;; Use let* to guarantee that the assigned values get computed
+  ;; in order, since the default callback for 'glyph-name sets
+  ;; the internal property 'glyph-info.
+  (let*
+   ((glyph-name (ly:grob-property grob 'glyph-name ""))
+    (glyph-info (ly:grob-property grob 'glyph-info '())))
+   ;; As the algorithm for determining a notehead glyph automatically
+   ;; yields both the glyph name and the stencil, the default callback
+   ;; for glyph-name stores the resulting (glyph-name . stencil) pair
+   ;; in glyph-info and simply returns the car of that pair.
+   ;; We detect whether we are in that default situation by checking
+   ;; if glyph-name is eq? to the car of glyph-info.  If that is not
+   ;; the case, there must have been a user override for the glyph-name
+   ;; string, so we look up the glyph given by that string in the font.
+   (if (and (pair? glyph-info)
+            (eq? (car glyph-info) glyph-name))
+       (cdr glyph-info)
+       (ly:font-get-glyph (ly:grob-default-font grob)
+                          glyph-name))))
+
+(define-public (note-head::get-glyph-name grob)
+  (let ((glyph-info (ly:grob-property grob 'glyph-info)))
+    (if (pair? glyph-info)
+        (car glyph-info)
+        (ly:note-head::select-glyph grob))))
 
 (define-public (note-head::brew-ez-stencil grob)
   (let* ((log (ly:grob-property grob 'duration-log))

@@ -1728,6 +1728,10 @@ as opposed to a group of several dots.")
      (font ,ly:font-metric? "A cached font metric object.")
      (forced ,boolean? "Manually forced accidental.")
 
+     (glyph-info ,pair? "A @code{(@var{string} . @var{stencil})} pair
+consisting of a glyph name and a stencil.  Usually the latter will
+be the glyph referenced by the former in a certain font.")
+
      (ideal-distances ,list? "@code{(@var{obj} . (@var{dist} .
 @var{strength}))} pairs.")
      (important-column-ranks ,vector? "A cache of columns that contain

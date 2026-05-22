@@ -144,6 +144,7 @@ Variable scm_to_string ("scm->string");
 Variable score_lines_markup_list ("score-lines-markup-list");
 Variable score_markup ("score-markup");
 Variable scorify_music ("scorify-music");
+Variable select_head_glyph ("select-head-glyph");
 Variable stencil_whiteout ("stencil-whiteout");
 Variable stencil_with_color ("stencil-with-color");
 Variable symbol_list_p ("symbol-list?");

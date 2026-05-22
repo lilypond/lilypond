@@ -326,6 +326,25 @@ have been removed: @code{\deprecatedcresc},
 @code{\deprecatedendcresc}, @code{\deprecateddim}, and
 @code{\deprecatedenddim}.
 
+@item
+The @code{glyph-name} property of a @code{NoteHead} grob now contains a
+fully qualified glyph name, as documented.  It is no longer necessary to
+replace the stencil just to draw a different note head glyph; setting this
+property suffices.
+@lilypond[quote,ragged-right,verbatim]
+{
+  c'4
+  \once\override NoteHead.glyph-name = "noteheads.s2triangle"
+  c'4
+}
+@end lilypond
+As a side effect, the Scheme function @code{note-head::calc-glyph-name}
+is not needed anymore and will be removed after a deprecation cycle.
+Depending on the intended use case, its use may be replaced either by
+accessing the @code{glyph-name} property of a specific @code{NoteHead}
+grob, or by calling @code{select-head-glyph} for a specific notehead
+style and duration-log.
+
 @end itemize
 
 

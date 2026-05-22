@@ -5532,7 +5532,7 @@ customizable as well; defaults are the same as the values of the corresponding
   #:properties ((font-size 0)
                 (flag-style '())
                 (dots-direction 0)
-                (style '()))
+                (style 'default))
   ;; TODO: as-string?
   "
 @cindex note, within text, by @code{log} and @code{dot-count}
@@ -5576,10 +5576,7 @@ See also function @code{\\note}.
     (map (lambda (dir-name)
            (format #f "noteheads.~a~a"
                    dir-name
-                   (if (and (symbol? style)
-                            (not (equal? 'default style)))
-                       (select-head-glyph style (min log 2))
-                       (min log 2))))
+                   (select-head-glyph style (min log 2))))
          (list (if (= dir UP) "u" "d")
                "s")))
 

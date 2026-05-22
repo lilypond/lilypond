@@ -23,6 +23,7 @@
 #include "font-interface.hh"
 #include "grob.hh"
 #include "international.hh"
+#include "lily-imports.hh"
 #include "staff-symbol.hh"
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"
@@ -33,24 +34,55 @@
 #include <tuple>
 #include <utility>
 
-static Stencil
-internal_print (Grob *me, std::string *font_char)
+MAKE_SCHEME_CALLBACK (Note_head, select_glyph, "ly:note-head::select-glyph",
+                      1);
+SCM
+Note_head::select_glyph (SCM smob)
 {
-  std::string style
-    = robust_symbol2string (get_property (me, "style"), "default");
+  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
 
-  std::string suffix = std::to_string (
-    std::min (from_scm (get_property (me, "duration-log"), 2), 2));
-  if (style != "default")
-    suffix = from_scm (get_property (me, "glyph-name"), "");
+  SCM style_scm = get_property (me, "style");
+
+  if (!scm_is_symbol (style_scm))
+    {
+      programming_error ("'style property should be a symbol; try 'default.");
+      style_scm = ly_symbol2scm ("default");
+    }
+
+  std::string style = ly_symbol2string (style_scm);
+
+  /*
+  The notehead glyphs have names of the form:
+    noteheads.[u/d/s][r?]{log}{style}
+  where:
+  - u/d mean up/down oriented noteheads; s means the notehead is symmetric.
+  - r, if given, means note heads with reduced hole size (for off-staffline
+    noteheads).
+  - log is the duration-log of the notehead.  Usually that value is at most
+    2 (quarter note), but it is at most 3 (eigth note) for Kievan noteheads.
+  - style: May be empty (for standard noteheads), but can also be 'mensural',
+    'semimensural', 'petrucci' etc.
+  In the code, 'prefix' means "noteheads.", and 'suffix' means the
+  {log}{style} portion of the glyph name.
+*/
+
+  const auto note_head_log = from_scm (get_property (me, "duration-log"), 2);
+  const auto log = std::min (note_head_log, style == "kievan" ? 3 : 2);
+  std::string suffix
+    = from_scm (Lily::select_head_glyph (style_scm, to_scm (log)), "");
 
   Font_metric *fm = Font_interface::get_default_font (me);
 
   std::string prefix = "noteheads.";
   std::string idx_symmetric;
   std::string idx_directed;
+
+  // First try a symmetric note head.
   std::string idx_either = idx_symmetric = prefix + "s";
   Stencil out = fm->find_by_name (idx_either + suffix);
+
+  // If there was no symmetric note head, select a directed one
+  // according to grob direction.
   if (out.is_empty ())
     {
       const auto dir = get_strict_grob_direction (me);
@@ -58,6 +90,8 @@ internal_print (Grob *me, std::string *font_char)
       out = fm->find_by_name (idx_either + suffix);
     }
 
+  // In ancient styles, off-staff line note heads get reduced hole sizes
+  // if there's a special glyph for that
   if (style == "mensural" || style == "neomensural" || style == "petrucci"
       || style == "baroque" || style == "kievan")
     {
@@ -73,6 +107,8 @@ internal_print (Grob *me, std::string *font_char)
         }
     }
 
+  // In 'kievan' style, beamed 8th notes (fusae) should look like
+  // 4th notes (semiminims), cf. Issue 2492
   if (style == "kievan"
       && 3 == from_scm (get_property (me, "duration-log"), 2))
     {
@@ -88,11 +124,14 @@ internal_print (Grob *me, std::string *font_char)
       me->warning (_f ("none of note heads `%s' or `%s' found",
                        idx_symmetric.c_str (), idx_directed.c_str ()));
       out = Stencil (Box (Interval (0, 0), Interval (0, 0)), SCM_EOL);
+      idx_either = "";
     }
-  else
-    *font_char = idx_either;
 
-  return out;
+  SCM glyph_name = to_scm (idx_either);
+
+  set_property (me, "glyph-info", scm_cons (glyph_name, out.smobbed_copy ()));
+
+  return glyph_name;
 }
 
 /*
@@ -109,16 +148,6 @@ Note_head::stem_x_shift (SCM smob)
     (void) get_property (stem, "positioning-done");
 
   return to_scm (0);
-}
-
-MAKE_SCHEME_CALLBACK (Note_head, print, "ly:note-head::print", 1);
-SCM
-Note_head::print (SCM smob)
-{
-  auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-
-  std::string idx;
-  return internal_print (me, &idx).smobbed_copy ();
 }
 
 MAKE_SCHEME_CALLBACK (Note_head, include_ledger_line_height,
@@ -203,8 +232,7 @@ Note_head::calc_stem_attachment (SCM smob)
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Grob *stem = unsmob<Grob> (get_object (me, "stem"));
   Font_metric *fm = Font_interface::get_default_font (me);
-  std::string key;
-  internal_print (me, &key);
+  const auto key = from_scm (get_property (me, "glyph-name"), "");
 
   Direction dir = get_grob_direction (stem);
   if (!dir)
@@ -250,6 +278,7 @@ attachment to the stem depends on the design of the font.
 accidental-grob
 direction
 duration-log
+glyph-info
 glyph-name
 ignore-ambitus
 ledger-extra
