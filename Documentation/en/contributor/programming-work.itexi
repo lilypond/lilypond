@@ -2016,8 +2016,61 @@ interface or write property.  See existing engraver files for more
 information.
 
 
+@need 1500
+@node Callbacks
+@section Callbacks
+
+
+@node Callback overview
+@subsection Callback overview
+
+This is a broad, shallow description of how C++ functions can call
+or be called by Scheme.  For more depth, @pxref{Callback
+tutorial}.
+
+@subsubheading Calling Scheme functions from C++
+
+For static dependencies, C++ wrappers around Guile's C interface
+allow the syntax @code{Module::function@tie{}(/*args*/)}.  This
+command lists imported Scheme modules and their C++ namespaces:
+
+@example sh
+git grep -A2 '^namespace' lily/lily-imports.cc
+@end example
+
+Function (@code{Variable}) imports follow the @code{Scm_module} in
+each namespace block.  Declarations are in
+@file{lily/include/lily-imports.hh}.
+
+@subsubheading Defining Scheme-callable C++ functions
+
+For a general function with Scheme name @code{ly:fn}:
+
+@example cpp
+LY_DEFINE (function, "ly:fn", //...
+@end example
+
+For a property accessor with Scheme name @code{ly:fn} that can be
+used alone or as the target of @code{set!}:
+
+@example cpp
+LY_DEFINE_WITH_SETTER (getter, "ly:fn", setter, //...
+@end example
+
+For a Grob callback function with Scheme name @code{g::fn}, any of:
+
+@example cpp
+MAKE_SCHEME_CALLBACK (structure, member_function, "g::fn", //...
+MAKE_SCHEME_CALLBACK_WITH_OPTARGS (structure, member_function, "g::fn", //...
+MAKE_DOCUMENTED_SCHEME_CALLBACK (structure, member_function, "g::fn", //...
+@end example
+
+For detail, see the definitions of the above macros in
+@file{lily/include/lily-guile-macros.hh}.
+
+
 @node Callback tutorial
-@section Callback tutorial
+@subsection Callback tutorial
 
 TODO -- This is a placeholder for a tutorial on callback functions.
 

@@ -23,3 +23,7 @@ Glossary](Documentation/en/music-glossary.tely).
 
 - When reviewing or debugging an engraver, read "Engraver tutorial" in
   `Documentation/en/contributor/programming-work.itexi`.
+- C++ `Variable`, `LY_DEFINE`, `MAKE_SCHEME_CALLBACK` and similar classes and
+  macros at the Scheme interface usually have the Scheme name as a string
+  argument.  For an overview of these, read "Callback overview" in
+  `Documentation/en/contributor/programming-work.itexi`.
