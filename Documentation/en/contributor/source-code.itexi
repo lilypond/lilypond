@@ -524,13 +524,36 @@ the Patch Meister marks it with @code{Patch::needs_work} and makes
 a comment regarding the reason, referring to the comment if
 needed.
 
-Patches with explicit approval, or at least no negative comment, are
-updated to @code{Patch::countdown}.  The countdown is a 48-hour waiting
-period in which any final reviews or complaints should be made.
+@enumerate
+@item
+Patches in @code{Patch::push} are waiting to be merged.
+Developers with permission merge their own patches, @pxref{Merging
+to master} and @ref{Commit access}.  New contributors should ask
+for their patches to be merged.  If a patch has remained long in
+this state, a nudge might be helpful.
 
-The Patch Meister sends an email to the developer list.  The subject
-line has a fixed formatting, to enable filtering by email clients, like
-so:
+@item
+Patches in @code{Patch::countdown} for 48 hours advance to
+@code{Patch::push} if no problems have been found.
+
+@item
+Patches in @code{Patch::review} for 24 hours advance to
+@code{Patch::countdown} conditionally.  A patch with any amount of
+@q{AI-generated} material does not advance until a trusted
+developer (which may be the author) has vouched for it.  Other
+uses of AI (e.g., analysis, diagnostic testing) are not
+concerning; other patches advance if there have been no negative
+comments.
+
+@item
+Patches in @code{Patch::new} are handled as in @ref{Automated
+testing}.
+
+@end enumerate
+
+After updating patches in GitLab, the Patch Meister sends an email
+to the developer list.  The subject line has a fixed formatting,
+to enable filtering by email clients, like so:
 
 @example
 PATCHES: Countdown for February 30th
