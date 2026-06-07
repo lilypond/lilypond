@@ -92,8 +92,24 @@ Timing_translator::listen_partial (Stream_event *ev)
       return;
     }
 
-  if (!assign_event_once (partial_event_, ev))
-    return;
+  // We want to warn about inconsistent simultaneous commands, but
+  // assign_event_once () would be too strict because we don't require full
+  // log-dots-factor equality.  For example, it is fine if one event has `2.`
+  // and another `2*3/2`.
+  if (!partial_event_)
+    {
+      partial_event_ = ev;
+    }
+  else
+    {
+      auto *const prev_dur
+        = unsmob<Duration> (get_property (partial_event_, "duration"));
+      if (Rational (*dur) != Rational (*prev_dur))
+        {
+          warn_reassign_event_ptr (*partial_event_, ev);
+          return;
+        }
+    }
 
   if (context ()->init_mom () < now_mom ()) // in mid piece
     {
