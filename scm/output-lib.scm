@@ -3568,19 +3568,12 @@ which is the default."
                       (fall-back (if (negative? y-start) DOWN UP))
                       ;; Go for direction modifiers, if used
                       (cause (ly:grob-property grob 'cause))
-                      (dirs
-                       (filter-map
-                        (lambda (art)
-                          (ly:prob-property art 'direction #f))
-                        (ly:prob-property cause 'articulations)))
-                      (dir
-                       (if (and (pair? dirs) (ly:dir? (car dirs)))
-                           (car dirs)
-                           #f))
+                      (dir (ly:prob-property cause 'direction #f))
                       (bow-direction
                        (or (assoc-get 'bow-direction details)
                            dir
                            fall-back)))
+
                  (make-tie-stencil
                   (cons x-start y-start)
                   (cons x-end y-end)
