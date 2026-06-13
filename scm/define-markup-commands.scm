@@ -4640,10 +4640,15 @@ fit and align well with text.
 ;; adjustment (in this order).  Offset and bearing values are expected to be
 ;; applied before the font size change.
 ;;
+;; To support non-Emmentaler music fonts that don't have textual variants
+;; (i.e., no accidental glyphs with the suffix `.figbass` in their name), or
+;; which have a custom version of `alteration-glyph-name-alist`, we also
+;; provide entries for the standard accidentals.
+;;
 ;; TODO: Add entries for ancient accidentals.
 (define accidental-adjustment-alist
   '(
-    ;; accidentals.sharp.figbass
+    ("accidentals.sharp" . (1.0 0.15 -1.4))
     ("accidentals.sharp.arrowdown" . (1.0 0.15 -1.4))
     ("accidentals.sharp.arrowup" . (1.0 0.15 -1.4))
     ("accidentals.sharp.arrowboth" . (1.0 0.15 -1.4))
@@ -4652,21 +4657,21 @@ fit and align well with text.
     ("accidentals.sharp.slashslash.stemstemstem" . (1.0 0.1 -1.4))
     ("accidentals.sharp.slashslashslash.stem" . (1.0 0.175 -1.4))
     ("accidentals.sharp.slashslashslash.stemstem" . (1.0 0.15 -1.4))
-    ;; accidentals.doublesharp.figbass
+    ("accidentals.doublesharp" . (0.9 0.1 0))
 
-    ;; accidentals.flat.figbass
+    ("accidentals.flat" . (0.48 0.15 -0.45))
     ("accidentals.flat.slash" . (0.48 0.15 -0.45))
     ("accidentals.flat.arrowdown" . (0.48 0.15 -0.45))
     ("accidentals.flat.arrowup" . (0.48 0.15 -0.45))
     ("accidentals.flat.arrowboth" . (0.48 0.15 -0.45))
     ("accidentals.flat.slashslash" . (0.48 0.15 -0.45))
-    ;; accidentals.flatflat.figbass
+    ("accidentals.flatflat" . (0.48 0.15 -0.45))
     ("accidentals.flatflat.slash" . (0.48 0.1 -0.45))
     ("accidentals.mirroredflat" . (0.48 0.15 -0.45))
     ("accidentals.mirroredflat.backslash" . (0.48 0.2 -0.45))
     ("accidentals.mirroredflat.flat" . (0.48 0.1 -0.45))
 
-    ;; accidentals.natural.figbass
+    ("accidentals.natural" . (1 0.2 -1.5))
     ("accidentals.natural.arrowdown" . (1 0.2 -1.5))
     ("accidentals.natural.arrowup" . (1 0.2 -1.5))
     ("accidentals.natural.arrowboth" . (1 0.2 -1.5))
