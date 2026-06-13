@@ -10,6 +10,8 @@
   (fill-column . 79))
  (c++-mode
   (c-file-style . "gnu"))
+ (makefile-mode
+  (indent-tabs-mode . t))
  (scheme-mode
   (eval .
         ;; Teach Emacs about a few Scheme forms that it would
