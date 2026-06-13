@@ -27,11 +27,6 @@ SUBDIRS = python scripts \
 ## value of DOCUMENTATION here.
 documentation-dir=$(if $(findstring no,$(DOCUMENTATION)),,Documentation)
 
-README_FILES = README.md COPYING COPYING.FDL DEDICATION ROADMAP \
-  LICENSE LICENSE.DOCUMENTATION LICENSE.OFL
-TOPDOC_FILES = AUTHORS INSTALL NEWS
-TOPDOC_TXT_FILES = $(foreach T,$(TOPDOC_FILES),Documentation/$(outdir)/topdocs/$(T).txt)
-
 RELEASE_FILES = RELEASE-COMMIT
 RELEASE_OUT_FILES = $(RELEASE_FILES:%=$(outdir)/%)
 INSTALLATION_DIR=$(local_lilypond_datadir)
@@ -41,6 +36,11 @@ GENERATED_BUILD_FILES=configure aclocal.m4 autogen.sh
 TEMPLATES = install lilypond
 
 include $(depth)/make/lilypond.make
+
+README_FILES = README.md COPYING COPYING.FDL DEDICATION ROADMAP \
+  LICENSE LICENSE.DOCUMENTATION LICENSE.OFL
+TOPDOC_FILES := AUTHORS.txt INSTALL.txt NEWS.txt
+TOPDOC_FILES := $(TOPDOC_FILES:%=Documentation/$(outdir)/topdocs/%)
 
 .PHONY: test info website
 
@@ -57,7 +57,7 @@ dist: $(GENERATED_BUILD_FILES) top-doc refresh-release-files
 	  fi
 	rm -rf $(distdir)
 	mkdir -p  $(distdir)
-	$(LN) $(RELEASE_OUT_FILES) $(TOPDOC_TXT_FILES) $(distdir)
+	$(LN) $(RELEASE_OUT_FILES) $(TOPDOC_FILES) $(distdir)
 	$(LN) $(GENERATED_BUILD_FILES:%=$(src-dir)/%) $(distdir)
 	(cd $(top-src-dir) && git ls-files) | \
 		rsync -a --files-from=- --link-dest=$(top-src-dir) $(top-src-dir) $(distdir)
@@ -69,7 +69,7 @@ dist: $(GENERATED_BUILD_FILES) top-doc refresh-release-files
 	rm -rf $(distdir)
 
 top-doc:
-	$(MAKE) -C Documentation $(foreach T,$(TOPDOC_FILES),$(outdir)/topdocs/$(T).txt)
+	$(MAKE) -C Documentation $(TOPDOC_FILES:Documentation/%=%)
 
 all: $(outdir)/VERSION
 
@@ -188,7 +188,7 @@ $(outdir)/%-root/index.html: doc-build
 	      Documentation/out-www/webdoc/ \
 	      $(dir $@)/Documentation
 	rsync -a --link-dest=$(build-dir)/Documentation/$(outdir)/topdocs \
-	      $(TOPDOC_TXT_FILES) \
+	      $(TOPDOC_FILES) \
 	      $(dir $@)
 	# No link because the files come from the source directory.
 	cp $(addprefix $(src-dir)/,$(README_FILES)) $(dir $@)
