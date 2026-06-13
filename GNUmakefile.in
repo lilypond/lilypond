@@ -44,7 +44,7 @@ TOPDOC_FILES := $(TOPDOC_FILES:%=Documentation/$(outdir)/topdocs/%)
 
 .PHONY: test info website
 
-dist: $(GENERATED_BUILD_FILES) top-doc refresh-release-files
+dist: $(GENERATED_BUILD_FILES) $(TOPDOC_FILES) refresh-release-files
 	$(call ly_progress,Packing,$(DIST_NAME).tar.gz)
 	@if ! test -e  $(top-src-dir)/.git ; \
 	  then echo "***   dist needs a git repository" \
@@ -68,8 +68,11 @@ dist: $(GENERATED_BUILD_FILES) top-doc refresh-release-files
 		-cf - --owner=0 --group=0 $(DIST_NAME) | gzip -9 > $(DIST_NAME).tar.gz)
 	rm -rf $(distdir)
 
+.PHONY: top-doc
 top-doc:
 	$(MAKE) -C Documentation $(TOPDOC_FILES:Documentation/%=%)
+
+$(TOPDOC_FILES): top-doc
 
 all: $(outdir)/VERSION
 
@@ -221,7 +224,7 @@ $(outdir)/%-root/index.html: doc-build
 		xargs $(PERL) -i -p \
 			-e 's#(href)="css/#\1="../../../Documentation/css/#g'
 
-doc-build: top-doc
+doc-build: $(TOPDOC_FILES)
 	$(MAKE) out=www -C Documentation/ doc
 	$(MAKE) out=www -C input/regression/ doc
 
