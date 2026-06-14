@@ -368,11 +368,14 @@ are reported on the stderr of this run."
 %% \applyContext
 \test ##[ \applyContext #identity #]
 
-%% \partial
-\test ##[ \partial 2 #]
+%% \partial and \setMeasureLengthFromHere
+\test ##[ \partial 2 #]                                 % PartialSet
 \test ##[ \partial 8. #]
 \test ##[ \partial 4*2/3 #]
 \test ##[ \premeasure c4 #]                             % PremeasureMusic
+\test ##[ \setMeasureLengthFromHere 2 #]                   % MeasureLengthSet
+\test ##[ \setMeasureLengthFromHere 8. #]
+\test ##[ \setMeasureLengthFromHere 4*2/3 #]
 
 %% \after
 \test ##[ \after 4 \f d'2 #]
@@ -439,6 +442,7 @@ are reported on the stderr of this run."
 \ignoreMusicType DalSegnoEvent
 \ignoreMusicType SpanEvent
 \ignoreMusicType Event
+\ignoreMusicType MeasureLengthChangeEvent % in computed elements of MeasureLengthSet
 \ignoreMusicType MultiMeasureRestEvent
 \ignoreMusicType PartialEvent % in computed elements of PartialSet
 \ignoreMusicType ScriptEvent % unused?

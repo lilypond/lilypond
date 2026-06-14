@@ -191,6 +191,18 @@ depth-first through MUSIC."
             'SequentialAlternativeMusic
             'elements alts)))))
 
+(define (make-measure-length-set music)
+  "Send the event for @code{\\setMeasureLengthFromHere}."
+  ;; Avoid creating a Bottom context.  See make-time-signature-set.
+  (list (descend-to-context
+         (make-apply-context
+          (lambda (context)
+            (ly:broadcast (ly:context-event-source context)
+                          (ly:make-stream-event
+                           (ly:make-event-class 'measure-length-change-event)
+                           (ly:music-mutable-properties music)))))
+         'Score)))
+
 (define (make-partial-set music)
   "Send the event for @code{\\partial}."
   ;; Avoid creating a Bottom context.  See make-time-signature-set.

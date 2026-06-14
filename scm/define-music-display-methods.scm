@@ -1035,6 +1035,12 @@ Otherwise, return #f."
                 (cons* (*current-context*) symbol properties))
             (new-line->lily-string))))
 
+(define-display-method MeasureLengthSet (expr)
+  (let* ((dur (ly:music-property expr 'duration)))
+    (format #f
+            "\\setMeasureLengthFromHere ~a"
+            (duration->lily-string dur #:force-duration #t))))
+
 (let*
     ((handle-time
       (define-display-method ReferenceTimeSignatureMusic (expr)

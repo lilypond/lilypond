@@ -37,6 +37,7 @@ protected:
   void listen_bar (Stream_event *);
   void listen_bar_check (Stream_event *);
   void listen_fine (Stream_event *);
+  void listen_measure_length_change (Stream_event *);
   void listen_partial (Stream_event *);
   void listen_polymetric_time_signature (Stream_event *);
   void pre_process_music ();
@@ -56,6 +57,7 @@ private:
 
   Stream_event *bar_check_event_ = nullptr;
   Stream_event *fine_event_ = nullptr;
+  Stream_event *measure_length_change_event_ = nullptr;
   Stream_event *partial_event_ = nullptr;
   std::vector<Stream_event *> polymetric_time_signature_events_;
 };

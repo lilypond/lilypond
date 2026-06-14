@@ -83,6 +83,53 @@ Timing_translator::listen_fine (Stream_event *ev)
 }
 
 void
+Timing_translator::listen_measure_length_change (Stream_event *ev)
+{
+  auto *const dur = unsmob<Duration> (get_property (ev, "duration"));
+  if (dur)
+    {
+      // We want to warn about inconsistent simultaneous commands, but
+      // assign_event_once () would be too strict because we don't require
+      // full log-dots-factor equality.  For example, it is fine if one event
+      // has `2.` and another `2*3/2`.
+      if (measure_length_change_event_)
+        {
+          auto *const prev_dur = unsmob<Duration> (
+            get_property (measure_length_change_event_, "duration"));
+          if (Rational (*dur) != Rational (*prev_dur))
+            {
+              warn_reassign_event_ptr (*measure_length_change_event_, ev);
+              return;
+            }
+        }
+
+      measure_length_change_event_ = ev;
+
+      // compute and set measureLength
+      const auto mp
+        = from_scm (get_property (this, "measurePosition"), Moment ());
+      const auto mlen = mp.main_part_ + Rational (*dur);
+      set_property (context (), "measureLength", to_scm (mlen));
+    }
+  else // set measureLength according to timeSignature
+    {
+      SCM tsig = get_property (this, "timeSignature");
+      SCM mlen_scm = Lily::calc_measure_length (tsig);
+      // measureLength <= measurePosition is a problem because the measure
+      // should have ended before this point.
+      const auto mp
+        = from_scm (get_property (this, "measurePosition"), Moment ());
+      const auto mlen = from_scm (mlen_scm, Rational ());
+      if (mlen <= mp.main_part_)
+        {
+          ev->warning (_f ("setting measureLength (%s) ≤ measurePosition (%s)",
+                           to_string (mlen), to_string (mp.main_part_)));
+        }
+      set_property (context (), "measureLength", mlen_scm);
+    }
+}
+
+void
 Timing_translator::listen_partial (Stream_event *ev)
 {
   auto *const dur = unsmob<Duration> (get_property (ev, "duration"));
@@ -172,6 +219,8 @@ Timing_translator::pre_process_music ()
               if (isfinite (mlen))
                 {
                   auto mp = mlen - Rational (*dur);
+                  // TODO: If the new position is negative, warn and suggest
+                  // setting measureLength?
                   set_property (context (), "measurePosition",
                                 to_scm (Moment (mp, now.grace_part_)));
                 }
@@ -480,6 +529,8 @@ Timing_translator::start_translation_timestep ()
       fine_event_ = nullptr;
     }
 
+  measure_length_change_event_ = nullptr;
+
   if (partial_event_)
     {
       context ()->unset_property (ly_symbol2scm ("partialBusy"));
@@ -506,10 +557,6 @@ Timing_translator::start_translation_timestep ()
           mp -= len;
           ++cbn;
           ++ibn;
-
-          // TODO: To support ad-hoc irregular measures more conveniently,
-          // reset measureLength at this point according to the time signature
-          // (possibly optionally, controlled by a new context property).
 
           // Advance through any remaining measures.
           const auto num_measures = (mp / len).trunc_int ();
@@ -565,6 +612,7 @@ Timing_translator::boot ()
   ADD_LISTENER (bar);
   ADD_LISTENER (bar_check);
   ADD_LISTENER (fine);
+  ADD_LISTENER (measure_length_change);
   ADD_LISTENER (partial);
   ADD_LISTENER (polymetric_time_signature);
 }

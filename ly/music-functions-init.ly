@@ -1724,7 +1724,8 @@ past the point of use.  As a special case, when used at the start, create an
 anacrusis before the first measure.
 
 Notational elements that communicate metric structure (e.g., beam breaks) will
-be engraved appropriately for the final @var{dur} part of a measure.
+be engraved appropriately for the final @var{dur} part of a measure.  Compare
+to @rmusicfn{\\setMeasureLengthFromHere}.
 
 See also @rmusicfn{\\premeasure}.")
   (context-spec-music (make-music 'PartialSet
@@ -2242,6 +2243,27 @@ is created instead of a segno mark.")
    (if num
        (make-music 'SegnoMarkEvent 'label num)
        (make-music 'SegnoMarkEvent)))
+
+setDefaultMeasureLength =
+#(define-music-function () ()
+   (_i "Set @code{Timing@/.measureLength} from @code{Timing@/.timeSignature}.")
+   (make-music 'MeasureLengthSet
+               'origin (*location*)))
+
+setMeasureLengthFromHere =
+#(define-music-function (dur) (ly:duration?)
+   (_i "End the current measure after @var{dur}.
+
+Adjust @code{Timing@/.measureLength} to end at @var{dur} past the point of use.
+The resulting measure length remains in effect until it is changed by another
+command.
+
+Notational elements that communicate metric structure (e.g., beam breaks) will
+be engraved appropriately to continue the measure.  Compare to
+@rmusicfn{\\partial}.")
+   (make-music 'MeasureLengthSet
+               'duration dur
+               'origin (*location*)))
 
 shape =
 #(define-music-function (offsets item) (list? key-list-or-music?)

@@ -402,6 +402,25 @@ spanner.")
         (types . (measure-counter-event span-event event))
         ))
 
+    (MeasureLengthChangeEvent
+     . ((description . "An event announcing an exceptional change in measure length.")
+        (types . (measure-length-change-event event))
+        ))
+
+    (MeasureLengthSet
+     . ((description . "Create an irregular measure by setting the remaining length.
+
+Syntax: @code{\\setMeasureLengthFromHere} @var{duration}
+")
+        (elements-callback . ,make-measure-length-set)
+        (iterator-ctor . ,ly:sequential-iterator::constructor)
+        ;; The length callback is slightly ugly.  We just use it to get
+        ;; a zero length for the overall timing in spite of having a
+        ;; non-zero duration property.
+        (length-callback . ,ly:music-sequence::cumulative-length-callback)
+        (types . (measure-length-set))
+        ))
+
     (MultiMeasureArticulationEvent
      . ((description . "Articulations on multi-measure rests.")
         (types . (post-event event multi-measure-articulation-event))
@@ -491,12 +510,12 @@ Syntax: @code{\\override} [ @var{context} @code{.} ]
         (types . (break-event page-turn-event event))
         ))
 
-    (PartialEvent
+    (PartialEvent ; TODO: MeasurePositionChangeEvent?
      . ((description . "An event announcing a partial measure.")
         (types . (partial-event event))
         ))
 
-    (PartialSet
+    (PartialSet ; TODO: MeasurePositionSet?
      . ((description . "Create an anacrusis or upbeat (partial measure).")
         (elements-callback . ,make-partial-set)
         (iterator-ctor . ,ly:sequential-iterator::constructor)

@@ -36,6 +36,7 @@
                     chord-slur-event
                     extender-event span-event rhythmic-event dynamic-event
                     break-event label-event
+                    measure-length-change-event
                     partial-event
                     percent-event key-change-event
                     string-number-event stroke-finger-event tie-event

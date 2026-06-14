@@ -96,6 +96,15 @@ None so far.
 @itemize
 
 @item
+The new @code{\setMeasureLengthFromHere} command simplifies
+creating irregular measures by setting the measure length relative
+to the current measure position.  This complements
+@code{\partial}, which changes the measure position relative to
+the measure length.  The new @code{\setDefaultMeasureLength}
+command restores the measure length to the value dictated by the
+time signature.
+
+@item
 The new @code{\premeasure @var{music}} command is an abbreviation
 for @code{\partial @var{duration} @var{music}} that computes the
 duration automatically.
