@@ -4062,29 +4062,123 @@ des'^\markup { \rotate #30 "a D-Flat" }
 fis'^\markup { \rotate #30 "an F-Sharp" }
 @end lilypond
 
+
 @node Aligning objects
 @section Aligning objects
 
-Graphical objects which support the @code{self-alignment-interface}
-and/or the @code{side-@/position-@/interface} can be aligned to a previously
-placed object in a variety of ways.  For a list of these objects, see
-@rinternals{self-alignment-interface} and @rinternals{side-position-interface}.
+@cindex aligning objects
+@cindex objects, aligning
+@cindex grob, aligning
 
-All graphical objects have a reference point, a horizontal extent and a
-vertical extent.  The horizontal extent is a pair of numbers
-giving the displacements from the reference point of the left and
-right edges, displacements to the left being negative.  The vertical
-extent is a pair of numbers giving the displacement from the reference
-point to the bottom and top edges, displacements down being negative.
+@cindex reference point
+@cindex point, of reference
+@cindex horizontal extent, of grobs
+@cindex vertical extent, of grobs
+@cindex extent, of grobs
+
+All graphical objects have a @dfn{reference point};
+coordinate-wise, this reference point is defined to have position
+(0,0).
+
+All grobs also have a @dfn{horizontal extent} and a @dfn{vertical
+extent}.  The horizontal extent is a pair of numbers giving the
+displacements from the reference point of the left and right
+edges, displacements to the left being negative.  The vertical
+extent is a pair of numbers giving the displacement from the
+reference point to the bottom and top edges, displacements down
+being negative.  In the image below, the point with zero
+coordinates is the reference point; the horizontal extent is
+@code{#'(-9 . 26)}, the vertical extent is @code{#'(-10 . 29)}.
+
+@lilypond[quote]
+#(define-markup-command (point layout props x y xoff yoff)
+   (number? number? number? number?)
+   (interpret-markup
+    layout props
+    (make-overlay-markup
+     (list
+      (make-translate-markup
+       (cons x y)
+       (make-draw-circle-markup 0.4 0 #t))
+      (make-translate-markup
+       (cons (+ x xoff) (+ y yoff))
+       (format #f "(~a,~a)" x y))))))
+
+\markup \scale #'(0.8 . 0.8) {
+  \overlay {
+    \scale #'(18 . 16) \with-color #(x11-color "gray80")
+      \musicglyph "accidentals.flatflat.slash"
+
+    \override #'((filled . #f)
+                 (thickness . 2))
+      \polygon #'((-9 . -10) (-9 . 29) (26 . 29) (26 . -10))
+
+    \translate #'(-15 . 0) \draw-line #'(47 . 0)
+    \translate #'(32 . 0) \arrow-head #X #RIGHT ##t
+    \translate #'(31 . -2) \italic x
+    \translate #'(0 . -15) \draw-line #'(0 . 50)
+    \translate #'(0 . 35) \arrow-head #Y #UP ##t
+    \translate #'(-2 . 34) \italic y
+
+    \point #0 #0 #0.5 #0.8
+    \point #-9 #-10 #0.5 #0.8
+    \point #26 #29 #-3 #1
+
+    \translate #'(-10.5 . 19) \draw-line #'(0 . 10)
+    \translate #'(-10.5 . 29) \arrow-head #Y #UP ##t
+    \translate #'(-18 . 10) \rotate #90 \italic "vertical extent"
+    \translate #'(-10.5 . 2.5) \draw-line #'(0 . -12.5)
+    \translate #'(-10.5 . -10) \arrow-head #Y #DOWN ##t
+
+    \translate #'(-0.5 . -12) \draw-line #'(-8.5 . 0)
+    \translate #'(-9 . -12) \arrow-head #X #LEFT ##t
+    \translate #'(9 . -12.5) \center-align \italic "horizontal extent"
+    \translate #'(18 . -12) \draw-line #'(8 . 0)
+    \translate #'(26 . -12) \arrow-head #X #RIGHT ##t
+  }
+}
+@end lilypond
+
+See @rextend{LilyPond's box model} for details on extents of music
+glyphs.
+
+@cindex alignment point
+@cindex point, of alignment
+
+Graphical objects also have @dfn{alignment points}, which are not
+necessarily the same as their reference point.  An alignment point
+is a point relative to an object that LilyPond uses when aligning
+that object with other objects.  Self-alignment points are
+relative to the object itself; parent-alignment points are
+relative to the object's parent, if one exists.
+
+Most grobs have parents that influence their positioning.  For
+these objects, LilyPond moves the grob so that its alignment point
+is at the same position as the parent's alignment point.  For
+example, @code{TextScript@/.parent-alignment-X} is the property of
+a @code{TextScript} grob that specifies the alignment point along
+the X@tie{}axis, relative to that @code{TextScript} grob's parent
+(its associated @code{NoteColumn} grob), to which LilyPond aligns
+that @code{TextScript} grob.  When placing a @code{TextScript}
+grob horizontally, LilyPond aligns the grob's self-alignment point
+with a parent-alignment point relative to the @code{NoteColumn}
+grob that is the @code{TextScript}'s parent.  If the
+@code{NoteColumn} grob has two or more children, those child grobs
+can have different parent-alignment points.  @xref{Using the
+self-alignment-interface} for more information.
 
 An object's position on a staff is given by the values of the
 @code{X-offset} and @code{Y-offset} properties.  The value of
 @code{X-offset} gives the displacement from the X coordinate of
 the reference point of the parent object, and the value of
 @code{Y-offset} gives the displacement from the center line of the
-staff.  The values of @code{X-offset} and @code{Y-offset} may
-be set directly or may be set to be calculated by procedures in order
-to achieve alignment with the parent object.
+staff.@footnote{For objects not directly associated with a staff
+other conventions might apply.  To name an example,
+@code{Y-offset} values for @code{InstrumentName} grobs are
+measured from the top of the current system's topmost staff.}  The
+values of @code{X-offset} and @code{Y-offset} may be set directly
+or may be set to be calculated by procedures in order to achieve
+alignment with the parent object.
 
 @warning{Many objects have special positioning considerations which
 cause any setting of @code{X-offset} or @code{Y-offset} to be
@@ -4096,10 +4190,17 @@ or @code{Y-offset} properties to a fixed value causes the respective
 For example, an accidental can be repositioned vertically by setting
 @code{Y-offset} but any changes to @code{X-offset} have no effect.
 
+Many graphical objects can be aligned to a previously placed
+object using the @code{self-@/alignment-@/interface} and/@/or the
+@code{side-position-interface}.  For a list of these objects, see
+@rinternals{self-alignment-interface} and
+@rinternals{side-position-interface}.
+
 Rehearsal marks may be aligned with breakable objects such as bar
-lines, clef symbols, time signature symbols and key signatures.  There
-are special properties to be found in the @code{break-aligned-interface}
-for positioning rehearsal marks on such objects.
+lines, clef symbols, time signature symbols, and key signatures.
+There are special properties to be found in the
+@code{break-aligned-interface} for positioning rehearsal marks on
+such objects.
 
 @morerefs
 Notation Reference:
@@ -4113,35 +4214,42 @@ Extending LilyPond:
 @node Setting X-offset and Y-offset directly
 @subsection Setting @code{X-offset} and @code{Y-offset} directly
 
+@funindex X-offset
+@funindex Y-offset
+
 Numerical values may be given to the @code{X-offset} and @code{Y-offset}
 properties of many objects.  The following example shows three
 notes with the default fingering position and the positions with @code{X-offset}
 and @code{Y-offset} modified.
 
 @lilypond[verbatim,fragment,quote]
-a'-3
-a'
--\tweak X-offset 0
--\tweak Y-offset 0
--3
-a'
--\tweak X-offset -1
--\tweak Y-offset 1
--3
+f'-3
+f'-\tweak X-offset 0
+  -\tweak Y-offset 0
+  -3
+f'-\tweak X-offset -1
+  -\tweak Y-offset 0.5
+  -3
 @end lilypond
+
 
 @c TODO write more
 
 @node Using the side-position-interface
 @subsection Using the @code{side-position-interface}
 
-An object which supports the @code{side-position-interface} can be
-placed next to its parent object so that
-the specified edges of the two objects touch.  The object may be
-placed above, below, to the right or to the left of the parent.
-The parent cannot be specified; it is determined by the order of
-elements in the input stream.  Most objects have the associated
-note head as their parent.
+@funindex side-position-interface
+
+An object that supports the @code{side-position-interface} can be
+placed next to its parent object so that the specified edges of
+the two objects touch.  The object may be placed above, below, to
+the right, or to the left of the parent.  The parent cannot be
+specified; it is determined by the order of elements in the input
+stream.  Most objects have the associated note head as their
+parent.
+
+@funindex side-axis
+@funindex direction
 
 The values of the @code{side-axis} and @code{direction} properties
 determine where the object is to be placed, as follows:
@@ -4149,102 +4257,435 @@ determine where the object is to be placed, as follows:
 @c TODO add an example of each to the table
 
 @indentedblock
-@multitable {@b{@code{side-axis} property}} {@b{@code{direction} property}} {@b{Placement}}
+@multitable {@b{@code{side-axis} property}} {@b{@code{direction} property}} {@b{placement}}
 @headitem @code{side-axis} property
-                            @tab @code{direction} property
-                                                   @tab Placement
-
-@item     @code{0}          @tab @code{-1}         @tab left
-@item     @code{0}          @tab @code{1}          @tab right
-@item     @code{1}          @tab @code{-1}         @tab below
-@item     @code{1}          @tab @code{1}          @tab above
+              @tab @code{direction} property
+                       @tab placement
+@item     0   @tab -1  @tab left
+@item     0   @tab 1   @tab right
+@item     1   @tab -1  @tab below
+@item     1   @tab 1   @tab above
 @end multitable
 @end indentedblock
 
-When @code{side-axis} is @code{0}, @code{X-offset} should be set to
-the procedure @code{ly:@/side-@/position-@/interface::@/x-aligned-@/side}.
-This procedure will return the correct value of @code{X-offset} to
-place the object to the left or right side of the parent according
-to value of @code{direction}.
+When @code{side-axis} is@tie{}0, @code{X-offset} should be set to
+the procedure
+@code{ly:@/side-@/position-@/interface::@/x-aligned-@/side}.  This
+procedure returns the correct value of @code{X-offset} to place
+the object to the left or right side of the parent according to
+value of @code{direction}.
 
-When @code{side-axis} is @code{1}, @code{Y-offset} should be set to
-the procedure @code{ly:@/side-@/position-@/interface::@/y-aligned-@/side}.
-This procedure will return the correct value of @code{Y-offset} to
-place the object to the top or bottom of the parent according
-to value of @code{direction}.
+When @code{side-axis} is@tie{}1, @code{Y-offset} should be set to
+the procedure
+@code{ly:@/side-@/position-@/interface::@/y-aligned-@/side}.  This
+procedure returns the correct value of @code{Y-offset} to
+place the object to the top or bottom of the parent according to
+value of @code{direction}.
+
+@funindex X
+@funindex Y
+@funindex LEFT
+@funindex RIGHT
+@funindex UP
+@funindex DOWN
+
+Instead of values 0 and@tie{}1 you might use the Scheme symbols
+@code{X} and@tie{}@code{Y} for specifying a side axis.  Similarly,
+you might use the symbols @code{DOWN} (@code{LEFT}) and @code{UP}
+(@code{RIGHT}) instead of values @w{-1} and@tie{}1 for specifying
+a direction.
 
 @c TODO Add examples
+
 
 @node Using the self-alignment-interface
 @subsection Using the @code{self-alignment-interface}
 
-@subsubheading Self-aligning objects horizontally
+@funindex self-alignment-interface
 
-The horizontal alignment of an object which supports the
-@code{self-alignment-interface} is controlled by the value of
-the @code{self-alignment-X} property, provided the object's
+The @code{self-alignment-interface} defines objects' alignment
+points.  This interface applies to many graphical objects in
+LilyPond (see @rinternals{self-alignment-interface} for a list).
+
+The alignment interface is based on the dimension of the grob's
+bounding box.  The X@tie{}(Y) coordinate of a grob's alignment
+point is a multiple of half the width (height) of this bounding
+box.  In other words, one unit is half the total X@tie{}(Y) extent
+of the object.
+
+An X@tie{}(Y) coordinate of@tie{}@w{-1} represents the left
+(lower) edge of the bounding box.  An X@tie{}(Y) coordinate
+of@tie{}0 represents the center.  An X@tie{}(Y) coordinate
+of@tie{}1 represents the right (upper) edge.
+
+A coordinate can be any real number, including values less
+than@tie{}@w{-1} or greater than@tie{}1.
+
+The image below shows the general case, where both the parent and
+the @q{self} grob have non-zero horizontal and vertical alignment
+parameters to position the alignment points @emph{A@sub{P}} and
+@emph{A@sub{S}} (these two points are chosen arbitrarily here for
+the sake of demonstrating the concept).
+
+@lilypond[quote]
+#(define-markup-command (point layout props x y xoff yoff label)
+   (number? number? number? number? markup?)
+   (interpret-markup
+    layout props
+    (make-overlay-markup
+     (list
+      (make-translate-markup
+       (cons x y)
+       (make-draw-circle-markup 0.4 0 #t))
+      (make-translate-markup
+       (cons (+ x xoff) (+ y yoff))
+       label)))))
+
+\markup \scale #'(0.8 . 0.8) {
+  \overlay {
+    \translate #'(-25 . 0) {
+      \translate #'(0 . 15) \center-align "parent grob"
+
+      \override #'((filled . #f)
+                   (thickness . 2))
+        \polygon #'((-20 . -10) (-20 . 10) (20 . 10) (20 . -10))
+
+      \translate #'(-20 . 0) \draw-line #'(40 . 0)
+      \translate #'(0 . -10) \draw-line #'(0 . 20)
+
+      \point #0 #0 #0.5 #0.8 "(0,0)"
+      \point #-20 #-10 #-7 #-0.8 "(-1,-1)"
+      \point #-20 #10 #-6 #0.8 "(-1,1)"
+      \point #20 #10 #1 #0.8 "(1,1)"
+      \point #20 #-10 #1 #-0.8 "(1,-1)"
+
+      \translate #'(0 . -15) \center-align \line {
+        \concat { \italic A \sub \italic P } = (0.6, -0.5) }
+      \point #12 #-5 #0.5 #0.8 \concat { \italic A \sub \italic P }
+    }
+
+    \translate #'(25 . 0) {
+      \translate #'(0 . 15) \center-align "“self” grob"
+
+      \override #'((filled . #f)
+                   (thickness . 2))
+        \polygon #'((-9 . -9) (-9 . 9) (9 . 9) (9 . -9))
+
+      \translate #'(-9 . 0) \draw-line #'(18 . 0)
+      \translate #'(0 . -9) \draw-line #'(0 . 18)
+
+      \point #0 #0 #0.5 #0.8 "(0,0)"
+      \point #-9 #-9 #-7 #-0.8 "(-1,-1)"
+      \point #-9 #9 #-6 #0.8 "(-1,1)"
+      \point #9 #9 #1 #0.8 "(1,1)"
+      \point #9 #-9 #1 #-0.8 "(1,-1)"
+
+      \translate #'(0 . -15) \center-align \line {
+        \concat { \italic A \sub \italic S } = (-1.4, 0.2) }
+      \point #-12.6 #1.8 #-2.3 #-2 \concat { \italic A \sub \italic S }
+    }
+
+    \translate #'(0 . -38) {
+      \translate #'(0 . 15) \center-align "parent and “self” grob aligned"
+
+      \translate #'(-12.6 . 1.8) {
+        \override #'((filled . #f)
+                     (thickness . 2))
+          \polygon #'((-20 . -10) (-20 . 10) (20 . 10) (20 . -10))
+
+          \translate #'(-20 . 0) \draw-line #'(40 . 0)
+          \translate #'(0 . -10) \draw-line #'(0 . 20)
+
+          \point #12 #-5 #-5 #1.5 \line {
+            \concat { \italic A \sub \italic P } =
+            \concat { \italic A \sub \italic S } }
+      }
+      \translate #'(12 . -5) {
+        \override #'((filled . #f)
+                     (thickness . 2))
+          \polygon #'((-9 . -9) (-9 . 9) (9 . 9) (9 . -9))
+
+          \translate #'(-9 . 0) \draw-line #'(18 . 0)
+          \translate #'(0 . -9) \draw-line #'(0 . 18)
+      }
+    }
+  }
+}
+@end lilypond
+
+@subsubheading Self-aligning and parent-aligning objects horizontally
+
+@funindex self-alignment-X
+@funindex LEFT
+@funindex RIGHT
+@funindex CENTER
+
+The horizontal alignment of an object that supports the
+@code{self-alignment-interface} is controlled by the value of the
+@code{self-alignment-X} property, provided the object's
 @code{X-offset} property is set to
-@code{ly:self-alignment-interface::x-aligned-on-self}.
-@code{self-alignment-X}  may be given any
-real value, in units of half the total X extent of the
-object.  Negative values move the object to the right, positive
-to the left.  A value of @code{0} centers the object on the
-reference point of its parent, a value of @w{@code{-1}} aligns the
-left edge of the object on the reference point of its parent,
-and a value of @code{1} aligns the right edge of the object on the
-reference point of its parent.  The symbols @code{LEFT},
-@code{CENTER}, and @code{RIGHT} may be used instead of the values
-@w{@code{-1}}, @code{0}, and @code{1}, respectively.
+@code{ly:self-alignment-interface::x-aligned-on-self}.  Negative
+values move the object to the right, positive to the left.  A
+value of@tie{}0 centers the object (more specifically, its
+bounding box) on the alignment point of its parent, a value
+of@tie{}@w{-1} aligns the left edge of the object to the alignment
+point of its parent, and a value of@tie{}1 aligns the right edge
+of the object to the alignment point of its parent.  The symbols
+@code{LEFT}, @code{CENTER}, and @code{RIGHT} may be used instead
+of the values @w{-1}, 0, and@tie{}1, respectively.
 
-Normally the @code{\override} command would be used to modify the
-value of @code{self-alignment-X}, but the @code{\tweak} command
-can be used to separately align several annotations on a single
-note:
+Value @code{#f} horizontally aligns the grob using its reference
+point.  This value only works, however, if the grob has a parent;
+LilyPond returns an error if it has none.
+
+@funindex parent-alignment-X
+
+If an object has a parent, its horizontal alignment is also
+similarly affected by the @code{parent-alignment-X} property.
+
+The following image shows various @code{self-alignment-X} and
+@code{parent-alignment-X} value combinations for @code{TextScript}
+objects whose parents are their associated @code{NoteColumn}
+grobs.  Here, the @code{TextScript} grobs are gray boxes having
+the horizontal extent @code{'(-1 . 3)} and the vertical extent
+@code{'(-1 . 2)}; the reference point of the boxes is marked with
+a dot.  The reference point of a @code{NoteColumn} grob is always
+(0,0); suspended @code{NoteHead} grobs (i.e., note heads in chords
+on the other, non-default side of the stem) stick out but are not
+taken into account.  The horizontal position of the
+parent-alignment point is represented by a vertical line, and the
+alignment point of @code{TextScript} is marked with a cross.
+
+@lilypond[quote]
+#(define visualize-alignments
+   ;; Add visual clues to show alignment between `TextScript` and
+   ;; `NoteColumn` grobs.
+   ;;
+   ;;   reference point of `TextScript` grob:              dot
+   ;;   self-alignment-X ('self' grob is `TextScript`):    cross
+   ;;   parent-alignment-X (parent grob is `NoteColumn`):  vertical line
+   (grob-transformer
+    'stencil
+    (lambda (grob orig)
+      (let* ((dot (make-circle-stencil 0.2 0.1 #t))
+             (zero-ext-dot
+              (ly:make-stencil (ly:stencil-expr dot) '(0 . 0) '(0 . 0)))
+             (cross (make-path-stencil '(moveto -1 -1
+                                         lineto 1 1
+                                         moveto -1 1
+                                         lineto 1 -1)
+                                       0.1 0.3 0.3 #f))
+             (zero-ext-cross
+              (ly:make-stencil (ly:stencil-expr cross) '(0 . 0) '(0 . 0)))
+             (line (make-line-stencil 0 0 -7.5 0 1.5)))
+        (if (ly:stencil? orig)
+            (let* ((stil-x-ext (ly:stencil-extent orig X))
+                   (stil-y-ext (ly:stencil-extent orig Y))
+                   (self-x (ly:grob-property grob 'self-alignment-X #f))
+                   (self-y (ly:grob-property grob 'self-alignment-Y #f))
+                   (nc (ly:grob-parent grob X))
+                   (nc-x-ext (ly:grob-property nc 'main-extent))
+                   (nc-y-ext (ly:grob-extent nc nc Y))
+                   (par-x (ly:grob-property grob 'parent-alignment-X #f)))
+              (when (grob::has-interface nc 'note-column-interface)
+                (ly:grob-set-property!
+                 nc 'stencil
+                 (ly:stencil-translate-axis
+                  line
+                  (+ (car nc-x-ext) (/ (interval-length nc-x-ext) 2)
+                     (* (/ (interval-length nc-x-ext) 2) (or par-x -1)))
+                  X))
+                ;; Ensure that the line is not hidden by the gray box
+                ;; representing the `TextScript` grob.
+                (ly:grob-set-property! nc 'layer 2))
+              (ly:stencil-add
+               orig
+               zero-ext-dot
+               (ly:stencil-translate
+                zero-ext-cross
+                (cons
+                 (if self-x
+                     (+ (car stil-x-ext) (/ (interval-length stil-x-ext) 2)
+                        (* (/ (interval-length stil-x-ext) 2) self-x))
+                     0)
+                 (if self-y
+                     (+ (car stil-y-ext) (/ (interval-length stil-y-ext) 2)
+                        (* (/ (interval-length stil-y-ext) 2) self-y))
+                     0)))))
+            ;; If there is no stencil already, return a dot.
+            zero-ext-dot)))))
+
+boxStil = \markup \stencil
+    #(box-stencil
+      (stencil-with-color
+       (make-filled-box-stencil '(-1 . 3)  '(-1 . 2))
+       "#CCC")
+      0 0)
+
+alignment = #(define-scheme-function (arg) (boolean-or-number?)
+  #{
+    \markup
+      \fontsize #-3
+      \typewriter #(format #f "self-alignment-X = #~a" arg)
+  #})
+
+mus =
+#(define-music-function (arg pad mus)
+   (boolean-or-number? number? ly:music?)
+   #{
+     <>-\tweak self-alignment-X #-0.8
+       -\tweak padding #pad
+       ^\alignment #arg
+     #mus -\tweak stencil \visualize-alignments
+          -\boxStil
+ #})
+
+musline = {
+  \mus ##f #0 b'
+  \once \override TextScript.self-alignment-X = #-1
+    \mus #-1 #2 <b' c''>
+  \once \override TextScript.self-alignment-X = #0
+    \mus #0 #0 b'
+  \once \override TextScript.self-alignment-X = #1
+    \mus #1 #2 <b' c''>
+  \break
+}
+
+{
+  \omit Staff.TimeSignature
+
+  \textMark \markup \smaller \typewriter "parent-alignment-X = ##f"
+  \override TextScript.parent-alignment-X = ##f
+  \musline
+
+  \textMark \markup \smaller \typewriter "parent-alignment-X = #-1"
+  \override TextScript.parent-alignment-X = #-1
+  \musline
+
+  \textMark \markup \smaller \typewriter "parent-alignment-X = #0"
+  \override TextScript.parent-alignment-X = #0
+  \musline
+
+  \textMark \markup \smaller \typewriter "parent-alignment-X = #1"
+  \override TextScript.parent-alignment-X = #1
+  \musline
+}
+
+\layout {
+  indent = 0
+  \context {
+    \Score
+    \override TextMark.self-alignment-X = #-1
+  }
+}
+@end lilypond
+
+Either @code{\override} or @code{\tweak} can be used to modify the
+value of @code{self-alignment-X}.  To separately align several
+annotations on a single note, however, you must use @code{\tweak}.
 
 @lilypond[quote,verbatim,fragment]
-a'
--\tweak self-alignment-X -1
-^"left-aligned"
--\tweak self-alignment-X 0
-^"center-aligned"
--\tweak self-alignment-X #RIGHT
-^"right-aligned"
--\tweak self-alignment-X -2.5
-^"aligned further to the right"
+a'-\tweak self-alignment-X -1 ^"left-aligned"
+  -\tweak self-alignment-X 0 ^"center-aligned"
+  -\tweak self-alignment-X #RIGHT ^"right-aligned"
+  -\tweak self-alignment-X -2.5 ^"aligned farther to the right"
 @end lilypond
 
 @subsubheading Self-aligning objects vertically
 
-Objects may be aligned vertically in an analogous way to aligning
-them horizontally if the @code{Y-offset} property is set to
-@code{ly:self-alignment-interface::y-aligned-on-self}.  However,
-other mechanisms are often involved in vertical alignment: the
-value of @code{Y-offset} is just one variable taken into account.
-This may make adjusting the value of some objects tricky.
-The units are just half the vertical extent of the object, which
-is usually quite small, so quite large numbers may be required.
-A value of @w{@code{-1}} aligns the lower edge of the object with
-the reference point of the parent object, a value of @code{0}
-aligns the center of the object with the reference point of the
-parent, and a value of @code{1} aligns the top edge of the object
-with the reference point of the parent.  The symbols @code{DOWN},
-@code{CENTER}, and @code{UP} may be substituted for @w{@code{-1}},
-@code{0}, and @code{1}, respectively.
+@funindex self-alignment-Y
+
+@funindex CENTER
+@funindex UP
+@funindex DOWN
+
+Objects may be aligned vertically (using @code{self-alignment-Y})
+in an analogous way to aligning them horizontally if the
+@code{Y-offset} property is set to
+@code{ly:@/self-@/alignment-@/interface::@/y-aligned-@/on-@/self}.
+However, other mechanisms are often involved in vertical
+alignment: the value of @code{Y-offset} is just one variable taken
+into account.  This may make adjusting the value of some objects
+tricky.  The units are just half the vertical extent of the
+object, which is usually quite small, so very large numbers may be
+required.  A value of@tie{}@w{-1} aligns the lower edge of the
+object with the alignment point of the parent object, a value
+of@tie{}0 aligns the center of the object with the alignment point
+of the parent, and a value of@tie{}1 aligns the top edge of the
+object with the alignment point of the parent.  The symbols
+@code{DOWN}, @code{CENTER}, and @code{UP} may be substituted for
+@w{-1}, 0, and@tie{}1, respectively.
+
+Value @code{#f} vertically aligns the grob using its reference
+point.  This value only works, however, if the grob has a parent;
+LilyPond returns an error if it has none.
+
+@funindex parent-alignment-Y
+
+Note that using @code{parent-alignment-Y} almost never works;
+there are too many other constraints that influence how an object
+is vertically positioned relative to its parent grob.  Take the
+previous image as an example: the vertical value of the parent's
+reference point (the @code{NoteColumn} grob) depends on the
+attached object (the @code{TextScript} grob) together with various
+padding property values -- as can be seen, LilyPond tries to move
+the @code{TextScript} grobs as near as possible to the staff.  Due
+to this interdependency between parent and object itself,
+accessing or modifying @code{parent-@/alignment-Y} usually fails
+and often produces warnings about @q{cyclic dependencies}.
+
+The standard way to adjust vertical distances is to modify one of
+the various padding properties LilyPond offers, for example,
+@code{outside-staff-padding}.
 
 @subsubheading Self-aligning objects in both directions
 
-By setting both @code{X-offset} and @code{Y-offset}, an object may
-be aligned in both directions simultaneously.
+By setting both @code{self-alignment-X} and
+@code{self-alignment-Y}, an object may be aligned in both
+directions simultaneously.
 
-The following example shows how to adjust a fingering mark so
-that it nestles close to the note head.
+The following example shows how to adjust the position of
+instrument names.  The @code{InstrumentName} grob is an example of
+a grob that has no parent: @code{self-@/alignment-X} gives an
+alignment relative to the left margin and the start of the staff
+(i.e., the system's indentation), and @code{self-@/alignment-Y}
+aligns the @code{InstrumentName} grob relative to the related
+staff's middle line.
 
-@lilypond[quote,verbatim,fragment]
-a'
--\tweak self-alignment-X 0.5  % move horizontally left
--\tweak Y-offset #ly:self-alignment-interface::y-aligned-on-self
--\tweak self-alignment-Y -1  % move vertically up
--3  % third finger
+@lilypond[quote,verbatim,indent=1\cm]
+sn = #(define-music-function (name x y) (string? number? number?)
+       #{
+         \new RhythmicStaff \with {
+           instrumentName = #name
+           \override InstrumentName.self-alignment-X = #x
+           \override InstrumentName.self-alignment-Y = #y
+         } { f'1 }
+       #})
+
+<<
+  \sn "AAA" #1 #3
+  \sn "AAAAA" #1 #3
+  \sn "BBB" #0.5 #1.5
+  \sn "BBBBB" #0.5 #1.5
+  \sn "CCC" #0 #0
+  \sn "CCCCC" #0 #0
+  \sn "DDD" #-0.5 #-1.5
+  \sn "DDDDD" #-0.5 #-1.5
+  \sn "EEE" #-1 #-3
+  \sn "EEEEE" #-1 #-3
+>>
+
+\layout {
+  indent = 5\cm
+
+  \context {
+    \RhythmicStaff
+    \override VerticalAxisGroup.staff-staff-spacing =
+      #'((minimum-distance . 0)
+         (basic-distance . 0)
+         (padding . 2.5))
+  }
+}
 @end lilypond
 
 @ignore
@@ -4280,16 +4721,20 @@ example shows the difference:
 @subsection Using the @code{break-alignable-interface}
 
 @cindex align to object
+@funindex break-align-symbol
 @funindex break-align-symbols
+@funindex break-alignable-interface
+@funindex break-aligned-interface
 
-Rehearsal marks, text marks, bar numbers, and more generally all objects
-with @rinternals{break-alignable-interface}, collectively referred to
-as @qq{break-alignable objects}, may be aligned with notation objects
-such as bar lines, key signatures, time signatures, and generally any
-object with @rinternals{break-aligned-interface}.  To be more precise,
-break-aligned items have a @code{break-@/align-@/symbol} property, providing
-symbols that can be used as @q{anchor points} for other objects via the
-@code{break-@/align-@/symbols} property.  See
+Rehearsal marks, text marks, bar numbers, and more generally all
+objects that support the @code{break-alignable-interface},
+collectively referred to as @qq{break-alignable objects}, may be
+aligned with notation objects such as bar lines, key signatures,
+time signatures, and generally any object that supports the
+@code{break-aligned-interface}.  To be more precise, break-aligned
+items have a @code{break-@/align-@/symbol} property, providing
+symbols that can be used as @q{anchor points} for other objects
+via the @code{break-@/align-@/symbols} property.  See
 @rinternals{break-alignment-interface}, for a complete list of
 available symbols.
 
@@ -4298,29 +4743,23 @@ break-alignable items are aligned:
 
 @lilypond[verbatim,quote,fragment]
 \override Score.TextMark.self-alignment-X = #CENTER
-% The text mark will be aligned
-% to the right edge of the clef
-\override Score.TextMark.break-align-symbols =
-            #'(clef)
-\key a \major
+% Align text mark to the right edge of the clef.
+\override Score.TextMark.break-align-symbols = #'(clef)
 \clef treble
+\key a \major
 \textMark "↓"
 e'1
-% The text mark will be aligned
-% to the left edge of the time signature
-\override Score.TextMark.break-align-symbols =
-            #'(time-signature)
+
+% Align text mark to the left edge of the time signature.
+\override Score.TextMark.break-align-symbols = #'(time-signature)
 \key a \major
-\clef treble
 \time 3/4
 \textMark "↓"
 e'2.
-% The text mark will be centered
-% above the breathing mark
-\override Score.TextMark.break-align-symbols =
-            #'(breathing-sign)
+
+% Center text mark above the breathing mark.
+\override Score.TextMark.break-align-symbols = #'(breathing-sign)
 \key a \major
-\clef treble
 \time 4/4
 e'1
 \breathe
@@ -4338,29 +4777,25 @@ line would be.
 
 @lilypond[verbatim,quote,fragment]
 \override Score.TextMark.self-alignment-X = #CENTER
-% The text mark will be aligned
-% to the right edge of the key signature
-\override Score.TextMark.break-align-symbols =
-            #'(key-signature clef)
+% Align text mark to the right edge of the key signature.
+\override Score.TextMark.break-align-symbols = #'(key-signature clef)
 \key a \major
 \clef treble
 \textMark "↓"
 e'1
-% The text mark will be aligned
-% to the right edge of the clef
+
+% Align text mark to the right edge of the clef.
 \set Staff.explicitKeySignatureVisibility = #all-invisible
-\override Score.TextMark.break-align-symbols =
-            #'(key-signature clef)
+\override Score.TextMark.break-align-symbols = #'(key-signature clef)
 \key a \major
 \clef bass
 \textMark "↓"
 gis,1
-% The text mark will be centered
-% above the bar line
+
+% Center text mark above the bar line.
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \set Staff.explicitClefVisibility = #all-invisible
-\override Score.TextMark.break-align-symbols =
-            #'(key-signature clef)
+\override Score.TextMark.break-align-symbols = #'(key-signature clef)
 \key a \major
 \clef treble
 \textMark "↓"
@@ -4373,26 +4808,24 @@ with multiple staves, this setting should be done for all the staves.
 
 @lilypond[verbatim,quote,fragment]
 \override Score.TextMark.self-alignment-X = #CENTER
-% The text mark will be aligned
-% with the right edge of the key signature
-\override Score.TextMark.break-align-symbols =
-            #'(key-signature)
+% Align text mark with the right edge of the key signature.
+\override Score.TextMark.break-align-symbols = #'(key-signature)
 \key a \major
 \clef treble
 \time 4/4
 \textMark "↓"
 e'1
-% The text mark will be centered
-% above the key signature
-\once \override Score.KeySignature.break-align-anchor-alignment =
-                  #CENTER
+
+% Center text mark above the key signature
+\once \override
+  Score.KeySignature.break-align-anchor-alignment = #CENTER
 \textMark "↓"
 \key a \major
 e'1
-% The text mark will be aligned
-% with the left edge of the key signature
-\once \override Score.KeySignature.break-align-anchor-alignment =
-                  #LEFT
+
+% Align text mark with the left edge of the key signature.
+\once \override
+  Score.KeySignature.break-align-anchor-alignment = #LEFT
 \key a \major
 \textMark "↓"
 e'1
@@ -4403,23 +4836,27 @@ left edge by an arbitrary amount.  The units are staff spaces:
 
 @lilypond[verbatim,quote,fragment]
 \override Score.TextMark.self-alignment-X = #CENTER
-% The text mark will be aligned
-% with the left edge of the key signature
-% and then shifted right by 3.5 staff spaces
-\override Score.TextMark.break-align-symbols =
-            #'(key-signature)
+% Align text mark with the left edge of the key signature,
+% then shifted right by 3.5 staff spaces.
+\override Score.TextMark.break-align-symbols = #'(key-signature)
 \once \override Score.KeySignature.break-align-anchor = 3.5
 \key a \major
 \textMark "↓"
 e'1
-% The text mark will be aligned
-% with the left edge of the key signature
-% and then shifted left by 2 staff spaces
+
+% Align text mark with the left edge of the key signature,
+% then shifted left by 2 staff spaces.
 \once \override Score.KeySignature.break-align-anchor = -2
 \key a \major
 \textMark "↓"
 e'1
 @end lilypond
+
+@morerefs
+Internals Reference:
+@rinternals{break-alignable-interface},
+@rinternals{break-alignment-interface}.
+@endmorerefs
 
 
 @node Modifying stencils
