@@ -1943,7 +1943,7 @@ same effect.
 @subsection Font families
 
 Three generic aliases for text font families@footnote{In its
-simplest form, a @emph{font family} usually contains fonts in
+simplest form, a @dfn{font family} usually contains fonts in
 roman, italic, bold, and bold italic styles.} are available:
 @q{serif}, @q{sans}, and @q{typewriter}.  Depending on the
 backend, these families get mapped to different font family
@@ -2028,6 +2028,10 @@ FontConfig configuration file @file{00-lilypond-fonts.conf}, which
 can be usually found in directory
 @file{/usr/local/share/lilypond/@version{}/fonts}, and which is
 used exclusively by LilyPond.
+
+The exact mapping from these three font families to the actual
+fonts can be controlled via the @code{fonts} property,
+@pxref{Changing fonts}.
 
 Each font family may include different shapes and series.  The
 following example demonstrates that, including code to also change
@@ -2186,6 +2190,29 @@ command:
   Copyright © John Doe \typewriter john@doe.org
 }
 @end lilypond
+
+@knownissues
+There are rare situations where the FontConfig library is not able
+to unambiguously select a font: if the font family name and the
+font weight (i.e., the value of LilyPond's @code{font-@/series}
+subproperty) of two different fonts are identical, they are
+handled as being equal.  An example for this situation is
+@q{Minion Pro} and @q{Minion Pro Display}, which both have the
+family name @q{Minion Pro} and the weight @q{Regular}.  The only
+solution to fix this is to make the unwanted font unknown to
+FontConfig.
+
+@itemize
+@item
+If your fonts are in a separate directory not scanned by
+FontConfig by default, use @code{ly:@/font-@/config-@/add-@/font}
+instead of @code{ly:@/font-@/config-@/add-@/directory} to
+explicitly load the wanted font only.
+@item
+If the fonts are in directory searched by default (for example,
+@file{~/.fonts}), you have to remove the offending font so that
+FontConfig only finds the wanted font.
+@end itemize
 
 @morerefs
 Notation Reference:
