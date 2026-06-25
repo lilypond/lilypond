@@ -155,6 +155,14 @@ Span_arpeggio_engraver::stop_translation_timestep ()
               set_object (item, "vertically-spanning-surrogate",
                           to_scm (info->span_item_));
               set_property (item, "transparent", SCM_BOOL_T);
+
+              /*
+                to avoid collisions due to different horizontal spacings
+                of children make all children align horizontally to the
+                span arpeggio
+              */
+              item->set_x_parent (info->span_item_);
+              set_property (item, "X-offset", to_scm (0.0));
             }
 
           info->span_item_->set_y_parent (info->items_[0]->get_y_parent ());
