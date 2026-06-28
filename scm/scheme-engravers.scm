@@ -2490,6 +2490,7 @@ style @code{\\rtoe} and its siblings, based on the data in the
           (start-glissando-line #f)
           (stop-glissando-line #f)
           (current-glissando-grobs '())
+          (kill-me '())
           (gliss-map #f))
 
       (define (bounds lst grobs start-stop)
@@ -2550,11 +2551,15 @@ style @code{\\rtoe} and its siblings, based on the data in the
                 possible-right-bounds
                 current-glissando-grobs)
 
-               ;; Throw away Glissandi not right-bounded by a rhythmic grob.
+               ;; Throw away unneeded Glissandi, but postpone it until other
+               ;; engravers have acknowledged the end of the spanner.
+               ;; This avoids problems like issue 6946
                (for-each
                 (lambda (gliss)
                   (when (not (ly:grob? (ly:spanner-bound gliss RIGHT)))
-                    (ly:grob-suicide! gliss)))
+                    (ly:engraver-announce-end-grob this-engraver gliss
+                      (ly:context-property context 'currentMusicalColumn))
+                    (set! kill-me (cons gliss kill-me))))
                 current-glissando-grobs)
 
                (set! stop-glissando-line #f)
@@ -2577,6 +2582,9 @@ style @code{\\rtoe} and its siblings, based on the data in the
                        possible-left-bounds)
                       current-glissando-grobs))
                (set! glissando-event #f))))))
+       ((stop-translation-timestep this-engraver)
+        (for-each ly:grob-suicide! kill-me)
+        (set! kill-me '()))
        ((finalize this-engraver)
         (when (pair? current-glissando-grobs)
           (for-each
