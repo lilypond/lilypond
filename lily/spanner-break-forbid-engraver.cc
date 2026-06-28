@@ -41,8 +41,16 @@ protected:
 void
 Spanner_break_forbid_engraver::pre_process_music ()
 {
-  if (running_spanners_.size ())
-    set_property (find_score_context (), "forbidBreak", SCM_BOOL_T);
+  while (!running_spanners_.empty ())
+    {
+      if (running_spanners_.back ()->is_live ())
+        {
+          set_property (find_score_context (), "forbidBreak", SCM_BOOL_T);
+          break;
+        }
+
+      running_spanners_.pop_back ();
+    }
 }
 
 void
