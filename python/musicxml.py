@@ -561,10 +561,10 @@ class Attributes(Measure_element):
 
     def get_measure_length(self):
         sig = self.get_time_signature()
-        if not sig or len(sig) == 0:
-            return 1
-        if not isinstance(sig[0], list) and sig[0] < 0:
+        if sig == 0:
             return -1
+        if sig is None or len(sig) == 0:
+            return 1
 
         if isinstance(sig[0], list):
             # Complex time signature.
@@ -592,18 +592,34 @@ class Attributes(Measure_element):
             signature = signature[0]
         return signature
 
-    # Return time signature as a
+    # Return a time signature, using one of the following formats.
     #
-    #   [beat, beat-type]
+    # * 0
     #
-    # list (a negative value for `beat` indicates a 'senza misura' time
-    # signature).  For compound signatures, return either
+    #   An empty senza-misura time signature.
     #
-    #   [beat, beat, ..., beat-type]
+    # * 'X'
     #
-    # or
+    #   An X-shaped senza-misura time signature.
     #
-    #   [[beat, ..., beat-type], [beat, ..., beat-type], ...]
+    # * [beat, beat-type]
+    #
+    #   An ordinary time signature.  Example:
+    #
+    #     4/4  ->  [4, 4]
+    #
+    # * [beat, beat, ..., beat-type]
+    #
+    #   A complex time signature.  Example:
+    #
+    #     (3+2)/8  ->  [3, 2, 8]
+    #
+    # * [[beat, ..., beat-type], [beat, ..., beat-type], ...]
+    #
+    #   A compound of complex time signatures.  Example:
+    #
+    #     (3+2)/8 + 3/4  ->  [[3, 2, 8], [3, 4]]
+    #
     def get_time_signature(self):
         if self._time_signature_cache:
             return self._time_signature_cache
@@ -613,9 +629,14 @@ class Attributes(Measure_element):
             if not mxl:
                 return None
 
-            if mxl.get_maybe_exist_named_child('senza-misura'):
-                self._time_signature_cache = [-4, 4]
-                return [-4, 4]
+            senza = mxl.get_maybe_exist_named_child('senza-misura')
+            if senza:
+                if senza.get_text() == 'X':
+                    self._time_signature_cache = 'X'
+                    return 'X'
+                else:
+                    self._time_signature_cache = 0
+                    return 0
             else:
                 signature = self.get_signature(mxl)
                 self._time_signature_cache = signature

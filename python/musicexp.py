@@ -4344,6 +4344,9 @@ class TimeSignatureChange(Music):
                 elif self.style != "'()" or is_common_signature:
                     ret.append(r'\numericTimeSignature')
 
+            if self.fractions == 'X':
+                ret.append(r'\set Timing.timeSignature = ##f')
+
             color = color_to_ly(self.color)
             if color is not None:
                 ret.append(r'\once \override Staff.TimeSignature.color '
@@ -4364,7 +4367,7 @@ class TimeSignatureChange(Music):
         elif len(self.fractions) == 2 and isinstance(self.fractions[0], int):
             # Easy case: self.fractions = [n,d] => normal \time n/d call.
             ret.append(r'\time %d/%d' % tuple(self.fractions))
-        elif self.fractions:
+        elif len(self.fractions) > 1:
             ret.append(r"\time #'%s"
                        % self.format_fraction(self.fractions))
 

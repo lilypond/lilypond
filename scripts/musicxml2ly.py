@@ -1771,16 +1771,23 @@ def musicxml_time_to_lily(attributes):
 
         return sig
 
-    sig = attributes.get_time_signature().copy()
-    if not sig:
-        return None
+    try:
+        sig = attributes.get_time_signature().copy()
+    except AttributeError:
+        sig = attributes.get_time_signature()
 
-    if not isinstance(sig[0], list) and sig[0] < 0:
-        # 'Senza misura' time signature.
-        # TODO: Handle 'senza misura' symbol.
+    if sig == 0 or sig is None or len(sig) == 0:
+        # No time signature or an empty senza-misura time signature.
         return None
 
     change = musicexp.TimeSignatureChange()
+
+    if sig == 'X':
+        # An X-shaped senza-misura time signature.
+        globvars.layout_information.set_context_item(
+            'Staff', r'\senzaMisuraTimeSignatureX')
+        change.fractions = 'X'
+        return change
 
     if options.shift_durations:
         sig = shift_durations(sig)

@@ -4,12 +4,18 @@
 <score-partwise version="4.0">
   <identification>
     <miscellaneous>
-      <miscellaneous-field name="description">A &lt;senza-misura&gt; time
-          signature.  The first bar has three eighth notes, the second bar
-          contains a full-measure rest (indicated by setting ‘measure="yes"’ for
-          the &lt;rest&gt; element) with a length of a dotted half note, and
-          both the third and fourth measure contain four eighth notes (in two
-          voices).</miscellaneous-field>
+      <miscellaneous-field name="description">&lt;senza-misura&gt; elements,
+          indicating either no display of a time signature or, if the element
+          has a string value, a senza-misura symbol derived from this string.
+          How the string gets interpreted is application-dependent.
+
+          The first bar starts with an empty &lt;senza-misura&gt; element; it
+          has three eighth notes.  The second bar contains a full-measure
+          rest (indicated by setting ‘measure="yes"’ for the &lt;rest&gt;
+          element) with a length of a dotted half note.  The third bar starts
+          with a &lt;senza-misura&gt; element containing value ‘X’; it has four
+          eighth notes in two voices.  The last bar contains five eighth notes
+          in two voices.</miscellaneous-field>
     </miscellaneous>
   </identification>
   <part-list>
@@ -75,6 +81,11 @@
     </measure>
     <!--=======================================================-->
     <measure number="3">
+      <attributes>
+        <time>
+          <senza-misura>X</senza-misura>
+        </time>
+      </attributes>
       <note>
         <pitch>
           <step>B</step>
@@ -199,10 +210,20 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>eighth</type>
+        <beam number="1">continue</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>B</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>eighth</type>
         <beam number="1">end</beam>
       </note>
       <backup>
-        <duration>4</duration>
+        <duration>5</duration>
       </backup>
       <note>
         <pitch>
@@ -213,6 +234,16 @@
         <voice>2</voice>
         <type>eighth</type>
         <beam number="1">begin</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>G</step>
+          <octave>4</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>2</voice>
+        <type>eighth</type>
+        <beam number="1">continue</beam>
       </note>
       <note>
         <pitch>
