@@ -20,7 +20,10 @@
 (define (document-music-function music-func-pair)
   (let*
       ((name-sym (car music-func-pair))
-       (prefix (if (eqv? (string-ref (symbol->string name-sym) 0) #\\) "" "\\"))
+       (unslashed-name (let ((name-str (symbol->string name-sym)))
+                         (if (eqv? (string-ref name-str 0) #\\)
+                             (substring name-str 1)
+                             name-str)))
        (music-func (cdr music-func-pair))
        (func (ly:music-function-extract music-func))
        (doc (procedure-documentation func))
@@ -35,19 +38,17 @@
                                         arg (type-name sign))))
                           arg-names (cdr signature)))))
     (format #f
-            "@item @code{~a~a} ~a @result{} ~a
-@funindex ~a~a
+            "@item @code{\\~a} ~a @result{} ~a
+@funindex \\~a
 ~a
 "
-            prefix
-            name-sym
+            unslashed-name
             signature-str
             (type-name (if (pair? (car signature))
                            (caar signature)
                            (car signature)))
 
-            prefix
-            name-sym
+            unslashed-name
 
             (if (and doc (not (string-null? doc)))
                 doc
