@@ -722,6 +722,20 @@ If you want to refer to an external manual as a whole instead of a
 specific section, use @q{Top} as an argument.  Example:
 @code{@@rinternals@{Top@}}.
 
+The following reference commands are only to be used in manuals
+that are not translated.  They are also special in providing a
+different, more compact formatting, displaying only the page
+number in parentheses after the link target.
+
+@indentedblock
+@multitable {@code{@@rinternals}} {Links to music functions within the Notation Reference}
+@headitem command @tab link target
+@item @code{@@iref} @tab Links within the Internals Reference
+@item @code{@@rmusicfn} @tab Links to music functions within the
+                             Notation Reference
+@end multitable
+@end indentedblock
+
 
 @node External links
 @unnumberedsubsubsec External links

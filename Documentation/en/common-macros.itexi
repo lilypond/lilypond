@@ -186,23 +186,29 @@ Macro definitions that contain translatable text belong to file
 
 @xrefautomaticsectiontitle on
 
-
-@c We introduce an additional cross-reference command `@iref`
-@c specifically tailored for the PDF version of the Internals
-@c Reference, making
+@c We introduce additional cross-reference commands
+@c
+@c   @iref (for the Internals Reference)
+@c   @rmusicfn (for functions in the Notation Reference)
+@c
+@c with specifically tailored TeX macros for the PDF version of the
+@c manuals, making
 @c
 @c   @iref{foo}
+@c   @rmusicfn{\bar}
 @c
 @c print
 @c
-@c   foo (page Y).
+@c   foo (page X)
+@c   \bar (page Y)
+@c
+@c (with 'foo' and '\bar' using a typewriter font).
 
 @iftex
 
 @tex
-% All special argument handling has been removed since the `@iref`
-% calls are auto-generated for the Internals Reference and thus always
-% well-defined.
+% All special argument handling has been removed; we only pass a single
+% argument to the top-level reference macros.
 %
 % See the implementation of `\xrefX` in `texinfo.tex` for more comments
 % and explanations.
@@ -212,30 +218,28 @@ Macro definitions that contain translatable text belong to file
 %
 % This code needs `texinfo.tex` version 2021-02-20.11 or newer.
 
-\gdef\iref{\irefXX}
-\gdef\irefXX#1{\def\irefXXarg{#1}\futurelet\tokenafteriref\irefXXX}
-\gdef\irefXXX{\expandafter\irefX\expandafter[\irefXXarg]}
+\gdef\iref{%
+  \edef\refXXprefix{}%
+  \refXX}
+\gdef\rmusicfn{%
+  \edef\refXXprefix{music-fn-}%
+  \refXX}
 
-\gdef\irefX[#1]{\begingroup
+\gdef\refXX#1{%
+  \def\refXXarg{\refXXprefix,#1}%
+  \futurelet\tokenafterref\refXXX}
+\gdef\refXXX{\expandafter\refX\expandafter[\refXXarg]}
+
+\gdef\refX[#1,#2]{\begingroup
   \unsepspaces
-  \def\printedrefname{\ignorespaces #1}%
-  \startxreflink{#1}{}%
-  \getrefx{#1-title}\Xthisreftitle
+  \def\printedrefname{\ignorespaces #2}%
+  \startxreflink{#1#2}{}%
+  \getrefx{#1#2-title}\Xthisreftitle
   %
   % Start reference with node name.
   \code{\printedrefname}%
   % Output page reference.
-  \turnoffactive \space (\putwordpage\tie\refx{#1-pg})%
-  %
-  % Add a `,` if `@iref` is followed by a space.
-  \if\space\noexpand\tokenafteriref ,%
-  \else\ifx\	\tokenafteriref ,%  @TAB
-  \else\ifx\*\tokenafteriref ,%     @*
-  \else\ifx\ \tokenafteriref ,%     @SPACE
-  \else\ifx\
-            \tokenafteriref ,%      @NL
-  \else\ifx\tie\tokenafteriref ,%   @tie
-  \fi\fi\fi\fi\fi\fi
+  \turnoffactive \space (\putwordpage\tie\refx{#1#2-pg})%
   \endlink
 \endgroup}
 @end tex
@@ -249,6 +253,10 @@ Macro definitions that contain translatable text belong to file
 
 @macro iref {TEXT}
 @ref{\TEXT\}
+@end macro
+
+@macro rmusicfn {TEXT}
+@ref{music-fn-\TEXT\,,@code{\TEXT\}}
 @end macro
 
 @end ifnottex

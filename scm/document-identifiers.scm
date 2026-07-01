@@ -38,10 +38,11 @@
                                         arg (type-name sign))))
                           arg-names (cdr signature)))))
     (format #f
-            "@item @code{\\~a} ~a @result{} ~a
+            "@item @anchor{music-fn-\\~a}@code{\\~a} ~a @result{} ~a
 @funindex \\~a
 ~a
 "
+            unslashed-name
             unslashed-name
             signature-str
             (type-name (if (pair? (car signature))
