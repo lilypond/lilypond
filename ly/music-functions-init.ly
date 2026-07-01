@@ -42,7 +42,7 @@ absolute =
    (_i "Make @var{music} absolute.
 
 This does not actually change the music itself but rather hides it from
-surrounding @code{\\relative} and @code{\\fixed} commands.")
+surrounding @rmusicfn{\\relative} and @rmusicfn{\\fixed} commands.")
    (make-music 'RelativeOctaveMusic 'element music))
 
 acciaccatura =
@@ -316,8 +316,9 @@ Example:
 balloonGrobText =
 #(define-music-function (grob-name offset text)
    (symbol? number-pair? markup?)
-   (_i "Attach @var{text} to @var{grob-name} at offset @var{offset} (use like
-@code{\\once}).")
+   (_i "Attach @var{text} to @var{grob-name} at offset @var{offset}.
+
+Use like @rmusicfn{\\once}.")
    (make-event-chord
     (list
      (make-music 'AnnotateOutputEvent
@@ -328,7 +329,9 @@ balloonGrobText =
 
 balloonText =
 #(define-event-function (offset text) (number-pair? markup?)
-   (_i "Attach @var{text} at @var{offset} (use like @code{\\tweak}).")
+   (_i "Attach @var{text} at @var{offset}.
+
+Use like @rmusicfn{\\tweak}.")
    (make-music 'AnnotateOutputEvent
                'X-offset (car offset)
                'Y-offset (cdr offset)
@@ -621,7 +624,7 @@ This function moves the affected notes down (usually by an octave) to be lower
 than the other notes of the chord.  The position in a chord is counted downwards
 from the top.
 
-The opposite function is @code{\\raiseNote}.")
+The opposite function is @rmusicfn{\\raiseNote}.")
    (music-map (move-chord-note (- num) DOWN) music))
 
 
@@ -749,12 +752,16 @@ in the format of @code{all-grob-descriptions}.")
 
 "\\%" =
 #(define-music-function (count music) (number? ly:music?)
-   (_i "This is the same as @code{\\repeat percent} @var{count} @var{music}.")
+   (_i "This is the same as @code{\\repeat percent} @var{count} @var{music}.
+
+See @code{\\repeat}.")
    #{ \repeat percent #count $music #} )
 
 "\\*" =
 #(define-music-function (count music) (number? ly:music?)
-   (_i "This is the same as @code{\\repeat unfold} @var{count} @var{music}.")
+   (_i "This is the same as @code{\\repeat unfold} @var{count} @var{music}.
+
+See @code{\\repeat}.")
    #{ \repeat unfold #count $music #} )
 
 "\\=" =
@@ -878,7 +885,7 @@ instrumentSwitch =
    (_i "Switch instrument to @var{name}.
 
 @var{name} must have been predefined with function
-@code{\\addInstrumentDefinition}.
+@rmusicfn{\\addInstrumentDefinition}.
 
 This function is deprecated.")
    (ly:deprecation-warning (G_ "the function '~a' is deprecated")
@@ -1378,7 +1385,7 @@ This function sets the @code{timeSignatureSettings} entry for
 @code{beamExceptions}.
 
 @var{structure} is used to derive values for @code{beatStructure} and
-@code{submeasureStructure} as described for the @code{\\time} command.
+@code{submeasureStructure}, as described for @rmusicfn{\\time}.
 ")
 
    ;; TODO -- add warning if largest value of grouping is
@@ -1689,7 +1696,7 @@ partCombineUp =
    ((number-pair? '(0 . 8)) ly:music? ly:music?)
    (_i "Combine two parts into a single staff with all stems upwards.
 
-See function @code{\\partCombine} for details.")
+For details, see @rmusicfn{\\partCombine}.")
    (make-directed-part-combine-music UP chord-range part1 part2
     #{ \with { \voiceOne \override DynamicLineSpanner.direction = #UP } #}
     #{ \with { \voiceThree \override DynamicLineSpanner.direction = #UP } #}
@@ -1700,7 +1707,7 @@ partCombineDown =
    ((number-pair? '(0 . 8)) ly:music? ly:music?)
    (_i "Combine two parts into a single staff with all stems downwards.
 
-See function @code{\\partCombine} for details.")
+For details, see @rmusicfn{\\partCombine}.")
    (make-directed-part-combine-music DOWN chord-range part1 part2
     #{ \with { \voiceFour \override DynamicLineSpanner.direction = #DOWN } #}
     #{ \with { \voiceTwo \override DynamicLineSpanner.direction = #DOWN } #}
@@ -1764,9 +1771,9 @@ for ad-hoc irregular measures) remain visible, this command does not set the
 @code{measureLength} property in the local context.
 
 A nominally incompatible local measure can be fitted to the controlling
-@code{Timing} measure by applying @code{\\scaleDurations} to this command.  That
-adjusts the value of the internal property @code{meterScalingFactor} in the
-local context.
+@code{Timing} measure by applying @rmusicfn{\\scaleDurations} to this command.
+That adjusts the value of the internal property @code{meterScalingFactor} in
+the local context.
 
 To unset the local properties and resume using the values from the @code{Timing}
 context, use @code{\\polymetric \\default}.
@@ -1787,7 +1794,7 @@ popContextProperty =
 #(define-music-function (path) (key-list?)
    (_i "Pop value of context property @var{path} from stack and set it.
 
-This is the opposite to function @code{\\pushContextProperty}.")
+This is the opposite to function @rmusicfn{\\pushContextProperty}.")
    (let ((input-location (*location*))
          (p (check-context-path path)))
      (if p
@@ -1965,7 +1972,7 @@ pushContextProperty =
    (_i "Push the current value of context property @var{path} to a stack.
 
 The property can later be restored to the saved value with function
-@code{\\popContextProperty}.")
+@rmusicfn{\\popContextProperty}.")
    (let ((p (check-context-path path)))
      (if p
          (let ((ctx-name (car p))
@@ -2038,8 +2045,8 @@ quoteDuring =
 #(define-music-function (what main-music) (string? ly:music?)
    (_i "Indicate a section of music to be quoted.
 
-@var{what} indicates the name of the quoted voice, as specified in an
-@code{\\addQuote} command.  @var{main-music} is used to indicate the length of
+@var{what} indicates the name of the quoted voice specified with
+@rmusicfn{\\addQuote}.  @var{main-music} is used to indicate the length of
 music to be quoted; it usually contains spacers or multi-measure rests.")
    (make-music 'QuoteMusic
                'element main-music
@@ -2055,7 +2062,7 @@ This function moves the affected notes up (usually by an octave) to be higher
 than the other notes of the chord.  The position in a chord is counted upwards
 from the bottom.
 
-The opposite function is @code{\\dropNote}.")
+The opposite function is @rmusicfn{\\dropNote}.")
    (music-map (move-chord-note (1- num) UP) music))
 
 reduceChords =
@@ -2438,7 +2445,7 @@ created with @code{\\timeAbbrev #'((3 1 8) (2 4))}, and a time signature of
 (3+2)/8 with either @code{\\timeAbbrev #'((3 2 8))} or the shorter version
 @code{\\timeAbbrev 3,2,8}.
 
-This is for backward compatibility.  Using @code{\\time} instead is
+This is for backward compatibility.  Using @rmusicfn{\\time} instead is
 recommended.")
    (let ((canonical (tsig-abbr-expand time-sig)))
      (if canonical
