@@ -153,13 +153,22 @@ environment."
    sort the list first."
   (string-append "@iref{" x "}"))
 
-(define* (human-listify lst #:key (last-word "and"))
-  "Produce a textual enumeration from LST, a list of strings"
+(define* (human-listify lst #:key (last-word "and") (last-separator #t))
+  "Produce a textual enumeration from LST, a list of strings.
 
+List arguments are separated by commas and spaces.  Use the keys LAST-SEPARATOR
+and LAST-WORD to control how to format the separation between the last two list
+arguments for the cases with two and more arguments in total."
   (match lst
     (() "none")
     ((one) one)
     ((one two) (string-append one " " last-word " " two))
+    ((one two three)
+     (string-append one
+                    ", "
+                    two
+                    (if last-separator "," "") " " last-word " "
+                    three))
     ((one . rest) (string-append one ", " (human-listify rest)))))
 
 (define (symbol->@code symb)
