@@ -1432,7 +1432,7 @@ signature:
       \overrideTimeSignatureSettings
         8/4             % timeSignature
         #1/4            % beatBase
-        #'((2 2) (3 1)) % beatStructure, measureStructure
+        #'((2 2) (3 1)) % beatStructure, submeasureStructure
         #'()            % beamExceptions
       \time 8/4
       \submeasureBarsOn

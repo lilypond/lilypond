@@ -24,7 +24,7 @@ senzaMisura =
   \overrideTimeSignatureSettings
     ##f       % timeSignature
     #1/4      % beatBase
-    #'(1)     % beatStructure, but no measureStructure
+    #'(1)     % beatStructure, but no submeasureStructure
     #'()      % beamExceptions
   \submeasureBarsOn % but we expect not to see any!
 } <<

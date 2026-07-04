@@ -1449,7 +1449,7 @@ seront effectives qu'à partir du moment où interviendra une commande
         8/4        % timeSignature
         #1/4       % beatBase
         3,1        % beatStructure
-        #'((2 2) (3 1)) % beatStructure, measureStructure
+        #'((2 2) (3 1)) % beatStructure, submeasureStructure
         #'()       % beamExceptions
       \time 8/4
       \repeat unfold 16 { c8 } |
