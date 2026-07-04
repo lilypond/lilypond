@@ -297,8 +297,23 @@ Possible values are: @code{#all-visible} (default),
 
 %% cadenzas
 
-cadenzaOn  = \set Timing.timing = ##f
-cadenzaOff = \set Timing.timing = ##t
+cadenzaOn =
+#(define-music-function () ()
+  (_i "Stop advancing @code{Timing@/.measurePosition}.
+
+This sets @code{Timing@/.timing} to @code{#f}.")
+  #{
+    \set Timing.timing = ##f
+  #})
+
+cadenzaOff =
+#(define-music-function () ()
+  (_i "Resume advancing @code{Timing@/.measurePosition}.
+
+This sets @code{Timing@/.timing} to @code{#t}.")
+  #{
+    \set Timing.timing = ##t
+  #})
 
 
 %% chord names
