@@ -473,10 +473,16 @@ In the input file, music is specified with any of the following commands
 Additionally, @code{@@lilypondversion} displays the current version
 of LilyPond.
 
-All of the above commands @emph{must} start a line (possibly preceded by
-whitespace), even if used with the @code{inline} fragment option.  There
-must be also no text after the closing brace (for
-@code{@@lilypond@{@/...@}}) or @code{@@end lilypond}.
+The @code{lilypond} environment @emph{must} start a line (possibly
+preceded by whitespace), even if used with the @code{inline}
+fragment option.  Similarly, @code{@@end lilypond} can be preceded
+by whitespace, but no text is allowed after it.  If the
+environment has options, the opening bracket must be on the same
+line as the @code{lilypond} keyword (this does not hold for the
+commands that take its argument in braces).  Except for this
+restriction, whitespace and line breaks are allowed before, in,
+and after the command options.  Unbalanced opening or closing
+braces are not supported within @code{@@lilypond@{...@}}.
 
 When @command{lilypond-book} is run on it, this results in a Texinfo
 file (with extension @file{.texi}) containing @code{@@image} tags for

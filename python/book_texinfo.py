@@ -31,66 +31,86 @@ import book_snippets
 import lilylib as ly
 
 # See `book_latex.py` for some regex documentation.
-
+#
+# All lilypond-book commands except the '@lilypond...@end lilypond' block
+# use braces to delimit their argument.  We thus follow the Texinfo syntax
+# to allow these commands anywhere in the input file.  To make this work we
+# have to take care of not hitting '@lilypond{...}' and friends within a
+# comment: we use a negative lookahead to check for '@c' and '@comment'.
+# Also ensure that we don't have a single '@' right before the command.
+#
+# We additionally skip some Texinfo commands to avoid parsing text that
+# looks like lilypond-book commands (for example, '@lilypond{...}' within a
+# 'verbatim' environment), and to handle included files.  Regarding
+# whitespace, we are more lenient than what's described in the Texinfo
+# manual, which has been made more strict in recent years.
 TexInfo_snippet_res = {
     'include': r'''(?mx)
-          ^
+          ^ [ \t]*
           (?P<match>
             @include
-            \s+
-            (?P<filename> \S+ )
-          )''',
+            [ \t]+
+            (?P<filename> .*? ) )
+          [ \t]* $''',
 
-    'lilypond': r'''(?smx)
+    'lilypond': r'''(?mx)
           ^
-          [^\n]*? (?! @c \s+ ) [^\n]*?
+          (?! [^\n]*? (?: @c | @comment ) (?: [ \t] | @ ) )
+          (?: @ [^\n] | [^@\n] )*
           (?P<match>
             @lilypond
             \s*
-            ( \[ \s* (?P<options> [^\[\]]*? ) \s* \] )?
+            (?: \[ \s* (?P<options> [^\[\]]*? ) \s* \] )?
             \s*
             { (?P<code>''' + ly.brace_matcher(10) + r''' ) \s* }
           )''',
 
+    # Since this is a block command, the opening bracket for options (if
+    # any) must be on the same line as '@lilypond' (contrary to
+    # '@lilypond[...]{...}').
     'lilypond_block': r'''(?smx)
-          ^
+          ^ [ \t]*
           (?P<match>
             @lilypond
-            \s*
-            ( \[ \s* (?P<options> [^\[\]]*? ) \s* \] )?
+            [ \t]*
+            (?: \[ \s* (?P<options> [^\[\]]*? ) \s* \] )?
             \s+?
             ^ (?P<code> .*? ) \s*
-            ^ @end \s+ lilypond
-          ) \s''',
+            ^ [ \t]* @end [ \t]+ lilypond )
+          [ \t]* $''',
 
     'lilypond_file': r'''(?mx)
           ^
+          (?! [^\n]*? (?: @c | @comment ) (?: [ \t] | @ ) )
+          (?: @ [^\n] | [^@\n] )*
           (?P<match>
             @lilypondfile
             \s*
-            ( \[ \s* (?P<options> [^\[\]]*? ) \s* \] )?
+            (?: \[ \s* (?P<options> [^\[\]]*? ) \s* \] )?
             \s*
-            { (?P<filename> \S+ ) }
+            { (?P<filename> [^\n}]+ ) }
           )''',
 
     'multiline_comment': r'''(?smx)
-          ^
+          ^ [ \t]*
           (?P<match>
             (?P<code>
               @ignore
               \s .*?
-              @end \s+ ignore
-            )
-          ) \s''',
+              ^ [ \t]* @end [ \t]+ ignore
+            ) )
+          [ \t]* $''',
 
     'musicxml_file': r'''(?mx)
           ^
+          (?! [^\n]*? (?: @c | @comment ) (?: [ \t] | @ ) )
+          (?: @ [^\n] | [^@\n] )*
           (?P<match>
             @musicxmlfile
             \s*
-            ( \[ \s* (?P<options> [^\[\]]*? ) \s* \] )?
+            (?: \[ \s* (?P<options> [^\[\]]*? ) \s* \] )?
             \s*
-            { (?P<filename> \S+ ) }
+            { (?P<filename> [^\n}]+ ) }
           )''',
 
     'singleline_comment': r'''(?mx)
@@ -98,7 +118,7 @@ TexInfo_snippet_res = {
           .*
           (?P<match>
             (?P<code>
-              @c ( [ \t] [^\n]* | ) \n
+              (?: @c | @comment ) (?: [ \t] [^\n]* | ) \n
             )
           )''',
 
@@ -111,13 +131,14 @@ TexInfo_snippet_res = {
             )
           )''',
 
+    # Only a single space is allowed between '@end' and 'verbatim'.
     'verbatim': r'''(?smx)
-          ^
+          ^ [ \t]*
           (?P<match>
             @verbatim \s+?
             ^ (?P<code> .*? )
-            ^ @end \s+ verbatim
-          ) \s''',
+            ^ [ \t]* @end [ ] verbatim )
+          [ \t]* $''',
 
     'lilypondversion': r'''(?mx)
           [^@]
