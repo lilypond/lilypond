@@ -316,6 +316,11 @@ was broken for some time.
 @itemize
 
 @item
+The new @code{\verboseBarNumbers} command simplifies documentation
+examples where bar numbers are a central concern.  It might also
+be useful for debugging.
+
+@item
 The new commands @code{\startGradualTempoChange} and
 @code{\stopGradualTempoChange} describe a temporary departure from
 the prevailing tempo.  Currently, these affect only MIDI output.

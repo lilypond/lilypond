@@ -179,6 +179,23 @@ submeasureBarsOn = \set Staff.submeasureBarsEnabled = ##t
 submeasureBarsOff = \set Staff.submeasureBarsEnabled = ##f
 
 
+%% bar numbers
+
+verboseBarNumbers =
+#(define-music-function () ()
+  (_i "Print bar numbers at every bar line and line break.
+
+This function is a concise way to add detail to documentation examples.  The
+output is subject to change without notice.
+
+See @rinternals{Bar_number_engraver}.
+")
+  #{
+    \set Score.barNumberVisibility = #all-bar-numbers-visible
+    \override Score.BarNumber.break-visibility = #all-visible
+  #} )
+
+
 %% bass figures
 
 bassFigureExtendersOn = {
