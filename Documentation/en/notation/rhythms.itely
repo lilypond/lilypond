@@ -1280,7 +1280,7 @@ This internal property is the current point in the current
 measure.  When it reaches @code{measureLength}, it is reset to
 zero and @code{currentBarNumber} is incremented.
 @code{measurePosition} should not be set explicitly, but may be
-changed with the @code{\partial} command.
+changed with the @code{\partial} or @code{\premeasure} commands.
 
 @item timing
 @funindex timing
@@ -1975,64 +1975,72 @@ Internals Reference:
 @cindex upbeat
 
 @funindex \partial
+@funindex \premeasure
 
 Partial or pickup measures, such as an @emph{anacrusis} or an
-@emph{upbeat}, are entered using the @code{\partial} command:
+@emph{upbeat}, are entered using the @code{\partial} or
+@code{\premeasure} commands.  The two have the same effect, but
+@code{\partial} takes an explicit duration and @code{\premeasure}
+uses the duration of the music expression that follows it.  When
+used at the beginning of a score, these commands align the music
+to precede the first bar.
 
-@example
-\partial @var{duration}
-@end example
-
-When @code{\partial} is used at the beginning of a score,
-@code{@var{duration}} is the length of the music preceding the
-first bar.
-
+@multitable @columnfractions 0.45 0.45
+@item
 @lilypond[quote,verbatim]
-\relative {
+\fixed c' {
   \verboseBarNumbers
-  \time 3/4
-  \partial 4.
-  r4 e'8 | a4 c8 b c4 |
+  \partial 4
+  r8 g8 | e2 f |
 }
 @end lilypond
+@tab
+@lilypond[quote,verbatim]
+\fixed c' {
+  \verboseBarNumbers
+  \premeasure { r8 g8 }
+  e2 f |
+}
+@end lilypond
+@end multitable
 
 @cindex measure position
 @cindex position, in measure
 
-When @code{\partial} is used after the beginning of a score,
-@code{@var{duration}} is the @emph{remaining} length of the
-current measure.  It does not create a new numbered bar.
+When used after the beginning of a score, these commands end the
+current measure after the given duration or music.
 
 @lilypond[quote,verbatim]
 \relative {
   \verboseBarNumbers
   \time 9/8
-  d''4.~ 4 d8 d( c) b | c4.~ 4. \bar "||"
+  d''4.~ 4 d8 d( c) b
+  c4.~ 4. \section
   \time 12/8
-  \partial 4.
-  c8( d) e | f2.~ 4 f8 a,( c) f |
+  \premeasure { c8( d) e }
+  f2.~ 4 f8 a,( c) f
 }
 @end lilypond
 
-The @code{\partial} command is @emph{required} when the time
-signature changes in mid measure, but it may also be used alone.
+A @code{\partial} or @code{\premeasure} command is @emph{required}
+when the time signature changes in mid measure, but they may also
+be used alone.  In any case, notational elements that communicate
+metric structure (e.g., beam breaks) are engraved appropriately
+for the final part of the measure.
 
 @lilypond[quote,verbatim]
-\relative {
+\fixed c' {
   \verboseBarNumbers
-  \time 6/8
+  \time 3,3,2 8/8
   \partial 8
-  e'8 | a4 c8 b[ c b] |
-  \partial 4
-  r8 e,8 | a4 \bar "||"
-  \partial 4
-  r8 e8 | a4
-  c8 b[ c b] |
+  c8 | d d d d d d d d | e e e \section
+  \partial 4.
+  f8 f f | g g g g g g g g |
 }
 @end lilypond
 
-For technical reasons, the argument to @code{\partial} cannot be a
-zero-length duration (like @code{\partial 4*0}).
+For technical reasons, the arguments to @code{\partial} and
+@code{\premeasure} must have a non-zero duration.
 
 @morerefs
 Music Glossary:
