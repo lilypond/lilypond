@@ -176,6 +176,19 @@ TexInfo_output = {
 @end html
 ''',
 
+    # '\x7F' (DEL) works like a true TeX comment character; we use it to not
+    # emit any additional whitespace while still having readable Texinfo
+    # output.
+    book_snippets.INLINEOUTPUT:
+'''@inlinefmt{info, @image{%(info_image_path)s,,,%(alt)s}}\x7F
+@inlineraw{html,
+<a href="%(base)s%(ext2)s">
+  <img align="middle"
+       border="0"
+       src="%(image)s"
+       alt="%(alt)s"></a>}\x7F
+@inlinefmt{tex,@image{%(image_base)s-1}}''',
+
     # There must be an empty line at the end to ensure that the following
     # images are typeset in vertical mode (and not in inline mode).
     book_snippets.PRINTFILENAME: '''@need 800
@@ -377,16 +390,28 @@ class BookTexinfoOutputFormat (book_base.BookOutputFormat):
         else:
             rep['ext2'] = snippet.ext
 
-        for image in snippet.get_images():
-            rep1 = copy.copy(rep)
-            rep1['base'] = os.path.splitext(image)[0]
-            rep1['image'] = image
-            rep1['alt'] = snippet.option_dict[book_snippets.ALT]
-            rep1['info_image_path'] = os.path.join(
-                self.global_options.info_images_dir, rep1['base'])
-            s += self.output[book_snippets.OUTPUTIMAGE] % rep1
+        if book_snippets.INLINE not in snippet.option_dict:
+            for image in snippet.get_images():
+                rep1 = copy.copy(rep)
+                rep1['base'] = os.path.splitext(image)[0]
+                rep1['image'] = image
+                rep1['alt'] = snippet.option_dict[book_snippets.ALT]
+                rep1['info_image_path'] = os.path.join(
+                    self.global_options.info_images_dir, rep1['base'])
+                s += self.output[book_snippets.OUTPUTIMAGE] % rep1
 
-        s += self.output[book_snippets.OUTPUT] % rep
+            s += self.output[book_snippets.OUTPUT] % rep
+        else:
+            images = snippet.get_images()
+            if images:
+                # Only use the first system for inline images.
+                image = images[0]
+                rep['image_base'] = os.path.splitext(image)[0]
+                rep['image'] = image
+                rep['alt'] = snippet.option_dict[book_snippets.ALT]
+                rep['info_image_path'] = os.path.join(
+                    self.global_options.info_images_dir, rep['image_base'])
+                s += self.output[book_snippets.INLINEOUTPUT] % rep
         return s
 
     def snippet_output(self, basename, snippet):
@@ -428,29 +453,26 @@ class BookTexinfoOutputFormat (book_base.BookOutputFormat):
                                             book_snippets.HTMLPRINTFILENAME)
 
         if book_snippets.INLINE not in snippet.option_dict:
-            s += '\n'
-
-        substr = ''
-        rep = snippet.get_replacements()
-        if book_snippets.VERBATIM in snippet.option_dict:
-            ly_code = snippet.verb_ly()
-            if self.global_options.highlight:
-                from auxiliar.book_highlight import highlight_ly
-                substr = highlight_ly(ly_code)
-            else:
-                rep['verb'] = ly_code
-                # Avoid start of `@verbatim` environment at the bottom of a
-                # page with a single line.
-                if s.count(ly_code) > 1:
-                    substr += "@need 800\n"
-                substr += self.output[book_snippets.VERBATIM] % rep
-        substr += self.output_info(basename, snippet)
-        if book_snippets.QUOTE in snippet.option_dict:
-            substr = self.output[book_snippets.QUOTE] % {'str': substr}
-        s += substr
-
-        if book_snippets.INLINE not in snippet.option_dict:
-            s += '\n'
+            substr = ''
+            rep = snippet.get_replacements()
+            if book_snippets.VERBATIM in snippet.option_dict:
+                ly_code = snippet.verb_ly()
+                if self.global_options.highlight:
+                    from auxiliar.book_highlight import highlight_ly
+                    substr = highlight_ly(ly_code)
+                else:
+                    rep['verb'] = ly_code
+                    # Avoid start of `@verbatim` environment at the bottom
+                    # of a page with a single line.
+                    if s.count(ly_code) > 1:
+                        substr += "@need 800\n"
+                    substr += self.output[book_snippets.VERBATIM] % rep
+            substr += self.output_info(basename, snippet)
+            if book_snippets.QUOTE in snippet.option_dict:
+                substr = self.output[book_snippets.QUOTE] % {'str': substr}
+            s += '\n' + substr + '\n'
+        else:
+            s = self.output_info(basename, snippet)
 
         return s
 
