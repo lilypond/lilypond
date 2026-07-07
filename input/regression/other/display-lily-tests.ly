@@ -1,4 +1,4 @@
-\version "2.27.0"
+\version "2.27.2"
 
 #(use-modules (srfi srfi-13)
               (ice-9 format)
@@ -372,6 +372,7 @@ are reported on the stderr of this run."
 \test ##[ \partial 2 #]
 \test ##[ \partial 8. #]
 \test ##[ \partial 4*2/3 #]
+\test ##[ \premeasure c4 #]                             % PremeasureMusic
 
 %% \after
 \test ##[ \after 4 \f d'2 #]

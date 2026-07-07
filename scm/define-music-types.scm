@@ -570,6 +570,16 @@ Syntax: @var{note}@code{\\(} and @var{note}@code{\\)}")
 This can be used to package several events into a single one.  Should not be seen outside of the parser.")
         (types . (post-event post-event-wrapper))))
 
+    (PremeasureMusic
+     . ((description . "Create a lead-in partial measure from music.
+
+Syntax: @code{\\premeasure @var{music}}")
+        (iterator-ctor . ,ly:premeasure-iterator::constructor)
+        (length-callback . ,ly:music-wrapper::length-callback)
+        (start-callback . ,ly:music-wrapper::start-callback)
+        (types . (premeasure-music music-wrapper-music))
+        ))
+
     (PropertySet
      . ((description . "Set a context property.
 

@@ -1724,7 +1724,9 @@ past the point of use.  As a special case, when used at the start, create an
 anacrusis before the first measure.
 
 Notational elements that communicate metric structure (e.g., beam breaks) will
-be engraved appropriately for the final @var{dur} part of a measure.")
+be engraved appropriately for the final @var{dur} part of a measure.
+
+See also @rmusicfn{\\premeasure}.")
   (context-spec-music (make-music 'PartialSet
                                   'origin (*location*)
                                   'duration dur)
@@ -1821,6 +1823,33 @@ This is the opposite to function @rmusicfn{\\pushContextProperty}.")
                   (ly:context-unset-property ctx prop-name)))))
             ctx-name))
          (make-music 'Music))))
+
+premeasure =
+#(define-music-function (music) (duration-or-music?)
+   (_i "Create a lead-in partial measure from @var{music}.
+
+The effect is equivalent to this:
+
+@example
+@{
+  \\initialContextFrom %@{ copy of @var{music} %@}
+  \\partial %@{ duration of @var{music} %@}
+  @var{music} |
+@}
+@end example
+
+Passing a duration as @var{music} (e.g., @code{\\premeasure 2}) is reserved for
+future use.
+")
+   (if (ly:duration? music)
+       (begin
+         ;; TODO: Maybe merge \premeasure <music> and \partial <duration> into
+         ;; one command.  There is precedent in \skip <duration> and \skip
+         ;; <music>.
+         (ly:input-warning (*location*)
+                           (G_ "duration argument reserved for future use"))
+         (make-music 'Music))
+       (make-music 'PremeasureMusic 'element music)))
 
 propertyOverride =
 #(define-music-function (grob-property-path value) (key-list? scheme?)

@@ -96,6 +96,11 @@ None so far.
 @itemize
 
 @item
+The new @code{\premeasure @var{music}} command is an abbreviation
+for @code{\partial @var{duration} @var{music}} that computes the
+duration automatically.
+
+@item
 By default, strictly alternating meters consisting of 4/4 and 2/2
 are printed in a historic style using multiple C or cut-C symbols.
 

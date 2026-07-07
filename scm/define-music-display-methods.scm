@@ -1193,6 +1193,10 @@ Otherwise, return #f."
                          (format #f "\\partial ~a"
                                  (duration->lily-string ?duration #:force-duration #t)))))
 
+(define-display-method PremeasureMusic (expr)
+  (format #f "\\premeasure ~a"
+          (music->lily-string (ly:music-property expr 'element))))
+
 ;;;
 ;;;
 
