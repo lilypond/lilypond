@@ -1,5 +1,5 @@
 % wml-demo-layout.ly
-%%%% A layout for presenting Vaticana style neumes.
+%%%% A layout for presenting white mensural ligatures.
 %%%%
 %%%% This file is part of LilyPond, the GNU music typesetter.
 %%%%
@@ -21,27 +21,26 @@
 
 \version "2.27.0"
 
-%
 % `wmlDemoLayout` defines a layout block suitable for notating pure
 % white mensural ligatures without any other notation symbols such as
 % staff lines or clefs.  This layout is useful for engraving ligature
 % tables, such as those in the LilyPond manual section on
 % white mensural ligatures, or for educational works.
-%
+
+#(set-global-staff-size 16)
+
 \layout {
   \context {
     \Score
     \remove Bar_number_engraver
-    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 16 1)
   }
   \context {
     \Staff
     \remove Clef_engraver
     \remove Key_engraver
-    \hide StaffSymbol
+    \remove Staff_symbol_engraver
     \remove Time_signature_engraver
     \remove Bar_engraver
-    \override VerticalAxisGroup.staff-staff-spacing = #'()
   }
   \context {
     \Voice
@@ -49,3 +48,27 @@
     \consists Mensural_ligature_engraver
   }
 }
+
+% The macro below helps circumvent various issues.
+%
+% * At the time of this writing (July 2026), ligatures retain spacing if
+%   timing is disabled: contrary to normal notes, there is a large
+%   horizontal space (depending on the kind of the ligature) to the right
+%   that doesn't vanish (as it should; this is a bug).  For this reason, we
+%   use `\with-true-dimensions` to remove it.
+%
+% * Another reason to use `\with-true-dimensions` is to remove excess
+%   vertical whitespace, which would otherwise unnecessarily distort the
+%   line spacing within a paragraph.
+%
+% * For some unknown reason, LilyPond always adds some horizontal space to
+%   the left if a cropped image gets produced (probably a bug).  Using
+%   `\center-align` prevents that, and `\pad-x` adds some small horizontal
+%   space on both sides to improve optical integration within text.
+#(define-markup-command (wml layout props arg)
+   (markup?)
+   (interpret-markup layout props
+                     (make-pad-x-markup
+                      0.1
+                      (make-center-align-markup
+                       (make-with-true-dimensions-markup arg)))))

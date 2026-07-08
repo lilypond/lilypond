@@ -863,250 +863,201 @@ Internals Reference:
 @node Historical overview of ligatures
 @subsection Historical overview of ligatures
 
-Early polyphony used modal rhythm, and encoded the meter
+Early polyphony used modal rhythm and encoded the meter
 by ligatures (as they existed in Gregorian neume notation,
 @pxref{Gregorian square neume ligatures}),
 breaking the flow of notes @emph{not by feet}, but after each metric stress,
 i.e., the last note of a ligature was stressed, the preceding ones were not.
 The most common ligatures had two or three notes
-(ligatura binaria/ternaria: binary/ternary ligature),
+(@dfn{ligatura binaria/@/ternaria}: binary/@/ternary ligature),
 corresponding to the stress distribution of the common meters
 iamb (short-long), trochee (long-short), dactyl (long-short-short),
 and anapaest (short-short-long).
 (Note that long-short is the quantitative concept;
 stress is the qualitative counterpart of long.)
 
-When modal rhythm was abandoned and note shapes encoded length,
-ligatures were not abandoned, but
-(interpreting the meter strictly quantitatively)
-read as breves followed by a final longa.
-For binary ligatures that meant the pes for an ascending ligature:
-@lilypond[inline]
-\include "wml-demo-layout.ly"
-\score {
-  \relative {
-    \[ g'\breve \tweak ligature-pes ##t d'\longa \]
-  }
-}
-@end lilypond
-and the climacus for a descending one:
-@lilypond[inline]
-\include "wml-demo-layout.ly"
-\score { { \[ d''\breve a'\longa \] } }
-@end lilypond
-.
+When modal rhythm was abandoned and note shapes started to encode
+length, ligatures were not abandoned but (interpreting the meter
+strictly quantitatively) read as breves followed by a final longa.
+The pes
+(@lilypond[inline]{
+  \include "wml-demo-layout.ly"
+  \markup \wml \score {
+    { \[ d'\breve \tweak ligature-pes ##t a'\longa \] } }
+})
+indicates an ascending ligature, and the climacus
+(@lilypond[inline]{
+  \include "wml-demo-layout.ly"
+  \markup \wml \score {
+    { \[ a'\breve e'\longa \] } }
+})
+a descending one.
 
-New shapes were introduced to encode other length sequences
-preferably independently of context,
-so that ligatures of arbitrary length became possible.
-Shapes for binary brevis-brevis ligaturae might have been taken
-from the first two notes of the existing ternary ligatures
-(meaning brevis-brevis-longa):
-the torculus
-@lilypond[inline]
-\include "wml-demo-layout.ly"
-\score {
-  \relative {
-    \[ a'\breve d c\longa \]
-  }
-}
-@end lilypond
+New shapes were introduced to encode other length sequences,
+preferably independently of context, so that ligatures of
+arbitrary length became possible.  Shapes for binary brevis-brevis
+ligatures might have been taken from the first two notes of the
+existing ternary ligatures (meaning brevis-brevis-longa): the
+torculus
+(@lilypond[inline]{
+  \include "wml-demo-layout.ly"
+  \markup \wml \score {
+    { \[ e'\breve a' g'\longa \] } }
+})
 and the modified scandici
+(@lilypond[inline]{
+  \include "wml-demo-layout.ly"
+  \markup \wml \score {
+    { \[ e'\breve a' b' \] } }
+})
+start the same way; the shape
 @lilypond[inline]
 \include "wml-demo-layout.ly"
-\score {
-  \relative {
-    \[ a'\breve d e \]
-  }
+\markup \wml \score {
+  { \[ e'\breve a' \] } }
+@end lilypond
+is thus usable as an ascending binary brevis-brevis ligature.
+Climacus must have been abandoned, as it is indistinguishable from
+the sequence
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+{
+  \override Score.SpacingSpanner.packed-spacing = ##t
+  \override NoteHead.style = #'petrucci
+  b'\longa a'1 g'
 }
 @end lilypond
-start the same way,
-which is usable as an ascending binary brevis-brevis ligature:
+of non-ligated notes, so only the porrectus
+(@lilypond[inline]{
+  \include "wml-demo-layout.ly"
+  \markup \wml \score {
+    { \[ f'\breve e' \tweak ligature-pes ##t a'\longa \] } }
+})
+remained to use its start as the descending form: the oblique
+parallelogram
 @lilypond[inline]
 \include "wml-demo-layout.ly"
-\score {
-  \relative {
-    \[ a'\breve d \]
-  }
-}
+  \markup \wml \score {
+    { \[ d''\breve c'' \] } }
 @end lilypond
-.  Climacus must have been abandoned,
-as it is indistinguishable from a sequence of non-ligated notes:
-@lilypond[inline]
-\include "wml-demo-layout.ly"
-\score {
-  {
-    \override NoteHead.style = #'petrucci
-    d''\longa c''1 b'
-  }
-}
-@end lilypond
-, so only the porrectus
-@lilypond[inline]
-\include "wml-demo-layout.ly"
-\score {
-  \relative {
-    \[ b'\breve a \tweak ligature-pes ##t d\longa \]
-  }
-}
-@end lilypond
-remained to use its start as the descending form:
-@lilypond[inline]
-\include "wml-demo-layout.ly"
-\score { { \[ d''\breve c'' \] } }
-@end lilypond
-(this oblique parallelogram will be referred to as a @dfn{flexa};
-it always denotes @emph{two} notes (at the starting and ending pitches),
-not a scale of all pitches between the two.)
+is referred to as a @dfn{flexa}; it always denotes @emph{two}
+notes (at the starting and ending pitches), not a scale of all
+pitches between the two.
 
 Binary ligatures starting with a longa were crafted by tweaking
-the existing brevis-brevis or brevis-longa shapes.
-In the descending case the initial stem was removed:
+the existing brevis-brevis or brevis-longa shapes.  For the
+descending shapes longa-breve
+(@lilypond[inline]{
+  \include "wml-demo-layout.ly"
+  \markup \wml \score {
+    { \[ a'\longa g'\breve \] } }
+})
+and longa-longa
+(@lilypond[inline]{
+  \include "wml-demo-layout.ly"
+  \markup \wml \score {
+    { \[ a'\longa g' \] } }
+})
+the initial stem was removed; for the ascending shapes longa-breve
+(@lilypond[inline]{
+  \include "wml-demo-layout.ly"
+  \markup \wml \score {
+    { \[ b'\longa e''\breve \] } }
+})
+and longa-longa
+(@lilypond[inline]{
+  \include "wml-demo-layout.ly"
+  \markup \wml \score {
+    { \[ g'\longa \tweak ligature-pes ##t d'' \] } }
+})
+a right downward stem was added to the first note.
+
+The pes shape was difficult to draw with void heads if the
+penultimate pitch was close (the same holds for the porrectus), so
+such final notes were replaced by virgae (for example,
 @lilypond[inline]
 \include "wml-demo-layout.ly"
-\score {
-  \relative {
-    \[ d''\longa c\breve \]
-    \[ d\longa c \]
-  }
-}
+\markup \wml \score {
+  { \[ a'\breve d''\longa \] } }
 @end lilypond
-, in the ascending case a right downward stem was added to the first note:
+and
+@lilypond[inline]{
+  \include "wml-demo-layout.ly"
+  \markup \wml \score {
+    { \[ d''\breve \tweak ligature-flexa ##t b' d''\longa \] } }
+},
+perhaps inspired by the scandicus).  Nevertheless, the original
+shape remained in use for quite a long time, even though it looks
+like a divisi, and at end of sections it may be impossible to tell
+which one is meant.
+
+Binary ligatures for semibreve pairs like
+@lilypond[inline]{
+  \include "wml-demo-layout.ly"
+  \markup \wml \score {
+    { \[ g'1 a' \] } }
+},
+@lilypond[inline]{
+  \include "wml-demo-layout.ly"
+  \markup \wml \score {
+    { \[ a'1 g' \] } }
+},
+and
 @lilypond[inline]
 \include "wml-demo-layout.ly"
-\score {
-  \relative {
-    \[ b'\longa e\breve \]
-    \[ g,\longa \tweak ligature-pes ##t d' \]
-  }
-}
+\markup \wml \score {
+  { \[ a'1 \tweak ligature-flexa ##t g' \] } }
 @end lilypond
-.
+were also introduced, denoted by an upward left stem.
 
-The pes shape was difficult to draw with void heads
-if the penultimate pitch is close (porrectus too),
-so such final notes were replaced by virgae
-(perhaps inspired by the scandicus):
-@lilypond[inline]
-\include "wml-demo-layout.ly"
-\score {
-  \relative {
-    \[ a'\breve d\longa \]
-    \[ d\breve \tweak ligature-flexa ##t b d\longa \]
-  }
-}
-@end lilypond
-.  Nevertheless, the original shape remained in use for quite long, even though
-it looks like a divisi, and at end of sections
-it may be impossible to tell which is meant.
+The following table summarizes the customary binary ligatures.
 
-A binary ligature for semibreve pairs were introduced,
-denoted by an upward left stem:
-@lilypond[inline]
-\include "wml-demo-layout.ly"
-\score {
-  \relative {
-    \[ g'1 a \]
-    \[ a g \]
-    \[ a \tweak ligature-flexa ##t g \]
-  }
-}
-@end lilypond
-.
-
-Here is a summarizing table of the customary binary ligatures:
-
+@indentedblock
 @multitable @columnfractions .25 .15 .15 .15 .15 .15
-
-@item
-Lengths
-@tab
-S S
-@tab
-B B
-@tab
-L B
-@tab
-B L
-@tab
-L L
-
-@item
-Ascending
-@tab
-@lilypond[inline]
-\include "wml-demo-layout.ly"
-\score {
-  { \[ g'1 a' \] }
-}
-@end lilypond
-@tab
-@lilypond[inline]
-\include "wml-demo-layout.ly"
-\score {
-  { \[ b'\breve c'' \] }
-}
-@end lilypond
-@tab
-@lilypond[inline]
-\include "wml-demo-layout.ly"
-\score {
-  { \[ c''\longa d''\breve \] }
-}
-@end lilypond
-@tab
-@lilypond[inline]
-\include "wml-demo-layout.ly"
-\score {
-  { \[ c''\breve d''\longa \] }
-}
-@end lilypond
-@tab
-@lilypond[inline]
-\include "wml-demo-layout.ly"
-\score {
-  { \[ c''\longa d'' \] }
-}
-@end lilypond
-
-@item
-Descending
-@tab
-@lilypond[inline]
-\include "wml-demo-layout.ly"
-\score {
-  { \[ a'1 g' \] \[ a' \tweak ligature-flexa ##t g' \] }
-}
-@end lilypond
-@tab
-@lilypond[inline]
-\include "wml-demo-layout.ly"
-\score {
-  { \[ d''\breve c'' \] }
-}
-@end lilypond
-@tab
-@lilypond[inline]
-\include "wml-demo-layout.ly"
-\score {
-  { \[ c''\longa b'\breve \] }
-}
-@end lilypond
-@tab
-@lilypond[inline]
-\include "wml-demo-layout.ly"
-\score {
-  { \[ d''\breve c''\longa \] }
-}
-@end lilypond
-@tab
-@lilypond[inline]
-\include "wml-demo-layout.ly"
-\score {
-  { \[ c''\longa b' \] }
-}
-@end lilypond
+@headitem Lengths
+  @tab S S
+  @tab B B
+  @tab L B
+  @tab B L
+  @tab L L
+@item Ascending
+  @tab @lilypond[inline]{
+         \include "wml-demo-layout.ly"
+         \markup \wml \score { { \[ g'1 a' \] } } }
+  @tab @lilypond[inline]{
+         \include "wml-demo-layout.ly"
+         \markup \wml \score { { \[ b'\breve c'' \] } } }
+  @tab @lilypond[inline]{
+         \include "wml-demo-layout.ly"
+         \markup \wml \score { { \[ c''\longa d''\breve \] } } }
+  @tab @lilypond[inline]{
+         \include "wml-demo-layout.ly"
+         \markup \wml \score { { \[ c''\breve d''\longa \] } } }
+  @tab @lilypond[inline]{
+         \include "wml-demo-layout.ly"
+         \markup \wml \score { { \[ c''\longa d'' \] } } }
+@item Descending
+  @tab @lilypond[inline]{
+         \include "wml-demo-layout.ly"
+         \markup \wml \score { { \[ a'1 g' \] } } },
+       @lilypond[inline]{
+         \include "wml-demo-layout.ly"
+         \markup \wml \score {
+           { \[ a'1 \tweak ligature-flexa ##t g' \] } } }
+  @tab @lilypond[inline]{
+         \include "wml-demo-layout.ly"
+         \markup \wml \score { { \[ d''\breve c'' \] } } }
+  @tab @lilypond[inline]{
+         \include "wml-demo-layout.ly"
+         \markup \wml \score { { \[ c''\longa b'\breve \] } } }
+  @tab @lilypond[inline]{
+         \include "wml-demo-layout.ly"
+         \markup \wml \score { { \[ d''\breve c''\longa \] } } }
+  @tab @lilypond[inline]{
+         \include "wml-demo-layout.ly"
+         \markup \wml \score { { \[ c''\longa b' \] } } }
 @end multitable
+@end indentedblock
 
 Maximae were easy to introduce into ligatures,
 because they post-date the era of modal rhythm,
