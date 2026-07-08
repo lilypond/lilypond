@@ -1239,7 +1239,8 @@ Pes-style final ascending longa can be drawn by @code{ligature-pes}:
 \layout {
   \context {
     \Score
-    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 16 1)
+    \override SpacingSpanner.base-shortest-duration =
+      #(ly:make-moment 16 1)
   }
 }
 \new PetrucciStaff {
@@ -1259,7 +1260,8 @@ Without tweaking these ligatures look like
 \layout {
   \context {
     \Score
-    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 16 1)
+    \override SpacingSpanner.base-shortest-duration =
+      #(ly:make-moment 16 1)
   }
 }
 \new PetrucciStaff {
@@ -1333,11 +1335,12 @@ Then each note is assigned a length as follows:
 (Note that lengths shorter than the semibreve cannot be ligated.)
 Some examples showing which rule applies on which note:
 
-@lilypond[quote,verbatim]
+@lilypond[quote]
 \layout {
   \context {
     \Score
-    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 16 1)
+    \override SpacingSpanner.base-shortest-duration =
+      #(ly:make-moment 16 1)
   }
 }
 \new PetrucciStaff {
@@ -1358,7 +1361,7 @@ Some examples showing which rule applies on which note:
 
 Besides these rules, there are some restrictions/conventions:
 
-@enumerate 8
+@enumerate A
 
 @item successive notes must not have the same pitch.
 
@@ -1408,15 +1411,16 @@ Some examples showing these restrictions in action:
 @itemize
 
 @item In Obrecht's Missa Salve diva parens,
-the same four note motif is written in decreasing lengths;
-while (dotted) maximae or breves can form a four note ligature,
-longae and semibreves cannot (restrictions 18 and 11).
+the same four-note motif is written in decreasing lengths;
+while (dotted) maximae or breves can form a four-note ligature,
+longae and semibreves cannot (restrictions K and@tie{}D).
 
 @lilypond[quote,verbatim]
 \layout {
   \context {
     \Score
-    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 16 1)
+    \override SpacingSpanner.base-shortest-duration =
+      #(ly:make-moment 16 1)
   }
 }
 \new PetrucciStaff {
@@ -1429,14 +1433,15 @@ longae and semibreves cannot (restrictions 18 and 11).
 @end lilypond
 
 @item The Amen in a Credo by Vaqueras is a long melisma;
-that in the tenor part is written mostly in ligatures,
-broken by restrictions 11, 17, 18 (while ignoring 15 and 16):
+the one in the tenor part is written mostly in ligatures, broken by
+restrictions D, J, and@tie{}K (while ignoring H and@tie{}I):
 
 @lilypond[quote,verbatim]
 \layout {
   \context {
     \Score
-    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 16 1)
+    \override SpacingSpanner.base-shortest-duration =
+      #(ly:make-moment 16 1)
   }
 }
 \new PetrucciStaff {
@@ -1447,13 +1452,14 @@ broken by restrictions 11, 17, 18 (while ignoring 15 and 16):
 }
 @end lilypond
 
-Observing restriction 15 would result in
+Observing restriction@tie{}H would result in
 
 @lilypond[quote,verbatim]
 \layout {
   \context {
     \Score
-    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 16 1)
+    \override SpacingSpanner.base-shortest-duration =
+      #(ly:make-moment 16 1)
   }
 }
 \new PetrucciStaff {
@@ -1470,7 +1476,8 @@ while ignoring all restrictions results in
 \layout {
   \context {
     \Score
-    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 16 1)
+    \override SpacingSpanner.base-shortest-duration =
+      #(ly:make-moment 16 1)
   }
 }
 \new PetrucciStaff {
@@ -1483,24 +1490,26 @@ while ignoring all restrictions results in
 
 @end itemize
 
-Rule 6 presents a conundrum:
+Rule@tie{}6 presents a conundrum:
 how to draw a final brevis if the penultimate note has a right stem
-(which is extremely rare because of restriction 18)?
+(which is extremely rare because of restriction@tie{}K)?
 The easy answer is ``stop the ligature after the stem'',
 but there are examples when
 @lilypond[inline]
 \include "wml-demo-layout.ly"
-\score { { \[ \tweak right-down-stem ##t d''\longa c''\breve \] } }
+\markup \wml \score {
+  { \[ \tweak right-down-stem ##t d''\longa c''\breve \] } }
 @end lilypond
 is to be read as longa-brevis
 (note that a final longa could always be disambiguated by adding a right stem).
 
 An alternative interpretation is to read this stem
 as a right stem of the last note,
-and indeed there is a piece in Trent 89, fol 97 where
+and indeed there is a piece in Trent@tie{}89, fol@tie{}97, where
 @lilypond[inline]
 \include "wml-demo-layout.ly"
-\score { { \[ d''\breve c'' \tweak left-down-stem ##t b' \] } }
+\markup \wml \score {
+  { \[ d''\breve c'' \tweak left-down-stem ##t b' \] } }
 @end lilypond
 is to be read as three breves.
 
@@ -1512,7 +1521,8 @@ and allows tweaking @code{right-down-stem} to disambiguate the latter:
 \layout {
   \context {
     \Score
-    \override SpacingSpanner.base-shortest-duration = #(ly:make-moment 16 1)
+    \override SpacingSpanner.base-shortest-duration =
+      #(ly:make-moment 16 1)
   }
 }
 \new PetrucciStaff {
@@ -1524,11 +1534,12 @@ and allows tweaking @code{right-down-stem} to disambiguate the latter:
 @end lilypond
 
 (All examples are real; in fact the middle one was originally written as
-@lilypond[inline]
-\include "wml-demo-layout.ly"
-\score { { \[ b'\breve d''\maxima c''\longa \] } }
-@end lilypond
-, and the stem is a later addition.)
+@lilypond[inline]{
+  \include "wml-demo-layout.ly"
+  \markup \wml \score {
+    { \[ b'\breve d''\maxima c''\longa \] } } },
+and the stem is a later addition.)
+
 
 @node Typesetting Gregorian chant
 @section Typesetting Gregorian chant
