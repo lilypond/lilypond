@@ -3,6 +3,7 @@
 # @configure_input@
 
 # replace -I with -isystem to suppress warnings in library headers
+BDWGC_CFLAGS := $(patsubst -I%,-isystem%,@BDWGC_CFLAGS@)
 FLEXLEXER_CPPFLAGS := $(patsubst -I%,-isystem%,@FLEXLEXER_CPPFLAGS@)
 FREETYPE2_CFLAGS := $(patsubst -I%,-isystem%,@FREETYPE2_CFLAGS@)
 GLIB_CFLAGS := $(patsubst -I%,-isystem%,@GLIB_CFLAGS@ @GOBJECT_CFLAGS@)
@@ -19,6 +20,7 @@ CONFIG_CPPFLAGS = $(FLEXLEXER_CPPFLAGS) @CPPFLAGS@
 CONFIG_CXXFLAGS = \
   @CXXFLAGS@ \
   $(GUILE_CFLAGS) \
+  $(BDWGC_CFLAGS) \
   $(FREETYPE2_CFLAGS) \
   $(PANGO_FT2_CFLAGS) \
   $(CAIRO_CFLAGS) \
@@ -31,6 +33,7 @@ CONFIG_LIBS = \
   @EXTRA_LIBS@ \
   @GLIB_LIBS@ \
   @GUILE_LIBS@ \
+  @BDWGC_LIBS@ \
   @PANGO_FT2_LIBS@ \
   @FONTCONFIG_LIBS@ \
   @FREETYPE2_LIBS@ \
