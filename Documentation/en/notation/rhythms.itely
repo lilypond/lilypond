@@ -1395,13 +1395,57 @@ symbols while setting a different meter with @code{\time}.
 @cindex time signature, default settings
 @cindex auto-beaming, properties for time signatures
 @cindex beaming, time signature default properties
+@funindex beamExceptions
+@funindex beatBase
+@funindex beatStructure
+@funindex submeasureStructure
 
 In addition to setting the printed time signature, the @code{\time}
 command also sets the values of the context properties
 @code{beatBase}, @code{beatStructure}, @code{submeasureStructure},
 and @code{beamExceptions}.
-The predefined default values for these properties can be found in
-@file{scm/time-signature-settings.scm}.
+
+The default values of these properties are derived formulaically
+from the time signature, with various exceptions defined in
+@file{scm/time-signature-settings.scm}.  Setting aside the
+exceptions,
+
+@itemize
+@item
+@code{beatBase} is one over the denominator of the time signature.
+For example, in 3/2 time, @code{beatBase} is 1/2.
+
+@item
+@code{beatStructure} divides the measure
+@itemize
+@item
+according to a structured numerator@tie{}(a), or
+@item
+into beats of 3 × @code{beatBase} when the numerator is 6,
+9, 12, @dots{}@tie{}(b), or
+@item
+into beats of 1 × @code{beatBase}.
+@end itemize
+
+@item
+@code{submeasureStructure} divides the measure between strictly
+alternating time signatures@tie{}(c).
+
+@end itemize
+
+@lilypond
+{
+  \unset Timing.timeSignatureSettings
+  \submeasureBarsOn
+  \time #'((2 3) . 8)
+  <>^\markup \normalsize "a" \*5 e'8
+  \time #'(5/2 . 4)
+  \*5 e'8
+  \time #'((6 . 8) (3 . 8))
+  <>^\markup \normalsize "b" \*6 e'8
+  \mark \markup \normalsize "c" \*3 e'8
+}
+@end lilypond
 
 The default value of @code{beatStructure} can be overridden in the
 @code{\time} command itself by supplying it as the optional first
