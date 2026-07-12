@@ -406,7 +406,11 @@
             so_far)))
           (trillMusic (make-sequential-music trillMusicElements))
           (newlen (ly:moment-main (ly:music-length trillMusic)))
-          (factor (/ orig-len newlen)))
+          ;; Avoid division by zero
+          (factor
+            (if (zero? newlen)
+                0
+                (/ orig-len newlen))))
     (ly:music-compress trillMusic factor)
 ; accelerating the music seems to put lily into an infinite loop in
 ; its layout and midi engines.
