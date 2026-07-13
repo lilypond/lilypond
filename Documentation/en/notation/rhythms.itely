@@ -2608,48 +2608,36 @@ new beam starts.
 When automatic beaming is enabled, the placement of automatic beams
 is determined by three context properties:
 @code{beatBase}, @code{beatStructure}, and @code{beamExceptions}.
-The default values of these variables may be overridden as described
-below, or alternatively the default values themselves may be changed
-as explained in @ref{Time signature}.
+Any of these may be overridden until the next @code{\time} command
+as described below; alternatively, their default values per time
+signature may changed persistently as explained in @ref{Time
+signature}.
 
-If a @code{beamExceptions} rule is defined for the time signature in
-force, that rule alone is used to determine the beam placement; the
-values of @code{beatBase} and @code{beatStructure} are ignored.
-
-If no @code{beamExceptions} rule is defined for the time signature
-in force, the beam placement is determined by the values of
-@code{beatBase} and @code{beatStructure}.
+When @code{beamExceptions} contains an applicable rule, it takes
+precedence over @code{beatBase} and @code{beatStructure}.
 
 
 @subsubheading Beaming based on @code{beatBase} and @code{beatStructure}
 
-By default, @code{beamExceptions} rules are defined for most common
-time signatures, so the @code{beamExceptions} rules must be disabled
-if automatic beaming is to be based on @code{beatBase} and
-@code{beatStructure}.  The @code{beamExceptions} rules are disabled
-by
+Built-in @code{beamExceptions} rules are defined for many common
+time signatures.  They must be disabled if automatic beaming is to
+be based strictly on @code{beatBase} and @code{beatStructure}.
+The @code{beamExceptions} rules are disabled by
 
 @example
 \set Timing.beamExceptions = #'()
 @end example
 
 When @code{beamExceptions} is set to @code{#'()}, either due to an
-explicit setting or because no @code{beamExceptions} rules are defined
-internally for the time signature in force, the ending points for
-beams are on beats as specified by the context properties
-@code{beatBase} and @code{beatStructure}.  @code{beatStructure} is
-a Scheme list that defines the length of each beat in the measure in
-units of @code{beatBase}.  By default, @code{beatBase} is one
-over the denominator of the time signature.  By default, each unit of
-length @code{beatBase} is a single beat.
+explicit setting or because no built-in @code{beamExceptions}
+rules are defined for the time signature in force, beams end on
+beats specified by the context properties @code{beatBase} and
+@code{beatStructure}.
 
-Note that there are separate @code{beatStructure} and @code{beatBase}
-values for each time signature.  Changes to these variables apply only
-to the time signature that is currently in force, hence those changes
-must be placed after the @code{\time} command which starts a new time
-signature section, not before it.  New values given to a particular
-time signature are retained and reinstated whenever that time signature
-is reestablished.
+The @code{\time} command resets @code{beatBase},
+@code{beatStructure}, and @code{beamExceptions}, so desired
+modifications must be placed after the @code{\time} command, not
+before it.
 
 @lilypond[quote,verbatim]
 \relative c'' {
@@ -2736,10 +2724,6 @@ compatible with the new value of @code{beatBase}.
 \set Timing.beatStructure = 7,3
 \*10 a'16
 @end lilypond
-
-By default @code{beatBase} is set to one over the denominator of
-the time signature.  Any exceptions to this default can be found in
-@file{scm/time-@/signature-@/settings.scm}.
 
 @subsubheading Beaming based on @code{beamExceptions}
 
