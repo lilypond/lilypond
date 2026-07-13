@@ -108,7 +108,6 @@ public:
   }
   Rational (unsigned long long);
 
-  // n.b. {0, 0} is treated as zero rather than NaN
   explicit Rational (int64_t, int64_t);
 
   explicit Rational (double);
