@@ -74,9 +74,7 @@ public:
 
   // default to zero
   constexpr Rational ()
-    : sign_ (0),
-      num_ (1),
-      den_ (1)
+    : Rational (0U)
   {
   }
 
@@ -98,15 +96,20 @@ public:
   {
   }
   Rational (long long n);
-  Rational (unsigned n)
+  constexpr Rational (unsigned n)
     : Rational (static_cast<unsigned long long> (n))
   {
   }
-  Rational (unsigned long n)
+  constexpr Rational (unsigned long n)
     : Rational (static_cast<unsigned long long> (n))
   {
   }
-  Rational (unsigned long long);
+  constexpr Rational (unsigned long long n)
+    : sign_ {n ? 1 : 0},
+      num_ {n},
+      den_ {1}
+  {
+  }
 
   explicit Rational (int64_t, int64_t);
 

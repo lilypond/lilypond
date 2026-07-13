@@ -40,7 +40,7 @@ class Rational_test
 
 TEST (Rational_test, init_default)
 {
-  Rational r;
+  constexpr Rational r;
   CHECK (!signbit (r));
   EQUAL (0, r.num ());
   EQUAL (1, r.den ());
@@ -59,6 +59,9 @@ protected:
       EQUAL (0, r.num ());
       EQUAL (1, r.den ());
       CHECK (!isinf (r));
+      // equal to default-initialized value
+      constexpr Rational rd;
+      EQUAL (rd, r);
     }
 
     // lowest value, implicit construction
@@ -291,6 +294,8 @@ TEST (Rational_test, multiplication)
     Rational multiplicand;
     Rational product;
   } cases[] = {
+    {0, Rational (), 0},
+    {Rational (), 0, 0},
     {Rational::infinity (), 5, Rational::infinity ()},
     // TODO: {Rational::infinity (), 0, Rational::nan ()},
     {-Rational::infinity (), 6, -Rational::infinity ()},
@@ -349,6 +354,9 @@ TEST (Rational_test, division)
     {-Rational::infinity (), 0, -Rational::infinity ()},
     {-1, 0, -Rational::infinity ()},
     {0, 0, Rational::nan ()},
+    {0, Rational (), Rational::nan ()},
+    {Rational (), 0, Rational::nan ()},
+    {Rational (), Rational (), Rational::nan ()},
     {1, 0, Rational::infinity ()},
     {Rational::infinity (), 0, Rational::infinity ()},
     // by infinities
@@ -422,6 +430,11 @@ TEST (Rational_test, modulo)
     {-2, Rational::infinity (), -2},
     {3, -Rational::infinity (), 3},
     {3, Rational::infinity (), 3},
+    // zero % zero = NaN
+    {0, 0, Rational::nan ()},
+    {0, Rational (), Rational::nan ()},
+    {Rational (), 0, Rational::nan ()},
+    {Rational (), Rational (), Rational::nan ()},
     // with NaN
     {Rational::nan (), Rational::nan (), Rational::nan ()},
     {Rational::nan (), -Rational::infinity (), Rational::nan ()},
@@ -490,6 +503,11 @@ TEST (Rational_test, euclidean_remainder_test)
     {0, Rational::infinity (), Rational::nan ()},
     {3, -Rational::infinity (), Rational::nan ()},
     {3, Rational::infinity (), Rational::nan ()},
+    // zero % zero = NaN
+    {0, 0, Rational::nan ()},
+    {0, Rational (), Rational::nan ()},
+    {Rational (), 0, Rational::nan ()},
+    {Rational (), Rational (), Rational::nan ()},
     // with NaN
     {Rational::nan (), Rational::nan (), Rational::nan ()},
     {Rational::nan (), -Rational::infinity (), Rational::nan ()},

@@ -77,13 +77,6 @@ Rational::Rational (long long n)
   den_ = 1;
 }
 
-Rational::Rational (unsigned long long n)
-{
-  sign_ = sign (n);
-  num_ = n;
-  den_ = 1;
-}
-
 Rational
 Rational::div_rat (Rational div) const
 {
