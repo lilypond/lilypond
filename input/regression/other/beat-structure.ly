@@ -18,6 +18,15 @@ error stream."
 #(expect-equal "signature not found in settings; senza-misura base"
   (beat-structure +inf.0 '(4 . 4) '())
   '())
+#(expect-equal "signature not found in settings; frac. w/ default base"
+  (beat-structure 1/4 '(7/2 . 4) '())
+  '(1 1 1 1/2))
+#(expect-equal "signature not found in settings; frac. w/ custom base"
+  (beat-structure 1/8 '(7/2 . 4) '())
+  '(2 2 2 1))
+#(expect-equal "signature not found in settings; frac. w/ senza-misura base"
+  (beat-structure +inf.0 '(7/2 . 4) '())
+  '())
 #(expect-equal "signature not found in settings; subdiv. w/ default base"
   (beat-structure 1/8 '((2 3) . 8) '())
   '(2 3))

@@ -367,7 +367,7 @@ If there is no entry, derive a structure from @var{time-sig}."
   (define (calc-simple-fraction-structure time-sig-fraction)
     (let* ((num (car time-sig-fraction))
            (group-size (if (and (> num 3)
-                                (zero? (remainder num 3)))
+                                (zero? (euclidean-remainder num 3)))
                            3
                            1))
            (beat-count (/ num group-size)))
