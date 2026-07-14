@@ -1035,6 +1035,19 @@ Otherwise, return #f."
                 (cons* (*current-context*) symbol properties))
             (new-line->lily-string))))
 
+(define-display-method MeasureRemainderMusic (expr)
+  (format #f "\\measureRemainder ~a"
+          (music->lily-string (ly:music-property expr 'element))))
+
+(define-extra-display-method SequentialMusic (expr)
+  (with-music-match (expr (music 'SequentialMusic
+                                 elements ((music 'InitialContextMusic)
+                                           (music 'BarCheckEvent)
+                                           (music 'MeasureRemainderMusic
+                                                  element ?wrapped-music))))
+                    (format #f "\\measure ~a"
+                            (music->lily-string ?wrapped-music))))
+
 (define-display-method MeasureLengthSet (expr)
   (let* ((dur (ly:music-property expr 'duration)))
     (format #f

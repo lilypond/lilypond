@@ -96,6 +96,22 @@ None so far.
 @itemize
 
 @item
+The new @code{\measure} command changes the measure length to
+match the duration of the given music and restores it afterward.
+
+@lilypond[quote,verbatim]
+\fixed c'' {
+  d2( c)
+  \measure { d\breve }
+}
+@end lilypond
+
+@item
+The new @code{\measureRemainder} command is similar to
+@code{\measure}, but it can be used to complete a measure that has
+already begun.
+
+@item
 The new @code{\setMeasureLengthFromHere} command simplifies
 creating irregular measures by setting the measure length relative
 to the current measure position.  This complements

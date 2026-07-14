@@ -421,6 +421,16 @@ Syntax: @code{\\setMeasureLengthFromHere} @var{duration}
         (types . (measure-length-set))
         ))
 
+    (MeasureRemainderMusic
+     . ((description . "End the current measure after this music.
+
+Syntax: @code{\\measureRemainder @var{music}}")
+        (iterator-ctor . ,ly:measure-remainder-iterator::constructor)
+        (length-callback . ,ly:music-wrapper::length-callback)
+        (start-callback . ,ly:music-wrapper::start-callback)
+        (types . (measure-remainder-music music-wrapper-music))
+        ))
+
     (MultiMeasureArticulationEvent
      . ((description . "Articulations on multi-measure rests.")
         (types . (post-event event multi-measure-articulation-event))

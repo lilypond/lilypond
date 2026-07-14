@@ -1223,6 +1223,48 @@ are printed in red.  If you replace @code{text} with
           music)))
    music)
 
+measure =
+#(define-music-function (music) (ly:music?)
+   (_i "Create a complete measure from @var{music}.
+
+This is equivalent to @code{\\measureRemainder @var{music}}, but with a bar
+check at the beginning as well as the end.")
+   #{
+     \initialContextFrom #(ly:music-deep-copy music)
+     | \measureRemainder #music
+   #} )
+
+measureRemainder =
+#(define-music-function (music) (duration-or-music?)
+   (_i "End the current measure after @var{music}.
+
+The effect is equivalent to this:
+
+@example
+@{
+  \\initialContextFrom %@{ copy of @var{music} %@}
+  \\setMeasureLengthFromHere %@{ duration of @var{music} %@}
+  @var{music} |
+  \\setDefaultMeasureLength
+@}
+@end example
+
+Passing a duration as @var{music} (e.g., @code{\\measureRemainder 2}) is
+reserved for future use.
+
+See @rmusicfn{\\setMeasureLengthFromHere} for more information.
+
+Compare to @rmusicfn{\\premeasure}.")
+   (if (ly:duration? music)
+       (begin
+         ;; TODO: Maybe merge \measureRemainder <music> and
+         ;; \setMeasureLengthFromHere <duration> into one command.
+         ;; There is precedent in \skip <duration> and \skip <music>.
+         (ly:input-warning (*location*)
+                           (G_ "duration reserved for future use"))
+         (make-music 'Music))
+   (make-music 'MeasureRemainderMusic 'element music)))
+
 modalInversion =
 #(define-music-function (around to scale music)
     (ly:pitch? ly:pitch? ly:music? ly:music?)
@@ -1841,6 +1883,8 @@ The effect is equivalent to this:
 
 Passing a duration as @var{music} (e.g., @code{\\premeasure 2}) is reserved for
 future use.
+
+Compare to @rmusicfn{\\measureRemainder}.
 ")
    (if (ly:duration? music)
        (begin
@@ -2260,7 +2304,9 @@ command.
 
 Notational elements that communicate metric structure (e.g., beam breaks) will
 be engraved appropriately to continue the measure.  Compare to
-@rmusicfn{\\partial}.")
+@rmusicfn{\\partial}.
+
+See also @rmusicfn{\\measure} and @rmusicfn{\\measureRemainder}.")
    (make-music 'MeasureLengthSet
                'duration dur
                'origin (*location*)))

@@ -376,6 +376,8 @@ are reported on the stderr of this run."
 \test ##[ \setMeasureLengthFromHere 2 #]                   % MeasureLengthSet
 \test ##[ \setMeasureLengthFromHere 8. #]
 \test ##[ \setMeasureLengthFromHere 4*2/3 #]
+\test ##[ \measure c4 #]                                % MeasureRemainderMusic
+\test ##[ \measureRemainder c4 #]                       % MeasureRemainderMusic
 
 %% \after
 \test ##[ \after 4 \f d'2 #]
