@@ -500,10 +500,9 @@ Syntax: @code{\\override} [ @var{context} @code{.} ]
      . ((description . "Create an anacrusis or upbeat (partial measure).")
         (elements-callback . ,make-partial-set)
         (iterator-ctor . ,ly:sequential-iterator::constructor)
-        ;; The length-callback is kind of cheesy since 'elements is
-        ;; empty.  We just use that in order to get a zero length
-        ;; for the overall timing in spite of having a non-zero
-        ;; duration field.
+        ;; The length callback is slightly ugly.  We just use it to get
+        ;; a zero length for the overall timing in spite of having a
+        ;; non-zero duration property.
         (length-callback . ,ly:music-sequence::cumulative-length-callback)
         (types . (partial-set))
         ))
@@ -557,7 +556,7 @@ Syntax: @var{note}@code{\\(} and @var{note}@code{\\)}")
         (duration . ,(ly:make-duration 0))
         (iterator-ctor . ,ly:sequential-iterator::constructor)
         (elements-callback . ,make-time-signature-set)
-        ;; The length-callback is slightly ugly.  We just use it to get
+        ;; The length callback is slightly ugly.  We just use it to get
         ;; a zero length for the overall timing in spite of having a
         ;; non-zero duration property.
         (length-callback . ,ly:music-sequence::cumulative-length-callback)
