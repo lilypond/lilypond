@@ -1259,6 +1259,7 @@ class Notations(Music_xml_node):
         'arpeggiate': 2,
         'non-arpeggiate': 2,
         'slur': 2,
+        'tied': 2,
     }
 
     def __init__(self):
@@ -1266,13 +1267,14 @@ class Notations(Music_xml_node):
         self._content['arpeggiate'] = []
         self._content['non-arpeggiate'] = []
         self._content['slur'] = []
+        self._content['tied'] = []
 
     def get_tie(self):
         # TODO: Support ties starting and stopping in the same `<notations>`
         #       element (thus becoming either `\laissezVibrer` or
         #       `\repeatTie`).
         # TODO: Support `let-ring` attribute (becoming `\laissezVibrer`).
-        ts = self.get_named_children('tied')
+        ts = self['tied']
         starts = [t for t in ts if t.type == 'start']
         if starts:
             return starts[0]
