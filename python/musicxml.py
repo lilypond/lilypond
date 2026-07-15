@@ -1565,13 +1565,16 @@ class Part(Music_xml_node):
     #   c( ...  d)` (with the expected `b)` in another voice) can lead to
     #   ugly artifacts in the output.
     #
+    # * Do the same for ties, also because we are going to switch on
+    #   `\tieWaitForNote`.
+    #
     # * Keep track of arpeggios.  At a given moment we need to know in which
     #   staff and voice the corresponding note occurs.  The result is
     #   processed later on in function `process_arpeggios`.
     #
     #   We assume that the MusicXML data is well-formed.  In case it is not,
     #   LilyPond will complain.
-    def trace_notation(self, n, slurs, arpeggios):
+    def trace_notation(self, n, slurs, ties, arpeggios):
         notations_children = n['notations']
         voice_id = n['voice'] if 'voice' in n else '1'
         staff_id = n.get('staff', 'None')
@@ -1598,6 +1601,38 @@ class Part(Music_xml_node):
                     prev_array.remove(prev_s)
 
                 del slurs[nr]
+
+            # Technically, rests can contain `<tied>` elements,
+            # however, this doesn't make sense.
+            if 'pitch' in n:
+                for t in notations['tied']:
+                    # XXX: Has 'continue' any other function besides
+                    #      providing additional Bézier data for broken ties?
+                    type = t.get_type()
+                    if type == 'continue' or type == 'let-ring':
+                        continue
+
+                    # This attribute is rarely used because...
+                    nr = getattr(t, 'number', '')
+
+                    # ... specifying the pitch is sufficient in most cases.
+                    # To support enharmonic ties we actually use the
+                    # semitones value as an additional key.
+                    semitones = n['pitch'].to_lily_object().semitones()
+
+                    if (semitones, nr) not in ties:
+                        ties[(semitones, nr)] = (t, voice_id)
+                        continue
+
+                    (prev_t, prev_voice_id) = ties[(semitones, nr)]
+                    if prev_voice_id != voice_id:
+                        t.message(_('Ignoring cross-voice tie'))
+                        t_array = t._parent._content['tied']
+                        t_array.remove(t)
+                        prev_array = prev_t._parent._content['tied']
+                        prev_array.remove(prev_t)
+
+                    del ties[(semitones, nr)]
 
             # The structure used for collecting arpeggio information is as
             # follows.
@@ -1759,8 +1794,10 @@ class Part(Music_xml_node):
         # attribute for rests after a measure has been handled completely.
         maybe_whole_measure_rests = []
 
-        # For removing cross-voice slurs, which LilyPond can't handle.
+        # For removing cross-voice slurs and ties, which LilyPond can't
+        # handle.
         slurs = {}
+        ties = {}
 
         for m in measures:
             # To identify cross-voice and cross-staff arpeggios.
@@ -1864,7 +1901,7 @@ class Part(Music_xml_node):
                 n._measure_position = measure_position
 
                 if 'notations' in n:
-                    self.trace_notation(n, slurs, arpeggios)
+                    self.trace_notation(n, slurs, ties, arpeggios)
 
                 if last_voice_id != voice_id or now > 0:
                     if grace_length > 0:
