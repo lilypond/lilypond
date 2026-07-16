@@ -4862,8 +4862,11 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
                 ev_chord.append(lily_ev)
 
             mxl_tie = notations.get_tie()
-            if mxl_tie and mxl_tie.type == 'start':
+            if (mxl_tie
+                    and (mxl_tie.type == 'start'
+                         or mxl_tie.type == 'let-ring')):
                 tie = musicexp.TieEvent()
+                tie.type = mxl_tie.type
                 tie.color = getattr(mxl_tie, 'color', None)
                 tie.visible = note_visible
                 if options.convert_directions:
@@ -4874,9 +4877,10 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
                         tie.force_direction = \
                             musicxml_direction_to_indicator(dir)
                 main_event.add_associated_event(tie)
-                if not grace:
-                    is_tied = True
-                tie_started = True
+                if tie.type == 'start':
+                    if not grace:
+                        is_tied = True
+                    tie_started = True
             else:
                 is_tied = False
 

@@ -1273,13 +1273,19 @@ class Notations(Music_xml_node):
         # TODO: Support ties starting and stopping in the same `<notations>`
         #       element (thus becoming either `\laissezVibrer` or
         #       `\repeatTie`).
-        # TODO: Support `let-ring` attribute (becoming `\laissezVibrer`).
         ts = self['tied']
-        starts = [t for t in ts if t.type == 'start']
-        if starts:
-            return starts[0]
-        else:
-            return None
+        ret = None
+        # If we have both a normal and a laissez-vibrer tie, prefer the
+        # former and ignore the latter.  In any case, take the first element
+        # found.
+        for t in ts:
+            if t.type == 'start':
+                ret = t
+                break;
+            elif t.type == 'let-ring':
+                if ret is None:
+                    ret = t
+        return ret
 
     def get_tuplets(self):
         return self.get_typed_children(Tuplet)

@@ -2623,6 +2623,7 @@ class TieEvent(Event):
     def __init__(self):
         Event.__init__(self)
         self.force_direction = 0
+        self.type = None
 
     def direction_mod(self):
         return {1: '^', -1: '_', 0: ''}.get(self.force_direction, '')
@@ -2634,11 +2635,17 @@ class TieEvent(Event):
         return ''
 
     def post_note_ly(self, is_chord_element):
+        tie_dict = {
+            'start': '~',
+            'let-ring': r'\laissezVibrer',
+            # 'continue': r'\repeatTie',
+        }
         res = []
         color = color_to_ly(self.color)
         if color is not None:
             res.append(r'\tweak color %s' % color)
-        res.append('%s~' % self.direction_mod())
+        res.append('%s%s' % (self.direction_mod(),
+                            tie_dict.get(self.type, '~')))
         return ' '.join(res)
 
     def ly_expression(self):
