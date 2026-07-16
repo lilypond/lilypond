@@ -492,6 +492,13 @@ pitch} interpretation of isolated durations:
 { a'2~ 4~ 16 r r8 }
 @end lilypond
 
+LilyPond also supports ties between notes that are enharmonically
+equivalent.
+
+@lilypond[quote,verbatim]
+{ gis'1~ | as'1 }
+@end lilypond
+
 Ties are used either when the note crosses a bar line, or when
 dots cannot be used to denote the rhythm.  Ties should also be
 used when note values cross larger subdivisions of the measure:
