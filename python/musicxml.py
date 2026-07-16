@@ -1997,6 +1997,13 @@ class Part(Music_xml_node):
             now = check_measure(previous_measure, maybe_whole_measure_rests,
                                 is_last=True)
 
+        # Since we are going to use `\tieWaitForNote = ##t`, LilyPond no
+        # longer warns if it encounters unterminated ties.  Of course, this
+        # shouldn't happen in well-formed MusicXML input files, but...  For
+        # this reason we emit warnings here.
+        for (t, dummy) in ties.values():
+            t.message(_('Encountered unterminated slur'))
+
         # For cross-staff voices we need two arrays: `voices_first_staff` to
         # collect the staff ID of the first `<note>` element for each voice
         # together with the moment of the last `<note>` element, and

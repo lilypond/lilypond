@@ -4881,6 +4881,9 @@ def musicxml_voice_to_lily_voice(voice, voice_number, starting_grace_skip):
                     if not grace:
                         is_tied = True
                     tie_started = True
+
+                    globvars.layout_information.set_context_item(
+                        'Score', 'tieWaitForNote = ##t')
             else:
                 is_tied = False
 
