@@ -15,7 +15,6 @@ body {
   max-width: 70em;
   font-size: 0.95em;
   line-height: 1.5;
-  text-align: justify;
   padding: 0;
   margin: 0 auto;
   /* fallback for IE8 which doesn't support multiple backgrounds */
@@ -276,7 +275,6 @@ div#pageHeader {
 
 #pageHeader .heading {
   font-size: 4em;
-  text-align: left;
   padding: 0;
   margin: 0 0 0 340px;
 }
@@ -284,7 +282,6 @@ div#pageHeader {
 #pageHeader p {
   font-size: 1.2em;
   font-style: italic;
-  text-align: left;
   padding: 0;
   margin: 0 0 0 340px;
 }
@@ -302,7 +299,6 @@ div#cmws {
 }
 
 div#quickSummary {
-  text-align: left;
   margin: 3em 14em 25px 0;
   font-size: 1.25em;
 }
@@ -338,7 +334,6 @@ div#quickSummary {
 }
 
 .testimonial-item .subsubheading {
-  text-align: left;
   padding: 0 0 0 0.5em;
 }
 
@@ -356,7 +351,6 @@ div#quickSummary {
   top: 0;
   right: 0;
   width: 12em;
-  text-align: left;
   /* negate the top-margin of the first .subheading */
   margin-top: -0.5em;
 }
@@ -385,7 +379,6 @@ div#footer {
 p#languages {
   padding: 0.7em;
   margin: 0;
-  text-align: left;
 }
 
 h2.unnumbered, h3.unnumberedsec, h4.unnumberedsubsec {
@@ -398,7 +391,6 @@ h2.unnumbered, h3.unnumberedsec, h4.unnumberedsubsec {
 }
 
 table {
-  text-align: left;
   padding: 0 0 0 0.5em;
   border-left: 3px solid #5b7f64;
   margin: 1em 0 0 1em;
@@ -406,10 +398,6 @@ table {
 
 table td {
   padding: 0.4em;
-}
-
-table a {
-  text-align: left;
 }
 
 .verbatim {
@@ -473,7 +461,6 @@ div.float-center a.clickable {
 .column-center-top {
   float: left;
   width: 99.5%;
-  text-align: left;
   border: 1px solid #9ccc7c;
   margin: 1em auto;
 }
@@ -484,7 +471,6 @@ div.float-center a.clickable {
   clear: both;
   float: left;
   width: 99.5%;
-  text-align: left;
   margin: 1em auto;
 }
 
@@ -557,7 +543,6 @@ div.float-center a.clickable {
   background: linear-gradient(to top,
     rgb(140, 210, 118),
     rgb(212, 242, 201));
-  text-align: left;
   border-bottom: 1px solid #9ccc7c;
 }
 
@@ -594,7 +579,6 @@ div.float-center a.clickable {
   background: linear-gradient(to top,
     rgb(204, 211, 143),
     rgb(237, 244, 208));
-  text-align: left;
   border-bottom: 1px solid #ccd38f;
 }
 
@@ -607,7 +591,6 @@ div.float-center a.clickable {
 .column-right-top h4.subheading,
 .column-right-bottom h4.subheading,
 .news-item h4.subheading {
-  text-align: left;
   padding: 3px 0.5em 0;
   margin: 0;
   border-top-left-radius: 5px;
@@ -622,7 +605,6 @@ div.float-center a.clickable {
 .column-left-bottom h4.subsubheading,
 .column-right-top h4.subsubheading,
 .column-right-bottom h4.subsubheading {
-  text-align: left;
   padding: 0.5em 0.5em 0;
   margin: 0 0 0.5em 0;
 }
@@ -654,20 +636,8 @@ div.float-center a.clickable {
 .column-left-bottom li,
 .column-right-top li,
 .column-right-bottom li {
-  text-align: left;
   padding: 0 0.5em 0;
   margin: 0 0 0.5em 0;
-}
-
-.column-center-top p,
-.column-center-middle-color2 p,
-.column-center-middle-color3 p,
-.column-center-bottom p,
-.column-left-top p,
-.column-left-bottom p,
-.column-right-top p,
-.column-right-bottom p {
-  text-align: left;
 }
 
 .column-center-top img.float-left,
@@ -722,7 +692,6 @@ div.float-center a.clickable {
 pre.example, pre.example-preformatted {
   position: relative;
   left: -2.5em;
-  text-align: left;
 }
 
 .h-scroll-auto {
@@ -734,7 +703,6 @@ pre.example, pre.example-preformatted {
 .warning,
 .contactBox {
   background: #eef;
-  text-align: left;
   margin: 1em;
   padding: 0;
   border: 1px solid rgb(160, 160, 175);
