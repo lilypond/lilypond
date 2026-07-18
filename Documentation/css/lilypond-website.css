@@ -51,6 +51,12 @@ li {
   margin-right: 1em;
 }
 
+img {
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+}
+
 a img {
   border: 0;
 }
