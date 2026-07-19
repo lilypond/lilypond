@@ -1235,10 +1235,11 @@ Internals Reference:
 
 @funindex Timing
 
-Dividing music into numbered measures and tracking time within
-measures are duties of the @code{Timing_translator}.  This
-translator is not directly responsible for any engraving, but it
-sets context properties that guide engravers and performers.
+Dividing music into numbered measures (regularly or irregularly)
+and tracking time within measures are duties of the
+@code{Timing_translator}.  This translator is not directly
+responsible for any engraving, but it sets context properties that
+guide engravers and performers.
 
 The context in which the @code{Timing_translator} is placed, which
 is @code{Score} by default, is assigned the alias @code{Timing}.
@@ -1266,13 +1267,17 @@ use of this property see @ref{Bar numbers}.
 @item measureLength
 @funindex measureLength
 
-The length of the measures in the current time signature.  For
-example, @code{\time 4/4} sets this to@tie{}1, and @code{\time
-6/8} sets it to@tie{}3/4.  This property may be set manually to
-create a shorter or longer measure than usual, but it cannot
-reasonably be set less than or equal to @code{measurePosition},
-since the opportunity to start a new measure at the correct time
-is past.
+The length of the current measure.  For example, @code{\time 4/4}
+sets this to@tie{}1, @code{\time 6/8} sets it to@tie{}3/4, and
+@code{\senzaMisura} makes it infinite.  This property may be set
+manually to create a shorter or longer measure than usual, but it
+cannot reasonably be set less than or equal to
+@code{measurePosition}, since the opportunity to start a new
+measure at the correct time is past.  Changing the measure length
+with @code{\measure}, @code{\measureRemainder},
+@code{\setMeasureLengthFromHere}, or
+@code{\setDefaultMeasureLength} is recommended over setting this
+property explicitly.
 
 @item measurePosition
 @funindex measurePosition
@@ -1310,6 +1315,18 @@ next bar line then falls at 9/8 rather than 5/4.
   c4 c1
 }
 @end lilypond
+
+@snippets
+
+@cindex irregular measure
+@cindex measure, irregular
+@funindex \measure
+@funindex \premeasure
+@funindex \setDefaultMeasureLength
+@funindex \setMeasureLengthFromHere
+@lilypondfile[verbatim,quote,texidoc,doctitle]
+{snippets/irregular-measures.ly}
+
 
 @morerefs
 Notation Reference:
