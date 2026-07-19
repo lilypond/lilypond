@@ -238,7 +238,7 @@ g1 |
 @end lilypond
 
 Die @code{measureLength}-Eigenschaft ist beschrieben in
-@ref{Time administration}.
+@ref{Measures}.
 
 @funindex \inStaffSegno
 
@@ -304,7 +304,7 @@ Glossar:
 Notationsreferenz:
 @ref{Bar lines},
 @ref{Modifying context plug-ins},
-@ref{Time administration}.
+@ref{Measures}.
 
 Schnipsel:
 @rlsr{Repeats}.

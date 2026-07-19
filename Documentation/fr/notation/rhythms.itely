@@ -368,7 +368,7 @@ Manuel d'initiation :
 Manuel de notation :
 @ref{Scaling durations},
 @ref{Direction and placement},
-@ref{Time administration},
+@ref{Measures},
 @ref{Tweak and single},
 @ref{Polymetric notation},
 @ref{Visibility of objects}.
@@ -1562,7 +1562,7 @@ Glossaire musicologique :
 
 Manuel de notation :
 @ref{Setting automatic beam behavior},
-@ref{Time administration},
+@ref{Measures},
 @ref{Mensural time signatures},
 @ref{Polymetric notation}.
 
@@ -4782,7 +4782,7 @@ Morceaux choisis :
 @endmorerefs
 
 
-@node Time administration
+@node Measures
 @subsection Gestion du temps
 
 @cindex temps, gestion du

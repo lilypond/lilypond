@@ -360,7 +360,7 @@
 記譜法リファレンス:
 @ref{Direction and placement},
 @ref{Visibility of objects},
-@ref{Time administration},
+@ref{Measures},
 @ref{Scaling durations},
 @ref{The tweak command},
 @ref{Polymetric notation}
@@ -1286,7 +1286,7 @@ R1\fermata
 記譜法リファレンス:
 @ref{Mensural time signatures},
 @ref{Setting automatic beam behavior},
-@ref{Time administration}
+@ref{Measures}
 
 インストールされているファイル:
 @file{scm/time-signature-settings.scm}.
@@ -3796,7 +3796,7 @@ MyCadenza = \relative {
 @rlsr{Rhythms}
 
 
-@node Time administration
+@node Measures
 @unnumberedsubsubsec 時間管理
 
 @cindex time administration (時間管理)

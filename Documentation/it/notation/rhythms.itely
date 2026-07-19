@@ -328,7 +328,7 @@ Manuale di apprendimento:
 
 Guida alla notazione:
 @ref{Direction and placement},
-@ref{Time administration},
+@ref{Measures},
 @ref{Scaling durations},
 @ref{The tweak command},
 @ref{Polymetric notation}.
@@ -1270,7 +1270,7 @@ Glossario musicale:
 Guida alla notazione:
 @ref{Mensural time signatures},
 @ref{Setting automatic beam behavior},
-@ref{Time administration}.
+@ref{Measures}.
 
 File installati:
 @file{scm/time-signature-settings.scm}.
@@ -3790,7 +3790,7 @@ Frammenti di codice:
 @endmorerefs
 
 
-@node Time administration
+@node Measures
 @unnumberedsubsubsec Gestione del tempo
 
 @cindex gestione del tempo

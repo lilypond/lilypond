@@ -354,7 +354,7 @@ c'4 e g
 @ref{Bar lines},
 @ref{Modifying context plug-ins},
 @ref{Modifying ties and slurs},
-@ref{Time administration}
+@ref{Measures}
 
 インストールされているファイル:
 @file{ly/engraver-init.ly}
