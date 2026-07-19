@@ -305,7 +305,7 @@ Manual de aprenentatge:
 
 Referència de la notació:
 @ref{Direction and placement},
-@ref{Time administration},
+@ref{Measures},
 @ref{Scaling durations},
 @ref{The tweak command},
 @ref{Polymetric notation}.
@@ -1250,7 +1250,7 @@ Glossari musical:
 Referència de la notació:
 @ref{Mensural time signatures},
 @ref{Setting automatic beam behavior},
-@ref{Time administration}.
+@ref{Measures}.
 
 Fitxers instal·lats
 @file{scm/time-signature-settings.scm}.
@@ -3723,7 +3723,7 @@ Fragments de codi:
 @rlsr{Rhythms}.
 
 
-@node Time administration
+@node Measures
 @unnumberedsubsubsec Gestió del temps
 
 @cindex temps, administració

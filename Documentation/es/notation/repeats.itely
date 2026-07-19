@@ -892,7 +892,7 @@ Referencia de la notación:
 @ref{Bar lines},
 @ref{Modifying context plug-ins},
 @ref{Modifying ties and slurs},
-@ref{Time administration}.
+@ref{Measures}.
 
 Archivos instalados:
 @file{ly/engraver-init.ly}.

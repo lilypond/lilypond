@@ -283,7 +283,7 @@ Handbuch zum Lernen:
 @rlearningnamed{Tweaking methods, Optimierungsmethoden}.
 
 Notationrreferenz:
-@ref{Time administration},
+@ref{Measures},
 @ref{Scaling durations},
 @ref{The tweak command},
 @ref{Polymetric notation}.
@@ -1235,7 +1235,7 @@ Glossar:
 
 Notationsreferenz:
 @ref{Mensural time signatures},
-@ref{Time administration}.
+@ref{Measures}.
 
 Schnipsel:
 @rlsr{Rhythms}.
@@ -3565,7 +3565,7 @@ Schnipsel:
 
 
 
-@node Time administration
+@node Measures
 @subsection Verwaltung der Zeiteinheiten
 
 @cindex Verwaltung der Zeiteinheiten

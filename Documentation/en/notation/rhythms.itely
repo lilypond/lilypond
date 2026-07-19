@@ -350,7 +350,7 @@ Learning Manual:
 Notation Reference:
 @ref{Direction and placement},
 @ref{Visibility of objects},
-@ref{Time administration},
+@ref{Measures},
 @ref{Scaling durations},
 @ref{Tweak and single},
 @ref{Polymetric notation}.
@@ -1224,31 +1224,37 @@ Internals Reference:
 @section Displaying rhythms
 
 
-@node Time administration
-@subsection Time administration
+@node Measures
+@subsection Measures
 
+@cindex measure
+@cindex music, unmetered
 @cindex time administration
 @cindex timing, within score
-@cindex music, unmetered
 @cindex unmetered music
 
 @funindex Timing
 
-Time is administered by the @code{Timing_translator}, which by
-default is to be found in the @code{Score} context.  An alias,
-@code{Timing}, is added to the context in which the
-@code{Timing_translator} is placed.  To ensure that the
-@code{Timing} alias is available, you may need to explicitly
-instantiate the containing context (such as @code{Voice} or
-@code{Staff}).
+Dividing music into numbered measures and tracking time within
+measures are duties of the @code{Timing_translator}.  This
+translator is not directly responsible for any engraving, but it
+sets context properties that guide engravers and performers.
 
-The following properties of @code{Timing} are used
-to keep track of timing within the score.
+The context in which the @code{Timing_translator} is placed, which
+is @code{Score} by default, is assigned the alias @code{Timing}.
+If you add @code{Timing_translator} to another context (such as
+@code{Voice} or @code{Staff}), you may need to instantiate that
+context explicitly before using the @code{Timing} alias to address
+properties.
 
 @cindex bar number
 @cindex measure number
 @cindex measure position
 @cindex position, in measure
+
+The @code{Timing_translator} uses the following properties of the
+@code{Timing} context to keep track of time and describe it to
+engravers and performers.
 
 @table @code
 @item currentBarNumber
@@ -1260,10 +1266,13 @@ use of this property see @ref{Bar numbers}.
 @item measureLength
 @funindex measureLength
 
-The length of the measures in the current time signature.  For a
-4/4 time this is@tie{}1, and for 6/8 it is 3/4.  Its value
-determines when bar lines are inserted and how automatic beams
-should be generated.
+The length of the measures in the current time signature.  For
+example, @code{\time 4/4} sets this to@tie{}1, and @code{\time
+6/8} sets it to@tie{}3/4.  This property may be set manually to
+create a shorter or longer measure than usual, but it cannot
+reasonably be set less than or equal to @code{measurePosition},
+since the opportunity to start a new measure at the correct time
+is past.
 
 @item measurePosition
 @funindex measurePosition
@@ -1276,9 +1285,9 @@ changed with the @code{\partial} command.
 @item timing
 @funindex timing
 
-If set to @code{#t}, the above variables are updated for every
-time step.  When set to @code{#f}, the above variables keep their
-current values indefinitely.
+When set to @code{#t}, @code{measurePosition} is updated at every
+note, rest, or skip.  When set to @code{#f},
+@code{measurePosition} keeps its current value indefinitely.
 
 @end table
 
@@ -1692,10 +1701,10 @@ Music Glossary:
 @rglos{time signature}
 
 Notation Reference:
+@ref{Measures},
 @ref{Mensural time signatures},
 @ref{Polymetric notation},
-@ref{Setting automatic beam behavior},
-@ref{Time administration}.
+@ref{Setting automatic beam behavior}.
 
 Installed Files:
 @file{scm/time-signature-settings.scm}.

@@ -371,7 +371,7 @@ Manual de aprendizaje:
 Referencia de la notación:
 @ref{Direction and placement},
 @ref{Visibility of objects},
-@ref{Time administration},
+@ref{Measures},
 @ref{Scaling durations},
 @ref{Tweak and single},
 @ref{Polymetric notation}.
@@ -1605,7 +1605,7 @@ Referencia de la notación:
 @ref{Mensural time signatures},
 @ref{Polymetric notation},
 @ref{Setting automatic beam behavior},
-@ref{Time administration}.
+@ref{Measures}.
 
 Archivos instalados:
 @file{scm/time-signature-settings.scm}.
@@ -4961,7 +4961,7 @@ Fragmentos de código:
 @endmorerefs
 
 
-@node Time administration
+@node Measures
 @subsection Gestión del tiempo
 
 @cindex tiempo, administración

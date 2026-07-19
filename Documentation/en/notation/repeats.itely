@@ -864,9 +864,9 @@ Music Glossary:
 Notation Reference:
 @ref{Automatic bar lines},
 @ref{Bar lines},
+@ref{Measures},
 @ref{Modifying context plug-ins},
-@ref{Modifying ties and slurs},
-@ref{Time administration}.
+@ref{Modifying ties and slurs}.
 
 Installed Files:
 @file{ly/engraver-init.ly}.
