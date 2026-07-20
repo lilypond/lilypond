@@ -221,7 +221,8 @@ seconda volta blocks. This behavior can be switched off with
            ;; 'parenthesized would have no effect.
            (ly:grob-set-property! grob 'stencil tab-note-head::print))
           ((or tied? repeat-tied?)
-           (ly:grob-set-property! grob 'transparent #t)))))
+           (ly:grob-set-property! grob 'transparent
+            (ly:grob-property grob 'transparent #t))))))
 
 (define-public (tab-note-head::print grob)
   "Print a tab note head."
