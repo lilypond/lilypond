@@ -414,7 +414,12 @@ that order."
              (let* ((mods (loop (ly:music-property m 'element)
                                 (ly:make-context-mod)))
                     (defs (ly:output-find-context-def
-                           output-def (ly:music-property m 'context-type))))
+                           output-def (ly:music-property m 'context-type)))
+                    (id (ly:music-property m 'context-id)))
+               (if (string? id)
+                   (ly:music-warning
+                    music
+                    (G_ "Context id ~s ignored in output-def") id))
                (if (null? defs)
                    (ly:music-warning
                     music
