@@ -418,8 +418,8 @@ that order."
                (if (null? defs)
                    (ly:music-warning
                     music
-                    (format #f (G_ "Cannot find context-def \\~a")
-                            (ly:music-property m 'context-type)))
+                    (G_ "Cannot find context-def \\~a")
+                    (ly:music-property m 'context-type))
                    (for-each
                     (lambda (entry)
                       (ly:output-def-set-variable!

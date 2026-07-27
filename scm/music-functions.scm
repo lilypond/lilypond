@@ -1497,7 +1497,8 @@ post-event."
               (set! (ly:music-property music 'quoted-events) quoted-vector)
               (set! (ly:music-property music 'iterator-ctor)
                     ly:quote-iterator::constructor))
-            (ly:music-warning music (format #f (G_ "cannot find quoted music: `~S'") quoted-name))))
+            (ly:music-warning music (G_ "cannot find quoted music: `~S'")
+                              quoted-name)))
     music))
 
 

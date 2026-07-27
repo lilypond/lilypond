@@ -98,9 +98,8 @@ depth-first through MUSIC."
                (mult (/ (* times children (ash 1 dots)) (1- (ash 2 dots))))
                (shift (- (ly:intlog2 (floor mult)))))
           (if (not (and (integer? mult) (= (logcount mult) 1)))
-              (ly:music-warning
-               body
-               (format #f (G_ "invalid tremolo repeat count: ~a") times)))
+              (ly:music-warning body (G_ "invalid tremolo repeat count: ~a")
+                                times))
           ;; Make each note take the full duration
           (ly:music-compress stretched (ly:make-moment 1 children))
           ;; Adjust the displayed note durations
