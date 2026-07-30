@@ -452,14 +452,16 @@ string numbers, slurs, ties, and explanatory text.
 
 The pitch may be explicitly defined using the current LilyPond
 input language as described in @rnotation{Note names in other
-languages}.  The pitch may be omitted.  If the pitch is omitted,
-the pitch of the current note will be the same as the pitch of the
-previous note in the input file, see @rnotation{Durations}.  Note that
-neither @samp{r} nor @samp{s} (a @dfn{spacer rest}, see
-@rnotation{Invisible rests}) is a pitch.
+languages}.
+
+Either pitch or duration (but not both) may be omitted.  If the
+pitch is omitted, the pitch of the current note will be the same
+as the pitch of the previous note in the input file, see
+@rnotation{Durations}.  Note that neither @samp{r} nor @samp{s} (a
+@dfn{spacer rest}, see @rnotation{Invisible rests}) is a pitch.
 
 The duration includes a number and optionally one or more dots.
-If a duration is not explicitly defined, the duration of the
+If no explicit duration follows the pitch, the duration of the
 current note will be the same as the duration of the previous
 note, chord, rest, or spacer rest, see @rnotation{Durations}.
 

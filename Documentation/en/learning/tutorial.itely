@@ -281,6 +281,15 @@ explicitly (i.e., with a number).
 }
 @end lilypond
 
+If multiple durations follow a pitch, every duration creates a
+separate note at this pitch.
+
+@lilypond[verbatim,quote]
+\relative {
+  a'4 4 4. 8
+  8. 16 16 8. 8 4.
+}
+@end lilypond
 
 @node Rests
 @unnumberedsubsubsec Rests
