@@ -722,12 +722,15 @@ the automated method with @command{lilypond-book}.
 @subsection Lua@TeX{}
 
 @cindex Lua@TeX{}
-@cindex lyluatex
+@cindex LyLua@TeX{}
 
-As well as @code{lilypond-book} to integrate LilyPond output,
-there is an alternative program that can be used when using Lua@TeX{}
-called
-@uref{https://github.com/jperon/lyluatex/blob/master/README.md,lyluatex}.
+If you use Lua@TeX{} as your @LaTeX{} engine (i.e., you compile
+your documents with @command{lualatex}), you might try the
+@uref{https://@/ctan@/.org/@/pkg/@/lyluatex, lyLua@TeX{} package}
+as an alternative to @command{lilypond-book}.  Due to enhanced
+capabilities of Lua@TeX{}, it is no longer necessary to call an
+external command before running @command{lualatex}; the program
+takes care of calling @command{lilypond} by itself.
 
 
 @node OpenOffice and LibreOffice

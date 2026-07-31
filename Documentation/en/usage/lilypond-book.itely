@@ -25,9 +25,14 @@ program extracts snippets of music from your document, runs
 substituted for the music.  The line width and font size definitions for
 the music are adjusted to match the layout of your document.
 
-This is a separate program from @command{lilypond} itself, and is run
-on the command line; for more information, see
-@ref{Command-line usage}.
+This is a separate program from @command{lilypond} itself, and is
+run on the command line; for more information, see
+@ref{Command-line usage}.@footnote{Users of @LaTeX{}-based systems
+who compile their documents with Lua@LaTeX{} have the option of
+using the @uref{https://@/ctan@/.org/@/pkg/@/lyluatex, lyLua@TeX{}
+package} as an alternative, which offers seamless integration into
+preexisting @TeX{}-based systems without having to preprocess the
+documents separately with @command{lilypond-book}.}
 
 This procedure may be applied to @LaTeX{}, HTML, Texinfo or DocBook
 documents.
