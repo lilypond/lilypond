@@ -43,7 +43,7 @@ $(outdir)/%.pdf: $(outdir)/%.texi
 	    "$(outdir)/$*.texi2pdf.log"
 ifeq ($(USE_EXTRACTPDFMARK),yes)
 	$(EXTRACTPDFMARK) $(EXTRACTPDFMARK_OPTIONS) \
-                 -o $(outdir)/$*.pdfmark $(outdir)/$*.tmp.pdf
+                 -o $(outdir)/$*.pdfmark.pdf $(outdir)/$*.tmp.pdf
 	$(GS920) -dBATCH \
                  -dNOSAFER \
                  -dNOPAUSE \
@@ -56,7 +56,7 @@ ifeq ($(USE_EXTRACTPDFMARK),yes)
                  -c "30000000 setvmthreshold" \
                  -I $(top-build-dir)/out-fonts \
                  -I $(top-build-dir)/out-fonts/Font \
-                 $(outdir)/$*.pdfmark \
+                 $(outdir)/$*.pdfmark.pdf \
                  $(outdir)/$*.tmp.pdf
 	rm $(outdir)/$*.tmp.pdf
 else
