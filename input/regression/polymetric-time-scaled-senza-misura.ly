@@ -1,10 +1,8 @@
-\version "2.25.35"
+\version "2.27.3"
 
 \header {
-  texidoc = "This test defines a @code{\\senzaMisura} command (which may be
-added to LilyPond once all required infrastructure is ready) and demonstrates
-that @code{\\polymetric \\senzaMisura} can be used to set scalable timing
-properties in a local context just as @code{\\polymetric \\time} can.
+  texidoc = "@code{\\polymetric \\senzaMisura} can be used to set scalable
+timing properties in a local context just as @code{\\polymetric \\time} can.
 
 No time signature or bar lines appear in the output.  The notes within the
 phrasing slur are scaled to 2/3 of their written duration, but they are beamed
@@ -12,11 +10,6 @@ in pairs like the unscaled notes (not as triplets)."
 }
 
 #(ly:set-option 'warning-as-error #t)
-
-#(when (defined? 'senzaMisura) (error "update this test"))
-senzaMisura =
-#(define-music-function () ()
-  (make-music 'ReferenceTimeSignatureMusic 'time-signature #f))
 
 \new Score \with {
   forbidBreakBetweenBarLines = ##f

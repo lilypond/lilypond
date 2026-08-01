@@ -96,6 +96,21 @@ None so far.
 @itemize
 
 @item
+The new @code{\senzaMisura} command institutes ``free time'' and
+optionally prints an @q{X} time signature.  The sign is enabled
+with @code{\senzaMisuraTimeSignatureX} and disabled with
+@code{\senzaMisuraTimeSignatureOff}.
+
+@lilypond[quote,verbatim]
+\fixed c' {
+  \senzaMisuraTimeSignatureX
+  \senzaMisura
+  c8 d e f g f e f g1
+  g8 a g f e d c e d1
+}   
+@end lilypond
+
+@item
 The new @code{\measure} command changes the measure length to
 match the duration of the given music and restores it afterward.
 
@@ -191,15 +206,19 @@ argument to lengthen the brackets.
 An equal sign was added to the Emmentaler font.
 
 @item
-A senza-misura time signature was added to the Emmentaler font.
+An @q{X} time signature was added to the Emmentaler font.  It can
+optionally be printed when meter is canceled with the new
+@code{\senzaMisura} command.  Use of the sign is enabled with
+@code{\senzaMisuraTimeSignatureX} and disabled with
+@code{\senzaMisuraTimeSignatureOff}.
 
 @lilypond[quote]
 {
-  \override Staff.TimeSignature.stencil =
-    #(lambda (grob)
-       (grob-interpret-markup grob
-                              (make-musicglyph-markup "timesig.X")))
-  \time 4/4 f'1
+  \senzaMisuraTimeSignatureX
+  \time 2/8
+  \*2 c'8
+  \senzaMisura
+  \measure { \*17 c'8 }
 }
 @end lilypond
 

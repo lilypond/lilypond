@@ -1058,26 +1058,27 @@ Otherwise, return #f."
     ((handle-time
       (define-display-method ReferenceTimeSignatureMusic (expr)
         (let* ((spec (ly:music-property expr 'time-signature *unspecified*))
-               (spec-str (if (fraction? spec)
-                             (format #f "~a/~a" (car spec) (cdr spec))
-                             (format #f "#'~a" spec)))
-               (structure (ly:music-property expr 'beat-structure)))
+               (spec-str (cond
+                          ((not spec)
+                           "##f")
+                          ((fraction? spec)
+                           (format #f "~a/~a" (car spec) (cdr spec)))
+                          (else
+                           (format #f "#'~a" spec))))
+               (structure (ly:music-property expr 'beat-structure))
+               (structure-str
+                (if (key-list? structure)
+                    (format #f "~{~a~^,~}" structure)
+                    (format #f "#~a" (scheme-expr->lily-string structure)))))
           (cond
            ((unspecified? spec)
-            (format #f "\\default"))
+            "\\default")
+           ((not spec)
+            "\\senzaMisura")
            ((null? structure)
-            (format #f
-                    "\\time ~a~a"
-                    spec-str
-                    (new-line->lily-string)))
+            (format #f "\\time ~a~a" spec-str (new-line->lily-string)))
            (else
-            (format #f
-                    ;; This is silly but the latter will also work for #f
-                    ;; and other
-                    (if (key-list? structure)
-                        "\\time ~{~a~^,~} ~a~a"
-                        "\\time #'~a ~a~a")
-                    structure spec-str
+            (format #f "\\time ~a ~a~a" structure-str spec-str
                     (new-line->lily-string))))))))
   (define-display-method PolymetricTimeSignatureMusic (expr)
     (string-append "\\polymetric " (handle-time expr))))

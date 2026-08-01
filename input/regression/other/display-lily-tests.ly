@@ -1,4 +1,4 @@
-\version "2.27.2"
+\version "2.27.3"
 
 #(use-modules (srfi srfi-13)
               (ice-9 format)
@@ -270,6 +270,8 @@ are reported on the stderr of this run."
 \test ##[ \clef "treble_[8]" #]
 \test ##[ \clef "bass^(15)" #]
 \test ##[ \clef "alto_3" #]
+\test ##[ \senzaMisura #]
+\test ##[ \polymetric \senzaMisura #]
 \test "\\time 1/2"
       ##[ \timeAbbrev #'(1 2) #]
 \test "\\time 1/2"

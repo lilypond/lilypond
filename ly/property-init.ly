@@ -301,7 +301,9 @@ cadenzaOn =
 #(define-music-function () ()
   (_i "Stop advancing @code{Timing@/.measurePosition}.
 
-This sets @code{Timing@/.timing} to @code{#f}.")
+This sets @code{Timing@/.timing} to @code{#f}.
+
+Compare to @rmusicfn{\\senzaMisura}.")
   #{
     \set Timing.timing = ##f
   #})

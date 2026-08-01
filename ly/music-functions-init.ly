@@ -460,6 +460,25 @@ may be @code{\\default} to use the next number in sequence automatically.")
        (make-music 'CodaMarkEvent 'label num)
        (make-music 'CodaMarkEvent)))
 
+senzaMisura =
+#(define-music-function () ()
+   (_i "Cancel the time signature; begin free time.
+
+This sets @code{Timing@/.timeSignature} to @code{#f}.
+
+This sets @code{Timing@/.measureLength} to @code{+inf.0}, allowing
+@code{Timing@/.measurePosition} to advance indefinitely without starting a new
+measure.
+
+Beyond this point, ending the current measure requires setting
+@code{Timing@/.measureLength} back to a finite value @emph{before} (not
+@emph{at}) the transition to the next measure.  See @rmusicfn{\\measure} and
+related functions for assistance.
+
+Compare to @rmusicfn{\\cadenzaOn}.
+")
+  (make-music 'ReferenceTimeSignatureMusic 'time-signature #f))
+
 compressMMRests =
 #(define-music-function (music) (ly:music?)
    (_i "Convert empty bars to multi-measure rests in @var{music}.")
@@ -1768,6 +1787,9 @@ anacrusis before the first measure.
 Notational elements that communicate metric structure (e.g., beam breaks) will
 be engraved appropriately for the final @var{dur} part of a measure.  Compare
 to @rmusicfn{\\setMeasureLengthFromHere}.
+
+The calculation requires @code{Timing@/.measureLength} to be finite, so
+@code{\\partial} cannot be used in a senza-misura passage.
 
 See also @rmusicfn{\\premeasure}.")
   (context-spec-music (make-music 'PartialSet
