@@ -1078,6 +1078,7 @@ book_body:
 		// Evaluate and ignore #xxx, as opposed to \xxx
 		parser->lexer_->eval_scm_token ($2, @2);
 	}
+	| book_body assignment
 	| book_body embedded_scm_active
 	{
 		SCM out = SCM_UNDEFINED;
@@ -1162,6 +1163,7 @@ bookpart_body:
 		// Evaluate and ignore #xxx, as opposed to \xxx
 		parser->lexer_->eval_scm_token ($2, @2);
 	}
+	| bookpart_body assignment
 	| bookpart_body embedded_scm_active
 	{
 		SCM out = SCM_UNDEFINED;
