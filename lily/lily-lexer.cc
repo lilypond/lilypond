@@ -164,7 +164,7 @@ Lily_lexer::add_scope (SCM module)
   else
     ly_reexport_module (scm_current_module ());
 
-  for (SCM scope : as_ly_scm_list (scopes_))
+  for (SCM scope : ly_scm_list (scm_reverse (scopes_)))
     ly_use_module (module, scope);
   scopes_ = scm_cons (module, scopes_);
 

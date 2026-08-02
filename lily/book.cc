@@ -48,6 +48,8 @@ Book::Book ()
   smobify_self ();
 
   input_location_ = Input ().smobbed_copy ();
+
+  scope_module_ = ly_make_module ();
 }
 
 Book::Book (Book const &s)
@@ -58,6 +60,7 @@ Book::Book (Book const &s)
   scores_ = SCM_EOL;
   bookparts_ = SCM_EOL;
   input_location_ = SCM_EOL;
+  scope_module_ = SCM_UNDEFINED;
   smobify_self ();
 
   if (s.paper_)
@@ -67,6 +70,9 @@ Book::Book (Book const &s)
     }
 
   input_location_ = s.origin ()->smobbed_copy ();
+
+  scope_module_ = ly_make_module ();
+  ly_module_copy (scope_module_, s.scope_module_);
 
   header_ = ly_make_module ();
   if (ly_is_module (s.header_))
@@ -117,6 +123,7 @@ Book::mark_smob () const
   scm_gc_mark (scores_);
   scm_gc_mark (bookparts_);
   scm_gc_mark (input_location_);
+  scm_gc_mark (scope_module_);
 
   return header_;
 }

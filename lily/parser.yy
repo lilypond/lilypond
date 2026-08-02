@@ -1026,6 +1026,7 @@ book_block:
 		$$ = $3;
 		unsmob<Book> ($$)->origin ()->set_spot (@$);
 		pop_paper (parser);
+		parser->lexer_->remove_scope ();
 		parser->lexer_->set_identifier (ly_symbol2scm ("$current-book"), SCM_BOOL_F);
 	}
 	;
@@ -1043,9 +1044,11 @@ book_body:
 		book->header_ = get_header (parser);
                 $$ = book->unprotect ();
 		parser->lexer_->set_identifier (ly_symbol2scm ("$current-book"), $$);
+		parser->lexer_->add_scope (book->scope_module ());
 	}
 	| BOOK_IDENTIFIER {
 		parser->lexer_->set_identifier (ly_symbol2scm ("$current-book"), $1);
+		parser->lexer_->add_scope (unsmob<Book> ($1)->scope_module ());
 	}
 	| book_body paper_block {
 		unsmob<Book> ($1)->paper_ = unsmob<Output_def> ($2);
@@ -1120,6 +1123,7 @@ bookpart_block:
 	BOOKPART '{' bookpart_body '}' {
 		$$ = $3;
 		unsmob<Book> ($$)->origin ()->set_spot (@$);
+		parser->lexer_->remove_scope ();
 		parser->lexer_->set_identifier (ly_symbol2scm ("$current-bookpart"), SCM_BOOL_F);
 	}
 	;
@@ -1129,9 +1133,11 @@ bookpart_body:
 		Book *book = new Book;
                 $$ = book->unprotect ();
 		parser->lexer_->set_identifier (ly_symbol2scm ("$current-bookpart"), $$);
+		parser->lexer_->add_scope (book->scope_module ());
 	}
 	| BOOK_IDENTIFIER {
 		parser->lexer_->set_identifier (ly_symbol2scm ("$current-bookpart"), $1);
+		parser->lexer_->add_scope (unsmob<Book> ($1)->scope_module ());
 	}
 	| bookpart_body paper_block {
 		unsmob<Book> ($$)->paper_ = unsmob<Output_def> ($2);

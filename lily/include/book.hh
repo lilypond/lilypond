@@ -49,7 +49,8 @@ public:
   Paper_book *process (Output_def *default_paper, Output_def *default_layout,
                        Paper_book *parent_part);
   void set_keys ();
-
+  SCM scope () const { return scm_module_public_interface (scope_module_); }
+  SCM scope_module () const { return scope_module_; }
 protected:
   void set_parent (Book *parent);
   void add_scores_to_bookpart ();
@@ -58,6 +59,8 @@ protected:
                       Output_def *layout);
   void process_bookparts (Paper_book *output_paper_book, Output_def *paper,
                           Output_def *layout);
+private:
+  SCM scope_module_;
 };
 
 #endif /* BOOK_HH */
