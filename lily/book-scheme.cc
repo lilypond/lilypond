@@ -152,6 +152,46 @@ Return paper in @var{book}.
   return b->paper_ ? b->paper_->self_scm () : SCM_BOOL_F;
 }
 
+LY_DEFINE (ly_book_scope, "ly:book-scope", 1, 0, 0, (SCM book),
+           R"(
+Return the module containing the variables local to @var{book}.
+           )")
+{
+  auto *const b = LY_ASSERT_SMOB (Book, book, 1);
+  return b->scope ();
+}
+
+LY_DEFINE (ly_book_set_variable_x, "ly:book-set-variable!", 3, 0, 0,
+           (SCM book, SCM symbol, SCM value),
+           R"(
+In the local variables of @var{book}, set the variable given by
+@var{symbol} to @var{value}.
+           )")
+{
+  auto *const b = LY_ASSERT_SMOB (Book, book, 1);
+  LY_ASSERT_TYPE (ly_is_symbol, symbol, 2);
+  scm_module_define (b->scope_module (), symbol, value);
+  return SCM_UNSPECIFIED;
+}
+
+LY_DEFINE (ly_book_lookup, "ly:book-lookup", 2, 1, 0,
+           (SCM book, SCM symbol, SCM fallback),
+           R"(
+Look up the variable @var{symbol} in @var{book} and return its value.
+If it is undefined, return @var{fallback} if given, else '().
+           )")
+{
+  auto *const b = LY_ASSERT_SMOB (Book, book, 1);
+  LY_ASSERT_TYPE (ly_is_symbol, symbol, 2);
+  SCM v = scm_module_variable (b->scope (), symbol);
+  if (SCM_VARIABLEP (v)) {
+    SCM res = SCM_VARIABLE_REF (v);
+    if (!SCM_UNBNDP (res))
+      return res;
+  }
+  return SCM_UNBNDP (fallback) ? SCM_EOL : fallback;
+}
+
 LY_DEFINE (ly_book_header, "ly:book-header", 1, 0, 0, (SCM book),
            R"(
 Return header in @var{book}.
