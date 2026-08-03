@@ -131,6 +131,7 @@ FIXME:
 #include "misc.hh"
 #include "music.hh"
 #include "output-def.hh"
+#include "parse-scm.hh"
 #include "scm-hash.hh"
 #include "score.hh"
 #include "std-vector.hh"
@@ -513,8 +514,18 @@ lookup:
 	LOOKUP_IDENTIFIER
 	| LOOKUP_IDENTIFIER '.' symbol_list_rev
 	{
-		$$ = loc_on_copy (parser, @$,
-				  nested_property ($1, scm_reverse_x ($3, SCM_EOL)));
+		SCM alist = $1;
+		SCM path = scm_reverse_x ($3, SCM_EOL);
+		$$ = parser_catch (
+			[alist, path] { return nested_property (alist, path); },
+			@$);
+		if (SCM_UNBNDP ($$))
+		{
+			parser->error_level_ = 1;
+			// SCM_UNDEFINED should not get assigned to variables
+			$$ = SCM_UNSPECIFIED;
+		}
+		$$ = loc_on_copy (parser, @$, $$);
 	}
 	| MODULE_IDENTIFIER
 	| MODULE_IDENTIFIER '.' symbol_list_rev
@@ -548,7 +559,19 @@ lookup:
 				// We have reached the end of the modules but
 				// not the end of the path.  Drop into the alist
 				// implementation.
-				val = nested_property (val, path);
+				val = parser_catch (
+					[val, path] {
+						return nested_property (val,
+									path);
+					},
+					@$);
+				if (SCM_UNBNDP (val))
+				{
+					parser->error_level_ = 1;
+					// SCM_UNDEFINED should not get
+					// assigned to variables
+					val = SCM_UNSPECIFIED;
+				}
 				break;
 			}
 		}
