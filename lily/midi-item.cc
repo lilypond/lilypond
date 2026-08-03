@@ -254,17 +254,28 @@ Midi_time_signature::to_string () const
 
   // It seems that this parameter widens the valid range of metronome beat, but
   // it is unclear (a) whether anything else (notably, tempo) must be scaled
-  // accordingly and (b) how well other software supports values other than 8.
+  // accordingly and (b) how well readers support values other than 8.
+  // When their MIDI import code was reviewed in August 2026, both Aria
+  // Maestosa and MuseScore were found to ignore not just this scaling
+  // parameter, but the whole metronome beat.
   constexpr auto num_32nds_per_24_clocks = uint8_t {8};
   const auto clocks_per_whole = Rational (32 * 24, num_32nds_per_24_clocks);
+
+  auto is_valid_beat_clocks = [] (Rational clocks) {
+    return (clocks.den () == 1) && (clocks.num () >= 1)
+           && (clocks.num () <= 255);
+  };
+
   auto beat_clocks = audio_->beat_ * clocks_per_whole;
-  if ((beat_clocks.denominator () != 1) || (beat_clocks.numerator () < 1)
-      || (beat_clocks.numerator () > 255))
+  if (!is_valid_beat_clocks (beat_clocks))
     {
       warning (_f ("unsupported MIDI metronome beat: %s",
                    ::to_string (audio_->beat_)));
-      // TODO: clocks_per_whole / den would probably be better (when valid)
-      beat_clocks = clocks_per_whole / 4;
+      beat_clocks = clocks_per_whole / den;
+      if (!is_valid_beat_clocks (beat_clocks))
+        {
+          beat_clocks = clocks_per_whole / 4;
+        }
     }
 
   return std::string {

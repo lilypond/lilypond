@@ -21,9 +21,7 @@ the MIDI output requires manual inspection."
 %% See 24/1 IRL: "Brobdingnagische Gigue" by Telemann.
 \score {
   \fixed c' {
-    %% Set a tempo that makes playback for testing more convenient.  This is
-    %% still a bit slow, but at 720, MuseScore 4 ignores the metronome
-    %% specified in the MIDI file and performs every third click.
+    %% Set a tempo that makes playback for testing more convenient.
     \tempo 4 = 719
     %% in MIDI file: time signature 24/1, metronome 1 (96 clocks).  (metronome
     %% 3 would reflect the beat structure better, but is too large for MIDI)
