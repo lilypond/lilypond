@@ -55,4 +55,19 @@ SCM evaluate_embedded_scheme (SCM form, Input const &start,
 SCM parse_embedded_scheme (const Input &start, Lily_parser *parser,
                            Input *parsed_output);
 
+// Wrap the given function for use by the parser so that Scheme errors thrown
+// during the call are reported with an input location.
+template <class Functor>
+SCM
+parser_catch (Functor fn, const Input &start)
+{
+  auto trampoline = [] (void *p) { return (*static_cast<Functor *> (p)) (); };
+  auto handler = Parser_error_handler {start};
+  // Catch #t : catch all Scheme level errors.
+  return scm_c_catch (
+    SCM_BOOL_T, trampoline, &fn,
+    &Parser_error_handler::handle_error_after_unwinding, &handler,
+    &Parser_error_handler::handle_error_before_unwinding, &handler);
+}
+
 #endif /* PARSE_SCM_HH */
