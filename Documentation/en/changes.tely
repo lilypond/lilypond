@@ -66,7 +66,23 @@ environments with LilyPond support may provide a way to run
 @node Major changes in LilyPond
 @unnumbered Major changes in LilyPond
 
-None so far.
+@itemize
+
+@item
+@code{\book} and @code{\bookpart} blocks now contain their own
+local scopes for variables.  This scope is active across the block
+and contains all variables defined within the block.  As one
+consequence, assignments to variables are now permitted within
+@code{\book} and @code{\bookpart} blocks, making it easier to
+restructure standalone LilyPond files by wrapping them into books
+or bookparts.  Outside of the containing block, the variables are
+not visible.  The public interface of the module containing a book
+or bookpart's variables can be accessed programmatically using the
+new Scheme function @code{ly:book-scope}; accessors
+@code{ly:book-lookup} and @code{ly:book-set-variable!} are also
+provided.
+
+@end itemize
 
 @ignore
 
@@ -404,7 +420,7 @@ style and duration-log.
 
 @ifhtml
 For older news, go to
-@uref{https://lilypond.org/doc/v2.22/Documentation/changes/},
+@uref{https://lilypond.org/doc/v2.26/Documentation/changes/},
 or @uref{../,go back} to the Documentation index.
 
 @end ifhtml
