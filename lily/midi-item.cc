@@ -252,14 +252,29 @@ Midi_time_signature::to_string () const
       return "";
     }
 
+  // It seems that this parameter widens the valid range of metronome beat, but
+  // it is unclear (a) whether anything else (notably, tempo) must be scaled
+  // accordingly and (b) how well other software supports values other than 8.
+  constexpr auto num_32nds_per_24_clocks = uint8_t {8};
+  const auto clocks_per_whole = Rational (32 * 24, num_32nds_per_24_clocks);
+  auto beat_clocks = audio_->beat_ * clocks_per_whole;
+  if ((beat_clocks.denominator () != 1) || (beat_clocks.numerator () < 1)
+      || (beat_clocks.numerator () > 255))
+    {
+      warning (_f ("unsupported MIDI metronome beat: %s",
+                   ::to_string (audio_->beat_)));
+      // TODO: clocks_per_whole / den would probably be better (when valid)
+      beat_clocks = clocks_per_whole / 4;
+    }
+
   return std::string {
     static_cast<char> (0xff),
     static_cast<char> (0x58),
     static_cast<char> (0x04),
     static_cast<char> (num.num () & 0xFF),
     static_cast<char> (midi_dlog & 0xFF),
-    static_cast<char> (audio_->beat_base_clocks_ & 0xFF),
-    static_cast<char> (0x08),
+    static_cast<char> (beat_clocks.numerator () & 0xFF),
+    static_cast<char> (num_32nds_per_24_clocks),
   };
 }
 

@@ -113,33 +113,19 @@ Time_signature_performer::process_music ()
   if (scm_is_pair (fr) && (event_ || !ly_is_equal (fr, last_time_fraction_)))
     {
       last_time_fraction_ = fr;
-      const auto beat_base
-        = from_scm (get_property (this, "beatBase"), Rational (1, 4));
-      Rational beat_base_clocks = 96 * beat_base;
+
+      // Derive a metronome beat from the beat structure.
+      auto beat = from_scm (get_property (this, "beatBase"), Rational (1, 4));
       SCM common_beat
         = calc_common_beat (get_property (this, "beatStructure"));
       if (is_scm<Rational> (common_beat)
           && scm_is_false (scm_zero_p (common_beat)))
-        beat_base_clocks *= from_scm<Rational> (common_beat);
-      if (beat_base_clocks.denominator () != 1
-          || beat_base_clocks.numerator () < 1
-          || beat_base_clocks.numerator () > 255)
-        {
-          const auto &msg = _ ("bad beatBase/beatStructure"
-                               " for MIDI time signature");
-          if (event_)
-            event_->warning (msg);
-          else
-            warning (msg);
-
-          // Use a quarter note, 24 MIDI clocks
-          beat_base_clocks = 24;
-        }
+        beat *= from_scm<Rational> (common_beat);
 
       audio_ = new Audio_time_signature (
         from_scm<Rational> (scm_car (fr)), // numerator
         from_scm<Rational> (scm_cdr (fr)), // denominator
-        static_cast<int> (beat_base_clocks.numerator ()));
+        beat);
       Audio_element_info info (audio_, event_);
       announce_element (info);
     }

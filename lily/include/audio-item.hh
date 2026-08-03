@@ -184,16 +184,16 @@ public:
 class Audio_time_signature final : public Audio_item
 {
 public:
-  Audio_time_signature (Rational num, Rational den, int beat_base_clocks)
+  Audio_time_signature (Rational num, Rational den, Rational beat)
     : num_ (num),
       den_ (den),
-      beat_base_clocks_ (beat_base_clocks)
+      beat_ (beat)
   {
   }
 
   Rational num_;
   Rational den_;
-  int beat_base_clocks_;
+  Rational beat_; // unit: whole note
 };
 
 // Audio_tempo represents an instantaneous change in tempo, which is
