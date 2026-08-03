@@ -359,21 +359,27 @@ title, like the book itself, by specifying a @code{\header} block.
 @cindex @code{\book}, and variables
 @cindex @code{\bookpart}, and variables
 
-By design, you cannot define variables within a @code{\book} or
-@code{\bookpart} block (the same is true for @code{\score}, by the
-way); this is especially relevant if you want to use multiple
-files to set up your music with variables that should be @q{local}
-to single files.  You can use the following structure for such
-situations.
+Variables defined within a @code{\book} or @code{\bookpart} block
+are local to that book or bookpart; books and bookparts have their
+own @q{scope}.  In contrast, a @code{\score} does not accept
+assignments and has no scope of its own.
+
+If you want to use multiple files to set up your music with
+variables that should be @q{local} to single files, this can be
+done with the following structure:
 
 @example
 % movement1.ly
-variableI = @{ ... @}
-bookpartI = \bookpart @{ \score @{ ... use \variableI ... @} @}
+bookpartI = \bookpart @{
+  variable = @{ @dots{} @}
+  \score @{ @dots{} use \variable @dots{} @}
+@}
 
 % movement2.ly
-variableII = @{ ... @}
-bookpartII = \bookpart @{ \score @{ ... use \variableII ... @} @}
+bookpartII = \bookpart @{
+  variable = @{ @dots{} @}
+  \score @{ @dots{} use \variable @dots{} @}
+@}
 
 % main.ly
 \include "movement1.ly"
@@ -384,12 +390,16 @@ bookpartII = \bookpart @{ \score @{ ... use \variableII ... @} @}
 @}
 @end example
 
+The values of @code{variable} in both bookparts are not related to
+one another.  You cannot reference the variables outside of the
+book or bookpart that they are defined in.
+
 @cindex @code{\book}, and @code{\layout}
 @cindex @code{\bookpart}, and @code{\layout}
 @cindex @code{\layout}, and @code{\book}
 @cindex @code{\layout}, and @code{\bookpart}
 
-Similarly, you can't directly have a @code{\layout} block within
+You can't directly have a @code{\layout} block within
 @code{\book} or @code{\bookpart}.  Put it into a @code{\score}
 block instead that is included by @code{\book} or
 @code{\bookpart}.
