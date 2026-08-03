@@ -305,6 +305,9 @@
   rehearsalMarkFormatter = #format-mark-letters
   segnoMarkFormatter = #format-segno-mark
 
+  %% TODO: Add 'timing to alternativeRestores?
+  alternativeRestores = #'(measurePosition measureLength measureStartNow
+                           lastChord)
   %% It is not unusual for bar number checks to be wrong in MIDI
   %% scores, for example when repeats are unfolded.
   ignoreBarNumberChecks = ##t

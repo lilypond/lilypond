@@ -1,4 +1,4 @@
-\version "2.25.6"
+\version "2.27.3"
 
 #(ly:set-option 'warning-as-error #t)
 
@@ -18,7 +18,11 @@ music = \fixed c' {
   }
 }
 
-<<
-  \new Staff \music
-  \new Staff \music
->>
+\score {
+  \layout {}
+  \midi {}
+  <<
+    \new Staff \music
+    \new Staff \music
+  >>
+}

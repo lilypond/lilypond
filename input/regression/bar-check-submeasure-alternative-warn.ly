@@ -1,4 +1,4 @@
-\version "2.25.6"
+\version "2.27.3"
 
 #(ly:set-option 'warning-as-error #t)
 
@@ -12,27 +12,45 @@ This test should run with expected warnings only."
 %% told the position within the first alternative rather than the
 %% second alternative; but a warning that needs some explanation is
 %% better than no warning.
-#(ly:expect-warning
-  (ly:translate-cpp-warning-scheme "bar check failed at: %s") 1/4)
-#(ly:expect-warning
-  (ly:translate-cpp-warning-scheme "bar check failed at: %s") 1/4)
 
-\fixed c' {
-  \repeat volta 2 {
-    c4
-    \alternative {
-      { d2 | }
-      { e2 }
+\score {
+  \layout {}
+  \midi {}
+  \fixed c' {
+    \applyContext
+    #(lambda (context)
+      (ly:expect-warning
+       (ly:translate-cpp-warning-scheme "bar check failed at: %s") 1/4))
+
+    \repeat volta 2 {
+      c4
+      \alternative {
+        { d2 | }
+        { e2 }
+      }
     }
+
+    \applyContext #(lambda (context) (ly:check-expected-warnings))
   }
 }
 
-\fixed c' {
-  \repeat volta 2 {
-    c4
-    \alternative {
-      { d2 }
-      { | e2 }
+\score {
+  \layout {}
+  \midi {}
+  \fixed c' {
+    \applyContext
+    #(lambda (context)
+      (ly:expect-warning
+       (ly:translate-cpp-warning-scheme "bar check failed at: %s") 1/4))
+
+    \repeat volta 2 {
+      c4
+      \alternative {
+        { d2 }
+        { | e2 }
+      }
     }
+
+    \applyContext #(lambda (context) (ly:check-expected-warnings))
   }
 }
