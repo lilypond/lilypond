@@ -240,6 +240,7 @@ SCM try_word_variants (SCM pred, SCM str);
 SCM try_string_variants (SCM pred, SCM str);
 SCM post_event_cons (SCM ev, SCM tail);
 void property_path_dot_warning (Input loc, SCM lst);
+bool output_def_set (Lily_parser *parser, Output_def *od);
 int yylex (YYSTYPE *s, YYLTYPE *loc, Lily_parser *parser);
 
 
@@ -488,18 +489,9 @@ toplevel_expression:
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("toplevel-score-handler");
 			ly_call (proc, $1);
-		} else if (Output_def * od = unsmob<Output_def> ($1)) {
-			SCM id = SCM_EOL;
-			SCM kind = od->c_variable ("output-def-kind");
-			if (scm_is_eq (kind, ly_symbol2scm ("paper")))
-				id = ly_symbol2scm ("$defaultpaper");
-			else if (scm_is_eq (kind, ly_symbol2scm ("midi")))
-				id = ly_symbol2scm ("$defaultmidi");
-			else if (scm_is_eq (kind, ly_symbol2scm ("layout")))
-				id = ly_symbol2scm ("$defaultlayout");
-
-			parser->lexer_->set_identifier (id, $1);
-		} else if (ly_is_module ($1))
+		} else if (Output_def * od = unsmob<Output_def> ($1))
+			output_def_set (parser, od);
+		else if (ly_is_module ($1))
 		{
 			SCM module = get_header (parser);
 			ly_module_copy (module, $1);
@@ -509,17 +501,7 @@ toplevel_expression:
 			parser->parser_error (@1, _("bad expression type"));
 	}
 	| output_def {
-		SCM id = SCM_EOL;
-		Output_def * od = unsmob<Output_def> ($1);
-		SCM kind = od->c_variable ("output-def-kind");
-		if (scm_is_eq (kind, ly_symbol2scm ("paper")))
-			id = ly_symbol2scm ("$defaultpaper");
-		else if (scm_is_eq (kind, ly_symbol2scm ("midi")))
-			id = ly_symbol2scm ("$defaultmidi");
-		else if (scm_is_eq (kind, ly_symbol2scm ("layout")))
-			id = ly_symbol2scm ("$defaultlayout");
-
-		parser->lexer_->set_identifier (id, $1);
+		output_def_set (parser, unsmob<Output_def> ($1));
 	}
 	;
 
@@ -1029,9 +1011,7 @@ book_block:
 	BOOK '{' book_body '}' 	{
 		$$ = $3;
 		unsmob<Book> ($$)->origin ()->set_spot (@$);
-		pop_paper (parser);
 		parser->lexer_->remove_scope ();
-		parser->lexer_->set_identifier (ly_symbol2scm ("$current-book"), SCM_BOOL_F);
 	}
 	;
 
@@ -1041,22 +1021,22 @@ book_block:
 book_body:
 	{
 		Book *book = new Book;
-		init_papers (parser);
-		book->paper_ = unsmob<Output_def> (parser->lexer_->lookup_identifier ("$defaultpaper"))->clone ();
+		book->paper_ = get_paper (parser);
 		book->paper_->unprotect ();
-		push_paper (parser, book->paper_);
 		book->header_ = get_header (parser);
                 $$ = book->unprotect ();
-		parser->lexer_->set_identifier (ly_symbol2scm ("$current-book"), $$);
 		parser->lexer_->add_scope (book->scope_module ());
+		parser->lexer_->set_identifier (ly_symbol2scm ("$current-book"), $$);
 	}
 	| BOOK_IDENTIFIER {
 		parser->lexer_->set_identifier (ly_symbol2scm ("$current-book"), $1);
 		parser->lexer_->add_scope (unsmob<Book> ($1)->scope_module ());
 	}
-	| book_body paper_block {
-		unsmob<Book> ($1)->paper_ = unsmob<Output_def> ($2);
-		set_paper (parser, unsmob<Output_def> ($2));
+	| book_body output_def {
+		Output_def * od = unsmob<Output_def> ($2);
+		if (output_def_set (parser, od)) {
+			unsmob<Book> ($1)->paper_ = od;
+		}
 	}
 	| book_body bookpart_block {
 		SCM proc = parser->lexer_->lookup_identifier ("book-bookpart-handler");
@@ -1099,13 +1079,8 @@ book_body:
 			SCM proc = parser->lexer_->lookup_identifier ("book-score-handler");
 			ly_call (proc, $1, $2);
 		} else if (Output_def *od = unsmob<Output_def> ($2)) {
-			if (scm_is_eq (od->lookup_variable (ly_symbol2scm ("output-def-kind")),
-				       ly_symbol2scm ("paper"))) {
+			if (output_def_set (parser, od))
 				unsmob<Book> ($1)->paper_ = od;
-				set_paper (parser, od);
-			} else {
-				parser->parser_error (@2, _ ("need \\paper for paper block"));
-			}
 		} else if (ly_is_module ($2))
 		{
 			ly_module_copy (unsmob<Book> ($1)->header_, $2);
@@ -1144,8 +1119,11 @@ bookpart_body:
 		parser->lexer_->set_identifier (ly_symbol2scm ("$current-bookpart"), $1);
 		parser->lexer_->add_scope (unsmob<Book> ($1)->scope_module ());
 	}
-	| bookpart_body paper_block {
-		unsmob<Book> ($$)->paper_ = unsmob<Output_def> ($2);
+	| bookpart_body output_def {
+		Output_def * od = unsmob<Output_def> ($2);
+		if (output_def_set (parser, od)) {
+			unsmob<Book> ($$)->paper_ = unsmob<Output_def> ($2);
+		}
 	}
 	| bookpart_body score_block {
 		SCM proc = parser->lexer_->lookup_identifier ("bookpart-score-handler");
@@ -1184,12 +1162,8 @@ bookpart_body:
 			SCM proc = parser->lexer_->lookup_identifier ("bookpart-score-handler");
 			ly_call (proc, $1, $2);
 		} else if (Output_def *od = unsmob<Output_def> ($2)) {
-			if (scm_is_eq (od->lookup_variable (ly_symbol2scm ("output-def-kind")),
-				       ly_symbol2scm ("paper"))) {
+			if (output_def_set (parser, od))
 				unsmob<Book> ($1)->paper_ = od;
-			} else {
-				parser->parser_error (@2, _ ("need \\paper for paper block"));
-			}
 		} else if (ly_is_module ($2)) {
 			Book *book = unsmob<Book> ($1);
 			if (!ly_is_module (book->header_))
@@ -1334,20 +1308,6 @@ score_items:
 /*
 	OUTPUT DEF
 */
-
-paper_block:
-	output_def {
-                Output_def *od = unsmob<Output_def> ($1);
-
-		if (!scm_is_eq (od->lookup_variable (ly_symbol2scm ("output-def-kind")),
-				ly_symbol2scm ("paper")))
-		{
-			parser->parser_error (@1, _ ("need \\paper for paper block"));
-			$$ = get_paper (parser)->unprotect ();
-		}
-	}
-	;
-
 
 output_def:
 	output_def_body '}' {
@@ -4931,6 +4891,22 @@ void property_path_dot_warning (Input loc, SCM lst)
 	}
 }
 
+bool output_def_set (Lily_parser *parser, Output_def *od)
+{
+	SCM id = SCM_UNDEFINED;
+	SCM kind = od->c_variable ("output-def-kind");
+	bool is_paper;
+	if ((is_paper = scm_is_eq (kind, ly_symbol2scm ("paper"))))
+		id = ly_symbol2scm ("$defaultpaper");
+	else if (scm_is_eq (kind, ly_symbol2scm ("midi")))
+		id = ly_symbol2scm ("$defaultmidi");
+	else if (scm_is_eq (kind, ly_symbol2scm ("layout")))
+		id = ly_symbol2scm ("$defaultlayout");
+	if (!SCM_UNBNDP (id))
+		parser->lexer_->set_identifier (id, od->self_scm ());
+	// TODO: what if output-def-kind is unknown?
+	return is_paper;
+}
 
 int
 yylex (YYSTYPE *s, YYLTYPE *loc, Lily_parser *parser)
