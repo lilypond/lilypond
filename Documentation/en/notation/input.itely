@@ -399,11 +399,10 @@ book or bookpart that they are defined in.
 @cindex @code{\layout}, and @code{\book}
 @cindex @code{\layout}, and @code{\bookpart}
 
-You can't directly have a @code{\layout} block within
-@code{\book} or @code{\bookpart}.  Put it into a @code{\score}
-block instead that is included by @code{\book} or
-@code{\bookpart}.
-
+@code{\layout}, @code{\paper}, and @code{\midi} blocks at the
+outer level of a @code{\book} or @code{\bookpart} establish local
+defaults for scores at that level, similar to how this happens at
+the top level of a document.
 
 @node Multiple output files from one input file
 @section Multiple output files from one input file

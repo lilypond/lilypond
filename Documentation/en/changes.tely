@@ -82,6 +82,17 @@ new Scheme function @code{ly:book-scope}; accessors
 @code{ly:book-lookup} and @code{ly:book-set-variable!} are also
 provided.
 
+@item
+Books and bookparts may now contain output definition blocks
+@code{\layout} and/or @code{\midi} in addition to @code{\paper}
+(which was always possible).  Those take their initial settings
+from the current active scope.  If a bookpart has its own
+@code{\layout} block, that provides a default for typesetting all
+scores it includes that don't have an output definition of their
+own.  The same holds for a book.  Since a score produces only MIDI
+when it explicitly includes a @code{\midi} block, there is no
+similar default behavior for MIDI at processing time.
+
 @end itemize
 
 @ignore
