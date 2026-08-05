@@ -414,7 +414,7 @@ bookOutputName =
 
 This is equivalent to setting @code{output-filename} in the current book's
 @code{\\paper} block.")
-   (set! (paper-variable #f 'output-filename) newfilename))
+   (book-filename-variable-set! 'output-filename newfilename))
 
 bookOutputSuffix =
 #(define-void-function (newsuffix) (string?)
@@ -423,7 +423,7 @@ bookOutputSuffix =
 
 This is equivalent to setting @code{output-suffix} in the current book's
 @code{\\paper} block.")
-   (set! (paper-variable #f 'output-suffix) newsuffix))
+   (book-filename-variable-set! 'output-suffix newsuffix))
 
 %% \breathe is defined as a music function rather than an event identifier to
 %% ensure it gets useful input location information: as an event identifier,

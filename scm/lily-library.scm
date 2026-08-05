@@ -241,7 +241,7 @@ with the correct actual chords."
 @code{output-filename} paper variable (or the @code{\\bookOutputName}
 function), or @code{output-filename} set as a top-level variable, or
 implicitly derived from the input file, in that order."
-  (let ((book-output-filename (paper-variable book 'output-filename)))
+  (let ((book-output-filename (book-filename-variable book 'output-filename)))
     (when (not (string? book-output-filename))
       (set! book-output-filename (ly:parser-lookup 'output-filename))
       (when (not (string? book-output-filename))
@@ -253,7 +253,7 @@ implicitly derived from the input file, in that order."
 @code{output-suffix} paper variable (or the @code{\\bookOutputSuffix}
 function), or @code{output-suffix} set as a top-level variable, in
 that order."
-  (let ((book-output-suffix (paper-variable book 'output-suffix)))
+  (let ((book-output-suffix (book-filename-variable book 'output-suffix)))
     (if (not (string? book-output-suffix))
         (ly:parser-lookup 'output-suffix)
         book-output-suffix)))
@@ -307,23 +307,33 @@ that order."
    (else
     ((ly:parser-lookup 'toplevel-score-handler) score))))
 
-(define-public paper-variable
-  (let
-      ((get-papers
-        (lambda (book)
-          (append (if (and book (ly:output-def? (ly:book-paper book)))
-                      (list (ly:book-paper book))
-                      '())
-                  (ly:parser-lookup '$papers)
-                  (list (ly:parser-lookup '$defaultpaper))))))
-    (make-procedure-with-setter
-     (lambda (book symbol)
-       (any (lambda (p) (ly:output-def-lookup p symbol #f))
-            (get-papers book)))
-     (lambda (book symbol value)
-       (ly:output-def-set-variable!
-        (car (get-papers book))
-        symbol value)))))
+(define-public (book-filename-variable book symbol)
+  (or
+   (let ((paper (ly:book-paper book)))
+     (and (ly:output-def? paper)
+          (ly:output-def-lookup paper symbol #f)))
+   (let ((paper (ly:parser-lookup '$defaultpaper)))
+     (and (ly:output-def? paper)
+          (ly:output-def-lookup paper symbol #f)))))
+
+(define-public (book-filename-variable-set! symbol value)
+  ;; If there is a current book active in the parser, this sets the given
+  ;; symbol in its paper block to the given value.  Note that changing output
+  ;; defs is done after copying them to avoid back-propagation.  Current
+  ;; implementation always has a paper block in the current book but that may
+  ;; change in which case we use the current default wherever it may come from.
+  ;; If we have a current book, the changed paper block ends up there, else it
+  ;; ends in the currently active scope and we cross fingers that this may be
+  ;; where it is needed.
+  (let* ((current-book (ly:parser-lookup '$current-book))
+         (book-p (and (ly:book? current-book)
+                      (ly:book-lookup current-book '$defaultpaper #f)))
+         (paper (ly:output-def-clone
+                 (or book-p (ly:parser-lookup '$defaultpaper)))))
+    (output-def-set! paper symbol value)
+    (if (ly:book? current-book)
+        (ly:book-set-variable! current-book '$defaultpaper paper)
+        (ly:parser-define! '$defaultpaper paper))))
 
 (define-public (add-text text)
   (add-score (list text)))
