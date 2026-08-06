@@ -30,6 +30,7 @@ ly_make_module ()
   Guile_user::module_export_all_x (mod);
   ly_use_module (mod, Guile_user::the_root_module);
   ly_use_module (mod, Lily::module);
+  Lily::set_scope_duplicates_handlers_x (mod);
   return mod;
 }
 

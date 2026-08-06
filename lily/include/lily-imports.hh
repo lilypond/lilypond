@@ -153,6 +153,7 @@ extern Variable score_lines_markup_list;
 extern Variable score_markup;
 extern Variable scorify_music;
 extern Variable select_head_glyph;
+extern Variable set_scope_duplicates_handlers_x;
 extern Variable stencil_whiteout;
 extern Variable stencil_whiteout_box;
 extern Variable stencil_with_color;

@@ -150,6 +150,25 @@ This supports historic use of @code{Completion_heads_engraver} to split
   (/ (+ x (apply + lst)) (1+ (length lst))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Scoping
+
+;; TODO: shadowing warnings.
+;; Not used right now, probably more trouble than they are worth.
+(define ((located-duplicates-handler input)
+         module name int1 val1 int2 val2 var val)
+  (ly:input-warning (or input (*location*))
+                    (G_ "Using shadowed non-local variable ~a") name)
+  #f)
+
+;; This is used by ly_make_module
+(define* (set-scope-duplicates-handlers! module #:optional input)
+  (set-module-duplicates-handlers!
+   module
+  ;; possible to insert (located-duplicates-handler input) in the looked-up
+   ;; handlers list, before the final entry coming from 'last
+   (lookup-duplicates-handlers '(replace warn-override-core last))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; parser <-> output hooks.
 
 (define-public (collect-bookpart-for-book book-part)
