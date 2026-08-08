@@ -166,6 +166,7 @@ public:
       case SVG:
         surface_ = cairo_svg_surface_create (filename.c_str (), paper_width,
                                              paper_height);
+        cairo_svg_surface_set_document_unit (surface_, CAIRO_SVG_UNIT_PT);
         break;
       case PDF:
         surface_ = cairo_pdf_surface_create (filename.c_str (), paper_width,
