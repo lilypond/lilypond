@@ -99,6 +99,7 @@
   %% Two-sided mode
   %%
   two-sided = ##f
+  two-sided-flipped = ##f
   inner-margin-default = 15\mm   % scaled to paper-size
   outer-margin-default = 15\mm   % scaled to paper-size
   binding-offset-default = 5\mm  % scaled to paper-size
