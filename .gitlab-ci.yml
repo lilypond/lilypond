@@ -39,6 +39,9 @@ include:
 .if-mr-to-default: &if-mr-to-default
   if: $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH
 
+.if-mr-to-mr: &if-mr-to-mr
+  if: $CI_PROJECT_PATH == "lilypond/lilypond" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =~ /dev\/.*/
+
 .if-stable-branch: &if-stable-branch
   if: $CI_PROJECT_PATH == "lilypond/lilypond" && $CI_COMMIT_BRANCH =~ /stable\/.*/
 
@@ -74,6 +77,7 @@ build:
   rules:
     - <<: *if-default-branch
     - <<: *if-mr-to-default
+    - <<: *if-mr-to-mr
     - <<: *if-stable-branch
     - <<: *if-schedule-or-web
   script:
@@ -93,6 +97,7 @@ build-clang:
     - <<: *if-default-branch
       when: never
     - <<: *if-mr-to-default
+    - <<: *if-mr-to-mr
     - <<: *if-stable-branch
     - <<: *if-schedule-or-web
   script:
@@ -143,6 +148,7 @@ check:
   stage: test
   rules:
     - <<: *if-mr-to-default
+    - <<: *if-mr-to-mr
   dependencies: [ "build" ]
   script:
     - cd build
@@ -209,6 +215,7 @@ test-no-bytecode:
     - <<: *if-default-branch
       when: never
     - <<: *if-mr-to-default
+    - <<: *if-mr-to-mr
     - <<: *if-stable-branch
     - <<: *if-schedule-or-web
   dependencies: [ "build" ]
@@ -229,6 +236,7 @@ doc:
     - <<: *if-default-branch
       when: never
     - <<: *if-mr-to-default
+    - <<: *if-mr-to-mr
     - <<: *if-stable-branch
     - <<: *if-schedule-or-web
   dependencies: [ "build" ]
