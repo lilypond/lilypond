@@ -383,7 +383,7 @@ This function can only be used at top level; it must come before any
 @code{\\paper} block.  See also function @code{set-paper-size}."
   (let* ((pap (module-ref (current-module) '$defaultpaper))
          (new-paper (ly:output-def-clone pap))
-         (new-scope (ly:output-def-scope new-paper)))
+         (new-scope (ly:output-def-scope-module new-paper)))
     (internal-set-paper-size
      new-scope
      name

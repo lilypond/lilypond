@@ -47,7 +47,6 @@ public:
   VIRTUAL_CLASS_NAME (Output_def);
   virtual Output_def *clone () const { return new Output_def (*this); }
 
-  SCM scope_;
   Output_def *parent_;
 
   Input input_origin_;
@@ -63,6 +62,10 @@ public:
   void set_variable (SCM sym, SCM val);
   void normalize ();
   Real get_dimension (SCM symbol) const;
+  SCM scope () const { return scm_module_public_interface (module_); }
+  SCM scope_module () const { return module_; }
+private:
+  SCM module_;
 };
 void assign_context_def (Output_def *m, SCM transdef);
 SCM find_context_def (Output_def const *m, SCM name);

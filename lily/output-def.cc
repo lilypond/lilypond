@@ -33,25 +33,25 @@
 
 Output_def::Output_def ()
 {
-  scope_ = SCM_EOL;
+  module_ = SCM_UNDEFINED;
   parent_ = 0;
 
   smobify_self ();
 
-  scope_ = ly_make_module ();
+  module_ = ly_make_module ();
 }
 
 Output_def::Output_def (Output_def const &s)
   : Smob<Output_def> ()
 {
-  scope_ = SCM_EOL;
+  module_ = SCM_UNDEFINED;
   parent_ = 0;
   smobify_self ();
 
   input_origin_ = s.input_origin_;
-  scope_ = ly_make_module ();
-  if (ly_is_module (s.scope_))
-    ly_module_copy (scope_, s.scope_);
+  module_ = ly_make_module ();
+  if (ly_is_module (s.scope_module ()))
+    ly_module_copy (module_, s.scope_module ());
 }
 
 Output_def::~Output_def ()
@@ -66,7 +66,7 @@ Output_def::mark_smob () const
   if (parent_)
     scm_gc_mark (parent_->self_scm ());
 
-  return scope_;
+  return module_;
 }
 
 void
@@ -109,7 +109,7 @@ Output_def::get_dimension (SCM s) const
 SCM
 Output_def::lookup_variable (SCM sym) const
 {
-  SCM var = scm_module_variable (scope_, sym);
+  SCM var = scm_module_variable (scope (), sym);
   if (SCM_VARIABLEP (var) && !SCM_UNBNDP (SCM_VARIABLE_REF (var)))
     return SCM_VARIABLE_REF (var);
 
@@ -128,7 +128,7 @@ Output_def::c_variable (const std::string &s) const
 void
 Output_def::set_variable (SCM sym, SCM val)
 {
-  scm_module_define (scope_, sym, val);
+  scm_module_define (module_, sym, val);
 }
 
 void

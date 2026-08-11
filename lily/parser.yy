@@ -1359,18 +1359,18 @@ output_def_head:
 	PAPER {
                 Output_def *p = get_paper (parser);
 		p->input_origin_ = @$;
-		parser->lexer_->add_scope (p->scope_);
+		parser->lexer_->add_scope (p->scope_module ());
                 $$ = p->unprotect ();
 	}
 	| MIDI    {
 		Output_def *p = get_midi (parser);
 		$$ = p->unprotect ();
-		parser->lexer_->add_scope (p->scope_);
+		parser->lexer_->add_scope (p->scope_module ());
 	}
 	| LAYOUT 	{
 		Output_def *p = get_layout (parser);
 
-		parser->lexer_->add_scope (p->scope_);
+		parser->lexer_->add_scope (p->scope_module ());
 		$$ = p->unprotect ();
 	}
 	;
@@ -1416,7 +1416,7 @@ output_def_body:
 				o->input_origin_.set_spot (@$);
 				$1 = o->self_scm ();
 				parser->lexer_->remove_scope ();
-				parser->lexer_->add_scope (o->scope_);
+				parser->lexer_->add_scope (o->scope_module ());
 				$2 = SCM_UNSPECIFIED;
 			} else
 				$1 = scm_car ($1);

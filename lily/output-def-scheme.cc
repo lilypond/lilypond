@@ -52,11 +52,22 @@ Return the value of @var{sym} in output definition @var{def} (e.g.,
 
 LY_DEFINE (ly_output_def_scope, "ly:output-def-scope", 1, 0, 0, (SCM def),
            R"(
-Return the variable scope inside @var{def}.
+Return the variable scope inside @var{def}.  This is the public interface
+of the module used for implementing the output definition, not containing
+imports necessary for evaluating expressions.
            )")
 {
   auto *const op = LY_ASSERT_SMOB (Output_def, def, 1);
-  return op->scope_;
+  return op->scope ();
+}
+
+LY_DEFINE (ly_output_def_scope_module, "ly:output-def-scope-module", 1, 0, 0, (SCM def),
+           R"(
+Return the module underlying the variable scope inside @var{def}.
+           )")
+{
+  auto *const op = LY_ASSERT_SMOB (Output_def, def, 1);
+  return op->scope_module ();
 }
 
 LY_DEFINE (ly_output_def_parent, "ly:output-def-parent", 1, 1, 0,
@@ -106,7 +117,7 @@ Return the description of translators in @var{output-def}.
 {
   auto *const id = LY_ASSERT_SMOB (Output_def, output_def, 1);
 
-  SCM al = ly_module_2_alist (id->scope_);
+  SCM al = ly_module_2_alist (id->scope ());
   SCM ell = SCM_EOL;
   for (SCM s = al; scm_is_pair (s); s = scm_cdr (s))
     {
@@ -129,7 +140,7 @@ Return an alist of all context defs (matching @var{context-name} if given) in
   if (!SCM_UNBNDP (context_name))
     LY_ASSERT_TYPE (ly_is_symbol, context_name, 2);
 
-  SCM al = ly_module_2_alist (id->scope_);
+  SCM al = ly_module_2_alist (id->scope ());
   SCM ell = SCM_EOL;
   for (SCM s = al; scm_is_pair (s); s = scm_cdr (s))
     {
