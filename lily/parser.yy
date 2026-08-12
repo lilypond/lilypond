@@ -240,7 +240,7 @@ SCM try_word_variants (SCM pred, SCM str);
 SCM try_string_variants (SCM pred, SCM str);
 SCM post_event_cons (SCM ev, SCM tail);
 void property_path_dot_warning (Input loc, SCM lst);
-bool output_def_set (Lily_parser *parser, Output_def *od);
+void output_def_set (Lily_parser *parser, Output_def *od);
 int yylex (YYSTYPE *s, YYLTYPE *loc, Lily_parser *parser);
 
 
@@ -447,7 +447,11 @@ toplevel_expression:
 		ly_call (proc, $1);
 	}
 	| BOOK_IDENTIFIER {
-		SCM sym = unsmob<Book>($1)->paper_
+		// FIXME: was unreliable before, is unreliable in the same
+		// manner still.  Bookparts can very well have a paper block of
+		// their own, for example to have different page dimensions or
+		// page-breaking.
+		SCM sym = unsmob<Book>($1)->paper ()
 			? ly_symbol2scm ("toplevel-book-handler")
 			: ly_symbol2scm ("toplevel-bookpart-handler");
 
@@ -1021,8 +1025,7 @@ book_block:
 book_body:
 	{
 		Book *book = new Book;
-		book->paper_ = get_paper (parser);
-		book->paper_->unprotect ();
+		book->set_paper (get_paper (parser)->unprotect ());
 		book->header_ = get_header (parser);
                 $$ = book->unprotect ();
 		parser->lexer_->add_scope (book->scope_module ());
@@ -1033,10 +1036,7 @@ book_body:
 		parser->lexer_->add_scope (unsmob<Book> ($1)->scope_module ());
 	}
 	| book_body output_def {
-		Output_def * od = unsmob<Output_def> ($2);
-		if (output_def_set (parser, od)) {
-			unsmob<Book> ($1)->paper_ = od;
-		}
+		output_def_set (parser, unsmob<Output_def> ($2));
 	}
 	| book_body bookpart_block {
 		SCM proc = parser->lexer_->lookup_identifier ("book-bookpart-handler");
@@ -1078,10 +1078,9 @@ book_body:
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("book-score-handler");
 			ly_call (proc, $1, $2);
-		} else if (Output_def *od = unsmob<Output_def> ($2)) {
-			if (output_def_set (parser, od))
-				unsmob<Book> ($1)->paper_ = od;
-		} else if (ly_is_module ($2))
+		} else if (Output_def *od = unsmob<Output_def> ($2))
+			output_def_set (parser, od);
+		else if (ly_is_module ($2))
 		{
 			ly_module_copy (unsmob<Book> ($1)->header_, $2);
 		} else if (!scm_is_eq ($2, SCM_UNSPECIFIED))
@@ -1093,7 +1092,6 @@ book_body:
 	} lilypond_header
 	| book_body error {
                 Book *book = unsmob<Book> ($1);
-		book->paper_ = 0;
 		book->scores_ = SCM_EOL;
 		book->bookparts_ = SCM_EOL;
 	}
@@ -1120,10 +1118,7 @@ bookpart_body:
 		parser->lexer_->add_scope (unsmob<Book> ($1)->scope_module ());
 	}
 	| bookpart_body output_def {
-		Output_def * od = unsmob<Output_def> ($2);
-		if (output_def_set (parser, od)) {
-			unsmob<Book> ($$)->paper_ = unsmob<Output_def> ($2);
-		}
+		output_def_set (parser, unsmob<Output_def> ($2));
 	}
 	| bookpart_body score_block {
 		SCM proc = parser->lexer_->lookup_identifier ("bookpart-score-handler");
@@ -1161,10 +1156,9 @@ bookpart_body:
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("bookpart-score-handler");
 			ly_call (proc, $1, $2);
-		} else if (Output_def *od = unsmob<Output_def> ($2)) {
-			if (output_def_set (parser, od))
-				unsmob<Book> ($1)->paper_ = od;
-		} else if (ly_is_module ($2)) {
+		} else if (Output_def *od = unsmob<Output_def> ($2))
+			output_def_set (parser, od);
+		else if (ly_is_module ($2)) {
 			Book *book = unsmob<Book> ($1);
 			if (!ly_is_module (book->header_))
 				book->header_ = ly_make_module ();
@@ -1181,7 +1175,6 @@ bookpart_body:
 	} lilypond_header
 	| bookpart_body error {
                 Book *book = unsmob<Book> ($1);
-		book->paper_ = 0;
 		book->scores_ = SCM_EOL;
 	}
 	;
@@ -4891,12 +4884,13 @@ void property_path_dot_warning (Input loc, SCM lst)
 	}
 }
 
-bool output_def_set (Lily_parser *parser, Output_def *od)
+void
+output_def_set (Lily_parser *parser, Output_def *od)
 {
 	SCM id = SCM_UNDEFINED;
 	SCM kind = od->c_variable ("output-def-kind");
-	bool is_paper;
-	if ((is_paper = scm_is_eq (kind, ly_symbol2scm ("paper"))))
+
+	if (scm_is_eq (kind, ly_symbol2scm ("paper")))
 		id = ly_symbol2scm ("$defaultpaper");
 	else if (scm_is_eq (kind, ly_symbol2scm ("midi")))
 		id = ly_symbol2scm ("$defaultmidi");
@@ -4905,7 +4899,6 @@ bool output_def_set (Lily_parser *parser, Output_def *od)
 	if (!SCM_UNBNDP (id))
 		parser->lexer_->set_identifier (id, od->self_scm ());
 	// TODO: what if output-def-kind is unknown?
-	return is_paper;
 }
 
 int

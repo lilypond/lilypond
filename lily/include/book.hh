@@ -32,7 +32,8 @@ public:
   static const char *const type_p_name_;
   virtual ~Book ();
   SCM header_;
-  Output_def *paper_;
+  Output_def *paper () const;
+  void set_paper (SCM);
 
   SCM scores_;    // SCM list; reverse order (most recently added first)
   SCM bookparts_; // SCM list; reverse order (most recently added first)

@@ -40,7 +40,6 @@ using namespace std::literals;
 
 Book::Book ()
 {
-  paper_ = 0;
   header_ = SCM_EOL;
   scores_ = SCM_EOL;
   bookparts_ = SCM_EOL;
@@ -55,19 +54,12 @@ Book::Book ()
 Book::Book (Book const &s)
   : Smob<Book> ()
 {
-  paper_ = 0;
   header_ = SCM_EOL;
   scores_ = SCM_EOL;
   bookparts_ = SCM_EOL;
   input_location_ = SCM_EOL;
   scope_module_ = SCM_UNDEFINED;
   smobify_self ();
-
-  if (s.paper_)
-    {
-      paper_ = s.paper_->clone ();
-      paper_->unprotect ();
-    }
 
   input_location_ = s.origin ()->smobbed_copy ();
 
@@ -118,8 +110,6 @@ Book::~Book ()
 SCM
 Book::mark_smob () const
 {
-  if (paper_)
-    scm_gc_mark (paper_->self_scm ());
   scm_gc_mark (scores_);
   scm_gc_mark (bookparts_);
   scm_gc_mark (input_location_);
@@ -137,12 +127,6 @@ Book::add_score (SCM s)
 void
 Book::set_parent (Book *parent)
 {
-  if (!paper_)
-    {
-      paper_ = new Output_def ();
-      paper_->unprotect ();
-    }
-  paper_->parent_ = parent->paper_;
   /* Copy the header block of the parent */
   if (ly_is_module (parent->header_))
     {
@@ -281,13 +265,36 @@ Book::process_score (SCM score_scm, Paper_book *output_paper_book,
   scm_remember_upto_here_1 (score_scm);
 }
 
+// This happens rarely enough that we don't need to cache it.
+
+Output_def *
+Book::paper () const
+{
+  SCM scm_paper = scm_module_variable (scope (),
+                                       ly_symbol2scm ("$defaultpaper"));
+  if (scm_is_true (scm_paper))
+    {
+      return unsmob<Output_def> (scm_variable_ref (scm_paper));
+    }
+  return nullptr;
+}
+
+void
+Book::set_paper (SCM paper)
+{
+  scm_module_define (scope (), ly_symbol2scm ("$defaultpaper"), paper);
+}
+
 /* Concatenate all score or book part outputs into a Paper_book
  */
 Paper_book *
 Book::process (Output_def *default_paper, Output_def *default_layout,
                Paper_book *parent_part)
 {
-  Output_def *paper = paper_ ? paper_ : default_paper;
+  Output_def *paper = Book::paper ();
+
+  if (!paper)
+    paper = default_paper;
 
   /* If top book, recursively check score errors */
   if (!parent_part && error_found ())

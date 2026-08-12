@@ -30,19 +30,18 @@ Make a @code{\book} of @var{paper} and @var{header} (which may be @code{#f} as
 well) containing @code{\score}s.
            )")
 {
-  auto *const odef = LY_ASSERT_SMOB (Output_def, paper, 1);
+  // Should we even bother?
+  LY_ASSERT_SMOB (Output_def, paper, 1);
 
   Book *book = new Book;
-  book->paper_ = odef;
+  book->set_paper (paper);
 
   if (ly_is_module (header))
     book->header_ = header;
 
   book->scores_ = ly_append (scores, book->scores_);
 
-  SCM x = book->self_scm ();
-  book->unprotect ();
-  return x;
+  return book->unprotect ();
 }
 
 LY_DEFINE (ly_make_book_part, "ly:make-book-part", 1, 0, 0, (SCM scores),
@@ -53,9 +52,7 @@ Make a @code{\bookpart} containing @code{\score}s.
   Book *book = new Book;
   book->scores_ = ly_append (scores, book->scores_);
 
-  SCM x = book->self_scm ();
-  book->unprotect ();
-  return x;
+  return book->unprotect ();
 }
 
 LY_DEFINE (ly_book_process, "ly:book-process", 4, 0, 0,
@@ -149,7 +146,9 @@ Return paper in @var{book}.
            )")
 {
   auto *const b = LY_ASSERT_SMOB (Book, book, 1);
-  return b->paper_ ? b->paper_->self_scm () : SCM_BOOL_F;
+  if (Output_def const *od = b->paper ())
+    return od->self_scm ();
+  return SCM_BOOL_F;
 }
 
 LY_DEFINE (ly_book_scope, "ly:book-scope", 1, 0, 0, (SCM book),
