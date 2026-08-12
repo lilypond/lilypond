@@ -285,6 +285,21 @@ Book::set_paper (SCM paper)
   scm_module_define (scope (), ly_symbol2scm ("$defaultpaper"), paper);
 }
 
+Output_def *
+Book::layout () const
+{
+  SCM scm_layout = scm_module_variable (scope (),
+                                       ly_symbol2scm ("$defaultlayout"));
+  if (scm_is_true (scm_layout))
+    {
+      return unsmob<Output_def> (scm_variable_ref (scm_layout));
+    }
+  return nullptr;
+}
+
+// No need for set_layout () since \paper is the only kind of output definition
+// that always gets set in a book.
+
 /* Concatenate all score or book part outputs into a Paper_book
  */
 Paper_book *

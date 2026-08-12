@@ -34,6 +34,9 @@ public:
   SCM header_;
   Output_def *paper () const;
   void set_paper (SCM);
+  Output_def *layout () const;
+  // We don't need programmatic access for \midi because there are no implicit
+  // \midi blocks we would need to reference.
 
   SCM scores_;    // SCM list; reverse order (most recently added first)
   SCM bookparts_; // SCM list; reverse order (most recently added first)
