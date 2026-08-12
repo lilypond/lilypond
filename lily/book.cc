@@ -311,11 +311,16 @@ Book::process (Output_def *default_paper, Output_def *default_layout,
   if (!paper)
     paper = default_paper;
 
+  Output_def *layout = Book::layout ();
+
+  if (!layout)
+    layout = default_layout;
+
   /* If top book, recursively check score errors */
   if (!parent_part && error_found ())
     return 0;
 
-  if (!paper)
+  if (!paper || !layout)
     return 0;
 
   Paper_book *paper_book = new Paper_book (paper, parent_part);
@@ -324,7 +329,7 @@ Book::process (Output_def *default_paper, Output_def *default_layout,
   if (scm_is_pair (bookparts_))
     {
       /* Process children book parts */
-      process_bookparts (paper_book, paper, default_layout);
+      process_bookparts (paper_book, paper, layout);
     }
   else
     {
@@ -333,7 +338,7 @@ Book::process (Output_def *default_paper, Output_def *default_layout,
       /* Render in order of parsing.  */
       for (SCM s = scm_reverse (scores_); scm_is_pair (s); s = scm_cdr (s))
         {
-          process_score (scm_car (s), paper_book, default_layout);
+          process_score (scm_car (s), paper_book, layout);
         }
     }
 
