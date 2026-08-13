@@ -49,18 +49,20 @@ Copy all bindings from module @var{src} into @var{dest}.
 }
 
 /* Lookup SYM in a list of modules, which do not have to be related.
-   Return the first instance. */
+   Return the first instance.  Only local symbols are considered,
+   not imported ones */
 LY_DEFINE (ly_modules_lookup, "ly:modules-lookup", 2, 1, 0,
            (SCM modules, SCM sym, SCM def),
            R"(
-Look up @var{sym} in the list @var{modules}, returning the first occurrence.
-If not found, return @var{def} or @code{#f} if @var{def} isn't specified.
+Look up @var{sym} in the list @var{modules}, returning the value of the
+first defined module-local variable of that name.
+If not found, return @var{def}, or @code{#f} if @var{def} isn't specified.
            )")
 {
   for (SCM s = modules; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM mod = scm_car (s);
-      SCM v = scm_module_variable (mod, sym);
+      SCM v = scm_module_local_variable (mod, sym);
       if (SCM_VARIABLEP (v) && !SCM_UNBNDP (SCM_VARIABLE_REF (v)))
         return scm_variable_ref (v);
     }

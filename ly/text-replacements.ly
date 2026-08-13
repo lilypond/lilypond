@@ -26,7 +26,7 @@
    ((mod (current-module))
     ;; we can't use property-defaults directly here; it is bound in the shared module
     ;; from declarations-init.
-    (cur (alist-copy (ly:modules-lookup (list mod) 'property-defaults)))
+    (cur (alist-copy (module-symbol-binding mod 'property-defaults '())))
     )
    (module-set! mod 'property-defaults
     (assoc-set! cur 'replacement-alist
