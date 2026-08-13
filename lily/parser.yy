@@ -539,14 +539,18 @@ lookup:
 		// of the path.
 		while (true)
 		{
-			SCM var = scm_module_variable (val, scm_car (path));
-			if (scm_is_false (var))
+			// No imported variables
+			SCM var = scm_module_local_variable (val, scm_car (path));
+			val = scm_is_true (var)
+				? scm_variable_ref (var) : SCM_UNDEFINED;
+			if (SCM_UNBNDP (val))
 			{
 				parser->parser_error (@$, _("not found"));
-				val = SCM_UNDEFINED;
+				// SCM_UNDEFINED should not get assigned to
+				// variables
+				val = SCM_UNSPECIFIED;
 				break;
 			}
-			val = scm_variable_ref (var);
 			path = scm_cdr (path);
 			if (scm_is_null (path))
 			{
