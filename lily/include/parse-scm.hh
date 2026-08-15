@@ -26,6 +26,30 @@
 extern bool parse_protect_global;
 extern bool parsed_objects_should_be_dead;
 
+struct Parser_error_handler
+{
+  // Start of the to-be-parsed form.
+  const Input start_;
+
+  // The pre-unwind handler, which prints the Scheme error.
+  static SCM handle_error_before_unwinding (void *data, SCM tag, SCM args)
+  {
+    const auto &self = *static_cast<const Parser_error_handler *> (data);
+    return self.handle_error_before_unwinding (tag, args);
+  }
+
+  // The outer handler, which just returns SCM_UNDEFINED, leaving the caller to
+  // do something appropriate.  Unreachable with -dno-protected-scheme-parsing.
+  static SCM handle_error_after_unwinding (void * /*data*/, SCM /*tag*/,
+                                           SCM /*args*/)
+  {
+    return SCM_UNDEFINED;
+  }
+
+private:
+  SCM handle_error_before_unwinding (SCM tag, SCM args) const;
+};
+
 SCM evaluate_embedded_scheme (SCM form, Input const &start,
                               Lily_parser *parser);
 SCM parse_embedded_scheme (const Input &start, Lily_parser *parser,

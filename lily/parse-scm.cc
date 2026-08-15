@@ -34,173 +34,159 @@
 // Catch stack traces on error.
 bool parse_protect_global = true;
 
+SCM
+Parser_error_handler::handle_error_before_unwinding (SCM tag, SCM args) const
+{
+  WarningAsErrorExitDeferrer deferrer;
+
+  // Capture the call stack.
+  SCM call_stack = scm_make_stack (SCM_BOOL_T, SCM_EOL);
+  SCM error_source = SCM_BOOL_F;
+
+  // Try to find back the cause of the error in the user's Scheme code.  If
+  // user code called a function defined by Guile or LilyPond and this errors
+  // out deep in the call stack, we'll report the error in the procedure where
+  // the failure occurred, but the error message will be attached to the
+  // initial call in the LilyPond file if possible.  We do this by walking
+  // back in the call stack and finding the first frame that has one of the
+  // LilyPond source files as its file name.
+  SCM top_frame = SCM_BOOL_F;
+  // It would be surprising if the stack were empty, but let's play it safe.
+  if (from_scm<int> (scm_stack_length (call_stack)) == 0)
+    {
+      programming_error ("call stack empty while handling Guile error");
+    }
+  else
+    {
+      // Use scm_stack_ref to get the first frame, but not the following ones
+      // because that would be quadratic (scm_stack_ref is linear in its
+      // second argument like list-ref).
+      top_frame = scm_stack_ref (call_stack, to_scm (0));
+      SCM search_frame = top_frame;
+      SCM source_files = ly_source_files (/* parser */ SCM_UNDEFINED);
+      while (true)
+        {
+          SCM source = scm_frame_source (search_frame);
+          if (scm_is_pair (source))
+            {
+              SCM filename = scm_cadr (source);
+              // This catches user .ly files, but not init files.
+              if (scm_is_true (scm_member (filename, source_files))
+                  // ugh
+                  && !ly_is_equal (filename, to_scm ("<included string>"))
+                  // ly:parser-include-string uses "<included string>" but
+                  // ly:parser-parse-string uses "<string>" (should this be
+                  // harmonized?).
+                  && !ly_is_equal (filename, to_scm ("<string>")))
+                {
+                  error_source = source;
+                  break;
+                }
+            }
+          search_frame = scm_frame_previous (search_frame);
+          if (scm_is_false (search_frame)) // end of stack
+            break;
+        }
+    }
+
+  if (scm_is_false (error_source))
+    {
+      // No location found.  This can happen for syntax errors.  Use the start
+      // of the Scheme expression where the error was raised.
+      start_.non_fatal_error (
+        _ ("Guile signaled an error for the expression beginning here"));
+    }
+  else
+    {
+      SCM filename = scm_cadr (error_source);
+      SCM line = scm_caddr (error_source);
+      SCM column = scm_cdddr (error_source);
+      // We need to find back the line in the .ly file.  This may look a bit
+      // clumsy, but it turns out to be the easiest way not to use the
+      // Source_file infrastructure here, because the parser is oriented
+      // towards getting line/column info from the current char* position (to
+      // work with Flex), whereas here we have the line/column and we want to
+      // get the line from them.
+      SCM port
+        = scm_open_file_with_encoding (filename, to_scm ("r"),
+                                       SCM_BOOL_F, // don't guess encoding
+                                       to_scm ("UTF8"));
+      // Wait until the relevant line
+      while (!ly_is_eqv (scm_port_line (port), line))
+        (void) scm_read_line (port);
+      // It looks like we could just use scm_substring, but we can't, because
+      // of tab expansion, which Guile does on port columns and thus factors
+      // into the column that the error gets.  We do it in a way that
+      // guarantees correctness without having to do the expansion ourselves.
+      SCM before_chars = SCM_EOL;
+      while (!ly_is_eqv (scm_port_column (port), column))
+        before_chars = scm_cons (scm_read_char (port), before_chars);
+      SCM before_substring
+        = scm_string (scm_reverse_x (before_chars, SCM_EOL));
+      SCM after_substring = scm_car (scm_read_line (port));
+      static SCM space = scm_integer_to_char (to_scm (32));
+      // Note that we get the "cutting point" right wrt. tab expansion, but we
+      // don't care to make the "before" and "after" part align at the cutting
+      // point, which is not really possible anyway because there is no
+      // universal tab width.
+      SCM context = scm_make_string (column, space);
+      non_fatal_error (
+        _ ("Guile signaled an error for the expression beginning here") + "\n"
+          + from_scm<std::string> (before_substring) + "\n"
+          + from_scm<std::string> (context)
+          + from_scm<std::string> (after_substring),
+        from_scm<std::string> (filename) + ":"
+          + ly_scm_write_string (scm_oneplus (line)) + ":"
+          + ly_scm_write_string (scm_oneplus (column)));
+    }
+
+  // If enabled, print a backtrace.  "enabled" means that Guile would print a
+  // backtrace if the error were not handled.  This can be turned on with
+  // #(debug-enable 'backtrace) or by running with -ddebug-eval.
+  if (scm_is_true (
+        scm_memq (ly_symbol2scm ("backtrace"), Guile_user::debug_options ())))
+    {
+      // Use scm_display_backtrace and not the scm_backtrace convenience
+      // wrapper because the latter outputs to stdout whereas we want stderr.
+      scm_display_backtrace (call_stack, scm_current_error_port (),
+                             SCM_BOOL_F, // don't cut inner frames
+                             SCM_BOOL_F  // don't cut outer frames
+      );
+    }
+
+  // Now let Guile tell us what the error is about.  We pass #f for the
+  // "frame" argument here since we already showed where the error was
+  // ourselves.
+  scm_print_exception (scm_current_error_port (), SCM_BOOL_F, tag, args);
+
+  // In -dno-protected-scheme-parsing mode, we abort compilation entirely.
+  // Note that even in this mode, we do error handling and don't just "run the
+  // code without catch", because we still want more helpful backtraces for
+  // any errors, e.g., the error location in the LilyPond file and not on the
+  // line of code in one of LilyPond's .scm files that the Scheme code in the
+  // .ly file called.
+  if (!parse_protect_global)
+    exit (1);
+
+  return SCM_UNSPECIFIED; // unimportant
+}
+
 // Input to parsing and evaluation Scheme. We have to group these so
 // we can pass them as a void* through Guile.
-struct Parse_start
+struct Parse_start : public Parser_error_handler
 {
   // Holds the SCM expression to be evaluated; unused for parsing.
   SCM form_;
-
-  // Start of the to-be-parsed form.
-  Input start_;
 
   // Output: full extent of the parsed form.
   Input parsed_;
   Lily_parser *parser_;
 
   Parse_start (SCM form, const Input &start, Lily_parser *parser)
-    : form_ (form),
-      start_ (start),
+    : Parser_error_handler {start},
+      form_ (form),
       parser_ (parser)
   {
-  }
-
-  // The pre-unwind handler, which prints the Scheme error.
-  static SCM handle_error_before_unwinding (void *data, SCM tag, SCM args)
-  {
-    const auto *const ps = static_cast<Parse_start *> (data);
-    WarningAsErrorExitDeferrer deferrer;
-
-    // Capture the call stack.
-    SCM call_stack = scm_make_stack (SCM_BOOL_T, SCM_EOL);
-    SCM error_source = SCM_BOOL_F;
-
-    // Try to find back the cause of the error in the user's Scheme code.  If
-    // user code called a function defined by Guile or LilyPond and this errors
-    // out deep in the call stack, we'll report the error in the procedure where
-    // the failure occurred, but the error message will be attached to the
-    // initial call in the LilyPond file if possible.  We do this by walking
-    // back in the call stack and finding the first frame that has one of the
-    // LilyPond source files as its file name.
-    SCM top_frame = SCM_BOOL_F;
-    // It would be surprising if the stack were empty, but let's play it safe.
-    if (from_scm<int> (scm_stack_length (call_stack)) == 0)
-      {
-        programming_error ("call stack empty while handling Guile error");
-      }
-    else
-      {
-        // Use scm_stack_ref to get the first frame, but not the following ones
-        // because that would be quadratic (scm_stack_ref is linear in its
-        // second argument like list-ref).
-        top_frame = scm_stack_ref (call_stack, to_scm (0));
-        SCM search_frame = top_frame;
-        SCM source_files = ly_source_files (/* parser */ SCM_UNDEFINED);
-        while (true)
-          {
-            SCM source = scm_frame_source (search_frame);
-            if (scm_is_pair (source))
-              {
-                SCM filename = scm_cadr (source);
-                // This catches user .ly files, but not init files.
-                if (scm_is_true (scm_member (filename, source_files))
-                    // ugh
-                    && !ly_is_equal (filename, to_scm ("<included string>"))
-                    // ly:parser-include-string uses "<included string>" but
-                    // ly:parser-parse-string uses "<string>" (should this be
-                    // harmonized?).
-                    && !ly_is_equal (filename, to_scm ("<string>")))
-                  {
-                    error_source = source;
-                    break;
-                  }
-              }
-            search_frame = scm_frame_previous (search_frame);
-            if (scm_is_false (search_frame)) // end of stack
-              break;
-          }
-      }
-
-    if (scm_is_false (error_source))
-      {
-        // No location found.  This can happen for syntax errors.  Use the start
-        // of the Scheme expression where the error was raised.
-        ps->start_.non_fatal_error (
-          _ ("Guile signaled an error for the expression beginning here"));
-      }
-    else
-      {
-        SCM filename = scm_cadr (error_source);
-        SCM line = scm_caddr (error_source);
-        SCM column = scm_cdddr (error_source);
-        // We need to find back the line in the .ly file.  This may look a bit
-        // clumsy, but it turns out to be the easiest way not to use the
-        // Source_file infrastructure here, because the parser is oriented
-        // towards getting line/column info from the current char* position (to
-        // work with Flex), whereas here we have the line/column and we want to
-        // get the line from them.
-        SCM port
-          = scm_open_file_with_encoding (filename, to_scm ("r"),
-                                         SCM_BOOL_F, // don't guess encoding
-                                         to_scm ("UTF8"));
-        // Wait until the relevant line
-        while (!ly_is_eqv (scm_port_line (port), line))
-          (void) scm_read_line (port);
-        // It looks like we could just use scm_substring, but we can't, because
-        // of tab expansion, which Guile does on port columns and thus factors
-        // into the column that the error gets.  We do it in a way that
-        // guarantees correctness without having to do the expansion ourselves.
-        SCM before_chars = SCM_EOL;
-        while (!ly_is_eqv (scm_port_column (port), column))
-          before_chars = scm_cons (scm_read_char (port), before_chars);
-        SCM before_substring
-          = scm_string (scm_reverse_x (before_chars, SCM_EOL));
-        SCM after_substring = scm_car (scm_read_line (port));
-        static SCM space = scm_integer_to_char (to_scm (32));
-        // Note that we get the "cutting point" right wrt. tab expansion, but we
-        // don't care to make the "before" and "after" part align at the cutting
-        // point, which is not really possible anyway because there is no
-        // universal tab width.
-        SCM context = scm_make_string (column, space);
-        non_fatal_error (
-          _ ("Guile signaled an error for the expression beginning here")
-            + "\n" + from_scm<std::string> (before_substring) + "\n"
-            + from_scm<std::string> (context)
-            + from_scm<std::string> (after_substring),
-          from_scm<std::string> (filename) + ":"
-            + ly_scm_write_string (scm_oneplus (line)) + ":"
-            + ly_scm_write_string (scm_oneplus (column)));
-      }
-
-    // If enabled, print a backtrace.  "enabled" means that Guile would print a
-    // backtrace if the error were not handled.  This can be turned on with
-    // #(debug-enable 'backtrace) or by running with -ddebug-eval.
-    if (scm_is_true (scm_memq (ly_symbol2scm ("backtrace"),
-                               Guile_user::debug_options ())))
-      {
-        // Use scm_display_backtrace and not the scm_backtrace convenience
-        // wrapper because the latter outputs to stdout whereas we want stderr.
-        scm_display_backtrace (call_stack, scm_current_error_port (),
-                               SCM_BOOL_F, // don't cut inner frames
-                               SCM_BOOL_F  // don't cut outer frames
-        );
-      }
-
-    // Now let Guile tell us what the error is about.  We pass #f for the
-    // "frame" argument here since we already showed where the error was
-    // ourselves.
-    scm_print_exception (scm_current_error_port (), SCM_BOOL_F, tag, args);
-
-    // In -dno-protected-scheme-parsing mode, we abort compilation entirely.
-    // Note that even in this mode, we do error handling and don't just "run the
-    // code without catch", because we still want more helpful backtraces for
-    // any errors, e.g., the error location in the LilyPond file and not on the
-    // line of code in one of LilyPond's .scm files that the Scheme code in the
-    // .ly file called.
-    if (!parse_protect_global)
-      exit (1);
-
-    return SCM_UNSPECIFIED; // unimportant
-  }
-
-  // The outer handler, which just specifies that any Scheme expression whose
-  // evaluation resulted in an error is evaluated as *unspecified* in order to
-  // be able to continue compiling the main LilyPond file.  (Unreachable in
-  // -dno-protected-scheme-parsing.)
-  static SCM handle_error_after_unwinding (void * /*data*/, SCM /*tag*/,
-                                           SCM /*args*/)
-  {
-    return SCM_UNDEFINED; // lexer.ll catches this to set the lexer's error_level_
   }
 };
 
