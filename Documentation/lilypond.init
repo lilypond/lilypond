@@ -493,7 +493,7 @@ sub lilypond_format_tocframe {
     # For some time, Google won't have the new location in its index, so the
     # search would get nothing.  It is better to keep "v2.23" in the search for
     # a while.
-    my $search_site = 'lilypond.org/doc/v2.25';
+    my $search_site = 'lilypond.org/doc/v2.26';
     if ($manual_name eq 'web') {
         $search_site = 'lilypond.org';
     }
