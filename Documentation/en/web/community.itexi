@@ -953,6 +953,7 @@ announcements and changelogs
 @subheading Announcements
 
 Announcements and news by version:
+@uref{https://lilypond.org/doc/v2.26/Documentation/web/news,v2.26},
 @uref{https://lilypond.org/doc/v2.24/Documentation/web/news,v2.24},
 @uref{https://lilypond.org/doc/v2.22/Documentation/web/news,v2.22},
 @uref{https://lilypond.org/doc/v2.20/Documentation/web/news,v2.20},
@@ -971,6 +972,7 @@ Announcements and news by version:
 @miscLink{ANNOUNCE-0.1,v0.1}
 
 Descriptive list of changes by version:
+@uref{https://lilypond.org/doc/v2.26/Documentation/changes/,v2.26},
 @uref{https://lilypond.org/doc/v2.24/Documentation/changes/,v2.24},
 @uref{https://lilypond.org/doc/v2.22/Documentation/changes/,v2.22},
 @uref{https://lilypond.org/doc/v2.20/Documentation/changes/,v2.20},
@@ -995,6 +997,7 @@ Descriptive list of changes by version:
 @subheading Thanks
 
 Thanks to developers, contributors, bug hunters and suggestions for
+@uref{https://lilypond.org/doc/v2.26/Documentation/web/authors,v2.26},
 @uref{https://lilypond.org/doc/v2.24/Documentation/web/authors,v2.24},
 @uref{https://lilypond.org/doc/v2.22/Documentation/web/authors,v2.22},
 @uref{https://lilypond.org/doc/v2.20/Documentation/web/authors,v2.20},
