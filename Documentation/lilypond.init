@@ -489,11 +489,11 @@ sub lilypond_format_tocframe {
     my $search_box = decode('UTF-8', <$fh>);
     close($fh);
     # We depend on an external entity here, which we cannot control.  Suppose
-    # we go from 2.23.x to 2.25.x and put the documentation under "v2.25".
+    # we go from 2.25.x to 2.27.x and put the documentation under "v2.27".
     # For some time, Google won't have the new location in its index, so the
-    # search would get nothing.  It is better to keep "v2.23" in the search for
+    # search would get nothing.  It is better to keep "v2.25" in the search for
     # a while.
-    my $search_site = 'lilypond.org/doc/v2.25';
+    my $search_site = 'lilypond.org/doc/v2.27';
     if ($manual_name eq 'web') {
         $search_site = 'lilypond.org';
     }
