@@ -108,6 +108,10 @@ servir MacPorts.
 @item
 @sourceimage{logo-macosx,,}
 @downloadStableDarwin
+
+@item
+@sourceimage{logo-macosx,,}
+@downloadStableDarwinArm
 @end itemize
 
 @subsubheading Utilització de un gestor de paquets
