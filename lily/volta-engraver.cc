@@ -282,8 +282,10 @@ Volta_engraver::process_music ()
           if (layer.stop_mom_ < Moment::infinity ())
             {
               // VoltaBracket.musical-length was specified.  Check it and
-              // disregard voltaBracketMusicalLength.
-              end = (now_mom () >= layer.stop_mom_);
+              // disregard voltaBracketMusicalLength.  Checking only the main
+              // part excludes any grace notes along with their excluded main
+              // note.
+              end = (now_mom ().main_part_ >= layer.stop_mom_.main_part_);
             }
           else
             {
