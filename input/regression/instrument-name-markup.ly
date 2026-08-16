@@ -1,7 +1,7 @@
 \header {
 
-  texidoc = "Instrument names are set with @code{Staff.instrument} and
-@code{Staff.instr}. You can enter markup texts to create more funky names,
+  texidoc = "Instrument names are set with @code{Staff@/.instrument} and
+@code{Staff@/.instr}. You can enter markup texts to create more funky names,
 including alterations. "
 
 }

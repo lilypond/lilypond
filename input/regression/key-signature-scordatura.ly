@@ -1,7 +1,7 @@
 
 \version "2.19.21"
 
-\header { texidoc = "By setting @code{Staff.keyAlterations} directly,
+\header { texidoc = "By setting @code{Staff@/.keyAlterations} directly,
 key signatures can be set invidually per pitch.
 "
 

@@ -1,7 +1,7 @@
 \version "2.27.2"
 
 \header {
-  texidoc = "If the @code{FingerGlideSpanner.style} is set to @code{'bow} the
+  texidoc = "If the @code{FingerGlideSpanner@/.style} is set to @code{'bow} the
 direction follows direction modifiers."
 }
 

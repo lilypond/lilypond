@@ -1,7 +1,7 @@
 \version "2.23.6"
 
 \header {
-  texidoc ="Adjustments to @code{VoiceFollower.bound-details.left.Y}
+  texidoc ="Adjustments to @code{VoiceFollower@/.bound-details@/.left@/.Y}
 are relative to the @code{VoiceFollower} grob's start staff.  In this
 test, the lines should start and end at the exact middle of the
 respective staves."

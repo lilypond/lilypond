@@ -2,7 +2,7 @@
 
 \header {
 
-  texidoc = "The @code{Voice.instrumentCueName} property generates instrument
+  texidoc = "The @code{Voice@/.instrumentCueName} property generates instrument
 names for cue notes. It can also be unset properly."
   }
 

@@ -3,7 +3,7 @@
 #(ly:set-option 'warning-as-error #t)
 
 \header {
-  texidoc = "This tests @code{Staff.midiPanPosition}.  The sound
+  texidoc = "This tests @code{Staff@/.midiPanPosition}.  The sound
 should begin with an oboe at left and a bassoon at right.  They should
 switch positions in three steps at intervals of two seconds."
 }

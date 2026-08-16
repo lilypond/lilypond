@@ -4,7 +4,7 @@
 
 \header {
   texidoc="A final volta bracket overhanging the next section can be achieved by
-overriding @code{Score.VoltaBracket.musical-length} in a zero-duration
+overriding @code{Score@/.VoltaBracket@/.musical-length} in a zero-duration
 alternative.  The bracket for volta 2 should end 1/3 of the way into the final
 measure."
 }

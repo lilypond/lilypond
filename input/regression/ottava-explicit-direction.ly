@@ -1,7 +1,7 @@
 \version "2.23.3"
 
 \header {
-  texidoc = "User tweaks to @code{OttavaBracket.direction} are
+  texidoc = "User tweaks to @code{OttavaBracket@/.direction} are
 honored in all cases.
 
 In this test, marcato marks show the expected placement."

@@ -1,7 +1,7 @@
 \version "2.25.35"
 
 \header {
-  texidoc = "The @code{VerticalAxisGroup.remove-layer} property
+  texidoc = "The @code{VerticalAxisGroup@/.remove-layer} property
   can be used to keep staves alive with reference to other staves
   in the @code{Keep_alive_together_engraver} group."
 }

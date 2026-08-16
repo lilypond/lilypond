@@ -1,7 +1,7 @@
 \version "2.25.35"
 
 \header {
-  texidoc = "The @code{VerticalAxisGroup.remove-layer}
+  texidoc = "The @code{VerticalAxisGroup@/.remove-layer}
 property can be used for typesetting temporary divisi staves where
 the switch to split staves is done only at line breaks such that all
 complex passages are rendered in separate staves."
