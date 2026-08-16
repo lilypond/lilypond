@@ -113,6 +113,10 @@ utilice MacPorts.
 @item
 @sourceimage{logo-macosx,,}
 @downloadStableDarwin
+
+@item
+@sourceimage{logo-macosx,,}
+@downloadStableDarwinArm
 @end itemize
 
 @subsubheading Instalación

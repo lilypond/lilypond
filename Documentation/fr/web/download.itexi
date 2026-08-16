@@ -112,6 +112,10 @@ LilyPond depuis MacPorts.
 @item
 @sourceimage{logo-macosx,,}
 @downloadStableDarwin
+
+@item
+@sourceimage{logo-macosx,,}
+@downloadStableDarwinArm
 @end itemize
 
 @subsubheading Installation au travers d'un gestionnaire de paquets

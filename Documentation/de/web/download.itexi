@@ -103,6 +103,10 @@ und höher.  Für ältere Versionen benutzen Sie bitte MacPorts.
 @item
 @sourceimage{logo-macosx,,}
 @downloadStableDarwin
+
+@item
+@sourceimage{logo-macosx,,}
+@downloadStableDarwinArm
 @end itemize
 
 @subsubheading Einen Paket-Manager verwenden
