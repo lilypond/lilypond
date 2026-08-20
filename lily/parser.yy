@@ -370,6 +370,7 @@ If we give names, Bison complains.
 %token EMBEDDED_LILY "#{"
 
 %token BOOK_IDENTIFIER
+%token BOOKPART_IDENTIFIER
 %token CHORD_MODIFIER
 %token CHORD_REPETITION
 %token DRUM_PITCH
@@ -448,15 +449,11 @@ toplevel_expression:
 		ly_call (proc, $1);
 	}
 	| BOOK_IDENTIFIER {
-		// FIXME: was unreliable before, is unreliable in the same
-		// manner still.  Bookparts can very well have a paper block of
-		// their own, for example to have different page dimensions or
-		// page-breaking.
-		SCM sym = unsmob<Book>($1)->paper ()
-			? ly_symbol2scm ("toplevel-book-handler")
-			: ly_symbol2scm ("toplevel-bookpart-handler");
-
-		SCM proc = parser->lexer_->lookup_identifier_symbol (sym);
+		SCM proc = parser->lexer_->lookup_identifier ("toplevel-book-handler");
+		ly_call (proc, $1);
+	}
+	| BOOKPART_IDENTIFIER {
+		SCM proc = parser->lexer_->lookup_identifier ("toplevel-bookpart-handler");
 		ly_call (proc, $1);
 	}
 	| score_block {
@@ -493,6 +490,14 @@ toplevel_expression:
 		} else if (unsmob<Score> ($1))
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("toplevel-score-handler");
+			ly_call (proc, $1);
+		} else if (unsmob<Book> ($1))
+		{
+			SCM proc = parser->lexer_->lookup_identifier ("toplevel-book-handler");
+			ly_call (proc, $1);
+		} else if (unsmob<Bookpart> ($1))
+		{
+			SCM proc = parser->lexer_->lookup_identifier ("toplevel-bookpart-handler");
 			ly_call (proc, $1);
 		} else if (Output_def * od = unsmob<Output_def> ($1))
 			output_def_set (parser, od);
@@ -1068,6 +1073,10 @@ book_body:
 		SCM proc = parser->lexer_->lookup_identifier ("book-bookpart-handler");
 		ly_call (proc, $1, $2);
 	}
+        | book_body BOOKPART_IDENTIFIER {
+		SCM proc = parser->lexer_->lookup_identifier ("book-bookpart-handler");
+		ly_call (proc, $1, $2);
+	}
 	| book_body score_block {
 		SCM proc = parser->lexer_->lookup_identifier ("book-score-handler");
 		ly_call (proc, $1, $2);
@@ -1104,6 +1113,10 @@ book_body:
 		{
 			SCM proc = parser->lexer_->lookup_identifier ("book-score-handler");
 			ly_call (proc, $1, $2);
+		} else if (unsmob<Bookpart> ($2))
+		{
+			SCM proc = parser->lexer_->lookup_identifier ("book-bookpart-handler");
+			ly_call (proc, $1, $2);
 		} else if (Output_def *od = unsmob<Output_def> ($2))
 			output_def_set (parser, od);
 		else if (ly_is_module ($2))
@@ -1126,7 +1139,7 @@ book_body:
 bookpart_block:
 	BOOKPART '{' bookpart_body '}' {
 		$$ = $3;
-		unsmob<Book> ($$)->origin ()->set_spot (@$);
+		unsmob<Bookpart> ($$)->origin ()->set_spot (@$);
 		parser->lexer_->set_identifier (ly_symbol2scm ("$current-bookpart"), SCM_BOOL_F);
 		parser->lexer_->remove_scope ();
 	}
@@ -1134,13 +1147,13 @@ bookpart_block:
 
 bookpart_body:
 	{
-		Book *book = new Book;
-                $$ = book->unprotect ();
-		parser->lexer_->add_scope (book->scope_module ());
+		Bookpart *bookpart = new Bookpart;
+		$$ = bookpart->unprotect ();
+		parser->lexer_->add_scope (bookpart->scope_module ());
 		parser->lexer_->set_identifier (ly_symbol2scm ("$current-bookpart"), $$);
 	}
-	| BOOK_IDENTIFIER {
-		parser->lexer_->add_scope (unsmob<Book> ($1)->scope_module ());
+	| BOOKPART_IDENTIFIER {
+		parser->lexer_->add_scope (unsmob<Bookpart> ($1)->scope_module ());
 		parser->lexer_->set_identifier (ly_symbol2scm ("$current-bookpart"), $1);
 	}
 	| bookpart_body output_def {
@@ -1185,23 +1198,23 @@ bookpart_body:
 		} else if (Output_def *od = unsmob<Output_def> ($2))
 			output_def_set (parser, od);
 		else if (ly_is_module ($2)) {
-			Book *book = unsmob<Book> ($1);
-			if (!ly_is_module (book->header_))
-				book->header_ = ly_make_module ();
-			ly_module_copy (book->header_, $2);
+			Bookpart *bookpart = unsmob<Bookpart> ($1);
+			if (!ly_is_module (bookpart->header_))
+				bookpart->header_ = ly_make_module ();
+			ly_module_copy (bookpart->header_, $2);
 		} else if (!scm_is_eq ($2, SCM_UNSPECIFIED))
 			parser->parser_error (@2, _("bad expression type"));
 	}
 	| bookpart_body
 	{
-                Book *book = unsmob<Book> ($1);
-		if (!ly_is_module (book->header_))
-			book->header_ = ly_make_module ();
-		parser->lexer_->add_scope (book->header_);
+		Bookpart *bookpart = unsmob<Bookpart> ($1);
+		if (!ly_is_module (bookpart->header_))
+			bookpart->header_ = ly_make_module ();
+		parser->lexer_->add_scope (bookpart->header_);
 	} lilypond_header
 	| bookpart_body error {
-                Book *book = unsmob<Book> ($1);
-		book->scores_ = SCM_EOL;
+		Bookpart *bookpart = unsmob<Bookpart> ($1);
+		bookpart->scores_ = SCM_EOL;
 	}
 	;
 
@@ -4385,11 +4398,11 @@ int
 Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 {
 	if (unsmob<Book> (sid)) {
-		Book *book =  unsmob<Book> (sid)->clone ();
-		*destination = book->self_scm ();
-		book->unprotect ();
-
+		*destination = unsmob<Book> (sid)->clone ()->unprotect ();
 		return BOOK_IDENTIFIER;
+	} else if (unsmob<Bookpart> (sid)) {
+		*destination = unsmob<Bookpart> (sid)->clone ()->unprotect ();
+		return BOOKPART_IDENTIFIER;
 	} else if (scm_is_number (sid)) {
 		*destination = sid;
 		return NUMBER_IDENTIFIER;

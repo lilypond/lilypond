@@ -25,45 +25,75 @@
 #include "virtual-methods.hh"
 #include "smobs.hh"
 
-class Book : public Smob<Book>
+class Book_or_bookpart : public Smob<Book_or_bookpart>
 {
 public:
   SCM mark_smob () const;
+  int print_smob (SCM port, scm_print_state *) const;
+  virtual void derived_mark () const { };
   static const char *const type_p_name_;
-  virtual ~Book ();
+  virtual ~Book_or_bookpart ();
   SCM header_;
+  SCM scores_;    // SCM list; reverse order (most recently added first)
+
+  Book_or_bookpart ();
+  Book_or_bookpart (Book_or_bookpart const &);
+  Input *origin () const;
+  virtual const char * class_name () const = 0;
+  virtual Book_or_bookpart *clone () const = 0;
+  bool error_found () const;
+  void add_score (SCM);
+  SCM scope () const { return scm_module_public_interface (scope_module_); }
+  SCM scope_module () const { return scope_module_; }
   Output_def *paper () const;
-  void set_paper (SCM);
   Output_def *layout () const;
   // We don't need programmatic access for \midi because there are no implicit
   // \midi blocks we would need to reference.
-
-  SCM scores_;    // SCM list; reverse order (most recently added first)
-  SCM bookparts_; // SCM list; reverse order (most recently added first)
-  SCM input_location_;
-
-  Book (Book const &);
-  Input *origin () const;
-  VIRTUAL_CLASS_NAME (Book);
-  virtual Book *clone () const { return new Book (*this); }
-  Book ();
-  void add_score (SCM);
-  void add_bookpart (SCM);
-  Paper_book *process (Output_def *def_paper, Output_def *def_layout);
-  Paper_book *process (Output_def *default_paper, Output_def *default_layout,
-                       Paper_book *parent_part);
-  SCM scope () const { return scm_module_public_interface (scope_module_); }
-  SCM scope_module () const { return scope_module_; }
 protected:
-  void set_parent (Book *parent);
-  void add_scores_to_bookpart ();
-  bool error_found () const;
+  SCM input_location_;
   void process_score (SCM score, Paper_book *output_paper_book,
                       Output_def *layout);
+private:
+  SCM scope_module_;
+};
+
+struct Preinit_book {
+  SCM bookparts_ = SCM_EOL; // SCM list; reverse order (most recently added
+                            // first)
+};
+
+class Book : public Preinit_book, public Book_or_bookpart
+{
+public:
+  virtual ~Book ();
+  void set_paper (SCM);
+  Book () = default;
+  Book (Book const &);
+  OVERRIDE_CLASS_NAME (Book);
+  Book *clone () const override { return new Book (*this); };
+  bool error_found () const;
+  void add_scores_to_bookpart ();
+  void add_bookpart (SCM);
+  Paper_book *process (Output_def *def_paper, Output_def *def_layout);
+protected:
   void process_bookparts (Paper_book *output_paper_book, Output_def *paper,
                           Output_def *layout);
 private:
-  SCM scope_module_;
+    void derived_mark () const override;
+};
+
+class Bookpart: public Book_or_bookpart
+{
+public:
+  virtual ~Bookpart ();
+  Bookpart () = default;
+  Bookpart (const Bookpart &) = default;
+  OVERRIDE_CLASS_NAME (Bookpart);
+  Bookpart *clone () const override { return new Bookpart (*this); };
+  void set_parent (Book *parent);
+
+  Paper_book *process (Output_def *default_paper, Output_def *default_layout,
+                       Paper_book *parent_part);
 };
 
 #endif /* BOOK_HH */

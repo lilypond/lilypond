@@ -38,37 +38,33 @@
 
 using namespace std::literals;
 
-Book::Book ()
+Book_or_bookpart::Book_or_bookpart ()
 {
-  header_ = SCM_EOL;
+  header_ = SCM_BOOL_F;
   scores_ = SCM_EOL;
-  bookparts_ = SCM_EOL;
-  input_location_ = SCM_EOL;
+  input_location_ = SCM_UNDEFINED;
+  scope_module_ = SCM_UNDEFINED;
   smobify_self ();
-
   input_location_ = Input ().smobbed_copy ();
-
   scope_module_ = ly_make_module ();
 }
 
-Book::Book (Book const &s)
-  : Smob<Book> ()
+Book_or_bookpart::Book_or_bookpart (Book_or_bookpart const &s)
 {
-  header_ = SCM_EOL;
+  header_ = SCM_BOOL_F;
   scores_ = SCM_EOL;
-  bookparts_ = SCM_EOL;
-  input_location_ = SCM_EOL;
+  input_location_ = SCM_UNDEFINED;
   scope_module_ = SCM_UNDEFINED;
   smobify_self ();
-
   input_location_ = s.origin ()->smobbed_copy ();
 
   scope_module_ = ly_make_module ();
   ly_module_copy (scope_module_, s.scope_module_);
 
-  header_ = ly_make_module ();
-  if (ly_is_module (s.header_))
+  if (ly_is_module (s.header_)) {
+    header_ = ly_make_module ();
     ly_module_copy (header_, s.header_);
+  }
   SCM *t = &scores_;
   for (SCM p = s.scores_; scm_is_pair (p); p = scm_cdr (p))
     {
@@ -85,11 +81,14 @@ Book::Book (Book const &s)
         }
       t = SCM_CDRLOC (*t);
     }
+}
 
-  t = &bookparts_;
+Book::Book (Book const &s) : Book_or_bookpart (s)
+{
+  SCM *t = &bookparts_;
   for (SCM p = s.bookparts_; scm_is_pair (p); p = scm_cdr (p))
     {
-      Book *newpart = unsmob<Book> (scm_car (p))->clone ();
+      Bookpart *newpart = unsmob<Bookpart> (scm_car (p))->clone ();
 
       *t = scm_cons (newpart->self_scm (), SCM_EOL);
       t = SCM_CDRLOC (*t);
@@ -98,34 +97,57 @@ Book::Book (Book const &s)
 }
 
 Input *
-Book::origin () const
+Book_or_bookpart::origin () const
 {
   return unsmob<Input> (input_location_);
+}
+
+Book_or_bookpart::~Book_or_bookpart ()
+{
 }
 
 Book::~Book ()
 {
 }
 
-SCM
-Book::mark_smob () const
+Bookpart::~Bookpart ()
 {
+}
+
+SCM
+Book_or_bookpart::mark_smob () const
+{
+  derived_mark ();
   scm_gc_mark (scores_);
-  scm_gc_mark (bookparts_);
   scm_gc_mark (input_location_);
   scm_gc_mark (scope_module_);
 
   return header_;
 }
 
+int
+Book_or_bookpart::print_smob (SCM port, scm_print_state *) const
+{
+  scm_puts ("#<", port);
+  scm_puts (class_name (), port);
+  scm_puts (">", port);
+  return 1;
+}
+
 void
-Book::add_score (SCM s)
+Book::derived_mark () const
+{
+  scm_gc_mark (bookparts_);
+}
+
+void
+Book_or_bookpart::add_score (SCM s)
 {
   scores_ = scm_cons (s, scores_);
 }
 
 void
-Book::set_parent (Book *parent)
+Bookpart::set_parent (Book *parent)
 {
   /* Copy the header block of the parent */
   if (ly_is_module (parent->header_))
@@ -149,7 +171,7 @@ Book::add_scores_to_bookpart ()
     {
       /* If scores have been added to this book, add them to a child
        * book part */
-      Book *part = new Book;
+      Bookpart *part = new Bookpart;
       part->set_parent (this);
       part->scores_ = scores_;
       bookparts_ = scm_cons (part->self_scm (), bookparts_);
@@ -162,21 +184,29 @@ void
 Book::add_bookpart (SCM b)
 {
   add_scores_to_bookpart ();
-  Book *part = unsmob<Book> (b);
+  Bookpart *part = unsmob<Bookpart> (b);
   part->set_parent (this);
   bookparts_ = scm_cons (b, bookparts_);
 }
 
 bool
-Book::error_found () const
+Book_or_bookpart::error_found () const
 {
   for (auto *score : as_ly_smob_list<const Score> (scores_))
     {
       if (score && score->error_found_)
         return true;
     }
+  return false;
+}
 
-  for (auto *bookpart : as_ly_smob_list<const Book> (bookparts_))
+bool
+Book::error_found () const
+{
+  if (Book_or_bookpart::error_found ())
+    return true;
+
+  for (auto *bookpart : as_ly_smob_list<const Bookpart> (bookparts_))
     {
       if (bookpart && bookpart->error_found ())
         return true;
@@ -185,25 +215,18 @@ Book::error_found () const
   return false;
 }
 
-Paper_book *
-Book::process (Output_def *default_paper, Output_def *default_layout)
-{
-  auto trace_slice = tracer_global.log_scope ("Process book"sv);
-  return process (default_paper, default_layout, 0);
-}
-
 void
 Book::process_bookparts (Paper_book *output_paper_book, Output_def *paper,
                          Output_def *layout)
 {
   add_scores_to_bookpart ();
-  for (auto *book : ly_smob_list<Book> (scm_reverse (bookparts_)))
+  for (auto *bookpart : ly_smob_list<Bookpart> (scm_reverse (bookparts_)))
     {
-      if (book)
+      if (bookpart)
         {
           auto trace_slice = tracer_global.log_scope ("bookpart"sv);
           Paper_book *paper_book_part
-            = book->process (paper, layout, output_paper_book);
+            = bookpart->process (paper, layout, output_paper_book);
           if (paper_book_part)
             {
               output_paper_book->add_bookpart (paper_book_part->self_scm ());
@@ -215,8 +238,8 @@ Book::process_bookparts (Paper_book *output_paper_book, Output_def *paper,
 
 /* process one entry of scores_ */
 void
-Book::process_score (SCM score_scm, Paper_book *output_paper_book,
-                     Output_def *layout)
+Book_or_bookpart::process_score (SCM score_scm, Paper_book *output_paper_book,
+                          Output_def *layout)
 {
   if (Score *score = unsmob<Score> (score_scm))
     {
@@ -268,7 +291,7 @@ Book::process_score (SCM score_scm, Paper_book *output_paper_book,
 // This happens rarely enough that we don't need to cache it.
 
 Output_def *
-Book::paper () const
+Book_or_bookpart::paper () const
 {
   SCM scm_paper = scm_module_variable (scope (),
                                        ly_symbol2scm ("$defaultpaper"));
@@ -286,7 +309,7 @@ Book::set_paper (SCM paper)
 }
 
 Output_def *
-Book::layout () const
+Book_or_bookpart::layout () const
 {
   SCM scm_layout = scm_module_variable (scope (),
                                        ly_symbol2scm ("$defaultlayout"));
@@ -302,10 +325,11 @@ Book::layout () const
 
 /* Concatenate all score or book part outputs into a Paper_book
  */
+
 Paper_book *
-Book::process (Output_def *default_paper, Output_def *default_layout,
-               Paper_book *parent_part)
+Book::process (Output_def *default_paper, Output_def *default_layout)
 {
+  auto trace_slice = tracer_global.log_scope ("Process book"sv);
   Output_def *paper = Book::paper ();
 
   if (!paper)
@@ -316,14 +340,14 @@ Book::process (Output_def *default_paper, Output_def *default_layout,
   if (!layout)
     layout = default_layout;
 
-  /* If top book, recursively check score errors */
-  if (!parent_part && error_found ())
-    return 0;
-
   if (!paper || !layout)
-    return 0;
+    return nullptr;
 
-  Paper_book *paper_book = new Paper_book (paper, parent_part);
+  /* top book, recursively check score errors */
+  if (error_found ())
+    return nullptr;
+
+  Paper_book *paper_book = new Paper_book (paper, 0);
   paper_book->header_ = header_;
 
   if (scm_is_pair (bookparts_))
@@ -342,5 +366,35 @@ Book::process (Output_def *default_paper, Output_def *default_layout,
         }
     }
 
+  return paper_book;
+}
+
+Paper_book *
+Bookpart::process (Output_def *default_paper, Output_def *default_layout,
+                   Paper_book *parent_part)
+{
+  Output_def *paper = Bookpart::paper ();
+
+  if (!paper)
+    paper = default_paper;
+
+  Output_def *layout = Bookpart::layout ();
+
+  if (!layout)
+    layout = default_layout;
+
+  if (!paper || !layout)
+    return nullptr;
+
+  Paper_book *paper_book = new Paper_book (paper, parent_part);
+  paper_book->header_ = header_;
+
+  paper_book->paper ()->normalize ();
+  /* Process scores */
+  /* Render in order of parsing.  */
+  for (SCM s = scm_reverse (scores_); scm_is_pair (s); s = scm_cdr (s))
+    {
+      process_score (scm_car (s), paper_book, layout);
+    }
   return paper_book;
 }

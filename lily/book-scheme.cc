@@ -30,7 +30,6 @@ Make a @code{\book} of @var{paper} and @var{header} (which may be @code{#f} as
 well) containing @code{\score}s.
            )")
 {
-  // Should we even bother?
   LY_ASSERT_SMOB (Output_def, paper, 1);
 
   Book *book = new Book;
@@ -49,10 +48,10 @@ LY_DEFINE (ly_make_book_part, "ly:make-book-part", 1, 0, 0, (SCM scores),
 Make a @code{\bookpart} containing @code{\score}s.
            )")
 {
-  Book *book = new Book;
-  book->scores_ = ly_append (scores, book->scores_);
+  Bookpart *bookpart = new Bookpart;
+  bookpart->scores_ = ly_append (scores, bookpart->scores_);
 
-  return book->unprotect ();
+  return bookpart->unprotect ();
 }
 
 LY_DEFINE (ly_book_process, "ly:book-process", 4, 0, 0,
@@ -110,24 +109,25 @@ output).
 }
 
 LY_DEFINE (ly_book_add_score_x, "ly:book-add-score!", 2, 0, 0,
-           (SCM book_smob, SCM score),
+           (SCM book_or_bookpart, SCM score),
            R"(
-Add @var{score} to @var{book-smob} score list.
+Add @var{score} to @var{book-or-bookpart} score list.
            )")
 {
-  auto *const book = LY_ASSERT_SMOB (Book, book_smob, 1);
-  book->add_score (score);
+  auto *const b = LY_ASSERT_SMOB (Book_or_bookpart, book_or_bookpart, 1);
+  b->add_score (score);
   return SCM_UNSPECIFIED;
 }
 
 LY_DEFINE (ly_book_add_bookpart_x, "ly:book-add-bookpart!", 2, 0, 0,
-           (SCM book_smob, SCM book_part),
+           (SCM book, SCM book_part),
            R"(
-Add @var{book-part} to @var{book-smob} book part list.
+Add @var{book-part} to @var{book} book part list.
            )")
 {
-  auto *const book = LY_ASSERT_SMOB (Book, book_smob, 1);
-  book->add_bookpart (book_part);
+  auto *const b = LY_ASSERT_SMOB (Book, book, 1);
+  LY_ASSERT_SMOB (Bookpart, book_part, 2);
+  b->add_bookpart (book_part);
   return SCM_UNSPECIFIED;
 }
 
@@ -140,47 +140,48 @@ Return book parts in @var{book}.
   return b->bookparts_;
 }
 
-LY_DEFINE (ly_book_paper, "ly:book-paper", 1, 0, 0, (SCM book),
+LY_DEFINE (ly_book_paper, "ly:book-paper", 1, 0, 0, (SCM book_or_bookpart),
            R"(
-Return paper in @var{book}.
+Return paper in @var{book_or_bookpart}.
            )")
 {
-  auto *const b = LY_ASSERT_SMOB (Book, book, 1);
+  auto *const b = LY_ASSERT_SMOB (Book_or_bookpart, book_or_bookpart, 1);
   if (Output_def const *od = b->paper ())
     return od->self_scm ();
   return SCM_BOOL_F;
 }
 
-LY_DEFINE (ly_book_scope, "ly:book-scope", 1, 0, 0, (SCM book),
+LY_DEFINE (ly_book_scope, "ly:book-scope", 1, 0, 0, (SCM book_or_bookpart),
            R"(
-Return the module containing the variables local to @var{book}.
+Return the module containing the variables local to @var{book_or_bookpart}.
            )")
 {
-  auto *const b = LY_ASSERT_SMOB (Book, book, 1);
+  auto *const b = LY_ASSERT_SMOB (Book_or_bookpart, book_or_bookpart, 1);
   return b->scope ();
 }
 
 LY_DEFINE (ly_book_set_variable_x, "ly:book-set-variable!", 3, 0, 0,
-           (SCM book, SCM symbol, SCM value),
+           (SCM book_or_bookpart, SCM symbol, SCM value),
            R"(
-In the local variables of @var{book}, set the variable given by
+In the local variables of @var{book_or_bookpart}, set the variable given by
 @var{symbol} to @var{value}.
            )")
 {
-  auto *const b = LY_ASSERT_SMOB (Book, book, 1);
+  auto *const b = LY_ASSERT_SMOB (Book_or_bookpart, book_or_bookpart, 1);
   LY_ASSERT_TYPE (ly_is_symbol, symbol, 2);
   scm_module_define (b->scope_module (), symbol, value);
   return SCM_UNSPECIFIED;
 }
 
 LY_DEFINE (ly_book_lookup, "ly:book-lookup", 2, 1, 0,
-           (SCM book, SCM symbol, SCM fallback),
+           (SCM book_or_bookpart, SCM symbol, SCM fallback),
            R"(
-Look up the variable @var{symbol} in @var{book} and return its value.
+Look up the variable @var{symbol} in @var{book_or_bookpart}
+and return its value.
 If it is undefined, return @var{fallback} if given, else '().
            )")
 {
-  auto *const b = LY_ASSERT_SMOB (Book, book, 1);
+  auto *const b = LY_ASSERT_SMOB (Book_or_bookpart, book_or_bookpart, 1);
   LY_ASSERT_TYPE (ly_is_symbol, symbol, 2);
   SCM v = scm_module_variable (b->scope (), symbol);
   if (SCM_VARIABLEP (v)) {
@@ -191,22 +192,22 @@ If it is undefined, return @var{fallback} if given, else '().
   return SCM_UNBNDP (fallback) ? SCM_EOL : fallback;
 }
 
-LY_DEFINE (ly_book_header, "ly:book-header", 1, 0, 0, (SCM book),
+LY_DEFINE (ly_book_header, "ly:book-header", 1, 0, 0, (SCM book_or_bookpart),
            R"(
-Return header in @var{book}.
+Return header in @var{book_or_bookpart}.
            )")
 {
-  auto *const b = LY_ASSERT_SMOB (Book, book, 1);
+  auto *const b = LY_ASSERT_SMOB (Book_or_bookpart, book_or_bookpart, 1);
   return ly_is_module (b->header_) ? b->header_ : SCM_BOOL_F;
 }
 
 LY_DEFINE (ly_book_set_header_x, "ly:book-set-header!", 2, 0, 0,
-           (SCM book, SCM module),
+           (SCM book_or_bookpart, SCM module),
            R"(
 Set the book header.
            )")
 {
-  auto *const b = LY_ASSERT_SMOB (Book, book, 1);
+  auto *const b = LY_ASSERT_SMOB (Book_or_bookpart, book_or_bookpart, 1);
   SCM_ASSERT_TYPE (ly_is_module (module), module, SCM_ARG2, __FUNCTION__,
                    "module");
 
@@ -214,13 +215,29 @@ Set the book header.
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_book_scores, "ly:book-scores", 1, 0, 0, (SCM book),
+LY_DEFINE (ly_book_scores, "ly:book-scores", 1, 0, 0, (SCM book_or_bookpart),
            R"(
-Return scores in @var{book}.
+Return scores in @var{book_or_bookpart}.
            )")
 {
-  auto *const b = LY_ASSERT_SMOB (Book, book, 1);
+  auto *const b = LY_ASSERT_SMOB (Book_or_bookpart, book_or_bookpart, 1);
   return b->scores_;
 }
 
-const char *const Book::type_p_name_ = "ly:book?";
+LY_DEFINE (ly_book_p, "ly:book?", 1, 0, 0, (SCM book),
+           R"(
+Is @var{book} a book?
+           )")
+{
+  return to_scm (static_cast<bool> (unsmob<Book> (book)));
+}
+
+LY_DEFINE (ly_bookpart_p, "ly:bookpart?", 1, 0, 0, (SCM bookpart),
+           R"(
+Is @var{bookpart} a bookpart?
+           )")
+{
+  return to_scm (static_cast<bool> (unsmob<Bookpart> (bookpart)));
+}
+
+const char *const Book_or_bookpart::type_p_name_ = "ly:book-or-bookpart?";

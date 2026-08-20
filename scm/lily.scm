@@ -893,6 +893,8 @@ determines the number of scale steps that make up an octave.  Usually the
 
 (define-public lilypond-exported-predicates
   `((,ly:book? . "book")
+    (,ly:book-or-bookpart? . "book or bookpart")
+    (,ly:bookpart? . "bookpart")
     (,ly:context? . "context")
     (,ly:context-def? . "context definition")
     (,ly:context-mod? . "context modification")
