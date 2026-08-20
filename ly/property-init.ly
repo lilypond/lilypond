@@ -525,13 +525,14 @@ In the special case that @var{incipit-music} has the form @code{\\new @var{xxx}
                     }
                   }
                #})
-         (set! (ly:grob-property grob 'self-alignment-Y) #f)
          ;; Do 'self-alignment-X RIGHT only for the first InstrumentName, which
          ;; actually is the incipit. Otherwise self-alignment-X for the
-         ;; shortInstrumentName is not longer settable.
+         ;; shortInstrumentName is no longer settable.
+         ;; Similar for 'self-alignment-Y
          (let ((parts (ly:spanner-broken-into (ly:grob-original grob))))
-           (if (and (pair? parts) (equal? grob (car parts)))
-               (ly:grob-set-property! grob 'self-alignment-X RIGHT)))
+           (when (and (pair? parts) (equal? grob (car parts)))
+             (ly:grob-set-property! grob 'self-alignment-X RIGHT)
+             (ly:grob-set-property! grob 'self-alignment-Y #f)))
          (system-start-text::print grob)))
   #})
 
