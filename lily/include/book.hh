@@ -48,7 +48,6 @@ public:
   Paper_book *process (Output_def *def_paper, Output_def *def_layout);
   Paper_book *process (Output_def *default_paper, Output_def *default_layout,
                        Paper_book *parent_part);
-  void set_keys ();
   SCM scope () const { return scm_module_public_interface (scope_module_); }
   SCM scope_module () const { return scope_module_; }
 protected:
