@@ -1,7 +1,7 @@
 \version "2.25.25"
 
 \header {
-  texidoc = "Incipits may use other context tyoes then the default
+  texidoc = "Incipits may use other context types than the default
 @code{MensuralStaff}."
 }
 
