@@ -392,6 +392,10 @@ was broken for some time.
 @itemize
 
 @item
+Producing SVG output with the legacy @option{-dbackend=svg} backend is now much
+faster for large scores, due to caching extracted glyphs from the SVG font file.
+
+@item
 The new @code{\verboseBarNumbers} command simplifies documentation
 examples where bar numbers are a central concern.  It might also
 be useful for debugging.

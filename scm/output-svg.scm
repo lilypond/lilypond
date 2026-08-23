@@ -220,10 +220,31 @@
                               "([[:space:]]+)?"
                               "/>")))
 
-(define (extract-glyph all-glyphs name size . rest)
-  (let* ((new-name (regexp-quote name))
-         (regexp (regexp-exec (glyph-element-regexp new-name) all-glyphs))
-         (glyph (match:substring regexp))
+;; If key is missing, then compute and insert value for key.
+;; In all cases, return the key's value.
+(define (hash-table-intern! table key action-if-missing)
+  (or (hash-ref table key)
+      (let ((value (action-if-missing)))
+        (hash-set! table key value)
+        value)))
+
+;; SVG font file path -> (glyph name -> the matched <glyph .../> element).
+(define glyph-element-cache (make-hash-table))
+
+(define (find-glyph-element svg-font name)
+  (let ((per-font
+         (hash-table-intern! glyph-element-cache svg-font make-hash-table)))
+    (hash-table-intern!
+     per-font
+     name
+     (lambda ()
+       (let* ((new-name (regexp-quote name))
+              (regexp (regexp-exec (glyph-element-regexp new-name)
+                                   (cached-svg-defs svg-font))))
+         (match:substring regexp))))))
+
+(define (extract-glyph svg-font name size . rest)
+  (let* ((glyph (find-glyph-element svg-font name))
          (unicode-attr (regexp-exec glyph-unicode-value-regexp glyph))
          (unicode-attr-value (match:substring unicode-attr 1))
          (unicode-attr? (regexp-match? unicode-attr))
@@ -264,21 +285,29 @@
           (else
            ""))))
 
-(define (extract-glyph-info all-glyphs glyph size)
+(define (extract-glyph-info svg-font glyph size)
   (let* ((offsets (list-head glyph 4))
          (glyph-name (car (reverse glyph))))
-    (apply extract-glyph all-glyphs glyph-name size offsets)))
+    (apply extract-glyph svg-font glyph-name size offsets)))
 
 (define (svg-defs svg-font)
   (let ((start (string-contains svg-font "<defs>"))
         (end (string-contains svg-font "</defs>")))
     (substring svg-font (+ start 7) (- end 1))))
 
+;; SVG font file path -> the <defs> substring of that file.
+(define svg-defs-cache (make-hash-table))
+
+(define (cached-svg-defs svg-font)
+  (hash-table-intern!
+   svg-defs-cache
+   svg-font
+   (lambda () (svg-defs (cached-file-contents svg-font)))))
+
 (define (cache-font svg-font size glyph)
-  (let ((all-glyphs (svg-defs (cached-file-contents svg-font))))
-    (if (list? glyph)
-        (extract-glyph-info all-glyphs glyph size)
-        (extract-glyph all-glyphs glyph size))))
+  (if (list? glyph)
+      (extract-glyph-info svg-font glyph size)
+      (extract-glyph svg-font glyph size)))
 
 
 (define (music-string-to-path font size glyph)
