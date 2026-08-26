@@ -1038,13 +1038,16 @@ book_block:
 	BOOK '{' book_body '}' 	{
 		$$ = $3;
 		unsmob<Book> ($$)->origin ()->set_spot (@$);
+		// We clean out $current-book because books are often copied
+		// and we don't want to have to deal with resetting
+		// $current-book then to avoid the copy pointing to the
+		// original and garbage-protecting it
+		parser->lexer_->set_identifier (ly_symbol2scm ("$current-book"),
+						SCM_BOOL_F);
 		parser->lexer_->remove_scope ();
 	}
 	;
 
-/* FIXME:
-   * Use 'handlers' like for toplevel-* stuff?
-   * grok \layout and \midi?  */
 book_body:
 	{
 		Book *book = new Book;
@@ -1055,8 +1058,8 @@ book_body:
 		parser->lexer_->set_identifier (ly_symbol2scm ("$current-book"), $$);
 	}
 	| BOOK_IDENTIFIER {
-		parser->lexer_->set_identifier (ly_symbol2scm ("$current-book"), $1);
 		parser->lexer_->add_scope (unsmob<Book> ($1)->scope_module ());
+		parser->lexer_->set_identifier (ly_symbol2scm ("$current-book"), $1);
 	}
 	| book_body output_def {
 		output_def_set (parser, unsmob<Output_def> ($2));
@@ -1124,8 +1127,8 @@ bookpart_block:
 	BOOKPART '{' bookpart_body '}' {
 		$$ = $3;
 		unsmob<Book> ($$)->origin ()->set_spot (@$);
-		parser->lexer_->remove_scope ();
 		parser->lexer_->set_identifier (ly_symbol2scm ("$current-bookpart"), SCM_BOOL_F);
+		parser->lexer_->remove_scope ();
 	}
 	;
 
@@ -1133,12 +1136,12 @@ bookpart_body:
 	{
 		Book *book = new Book;
                 $$ = book->unprotect ();
-		parser->lexer_->set_identifier (ly_symbol2scm ("$current-bookpart"), $$);
 		parser->lexer_->add_scope (book->scope_module ());
+		parser->lexer_->set_identifier (ly_symbol2scm ("$current-bookpart"), $$);
 	}
 	| BOOK_IDENTIFIER {
-		parser->lexer_->set_identifier (ly_symbol2scm ("$current-bookpart"), $1);
 		parser->lexer_->add_scope (unsmob<Book> ($1)->scope_module ());
+		parser->lexer_->set_identifier (ly_symbol2scm ("$current-bookpart"), $1);
 	}
 	| bookpart_body output_def {
 		output_def_set (parser, unsmob<Output_def> ($2));
