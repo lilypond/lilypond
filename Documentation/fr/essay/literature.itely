@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: 7921dca2b11ee884bb547b3d4e6926737838160c
+    Translation of GIT committish: b1311a5694133c9694e180cdbdc693614334d61d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -113,6 +113,8 @@ de notation.
 @include computer-notation.itexi
 
 @subheading Gravure
+
+@hyphenation{Regel-werk}
 
 @include engravingbib.itexi
 @end ignore
