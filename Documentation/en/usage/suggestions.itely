@@ -125,7 +125,7 @@ is much easier to follow than;
 \score @{
   @var{@dots{}music@dots{}}
   \layout @{
-   \override TabStaff.Stemstencil = ##f
+   \override TabStaff.Stem.stencil = ##f
  @}
 @}
 @end example
