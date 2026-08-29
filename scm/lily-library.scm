@@ -330,7 +330,7 @@ that order."
                       (ly:book-lookup current-book '$defaultpaper #f)))
          (paper (ly:output-def-clone
                  (or book-p (ly:parser-lookup '$defaultpaper)))))
-    (output-def-set! paper symbol value)
+    (ly:output-def-set-variable! paper symbol value)
     (if (ly:book? current-book)
         (ly:book-set-variable! current-book '$defaultpaper paper)
         (ly:parser-define! '$defaultpaper paper))))
