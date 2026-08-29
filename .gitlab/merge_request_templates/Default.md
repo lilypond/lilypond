@@ -1,8 +1,11 @@
 #### Description
 
 <!-- Describe your goal and your work briefly to orient
-reviewers.  If you have not described your commits well, go back
-and do that first. -->
+reviewers.  For your convenience, your commit messages
+are copied here as a starting point.  If you have not
+described your commits well, go back and do that first. -->
+
+%{all_commits}
 
 #### AI declaration
 
