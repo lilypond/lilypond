@@ -585,6 +585,8 @@ Beaming_options::Beaming_options (Context const *c)
     maximum_subdivision_interval_ (from_scm (
       get_property (c, "beamMaximumSubdivision"), Rational::infinity ()))
 {
+  if (scm_is_null (beat_structure_))
+    beat_structure_ = ly_list (to_scm (infinity_f));
 }
 
 void
