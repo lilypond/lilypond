@@ -138,7 +138,7 @@ Beaming_pattern::beamify (Beaming_options const &options)
                   remaining_beats = options.beat_structure_;
 
                 cur_beat = next_beat;
-                next_beat += from_scm<unsigned> (scm_car (remaining_beats))
+                next_beat += from_scm<Rational> (scm_car (remaining_beats))
                              * options.beat_base_;
                 remaining_beats = scm_cdr (remaining_beats);
               }
