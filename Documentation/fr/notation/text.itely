@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 606ac3c3b22c41d84aa5fa938d42da5125ac572a
+   Translation of GIT committish: b1311a5694133c9694e180cdbdc693614334d61d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1992,7 +1992,7 @@ différent du nom du fichier. Par ailleurs, lancer @command{lilypond
 @subsection Familles de fontes
 
 Vous disposez de trois familles de fontes@footnote{Dans sa forme la plus
-simple, une @emph{famille de fonte} contient habituellement les styles
+simple, une @dfn{famille de fonte} contient habituellement les styles
 de police romain, italique, gras et gras italique.} textuelles : une
 police avec empattement (@emph{sérif}), une police sans empattement
 (@emph{sans} sérif) et une police à chasse fixe (monospace ou
@@ -2078,6 +2078,10 @@ FontConfig spécifique à LilyPond @file{00-lilypond-fonts.conf} qui se
 trouve normalement dans le répertoire
 @file{/usr/local/share/lilypond/@version{}/fonts}.
 
+La correspondance exacte entre ces trois familles de fontes et les
+fontes réelles peut être contrôlée à l'aide de la propriété @code{fonts}
+-- @pxref{Changing fonts}.
+
 Chaque famille dispose en principe de différents styles et niveaux de
 graisse. L'exemple qui suit illustre la manière de changer la famille,
 le style, la graisse ou la taille. Notez bien que l'argument fourni à
@@ -2116,6 +2120,30 @@ font and font size} :
   }
 }
 @end lilypond
+
+@knownissues
+Dans de rares situations, la bibliothèque FontConfig est incapable de
+sélectionner une font sans ambiguïté : lorsque le nom de la famille de
+fonte et la graisse (autrement dit la valeur de la sous-propriété
+@code{font-@/series} de LilyPond) de deux différentes fontes sont
+identiques, elles sont considérées comme équivalentes. C'est par exemple
+le cas avec « Minion Pro » et « Minion Pro Display » qui, toutes deux,
+ont comme nom de famille « Minion Pro » et une graisse « Regular ». La
+seule solution en pareille circonstance est de masquer à FontConfig
+l'existence de la fonte non désirée.
+
+@itemize
+@item
+Si vos fontes sont stockées dans un répertoire qui n'est pas examiné par
+FonConfig par défaut, il faut utiliser
+@code{ly:@/font-@/config-@/add-@/font} au lieu de
+@code{ly:@/font-@/config-@/add-@/directory} pour charger explicitement
+la fonte désirée uniquement.
+@item
+Si les fontes sont stockées dans un répertoire examiné par défaut (par
+exemple @file{~/.fonts}), il faudra en supprimer la fonte non désirée de
+telle sorte que FontConfig ne découvre que la fonte requise.
+@end itemize
 
 
 @node Font features
