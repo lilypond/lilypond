@@ -1619,7 +1619,7 @@ lines.
   \clef baritone c1
 }
 \addlyrics {
-  \override Lyrics . LyricText . self-alignment-X = #LEFT
+  \override Lyrics.LyricText.self-alignment-X = #LEFT
   "Soprano     " "Mezzosoprano " "Alto        " "Tenor       " "Baritone    "
 }
 @end lilypond

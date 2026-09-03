@@ -4387,11 +4387,8 @@ alternative can we use @code{\override} and @code{\revert} commands?
 These would also be extremely tedious to enter if there were many
 words requiring emphasis.  But we @emph{can} define these as two
 variables and use those to bracket the words to be emphasized.
-Another advantage of using variables for these overrides is that
-the spaces around the dot are not necessary, since they are not
-being interpreted in @code{\lyricmode} directly.  Here's an example
-of this, although in practice  we would choose shorter names
-for the variables to make them quicker to type:
+Here's an example of this, although in practice we would choose
+shorter names for the variables to make them quicker to type:
 
 @cindex @code{LyricText}, example of overriding
 @cindex @code{font-shape} property, example
