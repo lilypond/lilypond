@@ -1948,6 +1948,8 @@ function_arglist_nonbackup:
 	}
 	| function_arglist_nonbackup_reparse REPARSE reparsed_rhythm
 	{
+		if (scm_is_pair ($1) && unsmob<Pitch> (scm_car ($1)))
+			@3.warning (_ ("Duration following pitch taken as music"));
 		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
 	}
 	| function_arglist_nonbackup_reparse REPARSE bare_number_common
@@ -2341,6 +2343,8 @@ function_arglist_backup:
 	}
 	| function_arglist_backup REPARSE reparsed_rhythm
 	{
+		if (scm_is_pair ($1) && unsmob<Pitch> (scm_car ($1)))
+			@3.warning (_ ("Duration following pitch taken as music"));
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
@@ -2474,6 +2478,8 @@ function_arglist_common:
 	}
 	| function_arglist_common_reparse REPARSE reparsed_rhythm
 	{
+		if (scm_is_pair ($1) && unsmob<Pitch> (scm_car ($1)))
+			@3.warning (_ ("Duration following pitch taken as music"));
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
