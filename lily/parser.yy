@@ -363,8 +363,8 @@ If we give names, Bison complains.
 %token REPARSE "(reparsed?)"
 %token EXPECT_MARKUP_LIST "markup-list?"
 %token EXPECT_OPTIONAL "optional?"
-/* After the last argument. */
-%token EXPECT_NO_MORE_ARGS;
+/* Before the first actual argument. */
+%token PROCESS_ARGS
 
 /* An artificial token for parsing embedded Lilypond */
 %token EMBEDDED_LILY "#{"
@@ -1800,8 +1800,12 @@ grouped_music_list:
  * the semantic value of the EXPECT_OPTIONAL token is the default to
  * use when the optional argument is omitted, and EXPECT_SCM again has
  * the argument predicate as semantic value) in reverse order to the
- * parser, followed by EXPECT_NO_MORE_ARGS.  The argument list is then
- * processed inside-out while actual tokens are consumed.
+ * parser, followed by PROCESS_ARGS.
+ *
+ * The predicates converted to EXPECT_... tokens are converted into nested
+ * syntax rules, with the innermost rule consuming PROCESS_ARGS and ending the
+ * nesting process by being completed without an actual argument.  The rules
+ * are then completed inside-out while actual arguments are being consumed.
  *
  * This means that the argument list tokens determine the actions
  * taken as they arrive.  The structure of the argument list is known
@@ -2425,7 +2429,7 @@ function_arglist_partial_optional:
 	;
 
 function_arglist_common:
-	EXPECT_NO_MORE_ARGS {
+	PROCESS_ARGS {
 		$$ = SCM_EOL;
 	}
 	| EXPECT_SCM function_arglist_optional embedded_scm_arg
@@ -4246,7 +4250,7 @@ markup_command_basic_arguments:
 	| EXPECT_SCM markup_command_list_arguments STRING {
 		$$ = check_scheme_arg (parser, @3, $3, $2, $1);
 	}
-	| EXPECT_NO_MORE_ARGS {
+	| PROCESS_ARGS {
 		$$ = SCM_EOL;
 	}
 	;

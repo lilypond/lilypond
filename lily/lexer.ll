@@ -699,10 +699,10 @@ FIG_ALT_EXPR	{WHITE}*{FIG_ALT_SYMB}({FIG_ALT_SYMB}|{WHITE})*
 
 		// If the list of predicates is, say,
 		// (number? number? markup?), then tokens
-		// EXPECT_MARKUP EXPECT_SCM EXPECT_SCM EXPECT_NO_MORE_ARGS
+		// EXPECT_MARKUP EXPECT_SCM EXPECT_SCM PROCESS_ARGS
 		// will be generated.  Note that we have to push them
 		// in reverse order, so the first token pushed in the
-		// loop will be EXPECT_NO_MORE_ARGS.
+		// loop will be PROCESS_ARGS.
 
 		yylval = scm_car(s);
 
@@ -921,7 +921,7 @@ Lily_lexer::pop_state ()
 void
 Lily_lexer::push_markup_predicates (SCM sig)
 {
-	push_extra_token (here_input (), EXPECT_NO_MORE_ARGS);
+	push_extra_token (here_input (), PROCESS_ARGS);
 	for (SCM s = sig; scm_is_pair(s); s = scm_cdr(s)) {
 		SCM predicate = scm_car(s);
 
@@ -1016,7 +1016,7 @@ Lily_lexer::scan_scm_id (SCM sid)
 			funtype = SCM_FUNCTION;
 		else programming_error ("Bad syntax function predicate");
 
-		push_extra_token (here_input (), EXPECT_NO_MORE_ARGS);
+		push_extra_token (here_input (), PROCESS_ARGS);
 		for (s = scm_cdr (s); scm_is_pair (s); s = scm_cdr (s))
 		{
 			SCM optional = SCM_UNDEFINED;
