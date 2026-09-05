@@ -69,6 +69,18 @@ environments with LilyPond support may provide a way to run
 @itemize
 
 @item
+Book and bookpart expressions now have different and separate
+types that can be tested using @code{ly:book?} and
+@code{ly:bookpart?}.  A predicate testing for either (like
+@code{ly:book?} did before) is available as
+@code{ly:book-or-bookpart?}.
+
+Book and bookpart identifiers as well as calls to syntactic scheme
+functions defined using @code{define-scheme-function} and
+returning book or bookpart expressions can now be directly used
+instead of book or bookpart blocks.
+
+@item
 @code{\book} and @code{\bookpart} blocks now contain their own
 local scopes for variables.  This scope is active across the block
 and contains all variables defined within the block.  As one
