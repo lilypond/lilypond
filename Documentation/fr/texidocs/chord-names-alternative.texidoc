@@ -1,4 +1,4 @@
-%% Translation of GIT committish: 606ac3c3b22c41d84aa5fa938d42da5125ac572a
+%% Translation of GIT committish: b1311a5694133c9694e180cdbdc693614334d61d
   texidocfr = "
 Les noms d'accord sont générés à partir d'une liste de hauteurs. Les
 fonctions qui construisent ces noms peuvent être personnalisées.
@@ -10,7 +10,7 @@ plus petite est utilisée pour cette dernière dans la mesure où elle tend
 à être plus verbeuse.
 
 Ceci est un reflet du mécanisme utilisé à l'origine par LilyPond,
-jusque dans les version 1.7. N'ayant pas fait l'objet d'une maintenance
+jusque dans les version 1.7. N'ayant pas fait l'objet d'une maintenance
 suivie, certaines fonctionnalités ont été perdues -- notamment au niveau
 des listes d'exception -- et des bogues ont fait leur apparition.
 "

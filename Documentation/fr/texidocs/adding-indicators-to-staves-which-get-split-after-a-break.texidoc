@@ -1,4 +1,4 @@
-%% Translation of GIT committish: c043783aac6c35926d633aa2daf60ed4f2e7ca7a
+%% Translation of GIT committish: b1311a5694133c9694e180cdbdc693614334d61d
   texidocfr = "
 Dans cet extrait sont définies les commandes @code{\\splitStaffBarLine},
 @code{\\convUpStaffBarLine} et @code{\\convDownStaffBarLine}. Ces commandes
