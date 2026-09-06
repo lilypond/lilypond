@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: c2ea1fa2792532a1a123f08504fc8677defb7a96
+   Translation of GIT committish: b1311a5694133c9694e180cdbdc693614334d61d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1096,24 +1096,25 @@ regrouperons les stencils à l'aide de @code{ly:stencil-add} :
 
 @lilypond[quote,verbatim,ragged-right]
 #(define-markup-command (my-draw-line layout props dest)
-  (number-pair?)
-  #:properties ((thickness 1)
-                (line-gap 0.6))
-  "..documentation.."
-  (let* ((th (* (ly:output-def-lookup layout 'line-thickness)
-                thickness))
-         (dx (car dest))
-         (dy (cdr dest))
-         (w (/ line-gap 2.0))
-         (x (cond ((= dx 0) w)
-                  ((= dy 0) 0)
-                  (else (/ w (sqrt (+ 1 (* (/ dx dy) (/ dx dy))))))))
-         (y (* (if (< (* dx dy) 0) 1 -1)
-               (cond ((= dy 0) w)
-                     ((= dx 0) 0)
-                     (else (/ w (sqrt (+ 1 (* (/ dy dx) (/ dy dx))))))))))
-     (ly:stencil-add (make-line-stencil th x y (+ dx x) (+ dy y))
-                     (make-line-stencil th (- x) (- y) (- dx x) (- dy y)))))
+   (number-pair?)
+   #:properties ((thickness 1)
+                 (line-gap 0.6))
+   "..documentation.."
+   (let* ((th (* (ly:output-def-lookup layout 'line-thickness)
+                 thickness))
+          (dx (car dest))
+          (dy (cdr dest))
+          (w (/ line-gap 2.0))
+          (x (cond ((= dx 0) w)
+                   ((= dy 0) 0)
+                   (else (/ w (sqrt (+ 1 (* (/ dx dy) (/ dx dy))))))))
+          (y (cond ((= dy 0) w)
+                   ((= dx 0) 0)
+                   (else (/ w (sqrt (+ 1 (* (/ dy dx) (/ dy dx))))))))
+          (y (* (if (< (* dx dy) 0) 1 -1) y)))
+     (ly:stencil-add
+      (make-line-stencil th x y (+ dx x) (+ dy y))
+      (make-line-stencil th (- x) (- y) (- dx x) (- dy y)))))
 
 \markup \my-draw-line #'(4 . 3)
 \markup \override #'(line-gap . 1.2) \my-draw-line #'(4 . 3)
@@ -1176,9 +1177,10 @@ chaîne.
 @lilypond[verbatim,quote]
 #(define-markup-command (authors-and layout props authorA authorB)
                         (markup? markup?)
-   #:as-string (format #f "~a and ~a"
-                       (markup->string authorA #:layout layout #:props props)
-                       (markup->string authorB #:layout layout #:props props))
+   #:as-string (format
+                #f "~a and ~a"
+                (markup->string authorA #:layout layout #:props props)
+                (markup->string authorB #:layout layout #:props props))
    (interpret-markup layout props
     #{
       \markup \fill-line { \box #authorA and \box #authorB }
@@ -1200,10 +1202,14 @@ propriétés.
 #(define-markup-command (authors-and layout props authorA authorB)
                         (markup? markup?)
    #:properties ((author-separator " and "))
-   #:as-string (format #f "~a~a~a"
-                       (markup->string authorA #:layout layout #:props props)
-                       (markup->string author-separator #:layout layout #:props props)
-                       (markup->string authorB #:layout layout #:props props))
+   #:as-string (format
+                #f "~a~a~a"
+                (markup->string authorA
+                                #:layout layout #:props props)
+                (markup->string author-separator
+                                #:layout layout #:props props)
+                (markup->string authorB
+                                #:layout layout #:props props))
    (interpret-markup layout props
     #{
       \markup { \box #authorA #author-separator \box #authorB }
@@ -1391,8 +1397,11 @@ desaturate =
      (define (desaturate-grob grob)
        (let* ((grob-def (ly:context-grob-definition context grob))
               (color (ly:assoc-get 'color grob-def black))
-              (new-color (map (lambda (x) (min 1 (/ (1+ x) 2))) color)))
-         (ly:context-pushpop-property context grob 'color new-color)))
+              (new-color (map (lambda (x)
+                                (min 1 (/ (1+ x) 2)))
+                              color)))
+         (ly:context-pushpop-property context grob
+                                      'color new-color)))
      (for-each desaturate-grob '(NoteHead Stem Beam)))
 
 \relative {
@@ -1412,16 +1421,18 @@ comment @code{ly:context-pushpop-property} est utilisé à la fois pour un
 
 @lilypond[quote,verbatim]
 desaturate =
-#(define-music-function
-   (music) (ly:music?)
+#(define-music-function (music) (ly:music?)
    #{
      \applyContext
      #(lambda (context)
         (define (desaturate-grob grob)
           (let* ((grob-def (ly:context-grob-definition context grob))
                  (color (ly:assoc-get 'color grob-def black))
-                 (new-color (map (lambda (x) (min 1 (/ (1+ x) 2))) color)))
-            (ly:context-pushpop-property context grob 'color new-color)))
+                 (new-color (map (lambda (x)
+                                   (min 1 (/ (1+ x) 2)))
+                                 color)))
+            (ly:context-pushpop-property context grob
+                                         'color new-color)))
         (for-each desaturate-grob '(NoteHead Stem Beam)))
      #music
      \applyContext
@@ -1847,11 +1858,10 @@ modifiés par @code{\override}. Parmi ceux-là, les objets
 @code{\once \override}, mais avec une syntaxe différente :
 
 @example
-\overrideProperty
-Score.NonMusicalPaperColumn      % Nom de l'objet
-  . line-break-system-details    % Nom de la propriété
-  . next-padding                 % Nom de la sous-propriété (optionnel)
-  . #20                          % Valeur
+\overrideProperty [@var{NomContexte}]
+                  .@var{NomObjet}
+                  .@var{nom-propriété}
+                  [.@var{nom-sous-propriété}] @var{valeur}
 @end example
 
 Notez toutefois que la commande @code{\override} peut tout de même être
