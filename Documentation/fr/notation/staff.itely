@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
+   Translation of GIT committish: b1311a5694133c9694e180cdbdc693614334d61d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.19.21"
+@c \version "2.25.35"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: John Mandereau
@@ -912,9 +912,9 @@ continuent de jouer.
     \new Staff \with { instrumentName = "Flute" } \relative c'' {
       \key c \minor
       <<
-        { \tuplet 3/2 4 { \repeat unfold 4 { g'8( g g) } } }
+        { \tuplet 3/2 4 { \*4 { g'8( g g) } } }
         \\
-        { r2 \tuplet 3/2 4 { \repeat unfold 2 { f8( f f) } } }
+        { r2 \tuplet 3/2 4 { \*2 { f8( f f) } } }
       >>
       <ees g>1~
       q16 r16 r8 r4 r2
@@ -1055,14 +1055,14 @@ violI = {
   \repeat unfold 24 { d'4 }
   \once \unset Staff.keepAliveInterfaces
   <d' g''>2
-  \repeat unfold 14 { d'4 }
+  \*14 { d'4 }
   \bar "|."
 }
 
 violII = {
   \repeat unfold 24 { g4 }
   <g d'>2
-  \repeat unfold 14 { g4 }
+  \*14 { g4 }
   \bar "|."
 }
 

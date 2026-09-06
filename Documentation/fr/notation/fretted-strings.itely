@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
+   Translation of GIT committish: b1311a5694133c9694e180cdbdc693614334d61d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -463,6 +463,7 @@ ratioHarmonics = {
 @funindex \bendHold
 @funindex \preBendHold
 @funindex \bendStartLevel
+@funindexpost \^
 
 Des désinences peuvent s'ajouter en notation de tablature. Elles
 s'indiquent par adjonction d'un @code{\^} à la note ou à l'accord de

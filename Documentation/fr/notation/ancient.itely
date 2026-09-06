@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
+   Translation of GIT committish: b1311a5694133c9694e180cdbdc693614334d61d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -9,7 +9,7 @@
 @end ignore
 
 
-@c \version "2.25.5"
+@c \version "2.27.0"
 
 @c Translators: Jean-Charles Malahieude
 
@@ -912,6 +912,253 @@ Référence des propriétés internes :
 @endmorerefs
 
 
+@node Historical overview of ligatures
+@subsection Aperçu historique des ligatures
+
+La polyphonie ancienne utilisait un rythme modal et indiquait la
+métrique par des ligatures (comme la notation grégorienne en neumes --
+@pxref{Gregorian square neume ligatures}), rompant le flux de notes
+@strong{non au pied} mais après chaque accentuation métrique. Autrement
+dit, la dernière note d'une ligature était accentuée, contrairement aux
+notes précédentes. Les ligatures les plus usitées comportaient deux ou
+trois notes (@dfn{ligatura binaria/@/ternaria} : ligature
+binaire/@/ternaire), correspondant à la distribution des accents dans
+les métriques communes @dfn{iambe} (court-long), @dfn{trochée}
+(long-court), @dfn{dactyle} (long-court-court) et @dfn{anapaest}
+(court-court-long). Il est à noter que long-court est le concept
+quantitatif ; l'accent est la contrepartie qualitative de long.
+
+Lorsque le rythme modal a été abandonné et que sont apparues des notes
+galbées pour représenter leur longueur, les ligatures n'ont pas disparu
+mais, en interprétant la métrique de façon strictement quantitative, ont
+été lues comme des @emph{brevis} suivies d'une @emph{longa} finale.
+Le @emph{pes}
+(@lilypond[inline]{
+  \include "wml-demo-layout.ly"
+  \markup \wml \score {
+    { \[ d'\breve \tweak ligature-pes ##t a'\longa \] } }
+})
+indique une ligature ascendante, et le @emph{climacus}
+(@lilypond[inline]{
+  \include "wml-demo-layout.ly"
+  \markup \wml \score {
+    { \[ a'\breve e'\longa \] } }
+})
+une descendante.
+
+De nouveaux galbes ont été créés pour codifier d'autres séquences de
+longueurs, de préférence indépendamment du contexte, de sorte à pouvoir
+obtenir des ligatures de longueur arbitraire. Des galbes pour des
+ligatures binaires @emph{brevis-brevis} auraient pu être tirées à partir
+des deux premières notes de ligatures ternaires existantes (signifiant
+@emph{brevis-brevis-longa}) : le @emph{torculus}
+(@lilypond[inline]{
+  \include "wml-demo-layout.ly"
+  \markup \wml \score {
+    { \[ e'\breve a' g'\longa \] } }
+})
+et le @emph{scandici} modifié
+(@lilypond[inline]{
+  \include "wml-demo-layout.ly"
+  \markup \wml \score {
+    { \[ e'\breve a' b' \] } }
+})
+s'entament de la même manière ; le galbe
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\markup \wml \score {
+  { \[ e'\breve a' \] } }
+@end lilypond
+est ainsi utilisable en tant que ligature binaire @emph{brevis-brevis}
+ascendante. Le @emph{climacus} devra être abandonné car indistinguable
+d'une séquence
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+{
+  \override Score.SpacingSpanner.packed-spacing = ##t
+  \override NoteHead.style = #'petrucci
+  b'\longa a'1 g'
+}
+@end lilypond
+de notes non ligaturées, donc le @emph{porrectus}
+(@lilypond[inline]{
+  \include "wml-demo-layout.ly"
+  \markup \wml \score {
+    { \[ f'\breve e' \tweak ligature-pes ##t a'\longa \] } }
+})
+a demeuré dans l'utilisation de son départ pour la forme descendante :
+le parallélogramme oblique
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+  \markup \wml \score {
+    { \[ d''\breve c'' \] } }
+@end lilypond
+est connu sous le terme de @emph{flexa} ; il indique toujours
+@strong{deux} notes (hauteurs de départ et d'arrivée), non pas une
+gamme sur toutes les hauteurs entre les deux.
+
+Les ligatures binaires démarrant par une @emph{longa} ont été dessinées
+en adaptant les galbes existants @emph{brevis-brevis} ou
+@emph{brevis-longa}. Pour les galbes descendants @emph{longa-breve}
+(@lilypond[inline]{
+  \include "wml-demo-layout.ly"
+  \markup \wml \score {
+    { \[ a'\longa g'\breve \] } }
+})
+et @emph{longa-longa}
+(@lilypond[inline]{
+  \include "wml-demo-layout.ly"
+  \markup \wml \score {
+    { \[ a'\longa g' \] } }
+}),
+la hampe initiale a été supromée ; pour les galbes ascendants
+@emph{longa-breve}
+(@lilypond[inline]{
+  \include "wml-demo-layout.ly"
+  \markup \wml \score {
+    { \[ b'\longa e''\breve \] } }
+})
+et @emph{longa-longa}
+(@lilypond[inline]{
+  \include "wml-demo-layout.ly"
+  \markup \wml \score {
+    { \[ g'\longa \tweak ligature-pes ##t d'' \] } }
+})
+a été ajoutée une hampe descendante sur la droite de la première note.
+
+Le @emph{pes} étant difficile à dessiner avec des têtes vides si
+l'avant-dernière hauteur était proche (même constat avec un
+@emph{porrectus}), les notes finales étaient remplacées par des
+@emph{virgae} (par exemple,
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\markup \wml \score {
+  { \[ a'\breve d''\longa \] } }
+@end lilypond
+et
+@lilypond[inline]{
+  \include "wml-demo-layout.ly"
+  \markup \wml \score {
+    { \[ d''\breve \tweak ligature-flexa ##t b' d''\longa \] } }
+},
+peut-être inspirées du @emph{scandicus}). Le galbe originel est
+toutefois resté en usage encore longtemps, bien qu'il ressemble à un
+@emph{divisi} et qu'il soit pratiquement impossible d'en distinguer la
+signification en fin de section.
+
+Des ligatures binaires pour paires de @emph{semibreve} comme
+@lilypond[inline]{
+  \include "wml-demo-layout.ly"
+  \markup \wml \score {
+    { \[ g'1 a' \] } }
+},
+@lilypond[inline]{
+  \include "wml-demo-layout.ly"
+  \markup \wml \score {
+    { \[ a'1 g' \] } }
+}
+et
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\markup \wml \score {
+  { \[ a'1 \tweak ligature-flexa ##t g' \] } }
+@end lilypond
+sont aussi apparues, reconnaissables par une hampe ascendante sur la gauche.
+
+Le tableau suivant résume les ligatures binaires habituelles.
+
+@indentedblock
+@multitable @columnfractions .25 .15 .15 .15 .15 .15
+@headitem Longueurs
+  @tab S S
+  @tab B B
+  @tab L B
+  @tab B L
+  @tab L L
+@item Ascendante
+  @tab @lilypond[inline]{
+         \include "wml-demo-layout.ly"
+         \markup \wml \score { { \[ g'1 a' \] } } }
+  @tab @lilypond[inline]{
+         \include "wml-demo-layout.ly"
+         \markup \wml \score { { \[ b'\breve c'' \] } } }
+  @tab @lilypond[inline]{
+         \include "wml-demo-layout.ly"
+         \markup \wml \score { { \[ c''\longa d''\breve \] } } }
+  @tab @lilypond[inline]{
+         \include "wml-demo-layout.ly"
+         \markup \wml \score { { \[ c''\breve d''\longa \] } } }
+  @tab @lilypond[inline]{
+         \include "wml-demo-layout.ly"
+         \markup \wml \score { { \[ c''\longa d'' \] } } }
+@item Descendante
+  @tab @lilypond[inline]{
+         \include "wml-demo-layout.ly"
+         \markup \wml \score { { \[ a'1 g' \] } } },
+       @lilypond[inline]{
+         \include "wml-demo-layout.ly"
+         \markup \wml \score {
+           { \[ a'1 \tweak ligature-flexa ##t g' \] } } }
+  @tab @lilypond[inline]{
+         \include "wml-demo-layout.ly"
+         \markup \wml \score { { \[ d''\breve c'' \] } } }
+  @tab @lilypond[inline]{
+         \include "wml-demo-layout.ly"
+         \markup \wml \score { { \[ c''\longa b'\breve \] } } }
+  @tab @lilypond[inline]{
+         \include "wml-demo-layout.ly"
+         \markup \wml \score { { \[ d''\breve c''\longa \] } } }
+  @tab @lilypond[inline]{
+         \include "wml-demo-layout.ly"
+         \markup \wml \score { { \[ c''\longa b' \] } } }
+@end multitable
+@end indentedblock
+
+L'introduction des @emph{maximae} dans les ligatures a été beaucoup plus
+simple dans la mesure où leur apparition est postérieure à l'ère du
+rythme modal. Elles n'ont donc pas besoin de se plier aux anciennes
+règles : elles peuvent intervenir n'importe où dans une ligature de
+forme habituelle, avec ou sans hampe descendante sur sa droite. Au sein
+même d'une ligature, brèves et longues apparaissaient toujours dans leur
+galbe habituel (longues ayant toujours une hampe descendante sur la
+droite), sauf lorsque les têtes d'une paire de brèves étaient fusionnées
+pour former une flexe (qui ne peut obligatoirement se trouver qu'en fin
+mais souvent utilisée en cours). Il arrivait rarement que les brèves
+initiales soient pourvues d'une hampe sur la gauche ou que les longues
+finales en aient une à droite même dans des configurations descendantes.
+
+La ligature de neumes grégoriens ne pouvaient disparaître puisque la
+notation du plain-chant restait en usage -- certains manuscrits
+contiennent en parallèle du plain-chant et de la notation mensurale.
+L'évolution des ligatures mensurales en a été grandement influencée, ce
+qui pourrait expliquer l'utilisation presque exclusive de brèves à
+l'intérieur même des ligatures. Le fait que le galbe de la flexe est
+principalement utilisé lorsque la seconde note est plus basse que
+celles qui l'entourent peut être vu comme un héritage des neumes.
+
+Le tableau ci-dessus constitue presque un aide-mémoire pour la lecture
+de n'importe quelle ligature mensurale : les première et dernière notes
+devraient être déchiffrées à partir de cette table ; le reste peut se
+lire tel quel -- pour des règles « exactes », @pxref{Reading white
+mensural ligatures}. Le galbe de la flexe pose quelques difficultés
+pratiques : il peut s'avérer difficile de décider des hauteurs selon
+qu'elles se trouvent sur une ligne ou dans un espace adjacent ; les
+notes pourraient aussi être pointées (un tel point apparaît au-dessus ou
+au-dessous de la note suivante), et il n'est pas évident de déterminer
+si le point au-dessus d'une flexe concerne la première note de la flexe
+ou à la précédente :
+
+@lilypond[quote,verbatim]
+\new PetrucciVoice {
+  \relative {
+    \[ b'\breve. a\breve g\breve \]
+    \[ b\breve. a\breve. g\breve \]
+    \[ b\breve a\breve. g\breve \]
+  }
+}
+@end lilypond
+
+
 @node White mensural ligatures
 @subsection Ligatures mensurales
 
@@ -960,11 +1207,10 @@ transcription automatisée d'une ligature.
 @cindex flexe et ligatures mensurales
 @cindex ligature mensurale, flexe
 
-Il se peut que deux notes consécutives puissent être représentées aussi
-bien par deux carrées que par un parallélogramme oblique (en forme de
-@dfn{flexe}). Par défaut, LilyPond présentera deux carrées ;
-l'impression d'une flexe s'obtient par affectation, pour la
-@strong{deuxième} note, de la propriété @code{ligature-flexa}. Le
+Par défaut, les hampes optionnelles et les flexes ne sont pas dessinées,
+et une longue finale ascendante est remplacée par une @emph{virga}.
+L'impression d'une flexe s'obtient par affectation, pour la
+@strong{seconde} note, de la propriété @code{ligature-flexa} ; le
 réglage de la largeur d'une flexe se gère par la propriété de tête de
 note @code{flexa-width}.
 
@@ -976,21 +1222,23 @@ Par exemple,
   \[ c''\maxima g \]
   \[ d'\longa
      \tweak ligature-flexa ##t
-     \tweak flexa-width #3.2 c\breve f e d \]
+     \tweak flexa-width #3.2 c\breve f e
+     \tweak flexa-width #4.3 d \]
   \[ c\maxima d\longa \]
   \[ e1 a, g\breve \]
 }
 @end lilypond
 
-Si on ne remplace pas le @code{Ligature_bracket_engraver} par le
-@code{Mensural_@/ligature_@/engraver}, on obtient
+Après avoir remplacé le @code{Mensural_@/ligature_@/engraver} par le
+@code{Ligature_@/bracket_@/engraver}, on obtient
 
 @lilypond[quote]
 \new PetrucciStaff \relative {
   \[ c''\maxima g \]
   \[ d'\longa
      \tweak ligature-flexa ##t
-     \tweak flexa-width #3.2 c\breve f e d \]
+     \tweak flexa-width #3.2 c\breve f e
+     \tweak flexa-width #4.3 d \]
   \[ c\maxima d\longa \]
   \[ e1 a, g\breve \]
 }
@@ -1003,19 +1251,20 @@ Si on ne remplace pas le @code{Ligature_bracket_engraver} par le
 }
 @end lilypond
 
-Dans certains cas, et bien qu'une hampe ne soit pas requise pour lever
-toute ambiguïté quant à la longueur de la note, elle ne soit pas
-interdite :
+Des hampes optionnelles peuvent s'obtenir à l'aide des propriétés
+suivantes :
 
 @itemize
 @item
-une brève en initiale (lorsque plus basse que la note qui la suit) peut
-ou non être pourvue d'une hampe descendante à gauche ;
+@code{left-down-stem} pour une hampe descendante sur la gauche d'une
+brève en initiale (lorsque plus basse que la note qui la suit) ;
 @item
-une maxime peut ou non être pourvue d'une hampe descendante à droite ;
+@code{right-down-stem} pour une hampe descendante sur la droite d'une
+maxime ou d'une longue (qui est dépourvue de hampe dans le cas où le
+début ou la fin sont descendants) ;
 @item
-une longue finale (lorsque plus basse que la note qui la précède) peut
-ou non être pourvue d'une hampe à droite.
+@code{right-up-stem} pour une hampe sur la droite d'une longue finale
+(lorsque plus basse que la note qui la précède).
 @end itemize
 
 @noindent
@@ -1042,6 +1291,47 @@ sans retoucher les ligatures, cela ressemblerait à
 }
 @end lilypond
 
+Une longue fibake ascendante qui opte pour un style @emph{pes} s'obtient
+en activant la propriété @code{ligature-pes}:
+
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration =
+      #(ly:make-moment 16 1)
+  }
+}
+\new PetrucciStaff {
+  \clef "petrucci-c4"
+  \[ d\breve \tweak ligature-pes ##t a\longa \]
+  \[ e \tweak ligature-pes ##t b \]
+  \[ c\breve d c \tweak ligature-pes ##t c'\longa \]
+  \[ f\breve d \tweak ligature-pes ##t a\longa \]
+}
+@end lilypond
+
+Dans ce dernier cas, LilyPond dessine les brèves comme des flexes,
+autrement la note initiale entrerait en collision avec la note finale.
+Sans retoucher les ligatures, cela ressemblerait à
+
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration =
+      #(ly:make-moment 16 1)
+  }
+}
+\new PetrucciStaff {
+  \clef "petrucci-c4"
+  \[ d\breve a\longa \]
+  \[ e b \]
+  \[ c\breve d c c'\longa \]
+  \[ f\breve d a\longa \]
+}
+@end lilypond
+
 @morerefs
 Glossaire musicologique :
 @rglos{ligature}.
@@ -1055,6 +1345,276 @@ Manuel de notation :
 L'espacement horizontal peut laisser à désirer.
 
 Les altérations peuvent se chevaucher avec les notes précédentes.
+
+
+@node Reading white mensural ligatures
+@subsection Lecture des ligatures mensurales blanches
+
+Les ligatures se lisent de gauche à droite et (si parfois deux notes
+paraissent verticalement alignée) de haut en bas. La ligature doit tout
+d'abord être décomposée en notes -- une flexe signifie deux notes,
+chaque note peut être pointée (voir ci-dessus) ou colorée. De plus,
+chaque hampe est assignée à une note particulière : une hampe
+descendante en fin ou au sein de la ligature affecte la note qui précède
+ou, dans le cas de deux notes verticalement alignées, à la plus basse
+d'entre elles (comme serait une hampe sur la droite de cette note). Par
+contre, une hampe ascendante au début ou en cours de ligature s'attache
+à la note qui suit (comme l'est une hampe sur la gauche -- les hampes
+ascendantes au sein de ligatures sont extrêmement rares).
+
+En suite est attachée à chaque note une durée selon les règles
+suivantes :
+
+@enumerate
+
+@item
+(règle de la @emph{maxima}) Si la note ressemble à une maxime, sa
+longueur est alors @code{\maxima}, sinon
+
+@item
+(règle du @emph{pes}) Si la note est alignée au-dessus de la note
+précédente, sa longueur est @code{\longa}, sinon
+
+@item
+(règle des hampes) Si la note est pourvue d'une hampe, sa longueur est
+  semi-brève (@code{1}) pour une hampe ascendante sur la gauche,
+  @code{\breve}  pour une hampe descendante sur la gauche, et
+  @code{\longa} pour une hampe sur la droite ; sinon
+
+@item
+(complément à la règle des hampes) Si la note précédente est pourvue
+  d'une hampe ascendante sur sa gauche, sa longueur est semi-brève
+  (@code{1}), sinon
+
+@item
+(règle du début descendant) Si la note est la première et qu'elle est
+plus haute que la note qui la suit, sa longueur est @code{\longa}, sinon
+
+@item
+(règle de la fin descendante) Si la note est la finale et qu'elle est
+plus basse que l'avant-dernière et a une allure de brève, sa longueur
+est @code{\longa}, sinon
+
+@item
+La longueur est @code{\breve}.
+
+@end enumerate
+
+Il est à noter que des longueurs inférieures à la semi-brève ne sauraient
+être ligaturées.
+
+Voici quelques exemples, indiquant quelle règle s'applique à quelle
+note :
+
+@lilypond[quote]
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration =
+      #(ly:make-moment 16 1)
+  }
+}
+\new PetrucciStaff {
+  \clef "petrucci-f3"
+  \[ e1-3 \tweak ligature-flexa ##t d-4 \]
+  \[ f1-3 e-4 d\longa-6 \]
+  \[ f1-3 e-4 d\breve-7 \]
+  \[ a\breve-3 g-7 f-7 \]
+  \[ a\breve-3 g-7 a\longa-3 \]
+  \[ b\longa-5 a\breve-7 g-7 f-7 e-7 d\longa-6 \]
+  \[ e\breve-7 f-7 g-7 a-7 \]
+  \[ g\maxima-1 c'\longa-3 \]
+  \[ f\longa-3 g-3 \tweak right-down-stem ##t f-3 \]
+  \[ f\breve-7 a\maxima-1 g\longa-6 \]
+  \[ f\breve_3 e_7 \tweak ligature-pes ##t b\longa-2 \]
+}
+@end lilypond
+
+En dehors de ces règles existent des restrictions ou conventions :
+
+@enumerate A
+
+@item Des notes successives ne peuvent avoir la même hauteur.
+
+@item Des notes alignées verticalement ne peuvent intervenir qu'en fin
+de ligature.
+
+@item Une ligature comporte au moins deux notes
+  (on pourrait éventuellement observer des
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\score { { \[ a'1 \] } }
+@end lilypond
+ressemblant à une ligature unaire, mais il s'agirait probablement de
+rectification d'erreurs de recopie, où une brève serait corrigée en
+semi-brève par adjonction d'une hampe).
+
+@item Des semi-brèves peuvent apparaître au début, et seulement une paire
+-- certains manuscrits anglais comportent des ligatures ayant quatre ou
+six semi-brèves.
+
+@item Les flexes sont descendantes -- néanmoins, la présence de flexes
+ascendants est omniprésente dans des manuscrits ne respectant pas cette
+convention.
+
+@item Les flexes non finales sont tournantes ; autrement dit, les flexes
+descendantes sont suivies par une note plus haute, et les ascendantes
+par une note plus basse.
+
+@item La seconde note d'une flexe ne saurait être une longue ; en
+d'autres termes, une flexe ne peut avoir de hampe sur sa droite.
+
+@item Les notes intermédiaires sont des brèves ; s'il s'agit réellement
+d'une règle explicite de Tinctoris, elle ne correspond pas exactement à
+la pratique mais peut être perfectionnée à plusieurs égards :
+
+@item Des longues et des maximes intermédiaires apparaissent dans des
+ligatures constituées uniquement de longues et de maximes ;
+
+@item Les longues intermédiaires sont plus hautes que la note précédentes ;
+
+@item Les longues intermédiaires sont plus basses que la note suivante.
+
+@end enumerate
+
+Il existe aussi une tendance selon laquelle les maximes dans une
+ligature mixte (non composée uniquement de maximes) sont pourvues d'une
+hampe sur leur droite, sauf si ses débuts et fins sont descendants.
+
+Quelque exemples de l'application de ces restrictions :
+
+@itemize
+
+@item Dans la @emph{ Missa Salve diva parens} d'Obrech, le même motif de
+quatre notes est écrit en longueurs décroissantes. Alors que les maximes
+(pointées) ou brèves peuvent constituer une ligature sur quatre notes,
+les longues et semi-brèves ne le peuvent pas (restrictions K et D).
+
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration =
+      #(ly:make-moment 16 1)
+  }
+}
+\new PetrucciStaff {
+  \clef "petrucci-c3"
+  \[ a\maxima. b c' b \]
+  \[ a\longa. b \] \[ c' b \]
+  \[ a\breve. b c' b \]
+  \[ a1. b \] \[ c' \tweak ligature-flexa ##t b \]
+}
+@end lilypond
+
+@item L'@emph{Amen} d'un Credo de Vaqueras est un long mélisme ; celui
+de la partie de ténor est écrit principalement en ligatures, respectant
+les restrictions D, J et K (mais ignorant H et I).
+
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration =
+      #(ly:make-moment 16 1)
+  }
+}
+\new PetrucciStaff {
+  \clef "petrucci-c5"
+  \[ f1 g \] \[ e\longa g a \] d\breve
+  \[ e1 \tweak ligature-flexa ##t d f\breve g\longa a b \]
+  c'1 \[ a\breve. g\longa \] \[ f e \] \[ d1 e \]
+}
+@end lilypond
+
+Observer la restriction H produit
+
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration =
+      #(ly:make-moment 16 1)
+  }
+}
+\new PetrucciStaff {
+  \clef "petrucci-c5"
+  \[ f1 g \] \[ e\longa g \] \[ a d\breve \]
+  \[ e1 \tweak ligature-flexa ##t d f\breve g\longa \] \[ a b \]
+  c'1 \[ a\breve. g\longa \] \[ f e \] \[ d1 e \]
+}
+@end lilypond
+
+alors qu'ignorer toutes les restrictions donne
+
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration =
+      #(ly:make-moment 16 1)
+  }
+}
+\new PetrucciStaff {
+  \clef "petrucci-c5"
+  \[ f1 g e\longa g a d\breve
+     e1 \tweak ligature-flexa ##t d f\breve g\longa a b \]
+  c'1 \[ a\breve. g\longa f e d1 e \]
+}
+@end lilypond
+
+@end itemize
+
+La règle 6 présente une énigme : comment dessiner une brève finale
+lorsque l'avant-dernière note est pourvue d'une hampe sur sa droite (ce
+qui est extrêmement rare en raison de la restriction K) ? La réponse
+simpliste est : « Stoppe la ligature après la hampe ». Il existe
+cependant des exemples où
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\markup \wml \score {
+  { \[ \tweak right-down-stem ##t d''\longa c''\breve \] } }
+@end lilypond
+doit se lire longue-brève (noter que l'ajout de la hampe sur la droite
+d'une longue en finale pourrait lever toute ambiguïté).
+
+Une interprétation alternative consiste à considérer cette hampe comme
+la hampe attachée sur la droite de la dernière note, comme dans
+Trent 89, folio 97, dans lequel
+@lilypond[inline]
+\include "wml-demo-layout.ly"
+\markup \wml \score {
+  { \[ d''\breve c'' \tweak left-down-stem ##t b' \] } }
+@end lilypond
+doit se lire comme étant trois brèves.
+
+LilyPond dessine @code{\breve} et @code{\longa} comme des têtes de
+@emph{brevis} lorsque les notes finales descendent, mais permet
+l'activation de la propriété @code{right-down-stem} pour lever l'ambiguïté :
+
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Score
+    \override SpacingSpanner.base-shortest-duration =
+      #(ly:make-moment 16 1)
+  }
+}
+\new PetrucciStaff {
+  \clef "petrucci-c5"
+  \[ \tweak right-down-stem ##t g\longa d\breve \]
+  \[ a\breve \tweak right-down-stem ##t c'\maxima b\longa \]
+  \[ a\longa b \tweak right-down-stem ##t a \]
+}
+@end lilypond
+
+Tous ces exemples sont réalité. En fait, la deuxième ligature du dernier
+était à l'origine écrit
+@lilypond[inline]{
+  \include "wml-demo-layout.ly"
+  \markup \wml \score {
+    { \[ b'\breve d''\maxima c''\longa \] } } },
+et la hampe est une addition postérieure.
 
 
 @node Typesetting Gregorian chant
@@ -1362,7 +1922,7 @@ une marque de césure.
 @lilypond[quote,ragged-right,staffsize=23]
 \new VaticanaScore {
   \new VaticanaVoice {
-    \override TextScript.padding = 3
+    \override TextScript.staff-padding = 2
     g a g
     s^\markup { "divisio minima" }
     \divisioMinima
@@ -1570,10 +2130,16 @@ d'une hauteur par l'une des commandes suivantes :
 @code{\linea}.
 
 @item
+@funindex \pes
+@funindex \flexa
 Une ligature, autrement dit la juxtaposition de notes, s'obtient en
 plaçant une commande de jointure @code{\pes} ou @code{\flexa} pour
 marquer une ligne mélodique respectivement ascendante ou descendante,
 entre les notes qui la composent.
+
+@funindexpost \~
+Une alternative à @code{\pes} et @code{\flexa}, qui fonctionnent en
+interne de la même manière, consiste à utiliser la commande @code{\~}.
 @end itemize
 
 Une hauteur sans qualificatif sera considérée comme un @emph{punctum}.
@@ -1603,15 +2169,17 @@ lui adjoindra une ligne verticale de part et d'autre.
 Contrairement à la majorité des autres systèmes de notation neumatique,
 la manière de saisir les neumes n'a rien à voir avec leur apparence
 typographique ; elle se concentre plutôt sur le sens musical. Ainsi,
-@code{\[ a \pes b \flexa g \]} produit un @emph{torculus} constitué de
-trois @emph{punctums}, alors que @code{\[ a \flexa g \pes b \]} produit
-un @emph{porrectus} avec une flexe incurvée et un seul @emph{punctum}.
-Il n'existe pas de commande à proprement parler qui permette de
-spécifier la courbe d'une flexe ; c'est la source musicale qui va le
-déterminer. Le fondement d'une telle approche réside dans la distinction
-que nous faisons entre les aspects musicaux de la source et le style de
-notation que nous voulons obtenir. De ce fait, la même source pourra
-être utilisée pour imprimer dans un autre style de notation grégorienne.
+@code{\[ a \pes b \flexa g \]} (ou @code{\[ a \~ b \~ g\]}) produit un
+@emph{torculus} constitué de trois @emph{punctums}, alors qu'une carrure
+haut-bas-haut telle que @code{\[ a \flexa g \pes b \]} (ou @code{\[ a \~
+g \~ b\]}) produit un @emph{porrectus} avec une flexe incurvée et un
+seul @emph{punctum}. Il n'existe pas de commande à proprement parler qui
+permette de spécifier la courbe d'une flexe ; c'est la source musicale
+qui va le déterminer. Le fondement d'une telle approche réside dans la
+distinction que nous faisons entre les aspects musicaux de la source et
+le style de notation que nous voulons obtenir. De ce fait, la même
+source pourra être utilisée pour imprimer dans un autre style de
+notation grégorienne.
 
 @subsubsubheading Neumes liquescents
 
@@ -1680,9 +2248,10 @@ première colonne énumère le nom des ligatures -- forme normale en gras
 et forme liquescente en italique. La troisième colonne contient le code
 ayant permis de générer la ligature, se basant ici sur sol, la, si.
 
+@need 1500
 @subsubheading Neumes simples
+@c VO Single-note neumes
 
-@need 1000
 @indentedblock
 @multitable @columnfractions .35 .13 .52
 
@@ -1830,9 +2399,10 @@ Formes @b{Normale} et @emph{Liquescente}
 @end indentedblock
 
 
+@need 1500
 @subsubheading Ligatures sur deux notes
+@c VO Two-note ligatures
 
-@need 1000
 @indentedblock
 @multitable @columnfractions .35 .13 .52
 
@@ -1849,7 +2419,8 @@ Formes @b{Normale} et @emph{Liquescente}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ b \flexa g \]}
+@code{\[ b \flexa g \]}@*
+(@code{\[ b \~ g \]})
 
 @item
 @emph{Clivis Aucta Descendens}
@@ -1908,7 +2479,8 @@ Formes @b{Normale} et @emph{Liquescente}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ g \pes b \]}
+@code{\[ g \pes b \]}@*
+(@code{\[ g \~ b \]})
 
 @item
 @emph{Pes Auctus Descendens}
@@ -1991,9 +2563,10 @@ Initio Debilis}
 @end indentedblock
 
 
+@need 1500
 @subsubheading Ligatures sur plusieurs notes
+@c VO Multi-note ligatures
 
-@need 1000
 @indentedblock
 @multitable @columnfractions .35 .13 .52
 
@@ -2010,7 +2583,8 @@ Initio Debilis}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ a \pes b \flexa g \]}
+@code{\[ a \pes b \flexa g \]}@*
+(@code{\[ a \~ b \~ g \]})
 
 @item
 @emph{Torculus Auctus Descendens}
@@ -2105,7 +2679,8 @@ Initio Debilis}
 \layout { \neumeDemoLayout }}
 @end lilypond
 @tab
-@code{\[ a \flexa g \pes b \]}
+@code{\[ a \flexa g \pes b \]}@*
++(@code{\[ a \~ g \~ b \]})
 
 @item
 @emph{Porrectus Auctus Descendens}
@@ -2236,9 +2811,10 @@ Initio Debilis}
 @end indentedblock
 
 
-@subsubheading Signes spéciaux
-
 @need 1000
+@subsubheading Signes spéciaux
+@c VO Special signs
+
 @indentedblock
 @multitable @columnfractions .35 .13 .52
 
@@ -2464,10 +3040,12 @@ note.
 
 @funindex \pes
 @funindex \flexa
+@funindexpost \~
 
 Deux notes adjacentes peuvent être reliées grâce aux commandes
 @code{\pes} ou @code{\flexa} pour marquer une ligne mélodique
-respectivement ascendante ou descendante.
+respectivement ascendante ou descendante. Une alternative à ces
+commandes consiste à utiliser @code{\~}.
 
 @funindex \augmentum
 

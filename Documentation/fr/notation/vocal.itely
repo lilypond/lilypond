@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8f9c0c7447cf84d0566af732d06dc065dec00dca
+   Translation of GIT committish: b1311a5694133c9694e180cdbdc693614334d61d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -1299,7 +1299,7 @@ saisissez le texte normalement :
       \new Voice = "melody" {
         \relative {
           a'4 a a a
-          \repeat unfold 2 { b4 b b b }
+          \*2 { b4 b b b }
         }
       }
     }
@@ -1506,14 +1506,14 @@ note quelle qu'en soit la durée.}
     \new Lyrics {
       \lyricsto "melody" {
         The first time words.
-        \repeat unfold 2 { \skip 1 }
+        \*2 { \skip 1 }
         End here.
       }
     }
     \new Lyrics {
       \lyricsto "melody" {
         Sec -- ond
-        \repeat unfold 2 { \skip 1 }
+        \*2 { \skip 1 }
         time words.
       }
     }
@@ -1595,13 +1595,13 @@ insérer des blancs :
     \new Lyrics {
       \lyricsto "melody" {
         Here's a __ verse.
-        \repeat unfold 2 { \skip 1 }
+        \*2 { \skip 1 }
       }
     }
     \new Lyrics {
       \lyricsto "melody" {
         Here's one
-        \repeat unfold 2 { \skip 1 }
+        \*2 { \skip 1 }
         more to sing.
       }
     }
@@ -1631,7 +1631,7 @@ doivent être insérées manuellement :
     \new Lyrics {
       \lyricsto "melody" {
         Here's a __ verse.
-        \repeat unfold 2 { \skip 1 }
+        \*2 { \skip 1 }
       }
     }
     \new Lyrics {
@@ -1834,6 +1834,7 @@ words = \lyricmode { la __ la __ }
 
 @cindex numéro de couplet
 @cindex couplet, numéro
+@funindex \stanza
 
 On peut ajouter un numéro aux couplets en définissant la variable
 @code{stanza} :
@@ -1846,7 +1847,7 @@ On peut ajouter un numéro aux couplets en définissant la variable
   Hi, my name is Bert.
 } \addlyrics {
   \stanza "2. "
-  Oh, ché -- ri, je t'aime
+  Oh, ché -- ri, je t’aime
 }
 @end lilypond
 
@@ -1884,29 +1885,151 @@ stanzaOneThree = \lyricmode {
 @end lilypond
 
 
+@node Stanza reminders
+@subsection Rappel de couplet
+
+@cindex couplet, rappel
+@funindex \noStanza
+@funindex stanzaReminders
+@funindex stanzaReminderText
+
+Il est parfois désirable de répéter le numéro du couplet à chaque
+nouvelle ligne. Ceci s'obtient après avoir activé la propriété de contexte
+@code{stanzaReminders} :
+
+@lilypond[quote,ragged-right,verbatim]
+\layout {
+  \set stanzaReminders = ##t
+}
+
+\new Voice \relative {
+  \key e \minor
+  b'4 b a g
+  fis2 e
+  b'4 cis d b \break
+  e2 dis
+  e4 g fis fis
+  e1
+}
+\addlyrics {
+  \stanza "1."
+  Je -- su, mei -- ne Freu -- de,
+  mei -- nes Her -- zens Wei -- de,
+  Je -- su, mei -- ne Zier.
+}
+\addlyrics {
+  \stanza "2."
+  Un -- ter dei -- nem Schir -- men
+  bin ich vor den Stür -- men
+  al -- ler Fein -- de frei.
+}
+\addlyrics {
+  \stanza "3."
+  Trotz dem al -- ten Dra -- chen,
+  trotz des To -- des Ra -- chen,
+  trotz der Furcht dar -- zu!
+}
+\addlyrics {
+  \stanza "4."
+  Weg mit al -- len Schät -- zen!
+  Du bist mein Er -- göt -- zen,
+  Je -- su, mei -- ne Lust!
+}
+\addlyrics {
+  \stanza "5."
+  Gu -- te Nacht, o We -- sen,
+  das die Welt er -- le -- sen,
+  mir ge -- fällst du nicht.
+}
+\addlyrics {
+  \stanza "6."
+  Weicht, ihr Trau -- er -- geis -- ter,
+  denn mein Freu -- den -- meis -- ter,
+  Je -- sus, tritt her -- ein.
+}
+@end lilypond
+
+Les rappels de couplet sont, par défaut, identiques aux numéros de
+couplet correspondant. Ce comportement peut se modifier à l'aide de la
+propriété @code{stanzaReminderText}, soit en fournissant directement un
+nouveau @emph{markup}, soit par une fonction qui accepte le
+@emph{markup} du numéro de couplet originel en tant qu'argument.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Voice \relative {
+  \key e \minor
+  b'4 b a g
+  fis2 e \break
+  b'4 cis d b
+  e2 dis \break
+  e4 g fis fis
+  e1
+}
+\addlyrics {
+  \stanza "1."
+  \set stanzaReminders = ##t
+  \set stanzaReminderText = #make-bracket-markup
+  Je -- su, mei -- ne Freu -- de,
+  mei -- nes Her -- zens Wei -- de,
+  \set stanzaReminderText = "(1st)"
+  Je -- su, mei -- ne Zier.
+}
+@end lilypond
+
+La commande @code{\noStanza} réinitialise le numéro de couplet de telle
+sorte qu'aucun rappel n'apparaisse à nouveau.
+
+@lilypond[quote,ragged-right,verbatim]
+\layout {
+  \set stanzaReminders = ##t
+}
+
+\new Voice \relative {
+  \repeat volta 2 {
+    a'4 e a b
+    c d b2
+    a\fermata c4 b
+    \break
+    a b c d
+    e1\fermata
+  }
+  e4 f g c, \break
+  f e d2
+  c2 \fermata
+}
+\addlyrics {
+  \stanza "1."
+  Herr, ich ha -- be miss -- ge -- han -- delt,
+  ja mich drückt der Sün -- den Last;
+  \noStanza
+  und itzt wollt’ ich gern aus Schre -- cken
+}
+\addlyrics {
+  \stanza "2."
+  ich bin nicht den Weg ge -- wan -- delt,
+  den du mir ge -- zei -- get hast;
+}
+@end lilypond
+
+
 @node Adding dynamics marks to stanzas
 @subsection Indication de nuance dans les couplets
 
 Lorsque des couplets ont des nuances différentes, vous pouvez ajouter
-une nuance en regard de chacun d'eux. L'objet @code{StanzaNumber}
-contient tout ce qui se place avant les paroles du couplet. Pour des
-raisons techniques, vous devrez définir la variable @code{stanza} en
-dehors du mode @code{\lyricmode}.
+une nuance en regard de chacun d'eux. Bien qu'il n'y ait pas de procédé
+dédié pour traiter ce cas, elles peuvent s'insérer facilement et
+directement dans le numéro du couplet :
 
 @lilypond[quote,ragged-right,verbatim]
-text = {
-  \stanza \markup { \dynamic "ff" "1. " }
-  \lyricmode {
-    Big bang
-  }
-}
-
 <<
-  \new Voice = "tune" {
+  \new Voice = tune {
     \time 3/4
     g'4 c'2
   }
-\new Lyrics \lyricsto "tune" \text
+  \new Lyrics \lyricsto tune {
+    \stanza \markup { \dynamic ff 1. }
+     Big bang
+  }
 >>
 @end lilypond
 
@@ -1927,11 +2050,11 @@ abrégée.
 \new Voice \relative {
   \time 3/4 g'2 e4 a2 f4 g2.
 } \addlyrics {
-  \set vocalName = "Bert "
+  \set vocalName = "Bert"
   Hi, my name is Bert.
 } \addlyrics {
-  \set vocalName = "Ernie "
-  Oh, ché -- ri, je t'aime
+  \set vocalName = "Ernie"
+  Oh, ché -- ri, je t’aime
 }
 @end lilypond
 
@@ -2089,7 +2212,8 @@ propriété @code{associatedVoice}. Dans cet exemple,
     no --
     \set associatedVoice = lahlah % applies to "rus"
     sau -- rus Rex
-  } >>
+  }
+>>
 @end lilypond
 
 @noindent
@@ -2148,7 +2272,7 @@ melody = \relative {
 text = \lyricmode {
   \stanza "1."
   À la clai- re fon- tai- ne,
-  M'en al- lant pro- me- ner...
+  M’en al- lant pro- me- ner...
 }
 
 \score{ <<
@@ -2159,7 +2283,7 @@ text = \lyricmode {
 }
 
 \markup \column \string-lines
-  "Couplet 2. \n Sous les feuilles d'un chêne \n Je me suis fait sécher..."
+  "Couplet 2. \n Sous les feuilles d’un chêne \n Je me suis fait sécher..."
 
 \markup \column \string-lines
   "Couplet 3.
@@ -2168,8 +2292,8 @@ text = \lyricmode {
 
 \markup \column {
     \line \italic { Couplet 4. }
-    \line { J'ai perdu mon ami }
-    \line { Sans l'avoir mérité... }
+    \line { J’ai perdu mon ami }
+    \line { Sans l’avoir mérité... }
 }
 
 \markup \wordwrap-string "
@@ -2199,7 +2323,7 @@ melody = \relative {
 
 text = \lyricmode {
   \stanza "1." À la clai- re fon- tai- ne,
-  M'en al- lant pro- me- ner...
+  M’en al- lant pro- me- ner...
 }
 
 \score{ <<
@@ -2235,8 +2359,8 @@ text = \lyricmode {
     \column {
       \line { \bold "4."
         \column {
-          "J'ai perdu mon ami"
-          "Sans l'avoir mérité..."
+          "J’ai perdu mon ami"
+          "Sans l’avoir mérité..."
         }
       }
       % ajout d'espace vertical entre les couplets
@@ -2972,7 +3096,7 @@ Voici une illustration de tout ce que nous venons de voir :
 
 @lilypond[quote,verbatim,ragged-right]
 music = \relative {
-  \repeat unfold 3 { a'4 a a a }
+  \*3 { a'4 a a a }
 }
 
 dialogue = \lyricmode {

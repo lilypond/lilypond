@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8f9c0c7447cf84d0566af732d06dc065dec00dca
+   Translation of GIT committish: b1311a5694133c9694e180cdbdc693614334d61d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.34"
+@c \version "2.25.35"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: J.-C. Malahieude, John Mandereau, Jean Abou Samra
@@ -451,7 +451,7 @@ gérer le différé des articulations et scripts textuels :
     \after 2. ^"Fine." f
   }
   \relative {
-    \repeat unfold 12 c'4
+    \*12 c'4
     c c c c\fermata
     c c c c
   }

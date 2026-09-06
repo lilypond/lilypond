@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
+   Translation of GIT committish: b1311a5694133c9694e180cdbdc693614334d61d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -4279,29 +4279,120 @@ fis'^\markup { \rotate #30 "un fa dièse" }
 @node Aligning objects
 @section Alignement des objets
 
-Les objets graphiques disposant des interfaces
-@code{self-alignment-interface} ou @code{side-@/position-@/interface}
-peuvent s'aligner par rapport à un objet précédemment positionné, ce de
-différentes manières. Ces objets sont référencés aux rubriques
-@rinternals{self-alignment-interface} et
-@rinternals{side-position-interface}.
+@cindex alignement des objets
+@cindex objets, alignement
+@cindex @emph{grob}, alignement
+@cindex référence, point de
+@cindex point de référence
+@cindex horizontale, étendue des objets
+@cindex verticale, étendue des objets
+@cindex @'etendue des objets
 
-Tous les objets graphiques ont un point de référence, une étendue
-horizontale et une étendue verticale. L'étendue horizontale est
-représentée par une paire de nombres indiquant l'écart entre le point de
-référence et les bords gauche et droit -- l'écart à gauche étant
-négatif. L'étendue verticale est représentée par une paire de nombres
-indiquant l'écart entre le point de référence et les bords inférieur et
-supérieur -- l'écart vers le bas étant négatif.
+Tous les objets graphiques ont un @dfn{point de référence} ; en matière
+de coordonnées, ce point de référence est réputé être à la position
+(0,0).
+
+Tous les objets graphiques ont aussi une @dfn{étendue horizontale} et
+une @dfn{étendue verticale}. L'étendue horizontale est représentée par
+une paire de nombres indiquant l'écart entre le point de référence et
+les bords gauche et droit -- l'écart à gauche étant négatif. L'étendue
+verticale est représentée par une paire de nombres indiquant l'écart
+entre le point de référence et les bords inférieur et supérieur --
+l'écart vers le bas étant négatif. Dans l'image suivante, le point en
+coordonnée 0 est le point de référence ; l'étendue horizontale est
+@code{#'(-9 . 26)}, et l'étendue verticale est @code{#'(-10 . 29)}.
+
+@lilypond[quote]
+#(define-markup-command (point layout props x y xoff yoff)
+   (number? number? number? number?)
+   (interpret-markup
+    layout props
+    (make-overlay-markup
+     (list
+      (make-translate-markup
+       (cons x y)
+       (make-draw-circle-markup 0.4 0 #t))
+      (make-translate-markup
+       (cons (+ x xoff) (+ y yoff))
+       (format #f "(~a,~a)" x y))))))
+
+\markup \scale #'(0.8 . 0.8) {
+  \overlay {
+    \scale #'(18 . 16) \with-color #(x11-color "gray80")
+      \musicglyph "accidentals.flatflat.slash"
+
+    \override #'((filled . #f)
+                 (thickness . 2))
+      \polygon #'((-9 . -10) (-9 . 29) (26 . 29) (26 . -10))
+
+    \translate #'(-15 . 0) \draw-line #'(47 . 0)
+    \translate #'(32 . 0) \arrow-head #X #RIGHT ##t
+    \translate #'(31 . -2) \italic x
+    \translate #'(0 . -15) \draw-line #'(0 . 50)
+    \translate #'(0 . 35) \arrow-head #Y #UP ##t
+    \translate #'(-2 . 34) \italic y
+
+    \point #0 #0 #0.5 #0.8
+    \point #-9 #-10 #0.5 #0.8
+    \point #26 #29 #-3 #1
+
+    \translate #'(-10.5 . 19) \draw-line #'(0 . 10)
+    \translate #'(-10.5 . 29) \arrow-head #Y #UP ##t
+    \translate #'(-18 . 10) \rotate #90 \italic "vertical extent"
+    \translate #'(-10.5 . 2.5) \draw-line #'(0 . -12.5)
+    \translate #'(-10.5 . -10) \arrow-head #Y #DOWN ##t
+
+    \translate #'(-0.5 . -12) \draw-line #'(-8.5 . 0)
+    \translate #'(-9 . -12) \arrow-head #X #LEFT ##t
+    \translate #'(9 . -12.5) \center-align \italic "horizontal extent"
+    \translate #'(18 . -12) \draw-line #'(8 . 0)
+    \translate #'(26 . -12) \arrow-head #X #RIGHT ##t
+  }
+}
+@end lilypond
+
+Voir @rextendnamed{LilyPond's box model, Le modèle de boîte de LilyPond}
+pour plus de détails sur l'étendue des glyphes musicaux.
+
+@cindex alignement, point d'
+@cindex point d'alignement
+
+Les objets graphiques ont aussi des @dfn{points d'alignement}, qui ne
+sont pas nécessairement le même que leur point de référence. Un point
+d'alignement est un point relatif à un objet que LilyPond utilise pour
+aligner cet objet avec d'autres objets. Les points de
+@emph{self-alignment} sont relatifs à l'objet lui-même ; les points de
+@emph{parent-alignment} sont relatifs à l'objet parent si tant est qu'il
+y en ait un.
+
+La plupart des objets graphiques ont des parents qui influencent leur
+positionnement. Pour ces objets, LilyPond bouge l'objet de telle sorte
+que son point d'alignement soit à la même position que le point
+d'alignement de son parent. Par exemple,
+@code{TextScript@/.parent-alignment-X} est la propriété d'un objet
+@code{TextScript} qui spécifie le point d'alignement sur l'axe des
+abscisses (coordonnée X) relativement au parent de cet objet
+@code{TextScript} (son objet @code{NoteColumn} associé) sur lequel
+LilyPond alignera cet objet @code{TextScript}. Lorsque l'on place
+horizontalement un objet @code{TextScript}, LilyPond aligne le point de
+@emph{self-alignment} de l'objet sur un point de @emph{parent-alignment}
+relatif à l'objet @code{NoteColumn} qui est parent du @code{TextScript}.
+Si l'objet @code{NoteColumn} a plusieurs enfants, ces objets enfants
+peuvent avoir des points de @emph{parent-alignment} différents.
+@xref{Using the self-alignment-interface} pour plus d'information.
 
 La position d'un objet sur la portée est donnée par la valeur des
 propriétés @code{X-offset} et @code{Y-offset}. La valeur de
 @code{X-offset} indique l'écart en abscisse (coordonnée X) par rapport
 au point de référence de l'objet parent ; la valeur de @code{Y-offset}
-indique l'écart par rapport à la ligne médiane de la portée. Les valeurs
-de @code{X-offset} et @code{Y-offset} peuvent être fournies
-arbitrairement, ou bien être calculé par des procédures spécifiques qui
-détermineront l'alignement par rapport à l'objet parent.
+indique l'écart par rapport à la ligne médiane de la
+portée.@footnote{Pour les objets non directement associés à une portée,
+d'autres conventions peuvent s'appliquer. Par exemple, les valeurs d'un
+@code{Y-offset} des objets @code{InstrumentName} sont mesurés à partir
+du haut de la portée supérieure du système.} Les valeurs de
+@code{X-offset} et @code{Y-offset} peuvent être fournies arbitrairement,
+ou bien être calculé par des procédures spécifiques qui détermineront
+l'alignement par rapport à l'objet parent.
 
 @warning{Nombre d'objets sont affectés par des considérations
 spécifiques en matière de positionnement ; jouer sur les valeurs de
@@ -4314,6 +4405,12 @@ correspondante.}
 Par exemple, une altération peut se repositionner verticalement grâce à
 son @code{Y-offset} ; toute modification de son @code{X-offset} restera
 par contre sans effet.
+
+De nombreux objets peuvent s'aligner antérieurement placés à l'aide de
+la  @code{self-@/alignment-@/interface} et/@/ou la
+@code{side-position-interface}. La liste des objets concernée est
+disponible aux rubriques @rinternals{self-alignment-interface} et
+@rinternals{side-position-interface}.
 
 Les indications de repère s'alignent sur des objets de rupture -- tels
 les barres de mesure, clefs, métriques et armures. Certaines propriétés
@@ -4333,6 +4430,9 @@ Manuel d'extension :
 @node Setting X-offset and Y-offset directly
 @subsection Détermination directe de @code{X-offset} et @code{Y-offset}
 
+@funindex X-offset
+@funindex Y-offset
+
 Vous pouvez fournir, pour de nombreux objets, des valeurs numériques aux
 propriétés @code{X-offset} et @code{Y-offset}. Voici par exemple une
 note avec indication du doigté tout d'abord avec un positionnement par
@@ -4340,15 +4440,13 @@ défaut, puis repositionnement par modification successive du
 @code{X-offset} et du @code{Y-offset}.
 
 @lilypond[verbatim,fragment,quote]
-a'-3
-a'
--\tweak X-offset 0
--\tweak Y-offset 0
--3
-a'
--\tweak X-offset -1
--\tweak Y-offset 1
--3
+f'-3
+f'-\tweak X-offset 0
+  -\tweak Y-offset 0
+  -3
+f'-\tweak X-offset -1
+  -\tweak Y-offset 0.5
+  -3
 @end lilypond
 
 @c TODO write more
@@ -4357,6 +4455,8 @@ a'
 @node Using the side-position-interface
 @subsection Utilisation de @code{side-position-interface}
 
+@funindex side-position-interface
+
 Un objet disposant de la @code{side-position-interface} peut se voir
 accolé à son voisin de telle sorte que les bords des deux objets se
 touchent. Un tel objet peut se positionner au-dessus, en dessous, à
@@ -4364,6 +4464,9 @@ droite ou à gauche de son parent. Ce parent ne saurait être stipulé ; il
 est déterminé par l'ordre d'apparition des éléments dans le flux des
 saisies. La plupart de ces objets ont pour parent la tête de note qui
 leur est associée.
+
+@funindex side-axis
+@funindex direction
 
 Les valeurs des propriétés @code{side-axis} et @code{direction}
 détermineront l'endroit où viendra se positionner l'objet, selon les
@@ -4377,27 +4480,38 @@ préceptes suivants :
                       @tab Propriété @code{direction}
                                        @tab Positionnement
 
-@item     @code{0}          @tab @code{-1}         @tab gauche
-@item     @code{0}          @tab @code{1}          @tab droite
-@item     @code{1}          @tab @code{-1}         @tab en dessous
-@item     @code{1}          @tab @code{1}          @tab au-dessus
+@item     0   @tab -1  @tab gauche
+@item     0   @tab 1   @tab droite
+@item     1   @tab -1  @tab en dessous
+@item     1   @tab 1   @tab au-dessus
 
 @end multitable
 @end indentedblock
 
-Pour un @code{side-axis} à @code{0}, le @code{X-offset} devrait engager
-la procédure
-@code{ly:@/side-@/position-@/interface::@/x-aligned-@/side}. Celle-ci
-renverra la valeur adéquate de @code{X-offset} permettant d'accoler
-l'objet sur la droite ou sur la gauche de son parent, selon la valeur de
-@code{direction}.
+Pour un @code{side-axis} à 0, le @code{X-offset} devrait engager la
+procédure @code{ly:@/side-@/position-@/interface::@/x-aligned-@/side}.
+Celle-ci renverra la valeur adéquate de @code{X-offset} permettant
+d'accoler l'objet sur la droite ou sur la gauche de son parent, selon la
+valeur de @code{direction}.
 
-Pour un @code{side-axis} à @code{1}, le @code{Y-offset} devrait engager
-la procédure
-@code{ly:@/side-@/position-@/interface::@/y-aligned-@/side}. Celle-ci
-renverra la valeur adéquate de @code{Y-offset} permettant d'accoler
-l'objet au-dessus ou en dessous de son parent, selon la valeur de
-@code{direction}.
+Pour un @code{side-axis} à 1, le @code{Y-offset} devrait engager la
+procédure @code{ly:@/side-@/position-@/interface::@/y-aligned-@/side}.
+Celle-ci renverra la valeur adéquate de @code{Y-offset} permettant
+d'accoler l'objet au-dessus ou en dessous de son parent, selon la valeur
+de @code{direction}.
+
+@funindex X
+@funindex Y
+@funindex LEFT
+@funindex RIGHT
+@funindex UP
+@funindex DOWN
+
+Les valeurs 0 et 1 peuvent se remplacer par les symboles Scheme @code{X}
+et @code{Y} pour spécifier l'axe concerné. De façon similaire, on peut
+utiliser les symboles @code{DOWN} (@code{LEFT}) et @code{UP}
+(@code{RIGHT}) au lieu des valeurs @w{-1} et 1 pour spécifier la
+direction.
 
 @c TODO Add examples
 
@@ -4405,13 +4519,126 @@ l'objet au-dessus ou en dessous de son parent, selon la valeur de
 @node Using the self-alignment-interface
 @subsection Utilisation de @code{self-alignment-interface}
 
-@subsubheading Réalignement d'objets horizontalement
+@funindex self-alignment-interface
 
-L'alignement horizontal d'un objet disposant de la
-@code{self-alignment-interface} dépend de la valeur de sa propriété
-@code{self-alignment-X}, si tant est que la propriété @code{X-offset} de
-cet objet engage la procédure
-@code{ly:self-alignment-interface::x-aligned-on-self}. La propriété
+
+La @code{self-alignment-interface} définit les points d'alignement des
+objets. Dans LilyPond, cette interface s'applique à de nombreux objets
+graphiques -- il sont listés dans @rinternals{self-alignment-interface}.
+
+L'interface d'alignement se base sur la dimension de la boîte englobant
+l'objet graphique. La coordonnée X Y du point d'alignement d'un objet est
+un multiple de la moitié de la largeur (hauteur) de cette boîte
+englobante. En d'autre termes, une unité correspond à la moitié de
+l'étendue X Y de l'objet.
+
+Une coordonnée X Y à −1 représente le coin gauche (inférieur) de la
+boîte englobante. Une coordonnée X Y à 0 en représente le centre. Une
+coordonnée X Y à 1 en représente le coin droit (supérieur).
+
+Une coordonnée peut être n'importe quel nombre réel, y compris des
+valeurs inférieures à −1 ou supérieures à 1.
+
+L'image suivante montre le cas général, où à la fois le parent
+et l'objet « self » ont des paramètres d'alignement horizontal et
+vertical non nuls @emph{A@sub{P}} et @emph{A@sub{S}} (ces deux points
+sont ici choisis arbirtrairemen afin d'illustrer le concept).
+
+@lilypond[quote]
+#(define-markup-command (point layout props x y xoff yoff label)
+   (number? number? number? number? markup?)
+   (interpret-markup
+    layout props
+    (make-overlay-markup
+     (list
+      (make-translate-markup
+       (cons x y)
+       (make-draw-circle-markup 0.4 0 #t))
+      (make-translate-markup
+       (cons (+ x xoff) (+ y yoff))
+       label)))))
+
+\markup \scale #'(0.8 . 0.8) {
+  \overlay {
+    \translate #'(-25 . 0) {
+      \translate #'(0 . 15) \center-align "parent grob"
+
+      \override #'((filled . #f)
+                   (thickness . 2))
+        \polygon #'((-20 . -10) (-20 . 10) (20 . 10) (20 . -10))
+
+      \translate #'(-20 . 0) \draw-line #'(40 . 0)
+      \translate #'(0 . -10) \draw-line #'(0 . 20)
+
+      \point #0 #0 #0.5 #0.8 "(0,0)"
+      \point #-20 #-10 #-7 #-0.8 "(-1,-1)"
+      \point #-20 #10 #-6 #0.8 "(-1,1)"
+      \point #20 #10 #1 #0.8 "(1,1)"
+      \point #20 #-10 #1 #-0.8 "(1,-1)"
+
+      \translate #'(0 . -15) \center-align \line {
+        \concat { \italic A \sub \italic P } = (0.6, -0.5) }
+      \point #12 #-5 #0.5 #0.8 \concat { \italic A \sub \italic P }
+    }
+
+    \translate #'(25 . 0) {
+      \translate #'(0 . 15) \center-align "“self” grob"
+
+      \override #'((filled . #f)
+                   (thickness . 2))
+        \polygon #'((-9 . -9) (-9 . 9) (9 . 9) (9 . -9))
+
+      \translate #'(-9 . 0) \draw-line #'(18 . 0)
+      \translate #'(0 . -9) \draw-line #'(0 . 18)
+
+      \point #0 #0 #0.5 #0.8 "(0,0)"
+      \point #-9 #-9 #-7 #-0.8 "(-1,-1)"
+      \point #-9 #9 #-6 #0.8 "(-1,1)"
+      \point #9 #9 #1 #0.8 "(1,1)"
+      \point #9 #-9 #1 #-0.8 "(1,-1)"
+
+      \translate #'(0 . -15) \center-align \line {
+        \concat { \italic A \sub \italic S } = (-1.4, 0.2) }
+      \point #-12.6 #1.8 #-2.3 #-2 \concat { \italic A \sub \italic S }
+    }
+
+    \translate #'(0 . -38) {
+      \translate #'(0 . 15) \center-align "parent and “self” grob aligned"
+
+      \translate #'(-12.6 . 1.8) {
+        \override #'((filled . #f)
+                     (thickness . 2))
+          \polygon #'((-20 . -10) (-20 . 10) (20 . 10) (20 . -10))
+
+          \translate #'(-20 . 0) \draw-line #'(40 . 0)
+          \translate #'(0 . -10) \draw-line #'(0 . 20)
+
+          \point #12 #-5 #-5 #1.5 \line {
+            \concat { \italic A \sub \italic P } =
+            \concat { \italic A \sub \italic S } }
+      }
+      \translate #'(12 . -5) {
+        \override #'((filled . #f)
+                     (thickness . 2))
+          \polygon #'((-9 . -9) (-9 . 9) (9 . 9) (9 . -9))
+
+          \translate #'(-9 . 0) \draw-line #'(18 . 0)
+          \translate #'(0 . -9) \draw-line #'(0 . 18)
+      }
+    }
+  }
+}
+@end lilypond
+
+
+@subsubheading Réalignement d'objets horizontalement
+@c VO Self-aligning and parent-aligning objects horizontally
+
+@funindex self-alignment-X
+@funindex LEFT
+@funindex RIGHT
+@funindex CENTER
+
 @code{self-alignment-X} peut contenir un nombre réel, l'unité de base
 étant la moitié de l'étendue horizontale de l'objet. Une valeur négative
 décalera l'objet vers la droite, une valeur positive vers la gauche. La
@@ -4423,25 +4650,172 @@ de son parent. Les valeurs symboliques @code{LEFT}, @code{CENTER} et
 @code{RIGHT} correspondent respectivement à @w{@code{-1}}, @code{0}
 et @code{1}.
 
-En règle générale, la valeur de @code{self-alignment-X} se modifie à
-l'aide d'une commande @code{\override}. Le recours à la commande
-@code{\tweak} permet de traiter séparément plusieurs annotations
-affectées à une même note :
+Une valeur à  @code{#f} aligne horizontalement l'objet en utilisant son
+point de référence. Cette valeur n'est valide que lorsque l'objet a un
+parent ; LilyPond émettra un erreur en l'absence de parent.
+
+@funindex parent-alignment-X
+
+Lorsqu'un objet a un parent, son alignement horizontal est lui aussi
+affecté par la propriété @code{parent-alignment-X}.
+
+L'image suivant illustre diverses combinaisons de valeurs de
+@code{self-alignment-X} et @code{parent-alignment-X} pour des objets
+@code{TextScript} dont les parents sont leurs objets @code{NoteColumn}
+associés. Les objets @code{TextScript} sont ici des boîtes grisées dont
+l'étendue horizontale est @w{@code{'(-1 . 3)}} et l'étendue verticale
+@w{@code{'(-1 . 2)}} ; le point de référence des boîtes est représenté
+par un point. Le point de référence d'un objet @code{NoteColumn} est
+toujours (0,0) ; les objets @code{NoteHead} suspendus (têtes de note
+d'un accord l'une sur l'autre, côté non par défaut d'une hampe)
+dépassent mais ne seront pas pris en compte. La position horizontale du
+point-parent d'alignement est représenté par une ligne verticale, et le
+point d'alignement du @code{TextScript} est indiqué par une croix.
+
+@lilypond[quote]
+#(define visualize-alignments
+   ;; Add visual clues to show alignment between `TextScript` and
+   ;; `NoteColumn` grobs.
+   ;;
+   ;;   reference point of `TextScript` grob:              dot
+   ;;   self-alignment-X ('self' grob is `TextScript`):    cross
+   ;;   parent-alignment-X (parent grob is `NoteColumn`):  vertical line
+   (grob-transformer
+    'stencil
+    (lambda (grob orig)
+      (let* ((dot (make-circle-stencil 0.2 0.1 #t))
+             (zero-ext-dot
+              (ly:make-stencil (ly:stencil-expr dot) '(0 . 0) '(0 . 0)))
+             (cross (make-path-stencil '(moveto -1 -1
+                                         lineto 1 1
+                                         moveto -1 1
+                                         lineto 1 -1)
+                                       0.1 0.3 0.3 #f))
+             (zero-ext-cross
+              (ly:make-stencil (ly:stencil-expr cross) '(0 . 0) '(0 . 0)))
+             (line (make-line-stencil 0 0 -7.5 0 1.5)))
+        (if (ly:stencil? orig)
+            (let* ((stil-x-ext (ly:stencil-extent orig X))
+                   (stil-y-ext (ly:stencil-extent orig Y))
+                   (self-x (ly:grob-property grob 'self-alignment-X #f))
+                   (self-y (ly:grob-property grob 'self-alignment-Y #f))
+                   (nc (ly:grob-parent grob X))
+                   (nc-x-ext (ly:grob-property nc 'main-extent))
+                   (nc-y-ext (ly:grob-extent nc nc Y))
+                   (par-x (ly:grob-property grob 'parent-alignment-X #f)))
+              (when (grob::has-interface nc 'note-column-interface)
+                (ly:grob-set-property!
+                 nc 'stencil
+                 (ly:stencil-translate-axis
+                  line
+                  (+ (car nc-x-ext) (/ (interval-length nc-x-ext) 2)
+                     (* (/ (interval-length nc-x-ext) 2) (or par-x -1)))
+                  X))
+                ;; Ensure that the line is not hidden by the gray box
+                ;; representing the `TextScript` grob.
+                (ly:grob-set-property! nc 'layer 2))
+              (ly:stencil-add
+               orig
+               zero-ext-dot
+               (ly:stencil-translate
+                zero-ext-cross
+                (cons
+                 (if self-x
+                     (+ (car stil-x-ext) (/ (interval-length stil-x-ext) 2)
+                        (* (/ (interval-length stil-x-ext) 2) self-x))
+                     0)
+                 (if self-y
+                     (+ (car stil-y-ext) (/ (interval-length stil-y-ext) 2)
+                        (* (/ (interval-length stil-y-ext) 2) self-y))
+                     0)))))
+            ;; If there is no stencil already, return a dot.
+            zero-ext-dot)))))
+
+boxStil = \markup \stencil
+    #(box-stencil
+      (stencil-with-color
+       (make-filled-box-stencil '(-1 . 3)  '(-1 . 2))
+       "#CCC")
+      0 0)
+
+alignment = #(define-scheme-function (arg) (boolean-or-number?)
+  #{
+    \markup
+      \fontsize #-3
+      \typewriter #(format #f "self-alignment-X = #~a" arg)
+  #})
+
+mus =
+#(define-music-function (arg pad mus)
+   (boolean-or-number? number? ly:music?)
+   #{
+     <>-\tweak self-alignment-X #-0.8
+       -\tweak padding #pad
+       ^\alignment #arg
+     #mus -\tweak stencil \visualize-alignments
+          -\boxStil
+ #})
+
+musline = {
+  \mus ##f #0 b'
+  \once \override TextScript.self-alignment-X = #-1
+    \mus #-1 #2 <b' c''>
+  \once \override TextScript.self-alignment-X = #0
+    \mus #0 #0 b'
+  \once \override TextScript.self-alignment-X = #1
+    \mus #1 #2 <b' c''>
+  \break
+}
+
+{
+  \omit Staff.TimeSignature
+
+  \textMark \markup \smaller \typewriter "parent-alignment-X = ##f"
+  \override TextScript.parent-alignment-X = ##f
+  \musline
+
+  \textMark \markup \smaller \typewriter "parent-alignment-X = #-1"
+  \override TextScript.parent-alignment-X = #-1
+  \musline
+
+  \textMark \markup \smaller \typewriter "parent-alignment-X = #0"
+  \override TextScript.parent-alignment-X = #0
+  \musline
+
+  \textMark \markup \smaller \typewriter "parent-alignment-X = #1"
+  \override TextScript.parent-alignment-X = #1
+  \musline
+}
+
+\layout {
+  indent = 0
+  \context {
+    \Score
+    \override TextMark.self-alignment-X = #-1
+  }
+}
+@end lilypond
+
+Aussi bien @code{\override} que @code{\tweak} peuvent venir en aide afin
+de modifier la valeur de @code{self-alignment-X}. Toutefois, le recours
+à la commande @code{\tweak} permet de traiter séparément plusieurs
+annotations affectées à une même note.
 
 @lilypond[quote,verbatim,fragment]
-a'
--\tweak self-alignment-X -1
-^"left-aligned"
--\tweak self-alignment-X 0
-^"center-aligned"
--\tweak self-alignment-X #RIGHT
-^"right-aligned"
--\tweak self-alignment-X -2.5
-^"aligned further to the right"
+a'-\tweak self-alignment-X -1 ^"aligné par la gauche"
+  -\tweak self-alignment-X 0 ^"aligné au centre"
+  -\tweak self-alignment-X #RIGHT ^"aligné par la droite"
+  -\tweak self-alignment-X -2.5 ^"aligné plus loin sur la droite"
 @end lilypond
 
 
 @subsubheading Réalignement d'objets verticalement
+@c VO Self-aligning objects vertically
+
+@funindex self-alignment-Y
+@funindex CENTER
+@funindex UP
+@funindex DOWN
 
 L'alignement vertical suit le même principe : la propriété
 @code{Y-offset} doit alors engager la procédure
@@ -4460,26 +4834,82 @@ sur le point de référence de son parent. Les valeurs symboliques
 @code{DOWN}, @code{CENTER} et @code{UP} correspondent respectivement
 à @w{@code{-1}}, @code{0} et @code{1}.
 
+Une valeur à  @code{#f} aligne verticalement l'objet en utilisant son
+point de référence. Cette valeur n'est valide que lorsque l'objet a un
+parent ; LilyPond émettra un erreur en l'absence de parent.
+
+@funindex parent-alignment-Y
+
+Il est à noter que @code{parent-alignment-Y} ne marche pratiquement
+jamais : il y a trop de contraintes extérieures qui influencent la
+manière dont un objet sera positionné relativement à son objet parent.
+Prenons l'image précédente pour illustrer : la valeur du point de
+référence du parent (l'objet @code{NoteColumn}) dépend de l'objet
+attaché (l'objet @code{TextScript}) en même temps que les valeurs de
+certaines propriétés de décalage -- comme on peut le constater, LilyPond
+fait tout son possible pour replacer les objets @code{TextScript} au
+plus près de la portée. En raison de cette interdépendance entre l'objet
+et son parent, accéder ou modifier @code{parent-@/alignment-Y} se révèle
+normalement infructueux et génère souvent un message de « dépendance
+circulaire ».
+
+Le moyen classique pour ajuster les distances verticales consiste à
+jouer sur les différentes propriétés de décalage dont LilyPond dispose,
+comme @code{outside-staff-padding}.
 
 @subsubheading Réalignement d'objets sur les deux axes
+@c VO Self-aligning objects in both directions
 
-Définir à la fois @code{X-offset} et @code{Y-offset} permet de réaligner
-un objet sur les deux axes.
+Définir à la fois @code{self-alignment-X} et @code{self-alignment-Y}
+permet de réaligner un objet sur les deux axes.
 
-Dans l'exemple ci-dessous, nous ajustons l'indication de doigté de telle
-sorte qu'elle se place au plus près de la tête de note.
+Dans l'exemple ci-dessous, nous ajustons le positionnement des noms
+d'instrument. L'objet @code{InstrumentName} est un objet qui n'a pas de
+parent : @code{self-@/alignment-X} calculera un alignement relatif à la
+marge de gauche et au début du système (soit l'indentation du système),
+et @code{self-@/alignment-Y} alignera l'objet @code{InstrumentName}
+par rapport à la ligne médiane de la portée considérée.
 
-@lilypond[quote,verbatim,fragment]
-a'
--\tweak self-alignment-X 0.5  % move horizontally left
--\tweak Y-offset #ly:self-alignment-interface::y-aligned-on-self
--\tweak self-alignment-Y -1  % move vertically up
--3  % third finger
+@lilypond[quote,verbatim,indent=1\cm]
+sn = #(define-music-function (name x y) (string? number? number?)
+       #{
+         \new RhythmicStaff \with {
+           instrumentName = #name
+           \override InstrumentName.self-alignment-X = #x
+           \override InstrumentName.self-alignment-Y = #y
+         } { f'1 }
+       #})
+
+<<
+  \sn "AAA" #1 #3
+  \sn "AAAAA" #1 #3
+  \sn "BBB" #0.5 #1.5
+  \sn "BBBBB" #0.5 #1.5
+  \sn "CCC" #0 #0
+  \sn "CCCCC" #0 #0
+  \sn "DDD" #-0.5 #-1.5
+  \sn "DDDDD" #-0.5 #-1.5
+  \sn "EEE" #-1 #-3
+  \sn "EEEEE" #-1 #-3
+>>
+
+\layout {
+  indent = 5\cm
+
+  \context {
+    \RhythmicStaff
+    \override VerticalAxisGroup.staff-staff-spacing =
+      #'((minimum-distance . 0)
+         (basic-distance . 0)
+         (padding . 2.5))
+  }
+}
 @end lilypond
 
 
 @ignore
 @subsection Utilisation de @code{aligned-on-parent}
+@c VO  Using the @code{aligned-on-parent} procedures
 
 @c Cannot document as they do not seem to operate consistently on all objects -td
 @c TODO investigate further
@@ -4500,6 +4930,7 @@ example shows the difference:
 
 @ignore
 @subsection Utilisation de @code{centered-on-parent}
+@c VO Using the @code{centered-on-parent} procedures
 
 @c Cannot document as they do not seem to operate consistently on all objects -td
 @c TODO investigate further
@@ -4513,21 +4944,24 @@ example shows the difference:
 @subsection Utilisation de @code{break-aligned-interface}
 
 @cindex alignement sur un objet
+@funindex break-align-symbol
 @funindex break-align-symbols
+@funindex break-alignable-interface
+@funindex break-aligned-interface
 
 Indications de repère, marques textuelles, numéros de mesure et plus
-généralement tous les objets disposant de la
+généralement tous les objets prenant en charge la
 @rinternals{break-alignable-interface} -- que l'on pourrait regrouper
 sous l'appellation de « jalons » -- sont susceptibles de se positionner
 sur des objets de notation tels que barre de mesure, armure, métrique et
-plus communément tout objet disposant de la
+plus communément tout objet prenant en charge la
 @rinternals{break-aligned-interface}. Pour être plus précis, ces
 derniers disposent d'une propriété @code{break-@/align-@/symbol}, qui
 est un symbole Scheme. Un jalon, donc un objet disposant de
 @code{break-@/alignable-@/interface}, peut définir son point d'ancrage
 aux éléments disposant de @code{break-@/aligned-@/interface}, ce au
 moyen d'une liste de symboles qui correspondent aux valeurs de
-@code{break-@/align-@/symbol} des éléments sur lesquels il peut
+@code{break-@/align-@/symbols} des éléments sur lesquels il peut
 s'aligner. Une liste exhaustive des symboles est disponible au chapitre
 @rinternals{break-alignment-interface}.
 
@@ -4536,29 +4970,26 @@ lequel viendront s'aligner les jalons :
 
 @lilypond[verbatim,quote,fragment]
 \override Score.TextMark.self-alignment-X = #CENTER
-% Le repère textuel s'alignera
-% sur la droite de la clef
-\override Score.TextMark.break-align-symbols =
-            #'(clef)
-\key a \major
+
+% Le repère textuel s'alignera sur la droite de la clef
+\override Score.TextMark.break-align-symbols = #'(clef)
 \clef treble
+\key a \major
 \textMark "↓"
 e'1
-% Le repère textuel s'alignera
-% sur la gauche de la métrique
-\override Score.TextMark.break-align-symbols =
-            #'(time-signature)
-\key a \major
+
+% Le repère textuel s'alignera sur la gauche de la métrique
+\override Score.TextMark.break-align-symbols = #'(time-signature)
 \clef treble
+\key a \major
 \time 3/4
 \textMark "↓"
 e'2.
-% Le repère textuel sera centré
-% au-dessus de la respiration
-\override Score.TextMark.break-align-symbols =
-            #'(breathing-sign)
-\key a \major
+
+% Le repère textuel sera centré au-dessus de la respiration
+\override Score.TextMark.break-align-symbols = #'(breathing-sign)
 \clef treble
+\key a \major
 \time 4/4
 e'1
 \breathe
@@ -4576,31 +5007,27 @@ de mesure est invisible, à l'endroit même où la barre prendrait place.
 
 @lilypond[verbatim,quote,fragment]
 \override Score.TextMark.self-alignment-X = #CENTER
-% Le repère textuel s'alignera
-% sur la droite de l'armure
-\override Score.TextMark.break-align-symbols =
-            #'(key-signature clef)
-\key a \major
+% Le repère textuel s'alignera sur la droite de l'armure
+\override Score.TextMark.break-align-symbols = #'(key-signature clef)
 \clef treble
+\key a \major
 \textMark "↓"
 e'1
-% Le repère textuel s'alignera
-% sur la droite de la clef
+
+% Le repère textuel s'alignera sur la droite de la clef
 \set Staff.explicitKeySignatureVisibility = #all-invisible
-\override Score.TextMark.break-align-symbols =
-            #'(key-signature clef)
-\key a \major
+\override Score.TextMark.break-align-symbols = #'(key-signature clef)
 \clef bass
+\key a \major
 \textMark "↓"
 gis,1
-% Le repère textuel sera centré
-% au-dessus de la barre de mesure
+
+% Le repère textuel sera centré au-dessus de la barre de mesure
 \set Staff.explicitKeySignatureVisibility = #all-invisible
 \set Staff.explicitClefVisibility = #all-invisible
-\override Score.TextMark.break-align-symbols =
-            #'(key-signature clef)
-\key a \major
+\override Score.TextMark.break-align-symbols = #'(key-signature clef)
 \clef treble
+\key a \major
 \textMark "↓"
 e'1
 @end lilypond
@@ -4611,26 +5038,24 @@ plusieurs portées, ce réglage devra apparaître dans chacune des portées.
 
 @lilypond[verbatim,quote,fragment]
 \override Score.TextMark.self-alignment-X = #CENTER
-% Le repère textuel s'alignera
-% sur la droite de l'armure
-\override Score.TextMark.break-align-symbols =
-            #'(key-signature)
-\key a \major
+% Le repère textuel s'alignera sur la droite de l'armure
+\override Score.TextMark.break-align-symbols = #'(key-signature)
 \clef treble
+\key a \major
 \time 4/4
 \textMark "↓"
 e'1
-% Le repère textuel sera centré
-% au-dessus de l'armure
-\once \override Score.KeySignature.break-align-anchor-alignment =
-                  #CENTER
+
+% Le repère textuel sera centré au-dessus de l'armure
+\once \override
+  Score.KeySignature.break-align-anchor-alignment = #CENTER
 \textMark "↓"
 \key a \major
 e'1
-% Le repère textuel s'alignera
-% sur la gauche de l'armure
-\once \override Score.KeySignature.break-align-anchor-alignment =
-                  #LEFT
+
+% Le repère textuel s'alignera sur la gauche de l'armure
+\once \override
+  Score.KeySignature.break-align-anchor-alignment = #LEFT
 \key a \major
 \textMark "↓"
 e'1
@@ -4641,23 +5066,27 @@ ou sur la droite. La valeur est exprimée en espaces de portée.
 
 @lilypond[verbatim,quote,fragment]
 \override Score.TextMark.self-alignment-X = #CENTER
-% Le repère textuel s'alignera
-% sur la gauche de l'armure
+% Le repère textuel s'alignera sur la gauche de l'armure
 % puis décalé de 3,5 espaces de portée vers la droite
-\override Score.TextMark.break-align-symbols =
-            #'(key-signature)
+\override Score.TextMark.break-align-symbols = #'(key-signature)
 \once \override Score.KeySignature.break-align-anchor = 3.5
 \key a \major
 \textMark "↓"
 e'1
-% Le repère textuel s'alignera
-% sur la gauche de l'armure
+
+% Le repère textuel s'alignera sur la gauche de l'armure
 % puis sera décalé de 2 espaces de portée vers la gauche
 \once \override Score.KeySignature.break-align-anchor = -2
 \key a \major
 \textMark "↓"
 e'1
 @end lilypond
+
+@morerefs
+Référence des propriétés internes :
+@rinternals{break-alignable-interface},
+@rinternals{break-alignment-interface}.
+@endmorerefs
 
 
 @node Modifying stencils

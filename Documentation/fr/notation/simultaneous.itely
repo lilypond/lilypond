@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
+   Translation of GIT committish: b1311a5694133c9694e180cdbdc693614334d61d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.21.0"
+@c \version "2.25.35"
 
 @c Translators: Frédéric Chiasson, Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: J.-C. Malahieude, John Mandereau
@@ -100,8 +100,8 @@ sera donc combiné -- pour des combinaisons plus complexes,
 @lilypond[verbatim,quote]
 \relative {
   \grace { g'8( a b }
-  <> ) \p \< -. -\markup \italic "sempre staccato"
-  \repeat unfold 4 { c4 e }  c1\f
+  <>) \p \< -. -\markup \italic "sempre staccato"
+  \*4 { c4 e } c1\f
 }
 @end lilypond
 

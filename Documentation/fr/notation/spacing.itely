@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: c95d569e9013276fd0595366c79eebdf772bea77
+   Translation of GIT committish: b1311a5694133c9694e180cdbdc693614334d61d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
    Guide, node Updating translation committishes..
 @end ignore
 
-@c \version "2.25.23"
+@c \version "2.25.35"
 
 @c Translators: Frédéric Chiasson, Jean-Charles Malahieude
 @c Translation checkers: Jean Abou Samra
@@ -1662,7 +1662,7 @@ autorisées partout, y compris au milieu des mesures et malgré la
 présence de ligature.
 
 @lilypond[verbatim,quote]
-\repeat unfold 56 { c'8 \allowBreak }
+\*56 { c'8 \allowBreak }
 
 \paper {
   indent = 0
@@ -2777,10 +2777,10 @@ et à mesure que nous avancerons. Pour plus de précisions, relisez
           s1*5 \break
           s1*5 \break
         }
-        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+        \new Voice { \*15 { c'4 c' c' c' } }
       >>
       \new Staff {
-        \repeat unfold 15 { d'4 d' d' d' }
+        \*15 { d'4 d' d' d' }
       }
     >>
   }
@@ -2812,9 +2812,9 @@ chacun des systèmes à l'aide des sous-propriétés @code{Y-offset} et
             Score.NonMusicalPaperColumn
                  .line-break-system-details.Y-offset = 50
           s1*5 \break }
-        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+        \new Voice { \*15 { c'4 c' c' c' } }
       >>
-      \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
+      \new Staff { \*15 { d'4 d' d' d' } }
     >>
   }
 }
@@ -2843,9 +2843,9 @@ axes horizontal et vertical.
             Score.NonMusicalPaperColumn
               .line-break-system-details.extra-offset = #'(0 . 20)
           s1*5 \break }
-        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+        \new Voice { \*15 { c'4 c' c' c' } }
       >>
-      \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
+      \new Staff { \*15 { d'4 d' d' d' } }
     >>
   }
 }
@@ -2878,9 +2878,9 @@ deux sous-propriétés différentes de @code{line-break-system-details}.
               #'((Y-offset . 65)
                  (alignment-distances . (20)))
           s1*5 \break }
-        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+        \new Voice { \*15 { c'4 c' c' c' } }
       >>
-      \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
+      \new Staff { \*15 { d'4 d' d' d' } }
     >>
   }
 }
@@ -2914,11 +2914,11 @@ prendre la valeur par défaut.
               #'((Y-offset . 65)
                  (alignment-distances . (8 15)))
           s1*5 \break }
-        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+        \new Voice { \*15 { c'4 c' c' c' } }
       >>
       \new StaffGroup <<
-        \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
-        \new Staff { \repeat unfold 15 { e'4 e' e' e' } }
+        \new Staff { \*15 { d'4 d' d' d' } }
+        \new Staff { \*15 { e'4 e' e' e' } }
       >>
     >>
   }
@@ -2945,9 +2945,9 @@ distances par défaut.
           s1*5 \break
           s1*5 \break
           s1*5 \break }
-        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+        \new Voice { \*15 { c'4 c' c' c' } }
       >>
-      \new Staff { \repeat unfold 15 { d'4 d' d' d' }
+      \new Staff { \*15 { d'4 d' d' d' }
       }
     >>
   }
@@ -2969,9 +2969,9 @@ Définir @code{bottom-padding} mène à ce résultat :
             Score.NonMusicalPaperColumn.line-break-system-details =
               #'((bottom-padding . 20))
           s1*5 \break }
-        \new Voice { \repeat unfold 15 { c'4 c' c' c' } }
+        \new Voice { \*15 { c'4 c' c' c' } }
       >>
-      \new Staff { \repeat unfold 15 { d'4 d' d' d' } }
+      \new Staff { \*15 { d'4 d' d' d' } }
     >>
   }
   \paper { ragged-last-bottom = ##f }
