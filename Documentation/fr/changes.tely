@@ -1,0 +1,533 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+
+@ignore
+    Translation of GIT committish: b1311a5694133c9694e180cdbdc693614334d61d
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  For details, see the Contributors'
+    Guide, node Updating translation committishes..
+@end ignore
+
+@c Translators: Jean-Charles Malahieude
+@c Translation checkers:
+
+@settitle LilyPond Changes
+
+@c no dircategory nor direntry in  French
+@c since info is not translated. -JCM
+@c deux lignes vides entre les items
+
+@include fr/macros.itexi
+
+@documentencoding UTF-8
+@documentlanguage fr
+@afourpaper
+
+@macro manualIntro
+Ce document recense les modifications et les nouvelles fonctionnalités
+de LilyPond pour la version @version{} (depuis la 2.26).
+@end macro
+
+@lilyTitlePage{Nouveautés}
+
+@iftex
+@allowcodebreaks false
+@end iftex
+
+@ignore
+
+HINTS
+
+* only show verbatim input for syntax/input changes
+
+* try to be as brief possible in those cases
+
+* don't try to provide real-world examples, they often get too big,
+which scares away people.
+
+* Write complete sentences.
+
+* only show user-visible changes.
+
+@end ignore
+
+
+@warning{Chaque nouvelle version de LilyPond peut comporter des
+changements de syntaxe, ce qui peut exiger de modifier les fichiers que
+vous avez écrits avec des versions précédentes, de telle sorte qu'ils
+restent fonctionnels avec les nouvelles versions. Afin de mettre à jour
+vos fichiers, il est @strong{fortement conseillé} d'utiliser
+l'utilitaire @command{convert-ly} distribué avec LilyPond et qui est
+abordé dans @rprogramnamed{Updating files with convert-ly, Mise à jour
+avec convert-ly}. @command{convert-ly} est capable de réaliser la
+plupart des modifications de syntaxe automatiquement. Les utilisateurs
+de Frescobaldi peuvent lancer @command{convert-ly} directement à partir
+du menu de Frescobaldi en faisant « Outils > Mettre à jour avec
+convert-ly… ». D'autres environnements prenant en charge LilyPond sont
+susceptibles de fournir un moyen graphique de lancer
+@command{convert-ly}.}
+
+
+@c Don't remove this top-level menu; it is needed to suppress automatic
+@c generation of a `@detailmenu` block by `texi2any` up to version 7.2.
+@menu
+* Major changes in LilyPond::
+@c * Notes for source compilation and packagers
+* New for musical notation::
+* New for specialist notation::
+* Miscellaneous improvements::
+@end menu
+
+
+@contents
+
+
+@node Major changes in LilyPond
+@unnumbered Modifications majeures de LilyPond
+
+@itemize
+
+@item
+Les blocs @code{\book} et @code{\bookpart} contiennent désormais leur
+propre portée de variables. Cette accessibilité est active dans
+l'entièreté du bloc et recense toutes les variables définies au sein de
+ce bloc. Par voie de conséquence, les définitions de variables sont
+maintenant permises au sein des blocs @code{\book} et @code{\bookpart},
+ce qui facilite la restructuration des fichiers LilyPond indépendants en
+les intégrant dans des ouvrages ou chapitres. Ces variables sont
+inaccessibles en dehors du bloc qui les contient. L'interface publique
+avec le module  contenant les variables d'un @code{\book} ou d'un
+@code{\bookpart} est accessible de manière programmatique à l'aide de la
+nouvelle fonction Scheme @code{ly:book-scope} ; les fonction d'accès
+@code{ly:book-lookup} et @code{ly:book-set-variable!} sont aussi
+fournies.
+
+
+@item
+@code{\book} et @code{\bookpart} peuvent désormais contenir, en plus
+d'un bloc @code{\paper}, de blocs de définition de sortie @code{\layout}
+et @code{\midi}. Ils récupèrent leurs réglages initiaux à partir de la
+portée active en cours. Lorsqu'un @emph{bookpart} dispose de son propre
+bloc @code{\layout}, il fournit les réglages de gravure par défaut de
+toutes les partitions qu'il inclut et qui n'ont pas leur propre
+définition de sortie. Il en va de même pour un @emph{book}. Dans la
+mesure où uns @emph{score} ne produit du MIDI que lorsqu'il inclut
+explicitement un bloc @code{\midi}, il n'y a pas de comportement par
+défaut identique lors du traitement.
+
+@end itemize
+
+@ignore
+@node Notes for source compilation and packagers
+@unnumberedsec Notes à propos de la compilation des sources et à l'attention des empaqueteurs
+
+Cette section est destinée aux enthousiastes qui compilent LilyPond à
+partir des sources et aux empaqueteurs qui préparent LilyPond pour les
+différentes distributions. Si vous ne faites partie d'aucun de ces
+groupes, vous pouvez aisément passer ce qui suit.
+
+@end ignore
+
+@need 1500
+@node New for musical notation
+@unnumbered Nouveautés en matière de notation musicale
+
+
+@node Pitches improvements
+@unnumberedsec Améliorations de la représentation des hauteurs
+
+Rien pour l'instant.
+
+
+@node Rhythm improvements
+@unnumberedsec Améliorations en matière de rythme
+
+@itemize
+@item
+La nouvelle commande @code{\senzaMisura} institue un « temps libre » et
+sur option imprime un métrique en « X ». Ce signe est accessible par
+@code{\senzaMisuraTimeSignatureX} et invalidé par
+@code{\senzaMisuraTimeSignatureOff}.
+
+@lilypond[quote,verbatim]
+\fixed c' {
+  \senzaMisuraTimeSignatureX
+  \senzaMisura
+  c8 d e f g f e f g1
+  g8 a g f e d c e d1
+}
+@end lilypond
+
+
+@item
+La nouvelle commande @code{\measure} modifie la longueur de la mesure
+afin qu'elle corresponde à la durée d'une musique donnée puis revient à
+la normale.
+
+@lilypond[quote,verbatim]
+\fixed c'' {
+  d2( c)
+  \measure { d\breve }
+}
+@end lilypond
+
+
+@item
+La nouvelle commande @code{\measureRemainder} est similaire à
+@code{\measure}, à ceci près qu'elle peut s'utiliser en cours de mesure.
+
+
+@item
+La nouvelle commande @code{\setMeasureLengthFromHere} simplifie la
+création de mesures irrégulières en réglant la longueur de la mesure
+relativement à la position dans la mesure actuelle. Ceci vient en
+complément de @code{\partial}, qui modifie la position dans la mesure
+par rapport à la longueur de cette mesure. La nouvelle commande
+@code{\setDefaultMeasureLength} réinitialise la longueur de mesure
+à la valeur déterminée par la métrique.
+
+
+@item
+La nouvelle instruction @code{\premeasure @var{musique}} constitue une
+abréviation de @code{\partial @var{durée} @var{musique}} qui calcule
+automatiquement la durée.
+
+
+@item
+Par défaut, les mesures alternées composées de 4/4 et de 2/2 s'affichent
+dans un style ancien avec plusieurs symboles « C » ou « C barré ».
+
+@lilypond[quote,verbatim]
+{
+  \time #'((2 . 2) (2 . 2))
+  b'1 2 2
+}
+@end lilypond
+
+
+@item
+L'algorithme de ligature automatique peut se voir obligé d'interrompre
+en un point particulier une ligature créée automatiquement grâce à un
+@code{\beamBreak}. De manière similaire, deux notes adjacentes peuvent
+être forcées de se ligaturer à l'aide d'un @code{\noBeamBreak} :
+
+@lilypond[quote,verbatim]
+\relative {
+  c''8 c c c d d \beamBreak d d
+  \time 2/4
+  c8 8 8 8
+  8 8 \noBeamBreak 8 8
+  4. 8 \noBeamBreak
+  8 4 8
+}
+@end lilypond
+
+@end itemize
+
+
+@node Expressive mark improvements
+@unnumberedsec Améliorations en matière d'expressivité
+
+Rien pour l'instant.
+
+
+@node Repeat improvements
+@unnumberedsec Améliorations en matière de reprises
+
+Rien pour l'instant.
+
+
+@node Editorial annotation improvements
+@unnumberedsec Améliorations en matière d'annotations éditoriales
+
+@itemize
+@item
+La fonction fonction @code{parenthesize-stencil} accepte un argument optionnel
+afin d'agrandir les parenthèses.
+
+
+@item
+La fonction fonction @code{bracketify-stencil} accepte un argument optionnel
+afin d'agrandir les crochets.
+
+@end itemize
+
+
+@node Text and font improvements
+@unnumberedsec Améliorations en matière de fontes et de mise en forme du texte
+
+@itemize
+@item
+Un signe égal a été ajouté à la fonte Emmentaler.
+
+
+@item
+Une métrique en « X » a été ajoutée à la fonte Emmentaler. Elle peut
+optionnellement s'imprimer lorsque le mètre est annulé par la commande
+@code{\senzaMisura}. L'utilisation de ce signe répond à la commande
+@code{\senzaMisuraTimeSignatureX} ; il est désactivé par
+@code{\senzaMisuraTimeSignatureOff}.
+
+@lilypond[quote]
+{
+  \senzaMisuraTimeSignatureX
+  \time 2/8
+  \*2 c'8
+  \senzaMisura
+  \measure { \*17 c'8 }
+}
+@end lilypond
+
+
+@item
+Des variantes des glyphes textuels pour les symboles de métriques en 4/4
+(@emph{common time}) et 2/2 (@emph{cut time}) ont été ajoutés à la fonte
+Emmentaler. Il sont accessibles soit directement par leurs caractères
+Unicode, soit à l'aide des commandes de @emph{markup}
+@code{\text-common-time} et @code{\text-cut-time}.
+
+@lilypond[quote]
+\markup {
+  Common time \concat{ "(" \tiny\number{𝄴} ")," }
+  cut time \concat{ "(" \tiny\number{𝄵} ")." }
+}
+@end lilypond
+
+
+@item
+Les fontes peubvent se changer au sein même d'un @emph{markup} à l'aide
+de @code{\font-select}. Les noms de fonte pour les familles à empattement
+(@emph{serif}), sans empattement (@emph{sans}) et monospace
+(@emph{typewriter}) sont indépendants les uns des autres.
+
+@lilypond[quote,verbatim]
+\markup \font-select #'((sans . "DejaVu Sans")
+                        (typewriter . "DejaVu Sans Mono"))
+{
+  \sans \line { Sans-serif font. }
+  \typewriter \line { Typewriter font. }
+  \line { Default serif font. }
+  \font-select #'(serif . "DejaVu Serif")
+  \line { Changed serif font. }
+}
+@end lilypond
+
+@end itemize
+
+
+@node New for specialist notation
+@unnumbered Nouveautés en matière de notation spécialisée
+
+@node Vocal music improvements
+@unnumberedsec Améliorations pour la musique vocale
+
+@itemize
+@item
+Les numéros de couplet dans les paroles sont désormais créés par la
+commande dédiée @code{\stanza …} qui remplace syntaxe @code{\set stanza
+= …} jusqu'ici requise.
+
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  c'4 c g' g
+  a a g2
+}
+\addlyrics {
+  \stanza "1."
+  Twin -- kle, twin -- kle, lit -- tle star
+}
+\addlyrics {
+  \stanza "2."
+  When the bla -- zing sun is gone
+}
+@end lilypond
+
+
+@item
+En matière de paroles, le numéro de couplet peut se répéter
+automatiquement en tête de chaque ligne. Cette fonctionnalité s'obtient
+après l'activation de la propriété @code{stanzaReminders} :
+
+@lilypond[quote,ragged-right,verbatim]
+\new Voice \relative {
+  \key e \minor
+  b'4 b a g
+  fis2 e \break
+  b'4 cis d b
+  e2 dis \break
+  e4 g fis fis
+  e1
+}
+\addlyrics {
+  \stanza "1."
+  \set stanzaReminders = ##t
+  Je -- su, mei -- ne Freu -- de,
+  mei -- nes Her -- zens Wei -- de,
+  \set stanzaReminderText = "(1st)"
+  Je -- su, mei -- ne Zier.
+}
+\addlyrics {
+  \stanza "2."
+  Un -- ter dei -- nem Schir -- men
+  bin ich vor den Stür -- men
+  \set stanzaReminders = ##t
+  \set stanzaReminderText = #make-tiny-markup
+  al -- ler Fein -- de frei.
+}
+@end lilypond
+
+@end itemize
+
+
+@node Keyboard and multi-staff music improvements
+@unnumberedsec Améliorations pour instruments à portées multiples
+
+Rien pour l'instant.
+
+
+@node Unfretted string instrument improvements
+@unnumberedsec Améliorations pour les cordes non frettées
+
+Rien pour l'instant.
+
+
+@node Fretted string instrument improvements
+@unnumberedsec Améliorations pour les cordes frettées
+
+Rien pour l'instant.
+
+
+@node Percussion improvements
+@unnumberedsec Améliorations pour la notation des percussions
+
+Rien pour l'instant.
+
+
+@node Wind instrument improvements
+@unnumberedsec Améliorations pour la notation des instruments à vent
+
+Rien pour l'instant.
+
+
+@node Chord notation improvements
+@unnumberedsec Améliorations pour la notation des accords
+
+@itemize
+@item
+Le nom d'accord répondant à la saisie @code{@var{x}:1/@var{x}} est
+désormais rendu en « N.C./@var{x} ».
+
+@lilypond[quote, verbatim]
+\chords { d:1/d }
+@end lilypond
+
+@end itemize
+
+
+@node Ancient notation improvements
+@unnumberedsec Améliorations pour les notations anciennes
+
+@itemize
+@item
+Les ligatures mensurales blanches prennent désormais en charge une
+longue finale ascendante renversée, tiennent compte des ajustements dans
+plus de cas, et gèrent les erreurs plus facilement.
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  \new PetrucciStaff {
+    \clef "petrucci-c4"
+    \[ g\breve f \tweak ligature-pes ##t c'\longa \]
+  }
+}
+@end lilypond
+
+
+@item
+La commande @code{\~} est une alternative au instructions @code{\pes} et
+@code{\flexa} qui, en interne, font la même chose. Bien qu'introduite
+en 2003, cette commande était jusqu'à présent absente de la
+documentation et a connu plusieurs dysfonctionnements.
+
+@lilypond[quote,verbatim,staffsize=26]
+\new VaticanaScore {
+  \new VaticanaVoice \relative {
+    \[ a \pes b \flexa g \]
+  }
+}
+@end lilypond
+
+@lilypond[quote,verbatim,staffsize=26]
+\new VaticanaScore {
+  \new VaticanaVoice \relative {
+    \[ a \~ b \~ g \]
+  }
+}
+@end lilypond
+
+@end itemize
+
+
+@node World music improvements
+@unnumberedsec Améliorations pour les musiques du monde
+
+Rien pour l'instant
+
+
+@node Miscellaneous improvements
+@unnumbered Autres améliorations diverses
+
+@itemize
+@item
+La nouvelle commande @code{\verboseBarNumbers} simplifie les exemple
+éducatifs pour lesquels les numéros de mesure sont importants. Elle
+s'avère utile aussi en matière de débogage.
+
+
+@item
+Les nouvelles commandes @code{\startGradualTempoChange} et
+@code{\stopGradualTempoChange} marquent le début et la fin d'un
+changement progressif de tempo. Elles ne produisent leurs effets, pour
+l'instant, que sur des sorties MIDI.
+
+
+@item
+Les fonctions suivantes, qui avaient été dépréciées avec la version
+@w{2.13.19}, ont été supprimées : @code{\deprecatedcresc},
+@code{\deprecatedendcresc}, @code{\deprecateddim} et
+@code{\deprecatedenddim}.
+
+
+@item
+La propriété @code{glyph-name} d'un objet @code{NoteHead} contient
+désormais un nom pleinement qualifié de glyphe, comme le dit sa
+documentation. Il n'est donc plus nécessaire de modifier un stencil pour
+juste obtenir un glyphe de tête de note différent ; régler cette
+propriété est suffisant.
+
+@lilypond[quote,ragged-right,verbatim]
+{
+  c'4
+  \once\override NoteHead.glyph-name = "noteheads.s2triangle"
+  c'4
+}
+@end lilypond
+
+Comme effet secondaire, la fonction Scheme
+@code{note-head::calc-glyph-name} n'est plus nécessaire et sera
+supprimée après une période de dépréciation. Selon le besoin, le recours
+à cette fonction pourra être remplacé par un accès à la propriété
+@code{glyph-name} d'un objet @code{NoteHead} particulier, ou en faisant
+appel à @code{select-head-glyph} pour un style spécifique de tête de
+note avec sa durée.
+
+@end itemize
+
+
+@ifhtml
+Pour des annonces plus anciennes, rendez-vouz aux pages
+@uref{https://lilypond.org/doc/v2.26/Documentation/changes/},
+ou @uref{../,remontez} à l'index de la documentation.
+@end ifhtml
+
+@bye
