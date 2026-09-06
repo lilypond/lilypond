@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of web.texi
 @ignore
-   Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
+   Translation of GIT committish: b1311a5694133c9694e180cdbdc693614334d61d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -575,6 +575,12 @@ l'adresse @uref{https://lilypond.org}
 
 @divClass{keep-bullets}
 @itemize
+
+@item @uref{https://lilypond.org/doc/v2.26/Documentation/web/manuals.fr.html,
+LilyPond 2.26 Documentation}
++
+@item @uref{https://lilypond.org/doc/v2.24/Documentation/web/manuals.fr.html,
+LilyPond 2.24 Documentation}
 
 @item @uref{https://lilypond.org/doc/v2.22/Documentation/web/manuals.fr.html,
 LilyPond 2.22 Documentation}
