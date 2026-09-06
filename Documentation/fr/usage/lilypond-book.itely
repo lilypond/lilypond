@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-    Translation of GIT committish: c2ea1fa2792532a1a123f08504fc8677defb7a96
+    Translation of GIT committish: b1311a5694133c9694e180cdbdc693614334d61d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  For details, see the Contributors'
@@ -32,7 +32,12 @@ pour correspondre à la mise en forme de votre document.
 
 @command{lilypond-book} est un script indépendant de @command{lilypond}
 et se lance en ligne de commande -- pour plus de précisions, consultez
-@ref{Command-line usage}.
+@ref{Command-line usage}.@footnote{Les utilisateurs de systèmes basés
+sur @LaTeX{} et qui compilent leurs documents avec Lua@LaTeX{} peuvent
+recourir par ailleurs au @uref{https://@/ctan@/.org/@/pkg/@/lyluatex,
+paquetage lyLua@TeX{}}, qui offre l'opportunité d'intégrer sans problème
+dans un système basé sur @TeX{} préexistant sans devoir effectuer un
+pré-traitement supplémentaire de documents par @command{lilypond-book}.}
 
 @command{lilypond-book} s'applique aux documents @LaTeX{}, HTML, Texinfo
 et DocBook.
@@ -72,7 +77,9 @@ abstiendrons de le commenter.
 
 
 @subheading Fichier d'entrée
+@c VO Input
 
+@need 800
 @quotation
 @verbatim
 \documentclass[a4paper]{article}
@@ -111,6 +118,7 @@ fichier.)
 
 
 @subheading Traitement
+@c VO Processing
 
 Enregistrez ces lignes dans un fichier nommé @file{lilybook.lytex} puis,
 dans un terminal, lancez
@@ -149,6 +157,7 @@ section suivante présente un rendu approximatif du résultat.
 @page
 
 @subheading Résultat
+@c VO Output
 
 Un document destiné à être traité par @command{lilypond-book} peut tout à
 fait mélanger de la musique et du texte.
@@ -509,9 +518,21 @@ suivantes dans votre fichier source :
 Par ailleurs, l'utilisation d'un @code{@@lilypondversion} permet
 d'afficher la version de LilyPond utilisée.
 
+L'environnement @code{lilypond} @strong{doit} être en tête de ligne
+(éventuellement précédé d'une espace) même si le fragment prend place
+dans le fil du texte par l'option @code{inline}. de façon similaire,
+@code{@@end lilypond} peut être précédé d'une espace, mais sans rien à
+sa suite sur la ligne. Lorsque cet environnement est pourvu d'options,
+le crochet ouvrant doit se trouver sur la même ligne que le mot-clé
+@code{lilypond} -- ceci n'est pas nécessaire pour les commandes dont les
+arguments sont bornés par des accolades. Hormis cette restriction,
+espaces et sauts de ligne sont permis avant, après et entre les options
+mentionnées à la commande. Des accolades non appairées ne son pas prises
+en charge par@code{@@lilypond@{…@}}.
+
 Le traitement du fichier source par @command{lilypond-book} génère un
 fichier Texinfo (extension @file{.itexi}) qui contiendra les balises
-@code{@@image} pour les formats HTML, Info ou imprimable.  Les images
+@code{@@image} pour les formats HTML, Info ou imprimable. Les images
 générées par @command{lilypond-book} sont au format EPS et PDF en vue
 d'une impression, et au format PNG pour leur utilisation en HTML ou
 Info.
@@ -644,6 +665,7 @@ respecterons plutôt les conventions des éléments standard de DocBook.
 
 
 @subheading Conventions communes
+@c VO Common conventions
 
 Quel que soit le type d'extrait à inclure, nous utiliserons les éléments
 @code{mediaobject} et @code{inlinemediaobject}, de telle sorte que ces
@@ -657,6 +679,7 @@ Les fichiers DocBook destinés à un traitement par
 
 
 @subheading Inclusion d'un fichier LilyPond
+@c VO Including a LilyPond file
 
 Il s'agit ici du cas le plus simple.  Le fichier à inclure doit
 avoir une extension @file{.ly} et sera inséré comme n'importe quel
@@ -676,6 +699,7 @@ Vous pouvez utiliser, en tant que balise externe, aussi bien
 
 
 @subheading Inclusion de code LilyPond
+@c VO Including LilyPond code
 
 L'inclusion de code LilyPond se réalise à l'aide d'un environnement
 @code{programlisting} auquel on associe le langage @code{lilypond}. En
@@ -702,6 +726,7 @@ Comme vous le remarquez, la balise externe -- qu'il s'agisse d'un
 
 
 @subheading Génération du document DocBook
+@c VO Processing the DocBook document
 
 @command{lilypond-book} génère, à partir d'un fichier @file{.lyxml}, un
 document DocBook tout à fait valide -- extension @file{.xml} -- que vous
@@ -1088,7 +1113,9 @@ sortie spécifié, l'extension @file{.tex}, @file{.texi}, @file{.html} ou
 nécessitent un traitement complémentaire.
 
 
+@need 1500
 @subheading Instructions spécifiques à certains formats
+@c VO Format-specific instructions
 
 @subsubheading @LaTeX{}
 
@@ -1443,6 +1470,7 @@ pas de quoi il retourne, lisez le chapitre @ref{lilypond-book}.
 
 Vous pouvez inclure des partitions LilyPond dans un document @LaTeX{}.
 
+@need 800
 @quotation
 @verbatim
 \documentclass{article}
@@ -1581,6 +1609,7 @@ la récupèrent dans @LaTeX{}.
 
 
 @subsubheading Export de la table à partir de LilyPond
+@c VO Exporting the ToC from LilyPond
 
 Nous partons du principe que LilyPond a généré un seul fichier
 comportant tous les mouvement de la partition.
@@ -1603,7 +1632,8 @@ comportant tous les mouvement de la partition.
              (outfile (open-output-file outfilename)))
         (if (output-port? outfile)
             (display whole-string outfile)
-            (ly:warning (G_ "Impossible d'ouvrir le fichier ~a contenant les informations de TdM") outfilename))
+            (ly:warning (G_ "Impossible d'ouvrir le fichier ~a pour les informations de TdM")
+                         outfilename))
         (close-output-port outfile)))))
 
 \paper @{
@@ -1613,6 +1643,7 @@ comportant tous les mouvement de la partition.
 
 
 @subsubheading Import de la table dans @LaTeX{}
+@c VO Importing the ToC into @LaTeX{}
 
 L'entête de votre fichier @LaTeX{} doit comporter les lignes
 

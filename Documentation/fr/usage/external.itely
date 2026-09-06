@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: c2ea1fa2792532a1a123f08504fc8677defb7a96
+   Translation of GIT committish: b1311a5694133c9694e180cdbdc693614334d61d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -314,7 +314,8 @@ propre répertoire (par exemple @file{~/site-lisp/}) à votre
 
 @c any reason we do not advise:  (push "~/site-lisp" load-path)
 @example
-(setq load-path (append (list (expand-file-name "~/site-lisp")) load-path))
+(setq load-path
+      (append (list (expand-file-name "~/site-lisp")) load-path))
 @end example
 
 
@@ -768,12 +769,16 @@ et musique, en laissant de côté l'automatisation grâce à
 @subsection Lua@TeX{}
 
 @cindex Lua@TeX{}
-@cindex lyluatex
+@cindex LyLua@TeX{}
 
-Tout comme avec @code{lilypond-book}, les utilisateurs de Lua@TeX{} peuvent
+Les utilisateurs de Lua@TeX{} comme moteur de @LaTeX{} (les documents
+sont compilés par la commande @command{lualatex}) peuvent essayer le
+@uref{https://@/ctan@/.org/@/pkg/@/lyluatex, paquetage lyLua@TeX{}} en
+alternative à @command{lilypond-book}. Grâce aux capacités étendues de
 intégrer le résultat de LilyPond dans leurs documents à l'aide de
-l'extension
-@uref{https://github.com/jperon/lyluatex/blob/master/README.md,lyluatex}.
+Lua@TeX{}, il n'est plus nécessaire de faire appel à un programme
+externe avant de lancer @command{lualatex} ; le programme gère de
+lui-même l'appel de @command{lilypond}.
 
 
 @node OpenOffice and LibreOffice
@@ -835,9 +840,9 @@ page.
 L'incorporation d'images dans un fichier PostScript requiert la création
 de fichiers @file{EPS} à l'aide de l'option
 @code{-dseparate-page-formats=eps}. En pareil cas, on peut aussi vouloir
-spécifier @code{-dno-gs-load-fonts -dinclude-eps-fonts} afin que les
-fichiers @file{EPS} aient un rendu correct s'ils sont copiés sur un
-autre ordinateur.
+spécifier @code{-dno-gs-load-fonts} et @code{-dinclude-eps-fonts} afin
+que les fichiers @file{EPS} aient un rendu correct s'ils sont copiés sur
+un autre ordinateur.
 
 Les documents HTML ne sont pas destinés à l'impression, il n'est donc
 pas nécessaire de se préoccuper d'éventuelles coupures d'image aux sauts
@@ -860,7 +865,9 @@ associées. Ces deux options acceptent en argument la liste des formats
 séparés par des virgules, par exemple
 
 @smallexample
-lilypond -dseparate-page-formats=eps,pdf -dtall-page-formats=png,svg monfichier.ly
+lilypond -dseparate-page-formats=eps,pdf \
+         -dtall-page-formats=png,svg \
+         monfichier.ly
 @end smallexample
 
 Pour les nombreux programmes qui sont capables de contenir des images,

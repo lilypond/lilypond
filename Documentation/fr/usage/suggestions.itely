@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: c2ea1fa2792532a1a123f08504fc8677defb7a96
+   Translation of GIT committish: b1311a5694133c9694e180cdbdc693614334d61d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -138,7 +138,7 @@ au sein du bloc @code{\layout} :
 \score @{
   @var{@dots{}musique@dots{}}
   \layout @{
-   \override TabStaff.Stemstencil = ##f
+   \override TabStaff.Stem.stencil = ##f
  @}
 @}
 @end example
@@ -217,7 +217,7 @@ une nouvelle version de LilyPond, alors que la définition du
 
 @example
 violon = \relative @{
-g'4 c'8. e16
+  g'4 c'8. e16
 @}
 @dots{}
 \score @{
@@ -240,8 +240,9 @@ définition du @code{violon}.
 @example
 fpuisp = _\markup@{
  \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p @}
+
 violon = \relative @{
-g'4\fpuisp c'8. e16
+  g'4\fpuisp c'8. e16
 @}
 @end example
 
@@ -401,7 +402,10 @@ pour GNU/Linux ou macOS. Ce fichier doit être enregistré sous le nom de
 lignes, les lignes à partir de la deuxième @strong{doivent} débuter par
 une tabulation, non pas par des espaces.}
 
-@example
+@c tabs aren't correctly displayed in `@example` environments
+@need 800
+@indentedblock
+@verbatim
 # Le préfixe au nom des fichiers résultants
 piece := symphonie
 # La commande d'appel à lilypond
@@ -437,10 +441,10 @@ VPATH := \
         mv "$*.midi" $(MIDIDIR)/ # tabulation au début
 
 $(PDFDIR):
-	mkdir $(PDFDIR)
+	mkdir $(PDFDIR)          # tabulation au début de la ligne
 
 $(MIDIDIR):
-	mkdir $(MIDIDIR)
+	mkdir $(MIDIDIR)         # tabulation au début de la ligne
 
 commun := symphonieDefs.ily
 
@@ -453,20 +457,20 @@ notes := \
   violonDeux.ily
 
 # Les dépendances selon le mouvement.
-$(piece)I.pdf: $(piece)I.ly $(notes) $(commun)
-$(piece)II.pdf: $(piece)II.ly $(notes) $(commun)
+$(piece)I.pdf:   $(piece)I.ly $(notes) $(commun)
+$(piece)II.pdf:  $(piece)II.ly $(notes) $(commun)
 $(piece)III.pdf: $(piece)III.ly $(notes) $(commun)
-$(piece)IV.pdf: $(piece)IV.ly $(notes) $(commun)
+$(piece)IV.pdf:  $(piece)IV.ly $(notes) $(commun)
 
 # Les dépendances pour la partition intégrale.
 $(piece).pdf: $(piece).ly $(notes) $(commun)
 
 # Les dépendances pour les pupitres.
-$(piece)-alto.pdf: $(piece)-alto.ly alto.ily $(commun)
-$(piece)-cello.pdf: $(piece)-cello.ly cello.ily $(commun)
-$(piece)-cor.pdf: $(piece)-cor.ly cor.ily $(commun)
-$(piece)-hautbois.pdf: $(piece)-hautbois.ly hautbois.ily $(commun)
-$(piece)-violonUn.pdf: $(piece)-violonUn.ly violonUn.ily $(commun)
+$(piece)-alto.pdf:       $(piece)-alto.ly alto.ily $(commun)
+$(piece)-cello.pdf:      $(piece)-cello.ly cello.ily $(commun)
+$(piece)-cor.pdf:        $(piece)-cor.ly cor.ily $(commun)
+$(piece)-hautbois.pdf:   $(piece)-hautbois.ly hautbois.ily $(commun)
+$(piece)-violonUn.pdf:   $(piece)-violonUn.ly violonUn.ily $(commun)
 $(piece)-violonDeux.pdf: $(piece)-violonDeux.ly violonDeux.ily $(commun)
 
 # Lancer "make score" pour générer l'intégrale des quatre mouvements
@@ -495,7 +499,8 @@ mouvements: $(piece)I.pdf \
             $(piece)IV.pdf
 
 all: score parties mouvements
-@end example
+@end verbatim
+@end indentedblock
 
 Les choses se compliquent sous Windows. Une fois GNU Make pour Windows
 téléchargé et installé, il vous faudra correctement définir le chemin
@@ -518,7 +523,10 @@ certains répertoire de ce système. Enfin, les fichiers MIDI ont une
 extension par défaut propre à Windows.
 
 
-@example
+@c tabs aren't correctly displayed in `@example` environments
+@need 800
+@indentedblock
+@verbatim
 ## VERSION POUR WINDOWS
 ##
 piece := symphonie
@@ -550,10 +558,10 @@ VPATH := \
         move /Y "$*.mid" $(MIDIDIR)/   # tabulation au début
 
 $(PDFDIR):
-    mkdir $(PDFDIR)/
+    mkdir $(PDFDIR)/                   # tabulation au début de la ligne
 
 $(MIDIDIR):
-    mkdir $(MIDIDIR)/
+    mkdir $(MIDIDIR)/                  # tabulation au début de la ligne
 
 notes := \
   cello.ily \
@@ -567,18 +575,18 @@ notes := \
 
 commun := symphonieDefs.ily
 
-$(piece)I.pdf: $(piece)I.ly $(notes) $(commun)
-$(piece)II.pdf: $(piece)II.ly $(notes) $(commun)
+$(piece)I.pdf:   $(piece)I.ly $(notes) $(commun)
+$(piece)II.pdf:  $(piece)II.ly $(notes) $(commun)
 $(piece)III.pdf: $(piece)III.ly $(notes) $(commun)
-$(piece)IV.pdf: $(piece)IV.ly $(notes) $(commun)
+$(piece)IV.pdf:  $(piece)IV.ly $(notes) $(commun)
 
 $(piece).pdf: $(piece).ly $(notes) $(commun)
 
-$(piece)-cello.pdf: $(piece)-cello.ly cello.ily $(commun)
-$(piece)-cor.pdf: $(piece)-cor.ly cor.ily $(commun)
-$(piece)-hautbois.pdf: $(piece)-hautbois.ly hautbois.ily $(commun)
-$(piece)-alto.pdf: $(piece)-alto.ly alto.ily $(commun)
-$(piece)-violonUn.pdf: $(piece)-violonUn.ly violonUn.ily $(commun)
+$(piece)-cello.pdf:      $(piece)-cello.ly cello.ily $(commun)
+$(piece)-cor.pdf:        $(piece)-cor.ly cor.ily $(commun)
+$(piece)-hautbois.pdf:   $(piece)-hautbois.ly hautbois.ily $(commun)
+$(piece)-alto.pdf:       $(piece)-alto.ly alto.ily $(commun)
+$(piece)-violonUn.pdf:   $(piece)-violonUn.ly violonUn.ily $(commun)
 $(piece)-violonDeux.pdf: $(piece)-violonDeux.ly violonDeux.ily $(commun)
 
 .PHONY: score
@@ -594,12 +602,13 @@ parties: $(piece)-cello.pdf \
 
 .PHONY: mouvements
 mouvements: $(piece)I.pdf \
-           $(piece)II.pdf \
-           $(piece)III.pdf \
-           $(piece)IV.pdf
+            $(piece)II.pdf \
+            $(piece)III.pdf \
+            $(piece)IV.pdf
 
 all: score parties mouvements
-@end example
+@end verbatim
+@end indentedblock
 
 Le @emph{Makefile} suivant convient pour un document
 @command{lilypond-book} réalisé avec @LaTeX{}. Ce projet contiendra un
@@ -608,19 +617,22 @@ pour mettre à jour les liens. Les fichiers résultants iront dans le
 répertoire @code{out} pour ce qui est des pdf et dans le répertoire
 @code{htmlout} pour ce qui est du html.
 
-@example
-SHELL=/bin/sh
-FILE=monprojet
-OUTDIR=out
-WEBDIR=htmlout
-VIEWER=acroread
-BROWSER=firefox
-LILYBOOK_PDF=lilypond-book --output=$(OUTDIR) --pdf $(FILE).lytex
-LILYBOOK_HTML=lilypond-book --output=$(WEBDIR) $(FILE).lytex
-PDF=cd $(OUTDIR) && pdflatex $(FILE)
-HTML=cd $(WEBDIR) && latex2html $(FILE)
-INDEX=cd $(OUTDIR) && makeindex $(FILE)
-PREVIEW=$(VIEWER) $(OUTDIR)/$(FILE).pdf &
+@c tabs aren't correctly displayed in `@example` environments
+@need 800
+@indentedblock
+@verbatim
+SHELL = /bin/sh
+FILE = monprojet
+OUTDIR = out
+WEBDIR = htmlout
+VIEWER = acroread
+BROWSER = firefox
+LILYBOOK_PDF = lilypond-book --output=$(OUTDIR) --pdf $(FILE).lytex
+LILYBOOK_HTML = lilypond-book --output=$(WEBDIR) $(FILE).lytex
+PDF = cd $(OUTDIR) && pdflatex $(FILE)
+HTML = cd $(WEBDIR) && latex2html $(FILE)
+INDEX = cd $(OUTDIR) && makeindex $(FILE)
+PREVIEW = $(VIEWER) $(OUTDIR)/$(FILE).pdf &
 
 all: pdf web keep
 
@@ -632,13 +644,14 @@ pdf:
         $(PREVIEW)       # tabulation en début de ligne
 
 web:
-        $(LILYBOOK_HTML) # tabulation en début de ligne
-        $(HTML)          # tabulation en début de ligne
-        cp -R $(WEBDIR)/$(FILE)/ ./  # tabulation en début de ligne
+        $(LILYBOOK_HTML)                   # tabulation en début de ligne
+        $(HTML)                            # tabulation en début de ligne
+        cp -R $(WEBDIR)/$(FILE)/ ./        # tabulation en début de ligne
         $(BROWSER) $(FILE)/$(FILE).html &  # tabulation en début de ligne
 
 keep: pdf
-        cp $(OUTDIR)/$(FILE).pdf $(FILE).pdf  # tabulation en début de ligne
+        # la ligne suivante débute par une tabulation
+        cp $(OUTDIR)/$(FILE).pdf $(FILE).pdf
 
 clean:
         rm -rf $(OUTDIR) # tabulation en début de ligne
@@ -655,7 +668,8 @@ archive:
         --exclude=*pdf \
         --exclude=*~ \
         ../MonProjet/*
-@end example
+@end verbatim
+@end indentedblock
 
 AVENIR : faire que ça marche sous Windows
 
