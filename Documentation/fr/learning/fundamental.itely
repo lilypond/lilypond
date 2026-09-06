@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: c2ea1fa2792532a1a123f08504fc8677defb7a96
+   Translation of GIT committish: b1311a5694133c9694e180cdbdc693614334d61d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -477,12 +477,14 @@ numéros de corde, des liaisons et du texte d'explication.
 
 La hauteur peut être définie explicitement à l'aide de la langue de
 saisie spécifiée comme indiqué dans @rnotationnamed{Note names in other
-languages, Nom des notes dans d'autres langues}. La hauteur peut être
-omise, auquel cas la hauteur en cours sera identique à celle de la note
-précédente dans le fichier source -- voir @rnotationnamed{Durations,
-Durées}. Notez bien que ni @samp{r} ni @samp{s} (un saut, voir
-@rnotationnamed{Invisible rests, Silences invisibles}) ne sont des
-hauteurs.
+languages, Nom des notes dans d'autres langues}.
+
+La hauteur ou la durée peuvent être omises (mais pas les deux). En
+l'absence de hauteur, la hauteur en cours sera identique à celle de la
+note précédente dans le fichier source -- voir
+@rnotationnamed{Durations, Durées}. Notez bien que ni @samp{r} ni
+@samp{s} (un saut, voir @rnotationnamed{Invisible rests, Silences
+invisibles}) ne sont des hauteurs.
 
 La durée comporte un nombre et accessoirement des points. Lorsque la
 durée n'est pas explicitement mentionnée, la durée de la note en cours
@@ -1811,7 +1813,10 @@ anglais), un @dfn{entier} est un nombre entier positif, un @dfn{réel}
 est un nombre décimal positif ou négatif, et @dfn{texte} correspond à
 une suite de caractères encadrée par des guillemets informatiques.
 Attention à la présence d'un signe dièse (@code{#}) additionnel
-nécessaire dans le cadre d'une expression Scheme.
+nécessaire dans le cadre d'une expression Scheme.@footnote{« Scheme »
+est le langage d'extension utilisé par LilyPond qui rend accessibles à
+l'utilisateur nombre de ses composantes internes. Consulter le
+@rextendnamed{Scheme tutorial, Tutoriel Scheme} pour plus d'information.}
 
 @cindex propriétés et contextes
 @cindex réglage de propriétés au sein des contextes

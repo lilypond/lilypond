@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: c95d569e9013276fd0595366c79eebdf772bea77
+   Translation of GIT committish: b1311a5694133c9694e180cdbdc693614334d61d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -286,6 +286,16 @@ la durée de base.
 \relative {
   a' a a4. a8
   a8. a16 a a8. a8 a4.
+}
+@end lilypond
+
+Lorsque plusieurs durées suivent une hauteur, chacune des durées crée
+une note différente à cette même hauteur.
+
+@lilypond[verbatim,quote]
+\relative {
+  a'4 4 4. 8
+  8. 16 16 8. 8 4.
 }
 @end lilypond
 
