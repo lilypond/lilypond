@@ -837,6 +837,15 @@ identifier_init_nonumber:
 	;
 
 // Partial functions
+//
+// Why do composed functions use function_arglist_before_required instead of
+// function_arglist_partial_before_required and why are only required and
+// nonskippable arguments composed?  The reason is that for composed partial
+// functions, only the _last_ argument of the prepended part of the composed
+// function is actually ever skipped, and it is ultimately provided by the
+// given partial_function at the time of call.  Since only the last function
+// argument is missing, it cannot be skippable, and there are no preceding
+// partial function arglist parts either.
 
 partial_function_scriptable:
 	MUSIC_FUNCTION function_arglist_partial
@@ -851,27 +860,27 @@ partial_function_scriptable:
 	{
 		$$ = scm_acons ($1, $2, SCM_EOL);
 	}
-	| MUSIC_FUNCTION EXPECT_SCM function_arglist_optional partial_function
+	| MUSIC_FUNCTION EXPECT_SCM function_arglist_before_required partial_function
 	{
 		$$ = scm_acons ($1, $3, $4);
 	}
-	| EVENT_FUNCTION EXPECT_SCM function_arglist_optional partial_function
+	| EVENT_FUNCTION EXPECT_SCM function_arglist_before_required partial_function
 	{
 		$$ = scm_acons ($1, $3, $4);
 	}
-	| SCM_FUNCTION EXPECT_SCM function_arglist_optional partial_function
+	| SCM_FUNCTION EXPECT_SCM function_arglist_before_required partial_function
 	{
 		$$ = scm_acons ($1, $3, $4);
 	}
-	| MUSIC_FUNCTION EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup partial_function
+	| MUSIC_FUNCTION EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_nonskippable partial_function
 	{
 		$$ = scm_acons ($1, $4, $5);
 	}
-	| EVENT_FUNCTION EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup partial_function
+	| EVENT_FUNCTION EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_nonskippable partial_function
 	{
 		$$ = scm_acons ($1, $4, $5);
 	}
-	| SCM_FUNCTION EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup partial_function
+	| SCM_FUNCTION EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_nonskippable partial_function
 	{
 		$$ = scm_acons ($1, $4, $5);
 	}
@@ -1814,26 +1823,38 @@ grouped_music_list:
  * will match and whether or not \default will be appearing in the
  * argument list, and where.
  *
- * Sequences of 0 or more optional arguments are scanned using either
- * function_arglist_backup or function_arglist_nonbackup.  The first
- * is used when optional arguments are followed by at least one
- * mandatory argument: in that case optional arguments may be skipped
- * by either a false predicate (in which case the expression will be
- * pushed back as one or more tokens, preceded by a BACKUP token) or
- * by using \default.
+ * A rule alternative of the kind
  *
- * If optional arguments are at the end of the argument list, they are
- * instead scanned using function_arglist_nonbackup: here the only
- * manner to enter into skipping of optional arguments is the use of
- * \default.
+ * function_arglist_xxx:
+ *   expect... function_arglist_yyy arg...
+ *
+ * parses one argument in an argument list described to be of category xxx and
+ * preceded by an argument list of category yyy.
+ *
+ * The category is described by how the last argument has been parsed:
+ *
+ * function_arglist_after_required means that the last parsed argument (if any)
+ * has been a non-optional argument.
+ *
+ * function_arglist_after_skippable means that the last parsed argument has
+ * been an optional argument, but the optional argument was given
+ *
+ * function_arglist_after_skipped means that the last parsed argument has been
+ * an optional argument that has been omitted, meaning that any following
+ * optional arguments are to be omitted as well.
+ *
+ * If optional arguments are at the end of the argument list, they are called
+ * "nonskippable" for the sake of parsing.  They cannot be skipped with an
+ * argument type mismatch, only by using \default.
  *
  * The argument list of a normal function call is parsed using
- * function_arglist.  The part of an argument list before a mandatory
- * argument is parsed using function_arglist_optional.
+ * function_arglist.
  *
- * The difference is that leading optional arguments are scanned using
- * function_arglist_nonbackup and function_arglist_backup,
- * respectively.
+ * Names using function_arglist_partial are involved when arguments are being
+ * skipped using \etc .  Partial functions may be defined by specifying some
+ * arguments and only emitting the last arguments.  Only when arguments start
+ * being omitted do the productions using function_arglist_partial_... come
+ * into play.
  *
  * Most other details are obvious in the rules themselves.
  *
@@ -1903,13 +1924,89 @@ symbol_list_part_bare:
 	}
 	;
 
-function_arglist_nonbackup:
-	function_arglist_common
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup post_event_nofinger
+// We use two different productions to organize out parsing:
+// function_arglist_before... and function_arglist_after...
+//
+// The "before" items are defined in terms of the "after" items as "possible
+// precondition" items; the after items define the actual productions.
+
+function_arglist_start:
+	PROCESS_ARGS
+	{
+		$$ = SCM_EOL;
+	}
+	;
+
+function_arglist_before_required:
+	function_arglist_start
+	| function_arglist_after_required
+	| function_arglist_after_skippable
+	| function_arglist_after_skippable BACKUP
+	| function_arglist_after_skipped
+	;
+
+function_arglist_partial_before_required:
+	function_arglist_start
+	| function_arglist_after_required
+	| function_arglist_partial_after_required
+	| function_arglist_after_skippable
+	| function_arglist_partial_after_skippable
+	| function_arglist_after_skipped
+	;
+
+function_arglist_before_skippable:
+	function_arglist_start
+	| function_arglist_after_required
+	| function_arglist_after_skippable
+	;
+
+function_arglist_partial_before_skippable:
+	function_arglist_start
+	| function_arglist_after_required
+	| function_arglist_partial_after_required
+	| function_arglist_after_skippable
+	| function_arglist_partial_after_skippable
+	;
+
+function_arglist_before_nonskippable:
+	function_arglist_start
+	| function_arglist_after_required
+	| function_arglist_after_nonskippable
+	;
+
+function_arglist_partial_before_nonskippable:
+	function_arglist_start
+	| function_arglist_after_required
+	| function_arglist_partial_after_required
+	| function_arglist_after_nonskippable
+	| function_arglist_partial_after_nonskippable
+	;
+
+// skipped and skipped_final refer to skipped optional and skipped
+// "nonskippable" arguments respectively, the latter being optional arguments
+// not followed by any required argument at the end of the argument list and
+// consequently only skippable using \default, not by an argument type mismatch
+function_arglist_before_skipped:
+	function_arglist_start DEFAULT
+	| function_arglist_after_required DEFAULT
+	| function_arglist_after_skippable DEFAULT
+	| function_arglist_after_skippable BACKUP
+	| function_arglist_after_skipped
+	;
+
+function_arglist_before_skipped_final:
+	function_arglist_start DEFAULT
+	| function_arglist_after_required DEFAULT
+	| function_arglist_after_nonskippable DEFAULT
+	| function_arglist_after_skipped_final
+	;
+
+function_arglist_after_nonskippable:
+	EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_nonskippable post_event_nofinger
 	{
 		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup '-' UNSIGNED
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_nonskippable '-' UNSIGNED
 	{
 		SCM n = scm_difference ($5, SCM_UNDEFINED);
 		if (scm_is_true (ly_call ($2, n)))
@@ -1921,30 +2018,30 @@ function_arglist_nonbackup:
 					       $3, $2, n);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup '-' REAL
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_nonskippable '-' REAL
 	{
 		$$ = check_scheme_arg (parser, @4,
 				       scm_difference ($5, SCM_UNDEFINED),
 				       $3, $2);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup '-' NUMBER_IDENTIFIER
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_nonskippable '-' NUMBER_IDENTIFIER
 	{
 		$$ = check_scheme_arg (parser, @4,
 				       scm_difference ($5, SCM_UNDEFINED),
 				       $3, $2);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup embedded_scm_arg
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_nonskippable embedded_scm_arg
 	{
 		if (scm_is_true (ly_call ($2, $4)))
 			$$ = scm_cons ($4, $3);
 		else
 			$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup bare_number_common
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_nonskippable bare_number_common
 	{
 		$$ = check_scheme_arg (parser, @4, $4, $3, $2);
 	}
-	| function_arglist_nonbackup_reparse REPARSE pitch_or_music
+	| function_arglist_before_nonskippable_reparse REPARSE pitch_or_music
 	{
 		if (scm_is_true (ly_call ($2, $3)))
 			$$ = scm_cons ($3, $1);
@@ -1954,29 +2051,29 @@ function_arglist_nonbackup:
 					       (parser, @3, $3),
 					       $1, $2, $3);
 	}
-	| function_arglist_nonbackup_reparse REPARSE duration
+	| function_arglist_before_nonskippable_reparse REPARSE duration
 	{
 		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
 	}
-	| function_arglist_nonbackup_reparse REPARSE reparsed_rhythm
+	| function_arglist_before_nonskippable_reparse REPARSE reparsed_rhythm
 	{
 		if (scm_is_pair ($1) && unsmob<Pitch> (scm_car ($1)))
 			@3.warning (_ ("Duration following pitch taken as music"));
 		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
 	}
-	| function_arglist_nonbackup_reparse REPARSE bare_number_common
+	| function_arglist_before_nonskippable_reparse REPARSE bare_number_common
 	{
 		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
 	}
-	| function_arglist_nonbackup_reparse REPARSE SCM_ARG
+	| function_arglist_before_nonskippable_reparse REPARSE SCM_ARG
 	{
 		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
 	}
-	| function_arglist_nonbackup_reparse REPARSE lyric_element_music
+	| function_arglist_before_nonskippable_reparse REPARSE lyric_element_music
 	{
 		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
 	}
-	| function_arglist_nonbackup_reparse REPARSE symbol_list_arg
+	| function_arglist_before_nonskippable_reparse REPARSE symbol_list_arg
 	{
 		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
 	}
@@ -1997,8 +2094,8 @@ reparsed_rhythm:
 	} %prec ':'
 	;
 
-function_arglist_nonbackup_reparse:
-	EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup SCM_IDENTIFIER
+function_arglist_before_nonskippable_reparse:
+	EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_nonskippable SCM_IDENTIFIER
 	{
 		$$ = $3;
 		SCM res = try_string_variants ($2, $4);
@@ -2015,7 +2112,7 @@ function_arglist_nonbackup_reparse:
 		else
 			MYREPARSE (@4, $2, SCM_ARG, $4);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup pitch
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_nonskippable pitch
 	{
 		$$ = $3;
 		if (scm_is_true
@@ -2026,7 +2123,7 @@ function_arglist_nonbackup_reparse:
 		else
 			MYREPARSE (@4, $2, SCM_ARG, $4);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup steno_tonic_pitch
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_nonskippable steno_tonic_pitch
 	{
 		$$ = $3;
 		if (scm_is_true
@@ -2037,7 +2134,7 @@ function_arglist_nonbackup_reparse:
 		else
 			MYREPARSE (@4, $2, SCM_ARG, $4);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup STRING
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_nonskippable STRING
 	{
 		$$ = $3;
 		SCM res = try_string_variants ($2, $4);
@@ -2054,7 +2151,7 @@ function_arglist_nonbackup_reparse:
 		else
 			MYREPARSE (@4, $2, SCM_ARG, $4);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup SYMBOL
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_nonskippable SYMBOL
 	{
 		$$ = $3;
 		SCM res = try_word_variants ($2, $4);
@@ -2071,7 +2168,7 @@ function_arglist_nonbackup_reparse:
 		else
 			MYREPARSE (@4, $2, SCM_ARG, $4);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup full_markup
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_nonskippable full_markup
 	{
 		$$ = $3;
 		if (scm_is_true (ly_call ($2, $4)))
@@ -2084,7 +2181,7 @@ function_arglist_nonbackup_reparse:
 		else
 			MYREPARSE (@4, $2, SCM_ARG, $4);
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup UNSIGNED
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_nonskippable UNSIGNED
 	{
 		$$ = $3;
 		if (scm_is_true (ly_call ($2, $4)))
@@ -2107,7 +2204,7 @@ function_arglist_nonbackup_reparse:
 				MYREPARSE (@4, $2, SCM_ARG, $4); // trigger error
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup DURATION_IDENTIFIER
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_nonskippable DURATION_IDENTIFIER
 	{
 		$$ = $3;
 		if (scm_is_true (ly_call ($2, $4)))
@@ -2121,12 +2218,8 @@ function_arglist_nonbackup_reparse:
 	}
 	;
 
-
-// function_arglist_backup can't occur at the end of an argument
-// list.
-function_arglist_backup:
-	function_arglist_common
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup embedded_scm_arg
+function_arglist_after_skippable:
+	EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_skippable embedded_scm_arg
 	{
 		if (scm_is_true (ly_call ($2, $4)))
 			$$ = scm_cons ($4, $3);
@@ -2135,7 +2228,7 @@ function_arglist_backup:
 			MYBACKUP (SCM_ARG, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup post_event_nofinger
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_skippable post_event_nofinger
 	{
 		if (scm_is_true (ly_call ($2, $4)))
 		{
@@ -2145,7 +2238,7 @@ function_arglist_backup:
 			MYBACKUP (EVENT_IDENTIFIER, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup pitch
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_skippable pitch
 	{
 		if (scm_is_true
 		    (ly_call
@@ -2161,7 +2254,7 @@ function_arglist_backup:
 			MYBACKUP (PITCH_IDENTIFIER, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup steno_tonic_pitch
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_skippable steno_tonic_pitch
 	{
 		if (scm_is_true
 		    (ly_call
@@ -2177,7 +2270,7 @@ function_arglist_backup:
 			MYBACKUP (TONICNAME_PITCH, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup full_markup
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_skippable full_markup
 	{
 		if (scm_is_true (ly_call ($2, $4)))
 			$$ = scm_cons ($4, $3);
@@ -2186,7 +2279,7 @@ function_arglist_backup:
 			MYBACKUP (SCM_IDENTIFIER, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup UNSIGNED
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_skippable UNSIGNED
 	{
 		$$ = $3;
 		if (scm_is_true (ly_call ($2, $4)))
@@ -2213,7 +2306,7 @@ function_arglist_backup:
 			}
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup REAL
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_skippable REAL
 	{
 		if (scm_is_true (ly_call ($2, $4)))
 		{
@@ -2224,7 +2317,7 @@ function_arglist_backup:
 			MYBACKUP (REAL, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup NUMBER_IDENTIFIER
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_skippable NUMBER_IDENTIFIER
 	{
 		if (scm_is_true (ly_call ($2, $4)))
 		{
@@ -2234,7 +2327,7 @@ function_arglist_backup:
 			MYBACKUP (NUMBER_IDENTIFIER, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup '-' UNSIGNED
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_skippable '-' UNSIGNED
 	{
 		SCM n = scm_difference ($5, SCM_UNDEFINED);
 		if (scm_is_true (ly_call ($2, n))) {
@@ -2253,7 +2346,7 @@ function_arglist_backup:
 			}
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup '-' REAL
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_skippable '-' REAL
 	{
 		SCM n = scm_difference ($5, SCM_UNDEFINED);
 		if (scm_is_true (ly_call ($2, n))) {
@@ -2264,7 +2357,7 @@ function_arglist_backup:
 			MYBACKUP (REAL, n, @5);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup '-' NUMBER_IDENTIFIER
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_skippable '-' NUMBER_IDENTIFIER
 	{
 		SCM n = scm_difference ($5, SCM_UNDEFINED);
 		if (scm_is_true (ly_call ($2, n))) {
@@ -2274,7 +2367,7 @@ function_arglist_backup:
 			MYBACKUP (NUMBER_IDENTIFIER, n, @5);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup DURATION_IDENTIFIER
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_skippable DURATION_IDENTIFIER
 	{
 		$$ = $3;
 		if (scm_is_true (ly_call ($2, $4)))
@@ -2288,7 +2381,7 @@ function_arglist_backup:
 			MYBACKUP (DURATION_IDENTIFIER, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup SCM_IDENTIFIER
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_skippable SCM_IDENTIFIER
 	{
 		SCM res = try_string_variants ($2, $4);
 		if (!SCM_UNBNDP (res))
@@ -2303,7 +2396,7 @@ function_arglist_backup:
 			MYBACKUP (SCM_IDENTIFIER, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup STRING
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_skippable STRING
 	{
 		SCM res = try_string_variants ($2, $4);
 		if (!SCM_UNBNDP (res))
@@ -2318,7 +2411,7 @@ function_arglist_backup:
 			MYBACKUP (STRING, $4, @4);
 		}
 	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup SYMBOL
+	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_skippable SYMBOL
 	{
 		SCM res = try_word_variants ($2, $4);
 		if (!SCM_UNBNDP (res))
@@ -2333,7 +2426,7 @@ function_arglist_backup:
 			MYBACKUP (STRING, $4, @4);
 		}
 	}
-	| function_arglist_backup REPARSE pitch_or_music
+	| function_arglist_before_skippable REPARSE pitch_or_music
 	{
 		if (scm_is_true (ly_call ($2, $3)))
 			$$ = scm_cons ($3, $1);
@@ -2343,132 +2436,123 @@ function_arglist_backup:
 					       (parser, @3, $3),
 					       $1, $2);
 	}
-	| function_arglist_backup REPARSE bare_number_common
+	| function_arglist_before_skippable REPARSE bare_number_common
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
-	| function_arglist_backup REPARSE duration
+	| function_arglist_before_skippable REPARSE duration
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
-	| function_arglist_backup REPARSE reparsed_rhythm
+	| function_arglist_before_skippable REPARSE reparsed_rhythm
 	{
 		if (scm_is_pair ($1) && unsmob<Pitch> (scm_car ($1)))
 			@3.warning (_ ("Duration following pitch taken as music"));
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
-	| function_arglist_backup REPARSE symbol_list_arg
+	| function_arglist_before_skippable REPARSE symbol_list_arg
 	{
 		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
 	}
 	;
 
-function_arglist:
-	function_arglist_nonbackup
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_skip_nonbackup DEFAULT
-	{
-		$$ = scm_cons (loc_on_copy (parser, @4, $1), $3);
-	}
-	;
+// function_arglist is a regular argument list.  It is either an argument list
+// ending in non-optional arguments, or an argument with at least one skipped
+// optional argument cut short with \default
 
-function_arglist_skip_nonbackup:
-	function_arglist_nonbackup
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_skip_nonbackup
+function_arglist_after_skipped:
+	EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_skipped
 	{
 		$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
 	}
+	;
+
+function_arglist_after_skipped_final:
+	EXPECT_OPTIONAL EXPECT_SCM function_arglist_before_skipped_final
+	{
+		$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
+	}
+	;
+
+
+function_arglist:
+	function_arglist_start
+	| function_arglist_after_required
+	| function_arglist_after_nonskippable
+	| function_arglist_after_skipped_final
 	;
 
 // Partial function arglists are returned just in their incomplete
 // state: when combined with the music function, the missing parts of
 // the signature can be reconstructed
 //
-// To serve as a partial arglist, the argument list must absolutely
-// _not_ be in "skipping optional arguments" mode since then there is
-// some backup token that has nowhere to go before \etc.
-//
-// So we can skim off an arbitrary number of arguments from the end of
-// the argument list.  The argument list remaining afterwards has to
-// be in not-skipping-optional-arguments mode.
+// We can skim off an arbitrary number of arguments from the end of the
+// argument list as long as we don't end up after skippable arguments.  It is
+// fine to be in front of the first skippable argument, though.
+
+function_arglist_partial_after_required:
+	EXPECT_SCM function_arglist_partial_before_required
+	{
+		$$ = $2;
+	}
+	;
+
+function_arglist_partial_after_nonskippable:
+	EXPECT_OPTIONAL EXPECT_SCM function_arglist_partial_before_nonskippable
+	{
+		$$ = $3;
+	}
+	;
+
+function_arglist_partial_after_skippable:
+	EXPECT_OPTIONAL EXPECT_SCM function_arglist_partial_before_skippable
+	{
+		$$ = $3;
+	}
+	;
 
 function_arglist_partial:
-	EXPECT_SCM function_arglist_optional
-	{
-		$$ = $2;
-	}
-	| EXPECT_SCM function_arglist_partial_optional
-	{
-		$$ = $2;
-	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_nonbackup
-	{
-		$$ = $3;
-	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_partial
-	{
-		$$ = $3;
-	}
+	function_arglist_partial_after_required
+	| function_arglist_partial_after_nonskippable
 	;
 
-function_arglist_partial_optional:
-	EXPECT_SCM function_arglist_optional
-	{
-		$$ = $2;
-	}
-	| EXPECT_SCM function_arglist_partial_optional
-	{
-		$$ = $2;
-	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_backup
-	{
-		$$ = $3;
-	}
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_partial_optional
-	{
-		$$ = $3;
-	}
-	;
-
-function_arglist_common:
-	PROCESS_ARGS {
-		$$ = SCM_EOL;
-	}
-	| EXPECT_SCM function_arglist_optional embedded_scm_arg
+function_arglist_after_required:
+	EXPECT_SCM function_arglist_before_required embedded_scm_arg
 	{
 		if (scm_is_true (ly_call ($1, $3)))
 			$$ = scm_cons ($3, $2);
 		else
 			$$ = check_scheme_arg (parser, @3, $3, $2, $1);
 	}
-	| EXPECT_SCM function_arglist_optional bare_number_common
+	| EXPECT_SCM function_arglist_before_required bare_number_common
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
 	}
-	| EXPECT_SCM function_arglist_optional post_event_nofinger
+	| EXPECT_SCM function_arglist_before_required post_event_nofinger
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $2, $1);
 	}
-	| EXPECT_SCM function_arglist_optional '-' NUMBER_IDENTIFIER
+	| EXPECT_SCM function_arglist_before_required '-' NUMBER_IDENTIFIER
 	{
 		SCM n = scm_difference ($4, SCM_UNDEFINED);
 		$$ = check_scheme_arg (parser, @4, n, $2, $1);
 	}
-	| function_arglist_common_reparse REPARSE SCM_ARG
+	| function_arglist_before_required_reparse REPARSE SCM_ARG
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
-	| function_arglist_common_reparse REPARSE lyric_element_music
+	| function_arglist_before_required_reparse REPARSE lyric_element_music
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
-	| function_arglist_common_reparse REPARSE pitch_or_music
+	| function_arglist_before_required_reparse REPARSE pitch_or_music
 	{
 		if (scm_is_true (ly_call ($2, $3)))
 			$$ = scm_cons ($3, $1);
@@ -2478,31 +2562,31 @@ function_arglist_common:
 					       (parser, @3, $3),
 					       $1, $2, $3);
 	}
-	| function_arglist_common_reparse REPARSE bare_number_common
+	| function_arglist_before_required_reparse REPARSE bare_number_common
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
-	| function_arglist_common_reparse REPARSE duration
+	| function_arglist_before_required_reparse REPARSE duration
 	{
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
-	| function_arglist_common_reparse REPARSE reparsed_rhythm
+	| function_arglist_before_required_reparse REPARSE reparsed_rhythm
 	{
 		if (scm_is_pair ($1) && unsmob<Pitch> (scm_car ($1)))
 			@3.warning (_ ("Duration following pitch taken as music"));
 		$$ = check_scheme_arg (parser, @3,
 				       $3, $1, $2);
 	}
-	| function_arglist_common_reparse REPARSE symbol_list_arg
+	| function_arglist_before_required_reparse REPARSE symbol_list_arg
 	{
 		$$ = check_scheme_arg (parser, @3, $3, $1, $2);
 	}
 	;
 
-function_arglist_common_reparse:
-	EXPECT_SCM function_arglist_optional SCM_IDENTIFIER
+function_arglist_before_required_reparse:
+	EXPECT_SCM function_arglist_before_required SCM_IDENTIFIER
 	{
 		$$ = $2;
 		SCM res = try_string_variants ($1, $3);
@@ -2520,7 +2604,7 @@ function_arglist_common_reparse:
 			// know the predicate to be false.
 			MYREPARSE (@3, $1, SCM_ARG, $3);
 	}
-	| EXPECT_SCM function_arglist_optional pitch
+	| EXPECT_SCM function_arglist_before_required pitch
 	{
 		$$ = $2;
 		if (scm_is_true
@@ -2531,7 +2615,7 @@ function_arglist_common_reparse:
 		else
 			MYREPARSE (@3, $1, SCM_ARG, $3);
 	}
-	| EXPECT_SCM function_arglist_optional steno_tonic_pitch
+	| EXPECT_SCM function_arglist_before_required steno_tonic_pitch
 	{
 		$$ = $2;
 		if (scm_is_true
@@ -2542,7 +2626,7 @@ function_arglist_common_reparse:
 		else
 			MYREPARSE (@3, $1, SCM_ARG, $3);
 	}
-	| EXPECT_SCM function_arglist_optional STRING
+	| EXPECT_SCM function_arglist_before_required STRING
 	{
 		$$ = $2;
 		SCM res = try_string_variants ($1, $3);
@@ -2560,7 +2644,7 @@ function_arglist_common_reparse:
 			// know the predicate to be false.
 			MYREPARSE (@3, $1, SCM_ARG, $3);
 	}
-	| EXPECT_SCM function_arglist_optional SYMBOL
+	| EXPECT_SCM function_arglist_before_required SYMBOL
 	{
 		$$ = $2;
 		SCM res = try_word_variants ($1, $3);
@@ -2578,7 +2662,7 @@ function_arglist_common_reparse:
 			// know the predicate to be false.
 			MYREPARSE (@3, $1, SCM_ARG, $3);
 	}
-	| EXPECT_SCM function_arglist_optional full_markup
+	| EXPECT_SCM function_arglist_before_required full_markup
 	{
 		$$ = $2;
 		if (scm_is_true (ly_call ($1, $3)))
@@ -2592,7 +2676,7 @@ function_arglist_common_reparse:
 			// know the predicate to be false.
 			MYREPARSE (@3, $1, SCM_ARG, $3);
 	}
-	| EXPECT_SCM function_arglist_optional UNSIGNED
+	| EXPECT_SCM function_arglist_before_required UNSIGNED
 	{
 		$$ = $2;
 		if (scm_is_true (ly_call ($1, $3)))
@@ -2615,7 +2699,7 @@ function_arglist_common_reparse:
 				MYREPARSE (@3, $1, SCM_ARG, $3); // trigger error
 		}
 	}
-	| EXPECT_SCM function_arglist_optional DURATION_IDENTIFIER
+	| EXPECT_SCM function_arglist_before_required DURATION_IDENTIFIER
 	{
 		$$ = $2;
 		if (scm_is_true (ly_call ($1, $3)))
@@ -2627,7 +2711,7 @@ function_arglist_common_reparse:
 		else
 			MYREPARSE (@3, $1, SCM_ARG, $3); // trigger error
 	}
-	| EXPECT_SCM function_arglist_optional '-' UNSIGNED
+	| EXPECT_SCM function_arglist_before_required '-' UNSIGNED
 	{
 		$$ = $2;
 		SCM n = scm_difference ($4, SCM_UNDEFINED);
@@ -2643,28 +2727,11 @@ function_arglist_common_reparse:
 				MYREPARSE (@4, $1, SCM_ARG, $4);
 		}
 	}
-	| EXPECT_SCM function_arglist_optional '-' REAL
+	| EXPECT_SCM function_arglist_before_required '-' REAL
 	{
 		$$ = $2;
 		SCM n = scm_difference ($4, SCM_UNDEFINED);
 		MYREPARSE (@4, $1, REAL, n);
-	}
-	;
-
-function_arglist_optional:
-	function_arglist_backup
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_skip_backup DEFAULT
-	{
-		$$ = scm_cons (loc_on_copy (parser, @4, $1), $3);
-	}
-	| function_arglist_skip_backup BACKUP
-	;
-
-function_arglist_skip_backup:
-	function_arglist_backup
-	| EXPECT_OPTIONAL EXPECT_SCM function_arglist_skip_backup
-	{
-		$$ = scm_cons (loc_on_copy (parser, @3, $1), $3);
 	}
 	;
 
