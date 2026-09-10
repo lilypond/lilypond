@@ -708,6 +708,7 @@ pre.example, pre.example-preformatted {
 .warning,
 .contactBox {
   background: #eef;
+  text-align: left;
   margin: 1em;
   padding: 0;
   border: 1px solid rgb(160, 160, 175);
