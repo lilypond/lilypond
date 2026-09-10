@@ -525,7 +525,6 @@ div.float-center a.clickable {
   clear: both;
   float: left;
   width: 99.5%;
-  text-align: center;
   border: 1px solid #ccd38f;
   margin: 1em auto 0;
 }
