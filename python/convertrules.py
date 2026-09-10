@@ -5699,7 +5699,7 @@ def conv(s):
 
 @rule((2, 27, 3), "ly:book? -> ly:book-or-bookpart?")
 def conv(s):
-    s = re.sub(r'ly:book\?',r'ly:book-or-bookpart?')
+    s = re.sub(r'ly:book\?',r'ly:book-or-bookpart?', s)
     return s
 
 # Guidelines to write rules (please keep this at the end of this file)
