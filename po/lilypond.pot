@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.27.2\n"
+"Project-Id-Version: lilypond 2.27.3\n"
 "Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
-"POT-Creation-Date: 2026-08-02 13:34+0200\n"
+"POT-Creation-Date: 2026-09-10 10:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2299,48 +2299,48 @@ msgstr ""
 msgid "Cairo surface status '%s'"
 msgstr ""
 
-#: cairo.cc:211
+#: cairo.cc:212
 #, c-format
 msgid "libpng error: '%s'"
 msgstr ""
 
-#: cairo.cc:213
+#: cairo.cc:214
 msgid "libpng error, no details given."
 msgstr ""
 
-#: cairo.cc:269
+#: cairo.cc:270
 #, c-format
 msgid "error writing %s"
 msgstr ""
 
-#: cairo.cc:530 cairo.cc:543
+#: cairo.cc:531 cairo.cc:544
 #, c-format
 msgid "unknown line-cap-style: %s"
 msgstr ""
 
-#: cairo.cc:642
+#: cairo.cc:643
 #, c-format
 msgid "Layout output to `%s'...\n"
 msgstr ""
 
-#: cairo.cc:951
+#: cairo.cc:952
 msgid ""
 "embedding EPS only supported for PS/EPS output.\n"
 "Use Ghostscript to create other output formats."
 msgstr ""
 
-#: cairo.cc:1019
+#: cairo.cc:1020
 msgid ""
 "embedded-ps only supported for PS/EPS. Use Ghostscript to create output in "
 "other formats"
 msgstr ""
 
-#: cairo.cc:1058
+#: cairo.cc:1059
 #, c-format
 msgid "error while reading PNG image: %s"
 msgstr ""
 
-#: cairo.cc:1537
+#: cairo.cc:1538
 #, c-format
 msgid "unknown output format %s"
 msgstr ""
@@ -3197,7 +3197,12 @@ msgstr ""
 msgid "Unsupported MIDI time signature: (%s)/(%s)"
 msgstr ""
 
-#: midi-item.cc:399
+#: midi-item.cc:272
+#, c-format
+msgid "unsupported MIDI metronome beat: %s"
+msgstr ""
+
+#: midi-item.cc:425
 #, c-format
 msgid "Unsupported MIDI tempo (wholes/minute): %s"
 msgstr ""
@@ -3511,11 +3516,11 @@ msgstr ""
 msgid "Could not find ottavation markup for %d octaves up."
 msgstr ""
 
-#: output-def.cc:228
+#: output-def.cc:226
 msgid "margins do not fit with line-width, setting default values"
 msgstr ""
 
-#: output-def.cc:235
+#: output-def.cc:233
 msgid ""
 "systems run off the page due to improper paper settings, setting default "
 "values"
@@ -3685,7 +3690,7 @@ msgstr ""
 msgid "Preprocessing graphical objects..."
 msgstr ""
 
-#: parse-scm.cc:119 parse-scm.cc:156
+#: parse-scm.cc:97 parse-scm.cc:134
 msgid "Guile signaled an error for the expression beginning here"
 msgstr ""
 
@@ -4078,10 +4083,6 @@ msgstr ""
 msgid "mid-measure time signature without \\partial"
 msgstr ""
 
-#: time-signature-performer.cc:128
-msgid "bad beatBase/beatStructure for MIDI time signature"
-msgstr ""
-
 #: time-tracer-scheme.cc:60
 #, c-format
 msgid "failed redirecting time-trace output to `%s'"
@@ -4183,167 +4184,163 @@ msgstr ""
 msgid "discarding conflicting volta numbers: %s"
 msgstr ""
 
-#: volta-engraver.cc:345
+#: volta-engraver.cc:347
 msgid "already have a VoltaBracket; ending it prematurely"
 msgstr ""
 
 #. FIXME: Be more verbose?
-#: volta-engraver.cc:359
+#: volta-engraver.cc:361
 msgid "no VoltaBracket to end"
 msgstr ""
 
-#: parser.yy:509 parser.yy:705 parser.yy:1105 parser.yy:1187 parser.yy:1424
+#: parser.yy:511 parser.yy:723 parser.yy:1126 parser.yy:1206 parser.yy:1428
 msgid "bad expression type"
 msgstr ""
 
-#: parser.yy:545
+#: parser.yy:550
 msgid "not found"
 msgstr ""
 
-#: parser.yy:763
+#: parser.yy:781
 msgid "Not a markup function"
 msgstr ""
 
-#: parser.yy:1017 parser.yy:1623 parser.yy:1685
+#: parser.yy:1035 parser.yy:1627 parser.yy:1689
 msgid "not a context mod"
 msgstr ""
 
-#: parser.yy:1099 parser.yy:1179 parser.yy:1333
-msgid "need \\paper for paper block"
-msgstr ""
-
-#: parser.yy:1213
+#: parser.yy:1231
 msgid "Missing music in \\score"
 msgstr ""
 
-#: parser.yy:1251
+#: parser.yy:1269
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr ""
 
-#: parser.yy:1302
+#: parser.yy:1320
 msgid "Spurious expression in \\score"
 msgstr ""
 
-#: parser.yy:1505
+#: parser.yy:1509
 msgid "music expected"
 msgstr ""
 
-#: parser.yy:1546
+#: parser.yy:1550
 msgid "Ignoring non-music expression"
 msgstr ""
 
-#: parser.yy:1866 parser.yy:1887
+#: parser.yy:1874 parser.yy:1895
 msgid "not a key"
 msgstr ""
 
-#: parser.yy:2784 parser.yy:2915 parser.yy:2931
+#: parser.yy:2792 parser.yy:2923 parser.yy:2939
 msgid "bad grob property path"
 msgstr ""
 
-#: parser.yy:2886
+#: parser.yy:2894
 msgid "only \\consists and \\remove take non-string argument."
 msgstr ""
 
-#: parser.yy:2951
+#: parser.yy:2959
 msgid "bad context property path"
 msgstr ""
 
-#: parser.yy:3038
+#: parser.yy:3046
 msgid "markup expected"
 msgstr ""
 
-#: parser.yy:3051
+#: parser.yy:3059
 msgid "simple string expected"
 msgstr ""
 
-#: parser.yy:3064 parser.yy:3074
+#: parser.yy:3072 parser.yy:3082
 msgid "symbol expected"
 msgstr ""
 
-#: parser.yy:3217
+#: parser.yy:3225
 msgid "not a rhythmic event"
 msgstr ""
 
-#: parser.yy:3254
+#: parser.yy:3262
 msgid "post-event expected"
 msgstr ""
 
-#: parser.yy:3265 parser.yy:3270
+#: parser.yy:3273 parser.yy:3278
 msgid "have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:3350
+#: parser.yy:3358
 msgid "expecting post-event as script definition"
 msgstr ""
 
-#: parser.yy:3527 parser.yy:3594
+#: parser.yy:3535 parser.yy:3602
 msgid "not a duration"
 msgstr ""
 
-#: parser.yy:3580
+#: parser.yy:3588
 msgid "not a multiplier"
 msgstr ""
 
-#: parser.yy:3616
+#: parser.yy:3624
 msgid "bass number expected"
 msgstr ""
 
-#: parser.yy:3646
+#: parser.yy:3654
 msgid "Dropping surplus alteration symbols for bass figure."
 msgstr ""
 
-#: parser.yy:3724
+#: parser.yy:3732
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:3733
+#: parser.yy:3741
 msgid "octave marks must precede duration"
 msgstr ""
 
-#: parser.yy:3735
+#: parser.yy:3743
 msgid "badly placed octave marks"
 msgstr ""
 
-#: parser.yy:3783
+#: parser.yy:3791
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
-#: parser.yy:3826
+#: parser.yy:3834
 msgid "markup outside of text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3831
+#: parser.yy:3839
 #, c-format
 msgid "not a note name: %s"
 msgstr ""
 
-#: parser.yy:3836
+#: parser.yy:3844
 msgid "string outside of text script or \\lyricmode"
 msgstr ""
 
-#: parser.yy:3988 parser.yy:3998
+#: parser.yy:3996 parser.yy:4006
 msgid "not an exact unsigned number"
 msgstr ""
 
-#: parser.yy:4011 parser.yy:4020
+#: parser.yy:4019 parser.yy:4028
 msgid "not an unsigned integer"
 msgstr ""
 
-#: parser.yy:4131
+#: parser.yy:4139
 msgid "not a markup"
 msgstr ""
 
-#: parser.yy:4853
+#: parser.yy:4861
 #, c-format
 msgid "Unattached %s"
 msgstr ""
 
-#: parser.yy:4855
+#: parser.yy:4863
 #, c-format
 msgid "Dropping unattachable %s"
 msgstr ""
 
-#: parser.yy:4918
+#: parser.yy:4926
 #, c-format
 msgid "deprecated: missing `.' in property path %s"
 msgstr ""
@@ -4874,45 +4871,50 @@ msgstr ""
 msgid "Error in beam quanting.  Expected ~S 0, found ~S."
 msgstr ""
 
-#: lily-library.scm:362
+#: lily-library.scm:160
+#, scheme-format
+msgid "Using shadowed non-local variable ~a"
+msgstr ""
+
+#: lily-library.scm:391
 msgid "Music unsuitable for context-mod"
 msgstr ""
 
-#: lily-library.scm:370
+#: lily-library.scm:399
 msgid "Cannot determine contexts to modify"
 msgstr ""
 
-#: lily-library.scm:422
+#: lily-library.scm:451
 #, scheme-format
 msgid "Context id ~s ignored in output-def"
 msgstr ""
 
-#: lily-library.scm:426
+#: lily-library.scm:455
 #, scheme-format
 msgid "Cannot find context-def \\~a"
 msgstr ""
 
-#: lily-library.scm:442
+#: lily-library.scm:471
 msgid "Music unsuitable for output-def"
 msgstr ""
 
-#: lily-library.scm:1255
+#: lily-library.scm:1284
 msgid ""
 "version with third number omitted is only allowed for stable releases (when "
 "the second number is even)"
 msgstr ""
 
-#: lily-library.scm:1268
+#: lily-library.scm:1297
 #, scheme-format
 msgid "Invalid version string \"~a\""
 msgstr ""
 
-#: lily-library.scm:1283
+#: lily-library.scm:1312
 #, scheme-format
 msgid "program too old: ~a (file requires: ~a)"
 msgstr ""
 
-#: lily-library.scm:1299
+#: lily-library.scm:1328
 #, scheme-format
 msgid ""
 "\n"
@@ -4924,7 +4926,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: lily-library.scm:1467
+#: lily-library.scm:1496
 msgid ""
 "Bisect between the integers @var{start} and @var{end}, both ends inclusive, "
 "to\n"
@@ -4943,17 +4945,17 @@ msgid ""
 "greater than or equal to @var{target-val}."
 msgstr ""
 
-#: lily-library.scm:1720
+#: lily-library.scm:1749
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
 
-#: lily-library.scm:1753
+#: lily-library.scm:1782
 #, scheme-format
 msgid "conflict with event: `~a'"
 msgstr ""
 
-#: lily-library.scm:1754
+#: lily-library.scm:1783
 #, scheme-format
 msgid "discarding event: `~a'"
 msgstr ""
@@ -4987,37 +4989,37 @@ msgstr ""
 msgid "note scale expected: ~S"
 msgstr ""
 
-#: lily.scm:1014
+#: lily.scm:1016
 msgid "Success: compilation successfully completed"
 msgstr ""
 
-#: lily.scm:1015
+#: lily.scm:1017
 msgid "Compilation completed with warnings or errors"
 msgstr ""
 
-#: lily.scm:1129
+#: lily.scm:1131
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:1132
+#: lily.scm:1134
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:1136
+#: lily.scm:1138
 #, scheme-format
 msgid "Children ~a exited with errors."
 msgstr ""
 
-#: lily.scm:1152
+#: lily.scm:1154
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:1185
+#: lily.scm:1187
 #, scheme-format
 msgid "Processing `~a'\n"
 msgstr ""
@@ -5272,12 +5274,12 @@ msgid ""
 "supported in the PostScript backend.  Use the Cairo backend instead."
 msgstr ""
 
-#: output-ps.scm:349 output-svg.scm:541
+#: output-ps.scm:349 output-svg.scm:570
 #, scheme-format
 msgid "unknown line-cap-style: ~S"
 msgstr ""
 
-#: output-ps.scm:354 output-svg.scm:547
+#: output-ps.scm:354 output-svg.scm:576
 #, scheme-format
 msgid "unknown line-join-style: ~S"
 msgstr ""
@@ -5287,11 +5289,11 @@ msgstr ""
 msgid "cannot decypher Pango description: ~a"
 msgstr ""
 
-#: output-svg.scm:239
+#: output-svg.scm:260
 msgid "Glyph must have a unicode value"
 msgstr ""
 
-#: output-svg.scm:291 output-svg.scm:301
+#: output-svg.scm:320 output-svg.scm:330
 #, scheme-format
 msgid "cannot find SVG font ~S"
 msgstr ""
