@@ -309,7 +309,7 @@ class Libiconv(ConfigurePackage):
 
     @property
     def download_url(self) -> str:
-        return f"https://ftpmirror.gnu.org/gnu/libiconv/{self.archive}"
+        return f"https://ftpmirror.gnu.org/libiconv/{self.archive}"
 
     def get_env_variables(self, c: Config) -> Dict[str, str]:
         """Return environment variables to make libiconv available."""
@@ -350,7 +350,7 @@ class Gettext(ConfigurePackage):
 
     @property
     def download_url(self) -> str:
-        return f"https://ftpmirror.gnu.org/gnu/gettext/{self.archive}"
+        return f"https://ftpmirror.gnu.org/gettext/{self.archive}"
 
     @property
     def configure_script(self) -> str:
@@ -610,7 +610,7 @@ class Libunistring(ConfigurePackage):
 
     @property
     def download_url(self) -> str:
-        return f"https://ftpmirror.gnu.org/gnu/libunistring/{self.archive}"
+        return f"https://ftpmirror.gnu.org/libunistring/{self.archive}"
 
     def dependencies(self, c: Config) -> List[Package]:
         deps: List[Package] = []
@@ -667,7 +667,7 @@ class Guile(ConfigurePackage):
 
     @property
     def download_url(self) -> str:
-        return f"https://ftpmirror.gnu.org/gnu/guile/{self.archive}"
+        return f"https://ftpmirror.gnu.org/guile/{self.archive}"
 
     def _apply_patches_mingw(self, c: Config):
         # Fix headers so compilation of LilyPond works.
