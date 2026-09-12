@@ -1054,9 +1054,9 @@ Lily_lexer::scan_word (SCM & output, SCM sym)
 
 		if (scm_is_pair (handle)) {
 			output = scm_cdr (handle);
-			if (unsmob<Pitch> (yylval))
+			if (unsmob<Pitch> (output))
 	                    return (YYSTATE == notes) ? NOTENAME_PITCH : TONICNAME_PITCH;
-			else if (scm_is_symbol (yylval))
+			else if (scm_is_symbol (output))
 			    return DRUM_PITCH;
 		}
 		else if ((YYSTATE == chords)
