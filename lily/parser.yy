@@ -4730,11 +4730,6 @@ make_music_from_simple (Lily_parser *parser, Input loc, SCM simple)
 			set_property (n, "drum-type", out);
 			return n->unprotect ();
 		}
-		case NOTENAME_PITCH:
-		case TONICNAME_PITCH:
-			// Take the parsed pitch
-			simple = out;
-			break;
 		// Don't scan CHORD_MODIFIER etc.
 		}
 	}
