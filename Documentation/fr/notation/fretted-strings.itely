@@ -646,7 +646,7 @@ bends-with-ties-and-skips = {
 
 @snippets
 
-@cindex hampe et  tablature
+@cindex hampe et tablature
 @cindex tablature et hampe
 @cindex hampe horizontale
 @cindex horizontale, hampe
@@ -666,9 +666,6 @@ bends-with-ties-and-skips = {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/fretted-string-harmonics-in-tablature.ly}
 
-@cindex glissando, indication en tablature
-@cindex tablature et glissando
-
 @cindex glissando d'accords et tablature
 @cindex tablature et glissando
 @lilypondfile[verbatim,quote,texidoc,doctitle]
@@ -679,10 +676,10 @@ bends-with-ties-and-skips = {
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/chord-glissando-in-tablature.ly}
 
-@cindex hammer on
-@cindex pull off
-@cindex tablature, hammer on
-@cindex tablature, pull off
+@cindex @emph{hammer on}
+@cindex @emph{pull off}
+@cindex tablature, @emph{hammer on}
+@cindex tablature, @emph{pull off}
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/hammer-on-and-pull-off.ly}
 
@@ -743,7 +740,7 @@ harmoniques et aux glissandos.
 @cindex mandoline, tablature
 @cindex guitare basse, tablature
 @cindex ukulele, tablature
-@cindex tablature, accordages prédéfinis
+@cindex tablature, accordage prédéfini
 @cindex cordes frettées et accordages prédéfinis
 @cindex accordages prédéfinis et cordes frettées
 
@@ -883,8 +880,8 @@ accordage personnalisé dès lors que votre fichier comportera une clause
 @}
 @end example
 
-@cindex moderntab, clef
-@cindex clef moderntab
+@cindex @code{moderntab}, clef
+@cindex clef @code{moderntab}
 @cindex clef de tablature
 @cindex tablature, clef
 
@@ -1033,8 +1030,9 @@ d'accord dans l'interface standard :
 >>
 @end lilypond
 
-@cindex fret-diagram et @emph{markup}
-@cindex @emph{markup} et fret-diagram
+@cindex diagramme de fret et @emph{markup}
+@cindex @emph{markup} et diagramme de fret
+@cindex fret, diagramme et @emph{markup}
 @cindex ukulele
 
 @funindex \fret-diagram
@@ -1142,7 +1140,7 @@ les diagrammes de fret correctement.
   }
 @end lilypond
 
-@cindex @code{fret-diagram-terse}, markup
+@cindex @code{fret-diagram-terse}, @emph{markup}
 
 @funindex \fret-diagram-terse
 
@@ -1228,7 +1226,7 @@ Il n'est possible d'inclure qu'une seule indication par corde dans un
 plusieurs, utiliser un @emph{markup} @code{fret-diagram} ou
 @code{fret-diagram-verbose}.
 
-@cindex @code{fret-diagram-verbose}, markup
+@cindex @code{fret-diagram-verbose}, @emph{markup}
 @cindex capo
 
 @funindex \fret-diagram-verbose
@@ -1413,7 +1411,7 @@ l'interface dépendent de @code{Voice.TextScript}.
 
 @cindex positionnemenet, diagramme de fret
 @cindex diagramme de fret, positionnement
-@cindex fret, positionnement de giagramme
+@cindex fret, positionnement de diagramme
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/changing-fret-orientations.ly}
 

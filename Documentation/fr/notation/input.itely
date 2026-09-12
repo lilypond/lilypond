@@ -1386,9 +1386,9 @@ variables suivantes, attachées au bloc @code{\paper} :
 @item @code{evenFooterMarkup}
 @end itemize
 
-@cindex markup conditionnel
-@cindex condition et markup
-@cindex on-the-fly (à la volée)
+@cindex @emph{markup} conditionnel
+@cindex condition et @emph{markup}
+@cindex @emph{on-the-fly} (à la volée)
 
 @funindex \if
 @funindex \unless
@@ -2920,7 +2920,7 @@ music = \relative c'' {
 @subsubsubheading Utilisation de regroupements de balises
 @c VO Using tag groups
 
-@cindex regroupements de balises
+@cindex regroupement de balises
 @cindex balises, regroupement
 @funindex \tagGroup
 
@@ -3192,6 +3192,7 @@ music = { c' \tag #'ici { d' } e' }
 @c VO Tagging within markups
 
 @cindex @emph{markup} et balise
+@cindex balise et @emph{markup}
 
 @funindex \keep-with-tag
 @funindex \remove-with-tag
@@ -4924,8 +4925,8 @@ LilyPond dispose des propriétés de contexte suivantes :
 @table @code
 
 @item Staff.midiPanPosition
-@cindex pan, MIDI
-@cindex spatialisation (pan), MIDI
+@cindex @emph{pan}, MIDI
+@cindex spatialisation (@emph{pan}), MIDI
 @funindex midiPanPosition
 
 La spatialisation (@emph{pan position}) contrôle le positionnement d'un

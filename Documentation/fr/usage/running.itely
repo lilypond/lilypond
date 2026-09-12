@@ -223,7 +223,7 @@ forfiles /s /p "C:\Documents\Mes Partitions" /M *.ly /c "cmd /c lilypond @@file"
 @cindex lancement de @command{lilypond}
 @cindex ligne de commande, options pour @command{lilypond}
 @cindex options, ligne de commande
-@cindex switches
+@cindex @emph{switches}
 @cindex commutateurs
 
 Gardez bien à l'esprit que lorsque l'argument à une option contient des
@@ -334,7 +334,7 @@ peut produire des résultats inattendus selon le @emph{shell}.
 Les utilisateurs de Windows doivent ajouter une oblique (@code{/})
 finale au chemin d'accès.}
 
-@cindex chroot jail, fonctionnement
+@cindex @emph{chroot jail}, fonctionnement
 @item @code{-j}, @code{--jail=}@var{user}@code{,}@var{group}@code{,}@var{jail}@code{,}@var{dir}
 [Cette option n'est disponible que dès lors que l'environnement dispose
 de la fonctionnalité @code{chroot}. Windows, plus particulièrement, ne le
@@ -416,7 +416,7 @@ processeur alloué à LilyPond -- grâce à @command{ulimit -t} par exemple
 -- ainsi que, si votre système le permet, la taille de la mémoire.
 @end table
 
-@cindex loglevel
+@cindex @emph{loglevel}
 @cindex verbosité, définir le degré de
 @item @code{-l}, @code{--loglevel=}@var{degré}
 Règle le niveau de verbosité des messages console à @var{degré}.  Les
@@ -501,8 +501,8 @@ LilyPond @code{-dmusic-@/font-@/encodings=@/"#t"} et
 @item @code{--ps}
 Génère du PostScript. Cette option est équivalente à @code{-fps}.
 
-@cindex Portable Network Graphics (PNG), output
-@cindex PNG (Portable Network Graphics), output
+@cindex Portable Network Graphics (PNG), sortie
+@cindex PNG (Portable Network Graphics), sortie
 @item @code{--png}
 Génère une image par page, au format PNG. Cette option est équivalente à
 @w{@code{-fpng}}.
@@ -512,8 +512,8 @@ La résolution de l'image peut se régler à @var{N}@tie{}DPI en ajoutant
 -dresolution=@var{N}
 @end example
 
-@cindex Portable Document Format (PDF), output
-@cindex PDF (Portable Document Format), output
+@cindex Portable Document Format (PDF), sortie
+@cindex PDF (Portable Document Format), sortie
 @item @code{--pdf}
 Génère du PDF. Ceci est la valeur par défaut, et est équivalant à
 @w{@code{-fpdf}}.
@@ -580,7 +580,7 @@ En l'absence de @var{valeur}, le programme utilisera @var{#t}. Préfixer
 @var{nom-option} d'un @code{no-} permet de désactiver une option,
 autrement dit affecte @code{#f} à @var{valeur}. Ainsi,
 
-@cindex point and click, ligne de commande
+@cindex @emph{point and click}, ligne de commande
 @cindex pointer-cliquer, ligne de commande
 
 @example
@@ -1033,11 +1033,11 @@ erreurs. La valeur par défaut est @code{#f}.
 @node Environment variables
 @unnumberedsubsec Variables d'environnement
 
-@cindex LANG
-@cindex LILYPOND_DATADIR
-@cindex LILYPOND_LOCALEDIR
-@cindex LILYPOND_RELOCDIR
-@cindex LILYPOND_LOGLEVEL
+@cindex @code{LANG}
+@cindex @code{LILYPOND_DATADIR}
+@cindex @code{LILYPOND_LOCALEDIR}
+@cindex @code{LILYPOND_RELOCDIR}
+@cindex @code{LILYPOND_LOGLEVEL}
 
 @command{lilypond} reconnaît les variables d'environnement
 suivantes :
@@ -1250,7 +1250,7 @@ la compilation d'un fichier :
 @table @emph
 
 @item Warning -- Avertissement
-@cindex warning
+@cindex @emph{warning}
 @cindex avertissement
 Ce type de message est émis lorsque LilyPond détecte quelque chose de
 suspect. Si vous avez demandé quelque chose qui sort de l'ordinaire,
@@ -1259,21 +1259,24 @@ tels messages sans remord. Néanmoins, les messages d'avertissement
 indiquent la plupart du temps une incohérence dans le fichier source.
 
 @item Error -- Erreur
-@cindex error
+@cindex @emph{error}
+@cindex erreur
 LilyPond a détecté une erreur. L'étape en cours, qu'il s'agisse de
 l'analyse, de l'interprétation des données ou bien du formatage, sera
 menée à son terme, puis LilyPond s'arrêtera.
 
 @item Fatal error -- Erreur fatale
-@cindex fatal error
+@cindex @emph{fatal error}
+@cindex erreur fatale
 LilyPond est confronté à une anomalie bloquante. Ceci ne se produit que
 très rarement, et la plupart du temps en raison d'une installation
 défectueuse des fontes.
 
 @item Scheme error -- Erreur Scheme
 @cindex trace, Scheme
-@cindex call trace
+@cindex @emph{call trace}
 @cindex Scheme error
+@cindex erreur Scheme
 Les erreurs qui interviennent lors de l'exécution de code Scheme sont
 gérées par l'interpréteur Scheme. L'utilisation du mode verbeux (options
 @option{-V} ou @option{--verbose}) vous permettra de localiser l'appel
@@ -1289,6 +1292,7 @@ tant qu'ils masquent ce qui pourrait vous intéresser@dots{}
 
 @item Aborted (core dumped) -- Abandon
 @cindex Aborted (core dumped)
+@cindex Abandon (vidage mémoire)
 Ce type de message indique que LilyPond a planté en raison d'une grave
 erreur de programmation. La survenance d'un tel message est considérée
 comme de la plus haute importance. Si vous y étiez confronté,

@@ -3500,7 +3500,7 @@ la propriété @code{BreakAlignment@/.break@/-align@/-orders} qui peut
 }
 @end lilypond
 
-@cindex break align symbol
+@cindex symbole d'alignement sur rupture
 @funindex space-alist
 
 La distance entre deux éléments successifs d'un même empilement non

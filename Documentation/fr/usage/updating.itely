@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: c2ea1fa2792532a1a123f08504fc8677defb7a96
+   Translation of GIT committish: b1311a5694133c9694e180cdbdc693614334d61d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -21,7 +21,7 @@
 @chapter Mise à jour avec @command{convert-ly}
 
 @cindex mise à jour de fichiers LilyPond
-@cindex convert-ly
+@cindex @command{convert-ly}
 
 Au fur et à mesure des améliorations de LilyPond, la syntaxe ou façon de
 libeller les fonctions et commandes peut être amenée à évoluer. Ceci
@@ -38,7 +38,7 @@ disponibles.
 @node Why does the syntax change?
 @section LilyPond est une langue vivante
 
-@cindex convert-ly
+@cindex @command{convert-ly}
 @cindex mise à jour d'anciens fichiers
 
 La syntaxe de LilyPond change de temps en temps, que ce soit pour rendre

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 8f9c0c7447cf84d0566af732d06dc065dec00dca
+   Translation of GIT committish: b1311a5694133c9694e180cdbdc693614334d61d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -513,8 +513,8 @@ Ce chapitre traite des aspects de la notation directement liés au piano.
 
 @cindex piano et pédale
 @cindex pédale de piano
-@cindex sustain, pédale
-@cindex pédale sustain
+@cindex @emph{sustain}, pédale
+@cindex pédale @emph{sustain}
 @cindex sostenuto, pédale
 @cindex pédale sostenuto
 @cindex una corda
@@ -550,8 +550,8 @@ pédale @notation{tonale} (@emph{sostenuto} ou @emph{sos.}). La pédale
 @cindex pédale, indication textuelle de
 @cindex pédale, indication graphique de
 @cindex pédale, indication combinée de
-@cindex pédale sustain, style
-@cindex sustain, style de pédale
+@cindex pédale @emph{sustain}, style
+@cindex @emph{sustain}, style de pédale
 
 @funindex pedalSustainStyle
 

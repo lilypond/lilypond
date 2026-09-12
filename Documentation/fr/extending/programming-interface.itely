@@ -447,8 +447,8 @@ manualBeam =
 @end lilypond
 
 @funindex \temporary
-@cindex temporaire, dérogation (override)
-@cindex dérogation temporaire (override)
+@cindex temporaire, dérogation @emph{(override)}
+@cindex dérogation temporaire @emph{(override)}
 @cindex propriétés, retour à la valeur précédente
 
 L'entretien des propriétés peut se voir comme un empilement par
@@ -634,8 +634,8 @@ certain nombre d'arguments.
 @node Markup construction in Scheme
 @subsection Construction d'un @emph{markup} en Scheme
 
-@cindex définition d'une commande markup
-@cindex markup, définition d'une commande
+@cindex définition d'une commande @emph{markup}
+@cindex @emph{markup}, définition d'une commande
 
 @funindex \displayScheme
 
@@ -833,8 +833,8 @@ d'éventuelles pertes de performance en utilisant des arguments Scheme en
 tant qu'arguments principaux d'une fonction @emph{markup} dont le
 dernier argument est un @emph{markup}.
 
-@cindex markup macro
-@cindex macro de markup
+@cindex @emph{markup}, macro
+@cindex macro de @emph{markup}
 @funindex \markup
 @funindex interpret-markup
 
@@ -1236,7 +1236,8 @@ par défaut une liste vide.
 @node New markup list command definition
 @subsection Définition d'une nouvelle commande de liste de @emph{markups}
 
-@cindex liste de markup, définition de commande
+@cindex liste de @emph{markups}, définition de commande
+@cindex @emph{markups}, définition de commande pour liste
 @funindex define-markup-list-command
 @funindex interpret-markup-list
 

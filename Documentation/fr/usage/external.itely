@@ -24,7 +24,7 @@ manières.
 @section Pointer-cliquer
 
 @cindex pointer-cliquer
-@cindex point and click
+@cindex @emph{point and click}
 
 Le pointer-cliquer (@emph{point and click}) permet de se retrouver
 directement dans le fichier source, à la note que l'on pointe dans le

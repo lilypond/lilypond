@@ -2269,8 +2269,10 @@ ou, pour modifier les extrémités d'un objet à extension :
 \override TextSpanner.bound-details.right.text = "texte de droite"
 @end example
 
+@cindex annulation de dérogation
 @cindex annulation d'un @emph{override}
 @cindex @emph{override}, annulation des effets
+@cindex dérogation, annulation des effets
 @funindex \revert
 
 Les effets d'un @code{\override} prennent fin à l'aide de l'instruction

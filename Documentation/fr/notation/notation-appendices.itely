@@ -1219,45 +1219,45 @@ mentionnées dans @ref{Clef}.
 @node Standard clefs
 @appendixsubsec Clefs standards
 
-@cindex treble clef
-@cindex clef, treble
-@cindex violin clef
-@cindex clef, violin
-@cindex clef, G
-@cindex clef, G2
-@cindex clef, GG
-@cindex clef, tenor G
-@cindex tenor G clef
-@cindex clef, french
-@cindex French clef
-@cindex clef, soprano
-@cindex soprano clef
-@cindex clef, mezzo-soprano
-@cindex mezzo-soprano clef
-@cindex clef, alto
-@cindex alto clef
-@cindex clef, C
-@cindex C clef
-@cindex clef, varC
-@cindex varC clef
-@cindex clef, alto varC
-@cindex alto varC clef
-@cindex clef, tenor
-@cindex tenor clef
-@cindex clef, tenor varC
-@cindex tenor varC clef
-@cindex clef, baritone varC
-@cindex baritone varC clef
-@cindex clef, varbaritone
-@cindex baritone clef
-@cindex clef, baritone varF
-@cindex baritone varF clef
-@cindex clef, bass
-@cindex bass clef
-@cindex clef, F
-@cindex F clef
-@cindex clef, subbass
-@cindex subbass clef
+@cindex @code{treble}, clef
+@cindex clef @code{treble}
+@cindex @code{violin}, clef
+@cindex clef @code{violin}
+@cindex clef @code{G}
+@cindex clef @code{G2}
+@cindex clef @code{GG}
+@cindex clef @code{tenor G}
+@cindex @code{tenor G}, clef
+@cindex clef @code{french}
+@cindex @code{french}, clef
+@cindex clef @code{soprano}
+@cindex @code{soprano}, clef
+@cindex clef, @code{mezzo-soprano}
+@cindex @code{mezzo-soprano}, clef
+@cindex clef @code{alto}
+@cindex @code{alto}, clef
+@cindex clef @code{C}
+@cindex @code{C}, clef
+@cindex clef @code{varC}
+@cindex @code{varC}, clef
+@cindex clef d'alto @code{varC}
+@cindex alto, @code{varC}, clef
+@cindex clef @code{tenor}
+@cindex @code{tenor}, clef
+@cindex clef de tenor @code{varC}
+@cindex ténor, @code{varC}, clef
+@cindex clef de bariton @code{varC}
+@cindex bariton, @code{varC}, clef
+@cindex clef @code{varbaritone}
+@cindex @code{baritone}, clef
+@cindex clef de bariton @code{varF}
+@cindex bariton, @code{varF} clef
+@cindex clef @code{bass}
+@cindex @code{bass}, clef
+@cindex clef @code{F}
+@cindex @code{F}, clef
+@cindex clef @code{subbass}
+@cindex @code{subbass}, clef
 @multitable @columnfractions .3 .18 .34 .18
 
 @headitem
@@ -3198,7 +3198,7 @@ sur les listes de diffusion et dans le code source.
 @table @asis
 
 @item alist (liste associative)
-@cindex alist
+@cindex @emph{alist}
 @cindex liste associative
 
 Une liste associative -- @dfn{alist} pour @emph{association list} -- est
@@ -3211,7 +3211,7 @@ puisse être rapportée en console avec mention du type de prédicat
 attendu.
 
 @item callback (rappel)
-@cindex callback
+@cindex @emph{callback}
 @cindex rappel
 
 Un @strong{rappel}, @dfn{callback} en anglais, est une routine, fonction
@@ -3226,7 +3226,7 @@ niveau.
 
 @item closure (clôture)
 @cindex clôture
-@cindex closure
+@cindex @emph{closure}
 
 En Scheme, une @strong{clôture} (en anglais @dfn{closure}) est créée
 lorsqu'une fonction, généralement une expression lambda, est passée en
@@ -3256,7 +3256,7 @@ Voir aussi :
 @ref{Special characters}.
 
 @item grob (objet graphique)
-@cindex grob
+@cindex @emph{grob}
 @cindex graphique, objet
 @cindex rendu, objet de
 @cindex objet de rendu
@@ -3312,7 +3312,7 @@ Propriétés listées par interface}.@*
 @rinternals{Graphical Object Interfaces}.
 
 @item lexer (analyseur lexical)
-@cindex lexer, pour LilyPond
+@cindex @emph{lexer}, pour LilyPond
 @cindex analyse lexicale
 @cindex @command{flex}, programme
 
@@ -3355,7 +3355,7 @@ créées par les blocs @code{\midi}, @code{\layout} et @code{\paper}.
 
 
 @item parser (analyseur syntaxique)
-@cindex parser
+@cindex @emph{parser}
 @cindex analyseur syntaxique
 @cindex @command{bison}, programme
 @cindex grammaire de LilyPond
@@ -3377,7 +3377,7 @@ construction du programme. Partie intégrante des sources, il n'est pas
 distribué avec les programmes binaires de LilyPond.
 
 @item variable de l'analyseur grammatical
-@cindex parser, variable
+@cindex @emph{parser}, variable
 @cindex Scheme, variable
 @cindex globale, variable
 @funindex afterGraceFraction
@@ -3421,7 +3421,7 @@ LilyPond utilise, entre autres, les variables suivantes :
 @end itemize
 
 @item prob (objet de propriété)
-@cindex prob
+@cindex @emph{prob}
 @cindex propriété objet
 @cindex objet de propriété
 
@@ -3435,7 +3435,7 @@ garder trace du contenu des systèmes une fois formatés et des blocs de
 titrage lors de la phase de mise en forme des pages.
 
 @item smob (objet Scheme)
-@cindex smob
+@cindex @emph{smob}
 @cindex Scheme, objet
 @cindex objet Scheme
 

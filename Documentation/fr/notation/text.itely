@@ -753,8 +753,8 @@ informatiques @code{"}.
 \markup "molto intenso"
 @end lilypond
 
-@cindex caractères spéciaux en mode markup
-@cindex mode markup et caractères spéciaux
+@cindex caractères spéciaux en mode @emph{markup}
+@cindex mode @emph{markup} et caractères spéciaux
 @cindex caractère réservé, impression
 @cindex impression de caractère réservé
 @cindex impression de caractères spéciaux
@@ -888,7 +888,7 @@ permet qu'elle soit traitée comme un argument @emph{markup} unique.
 @end lilypond
 
 @cindex multipage, @emph{markup}
-@cindex @emph{markup}  multipage
+@cindex @emph{markup} multipage
 @cindex @emph{markup}, texte multipage
 @cindex plusieurs pages de texte
 

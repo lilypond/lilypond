@@ -50,8 +50,8 @@ pour comprendre et construire les retouches.
 @subsection Objets et interfaces
 
 @cindex objet
-@cindex grob
-@cindex spanner
+@cindex @emph{grob}
+@cindex @emph{spanner}
 @cindex extenseur
 @cindex interface
 @cindex propriétés des objets
@@ -643,7 +643,7 @@ les informations qui vous seront nécessaires.
 @subsection Propriétés des objets de rendu
 
 @cindex propriétés des objets de rendu
-@cindex propriétés des objets graphiques (grobs)
+@cindex propriétés des objets graphiques @emph{(grobs)}
 @cindex @emph{grob}, propriétés
 @cindex objets de rendu, propriétés
 @cindex Manuel des références internes
@@ -1088,12 +1088,12 @@ Manuel d'extension :
 @subsection Types de propriétés
 
 @cindex propriété, types de
-@cindex @code{#t} (true)
-@cindex @code{#f} (false)
+@cindex @code{#t} @emph{(true)}
+@cindex @code{#f} @emph{(false)}
 @cindex vrai (@code{#t})
 @cindex faux (@code{#f})
 @cindex Scheme, expressions (@code{#})
-@cindex @code{#}, expressionx Scheme
+@cindex @code{#}, expressions Scheme
 
 Nous avons vu jusqu'à maintenant deux types de propriétés : « nombre »
 et « symbole ». Pour pouvoir fonctionner, la valeur associée à une
@@ -3200,7 +3200,7 @@ Ce point a déjà été traité en détails -- @pxref{Within-staff objects}.
 @item
 @code{padding}, @code{right-padding}, @code{staff-padding}
 
-@cindex décalage (padding)
+@cindex décalage @emph{(padding)}
 @cindex @code{padding}, propriété
 @cindex @code{right-padding}, propriété
 @cindex @code{staff-padding}, propriété
@@ -3453,7 +3453,7 @@ précédente peuvent nous aider à résoudre les collisions.
 @node The padding property
 @unnumberedsubsubsec La propriété @code{padding}
 
-@cindex décalage (padding)
+@cindex décalage @emph{(padding)}
 @cindex résolution des chevauchements de notation
 @cindex chevauchement de notation
 

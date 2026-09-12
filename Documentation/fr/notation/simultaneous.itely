@@ -167,7 +167,7 @@ des @ref{Clusters}.
 @subsection Répétition d'accords
 
 @cindex accord, répétition
-@cindex répétition, utilisation de @code{q}
+@cindex répétition d'accord, utilisation de @code{q}
 @cindex @code{q}, répétition d'accord
 
 Dans le but de vous épargner de la saisie, LilyPond dispose d'un

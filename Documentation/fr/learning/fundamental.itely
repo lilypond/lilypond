@@ -956,6 +956,7 @@ saisir la première mesure dans trois voix :
 @cindex hampes en haut
 @cindex voix et direction des hampes
 @cindex direction des hampes et voix
+@cindex hampes, direction et voix
 
 La direction des hampes est attribuée automatiquement : les voix
 impaires portent des hampes vers le haut, les voix paires des hampes

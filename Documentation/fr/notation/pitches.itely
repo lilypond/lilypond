@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: 83e85e2166044e2ea2286c3fc9c05e645e7f6f4d
+   Translation of GIT committish: b1311a5694133c9694e180cdbdc693614334d61d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -497,7 +497,7 @@ LilyPond n'est donc conforme à aucun standard.
 @cindex maximum, hauteur
 @cindex minimum, hauteur
 @cindex hauteur approximative
-@cindex hauteur, extrême
+@cindex hauteur extrême
 @cindex non spécifiée, hauteur
 @cindex hauteur non spécifiée
 @funindex \approximatePitch
@@ -1810,8 +1810,8 @@ dernières lignes de cet exemple nous intéressent.
 @table @code
 @item default
 
-@cindex @emph{default}, style d'altérations
-@cindex altérations, style @emph{default}
+@cindex @emph{default}, style d'altération
+@cindex altération, style @emph{default}
 
 @funindex default
 
@@ -2150,7 +2150,7 @@ musicB = {
 
 @item modern-voice-cautionary
 
-@cindex altération de précaution style @emph{modern voice}
+@cindex altération de précaution, style @emph{modern voice}
 @cindex @emph{modern voice}, style d'altération de précaution
 
 @funindex modern-voice-cautionary
@@ -2211,7 +2211,7 @@ musicB = {
 @item piano
 
 @cindex @emph{piano}, style d'altérations
-@cindex altérations style @emph{piano}
+@cindex altérationsn style @emph{piano}
 @cindex piano et altérations
 
 @funindex piano
@@ -2281,7 +2281,7 @@ musicB = {
 @item piano-cautionary
 
 @cindex @emph{piano cautionary}, style d'altérations
-@cindex altérations style @emph{piano cautionary}
+@cindex altérations, style @emph{piano cautionary}
 @cindex piano et altérations
 
 @funindex piano-cautionary
@@ -2337,7 +2337,7 @@ musicB = {
 
 @item choral
 
-@cindex altérations style @emph{choral}
+@cindex altérations, style @emph{choral}
 @cindex @emph{choral}, style d'altérations
 @cindex chorale et altérations
 
@@ -2400,7 +2400,7 @@ musicB = {
 @item choral-cautionary
 
 @cindex @emph{choral cautionary}, style d'altérations
-@cindex altérations style @emph{choral cautionary}
+@cindex altérations, style @emph{choral cautionary}
 @cindex chorale et altérations
 
 @funindex choral-cautionary
@@ -2516,7 +2516,7 @@ musicB = {
 @item neo-modern-cautionary
 
 @cindex @emph{neo-modern-cautionary}, style d'altérations
-@cindex style d'altération @emph{neo-modern-cautionary}
+@cindex altérations, style @emph{neo-modern-cautionary}
 
 @funindex neo-modern-cautionary
 
@@ -2575,7 +2575,7 @@ musicB = {
 @item neo-modern-voice
 
 @cindex @emph{neo-modern-voice}, style d'altération
-@cindex style d'altération @emph{neo-modern-voice}
+@cindex altérations, style @emph{neo-modern-voice}
 @cindex altérations multivoix
 @cindex voix multiples et altérations
 @cindex multivoix, altérations
@@ -2693,7 +2693,7 @@ musicB = {
 @item dodecaphonic
 
 @cindex @emph{dodecaphonic}, style d'altérations
-@cindex altération, style @emph{dodecaphonic}
+@cindex altérations, style @emph{dodecaphonic}
 
 @funindex dodecaphonic
 
@@ -2761,7 +2761,8 @@ musicB = {
 @item dodecaphonic-no-repeat
 
 @cindex @emph{dodecaphonic}, style d'altération
-@cindex @emph{dodecaphonic}, style néomoderne
+@cindex @emph{dodecaphonic}, style néo-moderne
+@cindex altérations, style @emph{dodecaphonic} néo-moderne
 
 @funindex dodecaphonic-no-repeat
 
@@ -2821,6 +2822,7 @@ musicB = {
 
 @cindex @emph{dodecaphonic}, style d'altération
 @cindex @emph{dodecaphonic}, style néo-moderne
+@cindex altérations, style @emph{dodecaphonic} néo-moderne
 
 @funindex dodecaphonic-first
 
@@ -2941,7 +2943,7 @@ musicB = {
 
 @item no-reset
 
-@cindex altération, style @emph{no reset}
+@cindex altérations, style @emph{no reset}
 @cindex @emph{no reset}, style d'altérations
 
 @funindex no-reset

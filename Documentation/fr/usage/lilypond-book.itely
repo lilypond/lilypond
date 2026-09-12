@@ -43,7 +43,7 @@ pré-traitement supplémentaire de documents par @command{lilypond-book}.}
 et DocBook.
 
 @cindex texinfo
-@cindex LaTeX
+@cindex @LaTeX{}
 @cindex texinfo
 @cindex texi
 @cindex HTML
@@ -52,7 +52,7 @@ et DocBook.
 @cindex HTML, musique et
 @cindex Texinfo, musique et
 @cindex DocBook, musique et
-@cindex LaTeX, musique et
+@cindex @LaTeX{}, musique et
 
 
 @node An example of a musicological document
@@ -362,7 +362,7 @@ inclus dans l'extrait. Par défaut, elle insère simplement un
 @ignore
 Broken stuff.  :(
 
-@cindex Latex, feta symbols
+@cindex @LaTex{}, feta symbols
 @cindex fetachar
 
 To include feta symbols (such as flat, segno, etc) in a LaTeX

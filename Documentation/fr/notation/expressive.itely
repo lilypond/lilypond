@@ -57,7 +57,7 @@ et aborderons la manière de générer vos propres signes.
 @cindex doigté, « pouce »
 @cindex pied, indication
 @cindex orgue, indication, pédalier
-@cindex pédalier, orgue indication
+@cindex pédalier, orgue, indication
 @cindex @sortas{talon} « talon », pédalier
 @cindex pédalier, « talon »
 @cindex @sortas{pointe} « pointe », pédalier
@@ -89,7 +89,7 @@ et aborderons la manière de générer vos propres signes.
 @cindex @sortas{mordant} « mordant », ornement
 @cindex ornement, « mordant »
 @cindex @sortas{mordant ascendant} « mordant ascendant », ornement
-@cindex ornement, « mordant ascendant
+@cindex ornement, « mordant ascendant »
 @cindex @sortas{mordant descendant} « mordant descendant », ornement
 @cindex ornement, « mordant descendant »
 @cindex @sortas{signum congruentiae} « signum congruentiae », ornement
@@ -205,8 +205,8 @@ indiqué au chapitre @ref{Direction and placement}.
 @funindex \atRight
 
 @cindex bachschleifer
-@cindex ornament, horizontally
-@cindex horizontal ornament
+@cindex ornement, horizontal
+@cindex horizontal, ornement
 
 Le @code{bachschleifer} se positionne sur la gauche d'un @code{NoteHead}.
 Cet ornement peut comporter des lignes supplémentaires.
@@ -1015,7 +1015,7 @@ Vous pouvez même personnaliser la densité des tirets d'une liaison :
 {snippets/adjusting-slur-positions-vertically.ly}
 
 @cindex liaison doublée, pour legato d'accords
-@cindex doublée, legato d'accords
+@cindex doublé, legato d'accords
 @funindex doubleSlurs
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/using-double-slurs-for-legato-chords.ly}
@@ -1027,8 +1027,8 @@ Vous pouvez même personnaliser la densité des tirets d'une liaison :
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/positioning-text-markups-inside-slurs.ly}
 
-@cindex slur, defining dash patterns
-@cindex dash patterns, slur
+@cindex liaison, définition du pointillé
+@cindex pointillé, liaison
 @lilypondfile[verbatim,quote,texidoc,doctitle]
 {snippets/making-slurs-with-complex-dash-structure.ly}
 
@@ -1531,11 +1531,12 @@ objet @code{ChordBracket}.
 >>
 @end lilypond
 
-@cindex chord slur
-@cindex chord, rolled
-@cindex rolled chord
-@cindex slur, vertical
-@cindex vertical slur
+@cindex pseudo-arpège
+@cindex accord, liaison
+@cindex accord enroulé
+@cindex enroulé, accord
+@cindex liaison verticale
+@cindex verticale, liaison
 @funindex \chordSlur
 
 Pour une liaison verticale indiquant qu'un accord n'est presque pas
@@ -1706,7 +1707,7 @@ les notes d'ornement avec précision est expliquée au chapitre
 }
 @end lilypond
 
-@cindex trilles avec hauteur explicite
+@cindex trille avec hauteur explicite
 @cindex hauteur explicite, trille
 @funindex \pitchedTrill
 
@@ -1723,8 +1724,8 @@ de note noire entre parenthèses.
 }
 @end lilypond
 
-@cindex trilles avec hauteur explicite et altération
-@cindex altération, trilles avec hauteur explicite
+@cindex trille avec hauteur explicite et altération
+@cindex altération, trille avec hauteur explicite
 
 L'altération de cette hauteur explicite sera indiquée automatique pour
 le premier trille d'une mesure, même s'il s'agit d'un bécarre.

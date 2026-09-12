@@ -307,8 +307,8 @@ Une autre technique de débogage très utile est la construction d'un
 @node Make and Makefiles
 @section De la commande make et des fichiers Makefile
 
-@cindex makefiles
-@cindex make
+@cindex @code{makefile}s
+@cindex @command{make}
 
 La plupart des plates-formes sur lesquelles tourne LilyPond disposent
 d'un logiciel appelé @code{make}. Ce logiciel va lire un fichier

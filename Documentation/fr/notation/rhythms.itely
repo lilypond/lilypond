@@ -322,6 +322,7 @@ des notes sans imprimer de crochet, comme indiqué au chapitre
 @cindex n-olet, formatage
 @cindex triolet, formatage
 @cindex n-olets successifs
+@cindex succession de n-olets
 @funindex tupletSpannerDuration
 @funindex \tupletSpan
 @lilypondfile[verbatim,quote,ragged-right,texidoc,doctitle]
@@ -2999,7 +3000,6 @@ Les règles de ligature par défaut sont répertoriées dans le fichier
 
 @cindex ligature, subdivision
 @cindex subdivision de ligature
-@cindex subdividing beams
 @funindex subdivideBeams
 @funindex beatBase
 @funindex beatStructure
