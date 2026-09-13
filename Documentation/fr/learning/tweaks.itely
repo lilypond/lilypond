@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 
 @ignore
-   Translation of GIT committish: b1311a5694133c9694e180cdbdc693614334d61d
+   Translation of GIT committish: c98e879b702830f59edfc0cc3abf915455d6e84b
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  For details, see the Contributors'
@@ -4524,10 +4524,7 @@ Là encore, ce serait extrêmement pénible à saisir, surtout s'il y avait
 beaucoup de mots à retoucher de cette façon. Plutôt que cette solution,
 nous déclarons ces commandes comme étant deux variables, et les
 utilisons comme ci-après -- quoique on choisirait sans doute pour les
-variables des noms plus courts pour simplifier la frappe. Par ailleurs,
-le fait de recourir à une variable ne nous expose plus à l'oubli des
-espaces entourant les points lorsqu'explicités au beau milieu d'un bloc
-@code{\lyricmode} !
+variables des noms plus courts pour simplifier la frappe.
 
 @cindex @code{LyricText}, exemple de dérogation
 @cindex @code{font-shape}, exemple d'utilisation de la propriété
