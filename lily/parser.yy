@@ -4712,27 +4712,22 @@ is_regular_identifier (SCM id, bool multiple)
   return middle;
 }
 
+// make_music_from_simple is mainly intended for checking partial argument
+// lists starting with something that could be interpreted as music.  As such
+// it needs to be idempotent: if it changes some input to a valid
+// interpretation according to the given predicate, that is the interpretation
+// it needs to be sticking with.
+//
+// That means it can deal with pitches (which may be converted from note names
+// according to the notename language) but not really with drum pitches (which
+// are not recognizable as an end product from using notename language to
+// convert a symbol to another symbol).
+
 SCM
 make_music_from_simple (Lily_parser *parser, Input loc, SCM simple)
 {
 	if (unsmob<Music> (simple))
 		return simple;
-
-	if (scm_is_symbol (simple))
-	{
-		SCM out = SCM_UNDEFINED;
-		switch (parser->lexer_->scan_word (out, simple))
-		{
-		case DRUM_PITCH:
-		{
-			Music *n = MY_MAKE_MUSIC ("NoteEvent", loc);
-			set_property (n, "duration", parser->default_duration_.smobbed_copy ());
-			set_property (n, "drum-type", out);
-			return n->unprotect ();
-		}
-		// Don't scan CHORD_MODIFIER etc.
-		}
-	}
 
 	if (parser->lexer_->is_note_state ()) {
 		if (unsmob<Pitch> (simple)) {
