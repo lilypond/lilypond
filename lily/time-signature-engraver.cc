@@ -93,16 +93,23 @@ Time_signature_engraver::listen_reference_time_signature (Stream_event *ev)
 void
 Time_signature_engraver::process_music ()
 {
-  if (time_signature_)
-    return;
-
   SCM spec = get_property (this, "timeSignature");
   if (!scm_is_eq (last_spec_, spec)
       && (scm_is_pair (spec) || scm_is_false (spec)))
     {
       auto ev = local_event_ ? local_event_ : event_;
-      time_signature_
-        = make_item ("TimeSignature", ev ? to_scm (ev) : SCM_EOL);
+      // Only make time signature if we don't already have one.  The one we
+      // have may have wrong information and certainly has a wrong
+      // point-and-click origin.  But it occurs at the right time since we want
+      // to avoid staggering signatures, so we have to take it.
+      if (time_signature_)
+        {
+          set_property (time_signature_, "cause", ev ? to_scm (ev) : SCM_EOL);
+          set_property (time_signature_, "time-signature", SCM_EOL);
+        }
+      else
+        time_signature_
+          = make_item ("TimeSignature", ev ? to_scm (ev) : SCM_EOL);
 
       // check value before setting to respect overrides
       SCM tsig_sym = ly_symbol2scm ("time-signature");
@@ -116,9 +123,8 @@ Time_signature_engraver::process_music ()
           set_property (time_signature_, "break-visibility",
                         get_property (this, "initialTimeSignatureVisibility"));
         }
-
-      last_spec_ = spec;
     }
+  last_spec_ = spec;
 }
 
 void
@@ -134,10 +140,13 @@ Time_signature_engraver::stop_translation_timestep ()
         time_signature_->warning (
           _ ("mid-measure time signature without \\partial"));
     }
-
-  time_signature_ = nullptr;
-  event_ = nullptr;
-  local_event_ = nullptr;
+  // Only one time signature per main time step.
+  if (context ()->now_mom ().grace_part_ == 0)
+    {
+      time_signature_ = nullptr;
+      event_ = nullptr;
+      local_event_ = nullptr;
+    }
 }
 
 void
