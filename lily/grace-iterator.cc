@@ -68,4 +68,13 @@ Grace_iterator::parent_time (Moment cp) const
   return cp;
 }
 
+bool
+Grace_iterator::loose () const
+{
+  // This is somewhat dissatisfactory.  We cannot actually migrate property
+  // setting commands out of the grace block.  At least we can be reasonably
+  // sure that there is nothing like inner grace we need to be afraid of.
+  return false;
+}
+
 IMPLEMENT_CTOR_CALLBACK (Grace_iterator);

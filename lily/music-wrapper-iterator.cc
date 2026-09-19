@@ -124,3 +124,9 @@ Music_wrapper_iterator::run_always () const
 {
   return (child_iter_ && child_iter_->run_always ());
 }
+
+bool
+Music_wrapper_iterator::loose () const
+{
+  return !child_iter_ || child_iter_->loose ();
+}

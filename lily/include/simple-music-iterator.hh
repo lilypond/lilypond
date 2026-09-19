@@ -36,6 +36,12 @@ protected:
   OVERRIDE_CLASS_NAME (Simple_music_iterator);
 
   bool has_started () const { return pending_moment_ > music_start_mom (); }
+  // The end of a simple event is "loose" in the sense that it may be called in
+  // at a grace time early
+  bool loose () const override
+  {
+    return !music_get_length () || has_started ();
+  }
 
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
@@ -50,7 +56,9 @@ public:
   void process (Moment m) override
   {
     const auto &length = music_get_length ();
-    pending_moment_ = (m < length) ? length : Moment::infinity ();
+    pending_moment_ = (length > 0 && (m.main_part_ < length.main_part_))
+                        ? length
+                        : Moment::infinity ();
   }
 
   Moment pending_moment () const final override { return pending_moment_; }

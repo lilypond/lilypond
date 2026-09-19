@@ -51,10 +51,17 @@
    pending_moment () -- the time of the next event in the queue (+infinity
    once the queue is empty)
 
-   process (M) -- process all at M (Precondition: no events exist
-   before M, ok () holds).  Side-effects:
+   loose () -- there are loose elements in front (or all that remains) that can
+   be removed without changing pending_moment unless this completes iteration.
+   A loose element by decree must have a length of 0 and a 0 starting time (no
+   grace).  This is a necessary condition, but elements obeying that condition
+   need not be loose.
 
-   * This removes all events at M from the pending queue.
+   process (M) -- M can be either pending_moment () or, if loose () holds, some
+   grace time before.  If it is pending_moment (), progress of pending_moment
+   () will be accomplished.  If it is before M, loose elements will get
+   processed and removed from the queue.  In that case this does not affect
+   either ok () or pending_moment () unless the queue is emptied completely.
 
    * Typically processing reports the music to an interpretation context, thus
    changing the state of the interpretation context.
@@ -66,9 +73,6 @@
    Moment parent_time (Moment) -- an active child iterator can let its time get
    converted by its parent to the parent's time.
 
-   TODO:
-
-   merge pending_moment and process?
 */
 class Music_iterator : public Smob<Music_iterator>, public Diagnostics
 {
@@ -127,6 +131,7 @@ public:
     return (pending_moment () < Moment::infinity ()) || run_always ();
   }
   virtual bool run_always () const;
+  virtual bool loose () const;
   // process is called with a time relative to the iterator start, so
   // usually the last processed moment is the same as music_get_length.
   virtual void process (Moment until);
@@ -153,8 +158,7 @@ public:
   virtual Moment parent_time (Moment m) const { return m; }
 
   // convert a time in this iterator's timeframe to that of some ancestor
-  Moment ancestor_time (Music_iterator const *ancestor,
-                        Moment our_time) const;
+  Moment ancestor_time (Music_iterator const *ancestor, Moment our_time) const;
 
   // convert this iterator's time to global time
   Moment global_time (Moment our_time) const;

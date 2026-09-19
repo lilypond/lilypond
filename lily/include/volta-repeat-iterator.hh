@@ -41,6 +41,9 @@ protected:
   void create_children () override;
   void process (Moment) override;
 
+  // TODO: this iterator causes problems when allowed loose grace timing
+  bool loose () const override { return false; }
+
 private:
   bool empty () const;
 

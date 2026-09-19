@@ -238,6 +238,14 @@ Sequential_iterator::process (Moment until)
       iter_->init_context (get_own_context ());
 
       next_element (); // let subclasses do certain things
+
+      // If the current iterator has been called into being before its nominal
+      // starting time, that's it.  We don't move on to the next: that is the
+      // job of the simultaneous iterator responsible for having called us
+      // early in the context of "loose" processing.
+
+      if (iter_moment (until) < iter_->music_start_mom ())
+        return;
     }
   iter_offset_ = Moment::infinity ();
 }
@@ -286,4 +294,10 @@ bool
 Sequential_iterator::run_always () const
 {
   return iter_ ? iter_->run_always () : false;
+}
+
+bool
+Sequential_iterator::loose () const
+{
+  return !iter_ || iter_->loose ();
 }

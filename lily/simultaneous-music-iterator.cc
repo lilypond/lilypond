@@ -101,17 +101,39 @@ Simultaneous_music_iterator::process (Moment until)
        /*in loop*/)
     {
       auto *child = *proc;
-      if (child->run_always () || (child->pending_moment () == until))
-        child->process (until);
-      if (!child->ok ())
+      // Loose processing is reduced to grace time, which also means that its
+      // pitfalls don't affect anything else.
+      Moment pm = child->pending_moment ();
+
+      if (until.grace_part_ && child->loose ()
+          && pm.main_part_ == until.main_part_
+          && pm.grace_part_ > until.grace_part_)
         {
-          child->quit ();
-          proc = children_list_.erase_at (proc);
+          child->process (until);
+          // Since the Sequential_iterator does not cater for loose processing,
+          // it falls to this iterator's tasks to keep processing an iterator
+          // until only non-loose elements remain.  So we don't advance proc
+          // here.
+          if (child->ok ())
+            continue;
+        }
+      // Other elements get one iteration at a time.
+      else if (child->run_always () || pm == until)
+        {
+          child->process (until);
+          if (child->ok ())
+            {
+              ++proc;
+              continue;
+            }
         }
       else
         {
           ++proc;
+          continue;
         }
+      child->quit ();
+      proc = children_list_.erase_at (proc);
     }
   // If there were definite-ended iterators and all of them died, take
   // the rest of the iterators along with them.  They have
@@ -154,6 +176,30 @@ Simultaneous_music_iterator::run_always () const
         return true;
     }
   return false;
+}
+
+bool
+Simultaneous_music_iterator::loose () const
+{
+  // Any loose child renders the expression as such loose but only if it is in
+  // the next upcoming _main_ timestep.
+  Moment earliest = Moment::infinity ();
+  bool is_loose = true;
+  for (const auto *child : children_list_)
+    {
+      Moment pm = child->pending_moment ();
+
+      if (pm.main_part_ > earliest.main_part_)
+        continue;
+      if (pm.main_part_ == earliest.main_part_)
+        is_loose = is_loose || child->loose ();
+      else
+        {
+          earliest = pm;
+          is_loose = child->loose ();
+        }
+    }
+  return is_loose;
 }
 
 void

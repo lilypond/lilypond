@@ -36,7 +36,6 @@ struct Preinit_Sequential_iterator
   SCM uniterated_music_ = SCM_UNDEFINED;
 };
 
-
 class Sequential_iterator : Preinit_Sequential_iterator, public Music_iterator
 {
 public:
@@ -61,6 +60,7 @@ protected:
   void create_contexts () override;
   void process (Moment) override;
   bool run_always () const override;
+  bool loose () const override;
 
 protected:
   const Music_iterator *get_child () const { return iter_; }
@@ -89,6 +89,5 @@ private:
   //
   Moment iter_offset_ = {0, 0}; // offset of iter_'s timing
 };
-
 
 #endif /* SEQUENTIAL_ITERATOR_HH */

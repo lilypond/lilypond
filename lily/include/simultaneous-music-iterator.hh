@@ -36,6 +36,7 @@ public:
   Moment pending_moment () const override;
   void do_quit () override;
   bool run_always () const override;
+  bool loose () const override;
 
   void preorder_walk (const std::function<void (Music_iterator *)> &) override;
 

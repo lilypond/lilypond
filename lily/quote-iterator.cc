@@ -56,6 +56,10 @@ protected:
   void create_contexts () override;
   Moment pending_moment () const override;
   void process (Moment) override;
+
+  // TODO: this iterator causes problems when allowed loose grace timing
+  bool loose () const override { return false; }
+
   void do_quit () override;
 };
 

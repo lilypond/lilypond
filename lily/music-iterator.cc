@@ -219,6 +219,12 @@ Music_iterator::run_always () const
 }
 
 bool
+Music_iterator::loose () const
+{
+  return true;
+}
+
+bool
 is_child_context (Context *me, Context *child)
 {
   while (child && child != me)
@@ -255,8 +261,7 @@ Music_iterator::ancestor_time (Music_iterator const *ancestor,
     return our_time;
 
   if (Music_iterator const *parent = get_parent ())
-    return parent->ancestor_time
-      (ancestor, parent->parent_time (our_time));
+    return parent->ancestor_time (ancestor, parent->parent_time (our_time));
 
   programming_error ("bad active iterator lineage");
   return our_time;

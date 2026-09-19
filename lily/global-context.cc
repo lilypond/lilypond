@@ -183,8 +183,9 @@ Global_context::iterate (Music *music, bool force_found_music)
 
           if (w == prev_mom_)
             {
-              programming_error ("Moment is not increasing."
-                                 "  Aborting interpretation.");
+              programming_error (
+                std::string ("Moment ") + w.to_string ()
+                + " is not increasing.  Aborting interpretation.");
               break;
             }
 

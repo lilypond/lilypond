@@ -25,14 +25,15 @@
 class Grace_iterator final : public Music_wrapper_iterator
 {
 public:
-  Grace_iterator ()
-  {
-  }
+  Grace_iterator () {}
   void process (Moment) override;
   void do_quit () override;
   DECLARE_SCHEME_CALLBACK (constructor, ());
   OVERRIDE_CLASS_NAME (Grace_iterator);
+
+  // Music_wrapper_iterator provides pending_moment based on parent_time
   Moment parent_time (Moment) const override;
+  bool loose () const override;
 };
 
 #endif /* GRACE_ITERATOR_HH */

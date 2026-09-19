@@ -37,6 +37,9 @@ protected:
   void derived_mark () const override;
   void next_element () override;
 
+  // TODO: this iterator causes problems when allowed loose grace timing
+  bool loose () const override { return false; }
+
 private:
   int done_count_ = 0;
   int rep_count_ = 0;
