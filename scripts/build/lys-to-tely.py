@@ -203,6 +203,19 @@ template_default = rf'''\input texinfo
 @macro lynode{{TEXT}}
 @end macro
 
+@macro q{{TEXT}}
+@quoteleft{{}}\TEXT\@quoteright{{}}
+@end macro
+
+@macro qq{{TEXT}}
+@quotedblleft{{}}\TEXT\@quotedblright{{}}
+@end macro
+
+@c For use as the Level 5 header
+@macro subsubsubheading {{TEXT}}
+@subsubheading @i{{\TEXT\}}
+@end macro
+
 @finalout @c we do not want black boxes.
 
 @titlepage
