@@ -2359,7 +2359,7 @@ f^\trill e,_\trill b'\trill
 @item
 @code{\turn}
 @lilypond[inline,notime,relative=2]
-f^\turn e,_\turn b'\reverseturn
+f^\turn e,_\turn b'\turn
 @end lilypond
 @tab
 @code{\reverseturn}
