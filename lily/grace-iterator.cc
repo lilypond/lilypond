@@ -28,22 +28,34 @@ Grace_iterator::process (Moment m)
 
   // GraceChange is announced in order to make the Grace_engraver able
   // to distinguish \stemNeutral \grace { ... and \grace { \stemNeutral ...
-  const auto now_in_grace = static_cast<bool> (m.grace_part_);
-  if (in_grace_ != now_in_grace)
+
+  if (!main)
     {
       auto *child = get_child ();
       if (child && child->get_context ())
         {
-          send_stream_event (child->get_context (), "GraceChange", origin ());
+          send_stream_event (child->get_context (), "GraceChange", origin (),
+                             ly_symbol2scm ("in-grace"), SCM_BOOL_T);
         }
     }
-  in_grace_ = now_in_grace;
 
   Music_wrapper_iterator::process (main);
 
   /* We can safely do this, since \grace should always be inside
      sequential.  */
   descend_to_child (get_child ()->get_context ());
+}
+
+void
+Grace_iterator::do_quit ()
+{
+  auto *child = get_child ();
+  if (child && child->get_context ())
+    {
+      send_stream_event (child->get_context (), "GraceChange", origin (),
+                         ly_symbol2scm ("in-grace"), SCM_BOOL_F);
+    }
+  Music_wrapper_iterator::do_quit ();
 }
 
 Moment

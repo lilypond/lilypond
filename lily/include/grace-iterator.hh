@@ -24,14 +24,12 @@
 
 class Grace_iterator final : public Music_wrapper_iterator
 {
-  bool in_grace_;
-
 public:
   Grace_iterator ()
-    : in_grace_ (false)
   {
   }
   void process (Moment) override;
+  void do_quit () override;
   DECLARE_SCHEME_CALLBACK (constructor, ());
   OVERRIDE_CLASS_NAME (Grace_iterator);
   Moment parent_time (Moment) const override;

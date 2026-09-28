@@ -115,6 +115,7 @@ property, e.g., @code{(beamed-lengths details)}.")
 @code{\\textMark}, and @code{LEFT} for @code{\\textEndMark}.")
 
      (id ,key? "The ID of an event.")
+     (in-grace ,boolean? "Whether we are entering grace mode right now.")
      (input-tag ,scheme? "Arbitrary marker to relate input and output.")
      (inversion ,boolean? "If set, this chord note is inverted.")
      (iterator-ctor ,procedure? "Function to construct a
