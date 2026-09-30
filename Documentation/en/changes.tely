@@ -135,6 +135,22 @@ None so far.
 @itemize
 
 @item
+The @code{\after} command, like @code{\skip} does, is now able to
+use a @var{delay} argument that can be a music expression rather
+than only a duration:
+
+@lilypond[quote,verbatim]
+\fixed c' {
+  {
+    \after { 2. 16 } -> \*16 c16
+  }
+}
+@end lilypond
+
+In this case, this may be more convenient than having to write
+@code{16*13} as delay.
+
+@item
 The new @code{\senzaMisura} command institutes ``free time'' and
 optionally prints an @q{X} time signature.  The sign is enabled
 with @code{\senzaMisuraTimeSignatureX} and disabled with

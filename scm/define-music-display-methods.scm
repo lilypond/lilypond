@@ -867,42 +867,51 @@ expression."
     (format #f "\\initialContextFrom ~a" (music->lily-string music))))
 
 ;; \after
-(define-extra-display-method ContextSpeccedMusic (expr)
-  "If `expr' is an \\after expression with a post-event, return
-\"\\after ...\". Otherwise, return #f."
-  (with-music-match
-   (expr (music 'ContextSpeccedMusic
-                context-type 'Bottom
-                element
-                (music 'SimultaneousMusic
-                       elements ((music 'SequentialMusic
-                                        elements ((music 'SkipMusic
-                                                         duration ?delta)
-                                                  (music 'EventChord
-                                                         elements ?ev)))
-                                 ?mus))))
-   (format #f "\\after ~a ~a ~a"
-           (duration->lily-string ?delta)
-           (music->lily-string (car ?ev))
-           (music->lily-string ?mus))))
 
 (define-extra-display-method ContextSpeccedMusic (expr)
-  "If `expr' is an \\after expression with a standalone music event, return
+  "If `expr' is an \\after expression with a length given as duration, return
 \"\\after ...\". Otherwise, return #f."
   (with-music-match
    (expr (music 'ContextSpeccedMusic
                 context-type 'Bottom
+                search-direction DOWN
                 element
                 (music 'SimultaneousMusic
                        elements ((music 'SequentialMusic
                                         elements ((music 'SkipMusic
                                                          duration ?delta)
-                                                  (music 'EventChord)
                                                   ?ev))
                                  ?mus))))
    (format #f "\\after ~a ~a ~a"
            (duration->lily-string ?delta)
-           (music->lily-string ?ev)
+           (or
+            (with-music-match (?ev (music 'EventChord elements (?one)))
+                              (and (ly:event? ?one)
+                                   (music->lily-string ?one)))
+            (music->lily-string ?ev))
+           (music->lily-string ?mus))))
+
+(define-extra-display-method ContextSpeccedMusic (expr)
+  "If `expr' is an \\after expression with a length given as music, return
+\"\\after ...\". Otherwise, return #f."
+  (with-music-match
+   (expr (music 'ContextSpeccedMusic
+                context-type 'Bottom
+                search-direction DOWN
+                element
+                (music 'SimultaneousMusic
+                       elements ((music 'SequentialMusic
+                                        elements ((music 'SkippedMusic
+                                                         element ?delta)
+                                                  ?ev))
+                                 ?mus))))
+   (format #f "\\after ~a ~a ~a"
+           (music->lily-string ?delta)
+           (or
+            (with-music-match (?ev (music 'EventChord elements (?one)))
+                              (and (ly:event? ?one)
+                                   (music->lily-string ?one)))
+            (music->lily-string ?ev))
            (music->lily-string ?mus))))
 
 ;; \afterGrace

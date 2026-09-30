@@ -385,6 +385,10 @@ are reported on the stderr of this run."
 \test ##[ \after 4 \f d'2 #]
 \test ##[ \after 4 \turn d'2 #]
 \test ##[ \after 4 e'4 d'2 #]
+\test ##[ \after { 2. 16 } e'16 c'1 #]
+\test ##[ \after { 2. 16 } e'16 c'1 #]
+\test ##[ \after { 2. 16 } < e' >16 c'1 #]
+\test ##[ \after { 2. 16 } < e' >16 c'1 #]
 
 %% \partCombine
 \test ##[ \partCombine { c4 e4 }

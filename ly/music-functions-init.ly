@@ -73,7 +73,7 @@ addToTagGroup =
      (if err (ly:parser-error err (*location*)))))
 
 after =
-#(define-music-function (delta ev mus) (ly:duration? ly:music? ly:music?)
+#(define-music-function (delta ev mus) (duration-or-music? ly:music? ly:music?)
   (_i "Add music @var{ev} with a delay of @var{delta} after the onset of
 @var{mus}.
 
@@ -84,11 +84,24 @@ after =
           (null? (ly:music-property m 'elements))
           (null? (ly:music-property m 'duration))))
   (if (and (not (empty-chord? mus))
-           (ly:moment<?
-            (ly:music-length mus)
-            (+ (ly:music-length ev) (ly:duration->moment delta))))
+           (ly:moment<? (ly:music-length mus)
+                        (+ (ly:music-length ev)
+                           (if (ly:duration? delta)
+                               (ly:duration->moment delta)
+                               (ly:music-length delta)))))
       (ly:warning (G_ "\\after expression longer than main music argument.")))
-  #{ \context Bottom << { \skip $delta <> $ev } #mus >> #})
+  ;; Make sure that we are in a Bottom context before starting simultaneous
+  ;; music since default contexts created inside of simultaneous music don't
+  ;; survive.
+  (descend-to-context
+   (make-simultaneous-music
+    (list (make-sequential-music
+           (list (skip delta)
+                 (if (ly:event? ev)
+                     (make-event-chord (list ev))
+                     ev)))
+          mus))
+   'Bottom))
 
 %% keep these two together
 afterGraceFraction = 3/4
