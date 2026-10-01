@@ -149,6 +149,51 @@ display method will be called."
                                        prev-result))))
   (reverse! (key-val-list->alist-aux lst (list))))
 
+(define (pseudo-quote x)
+  (cond ((symbol? x)
+         (if (var? x) x (list 'quote x)))
+        ((pair? x)
+         (case (car x)
+           ((quote quasiquote music) x)
+           (else (if (music-or-var-list? x) x (list 'quote x)))))
+        (else x)))
+
+(define (pseudo-deconstruct x)
+  (cond ((ly:music? x)
+         (cons 'music
+               (cons (list 'quote (ly:music-property x 'name))
+                     (append-map!
+                      (lambda (x)
+                        (if (null? (cdr x)) (list)
+                            (list (car x) (pseudo-quote (pseudo-deconstruct (cdr x))))))
+                      (ly:music-mutable-properties x)))))
+        ((pair? x)
+         (map pseudo-deconstruct x))
+        (else x)))
+
+(define (pseudo-unquote-scan x)
+  (cond ((pair? x)
+         (case (car x)
+           ((unquote)
+            (pseudo-eval (cadr x)))
+           ((quasiquote) x)
+           (else
+            (cons (pseudo-unquote-scan (car x))
+                  (pseudo-unquote-scan (cdr x))))))
+        (else x)))
+
+(define (pseudo-eval x)
+  (cond ((symbol? x)
+         (module-ref (current-module) x))
+        ((pair? x)
+         (case (car x)
+           ((quote) (cadr x))
+           ((quasiquote) (pseudo-unquote-scan (cadr x)))
+           (else
+            (pseudo-deconstruct (apply (pseudo-eval (car x))
+                                       (map pseudo-eval (cdr x)))))))
+        (else x)))
+
 (define (gen-condition expr pattern)
   "Helper function for `with-music-match'.
 Generate an form that checks if the properties of `expr'
@@ -265,7 +310,7 @@ as read inside `music-expr'.  ?var may also be used to refere to a whole music
 expression inside an elements list for instance.  These bindings are accessible
 inside body."
   (let ((music-expr (first music-expr+pattern))
-        (pattern (second music-expr+pattern))
+        (pattern (pseudo-unquote-scan (second music-expr+pattern)))
         (expr-sym (gensym)))
     `(let ((,expr-sym ,music-expr))
        (and ,(gen-condition expr-sym pattern)
