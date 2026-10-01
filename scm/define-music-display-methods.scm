@@ -263,144 +263,89 @@ expression."
 ;; TODO: it would be better to compare ?start and ?stop
 ;; with startAppoggiaturaMusic and stopAppoggiaturaMusic,
 ;; using a custom music equality predicate.
+
+(eval-when (expand load eval)
+  (define startGraceSlur (make-event-chord
+                          (list (make-music 'SlurEvent
+                                            'span-direction START
+                                            'spanner-id 'grace))))
+
+  (define stopGraceSlur (make-event-chord
+                         (list (make-music 'SlurEvent
+                                           'span-direction STOP
+                                           'spanner-id 'grace)))))
+
+
 (define-extra-display-method GraceMusic (expr)
   "Display method for appoggiatura."
-  (with-music-match (expr (music
-                           'GraceMusic
-                           element (music
-                                    'SequentialMusic
-                                    elements (?init-context
-                                              ?start
-                                              ?music
-                                              ?stop))))
-                    ;; we check whether ?start and ?stop look like
-                    ;; startAppoggiaturaMusic stopAppoggiaturaMusic
-                    (and (with-music-match (?start (music
-                                                    'SequentialMusic
-                                                    elements ((music
-                                                               'EventChord
-                                                               elements
-                                                               ((music
-                                                                 'SlurEvent
-                                                                 span-direction START))))))
-                                           #t)
-                         (with-music-match (?stop (music
-                                                   'SequentialMusic
-                                                   elements ((music
-                                                              'EventChord
-                                                              elements
-                                                              ((music
-                                                                'SlurEvent
-                                                                span-direction STOP))))))
-                                           (format #f "\\appoggiatura ~a" (music->lily-string ?music))))))
+  (with-music-match (expr ,(make-grace-music
+                            (make-sequential-music
+                             `(?init-context
+                               ,(make-sequential-music (list startGraceSlur))
+                               ?music
+                               ,(make-sequential-music (list stopGraceSlur))))))
+
+                    (format #f "\\appoggiatura ~a" (music->lily-string ?music))))
 
 
 (define-extra-display-method GraceMusic (expr)
   "Display method for acciaccatura."
-  (with-music-match (expr (music
-                           'GraceMusic
-                           element (music
-                                    'SequentialMusic
-                                    elements (?init-context
-                                              ?start
-                                              ?music
-                                              ?stop))))
-                    ;; we check whether ?start and ?stop look like
-                    ;; startAcciaccaturaMusic stopAcciaccaturaMusic
-                    (and (with-music-match (?start (music
-                                                    'SequentialMusic
-                                                    elements ((music
-                                                               'EventChord
-                                                               elements
-                                                               ((music
-                                                                 'SlurEvent
-                                                                 span-direction START)))
-                                                              (music
-                                                               'ContextSpeccedMusic
-                                                               element (music
-                                                                        'OverrideProperty
-                                                                        grob-property-path '(stroke-style)
-                                                                        grob-value "grace"
-                                                                        symbol 'Flag)))))
-                                           #t)
-                         (with-music-match (?stop (music
-                                                   'SequentialMusic
-                                                   elements ((music
-                                                              'ContextSpeccedMusic
-                                                              element (music
-                                                                       'RevertProperty
-                                                                       grob-property-path '(stroke-style)
-                                                                       symbol 'Flag))
-
-                                                             (music
-                                                              'EventChord
-                                                              elements
-                                                              ((music
-                                                                'SlurEvent
-                                                                span-direction STOP))))))
-                                           (format #f "\\acciaccatura ~a" (music->lily-string ?music))))))
+  (with-music-match (expr ,(make-grace-music
+                            (make-sequential-music
+                             `(?init-context
+                               ,(make-sequential-music
+                                 (list startGraceSlur
+                                       (context-spec-music
+                                        (make-grob-property-override 'Flag 'stroke-style "grace")
+                                        'Bottom)))
+                               ?music
+                               ,(make-sequential-music
+                                 (list (context-spec-music
+                                        (make-grob-property-revert 'Flag 'stroke-style)
+                                        'Bottom)
+                                       stopGraceSlur))))))
+                    (format #f "\\acciaccatura ~a" (music->lily-string ?music))))
 
 
 (define-extra-display-method GraceMusic (expr)
   "Display method for slashedGrace."
-  (with-music-match (expr (music
-                           'GraceMusic
-                           element (music
-                                    'SequentialMusic
-                                    elements (?init-context
-                                              ?start
-                                              ?music
-                                              ?stop))))
-                    ;; we check whether ?start and ?stop look like
-                    ;; startSlashedGraceMusic stopSlashedGraceMusic
-                    (and (with-music-match (?start (music
-                                                    'SequentialMusic
-                                                    elements ((music
-                                                               'ContextSpeccedMusic
-                                                               element (music
-                                                                        'OverrideProperty
-                                                                        grob-property-path '(stencil)
-                                                                        grob-value beam::slashed-stencil
-                                                                        symbol 'Beam))
-                                                              (music
-                                                               'ContextSpeccedMusic
-                                                               element (music
-                                                                        'OverrideProperty
-                                                                        grob-property-path '(stroke-style)
-                                                                        grob-value "grace"
-                                                                        symbol 'Flag)))))
-                                           #t)
-                         (with-music-match (?stop (music
-                                                   'SequentialMusic
-                                                   elements ((music
-                                                              'ContextSpeccedMusic
-                                                              element (music
-                                                                       'RevertProperty
-                                                                       grob-property-path '(stencil)
-                                                                       symbol 'Beam))
-                                                             (music
-                                                              'ContextSpeccedMusic
-                                                              element (music
-                                                                       'RevertProperty
-                                                                       grob-property-path '(stroke-style)
-                                                                       symbol 'Flag)))))
-                                           (format #f "\\slashedGrace ~a" (music->lily-string ?music))))))
-
+  (with-music-match (expr ,(make-grace-music
+                            (make-sequential-music
+                             `(?init-context
+                               ,(make-sequential-music
+                                 (list
+                                  (context-spec-music
+                                   (make-grob-property-override 'Beam 'stencil '?slash-stencil)
+                                   'Bottom)
+                                  (context-spec-music
+                                   (make-grob-property-override 'Flag 'stroke-style "grace")
+                                   'Bottom)))
+                               ?music
+                               ,(make-sequential-music
+                                 (list
+                                  (context-spec-music
+                                   (make-grob-property-revert 'Beam 'stencil)
+                                   'Bottom)
+                                  (context-spec-music
+                                   (make-grob-property-revert 'Flag 'stroke-style)
+                                   'Bottom)))))))
+                    ;; Cannot byte-compile the reference into the macro
+                    (and (eq? ?slash-stencil beam::slashed-stencil)
+                         (format #f "\\slashedGrace ~a" (music->lily-string ?music)))))
 
 (define-extra-display-method GraceMusic (expr)
   "Display method for grace."
-  (with-music-match (expr (music
-                           'GraceMusic
-                           element (music
-                                    'SequentialMusic
-                                    elements (?init-context
-                                              ?start
-                                              ?music
-                                              ?stop))))
-                    ;; we check whether ?start and ?stop look like
-                    ;; startGraceMusic stopGraceMusic
-                    (and (null? (ly:music-property ?start 'elements))
-                         (null? (ly:music-property ?stop 'elements))
+  (with-music-match (expr ,(make-grace-music
+                            (make-sequential-music
+                             `(?init-context
+                               ,(make-sequential-music '?pre)
+                               ?music
+                               ,(make-sequential-music '?post)))))
+                    ;; we check whether start and stop look like
+                    ;; startGraceMusic stopGraceMusic.  Apparently empty
+                    ;; sequential music is considered generic by the music
+                    ;; matcher
+                    (and (null? ?pre) (null? ?post)
                          (format #f "\\grace ~a" (music->lily-string ?music)))))
 
 ;;;
@@ -869,50 +814,41 @@ expression."
 ;; \after
 
 (define-extra-display-method ContextSpeccedMusic (expr)
-  "If `expr' is an \\after expression with a length given as duration, return
-\"\\after ...\". Otherwise, return #f."
-  (with-music-match
-   (expr (music 'ContextSpeccedMusic
-                context-type 'Bottom
-                search-direction DOWN
-                element
-                (music 'SimultaneousMusic
-                       elements ((music 'SequentialMusic
-                                        elements ((music 'SkipMusic
-                                                         duration ?delta)
-                                                  ?ev))
-                                 ?mus))))
-   (format #f "\\after ~a ~a ~a"
-           (duration->lily-string ?delta)
-           (or
-            (with-music-match (?ev (music 'EventChord elements (?one)))
-                              (and (ly:event? ?one)
-                                   (music->lily-string ?one)))
-            (music->lily-string ?ev))
-           (music->lily-string ?mus))))
-
-(define-extra-display-method ContextSpeccedMusic (expr)
-  "If `expr' is an \\after expression with a length given as music, return
-\"\\after ...\". Otherwise, return #f."
-  (with-music-match
-   (expr (music 'ContextSpeccedMusic
-                context-type 'Bottom
-                search-direction DOWN
-                element
-                (music 'SimultaneousMusic
-                       elements ((music 'SequentialMusic
-                                        elements ((music 'SkippedMusic
-                                                         element ?delta)
-                                                  ?ev))
-                                 ?mus))))
-   (format #f "\\after ~a ~a ~a"
-           (music->lily-string ?delta)
-           (or
-            (with-music-match (?ev (music 'EventChord elements (?one)))
-                              (and (ly:event? ?one)
-                                   (music->lily-string ?one)))
-            (music->lily-string ?ev))
-           (music->lily-string ?mus))))
+  "If `expr' is an \\after expression, return \"\\after ...\".
+Otherwise, return #f."
+  (or
+   (with-music-match
+    (expr ,(descend-to-context
+            (make-simultaneous-music
+             (list (make-sequential-music
+                    (list '(music 'SkipMusic duration ?arg)
+                          '?ev))
+                   '?mus))
+            'Bottom))
+    (format #f "\\after ~a ~a ~a"
+            (duration->lily-string ?arg #:force-duration #t)
+            (music->lily-string
+             (or (with-music-match
+                  (?ev ,(make-event-chord (list '?sev)))
+                  (and (post-event? ?sev) ?sev))
+                 ?ev))
+            (music->lily-string ?mus)))
+   (with-music-match
+    (expr ,(descend-to-context
+            (make-simultaneous-music
+             (list (make-sequential-music
+                    (list '(music 'SkippedMusic element ?arg)
+                          '?ev))
+                   '?mus))
+            'Bottom))
+    (format #f "\\after ~a ~a ~a"
+            (music->lily-string ?arg)
+            (music->lily-string
+             (or (with-music-match
+                  (?ev ,(make-event-chord (list '?sev)))
+                  (and (post-event? ?sev) ?sev))
+                 ?ev))
+            (music->lily-string ?mus)))))
 
 ;; \afterGrace
 (define-extra-display-method ContextSpeccedMusic (expr)
