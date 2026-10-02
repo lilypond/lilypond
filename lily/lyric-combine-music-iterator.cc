@@ -46,6 +46,7 @@ public:
   Lyric_combine_music_iterator () = default;
   Lyric_combine_music_iterator (Lyric_combine_music_iterator const &src);
   DECLARE_SCHEME_CALLBACK (constructor, ());
+  OVERRIDE_CLASS_NAME (Lyric_combine_music_iterator);
 
 protected:
   void create_children () override;

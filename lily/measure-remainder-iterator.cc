@@ -40,6 +40,7 @@ class Measure_remainder_iterator final : public Music_wrapper_iterator
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   Measure_remainder_iterator () = default;
+  OVERRIDE_CLASS_NAME (Measure_remainder_iterator);
 
 protected:
   void process (Moment) override;

@@ -29,6 +29,7 @@ class Context_specced_music_iterator final : public Music_wrapper_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
+  OVERRIDE_CLASS_NAME (Context_specced_music_iterator);
 
 protected:
   void create_contexts () override;

@@ -47,6 +47,7 @@ public:
   SCM transposed_musics_ = SCM_EOL;
 
   DECLARE_SCHEME_CALLBACK (constructor, ());
+  OVERRIDE_CLASS_NAME (Quote_iterator);
   bool accept_music_type (Stream_event *, bool is_cue = true) const;
 
 protected:

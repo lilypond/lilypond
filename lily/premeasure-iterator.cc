@@ -38,6 +38,7 @@ class Premeasure_iterator final : public Music_wrapper_iterator
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   Premeasure_iterator () = default;
+  OVERRIDE_CLASS_NAME (Premeasure_iterator);
 
 protected:
   void process (Moment) override;

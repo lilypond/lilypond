@@ -30,6 +30,7 @@ class Volta_specced_music_iterator final : public Music_wrapper_iterator
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   Volta_specced_music_iterator () = default;
+  OVERRIDE_CLASS_NAME (Volta_specced_music_iterator);
 
 protected:
   SCM create_event (Direction d);
