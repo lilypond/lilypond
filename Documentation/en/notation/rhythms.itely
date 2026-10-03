@@ -1515,6 +1515,43 @@ symbols while setting a different meter with @code{\time}.
 @end lilypond
 
 
+@subsubheading Free time
+
+@cindex free time
+@cindex meter, open
+@cindex open meter
+@cindex senza misura
+@cindex time, free
+
+@funindex \senzaMisura
+
+Meter can be canceled with the @code{\senzaMisura} command,
+allowing unstructured measures of arbitrary length.  With no meter
+in effect, measures must be ended manually.  @xref{Measures}.
+
+@funindex \senzaMisuraTimeSignatureOff
+@funindex \senzaMisuraTimeSignatureX
+
+By default, nothing is printed at a transition into free time.  To
+allow printing an@tie{}@q{X} in place of a time signature, use the
+@code{\senzaMisuraTimeSignatureX} command.  To revert to the
+default behavior, use the @code{\senzaMisuraTimeSignatureOff}
+command.
+
+@lilypond[verbatim,quote]
+\fixed c' {
+  \verboseBarNumbers
+  \senzaMisuraTimeSignatureX
+  \time 3/4
+  R2.
+  \senzaMisura
+  \measure { f8 e f d e c d d4 }
+  \time 3/4
+  R2.
+}
+@end lilypond
+
+
 @subsubheading Metric properties
 
 @cindex time signature, default settings
@@ -1525,10 +1562,10 @@ symbols while setting a different meter with @code{\time}.
 @funindex beatStructure
 @funindex submeasureStructure
 
-In addition to setting the printed time signature, the @code{\time}
-command also sets the values of the context properties
-@code{beatBase}, @code{beatStructure}, @code{submeasureStructure},
-and @code{beamExceptions}.
+In addition to setting the printed time signature, the
+@code{\time} and @code{\senzaMisura} commands also set the values
+of the context properties @code{beatBase}, @code{beatStructure},
+@code{submeasureStructure}, and @code{beamExceptions}.
 
 The default values of these properties are derived formulaically
 from the time signature, with various exceptions defined in
@@ -1571,6 +1608,10 @@ alternating time signatures@tie{}(c).
   \mark \markup \normalsize "c" \*3 e'8
 }
 @end lilypond
+
+@noindent
+@code{\senzaMisura} makes @code{beatBase} infinite and the
+structure properties empty.
 
 The default value of @code{beatStructure} can be overridden in the
 @code{\time} command itself by supplying it as the optional first
