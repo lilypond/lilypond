@@ -25,7 +25,19 @@
 /** Sequential_music iteration: walk each element in turn, and
     construct an iterator for every element.
 */
-class Sequential_iterator : public Music_iterator
+
+// Garbage collection timing technicality:
+
+struct Preinit_Sequential_iterator
+{
+  // iterator for the current music element
+  Music_iterator *iter_ = nullptr;
+  // Music that starts after iter_'s own music.
+  SCM uniterated_music_ = SCM_UNDEFINED;
+};
+
+
+class Sequential_iterator : Preinit_Sequential_iterator, public Music_iterator
 {
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
@@ -38,7 +50,7 @@ public:
 
   void derived_mark () const override;
 
-  Moment pending_moment () const override;
+  Moment pending_moment () const final override;
   void do_quit () override;
 
   void preorder_walk (const std::function<void (Music_iterator *)> &) override;
@@ -54,24 +66,28 @@ protected:
   virtual void next_element () {}
 
 private:
-  void look_ahead ();
+  void get_iter ();
   void pop_element ();
 
+  // convert the Sequential_iterator's timing to iter_'s timing
+  Moment iter_moment (Moment mom) const
+  {
+    if (mom.main_part_ - iter_offset_.main_part_
+        == iter_->music_get_length ().main_part_)
+      return mom - iter_offset_;
+    return mom - iter_offset_.main_part_;
+  }
+
 private:
-  // all elements subsequent to the element that iter_ is iterating
-  SCM remaining_music_ = SCM_EOL;
-  // the first element of remaining_music_ that starts at a moment with a main
-  // part in the future
-  SCM ahead_music_ = SCM_EOL;
-  // iterator for the current music element
-  Music_iterator *iter_ = nullptr;
-  // when iter_ is valid, this is its start moment relative to the zero point
-  // of the whole sequence (once iter_ is invalid, see the code)
-  Moment iter_start_mom_;
-  // the starting point of ahead_music_ within the whole sequence; if
-  // ahead_music_ is empty and remaining_music_ is not, this is the ending
-  // point of remaining_music_
-  Moment ahead_mom_ {Rational::infinity ()};
+  // music that has not yet been looked at for accounting purposes.  This is
+  // after the first element of uniterated_music_ that starts at a moment with
+  // a main part in the future
+  SCM unscanned_music_ = SCM_UNDEFINED;
+  // For a detailed explanation of the following time-keeping variable, see the
+  // definition of Sequential_iterator::get_iter
+  //
+  Moment iter_offset_ = {0, 0}; // offset of iter_'s timing
 };
+
 
 #endif /* SEQUENTIAL_ITERATOR_HH */
