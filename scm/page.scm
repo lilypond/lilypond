@@ -270,12 +270,19 @@ of layout settings just like markups inside the music."
                          (- (car (ly:stencil-extent foot Y)))))))))
 
     (if (ly:output-def-lookup layout 'two-sided #f)
-        (set! page-stencil
-              (ly:stencil-translate page-stencil
-                                    (cons (prop (if (even? number)
-                                                    'left-margin
-                                                    'right-margin))
-                                          0)))
+      (if (ly:output-def-lookup layout 'two-sided-flipped #f)
+          (set! page-stencil
+                (ly:stencil-translate page-stencil
+                                      (cons (prop (if (odd? number)
+                                                      'left-margin
+                                                      'right-margin))
+                                            0)))
+          (set! page-stencil
+                (ly:stencil-translate page-stencil
+                                      (cons (prop (if (even? number)
+                                                      'left-margin
+                                                      'right-margin))
+                                            0))))
         (set! page-stencil
               (ly:stencil-translate page-stencil (cons (prop 'left-margin) 0))))
 
