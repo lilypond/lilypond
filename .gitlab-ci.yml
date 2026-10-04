@@ -136,7 +136,7 @@ test-baseline:
     - cd build
     - *touch-build
     - make $MAKE_FLAGS test-baseline
-    - tar czf ../test-baseline.tar.gz input/regression/out-test-baseline input/regression/*/out-test-baseline out-baseline
+    - tar czf ../test-baseline.tar.gz input/regression/out-test-baseline input/regression/*/out-test-baseline Documentation/ly-examples/out-test-baseline Documentation/snippets/out-test-baseline out-baseline
   artifacts:
     when: always
     expire_in: 1 week
