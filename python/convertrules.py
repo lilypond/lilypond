@@ -5702,6 +5702,14 @@ def conv(s):
     s = re.sub(r'ly:book\?',r'ly:book-or-bookpart?', s)
     return s
 
+@rule((2, 27, 4), r"""
+ly:chord-name::after-line-breaking -> item::enforce-musical-break-visibility
+""")
+def conv(s):
+    s = re.sub(r'ly:chord-name::after-line-breaking',
+               r'item::enforce-musical-break-visibility', s)
+    return s
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

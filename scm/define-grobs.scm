@@ -837,7 +837,7 @@ also @iref{Arpeggio} and @iref{ChordSlur}.")))))
 
     (ChordName
      . (
-        (after-line-breaking . ,ly:chord-name::after-line-breaking)
+        (after-line-breaking . ,item::enforce-musical-break-visibility)
         (extra-spacing-height . (0.2 . -0.2))
         (extra-spacing-width . (-0.5 . 0.5))
         (font-family . sans)
@@ -1675,7 +1675,7 @@ number) with a pointing line attached to another grob.")))))
 
     (FretBoard
      . (
-        (after-line-breaking . ,ly:chord-name::after-line-breaking)
+        (after-line-breaking . ,item::enforce-musical-break-visibility)
         (fret-diagram-details . ((finger-code . below-string)))
         (extra-spacing-height . (0.2 . -0.2))
         (extra-spacing-width . (-0.5 . 0.5))
@@ -3415,7 +3415,7 @@ property is set, @code{ledger-positions} and @code{ledger-extra} are ignored."))
 
     (StanzaNumber
      . (
-        (after-line-breaking . ,ly:chord-name::after-line-breaking)
+        (after-line-breaking . ,item::enforce-musical-break-visibility)
         (direction . ,LEFT)
         (extra-spacing-width . ,stanza-number::extra-spacing-width)
         (font-series . bold)

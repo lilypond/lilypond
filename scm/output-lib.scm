@@ -920,7 +920,7 @@ Please refactor your code using (ly:grob-property grob 'glyph-name) or \
 (define-public end-of-line-visible     #(#t #f #f))
 (define-public all-invisible           #(#f #f #f))
 
-(define-public (ly:chord-name::after-line-breaking item)
+(define-public (item::enforce-musical-break-visibility item)
   "This is intended to be called after line breaking for certain items
 aligned to musical columns.  It kills the item if it should not be
 visible."
