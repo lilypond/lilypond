@@ -198,6 +198,11 @@ vertical position."
    spacing-pair))
 
 (ly:add-interface
+ 'chord-name-interface
+ "A chord label (name or fretboard)."
+ '(begin-of-line-visible))
+
+(ly:add-interface
  'chord-square-interface
  "A chord square in a chord grid."
  '(chord-names

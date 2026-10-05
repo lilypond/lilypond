@@ -920,6 +920,21 @@ Please refactor your code using (ly:grob-property grob 'glyph-name) or \
 (define-public end-of-line-visible     #(#t #f #f))
 (define-public all-invisible           #(#f #f #f))
 
+(define-public (ly:chord-name::after-line-breaking item)
+  "This is intended to be called after line breaking for certain items
+aligned to musical columns.  It kills the item if it should not be
+visible."
+  (when (ly:grob-property item 'begin-of-line-visible #f)
+    (let* ((sys (ly:grob-system item))
+           (cols (ly:grob-object sys 'columns))
+           (item-col (ly:item-get-column item)))
+      ;; What we actually want to know is whether the item is beyond
+      ;; the first musical column.  Is it sufficient to check just the
+      ;; first two columns for this?
+      (when (not (or (eq? item-col (ly:grob-array-ref cols 1))
+                     (eq? item-col (ly:grob-array-ref cols 0))))
+        (ly:grob-suicide! item)))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; a generic extra-spacing-height routine
 
