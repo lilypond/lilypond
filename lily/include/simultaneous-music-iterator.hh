@@ -37,6 +37,9 @@ public:
   void do_quit () override;
   bool run_always () const override;
   bool loose () const override;
+  bool run_always_ = false; // If set, the iterator was created with only
+                            // run_always_ iterators inside and will announce
+                            // itself as run_always_ until termination.
 
   void preorder_walk (const std::function<void (Music_iterator *)> &) override;
 

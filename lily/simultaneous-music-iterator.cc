@@ -59,6 +59,8 @@ Simultaneous_music_iterator::create_children ()
 void
 Simultaneous_music_iterator::create_contexts ()
 {
+  bool only_run_always = true;
+
   Music_iterator::create_contexts ();
 
   auto *my_context = get_context ();
@@ -77,9 +79,17 @@ Simultaneous_music_iterator::create_contexts ()
         }
       else
         {
+          if (only_run_always)
+            only_run_always = child->run_always ();
           ++proc;
         }
     }
+
+  // We make the decision of whether this iterator is run_always (following
+  // each outside timestep) or not (timing only controlled by finite iterators
+  // inside) after weeding out iterators that are not ok from the get-go, like
+  // one for (make-music 'Music).
+  run_always_ = only_run_always && !children_list_.empty ();
 
   // Sequential_iterator follows its children into their contexts.  This
   // iterator does not--which one would it follow?  (Maybe it could track the
@@ -88,15 +98,9 @@ Simultaneous_music_iterator::create_contexts ()
   descend_to_user_accessible_context ();
 }
 
-// If we have some iterators with definite next moment and no of them
-// remain after processing, we take the iterators with indefinite next
-// moment along.  That makes sure that no Lyric_combine_music_iterator
-// will outstay its welcome (issue 2010).
-
 void
 Simultaneous_music_iterator::process (Moment until)
 {
-  bool finite = !isinf (pending_moment ().main_part_);
   for (auto proc = children_list_.begin (); proc != children_list_.end ();
        /*in loop*/)
     {
@@ -129,29 +133,18 @@ Simultaneous_music_iterator::process (Moment until)
         }
       else
         {
+          // If a child has turned to finite behavior, we stop exporting
+          // run_always_
+          if (run_always_ && !child->run_always ())
+            run_always_ = false;
           ++proc;
           continue;
         }
       child->quit ();
       proc = children_list_.erase_at (proc);
     }
-  // If there were definite-ended iterators and all of them died, take
-  // the rest of the iterators along with them.  They have
-  // likely lost their reference iterators.  Basing this on the actual
-  // music contexts is not reliable since something like
-  // \new Voice = blah {
-  //    << \context Voice = blah { c4 d }
-  //       \addlyrics { oh no }
-  //    >> e f
-  // }
-  // cannot wait for the death of context blah before ending the
-  // simultaneous iterator.
-  if (finite && isinf (pending_moment ().main_part_))
-    {
-      for (auto *child : children_list_)
-        child->quit ();
-      children_list_.clear ();
-    }
+  if (children_list_.empty ())
+    run_always_ = false; // allows the iterator to become !ok ()
 }
 
 Moment
@@ -167,15 +160,29 @@ Simultaneous_music_iterator::pending_moment () const
   return next;
 }
 
+// The simultaneous iterator does _not_ export run_always unless there is no
+// non-run_always expression inside.  This has several consequences.  It means
+// that the inside of the Simultaneous_music_iterator does not get additional
+// process_moment calls whenever the timing _outside_ of it advances.  It also
+// means that the iterator does not need to keep track of when the last finite
+// track inside of it quits: when it does, pending_moment will move to infinity
+// (since that is the default for the remaining run_always tracks) and
+// consequently ok () will return false (it only stays true when the iterator
+// itself is run_always, but we explicitly say it is not).  So this will cause
+// the Simultaneous_music_iterator to get terminated regularly from its caller.
+//
+// Downside: a << >> construct containing only run_always iterators needs
+// special treatment in order not to get terminated on the spot.
+//
+// Upside: this avoids every run_always iterator to run essentially at
+// fine-grained global timing rather than have its process_moment moments only
+// depend on what is happening inside its Simultaneous_music_iterator
+// confinement.
+
 bool
 Simultaneous_music_iterator::run_always () const
 {
-  for (const auto *child : children_list_)
-    {
-      if (child->run_always ())
-        return true;
-    }
-  return false;
+  return run_always_;
 }
 
 bool
