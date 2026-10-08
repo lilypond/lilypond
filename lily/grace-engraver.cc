@@ -28,9 +28,9 @@
 
 class Grace_engraver final : public Engraver
 {
-  Moment last_moment_ = -Moment::infinity ();
+  bool in_grace_ = false;
   SCM grace_settings_ = SCM_EOL;
-  void consider_change_grace_settings ();
+  void consider_change_grace_settings (bool in_grace);
 
   void derived_mark () const override;
   void process_music ();
@@ -48,26 +48,15 @@ Grace_engraver::Grace_engraver (Context *c)
 
 // The iterator should usually come before process_music
 void
-Grace_engraver::grace_change (SCM)
+Grace_engraver::grace_change (SCM ev)
 {
-  consider_change_grace_settings ();
+  bool in_grace = from_scm<bool> (get_property (unsmob<Stream_event> (ev), "in-grace"));
+  consider_change_grace_settings (in_grace);
 }
-
-// if we are in grace time already on initialization, it is unlikely
-// that we'll receive a GraceChange event from the grace iterator yet,
-// so we want to start into grace mode anyway.  The downside is that
-// this will get us confused when given something like
-//
-// \new Voice { \oneVoice \grace { c''8 8 } g'1 }
-//
-// where \grace executes its actions already before \oneVoice, causing
-// different stem directions.
 
 void
 Grace_engraver::initialize ()
 {
-  consider_change_grace_settings ();
-
   Dispatcher *d = context ()->event_source ();
   d->add_listener (GET_LISTENER (this, grace_change),
                    ly_symbol2scm ("GraceChange"));
@@ -83,30 +72,16 @@ Grace_engraver::process_music ()
   // We may have lost connection to the iterator in which case we
   // still need to call consider_change_grace_settings in particular
   // in order to get out of grace mode again
-  if (last_moment_ != now_mom ())
-    consider_change_grace_settings ();
+  consider_change_grace_settings (now_mom ().grace_part_ != 0);
 }
 
 void
-Grace_engraver::consider_change_grace_settings ()
+Grace_engraver::consider_change_grace_settings (bool in_grace)
 {
-  auto now = now_mom ();
+  if (in_grace == in_grace_)
+    return;
 
-  if (!now.grace_part_)
-    {
-      for (SCM s = grace_settings_; scm_is_pair (s); s = scm_cdr (s))
-        {
-          SCM elt = scm_car (s);
-          SCM context = scm_car (elt);
-          SCM grob = scm_cadr (elt);
-          SCM cell = scm_cddr (elt);
-
-          Grob_property_info (unsmob<Context> (context), grob)
-            .matched_pop (cell);
-        }
-      grace_settings_ = SCM_EOL;
-    }
-  else if (!last_moment_.grace_part_)
+  if (in_grace)
     {
       SCM settings = get_property (this, "graceSettings");
 
@@ -134,7 +109,22 @@ Grace_engraver::consider_change_grace_settings ()
                                + ly_symbol2string (context_name));
         }
     }
-  last_moment_ = now;
+  else
+    {
+      for (SCM s = grace_settings_; scm_is_pair (s); s = scm_cdr (s))
+        {
+          SCM elt = scm_car (s);
+          SCM context = scm_car (elt);
+          SCM grob = scm_cadr (elt);
+          SCM cell = scm_cddr (elt);
+
+          Grob_property_info (unsmob<Context> (context), grob)
+            .matched_pop (cell);
+        }
+      grace_settings_ = SCM_EOL;
+    }
+
+  in_grace_ = in_grace;
 }
 
 void
