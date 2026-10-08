@@ -118,52 +118,56 @@ Span_bar_stub_engraver::process_acknowledged ()
           if (i >= 0)
             bar_axis_indices.push_back (static_cast<vsize> (i));
         }
-      std::vector<Context *> affected_contexts;
-      std::vector<Grob *> y_parents;
-      std::vector<bool> keep_extent;
-      for (SCM s : axis_groups_)
+      if (bar_axis_indices.size () >= 2)
         {
-          auto *const c = unsmob<Context> (scm_cdr (s));
-          if (!c || c->is_removable ())
-            continue;
-
-          auto *const g = unsmob<Grob> (scm_car (s));
-          if (!g)
-            continue;
-
-          vsize j = Grob::get_vertical_axis_group_index (g);
-          if (j > bar_axis_indices[0] && j < bar_axis_indices.back ()
-              && find (bar_axis_indices.begin (), bar_axis_indices.end (), j)
-                   == bar_axis_indices.end ())
+          std::vector<Context *> affected_contexts;
+          std::vector<Grob *> y_parents;
+          std::vector<bool> keep_extent;
+          for (SCM s : axis_groups_)
             {
-              vsize k = 0;
-              for (; k < bar_axis_indices.size (); k++)
-                if (bar_axis_indices[k] > j)
-                  break;
+              auto *const c = unsmob<Context> (scm_cdr (s));
+              if (!c || c->is_removable ())
+                continue;
 
-              k--;
+              auto *const g = unsmob<Grob> (scm_car (s));
+              if (!g)
+                continue;
 
-              if (c && c->get_parent ())
+              vsize j = Grob::get_vertical_axis_group_index (g);
+              if (j > bar_axis_indices[0] && j < bar_axis_indices.back ()
+                  && find (bar_axis_indices.begin (), bar_axis_indices.end (),
+                           j)
+                       == bar_axis_indices.end ())
                 {
-                  keep_extent.push_back (
-                    from_scm<bool> (get_property (bars[k], "allow-span-bar")));
-                  y_parents.push_back (g);
-                  affected_contexts.push_back (c);
+                  vsize k = 0;
+                  for (; k < bar_axis_indices.size (); k++)
+                    if (bar_axis_indices[k] > j)
+                      break;
+
+                  k--;
+
+                  if (c && c->get_parent ())
+                    {
+                      keep_extent.push_back (from_scm<bool> (
+                        get_property (bars[k], "allow-span-bar")));
+                      y_parents.push_back (g);
+                      affected_contexts.push_back (c);
+                    }
                 }
             }
-        }
 
-      for (vsize j = 0; j < affected_contexts.size (); j++)
-        {
-          auto *const ctx = affected_contexts[j];
-          auto *const it
-            = new Item (Grob_property_info (ctx, ly_symbol2scm ("SpanBarStub"))
-                          .updated ());
-          it->set_x_parent (spanbar);
-          auto gi = make_grob_info (it, spanbar->self_scm ());
-          announce_grob (gi, ctx);
-          if (!keep_extent[j])
-            it->suicide ();
+          for (vsize j = 0; j < affected_contexts.size (); j++)
+            {
+              auto *const ctx = affected_contexts[j];
+              auto *const it = new Item (
+                Grob_property_info (ctx, ly_symbol2scm ("SpanBarStub"))
+                  .updated ());
+              it->set_x_parent (spanbar);
+              auto gi = make_grob_info (it, spanbar->self_scm ());
+              announce_grob (gi, ctx);
+              if (!keep_extent[j])
+                it->suicide ();
+            }
         }
     }
 
