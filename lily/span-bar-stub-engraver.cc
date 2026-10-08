@@ -125,7 +125,7 @@ Span_bar_stub_engraver::process_acknowledged ()
           for (SCM s : axis_groups_)
             {
               auto *const c = unsmob<Context> (scm_cdr (s));
-              if (!c || c->is_removable ())
+              if (!c || c->is_removable () || !c->get_parent ())
                 continue;
 
               auto *const g = unsmob<Grob> (scm_car (s));
@@ -145,12 +145,9 @@ Span_bar_stub_engraver::process_acknowledged ()
 
                   k--;
 
-                  if (c && c->get_parent ())
-                    {
-                      keep_extent.push_back (from_scm<bool> (
-                        get_property (bars[k], "allow-span-bar")));
-                      affected_contexts.push_back (c);
-                    }
+                  keep_extent.push_back (
+                    from_scm<bool> (get_property (bars[k], "allow-span-bar")));
+                  affected_contexts.push_back (c);
                 }
             }
 
