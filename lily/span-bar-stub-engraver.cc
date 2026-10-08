@@ -121,7 +121,6 @@ Span_bar_stub_engraver::process_acknowledged ()
       if (bar_axis_indices.size () >= 2)
         {
           std::vector<Context *> affected_contexts;
-          std::vector<Grob *> y_parents;
           std::vector<bool> keep_extent;
           for (SCM s : axis_groups_)
             {
@@ -150,7 +149,6 @@ Span_bar_stub_engraver::process_acknowledged ()
                     {
                       keep_extent.push_back (from_scm<bool> (
                         get_property (bars[k], "allow-span-bar")));
-                      y_parents.push_back (g);
                       affected_contexts.push_back (c);
                     }
                 }
