@@ -120,7 +120,6 @@ Span_bar_stub_engraver::process_acknowledged ()
         }
       if (bar_axis_indices.size () >= 2)
         {
-          std::vector<Context *> affected_contexts;
           for (SCM s : axis_groups_)
             {
               auto *const c = unsmob<Context> (scm_cdr (s));
@@ -147,20 +146,14 @@ Span_bar_stub_engraver::process_acknowledged ()
                   if (from_scm<bool> (
                         get_property (bars[k], "allow-span-bar")))
                     {
-                      affected_contexts.push_back (c);
+                      auto *const it = new Item (
+                        Grob_property_info (c, ly_symbol2scm ("SpanBarStub"))
+                          .updated ());
+                      it->set_x_parent (spanbar);
+                      auto gi = make_grob_info (it, spanbar->self_scm ());
+                      announce_grob (gi, c);
                     }
                 }
-            }
-
-          for (vsize j = 0; j < affected_contexts.size (); j++)
-            {
-              auto *const ctx = affected_contexts[j];
-              auto *const it = new Item (
-                Grob_property_info (ctx, ly_symbol2scm ("SpanBarStub"))
-                  .updated ());
-              it->set_x_parent (spanbar);
-              auto gi = make_grob_info (it, spanbar->self_scm ());
-              announce_grob (gi, ctx);
             }
         }
     }
