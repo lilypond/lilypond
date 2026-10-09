@@ -209,8 +209,11 @@ hairpins (al/@/del niente).")
 that should be used for clef modifiers with various clefs")
      (clip-edges ,boolean? "Allow outward pointing beamlets at the
 edges of beams?")
-     (collapse-height ,ly:dimension? "Minimum height of system start
-delimiter.  If equal or smaller, the bracket/@/brace/@/line is removed.")
+     (collapse-first-height ,ly:dimension? "When set, this overrides
+@code{collapse-@/height} for the first system of the score.")
+     (collapse-height ,ly:dimension? "Minimum height of system start delimiter.
+If equal or smaller, the bracket/@/brace/@/line is removed.  See also
+@code{collapse-@/first-@/height}.")
      (collision-interfaces ,list? "A list of interfaces for which
 automatic beam-collision resolution is run.")
      (collision-voice-only ,boolean? "Avoid beam collisions only with

@@ -317,6 +317,31 @@ chosen independently.
 @itemize
 
 @item
+The new property @code{SystemStartBar@/.collapse-@/first-@/height}
+supports printing a systemic bar line at the beginning of the
+score without printing one after each line break.
+
+@lilypond[quote]
+\layout {
+  ragged-right = ##t
+  indent = 15
+  \context {
+    \Score
+    \override SystemStartBar.collapse-first-height = 0
+    \override SystemStartBar.thickness = 3
+    \remove Bar_number_engraver
+  }
+}
+
+\new KievanStaff \with { instrumentName = "Даниїл" } {
+  \senzaMisura
+  \measure { b\breve c'4 a1 \caesura } \break
+  \measure { c'\breve b8[ a] b1 \caesura }
+  \fine
+}
+@end lilypond
+
+@item
 The chord name input @code{@var{x}:1/@var{x}} gets now rendered as
 @q{N.C./@var{x}}.
 

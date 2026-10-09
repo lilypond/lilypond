@@ -124,13 +124,38 @@ System_start_delimiter::print (SCM smob)
   Real len = ext.length ();
 
   // Use collapse-height in multiples of the staff-space
-  if (ext.is_empty ()
-      || (from_scm<double> (get_property (me, "collapse-height"), 0.0)
-          >= (len / staffspace)))
-    {
-      me->suicide ();
-      return SCM_UNSPECIFIED;
-    }
+  {
+    bool collapse = ext.is_empty ();
+    if (!collapse)
+      {
+        // The first system of the score uses first-collapse-height if it is
+        // set.
+        auto collapse_height = std::optional<double> {};
+
+        if (me->get_break_index () == 0)
+          {
+            SCM h = get_property (me, "collapse-first-height");
+            if (!scm_is_null (h))
+              {
+                collapse_height = from_scm (h, 0.0);
+              }
+          }
+
+        if (!collapse_height.has_value ())
+          {
+            SCM h = get_property (me, "collapse-height");
+            collapse_height = from_scm (h, 0.0);
+          }
+
+        collapse = (collapse_height >= (len / staffspace));
+      }
+
+    if (collapse)
+      {
+        me->suicide ();
+        return SCM_UNSPECIFIED;
+      }
+  }
 
   Stencil m;
   if (scm_is_eq (glyph_sym, ly_symbol2scm ("bracket")))
@@ -186,6 +211,7 @@ See also @file{input/regression/system-start-nesting.ly}.
                /* properties */
                R"(
 collapse-height
+collapse-first-height
 style
 thickness
                )");
