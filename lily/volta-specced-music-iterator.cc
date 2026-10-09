@@ -35,6 +35,7 @@ public:
 protected:
   SCM create_event (Direction d);
   void process (Moment) override;
+  bool loose () const override;
 
 private:
   Context_handle event_handler_;
@@ -59,6 +60,17 @@ Volta_specced_music_iterator::create_event (Direction d)
 
   // must return a SCM to ensure the object is kept alive.
   return ev_scm;
+}
+
+// Shifting back the volta bracket beginning when there is a grace in parallel
+// music is an easy decision to make.  The behavior at the end of a volta is
+// much more complex to make and is entangled with the decision of where to
+// place the repeat bars.  We punt for now.
+
+bool
+Volta_specced_music_iterator::loose () const
+{
+  return !started_ || Music_wrapper_iterator::loose ();
 }
 
 void
@@ -103,9 +115,12 @@ Volta_specced_music_iterator::process (Moment m)
       scm_remember_upto_here_1 (ev);
     }
 
-  Music_wrapper_iterator::process (m);
+  if (m >= pending_moment () || Music_wrapper_iterator::loose ())
+    Music_wrapper_iterator::process (m);
 
-  if (started_ && !stopped_ && (m == music_get_length ()))
+  if (started_ && !stopped_
+      && (loose () ? m.main_part_ == music_get_length ().main_part_
+                   : m == music_get_length ()))
     {
       stopped_ = true;
       if (event_handler_)

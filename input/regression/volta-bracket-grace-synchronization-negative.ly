@@ -1,4 +1,4 @@
-\version "2.25.32"
+\version "2.27.5"
 
 \header {
   texidoc = "Volta brackets for alternatives beginning with different lengths of
@@ -13,19 +13,13 @@ should end prematurely where part@tie{}A enters.
 
 #(ly:expect-warning
   (ly:translate-cpp-warning-scheme
-   "already have a VoltaBracket; ending it prematurely"))
+   "discarding conflicting volta numbers: %s") "(1 2)")
 #(ly:expect-warning
   (ly:translate-cpp-warning-scheme
-   "already have a VoltaBracket; ending it prematurely"))
+   "discarding conflicting volta numbers: %s") "(3 4)")
 #(ly:expect-warning
   (ly:translate-cpp-warning-scheme
-   "already have a VoltaBracket; ending it prematurely"))
-#(ly:expect-warning
-  (ly:translate-cpp-warning-scheme
-   "already have a VoltaBracket; ending it prematurely"))
-#(ly:expect-warning
-  (ly:translate-cpp-warning-scheme
-   "already have a VoltaBracket; ending it prematurely"))
+   "discarding conflicting volta numbers: %s") "(5 6)")
 
 voiceA = \fixed c' {
   \repeat volta 3 {

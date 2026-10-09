@@ -60,6 +60,13 @@ Volta_repeat_iterator::create_children ()
   Sequential_iterator::create_children ();
 }
 
+bool
+Volta_repeat_iterator::loose () const
+{
+  // start bars may move in front of grace in parallel music, stop bars too.
+  return !started_ || Sequential_iterator::loose ();
+}
+
 void
 Volta_repeat_iterator::process (Moment m)
 {
@@ -72,12 +79,16 @@ Volta_repeat_iterator::process (Moment m)
           const auto repeat_count
             = from_scm (get_property (get_music (), "repeat-count"), 1L);
 
-          repeat_styler_->report_start (get_context ()->now_mom (), repeat_count);
+          repeat_styler_->report_start (get_context ()->now_mom (),
+                                        repeat_count);
         }
       started_ = true;
     }
 
-  Sequential_iterator::process (m);
+  if (m == pending_moment () || Sequential_iterator::loose ())
+    Sequential_iterator::process (m);
+
+  // Cannot end up before our own grace notes inside the repeat
 
   if (started_ && !stopped_ && (m == music_get_length ()))
     {

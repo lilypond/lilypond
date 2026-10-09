@@ -8,7 +8,7 @@ heavily mutilated Edition Peters Morgenlied by Schubert"
 
 }
 
-\version "2.27.0"
+\version "2.27.5"
 
 ignoreMelisma =	\set ignoreMelismata = ##t
 ignoreMelismaOff = \unset ignoreMelismata
@@ -113,7 +113,7 @@ pianoLH =  \relative c'' \repeat volta 2\new Voice {
 	\oneVoice
     d,) |
      g4.( b,8) r r
-    \clef treble \grace s16 r8 <bes'>8-> <bes c>8->([ <a c>)] r <f c'> |
+    \clef treble r8 <bes'>8-> <bes c>8->([ <a c>)] r <f c'> |
     \clef bass
     r8 dis( e) r c c |
     f,4.  g8[ r8 g] |
