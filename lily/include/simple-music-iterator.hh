@@ -23,8 +23,9 @@
 #include "music-iterator.hh"
 
 /*
-  Iterator for atomic music objects: events are generated at the
-  beginning and at the end of the music.
+  Iterator for atomic music objects: events are generated at the beginning and
+  at the end of the music.  These cannot be grace music; music_start_mom ();
+  shall always be zero.
 */
 class Simple_music_iterator : public Music_iterator
 {

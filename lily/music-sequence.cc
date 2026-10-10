@@ -159,6 +159,8 @@ music_list_to_relative (SCM l, Pitch p, bool ret_first)
   return (ret_first) ? first : last;
 }
 
+// For simultaneous music.  Note that this can only become non-zero (namely
+// with a negative grace_part) for grace music.
 Moment
 Music_sequence::minimum_start (SCM l)
 {
@@ -174,12 +176,14 @@ Music_sequence::minimum_start (SCM l)
   return m;
 }
 
+// For sequential music
 Moment
 Music_sequence::first_start (SCM l)
 {
   Moment accum;
 
-  // Accumulate grace time until finding the first element with non-grace time.
+  // Accumulate grace time until finding the first element with non-zero
+  // length.  Note that grace music itself always has zero length.
   for (auto *mus : as_ly_smob_list<const Music> (l))
     {
       if (!mus)

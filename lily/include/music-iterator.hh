@@ -42,6 +42,8 @@
    This way of viewing and traversing music-expressions does not require an
    actual queue.
 
+   Grace expressions are marked by a negative grace starting time and a length
+   of zero.
 
    ok () -- processing is incomplete: the queue still holds events or the
    iterator wants to continue regardless
@@ -54,8 +56,8 @@
 
    * This removes all events at M from the pending queue.
 
-   * Typically this reports the music to an interpretation context,
-   thus changing the state of the interpretation context.
+   * Typically processing reports the music to an interpretation context, thus
+   changing the state of the interpretation context.
 
    run_always () -- when true, process (M) should be called even if M is
    earlier than pending_moment (); when false, process (M) should not be
