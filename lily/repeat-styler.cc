@@ -51,8 +51,7 @@ Repeat_styler::report_end_event (SCM event_sym, long alt_num,
   // conjunction with a mark table maintained by Mark_tracking_translator.
   // In that future, we would probably also want to report the point of the
   // first coda mark as repeat-body-end-moment.
-  set_property (ev, "repeat-body-start-moment",
-                to_scm (spanned_time ().left ()));
+  set_property (ev, "repeat-body-start-moment", to_scm (start_time_));
 
   ev->send_to_context (owner ()->get_context ());
   scm_remember_upto_here_1 (ev_scm);

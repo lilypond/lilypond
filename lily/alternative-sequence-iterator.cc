@@ -63,17 +63,14 @@ Alternative_sequence_iterator::analyze ()
   Direction end_alignment = CENTER;
 
   {
-    // This won't compute the correct endpoint inside \grace.
-    const auto start = get_context ()->now_mom ();
-    const auto len = music_get_length () - music_start_mom ();
-    const auto end = start + len;
-
+    Music_iterator const *owner = repeat_styler_->owner ();
     // Do these alternatives start at the start of the repeated section?
-    if (start == repeat_styler_->spanned_time ().left ())
+    if (ancestor_time (owner, music_start_mom ()) == owner->music_start_mom ())
       start_alignment = START;
 
     // Do these alternatives end at the end of the repeated section?
-    if (end == repeat_styler_->spanned_time ().right ())
+
+    if (ancestor_time (owner, music_get_length ()) == owner->music_get_length ())
       end_alignment = STOP;
   }
 

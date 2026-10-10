@@ -51,17 +51,17 @@ public:
 
   // Return the lifetime of the repeat in the timeline of the score, which was
   // passed into report_start ().
-  const Interval_t<Moment> &spanned_time () const { return spanned_time_; }
+  Moment start_time () const { return start_time_; }
 
   // Tell whether report_return () has been called at least once.
   bool reported_return () const { return reported_return_; }
 
-  // Report that a repeat has started.  spanned_time is the lifetime of the
+  // Report that a repeat has started.  start_time is the start time of the
   // repeat in the timeline of the score.  repeat_count is the number of times
   // the section is performed from this starting point.
-  void report_start (const Interval_t<Moment> &spanned_time, long repeat_count)
+  void report_start (Moment start_time, long repeat_count)
   {
-    spanned_time_ = spanned_time;
+    start_time_ = start_time;
     repeat_count_ = repeat_count;
     derived_report_start ();
   }
@@ -124,12 +124,13 @@ public:
       }
   }
 
+  Music_iterator const *owner () const { return owner_; }
+
 protected:
   explicit Repeat_styler (Music_iterator *owner)
     : owner_ (owner)
   {
   }
-  Music_iterator *owner () const { return owner_; }
 
   long repeat_count () const { return repeat_count_; }
 
@@ -160,7 +161,7 @@ private:
   // music iterators.  The stylers should mainly just act on what the iterators
   // have discovered, using information that is plainly communicated to them.
   Music_iterator *owner_ = nullptr;
-  Interval_t<Moment> spanned_time_ {Moment::infinity (), Moment::infinity ()};
+  Moment start_time_ = Moment::infinity ();
   long repeat_count_ = 2;
   size_t alternative_depth_ = 0;
   size_t reported_return_depth_ = 0;
