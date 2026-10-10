@@ -42,7 +42,7 @@ public:
 protected:
   void process (Moment m) override;
   void create_contexts () override;
-  Moment pending_moment () const override;
+  Moment parent_time (Moment) const override;
 
   SCM create_event (Direction d);
 
@@ -78,9 +78,8 @@ Tuplet_iterator::create_event (Direction d)
 }
 
 Moment
-Tuplet_iterator::pending_moment () const
+Tuplet_iterator::parent_time (Moment next_mom) const
 {
-  auto next_mom = Music_wrapper_iterator::pending_moment ();
   if (next_mom < Moment::infinity ())
     {
       next_mom = std::min (next_mom, next_split_mom_);

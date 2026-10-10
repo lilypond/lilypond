@@ -47,9 +47,8 @@ Grace_iterator::process (Moment m)
 }
 
 Moment
-Grace_iterator::pending_moment () const
+Grace_iterator::parent_time (Moment cp) const
 {
-  auto cp = Music_wrapper_iterator::pending_moment ();
   if (!isinf (cp.main_part_))
     {
       cp = {0, music_start_mom ().grace_part_ + cp.main_part_};

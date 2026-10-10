@@ -242,29 +242,42 @@ Sequential_iterator::process (Moment until)
   iter_offset_ = Moment::infinity ();
 }
 
+// As long as we are not finished, we don't signal to be anywhere behind
+// the current iterator in order to never get beyond the start of the
+// next one.  That makes sure that callers' consideration of
+// pending_moment () does not cause more than a single moment to get
+// cleaned up.
+
+// Since parent_time is limited to time conversion by active child iterators,
+// we can do all of that limiting inside of parent_time, avoiding duplicated
+// checks.
+
 Moment
 Sequential_iterator::pending_moment () const
 {
-  if (iter_)
-    {
-      Moment pm = iter_->pending_moment ();
-      Moment iter_len = iter_->music_get_length ();
+  if (!iter_)
+    return iter_offset_;
+  return parent_time (iter_->pending_moment ());
+}
 
-      // As long as we are not finished, we don't signal to be anywhere behind
-      // the current iterator in order to never get beyond the start of the
-      // next one.  That makes sure that callers' consideration of
-      // pending_moment () does not cause more than a single moment to get
-      // cleaned up.
+// We cannot really convert timings outside of the main_part_ time span of the
+// active iterator anyway, so capping the conversion range for the sake of
+// pending_moment () requirements does not further constrain the usability of
+// parent_time.
+Moment
+Sequential_iterator::parent_time (Moment pm) const
+{
+  assert (iter_);
 
-      if (pm > iter_len)
-        pm = iter_len;
+  Moment iter_len = iter_->music_get_length ();
 
-      if (pm.main_part_ == iter_len.main_part_)
-        return pm + iter_offset_;
-      else
-        return pm + iter_offset_.main_part_;
-    }
-  return iter_offset_;
+  if (pm > iter_len)
+    pm = iter_len;
+
+  if (pm.main_part_ == iter_len.main_part_)
+    return pm + iter_offset_;
+  else
+    return pm + iter_offset_.main_part_;
 }
 
 IMPLEMENT_CTOR_CALLBACK (Sequential_iterator);

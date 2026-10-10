@@ -63,6 +63,9 @@
    earlier than pending_moment (); when false, process (M) should not be
    called until M reaches pending_moment ()
 
+   Moment parent_time (Moment) -- an active child iterator can let its time get
+   converted by its parent to the parent's time.
+
    TODO:
 
    merge pending_moment and process?
@@ -145,6 +148,16 @@ public:
   }
 
   Music_iterator *get_parent () const { return parent_; }
+
+  // convert time of an active child iterator to our own time.
+  virtual Moment parent_time (Moment m) const { return m; }
+
+  // convert a time in this iterator's timeframe to that of some ancestor
+  Moment ancestor_time (Music_iterator const *ancestor,
+                        Moment our_time) const;
+
+  // convert this iterator's time to global time
+  Moment global_time (Moment our_time) const;
 
   // Scoped search for music by type: look in this iterator's music, then
   // search the ancestors up to the top.  Return the first iterator whose music

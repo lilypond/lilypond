@@ -34,7 +34,7 @@ public:
   void process (Moment) override;
   DECLARE_SCHEME_CALLBACK (constructor, ());
   OVERRIDE_CLASS_NAME (Grace_iterator);
-  Moment pending_moment () const override;
+  Moment parent_time (Moment) const override;
 };
 
 #endif /* GRACE_ITERATOR_HH */

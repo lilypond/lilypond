@@ -38,6 +38,7 @@ public:
   void set_context (Context *trans) override;
   void derived_mark () const override;
   Moment pending_moment () const override;
+  Moment parent_time (Moment) const override;
   void do_quit () override;
   bool run_always () const override;
 

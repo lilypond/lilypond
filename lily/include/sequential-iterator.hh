@@ -51,6 +51,7 @@ public:
   void derived_mark () const override;
 
   Moment pending_moment () const final override;
+  Moment parent_time (Moment) const override;
   void do_quit () override;
 
   void preorder_walk (const std::function<void (Music_iterator *)> &) override;

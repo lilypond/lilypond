@@ -77,10 +77,17 @@ Music_wrapper_iterator::process (Moment m)
 }
 
 Moment
+Music_wrapper_iterator::parent_time (Moment m) const
+{
+  assert (child_iter_);
+  return m;
+}
+
+Moment
 Music_wrapper_iterator::pending_moment () const
 {
   if (child_iter_)
-    return child_iter_->pending_moment ();
+    return parent_time (child_iter_->pending_moment ());
   else
     return Music_iterator::pending_moment ();
 }

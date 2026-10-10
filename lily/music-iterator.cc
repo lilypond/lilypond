@@ -239,6 +239,29 @@ Music_iterator::descend_to_child (Context *child_report)
     set_context (child_report);
 }
 
+Moment
+Music_iterator::global_time (Moment our_time) const
+{
+  if (Music_iterator const *parent = get_parent ())
+    return parent->parent_time (our_time);
+  return our_time;
+}
+
+Moment
+Music_iterator::ancestor_time (Music_iterator const *ancestor,
+                               Moment our_time) const
+{
+  if (ancestor == this)
+    return our_time;
+
+  if (Music_iterator const *parent = get_parent ())
+    return parent->ancestor_time
+      (ancestor, parent->parent_time (our_time));
+
+  programming_error ("bad active iterator lineage");
+  return our_time;
+}
+
 Music_iterator *
 Music_iterator::find_above_by_music_type (SCM type_sym) const
 {
