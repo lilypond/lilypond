@@ -57,8 +57,7 @@ protected:
   Moment pending_moment () const override;
   void process (Moment) override;
 
-  // TODO: this iterator causes problems when allowed loose grace timing
-  bool loose () const override { return false; }
+  bool loose () const override;
 
   void do_quit () override;
 };
@@ -171,11 +170,26 @@ Quote_iterator::pending_moment () const
   return m;
 }
 
+bool
+Quote_iterator::loose () const
+{
+  if (pending_moment ().main_part_
+      < Music_wrapper_iterator::pending_moment ().main_part_)
+    return false;
+  return Music_wrapper_iterator::loose ();
+}
+
 void
 Quote_iterator::process (Moment m)
 {
-  if (Music_wrapper_iterator::pending_moment () <= m)
-    Music_wrapper_iterator::process (m);
+  Moment pm = Music_wrapper_iterator::pending_moment ();
+  while (
+    pm <= m
+    || (pm.main_part_ == m.main_part_ && Music_wrapper_iterator::loose ()))
+    {
+      Music_wrapper_iterator::process (m);
+      pm = Music_wrapper_iterator::pending_moment ();
+    }
 
   if (first_time_)
     {
@@ -184,7 +198,7 @@ Quote_iterator::process (Moment m)
       // start moment of this music in the timeline of the score
       const auto start_mom = get_context ()->now_mom ();
 
-      zero_mom_ = start_mom - music_start_mom ();
+      zero_mom_ = {start_mom.main_part_, 0};
 
       if (scm_is_vector (event_vector_))
         {
