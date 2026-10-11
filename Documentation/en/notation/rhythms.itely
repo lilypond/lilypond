@@ -4804,6 +4804,22 @@ direction is overridden and then reverted.
 }
 @end lilypond
 
+@cindex grace note, synchronization
+
+Since grace notes are optional material preceding main note
+material, often grace notes occur in one @code{Voice} or
+@code{Staff} but not another.  Non-note material like clefs, key
+changes, page breaks, bars, property setting commands, section
+marks and so on is generally expected to be placed @emph{before}
+grace notes occuring in other voices, so that is what LilyPond
+does by default.
+
+@lilypond[quote,verbatim]
+<<
+  \new Staff { \grace g'8 c''1 }
+  \new Staff { \clef "bass" c1 }
+>>
+@end lilypond
 
 @snippets
 
@@ -4866,7 +4882,6 @@ Internals Reference:
 @knownissues
 @cindex acciaccatura, multi-note
 @cindex multi-note acciaccatura
-@cindex grace note, synchronization
 
 A multi-note beamed @dfn{acciaccatura} is printed without a slash,
 and looks exactly the same as a multi-note beamed
@@ -4875,38 +4890,8 @@ and looks exactly the same as a multi-note beamed
 @c TODO Add link to LilyPond Wiki snippet to add slash when
 @c      available
 
-Grace note synchronization can also lead to surprises.  Staff
-notation, such as key signatures, bar lines, etc., are also
-synchronized.  Take care when you mix staves with grace notes and
-staves without, for example,
-
-@lilypond[quote,verbatim]
-<<
-  \new Staff \relative { e''4 \section \grace c16 d2. }
-  \new Staff \relative { c''4 \section d2. }
->>
-@end lilypond
-
-@noindent
-This can be remedied by inserting grace skips of the corresponding
-durations in the other staves.  For the above example
-
-@lilypond[quote,verbatim]
-<<
-  \new Staff \relative { e''4 \section \grace c16 d2. }
-  \new Staff \relative { c''4 \section \grace s16 d2. }
->>
-@end lilypond
-
-Please make sure that you use the @code{\grace} command for the
-spacer part, even if the visual part uses @code{\acciaccatura} or
-@code{\appoggiatura} because otherwise an ugly slur fragment will
-be printed, connecting the invisible grace note with the following
-note.
-
 Grace sections should only be used within sequential music expressions.
-Nesting or juxtaposing grace sections is not supported, and might
-produce crashes or other errors.
+Nesting grace sections is not supported.
 
 Each grace note in MIDI output has a length of 1/4 of its actual
 duration.  If the combined length of the grace notes is greater than the

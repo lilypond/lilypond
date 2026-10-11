@@ -1499,8 +1499,7 @@ Internals Reference:
 Only the contents of the first @code{Voice} occurring in an
 @code{\addQuote} command will be considered for quotation, so if the music
 expression contains @code{\new} or @code{\context Voice}
-statements, their contents will not be quoted.  Quoting grace notes
-is unsupported and may cause LilyPond to crash whereas quoting nested
+statements, their contents will not be quoted.  Quoting nested
 triplets may result in poor notation.
 
 

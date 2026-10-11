@@ -69,6 +69,17 @@ environments with LilyPond support may provide a way to run
 @itemize
 
 @item
+After having passed its 20th anniversary in the issue tracker,
+issue@tie{}34 (grace synchronization) has been closed.  LilyPond
+will now in simultaneous music move items like keys, clefs, line
+breaks, bars, property overrides and so on before grace music in
+other tracks.  It is no longer necessary to @q{grace-pad} the
+other tracks for proper timing.  This is particularly helpful when
+creating @q{timing tracks} with common elements like marks, time
+signature and clef changes and so on.  The change is an inherent
+part of LilyPond's timing now.
+
+@item
 Book and bookpart expressions now have different and separate
 types that can be tested using @code{ly:book?} and
 @code{ly:bookpart?}.  A predicate testing for either (like

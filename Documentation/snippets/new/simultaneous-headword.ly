@@ -1,4 +1,4 @@
-\version "2.25.18"
+\version "2.27.5"
 
 \header {
   categories = "Headword"
@@ -34,7 +34,7 @@ trillFlat =
       \key c \major
       \time 9/16
 
-      \grace s32 s4. s8. |
+      s4. s8. |
       s4. \voiceOne a''8[(\p g''16]) |
       g''4.\dim af''8[( g''16]) |
       g''8.[ g''8. g''8.] |
@@ -71,7 +71,7 @@ trillFlat =
     \key c \major
     \time 9/16
 
-    \grace s32 r8. r8. <c! c,!>8[(\tweak X-offset #-2 _\f <g, g,,>16]) |
+    r8. r8. <c! c,!>8[(\tweak X-offset #-2 _\f <g, g,,>16]) |
     <g, g,,>4. \clef treble c''8[( b'16]) |
     b'4. c''8[( b'16]) |
     b'8.[ b'8. b'8.] |

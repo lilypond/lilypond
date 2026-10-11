@@ -459,22 +459,6 @@ the intended output and writing code to improve them.
 @emph{Recommended knowledge:} LilyPond knowledge, aesthetic sense
 
 
-@subsubheading Grace notes
-
-Fix problems with synchronization of grace notes.  Grace notes can
-interfere with LilyPond's timing and cause odd effects, especially when
-multiple staffs are used where some have grace notes and others don't.
-This is one of the longest-standing and one of the more embarrassing
-@uref{https://gitlab.com/lilypond/lilypond/-/issues/34/, bugs} in
-LilyPond.
-
-@emph{Difficulty:} medium
-
-@emph{Requirements:} C++, MIDI
-
-@emph{Recommended:} familiarity with LilyPond internals
-
-
 @subsubheading Improve default beam positioning
 
 For regular, cross-staff, broken and kneed beams.  Beaming should depend

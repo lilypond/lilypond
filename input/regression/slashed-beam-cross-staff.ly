@@ -1,4 +1,4 @@
-\version "2.25.21"
+\version "2.27.5"
 
 \header {
   texidoc = "Slashed beams work with cross-staff beams."
@@ -46,7 +46,6 @@ music = <<
 
   \new Staff = "2" {
     \clef bass
-    \grace s4
     s1*2
     \slashedGrace {
       \stemUp
