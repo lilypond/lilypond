@@ -20,10 +20,10 @@
 
 @divClass{heading-center}
 @ifclear web_version
-@heading LilyPond @version 用のマニュアル
+@heading LilyPond @version{} 用のマニュアル
 @end ifclear
 @ifset web_version
-@heading LilyPond @versionStable 用のマニュアル
+@heading LilyPond @versionStable{} 用のマニュアル
 @end ifset
 
 @divEnd
@@ -416,7 +416,7 @@ LilyPond を使う理由については、@ref{Introduction} に書かれてい�
 @end itemize
 @divEnd
 
-@subsubheading @versionDevel の Web マニュアル
+@subsubheading @versionDevel{} の Web マニュアル
 
 @docLinksBare{Web, web,
   @ref{Top,Web},

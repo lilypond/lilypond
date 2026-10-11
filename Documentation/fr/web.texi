@@ -192,15 +192,15 @@ Venez puiser l'inspiration dans notre galerie
 
 @c TODO: javascript to detect OS and suggest download?
 
-@ref{Download, Téléchargemement de @versionStable}
+@ref{Download, Téléchargemement de @versionStable{}}
 
-@ref{Manuals, Manuels de @versionStable}
+@ref{Manuals, Manuels de @versionStable{}}
 
 @subheading Branche de développement
 
-@ref{Development, Téléchargement de @versionDevel}
+@ref{Development, Téléchargement de @versionDevel{}}
 
-@ref{Development, Manuels de @versionDevel}
+@ref{Development, Manuels de @versionDevel{}}
 
 @subheading Dépêches
 @c VO Pondings

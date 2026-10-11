@@ -192,15 +192,15 @@ Sehen Sie sich unsere @ref{Examples} an und lassen sich inspirieren!
 
 @c TODO: javascript to detect OS and suggest download?
 
-@ref{Download, Download @versionStable}
+@ref{Download, Download @versionStable{}}
 
-@ref{Manuals, Handbücher @versionStable}
+@ref{Manuals, Handbücher @versionStable{}}
 
 @subheading Entwickler Version
 
-@ref{Development, Download @versionDevel}
+@ref{Development, Download @versionDevel{}}
 
-@ref{Development, Handbücher @versionDevel}
+@ref{Development, Handbücher @versionDevel{}}
 
 @subheading Pondings
 @divId{pondingsText}

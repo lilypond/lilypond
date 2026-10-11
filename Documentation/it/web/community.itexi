@@ -538,7 +538,7 @@ su tali questioni prima che il lavoro inizi.
 @unnumberedsec Sviluppo
 
 @divClass{heading-center}
-@heading Sviluppo di LilyPond @versionDevel
+@heading Sviluppo di LilyPond @versionDevel{}
 
 @c we normally don't allow named references, but in this case
 @c it's good to emphasize the "stable" part.  -gp

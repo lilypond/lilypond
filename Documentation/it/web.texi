@@ -188,15 +188,15 @@ Guarda la galleria di @ref{Examples} e lasciati ispirare!
 @divId{homepage-sidebar}
 @subheading Stabile
 
-@ref{Download, Download @versionStable}
+@ref{Download, Download @versionStable{}}
 
-@ref{Manuals, Manuali @versionStable}
+@ref{Manuals, Manuali @versionStable{}}
 
 @subheading Instabile
 
-@ref{Development, Download @versionDevel}
+@ref{Development, Download @versionDevel{}}
 
-@ref{Development, Manuali @versionDevel}
+@ref{Development, Manuali @versionDevel{}}
 
 
 @subheading Pondings

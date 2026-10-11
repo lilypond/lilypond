@@ -21,10 +21,10 @@
 
 @divClass{heading-center}
 @ifclear web_version
-@heading LilyPond @version 手册
+@heading LilyPond @version{} 手册
 @end ifclear
 @ifset web_version
-@heading LilyPond @versionStable 手册
+@heading LilyPond @versionStable{} 手册
 @end ifset
 
 @divEnd
@@ -371,7 +371,7 @@ LilyPond 是以文本的方式录入音乐的。请阅读有关我们的 @ref{Te
 @end itemize
 @divEnd
 
-@subsubheading 在 @versionDevel 里的 Web 手册
+@subsubheading 在 @versionDevel{} 里的 Web 手册
 
 @docLinksBare{Web, web,
   @ref{Top,Web},

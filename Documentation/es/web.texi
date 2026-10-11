@@ -196,15 +196,15 @@ e incluso
 
 @c TODO: javascript to detect OS and suggest download?
 
-@ref{Download, Descarga de @versionStable}
+@ref{Download, Descarga de @versionStable{}}
 
-@ref{Manuals, Manuales de @versionStable}
+@ref{Manuals, Manuales de @versionStable{}}
 
 @subheading Versión de desarrollo
 
-@ref{Development, Descarga de @versionDevel}
+@ref{Development, Descarga de @versionDevel{}}
 
-@ref{Development, Manuales de @versionDevel}
+@ref{Development, Manuales de @versionDevel{}}
 
 @subheading Novedades
 @c VO Pondings

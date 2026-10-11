@@ -547,7 +547,7 @@ tipus de qüestions es resolguin abans que comenci qualsevol feina.
 @unnumberedsec Desenvolupament
 
 @divClass{heading-center}
-@heading Materials de desenvolupament per al LilyPond @versionDevel
+@heading Materials de desenvolupament per al LilyPond @versionDevel{}
 
 
 @c we normally don't allow named references, but in this case

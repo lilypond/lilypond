@@ -11,7 +11,7 @@
 @unnumbered Descarga
 
 @divClass{heading-center}
-@heading Descarga de LilyPond @versionStable
+@heading Descarga de LilyPond @versionStable{}
 @c VO Downloads for LilyPond versionStable
 
 @divEnd

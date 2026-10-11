@@ -14,7 +14,7 @@
 @unnumbered Téléchargement
 
 @divClass{heading-center}
-@heading Téléchargement de LilyPond @versionStable
+@heading Téléchargement de LilyPond @versionStable{}
 @c VO Downloads for LilyPond versionStable
 
 @divEnd
@@ -41,7 +41,7 @@ vous guide à travers vos premiers pas avec l'application.
 @subsubheading Pour les utilisateurs qui mettent à jour LilyPond depuis une version antérieure
 
 @ifWebLinks{@manualStableChangesSplitNoName-fr,@rchangesnamed{Top,Nouveautés}}
-Évolutions de LilyPond @versionStable par rapport à la version stable
+Évolutions de LilyPond @versionStable{} par rapport à la version stable
 précédente.
 
 @ifWebLinks{@manualStableUsageSplitNoName-fr,@rprogramnamed{Top,Manuel d'utilisation}}

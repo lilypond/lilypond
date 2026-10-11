@@ -217,15 +217,15 @@ LilyPond は、いかなる種類の譜刻にも対応できる、@c
 
 @c TODO: javascript to detect OS and suggest download?
 
-@ref{Download, ダウンロード @versionStable}
+@ref{Download, ダウンロード @versionStable{}}
 
-@ref{Manuals, マニュアル @versionStable}
+@ref{Manuals, マニュアル @versionStable{}}
 
 @subheading 開発版
 
-@ref{Development, ダウンロード @versionDevel}
+@ref{Development, ダウンロード @versionDevel{}}
 
-@ref{Development, マニュアル @versionDevel}
+@ref{Development, マニュアル @versionDevel{}}
 
 @subheading Pondings
 @divId{pondingsText}

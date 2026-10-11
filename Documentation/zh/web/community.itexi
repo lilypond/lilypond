@@ -519,7 +519,7 @@ LilyPond 开发者可能在 lilypond 邮件列表不停地宣传它们的服务�
 @unnumberedsec 开发
 
 @divClass{heading-center}
-@heading LilyPond @versionDevel 的开发
+@heading LilyPond @versionDevel{} 的开发
 
 
 @c we normally don't allow named references, but in this case

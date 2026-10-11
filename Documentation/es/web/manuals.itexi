@@ -18,10 +18,10 @@
 
 @divClass{heading-center}
 @ifclear web_version
-@heading Manuales de LilyPond @version
+@heading Manuales de LilyPond @version{}
 @end ifclear
 @ifset web_version
-@heading Manuales de LilyPond @versionStable
+@heading Manuales de LilyPond @versionStable{}
 @end ifset
 
 @divEnd
@@ -433,7 +433,7 @@ informar de los fallos, y desarrollo.
 @end itemize
 @divEnd
 
-@subsubheading Manual web en @versionDevel
+@subsubheading Manual web en @versionDevel{}
 
 @docLinksBare{Web, web,
   @ref{Top,Web},

@@ -594,7 +594,7 @@ ou ambiguïté à ce sujet, avant même que les travaux soient entamés.
 @unnumberedsec Développement
 
 @divClass{heading-center}
-@heading Développement pour LilyPond @versionDevel
+@heading Développement pour LilyPond @versionDevel{}
 
 @c we normally don't allow named references, but in this case
 @c it's good to emphasize the "stable" part.  -gp

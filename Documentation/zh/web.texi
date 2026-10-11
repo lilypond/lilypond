@@ -190,15 +190,15 @@ LilyPond (荷花池) 是一个音乐雕版软件，致力产生最高质量的�
 
 @subsubheading 稳定版
 
-@ref{Download, Download @versionStable}
+@ref{Download, Download @versionStable{}}
 
-@ref{Manuals, Manuals @versionStable}
+@ref{Manuals, Manuals @versionStable{}}
 
 @subsubheading 开发版
 
-@ref{Development, Download @versionDevel}
+@ref{Development, Download @versionDevel{}}
 
-@ref{Development, Manuals @versionDevel}
+@ref{Development, Manuals @versionDevel{}}
 
 @divEnd
 @end ifset

@@ -546,7 +546,7 @@ dieser Punkte geklärt werden sollten, bevor die Arbeit beginng.
 @unnumberedsec Entwicklung
 
 @divClass{heading-center}
-@heading Entwicklung für LilyPond @versionDevel
+@heading Entwicklung für LilyPond @versionDevel{}
 
 
 @c we normally don't allow named references, but in this case

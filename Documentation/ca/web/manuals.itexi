@@ -22,10 +22,10 @@
 
 @divClass{heading-center}
 @ifclear web_version
-@heading Manuals del LilyPond @version
+@heading Manuals del LilyPond @version{}
 @end ifclear
 @ifset web_version
-@heading Manuals del LilyPond @versionStable
+@heading Manuals del LilyPond @versionStable{}
 @end ifset
 
 @divEnd
@@ -421,7 +421,7 @@ maneres d'informar de les fallades, i desenvolupament.
 @end itemize
 @divEnd
 
-@subsubheading Manual web en @versionDevel
+@subsubheading Manual web en @versionDevel{}
 
 @docLinksBare{Web, web,
   @ref{Top,Web},

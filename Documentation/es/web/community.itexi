@@ -568,7 +568,7 @@ cualquier trabajo.
 @unnumberedsec Desarrollo
 
 @divClass{heading-center}
-@heading Materiales de desarrollo para LilyPond @versionDevel
+@heading Materiales de desarrollo para LilyPond @versionDevel{}
 
 
 @c we normally don't allow named references, but in this case

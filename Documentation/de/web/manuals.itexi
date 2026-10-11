@@ -20,10 +20,10 @@
 
 @divClass{heading-center}
 @ifclear web_version
-@heading Handbücher für LilyPond @version
+@heading Handbücher für LilyPond @version{}
 @end ifclear
 @ifset web_version
-@heading Handbücher für LilyPond @versionStable
+@heading Handbücher für LilyPond @versionStable{}
 @end ifset
 
 @divEnd
@@ -437,7 +437,7 @@ Programm.
 @end itemize
 @divEnd
 
-@subsubheading Web-Handbuch von @versionDevel
+@subsubheading Web-Handbuch von @versionDevel{}
 
 @docLinksBare{Web, web,
   @ref{Top,Web},

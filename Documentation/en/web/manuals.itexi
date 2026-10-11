@@ -18,10 +18,10 @@
 
 @divClass{heading-center}
 @ifclear web_version
-@heading Manuals for LilyPond @version
+@heading Manuals for LilyPond @version{}
 @end ifclear
 @ifset web_version
-@heading Manuals for LilyPond @versionStable
+@heading Manuals for LilyPond @versionStable{}
 @end ifset
 
 @divEnd
@@ -431,7 +431,7 @@ reporting, and development.
 @end itemize
 @divEnd
 
-@subsubheading Web manual in @versionDevel
+@subsubheading Web manual in @versionDevel{}
 
 @docLinksBare{Web, web,
   @ref{Top,Web},

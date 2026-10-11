@@ -190,15 +190,15 @@ Browse our gallery of @ref{Examples} and be inspired!
 
 @c TODO: javascript to detect OS and suggest download?
 
-@ref{Download, Download @versionStable}
+@ref{Download, Download @versionStable{}}
 
-@ref{Manuals, Manuals @versionStable}
+@ref{Manuals, Manuals @versionStable{}}
 
 @subheading Unstable Release
 
-@ref{Development, Download @versionDevel}
+@ref{Development, Download @versionDevel{}}
 
-@ref{Development, Manuals @versionDevel}
+@ref{Development, Manuals @versionDevel{}}
 
 @subheading Pondings
 @divId{pondingsText}

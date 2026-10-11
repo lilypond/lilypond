@@ -567,7 +567,7 @@ questions should be resolved before any work begins.
 @unnumberedsec Development
 
 @divClass{heading-center}
-@heading Development for LilyPond @versionDevel
+@heading Development for LilyPond @versionDevel{}
 
 
 @c we normally don't allow named references, but in this case

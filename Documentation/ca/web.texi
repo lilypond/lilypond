@@ -196,15 +196,15 @@ ples} i inspireu-vos!
 
 @c TODO: javascript to detect OS and suggest download?
 
-@ref{Download, Descàrrega de @versionStable}
+@ref{Download, Descàrrega de @versionStable{}}
 
-@ref{Manuals, Manuals de @versionStable}
+@ref{Manuals, Manuals de @versionStable{}}
 
 @subheading Versió de desenvolupament
 
-@ref{Development, Descàrrega de @versionDevel}
+@ref{Development, Descàrrega de @versionDevel{}}
 
-@ref{Development, Manuals de @versionDevel}
+@ref{Development, Manuals de @versionDevel{}}
 
 @subheading Novetats
 @divId{pondingsText}

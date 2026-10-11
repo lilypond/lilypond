@@ -190,15 +190,15 @@ ve hatta
 
 @c TODO: javascript to detect OS and suggest download?
 
-@ref{Download, İndir @versionStable}
+@ref{Download, İndir @versionStable{}}
 
-@ref{Manuals, Kılavuz @versionStable}
+@ref{Manuals, Kılavuz @versionStable{}}
 
 @subheading Stabil Olmayan Sürüm
 
-@ref{Development, İndir @versionDevel}
+@ref{Development, İndir @versionDevel{}}
 
-@ref{Development, Kılavuz @versionDevel}
+@ref{Development, Kılavuz @versionDevel{}}
 
 @subheading Pondings
 @divId{pondingsText}

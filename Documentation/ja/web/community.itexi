@@ -537,7 +537,7 @@ LilyPond 開発者は時々、彼らが行ったサービスを lilypond email �
 @unnumberedsec 開発
 
 @divClass{heading-center}
-@heading LilyPond @versionDevel の開発
+@heading LilyPond @versionDevel{} の開発
 
 
 @c we normally don't allow named references, but in this case
