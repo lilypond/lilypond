@@ -664,6 +664,10 @@ expression."
 (define-display-method TransposedMusic (m)
   (music->lily-string (ly:music-property m 'element)))
 
+(define-display-method RigidMusic (m)
+  (format #f "\\rigid ~a"
+          (music->lily-string (ly:music-property m 'element))))
+
 ;;;
 ;;; Repeats
 ;;;

@@ -291,6 +291,7 @@ are reported on the stderr of this run."
 \test ##[ \bar "|." #]
 \test ##[ \fine #]
 \test ##[ \section #]
+\test ##[ \rigid \bar "||" #]
 
 %% staff switches
 \test ##[ \autoChange { c4 d4 } #]			% AutoChangeMusic

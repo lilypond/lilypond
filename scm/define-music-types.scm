@@ -695,6 +695,13 @@ previously added property from a graphical object definition.")
         (iterator-ctor . ,ly:pop-property-iterator::constructor)
         ))
 
+    (RigidMusic
+     . ((description . "Music not providing move-before-grace functionality")
+        (types . (music-wrapper-music rigid-music))
+        (start-callback . ,ly:music-wrapper::start-callback)
+        (length-callback . ,ly:music-wrapper::length-callback)
+        (iterator-ctor . ,ly:rigid-music-iterator::constructor)))
+
     (ScriptEvent
      . ((description . "Add an articulation mark to a note.")
         (types . (event))

@@ -2295,7 +2295,11 @@ rightHandFinger =
             (if (index? finger) 'stroke-finger-digit 'stroke-finger-text)
             finger))
 
-
+rigid =
+#(define-music-function (music) (ly:music?)
+   (_i "Render @var{music} without its elements moving before grace elements
+in other music")
+   (make-music 'RigidMusic 'element music))
 
 scaleDurations =
 #(define-music-function (fraction music) (scale? ly:music?)
