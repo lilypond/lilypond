@@ -4804,6 +4804,7 @@ direction is overridden and then reverted.
 }
 @end lilypond
 
+@funindex \rigid
 @cindex grace note, synchronization
 
 Since grace notes are optional material preceding main note
@@ -4812,12 +4813,19 @@ material, often grace notes occur in one @code{Voice} or
 changes, page breaks, bars, property setting commands, section
 marks and so on is generally expected to be placed @emph{before}
 grace notes occuring in other voices, so that is what LilyPond
-does by default.
+does by default.  If you want LilyPond to refrain from moving such
+material before grace notes in parallel tracks, placing the
+command @code{\rigid} before them will prevent such loose timing.
 
 @lilypond[quote,verbatim]
 <<
   \new Staff { \grace g'8 c''1 }
   \new Staff { \clef "bass" c1 }
+>>
+
+<<
+  \new Staff { \grace g'8 c''1 }
+  \new Staff { \rigid \clef "bass" c1 }
 >>
 @end lilypond
 

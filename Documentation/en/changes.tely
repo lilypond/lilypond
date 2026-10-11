@@ -79,6 +79,22 @@ creating @q{timing tracks} with common elements like marks, time
 signature and clef changes and so on.  The change is an inherent
 part of LilyPond's timing now.
 
+A new command @code{\rigid} can be used for selectively disabling
+music from moving before grace material in parallel contexts.
+
+@lilypond[quote,verbatim]
+<<
+  \new Staff { \grace g'8 c''1 }
+  \new Staff { \clef "bass" c1 }
+>>
+
+<<
+  \new Staff { \grace g'8 c''1 }
+  \new Staff { \rigid \clef "bass" c1 }
+>>
+@end lilypond
+
+
 @item
 Book and bookpart expressions now have different and separate
 types that can be tested using @code{ly:book?} and
