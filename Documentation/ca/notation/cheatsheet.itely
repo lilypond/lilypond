@@ -29,7 +29,6 @@
 @tab duracions
 @tab
 @lilypond[inline,relative=2,notime]
-\override Staff.Clef.break-visibility = #all-invisible
 c1 c2 c8 c16
 @end lilypond
 
@@ -37,7 +36,6 @@ c1 c2 c8 c16
 @tab puntets
 @tab
 @lilypond[inline,relative=2,notime]
-\override Staff.Clef.break-visibility = #all-invisible
 c4. c4..
 @end lilypond
 
@@ -69,7 +67,7 @@ s4_" "
 @tab compàs
 @tab
 @lilypond[inline,relative=1]
-\override Staff.Clef.stencil = #empty-stencil
+\omit Score.Clef
 \time 3/4
 s4_" "
 \time 4/4
@@ -81,7 +79,6 @@ s16_" "
 @tab silenci
 @tab
 @lilypond[inline,relative=2,notime]
-\override Staff.Clef.break-visibility = #all-invisible
 r4 r8
 @end lilypond
 

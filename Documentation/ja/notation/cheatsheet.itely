@@ -31,7 +31,6 @@
 @tab 演奏時間
 @tab
 @lilypond[inline,relative=2,notime]
-\override Staff.Clef.break-visibility = #all-invisible
 c1 c2 c8 c16
 @end lilypond
 
@@ -39,7 +38,6 @@ c1 c2 c8 c16
 @tab 増音の付点
 @tab
 @lilypond[inline,relative=2,notime]
-\override Staff.Clef.break-visibility = #all-invisible
 c4. c4..
 @end lilypond
 
@@ -72,7 +70,7 @@ s4_" "
 @tab 拍子記号
 @tab
 @lilypond[inline,relative=1]
-\override Staff.Clef.stencil = #empty-stencil
+\omit Score.Clef
 \time 3/4
 s4_" "
 \time 4/4
@@ -84,7 +82,6 @@ s16_" "
 @tab 休符
 @tab
 @lilypond[inline,relative=2,notime]
-\override Staff.Clef.break-visibility = #all-invisible
 r4 r8
 @end lilypond
 
