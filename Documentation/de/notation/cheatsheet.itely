@@ -157,7 +157,7 @@ a8-[ b-]
 @end lilypond
 
 
-@item @code{<< \new Staff ... >>}
+@item @code{<< \new Staff @dots{} >>}
 @tab mehr Notensysteme
 @tab
 @lilypond[inline,relative=1]
@@ -278,7 +278,7 @@ twinkle
 \chordmode { c:dim f:maj7 }
 @end lilypond
 
-@item @code{\context ChordNames}
+@item @code{\new ChordNames}
 @tab Akkordsymbole drucken
 @tab
 @lilypond[inline,relative=2]
