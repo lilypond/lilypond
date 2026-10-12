@@ -165,6 +165,8 @@ top-level, a page marker object is instanciated instead of a score.")
 whether to allow, forbid or force a page turn.")
      (part-combine-status ,symbol? "Change to what kind of state?
 Options are @code{solo1}, @code{solo2} and @code{unisono}.")
+     (pending-grace ,ly:moment? "Possible internal deadline for undoing
+@code{\\once} layout instruction events when compensating for grace timing.")
      (pitch ,ly:pitch? "The pitch of this note.")
      (pitch-alist ,list? "A list of pitches jointly forming the scale
 of a key signature.")

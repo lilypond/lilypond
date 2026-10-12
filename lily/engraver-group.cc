@@ -41,8 +41,16 @@ Engraver_group::override (SCM sev)
       if (scm_is_pair (token))
         {
           Global_context *g = find_global_context (context ());
-          g->add_finalization (ly_list (ly_context_matched_pop_property_proc,
-                                        context ()->self_scm (), sym, token));
+          SCM rev = ly_list (ly_context_matched_pop_property_proc,
+                             context ()->self_scm (), sym, token);
+          SCM gp_scm = get_property (ev, "pending-grace");
+          if (is_scm<Moment> (gp_scm))
+            {
+              Moment gp = from_scm<Moment> (gp_scm);
+              gp.main_part_ = g->now_mom ().main_part_;
+              rev = scm_cons (to_scm (gp), rev);
+            }
+          g->add_finalization (rev);
         }
     }
   else
@@ -62,8 +70,16 @@ Engraver_group::revert (SCM sev)
       if (scm_is_pair (token))
         {
           Global_context *g = find_global_context (context ());
-          g->add_finalization (ly_list (ly_context_matched_pop_property_proc,
-                                        context ()->self_scm (), sym, token));
+          SCM rev = ly_list (ly_context_matched_pop_property_proc,
+                             context ()->self_scm (), sym, token);
+          SCM gp_scm = get_property (ev, "pending-grace");
+          if (is_scm<Moment> (gp_scm))
+            {
+              Moment gp = from_scm<Moment> (gp_scm);
+              gp.main_part_ = g->now_mom ().main_part_;
+              rev = scm_cons (to_scm (gp), rev);
+            }
+          g->add_finalization (rev);
         }
     }
   else

@@ -35,11 +35,22 @@ Property_iterator::process (Moment mom)
 {
   Context *o = get_context ();
   Music *m = get_music ();
+  SCM once = get_property (m, "once");
 
-  send_stream_event (o, "SetProperty", m->origin (), ly_symbol2scm ("symbol"),
-                     get_property (m, "symbol"), ly_symbol2scm ("value"),
-                     get_property (m, "value"), ly_symbol2scm ("once"),
-                     get_property (m, "once"));
+  if (!from_scm<bool> (once) || !mom.grace_part_)
+    send_stream_event (o, "SetProperty", m->origin (),
+                       ly_symbol2scm ("symbol"), get_property (m, "symbol"),
+                       ly_symbol2scm ("value"), get_property (m, "value"),
+                       ly_symbol2scm ("once"), once);
+  else
+    // We have a \once to process and are in loose grace timing, so the undo
+    // will have to happen at the proper non-loose time.  We convert our local
+    // time of zero (the desired end time) to global time.
+    send_stream_event (
+      o, "SetProperty", m->origin (), ly_symbol2scm ("symbol"),
+      get_property (m, "symbol"), ly_symbol2scm ("value"),
+      get_property (m, "value"), ly_symbol2scm ("once"), once,
+      ly_symbol2scm ("pending-grace"), to_scm (global_time (Moment ())));
 
   Simple_music_iterator::process (mom);
 }
@@ -49,10 +60,20 @@ Property_unset_iterator::process (Moment mom)
 {
   Context *o = get_context ();
   Music *m = get_music ();
+  SCM once = get_property (m, "once");
 
-  send_stream_event (o, "UnsetProperty", m->origin (),
-                     ly_symbol2scm ("symbol"), get_property (m, "symbol"),
-                     ly_symbol2scm ("once"), get_property (m, "once"));
+  if (!from_scm<bool> (once) || !mom.grace_part_)
+    send_stream_event (o, "UnsetProperty", m->origin (),
+                       ly_symbol2scm ("symbol"), get_property (m, "symbol"),
+                       ly_symbol2scm ("once"), once);
+  else
+    // We have a \once to process and are in loose grace timing, so the undo
+    // will have to happen at the proper non-loose time.  We convert our local
+    // time of zero (the desired end time) to global time.
+    send_stream_event (
+      o, "UnsetProperty", m->origin (), ly_symbol2scm ("symbol"),
+      get_property (m, "symbol"), ly_symbol2scm ("once"), once,
+      ly_symbol2scm ("pending-grace"), to_scm (global_time (Moment ())));
 
   Simple_music_iterator::process (mom);
 }
@@ -99,10 +120,20 @@ Push_property_iterator::process (Moment m)
           get_context (), "Revert", origin (), ly_symbol2scm ("symbol"), sym,
           ly_symbol2scm ("property-path"), grob_property_path);
 
-      send_stream_event (
-        get_context (), "Override", origin (), ly_symbol2scm ("symbol"), sym,
-        ly_symbol2scm ("property-path"), grob_property_path,
-        ly_symbol2scm ("once"), once, ly_symbol2scm ("value"), val);
+      if (!once || !m.grace_part_)
+        send_stream_event (
+          get_context (), "Override", origin (), ly_symbol2scm ("symbol"), sym,
+          ly_symbol2scm ("property-path"), grob_property_path,
+          ly_symbol2scm ("once"), once, ly_symbol2scm ("value"), val);
+      else
+        // We have a \once to process and are in loose grace timing, so the
+        // undo will have to happen at the proper non-loose time.  We convert
+        // our local time of zero (the desired end time) to global time.
+        send_stream_event (
+          get_context (), "Override", origin (), ly_symbol2scm ("symbol"), sym,
+          ly_symbol2scm ("property-path"), grob_property_path,
+          ly_symbol2scm ("once"), once, ly_symbol2scm ("value"), val,
+          ly_symbol2scm ("pending-grace"), to_scm (global_time (Moment ())));
     }
   Simple_music_iterator::process (m);
 }
@@ -112,15 +143,26 @@ Pop_property_iterator::process (Moment mom)
 {
   Music *m = get_music ();
   SCM sym = get_property (m, "symbol");
+  SCM once = get_property (m, "once");
 
   if (check_grob (m, sym))
     {
       SCM grob_property_path = get_property_path (m);
 
-      send_stream_event (get_context (), "Revert", m->origin (),
-                         ly_symbol2scm ("symbol"), sym, ly_symbol2scm ("once"),
-                         get_property (m, "once"),
-                         ly_symbol2scm ("property-path"), grob_property_path);
+      if (!once || !mom.grace_part_)
+        send_stream_event (
+          get_context (), "Revert", m->origin (), ly_symbol2scm ("symbol"),
+          sym, ly_symbol2scm ("once"), once, ly_symbol2scm ("property-path"),
+          grob_property_path);
+      else
+        // We have a \once to process and are in loose grace timing, so the
+        // undo will have to happen at the proper non-loose time.  We convert
+        // our local time of zero (the desired end time) to global time.
+        send_stream_event (
+          get_context (), "Revert", m->origin (), ly_symbol2scm ("symbol"),
+          sym, ly_symbol2scm ("once"), once, ly_symbol2scm ("property-path"),
+          grob_property_path, ly_symbol2scm ("pending-grace"),
+          to_scm (global_time (Moment ())));
     }
   Simple_music_iterator::process (mom);
 }

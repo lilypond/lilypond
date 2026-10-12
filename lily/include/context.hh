@@ -54,7 +54,7 @@ private:
                              const std::string &leaf_id, SCM leaf_operations);
   Context *find_child_to_adopt_grandchild (SCM child_name,
                                            SCM grandchild_name);
-  SCM make_revert_finalization (SCM sym);
+  SCM make_revert_finalization (SCM sym, SCM pending_grace);
 
   enum FindMode
   {

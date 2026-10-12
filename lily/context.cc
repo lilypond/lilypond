@@ -279,18 +279,30 @@ Context::acknowledge_infant (SCM sev)
 }
 
 // Make a finalization to set (or unset) the current value of the given
-// property.
+// property.  If there is a pending_grace value, replace its main part with the
+// current main part and prepend it as deadline to the finalization.  We
+// replace the main part in order not to get into problems in the context of
+// quotes and other possible means of delayed execution: the worst that can
+// happen then is that we get delayed by the wrong amount of grace time.
 SCM
-Context::make_revert_finalization (SCM sym)
+Context::make_revert_finalization (SCM sym, SCM pending_grace)
 {
+  SCM fin;
   if (auto val = here_defined (this, sym))
     {
-      return ly_list (ly_context_set_property_x_proc, self_scm (), sym, *val);
+      fin = ly_list (ly_context_set_property_x_proc, self_scm (), sym, *val);
     }
   else
     {
-      return ly_list (ly_context_unset_property_proc, self_scm (), sym);
+      fin = ly_list (ly_context_unset_property_proc, self_scm (), sym);
     }
+  if (is_scm<Moment> (pending_grace))
+    {
+      Moment pg = from_scm<Moment> (pending_grace);
+      pg.main_part_ = now_mom ().main_part_;
+      return scm_cons (to_scm (pg), fin);
+    }
+  return fin;
 }
 
 void
@@ -313,7 +325,8 @@ Context::set_property_from_event (SCM sev)
       if (scm_is_symbol (sym))
         {
           if (from_scm<bool> (get_property (ev, "once")))
-            add_global_finalization (make_revert_finalization (sym));
+            add_global_finalization (make_revert_finalization (
+              sym, get_property (ev, "pending-grace")));
           // Bypassing set_property() avoids repeating checks.  It would also
           // bypass instrumentation, but that is no loss because there isn't any
           // at present.
@@ -332,7 +345,8 @@ Context::unset_property_from_event (SCM sev)
   if (scm_is_symbol (sym))
     {
       if (from_scm<bool> (get_property (ev, "once")))
-        add_global_finalization (make_revert_finalization (sym));
+        add_global_finalization (
+          make_revert_finalization (sym, get_property (ev, "pending-grace")));
       // Bypassing unset_property() avoids repeating checks.  It would also
       // bypass instrumentation, but that is no loss because there isn't any at
       // present.
