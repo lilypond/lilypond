@@ -149,14 +149,15 @@ snippet_options = {
 
     ##
     LAYOUT: {
+        ##
+        # TODO: In theory, not just Score should be modified, but any other
+        #       Score-aliased context that has a default meter and can function
+        #       without one.
         NOTIME: r'''
  \context {
    \Score
    timing = ##f
- }
- \context {
-   \Staff
-   \remove Time_signature_engraver
+   \omit TimeSignature
  }''',
     },
 
