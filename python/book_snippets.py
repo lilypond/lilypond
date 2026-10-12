@@ -156,8 +156,7 @@ snippet_options = {
         NOTIME: r'''
  \context {
    \Score
-   timing = ##f
-   \omit TimeSignature
+   timeSignature = ##f
  }''',
     },
 

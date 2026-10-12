@@ -784,8 +784,8 @@ Example:
 @end example
 
 @item notime
-Do not print the time signature and turn off the timing (time signature,
-bar lines) in the score.
+Start with @code{\senzaMisura} rather than the default @code{\time
+4/4}.
 
 @item fragment
 Make @command{lilypond-book} add some boilerplate code so that you can

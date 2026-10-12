@@ -472,6 +472,13 @@ was broken for some time.
 @itemize
 
 @item
+The @command{lilypond-book} snippet option @option{notime} uses
+the new @code{\senzaMisura} mode.  In previous releases,
+@option{notime} used the default @code{\time 4/4}, prevented
+engraving time signatures, and set @code{\cadenzaOn}, which
+defeated automatic beaming.
+
+@item
 Producing SVG output with the legacy @option{-dbackend=svg} backend is now much
 faster for large scores, due to caching extracted glyphs from the SVG font file.
 
