@@ -151,6 +151,9 @@ public:
   void internal_send_stream_event (SCM type, Input *origin, SCM prop, SCM val,
                                    SCM prop2, SCM val2, SCM prop3, SCM val3,
                                    SCM prop4, SCM val4);
+  void internal_send_stream_event (SCM type, Input *origin, SCM prop, SCM val,
+                                   SCM prop2, SCM val2, SCM prop3, SCM val3,
+                                   SCM prop4, SCM val4, SCM prop5, SCM val5);
   SCM get_definition () const { return definition_; }
   SCM get_definition_mods () const { return definition_mods_; }
 

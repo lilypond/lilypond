@@ -681,6 +681,23 @@ Context::internal_send_stream_event (SCM type, Input *origin, SCM prop,
   e->unprotect ();
 }
 
+void
+Context::internal_send_stream_event (SCM type, Input *origin, SCM prop,
+                                     SCM val, SCM prop2, SCM val2, SCM prop3,
+                                     SCM val3, SCM prop4, SCM val4, SCM prop5,
+                                     SCM val5)
+{
+  Stream_event *e
+    = new Stream_event (Lily::ly_make_event_class (type), origin);
+  set_property (e, prop, val);
+  set_property (e, prop2, val2);
+  set_property (e, prop3, val3);
+  set_property (e, prop4, val4);
+  set_property (e, prop5, val5);
+  event_source_->broadcast (e);
+  e->unprotect ();
+}
+
 bool
 Context::is_alias (SCM sym) const
 {
