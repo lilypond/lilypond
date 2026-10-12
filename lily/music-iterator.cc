@@ -243,7 +243,7 @@ Moment
 Music_iterator::global_time (Moment our_time) const
 {
   if (Music_iterator const *parent = get_parent ())
-    return parent->parent_time (our_time);
+    return parent->global_time (parent->parent_time (our_time));
   return our_time;
 }
 
