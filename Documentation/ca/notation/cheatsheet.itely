@@ -29,7 +29,6 @@
 @tab duracions
 @tab
 @lilypond[inline,relative=2,notime]
-\set Staff.autoBeaming = ##f
 \override Staff.Clef.break-visibility = #all-invisible
 c1 c2 c8 c16
 @end lilypond
@@ -90,8 +89,6 @@ r4 r8
 @tab lligadura d'unió
 @tab
 @lilypond[inline,relative=2,notime]
-\set Score.timing = ##f
-\set Staff.autoBeaming = ##f
 d ~ d
 @end lilypond
 
@@ -109,8 +106,6 @@ c128
 @tab pujar una octava
 @tab
 @lilypond[inline,relative=2,notime]
-\set Score.timing = ##f
-\set Staff.autoBeaming = ##f
 a a'
 @end lilypond
 
@@ -118,8 +113,6 @@ a a'
 @tab baixar una octava
 @tab
 @lilypond[inline,relative=2,notime]
-\set Score.timing = ##f
-\set Staff.autoBeaming = ##f
 c c,
 @end lilypond
 
@@ -127,10 +120,7 @@ c c,
 @item @code{c( d e)}
 @tab lligadura d'expressió
 @tab
-@lilypond[inline,relative=2]
-\set Score.timing = ##f
-\set Staff.initialTimeSignatureVisibility = #all-invisible
-\set Staff.autoBeaming = ##f
+@lilypond[inline,relative=2,notime]
 c( d e)
 @end lilypond
 
@@ -138,10 +128,7 @@ c( d e)
 @item @code{c\( c( d) e\)}
 @tab lligadura de fraseig
 @tab
-@lilypond[inline,relative=2]
-\set Score.timing = ##f
-\set Staff.initialTimeSignatureVisibility = #all-invisible
-\set Staff.autoBeaming = ##f
+@lilypond[inline,relative=2,notime]
 c\( c( d) e\)
 @end lilypond
 
@@ -149,10 +136,7 @@ c\( c( d) e\)
 @item @code{a8[ b]}
 @tab barra
 @tab
-@lilypond[inline,relative=2]
-\set Score.timing = ##f
-\set Staff.initialTimeSignatureVisibility = #all-invisible
-\set Staff.autoBeaming = ##f
+@lilypond[inline,relative=2,notime]
 a8-[ b-]
 @end lilypond
 
@@ -161,22 +145,18 @@ a8-[ b-]
 @tab més pentagrames
 @tab
 @lilypond[inline,relative=1]
-<< \new Staff {
-     \set Staff.initialTimeSignatureVisibility = #all-invisible
-     c1
-   }
-   \new Staff {
-     \set Staff.initialTimeSignatureVisibility = #all-invisible
-     c1
-   } >>
+\omit Timing.TimeSignature
+<<
+  \new Staff c1
+  \new Staff c1
+>>
 @end lilypond
 
 
 @item @code{c-> c-.}
 @tab articulacions
 @tab
-@lilypond[inline,relative=2]
-\set Staff.initialTimeSignatureVisibility = #all-invisible
+@lilypond[inline,relative=2,notime]
 c-> c-.
 @end lilypond
 
@@ -185,7 +165,7 @@ c-> c-.
 @tab matisos dinàmics
 @tab
 @lilypond[inline,relative=2]
-\set Staff.initialTimeSignatureVisibility = #all-invisible
+\omit Timing.TimeSignature
 c2\mf c\sfz
 @end lilypond
 
@@ -193,20 +173,14 @@ c2\mf c\sfz
 @item @code{a\< a a\!}
 @tab crescendo
 @tab
-@lilypond[inline,relative=2]
-\set Score.timing = ##f
-\set Staff.initialTimeSignatureVisibility = #all-invisible
-\set Staff.autoBeaming = ##f
+@lilypond[inline,relative=2,notime]
 a\< a a\!
 @end lilypond
 
 @item @code{a\> a a\!}
 @tab decrescendo
 @tab
-@lilypond[inline,relative=2]
-\set Score.timing = ##f
-\set Staff.initialTimeSignatureVisibility = #all-invisible
-\set Staff.autoBeaming = ##f
+@lilypond[inline,relative=2,notime]
 a\> a a\!
 @end lilypond
 
@@ -214,8 +188,7 @@ a\> a a\!
 @item @code{< >}
 @tab acord
 @tab
-@lilypond[inline,relative=2]
-\set Staff.initialTimeSignatureVisibility = #all-invisible
+@lilypond[inline,relative=2,notime]
 <c e>
 @end lilypond
 
@@ -233,7 +206,7 @@ f8 c2 d e
 @tab tresets
 @tab
 @lilypond[inline,relative=1]
-\set Staff.initialTimeSignatureVisibility = #all-invisible
+\omit Timing.TimeSignature
 \tuplet 3/2 { f8 g a }
 @end lilypond
 
@@ -241,8 +214,7 @@ f8 c2 d e
 @item @code{\grace}
 @tab mordents
 @tab
-@lilypond[inline,relative=2]
-\set Staff.initialTimeSignatureVisibility = #all-invisible
+@lilypond[inline,relative=2,notime]
 \context Voice { \grace b16 c4 }
 @end lilypond
 
@@ -255,7 +227,7 @@ twinkle
 @item @code{\new Lyrics}
 @tab imprimir la lletra
 @tab
-@lilypond[inline,relative=1]
+@lilypond[inline,relative=1,notime]
 \new Lyrics \lyricmode { twinkle }
 @end lilypond
 
@@ -263,7 +235,7 @@ twinkle
 @tab separador de síl·labes
 @tab
 @lilypond[inline,relative=2]
-\set Staff.initialTimeSignatureVisibility = #all-invisible
+\omit Timing.TimeSignature
 <<
    { g'1 g }
   \new Lyrics \lyricsto "" { twin -- kle }
@@ -273,23 +245,21 @@ twinkle
 @item @code{\chordmode @{ c:dim f:maj7 @}}
 @tab acords
 @tab
-@lilypond[inline,relative=2]
-\set Staff.initialTimeSignatureVisibility = #all-invisible
+@lilypond[inline,relative=2,notime]
 \chordmode { c:dim f:maj7 }
 @end lilypond
 
 @item @code{\new ChordNames}
 @tab imprimir els noms dels acords
 @tab
-@lilypond[inline,relative=2]
+@lilypond[inline,relative=2,notime]
 \chords { c:dim f:maj7 }
 @end lilypond
 
 @item @code{<<@{e f@} \\ @{c d@}>>}
 @tab polifonia
 @tab
-@lilypond[inline,relative=2]
-\set Staff.initialTimeSignatureVisibility = #all-invisible
+@lilypond[inline,relative=2,notime]
 \context Staff <<{e f} \\ {c d}>>
 @end lilypond
 

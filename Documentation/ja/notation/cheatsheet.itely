@@ -31,7 +31,6 @@
 @tab 演奏時間
 @tab
 @lilypond[inline,relative=2,notime]
-\set Staff.autoBeaming = ##f
 \override Staff.Clef.break-visibility = #all-invisible
 c1 c2 c8 c16
 @end lilypond
@@ -93,8 +92,6 @@ r4 r8
 @tab タイ
 @tab
 @lilypond[inline,relative=2,notime]
-\set Score.timing = ##f
-\set Staff.autoBeaming = ##f
 d ~ d
 @end lilypond
 
@@ -112,8 +109,6 @@ c128
 @tab 1 オクターブ上げる
 @tab
 @lilypond[inline,relative=2,notime]
-\set Score.timing = ##f
-\set Staff.autoBeaming = ##f
 a a'
 @end lilypond
 
@@ -121,8 +116,6 @@ a a'
 @tab 1 オクターブ下げる
 @tab
 @lilypond[inline,relative=2,notime]
-\set Score.timing = ##f
-\set Staff.autoBeaming = ##f
 c c,
 @end lilypond
 
@@ -130,10 +123,7 @@ c c,
 @item @code{c( d e)}
 @tab スラー
 @tab
-@lilypond[inline,relative=2]
-\set Score.timing = ##f
-\set Staff.initialTimeSignatureVisibility = #all-invisible
-\set Staff.autoBeaming = ##f
+@lilypond[inline,relative=2,notime]
 c( d e)
 @end lilypond
 
@@ -141,10 +131,7 @@ c( d e)
 @item @code{c\( c( d) e\)}
 @tab プレージング スラー
 @tab
-@lilypond[inline,relative=2]
-\set Score.timing = ##f
-\set Staff.initialTimeSignatureVisibility = #all-invisible
-\set Staff.autoBeaming = ##f
+@lilypond[inline,relative=2,notime]
 c\( c( d) e\)
 @end lilypond
 
@@ -152,10 +139,7 @@ c\( c( d) e\)
 @item @code{a8[ b]}
 @tab 連桁
 @tab
-@lilypond[inline,relative=2]
-\set Score.timing = ##f
-\set Staff.initialTimeSignatureVisibility = #all-invisible
-\set Staff.autoBeaming = ##f
+@lilypond[inline,relative=2,notime]
 a8-[ b-]
 @end lilypond
 
@@ -164,22 +148,18 @@ a8-[ b-]
 @tab 複数の譜
 @tab
 @lilypond[inline,relative=1]
-<< \new Staff {
-     \set Staff.initialTimeSignatureVisibility = #all-invisible
-     c1
-   }
-   \new Staff {
-     \set Staff.initialTimeSignatureVisibility = #all-invisible
-     c1
-   } >>
+\omit Timing.TimeSignature
+<<
+  \new Staff c1
+  \new Staff c1
+>>
 @end lilypond
 
 
 @item @code{c-> c-.}
 @tab アーティキュレーション
 @tab
-@lilypond[inline,relative=2]
-\set Staff.initialTimeSignatureVisibility = #all-invisible
+@lilypond[inline,relative=2,notime]
 c-> c-.
 @end lilypond
 
@@ -188,7 +168,7 @@ c-> c-.
 @tab 強弱記号
 @tab
 @lilypond[inline,relative=2]
-\set Staff.initialTimeSignatureVisibility = #all-invisible
+\omit Timing.TimeSignature
 c2\mf c\sfz
 @end lilypond
 
@@ -196,20 +176,14 @@ c2\mf c\sfz
 @item @code{a\< a a\!}
 @tab クレッシェンド
 @tab
-@lilypond[inline,relative=2]
-\set Score.timing = ##f
-\set Staff.initialTimeSignatureVisibility = #all-invisible
-\set Staff.autoBeaming = ##f
+@lilypond[inline,relative=2,notime]
 a\< a a\!
 @end lilypond
 
 @item @code{a\> a a\!}
 @tab デクレッシェンド
 @tab
-@lilypond[inline,relative=2]
-\set Score.timing = ##f
-\set Staff.initialTimeSignatureVisibility = #all-invisible
-\set Staff.autoBeaming = ##f
+@lilypond[inline,relative=2,notime]
 a\> a a\!
 @end lilypond
 
@@ -217,8 +191,7 @@ a\> a a\!
 @item @code{< >}
 @tab 和音
 @tab
-@lilypond[inline,relative=2]
-\set Staff.initialTimeSignatureVisibility = #all-invisible
+@lilypond[inline,relative=2,notime]
 <c e>
 @end lilypond
 
@@ -236,7 +209,7 @@ f8 c2 d e
 @tab 3 連符
 @tab
 @lilypond[inline,relative=1]
-\set Staff.initialTimeSignatureVisibility = #all-invisible
+\omit Timing.TimeSignature
 \tuplet 3/2 { f8 g a }
 @end lilypond
 
@@ -244,8 +217,7 @@ f8 c2 d e
 @item @code{\grace}
 @tab 装飾小音符
 @tab
-@lilypond[inline,relative=2]
-\set Staff.initialTimeSignatureVisibility = #all-invisible
+@lilypond[inline,relative=2,notime]
 \context Voice { \grace b16 c4 }
 @end lilypond
 
@@ -258,7 +230,7 @@ twinkle
 @item @code{\new Lyrics}
 @tab 歌詞を譜刻する
 @tab
-@lilypond[inline,relative=1]
+@lilypond[inline,relative=1,notime]
 \new Lyrics \lyricmode { twinkle }
 @end lilypond
 
@@ -266,7 +238,7 @@ twinkle
 @tab 歌詞のハイフン
 @tab
 @lilypond[inline,relative=2]
-\set Staff.initialTimeSignatureVisibility = #all-invisible
+\omit Timing.TimeSignature
 <<
    { g'1 g }
   \new Lyrics \lyricsto "" { twin -- kle }
@@ -276,23 +248,21 @@ twinkle
 @item @code{\chordmode @{ c:dim f:maj7 @}}
 @tab コード
 @tab
-@lilypond[inline,relative=2]
-\set Staff.initialTimeSignatureVisibility = #all-invisible
+@lilypond[inline,relative=2,notime]
 \chordmode { c:dim f:maj7 }
 @end lilypond
 
 @item @code{\new ChordNames}
 @tab コード ネームを譜刻する
 @tab
-@lilypond[inline,relative=2]
+@lilypond[inline,relative=2,notime]
 \chords { c:dim f:maj7 }
 @end lilypond
 
 @item @code{<<@{e f@} \\ @{c d@}>>}
 @tab 多声
 @tab
-@lilypond[inline,relative=2]
-\set Staff.initialTimeSignatureVisibility = #all-invisible
+@lilypond[inline,relative=2,notime]
 \context Staff <<{e f} \\ {c d}>>
 @end lilypond
 
