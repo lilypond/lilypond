@@ -109,9 +109,10 @@ struct scm_conversions<Moment>
 {
   static bool is_scm (SCM s) { return unsmob<Moment> (s); }
 
-  // It isn't clear that any implementation of `from_scm (s)` would improve on
-  // `from_scm (s, fallback)`.
-  static Moment from_scm (SCM) = delete;
+  // If we already established that we are talking about a Moment, we might as
+  // well unpack it.  A fallback value does not help when the fallback case
+  // does not actually need a Moment but a different behavior.
+  static Moment from_scm (SCM s) { return *unsmob<Moment> (s); };
 
   template <typename F>
   static Moment from_scm (SCM s, F &&fallback)
