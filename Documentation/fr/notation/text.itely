@@ -434,15 +434,15 @@ des notes, mais entre elles, et souvent alignées sur une barre de mesure.
 @funindex \mark
 
 @warning{Les versions précédentes de LilyPond utilisaient l'instruction
-@code{@bs{}mark} pour les indications textuelles, bien quelle ait été
+@code{\mark} pour les indications textuelles, bien quelle ait été
 initialement conçue pour les repères de répétition (voir @ref{Rehearsal
-marks}). Les commandes @code{@bs{}textMark} et @code{@bs{}textEndMark}
+marks}). Les commandes @code{\textMark} et @code{\textEndMark}
 sont plus appropriées en matière d'indications textuelles de par leurs
 réglages par défaut et la capacité qu'elles offrent de présenter
 plusieurs indications en un même endroit. Il est donc préférable
-d'utiliser @code{@bs{}textMark} et @code{@bs{}textEndMark} en lieu et
-place de @code{@bs{}mark "Texte"} ou @code{@bs{}mark @bs{}markup
-@dots{}}. Pour la conversion de code utilisant @code{@bs{}mark}, les
+d'utiliser @code{\textMark} et @code{\textEndMark} en lieu et
+place de @code{\mark "Texte"} ou @code{\mark \markup
+@dots{}}. Pour la conversion de code utilisant @code{\mark}, les
 dérogations portées à @code{RehearsalMark} devraient être modifiées en
 @code{TextMark}.}
 

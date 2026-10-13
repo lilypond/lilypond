@@ -199,7 +199,7 @@ existe una instrucción de marcado llamada @code{\score},
 @end example
 
 @warning{Solo puede haber @strong{una} expresión musical dentro
-del bloque @code{@bs{}score}, y @strong{debe} estar encerrada
+del bloque @code{\score}, y @strong{debe} estar encerrada
 entre llaves.}
 
 Esta expresión musical única puede tener cualquier tamaño, y puede
@@ -4452,18 +4452,18 @@ presente un bloque @code{\midi}.  @xref{Scores within markup}.}
 @}
 @end example
 
-@warning{Un bloque @code{@bs{}score} que, además de la música,
-contiene solamente un bloque @code{@bs{}midi} (o sea, @emph{sin}
-el bloque @code{@bs{}layout}), solo produce archivos de salida
+@warning{Un bloque @code{\score} que, además de la música,
+contiene solamente un bloque @code{\midi} (o sea, @emph{sin}
+el bloque @code{\layout}), solo produce archivos de salida
 MIDI; no se imprime ninguna notación musical.
 
-Se puede usar un bloque @code{@bs{}midi} en el nivel jerárquico
+Se puede usar un bloque @code{\midi} en el nivel jerárquico
 superior para cambiar los ajustes de MIDI de forma global; sin
 embargo, la generación de un verdadero archivo MIDI solo se
-produce cuando un bloque @code{@bs{}midi} forma parte de un bloque
-@code{@bs{}score}.
+produce cuando un bloque @code{\midi} forma parte de un bloque
+@code{\score}.
 
-De manera parecida, un bloque @code{@bs{}layout} en el nivel
+De manera parecida, un bloque @code{\layout} en el nivel
 jerárquico superior afecta a los ajustes de disposición de forma
 global pero no influye en si se produce una salida impresa o no.}
 
@@ -5167,7 +5167,7 @@ Archivos instalados:
 que podría no ser adecuado para algunos tipos de instrumento, como
 el órgano.  Las notas que no tienen ninguna articulación también
 se pueden acortar; así, para contener el alcance de este efecto
-limite el uso de de la función @code{@bs{}articulate} a segmentos
+limite el uso de de la función @code{\articulate} a segmentos
 de música más breves o modifique los valores de las variables
 definidas dentro del script @file{articulate} para compensar el
 efecto de acortamiento de las notas.}
@@ -5242,7 +5242,7 @@ parcial.
 instrucciones de swing se trasladan también a la salida impresa,
 lo que da como resultado un espaciado irregular de las notas.
 Esto se puede evitar usándolas solamente dentro de un bloque
-@code{@bs{}score} dedicado a la salida MIDI, en lugar de a la
+@code{\score} dedicado a la salida MIDI, en lugar de a la
 música impresa.}
 
 Hay más ayuda e información incluida en el propio archivo del

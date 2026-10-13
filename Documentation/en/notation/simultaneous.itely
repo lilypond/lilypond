@@ -546,7 +546,7 @@ mus =
 @subsubheading The double backslash construct
 
 @funindex << ... \\ ... >>
-@funindex @sortas{@bs{}@bs{}} \\
+@funindex @sortas{\\} \\
 
 The @code{<< @{@dots{}@} \\ @{@dots{}@} >>} construct, where the two (or
 more) expressions are separated by double backslashes, behaves

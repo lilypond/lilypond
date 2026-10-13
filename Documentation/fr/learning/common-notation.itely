@@ -829,7 +829,7 @@ un code bien indenté est bien plus lisible par des humains.
 @warning{La hauteur de chaque note saisie est relative à la précédente ;
 seule la première première note verra sa hauteur déterminée relativement
 au au @samp{c} (une octave sous le do médium) de la commande
-@code{@bs{}relative} de départ.}
+@code{\relative} de départ.}
 
 
 @node Simultaneous music expressions single-staff
@@ -1046,7 +1046,7 @@ Manuel de notation :
 
 @funindex << ... \\ ... >>
 @funindex <<
-@funindex @sortas{@bs{}@bs{}} \\
+@funindex @sortas{\\} \\
 @funindex >>
 
 Bien que LilyPond gère la musique polyphonique sans difficulté, cela

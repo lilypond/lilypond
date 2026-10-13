@@ -742,7 +742,7 @@ els éssers humans.
 
 @warning{Cada nota s'entén relativa a la nota anterior de
 l'entrada, solament la primera és relativa a la @code{c''} dins de
-la instrucció inicial @code{@bs{}relative}.}
+la instrucció inicial @code{\relative}.}
 
 @node Simultaneous music expressions single staff
 @unnumberedsubsubsec Expressions musicals simultànies: un sol pentagrama

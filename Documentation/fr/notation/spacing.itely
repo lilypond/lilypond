@@ -358,7 +358,7 @@ Fichiers d'initialisation :
 @node Fixed vertical spacing paper variables
 @section Variables d'espacement vertical fixe
 
-@warning{Certains dimensionnements attachés au bloc @code{@bs{}paper}
+@warning{Certains dimensionnements attachés au bloc @code{\paper}
 sont automatiquement ajustés selon le format du papier, ce qui peut
 conduire à un résultat inattendu -- @pxref{Automatic scaling to paper
 size}.}
@@ -631,7 +631,7 @@ Morceaux choisis :
 @node Horizontal spacing paper variables
 @section Variables d'espacement horizontal
 
-@warning{Certains dimensionnements attachés au bloc @code{@bs{}paper}
+@warning{Certains dimensionnements attachés au bloc @code{\paper}
 sont automatiquement ajustés selon le format du papier, ce qui peut
 conduire à un résultat inattendu -- @pxref{Automatic scaling to paper
 size}.}

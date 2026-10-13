@@ -117,8 +117,8 @@ Vous pouvez facilement imbriquer plusieurs fonctions @code{\repeat
 unfold}, ce qui n'est pas aussi simple avec @code{\repeat volta} ou
 @code{\repeat segno}.
 
-@warning{L'insertion d'un @code{@bs{}relative} dans une section
-@code{@bs{}repeat} sans déclaration explicite du contexte @code{Voice}
+@warning{L'insertion d'un @code{\relative} dans une section
+@code{\repeat} sans déclaration explicite du contexte @code{Voice}
 générera une portée supplémentaire -- voir @rprogramnamed{An extra staff
 appears, Apparition d'une portée supplémentaire}.}
 
@@ -323,13 +323,13 @@ music = \fixed c' {
 \score { \unfoldRepeats \music }
 @end lilypond
 
-@warning{Tout élément inclus dans un bloc @code{@bs{}alternative} sera
+@warning{Tout élément inclus dans un bloc @code{\alternative} sera
 traité en tant qu'alternative. Quelque chose d'aussi simple qu'un
 contrôle de mesure placé du mauvais côté d'une accolade peut générer des
 résultats inattendus.}
 
-@warning{Une clause @code{@bs{}relative} ne doit jamais se trouver à
-l'intérieur d'une section @code{@bs{}repeat} : vous aurez
+@warning{Une clause @code{\relative} ne doit jamais se trouver à
+l'intérieur d'une section @code{\repeat} : vous aurez
 immanquablement des portées parasites. Voir @rprogramnamed{An extra
 staff appears, Apparition d'une portée supplémentaire}.}
 
@@ -412,7 +412,7 @@ music = \fixed c' {
 \score { \unfoldRepeats \music }
 @end lilypond
 
-@warning{Les commandes @code{@bs{}volta} et @code{@bs{}unfolded}
+@warning{Les commandes @code{\volta} et @code{\unfolded}
 fonctionnent en respectant la répétition la plus imbriquée qui les
 entoure.}
 
@@ -941,7 +941,7 @@ des accolades au sein du bloc de reprise pour plus de clarté.
 @warning{Les méthodes présentées dans les lignes qui suivent ne
 devraient servir à indiquer que des constructions de répétition
 inhabituelles. En règle générale, il vaut mieux recourir à la fonction
-@code{@bs{}repeat} pour créer une reprise ou bien insérer la barre de
+@code{\repeat} pour créer une reprise ou bien insérer la barre de
 mesure adéquate. Pour plus d'information, @pxref{Bar lines}.}
 
 La propriété @code{repeatCommands} sert à contrôler la mise en forme des

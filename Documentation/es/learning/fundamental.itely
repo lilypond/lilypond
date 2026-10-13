@@ -688,7 +688,7 @@ Veamos cómo se hace esto dentro de la sintaxis de entrada de
 LilyPond.
 
 @funindex << ... \\ ... >>
-@funindex @sortas{@bs{}@bs{}} \\
+@funindex @sortas{\\} \\
 
 La forma más fácil de introducir fragmentos con más de una voz en
 un solo pentagrama es escribir cada voz como una secuencia (con

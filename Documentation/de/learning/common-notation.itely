@@ -760,7 +760,7 @@ aber für Menschen ist es eine große Hilfe, sofort zu sehen, welche
 Teile des Quelltextes zusammen gehören.
 
 @warning{Jede Note ist relativ zu der vorhergehenden in der Datei;
-die erste Note in einem @code{@bs{}relative} Block ist relativ zu
+die erste Note in einem @code{\relative} Block ist relativ zu
 @samp{c} (eine Oktave unter dem eingestrichenen@tie{}C).}
 
 

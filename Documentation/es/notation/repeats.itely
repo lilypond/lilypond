@@ -117,8 +117,8 @@ También, el anidado de @code{\repeat unfold} puede resultar
 práctico de maneras que el anidado de @code{\repeat volta} o
 @code{\repeat segno} no lo serían.
 
-@warning{Si se incluye @code{@bs{}relative} dentro de
-@code{@bs{}repeat} sin instanciar explícitamente el contexto
+@warning{Si se incluye @code{\relative} dentro de
+@code{\repeat} sin instanciar explícitamente el contexto
 @code{Voice}, aparecerán pentagramas extra no deseados.  Véase
 @rprogram{An extra staff appears}.}
 
@@ -330,13 +330,13 @@ music = \fixed c' {
 @end lilypond
 
 
-@warning{Cada elemento de un bloque @code{@bs{}alternative} se
+@warning{Cada elemento de un bloque @code{\alternative} se
 trata como un final alternativo.  Algo tan simple como una
 comprobación de compás en el lado incorrecto de una llave puede
 producir resultados inesperados.}
 
-@warning{Si incluye @code{@bs{}relative} dentro de un
-@code{@bs{}repeat} sin crear explícitamente una instancia del
+@warning{Si incluye @code{\relative} dentro de un
+@code{\repeat} sin crear explícitamente una instancia del
 contexto @code{Voice}, aparecerán pentagramas añadidos e
 indeseados.  Véase @rprogram{An extra staff appears}.}
 
@@ -421,8 +421,8 @@ music = \fixed c' {
 \score { \unfoldRepeats \music }
 @end lilypond
 
-@warning{las instrucciones @code{@bs{}volta} y
-@code{@bs{}unfolded} funcionan con respecto a la repetición más
+@warning{las instrucciones @code{\volta} y
+@code{\unfolded} funcionan con respecto a la repetición más
 interior que las incluye.}
 
 
@@ -986,7 +986,7 @@ repetición.
 construcciones de repetición poco usuales, y pueden tener un
 comportamiento distinto al esperado.  En casi todas las
 situaciones, se deben crear las repeticiones utilizando la
-instrucción estándar @code{@bs{}repeat} o imprimiendo las barras
+instrucción estándar @code{\repeat} o imprimiendo las barras
 de compás correspondientes.  Para ver más información, consulte
 @ref{Bar lines}.}
 

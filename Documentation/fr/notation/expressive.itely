@@ -588,7 +588,7 @@ avec ou sans extenseur, ainsi que les indications de pédale.
 @end lilypond
 
 @warning{Même si la partition ne comporte qu'une seule indication
-absolue de nuance, comme un @code{@bs{}p}, LilyPond crée @emph{deux}
+absolue de nuance, comme un @code{\p}, LilyPond crée @emph{deux}
 objets la concernant -- un @code{DynamicText} et un objet
 @code{DynamicLineSpanner} -- et les propriétés contrôlant cette
 indication de nuance sont partagées entre ces deux objets. Par exemple,
@@ -599,21 +599,21 @@ alors que le positionnement vertical est contrôlé par
 Par voie de conséquence, un code tel que
 
 @example
-@bs{}tweak font-size 5 @bs{}p
+\tweak font-size 5 \p
 @end example
 
 @noindent
 est fonctionnel, mais
 
 @example
-@bs{}tweak Y-offset 5 @bs{}p
+\tweak Y-offset 5 \p
 @end example
 
 @noindent
 ne l'est pas. Il faudra donc écrire
 
 @example
-@bs{}tweak DynamicLineSpanner.Y-offset 5 @bs{}p
+\tweak DynamicLineSpanner.Y-offset 5 \p
 @end example
 }
 

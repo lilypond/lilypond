@@ -229,7 +229,7 @@ LilyPond requiere cambios de sintaxis para los archivos de entrada
 a partir de la versión anterior.  Esto significa que la
 instrucción @command{convert-ly} solo convierte los archivos de
 entrada hasta los últimos cambios de sintaxis que tiene, y esto a
-su vez puede significar que el número de @code{@bs{}version} que
+su vez puede significar que el número de @code{\version} que
 se deja grabado en el archivo de entrada actualizado, a veces es
 más antiguo que la versión de la propia instrucción
 @command{convert-ly}.}

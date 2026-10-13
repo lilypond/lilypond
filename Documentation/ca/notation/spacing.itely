@@ -338,7 +338,7 @@ Fitxers d'inici:
 @node Fixed vertical spacing paper variables
 @subsection Variables fixes d'espaiat vertical de @code{\paper}
 
-@warning{Algunes dimensions de @code{@bs{}paper} s'escalen
+@warning{Algunes dimensions de @code{\paper} s'escalen
 automàticament a la mida del paper cosa que pot portar a un
 comportament no esperat.  Vegeu
 @ref{Automatic scaling to paper size}.}
@@ -614,7 +614,7 @@ Fragments de codi:
 @node Horizontal spacing paper variables
 @subsection Variables d'espaiat horitzontal de @code{\paper}
 
-@warning{Algunes dimensions de @code{@bs{}paper} s'escalen
+@warning{Algunes dimensions de @code{\paper} s'escalen
 automàticament a la mida del paper, cosa que pot causar un
 comportament diferent a l'esperat. Vegeu
 @ref{Automatic scaling to paper size}.}

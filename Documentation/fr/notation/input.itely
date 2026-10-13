@@ -198,7 +198,7 @@ markup}.} :
 @end example
 
 @warning{Il ne doit y avoir qu'@strong{une seule} expression musicale
-globale dans un bloc @code{@bs{}score}, et elle @strong{doit} être
+globale dans un bloc @code{\score}, et elle @strong{doit} être
 bornée par une paire d'accolades.}
 
 Cette unique expression musicale peut être de n'importe quelle taille et
@@ -4391,17 +4391,17 @@ within markup}.} :
 @}
 @end example
 
-@warning{Lorsque le bloc @code{@bs{}score} contient uniquement un bloc
-@code{@bs{}midi} (autrement dit pas de bloc @code{@bs{}layout}),
+@warning{Lorsque le bloc @code{\score} contient uniquement un bloc
+@code{\midi} (autrement dit pas de bloc @code{\layout}),
 LilyPond produira uniquement la sortie MIDI -- aucun support visuel ne
 sera généré.
 
-Un bloc @code{@bs{}midi} en début de fichier permet d'effectuer des
+Un bloc @code{\midi} en début de fichier permet d'effectuer des
 réglages MIDI de manière globale. Bien entendu, la génération d'un
 fichier MIDI ne sera effective qu'en présence d'une section
-@code{@bs{}midi} au sein d'un bloc @code{@bs{}score}.
+@code{\midi} au sein d'un bloc @code{\score}.
 
-De façon similaire, un bloc @code{@bs{}layout} en début de fichier
+De façon similaire, un bloc @code{\layout} en début de fichier
 affecte la mise en forme de manière globale mais n'est d'aucune
 influence sur la production ou non d'un fichier imprimable.}
 
@@ -5072,7 +5072,7 @@ Fichiers d'initialisation :
 les accords, certaines musiques, notamment pour l'orgue, paraîtront de
 moins bonne qualité. Les notes dépourvues d'articulation peuvent aussi
 se voir raccourcies ; pour pallier cet inconvénient, le recours à la
-fonction @code{@bs{}articulate} devrait ne concerner que de courts
+fonction @code{\articulate} devrait ne concerner que de courts
 fragments, sauf à modifier les valeurs des variables contenues dans le
 script @file{articulate}.}
 
@@ -5140,7 +5140,7 @@ musicale démarre à contre temps, avec une portion de cycle.
 @warning{Tout comme avec le script @file{articulate}, toutes les
 commandes seront rendues dans la partition imprimable, ce qui résulte en
 un espacement irrégulier. Ceci peut s'éviter en utilisant le script dans
-un bloc @code{@bs{}score} dédié à la sortie MIDI.}
+un bloc @code{\score} dédié à la sortie MIDI.}
 
 Une aide et des informations supplémentaires sont directement incluses
 dans le script -- voir @file{ly/swing.ly}.

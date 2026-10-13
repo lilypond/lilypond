@@ -801,7 +801,7 @@ nosotros los seres humanos.
 
 @warning{Cada nota se entiende relativa a la nota anterior de la
 entrada; solamente la primera dentro del bloque
-@code{@bs{}relative} es relativa a la nota @samp{c} (una octava
+@code{\relative} es relativa a la nota @samp{c} (una octava
 por debajo del Do@tie{}central).}
 
 
@@ -1016,7 +1016,7 @@ Referencia de la notación:
 
 @funindex << ... \\ ... >>
 @funindex <<
-@funindex @sortas{@bs{}@bs{}} \\
+@funindex @sortas{\\} \\
 @funindex >>
 
 La música polifónica en LilyPond, aunque no es difícil, utiliza

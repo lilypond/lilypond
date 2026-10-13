@@ -655,7 +655,7 @@ piano.
 @end lilypond
 
 @warning{Incluso si solo hay una única indicación dinámica
-absoluta como @code{@bs{}p} en toda la partitura, LilyPond siempre
+absoluta como @code{\p} en toda la partitura, LilyPond siempre
 crea @emph{dos} objetos para ella, un objeto @code{DynamicText} y
 un objeto @code{DynamicLineSpanner}, y las propiedades para
 controlar la indicación dinámica se comparten entre los dos
@@ -666,21 +666,21 @@ controla por medio de @code{DynamicLineSpanner.Y-offset}.
 Como consecuencia, un código como
 
 @example
-@bs{}tweak font-size 5 @bs{}p
+\tweak font-size 5 \p
 @end example
 
 @noindent
 funciona, pero
 
 @example
-@bs{}tweak Y-offset 5 @bs{}p
+\tweak Y-offset 5 \p
 @end example
 
 @noindent
 no funciona.  Tenemos de escribir
 
 @example
-@bs{}tweak DynamicLineSpanner.Y-offset 5 @bs{}p
+\tweak DynamicLineSpanner.Y-offset 5 \p
 @end example
 
 @noindent

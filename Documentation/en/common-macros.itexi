@@ -41,22 +41,6 @@ Macro definitions that contain translatable text belong to file
 
 @c   ***** Displaying text *****
 
-@c We need this for `@warning`: Due to a bug in `texi2html`, ordinary
-@c backslashes disappear if used in commands like `@code`.
-
-@ifnottex
-@macro bs
-\\
-@end macro
-@end ifnottex
-
-@iftex
-@tex
-\global\let\bs = \backslashchar
-@end tex
-@end iftex
-
-
 @ifnotinfo
 
 @macro notation{TEXT}

@@ -350,7 +350,7 @@ Archivos de inicio:
 @node Fixed vertical spacing paper variables
 @section Variables de espaciado de @code{\paper} verticales fijas
 
-@warning{Algunas dimensiones de @code{@bs{}paper} se escalan
+@warning{Algunas dimensiones de @code{\paper} se escalan
 automáticamente al tamaño del papel, lo que puede llevar a un
 comportamiento no esperado.  Véase
 @ref{Automatic scaling to paper size}.}
@@ -632,7 +632,7 @@ Fragmentos de código:
 @node Horizontal spacing paper variables
 @section Variables de espaciado de @code{\paper} horizontales
 
-@warning{Algunas dimensiones de @code{@bs{}paper} se escalan
+@warning{Algunas dimensiones de @code{\paper} se escalan
 automáticamente al tamaño del papel, lo que puede dar lugar a un
 comportamiento distinto al esperado.  Véase
 @ref{Automatic scaling to paper size}.}

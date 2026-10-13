@@ -439,16 +439,16 @@ alineadas a una barra de compás.
 @funindex \mark
 
 @warning{Versiones antiguas de LilyPond usaban la instrucción
-@code{@bs{}mark} para las marcas de texto, aunque está indicada
+@code{\mark} para las marcas de texto, aunque está indicada
 principalmente para las llamadas de ensayo (@pxref{Rehearsal
-marks}).  Las instrucciones @code{@bs{}textMark} y
-@code{@bs{}textEndMark} están más indicadas para marcas de texto
+marks}).  Las instrucciones @code{\textMark} y
+@code{\textEndMark} están más indicadas para marcas de texto
 en cuanto a su configuración predeterminada, así como a la
 posibilidad de tener varias marcas de texto en el mismo punto.
-Por tanto, se recomienda usar @code{@bs{}textMark} y
-@code{@bs{}textEndMark} en lugar de @code{@bs{}mark "Texto"} o
-@code{@bs{}mark @bs{}markup @dots{}}.  Observe que si estamos
-convirtiendo texto que usa @code{@bs{}mark} para las marcas de
+Por tanto, se recomienda usar @code{\textMark} y
+@code{\textEndMark} en lugar de @code{\mark "Texto"} o
+@code{\mark \markup @dots{}}.  Observe que si estamos
+convirtiendo texto que usa @code{\mark} para las marcas de
 texto, las sobreescrituras que usan @code{RehearsalMark} se deben
 cambiar por @code{TextMark}.}
 

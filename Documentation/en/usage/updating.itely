@@ -209,7 +209,7 @@ date and using the latest LilyPond syntax.
 version of LilyPond needs syntax changes for its input files from
 the version before.  This means that the @command{convert-ly}
 command only converts input files up to the latest syntax change
-it has and this, in turn, may mean that the @code{@bs{}version}
+it has and this, in turn, may mean that the @code{\version}
 number left in the upgraded input file is sometimes lower than the
 version of the @command{convert-ly} command itself.}
 

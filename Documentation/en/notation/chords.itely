@@ -1245,7 +1245,7 @@ augmented and diminished steps
 }
 @end lilypond
 
-@funindex @sortas{@bs{}@bs{}} \\
+@funindex @sortas{\\} \\
 
 @item
 @code{\\}
