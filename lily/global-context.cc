@@ -216,10 +216,28 @@ Global_context::iterate (Music *music, bool force_found_music)
 void
 Global_context::apply_finalizations ()
 {
+  SCM leftovers = SCM_EOL;
   SCM lst = get_property (this, "finalizations");
   set_property (this, "finalizations", SCM_EOL);
+  Moment now = now_mom ();
   for (SCM s = lst; scm_is_pair (s); s = scm_cdr (s))
-    scm_apply_0 (scm_caar (s), scm_cdar (s));
+    {
+      SCM head = scm_caar (s);
+      if (is_scm<Moment> (head))
+        {
+          if (now >= from_scm<Moment> (head))
+            scm_apply_0 (scm_cadar (s), scm_cddar (s));
+          else
+            leftovers = scm_cons (scm_car (s), leftovers);
+        }
+      else
+        scm_apply_0 (head, scm_cdar (s));
+    }
+  if (scm_is_pair (leftovers))
+    // Callbacks may have independently touched up finalizations
+    set_property (
+      this, "finalizations",
+      scm_reverse_x (leftovers, get_property (this, "finalizations")));
 }
 
 /* Add a function to execute before stepping to the next time step.  */

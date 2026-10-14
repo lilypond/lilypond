@@ -904,8 +904,11 @@ one argument, the text value of a dynamic event, and returns the absolute
 volume of that dynamic event.")
 
 
-     (finalizations ,list? "A list of expressions to evaluate before
-proceeding to next time step.  This is an internal variable.")
+     (finalizations ,list? "A list of functions along with argument list to
+call before proceeding to the next time step.  An entry may be prefixed with a
+scheduling time.  The call will then not happen before that musical time.  This
+is an internal variable.")
+
      (forceBreak ,boolean? "Set to @code{#t} when an event forcing a
 line break was heard.")
 
