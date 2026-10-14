@@ -44,13 +44,6 @@ protected:
   Spanner *percent_ = nullptr;
   Spanner *percent_counter_ = nullptr;
 
-  /* If the measure starts with grace notes, the percent event
-     occurs on the first non-grace note, but we want the spanner's
-     left bound to be the non-musical column that was current at
-     the time of the first grace note. */
-  Grob *first_command_column_ = nullptr;
-  Moment command_moment_ {-1};
-
   void listen_percent (Stream_event *);
   void process_music ();
   void stop_translation_timestep ();
@@ -71,23 +64,15 @@ Percent_repeat_engraver::listen_percent (Stream_event *ev)
 void
 Percent_repeat_engraver::process_music ()
 {
-  // Maintain first_command_column_ as the first non-musical column
-  // in the grace group.
-  if (now_mom ().main_part_ != command_moment_.main_part_)
-    {
-      first_command_column_
-        = unsmob<Grob> (get_property (this, "currentCommandColumn"));
-      command_moment_ = now_mom ();
-    }
-
+  Grob *column = unsmob<Grob> (get_property (this, "currentCommandColumn"));
   // Stop running percent if it has reached completion.
   if (percent_ && stop_mom_.main_part_ == now_mom ().main_part_)
     {
-      percent_->set_bound (RIGHT, first_command_column_);
+      percent_->set_bound (RIGHT, column);
       percent_ = nullptr;
       if (percent_counter_)
         {
-          percent_counter_->set_bound (RIGHT, first_command_column_);
+          percent_counter_->set_bound (RIGHT, column);
           percent_counter_ = nullptr;
         }
     }
@@ -111,7 +96,7 @@ Percent_repeat_engraver::process_music ()
       stop_mom_.grace_part_ = 0;
       find_global_context ()->add_moment_to_process (stop_mom_);
       percent_ = make_spanner ("PercentRepeat", percent_event_->self_scm ());
-      percent_->set_bound (LEFT, first_command_column_);
+      percent_->set_bound (LEFT, column);
 
       SCM count = get_property (percent_event_, "repeat-count");
       if (!scm_is_null (count)
@@ -123,7 +108,7 @@ Percent_repeat_engraver::process_music ()
 
           SCM text = scm_number_to_string (count, to_scm (10));
           set_property (percent_counter_, "text", text);
-          percent_counter_->set_bound (LEFT, first_command_column_);
+          percent_counter_->set_bound (LEFT, column);
           Side_position_interface::add_support (percent_counter_, percent_);
           percent_counter_->set_y_parent (percent_);
           percent_counter_->set_x_parent (percent_);
