@@ -108,6 +108,7 @@ Percent_repeat_engraver::process_music ()
   if (percent_event_)
     {
       stop_mom_ = now_mom () + get_event_length (percent_event_);
+      stop_mom_.grace_part_ = 0;
       find_global_context ()->add_moment_to_process (stop_mom_);
       percent_ = make_spanner ("PercentRepeat", percent_event_->self_scm ());
       percent_->set_bound (LEFT, first_command_column_);

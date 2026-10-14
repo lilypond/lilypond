@@ -45,12 +45,18 @@ iterator will generate the actual percent events."
         ;; create a grace-time skip.  That doesn't guarantee that
         ;; everything else will handle the music sensibly, but the
         ;; timekeeping will be correct.
+        ;;
+        ;; For reasons of grace timing, we need a dummy element at the end that
+        ;; is blocking grace looseness.  That way, we can have prefatory
+        ;; elements in the main music right at the end that are subject to
+        ;; being moved before grace material in parallel music while still
+        ;; emitting slash repeats on non-grace time.
         (let* ((length (ly:music-length body))
                (start (if (= 0 (ly:moment-main length))
                           (ly:music-start body)
                           ZERO-MOMENT))
                (placeholder (skip-of-moment-span start length)))
-          (cons body (make-list (- n 1) placeholder)))
+          (cons* body (make-music 'Music) (make-list (- n 1) placeholder)))
         (list body))))
 
 (define (make-tremolo-set tremolo)

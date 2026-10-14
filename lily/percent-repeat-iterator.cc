@@ -37,12 +37,12 @@ protected:
   void derived_mark () const override;
   void next_element () override;
 
-  // TODO: this iterator causes problems when allowed loose grace timing
-  bool loose () const override { return false; }
+  bool loose () const override;
 
 private:
-  int done_count_ = 0;
+  int done_count_ = -1; // There is a dummy element after the body
   int rep_count_ = 0;
+  bool rep_loose_ = false; // whether we use loose timing in repetitions
   Moment body_length_;
   SCM event_type_ = SCM_UNDEFINED;
   SCM slash_count_ = SCM_UNDEFINED;
@@ -71,10 +71,20 @@ Percent_repeat_iterator::create_contexts ()
   descend_to_bottom_context ();
 }
 
+// Only provide looseness while in the body proper, or in a single-bar percent
+// repeat.
+bool
+Percent_repeat_iterator::loose () const
+{
+  return (done_count_ < 0) ? Sequential_iterator::loose () : rep_loose_;
+}
+
 // Arrive here for the first time after the original percent expression is
-// completed, and then after each placeholder element.  At this point of time,
-// we can determine what kind of percent expression we are dealing with and
-// provide the respective music expressions for the remaining repeats.
+// completed, once again after possible grace looseness has expired, and then
+// after each placeholder element.  After going through the body, we can
+// determine what kind of percent expression we are dealing with and provide
+// the respective music expressions for the remaining repeats.
+
 void
 Percent_repeat_iterator::next_element ()
 {
@@ -84,11 +94,14 @@ Percent_repeat_iterator::next_element ()
   if (done_count_ < rep_count_)
     {
       Music *mus = get_music ();
-      if (done_count_ == 1)
+      if (done_count_ == 0)
         {
           const auto mlen = measure_length (get_context ());
           if (body_length_.main_part_ == mlen)
-            event_type_ = ly_symbol2scm ("PercentEvent");
+            {
+              event_type_ = ly_symbol2scm ("PercentEvent");
+              rep_loose_ = true;
+            }
           else if (body_length_.main_part_ == (mlen * 2))
             event_type_ = ly_symbol2scm ("DoublePercentEvent");
           else
@@ -100,6 +113,11 @@ Percent_repeat_iterator::next_element ()
                 }
               event_type_ = ly_symbol2scm ("RepeatSlashEvent");
             }
+          // We have determined the kind of music to create, and have set up
+          // the looseness to use for the first element.  We return to let the
+          // determined looseness take its effect on the dummy element, then we
+          // start processing in the next iteration
+          return;
         }
 
       Music *percent = make_music_by_name (event_type_);
