@@ -3,9 +3,9 @@
 % Load plain if necessary, i.e., if running under initex.
 \expandafter\ifx\csname fmtname\endcsname\relax\input plain\fi
 %
-\def\texinfoversion{2025-07-31.19}
+\def\texinfoversion{2026-10-07.17}
 %
-% Copyright 1985, 1986, 1988, 1990-2025 Free Software Foundation, Inc.
+% Copyright 1985, 1986, 1988, 1990-2026 Free Software Foundation, Inc.
 %
 % This texinfo.tex file is free software: you can redistribute it and/or
 % modify it under the terms of the GNU General Public License as
@@ -153,6 +153,9 @@
 \ifx\putwordDefopt\undefined    \gdef\putwordDefopt{User Option}\fi
 \ifx\putwordDeffunc\undefined   \gdef\putwordDeffunc{Function}\fi
 
+% scratch count register
+\newcount\countA
+
 % Give the space character the catcode for a space.
 \def\spaceisspace{\catcode`\ =10\relax}
 
@@ -181,6 +184,10 @@
   spell-ing spell-ings
   stand-alone strong-est time-stamp time-stamps which-ever white-space
   wide-spread wrap-around
+}
+
+\def\txiwarning#1{%
+  \message{^^J\linenumber Warning: #1^^J}%
 }
 
 % Sometimes it is convenient to have everything in the transcript file
@@ -335,7 +342,7 @@
   %
   % Make the heading and footing.  \makeheadline and \makefootline
   % use the contents of \headline and \footline.
-  \def\commonheadfootline{\let\hsize=\txipagewidth \texinfochars}
+  \def\commonheadfootline{\let\hsize=\txipagewidth \texinfochars}%
   \ifodd\pageno \getoddheadingmarks \else \getevenheadingmarks \fi
   \global\setbox\headlinebox = \vbox{\commonheadfootline \makeheadline}%
   \ifodd\pageno \getoddfootingmarks \else \getevenfootingmarks \fi
@@ -348,7 +355,6 @@
     % before the \shipout runs.
     %
     \atdummies         % don't expand commands in the output.
-    \turnoffactive
     \shipout\vbox{%
       % Do this early so pdf references go to the beginning of the page.
       \ifpdfmakepagedest \pdfdest name{\the\pageno} xyz\fi
@@ -558,7 +564,13 @@
 \def\:{\spacefactor=1000 }
 
 % @* forces a line break.
-\def\*{\unskip\hfil\break\hbox{}\ignorespaces}
+% In internal horizontal or vertical mode, convert explicit line breaks
+% from @* into spaces.  For instance, if the user gives these in long
+% section titles, this may occur in the table of contents, or the page
+% heading line.
+\def\*{%
+  \ifinner\unskip\space\ignorespaces
+  \else\unskip\hfil\break\hbox{}\ignorespaces\fi}
 
 % @/ allows a line break.
 \let\/=\allowbreak
@@ -764,18 +776,20 @@ where each line of input produces a line of output.}
 \def\includezzz#1{%
   \pushthisfilestack
   \def\thisfile{#1}%
+  \includecheckspace\thisfile
   {%
     \makevalueexpandable  % we want to expand any @value in FILE.
     \turnoffactive        % and allow special characters in the expansion
     \indexnofonts         % Allow `@@' and other weird things in file names.
     \wlog{texinfo.tex: doing @include of #1^^J}%
-    \edef\temp{\noexpand\input #1 }%
+    \edef\temp{\noexpand\input \thisfile }%
     %
     % This trickery is to read FILE outside of a group, in case it makes
     % definitions, etc.
     \expandafter
   }\temp
   \popthisfilestack
+  \def\thisfile{#1}% for @thisfile command
 }
 \def\filenamecatcodes{%
   \catcode`\\=\other
@@ -789,6 +803,21 @@ where each line of input produces a line of output.}
   \catcode`-=\other
   \catcode`\`=\other
   \catcode`\'=\other
+}
+
+% \includecheckspace\FILENAME - if there is a space in the expansion of
+% \FILENAME, wrap the expansion in braces
+\def\includecheckspace#1{%
+  \expandafter\includecheckspacezz\expandafter#1#1 \includecheckspacezz}
+
+\def\includecheckspacezz#1#2 #3\includecheckspacezz{%
+  \def\tmp{#3}%
+  \ifx\tmp\empty
+    % no space in the file name
+  \else
+    % there is a space in the file name
+    \edef#1{{#1}}%
+  \fi
 }
 
 \def\pushthisfilestack{%
@@ -975,7 +1004,6 @@ where each line of input produces a line of output.}
 \newtoks\toksD
 \newbox\boxA
 \newbox\boxB
-\newcount\countA
 \newif\ifpdf
 \newif\ifpdfmakepagedest
 
@@ -5315,14 +5343,13 @@ $$%
 \def\indexisfl{fl}
 
 % Definition for writing index entry sort key.
-{
-\catcode`\-=13
-\gdef\indexwritesortas{%
+\def\indexwritesortas{%
   \begingroup
   \indexnonalnumreappear
-  \indexwritesortasxxx}
-\gdef\indexwritesortasxxx#1{%
-  \xdef\indexsortkey{#1}\endgroup}
+  \indexwritesortasxxx
+}
+\def\indexwritesortasxxx#1{%
+  \xdef\indexsortkey{#1}\endgroup
 }
 
 \def\indexwriteseealso#1{
@@ -5353,6 +5380,51 @@ $$%
   \expandafter\doindexsegment#1\subentry\finish\subentry
 }
 
+% \checksortas\segment
+% Call \indexwritesortas if a @sortas command appears in the segment
+\def\checksortas#1{%
+  \let\sortas\relax
+  \expandafter\checksortasx#1\relax\sortas{}\sortas
+}
+\def\checksortasx#1\sortas#2#3\sortas{%
+  \def\tmp{#3}%
+  \ifx\tmp\empty\else
+    \indexwritesortas{#2}%
+  \fi
+}
+
+% \checkseealso\segment
+% Call \indexwriteseealso if a @seealso command appears in the segment
+\def\checkseealso#1{%
+  \let\seealso\relax
+  \expandafter\checkseealsox#1\relax\seealso{}\seealso
+}
+\def\checkseealsox#1\seealso#2#3\seealso{%
+  \def\tmp{#3}%
+  \ifx\tmp\empty\else
+    \indexwriteseealso{#2}%
+  \fi
+}
+
+% \checkseeentry\segment
+% Call \indexwriteseeentry if a @seeentry command appears in the segment
+\def\checkseeentry#1{%
+  \let\seeentry\relax
+  \expandafter\checkseeentryx#1\relax\seeentry{}\seeentry
+}
+\def\checkseeentryx#1\seeentry#2#3\seeentry{%
+  \def\tmp{#3}%
+  \ifx\tmp\empty\else
+    \indexwriteseeentry{#2}%
+  \fi
+}
+
+\def\extractindexcommands#1{%
+  \checksortas#1%
+  \checkseealso#1%
+  \checkseeentry#1%
+}
+
 % append the results from the next segment
 \def\doindexsegment#1\subentry{%
   \def\segment{#1}%
@@ -5372,9 +5444,6 @@ $$%
     % Get the string to sort by.  Process the segment with all
     % font commands turned off.
     \bgroup
-      \let\sortas\indexwritesortas
-      \let\seealso\indexwriteseealso
-      \let\seeentry\indexwriteseeentry
       \indexnofonts
       % The braces around the commands are recognized by texindex.
       \def\lbracechar{{\string\indexlbrace}}%
@@ -5388,11 +5457,10 @@ $$%
       %
       \let\indexsortkey\empty
       \global\let\pagenumbertext\empty
-      % Execute the segment and throw away the typeset output.  This executes
-      % any @sortas or @seealso commands in this segment.
-      \setbox\dummybox = \hbox{\segment}%
+      \extractindexcommands\segment
       \ifx\indexsortkey\empty{%
         \indexnonalnumdisappear
+        \inindexsortkeytrue
         \xdef\trimmed{\segment}%
         \xdef\trimmed{\expandafter\eatspaces\expandafter{\trimmed}}%
         \xdef\indexsortkey{\trimmed}%
@@ -5413,7 +5481,6 @@ $$%
   \fi
 }
 \def\isfinish{\finish}%
-\newbox\dummybox % used above
 
 \let\subentry\relax
 
@@ -5681,14 +5748,16 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 
 \def\indexentry#1#2{%
   \let\entrypagetarget\empty
-  \ifpdforxetex
-    % only link the index text to the page if no comma appears in the
-    % list of pages, i.e. there is only one page
-    \checkpagelistcomma{#2}\pagelistcomma
-    \expandafter\ifcase\pagelistcomma
-      \def\entrypagetarget{#2}%
-    \fi
-  \fi%
+  \ifflagclear{txilinkindextext}{}{%
+    \ifpdforxetex
+      % link the index text to the page if no comma appears in the
+      % list of pages, i.e. there is only one page
+      \checkpagelistcomma{#2}\pagelistcomma
+      \expandafter\ifcase\pagelistcomma
+        \def\entrypagetarget{#2}%
+      \fi
+    \fi%
+  }%
   \entryinternal{#1}{#2}%
 }
 
@@ -5752,9 +5821,9 @@ might help (with 'rm \jobname.?? \jobname.??s')%
   % The glue before the bonus allows a little bit of space at the
   % bottom of a column to reduce an increase in inter-line spacing.
   \nobreak
-  \vskip 0pt plus 5\baselineskip
+  \vskip 0pt plus 4\baselineskip
   \penalty -300 
-  \vskip 0pt plus -5\baselineskip
+  \vskip 0pt plus -4\baselineskip
   %
   % Typeset the initial.  Making this add up to a whole number of
   % baselineskips increases the chance of the dots lining up from column
@@ -5783,9 +5852,10 @@ might help (with 'rm \jobname.?? \jobname.??s')%
     \def\indexrbrace{\}}%
     \def\indexbackslash{\realbackslash}%
     \def\indexatchar{\@}%
-    \writetocentry{idxinitial}{\asis #1}{IDX\the\idxinitialno}%
+    \writetocentry{idxinitial}{\asis #1\empty}{IDX\the\idxinitialno}%
     % The @asis removes a pair of braces around e.g. {@indexatchar} that
-    % are output by texindex.
+    % are output by texindex.  \empty is an argument to \asis in case #1
+    % is empty.
     %
     \pdfmkdest{idx.\asis #1.IDX\the\idxinitialno}%
   \fi
@@ -5827,10 +5897,6 @@ might help (with 'rm \jobname.?? \jobname.??s')%
     % No extra space above this paragraph.
     \parskip = 0in
     %
-    % When reading the text of entry, convert explicit line breaks
-    % from @* into spaces.  The user might give these in long section
-    % titles, for instance.
-    \def\*{\unskip\space\ignorespaces}%
     \def\entrybreak{\hfil\break}% An undocumented command
     %
     % Swallow the left brace of the text (first parameter):
@@ -6191,9 +6257,16 @@ might help (with 'rm \jobname.?? \jobname.??s')%
     % and \thissection, as is done in \startcontents.
     \let\pchapsepmacro\relax
     \chapmacro{}{Yomitfromtoc}{}%
+    \gdef\thispart{#1}%
     \chapoddpage
   \endgroup
 }
+
+% Name of current part, if any.
+% Note: unlike @thischapter etc. defined below, the name of the part
+% is always set before a page with a heading or footing is shipped out,
+% so there is no need to keep the value of these in "marks".
+\def\thispart{}%
 
 % \unnumberedno is an oxymoron.  But we count the unnumbered
 % sections so that we can refer to them unambiguously in the pdf
@@ -6357,7 +6430,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 % (e.g., figures), q.v.  By default (before any chapter), that is empty.
 \let\chaplevelprefix = \empty
 %
-\outer\parseargdef\chapter{\numhead0{#1}} % normally numhead0 calls chapterzzz
+\parseargdef\chapter{\numhead0{#1}} % normally numhead0 calls chapterzzz
 \def\chapterzzz#1{%
   % section resetting is \global in case the chapter is in a group, such
   % as an @include file.
@@ -6381,7 +6454,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
   \global\let\subsubsection = \numberedsubsubsec
 }
 
-\outer\parseargdef\appendix{\apphead0{#1}} % normally calls appendixzzz
+\parseargdef\appendix{\apphead0{#1}} % normally calls appendixzzz
 %
 \def\appendixzzz#1{%
   \global\secno=0 \global\subsecno=0 \global\subsubsecno=0
@@ -6401,7 +6474,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 }
 
 % normally unnmhead0 calls unnumberedzzz:
-\outer\parseargdef\unnumbered{\unnmhead0{#1}}
+\parseargdef\unnumbered{\unnmhead0{#1}}
 \def\unnumberedzzz#1{%
   \global\advance\unnumberedno by 1
   %
@@ -6431,7 +6504,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 }
 
 % @centerchap is like @unnumbered, but the heading is centered.
-\outer\parseargdef\centerchap{%
+\parseargdef\centerchap{%
   \let\centerparametersmaybe = \centerparameters
   \unnmhead0{#1}%
   \let\centerparametersmaybe = \relax
@@ -6995,6 +7068,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 \newdimen\curchapmax
 \newdimen\cursecmax
 \newdimen\curssecmax
+\newbox\dummybox % used above
 
 
 % set #1 to the maximum section width for #2
@@ -8282,11 +8356,11 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 % these should not use \errmessage; the glibc manual, at least, actually
 % has such constructs (when documenting function pointers).
 \def\badparencount{%
-  \message{Warning: unbalanced parentheses in @def...}%
+  \txiwarning{unbalanced parentheses in @def...}%
   \global\parencount=0
 }
 \def\badbrackcount{%
-  \message{Warning: unbalanced square brackets in @def...}%
+  \txiwarning{unbalanced square brackets in @def...}%
   \global\brackcount=0
 }
 
@@ -8458,7 +8532,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
      \fi
   \fi
   \if1\csname ismacro.\the\macname\endcsname
-     \message{Warning: redefining \the\macname}%
+     \txiwarning{redefining \the\macname}%
   \else
      \expandafter\ifx\csname \the\macname\endcsname \relax
      \else \errmessage{Macro name \the\macname\space already defined}\fi
@@ -9075,12 +9149,19 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 }
 \def\wordTop{Top}
 
-% Until the next @node, @part or @bye command, divert output to a box that
-% is not output.
+% Until the next @node, top-level section command, @part or @bye command,
+% divert output to a box that is not output.
 \def\ignorenode{\setbox\dummybox\vbox\bgroup
-\def\part{\egroup\part}%
-\def\node{\egroup\node}%
-\ignorenodebye
+  % redefine top-level commands to close the dummy
+  % box and restart processing.
+  \def\restartat##1{\def##1{\egroup##1}}%
+  \restartat\part
+  \restartat\node
+  \restartat\chapter
+  \restartat\centerchap
+  \restartat\unnumbered
+  \restartat\appendix
+  \ignorenodebye
 }
 
 {\let\bye\relax
@@ -9094,7 +9175,9 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 % type (Ynumbered, Yappendix, Ynothing).  #2 is the section title.
 %
 \def\donoderef#1#2{%
-  \ifx\lastnode\empty\else
+  \ifx\lastnode\empty
+    \setrefshadow{#1}{#2}%
+  \else
     \setref{\lastnode}{#1}{#2}%
     \global\let\lastnode=\empty
     \setnodeseenonce
@@ -9139,6 +9222,9 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 %
 \def\setref#1#2#3{%
   \pdfmkdest{#1}%
+  \dosetref{#1}{#2}{#3}{xrdef}%
+}
+\def\dosetref#1#2#3#4{%
   \iflinks
     {%
       \requireauxfile
@@ -9146,16 +9232,36 @@ might help (with 'rm \jobname.?? \jobname.??s')%
       % match definition in \xrdef, \refx, \xrefX.
       \def\value##1{##1}%
       \edef\writexrdef##1##2{%
-	\write\auxfile{@xrdef{#1-% #1 of \setref, expanded by the \edef
+	\write\auxfile{@#4{#1-% #1 of \setref, expanded by the \edef
 	  ##1}{##2}}% these are parameters of \writexrdef
       }%
       \toks0 = {#3}%
       \immediate \writexrdef{title}{\the\toks0 }%
-      \immediate \writexrdef{snt}{\csname #2\endcsname}% \Ynumbered etc.
-      \safewhatsit{\writexrdef{pg}{\folio}}% will be written later, at \shipout
+      \immediate \writexrdef{snt}{\csname #2\endcsname}%
+      \safewhatsit{\writexrdef{pg}{\folio}}%
     }%
   \fi
 }
+
+% Similar to \setref, but used for targets created by sectioning commands.
+% Write information about this target using @xrshad instead of @xrdef.
+\def\setrefshadow#1#2{%
+  % For PDF, output the target with \pdfdest.
+  % Temporarily suppress pdfTeX warning for trying to output two targets
+  % with the same name.
+  \pdfsuppresswarningdupdest1
+  \pdfmkdest{\pdfshadowprefix#2}%
+  \pdfsuppresswarningdupdest0
+  \dosetref{#2}{#1}{#2}{xrshad}%
+}
+
+% Primitive introduced in pdfTeX 1.40.13.  Supply dummy definition for
+% older versions or when not running with pdfTeX.
+\ifx\pdfsuppresswarningdupdest\thisisundefined
+  \def\pdfsuppresswarningdupdest#1{}%
+\fi
+
+\def\pdfshadowprefix{XXSHADOW-}
 
 % @xrefautosectiontitle on|off says whether @section(ing) names are used
 % automatically in xrefs, if the third arg is not explicitly specified.
@@ -9202,7 +9308,20 @@ might help (with 'rm \jobname.?? \jobname.??s')%
   \def\infofilename{\ignorespaces #4}%
   \setbox\infofilenamebox = \hbox{\infofilename\unskip}%
   %
-  \startxreflink{#1}{#4}%
+  \ifdim \wd\printedmanualbox = 0pt
+    \checkshadowactive{#1}\countA
+    \expandafter\ifnum\countA = 1
+      \startxreflink{\pdfshadowprefix#1}{}%
+    \else\expandafter\ifnum\countA = 2
+      \txiwarning{ambiguous xref to #1}%
+      \startxreflink{}{}%
+    \else
+      \startxreflink{#1}{}%
+    \fi\fi
+  \else
+    \startxreflink{#1}{#4}%
+  \fi
+  %
   \getrefx{#1-title}\Xthisreftitle
   %
   % Float references are printed completely differently: "Figure 1.2"
@@ -9468,16 +9587,73 @@ might help (with 'rm \jobname.?? \jobname.??s')%
   \fi
 }
 
+\def\xrdefctxt{%
+  % Context for expanding the node or anchor name to remove control sequences.
+  % \turnoffactive stops 8-bit characters being changed to commands
+  % like @'e.
+  \indexnofonts
+  \turnoffactive
+  \def\value##1{##1}%
+  \mathchardefdummies
+}
+
+% Add some dummy definitions for commands defined with \mathchardef in
+% plain.tex.
+% A manual file for Blitz++, blitz.texi, used these commands in section
+% titles.  This means they can make their way into target names, and so
+% they need fully expandable definitions.
+% Hopefully the number of such definitions we will need to make will remain
+% quite low.
+\def\mathchardefdummies{%
+  \definedummyword\nabla
+  \definedummyword\times
+  \definedummyword\cdot
+}
+
 % Set #2 to xref string #1
 \def\getrefx#1#2{%
   \requireauxfile
   {%
-    \indexnofonts
-    \turnoffactive
-    \def\value##1{##1}%
+    \xrdefctxt
     \expandafter\global\expandafter\let\expandafter#2\csname XR#1\endcsname
+    \ifx#2\relax
+      % try a shadow definition
+      \expandafter\global\expandafter\let\expandafter#2\csname SXR#1\endcsname
+      \ifx#2\empty
+        \let#2\relax
+      \fi
+    \fi
   }%
 }
+
+% Check if shadow definitions are active for target name #1, setting the
+% count register sequence in #2 to:
+%  1 if they are active
+%  0 if they are not
+%  2 if multiple definitions were made
+\def\checkshadowactive#1#2{%
+  \requireauxfile
+  {%
+    \xrdefctxt
+    \expandafter\global\expandafter\let\expandafter\tmp\csname XR#1-title\endcsname
+  }%
+  \ifx\tmp\relax
+    % a real definition was not made
+    {%
+      \xrdefctxt
+      \expandafter\global\expandafter\let\expandafter\tmp\csname SXR#1-title\endcsname
+    }%
+    \ifx\tmp\relax
+      #2=0 % no definitions made
+    \else\ifx\tmp\empty
+      #2=2 % shadow definitions were disabled
+    \else
+      #2=1 % yes, shadow definitions are active
+    \fi\fi
+  \else
+    #2=0 % no, a real definition was made.
+  \fi
+}%
 
 % This is the macro invoked by entries in the aux file.  Define a control 
 % sequence for a cross-reference target (we prepend XR to the control sequence 
@@ -9485,14 +9661,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
 % type, we have more work to do.
 %
 \def\xrdef#1#2{%
-  {% Expand the node or anchor name to remove control sequences.
-   % \turnoffactive stops 8-bit characters being changed to commands
-   % like @'e.  \refx does the same to retrieve the value in the definition.
-    \indexnofonts
-    \turnoffactive
-    \def\value##1{##1}%
-    \xdef\safexrefname{#1}%
-  }%
+  {\xrdefctxt \xdef\safexrefname{#1}}%
   %
   \bgroup
     \expandafter\gdef\csname XR\safexrefname\endcsname{#2}%
@@ -9522,6 +9691,24 @@ might help (with 'rm \jobname.?? \jobname.??s')%
       {\safexrefname}}%
   \fi
   \ignorespaces % ignore ends of line in aux file
+}
+
+% Like \xrdef, but used for "shadow" definitions.
+\def\xrshad#1#2{%
+  {\xrdefctxt \xdef\safexrefname{#1}}%
+  \bgroup
+    \expandafter\ifx\csname XR\safexrefname\endcsname\relax
+      \expandafter\ifx\csname SXR\safexrefname\endcsname\relax
+        % safe to make shadow definition.
+        \expandafter\gdef\csname SXR\safexrefname\endcsname{#2}%
+      \else
+        % earlier shadow definition.  disable.
+        \expandafter\gdef\csname SXR\safexrefname\endcsname{}%
+      \fi
+    \else
+      % blocked by node or anchor definition
+    \fi
+  \egroup
 }
 
 % If working on a large document in chapters, it is convenient to
@@ -9920,6 +10107,14 @@ might help (with 'rm \jobname.?? \jobname.??s')%
   % We can't be used inside a paragraph.
   \par
   %
+  % Allow a page break with a ragged page bottom.  This could help to reduce
+  % interparagraph spacing if a large float doesn't fit on the current page.
+  %
+  \penalty 0
+  \vskip 0pt plus 5\baselineskip
+  \penalty 1000
+  \vskip 0pt plus -5\baselineskip
+  %
   \vtop\bgroup
     \def\floattype{#1}%
     \def\floatlabel{#2}%
@@ -9952,7 +10147,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
         % node and anchor labels.  And \xrdef uses it to construct the
         % lists of floats.
         %
-        \edef\tmp{\noexpand\setref{\floatlabel}{Yfloat}%
+        \edef\tmp{\noexpand\setref{\noexpand\floatlabel}{Yfloat}%
                   {\floatmagic=\safefloattype}}%
         \tmp
       }%
@@ -10105,7 +10300,7 @@ might help (with 'rm \jobname.?? \jobname.??s')%
   \expandafter\ifx\csname floatlist\safefloattype\endcsname \relax
     \ifhavexrefs
       % if the user said @listoffloats foo but never @float foo.
-      \message{\linenumber No `\safefloattype' floats to list.}%
+      \txiwarning{\No `\safefloattype' floats to list.}%
     \fi
   \else
     \begingroup
@@ -10218,6 +10413,15 @@ directory should work if nowhere else does.}
   \global\lefthyphenmin = #2\relax
   \global\righthyphenmin = #3\relax
 }
+
+% @documentlanguagevariant - do nothing
+\parseargdef\documentlanguagevariant{}
+
+% @documentscript - do nothing
+% This command would only become relevant if we had translations in
+% multiple "scripts", e.g. Sebian in both Latin and Cyrillic alphabets.
+% However, we do not even support loading Cyrillic fonts.
+\parseargdef\documentscript{}
 
 % XeTeX and LuaTeX can handle Unicode natively.
 % Their default I/O uses UTF-8 sequences instead of a byte-wise operation.
@@ -10373,7 +10577,7 @@ directory should work if nowhere else does.}
     \else
       \ifx \declaredencoding \ascii
       \else
-        \message{Warning: XeTeX with non-UTF-8 encodings cannot handle %
+        \txiwarning{XeTeX with non-UTF-8 encodings cannot handle %
         non-ASCII characters in auxiliary files.}%
       \fi
     \fi
@@ -10423,7 +10627,7 @@ directory should work if nowhere else does.}
   \gdefchar^^af{\={}}
   %
   \gdefchar^^b0{\textdegree}
-  \gdefchar^^b1{$\pm$}
+  \gdefchar^^b1{\ensuremath\pm}
   \gdefchar^^b2{$^2$}
   \gdefchar^^b3{$^3$}
   \gdefchar^^b4{\'{}}
@@ -10444,7 +10648,7 @@ directory should work if nowhere else does.}
   \gdefchar^^c2{\^A}
   \gdefchar^^c3{\~A}
   \gdefchar^^c4{\"A}
-  \gdefchar^^c5{\ringaccent A}
+  \gdefchar^^c5{\AA}
   \gdefchar^^c6{\AE}
   \gdefchar^^c7{\cedilla C}
   \gdefchar^^c8{\`E}
@@ -10463,7 +10667,7 @@ directory should work if nowhere else does.}
   \gdefchar^^d4{\^O}
   \gdefchar^^d5{\~O}
   \gdefchar^^d6{\"O}
-  \gdefchar^^d7{$\times$}
+  \gdefchar^^d7{\ensuremath\times}
   \gdefchar^^d8{\O}
   \gdefchar^^d9{\`U}
   \gdefchar^^da{\'U}
@@ -10478,7 +10682,7 @@ directory should work if nowhere else does.}
   \gdefchar^^e2{\^a}
   \gdefchar^^e3{\~a}
   \gdefchar^^e4{\"a}
-  \gdefchar^^e5{\ringaccent a}
+  \gdefchar^^e5{\aa}
   \gdefchar^^e6{\ae}
   \gdefchar^^e7{\cedilla c}
   \gdefchar^^e8{\`e}
@@ -10497,7 +10701,7 @@ directory should work if nowhere else does.}
   \gdefchar^^f4{\^o}
   \gdefchar^^f5{\~o}
   \gdefchar^^f6{\"o}
-  \gdefchar^^f7{$\div$}
+  \gdefchar^^f7{\ensuremath\div}
   \gdefchar^^f8{\o}
   \gdefchar^^f9{\`u}
   \gdefchar^^fa{\'u}
@@ -10583,7 +10787,7 @@ directory should work if nowhere else does.}
   \gdefchar^^d4{\^O}
   \gdefchar^^d5{\H O}
   \gdefchar^^d6{\"O}
-  \gdefchar^^d7{$\times$}
+  \gdefchar^^d7{\ensuremath\times}
   \gdefchar^^d8{\v R}
   \gdefchar^^d9{\ringaccent U}
   \gdefchar^^da{\'U}
@@ -10617,7 +10821,7 @@ directory should work if nowhere else does.}
   \gdefchar^^f4{\^o}
   \gdefchar^^f5{\H o}
   \gdefchar^^f6{\"o}
-  \gdefchar^^f7{$\div$}
+  \gdefchar^^f7{\ensuremath\div}
   \gdefchar^^f8{\v r}
   \gdefchar^^f9{\ringaccent u}
   \gdefchar^^fa{\'u}
@@ -10652,7 +10856,7 @@ directory should work if nowhere else does.}
 \gdef\UTFviiiDefined#1{%
   \ifx #1\relax
     \ifutfviiidefinedwarning
-      \message{\linenumber Unicode char \string #1 not defined for Texinfo}%
+      \txiwarning{Unicode char \string #1 not defined for Texinfo}%
     \fi
   \else
     \expandafter #1%
@@ -10660,6 +10864,38 @@ directory should work if nowhere else does.}
 }
 \newif\ifutfviiidefinedwarning
 \utfviiidefinedwarningtrue
+
+% Macros to output a string to sort a multibyte UTF-8 sequence by.
+% Check if there is a special definition to be used in the index
+% sort key for a character.
+% Output the sequence as-is, surrounded by curly braces.  The braces are
+% to help texindex find the first character regardless of locale character
+% encoding or version of awk used to run texindex.
+\gdef\UTFviiiSortkeyTwo#1#2{%
+  \expandafter\ifx\csname sort:#1#2\endcsname\relax
+    {\string #1\string #2}%
+  \else
+    \csname sort:#1#2\endcsname
+  \fi
+}
+\gdef\UTFviiiSortkeyThree#1#2#3{%
+  \expandafter\ifx\csname sort:#1#2#3\endcsname\relax
+    {\string #1\string #2\string #3}%
+  \else
+    \csname sort:#1#2#3\endcsname
+  \fi
+}
+\gdef\UTFviiiSortkeyFour#1#2#3#4{%
+  \expandafter\ifx\csname sort:#1#2#3#4\endcsname\relax
+    {\string #1\string #2\string #3\string #4}%
+  \else
+    \csname sort:#1#2#3#4\endcsname
+  \fi
+}
+
+% We use this with the \ifindexsortkey condition to expand and discard
+% an \else block in the containing conditional.
+\def\swapnestedfi#1\fi{\fi\expandafter#1\expandafter}
 
 % Give non-ASCII bytes the active definitions for processing UTF-8 sequences
 \begingroup
@@ -10679,8 +10915,8 @@ directory should work if nowhere else does.}
       \expandafter\UTFviiiLoop
     \fi}
   %
-  % For bytes other than the first in a UTF-8 sequence.  Not expected to
-  % be expanded except when writing to auxiliary files.
+  % UTF-8 continuation bytes (10XX XXXX) or unused (hex C1, C2).
+  % Not expected to be expanded except when writing to auxiliary files.
   \countUTFx = "80
   \countUTFy = "C2
   \def\UTFviiiTmp{%
@@ -10692,7 +10928,9 @@ directory should work if nowhere else does.}
   \countUTFy = "E0
   \def\UTFviiiTmp{%
     \gdef~{%
-        \ifpassthroughchars $%
+        \ifpassthroughchars
+          \ifinindexsortkey\swapnestedfi\UTFviiiSortkeyTwo\fi
+          $%
         \else\expandafter\UTFviiiTwoOctets\expandafter$\fi}}%
   \UTFviiiLoop
 
@@ -10700,7 +10938,9 @@ directory should work if nowhere else does.}
   \countUTFy = "F0
   \def\UTFviiiTmp{%
     \gdef~{%
-        \ifpassthroughchars $%
+        \ifpassthroughchars
+          \ifinindexsortkey\swapnestedfi\UTFviiiSortkeyThree\fi
+          $%
         \else\expandafter\UTFviiiThreeOctets\expandafter$\fi}}%
   \UTFviiiLoop
 
@@ -10708,7 +10948,9 @@ directory should work if nowhere else does.}
   \countUTFy = "F4
   \def\UTFviiiTmp{%
     \gdef~{%
-        \ifpassthroughchars $%
+        \ifpassthroughchars
+          \ifinindexsortkey\swapnestedfi\UTFviiiSortkeyFour\fi
+          $%
         \else\expandafter\UTFviiiFourOctets\expandafter$\fi
         }}%
   \UTFviiiLoop
@@ -10802,7 +11044,7 @@ directory should work if nowhere else does.}
       \parseXMLCharref
       %
       % Completely expand \UTFviiiTmp, which looks like:
-      % 1.  \UTFviiTwoOctetsName B1 B2
+      % 1.  \UTFviiiTwoOctetsName B1 B2
       % 2.  \csname u8:B1 \string B2 \endcsname
       % 3.  \u8: B1 B2  (a single control sequence token)
       \xdef\UTFviiiTmp{\UTFviiiTmp}%
@@ -10878,6 +11120,61 @@ directory should work if nowhere else does.}
     \uccode `#3\countUTFz
     \uppercase{\gdef\UTFviiiTmp{#2#3#4}}}
 \endgroup
+
+% Used in \DefineSortKey as temporary definitions of \UTFviiiTwoOctetsName etc.
+% Use \expandafter\noexpand to prevent excessive expansion if \DefineSortKey is
+% called more than once for the same codepoint.
+\def\UTFviiiSortTwoOctetsName#1#2{%
+  \expandafter\noexpand\csname sort:#1\string #2\endcsname}%
+\def\UTFviiiSortThreeOctetsName#1#2#3{%
+  \expandafter\noexpand\csname sort:#1\string #2\string #3\endcsname}%
+\def\UTFviiiSortFourOctetsName#1#2#3#4{%
+  \expandafter\noexpand\csname sort:#1\string #2\string #3\string #4\endcsname}%
+
+% To be used in translation files to provide strings to be output
+% in the index sort key where a character occurs.
+\def\DefineSortKey#1#2{%
+  \countUTFz = "#1\relax
+  \parseXMLCharref
+  \def\tmp{#2}%
+  \expandafter\let\csname usort:#1\endcsname\tmp
+  \bgroup
+    \let\UTFviiiTwoOctetsName\UTFviiiSortTwoOctetsName
+    \let\UTFviiiThreeOctetsName\UTFviiiSortThreeOctetsName
+    \let\UTFviiiFourOctetsName\UTFviiiSortFourOctetsName
+    %
+    % Expand \UTFviiiTmp fully, which looks like:
+    % 1.  \UTFviiiTwoOctetsName B1 B2
+    % 2.  \expandafter\noexpand\csname sort:B1 \string B2 \endcsname
+    % 3.  \noexpand\sort: B1 B2
+    % 4.  \sort: B1 B2 (a single control sequence token)
+    %
+    \xdef\UTFviiiTmp{\UTFviiiTmp}%
+  \egroup
+  \expandafter\gdef\UTFviiiTmp{#2}%
+}
+
+% Used in translation files, e.g. in txi-is.tex:
+%   \DefineSortKey{00DE}{{\string\idxsort{1}{\string\TH{}}}} % Þ
+% We provide a definition here in case the sequence shows up in sorted
+% index files.
+\def\idxsort#1#2{#2}
+
+% this could be used as follows
+%\DefineSortKey{00F1}{nzzz} % n tilde - sort between n and o
+%\DefineSortKey{00D1}{Nzzz} % N tilde - sort between n and o
+
+% Can be used in place of \DeclareUnicodeCharacter where the value for
+% the character is completely expandable when writing to indices:
+% Good: \DeclareUnicodeCharacterSK{00C9}{\'E}
+%         (\' expands to empty string)
+% Bad:  \DeclareUnicodeCharacterSK{03BB}{\ensuremath\lambda}%
+%         (\ensuremath expands to junk)
+\def\DeclareUnicodeCharacterSK#1#2{%
+  \DeclareUnicodeCharacter{#1}{#2}%
+  \DefineSortKey{#1}{#2}%
+}
+
 
 % For native Unicode handling (XeTeX and LuaTeX),
 % provide a definition macro that sets a catcode to `other' non-globally
@@ -11042,73 +11339,73 @@ directory should work if nowhere else does.}
   \DeclareUnicodeCharacter{00BE}{$3\over4$}%
   \DeclareUnicodeCharacter{00BF}{\questiondown}%
   %
-  \DeclareUnicodeCharacter{00C0}{\`A}%
-  \DeclareUnicodeCharacter{00C1}{\'A}%
-  \DeclareUnicodeCharacter{00C2}{\^A}%
-  \DeclareUnicodeCharacter{00C3}{\~A}%
-  \DeclareUnicodeCharacter{00C4}{\"A}%
-  \DeclareUnicodeCharacter{00C5}{\AA}%
-  \DeclareUnicodeCharacter{00C6}{\AE}%
-  \DeclareUnicodeCharacter{00C7}{\cedilla{C}}%
-  \DeclareUnicodeCharacter{00C8}{\`E}%
-  \DeclareUnicodeCharacter{00C9}{\'E}%
-  \DeclareUnicodeCharacter{00CA}{\^E}%
-  \DeclareUnicodeCharacter{00CB}{\"E}%
-  \DeclareUnicodeCharacter{00CC}{\`I}%
-  \DeclareUnicodeCharacter{00CD}{\'I}%
-  \DeclareUnicodeCharacter{00CE}{\^I}%
-  \DeclareUnicodeCharacter{00CF}{\"I}%
+  \DeclareUnicodeCharacterSK{00C0}{\`A}%
+  \DeclareUnicodeCharacterSK{00C1}{\'A}%
+  \DeclareUnicodeCharacterSK{00C2}{\^A}%
+  \DeclareUnicodeCharacterSK{00C3}{\~A}%
+  \DeclareUnicodeCharacterSK{00C4}{\"A}%
+  \DeclareUnicodeCharacterSK{00C5}{\AA}%
+  \DeclareUnicodeCharacterSK{00C6}{\AE}%
+  \DeclareUnicodeCharacterSK{00C7}{\cedilla{C}}%
+  \DeclareUnicodeCharacterSK{00C8}{\`E}%
+  \DeclareUnicodeCharacterSK{00C9}{\'E}%
+  \DeclareUnicodeCharacterSK{00CA}{\^E}%
+  \DeclareUnicodeCharacterSK{00CB}{\"E}%
+  \DeclareUnicodeCharacterSK{00CC}{\`I}%
+  \DeclareUnicodeCharacterSK{00CD}{\'I}%
+  \DeclareUnicodeCharacterSK{00CE}{\^I}%
+  \DeclareUnicodeCharacterSK{00CF}{\"I}%
   %
-  \DeclareUnicodeCharacter{00D0}{\DH}%
-  \DeclareUnicodeCharacter{00D1}{\~N}%
-  \DeclareUnicodeCharacter{00D2}{\`O}%
-  \DeclareUnicodeCharacter{00D3}{\'O}%
-  \DeclareUnicodeCharacter{00D4}{\^O}%
-  \DeclareUnicodeCharacter{00D5}{\~O}%
-  \DeclareUnicodeCharacter{00D6}{\"O}%
+  \DeclareUnicodeCharacterSK{00D0}{\DH}%
+  \DeclareUnicodeCharacterSK{00D1}{\~N}%
+  \DeclareUnicodeCharacterSK{00D2}{\`O}%
+  \DeclareUnicodeCharacterSK{00D3}{\'O}%
+  \DeclareUnicodeCharacterSK{00D4}{\^O}%
+  \DeclareUnicodeCharacterSK{00D5}{\~O}%
+  \DeclareUnicodeCharacterSK{00D6}{\"O}%
   \DeclareUnicodeCharacter{00D7}{\ensuremath\times}%
-  \DeclareUnicodeCharacter{00D8}{\O}%
-  \DeclareUnicodeCharacter{00D9}{\`U}%
-  \DeclareUnicodeCharacter{00DA}{\'U}%
-  \DeclareUnicodeCharacter{00DB}{\^U}%
-  \DeclareUnicodeCharacter{00DC}{\"U}%
-  \DeclareUnicodeCharacter{00DD}{\'Y}%
+  \DeclareUnicodeCharacterSK{00D8}{\O}%
+  \DeclareUnicodeCharacterSK{00D9}{\`U}%
+  \DeclareUnicodeCharacterSK{00DA}{\'U}%
+  \DeclareUnicodeCharacterSK{00DB}{\^U}%
+  \DeclareUnicodeCharacterSK{00DC}{\"U}%
+  \DeclareUnicodeCharacterSK{00DD}{\'Y}%
   \DeclareUnicodeCharacter{00DE}{\TH}%
-  \DeclareUnicodeCharacter{00DF}{\ss}%
+  \DeclareUnicodeCharacterSK{00DF}{\ss}%
   %
-  \DeclareUnicodeCharacter{00E0}{\`a}%
-  \DeclareUnicodeCharacter{00E1}{\'a}%
-  \DeclareUnicodeCharacter{00E2}{\^a}%
-  \DeclareUnicodeCharacter{00E3}{\~a}%
-  \DeclareUnicodeCharacter{00E4}{\"a}%
-  \DeclareUnicodeCharacter{00E5}{\aa}%
-  \DeclareUnicodeCharacter{00E6}{\ae}%
-  \DeclareUnicodeCharacter{00E7}{\cedilla{c}}%
-  \DeclareUnicodeCharacter{00E8}{\`e}%
-  \DeclareUnicodeCharacter{00E9}{\'e}%
-  \DeclareUnicodeCharacter{00EA}{\^e}%
-  \DeclareUnicodeCharacter{00EB}{\"e}%
-  \DeclareUnicodeCharacter{00EC}{\`{\dotless{i}}}%
-  \DeclareUnicodeCharacter{00ED}{\'{\dotless{i}}}%
-  \DeclareUnicodeCharacter{00EE}{\^{\dotless{i}}}%
-  \DeclareUnicodeCharacter{00EF}{\"{\dotless{i}}}%
+  \DeclareUnicodeCharacterSK{00E0}{\`a}%
+  \DeclareUnicodeCharacterSK{00E1}{\'a}%
+  \DeclareUnicodeCharacterSK{00E2}{\^a}%
+  \DeclareUnicodeCharacterSK{00E3}{\~a}%
+  \DeclareUnicodeCharacterSK{00E4}{\"a}%
+  \DeclareUnicodeCharacterSK{00E5}{\aa}%
+  \DeclareUnicodeCharacterSK{00E6}{\ae}%
+  \DeclareUnicodeCharacterSK{00E7}{\cedilla{c}}%
+  \DeclareUnicodeCharacterSK{00E8}{\`e}%
+  \DeclareUnicodeCharacterSK{00E9}{\'e}%
+  \DeclareUnicodeCharacterSK{00EA}{\^e}%
+  \DeclareUnicodeCharacterSK{00EB}{\"e}%
+  \DeclareUnicodeCharacterSK{00EC}{\`{\dotless{i}}}%
+  \DeclareUnicodeCharacterSK{00ED}{\'{\dotless{i}}}%
+  \DeclareUnicodeCharacterSK{00EE}{\^{\dotless{i}}}%
+  \DeclareUnicodeCharacterSK{00EF}{\"{\dotless{i}}}%
   %
-  \DeclareUnicodeCharacter{00F0}{\dh}%
-  \DeclareUnicodeCharacter{00F1}{\~n}%
-  \DeclareUnicodeCharacter{00F2}{\`o}%
-  \DeclareUnicodeCharacter{00F3}{\'o}%
-  \DeclareUnicodeCharacter{00F4}{\^o}%
-  \DeclareUnicodeCharacter{00F5}{\~o}%
-  \DeclareUnicodeCharacter{00F6}{\"o}%
+  \DeclareUnicodeCharacterSK{00F0}{\dh}%
+  \DeclareUnicodeCharacterSK{00F1}{\~n}%
+  \DeclareUnicodeCharacterSK{00F2}{\`o}%
+  \DeclareUnicodeCharacterSK{00F3}{\'o}%
+  \DeclareUnicodeCharacterSK{00F4}{\^o}%
+  \DeclareUnicodeCharacterSK{00F5}{\~o}%
+  \DeclareUnicodeCharacterSK{00F6}{\"o}%
   \DeclareUnicodeCharacter{00F7}{\ensuremath\div}%
-  \DeclareUnicodeCharacter{00F8}{\o}%
-  \DeclareUnicodeCharacter{00F9}{\`u}%
-  \DeclareUnicodeCharacter{00FA}{\'u}%
-  \DeclareUnicodeCharacter{00FB}{\^u}%
-  \DeclareUnicodeCharacter{00FC}{\"u}%
-  \DeclareUnicodeCharacter{00FD}{\'y}%
+  \DeclareUnicodeCharacterSK{00F8}{\o}%
+  \DeclareUnicodeCharacterSK{00F9}{\`u}%
+  \DeclareUnicodeCharacterSK{00FA}{\'u}%
+  \DeclareUnicodeCharacterSK{00FB}{\^u}%
+  \DeclareUnicodeCharacterSK{00FC}{\"u}%
+  \DeclareUnicodeCharacterSK{00FD}{\'y}%
   \DeclareUnicodeCharacter{00FE}{\th}%
-  \DeclareUnicodeCharacter{00FF}{\"y}%
+  \DeclareUnicodeCharacterSK{00FF}{\"y}%
   %
   \DeclareUnicodeCharacter{0100}{\=A}%
   \DeclareUnicodeCharacter{0101}{\=a}%
@@ -11707,6 +12004,9 @@ directory should work if nowhere else does.}
 \newif\ifpassthroughchars
 \passthroughcharsfalse
 
+\newif\ifinindexsortkey
+\inindexsortkeyfalse
+
 % For native Unicode handling (XeTeX and LuaTeX),
 % provide a definition macro to replace/pass-through a Unicode character
 %
@@ -11718,7 +12018,15 @@ directory should work if nowhere else does.}
         \uccode`\~="##2\relax
         \uppercase{\gdef~}{%
           \ifpassthroughchars
-            ##1%
+            \ifinindexsortkey
+               \expandafter\ifx\csname usort:#1\endcsname\relax
+                 {##1}%
+               \else
+                 \csname usort:#1\endcsname
+               \fi
+            \else
+              ##1%
+            \fi
           \else
             ##3%
           \fi
