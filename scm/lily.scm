@@ -740,6 +740,7 @@ determines the number of scale steps that make up an octave.  Usually the
     "stencil"
     "modal-transforms"
     "chord-ignatzek-names"
+    "music-utility-functions"
     "music-functions"
     "part-combiner"
     "autochange"
