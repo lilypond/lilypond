@@ -26,7 +26,7 @@
 @code{\\temporary \\override}."
   (make-music 'OverrideProperty
               'symbol grob
-              'grob-property gprop
+              'grob-property-path (list gprop)
               'grob-value val
               'pop-first #t))
 
@@ -36,14 +36,14 @@
 making it possible to @code{\\revert} to any previous value afterwards."
   (make-music 'OverrideProperty
               'symbol grob
-              'grob-property gprop
+              'grob-property-path (list gprop)
               'grob-value val))
 
 (define-public (make-grob-property-revert grob gprop)
   "Revert the grob property @var{gprop} for @var{grob}."
   (make-music 'RevertProperty
               'symbol grob
-              'grob-property gprop))
+              'grob-property-path (list gprop)))
 
 (define-public (make-voice-props-set n)
   (make-sequential-music
