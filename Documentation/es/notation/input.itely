@@ -2222,7 +2222,7 @@ en relación al medidor.
 @node Table of contents
 @section Tabla de contenidos
 
-@cindex @'indice general
+@cindex @'{@dotless{i}}ndice general
 @cindex tabla de contenidos
 @cindex marcadores
 
@@ -2374,7 +2374,7 @@ correspondiente:
 @end lilypond
 
 @funindex add-toc-item!
-@cindex @'indice general, funciones personalizadas
+@cindex @'{@dotless{i}}ndice general, funciones personalizadas
 
 Además del mecanismo incorporado de construcción del índice
 general, las instrucciones predefinidas pueden definirse también
