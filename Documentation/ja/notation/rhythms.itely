@@ -472,7 +472,8 @@ MIDI 出力での演奏時間を決定するために使用されます。@c
 
 @cindex tie (タイ)
 
-@funindex ~
+@c `@funindex \~` is auto-generated
+@funindexpre ~
 
 タイは同じピッチの隣り合う符頭を結び付けます。@c
 タイは音符の演奏時間を伸張する効果があります。

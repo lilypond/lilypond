@@ -488,7 +488,8 @@ ningún error.
 
 @cindex ligadura de unión
 
-@funindex ~
+@c `@funindex \~` is auto-generated
+@funindexpre ~
 
 Una ligadura de unión conecta dos notas adyacentes de la misma
 altura.  La ligadura en efecto extiende la longitud de una nota.

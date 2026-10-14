@@ -600,7 +600,8 @@ Referencia de funcionamiento interno:
 @subsection Varias sílabas sobre una nota
 
 @funindex _
-@funindex ~
+@c `@funindex \~` is auto-generated
+@funindexpre ~
 @cindex ligadura, en la letra
 @cindex espacio, en la letra
 @cindex comillas, en la letra

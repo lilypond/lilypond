@@ -403,7 +403,8 @@ Schnipsel:
 @cindex Bindebogen
 @cindex @"Uberbindung
 
-@funindex ~
+@c `@funindex \~` is auto-generated
+@funindexpre ~
 
 Ein Bindebogen verbindet zwei benachbarte Noten der selben
 Tonhöhe.  Als Resultat wird die Dauer der Notenlänge verlängert.

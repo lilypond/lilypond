@@ -435,7 +435,8 @@ indicare un errore.
 
 @cindex legatura di valore
 
-@funindex ~
+@c `@funindex \~` is auto-generated
+@funindexpre ~
 
 Una legatura di valore connette le teste di due note della stessa altezza successive.
 Dunque, la legatura di valore prolunga la durata di una nota.

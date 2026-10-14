@@ -466,7 +466,8 @@ an error.
 @subsection Ties
 
 @cindex tie
-@funindex ~
+@c `@funindex \~` is auto-generated
+@funindexpre ~
 
 A tie connects two adjacent note heads of the same pitch.  The tie
 in effect extends the duration of a note.

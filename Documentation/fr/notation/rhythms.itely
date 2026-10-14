@@ -490,7 +490,8 @@ d'erreur.
 @cindex liaison de tenue
 @cindex tenue, liaison
 
-@funindex ~
+@c `@funindex \~` is auto-generated
+@funindexpre ~
 
 Une liaison de tenue (ou de prolongation) relie deux notes adjacentes de
 même hauteur. Dans les faits, elle prolonge la durée d'une note.

@@ -570,7 +570,8 @@ Référence des propriétés internes :
 @cindex espace dans les paroles
 @cindex guillemets dans les paroles
 @funindex _
-@funindex ~
+@c `@funindex \~` is auto-generated
+@funindexpre ~
 
 Pour attribuer plus d'une syllabe à une même note, vous pouvez soit les
 mettre entre guillemets, soit utiliser le caractère souligné (@code{_})

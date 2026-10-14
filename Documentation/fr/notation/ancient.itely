@@ -2137,7 +2137,7 @@ plaçant une commande de jointure @code{\pes} ou @code{\flexa} pour
 marquer une ligne mélodique respectivement ascendante ou descendante,
 entre les notes qui la composent.
 
-@funindexpost \~
+@funindex \~
 Une alternative à @code{\pes} et @code{\flexa}, qui fonctionnent en
 interne de la même manière, consiste à utiliser la commande @code{\~}.
 @end itemize
@@ -3040,7 +3040,7 @@ note.
 
 @funindex \pes
 @funindex \flexa
-@funindexpost \~
+@funindex \~
 
 Deux notes adjacentes peuvent être reliées grâce aux commandes
 @code{\pes} ou @code{\flexa} pour marquer une ligne mélodique

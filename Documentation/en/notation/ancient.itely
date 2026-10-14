@@ -2066,7 +2066,7 @@ produced by placing one of the joining commands @code{\pes} or
 @code{\flexa}, for upwards and downwards movement, respectively,
 @emph{between} the notes to be joined.
 
-@funindexpost \~
+@funindex \~
 An alternative to @code{\pes} and @code{\flexa} (which internally
 do exactly the same) is the command @code{\~}.
 @end itemize
@@ -2973,7 +2973,7 @@ to a head, but not both to the same head.
 
 @funindex \pes
 @funindex \flexa
-@funindexpost \~
+@funindex \~
 
 Two adjacent heads can be tied together with the @code{\pes} and
 @code{\flexa} infix commands for a rising and falling line of melody,

@@ -569,7 +569,8 @@ Internals Reference:
 @subsection Multiple syllables to one note
 
 @funindex _
-@funindex ~
+@c `@funindex \~` is auto-generated
+@funindexpre ~
 @cindex space, in lyrics
 @cindex quote, in lyrics
 @cindex tie, in lyrics

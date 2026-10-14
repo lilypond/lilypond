@@ -412,7 +412,8 @@ gravat es detindran a aquest punt sense indicar cap error.
 
 @cindex lligadura d'unió
 
-@funindex ~
+@c `@funindex \~` is auto-generated
+@funindexpre ~
 
 Un lligadura d'unió connecta dues notes adjacents de la mateixa
 altura.  La lligadura de fet estén la longitud d'una nota.
