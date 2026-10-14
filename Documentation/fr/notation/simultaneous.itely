@@ -576,7 +576,7 @@ mus =
 @cindex calque
 
 @funindex << ... \\ ... >>
-@funindex @sortas{\\} \\
+@funindex @backslashchar{}@backslashchar{}
 
 Une construction de la forme @code{<< @{@dots{}@} \\ @{@dots{}@} >>},
 dans laquelle plusieurs expressions sont séparées par des doubles

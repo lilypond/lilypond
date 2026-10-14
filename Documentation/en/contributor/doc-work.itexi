@@ -964,6 +964,17 @@ sorted before @code{@@funindex \foo}, and @code{@@funindexpost
 @end example
 
 @item
+To index @code{\\} you must write
+
+@example
+@@funindex @@backslashchar@{@}@@backslashchar@{@}
+@end example
+
+@noindent
+so that the backslash characters are not swallowed by LilyPond's
+Texinfo macro setup.
+
+@item
 If you mention entities in a @code{@@cindex} entry that would
 normally be entered with @code{@@funindex}, use @code{@@code} to
 mark them.  Example:
@@ -977,10 +988,9 @@ To get a literal @samp{@{} or @samp{@}} in an index, write
 @code{@@@{} and @code{@@@}}, respectively.
 
 @item
-As of November 2022, if an index entry starts with an accented
-character, use a Texinfo accent macro instead of the real
-character.  For example, an index entry for @q{Äolisch} should be
-entered as
+If an index entry starts with an accented character, use a Texinfo
+accent macro instead of the real character.  For example, an index
+entry for @q{Äolisch} should be entered as
 
 @example
 @@cindex @@"Aolisch
@@ -988,9 +998,9 @@ entered as
 
 @noindent
 to circumvent a problem with @command{texindex} (used by Texinfo
-to sort and unify index entries in PDF output): this program
-currently has no support for locale-specific collation.  In the
-above example, the entry is now sorted as @q{Aolisch}.
+to sort and unify index entries in PDF output): as of October
+2026, this command has no support for locale-specific collation.
+In the above example, the entry is now sorted as @q{Aolisch}.
 
 In case this is not sufficient it is always possible to explicitly
 specify a sorting key using the @code{@@sortas} command: Assuming

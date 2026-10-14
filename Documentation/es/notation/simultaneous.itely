@@ -570,7 +570,7 @@ mus =
 @subsubheading La construcción de la doble barra invertida
 
 @funindex << ... \\ ... >>
-@funindex @sortas{\\} \\
+@funindex @backslashchar{}@backslashchar{}
 
 La construcción @code{<< @{@dots{}@} \\ @{@dots{}@} >>}, en que
 las dos expresiones (o más) están separadas por doble barra

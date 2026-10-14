@@ -280,7 +280,7 @@ Macro definitions that contain translatable text belong to file
 @c
 @c Another special case is indexing '\\'; you have to write
 @c
-@c   @funindex @sortas{@bs{}@bs{}} \\
+@c   @funindex @backslashchar{}@backslashchar{}
 
 @tex
 {

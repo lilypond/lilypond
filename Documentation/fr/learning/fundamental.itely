@@ -655,7 +655,7 @@ temps. Nous avons alors besoin de deux voix.
 Voyons comment cela se pratique selon la grammaire de LilyPond.
 
 @funindex << ... \\ ... >>
-@funindex @sortas{\\} \\
+@funindex @backslashchar{}@backslashchar{}
 
 Le plus sûr moyen de saisir un fragment où plusieurs voix cohabitent sur
 la même portée, consiste à saisir chacune des voix séquentiellement

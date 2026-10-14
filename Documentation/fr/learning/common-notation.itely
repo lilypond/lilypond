@@ -1046,7 +1046,7 @@ Manuel de notation :
 
 @funindex << ... \\ ... >>
 @funindex <<
-@funindex @sortas{\\} \\
+@funindex @backslashchar{}@backslashchar{}
 @funindex >>
 
 Bien que LilyPond gère la musique polyphonique sans difficulté, cela
