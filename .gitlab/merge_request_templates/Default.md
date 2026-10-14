@@ -1,9 +1,13 @@
 #### Description
 
-<!-- Describe your goal and your work briefly to orient
-reviewers.  For your convenience, your commit messages
-are copied here as a starting point.  If you have not
-described your commits well, go back and do that first. -->
+<!--
+  Submitting a merge request publishes your work and makes it subject to
+  modification and distribution under LilyPond's license.
+
+  Describe your goal and your work briefly to orient reviewers.  For your
+  convenience, your commit messages are copied here as a starting point.
+  If you have not described your commits well, go back and do that first.
+-->
 
 %{all_commits}
 
@@ -13,5 +17,5 @@ described your commits well, go back and do that first. -->
 
 **A.** <!-- 0-100 --> 
 
-<!-- Add any details about your use of AI that might help
-reviewers approach this work. -->
+<!-- Add any details about your use of AI that might help reviewers
+approach this work. -->
