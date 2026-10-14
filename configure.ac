@@ -270,6 +270,11 @@ if test "$PDFLATEX" = "xelatex"; then
     fi
 else
     STEPMAKE_PROGS(PDFTEX, pdfetex pdftex etex, $DOCUMENTATION_REQUIRED)
+    case $PDFTEX in
+        pdfetex|pdftex|etex)
+            # We want real 8-bit characters in auxiliary index files.
+            PDFTEX="$PDFTEX -8bit" ;;
+    esac
 fi
 STEPMAKE_PROGS(TEXI2PDF, texi2pdf, $DOCUMENTATION_REQUIRED)
 STEPMAKE_PROGS(TEXINDEX, texindex, $DOCUMENTATION_REQUIRED)
