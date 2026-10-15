@@ -259,94 +259,31 @@ expression."
   (format #f "\\grace ~a"
           (music->lily-string (ly:music-property expr 'element))))
 
-;; \acciaccatura \appoggiatura \grace
-;; TODO: it would be better to compare ?start and ?stop
-;; with startAppoggiaturaMusic and stopAppoggiaturaMusic,
-;; using a custom music equality predicate.
-
-(eval-when (expand load eval)
-  (define startGraceSlur (make-event-chord
-                          (list (make-music 'SlurEvent
-                                            'span-direction START
-                                            'spanner-id 'grace))))
-
-  (define stopGraceSlur (make-event-chord
-                         (list (make-music 'SlurEvent
-                                           'span-direction STOP
-                                           'spanner-id 'grace)))))
-
+;; \acciaccatura \appoggiatura \grace \slashedGrace
 
 (define-extra-display-method GraceMusic (expr)
-  "Display method for appoggiatura."
-  (with-music-match (expr ,(make-grace-music
-                            (make-sequential-music
-                             `(?init-context
-                               ,(make-sequential-music (list startGraceSlur))
-                               ?music
-                               ,(make-sequential-music (list stopGraceSlur))))))
-
-                    (format #f "\\appoggiatura ~a" (music->lily-string ?music))))
-
-
-(define-extra-display-method GraceMusic (expr)
-  "Display method for acciaccatura."
-  (with-music-match (expr ,(make-grace-music
-                            (make-sequential-music
-                             `(?init-context
-                               ,(make-sequential-music
-                                 (list startGraceSlur
-                                       (context-spec-music
-                                        (make-grob-property-override 'Flag 'stroke-style "grace")
-                                        'Bottom)))
-                               ?music
-                               ,(make-sequential-music
-                                 (list (context-spec-music
-                                        (make-grob-property-revert 'Flag 'stroke-style)
-                                        'Bottom)
-                                       stopGraceSlur))))))
-                    (format #f "\\acciaccatura ~a" (music->lily-string ?music))))
-
-
-(define-extra-display-method GraceMusic (expr)
-  "Display method for slashedGrace."
-  (with-music-match (expr ,(make-grace-music
-                            (make-sequential-music
-                             `(?init-context
-                               ,(make-sequential-music
-                                 (list
-                                  (context-spec-music
-                                   (make-grob-property-override 'Beam 'stencil '?slash-stencil)
-                                   'Bottom)
-                                  (context-spec-music
-                                   (make-grob-property-override 'Flag 'stroke-style "grace")
-                                   'Bottom)))
-                               ?music
-                               ,(make-sequential-music
-                                 (list
-                                  (context-spec-music
-                                   (make-grob-property-revert 'Beam 'stencil)
-                                   'Bottom)
-                                  (context-spec-music
-                                   (make-grob-property-revert 'Flag 'stroke-style)
-                                   'Bottom)))))))
-                    ;; Cannot byte-compile the reference into the macro
-                    (and (eq? ?slash-stencil beam::slashed-stencil)
-                         (format #f "\\slashedGrace ~a" (music->lily-string ?music)))))
-
-(define-extra-display-method GraceMusic (expr)
-  "Display method for grace."
-  (with-music-match (expr ,(make-grace-music
-                            (make-sequential-music
-                             `(?init-context
-                               ,(make-sequential-music '?pre)
-                               ?music
-                               ,(make-sequential-music '?post)))))
-                    ;; we check whether start and stop look like
-                    ;; startGraceMusic stopGraceMusic.  Apparently empty
-                    ;; sequential music is considered generic by the music
-                    ;; matcher
-                    (and (null? ?pre) (null? ?post)
-                         (format #f "\\grace ~a" (music->lily-string ?music)))))
+  "Display method for music defined with def-grace-function."
+  (with-music-match
+   (expr ,(make-grace-music
+           (make-sequential-music
+            `(,(make-initial-context-music '?ctx)
+              ?startMusic
+              ?music
+              ?stopMusic))))
+   (cond ((not (equal? ?ctx ?music)) #f)
+         ((and (equal? ?startMusic (ly:parser-lookup 'startAcciaccaturaMusic))
+               (equal? ?stopMusic (ly:parser-lookup 'stopAcciaccaturaMusic)))
+          (format #f "\\acciaccatura ~a" (music->lily-string ?music)))
+         ((and (equal? ?startMusic (ly:parser-lookup 'startAppoggiaturaMusic))
+               (equal? ?stopMusic (ly:parser-lookup 'stopAppoggiaturaMusic)))
+          (format #f "\\appoggiatura ~a" (music->lily-string ?music)))
+         ((and (equal? ?startMusic (ly:parser-lookup 'startGraceMusic))
+               (equal? ?stopMusic (ly:parser-lookup 'stopGraceMusic)))
+          (format #f "\\grace ~a" (music->lily-string ?music)))
+         ((and (equal? ?startMusic (ly:parser-lookup 'startSlashedGraceMusic))
+               (equal? ?stopMusic (ly:parser-lookup 'stopSlashedGraceMusic)))
+          (format #f "\\slashedGrace ~a" (music->lily-string ?music)))
+         (else #f))))
 
 ;;;
 ;;; Music sequences
