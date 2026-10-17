@@ -172,20 +172,26 @@ None so far.
 @end lilypond
 
 @item
-The @code{\after} command, like @code{\skip} does, is now able to
-use a @var{delay} argument that can be a music expression rather
-than only a duration:
+For the sake of convenience, various commands can now use music to
+specify some duration in a manner similar to @code{\skip}.  The
+music used as duration specification will not get typeset;
+specifying pitches or other events has no effect.  For that
+reason, the typical form will just be a list of durations, like
+@code{@{2. 16@}}, or even @code{@{\tuplet 3/2 @{8 8@}@}}.
+
+The commands in question are @code{\after}, @code{\partial}, and
+@code{\setMeasureLengthFromHere}.
 
 @lilypond[quote,verbatim]
 \fixed c' {
   {
-    \after { 2. 16 } -> \*16 c16
+    \after {2. 16} -> \*16 c16
   }
 }
 @end lilypond
 
-In this case, this may be more convenient than having to write
-@code{16*13} as delay.
+There is no difference in the result to using the equivalent
+duration @code{16*13} instead of @code{@{2. 16@}} here.
 
 @item
 The new @code{\senzaMisura} command institutes ``free time'' and

@@ -77,6 +77,9 @@ after =
   (_i "Add music @var{ev} with a delay of @var{delta} after the onset of
 @var{mus}.
 
+@var{delta} can be specified as music; this is intended for specifying compound
+durations like @code{@{ 2 4. @}} and does not typeset the music.
+
 @var{ev} is usually a post-event.")
   (define (empty-chord? m)
      "Checks whether m is an empty chord <>."
@@ -1269,7 +1272,7 @@ check at the beginning as well as the end.")
    #} )
 
 measureRemainder =
-#(define-music-function (music) (duration-or-music?)
+#(define-music-function (music) (ly:music?)
    (_i "End the current measure after @var{music}.
 
 The effect is equivalent to this:
@@ -1283,21 +1286,10 @@ The effect is equivalent to this:
 @}
 @end example
 
-Passing a duration as @var{music} (e.g., @code{\\measureRemainder 2}) is
-reserved for future use.
-
 See @rmusicfn{\\setMeasureLengthFromHere} for more information.
 
 Compare to @rmusicfn{\\premeasure}.")
-   (if (ly:duration? music)
-       (begin
-         ;; TODO: Maybe merge \measureRemainder <music> and
-         ;; \setMeasureLengthFromHere <duration> into one command.
-         ;; There is precedent in \skip <duration> and \skip <music>.
-         (ly:input-warning (*location*)
-                           (G_ "duration reserved for future use"))
-         (make-music 'Music))
-   (make-music 'MeasureRemainderMusic 'element music)))
+   (make-music 'MeasureRemainderMusic 'element music))
 
 modalInversion =
 #(define-music-function (around to scale music)
@@ -1792,8 +1784,12 @@ For details, see @rmusicfn{\\partCombine}.")
 %% Part combine forcing to be found in ly/property-init.ly
 
 partial =
-#(define-music-function (dur) (ly:duration?)
+#(define-music-function (dur) (duration-or-music?)
    (_i "End the current measure after @var{dur}.
+
+@var{dur} can be specified as music; this is intended for specifying
+compound durations like @code{@{ 2 4. @}} and does not typeset the music;
+use @rmusicfn{\\premeasure} for that purpose.
 
 Adjust @code{Timing@/.measurePosition} to end the current measure at @var{dur}
 past the point of use.  As a special case, when used at the start, create an
@@ -1805,11 +1801,13 @@ to @rmusicfn{\\setMeasureLengthFromHere}.
 
 The calculation requires @code{Timing@/.measureLength} to be finite, so
 @code{\\partial} cannot be used in a senza-misura passage.
-
-See also @rmusicfn{\\premeasure}.")
+")
   (context-spec-music (make-music 'PartialSet
                                   'origin (*location*)
-                                  'duration dur)
+                                  'duration (if (ly:music? dur)
+                                                (make-duration-of-length
+                                                 (ly:music-length dur))
+                                                dur))
                       'Timing))
 
 pitchedTrill =
@@ -1905,7 +1903,7 @@ This is the opposite to function @rmusicfn{\\pushContextProperty}.")
          (make-music 'Music))))
 
 premeasure =
-#(define-music-function (music) (duration-or-music?)
+#(define-music-function (music) (ly:music?)
    (_i "Create a lead-in partial measure from @var{music}.
 
 The effect is equivalent to this:
@@ -1918,20 +1916,9 @@ The effect is equivalent to this:
 @}
 @end example
 
-Passing a duration as @var{music} (e.g., @code{\\premeasure 2}) is reserved for
-future use.
-
 Compare to @rmusicfn{\\measureRemainder}.
 ")
-   (if (ly:duration? music)
-       (begin
-         ;; TODO: Maybe merge \premeasure <music> and \partial <duration> into
-         ;; one command.  There is precedent in \skip <duration> and \skip
-         ;; <music>.
-         (ly:input-warning (*location*)
-                           (G_ "duration argument reserved for future use"))
-         (make-music 'Music))
-       (make-music 'PremeasureMusic 'element music)))
+   (make-music 'PremeasureMusic 'element music))
 
 propertyOverride =
 #(define-music-function (grob-property-path value) (key-list? scheme?)
@@ -2336,12 +2323,16 @@ setDefaultMeasureLength =
                'origin (*location*)))
 
 setMeasureLengthFromHere =
-#(define-music-function (dur) (ly:duration?)
+#(define-music-function (dur) (duration-or-music?)
    (_i "End the current measure after @var{dur}.
 
 Adjust @code{Timing@/.measureLength} to end at @var{dur} past the point of use.
 The resulting measure length remains in effect until it is changed by another
 command.
+
+@var{dur} can be specified as music; this is intended for specifying
+compound durations like @code{@{ 2 4. @}} and does not typeset the music;
+use @rmusicfn{\\measureRemainder} for that purpose.
 
 Notational elements that communicate metric structure (e.g., beam breaks) will
 be engraved appropriately to continue the measure.  Compare to
@@ -2349,7 +2340,9 @@ be engraved appropriately to continue the measure.  Compare to
 
 See also @rmusicfn{\\measure} and @rmusicfn{\\measureRemainder}.")
    (make-music 'MeasureLengthSet
-               'duration dur
+               'duration (if (ly:music? dur)
+                             (make-duration-of-length (ly:music-length dur))
+                             dur)
                'origin (*location*)))
 
 shape =
