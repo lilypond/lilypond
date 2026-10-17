@@ -22,6 +22,17 @@ c' d' e' %\score
 
 \blabla
 
+\verb|notime|: \blabla
+
+\begin{lilypond}[notime]
+\fixed c' {
+  c8 d e f g a2 
+  g8 f e d e f2
+}
+\end{lilypond}
+
+\blabla
+
 \verb|verbatim|: \blabla
 
 \begin{lilypond}[fragment,verbatim]
