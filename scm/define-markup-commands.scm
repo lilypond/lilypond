@@ -2101,13 +2101,27 @@ function returns a list of paddings."
 space between words is constant.  If @code{#f}, the distance between
 words varies according to their relative lengths."
   (let* ((orig-stencils (interpret-markup-list layout props args))
+         ;; Remove empty stencils.
+         ;; The leftmost and rightmost stencils, however, are never removed
+         ;; even if they are empty (in this case they are transformed to
+         ;; stencils with an extent of '(0 . 0) along the x-axis).
+         ;; This offers the possibility to use the space an inner empty stencil
+         ;; would occupy.
+         (inner-empty-stencils-removed
+           (let loop ((result '()) (rest orig-stencils))
+               (cond ((null? rest) (reverse! result))
+                     ((and (pair? result)
+                           (pair? (cdr rest))
+                           (ly:stencil-empty? (car rest)))
+                      (loop result (cdr rest)))
+                     (else (loop (cons (car rest) result) (cdr rest))))))
          (stencils
           (map (lambda (stc)
                  (if (ly:stencil-empty? stc X)
                      (ly:make-stencil (ly:stencil-expr stc)
                                       '(0 . 0) (ly:stencil-extent stc Y))
                      stc))
-               orig-stencils))
+               inner-empty-stencils-removed))
          (text-widths
           (map (lambda (stc)
                  (interval-length (ly:stencil-extent stc X)))
@@ -2175,11 +2189,15 @@ The width of the horizontal line can be modified by overriding the
 the value of the @code{word-space} property, at the cost of lengthening the line
 if necessary.
 
+Empty arguments (like @code{\"\"}) are ignored.  If you want to skip one
+position but keep the others, use @code{\\null}.
+
 @lilypond[verbatim,quote,line-width=14\\cm]
 \\markup {
   \\column {
     \\fill-line { Words positioned evenly across a line }
     \\fill-line { | | | | | | }
+    \\fill-line { | \\null | | \\null | }
     \\null
     \\fill-line {
       \\line { Text markups }

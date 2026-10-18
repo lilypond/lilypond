@@ -295,6 +295,22 @@ argument to lengthen the brackets.
 @itemize
 
 @item
+The @code{\fill-line} markup command now removes empty stencils except the
+leftmost and rightmost ones, which are never removed.
+This offers the possibility to use the gained space for positioning the
+remaining elements.
+Non-empty stencils like @code{\null} are not removed.
+
+@lilypond[quote,verbatim]
+\markup \column {
+  \fill-line { | | | | | | | | | }
+  \fill-line { "" | | | | | | | "" }
+  \fill-line { "" | | \null | \null | | "" }
+  \fill-line { "" | | "" | "" | | "" }
+}
+@end lilypond
+
+@item
 An equal sign was added to the Emmentaler font.
 
 @item
