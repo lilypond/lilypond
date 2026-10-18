@@ -647,7 +647,9 @@ drawn by the procedure associated with glyph @var{glyph}."
     (if (ly:grob? staff-symbol)
         (let ((staff-extent (ly:grob-property staff-symbol 'widened-extent))
               (bar-line-color (ly:grob-property grob 'color))
-              (staff-color (ly:grob-property staff-symbol 'color)))
+              (staff-color
+               (and (not (ly:grob-property staff-symbol 'transparent #f))
+                    (ly:grob-property staff-symbol 'color))))
           ;; FIXME: "red" not eq? to #(rgb-color 1 0 0)
           (if (eq? bar-line-color staff-color)
               ;; Due to rounding problems, bar lines extending to the outermost edges
@@ -702,8 +704,11 @@ drawn by the procedure associated with glyph @var{glyph}."
     (if (and (ly:grob? staff-symbol)
              (pair? has-span-bar))
         (let ((bar-line-color (ly:grob-property grob 'color))
-              (staff-color (ly:grob-property staff-symbol 'color))
+              (staff-color
+               (and (not (ly:grob-property staff-symbol 'transparent #f))
+                    (ly:grob-property staff-symbol 'color)))
               (half-staff-line-thickness (/ (ly:staff-symbol-line-thickness grob) 2)))
+          ;; FIXME: "red" not eq? to #(rgb-color 1 0 0)
           (if (eq? bar-line-color staff-color)
               ;; if the colors are equal, ly:bar-line::calc-bar-extent has
               ;; shortened the bar line extent by a half-staff-line-thickness
