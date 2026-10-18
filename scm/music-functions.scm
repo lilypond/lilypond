@@ -2566,10 +2566,13 @@ formatted like:
                             (if allowed-to-shrink?
                                 (* x mag)
                                 (* x (max 1 mag)))))
-                    (new-val (if (number-pair? val)
-                                 (cons (proc (car val))
-                                       (proc (cdr val)))
-                                 (proc val))))
+                    (new-val (cond
+                              ((procedure? val)
+                               val)
+                              ((number-pair? val)
+                               (pair-map proc val))
+                              (else
+                               (proc val)))))
                (ly:context-pushpop-property where grob prop new-val)))))
      (if (or (eq? func-name 'magnifyMusic)
              ;; for \magnifyStaff, only scale the properties
