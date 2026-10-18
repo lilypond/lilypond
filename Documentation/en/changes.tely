@@ -162,6 +162,16 @@ None so far.
 @itemize
 
 @item
+@code{\markup \rhythm} now supports bar lines.
+
+@lilypond[quote,verbatim]
+\markup {
+  M'aidez!
+  \rhythm { 8 8 8 \bar "!" 4 4 4 \bar "!" 8 8 8 }
+}
+@end lilypond
+
+@item
 The @code{\after} command, like @code{\skip} does, is now able to
 use a @var{delay} argument that can be a music expression rather
 than only a duration:

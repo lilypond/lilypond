@@ -1745,10 +1745,12 @@ accommodated for typesetting a piece in Kievan style."
   \accepts StandaloneRhythmVoice
   \defaultchild StandaloneRhythmVoice
   \remove Time_signature_engraver
+  %% Use the standard height of four spaces, but place the whole bar line above
+  %% the X axis because the X axis is the markup's baseline.
+  \override BarLine.bar-extent = #'(0.0 . 4.0)
+  \override BarLine.short-bar-extent = #'(1.0 . 3.0)
   \override StaffSymbol.line-count = 0
-  %% The squashed position is 1, i.e. c'', so that the bottom of the
-  %% note heads is exactly on the baseline.
-  squashedPosition = 1
+  squashedPosition = 1  % place note heads in the bottom space
 }
 
 \context {
