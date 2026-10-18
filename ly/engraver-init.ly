@@ -325,6 +325,9 @@ multiple variants of mensural notation."
   \override Stem.neutral-direction = #UP
   \override Beam.neutral-direction = #UP
 
+  %% Bar line ends will be visible, so round the corners.
+  \override BarLine.rounded = ##t
+
   \consists Apply_output_engraver
   \consists Font_size_engraver
   \consists Separating_line_group_engraver
