@@ -316,6 +316,10 @@ The procedure @var{proc} has to be defined in the form
 
     (if (> staff-space 0)
         (begin
+          ;; Default to centering the colon on the bar in case there is no
+          ;; staff or the staff has no lines.
+          (set! center (/ (interval-center extent)
+                          (/ staff-space 2)))
           (set! dist (/ dist staff-space))
           (let ((staff-symbol (ly:grob-object grob 'staff-symbol)))
 
