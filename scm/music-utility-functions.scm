@@ -315,6 +315,4 @@ number, that's where numbering starts."
           (make-music
            'SkipEvent
            'duration (ly:make-duration 0 0))))
-
-    (make-event-chord (list (ly:music-compress skip (ly:music-length mus))))))
-
+    (ly:music-compress skip (ly:music-length mus))))
