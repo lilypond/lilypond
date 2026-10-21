@@ -274,12 +274,7 @@ class GitFileCompareLink (FileCompareLink):
         return str
 
     def calc_distance(self):
-        if self.contents[0] == self.contents[1]:
-            d = 0.0
-        else:
-            d = 1.0001 * options.threshold
-
-        return d
+        return 0 if (self.contents[0] == self.contents[1]) else MAX_DISTANCE
 
 
 class TextFileCompareLink (FileCompareLink):
@@ -816,6 +811,11 @@ class ComparisonData:
 
     def create_html_result_page(self, dest_dir: str, threshold: float):
         (changed, below, unchanged) = self.thresholded_results(threshold)
+
+        # Filter out GitFileCompareLinks so that they can be displayed last.
+        git_links = [L for L in changed if isinstance(L, GitFileCompareLink)]
+        changed = [L for L in changed if not isinstance(L, GitFileCompareLink)]
+        changed += git_links
 
         table_rows = '''
 <tr>
