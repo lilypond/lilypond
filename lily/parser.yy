@@ -2860,19 +2860,18 @@ property_operation:
 	| UNSET symbol {
 		$$ = ly_list (ly_symbol2scm ("unset"), $2);
 	}
-	| OVERRIDE revert_arg '=' scalar {
-		if (scm_ilength ($2) < 2) {
-			parser->parser_error (@2, _("bad grob property path"));
+	| OVERRIDE grob_prop_path '=' scalar {
+		if (SCM_UNBNDP ($2)) {
 			$$ = SCM_UNDEFINED;
 		} else {
 			$$ = scm_cons (ly_symbol2scm ("push"),
-				       scm_cons2 (scm_car ($2),
+				       scm_cons2 (scm_cadr ($2),
 						  $4,
-						  scm_cdr ($2)));
+						  scm_cddr ($2)));
 		}
 	}
-	| REVERT revert_arg {
-		$$ = scm_cons (ly_symbol2scm ("pop"), $2);
+	| REVERT simple_revert_context revert_arg {
+		$$ = scm_cons (ly_symbol2scm ("pop"), $3);
 	}
 	;
 
