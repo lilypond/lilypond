@@ -1375,7 +1375,7 @@ fragment = {
    \new Staff \with {
       \override Beam.beam-thickness = #0.3
       \override Stem.thickness = #0.5
-      \override Bar.thickness = #3.6
+      \override BarLine.thickness = #3.6
       \override Tie.thickness = #2.2
       \override StaffSymbol.thickness = #3.0
       \override Tie.extra-offset = #'(0 .  0.3)
