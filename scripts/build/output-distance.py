@@ -815,6 +815,13 @@ class ComparisonData:
         # Filter out GitFileCompareLinks so that they can be displayed last.
         git_links = [L for L in changed if isinstance(L, GitFileCompareLink)]
         changed = [L for L in changed if not isinstance(L, GitFileCompareLink)]
+
+        # Display the most-significant below-threshold change to give an idea
+        # of how the rest might look.
+        true_num_below = len(below)
+        changed += below[:1]
+        below = below[1:]
+
         changed += git_links
 
         table_rows = '''
@@ -840,7 +847,7 @@ class ComparisonData:
         summary = '<table id="summary">\n'
         summary += make_nz_row('in baseline only', len(self.missing))
         summary += make_nz_row('newly added', len(self.added))
-        summary += make_nz_row('below threshold', len(below))
+        summary += make_nz_row('below threshold', true_num_below)
         summary += make_row('unchanged', len(unchanged))
         summary += '</table>'
 
