@@ -262,7 +262,13 @@ protected:
     image.version = PNG_IMAGE_VERSION;
     image.width = width_;
     image.height = height_;
-    image.format = PNG_FORMAT_RGBA;
+    // CAIRO_FORMAT_ARGB32 stores each pixel as a native-endian 32-bit
+    // 0xAARRGGBB, so its byte order in memory depends on the host.
+#if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
+    image.format = PNG_FORMAT_BGRA;
+#else
+    image.format = PNG_FORMAT_ARGB;
+#endif
 
     if (!png_image_write_to_file (&image, filename_.c_str (), 0, data, 0,
                                   NULL))
