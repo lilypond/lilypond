@@ -2726,7 +2726,15 @@ style @code{\\rtoe} and its siblings, based on the data in the
               ;; as internal property?  Users aren't supposed to override them.
               (ly:grob-set-property!
                stanza-grob 'once-per-line
-               (ly:grob-property stanza-grob 'once-per-line #t)))
+               (ly:grob-property stanza-grob 'once-per-line #t))
+              ;; Same procedure for 'include-grace-notes' except that here the
+              ;; default when not overriden comes from the context property
+              ;; 'includeGraceNotes'
+              (ly:grob-set-property!
+               stanza-grob 'include-grace-notes
+               (ly:grob-property stanza-grob 'include-grace-notes
+                                 (ly:context-property context
+                                                      'includeGraceNotes))))
             (ly:grob-suicide stanza-grob))))))
     (acknowledgers
      ((lyric-syllable-interface engraver lyric-grob source-engraver)

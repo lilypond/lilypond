@@ -922,17 +922,21 @@ Please refactor your code using (ly:grob-property grob 'glyph-name) or \
 
 (define-public (item::enforce-musical-break-visibility item)
   "This is intended to be called after line breaking for certain items
-aligned to musical columns.  It kills the item if it should not be
-visible."
+aligned to musical columns.  It kills the item if it should not be visible.
+This is used in the @iref{once-per-line-interface} implementation."
   (when (ly:grob-property item 'once-per-line #f)
     (let* ((sys (ly:grob-system item))
            (cols (ly:grob-object sys 'columns))
-           (item-col (ly:item-get-column item)))
-      ;; What we actually want to know is whether the item is beyond
-      ;; the first musical column.  Is it sufficient to check just the
-      ;; first two columns for this?
-      (when (not (or (eq? item-col (ly:grob-array-ref cols 1))
-                     (eq? item-col (ly:grob-array-ref cols 0))))
+           (sys-when (ly:grob-property (ly:grob-array-ref cols 0) 'when))
+           (grob-when (grob::when item))
+           (include-grace-notes (ly:grob-property item 'include-grace-notes #f)))
+      (when (or (not (ly:moment? grob-when))
+                (not (ly:moment? sys-when))
+                (if include-grace-notes
+                    (not (equal? grob-when sys-when))
+                    (or (not (zero? (ly:moment-grace grob-when)))
+                        (not (= (ly:moment-main grob-when)
+                                (ly:moment-main sys-when))))))
         (ly:grob-suicide! item)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

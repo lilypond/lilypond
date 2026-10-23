@@ -530,7 +530,7 @@ signatures, breathing signs, @dots{}"
 (ly:add-interface
  'once-per-line-interface
  "For items that may only survive at the beginning of a line."
- '(once-per-line))
+ '(include-grace-notes once-per-line))
 
 (ly:add-interface
  'optional-material-bracket-interface

@@ -628,6 +628,9 @@ for ambitus calculation.")
      (ignore-collision ,boolean? "If set, don't do note collision
 resolution on this @code{NoteColumn}.")
      (implicit ,boolean? "Is this an implicit bass figure?")
+     (include-grace-notes ,boolean? "Whether @iref{once-per-line-interface}
+items should appear at the first grace moment of the line rather than at the
+first main moment.")
      (inspect-quants ,number-pair? "If debugging is set, set beam and
 slur position to a (quantized) position that is as close as possible
 to this value, and print the demerits for the inspected position in
