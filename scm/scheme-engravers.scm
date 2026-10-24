@@ -2682,28 +2682,32 @@ style @code{\\rtoe} and its siblings, based on the data in the
    (description . "Apply a procedure to any grob acknowledged.")))
 
 (define (Stanza_number_engraver context)
-  (let
-   ((stanza-grob #f)
-    (current-stanza-text #f) ;; keep around for generating dynamic stanza reminders
-    (create-new-stanza #f))
-   (define (create-stanza-grob engraver text)
-     (set! stanza-grob (ly:engraver-make-grob engraver 'StanzaNumber '()))
-     (ly:grob-set-property! stanza-grob 'text text))
+  (let ((stanza-grob #f)
+        (stanza-event #f)
+        (create-new-stanza #f))
+   (define (create-stanza-grob engraver)
+     (set! stanza-grob (ly:engraver-make-grob engraver 'StanzaNumber stanza-event)))
    (make-engraver
     (listeners
      ((stanza-event engraver event)
-      (set! current-stanza-text (ly:event-property event 'text #f))
-      (when current-stanza-text
-       (set! create-new-stanza #t))))
+      (set! create-new-stanza (ly:event-property event 'text #f))
+      (set! stanza-event (and create-new-stanza event))))
     ((process-music engraver)
      (cond
       (create-new-stanza
-       (create-stanza-grob engraver current-stanza-text)
+       (create-stanza-grob engraver)
        (ly:grob-set-property! stanza-grob 'is-reminder #f))
-      ((ly:context-property context 'stanzaReminders #f)
+      ((and stanza-event (ly:context-property context 'stanzaReminders #f))
+       ;; We have ruled out the straightforward cases of not having text.  But
+       ;; there may still be grob callbacks involved, and to be able to
+       ;; test-drive them, we have to create a grob even if we may end up
+       ;; destroying it afterwards.
+       (create-stanza-grob engraver)
+       (ly:grob-set-property! stanza-grob 'is-reminder #t)
        (let*
         ((stanza-reminder
           (ly:context-property context 'stanzaReminderText #f))
+         (current-stanza-text (ly:grob-property stanza-grob 'text))
          (stanza-reminder-text
           (cond
            ((markup? stanza-reminder)
@@ -2712,16 +2716,18 @@ style @code{\\rtoe} and its siblings, based on the data in the
                  (markup? current-stanza-text))
             (stanza-reminder current-stanza-text))
            (else current-stanza-text))))
-        (when (markup? stanza-reminder-text)
-          (create-stanza-grob engraver stanza-reminder-text)
-          (ly:grob-set-property! stanza-grob 'is-reminder #t)
-          ;; set grob property 'once-per-line' to #t,
-          ;; but do so in a way that respects explicit \override's.
-          ;;
-          ;; FIXME: why should we respect overrides for a property listed as
-          ;; internal property?  Users aren't supposed to override them.
-          (ly:grob-set-property! stanza-grob 'once-per-line
-            (ly:grob-property stanza-grob 'once-per-line #t)))))))
+        (if (markup? stanza-reminder-text)
+            (begin
+              (ly:grob-set-property! stanza-grob 'text stanza-reminder-text)
+              ;; set grob property 'once-per-line' to #t,
+              ;; but do so in a way that respects explicit \override's.
+              ;;
+              ;; FIXME: why should we respect overrides for a property listed
+              ;; as internal property?  Users aren't supposed to override them.
+              (ly:grob-set-property!
+               stanza-grob 'once-per-line
+               (ly:grob-property stanza-grob 'once-per-line #t)))
+            (ly:grob-suicide stanza-grob))))))
     (acknowledgers
      ((lyric-syllable-interface engraver lyric-grob source-engraver)
       ;; This is done more thoroughly by the Stanza_number_align_engraver:
@@ -2734,7 +2740,7 @@ style @code{\\rtoe} and its siblings, based on the data in the
       ;; stanza numbers in a specific Lyrics context. Hence, we make sure that
       ;; the Stanza numbers at least become aware of their own context's lyric
       ;; syllables.
-      (when stanza-grob
+      (when (and stanza-grob (grob::is-live? stanza-grob))
         (ly:pointer-group-interface::add-grob stanza-grob
                                               'side-support-elements
                                               lyric-grob))))
