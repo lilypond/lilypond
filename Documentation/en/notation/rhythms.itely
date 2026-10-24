@@ -228,6 +228,19 @@ in order to have the tuplets grouped automatically:
 }
 @end lilypond
 
+Other grouping methods are mentioned below.  When employing any of
+the automatic grouping methods, LilyPond will not start a tuplet
+group while grace notes are pending.  In contrast, when no
+automatic grouping is being used, the input is taken at face
+value.
+
+@lilypond[quote,verbatim]
+\relative c' {
+  \tuplet 3/2 { \grace b8 c d e }
+  \tuplet 3/2 4 { \grace g8 f d e \grace d e f g \grace f e d c }
+}
+@end lilypond
+
 @cindex tuplet bracket, placement
 
 @funindex \tupletUp

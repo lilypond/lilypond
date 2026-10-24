@@ -115,14 +115,19 @@ Tuplet_iterator::process (Moment m)
 
       if (m.main_part_ < music_get_length ().main_part_)
         {
-          spanner_duration_ = std::min (music_get_length () - next_split_mom_,
-                                        spanner_duration_);
-          tuplet_handler_ = get_context ();
-          SCM ev = create_event (START);
-          report_event (unsmob<Music> (ev));
-          scm_remember_upto_here_1 (ev);
+          // Don't start new bracket/span in grace time, unless we are working
+          // without governing spanner duration
+          if (!m.grace_part_ || isinf (spanner_duration_.main_part_))
+            {
+              spanner_duration_ = std::min (music_get_length () - next_split_mom_,
+                                            spanner_duration_);
+              tuplet_handler_ = get_context ();
+              SCM ev = create_event (START);
+              report_event (unsmob<Music> (ev));
+              scm_remember_upto_here_1 (ev);
 
-          next_split_mom_ += spanner_duration_;
+              next_split_mom_ += spanner_duration_;
+            }
         }
       else
         tuplet_handler_ = nullptr;
