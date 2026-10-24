@@ -849,6 +849,7 @@ also @iref{Arpeggio} and @iref{ChordSlur}.")))))
                  (interfaces . (accidental-switch-interface
                                 chord-name-interface
                                 font-interface
+                                once-per-line-interface
                                 outside-staff-interface
                                 rhythmic-grob-interface
                                 text-interface))
@@ -1685,6 +1686,7 @@ number) with a pointing line attached to another grob.")))))
                  (interfaces . (chord-name-interface
                                 font-interface
                                 fret-diagram-interface
+                                once-per-line-interface
                                 outside-staff-interface
                                 rhythmic-grob-interface))
                  (description . "A fretboard diagram.")))))
@@ -3426,6 +3428,7 @@ property is set, @code{ledger-positions} and @code{ledger-extra} are ignored."))
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
                  (interfaces . (font-interface
+                                once-per-line-interface
                                 side-position-interface
                                 stanza-number-interface
                                 text-interface))

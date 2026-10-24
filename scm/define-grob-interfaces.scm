@@ -200,7 +200,7 @@ vertical position."
 (ly:add-interface
  'chord-name-interface
  "A chord label (name or fretboard)."
- '(begin-of-line-visible))
+ '())
 
 (ly:add-interface
  'chord-square-interface
@@ -526,6 +526,12 @@ signatures, breathing signs, @dots{}"
  "Numbers."
  '(number-type))
 
+
+(ly:add-interface
+ 'once-per-line-interface
+ "For items that may only survive at the beginning of a line."
+ '(once-per-line))
+
 (ly:add-interface
  'optional-material-bracket-interface
  "An in-staff bracket around optional material."
@@ -659,8 +665,7 @@ properties."
 (ly:add-interface
  'stanza-number-interface
  "A stanza number, to be put in from of a lyrics line."
- '(begin-of-line-visible
-   is-reminder))
+ '(is-reminder))
 
 (ly:add-interface
  'string-number-interface

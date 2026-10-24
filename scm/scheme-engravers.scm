@@ -1601,10 +1601,7 @@ creating a chord name grob is left to other engravers.")))
           (ly:grob-set-property! grob 'text final-text)
           (when (and chord-changes
                      (equal? final-text (ly:context-property context 'lastChord)))
-            ;; FIXME: begin-of-line-visible is misnamed.  Setting it to #t
-            ;; doesn't make the grob more visible, but less: it means to
-            ;; suppress the chord name unless it's at the beginning of a line.
-            (ly:grob-set-property! grob 'begin-of-line-visible #t))
+            (ly:grob-set-property! grob 'once-per-line #t))
           (ly:context-set-property! context 'lastChord final-text)))))))
 
 (ly:register-translator
@@ -2718,10 +2715,13 @@ style @code{\\rtoe} and its siblings, based on the data in the
         (when (markup? stanza-reminder-text)
           (create-stanza-grob engraver stanza-reminder-text)
           (ly:grob-set-property! stanza-grob 'is-reminder #t)
-          ;; set grob property 'begin-of-line-visible' to #t,
+          ;; set grob property 'once-per-line' to #t,
           ;; but do so in a way that respects explicit \override's.
-          (ly:grob-set-property! stanza-grob 'begin-of-line-visible
-            (ly:grob-property stanza-grob 'begin-of-line-visible #t)))))))
+          ;;
+          ;; FIXME: why should we respect overrides for a property listed as
+          ;; internal property?  Users aren't supposed to override them.
+          (ly:grob-set-property! stanza-grob 'once-per-line
+            (ly:grob-property stanza-grob 'once-per-line #t)))))))
     (acknowledgers
      ((lyric-syllable-interface engraver lyric-grob source-engraver)
       ;; This is done more thoroughly by the Stanza_number_align_engraver:

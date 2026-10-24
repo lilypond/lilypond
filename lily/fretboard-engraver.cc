@@ -104,7 +104,7 @@ Fretboard_engraver::process_music ()
   SCM changes = get_property (this, "chordChanges");
   SCM placements = get_property (fret_board_, "dot-placement-list");
   if (from_scm<bool> (changes) && ly_is_equal (last_placements_, placements))
-    set_property (fret_board_, "begin-of-line-visible", SCM_BOOL_T);
+    set_property (fret_board_, "once-per-line", SCM_BOOL_T);
 
   last_placements_ = placements;
 }

@@ -924,7 +924,7 @@ Please refactor your code using (ly:grob-property grob 'glyph-name) or \
   "This is intended to be called after line breaking for certain items
 aligned to musical columns.  It kills the item if it should not be
 visible."
-  (when (ly:grob-property item 'begin-of-line-visible #f)
+  (when (ly:grob-property item 'once-per-line #f)
     (let* ((sys (ly:grob-system item))
            (cols (ly:grob-object sys 'columns))
            (item-col (ly:item-get-column item)))

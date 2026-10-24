@@ -1708,10 +1708,6 @@ ranges.")
 automatic mechanism as opposed to an explicit event.  Used for lyric
 extenders.")
 
-     (begin-of-line-visible ,boolean? "Set to make @code{ChordName} or
-@code{FretBoard} be visible only at beginning of line or at
-chord changes; also used for stanza reminders in lyrics.")
-
      (cause ,scheme? "Any kind of causation objects (i.e., music, or perhaps
 translator) that was the cause for this grob.")
      (cross-staff ,boolean? "True for grobs whose @code{Y-extent} depends on
@@ -1757,6 +1753,9 @@ the entries @code{name} and @code{interfaces}.")
 dot column.")
      (numbering-assertion-function ,scheme? "The function used to assert
 that footnotes are receiving correct automatic numbers.")
+
+     (once-per-line ,boolean? "Set to make an item be visible only at the
+beginning of line.")
 
      (positioning-done ,boolean? "Used to signal that a positioning element
 did its job.  This ensures that a positioning is only done once.")
