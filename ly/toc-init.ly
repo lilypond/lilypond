@@ -150,9 +150,12 @@ then prints @code{\\tocItem} entries line by line.
   (let ((titleMarkup (ly:output-def-lookup layout 'tocTitleMarkup))
         (indentMarkup (ly:output-def-lookup layout 'tocIndentMarkup))
         (toplevelFormatter (ly:output-def-lookup layout 'tocFormatMarkup))
-        (toc-alist (toc-items)))
-    (ly:output-def-set-variable! layout 'label-alist-table
-                                 (append (ly:output-def-lookup layout 'label-alist-table)
+        (toc-alist (toc-items))
+        (paper (let loop ((pap layout))
+                 (cond ((ly:output-def-parent pap) ly:output-def? => loop)
+                       (else pap)))))
+    (ly:output-def-set-variable! paper 'label-alist-table
+                                 (append (ly:output-def-lookup paper 'label-alist-table)
                                          toc-alist))
     (cons (interpret-markup layout props titleMarkup)
           (space-lines baseline-skip
