@@ -1,41 +1,58 @@
-\version "2.27.3"
-
+\version "2.27.5"
 
 \header {
-
-  texidoc = "@code{beatStructure} may be empty.  It is empty in
-senza-misura passages, and it may also be empty while a time signature
-is in force.  With no beats for a beamlet to point at, beamlet
-direction follows rhythmic importance, matching the metered rendering
-of the same rhythm.  Automatic beaming is unaffected." }
-
+  texidoc = "@code{beatStructure} is empty by default in senza-misura passages,
+and it may be explicitly unset when a time signature is in force.  When it is
+empty, it does not contribute a reason for beams to end at any point, though
+beams may still be ended manually."
+}
 
 \layout {
   indent = 1
   ragged-right = ##t
+  \context {
+    \Score
+    \senzaMisuraTimeSignatureX
+  }
 }
 
-\score {
-  \new Staff { \senzaMisura c''16[ c'' c''8] c''16[ c'' c'' c''8] }
-}
+rhythmWithoutBeams = { c''16 16 8 16 16 16 8 16 16 16 8 16 16 }
+rhythmWithBeams = { c''16[ 16 8] 16[ 16 16 8 16 16 16] 8[ 16 16] }
 
 \score {
-  \new Staff { c''16[ c'' c''8] c''16[ c'' c'' c''8] }
-  \layout { \context { \Score timeSignature = ##f } }
-}
-
-\score {
-  \new Staff {
-    \omit Staff.TimeSignature
-    \set Timing.beatStructure = #'()
-    c''16[ c'' c''8] c''16[ c'' c'' c''8]
+  \new Staff \with { instrumentName = "default" } {
+    \rhythmWithoutBeams
   }
 }
 
 \score {
-  \new Staff {
-    \omit Staff.TimeSignature
+  \new Staff \with { instrumentName = \markup \column { man. beams } } {
+    <>^\markup \typewriter "\unset Timing.beatStructure"
     \unset Timing.beatStructure
-    c''16 c'' c''8 c''16 c'' c'' c''8
+    \rhythmWithBeams
+  }
+}
+
+\score {
+  \new Staff \with { instrumentName = \markup \column { man. beams } } {
+    \senzaMisura
+    \rhythmWithBeams
+    \section
+  }
+}
+
+\score {
+  \new Staff \with { instrumentName = \markup \column { auto. beams } } {
+    <>^\markup \typewriter "\unset Timing.beatStructure"
+    \unset Timing.beatStructure
+    \rhythmWithoutBeams
+  }
+}
+
+\score {
+  \new Staff \with { instrumentName = \markup \column { auto. beams } } {
+    \senzaMisura
+    \rhythmWithoutBeams
+    \section
   }
 }

@@ -571,13 +571,18 @@ Beaming_options::calc_period (Context const *context, SCM beat_structure,
   return period ? period : measure_length (context);
 }
 
+// N.B. Defaulted and derived values should be kept in sync with auto-beam.scm
+// where beam-end exceptions are handled.
 Beaming_options::Beaming_options (Context const *c)
   : subdivide_beams_ (from_scm<bool> (get_property (c, "subdivideBeams"))),
     strict_beat_beaming_ (
       from_scm<bool> (get_property (c, "strictBeatBeaming"))),
     respect_incomplete_beams_ (
       from_scm<bool> (get_property (c, "respectIncompleteBeams"))),
-    beat_structure_ (get_property (c, "beatStructure")),
+    beat_structure_ ([&] {
+      SCM bs = get_property (c, "beatStructure");
+      return !scm_is_null (bs) ? bs : ly_list (to_scm (infinity_f));
+    }()),
     beat_base_ (from_scm (get_property (c, "beatBase"), Rational (1, 4))),
     period_ (calc_period (c, beat_structure_, beat_base_)),
     minimum_subdivision_interval_ (
@@ -585,8 +590,6 @@ Beaming_options::Beaming_options (Context const *c)
     maximum_subdivision_interval_ (from_scm (
       get_property (c, "beamMaximumSubdivision"), Rational::infinity ()))
 {
-  if (scm_is_null (beat_structure_))
-    beat_structure_ = ly_list (to_scm (infinity_f));
 }
 
 void

@@ -80,12 +80,18 @@
 
          ;; End rules -- #t if beam is required to end
          (define (end?)
+           ;; N.B. Defaulted and derived values should be kept in sync with the
+           ;; Beaming_options C++ class.
            (let* ((beat-base (get 'beatBase 1/4))
-                  (beat-structure (get 'beatStructure '(1 1 1 1)))
+                  (beat-structure (get 'beatStructure '(+inf.0)))
                   ;; Be resilient to having a beat structure that is shorter
                   ;; than the measure length: repeat the beat structure as
                   ;; needed.
-                  (beaming-period (* beat-base (apply + beat-structure)))
+                  (beaming-period (let* ((total-beats (apply + beat-structure))
+                                         (period (* beat-base total-beats)))
+                                    (if (zero? period)
+                                        (get 'measureLength 1)
+                                        period)))
                   (pos (euclidean-remainder non-grace beaming-period)))
              (or (zero? pos) ;; end at measure (beaming period) beginning
                  (let* ((exceptions (sort (map
