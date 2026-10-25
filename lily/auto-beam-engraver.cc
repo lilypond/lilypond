@@ -543,7 +543,16 @@ Auto_beam_engraver::process_acknowledged ()
     }
 
   auto now = now_mom ();
-  if (extend_mom_ > now)
+
+  // Grace notes coming after our stem make no difference to whether we can end
+  // the beam here, assuming that we are beaming main notes.
+
+  if (!beam_start_moment_.grace_part_)
+    {
+      if (extend_mom_.main_part_ > now.main_part_)
+        return;
+    }
+  else if (extend_mom_ > now)
     return;
 
   if (busy ())
