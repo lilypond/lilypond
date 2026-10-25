@@ -2095,7 +2095,17 @@ should appear in the table of contents are entered with the
 @code{\tocItem} command, which may be used either at top level, or
 inside a music expression.
 
+In situations involving one or several books/@/bookparts,
+establishing the location for the bookkeeping of a single or
+multiple tables of contents may be warranted if it doesn't
+correspond to the first occurence of @code{\tocItem}.  This can be
+achieved using @code{\setupTableOfContents}.
+
+For maintaining tables of content in different layers, look up
+@code{\newTocItem}'s documentation.
+
 @verbatim
+\setupTableOfContents
 \markuplist \table-of-contents
 \pageBreak
 
@@ -2316,6 +2326,7 @@ Installed Files:
 
 @predefined
 @funindex \table-of-contents
+@funindex \setupTableOfContents
 @funindex \tocItem
 @funindex tocItemMarkup
 @funindex tocTitleMarkup
