@@ -140,6 +140,8 @@ nested_create_alist (SCM prop_path, SCM value)
 SCM
 nested_property_alist (SCM alist, SCM prop_path, SCM value)
 {
+  if (!scm_is_pair (prop_path))
+    return value;
   // replacement moves to the front.
   SCM key = scm_car (prop_path);
   SCM rest = scm_cdr (prop_path);
