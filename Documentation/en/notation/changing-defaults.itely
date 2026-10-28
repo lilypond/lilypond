@@ -1919,7 +1919,8 @@ Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
 Within each context, there are two different kinds of properties:
 @dfn{context properties} and @dfn{grob properties}.  Context
 properties apply to a context as a whole, whereas grob properties
-are used for initializing grobs engraved from within a context.
+are used for initializing grobs (graphical objects) engraved from
+within a context.
 
 Context properties control the translation from music to notation.
 For example, @code{localAlterations} is used to determine whether
@@ -2079,12 +2080,11 @@ one pops a value from the stack and restores the property to it.
 @cindex property, grob
 @funindex \override
 
-There is a special type of context property: the grob description.
-Grob descriptions start with a capital letter and exist as
-association lists only in @code{all-grob-descriptions}, but they
-get turned into more complex and efficient data structures
-supporting hierarchical manipulations when placed into contexts.
-See @file{scm/define-grobs.scm} for the settings of each grob.
+LilyPond does its typesetting by creating @q{grobs}, graphical
+objects.  The various properties with which grobs are initialized
+can be set in each context.  The names of grobs start with a
+capital letter; their default properties can be looked up in
+@file{scm/define-grobs.scm}.
 
 The syntax for the @code{\override} command is
 
@@ -2197,13 +2197,45 @@ Internals Reference:
 @endmorerefs
 
 
+@node temporary and undo
+@section @code{\temporary} and @code{\undo}
+
+@funindex \temporary
+@funindex \undo
+
+@code{\temporary} modifies an override, like @code{\once} does.
+If you apply an @code{\override}, the old value is usually lost
+and can no longer be restored.  @code{\once} works differently in
+that it reestablishes the previous value.  If the effect of an
+override should last for more than a single timestep but the
+previous behavior should be restored afterwards, you can pair
+@code{\temporary \override} with @code{\revert} on the same
+property, with music requiring the override to be in effect in the
+middle.
+
+@code{\undo} is a command that is most practical in combination
+with overrides packaged in definitions.  If you apply @code{\undo}
+to such a property-changing definition, this will create
+the kind of command reverting the original command.  So you can,
+for example, bracket a passage without visible @code{Stem} grobs
+as
+
+@example
+\temporary \omit Stem
+@dots{}
+\undo \omit Stem
+@end example
+
+@xref{Removing the stencil} for an explanation of the
+@code{\omit} command.
+
 @node set versus override
 @section @code{\set} versus @code{\override}
 
 @funindex \set
 @funindex \override
 
-The @code{\set} and @code{\override} commands manipulate
+Both @code{\set} and @code{\override} commands manipulate
 properties associated with contexts.  The properties exist in a
 hierarchy of contexts where each context contains zero or more
 others below it.  A property that is not set in a specific context
@@ -2211,40 +2243,24 @@ shows the value from the nearest enclosing context where it is
 set.
 
 The lifetime and value of a context property is dynamic and only
-available when music is being interpreted (i.e., @q{iterated}).  At the
-time of the context's creation, properties are initialized from its
-corresponding definitions (along with any other modifications) of that
-context.  Any subsequent changes are achieved with any
-@q{property-setting} commands that are within the music itself.
+available when music is being interpreted (i.e., @q{iterated}).
+At the time of a context's creation, properties are initialized
+from its corresponding definitions (along with any other
+modification).  Any subsequent changes are achieved with
+@q{property-setting} commands within the music itself.
 
-Graphical Object (or @qq{grob}) definitions are a @emph{special}
-category of context properties as their structure and use is different
-from that of normal context properties.  Unlike normal context
-properties, grob definitions are subdivided into @dfn{grob properties}.
+While graphical object (or @qq{grob}) properties also follow the
+hierarchy of contexts, they are changed with @code{\override}
+and @code {\revert} and have names starting with capital letters,
+while plain context properties are changed with @code{\set} and
+@code{\unset} and have names starting with lowercase letters.
 
-Also, in contrast to normal context properties, grob definitions have
-their own internal @q{bookkeeping} used to keep track of their own
-individual grob properties and any subproperties.  This means that it
-is possible to define those parts within different contexts and yet
-still have the overall grob definition at the time of grob creation from
-all the pieces provided amongst the current and enclosing contexts.
-
-A grob is usually created by an engraver at the time of interpreting a
-music expression, and receives its initial properties from the current
-grob definition of the engraver's context.  The engraver (or other
-@q{backend} parts of LilyPond) can then change (or add to) the grob's
-initial properties.  However, this does not affect the context's own
-grob definition.
-
-What LilyPond calls @emph{grob properties} in the context of
-@q{user-level} tweaks are really the properties of a @emph{context's}
-own grob definition.
-
-Grob definitions are accessed with a different set of commands and are
-manipulated using @code{\override} and @code{\revert}, and have a name
-starting with a capital letter (e.g., @samp{NoteHead}); whereas normal
-context properties are manipulated using @code{\set} and @code{\unset}
-and are named starting with a lowercase letter.
+Grobs are usually created by @q{engravers} at the time of
+interpreting a music expression, receiving their initial
+properties from the current engraver's context.  The engraver (or
+other @q{backend} parts of LilyPond) can then change (or add to)
+the grob's initial properties.  However, this does not affect the
+context's own grob definitions.
 
 @cindex @code{\tweak}, relation to @code{\override}
 @funindex \tweak
