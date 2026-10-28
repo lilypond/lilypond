@@ -1,9 +1,11 @@
-\version "2.21.6"
+\version "2.27.5"
 
 \header{
   texidoc="If the body of a volta repeat is only a grace note, it is still
 engraved as expected."
 }
+
+#(ly:set-option 'warning-as-error #t)
 
 body = \grace f'8
 

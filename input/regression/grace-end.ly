@@ -1,6 +1,6 @@
-\version "2.19.21"
+\version "2.27.5"
 
-#(ly:set-option 'warning-as-error #f)
+#(ly:set-option 'warning-as-error #t)
 
 \header {
   texidoc = "

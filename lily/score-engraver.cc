@@ -32,6 +32,7 @@
 #include "paper-column-engraver.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"
+#include "pointer-group-interface.hh"
 #include "system.hh"
 #include "warn.hh"
 
@@ -61,6 +62,37 @@ Score_engraver::finish (SCM)
 {
   recurse_over_translators (context (), MFP_WRAP (&Translator::finalize),
                             MFP_WRAP (&Translator_group::finalize), UP);
+
+  reseat_stranded_spanner_bounds ();
+}
+
+// The last PaperColumn is created after the last NonMusicalPaperColumn,
+// which is the right bound of the System, so it is never part of a line.
+// Move spanners that ended up bounded by it to the System's right bound.
+void
+Score_engraver::reseat_stranded_spanner_bounds ()
+{
+  Item *final_bound = system_->get_bound (RIGHT);
+  if (!final_bound)
+    return;
+
+  auto *col = dynamic_cast<Paper_column *>
+    (unsmob<Grob> (get_property (context (), "currentMusicalColumn")));
+  if (!col || col->get_rank () <= final_bound->get_column ()->get_rank ())
+    return;
+
+  extract_grob_set (col, "bounded-by-me", spanners);
+  for (auto *g : spanners)
+    {
+      auto *sp = dynamic_cast<Spanner *> (g);
+      if (!sp || !sp->is_live ())
+        continue;
+
+      // Don't reverse bounds: if both are out of bounds, retain the resulting
+      // programming error.  Otherwise, reseat the right bound.
+      if (sp->get_bound (RIGHT) == col && sp->get_bound (LEFT) != col)
+        sp->set_bound (RIGHT, final_bound);
+    }
 }
 
 #define MUSIC_FONT "emmentaler-20"

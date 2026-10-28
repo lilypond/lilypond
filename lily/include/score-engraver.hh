@@ -32,6 +32,7 @@ class Score_engraver final : public Engraver_group
   Paper_score *pscore_;
 
   void typeset_all ();
+  void reseat_stranded_spanner_bounds ();
 
 protected:
   void finish (SCM);
