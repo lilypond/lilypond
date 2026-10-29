@@ -182,6 +182,9 @@ void
 New_fingering_engraver::position_scripts (SCM orientations,
                                           std::vector<Finger_tuple> *scripts)
 {
+  // properties can always be set to #f, keep this from upsetting LilyPond
+  if (!scm_is_pair (orientations))
+    orientations = SCM_EOL;
   for (vsize i = 0; i < scripts->size (); i++)
     if (stem_)
       {
