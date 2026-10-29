@@ -68,6 +68,7 @@ Paper_column_engraver::listen_label (Stream_event *ev)
 void
 Paper_column_engraver::handle_manual_breaks (bool only_do_permissions)
 {
+  bool break_warned = false;
   for (auto *const break_event : break_events_)
     {
       std::string prefix;
@@ -108,6 +109,18 @@ Paper_column_engraver::handle_manual_breaks (bool only_do_permissions)
 
       if (force_break_permission)
         set_property (context (), "forceBreak", SCM_BOOL_T);
+
+      if (first_time_ && !break_warned
+          && prefix == "page-break"
+          && scm_is_eq (perm, ly_symbol2scm ("force")))
+        {
+          // We are not actually ignoring the break _here_, but the page
+          // breaking algorithm has no column to store a leading break in
+          // and here we still have an event providing an error location
+          // for the warning.
+          break_event->warning (_ ("Ignoring page break at score start"));
+          break_warned = true;
+        }
     }
 }
 

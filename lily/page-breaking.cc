@@ -827,7 +827,10 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break,
 
               bool last = (j == cols.size () - 1);
               bool break_point = is_break && j > 0 && is_break (cols[j]);
-              bool chunk_end = scm_is_eq (
+              // A break in column 0 has no line end to attach to.  We warn
+              // about this in paper-column-engraver where we have better
+              // location data.
+              bool chunk_end = j > 0 && scm_is_eq (
                 get_property (cols[j], "page-break-permission"), force_sym);
               Break_position cur_pos = Break_position (
                 i, line_breaker_columns.size (), cols[j], last);

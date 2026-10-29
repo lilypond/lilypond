@@ -146,7 +146,8 @@ May be used at top level (i.e., between scores or markups), or inside a score.")
                'page-marker #t
                'page-turn-permission 'allow
                'elements (list (make-music 'PageTurnEvent
-                                           'break-permission 'allow))))
+                                           'break-permission 'allow
+                                           'origin (*location*)))))
 
 alterBroken =
 #(define-music-function (property arg target)
@@ -1025,7 +1026,8 @@ the @code{\\page-ref} markup command later on.")
                'page-marker #t
                'page-label label
                'elements (list (make-music 'LabelEvent
-                                           'page-label label))))
+                                           'page-label label
+                                           'origin (*location*)))))
 
 previous-pitchnames = #'()
 
@@ -1339,7 +1341,8 @@ May be used at top level (i.e., between scores or markups), or inside a score.")
                'page-marker #t
                'page-break-permission 'forbid
                'elements (list (make-music 'PageBreakEvent
-                                           'break-permission '()))))
+                                           'break-permission '()
+                                           'origin (*location*)))))
 
 noPageTurn =
 #(define-music-function () ()
@@ -1350,7 +1353,8 @@ May be used at top level (i.e., between scores or markups), or inside a score.")
                'page-marker #t
                'page-turn-permission 'forbid
                'elements (list (make-music 'PageTurnEvent
-                                           'break-permission '()))))
+                                           'break-permission '()
+                                           'origin (*location*)))))
 
 noStanza =
 #(define-music-function () ()
@@ -1502,9 +1506,11 @@ May be used at top-level (i.e., between scores or markups), or inside a score.")
                'line-break-permission 'force
                'page-break-permission 'force
                'elements (list (make-music 'LineBreakEvent
-                                           'break-permission 'force)
+                                           'break-permission 'force
+                                           'origin (*location*))
                                (make-music 'PageBreakEvent
-                                           'break-permission 'force))))
+                                           'break-permission 'force
+                                           'origin (*location*)))))
 
 pageTurn =
 #(define-music-function () ()
@@ -1517,11 +1523,14 @@ May be used at top-level (i.e., between scores or markups), or inside a score.")
                'page-break-permission 'force
                'page-turn-permission 'force
                'elements (list (make-music 'LineBreakEvent
-                                           'break-permission 'force)
+                                           'break-permission 'force
+                                           'origin (*location*))
                                (make-music 'PageBreakEvent
-                                           'break-permission 'force)
+                                           'break-permission 'force
+                                           'origin (*location*))
                                (make-music 'PageTurnEvent
-                                           'break-permission 'force))))
+                                           'break-permission 'force
+                                           'origin (*location*)))))
 
 parallelMusic =
 #(define-void-function (voice-ids music) (list? ly:music?)
