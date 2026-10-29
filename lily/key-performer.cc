@@ -57,6 +57,10 @@ Key_performer::process_music ()
     {
       SCM pitchlist = get_property (key_ev_, "pitch-alist");
 
+      // For a repeat key, we don't do anything in MIDI
+      if (!scm_is_pair (pitchlist))
+        return;
+
       SCM tp = get_property (this, "instrumentTransposition");
 
       if (unsmob<Pitch> (tp))
