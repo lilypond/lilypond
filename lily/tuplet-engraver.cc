@@ -49,7 +49,6 @@ protected:
   void acknowledge_string_number (Grob_info_t<Item>);
   void add_script_to_all_tuplets (Item *);
   void listen_tuplet_span (Stream_event *);
-  void finalize () override;
   void start_translation_timestep ();
   void process_music ();
 };
@@ -240,19 +239,6 @@ Tuplet_engraver::start_translation_timestep ()
     May seem superfluous, but necessary for skipTypesetting.
    */
   new_tuplets_.clear ();
-}
-
-void
-Tuplet_engraver::finalize ()
-{
-  // If tupletFullLengthNote is used, fix up bounds to avoid grobs extending to
-  // the musical column of the last time step, which is after the end of the
-  // piece.
-  Item *col = unsmob<Item> (get_property (this, "currentCommandColumn"));
-  for (Tuplet_description *desc : stopped_tuplets_)
-    if (desc->full_length_note_)
-      for (Spanner *g : {desc->bracket_, desc->number_})
-        g->set_bound (RIGHT, col);
 }
 
 Tuplet_engraver::Tuplet_engraver (Context *c)
