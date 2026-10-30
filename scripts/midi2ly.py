@@ -467,7 +467,7 @@ class Text:
               and self.text != 'control track'
               and not self.track.lyrics_p_):
             text = self.text.replace('(MIDI)', '').strip()
-            if text:
+            if text and (text != "\\new:"):
                 s = '\n  \\set Staff.instrumentName = "%(text)s"\n  ' % locals(
                 )
         elif self.text.strip():
