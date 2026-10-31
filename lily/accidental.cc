@@ -156,7 +156,6 @@ A single accidental.
                /* properties */
                R"(
 alteration
-alteration-glyph-name-alist
 glyph-name
 forced
 hide-tied-accidental-after-break

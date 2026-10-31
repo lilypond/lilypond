@@ -135,7 +135,6 @@ A group of accidentals, to be printed as signature sign.
                R"(
 alteration-alist
 c0-position
-alteration-glyph-name-alist
 flat-positions
 sharp-positions
 padding

@@ -731,7 +731,6 @@ left-neighbor
 note-columns
 right-bound-info
 right-neighbor
-thickness
 to-barline
                )");
 
@@ -751,6 +750,5 @@ left-neighbor
 note-columns
 right-bound-info
 right-neighbor
-thickness
 to-barline
                )");

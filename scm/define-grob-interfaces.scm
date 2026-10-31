@@ -170,7 +170,6 @@ This numeric value determines the distance between the @code{TabStaff} and the
 arrow head of the @code{BendSpanner}.
 @end table"
  '(details
-   style
    direction
    bend-me))
 
@@ -296,7 +295,7 @@ The thickness of the hook ending the duration line.
 (ly:add-interface
  'dynamic-text-spanner-interface
  "Dynamic text spanner."
- '(text))
+ '())
 
 (ly:add-interface
  'episema-interface
@@ -338,12 +337,7 @@ A bow style line.  The orientation of the bow may be tweaked with a suitable
 setting of @code{details.bow-direction}.
 @end table"
 
- '(dash-fraction
-   dash-period
-   details
-   style
-   zigzag-length
-   zigzag-width))
+ '(details))
 
 (ly:add-interface
  'finger-interface
@@ -685,10 +679,7 @@ properties."
 (ly:add-interface
  'system-start-text-interface
  "Text in front of the system."
- '(long-text
-   self-alignment-X
-   self-alignment-Y
-   text))
+ '(long-text))
 
 (ly:add-interface
  'tab-note-head-interface

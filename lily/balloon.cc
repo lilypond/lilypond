@@ -184,7 +184,6 @@ annotation-balloon
 annotation-line
 padding
 spanner-placement
-text
 text-alignment-X
 text-alignment-Y
 thickness

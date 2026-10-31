@@ -44,14 +44,7 @@ its @code{height-limit}.
 
                /* properties */
                R"(
-annotation
-control-points
-direction
-details
-head-direction
 note-head
-thickness
-line-thickness
                )");
 
 MAKE_SCHEME_CALLBACK (Semi_tie, calc_control_points,

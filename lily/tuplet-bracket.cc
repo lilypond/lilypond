@@ -904,7 +904,6 @@ scripts
 shorten-pair
 span-all-note-heads
 staff-padding
-thickness
 tuplets
 tuplet-slur
 visible-over-note-heads

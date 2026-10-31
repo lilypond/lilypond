@@ -608,6 +608,7 @@ vertically.")))))
                  (interfaces . (avoid-slur-interface
                                 bend-interface
                                 font-interface
+                                line-interface
                                 line-spanner-interface
                                 outside-staff-interface
                                 text-interface
@@ -1626,6 +1627,7 @@ vertical axis only."))))))
         (meta . ((class . Spanner)
                  (interfaces . (finger-glide-interface
                                 font-interface ; style might be 'trill
+                                line-interface
                                 line-spanner-interface))
                  (description . "A line connecting two
 @iref{Fingering}, @iref{StringNumber} or @iref{StrokeFinger} grobs, usually
@@ -2275,7 +2277,6 @@ and @iref{VowelTransition}.")))))
                                 font-interface
                                 measure-counter-interface
                                 outside-staff-interface
-                                self-alignment-interface
                                 side-position-interface
                                 text-interface))
                  (description . "A grob to print a counter for
