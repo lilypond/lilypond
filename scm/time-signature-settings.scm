@@ -15,6 +15,8 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
+(use-modules (srfi srfi-11)) ; let-values
+
 ;;; specify time signature default settings
 
 ;;; format:
@@ -267,6 +269,67 @@ Example:
     (when (not (null? my-beat-structure))
       (set! result (acons 'beatStructure my-beat-structure result)))
     result))
+
+(define-public (structured/ dividend divisor)
+  "Divide a scalar @var{dividend} by a structured @var{divisor}.
+
+@var{divisor} is a list of one or more positive, exact values.  It may also
+contain @code{+inf.0}, but it only makes sense as the final element since it
+renders any following elements irrelevant.
+
+Division of a positive @var{dividend} proceeds as if by subtracting each
+element of @var{divisor} in order, cycling back to the beginning of the list as
+many times as needed, until the remainder is too small to continue.  A negative
+@var{dividend} is handled with the Euclidean convention.
+
+This function returns two values, similar to @code{euclidean/}, but with a
+structured remainder:
+@enumerate
+@item quotient: the number of times the full @var{divisor} goes into
+@var{dividend}
+@item remainder: a list, @code{(@var{i} @var{r})}, where
+@itemize
+@item @var{i} is the zero-based index of the first remaining element of
+@var{divisor}
+@item @var{r} is the numeric remainder, 0 ≤ @var{r} < @var{value of element
+@var{i}}
+@end itemize
+@end enumerate
+
+Example:
+
+@example
+(structured/ 34 '(2 1/2 7/2))
+@result{} 5 and (2 3/2)
+@end example
+"
+  (assert (pair? divisor))
+  (assert (every positive-musical-length-as-number? divisor))
+  (let ((divisor-sum (apply + divisor)))
+    (let-values (((num-wraps rem-maj) (euclidean/ dividend divisor-sum)))
+      (when (zero? num-wraps)
+        (set! num-wraps 0) ; convert 0.0 back to exact 0
+        (when (inf? divisor-sum)
+          (set! rem-maj dividend)))
+      (if (not (finite? rem-maj))
+          (values num-wraps (list num-wraps rem-maj))
+          (let loop ((beat-index 0)
+                     (pos rem-maj)
+                     (pattern divisor))
+            (if (null? pattern)
+                (values num-wraps (list beat-index pos))
+                (let ((beat-dur (car pattern)))
+                  (if (< pos beat-dur)
+                      (values num-wraps (list beat-index pos))
+                      (loop (1+ beat-index)
+                            (- pos beat-dur)
+                            (cdr pattern))))))))))
+
+(define-public (structured-remainder dividend divisor)
+  "Return just the remainder of @code{structured/ @var{dividend} @var{divisor}}."
+  (let-values (((quotient remainder)
+                (structured/ dividend divisor)))
+    remainder))
 
 (define-public (calc-measure-length time-sig)
   "Calculate the measure length for @var{time-sig}.
