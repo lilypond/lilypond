@@ -48,6 +48,7 @@
         (meta . ((class . Item)
                  (interfaces . (accidental-interface
                                 accidental-switch-interface
+                                avoid-slur-interface
                                 font-interface
                                 inline-accidental-interface))
                  (description . "An accidental.  Horizontal
@@ -71,6 +72,7 @@ by the @iref{AccidentalPlacement} grob.")))))
         (meta . ((class . Item)
                  (interfaces . (accidental-interface
                                 accidental-switch-interface
+                                avoid-slur-interface
                                 font-interface
                                 inline-accidental-interface))
                  (description . "A cautionary accidental, normally
@@ -114,6 +116,7 @@ right).")))))
                  (interfaces . (accidental-interface
                                 accidental-suggestion-interface
                                 accidental-switch-interface
+                                avoid-slur-interface
                                 font-interface
                                 outside-staff-interface
                                 script-interface
@@ -602,7 +605,8 @@ vertically.")))))
         (word-space . 0.6)
         (Y-offset . 0)
         (meta . ((class . Spanner)
-                 (interfaces . (bend-interface
+                 (interfaces . (avoid-slur-interface
+                                bend-interface
                                 font-interface
                                 line-spanner-interface
                                 outside-staff-interface
@@ -754,7 +758,8 @@ time signature follows or precedes a bar line).")))))
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Item)
-                 (interfaces . (caesura-script-interface
+                 (interfaces . (avoid-slur-interface
+                                caesura-script-interface
                                 font-interface
                                 outside-staff-interface
                                 script-interface
@@ -1096,6 +1101,7 @@ Bézier control polygon as used in ties and slurs.")))))
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Item)
                  (interfaces . (accidental-switch-interface
+                                avoid-slur-interface
                                 font-interface
                                 outside-staff-interface
                                 self-alignment-interface
@@ -1283,7 +1289,8 @@ stacked @iref{Dots} grobs of dotted notes and chords.")))))
         (stencil . ,ly:dots::print)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
-                 (interfaces . (dots-interface
+                 (interfaces . (avoid-slur-interface
+                                dots-interface
                                 font-interface
                                 staff-symbol-referencer-interface))
                  (description . "The dot(s) of a dotted note.
@@ -1563,7 +1570,8 @@ group of notes).  Used in Gregorian chant.")))))
         (X-padding . 0.3)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
-                 (interfaces . (finger-interface
+                 (interfaces . (avoid-slur-interface
+                                finger-interface
                                 font-interface
                                 outside-staff-interface
                                 self-alignment-interface
@@ -2465,7 +2473,8 @@ by a precise indication in parentheses.")))))
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Spanner)
-                 (interfaces . (font-interface
+                 (interfaces . (avoid-slur-interface
+                                font-interface
                                 multi-measure-interface
                                 outside-staff-interface
                                 script-interface
@@ -3014,7 +3023,8 @@ collisions of different voices.  See also
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (Y-offset . ,script-interface::calc-y-offset)
         (meta . ((class . Item)
-                 (interfaces . (font-interface
+                 (interfaces . (avoid-slur-interface
+                                font-interface
                                 ledgered-grob-interface
                                 outside-staff-interface
                                 script-interface
@@ -3540,7 +3550,8 @@ articulations.")))))
         (text . ,string-number::calc-text)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
-                 (interfaces . (font-interface
+                 (interfaces . (avoid-slur-interface
+                                font-interface
                                 number-interface
                                 outside-staff-interface
                                 self-alignment-interface
@@ -3569,7 +3580,8 @@ a circle) to name a string.")))))
         (text . ,stroke-finger::calc-text)
         (Y-extent . ,grob::always-Y-extent-from-stencil)
         (meta . ((class . Item)
-                 (interfaces . (font-interface
+                 (interfaces . (avoid-slur-interface
+                                font-interface
                                 outside-staff-interface
                                 self-alignment-interface
                                 side-position-interface
@@ -3832,6 +3844,7 @@ more specific intent.")))))
         (Y-offset . ,side-position-interface::y-aligned-side)
         (meta . ((class . Item)
                  (interfaces . (accidental-switch-interface
+                                avoid-slur-interface
                                 font-interface
                                 instrument-specific-markup-interface
                                 outside-staff-interface
@@ -3989,6 +4002,7 @@ direction and shape of stacked @iref{Tie} grobs.")))))
         (meta . ((class . Item)
                  (interfaces . (accidental-interface
                                 accidental-switch-interface
+                                avoid-slur-interface
                                 font-interface
                                 inline-accidental-interface
                                 side-position-interface
@@ -4149,7 +4163,8 @@ line (created with @code{\\startTrillSpan}, not with
         (X-offset . ,ly:tuplet-number::calc-x-offset)
         (Y-offset . ,ly:tuplet-number::calc-y-offset)
         (meta . ((class . Spanner)
-                 (interfaces . (font-interface
+                 (interfaces . (avoid-slur-interface
+                                font-interface
                                 outside-staff-interface
                                 text-interface
                                 tuplet-number-interface))

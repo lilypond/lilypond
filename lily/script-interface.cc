@@ -86,7 +86,6 @@ An object that is put above or below a note.
 
                /* properties */
                R"(
-avoid-slur
 script-priority
 slur
                )");
@@ -101,7 +100,6 @@ An object that is put above or below a note.
 
                /* properties */
                R"(
-avoid-slur
 direction-source
 positioning-done
 script-column

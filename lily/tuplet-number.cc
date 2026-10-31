@@ -465,7 +465,6 @@ The number for a bracket.
 
                /* properties */
                R"(
-avoid-slur
 bracket
 direction
 knee-to-beam

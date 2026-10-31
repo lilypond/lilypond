@@ -848,7 +848,6 @@ X-offset
 Y-extent
 Y-offset
 after-line-breaking
-avoid-slur
 axis-group-parent-X
 axis-group-parent-Y
 before-line-breaking

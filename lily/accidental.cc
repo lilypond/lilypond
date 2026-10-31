@@ -157,7 +157,6 @@ A single accidental.
                R"(
 alteration
 alteration-glyph-name-alist
-avoid-slur
 glyph-name
 forced
 hide-tied-accidental-after-break

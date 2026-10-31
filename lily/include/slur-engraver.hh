@@ -59,14 +59,13 @@ protected:
   virtual const char *object_name () const;
 
   void acknowledge_note_column (Grob_info_t<Item>);
-  void acknowledge_script (Grob_info);
 
   void listen_note (Stream_event *ev);
   // A slur on an in-chord note is not actually announced as an event
   // but rather produced by the note listener.
   void listen_note_slur (Stream_event *ev, Stream_event *note);
   void listen_slur (Stream_event *ev) { listen_note_slur (ev, 0); }
-  void acknowledge_extra_object (Grob_info);
+  void acknowledge_avoid_slur (Grob_info);
   void stop_translation_timestep ();
   void process_music ();
 

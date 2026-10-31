@@ -70,14 +70,9 @@ Slur_engraver::boot ()
 {
   ADD_LISTENER (slur);
   ADD_LISTENER (note);
-  ADD_ACKNOWLEDGER_FOR (acknowledge_extra_object, inline_accidental);
-  ADD_ACKNOWLEDGER_FOR (acknowledge_extra_object, fingering);
+  ADD_ACKNOWLEDGER (avoid_slur);
   ADD_ACKNOWLEDGER (note_column);
-  ADD_ACKNOWLEDGER (script);
-  ADD_ACKNOWLEDGER_FOR (acknowledge_extra_object, text_script);
-  ADD_ACKNOWLEDGER_FOR (acknowledge_extra_object, dots);
-  ADD_END_ACKNOWLEDGER_FOR (acknowledge_extra_object, tie);
-  ADD_ACKNOWLEDGER_FOR (acknowledge_extra_object, tuplet_number);
+  ADD_END_ACKNOWLEDGER_FOR (acknowledge_avoid_slur, tie);
 }
 
 ADD_TRANSLATOR (Slur_engraver,
@@ -153,17 +148,9 @@ Slur_engraver::acknowledge_note_column (Grob_info_t<Item> info)
 }
 
 void
-Slur_engraver::acknowledge_extra_object (Grob_info info)
+Slur_engraver::acknowledge_avoid_slur (Grob_info info)
 {
   objects_to_acknowledge_.push_back (info.grob ());
-}
-
-void
-Slur_engraver::acknowledge_script (Grob_info info)
-{
-  if (!info.grob ()->internal_has_interface (
-        ly_symbol2scm ("dynamic-interface")))
-    acknowledge_extra_object (info);
 }
 
 void

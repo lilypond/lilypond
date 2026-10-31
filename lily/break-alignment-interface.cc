@@ -537,6 +537,7 @@ Breakable items.
 
                /* properties */
                R"(
+avoid-slur
 break-align-anchor
 break-align-anchor-alignment
 break-align-symbol

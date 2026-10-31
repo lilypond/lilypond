@@ -52,6 +52,11 @@ note)."
    thickness))
 
 (ly:add-interface
+ 'avoid-slur-interface
+ "A musical grob avoiding slurs."
+ '(avoid-slur))
+
+(ly:add-interface
  'sticky-grob-interface
  "A grob that is attached to another grob.  Grobs type having this
 interface can be either items or spanners, depending on the class
