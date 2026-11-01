@@ -28,6 +28,7 @@
 #include "drul-array.hh"
 
 #include <algorithm>
+#include <type_traits>
 
 // A T interval.  This represents the closed interval [left,right].
 // No invariants.  T must be a totally ordered ring (with division, anyway ..)
@@ -221,6 +222,11 @@ public:
   template <typename T2>
   Interval_t<T> &operator+= (const T2 &r) &
   {
+    // Empty intervals of integral types behave particularly badly when shifted
+    // due to integer overflow
+    if constexpr (std::is_integral_v<T>)
+      if (is_empty ())
+        return *this;
     left () += r;
     right () += r;
     return *this;

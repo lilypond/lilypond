@@ -793,6 +793,14 @@ TEST (Interval_test, set_empty)
   EQUAL (iv.right (), Mint (-100));
 }
 
+TEST (Interval_test, shift_empty_int)
+{
+  Slice iv;
+  iv.set_empty ();
+  iv += 20;
+  CHECK (iv.is_empty ());
+}
+
 TEST (Interval_test, set_full)
 {
   IVM iv {Mint (-33), Mint (33)};
