@@ -1023,12 +1023,14 @@ Voice context."
       (list this-state)))
 
 (define (change-el->music el)
-  (if (symbol? (car el))
-      (make-music 'ContextChange
-                  'change-tag '$partCombine
-                  'change-to-type 'Voice
-                  'change-to-id (symbol->string (car el)))
-      (skip-of-moment-span (car el) (cadr el))))
+  (cond ((symbol? (car el))
+         (make-music 'ContextChange
+                     'change-tag '$partCombine
+                     'change-to-type 'Voice
+                     'change-to-id (symbol->string (car el))))
+        ((ly:moment? (car el))
+         (skip-of-moment-span (car el) (cadr el)))
+        (else #f)))
 
 (define-public (make-part-combine-context-changes state-machine split-list)
   "Generate a sequence of part combiner context changes from a split list."
@@ -1037,7 +1039,7 @@ Voice context."
                            '() split-list))
          (stripped-labels (map cdr state-list))
          (change-list (fold states-to-change-list '() stripped-labels))
-         (change-music (map change-el->music change-list)))
+         (change-music (filter-map change-el->music change-list)))
     (make-sequential-music change-music)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
