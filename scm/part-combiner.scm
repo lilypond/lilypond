@@ -227,7 +227,7 @@ Voice-state objects
     (define (analyze-span-event active ev)
       (let* ((name (car (ly:event-property ev 'class)))
              (key (cond ((equal? name 'slur-event) 'slur)
-                        ((equal? name 'phrasing-slur-event) 'tie)
+                        ((equal? name 'phrasing-slur-event) 'phrasing-slur)
                         ((equal? name 'beam-event) 'beam)
                         ((equal? name 'crescendo-event) 'cresc)
                         ((equal? name 'decrescendo-event) 'decr)
@@ -238,7 +238,10 @@ Voice-state objects
                 (assoc-remove! active key)
                 (acons key
                        (split-index (vector-ref voice-state-vec index))
-                       active))
+                       (if (memq key '(cresc decr))
+                           ;; a new hairpin start ends the one that is running
+                           (assoc-remove! (assoc-remove! active 'cresc) 'decr)
+                           active)))
             active)))
 
     (define (analyze-events active evs)
@@ -501,7 +504,10 @@ Only set if not set previously.
                          (put 'apart)))
 
                    ;; go to the next one, if it exists.
-                   (analyze-time-step (1+ result-idx)))))))
+                   (analyze-time-step (1+ result-idx)))))
+          ;; Past the last state: whatever is still undecided (e.g. because a
+          ;; spanner was never terminated) must not be dropped; keep it apart.
+          (put 'apart (1- result-idx))))
 
     (define (analyze-a2 result-idx)
       (if (< result-idx (vector-length result))
