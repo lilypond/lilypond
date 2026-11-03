@@ -508,6 +508,12 @@ refined.
      (rh . ()))
 @end lilypond
 
+@item
+LilyPond supports fingering diagrams for the low bass clarinet, also
+known as the low C bass clarinet.  This feature was introduced in
+version 2.13.27 (released in 2010) but was not properly documented
+until now.
+
 @end itemize
 
 
