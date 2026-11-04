@@ -839,7 +839,10 @@ Set default paper size to @var{string}.
 Default: @code{"a4"}.
 
 @item @code{pixmap-format} @var{string}
-Set Ghostscript's output format for pixel images to @var{string}.
+Set the output format for pixel images to @var{string}, a
+Ghostscript output device such as @code{"png16m"} or
+@code{"pngalpha"} (transparent background).  The @code{cairo}
+backend only supports these two.
 Default: @code{"png16m"}.
 
 @item @code{png-width} @var{width}

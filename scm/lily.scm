@@ -392,8 +392,8 @@ belong to a music font.")
                 "Set default paper size."
                 #:type string)
     (pixmap-format "png16m"
-                   "Set Ghostscript's output format for pixel
-images."
+                   "Set the output format for pixel images, as a
+Ghostscript device name such as \"pngalpha\"."
                    #:type string)
     (png-width 0
                "Image width for PNG output (in pixels)."

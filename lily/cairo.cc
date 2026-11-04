@@ -220,12 +220,25 @@ public:
     context_ = cairo_create (surface_);
     cairo_scale (context_, png_dpi / 72.0, png_dpi / 72.0);
 
-    cairo_save (context_);
-    // TODO - make transparency/background tunable. White
-    // background is easier for visual inspection
-    cairo_set_source_rgba (context_, 1, 1, 1, 1);
-    cairo_paint (context_);
-    cairo_restore (context_);
+    // As with Ghostscript, "pngalpha" leaves the background transparent.
+    const auto fmt = from_scm<std::string> (
+      ly_get_option (ly_symbol2scm ("pixmap-format")));
+    const bool alpha = fmt == "pngalpha";
+    if (!alpha && fmt != "png16m")
+      {
+        static bool warned = false;
+        if (!warned)
+          warning (_f ("pixmap-format %s not supported by Cairo backend",
+                       fmt.c_str ()));
+        warned = true;
+      }
+    if (!alpha)
+      {
+        cairo_save (context_);
+        cairo_set_source_rgba (context_, 1, 1, 1, 1);
+        cairo_paint (context_);
+        cairo_restore (context_);
+      }
   }
 
 protected:
