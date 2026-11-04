@@ -10,7 +10,6 @@ GLIB_CFLAGS := $(patsubst -I%,-isystem%,@GLIB_CFLAGS@ @GOBJECT_CFLAGS@)
 GUILE_CFLAGS := $(patsubst -I%,-isystem%,@GUILE_CFLAGS@)
 PANGO_FT2_CFLAGS := $(patsubst -I%,-isystem%,@PANGO_FT2_CFLAGS@)
 CAIRO_CFLAGS := $(patsubst -I%,-isystem%,@CAIRO_CFLAGS@)
-LIBPNG_CFLAGS := $(patsubst -I%,-isystem%,@LIBPNG_CFLAGS@)
 ZLIB_CFLAGS := $(patsubst -I%,-isystem%,@ZLIB_CFLAGS@)
 
 AR = @AR@
@@ -24,7 +23,6 @@ CONFIG_CXXFLAGS = \
   $(FREETYPE2_CFLAGS) \
   $(PANGO_FT2_CFLAGS) \
   $(CAIRO_CFLAGS) \
-  $(LIBPNG_CFLAGS) \
   $(ZLIB_CFLAGS)
 CONFIG_DEFINES = @DEFINES@
 CONFIG_LDFLAGS = @LDFLAGS@
@@ -38,7 +36,6 @@ CONFIG_LIBS = \
   @FONTCONFIG_LIBS@ \
   @FREETYPE2_LIBS@ \
   @CAIRO_LIBS@ \
-  @LIBPNG_LIBS@ \
   @ZLIB_LIBS@
 CROSS = @cross_compiling@
 CXX = @CXX@

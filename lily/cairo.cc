@@ -55,8 +55,6 @@
 #include <cairo.h>
 #include <glib.h>
 
-#include <png.h>
-
 #include <algorithm>
 #include <functional>
 #include <memory>
@@ -205,19 +203,8 @@ public:
   }
 };
 
-static void
-png_error (png_structp, png_const_charp err_msg)
-{
-  if (err_msg)
-    error (_f ("libpng error: '%s'", err_msg));
-  else
-    error (_f ("libpng error, no details given."));
-}
-
 class Png_surface : public Cairo_surface
 {
-  unsigned int height_;
-  unsigned int width_;
   std::string filename_;
 
 public:
@@ -225,12 +212,11 @@ public:
   {
     filename_ = filename;
     int png_dpi = from_scm<int> (ly_get_option (ly_symbol2scm ("resolution")));
-    height_
+    const int height
       = std::max (static_cast<int> (round (paper_height / 72.0 * png_dpi)), 1);
-    width_
+    const int width
       = std::max (static_cast<int> (round (paper_width / 72.0 * png_dpi)), 1);
-    surface_
-      = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width_, height_);
+    surface_ = cairo_image_surface_create (CAIRO_FORMAT_ARGB32, width, height);
     context_ = cairo_create (surface_);
     cairo_scale (context_, png_dpi / 72.0, png_dpi / 72.0);
 
@@ -246,36 +232,13 @@ protected:
   void finish () override
   {
     cairo_surface_flush (surface_);
-    write ();
+    // Cairo unpremultiplies alpha and handles byte order itself.
+    cairo_status_t status
+      = cairo_surface_write_to_png (surface_, filename_.c_str ());
+    if (status != CAIRO_STATUS_SUCCESS)
+      error (_f ("error writing %s: %s", filename_.c_str (),
+                 cairo_status_to_string (status)));
     cairo_surface_finish (surface_);
-  }
-
-  void write ()
-  {
-    unsigned char *data = cairo_image_surface_get_data (surface_);
-    png_structp png = png_create_write_struct (PNG_LIBPNG_VER_STRING, nullptr,
-                                               png_error, png_error);
-    if (!png)
-      error ("png_create_write_struct() failed");
-
-    png_image image = {};
-    image.version = PNG_IMAGE_VERSION;
-    image.width = width_;
-    image.height = height_;
-    // CAIRO_FORMAT_ARGB32 stores each pixel as a native-endian 32-bit
-    // 0xAARRGGBB, so its byte order in memory depends on the host.
-#if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
-    image.format = PNG_FORMAT_BGRA;
-#else
-    image.format = PNG_FORMAT_ARGB;
-#endif
-
-    if (!png_image_write_to_file (&image, filename_.c_str (), 0, data, 0,
-                                  NULL))
-      {
-        error (_f ("error writing %s", filename_.c_str ()));
-      }
-    png_destroy_write_struct (&png, NULL);
   }
 };
 

@@ -89,10 +89,6 @@ support is enabled by default.
 Use version 3.0.7 or later point releases.
 
 @item
-@uref{http://www.libpng.org/pub/png/libpng.html, libpng}@*
-Use version 1.6 or newer.
-
-@item
 @uref{https://www.pango.org, Pango}@*
 Use version 1.44.5 or newer.
 
