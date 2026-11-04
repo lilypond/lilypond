@@ -20,9 +20,11 @@
 
 #include "engraver.hh"
 
+#include "context.hh"
 #include "grob.hh"
 #include "stream-event.hh"
 #include "translator.icc"
+#include <tuple>
 
 class Tweak_engraver final : public Engraver
 {
@@ -65,19 +67,51 @@ Tweak_engraver::acknowledge_grob (Grob_info info)
                   if (scm_is_eq (scm_caaar (s), grobname))
                     {
                       if (scm_is_symbol (scm_cdaar (s)))
-                        set_property (info.grob (), scm_cdaar (s),
-                                      scm_cdar (s));
+                        {
+                          SCM sym = scm_cdaar (s);
+                          SCM val = scm_cdar (s);
+                          std::tie (sym, val) =
+                            type_check_assignment (sym, val,
+                                                   ly_symbol2scm ("backend-type?"));
+                          if (scm_is_symbol (sym))
+                            set_property (info.grob (), sym, val);
+                        }
                       else
-                        set_nested_property (info.grob (), scm_cdaar (s),
-                                             scm_cdar (s));
+                        {
+                          SCM path = scm_cdaar (s);
+                          SCM sym = scm_car (path);
+                          SCM val = scm_cdar (s);
+                          SCM testval = nested_create_alist (scm_cdr (path), val);
+                          std::tie (sym, testval) =
+                            type_check_assignment (sym, testval,
+                                                   ly_symbol2scm ("backend-type?"));
+                          if (scm_is_symbol (sym))
+                            set_nested_property (info.grob (), path, val);
+                        }
                     }
                 }
               else if (direct)
-                set_nested_property (info.grob (), scm_cdaar (s),
-                                     scm_cdar (s));
+                {
+                  SCM path = scm_cdaar (s);
+                  SCM sym = scm_car (path);
+                  SCM val = scm_cdar (s);
+                  SCM testval = nested_create_alist (scm_cdr (path), val);
+                  std::tie (sym, testval) =
+                    type_check_assignment (sym, testval,
+                                           ly_symbol2scm ("backend-type?"));
+                  if (scm_is_symbol (sym))
+                    set_nested_property (info.grob (), path, val);
+                }
             }
           else if (direct)
-            set_property (info.grob (), scm_caar (s), scm_cdar (s));
+            {
+              SCM sym = scm_caar (s);
+              SCM val = scm_cdar (s);
+              std::tie (sym, val) =
+                type_check_assignment (sym, val, ly_symbol2scm ("backend-type?"));
+              if (scm_is_symbol (sym))
+                set_property (info.grob (), sym, val);
+            }
         }
     }
 }
