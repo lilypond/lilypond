@@ -21,6 +21,7 @@
 
 #include "lookup.hh"
 #include "dimensions.hh"
+#include "no-callback.hh"
 #include "output-def.hh"
 #include "paper-column.hh"
 #include "warn.hh"
@@ -131,12 +132,10 @@ Staff_symbol::ledger_positions (Grob *me, int pos, Item *head)
 
   // ...or via custom ledger positions function
   SCM lp_function = get_property (me, "ledger-positions-function");
-  if (scm_is_pair (lp_function))
+  if (unsmob<No_callback> (lp_function))
     {
-      SCM func = scm_eval (lp_function, scm_interaction_environment ());
-      if (ly_is_procedure (func))
-        return from_scm_list<std::vector<Real>> (
-          ly_call (func, me->self_scm (), to_scm (pos)));
+      return from_scm_list<std::vector<Real>> (
+          ly_call (lp_function, me->self_scm (), to_scm (pos)));
     }
 
   SCM ledger_positions = get_property (me, "ledger-positions");

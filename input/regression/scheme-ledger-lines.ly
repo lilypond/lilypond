@@ -1,4 +1,4 @@
-\version "2.25.27"
+\version "2.27.5"
 
 \header {
   texidoc = "Three lines with: default ledgers, ledgers from
@@ -62,11 +62,11 @@ testNotes = {
 
 lpf =
  \override Staff.StaffSymbol.ledger-positions-function =
-   #'(lambda (grob pos)
+   #(ly:make-no-callback (lambda (grob pos)
        (lset-difference
          =
          (ledger-lines::positions-from-ledgered-grob grob pos)
-         (ly:grob-property grob 'line-positions)))
+         (ly:grob-property grob 'line-positions))))
 
 
 m = {

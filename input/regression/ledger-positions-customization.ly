@@ -5,7 +5,7 @@ texidoc = "3 ways to customize ledger line positions."
 
 }
 
-\version "2.19.41"
+\version "2.27.5"
 \paper { ragged-right = ##t }
 
 \relative {
@@ -14,9 +14,8 @@ texidoc = "3 ways to customize ledger line positions."
 }
 
 \relative {
-  % note: the scheme procedure (lambda expression) is quoted
   \override Staff.StaffSymbol.ledger-positions-function =
-    #'(lambda (staff-symbol-grob pos) (list pos))
+    #(ly:make-no-callback (lambda (staff-symbol-grob pos) (list pos)))
   c'''4 d e f
 }
 

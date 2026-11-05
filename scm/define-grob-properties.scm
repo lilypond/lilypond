@@ -675,9 +675,10 @@ thickness, and the second for staff space.  Both contributions are added.")
      (ledger-positions ,list? "A list of vertical positions of ledger lines.
 Its exact behavior depends on the grob; see @iref{StaffSymbol},
 @iref{NoteHead}, @iref{Custos}, and @iref{Script}.")
-     (ledger-positions-function ,scheme? "A quoted Scheme procedure that takes
-a @code{StaffSymbol} grob and the vertical position of a note head as arguments
-and returns a list of ledger line positions.")
+     (ledger-positions-function ,ly:no-callback? "A procedure wrapped in
+@code{ly:make-no-callback} that takes a @code{StaffSymbol} grob and the
+vertical position of a note head as arguments and returns a list of ledger line
+positions.")
      (left-bound-info ,symbol-key-alist? "An alist of properties for
 determining attachments of spanners to edges.")
      (left-number-text ,markup? "For a measure counter, this is the

@@ -5710,6 +5710,14 @@ def conv(s):
                r'item::enforce-musical-break-visibility', s)
     return s
 
+@rule((2, 27, 5), r"""
+ledger-positions-function = #'... -> ledger-positions-function = (ly:make-no-callback ...
+""")
+def conv(s):
+    s = re.sub(r"(ledger-positions-function\s*=\s*#)'(" + matchscmarg + ')',
+               r'\1(ly:make-no-callback \2)', s)
+    return s
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
