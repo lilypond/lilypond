@@ -349,14 +349,14 @@ Beam_scoring_problem::init_instance_variables (Grob *me, Drul_array<Real> ys,
           Real stem_offset
             = edge_stems[d]->relative_coordinate (common[Y_AXIS], Y_AXIS)
               - beams[i]->relative_coordinate (common[Y_AXIS], Y_AXIS);
-          Interval heads
-            = Stem::head_positions (edge_stems[d]) * 0.5 * staff_space_;
+          // In staff spaces, like the quants: beam_translation_ and
+          // beam_thickness_ are already divided by staff_space_.
+          Interval heads = Stem::head_positions (edge_stems[d]) * 0.5;
 
           Direction ed = edge_dirs_[d];
-          heads.widen (0.5 * staff_space_
-                       + (edge_beam_counts_[d] - 1) * beam_translation_
+          heads.widen (0.5 + (edge_beam_counts_[d] - 1) * beam_translation_
                        + beam_thickness_ * .5);
-          quant_range_[d][-ed] = heads[ed] + stem_offset;
+          quant_range_[d][-ed] = heads[ed] + stem_offset / staff_space_;
         }
 
       segments_ = Beam::get_beam_segments (beams[i]);
