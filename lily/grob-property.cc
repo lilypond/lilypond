@@ -30,6 +30,7 @@
 #include "spanner.hh"
 #include "international.hh"
 #include "item.hh"
+#include "no-callback.hh"
 #include "program-option.hh"
 #include "profile.hh"
 #include "unpure-pure-container.hh"
@@ -155,7 +156,8 @@ Grob::internal_set_value_on_alist (SCM *alist, SCM sym, SCM v)
 
   if (do_internal_type_checking_global)
     {
-      if (!ly_is_procedure (v) && !unsmob<Unpure_pure_container> (v)
+      if (!(ly_is_procedure (v) && !unsmob<No_callback> (v))
+          && !unsmob<Unpure_pure_container> (v)
           && !scm_is_eq (v, ly_symbol2scm ("calculation-in-progress")))
         type_check_assignment (sym, v, ly_symbol2scm ("backend-type?"));
 
@@ -183,7 +185,8 @@ Grob::internal_get_property_data (SCM sym) const
   if (do_internal_type_checking_global && scm_is_pair (handle))
     {
       SCM val = scm_cdr (handle);
-      if (!ly_is_procedure (val) && !unsmob<Unpure_pure_container> (val))
+      if (!(ly_is_procedure (val) && !unsmob<No_callback> (val))
+          && !unsmob<Unpure_pure_container> (val))
         type_check_assignment (sym, val, ly_symbol2scm ("backend-type?"));
 
       check_interfaces_for_property (this, sym);
@@ -212,7 +215,7 @@ Grob::internal_get_property (SCM sym)
   if (Unpure_pure_container *upc = unsmob<Unpure_pure_container> (val))
     val = upc->unpure_part ();
 
-  if (ly_is_procedure (val))
+  if (ly_is_procedure (val) && !unsmob<No_callback> (val))
     {
       auto *me = const_cast<Grob *> (this);
       val = me->try_callback_on_alist (&me->mutable_property_alist_, sym, val);
@@ -226,7 +229,7 @@ SCM
 Grob::internal_get_pure_property (SCM sym, vsize start, vsize end)
 {
   SCM val = internal_get_property_data (sym);
-  if (ly_is_procedure (val))
+  if (ly_is_procedure (val) && !unsmob<No_callback> (val))
     return call_pure_function (val, ly_list (self_scm ()), start, end);
 
   if (Unpure_pure_container *upc = unsmob<Unpure_pure_container> (val))
@@ -306,7 +309,7 @@ Grob::internal_get_object (SCM sym)
   if (scm_is_true (s))
     {
       SCM val = scm_cdr (s);
-      if (ly_is_procedure (val))
+      if (ly_is_procedure (val) && !unsmob<No_callback> (val))
         {
           auto *me = const_cast<Grob *> (this);
           val = me->try_callback_on_alist (&me->object_alist_, sym, val);
@@ -340,21 +343,21 @@ call_pure_function (SCM value, SCM args, vsize start, vsize end)
           // Don't bother forming an Unpure_pure_call here.
           value = upc->unpure_part ();
 
-          if (ly_is_procedure (value))
+          if (ly_is_procedure (value) && !unsmob<No_callback> (value))
             return scm_apply_0 (value, args);
           return value;
         }
 
       value = upc->pure_part ();
 
-      if (ly_is_procedure (value))
+      if (ly_is_procedure (value) && !unsmob<No_callback> (value))
         return scm_apply_3 (value, scm_car (args), to_scm (start),
                             to_scm (end), scm_cdr (args));
 
       return value;
     }
 
-  if (!ly_is_procedure (value))
+  if (!(ly_is_procedure (value) && !unsmob<No_callback> (value)))
     return value;
 
   return SCM_BOOL_F;

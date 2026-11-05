@@ -919,6 +919,7 @@ determines the number of scale steps that make up an octave.  Usually the
     (,ly:music-function? . "music function")
     (,ly:music-list? . "list of music objects")
     (,ly:music-output? . "music output")
+    (,ly:no-callback? . "procedure, no property callback")
     (,ly:note-scale? . "note scale")
     (,ly:otf-font? . "OpenType font")
     (,ly:output-def? . "output definition")
