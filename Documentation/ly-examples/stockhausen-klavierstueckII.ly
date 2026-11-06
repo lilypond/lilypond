@@ -53,6 +53,7 @@ horizontalTuplets =
     \consists Axis_group_engraver
     \consists Time_signature_engraver
     \largeTimeSignatures
+    \override VerticalAxisGroup.break-align-globally = ##t
     \override VerticalAxisGroup.staff-affinity = #CENTER
     \override VerticalAxisGroup.nonstaff-relatedstaff-spacing =
     #'((basic-distance . 5)
