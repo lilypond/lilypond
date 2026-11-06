@@ -15,6 +15,8 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
+#(use-modules (srfi srfi-11)) ; let-values
+
 ;;  Determine whether an auto beam should be extended to the right
 ;;  of the current stem.  We start anywhere, except mid-measure in
 ;;  3/4 time. We end according to the following rules, in order of
@@ -37,19 +39,6 @@
   (define (get name default)
     (let ((value (ly:context-property context name)))
       (if (not (null? value)) value default)))
-
-  (define (ending-moments group-list beat-base)
-    (let ((beat 0))
-      (map-in-order (lambda (x)
-                      (set! beat (+ beat x))
-                      (* beat-base beat))
-                    group-list)))
-
-  (define (larger-setting type sorted-alist)
-    (assoc type sorted-alist <=))
-
-  (define (beat-end? moment beat-endings)
-    (pair? (memv moment beat-endings)))  ;; member returns a list if found, not #t
 
   ;; Start of actual auto-beam test routine
   ;;
@@ -82,51 +71,28 @@
          (define (end?)
            ;; N.B. Defaulted and derived values should be kept in sync with the
            ;; Beaming_options C++ class.
-           (let* ((beat-base (get 'beatBase 1/4))
-                  (beat-structure (get 'beatStructure '(+inf.0)))
-                  ;; Be resilient to having a beat structure that is shorter
-                  ;; than the measure length: repeat the beat structure as
-                  ;; needed.
-                  (beaming-period (let* ((total-beats (apply + beat-structure))
-                                         (period (* beat-base total-beats)))
-                                    (if (zero? period)
-                                        (get 'measureLength 1)
-                                        period)))
-                  (pos (euclidean-remainder non-grace beaming-period)))
-             (or (zero? pos) ;; end at measure (beaming period) beginning
-                 (let* ((exceptions
-                         (stable-sort
-                          (map
-                           (lambda (a)
-                             (if (pair? (car a))
-                                 (cons (/ (caar a) (cdar a))
-                                       (cdr a))
-                                 a))
-                           (assoc-get 'end (get 'beamExceptions '()) '()))
-                          car<))
-                        (type-grouping (assoc-get type exceptions '()))
-                        (default-rule (and (null? type-grouping)
-                                           (larger-setting type exceptions)))
-                        (default-grouping (and default-rule (cdr default-rule)))
-
-                        (exception-grouping (if (null? type-grouping)
-                                                default-grouping
-                                                type-grouping)))
-                   (if exception-grouping
-                       ;; check exception rule
-                       (let* ((default-beat-length (and default-rule
-                                                        (car default-rule)))
-                              (grouping-moment (if (null? type-grouping)
-                                                   default-beat-length
-                                                   type))
-                              (exception-moments
-                               (and exception-grouping
-                                    (ending-moments
-                                     exception-grouping grouping-moment))))
-                         (beat-end? pos exception-moments))
-                       ;; no exception, so check beat ending
-                       (beat-end? pos (ending-moments
-                                       beat-structure beat-base)))))))
+           (let* ((exceptions
+                   (stable-sort
+                    (map
+                     (lambda (a)
+                       (if (pair? (car a))
+                           (cons (/ (caar a) (cdar a))
+                                 (cdr a))
+                           a))
+                     (assoc-get 'end (get 'beamExceptions '()) '()))
+                    car<))
+                  (rule (or (assoc type exceptions <=)
+                            (cons (get 'beatBase 1/4)
+                                  (get 'beatStructure '()))))
+                  (base (car rule))
+                  (grouping (cdr rule)))
+             (when (null? grouping)
+               (set! grouping (list +inf.0)))
+             ;; Be resilient to having a grouping that is shorter than the
+             ;; measure length: repeat the structure as needed.
+             (zero? (last (structured-remainder
+                           non-grace
+                           (map (lambda (x) (* base x)) grouping))))))
 
          (if (= dir START)
              (start?)
