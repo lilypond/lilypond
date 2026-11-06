@@ -94,16 +94,16 @@
                                         period)))
                   (pos (euclidean-remainder non-grace beaming-period)))
              (or (zero? pos) ;; end at measure (beaming period) beginning
-                 (let* ((exceptions (sort (map
-                                           (lambda (a)
-                                             (if (pair? (car a))
-                                                 (cons (/ (caar a) (cdar a))
-                                                       (cdr a))
-                                                 a))
-                                           (assoc-get 'end
-                                                      (get 'beamExceptions '())
-                                                      '()))
-                                          car<))
+                 (let* ((exceptions
+                         (stable-sort
+                          (map
+                           (lambda (a)
+                             (if (pair? (car a))
+                                 (cons (/ (caar a) (cdar a))
+                                       (cdr a))
+                                 a))
+                           (assoc-get 'end (get 'beamExceptions '()) '()))
+                          car<))
                         (type-grouping (assoc-get type exceptions '()))
                         (default-rule (and (null? type-grouping)
                                            (larger-setting type exceptions)))
