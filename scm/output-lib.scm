@@ -470,6 +470,22 @@ corner of the beam later on."
    ly:side-position-interface::pure-y-aligned-side))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; break-align-axis callbacks
+
+(define-public (break-align-axis::by-axis grob)
+  "Return the innermost grob with @code{break-align-axis-interface}
+that contains @var{grob}, to be used as @code{BreakAlignment.break-align-axis}.
+Return @code{#f} when either of those grobs has its @code{break-align-globally}
+property set."
+  (and (not (ly:grob-property grob 'break-align-globally #f))
+       (let loop ((grob (ly:grob-parent grob Y)))
+         (and (ly:grob? grob)
+              (if (grob::has-interface grob 'break-align-axis-interface)
+                  (and (not (ly:grob-property grob 'break-align-globally #f))
+                       grob)
+                  (loop (ly:grob-parent grob Y)))))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; break-alignable stuff
 
 (define-public (break-alignable-interface::self-alignment-of-anchor g)

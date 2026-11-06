@@ -137,6 +137,21 @@ center of the bar line.")
      (break-align-anchor-alignment ,number? "Read by
 @code{ly:break-aligned-interface::calc-extent-aligned-anchor} for
 aligning an anchor to a grob's extent.")
+     (break-align-axis ,ly:no-callback? "A procedure that @emph{has} to be
+wrapped into @code{ly:make-no-callback}, taking a break-aligned grob and
+returning an @emph{axis} grob, or @code{#f}.  Two @code{BreakAlignGroup}s are
+kept apart as specified by their @code{space-alist} only if they contain grobs
+on the same axis, or grobs for which the procedure returns @code{#f}.  Groups
+without such grobs may share horizontal space.  If this property is set to
+@code{#f}, or the procedure only returns @code{#f}, all groups are placed one
+after the other.
+
+A useful axis is the staff a grob belongs to, see
+@code{break-align-axis::by-axis}.")
+     (break-align-globally ,boolean? "If set to @code{#t}, do not assign
+this grob (for an axis group: every break-aligned grob inside it) to an
+individual break-align axis; it is spaced against the grobs of every axis.
+Interpreted by @code{break-align-axis::by-axis}.")
      (break-align-orders ,vector? "This is a vector of 3@tie{}lists:
 @w{@code{#(@var{end-of-line} @var{unbroken} @var{start-of-line}}}).
 Each list contains @w{@emph{break-align symbols}} that specify an

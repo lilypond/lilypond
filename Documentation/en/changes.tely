@@ -523,19 +523,58 @@ until now.
 @itemize
 
 @item
+When non-musical items like clefs and key and time signatures are
+aligned across staves, LilyPond no longer arranges the respective
+columns sequentially when there is no actual overlap of such
+elements in any single staff (the actual unit that is being
+checked for overlap is a @code{VerticalAxisGroup} rather than a
+staff).  This behavior can be overriden by setting the
+@code{break-align-globally} property on single grobs or on an
+entire @code{VerticalAxisGroup}.
+
+The following example shows how two different @code{\layout}
+blocks render the same score when there is no staff containing
+both a @code{KeySignature} and @code{KeyCancellation} grob:
+
+@lilypond[verbatim,quote]
+\score {
+  \new StaffGroup
+  <<
+    \new Staff {
+      \key fis \major
+      fis'1
+      \key c \major
+      g'1
+    }
+    \new Staff {
+      \key c \major
+      d'1
+      \key b \major
+      dis'1
+    }
+  >>
+  \layout {
+    \override Staff.KeySignature.break-align-globally = ##t
+    \set StaffGroup.instrumentName = "old"
+  }
+  \layout {
+    \set StaffGroup.instrumentName = "new"
+  }
+}
+@end lilypond
+
+@item
 The @code{output-filename} and @code{output-suffix} variables can now
 be set in @code{\midi} blocks, to give each MIDI file generated from
 a score a name of its own.  A suffix set there replaces the suffix of
 the book.
 
-@item
 The names of MIDI files are now numbered independently of the names of
 printed output files.  When the output file name of a book is numbered
 (for example @file{test-1.pdf} for the second book in @file{test.ly}),
 the names of its MIDI files are always numbered too, as in
 @file{test-1-1.midi} and @file{test-1-2.midi}.  Previously, the numbers
 could clash with those of other books.
-
 
 @item
 The @command{lilypond-book} snippet option @option{notime} uses

@@ -179,6 +179,11 @@ arrow head of the @code{BendSpanner}.
  '(show-control-points))
 
 (ly:add-interface
+ 'break-align-axis-interface
+ "A potential axis for break alignment."
+ '(break-align-globally))
+
+(ly:add-interface
  'caesura-script-interface
  "A script for @code{\\caesura}, e.g., an outside-staff comma or a
 fermata over a bar line."

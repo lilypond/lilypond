@@ -635,6 +635,7 @@ See also @iref{BreakAlignment}.")))))
     (BreakAlignment
      . (
         (axes . (,X))
+        (break-align-axis . ,(ly:make-no-callback break-align-axis::by-axis))
         (break-align-orders . ;; end of line
                             #((
                                staff-ellipsis
@@ -2094,6 +2095,7 @@ ledger lines of a whole staff.")))))
      . (
         (break-align-anchor
          . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
+        (break-align-globally . #t)
         (break-align-symbol . left-edge)
         (break-visibility . ,begin-of-line-visible)
         (non-musical . #t)
@@ -3278,6 +3280,7 @@ one such grob for the whole score, but there can be several if
         (bar-extent . ,axis-group-interface::height)
         (before-line-breaking . ,ly:span-bar::before-line-breaking)
         (break-align-anchor . ,ly:span-bar::calc-anchor)
+        (break-align-globally . #t)
         (break-align-symbol . staff-bar)
         (glyph-name . ,ly:span-bar::calc-glyph-name)
         (layer . 0)
@@ -4288,6 +4291,7 @@ stack groups (staves, lyrics lines, etc.).  See also
                      (pure-relevant-grobs
                       . ,ly:axis-group-interface::calc-pure-relevant-grobs)))
                  (interfaces . (axis-group-interface
+                                break-align-axis-interface
                                 hara-kiri-group-spanner-interface
                                 outside-staff-axis-group-interface))
                  (description . "An auxiliary grob to group

@@ -30,6 +30,10 @@
 #include "side-position-interface.hh"
 #include "warn.hh"
 
+#include <algorithm>
+#include <unordered_map>
+#include <vector>
+
 /*
   This is tricky: we cannot modify 'elements, since callers are
   iterating the same list. Reordering the list in-place, or resetting
@@ -135,32 +139,115 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
 
   set_property (me, "positioning-done", SCM_BOOL_T);
 
+  // elems consist of BreakAlignGroup grobs, each of them for one
+  // break-align-symbol.  There are no duplicate break-align-symbol values in
+  // that list, and it is ordered according to break-align-orders.
   std::vector<Grob *> const &elems = ordered_elements (me);
 
   std::vector<Interval> extents;
   for (Grob *g : elems)
     extents.push_back (g->extent (g, X_AXIS));
 
-  vsize idx = 0;
-  while (idx < extents.size () && extents[idx].is_empty ())
-    idx++;
+  /*
+    Groups only interact if they have grobs on the same axis, as given by
+    the `break-align-axis' callback.  A grob with axis #f interacts with
+    everything.  For each axis, collect the groups that touch it with
+    their extent on that axis, and keep a readout position in the list
+    for the main loop.
+  */
+  struct Axis_columns
+  {
+    std::vector<vsize> idxs;
+    std::vector<Interval> extents;
+    vsize next = 0;
 
-  std::vector<Real> offsets (elems.size (), 0.0);
+    void add (vsize idx, Interval const &extent)
+    {
+      if (!idxs.empty () && idxs.back () == idx)
+        extents.back ().unite (extent);
+      else
+        {
+          idxs.push_back (idx);
+          extents.push_back (extent);
+        }
+    }
+  };
 
+  SCM axis_proc = get_property (me, "break-align-axis");
+  const bool have_axis_proc = ly_is_procedure (axis_proc);
+
+  std::unordered_map<Grob *, Axis_columns> axes;
+  Axis_columns global; // groups that touch every axis
+
+  for (vsize idx = 0; idx < elems.size (); idx++)
+    {
+      if (extents[idx].is_empty ())
+        continue;
+
+      Interval global_extent;
+      if (have_axis_proc)
+        {
+          extract_grob_set (elems[idx], "elements", elts);
+          for (Grob *elt : elts)
+            {
+              Interval extent = elt->extent (elems[idx], X_AXIS);
+              if (extent.is_empty ())
+                continue;
+
+              auto axis = unsmob<Grob> (ly_call (axis_proc, elt->self_scm ()));
+              if (!axis)
+                {
+                  global_extent.unite (extent);
+                  continue;
+                }
+
+              auto [it, fresh] = axes.try_emplace (axis);
+              Axis_columns &columns = it->second;
+              if (fresh)
+                {
+                  columns.idxs = global.idxs;
+                  columns.extents = global.extents;
+                }
+              columns.add (idx, extent);
+            }
+        }
+      else
+        // Instead of going through all the grobs in order to recalculate the
+        // BreakAlignGroup extent from what we know will all be
+        // non-axis-specific, just use what we already have.
+        global_extent = extents[idx];
+
+      // If there are items not sortable into an axis, their spacing extends to
+      // all axes
+      if (!global_extent.is_empty ())
+        {
+          for (auto &[axis, columns] : axes)
+            columns.add (idx, global_extent);
+          global.add (idx, global_extent);
+        }
+    }
+
+  // Without any axes, all groups follow each other.
+  if (axes.empty ())
+    axes[nullptr] = global;
+
+  // Absolute positions; unset until a previous group asks for space.
+  std::vector<Real> offsets (elems.size (), -infinity_f);
+
+  Real right_edge = -infinity_f;
   Real extra_right_space = 0.0;
   vsize edge_idx = VPOS;
-  while (idx < elems.size ())
+  vsize last_idx = VPOS;
+  for (vsize idx = 0; idx < elems.size (); idx++)
     {
-      vsize next_idx = idx + 1;
-      while (next_idx < elems.size () && extents[next_idx].is_empty ())
-        next_idx++;
+      if (extents[idx].is_empty ())
+        continue;
+
+      last_idx = idx;
+      if (offsets[idx] == -infinity_f)
+        offsets[idx] = 0.0;
 
       Grob *l = elems[idx];
-      Grob *r = nullptr;
-
-      if (next_idx < elems.size ())
-        r = elems[next_idx];
-
       SCM alist = SCM_EOL;
 
       /*
@@ -185,86 +272,134 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
             }
         }
 
-      SCM rsym = r ? SCM_EOL : ly_symbol2scm ("right-edge");
-
-      /*
-        We used to use #'cause to find out the symbol and the spacing
-        table, but that gets icky when that grob is suicided for some
-        reason.
-      */
-      if (r)
+      // On each axis of this group: the right edge of this group, the next
+      // group (VPOS: right edge) and the left edge of that group.
+      struct Neighbor
+      {
+        vsize idx;
+        Real right;
+        Real next_left;
+      };
+      std::vector<Neighbor> neighbors;
+      auto advance = [&] (Axis_columns &columns)
+      {
+        Real right = columns.extents[columns.next][RIGHT];
+        columns.next++;
+        if (columns.next < columns.idxs.size ())
+          neighbors.push_back ({columns.idxs[columns.next], right,
+                                columns.extents[columns.next][LEFT]});
+        else
+          neighbors.push_back ({VPOS, right, 0.0});
+      };
+      for (auto &[axis, columns] : axes)
         {
-          extract_grob_set (r, "elements", elts);
-          for (vsize i = elts.size (); !scm_is_symbol (rsym) && i--;)
+          // Only advance column if we have already reached it
+          if (columns.next < columns.idxs.size ()
+              && columns.idxs[columns.next] <= idx)
+            advance (columns);
+        }
+      std::sort (neighbors.begin (), neighbors.end (),
+                 [] (Neighbor const &a, Neighbor const &b)
+                 { return a.idx < b.idx; });
+
+      for (auto first = neighbors.begin (); first != neighbors.end ();)
+        {
+          const vsize next_idx = first->idx;
+          auto last = first;
+          while (last != neighbors.end () && last->idx == next_idx)
+            ++last;
+
+          Grob *r = next_idx != VPOS ? elems[next_idx] : nullptr;
+
+          SCM rsym = r ? SCM_EOL : ly_symbol2scm ("right-edge");
+
+          /*
+            We used to use #'cause to find out the symbol and the spacing
+            table, but that gets icky when that grob is suicided for some
+            reason.
+          */
+          if (r)
             {
-              Grob *elt = elts[i];
-              rsym = get_property (elt, "break-align-symbol");
+              extract_grob_set (r, "elements", elts);
+              for (vsize i = elts.size (); !scm_is_symbol (rsym) && i--;)
+                {
+                  Grob *elt = elts[i];
+                  rsym = get_property (elt, "break-align-symbol");
+                }
+            }
+
+          SCM entry = SCM_EOL;
+          if (scm_is_symbol (rsym))
+            entry = scm_assq (rsym, alist);
+
+          bool entry_found = scm_is_pair (entry);
+          if (!entry_found)
+            {
+              std::string sym_string;
+              if (scm_is_symbol (rsym))
+                sym_string = ly_symbol2string (rsym);
+
+              std::string orig_string;
+              if (unsmob<Grob> (get_property (l, "cause")))
+                orig_string = unsmob<Grob> (get_property (l, "cause"))->name ();
+
+              programming_error (
+                to_string_f ("No spacing entry from %s to `%s'",
+                             orig_string.c_str (), sym_string.c_str ()));
+            }
+
+          Real distance = 1.0;
+          SCM type = ly_symbol2scm ("extra-space");
+
+          if (entry_found)
+            {
+              entry = scm_cdr (entry);
+
+              distance = from_scm<Real> (scm_cdr (entry));
+              type = scm_car (entry);
+            }
+
+          for (; first != last; ++first)
+            {
+              if (r)
+                {
+                  Real offset = offsets[idx];
+                  if (scm_is_eq (type, ly_symbol2scm ("extra-space")))
+                    offset += first->right + distance - first->next_left;
+                  /* should probably junk minimum-space */
+                  else if (scm_is_eq (type, ly_symbol2scm ("minimum-space")))
+                    offset += std::max (first->right, distance);
+                  offsets[next_idx] = std::max (offsets[next_idx], offset);
+                }
+              else
+                {
+                  Real offset = offsets[idx] + first->right + distance;
+                  if (offset > right_edge)
+                    {
+                      right_edge = offset;
+                      extra_right_space = distance;
+                    }
+                }
             }
         }
-
-      if (scm_is_eq (rsym, ly_symbol2scm ("left-edge")))
-        edge_idx = next_idx;
-
-      SCM entry = SCM_EOL;
-      if (scm_is_symbol (rsym))
-        entry = scm_assq (rsym, alist);
-
-      bool entry_found = scm_is_pair (entry);
-      if (!entry_found)
-        {
-          std::string sym_string;
-          if (scm_is_symbol (rsym))
-            sym_string = ly_symbol2string (rsym);
-
-          std::string orig_string;
-          if (unsmob<Grob> (get_property (l, "cause")))
-            orig_string = unsmob<Grob> (get_property (l, "cause"))->name ();
-
-          programming_error (to_string_f ("No spacing entry from %s to `%s'",
-                                          orig_string.c_str (),
-                                          sym_string.c_str ()));
-        }
-
-      Real distance = 1.0;
-      SCM type = ly_symbol2scm ("extra-space");
-
-      if (entry_found)
-        {
-          entry = scm_cdr (entry);
-
-          distance = from_scm<Real> (scm_cdr (entry));
-          type = scm_car (entry);
-        }
-
-      if (r)
-        {
-          if (scm_is_eq (type, ly_symbol2scm ("extra-space")))
-            offsets[next_idx]
-              = extents[idx][RIGHT] + distance - extents[next_idx][LEFT];
-          /* should probably junk minimum-space */
-          else if (scm_is_eq (type, ly_symbol2scm ("minimum-space")))
-            offsets[next_idx] = std::max (extents[idx][RIGHT], distance);
-        }
-      else
-        {
-          extra_right_space = distance;
-          if (idx + 1 < offsets.size ())
-            offsets[idx + 1] = extents[idx][RIGHT] + distance;
-        }
-
-      idx = next_idx;
     }
 
-  Real here = 0.0;
+  if (last_idx == VPOS)
+    return SCM_BOOL_T;
+
+  // Empty groups stay with their predecessor, except right after the end.
+  for (vsize i = 0; i < offsets.size (); i++)
+    if (extents[i].is_empty ())
+      offsets[i] = (i == last_idx + 1) ? right_edge : (i ? offsets[i - 1] : 0.0);
+
   Interval total_extent;
 
   Real alignment_off = 0.0;
   for (vsize i = 0; i < offsets.size (); i++)
     {
-      here += offsets[i];
       if (i == edge_idx)
-        alignment_off = -here;
-      total_extent.unite (extents[i] + here);
+        alignment_off = -offsets[i];
+      total_extent.unite (extents[i] + offsets[i]);
     }
 
   if (total_extent.is_empty ())
@@ -275,12 +410,8 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
   else if (edge_idx == VPOS)
     alignment_off = -total_extent[LEFT];
 
-  here = alignment_off;
   for (vsize i = 0; i < offsets.size (); i++)
-    {
-      here += offsets[i];
-      elems[i]->translate_axis (here, X_AXIS);
-    }
+    elems[i]->translate_axis (offsets[i] + alignment_off, X_AXIS);
 
   return SCM_BOOL_T;
 }
@@ -516,6 +647,7 @@ The break-align symbols used by the various grobs are listed in
                /* properties */
                R"(
 positioning-done
+break-align-axis
 break-align-orders
                )");
 
@@ -540,6 +672,7 @@ Breakable items.
 avoid-slur
 break-align-anchor
 break-align-anchor-alignment
+break-align-globally
 break-align-symbol
 space-alist
                )");
