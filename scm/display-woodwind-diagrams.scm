@@ -685,55 +685,72 @@
               (stencil . ,clarinet-rh-d-key-stencil)
               (text? . ("d" . #f))
               (complexity . trill)))
-          (low-cis
-           . ((offset . (0.0 . 1.4))
-              (stencil . ,clarinet-rh-low-cis-key-stencil)
-              (text? . ("c" . 1))
-              (complexity . trill)))
           (low-d
-           . ((offset . (0.0 . 2.4))
+           . ((offset . (-2.25 . -2.8))
               (stencil . ,clarinet-rh-low-d-key-stencil)
-              (text? . ("d" . #f))
+              (text? . ("low-d" . #f))
+              (complexity . trill)))
+          (low-cis
+           . ((offset . (-1.5 . -4))
+              (stencil . ,clarinet-rh-low-cis-key-stencil)
+              (text? . ("low-c" . 1))
               (complexity . trill)))
           (low-c
-           . ((offset . (0.0 . 0.0))
+           . ((offset . (-1.5 . -4.975))
               (stencil . ,clarinet-rh-low-c-key-stencil)
-              (text? . ("c" . #f))
+              (text? . ("low-c" . #f))
               (complexity . trill))))))
      (left-extra-key-names
       . (()
          ()
          ((d
-           . ((offset . (4.0 . -0.8))
+           . ((offset . (0 . 0))
               (stencil . ,clarinet-lh-d-key-stencil)
-              (text? . ("D" . #f))
+              (text? . ("d" . #f))
               (complexity . trill))))))
      (right-thumb-group
       . (()
          ()
          (((stencils
-            . ,(make-right-hand-key-addresses '(low-c low-cis)))
+            . ,(make-right-hand-key-addresses '(low-c low-cis low-d)))
            (xy-scale-function . (,return-1 . ,return-1))
            (textual? . #f)
            (offset . (-1.3 . 4.0))))))
+     (left-d-for-lowbass
+      . (()
+         ()
+         (((stencils
+            . ,(make-left-hand-key-addresses '(d)))
+           (xy-scale-function . (,return-1 . ,return-1))
+           (textual? . #f)
+           (offset . (3.7 . 3.315))
+        ))))
      (low-left-hand-key-addresses
-      . (,(make-left-hand-key-addresses '(cis f e fis))
-         ,(make-left-hand-key-addresses '(cis f e fis))
-         ,(make-left-hand-key-addresses '(cis f e fis d))))
+      . (,(make-left-hand-key-addresses '(cis f e fis aes))
+         ,(make-left-hand-key-addresses '(cis f e fis aes))
+         ,(make-left-hand-key-addresses '(cis f e fis aes d))))
      (all-left-hand-key-addresses
-      . (,(make-left-hand-key-addresses '(a gis ees cis f e fis))
-         ,(make-left-hand-key-addresses '(a gis ees cis f e fis))
-         ,(make-left-hand-key-addresses '(a gis ees cis f e fis d))))
+      . (,(make-left-hand-key-addresses '(a gis ees cis f e fis aes))
+         ,(make-left-hand-key-addresses '(a gis ees cis f e fis aes))
+         ,(make-left-hand-key-addresses '(a gis ees cis f e fis aes d))))
      (low-key-group
       . (()
          ()
-         (,(make-right-hand-key-addresses '(low-c low-cis)))))
+         (,(make-right-hand-key-addresses '(low-c low-cis low-d)))))
      (low-rich-draw-rules
-      . (()
-         ()
+      . (((,rich-group-draw-rule
+           ()
+           ,(make-left-hand-key-addresses '(cis f e fis d aes))
+        ))
          ((,rich-group-draw-rule
-           ((left-hand . d))
-           ,(make-left-hand-key-addresses '(cis f e fis)))
+           ()
+           ,(make-left-hand-key-addresses '(cis f e fis d aes))
+        ))
+         ((,rich-group-draw-rule
+           ((left-hand . d)
+        )
+           ,(make-left-hand-key-addresses '(cis f e fis d aes d))
+        )
           (,rich-group-draw-rule
            ((right-hand . low-d))
            ((right-hand . low-cis) (right-hand . low-c))))))
@@ -743,7 +760,7 @@
          ((,rich-group-extra-offset-rule
            ,(make-right-hand-key-addresses '(low-c low-d low-cis))
            ,(make-right-hand-key-addresses '(one two three four))
-           (-0.5 . -0.7)))))
+           (0 . 0)))))
      (bottom-right-group-key-addresses
       . (,(make-right-hand-key-addresses '(fis e f gis))
          ,(make-right-hand-key-addresses '(fis e ees gis f))
@@ -809,17 +826,17 @@
                                (text? . #f)
                                (complexity . trill)))
                            (R
-                            . ((offset . (1.0 . 1.0))
+                            . ((offset . (0.8 . 0.85))
                                (stencil . ,clarinet-lh-R-key-stencil)
                                (text? . #f)
                                (complexity . trill)))
                            (a
-                            . ((offset . (0.0 . 0.0))
+                            . ((offset . (0.0 . -0.3))
                                (stencil . ,clarinet-lh-a-key-stencil)
                                (text? . ("A" . #f))
                                (complexity . trill)))
                            (gis
-                            . ((offset . (0.8 . 1.0))
+                            . ((offset . (0.8 . 0.7))
                                (stencil . ,clarinet-lh-gis-key-stencil)
                                (text? . ("G" . 1))
                                (complexity . trill)))
@@ -829,25 +846,31 @@
                                (text? . ("E" . 0))
                                (complexity . trill)))
                            (cis
-                            . ((offset . (-0.85 . 0.2))
+                            . ((offset . (2 . 0.25))
                                (stencil . ,clarinet-lh-cis-key-stencil)
                                (text? . ("C" . 1))
                                (complexity . trill)))
                            (f
-                            . ((offset . (3.6 . 0.5))
+                            . ((offset . (3.25 . 0))
                                (stencil . ,clarinet-lh-f-key-stencil)
                                (text? . ("F" . #f))
                                (complexity . trill)))
                            (e
-                            . ((offset . (2.05 . -3.65))
+                            . ((offset . (2.05 . -4.25))
                                (stencil . ,clarinet-lh-e-key-stencil)
                                (text? . ("E" . #f))
                                (complexity . trill)))
                            (fis
-                            . ((offset . (2.25 . -4.15))
+                            . ((offset . (2.25 . -4.8))
                                (stencil . ,clarinet-lh-fis-key-stencil)
                                (text? . ("F" . 1))
-                               (complexity . trill))))
+                               (complexity . trill)))
+                            (aes
+                            . ((offset . (2.15 . -3))
+                               (stencil . ,clarinet-lh-aes-key-stencil)
+                               (text? . ("A" . 0))
+                               (complexity . trill)))
+                            )
                          (assoc-get 'left-extra-key-names change-points)))
              (right-hand
               . ,(append `((one
@@ -900,8 +923,11 @@
                          (assoc-get 'bottom-group-key-names change-points)))))
          (graphical-commands
           . ((stencil-alist
-              . ((stencils
-                  . ,(append (assoc-get 'right-thumb-group change-points)
+              . (
+                (stencils
+                  . ,(append 
+                            (assoc-get 'right-thumb-group change-points)
+                            (assoc-get 'left-d-for-lowbass change-points)
                              `(,(simple-stencil-alist '(hidden . midline)
                                                       '(0.0 . 3.75))
                                ((stencils
@@ -923,7 +949,7 @@
                                ,(simple-stencil-alist '(left-hand . ees)
                                                       '(1.0 . 5.0))
                                ((stencils
-                                 . ,(make-left-hand-key-addresses '(cis f e fis)))
+                                 . ,(make-left-hand-key-addresses '(cis f e fis aes)))
                                 (xy-scale-function . (,return-1 . ,return-1))
                                 (textual? . #f)
                                 (offset . (0.0 . 3.9)))
@@ -932,7 +958,7 @@
                                      '(one two three four)))
                                 (xy-scale-function . (,return-1 . ,return-1))
                                 (textual? . #f)
-                                (offset . (-1.25 . 3.75)))
+                                (offset . (-1.75 . 3.75)))
                                ,(simple-stencil-alist '(right-hand . b)
                                                       '(-1.0 . 1.5))
                                ((stencils

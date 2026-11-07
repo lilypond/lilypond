@@ -494,6 +494,19 @@ was broken for some time.
 }
 @end lilypond
 
+@item
+An auxiliary key for the left hand, @code{aes}, has been added to
+the @code{clarinet}, @code{bass-clarinet}, and
+@code{low-bass-clarinet} woodwind diagrams.  Additionally, the
+shapes and positions of the left- and right-hand keys have been
+refined.
+
+@lilypond[quote,verbatim]
+\markup \woodwind-diagram #'bass-clarinet
+  #'((cc . ())
+     (lh . (aes cis R a gis f))
+     (rh . ()))
+@end lilypond
 
 @end itemize
 

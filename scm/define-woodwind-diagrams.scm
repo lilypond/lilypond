@@ -749,57 +749,79 @@ are provided in @var{function-list}.  Example:
        (0 ,(/ -4.0 3.0) -2.0 ,(/ -4.0 3.0) -2.0 0.0)
        (-1.5 ,(* 0.5 height) -1.25 ,(* 0.75 height) -1.0 ,height)
        (-0.75 ,(* 0.75 height) -0.5 ,(* 0.5 height) 0.0 0.0))
-     0.9
+     0.8
      0.9)))
 
 (define (clarinet-lh-a-key-stencil radius thick fill layout props)
-  (let* ((width 0.4) (height 0.75) (linelen 0.45))
+  (let* ((width 0.45) (height 0.85) (linelen 0.45))
     (ly:stencil-add
      ((standard-e-stencil width height) radius thick fill layout props)
      (ly:stencil-translate
       (make-line-stencil thick 0 0 0 (* linelen radius))
       (cons 0 (* height radius))))))
 
-(define clarinet-lh-gis-key-stencil (upper-key-stencil 0.0 0.0 1.3 2.0))
+(define clarinet-lh-gis-key-stencil (upper-key-stencil 0.0 0.1 1.6 2.3))
 
 (define clarinet-lh-ees-key-stencil little-elliptical-key-stencil)
 
-(define clarinet-lh-cis-key-stencil oboe-lh-gis-key-stencil)
+(define (clarinet-lh-cis-key-stencil radius thick fill layout props)
+  (
+    (rich-path-stencil
+    '(
+      (0 0.075)
+      (0.6 0.05 0.6 0.4 1.25 0.45)
+      (2.25 0.45 2.25 -0.45 1.25 -0.45)
+      (0.6 -0.4 0.6 -0.05 0 -0.075)
+      (0 0.05))
+    -1.0
+    1.0
+    (lambda (stencil) (ly:stencil-rotate stencil 180 0 0))) 
+    radius thick fill layout props))
 
-(define clarinet-lh-f-key-stencil oboe-lh-low-b-key-stencil)
+(define (clarinet-lh-f-key-stencil radius thick fill layout props)
+  (ly:stencil-scale (oboe-lh-low-b-key-stencil radius thick fill layout props)
+    0.9 0.9))
 
 (define clarinet-lh-e-key-stencil oboe-lh-ees-key-stencil)
 
 (define clarinet-lh-fis-key-stencil oboe-lh-bes-key-stencil)
 
-(define clarinet-lh-d-key-stencil (standard-e-stencil 1.0 0.4))
+(define clarinet-lh-d-key-stencil (standard-e-stencil 0.8 0.4))
 
-(define clarinet-rh-low-c-key-stencil
-  (standard-path-stencil
-   '((0.0 1.5)
-     (0.0 2.5 -1.0 2.5 -1.0 0.75)
-     (-1.0 0.1 0.0 0.25 0.0 0.3)
-     (0.0 0.0))
-   0.8
-   0.8))
-
-(define clarinet-rh-low-cis-key-stencil
-  (standard-path-stencil
-   '((0.0 1.17)
-     (0.0 1.67 -1.0 1.67 -1.0 0.92)
-     (-1.0 0.47 0.0 0.52 0.0 0.62)
-     (0.0 0.0))
-   0.8
-   0.8))
+(define clarinet-lh-aes-key-stencil (standard-e-stencil 0.4 0.8))
 
 (define clarinet-rh-low-d-key-stencil
   (standard-path-stencil
-   '((0.0 1.05)
-     (0.0 1.55 -1.0 1.55 -1.0 0.8)
-     (-1.0 0.35 0.0 0.4 0.0 0.5)
-     (0.0 0.0))
-   0.8
-   0.8))
+   '((0 0.1)
+    (0 0.1 0.75 0.6 1 0.35)
+    (1 0.35 1.075 0.2 1.075 0.0)
+    (1.075 0.0 1.075 -0.2 1 -0.35)
+    (1 -0.35 0.75 -0.6 0 -0.1)
+    (0.0 0))
+   0.9
+   0.9))
+
+(define clarinet-rh-low-cis-key-stencil
+  (standard-path-stencil
+   '((0.0 0.6)
+    (0 0.6 0.0 0.75 0.15 0.75)
+    (0.9 0.75)
+    (0.9 0.75  1.05 0.75 1.1 0.6)
+    (1.19 0.0)
+    (0.0 0.0))
+   0.9
+   0.9))
+
+(define clarinet-rh-low-c-key-stencil
+  (standard-path-stencil
+   '((0.0 0.85)
+    (1.225 0.85)
+    (1.36 0)
+    (1.36 0 1.36 -0.15 1.2 -0.15)
+    (0.15 -0.15)
+    (0.15 -0.15 0.0 -0.15 0.0 0.0 ))
+   0.9
+   0.9))
 
 (define clarinet-rh-one-key-stencil (standard-e-stencil 0.5 0.25))
 
