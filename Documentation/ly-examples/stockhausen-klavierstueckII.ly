@@ -56,8 +56,8 @@ horizontalTuplets =
     \override VerticalAxisGroup.break-align-globally = ##t
     \override VerticalAxisGroup.staff-affinity = #CENTER
     \override VerticalAxisGroup.nonstaff-relatedstaff-spacing =
-    #'((basic-distance . 5)
-       (padding . 0.5))
+    #'((minimum-distance . 6)
+       (padding . 1))
   }
   \context {
     \StaffGroup
@@ -139,20 +139,22 @@ RH = {
   %       crazy.
   %     - Vertical position adjustments are taken relative to the other
   %       staff; this means that they are sensitive to staff distances (as
-  %       set by `staff-staff-spacing', for example).
+  %       set by `staff-staff-spacing', for example).  Adjusting those
+  %       positions relatively instead of absolutely helps making the
+  %       score more robust to changes.
 
   % 3
   \once \override TupletBracket.outside-staff-priority = ##f
   \tweak text #tuplet-number::calc-fraction-text
   \tweak style #'dashed-line
-  \tweak positions #'(20.5 . 20.5) \tuplet 4/3
+  \offset positions #'(-1 . -1) \tuplet 4/3
   {
-    \tweak positions #'(18 . 18) \tuplet 5/4
+    \offset positions #'(2 . 2) \tuplet 5/4
     {
       \red
       \change Staff = LH
       \stemUp
-      <d'' es'>8\tweak positions #'(5 . 7) [_\pp_\laissezVibrer
+      <d'' es'>8\offset positions #'(-1.5 . 0) [_\pp_\laissezVibrer
       \change Staff = RH
       \stemDown
       f''32\moveDyn -2 0 ^\f_\laissezVibrer
