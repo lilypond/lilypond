@@ -172,16 +172,27 @@ these files end with @file{.ly}.
 
 @funindex \score
 
-A @code{\score} block must contain a single music expression
-delimited by curly brackets.@footnote{Note that there also exists
-a markup command called @code{\score}, @pxref{Scores within
-markup}.}
+A @code{\score} block combines a single music expression with
+instructions on what to produce from it.  Besides the music, it may
+contain a @code{\header} block and any number of output definitions
+(@code{\layout} and @code{\midi} blocks):
 
 @example
 \score @{
-  @dots{}
+  \header @{ @dots{} @}      % optional
+  @var{@dots{}music@dots{}}
+  \layout @{ @dots{} @}      % optional, may be repeated
+  \midi @{ @dots{} @}        % optional, may be repeated
 @}
 @end example
+
+@noindent
+The music expression is the only required element.  The other
+elements may be placed before or after it.@footnote{Note that there
+also exists a markup command called @code{\score}, @pxref{Scores
+within markup}.}
+
+@subsubheading The music expression
 
 @warning{There must be @strong{only one} outer music expression in
 a @code{\score} block, and it @strong{must} be surrounded by
@@ -224,37 +235,81 @@ are music expressions:
 @}
 @end example
 
-@funindexpre %
-@funindex %@{ @dots{} %@}
-@cindex comment
-@cindex line comment
-@cindex single-line comment
-@cindex block comment
-@cindex multi-line comment
+Comments may be placed anywhere in the input, @pxref{File
+structure}.
 
-Comments are one exception to this general rule.  (For others,
-@pxref{File structure}.)  Both single-line comments and comments
-delimited by @code{%@{ @dots{} %@}} may be placed anywhere within an
-input file.  They may be placed inside or outside a @code{\score}
-block, and inside or outside the single music expression within a
-@code{\score} block.
+@subsubheading Score headers
 
-Remember that even in a file containing only a @code{\score} block, it
-is implicitly enclosed in a @code{\book} block.  A @code{\book} block in a source
-file produces at least one output file, and by default the name of the
-output file produced is derived from the name of the input file, so
-@file{fandangoforelephants.ly} will produce
-@file{fandangoforelephants.pdf}.
+A @code{\score} block may contain its own @code{\header} block.
+Fields set there apply to this score only and override those set at
+higher levels (top of file, @code{\book}, @code{\bookpart}).  By
+default, only @code{piece} and @code{opus} are printed in the score
+title.  The fields also determine the metadata of output files
+generated from this score, e.g., the MIDI sequence name.
+@xref{Titles explained}, and @ref{Creating output file metadata}.
 
-(For more details about @code{\book} blocks, see @ref{Multiple
-scores in a book}, @ref{Multiple output files from one input
-file}, @ref{File structure}.)
+@subsubheading Output definitions
+
+The output definitions in a @code{\score} block determine which
+kinds of output are generated for that score:
+
+@itemize
+@item
+Each @code{\layout} block produces a typeset rendition of the
+score.  Using multiple @code{\layout} blocks in one @code{\score}
+block has the same effect as writing several copies of the whole
+score block with one @code{\layout} block each.  That can be
+useful if you want to compare or demonstrate the effects of
+different settings in the @code{\layout} blocks.
+
+@item
+Each @code{\midi} block produces a separate MIDI file,
+@pxref{The MIDI block}.
+
+@item
+If a @code{\score} contains neither, a printed score is produced as
+if an empty @code{\layout} block had been given.  The layout used
+is then whatever @code{\layout} settings are in effect for the
+enclosing @code{\bookpart}, @code{\book}, or top level when the
+output is processed, @pxref{The layout block}.
+@end itemize
+
+As soon as an explicit output definition is present, only the kinds
+of output requested are produced.  In particular, a @code{\score}
+with a @code{\midi} block but no @code{\layout} block yields only a
+MIDI file, and no notation is printed.  To get both, give both:
+
+@example
+\score @{
+  @var{@dots{}music@dots{}}
+  \layout @{ @}
+  \midi @{ @}
+@}
+@end example
+
+Output definitions outside of a score change default settings
+affecting following scores.  Inside a @code{\score} block, an
+output definition instead produces output: settings in there only
+affect the rendition created from the particular output
+definition.
+
+When a @code{\score} contains several @code{\layout} blocks, the
+music is typeset once for each of them.  Several @code{\midi} blocks
+produce one MIDI file each (@pxref{Output file names}).
 
 @morerefs
 Learning Manual:
 @rlearning{Working on input files},
 @rlearning{Music expressions explained},
 @rlearning{A score is a (single) compound musical expression}.
+
+Notation Reference:
+@ref{Titles explained},
+@ref{The layout block},
+@ref{The MIDI block},
+@ref{Multiple scores in a book},
+@ref{Multiple output files from one input file},
+@ref{File structure}.
 @endmorerefs
 
 
