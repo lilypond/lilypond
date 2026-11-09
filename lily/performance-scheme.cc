@@ -19,6 +19,8 @@
 
 #include "performance.hh"
 
+#include "output-def.hh"
+
 LY_DEFINE (ly_performance_headers, "ly:performance-headers", 1, 0, 0,
            (SCM performance),
            R"(
@@ -28,6 +30,18 @@ Return the list of headers with the innermost first.
   auto *const p = LY_ASSERT_SMOB (Performance, performance, 1);
 
   return p->get_headers ();
+}
+
+LY_DEFINE (ly_performance_output_def, "ly:performance-output-def", 1, 0, 0,
+           (SCM performance),
+           R"(
+Return the @code{\midi} output definition that @var{performance} was created
+with, or @code{#f} if there is none.
+           )")
+{
+  auto *const p = LY_ASSERT_SMOB (Performance, performance, 1);
+
+  return p->midi_ ? p->midi_->self_scm () : SCM_BOOL_F;
 }
 
 LY_DEFINE (ly_performance_write, "ly:performance-write", 3, 0, 0,

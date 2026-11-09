@@ -260,6 +260,13 @@ that order."
 
 (define-public current-outfile-name #f)  ; for use by regression tests
 
+;; Information about the book currently being output, as a list of its
+;; base file name, its output suffix (or something that is not a string),
+;; and whether its output file name got a disambiguating number.  MIDI
+;; output needs this for \midi blocks that set output-filename or
+;; output-suffix.
+(define-public current-outfile-parts #f)
+
 (define get-outfile-name
   (lambda (book)
     "Return current filename for generating backend output files."
@@ -281,6 +288,8 @@ that order."
       (ly:parser-define! 'counter-alist
                          (assoc-set! counter-alist alist-key (1+ output-count)))
       (set! current-outfile-name result)
+      (set! current-outfile-parts
+            (list base-name output-suffix (> output-count 0)))
       result)))
 
 (define (print-book-with book process-procedure)

@@ -523,6 +523,21 @@ until now.
 @itemize
 
 @item
+The @code{output-filename} and @code{output-suffix} variables can now
+be set in @code{\midi} blocks, to give each MIDI file generated from
+a score a name of its own.  A suffix set there replaces the suffix of
+the book.
+
+@item
+The names of MIDI files are now numbered independently of the names of
+printed output files.  When the output file name of a book is numbered
+(for example @file{test-1.pdf} for the second book in @file{test.ly}),
+the names of its MIDI files are always numbered too, as in
+@file{test-1-1.midi} and @file{test-1-2.midi}.  Previously, the numbers
+could clash with those of other books.
+
+
+@item
 The @command{lilypond-book} snippet option @option{notime} uses
 the new @code{\senzaMisura} mode.  In previous releases,
 @option{notime} used the default @code{\time 4/4}, prevented

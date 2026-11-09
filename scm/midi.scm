@@ -241,18 +241,62 @@
                       (ly:modules-lookup headers 'title)
                       "")))
 
+(define (midi-block-outfile-name midi-def)
+  "Return the file name (without extension and number) requested by the
+@code{output-filename} and @code{output-suffix} variables of the
+@code{\\midi} block @var{midi-def}, or @code{#f} if it sets neither.
+A variable that is not set there is taken from the book.  A suffix
+of @code{#f} suppresses the book's suffix."
+  (and midi-def
+       current-outfile-parts
+       (let* ((filename (ly:output-def-lookup midi-def 'output-filename))
+              (suffix (ly:output-def-lookup midi-def 'output-suffix))
+              (filename-set? (string? filename))
+              (suffix-set? (or (string? suffix) (eq? suffix #f))))
+         (and (or filename-set? suffix-set?)
+              (let ((base (if filename-set?
+                              filename
+                              (car current-outfile-parts)))
+                    (suffix (if suffix-set?
+                                suffix
+                                (cadr current-outfile-parts))))
+                (if (string? suffix)
+                    (format #f "~a-~a" base suffix)
+                    base))))))
+
+(define (disambiguate-midi-name name always-number?)
+  "Return @var{name}, with an increasing number appended if @var{name}
+has already been used for a MIDI file during this run or if
+@var{always-number?} is true.  MIDI file names are counted separately
+from those of other output files."
+  (let* ((counter-alist (ly:parser-lookup 'midi-counter-alist))
+         (count (assoc-get name counter-alist 0))
+         (count (if always-number? (max count 1) count)))
+    (ly:parser-define! 'midi-counter-alist
+                       (assoc-set! counter-alist name (1+ count)))
+    (if (> count 0)
+        (format #f "~a-~a" name count)
+        name)))
+
+;; The numbering of MIDI files is kept in a counter per file name, so
+;; the optional argument (the number of performances already written for
+;; the book, given when output is split into bookparts) is not needed.
 (define-public (write-performances-midis performances basename . rest)
   (let ((midi-ext (ly:get-option 'midi-extension)))
-    (let
-        loop
-      ((perfs performances)
-       (count (if (null? rest) 0 (car rest))))
-      (if (pair? perfs)
-          (let ((perf (car perfs)))
-            (ly:performance-write
-             perf
-             (if (> count 0)
-                 (format #f "~a-~a.~a" basename count midi-ext)
-                 (format #f "~a.~a" basename midi-ext))
-             (performance-name-from-headers (ly:performance-headers perf)))
-            (loop (cdr perfs) (1+ count)))))))
+    (for-each
+     (lambda (perf)
+       (let* ((own-name (midi-block-outfile-name
+                         (ly:performance-output-def perf)))
+              ;; A book whose output file name carries a number gets
+              ;; numbered MIDI files throughout.
+              (name (if own-name
+                        (disambiguate-midi-name own-name #f)
+                        (disambiguate-midi-name
+                         basename
+                         (and current-outfile-parts
+                              (caddr current-outfile-parts))))))
+         (ly:performance-write
+          perf
+          (format #f "~a.~a" name midi-ext)
+          (performance-name-from-headers (ly:performance-headers perf)))))
+     performances)))

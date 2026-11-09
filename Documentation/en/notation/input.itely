@@ -487,6 +487,41 @@ are set in the global @code{\paper} block and not in any
 @code{\book} blocks), LilyPond appends an additional suffix with
 an increasing number.
 
+@code{output-filename} and @code{output-suffix} can also be set in
+a @code{\midi} block to name the MIDI file generated from that
+block, which allows creating several MIDI files from a single
+score.  A variable that is not set in the @code{\midi} block is
+taken from the book.  In particular, an @code{output-suffix} set in
+a @code{\midi} block @emph{replaces} the suffix of the book instead
+of being appended to it; use @code{##f} to get no suffix at all.
+
+@example
+\score @{
+  @var{@dots{}music@dots{}}
+  \midi @{
+    output-suffix = "rehearsal"
+    \context @{
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 80 4)
+    @}
+  @}
+  \midi @{ output-suffix = ##f @}
+@}
+@end example
+
+@noindent
+In source file @file{eightminiatures.ly}, this produces
+@file{eightminiatures-rehearsal.midi} and
+@file{eightminiatures.midi}.
+
+MIDI files are numbered independently of the printed output.  If
+several MIDI files would get the same name, LilyPond appends an
+increasing number to the names.  This number is always present if
+the output file name of the book has been given one, so the MIDI
+files of the second of two books in @file{test.ly} are named
+@file{test-1-1.midi}, @file{test-1-2.midi}, and so on, after
+@file{test.midi} and @file{test-1.midi} of the first book.
+
 Note that predefined @code{\paper} variables (@pxref{The paper
 block}) must be placed before the @code{output-filename} and
 @code{output-suffix} assignments, for example
@@ -4262,6 +4297,7 @@ either the @code{\book}, @code{\bookpart} or @code{\score} blocks.  See
 @morerefs
 Notation Reference:
 @ref{File structure},
+@ref{Output file names},
 @ref{Creating output file metadata}.
 
 Installed Files:
