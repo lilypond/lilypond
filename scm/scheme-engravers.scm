@@ -2542,8 +2542,12 @@ style @code{\\rtoe} and its siblings, based on the data in the
 
                ;; Set right bound.
                (for-each
-                (lambda (bound gliss )
+                (lambda (bound gliss)
                   (ly:spanner-set-bound! gliss RIGHT bound)
+                  ;; For tablature, we need to trigger the extra-dy callback
+                  ;; before to-barline may cause the right bound to be
+                  ;; overwritten.
+                  (ly:grob-property gliss 'extra-dy)
                   (ly:engraver-announce-end-grob this-engraver gliss bound))
                 possible-right-bounds
                 current-glissando-grobs)
