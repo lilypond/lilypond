@@ -59,6 +59,7 @@ class Completion_heads_engraver final : public Engraver
   // Must remember notes for explicit ties.
   std::vector<Spanner *> ties_;
   std::vector<Stream_event *> note_events_;
+  std::vector<Stream_event *> grace_events_;
   Spanner *tie_column_ = nullptr;
   Moment note_end_mom_;
   bool is_first_;
@@ -90,6 +91,13 @@ Completion_heads_engraver::initialize ()
 void
 Completion_heads_engraver::listen_note (Stream_event *ev)
 {
+  // grace notes should stay out the main note's processing hairs
+  if (now_mom ().grace_part_)
+    {
+      grace_events_.push_back (ev);
+      return;
+    }
+
   note_events_.push_back (ev);
 
   is_first_ = true;
@@ -173,6 +181,14 @@ Completion_heads_engraver::make_note_head (Stream_event *ev)
 void
 Completion_heads_engraver::process_music ()
 {
+  // When in grace time, we just flush through grace events.
+  if (now_mom ().grace_part_)
+    {
+      for (auto *ev : grace_events_)
+        make_note_head (ev);
+      return;
+    }
+
   if (!is_first_ && !left_to_do_)
     return;
 
@@ -280,6 +296,7 @@ Completion_heads_engraver::make_tie (Grob *left, Grob *right)
 void
 Completion_heads_engraver::stop_translation_timestep ()
 {
+  grace_events_.clear ();
   ties_.clear ();
   tie_column_ = nullptr;
 
