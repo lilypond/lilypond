@@ -656,7 +656,9 @@ be useful for debugging.
 @item
 The new commands @code{\startGradualTempoChange} and
 @code{\stopGradualTempoChange} describe a temporary departure from
-the prevailing tempo.  Currently, these affect only MIDI output.
+the prevailing tempo.  They have optional markup arguments for
+producing a visual @code{\tempoMark} and @code{\tempoEndMark},
+respectively.
 
 @item
 These functions, which have been deprecated since version 2.13.19,
