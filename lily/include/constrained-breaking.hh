@@ -24,6 +24,7 @@
 #include "matrix.hh"
 #include "prob.hh"
 
+#include <cassert>
 #include <vector>
 
 class Paper_column;
@@ -188,15 +189,20 @@ private:
   Real score_markup_min_distance_;
   Real score_markup_padding_;
 
-  /* line_forces_[start * breaks_.size () + end] is the force of a line
-     from break START to break END, infinity_f if it does not fit. */
-  std::vector<Real> line_forces_;
+  /* line_forces_[start][end - start - 1] is the force of a line from break
+     START to break END (START < END).  A row ends at the first line that
+     does not fit (or at a forced break), and anything beyond the end of a
+     row means infinity_f.  Use line_force () to look up entries. */
+  std::vector<std::vector<Real>> line_forces_;
   /* line-break-penalty of the column at each break */
   std::vector<Real> break_penalties_;
 
   Real line_force (vsize start, vsize end) const
   {
-    return line_forces_[start * breaks_.size () + end];
+    assert (start < end);
+    auto const &row = line_forces_[start];
+    vsize idx = end - start - 1;
+    return idx < row.size () ? row[idx] : infinity_f;
   }
 
   /* the [i](j,k)th entry is the score for fitting the first k bars onto the

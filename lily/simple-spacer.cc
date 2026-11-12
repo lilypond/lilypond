@@ -435,20 +435,20 @@ get_column_description (std::vector<Paper_column *> const &cols,
   return description;
 }
 
-/* returns a vector of dimensions breaks.size () * breaks.size ()
 
-   Compute the forces for all (start, end) combinations where
-   start/end are breakable columns. The force for (start, end) is in
-   (start_break_index * breaks.size + end_break_index)
+/* Returns one row per break: result[b][c - b - 1] is the force of a line
+   from break b to break c, for b < c.
 
-   If the combination doesn't fit, use infinity as force.
+   Compute the forces for all (start, end) combinations where start/end
+   are breakable columns.  A row stops at the first combination that does
+   not fit, or at a forced break; any later entry is implicitly infinity_f.
  */
-std::vector<Real>
+std::vector<std::vector<Real>>
 get_line_forces (std::vector<Paper_column *> const &columns, Real line_len,
                  Real indent, bool ragged)
 {
   std::vector<vsize> breaks;
-  std::vector<Real> force;
+  std::vector<std::vector<Real>> force;
   std::vector<Paper_column *> non_loose;
   std::vector<Column_description> cols;
   SCM force_break = ly_symbol2scm ("force");
@@ -468,7 +468,7 @@ get_line_forces (std::vector<Paper_column *> const &columns, Real line_len,
       cols.push_back (get_column_description (non_loose, i, false));
     }
   breaks.push_back (cols.size ());
-  force.resize (breaks.size () * breaks.size (), infinity_f);
+  force.resize (breaks.size ());
 
   for (vsize b = 0; b + 1 < breaks.size (); b++)
     {
@@ -503,17 +503,16 @@ get_line_forces (std::vector<Paper_column *> const &columns, Real line_len,
             }
           Simple_spacer::Solution sol
             = spacer.solve ((b == 0) ? line_len - indent : line_len, ragged);
-          force[b * breaks.size () + c]
-            = spacer.force_penalty (line_len, sol.force_, ragged);
+          Real f = spacer.force_penalty (line_len, sol.force_, ragged);
 
           if (!sol.fits_)
             {
               if (c == b + 1)
-                force[b * breaks.size () + c] = -200000;
-              else
-                force[b * breaks.size () + c] = infinity_f;
+                force[b].push_back (-200000);
+              /* else: leave the row short, which means infinity_f */
               break;
             }
+          force[b].push_back (f);
           if (end < cols.size ()
               && scm_is_eq (cols[end].break_permission_, force_break))
             break;

@@ -509,22 +509,24 @@ Constrained_breaking::initialize (
 
   for (vsize i = 0; i + 1 < n; i++)
     {
-      Real *row = &line_forces_[i * n];
+      std::vector<Real> &row = line_forces_[i];
       vsize j = i + 1;
-      for (; j < n; j++)
+      for (; j < n && j - i - 1 < row.size (); j++)
         {
           bool last = j == n - 1;
           bool ragged = ragged_right_ || (last && ragged_last_);
-          if (ragged && last && !std::isinf (row[j]))
-            row[j] = (row[j] < 0 && j > i + 1) ? infinity_f : 0;
-          if (std::isinf (row[j]))
+          Real &f = row[j - i - 1];
+          if (ragged && last && !std::isinf (f))
+            f = (f < 0 && j > i + 1) ? infinity_f : 0;
+          if (std::isinf (f))
             break;
         }
-      /* The old code left everything beyond the first infinite force
-         default-constructed (infinite).  Keep that invariant. */
-      if (j + 1 < n)
-        std::fill (row + j + 1, row + n, infinity_f);
+      /* Entries before j are the finite ones; drop the rest. */
+      if (row.size () > j - i - 1)
+        row.resize (j - i - 1);
+      row.shrink_to_fit ();
     }
+
   /* work out all the starting indices */
   start_.reserve (pagebreak_col_indices.size ());
   for (vsize i = 0; i < pagebreak_col_indices.size (); i++)

@@ -63,9 +63,12 @@ private:
   std::vector<Spring> springs_;
 };
 
-/* returns a vector of dimensions breaks.size () * breaks.size () */
-std::vector<Real> get_line_forces (std::vector<Paper_column *> const &columns,
-                                   Real line_len, Real indent, bool ragged);
+/* result[b][c - b - 1] is the force for a line from break b to break c
+   (b < c).  A row ends at the first line that does not fit or that must
+   end (forced break); anything past the end of a row means infinity_f. */
+std::vector<std::vector<Real>>
+get_line_forces (std::vector<Paper_column *> const &columns, Real line_len,
+                 Real indent, bool ragged);
 
 Column_x_positions
 get_line_configuration (std::vector<Paper_column *> const &columns,
