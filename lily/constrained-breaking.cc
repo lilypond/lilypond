@@ -103,7 +103,7 @@ Constrained_breaking::calc_subproblem (vsize start, vsize sys, vsize brk)
 
       if (sys > 0)
         {
-          prev_f = st.at (j, sys - 1).details_.force_;
+          prev_f = st.at (j, sys - 1).force_;
           prev_dem = st.at (j, sys - 1).demerits_;
         }
       if (std::isinf (prev_dem))
@@ -116,7 +116,7 @@ Constrained_breaking::calc_subproblem (vsize start, vsize sys, vsize brk)
         {
           found_something = true;
           n.demerits_ = dem;
-          n.details_ = cur;
+          n.force_ = cur.force_;
           n.prev_ = j;
         }
     }
@@ -212,7 +212,7 @@ Constrained_breaking::solve (vsize start, vsize end, vsize sys_count)
     {
       for (vsize brk = end_brk; brk != VPOS; brk--)
         {
-          if (!std::isinf (st.at (brk, sys).details_.force_))
+          if (!std::isinf (st.at (brk, sys).force_))
             {
               if (brk != end_brk)
                 {
@@ -298,7 +298,7 @@ Constrained_breaking::line_details (vsize start, vsize end, vsize sys_count)
     {
       for (vsize brk = end_brk; brk != VPOS; brk--)
         {
-          if (!std::isinf (st.at (brk, sys).details_.force_))
+          if (!std::isinf (st.at (brk, sys).force_))
             {
               if (brk != end_brk)
                 {
@@ -321,7 +321,7 @@ Constrained_breaking::line_details (vsize start, vsize end, vsize sys_count)
                 {
                   vsize prev_brk = st.at (brk, cur_sys).prev_;
                   assert (brk != VPOS);
-                  ret.push_back (st.at (brk, cur_sys).details_);
+                  ret.push_back (lines_.at (brk + start_brk, prev_brk + start_brk));
                   brk = prev_brk;
                 }
               std::reverse (ret.begin (), ret.end ());
@@ -355,7 +355,7 @@ Constrained_breaking::min_system_count (vsize start, vsize end)
         {
           resize (sys_count + 3);
         }
-      if (!std::isinf (st.at (brk, sys_count).details_.force_))
+      if (!std::isinf (st.at (brk, sys_count).force_))
         return sys_count + 1;
     }
   /* no possible breaks satisfy constraints */

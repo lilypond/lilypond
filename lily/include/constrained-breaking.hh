@@ -136,12 +136,13 @@ struct Constrained_break_node
   /* unlike the Gourlay breaker, this is the sum of all demerits up to,
    * and including, this line */
   Real demerits_;
-  struct Line_details details_;
+  Real force_;   // force of the last line of this partial solution
 
   Constrained_break_node ()
   {
     prev_ = VPOS;
     demerits_ = infinity_f;
+    force_ = infinity_f;
   }
 
   void print () const
