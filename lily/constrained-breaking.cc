@@ -79,7 +79,9 @@
   of the piece; the smallest value we should ever see here is
   starting_breakpoints_[start] + 1) */
 bool
-Constrained_breaking::calc_subproblem (vsize start, vsize sys, vsize brk)
+Constrained_breaking::calc_subproblem (vsize start, vsize sys, vsize brk,
+                                       Column_scores const &prev,
+                                       Column_scores &cur)
 {
   assert (sys < systems_);
   assert (start < start_.size ());
@@ -89,6 +91,9 @@ Constrained_breaking::calc_subproblem (vsize start, vsize sys, vsize brk)
   vsize start_col = starting_breakpoints_[start];
   Matrix<Constrained_break_node> &st = state_[start];
   vsize max_index = brk - start_col;
+  Constrained_break_node &n = st.at (max_index, sys);
+  // If this ever triggers, we need a bigger boat
+  assert (max_index < Constrained_break_node::invalid);
   for (vsize j = max_index; j-- > sys;)
     {
       if (0 == sys && j > 0)
@@ -103,21 +108,20 @@ Constrained_breaking::calc_subproblem (vsize start, vsize sys, vsize brk)
 
       if (sys > 0)
         {
-          prev_f = st.at (j, sys - 1).force_;
-          prev_dem = st.at (j, sys - 1).demerits_;
+          prev_f = prev.force_[j];
+          prev_dem = prev.demerits_[j];
         }
       if (std::isinf (prev_dem))
         continue;
 
       Real dem = combine_demerits (cur_force, prev_f) + prev_dem
                  + break_penalties_[brk];
-      Constrained_break_node &n = st.at (max_index, sys);
-      if (dem < n.demerits_)
+      if (dem < cur.demerits_[max_index])
         {
           found_something = true;
-          n.demerits_ = dem;
-          n.force_ = cur_force;
-          n.prev_ = j;
+          cur.demerits_[max_index] = dem;
+          cur.force_[max_index] = cur_force;
+          n.prev_ = static_cast<uint32_t> (j);
         }
     }
   return found_something;
@@ -165,12 +169,22 @@ Constrained_breaking::resize (vsize systems)
                           Constrained_break_node ());
 
       /* fill out the matrices */
+      last_scores_.resize (state_.size ());
       for (vsize i = 0; i < state_.size (); i++)
-        for (vsize j = valid_systems_; j < systems_; j++)
-          for (vsize k = starting_breakpoints_[i] + j + 1; k < breaks_.size ();
-               k++)
-            if (!calc_subproblem (i, j, k))
-              break; /* if we couldn't break this, it is too cramped already */
+        {
+          vsize rank = breaks_.size () - starting_breakpoints_[i];
+          Column_scores next;
+          for (vsize j = valid_systems_; j < systems_; j++)
+            {
+              next.demerits_.assign (rank, infinity_f);
+              next.force_.assign (rank, infinity_f);
+              for (vsize k = starting_breakpoints_[i] + j + 1;
+                   k < breaks_.size (); k++)
+                if (!calc_subproblem (i, j, k, last_scores_[i], next))
+                  break; /* too cramped already */
+              std::swap (last_scores_[i], next);
+            }
+        }
       valid_systems_ = systems_;
     }
 }
@@ -214,7 +228,7 @@ Constrained_breaking::solve (vsize start, vsize end, vsize sys_count)
     {
       for (vsize brk = end_brk; brk != VPOS; brk--)
         {
-          if (!std::isinf (st.at (brk, sys).force_))
+          if (st.at (brk, sys).valid ())
             {
               if (brk != end_brk)
                 {
@@ -248,6 +262,40 @@ Constrained_breaking::solve (vsize start, vsize end, vsize sys_count)
   return ret;
 }
 
+/* Total demerits of the optimal solution that ends at relative break BRK
+   using SYS+1 systems, recomputed from the predecessor chain in the same
+   order as calc_subproblem.  infinity_f if there is no such solution. */
+Real
+Constrained_breaking::path_demerits (vsize start, vsize brk, vsize sys)
+{
+  Matrix<Constrained_break_node> const &st = state_[start];
+  vsize start_col = starting_breakpoints_[start];
+
+  if (!st.at (brk, sys).valid ())
+    return infinity_f;
+
+  std::vector<vsize> ends (sys + 1);
+  vsize cur = brk;
+  for (vsize s = sys; s != VPOS; s--)
+    {
+      ends[s] = cur;
+      cur = st.at (cur, s).prev_;
+    }
+
+  Real dem = 0;
+  Real prev_f = 0;
+  vsize prev_brk = 0;
+  for (vsize s = 0; s <= sys; s++)
+    {
+      Real f = line_force (prev_brk + start_col, ends[s] + start_col);
+      dem = combine_demerits (f, prev_f) + dem
+            + break_penalties_[ends[s] + start_col];
+      prev_f = f;
+      prev_brk = ends[s];
+    }
+  return dem;
+}
+
 std::vector<Column_x_positions>
 Constrained_breaking::best_solution (vsize start, vsize end)
 {
@@ -259,7 +307,7 @@ Constrained_breaking::best_solution (vsize start, vsize end)
   for (vsize i = min_systems; i <= max_systems; i++)
     {
       vsize brk = prepare_solution (start, end, i);
-      Real dem = state_[start].at (brk, i - 1).demerits_;
+      Real dem = path_demerits (start, brk, i - 1);
 
       if (dem < best_demerits)
         {
@@ -300,7 +348,7 @@ Constrained_breaking::line_details (vsize start, vsize end, vsize sys_count)
     {
       for (vsize brk = end_brk; brk != VPOS; brk--)
         {
-          if (!std::isinf (st.at (brk, sys).force_))
+          if (st.at (brk, sys).valid ())
             {
               if (brk != end_brk)
                 {
@@ -364,7 +412,7 @@ Constrained_breaking::min_system_count (vsize start, vsize end)
         {
           resize (sys_count + 3);
         }
-      if (!std::isinf (st.at (brk, sys_count).force_))
+      if (st.at (brk, sys_count).valid ())
         return sys_count + 1;
     }
   /* no possible breaks satisfy constraints */

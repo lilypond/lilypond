@@ -25,6 +25,7 @@
 #include "prob.hh"
 
 #include <cassert>
+#include <cstdint>
 #include <vector>
 
 class Paper_column;
@@ -130,26 +131,13 @@ struct Line_details
 */
 struct Constrained_break_node
 {
-  /* the number of bars in all the systems before this one
-  */
-  vsize prev_;
+  static constexpr uint32_t invalid = UINT32_MAX;
 
-  /* unlike the Gourlay breaker, this is the sum of all demerits up to,
-   * and including, this line */
-  Real demerits_;
-  Real force_;   // force of the last line of this partial solution
+  /* the index (relative to the starting break) of the end of the previous
+     system, or invalid if no solution ends here with this many systems */
+  uint32_t prev_ = invalid;
 
-  Constrained_break_node ()
-  {
-    prev_ = VPOS;
-    demerits_ = infinity_f;
-    force_ = infinity_f;
-  }
-
-  void print () const
-  {
-    printf ("prev break %zu, demerits %f\n", prev_, demerits_);
-  }
+  bool valid () const { return prev_ != invalid; }
 };
 
 /*
@@ -205,9 +193,24 @@ private:
     return idx < row.size () ? row[idx] : infinity_f;
   }
 
-  /* the [i](j,k)th entry is the score for fitting the first k bars onto the
-    first j systems, starting at the i'th allowed starting column */
+  /* the [i](k,j)th entry is the predecessor of the optimal way of fitting the
+     first k breakpoints onto the first j systems, starting at the i'th allowed
+     starting column: the index of the break where system j-1 ends, relative to
+     that starting column, or invalid if there is no such solution.  The scores
+     themselves are not kept; see last_scores_. */
   std::vector<Matrix<Constrained_break_node>> state_;
+
+  /* Demerits and force of the last line, for one column of a state_ matrix
+     (indexed by break relative to the starting break).  Only the previous
+     column is needed to compute the next one. */
+  struct Column_scores
+  {
+    std::vector<Real> demerits_;
+    std::vector<Real> force_;
+  };
+
+  /* for each state_ matrix, the scores of column valid_systems_ - 1 */
+  std::vector<Column_scores> last_scores_;
 
   std::vector<vsize>
     start_; /* the columns at which we might be asked to start breaking */
@@ -220,12 +223,15 @@ private:
   void initialize (Paper_score *, std::vector<vsize> const &break_col_indices);
   void resize (vsize systems);
 
+  Real path_demerits (vsize start, vsize brk, vsize sys);
+
   Column_x_positions space_line (vsize start_col, vsize end_col);
   vsize prepare_solution (vsize start, vsize end, vsize sys_count);
 
   Real combine_demerits (Real force, Real prev_force);
 
-  bool calc_subproblem (vsize start, vsize systems, vsize max_break_index);
+  bool calc_subproblem (vsize start, vsize systems, vsize max_break_index,
+                        Column_scores const &prev, Column_scores &cur);
   void fill_line_details (Line_details *, vsize, vsize);
 };
 #endif /* CONSTRAINED_BREAKING_HH */
