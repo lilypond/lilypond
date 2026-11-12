@@ -5718,6 +5718,60 @@ def conv(s):
                r'\1(ly:make-no-callback \2)', s)
     return s
 
+# Pure callbacks that used to take the range of break columns as arguments
+# after the grob and now have the same signature as unpure callbacks.
+pure_callbacks_without_range = [
+    'ly:arpeggio::pure-height',
+    'ly:axis-group-interface::calc-pure-staff-staff-spacing',
+    'ly:axis-group-interface::pure-height',
+    'ly:balloon-interface::pure-height',
+    'ly:beam::pure-rest-collision-callback',
+    'ly:flag::pure-calc-y-offset',
+    'ly:grob::pure-horizontal-skylines-from-element-stencils',
+    'ly:grob::pure-simple-horizontal-skylines-from-extents',
+    'ly:grob::pure-simple-vertical-skylines-from-extents',
+    'ly:grob::pure-stencil-height',
+    'ly:grob::pure-vertical-skylines-from-element-stencils',
+    'ly:hairpin::pure-height',
+    'ly:hara-kiri-group-spanner::pure-height',
+    'ly:rest::pure-height',
+    'ly:self-alignment-interface::pure-y-aligned-on-self',
+    'ly:side-position-interface::pure-y-aligned-side',
+    'ly:slur::pure-height',
+    'ly:slur::pure-outside-slur-callback',
+    'ly:stem-tremolo::pure-calc-y-offset',
+    'ly:stem-tremolo::pure-height',
+    'ly:stem::pure-calc-length',
+    'ly:stem::pure-calc-stem-begin-position',
+    'ly:stem::pure-calc-stem-end-position',
+    'ly:stem::pure-height',
+    'ly:system::calc-pure-height',
+    'staff-ellipsis::pure-height',
+    'stem-stub::pure-height',
+    'pure-from-neighbor-interface::pure-height',
+    'pure-chain-offset-callback',
+    'volta-bracket-interface::pure-height',
+    'trill-pitch-group::pure-height',
+]
+
+@rule((2, 27, 6), r"""
+(ly:stem::pure-height grob start end) -> (ly:pure-call ly:stem::pure-height grob start end)
+""")
+def conv(s):
+    # Pure callbacks no longer take start and end arguments.  Calls with
+    # explicit range now go through ly:pure-call.  Definitions with the same
+    # name and uses as plain values are left alone.
+    def pure_call(m):
+        before = m.string[max(0, m.start() - 40):m.start()]
+        if re.search(r'\(define[-a-z*]*\s+$', before):
+            return m.group(0)
+        return '(ly:pure-call ' + m.group(1)
+
+    s = re.sub(r'\(\s*(' + '|'.join(re.escape(n) for n
+                                   in pure_callbacks_without_range) + r')(?=[\s)])',
+               pure_call, s)
+    return s
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

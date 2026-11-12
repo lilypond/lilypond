@@ -86,24 +86,24 @@ public:
   /* standard callbacks */
   DECLARE_SCHEME_CALLBACK (x_parent_positioning, (SCM));
   DECLARE_SCHEME_CALLBACK (y_parent_positioning, (SCM));
-  DECLARE_SCHEME_CALLBACK (pure_stencil_height, (SCM smob, SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (pure_stencil_height, (SCM smob));
   DECLARE_SCHEME_CALLBACK (stencil_height, (SCM smob));
   DECLARE_SCHEME_CALLBACK (stencil_width, (SCM smob));
   DECLARE_SCHEME_CALLBACK (pure_simple_vertical_skylines_from_extents,
-                           (SCM smob, SCM, SCM));
+                           (SCM smob));
   DECLARE_SCHEME_CALLBACK (simple_vertical_skylines_from_extents, (SCM smob));
   DECLARE_SCHEME_CALLBACK (vertical_skylines_from_stencil, (SCM smob));
   DECLARE_SCHEME_CALLBACK (pure_vertical_skylines_from_element_stencils,
-                           (SCM smob, SCM, SCM));
+                           (SCM smob));
   DECLARE_SCHEME_CALLBACK (vertical_skylines_from_element_stencils,
                            (SCM smob));
   DECLARE_SCHEME_CALLBACK (pure_simple_horizontal_skylines_from_extents,
-                           (SCM smob, SCM, SCM));
+                           (SCM smob));
   DECLARE_SCHEME_CALLBACK (simple_horizontal_skylines_from_extents,
                            (SCM smob));
   DECLARE_SCHEME_CALLBACK (horizontal_skylines_from_stencil, (SCM smob));
   DECLARE_SCHEME_CALLBACK (pure_horizontal_skylines_from_element_stencils,
-                           (SCM smob, SCM, SCM));
+                           (SCM smob));
   DECLARE_SCHEME_CALLBACK (horizontal_skylines_from_element_stencils,
                            (SCM smob));
 

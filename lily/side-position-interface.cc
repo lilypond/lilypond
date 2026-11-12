@@ -133,14 +133,13 @@ Side_position_interface::y_aligned_side (SCM smob, SCM current_off)
 
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (
   Side_position_interface, pure_y_aligned_side,
-  "ly:side-position-interface::pure-y-aligned-side", 4, 1, "");
+  "ly:side-position-interface::pure-y-aligned-side", 2, 1, "");
 SCM
-Side_position_interface::pure_y_aligned_side (SCM smob, SCM start, SCM end,
-                                              SCM cur_off)
+Side_position_interface::pure_y_aligned_side (SCM smob, SCM cur_off)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  return axis_aligned_side_helper (me, Y_AXIS, true, from_scm<vsize> (start),
-                                   from_scm<vsize> (end), cur_off);
+  return axis_aligned_side_helper (me, Y_AXIS, true, Pure_context::start (),
+                                   Pure_context::end (), cur_off);
 }
 
 MAKE_SCHEME_CALLBACK (Side_position_interface, calc_cross_staff,

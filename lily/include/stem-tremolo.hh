@@ -30,12 +30,12 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_slope, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_width, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_y_offset, (SCM));
-  DECLARE_SCHEME_CALLBACK (pure_calc_y_offset, (SCM, SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (pure_calc_y_offset, (SCM));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (width, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_shape, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
-  DECLARE_SCHEME_CALLBACK (pure_height, (SCM, SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (pure_height, (SCM));
   static Stencil raw_stencil (Grob *, Real slope, Direction stemdir);
   static Real y_offset (Grob *, bool pure);
   static Stencil untranslated_stencil (Grob *, Real slope);

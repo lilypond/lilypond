@@ -318,9 +318,9 @@ Arpeggio::width (SCM smob)
   return to_scm (get_squiggle (me).extent (X_AXIS));
 }
 
-MAKE_SCHEME_CALLBACK (Arpeggio, pure_height, "ly:arpeggio::pure-height", 3);
+MAKE_SCHEME_CALLBACK (Arpeggio, pure_height, "ly:arpeggio::pure-height", 1);
 SCM
-Arpeggio::pure_height (SCM smob, SCM, SCM)
+Arpeggio::pure_height (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   if (from_scm<bool> (get_property (me, "cross-staff")))

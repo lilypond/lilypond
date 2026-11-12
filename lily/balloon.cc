@@ -28,13 +28,14 @@
 #include "misc.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
+#include "unpure-pure-container.hh"
 
 class Balloon_interface
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (width, (SCM));
-  DECLARE_SCHEME_CALLBACK (pure_height, (SCM, SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (pure_height, (SCM));
 
   static Stencil internal_balloon_print (Grob *me, Box b, Offset off);
 };
@@ -81,9 +82,9 @@ Balloon_interface::width (SCM smob)
 }
 
 MAKE_SCHEME_CALLBACK (Balloon_interface, pure_height,
-                      "ly:balloon-interface::pure-height", 3);
+                      "ly:balloon-interface::pure-height", 1);
 SCM
-Balloon_interface::pure_height (SCM smob, SCM start_scm, SCM end_scm)
+Balloon_interface::pure_height (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Grob *annotated = unsmob<Grob> (get_object (me, "sticky-host"));
@@ -93,11 +94,8 @@ Balloon_interface::pure_height (SCM smob, SCM start_scm, SCM end_scm)
       return to_scm (Interval ());
     }
 
-  vsize start = from_scm<vsize> (start_scm);
-  vsize end = from_scm<vsize> (end_scm);
-
-  Interval y
-    = robust_relative_pure_y_extent (annotated, annotated, start, end);
+  Interval y = robust_relative_pure_y_extent (
+    annotated, annotated, Pure_context::start (), Pure_context::end ());
 
   Real off = me->relative_coordinate (annotated, Y_AXIS);
 

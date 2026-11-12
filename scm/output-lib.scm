@@ -549,9 +549,7 @@ property set."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; staff ellipsis
 
-(define-public (staff-ellipsis::pure-height grob beg end)
-  "Callback for @code{StaffEllipsis} grob, which is used with
-@code{skipTypesetting}."
+(define (staff-ellipsis::height-between grob beg end)
   (let* ((staff-symbol (ly:grob-object grob 'staff-symbol))
          (staff-height (if (ly:grob? staff-symbol)
                            (ly:grob-pure-height staff-symbol staff-symbol
@@ -560,13 +558,18 @@ property set."
     ;; widen slightly to cover the outer staff lines even with rounding error
     (interval-widen staff-height 1/32)))
 
+(define-public (staff-ellipsis::pure-height grob)
+  "Callback for @code{StaffEllipsis} grob, which is used with
+@code{skipTypesetting}."
+  (staff-ellipsis::height-between grob (*start*) (*end*)))
+
 (define-public (staff-ellipsis::print grob)
   "Callback for @code{StaffEllipsis} grob, which is used with
 @code{skipTypesetting}."
   (let ((text-sten (grob-interpret-markup grob (ly:grob-property grob 'text))))
     (ly:make-stencil (ly:stencil-expr text-sten)
                      (ly:stencil-extent text-sten X)
-                     (staff-ellipsis::pure-height grob 0 INFINITY-INT))))
+                     (staff-ellipsis::height-between grob 0 INFINITY-INT))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; staff symbol
@@ -601,7 +604,7 @@ property set."
   (and (ly:grob-property (ly:grob-parent grob X) 'cross-staff)
        (not (ly:grob-property (ly:grob-parent grob X) 'transparent))))
 
-(define-public (stem-stub::pure-height grob beg end)
+(define-public (stem-stub::pure-height grob)
   (if (stem-stub::do-calculations grob)
       '(0 . 0)
       '(+inf.0 . -inf.0)))
@@ -996,10 +999,10 @@ value is used for @code{extra-spacing-height} to push note columns right in
   (let* ((height (ly:grob-pure-height grob grob 0 INFINITY-INT))
          (from-neighbors (interval-union
                           height
-                          (ly:axis-group-interface::pure-height
-                           grob
-                           0
-                           INFINITY-INT))))
+                          (ly:pure-call ly:axis-group-interface::pure-height
+                                        grob
+                                        0
+                                        INFINITY-INT))))
     (pair-map - from-neighbors height)))
 
 ;; If there are neighbors, we place the height at their midpoint
@@ -1010,11 +1013,11 @@ value is used for @code{extra-spacing-height} to push note columns right in
 ;; TODO - there is a double call to axis-group-interface::pure-height
 ;; here and then in the extra-spacing-height function above. Can/should this
 ;; be rolled into one?
-(define-public (pure-from-neighbor-interface::pure-height grob beg end)
-  (let* ((height (ly:axis-group-interface::pure-height
-                  grob
-                  0
-                  INFINITY-INT))
+(define-public (pure-from-neighbor-interface::pure-height grob)
+  (let* ((height (ly:pure-call ly:axis-group-interface::pure-height
+                               grob
+                               0
+                               INFINITY-INT))
          (c (interval-center height)))
     (if (interval-empty? height) empty-interval (cons c c))))
 
@@ -1291,7 +1294,7 @@ alteration-glyph-name-alist; try defining one in alterationGlyphs")
 
 ;; For the Y-offset, compute the combined extent of enclosed items and take the
 ;; center (see trill-pitch-group::pure-height for comments on the pure part).
-(define ((parentheses-interface::maybe-pure-Y-offset pure) grob . rest)
+(define ((parentheses-interface::maybe-pure-Y-offset pure) grob)
   (let* ((y-parent (ly:grob-parent grob Y))
          ;; The Y alignment is based on elements and not parenthesized-elements.
          ;; We don't want the friends, or parenthesized notes with a flat would
@@ -1302,12 +1305,13 @@ alteration-glyph-name-alist; try defining one in alterationGlyphs")
                       empty-interval
                       (map (lambda (elt)
                              (if pure
-                                 (apply ly:grob-pure-height elt refp rest)
+                                 (ly:grob-pure-height elt refp (*start*) (*end*))
                                  (ly:grob-extent elt refp Y)))
                            (ly:grob-array->list elts))))
          (y-center (interval-center y-ext))
          (my-y (if pure
-                   (apply ly:grob-pure-relative-coordinate y-parent refp rest)
+                   (ly:grob-pure-relative-coordinate y-parent refp
+                                                     (*start*) (*end*))
                    (ly:grob-relative-coordinate y-parent refp Y))))
     (- y-center my-y)))
 
@@ -1331,7 +1335,7 @@ alteration-glyph-name-alist; try defining one in alterationGlyphs")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; offset callbacks
 
-(define-public (pure-chain-offset-callback grob start end prev-offset)
+(define-public (pure-chain-offset-callback grob prev-offset)
   "Sometimes, a chained offset callback is unpure and there is
    no way to write a pure function that estimates its behavior.
    In this case, we use a pure equivalent that will simply pass
@@ -1359,9 +1363,8 @@ unpure-pure container."
           (ly:unpure-pure-container? data))
       (ly:make-unpure-pure-container
        (lambda (grob) (ly:unpure-call func grob (ly:unpure-call data grob)))
-       (lambda (grob start end)
-         (ly:pure-call func grob start end
-                       (ly:pure-call data grob start end))))
+       (lambda (grob)
+         (pure-call func grob (pure-call data grob))))
       (lambda (grob) (ly:unpure-call func grob (ly:unpure-call data grob)))))
 
 ;; Don't use define* since then we can't start the body with define in
@@ -1389,8 +1392,8 @@ If @var{data} is @code{#f} or @code{'()}, it is not included in the sum."
             (maybeplus (apply ly:unpure-call func rest)
                        (apply ly:unpure-call data rest)))
           (lambda rest
-            (maybeplus (apply ly:pure-call func rest)
-                       (apply ly:pure-call data rest)))))
+            (maybeplus (apply pure-call func rest)
+                       (apply pure-call data rest)))))
         ((or (procedure? func)
              (procedure? data))
          (lambda rest
@@ -2018,7 +2021,7 @@ surrounding note columns."
   ;; Otherwise we fall back to zero.
   (let ((variant
          (lambda (accessor)
-           (lambda (grob . rest)
+           (lambda (grob)
              (if (zero? (ly:grob-property grob 'side-axis Y))
                  (let* ((head (ly:grob-parent grob Y))
                         (head-y
@@ -2033,15 +2036,13 @@ surrounding note columns."
                              (* staff-space (/ (- staff-pos head-y) 2))
                              0)))
                    y-off)
-                 (apply
-                  accessor
+                 (accessor
                   side-position-interface::y-aligned-side
-                  grob
-                  rest))))))
+                  grob))))))
 
     (ly:make-unpure-pure-container
      (variant ly:unpure-call)
-     (variant ly:pure-call))))
+     (variant pure-call))))
 
 (define-public (ly:script-interface::calc-direction grob)
   "Usually the @code{'direction} of an articulation is set in
@@ -2317,7 +2318,7 @@ disambiguate between different glyphs")))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; volta-bracket
 
-(define-public (volta-bracket-interface::pure-height grob start end)
+(define-public (volta-bracket-interface::pure-height grob)
   (let ((edge-height (ly:grob-property grob 'edge-height)))
     (if (number-pair? edge-height)
         (let ((smaller (min (car edge-height) (cdr edge-height)))
@@ -3649,7 +3650,7 @@ which is the default."
 ;; not to depend on start and end, and cached once and for all).
 
 ;; TODO: perhaps this could be incorporated into the axis-group-interface too?
-(define-public (trill-pitch-group::pure-height grob start end)
+(define-public (trill-pitch-group::pure-height grob)
   (let* ((vertical-axis-group (ly:grob-parent grob Y))
          (elements (ly:grob-array->list (ly:grob-object grob 'elements)))
          (pure-group-extent

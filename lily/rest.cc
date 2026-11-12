@@ -313,9 +313,9 @@ Rest::generic_extent_callback (Grob *me, Axis a)
   return to_scm (unsmob<const Stencil> (m)->extent (a));
 }
 
-MAKE_SCHEME_CALLBACK (Rest, pure_height, "ly:rest::pure-height", 3);
+MAKE_SCHEME_CALLBACK (Rest, pure_height, "ly:rest::pure-height", 1);
 SCM
-Rest::pure_height (SCM smob, SCM /* start */, SCM /* end */)
+Rest::pure_height (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   SCM m = brew_internal_stencil (me, false);

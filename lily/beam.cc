@@ -1419,12 +1419,10 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
   using the average position of its neighboring heads.
 */
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Beam, pure_rest_collision_callback,
-                                   "ly:beam::pure-rest-collision-callback", 4,
+                                   "ly:beam::pure-rest-collision-callback", 2,
                                    1, "");
 SCM
-Beam::pure_rest_collision_callback (SCM smob, SCM, /* start */
-                                    SCM,           /* end */
-                                    SCM prev_offset)
+Beam::pure_rest_collision_callback (SCM smob, SCM prev_offset)
 {
   if (!scm_is_number (prev_offset))
     prev_offset = SCM_INUM0;

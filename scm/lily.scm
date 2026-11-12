@@ -98,6 +98,12 @@ cannot access it with @code{(*pure?*)}, @code{(*start*)} and @code{(*end*)}."
 (define-public *end* ly:pure-end)
 (define-public *pure?* ly:pure?)
 
+(define-public (pure-call data grob . rest)
+  "Like @code{ly:pure-call}, but for the range of columns of the pure
+evaluation going on.  This is for use inside pure callbacks that forward their
+arguments to other callbacks."
+  (apply ly:pure-call data grob (*start*) (*end*) rest))
+
 ;; See https://www.gnu.org/software/guile/manual/html_node/Gettext-Support.html
 ;; for why we use "G_" instead of the more common convention "_".
 (define-public G_ gettext)

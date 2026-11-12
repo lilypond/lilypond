@@ -971,13 +971,13 @@ System::height (SCM smob)
 }
 
 MAKE_SCHEME_CALLBACK (System, calc_pure_height, "ly:system::calc-pure-height",
-                      3);
+                      1);
 SCM
-System::calc_pure_height (SCM smob, SCM start_scm, SCM end_scm)
+System::calc_pure_height (SCM smob)
 {
   System *me = unsmob<System> (smob);
-  auto start = from_scm<vsize> (start_scm);
-  auto end = from_scm<vsize> (end_scm);
+  auto start = Pure_context::start ();
+  auto end = Pure_context::end ();
 
   Interval begin = me->begin_of_line_pure_height (start, end);
   Interval rest = me->rest_of_line_pure_height (start, end);

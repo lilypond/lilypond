@@ -69,9 +69,9 @@ Slur::calc_direction (SCM smob)
   return to_scm (d);
 }
 
-MAKE_SCHEME_CALLBACK (Slur, pure_height, "ly:slur::pure-height", 3);
+MAKE_SCHEME_CALLBACK (Slur, pure_height, "ly:slur::pure-height", 1);
 SCM
-Slur::pure_height (SCM smob, SCM start_scm, SCM end_scm)
+Slur::pure_height (SCM smob)
 {
   /*
     Note that this estimation uses a rote add-on of 0.5 to the
@@ -83,8 +83,8 @@ Slur::pure_height (SCM smob, SCM start_scm, SCM end_scm)
     -- adding extra height for the "bulge" in a slur above a note head
   */
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  auto start = from_scm<vsize> (start_scm);
-  auto end = from_scm<vsize> (end_scm);
+  auto start = Pure_context::start ();
+  auto end = Pure_context::end ();
   Direction dir = get_grob_direction (me);
 
   extract_grob_set (me, "note-columns", encompasses);
@@ -232,14 +232,13 @@ Slur::add_extra_encompass (Spanner *me, Grob *n)
 }
 
 MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Slur, pure_outside_slur_callback,
-                                   "ly:slur::pure-outside-slur-callback", 4, 1,
+                                   "ly:slur::pure-outside-slur-callback", 2, 1,
                                    "");
 SCM
-Slur::pure_outside_slur_callback (SCM grob, SCM start_scm, SCM end_scm,
-                                  SCM offset_scm)
+Slur::pure_outside_slur_callback (SCM grob, SCM offset_scm)
 {
-  auto start = from_scm (start_scm, vsize {0});
-  auto end = from_scm (end_scm, vsize {0});
+  auto start = Pure_context::start ();
+  auto end = Pure_context::end ();
   auto *const script = LY_ASSERT_SMOB (Grob, grob, 1);
   Grob *slur = unsmob<Grob> (get_object (script, "slur"));
   if (!slur)

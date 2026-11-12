@@ -191,14 +191,13 @@ Axis_group_interface::height (SCM smob)
 }
 
 MAKE_SCHEME_CALLBACK (Axis_group_interface, pure_height,
-                      "ly:axis-group-interface::pure-height", 3);
+                      "ly:axis-group-interface::pure-height", 1);
 SCM
-Axis_group_interface::pure_height (SCM smob, SCM start_scm, SCM end_scm)
+Axis_group_interface::pure_height (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  auto start = from_scm (start_scm, vsize {0});
-  auto end = from_scm (end_scm, vsize {INT_MAX});
-  return to_scm (pure_group_height (me, start, end));
+  return to_scm (
+    pure_group_height (me, Pure_context::start (), Pure_context::end ()));
 }
 
 Interval
@@ -986,13 +985,12 @@ Axis_group_interface::skyline_spacing (Grob *me)
 
 MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_pure_staff_staff_spacing,
                       "ly:axis-group-interface::calc-pure-staff-staff-spacing",
-                      3)
+                      1)
 SCM
-Axis_group_interface::calc_pure_staff_staff_spacing (SCM smob, SCM start,
-                                                     SCM end)
+Axis_group_interface::calc_pure_staff_staff_spacing (SCM smob)
 {
   return calc_maybe_pure_staff_staff_spacing (
-    unsmob<Grob> (smob), true, from_scm<vsize> (start), from_scm<vsize> (end));
+    unsmob<Grob> (smob), true, Pure_context::start (), Pure_context::end ());
 }
 
 MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_staff_staff_spacing,

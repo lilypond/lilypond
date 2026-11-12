@@ -169,9 +169,9 @@ Stem_tremolo::raw_stencil (Grob *me, Real slope, Direction dir)
 }
 
 MAKE_SCHEME_CALLBACK (Stem_tremolo, pure_height,
-                      "ly:stem-tremolo::pure-height", 3);
+                      "ly:stem-tremolo::pure-height", 1);
 SCM
-Stem_tremolo::pure_height (SCM smob, SCM, SCM)
+Stem_tremolo::pure_height (SCM smob)
 {
   Item *me = unsmob<Item> (smob);
 
@@ -258,10 +258,9 @@ Stem_tremolo::calc_y_offset (SCM smob)
 }
 
 MAKE_SCHEME_CALLBACK (Stem_tremolo, pure_calc_y_offset,
-                      "ly:stem-tremolo::pure-calc-y-offset", 3);
+                      "ly:stem-tremolo::pure-calc-y-offset", 1);
 SCM
-Stem_tremolo::pure_calc_y_offset (SCM smob, SCM, /* start */
-                                  SCM /* end */)
+Stem_tremolo::pure_calc_y_offset (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   return to_scm (y_offset (me, true));

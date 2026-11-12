@@ -40,6 +40,6 @@ public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (width, (SCM));
   DECLARE_SCHEME_CALLBACK (height, (SCM));
-  DECLARE_SCHEME_CALLBACK (pure_height, (SCM, SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (pure_height, (SCM));
 };
 #endif // REST_HH

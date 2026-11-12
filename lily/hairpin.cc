@@ -34,9 +34,9 @@
 #include "system.hh"
 #include "warn.hh"
 
-MAKE_SCHEME_CALLBACK (Hairpin, pure_height, "ly:hairpin::pure-height", 3);
+MAKE_SCHEME_CALLBACK (Hairpin, pure_height, "ly:hairpin::pure-height", 1);
 SCM
-Hairpin::pure_height (SCM smob, SCM, SCM)
+Hairpin::pure_height (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Real height = from_scm<double> (get_property (me, "height"), 0.0)

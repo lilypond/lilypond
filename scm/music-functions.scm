@@ -2304,7 +2304,7 @@ of list @var{arg}."
                          "this grob is not a spanner")))
   (ly:make-unpure-pure-container
    (worker ly:unpure-call)
-   (worker ly:pure-call)))
+   (worker pure-call)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; The following are used by the \offset function
@@ -2364,8 +2364,8 @@ as the second."
   (define self (ly:make-unpure-pure-container
                 (lambda (grob)
                   (worker self ly:unpure-call grob))
-                (lambda (grob . rest)
-                  (apply worker self ly:pure-call grob rest))))
+                (lambda (grob)
+                  (worker self pure-call grob))))
   self)
 
 (define-public (offsetter property offsets)

@@ -242,21 +242,16 @@ pure part of a container.
 {
   if (Unpure_pure_container *upc = unsmob<Unpure_pure_container> (data))
     {
+      data = upc->pure_part ();
       // A single callback is evaluated like an unpure one.
       if (upc->is_unchanging ())
-        data = upc->unpure_part ();
-      else
-        {
-          data = upc->pure_part ();
-          if (ly_is_procedure (data))
-            return Pure_context::apply (from_scm<vsize> (start),
-                                        from_scm<vsize> (end), data,
-                                        scm_cons (grob, rest));
-          return data;
-        }
+        return ly_is_procedure (data)
+                 ? Pure_context::apply_unpure (data, scm_cons (grob, rest))
+                 : data;
     }
   if (ly_is_procedure (data))
-    return Pure_context::apply_unpure (data, scm_cons (grob, rest));
+    return Pure_context::apply (from_scm<vsize> (start), from_scm<vsize> (end),
+                                data, scm_cons (grob, rest));
   return data;
 }
 

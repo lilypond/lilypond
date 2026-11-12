@@ -18,6 +18,7 @@
 */
 
 #include "self-alignment-interface.hh"
+#include "unpure-pure-container.hh"
 
 #include "grob.hh"
 #include "note-column.hh"
@@ -46,13 +47,13 @@ Self_alignment_interface::x_aligned_on_self (SCM element)
 
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, pure_y_aligned_on_self,
                       "ly:self-alignment-interface::pure-y-aligned-on-self",
-                      3);
+                      1);
 SCM
-Self_alignment_interface::pure_y_aligned_on_self (SCM smob, SCM start, SCM end)
+Self_alignment_interface::pure_y_aligned_on_self (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  return to_scm (pure_y_aligned_on_self (me, from_scm (start, vsize {0}),
-                                         from_scm (end, vsize {INT_MAX})));
+  return to_scm (
+    pure_y_aligned_on_self (me, Pure_context::start (), Pure_context::end ()));
 }
 
 Real

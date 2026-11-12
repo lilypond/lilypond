@@ -906,9 +906,9 @@ Grob::stencil_height (SCM smob)
 }
 
 MAKE_SCHEME_CALLBACK (Grob, pure_stencil_height,
-                      "ly:grob::pure-stencil-height", 3);
+                      "ly:grob::pure-stencil-height", 1);
 SCM
-Grob::pure_stencil_height (SCM smob, SCM /* beg */, SCM /* end */)
+Grob::pure_stencil_height (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   if (unsmob<const Stencil> (get_property_data (me, "stencil")))

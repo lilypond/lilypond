@@ -19,6 +19,7 @@
 */
 
 #include "hara-kiri-group-spanner.hh"
+#include "unpure-pure-container.hh"
 
 #include "paper-column.hh"
 #include "pointer-group-interface.hh"
@@ -50,13 +51,13 @@ Hara_kiri_group_spanner::calc_skylines (SCM smob)
 }
 
 MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, pure_height,
-                      "ly:hara-kiri-group-spanner::pure-height", 3);
+                      "ly:hara-kiri-group-spanner::pure-height", 1);
 SCM
-Hara_kiri_group_spanner::pure_height (SCM smob, SCM start_scm, SCM end_scm)
+Hara_kiri_group_spanner::pure_height (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
-  auto start = from_scm (start_scm, vsize {0});
-  auto end = from_scm (end_scm, vsize {INT_MAX});
+  auto start = Pure_context::start ();
+  auto end = Pure_context::end ();
 
   if (request_suicide (me, start, end))
     return to_scm (Interval ());

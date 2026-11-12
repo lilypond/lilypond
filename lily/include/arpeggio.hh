@@ -31,7 +31,7 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_positions, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
   DECLARE_SCHEME_CALLBACK (width, (SCM));
-  DECLARE_SCHEME_CALLBACK (pure_height, (SCM, SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (pure_height, (SCM));
 };
 
 class Chord_bracket

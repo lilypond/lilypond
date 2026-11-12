@@ -45,7 +45,7 @@ struct Self_alignment_interface
     return aligned_on_self (me, Y_AXIS, false, 0, 0);
   }
 
-  DECLARE_SCHEME_CALLBACK (pure_y_aligned_on_self, (SCM, SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (pure_y_aligned_on_self, (SCM));
   static Real pure_y_aligned_on_self (Grob *me, vsize start, vsize end)
   {
     return aligned_on_self (me, Y_AXIS, true, start, end);

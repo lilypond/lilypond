@@ -39,13 +39,13 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_x_common, (SCM smob));
   DECLARE_SCHEME_CALLBACK (calc_y_common, (SCM smob));
   DECLARE_SCHEME_CALLBACK (height, (SCM smob));
-  DECLARE_SCHEME_CALLBACK (pure_height, (SCM smob, SCM start, SCM end));
+  DECLARE_SCHEME_CALLBACK (pure_height, (SCM smob));
   DECLARE_SCHEME_CALLBACK (calc_skylines, (SCM smob));
   DECLARE_SCHEME_CALLBACK (combine_skylines, (SCM smob));
   DECLARE_SCHEME_CALLBACK (print, (SCM smob));
   DECLARE_SCHEME_CALLBACK (adjacent_pure_heights, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_staff_staff_spacing, (SCM));
-  DECLARE_SCHEME_CALLBACK (calc_pure_staff_staff_spacing, (SCM, SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (calc_pure_staff_staff_spacing, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_pure_relevant_grobs, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_pure_y_common, (SCM));
   static SCM internal_calc_pure_relevant_grobs (Grob *, const std::string &);

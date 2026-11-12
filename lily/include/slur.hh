@@ -37,11 +37,11 @@ public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_control_points, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
-  DECLARE_SCHEME_CALLBACK (pure_height, (SCM, SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (pure_height, (SCM));
   DECLARE_SCHEME_CALLBACK (height, (SCM));
   DECLARE_SCHEME_CALLBACK (vertical_skylines, (SCM));
   DECLARE_SCHEME_CALLBACK (outside_slur_callback, (SCM, SCM));
-  DECLARE_SCHEME_CALLBACK (pure_outside_slur_callback, (SCM, SCM, SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (pure_outside_slur_callback, (SCM, SCM));
   DECLARE_SCHEME_CALLBACK (outside_slur_cross_staff, (SCM, SCM));
   DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
   static Bezier get_curve (Grob *me);

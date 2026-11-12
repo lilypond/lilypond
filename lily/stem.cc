@@ -376,9 +376,9 @@ Stem::is_normal_stem (Grob *me)
   return from_scm<int> (get_property (me, "duration-log")) >= 1;
 }
 
-MAKE_SCHEME_CALLBACK (Stem, pure_height, "ly:stem::pure-height", 3)
+MAKE_SCHEME_CALLBACK (Stem, pure_height, "ly:stem::pure-height", 1)
 SCM
-Stem::pure_height (SCM smob, SCM /* start */, SCM /* end */)
+Stem::pure_height (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   return to_scm (internal_pure_height (me, true));
@@ -468,10 +468,9 @@ Stem::calc_stem_end_position (SCM smob)
 }
 
 MAKE_SCHEME_CALLBACK (Stem, pure_calc_stem_end_position,
-                      "ly:stem::pure-calc-stem-end-position", 3)
+                      "ly:stem::pure-calc-stem-end-position", 1)
 SCM
-Stem::pure_calc_stem_end_position (SCM smob, SCM, /* start */
-                                   SCM /* end */)
+Stem::pure_calc_stem_end_position (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   return to_scm (internal_calc_stem_end_position (me, false));
@@ -922,10 +921,9 @@ Stem::calc_stem_begin_position (SCM smob)
 }
 
 MAKE_SCHEME_CALLBACK (Stem, pure_calc_stem_begin_position,
-                      "ly:stem::pure-calc-stem-begin-position", 3);
+                      "ly:stem::pure-calc-stem-begin-position", 1);
 SCM
-Stem::pure_calc_stem_begin_position (SCM smob, SCM, /* start */
-                                     SCM /* end */)
+Stem::pure_calc_stem_begin_position (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   return to_scm (internal_calc_stem_begin_position (me, false));
@@ -962,9 +960,9 @@ Stem::internal_calc_stem_begin_position (Grob *me, bool calc_beam)
   return pos;
 }
 
-MAKE_SCHEME_CALLBACK (Stem, pure_calc_length, "ly:stem::pure-calc-length", 3);
+MAKE_SCHEME_CALLBACK (Stem, pure_calc_length, "ly:stem::pure-calc-length", 1);
 SCM
-Stem::pure_calc_length (SCM smob, SCM /*start*/, SCM /*end*/)
+Stem::pure_calc_length (SCM smob)
 {
   auto *const me = LY_ASSERT_SMOB (Grob, smob, 1);
   Real beg = from_scm<double> (

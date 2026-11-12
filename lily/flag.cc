@@ -40,7 +40,7 @@ public:
   DECLARE_SCHEME_CALLBACK (glyph_name, (SCM));
   DECLARE_SCHEME_CALLBACK (width, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_y_offset, (SCM));
-  DECLARE_SCHEME_CALLBACK (pure_calc_y_offset, (SCM, SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (pure_calc_y_offset, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_x_offset, (SCM));
 
   static SCM internal_calc_y_offset (SCM smob, bool pure);
@@ -165,9 +165,9 @@ Flag::print (SCM smob)
 }
 
 MAKE_SCHEME_CALLBACK (Flag, pure_calc_y_offset, "ly:flag::pure-calc-y-offset",
-                      3);
+                      1);
 SCM
-Flag::pure_calc_y_offset (SCM smob, SCM /* beg */, SCM /* end */)
+Flag::pure_calc_y_offset (SCM smob)
 {
   return internal_calc_y_offset (smob, true);
 }
