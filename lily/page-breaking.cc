@@ -801,8 +801,10 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break,
               // this score is fixed.  We need to ensure that chunk
               // boundaries only occur at line breaks.
               Constrained_breaking breaking (system_specs_[i].pscore_);
-              std::vector<Line_details> details = breaking.line_details (
-                0, VPOS, from_scm<vsize> (system_count));
+              vsize requested
+                = breaking.feasible_system_count (from_scm<vsize> (system_count));
+              std::vector<Line_details> details
+                = breaking.line_details (0, VPOS, requested);
 
               for (vsize j = 0; j < details.size (); j++)
                 forced_line_break_cols.push_back (details[j].last_column_);

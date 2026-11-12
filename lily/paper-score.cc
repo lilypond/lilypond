@@ -117,7 +117,8 @@ Paper_score::calc_breaking ()
   auto system_count
     = from_scm (layout ()->c_variable ("system-count"), vsize {0});
   if (system_count)
-    return algorithm.solve (0, VPOS, system_count);
+    return algorithm.solve (0, VPOS,
+                            algorithm.feasible_system_count (system_count));
 
   return algorithm.best_solution (0, VPOS);
 }

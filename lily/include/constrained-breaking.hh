@@ -156,6 +156,8 @@ struct Constrained_break_node
 class Constrained_breaking
 {
 public:
+  vsize feasible_system_count (vsize requested);
+
   std::vector<Column_x_positions> solve (vsize start, vsize end,
                                          vsize sys_count);
   std::vector<Column_x_positions> best_solution (vsize start, vsize end);

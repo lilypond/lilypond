@@ -173,6 +173,31 @@ Constrained_breaking::resize (vsize systems)
     }
 }
 
+vsize
+Constrained_breaking::feasible_system_count (vsize requested)
+{
+  const vsize max_count = max_system_count (0, VPOS);
+  // Start no lower than the smallest count that can work at all.
+  vsize count = std::max (requested, min_system_count (0, VPOS));
+
+  // line_details() falls back to a line with infinite force when no
+  // solution with exactly COUNT systems exists.  Skip such counts.
+  while (count < max_count)
+    {
+      std::vector<Line_details> details = line_details (0, VPOS, count);
+      if (std::none_of (details.begin (), details.end (),
+                        [] (Line_details const &d)
+                        { return std::isinf (d.force_); }))
+        break;
+      ++count;
+    }
+
+  if (count != requested)
+    warning (_f ("cannot fit the music into %zu systems; using %zu",
+                 requested, count));
+  return count;
+}
+
 std::vector<Column_x_positions>
 Constrained_breaking::solve (vsize start, vsize end, vsize sys_count)
 {
