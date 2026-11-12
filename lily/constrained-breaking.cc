@@ -195,7 +195,7 @@ Constrained_breaking::solve (vsize start, vsize end, vsize sys_count)
                   sys--;
                   warning (_ (
                     "cannot find line breaking that satisfies constraints"));
-                  ret.push_back (space_line (brk, end_brk));
+                  ret.push_back (space_line (brk + start_brk, end_brk + start_brk));
                 }
 
               /* build up the good part of the solution */
@@ -216,7 +216,7 @@ Constrained_breaking::solve (vsize start, vsize end, vsize sys_count)
   if (sys_count > 0)
     {
       warning (_ ("cannot find line breaking that satisfies constraints"));
-      ret.push_back (space_line (0, end_brk));
+      ret.push_back (space_line (start_brk, end_brk + start_brk));
     }
   return ret;
 }
@@ -262,6 +262,7 @@ Constrained_breaking::best_solution (vsize start, vsize end)
 std::vector<Line_details>
 Constrained_breaking::line_details (vsize start, vsize end, vsize sys_count)
 {
+  vsize start_brk = starting_breakpoints_[start];
   vsize end_brk = prepare_solution (start, end, sys_count);
   Matrix<Constrained_break_node> const &st = state_[start];
   std::vector<Line_details> ret;
@@ -286,7 +287,7 @@ Constrained_breaking::line_details (vsize start, vsize end, vsize sys_count)
                   Line_details details;
                   brk = st.at (brk, sys).prev_;
                   sys--;
-                  fill_line_details (&details, brk, end_brk);
+                  fill_line_details (&details, brk + start_brk, end_brk + start_brk);
                   ret.push_back (details);
                 }
 
@@ -308,7 +309,7 @@ Constrained_breaking::line_details (vsize start, vsize end, vsize sys_count)
   if (sys_count > 0)
     {
       Line_details details;
-      fill_line_details (&details, 0, end_brk);
+      fill_line_details (&details, start_brk, end_brk + start_brk);
       ret.push_back (details);
     }
   return ret;
