@@ -1589,29 +1589,56 @@ list we recommend that any @q{pure} functions you create do not use
 An unpure-pure container is constructed as follows;
 
 @example
-(ly:make-unpure-pure-container f0 f1)
+(ly:make-unpure-pure-container @var{f0} @var{f1})
 @end example
 
 @noindent
-where @code{f0} is a function taking @var{n} arguments (@var{n >= 1})
+where @var{f0} is a function taking @var{n} arguments (@var{n >= 1})
 and the first argument must always be the grob.  This is the function
 that gives the actual result.  @var{f1} is the function being labeled
-as @q{pure} that takes @var{n + 2} arguments.  Again, the first argument
-must always still be the grob but the second and third are @q{start}
-and @q{end} arguments.
+as @q{pure}, which takes the same arguments as @var{f0}.
 
-@var{start} and @var{end} are, for all intents and purposes, dummy
-values that only matter for @code{Spanners} (i.e @code{Hairpin} or
-@code{Beam}), that can return different height estimations based on a
-starting and ending column.
+A pure function can return different estimations based on a
+starting and ending column, as is often useful for @code{Spanners}
+(i.e @code{Hairpin} or @code{Beam}).  If it needs them, it
+retrieves these with @code{(*start*)} and @code{(*end*)}.  Outside
+of a pure calculation, both return @code{#f}.  For most functions,
+which do not depend on the columns, these calls are not needed.
+The call @code{(*pure?*)} tells whether a pure calculation is
+going on, for functions that need to behave differently in the
+pure and final calculation without needing the columns.
 
-The rest are the other arguments to the first function (which
-may be none if @var{n = 1}).
+@c Keep this note for as long as the legacy form is supported.
+
+Older code has @var{f1} take two additional arguments @code{start}
+and @code{end} after the grob, and this form still works: a pure
+function with two more required arguments than the unpure function
+is recognized and called accordingly.  New code should not use it.
 
 The results of the second function are used as an approximation of the
 value needed which is then used by the first function to get the real
 value which is then used for fine-tuning much later during the spacing
 process.
+
+Often the same function can be used for both the @q{unpure} and
+@q{pure} parts.  There are two shorthands for this:
+
+@table @code
+@item (pure-callback @var{f})
+The function @var{f} is used for both parts, as in
+@code{(ly:make-unpure-pure-container @var{f} @var{f})}.  It is
+evaluated as a @q{pure} function when a @q{pure} value is needed,
+and can use @code{(*pure?*)}, @code{(*start*)} and @code{(*end*)}
+to find out about this.
+
+@item (fixed-callback @var{f})
+The function @var{f} does not depend on the columns.  It is
+evaluated like an @q{unpure} function even when the @q{pure} value
+is needed, and its result is cached.  It thus must not use
+@code{(*pure?*)}, @code{(*start*)} and @code{(*end*)}, which do
+not report a pure calculation for it.  This is the same as
+@code{(ly:make-unpure-pure-container @var{f})}.
+@end table
 
 @c TODO: The following example supposedly showing a collision no longer
 @c 'works' since 2.18.x. Another example of a collision is needed.
@@ -1634,9 +1661,7 @@ squareLineCircleSpace = {
 smartSquareLineCircleSpace = {
   \squareLineCircleSpace
   \override NoteHead.Y-extent =
-   #(ly:make-unpure-pure-container
-      ly:grob::stencil-height
-      (lambda (grob start end) (ly:grob::stencil-height grob)))
+   #(fixed-callback ly:grob::stencil-height)
 }
 
 \new Voice \with { \remove Stem_engraver }
@@ -1654,13 +1679,6 @@ engine does not know the width of the note head and lets it collide with
 the accidentals.  In the second measure, with unpure-pure containers,
 the spacing engine knows the width of the note heads and avoids the
 collision by lengthening the line accordingly.
-
-Usually for simple calculations nearly-identical functions for
-both the @q{unpure} and @q{pure} parts can be used, by only
-changing the number of arguments passed to, and the scope of, the
-function.  This use case is frequent enough that
-@code{ly:make-unpure-pure-container} constructs such a second
-function by default when called with only one function argument.
 
 @warning{If a function is labeled as @q{pure} and it turns out not to
 be, the results can be unexpected.}

@@ -2154,18 +2154,52 @@ Y-axis positioning issues.
 
 @node Writing a pure function
 @subsection Writing a pure function
-Pure functions take, at a minimum, three arguments: the @var{grob}, the
-starting column at which the function is being evaluated (hereafter
-referred to as @var{start}), and the end column at which the grob is
-being evaluated (hereafter referred to as @var{end}).  For items,
-@var{start} and @var{end} must be provided (meaning they are not optional)
-but will not have a meaningful impact on the result, as items only occupy
-one column and will thus yield a value or not (if they are not in the range
-from @var{start} to @var{end}).  For spanners however, @var{start} and
-@var{end} are important, as we may can get a better pure estimation of a
-slice of the spanner than considering it on the whole.  This is useful
-during line breaking, for example, when we want to estimate the Y-extent
-of a spanner broken at given starting and ending columns.
+Pure functions take the same arguments as their unpure counterparts;
+in particular, a callback without further arguments just takes the
+@var{grob}.  The range of columns for which the function is being
+evaluated (hereafter referred to as @var{start} and @var{end}) is not
+passed as arguments but is an implicit argument, retrieved by calls
+rather than from the argument list.  In Scheme, it is retrieved with
+@code{(*start*)} and @code{(*end*)}, and @code{(*pure?*)} tells whether
+a pure calculation is going on at all; outside of one, @code{(*start*)}
+and @code{(*end*)} return @code{#f}.  In C++, use
+@code{Pure_context::start ()}, @code{Pure_context::end ()} and
+@code{Pure_context::is_pure ()} (@file{lily/unpure-pure-container.hh}).
+
+Whether a pure function depends on the range varies from callback to
+callback.  For spanners, we may get a better pure estimation of a slice
+of the spanner than considering it on the whole.  This is useful during
+line breaking, for example, when we want to estimate the Y-extent of a
+spanner broken at given starting and ending columns.  Items can depend
+on the range as well, as @code{StaffEllipsis} does through the staff
+symbol.  Many callbacks, however, ignore the range, and then need not
+call @code{(*start*)} or @code{(*end*)} at all.  A container made from
+a single callback (@code{is_unchanging ()}; in Scheme,
+@code{fixed-callback}) evaluates it like an unpure one, with caching,
+also for pure lookups; such a callback never sees a pure context.  A
+callback that is to behave in a pure way has to be given as both the
+unpure and the pure part (in Scheme, @code{pure-callback}).
+
+The range is set up by @code{Pure_context::apply}, which is used
+by @code{call_pure_function} and by @code{ly:pure-call}, and which
+restores the previous state when leaving the callback, also if
+this is caused by an error.  Unpure callbacks are called with
+@code{Pure_context::apply_unpure}, so a pure calculation that
+happens to trigger one does not leak its context into it.
+Callbacks do not need to care about this.  Calling another pure
+callback for a different range is done with the usual functions
+like @code{ly:grob-pure-height}, or with @code{ly:pure-call} if
+the function to be called is not accessed through a property.  To
+forward the arguments of a pure callback to another callback for
+the same range, use @code{pure-call}.
+
+Before the introduction of these implicit arguments, pure functions
+had to take @var{start} and @var{end} as two additional arguments after
+the @var{grob}.  As this is what legacy code still does, a pure function
+with two more required arguments than the corresponding unpure function
+is recognized by @code{ly:make-unpure-pure-container} and wrapped so
+that it still works.  This detection by signature cannot recognize
+functions with optional or rest arguments.
 
 
 @node How purity is defined and stored
@@ -2177,7 +2211,7 @@ Purity is defined in LilyPond with the creation of an unpure-pure container
 #(define (foo grob)
   '(-1 . 1))
 
-#(define (bar grob start end)
+#(define (bar grob)
   '(-2 . 2))
 
 \override Stem.length = #(ly:make-unpure-pure-container foo bar)

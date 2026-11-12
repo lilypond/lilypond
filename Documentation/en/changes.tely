@@ -523,6 +523,19 @@ until now.
 @itemize
 
 @item
+This is of interest for Scheme programmers writing grob callbacks:
+the pure part of an unpure-pure container no longer needs to take the
+range of columns as the arguments @var{start} and @var{end} after the
+grob.  Instead, it takes the same arguments as the unpure part and,
+if it needs the range of columns, retrieves it with @code{(*start*)}
+and @code{(*end*)}.  @code{(*pure?*)} tells whether a pure calculation
+is going on.  Existing functions with the old signature keep working.
+The shorthands @code{pure-callback} and @code{fixed-callback} create an
+unpure-pure container from a single function, which in the first case
+is also called as the pure part and in the second case is evaluated like an
+unpure function even for pure lookups.
+
+@item
 When non-musical items like clefs and key and time signatures are
 aligned across staves, LilyPond no longer arranges the respective
 columns sequentially when there is no actual overlap of such
