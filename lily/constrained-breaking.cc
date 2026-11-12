@@ -94,8 +94,8 @@ Constrained_breaking::calc_subproblem (vsize start, vsize sys, vsize brk)
       if (0 == sys && j > 0)
         continue; /* the first line cannot have its first break after the beginning */
 
-      Line_details const &cur = lines_.at (brk, j + start_col);
-      if (std::isinf (cur.force_))
+      Real cur_force = line_force (j + start_col, brk);
+      if (std::isinf (cur_force))
         break;
 
       Real prev_f = 0;
@@ -109,14 +109,14 @@ Constrained_breaking::calc_subproblem (vsize start, vsize sys, vsize brk)
       if (std::isinf (prev_dem))
         continue;
 
-      Real dem = combine_demerits (cur.force_, prev_f) + prev_dem
-                 + cur.break_penalty_;
+      Real dem = combine_demerits (cur_force, prev_f) + prev_dem
+                 + break_penalties_[brk];
       Constrained_break_node &n = st.at (max_index, sys);
       if (dem < n.demerits_)
         {
           found_something = true;
           n.demerits_ = dem;
-          n.force_ = cur.force_;
+          n.force_ = cur_force;
           n.prev_ = j;
         }
     }
@@ -142,7 +142,9 @@ Constrained_breaking::space_line (vsize i, vsize j)
   /* As a special case, if there is only one line in the score and ragged-right
      hasn't been specifically forbidden and the line is stretched, use
      ragged spacing. */
-  if (last && i == 0 && lines_.at (i, j).force_ >= 0
+  /* NOTE: this used to test lines_.at (i, j).force_ >= 0, with start and end
+     swapped relative to initialize (), so it was always true.  Kept as is. */
+  if (last && i == 0
       && !scm_is_bool (pscore_->layout ()->c_variable ("ragged-right"))
       && !scm_is_bool (pscore_->layout ()->c_variable ("ragged-last")))
     ragged = true;
@@ -321,7 +323,14 @@ Constrained_breaking::line_details (vsize start, vsize end, vsize sys_count)
                 {
                   vsize prev_brk = st.at (brk, cur_sys).prev_;
                   assert (brk != VPOS);
-                  ret.push_back (lines_.at (brk + start_brk, prev_brk + start_brk));
+
+                  Line_details details;
+                  fill_line_details (&details, prev_brk + start_brk,
+                                     brk + start_brk);
+                  details.force_
+                    = line_force (prev_brk + start_brk, brk + start_brk);
+                  ret.push_back (details);
+
                   brk = prev_brk;
                 }
               std::reverse (ret.begin (), ret.end ());
@@ -485,28 +494,37 @@ Constrained_breaking::initialize (
   /* do all the rod/spring problems */
   breaks_ = pscore_->get_break_indices ();
   all_ = pscore_->root_system ()->used_columns ();
-  lines_.resize (breaks_.size (), breaks_.size (), Line_details ());
-  std::vector<Real> forces = get_line_forces (
-    all_, other_lines.length (), other_lines.length () - first_line.length (),
-    ragged_right_);
-  for (vsize i = 0; i + 1 < breaks_.size (); i++)
+  breaks_ = pscore_->get_break_indices ();
+  all_ = pscore_->root_system ()->used_columns ();
+  line_forces_
+    = get_line_forces (all_, other_lines.length (),
+                       other_lines.length () - first_line.length (),
+                       ragged_right_);
+
+  const vsize n = breaks_.size ();
+  break_penalties_.resize (n);
+  for (vsize j = 0; j < n; j++)
+    break_penalties_[j] = from_scm<double> (
+      get_property (all_[breaks_[j]], "line-break-penalty"), 0);
+
+  for (vsize i = 0; i + 1 < n; i++)
     {
-      for (vsize j = i + 1; j < breaks_.size (); j++)
+      Real *row = &line_forces_[i * n];
+      vsize j = i + 1;
+      for (; j < n; j++)
         {
-          bool last = j == breaks_.size () - 1;
+          bool last = j == n - 1;
           bool ragged = ragged_right_ || (last && ragged_last_);
-          Line_details &line = lines_.at (j, i);
-
-          line.force_ = forces[i * breaks_.size () + j];
-          if (ragged && last && !std::isinf (line.force_))
-            line.force_ = (line.force_ < 0 && j > i + 1) ? infinity_f : 0;
-          if (std::isinf (line.force_))
+          if (ragged && last && !std::isinf (row[j]))
+            row[j] = (row[j] < 0 && j > i + 1) ? infinity_f : 0;
+          if (std::isinf (row[j]))
             break;
-
-          fill_line_details (&line, i, j);
         }
+      /* The old code left everything beyond the first infinite force
+         default-constructed (infinite).  Keep that invariant. */
+      if (j + 1 < n)
+        std::fill (row + j + 1, row + n, infinity_f);
     }
-
   /* work out all the starting indices */
   start_.reserve (pagebreak_col_indices.size ());
   for (vsize i = 0; i < pagebreak_col_indices.size (); i++)

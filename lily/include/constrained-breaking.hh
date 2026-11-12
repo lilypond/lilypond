@@ -188,9 +188,16 @@ private:
   Real score_markup_min_distance_;
   Real score_markup_padding_;
 
-  /* the (i,j)th entry is the configuration for breaking between
-    columns i and j */
-  Matrix<Line_details> lines_;
+  /* line_forces_[start * breaks_.size () + end] is the force of a line
+     from break START to break END, infinity_f if it does not fit. */
+  std::vector<Real> line_forces_;
+  /* line-break-penalty of the column at each break */
+  std::vector<Real> break_penalties_;
+
+  Real line_force (vsize start, vsize end) const
+  {
+    return line_forces_[start * breaks_.size () + end];
+  }
 
   /* the [i](j,k)th entry is the score for fitting the first k bars onto the
     first j systems, starting at the i'th allowed starting column */
