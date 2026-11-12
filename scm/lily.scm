@@ -76,6 +76,28 @@
 (define-public (*parser*) (fluid-ref %parser))
 (define-public (*location*) (fluid-ref %location))
 
+;; Shorthands for unpure-pure containers made from a single function.
+(define-public (pure-callback f)
+  "Make an unpure-pure container using the function @var{f} for both the unpure
+and the pure part.  In pure calculations, @var{f} can tell with
+@code{(*pure?*)}, @code{(*start*)} and @code{(*end*)} that this is the case
+and for which range of columns."
+  (ly:make-unpure-pure-container f f))
+
+(define-public (fixed-callback f)
+  "Make an unpure-pure container from the function @var{f}, which is evaluated
+like an unpure function, with its result cached, even where a pure value is
+needed.  It must not depend on the range of columns of a pure calculation and
+cannot access it with @code{(*pure?*)}, @code{(*start*)} and @code{(*end*)}."
+  (ly:make-unpure-pure-container f))
+
+;; Implicit arguments of pure callbacks (see `ly:make-unpure-pure-container').
+;; The state is kept in C++ and bound in `call_pure_function', not in a fluid:
+;; pure evaluations are on the hot path of line breaking.
+(define-public *start* ly:pure-start)
+(define-public *end* ly:pure-end)
+(define-public *pure?* ly:pure?)
+
 ;; See https://www.gnu.org/software/guile/manual/html_node/Gettext-Support.html
 ;; for why we use "G_" instead of the more common convention "_".
 (define-public G_ gettext)

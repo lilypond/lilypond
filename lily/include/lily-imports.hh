@@ -41,6 +41,7 @@ extern Variable module_export_x;
 extern Variable module_p;
 extern Variable module_public_interface;
 extern Variable module_use_x;
+extern Variable procedure_minimum_arity;
 extern Variable symbol_p;
 extern Variable the_root_module;
 } // namespace Guile_user

@@ -36,6 +36,7 @@ Variable module_export_x ("module-export!");
 Variable module_p ("module?");
 Variable module_public_interface ("module-public-interface");
 Variable module_use_x ("module-use!");
+Variable procedure_minimum_arity ("procedure-minimum-arity");
 Variable symbol_p ("symbol?");
 Variable the_root_module ("the-root-module");
 } // namespace Guile_user

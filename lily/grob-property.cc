@@ -234,7 +234,7 @@ Grob::internal_get_pure_property (SCM sym, vsize start, vsize end)
 
   if (Unpure_pure_container *upc = unsmob<Unpure_pure_container> (val))
     {
-      // Do cache, if the function ignores 'start' and 'end'
+      // Do cache, if the function is a single, unchanging callback
       if (upc->is_unchanging ())
         return internal_get_property (sym);
       else
@@ -266,7 +266,9 @@ Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
     grob_property_callback_stack = scm_cons (ly_list (self_scm (), sym, proc),
                                              grob_property_callback_stack);
 
-  SCM value = ly_call (proc, self_scm ());
+  // An unpure callback may be triggered while a pure calculation is going on,
+  // but must not see its context.
+  SCM value = Pure_context::apply_unpure (proc, ly_list (self_scm ()));
 
   if (debug_property_callbacks)
     grob_property_callback_stack = scm_cdr (grob_property_callback_stack);
@@ -340,19 +342,18 @@ call_pure_function (SCM value, SCM args, vsize start, vsize end)
     {
       if (upc->is_unchanging ())
         {
-          // Don't bother forming an Unpure_pure_call here.
+          // A single callback is evaluated like an unpure one.
           value = upc->unpure_part ();
 
           if (ly_is_procedure (value) && !unsmob<No_callback> (value))
-            return scm_apply_0 (value, args);
+            return Pure_context::apply_unpure (value, args);
           return value;
         }
 
       value = upc->pure_part ();
 
       if (ly_is_procedure (value) && !unsmob<No_callback> (value))
-        return scm_apply_3 (value, scm_car (args), to_scm (start),
-                            to_scm (end), scm_cdr (args));
+        return Pure_context::apply (start, end, value, args);
 
       return value;
     }

@@ -19,29 +19,138 @@
 */
 #include "unpure-pure-container.hh"
 
-// Reroutes a call to the contained function after dropping second and
-// third argument.  Used for applying an "unpure" function in a "pure"
-// context.
-class Unpure_pure_call : public Smob1<Unpure_pure_call>
+#include "lily-imports.hh"
+
+#include <limits>
+
+namespace
+{
+// State of the current pure evaluation.  Plain integers: nothing here is
+// visible to (or needs protection from) the garbage collector.
+struct Pure_state
+{
+  bool is_pure = false;
+  vsize start = 0;
+  vsize end = std::numeric_limits<vsize>::max ();
+};
+
+Pure_state pure_state;
+
+void
+restore_pure_state (void *saved)
+{
+  pure_state = *static_cast<Pure_state *> (saved);
+}
+
+// Adapts a legacy pure callback with the signature (grob start end . rest) to
+// the uniform signature (grob . rest), by supplying the range of the current
+// pure context for the two extra arguments.
+class Legacy_pure_call : public Smob1<Legacy_pure_call>
 {
 public:
-  // Smob procedures unfortunately can only take at most 3 SCM
-  // arguments.  Otherwise we could use a "3, 0, 1" call signature and
-  // not require an argument count check of our own.
-  LY_DECLARE_SMOB_PROC (&Unpure_pure_call::call, 2, 0, 1)
-  SCM call (SCM arg1, SCM, SCM rest)
+  LY_DECLARE_SMOB_PROC (&Legacy_pure_call::call, 1, 0, 1)
+  SCM call (SCM grob, SCM rest)
   {
-    if (!scm_is_pair (rest))
-      scm_wrong_num_args (scm1 ());
-    return scm_apply_1 (scm1 (), arg1, scm_cdr (rest));
+    return scm_apply_3 (scm1 (), grob, to_scm (Pure_context::start ()),
+                        to_scm (Pure_context::end ()), rest);
   }
 };
+
+// The number of required arguments of PROC, or -1 if that cannot be
+// determined (in which case callers assume the uniform signature).
+int
+required_args (SCM proc)
+{
+  if (!ly_is_procedure (proc))
+    return -1;
+  SCM arity = Guile_user::procedure_minimum_arity (proc);
+  if (!scm_is_pair (arity) || !scm_is_integer (scm_car (arity)))
+    return -1;
+  return from_scm<int> (scm_car (arity));
+}
+
+SCM
+apply_in_state (const Pure_state &state, SCM proc, SCM args)
+{
+  Pure_state saved = pure_state;
+  // The unwind handler also runs when the frame is left via a non-local exit
+  // (error, throw), where C++ destructors cannot be relied upon.
+  scm_dynwind_begin (static_cast<scm_t_dynwind_flags> (0));
+  scm_dynwind_unwind_handler (restore_pure_state, &saved,
+                              SCM_F_WIND_EXPLICITLY);
+  pure_state = state;
+  SCM result = scm_apply_0 (proc, args);
+  scm_dynwind_end ();
+  return result;
+}
+} // namespace
+
+SCM
+Pure_context::apply (vsize start, vsize end, SCM proc, SCM args)
+{
+  // Nested lookups for the same range are the common case; avoid the cost of
+  // setting up a dynwind frame for them.
+  if (pure_state.is_pure && pure_state.start == start && pure_state.end == end)
+    return scm_apply_0 (proc, args);
+
+  return apply_in_state ({true, start, end}, proc, args);
+}
+
+SCM
+Pure_context::apply_unpure (SCM proc, SCM args)
+{
+  // The common case, by far.
+  if (!pure_state.is_pure)
+    return scm_apply_0 (proc, args);
+
+  return apply_in_state ({}, proc, args);
+}
+
+bool
+Pure_context::is_pure ()
+{
+  return pure_state.is_pure;
+}
+
+vsize
+Pure_context::start ()
+{
+  return pure_state.start;
+}
+
+vsize
+Pure_context::end ()
+{
+  return pure_state.end;
+}
 
 SCM
 Unpure_pure_container::pure_part () const
 {
-  return SCM_UNBNDP (scm2 ()) ? Unpure_pure_call::make_smob (scm1 ())
-                              : scm2 ();
+  return SCM_UNBNDP (scm2 ()) ? scm1 () : scm2 ();
+}
+
+SCM
+Unpure_pure_container::make_smob (SCM unpure, SCM pure)
+{
+  if (SCM_UNBNDP (pure))
+    {
+      // A single callback is "unchanging", see is_unchanging ().
+      if (!ly_is_procedure (unpure))
+        pure = unpure;
+    }
+  else
+    {
+      // Legacy signature: the pure callback takes two more required arguments
+      // (start and end) than the unpure one.  If there is no procedure to
+      // compare to, the unpure part is taken to be a plain grob callback.
+      int pure_req = required_args (pure);
+      int unpure_req = ly_is_procedure (unpure) ? required_args (unpure) : 1;
+      if (pure_req >= 0 && unpure_req >= 0 && pure_req >= unpure_req + 2)
+        pure = Legacy_pure_call::make_smob (pure);
+    }
+
+  return Smob2<Unpure_pure_container>::make_smob (unpure, pure);
 }
 
 const char *const Unpure_pure_container::type_p_name_
@@ -51,9 +160,21 @@ LY_DEFINE (ly_make_unpure_pure_container, "ly:make-unpure-pure-container", 1,
            1, 0, (SCM unpure, SCM pure),
            R"(
 Make an unpure-pure container.  @var{unpure} should be an unpure expression,
-and @var{pure} should be a pure expression.  If @var{pure} is omitted, the
-value of @var{unpure} will be used twice, except that a callback is given two
-extra arguments that are ignored for the sake of pure calculations.
+and @var{pure} should be a pure expression.  If @var{pure} is omitted,
+the value of @var{unpure} will be used for pure calculations as well.  A
+callback is then evaluated like an unpure one (and its result is cached) even
+for pure lookups, and cannot make use of @code{(*pure?*)}, @code{(*start*)}
+and @code{(*end*)}.  A callback that needs to behave in a pure way has to be
+given as both @var{unpure} and @var{pure}.
+
+A pure callback is called with the same arguments as the unpure one.  If it
+needs the range of break columns it is evaluated for, it can retrieve it with
+@code{(*start*)} and @code{(*end*)}; @code{(*pure?*)} tells whether a pure
+evaluation is going on at all.
+
+For compatibility, a @var{pure} procedure taking two required arguments more
+than @var{unpure} is assumed to be written in the legacy form
+@code{(@var{grob} @var{start} @var{end} @dots{})} and is called accordingly.
            )")
 {
   return Unpure_pure_container::make_smob (unpure, pure);
@@ -113,24 +234,29 @@ LY_DEFINE (ly_pure_call, "ly:pure-call", 4, 0, 1,
            R"(
 Convert property @var{data} (unpure-pure container or procedure) to value in a
 pure context defined by @var{grob}, @var{start}, @var{end}, and possibly
-@var{rest} arguments.
+@var{rest} arguments.  The callback is called as @code{(@var{grob}
+. @var{rest})}; @var{start} and @var{end} are available to it as
+@code{(*start*)} and @code{(*end*)}.  A plain procedure is treated like the
+pure part of a container.
            )")
 {
   if (Unpure_pure_container *upc = unsmob<Unpure_pure_container> (data))
     {
-      // Avoid gratuitous creation of an Unpure_pure_call
+      // A single callback is evaluated like an unpure one.
       if (upc->is_unchanging ())
         data = upc->unpure_part ();
       else
         {
           data = upc->pure_part ();
           if (ly_is_procedure (data))
-            return scm_apply_3 (data, grob, start, end, rest);
+            return Pure_context::apply (from_scm<vsize> (start),
+                                        from_scm<vsize> (end), data,
+                                        scm_cons (grob, rest));
           return data;
         }
     }
   if (ly_is_procedure (data))
-    return scm_apply_1 (data, grob, rest);
+    return Pure_context::apply_unpure (data, scm_cons (grob, rest));
   return data;
 }
 
@@ -144,6 +270,38 @@ unpure context defined by @var{grob} and possibly @var{rest} arguments.
   if (Unpure_pure_container *upc = unsmob<Unpure_pure_container> (data))
     data = upc->unpure_part ();
   if (ly_is_procedure (data))
-    return scm_apply_1 (data, grob, rest);
+    return Pure_context::apply_unpure (data, scm_cons (grob, rest));
   return data;
+}
+
+LY_DEFINE (ly_pure_start, "ly:pure-start", 0, 0, 0, (),
+           R"(
+Return the index of the first break column of the range for which a pure
+property is currently being evaluated, or @code{#f} outside of a pure
+evaluation.  The preferred way of calling this is @code{(*start*)}.
+           )")
+{
+  return Pure_context::is_pure () ? to_scm (Pure_context::start ())
+                                  : SCM_BOOL_F;
+}
+
+LY_DEFINE (ly_pure_end, "ly:pure-end", 0, 0, 0, (),
+           R"(
+Return the index of the last break column of the range for which a pure
+property is currently being evaluated, or @code{#f} outside of a pure
+evaluation.  The preferred way of calling this is @code{(*end*)}.
+           )")
+{
+  return Pure_context::is_pure () ? to_scm (Pure_context::end ()) : SCM_BOOL_F;
+}
+
+LY_DEFINE (ly_pure_p, "ly:pure?", 0, 0, 0, (),
+           R"(
+Return @code{#t} if a pure property is currently being evaluated.  This is
+for callbacks that behave differently in the pure and the final calculation
+without actually needing the range of columns.  The preferred way of calling
+this is @code{(*pure?*)}.
+           )")
+{
+  return to_scm (Pure_context::is_pure ());
 }
