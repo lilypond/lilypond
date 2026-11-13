@@ -160,8 +160,15 @@ Separation_item::boxes (Grob *me, Grob *left)
       if (has_interface<Axis_group_interface> (il))
         continue;
 
-      Interval y (il->pure_y_extent (ycommon, 0, very_large));
+      // Read the X extent before the pure Y extent.  Asking for the X
+      // extent of a dot can trigger Dot_column::calc_positioning_done
+      // (via the dot's X-offset, Grob::x_parent_positioning), which moves
+      // the dot vertically to avoid staff lines.  The Y extent must
+      // reflect that final position, or the dot's box is built at its
+      // note head's height and can collide with, and push away, an
+      // accidental or note head that the dot actually clears.
       Interval x (il->extent (pc, X_AXIS));
+      Interval y (il->pure_y_extent (ycommon, 0, very_large));
 
       Interval extra_width = from_scm (
         get_property (elts[i], "extra-spacing-width"), Interval (-0.1, 0.1));
