@@ -681,6 +681,38 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
       && !scm_is_number (get_property (me, "outside-staff-priority")))
     {
       extract_grob_set (me, "scripts", scripts);
+
+      /*
+        If the bracket itself is not drawn (e.g., because a beam makes it
+        redundant), it does not need to clear scripts.  The number, however,
+        is still positioned from the bracket, so it must clear any script
+        that it overlaps horizontally.  Scripts elsewhere should not raise it.
+
+        We deliberately avoid querying the number's X-offset or the
+        bracket's Y-extent here: both depend on our own positions.  The
+        number's own extent and the bracket's X-positions are safe.
+      */
+      bool bracket_drawn = bracket_basic_visibility (me);
+      Interval number_x; // empty unless we need to filter by overlap
+      Grob *number = unsmob<Grob> (get_object (me, "tuplet-number"));
+      if (!bracket_drawn && number)
+        {
+          Interval own_ext = number->extent (number, X_AXIS);
+          SCM scm_x_span = get_property (me, "X-positions");
+          if (!own_ext.is_empty () && scm_is_pair (scm_x_span))
+            {
+              Interval x_span = from_scm (scm_x_span, Interval (0.0, 0.0));
+              Real left_x = me->get_bound (LEFT)->relative_coordinate (
+                commonx, X_AXIS);
+              Real center = x_span.center () + left_x;
+              Real num_padding
+                = from_scm<double> (get_property (number, "padding"), 0.5);
+              number_x = Interval (center + own_ext[LEFT],
+                                   center + own_ext[RIGHT]);
+              number_x.widen (num_padding);
+            }
+        }
+
       for (vsize i = 0; i < scripts.size (); i++)
         {
           if (!scripts[i]->is_live ())
@@ -698,6 +730,15 @@ Tuplet_bracket::calc_position_and_height (Spanner *me, Real *offset, Real *dy)
             = robust_relative_extent (scripts[i], commonx, X_AXIS);
           Interval script_y
             = robust_relative_extent (scripts[i], commony, Y_AXIS);
+
+          if (!bracket_drawn)
+            {
+              // Only the number needs room: skip scripts it does not overlap.
+              Interval overlap (script_x);
+              overlap.intersect (number_x);
+              if (number_x.is_empty () || overlap.is_empty ())
+                continue;
+            }
 
           points.push_back (Offset (script_x.center () - x0, script_y[dir]));
         }

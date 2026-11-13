@@ -1,4 +1,4 @@
-\version "2.25.18"
+\version "2.27.6"
 
 \header {
   categories = "Headword"
@@ -46,11 +46,14 @@ quatre = \markup \teeny "IV"
 shift = \once \override NoteColumn.force-hshift = 0.9
 shifta = \once \override NoteColumn.force-hshift = 1.2
 
+% Shifting articulations
+ashift = -\offset X-offset \etc
+
 % Hairpin
 aniente = \once \override Hairpin.circled-tip = ##t
 
 % Tuplets
-tupletbp = \once \override Staff.TupletBracket.padding = 2.25
+tupletbp = \once \override Staff.TupletBracket.staff-padding = 2.7
 
 % Functions
 #(define-markup-command (colmark layout props args) (markup-list?)
@@ -106,7 +109,7 @@ ViolinSolo = \relative c' {
   % Measure 5
   \time 5/4
   \tupletbp \tuplet 3/2 {
-    d8\mf\<^\markup \colmark { \quatre \db \norm } d_\open d }
+    d8\ashift #-0.5 \mf\<^\markup \colmark { \quatre \db \norm } d_\open d }
   \tupletbp \tuplet 3/2 {
     d8^\markup \colmark { " " \db \sulp } d_\open d }
   \tupletbp \tuplet 3/2 {
