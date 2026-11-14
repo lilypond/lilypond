@@ -1776,6 +1776,382 @@ a bug report would be appreciated.}
 @end itemize
 
 
+@node Iteration
+@section Iteration
+
+LilyPond processes scores under the control of @dfn{output
+definitions} into actual output.  Outputs can be either in the
+form of graphical scores (PDF or other graphics formats) under
+control of a @code{\layout} definition, or musical output in the
+form of MIDI files produced under control of a @code{\midi}
+definition.
+
+This process of generating output is called @dfn{iteration} and
+produces stream events in order of musical time, executing a
+number of processing steps at each point of time that call the
+entry points of @dfn{translators}.  Translators are tied to
+@dfn{contexts}.  Translators that are specific to graphical output
+are called @dfn{engravers}, those that are specific to MIDI output
+are called @dfn{performers}.
+
+@node Scheme translators
+@subsection Scheme translators
+Three macros create Scheme translators:
+
+@table @code
+@item make-translator
+creates a translator that is run both for typesetting and MIDI
+generation.  It can listen to @dfn{stream events} that are produced
+from music expressions, generate events of its own, and manipulate
+context properties.
+
+@item make-engraver
+creates a translator that is run only when the score is typeset.
+In addition to the other translators it can generate @q{grobs},
+graphical objects.  It can also @dfn{acknowledge} grobs created by
+other engravers in its own context or in lower contexts.
+
+@item make-performer
+creates a translator that is run only when MIDI output is generated.
+
+@end table
+
+All three use the same kind of interface, described below.
+
+@subsubheading Entry points
+
+@cindex translator entry points
+@cindex entry points, translator
+@funindex make-translator
+
+A translator maps the names of its @q{entry points} to Scheme
+procedures.  @code{make-translator} and its output-specific
+variants are macros converting a straightforward notation into a
+translator description that can be used by @code{\consists} within
+output definitions.
+
+Entries generally have the form @code{((@var{name} @var{argument}
+@dots{}) @var{body} @dots{})} and define a procedure that is
+called with arguments depending on what the pre-defined @var{name}
+is used for.  The first argument of the procedure is always the
+translator instance itself.
+
+At each point of musical time, the entry points are called in the following
+order:
+
+@table @code
+@item start-translation-timestep
+at the beginning of the time step, before any events are delivered.
+
+@item listeners
+whenever an event of a class the translator listens to occurs.  This is not
+a single entry point but a list of event handlers, see below.
+
+@item pre-process-music
+@itemx process-music
+once all events of the time step have been delivered.  Most of the
+work of a translator is done in @code{process-music}.  One
+difference between @code{pre-process-music} and
+@code{process-music} is that the @code{pre-process-music} hook of
+a translator is run whether or not @code{skipTypesetting} has been
+set, while @code{process-music} is only executed when
+@code{skipTypesetting} is @code{#f}.
+
+@item acknowledgers
+@itemx end-acknowledgers
+These engraver-only lists are described below.
+
+@item process-acknowledged
+after @code{process-music}, in engravers only, once all pending
+acknowledgers have been run.  If this phase creates additional
+grobs to be acknowledged, the cycle restarts in the
+@code{acknowledgers} phase, so that the
+@code{process-@/acknowledged} hook can be run multiple times.
+
+@item stop-translation-timestep
+at the end of the time step.  Generating items to be acknowledged
+here generally is a bad idea since the next time acknowledgers
+will be run is at the following timestep.
+@end table
+
+@noindent
+In addition, @code{initialize} is called when the context is created and
+@code{finalize} when the interpretation of the context ends.
+
+A listener is written @code{((@var{event-class} @var{translator}
+@var{event}) @var{body} @dots{})} inside a @code{listeners} entry.  When
+the argument list is terminated with the keyword @code{#:once}, the listener
+is called only once per time step: receiving several events in a time step
+causes a warning, unless the events are all equal.
+
+A template with all entry points (for an engraver) looks like this:
+
+@example
+(lambda (context)
+  (let (local-variables @dots{})
+    (make-engraver
+     ((initialize translator)
+      @dots{})
+     ((start-translation-timestep translator)
+      @dots{})
+     (listeners
+      ((event-class-1 translator event)
+       @dots{})
+      ((event-class-2 translator event #:once)
+       @dots{}))
+     ((pre-process-music translator)
+      @dots{})
+     ((process-music translator)
+      @dots{})
+     (acknowledgers
+      ((grob-interface-1 translator grob source-translator)
+       @dots{}))
+     (end-acknowledgers
+      ((grob-interface-1 translator grob source-translator)
+       @dots{}))
+     ((process-acknowledged translator)
+      @dots{})
+     ((stop-translation-timestep translator)
+      @dots{})
+     ((finalize translator)
+      @dots{}))))
+@end example
+
+@noindent
+The procedure returned by @code{lambda} is called with the context whenever
+a context is created, so the variables bound by @code{let} are separate for
+each context.  This is where a translator keeps its state between entry
+points.
+
+@subsubheading Using a translator
+
+@funindex \consists
+
+A translator is added to a context with @code{\consists}, either in a
+@code{\layout} or @code{\midi} block, or with @code{\with} for a single
+context.  Translators that do not apply to the output being produced are
+ignored, so a translator written with @code{make-engraver} may be added in
+a @code{\with} without disturbing MIDI output, and the other way around.
+
+The following translator reports the pitch of every note it hears.  Since
+it is created with @code{make-translator}, it runs once while typesetting
+and once while producing MIDI output:
+
+@example
+#(define (report-pitches context)
+   (make-translator
+    (listeners
+     ((note-event translator event)
+      (ly:message "note ~a semitones from middle C"
+                  (ly:pitch-semitones
+                     (ly:event-property event 'pitch)))))))
+
+\score @{
+  \new Staff \with @{ \consists #report-pitches @} @{ c'4 d' e' f' @}
+  \layout @{ @}
+  \midi @{ @}
+@}
+@end example
+
+
+@node Scheme engravers
+@subsection Scheme engravers
+
+@cindex Scheme engraver
+@cindex engraver, Scheme
+@cindex acknowledger
+@funindex make-engraver
+
+Engravers are the translators that create graphical output.  A Scheme
+engraver, created with @code{make-engraver}, can use all entry points
+described above.  In addition, it can @q{acknowledge} grobs: an
+@code{acknowledgers} entry lists, for each grob interface of interest, a
+procedure that is called whenever a grob supporting that interface is
+created in the context of the engraver or in a lower context.  The procedure
+receives the engraver, the grob and the engraver that created the grob, and
+can inspect and change the properties of the grob.
+
+Spanners may announce their end separately from their creation:
+see @rinternals{ly:engraver-announce-end-grob}.  End announcements
+may be caught using entries in the @code{end-@/acknowledgers}
+list.
+
+@lilypond[verbatim,quote]
+#(define (redden-noteheads context)
+   (make-engraver
+    (acknowledgers
+     ((note-head-interface engraver grob source-engraver)
+      (ly:grob-set-property! grob 'color red)))))
+
+\new Staff \with { \consists #redden-noteheads } { c'4 d' e' f' }
+@end lilypond
+
+Grobs may be created in and between the @code{process-music} and
+@code{process-@/acknowledged} phases.
+
+For the details, see
+@rinternals{ly:engraver-make-grob},
+@rinternals{ly:engraver-make-item}, and
+@rinternals{ly:engraver-make-spanner}.
+
+
+@node Scheme performers
+@subsection Scheme performers
+
+@cindex Scheme performer
+@cindex performer, Scheme
+@cindex MIDI messages, generating from Scheme
+@funindex make-performer
+
+Performers are the translators that create MIDI output.  A Scheme
+performer, created with @code{make-performer}, can read and write context
+properties, listen to events and run code at each time step, as described in
+@ref{Scheme translators}.  In addition, it can generate MIDI messages that
+would otherwise require changes to LilyPond itself.  Acknowledgers and
+@code{process-@/acknowledged} are not supported in performers.
+
+@subsubheading Adding a performer to a context
+
+Because the messages a performer generates belong to a MIDI track and
+channel, it should be added to a @code{Staff} or @code{Voice} context.
+
+The following example sets the pan position of the staff to the far left
+at the beginning:
+
+@example
+#(define (pan-hard-left context)
+   (let ((done #f))
+     (make-performer
+      ((process-music performer)
+       (if (not done)
+           (begin
+             (midi-announce-controller performer 'pan 0)
+             (set! done #t)))))))
+
+\score @{
+  \new Staff @{ c'4 d' e' f' @}
+  \midi @{
+    \context @{
+      \Staff
+      \consists #pan-hard-left
+    @}
+  @}
+@}
+@end example
+
+
+@noindent
+The message is placed in the MIDI track of the staff, on its channel, and at
+the time step in which the callback runs.  Here, @code{process-music} is
+called at every time step; the variable @code{done} makes sure that the
+message is sent only once.
+
+@subsubheading Generating MIDI messages
+
+The messages are generated with the following procedures, which take the
+performer as their first argument and an optional stream event as their
+last argument.  The event is used to cite an input location in diagnostic
+messages.
+
+@table @code
+@item midi-announce-controller @var{performer} @var{controller} @var{value}
+Send a control change.  @var{controller} is a number from 0 to 127 or one of
+the names in the variable @code{midi-@/controller-@/numbers}, such as
+@code{volume}, @code{pan}, @code{expression}, @code{sustain}, @code{reverb}
+or @code{chorus}.  @var{value} is in the range 0--127.
+
+@item midi-announce-controller-14bit @var{performer} @var{controller} @var{value}
+Send a control change with a 14-bit value (0--16383), as the two messages
+for the most significant and the least significant byte.
+
+@item midi-announce-rpn @var{performer} @var{parameter} @var{value}
+@itemx midi-announce-nrpn @var{performer} @var{parameter} @var{value}
+Set a registered or a non-registered parameter, using the sequence of
+control changes defined in the MIDI standard.
+
+@item midi-announce-pitch-bend-range @var{performer} @var{semitones} @r{[}@var{cents}@r{]}
+Set the range of the pitch bend wheel (registered parameter 0).
+
+@item midi-announce-pitch-bend @var{performer} @var{value}
+Send a pitch bend message.  @var{value} is in the range 0--16383 and 8192
+means no bend.
+
+@item midi-announce-channel-pressure @var{performer} @var{pressure}
+@itemx midi-announce-poly-pressure @var{performer} @var{note} @var{pressure}
+Send channel or polyphonic key pressure (aftertouch).
+
+@item midi-announce-program-change @var{performer} @var{program}
+Send a program change.
+
+@item midi-announce-gm-system-on @var{performer}
+Send the General MIDI system on message.
+@end table
+
+A pitch bend moves the pitch by an amount that depends on the pitch bend
+range of the receiving instrument, so a bend should be preceded by setting
+the range:
+
+@example
+(midi-announce-pitch-bend-range performer 2)  ; +-2 semitones
+(midi-announce-pitch-bend performer 12288)    ; one semitone up
+(midi-announce-pitch-bend performer 8192)     ; back to normal
+@end example
+
+@noindent
+Other messages can be generated with the lower-level procedures
+@code{ly:performer-@/announce-@/midi-@/channel},
+@code{ly:performer-@/announce-@/midi-@/meta} and
+@code{ly:performer-@/announce-@/midi-@/sysex}.  Their second
+argument is a stream event or @code{#f}, and they take the bytes
+of a message as a list of integers or as a bytevector.  The
+procedures check the messages for validity.  The procedures
+@code{ly:performer-@/announce-@/control-@/change} and
+@code{ly:performer-@/announce-@/text} generate control changes and
+text events directly.
+
+@subsubheading Reacting to events
+
+Listeners work as described in @ref{Scheme translators}.  A listener can
+record what it has heard
+for @code{process-music} to act on.  This performer lets the modulation
+controller follow the pitch of the notes:
+
+@example
+#(define (pitch-to-modulation context)
+   (let ((pending #f))
+     (make-performer
+      (listeners
+       ((note-event performer event)
+        (set! pending
+              (ly:pitch-semitones (ly:event-property event 'pitch)))))
+      ((process-music performer)
+       (if pending
+           (begin
+             (midi-announce-controller performer
+                                       'modulation (+ 64 pending))
+             (set! pending #f)))))))
+@end example
+
+@subsubheading Limitations
+
+@itemize
+@item
+A performer can only generate messages; it cannot see or change what other
+performers have generated.
+
+@item
+Messages are placed at the time step in which they are announced.  To
+send a message at a later time, wait for that time step.
+
+@item
+No messages are generated while @code{skipTypesetting} is set.
+
+@item
+The channel of a message is determined by the @code{Staff}, according to
+@code{midiChannelMapping}.  A performer cannot select it.
+@end itemize
+
+
 @node LilyPond Scheme interfaces
 @chapter LilyPond Scheme interfaces
 
