@@ -33,6 +33,7 @@
 #include "performer.hh"
 #include "performer-group.hh"
 #include "scheme-engraver.hh"
+#include "scheme-performer.hh"
 #include "scm-hash.hh"
 #include "warn.hh"
 
@@ -149,7 +150,20 @@ Translator_group::create_child_translator (SCM sev)
       if (ly_is_procedure (trans))
         trans = ly_call (trans, cs);
       if (ly_cheap_is_list (trans))
-        trans = (new Scheme_engraver (trans, new_context))->unprotect ();
+        {
+          // A definition that is for MIDI only (see make-performer) gets a
+          // real performer, which can announce audio elements.  All other
+          // definitions remain engravers.
+          const bool is_midi = from_scm<bool> (
+            ly_assoc_get (ly_symbol2scm ("is-midi"), trans, SCM_BOOL_F));
+          const bool is_layout = from_scm<bool> (
+            ly_assoc_get (ly_symbol2scm ("is-layout"), trans,
+                          is_midi ? SCM_BOOL_F : SCM_BOOL_T));
+          if (is_midi && !is_layout)
+            trans = (new Scheme_performer (trans, new_context))->unprotect ();
+          else
+            trans = (new Scheme_engraver (trans, new_context))->unprotect ();
+        }
       Translator *instance = unsmob<Translator> (trans);
       if (!instance)
         {
