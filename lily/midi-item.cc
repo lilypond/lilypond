@@ -63,6 +63,12 @@ Midi_item::get_midi (Audio_item *a)
     return new Midi_text (i);
   else if (Audio_control_change *i = dynamic_cast<Audio_control_change *> (a))
     return new Midi_control_change (i);
+  else if (Audio_raw_event *i = dynamic_cast<Audio_raw_event *> (a))
+    {
+      if (i->kind_ == Audio_raw_event::CHANNEL)
+        return new Midi_raw_channel (i);
+      return new Midi_raw_meta (i);
+    }
   else
     assert (0);
 
@@ -458,6 +464,43 @@ Midi_control_change::to_string () const
   std::string str (1, status_byte);
   str += static_cast<char> (audio_->control_);
   str += static_cast<char> (audio_->value_);
+  return str;
+}
+
+Midi_raw_channel::Midi_raw_channel (Audio_raw_event *a)
+  : Midi_channel_item (a),
+    audio_ (a)
+{
+}
+
+std::string
+Midi_raw_channel::to_string () const
+{
+  const auto status_byte
+    = static_cast<char> ((audio_->status_ & 0xF0) | (channel_ & 0x0F));
+  return std::string (1, status_byte) + audio_->data_;
+}
+
+Midi_raw_meta::Midi_raw_meta (Audio_raw_event *a)
+  : audio_ (a)
+{
+}
+
+std::string
+Midi_raw_meta::to_string () const
+{
+  std::string str;
+  if (audio_->kind_ == Audio_raw_event::SYSEX)
+    {
+      str += static_cast<char> (0xf0);
+    }
+  else
+    {
+      str += static_cast<char> (0xff);
+      str += static_cast<char> (audio_->status_);
+    }
+  str += int2midi_varint_string (int (audio_->data_.length ()));
+  str += audio_->data_;
   return str;
 }
 

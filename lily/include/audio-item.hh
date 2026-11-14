@@ -30,6 +30,7 @@
 #include "rational.hh"
 
 #include <string>
+#include <utility>
 
 class Audio_item : public Audio_element
 {
@@ -241,6 +242,35 @@ public:
 
   int control_;
   int value_;
+};
+
+// A MIDI event given as raw bytes, for messages that have no dedicated
+// Audio_item class.  Typically created from Scheme (see
+// ly:performer-announce-midi-channel and friends); the payload is copied into
+// the object, so it holds no SCM values and needs no marking.
+//
+// The creator is responsible for validating the contents.
+class Audio_raw_event final : public Audio_item
+{
+public:
+  enum Kind : uint8_t
+  {
+    CHANNEL, // status_ is a channel voice status (0x80..0xEF); the channel
+             // nibble is taken from channel_, data_ holds the data bytes
+    META,    // status_ is the meta event type; data_ is the event data
+    SYSEX    // data_ is the sysex data, including the terminating 0xF7
+  };
+
+  Audio_raw_event (Kind kind, uint8_t status, std::string data)
+    : kind_ (kind),
+      status_ (status),
+      data_ (std::move (data))
+  {
+  }
+
+  Kind kind_;
+  uint8_t status_;
+  std::string data_;
 };
 
 int moment_to_ticks (Moment);

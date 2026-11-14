@@ -55,6 +55,8 @@ public:
   void announce_control_change (Stream_event *cause, int control, int value);
   void announce_text (Stream_event *cause, Audio_text::Type type,
                       const std::string &text);
+  void announce_raw (Stream_event *cause, Audio_raw_event::Kind kind,
+                     uint8_t status, std::string data);
 
 protected:
   ~Scheme_performer ();

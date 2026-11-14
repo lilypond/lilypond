@@ -212,4 +212,31 @@ public:
   Audio_tempo *audio_;
 };
 
+// Raw channel voice message: one status byte (channel filled in from the
+// staff's channel) followed by the data bytes.
+class Midi_raw_channel : public Midi_channel_item
+{
+public:
+  explicit Midi_raw_channel (Audio_raw_event *);
+  OVERRIDE_CLASS_NAME (Midi_raw_channel);
+
+  const Audio_raw_event *audio () const override { return audio_; }
+  std::string to_string () const override;
+
+  Audio_raw_event *audio_;
+};
+
+// Raw meta event (FF type len data) or system exclusive event (F0 len data).
+class Midi_raw_meta : public Midi_item
+{
+public:
+  explicit Midi_raw_meta (Audio_raw_event *);
+  OVERRIDE_CLASS_NAME (Midi_raw_meta);
+
+  const Audio_raw_event *audio () const override { return audio_; }
+  std::string to_string () const override;
+
+  Audio_raw_event *audio_;
+};
+
 #endif // MIDI_ITEM_HH
