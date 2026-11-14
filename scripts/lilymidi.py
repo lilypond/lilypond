@@ -145,14 +145,24 @@ class channel_formatter (formatter):
             self.format_vals(val1, val2)
 
 
-class control_mode_formatter (formatter):
-    def __init__(self, txt, ch):
-        formatter.__init__(self, txt)
-        self.mode = ch
+controller_names = {
+    0: "bank select MSB", 1: "modulation", 2: "breath", 4: "foot",
+    5: "portamento time", 6: "data entry MSB", 7: "volume", 8: "balance",
+    10: "pan", 11: "expression", 32: "bank select LSB", 38: "data entry LSB",
+    64: "sustain", 65: "portamento", 66: "sostenuto", 67: "soft pedal",
+    68: "legato", 69: "hold 2", 91: "reverb", 92: "tremolo", 93: "chorus",
+    94: "detune", 95: "phaser", 96: "data increment", 97: "data decrement",
+    98: "NRPN LSB", 99: "NRPN MSB", 100: "RPN LSB", 101: "RPN MSB",
+    120: "all sound off", 121: "reset all controllers", 122: "local control",
+    123: "all notes off"}
 
-    def format(self, val1, val2=""):
-        return self.text + str(self.mode) + ", " + \
-            self.format_vals(val1, val2)
+
+class control_change_formatter (channel_formatter):
+    def format_vals(self, val1, val2):
+        name = controller_names.get(val1)
+        return ("controller " + str(val1)
+                + (" (" + name + ")" if name else "")
+                + ", value " + str(val2))
 
 
 class bend_formatter (channel_formatter):
@@ -179,19 +189,45 @@ class note_formatter (channel_formatter):
         return self.pitch(val1)
 
 
-meta_dict = {0x00: meta_formatter("Seq.Nr.:    "),
-             0x01: meta_formatter("Text:       "),
-             0x02: meta_formatter("Copyright:  "),
-             0x03: meta_formatter("Track name: "),
-             0x04: meta_formatter("Instrument: "),
-             0x05: meta_formatter("Lyric:      "),
-             0x06: meta_formatter("Marker:     "),
-             0x07: meta_formatter("Cue point:  "),
-             0x2F: none_formatter("End of Track"),
-             0x51: tempo_formatter("Tempo:      "),
-             0x54: meta_formatter("SMPTE Offs.:"),
+class poly_pressure_formatter (note_formatter):
+    def format_vals(self, val1, val2):
+        return self.pitch(val1) + ", pressure " + str(val2)
+
+
+class pressure_formatter (channel_formatter):
+    def format_vals(self, val1, val2=""):
+        return "pressure " + str(val1)
+
+
+def hex_bytes(data):
+    return " ".join("%02X" % ord(c) for c in data)
+
+
+class hex_formatter (formatter):
+    """Show the data of an event as hexadecimal bytes."""
+
+    def format_vals(self, val1, val2=""):
+        return hex_bytes(val2 if val2 != "" else val1)
+
+
+meta_dict = {0x00: meta_formatter ("Seq.Nr.:        "),
+             0x01: meta_formatter ("Text:           "),
+             0x02: meta_formatter ("Copyright:      "),
+             0x03: meta_formatter ("Track name:     "),
+             0x04: meta_formatter ("Instrument:     "),
+             0x05: meta_formatter ("Lyric:          "),
+             0x06: meta_formatter ("Marker:         "),
+             0x07: meta_formatter ("Cue point:      "),
+             0x08: meta_formatter ("Program name:   "),
+             0x09: meta_formatter ("Device name:    "),
+             0x20: hex_formatter  ("Channel prefix: "),
+             0x21: hex_formatter  ("MIDI port:      "),
+             0x2F: none_formatter ("End of Track"),
+             0x51: tempo_formatter("Tempo:          "),
+             0x54: meta_formatter ("SMPTE Offs.:    "),
              0x58: time_signature_formatter("Time signature: "),
-             0x59: key_signature_formatter("Key signature: ")
+             0x59: key_signature_formatter ("Key signature:  "),
+             0x7F: hex_formatter("Sequencer specific: ")
              }
 
 class midi_dumper:
@@ -208,7 +244,8 @@ class midi_dumper:
             if ev[1] == 0x51: # set tempo
                 us_per_q = ord(ev[2][0]) * 65536 + ord(ev[2][1]) * 256 + ord(ev[2][2])
                 self.tempo_map[time] = us_per_q
-            f = meta_dict.get(ev[1], formatter())
+            f = (meta_dict.get(ev[1])
+                 or hex_formatter("Meta event 0x%02X: " % ev[1]))
         if func == 0x80:
             f = note_formatter("Note off: ", ch)
         elif func == 0x90:
@@ -218,18 +255,17 @@ class midi_dumper:
                 desc = "Note on: "
             f = note_formatter(desc, ch)
         elif func == 0xA0:
-            f = note_formatter("Polyphonic aftertouch: ",
-                               ch, "Aftertouch pressure: ")
+            f = poly_pressure_formatter("Polyphonic aftertouch: ", ch)
         elif func == 0xB0:
-            f = control_mode_formatter("Control mode change: ", ch)
+            f = control_change_formatter("Control change: ", ch)
         elif func == 0xC0:
             f = channel_formatter("Program Change: ", ch)
         elif func == 0xD0:
-            f = channel_formatter("Channel aftertouch: ", ch)
+            f = pressure_formatter("Channel aftertouch: ", ch)
         elif func == 0xE0:
             f = bend_formatter("Pitch bend: ", ch)
         elif ev[0] in [0xF0, 0xF7]:
-            f = meta_formatter("System-exclusive event: ")
+            f = hex_formatter("System-exclusive event: ")
 
         if f:
             if len(ev) > 2:
