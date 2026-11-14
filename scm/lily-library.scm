@@ -1823,7 +1823,16 @@ in MIDI."
   "Like @code{make-translator}, but create a performer, i.e.,
 the resulting translator is only run in MIDI and ignored in
 layout output.  Scheme performers do not support acknowledgers
-and @code{process-acknowledged}."
+and @code{process-acknowledged}.
+
+Scheme performers can announce MIDI events.  These are placed at the
+current time step, in the track and on the channel of the enclosing
+@code{Staff} or @code{Voice}, so the performer should be added to one
+of those contexts.  See @code{midi-announce-controller} and the other
+@code{midi-announce-@dots{}} procedures, as well as
+@code{ly:performer-announce-midi-channel},
+@code{ly:performer-announce-midi-meta} and
+@code{ly:performer-announce-midi-sysex}."
   (make-translator-internal form ... (is-midi . #t)))
 
 (define-syntax-rule-public (make-translator form ...)
