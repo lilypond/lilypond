@@ -300,3 +300,155 @@ from those of other output files."
           (format #f "~a.~a" name midi-ext)
           (performance-name-from-headers (ly:performance-headers perf)))))
      performances)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Generating MIDI messages from Scheme performers.
+;;
+;; These procedures are meant to be called from the callbacks of a
+;; translator created by @code{make-performer} (or any @code{is-midi}
+;; translator that is not also an @code{is-layout} translator).  They emit
+;; their messages at the current time step, in the track and on the channel
+;; of the enclosing @code{Staff} or @code{Voice}.  The optional @var{cause}
+;; is a stream event used for diagnostics, or @code{#f}.
+
+(define-public midi-controller-numbers
+  '((bank-select-msb . 0)
+    (modulation . 1)
+    (breath . 2)
+    (foot . 4)
+    (portamento-time . 5)
+    (data-entry-msb . 6)
+    (volume . 7)
+    (balance . 8)
+    (pan . 10)
+    (expression . 11)
+    (bank-select-lsb . 32)
+    (data-entry-lsb . 38)
+    (sustain . 64)
+    (portamento . 65)
+    (sostenuto . 66)
+    (soft . 67)
+    (legato . 68)
+    (hold-2 . 69)
+    (reverb . 91)
+    (tremolo . 92)
+    (chorus . 93)
+    (detune . 94)
+    (phaser . 95)
+    (data-increment . 96)
+    (data-decrement . 97)
+    (nrpn-lsb . 98)
+    (nrpn-msb . 99)
+    (rpn-lsb . 100)
+    (rpn-msb . 101)
+    (all-sound-off . 120)
+    (reset-all-controllers . 121)
+    (local-control . 122)
+    (all-notes-off . 123)))
+
+(define (midi-controller-number controller)
+  (cond ((integer? controller)
+         (if (<= 0 controller 127)
+             controller
+             (error "MIDI controller number out of range 0--127:" controller)))
+        ((assq-ref midi-controller-numbers controller))
+        (else
+         (error "unknown MIDI controller name:" controller))))
+
+(define (check-midi-14bit-value value what)
+  (if (not (and (integer? value) (<= 0 value 16383)))
+      (error (format #f "MIDI ~a out of range 0--16383:" what) value)))
+
+(define*-public (midi-announce-controller performer controller value
+                                          #:optional cause)
+  "Announce a MIDI control change.  @var{controller} is a number in the
+range 0--127 or one of the symbols listed in
+@code{midi-controller-numbers}, such as @code{pan}, @code{volume},
+@code{expression}, @code{sustain}, @code{reverb} or @code{chorus}.
+@var{value} is in the range 0--127."
+  (ly:performer-announce-midi-channel
+   performer cause #xB0
+   (list (midi-controller-number controller) value)))
+
+(define*-public (midi-announce-controller-14bit performer controller value
+                                                #:optional cause)
+  "Announce a 14-bit MIDI control change as two messages: the most
+significant byte on @var{controller} (a number in the range 0--31 or the
+name of such a controller, e.g. @code{volume}), then the least significant
+byte on the controller 32 higher.  @var{value} is in the range 0--16383."
+  (let ((msb-controller (midi-controller-number controller)))
+    (if (> msb-controller 31)
+        (error "a 14-bit MIDI controller must be in the range 0--31:"
+               controller))
+    (check-midi-14bit-value value "controller value")
+    (midi-announce-controller performer msb-controller
+                              (quotient value 128) cause)
+    (midi-announce-controller performer (+ msb-controller 32)
+                              (modulo value 128) cause)))
+
+(define*-public (midi-announce-pitch-bend performer value #:optional cause)
+  "Announce a MIDI pitch bend message.  @var{value} is in the range
+0--16383, where 8192 means no bend."
+  (check-midi-14bit-value value "pitch bend value")
+  (ly:performer-announce-midi-channel
+   performer cause #xE0
+   (list (modulo value 128) (quotient value 128))))
+
+(define*-public (midi-announce-channel-pressure performer pressure
+                                                #:optional cause)
+  "Announce a MIDI channel pressure (channel aftertouch) message.
+@var{pressure} is in the range 0--127."
+  (ly:performer-announce-midi-channel performer cause #xD0 (list pressure)))
+
+(define*-public (midi-announce-poly-pressure performer note pressure
+                                             #:optional cause)
+  "Announce a MIDI polyphonic key pressure (polyphonic aftertouch) message
+for MIDI note number @var{note}.  @var{pressure} is in the range 0--127."
+  (ly:performer-announce-midi-channel performer cause #xA0
+                                      (list note pressure)))
+
+(define*-public (midi-announce-program-change performer program
+                                              #:optional cause)
+  "Announce a MIDI program change.  @var{program} is in the range 0--127."
+  (ly:performer-announce-midi-channel performer cause #xC0 (list program)))
+
+;; Send a registered or non-registered parameter number, its value, and then
+;; the null parameter number, so that later data entry messages cannot
+;; modify the parameter by accident.
+(define (announce-midi-parameter performer msb-controller lsb-controller
+                                 parameter value cause)
+  (check-midi-14bit-value parameter "parameter number")
+  (check-midi-14bit-value value "parameter value")
+  (let ((send (lambda (controller data)
+                (midi-announce-controller performer controller data cause))))
+    (send msb-controller (quotient parameter 128))
+    (send lsb-controller (modulo parameter 128))
+    (send 'data-entry-msb (quotient value 128))
+    (send 'data-entry-lsb (modulo value 128))
+    (send 'rpn-msb 127)
+    (send 'rpn-lsb 127)))
+
+(define*-public (midi-announce-rpn performer parameter value #:optional cause)
+  "Announce the setting of a registered parameter (RPN) as a sequence of
+control changes.  @var{parameter} and @var{value} are 14-bit numbers in the
+range 0--16383.  The sequence ends with the null parameter number."
+  (announce-midi-parameter performer 'rpn-msb 'rpn-lsb parameter value cause))
+
+(define*-public (midi-announce-nrpn performer parameter value #:optional cause)
+  "Announce the setting of a non-registered parameter (NRPN) as a sequence
+of control changes.  @var{parameter} and @var{value} are 14-bit numbers in
+the range 0--16383.  The sequence ends with the null parameter number."
+  (announce-midi-parameter performer 'nrpn-msb 'nrpn-lsb parameter value cause))
+
+(define*-public (midi-announce-pitch-bend-range performer semitones
+                                                #:optional (cents 0) cause)
+  "Announce a change of the pitch bend range of the channel to
+@var{semitones} (and optionally @var{cents}), using registered parameter 0."
+  (midi-announce-rpn performer 0 (+ (* 128 semitones) cents) cause))
+
+(define*-public (midi-announce-gm-system-on performer #:optional cause)
+  "Announce the General MIDI system on message, a system exclusive
+message."
+  (ly:performer-announce-midi-sysex performer cause
+                                    '(#x7e #x7f #x09 #x01)))
