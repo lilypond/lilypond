@@ -1,0 +1,5790 @@
+# Latvian translation of lilypond.
+# Copyright (C) 2026 Free Software Foundation, Inc.
+# This file is distributed under the same license as the lilypond package.
+# Rihards Priedītis <rprieditis@gmail.com>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: lilypond 2.26.0\n"
+"Report-Msgid-Bugs-To: https://mail.gnu.org/mailman/listinfo/bug-lilypond\n"
+"POT-Creation-Date: 2026-04-19 18:19+0200\n"
+"PO-Revision-Date: 2026-11-10 20:14+0200\n"
+"Last-Translator: Rihards Priedītis <rprieditis@gmail.com>\n"
+"Language-Team: Latvian <translation-team-lv@googlegroups.com>\n"
+"Language: lv\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==0 || (n%100>=11 && n%100<=19) ? 0 : n%10==1 && n%100!=11 ? 1 : 2);\n"
+"X-Generator: Poedit 3.10\n"
+
+#: book_base.py:46
+#, python-format
+msgid "file not found: %s"
+msgstr "fails nav atrasts: %s"
+
+#: book_base.py:198
+msgid "Output function not implemented"
+msgstr "Izvades funkcija nav realizēta"
+
+#: book_latex.py:213
+#, python-brace-format
+msgid "cannot find \\begin{document} in LaTeX document"
+msgstr "LaTeX dokumentā nevar atrast \\begin{document}"
+
+#: book_latex.py:229
+#, python-format
+msgid "Running `%s' on file `%s' to detect default page settings.\n"
+msgstr "Palaiž `%s' failam `%s', lai noteiktu noklusējuma lapas iestatījumus.\n"
+
+#: book_latex.py:259 book_texinfo.py:257
+msgid "Unable to auto-detect default settings:\n"
+msgstr "Nevar automātiski noteikt noklusējuma iestatījumus:\n"
+
+#: book_latex.py:275 book_texinfo.py:269
+#, python-format
+msgid ""
+"Unable to auto-detect default settings:\n"
+"%s"
+msgstr ""
+"Nevar automātiski noteikt noklusējuma iestatījumus:\n"
+"%s"
+
+#: book_snippets.py:453
+#, python-format
+msgid "deprecated ly-option used: %s=%s"
+msgstr "izmantota novecojusi ly-opcija: %s=%s"
+
+#: book_snippets.py:455
+#, python-format
+msgid "compatibility mode translation: %s=%s"
+msgstr "saderības režīma tulkojums: %s=%s"
+
+#: book_snippets.py:458
+#, python-format
+msgid "deprecated ly-option used: %s"
+msgstr "izmantota novecojusi ly-opcija: %s"
+
+#: book_snippets.py:460
+#, python-format
+msgid "compatibility mode translation: %s"
+msgstr "saderības režīma tulkojums: %s"
+
+#: book_snippets.py:490 book_snippets.py:499
+#, python-format
+msgid "ignoring invalid option %s=%s"
+msgstr "ignorē nederīgu opciju %s=%s"
+
+#: book_snippets.py:630
+#, python-format
+msgid "ignoring unknown ly option: %s"
+msgstr "ignorē nezināmu ly opciju: %s"
+
+#: book_snippets.py:731
+#, python-format
+msgid "Missing files: %s"
+msgstr "Trūkstošie faili: %s"
+
+#: book_snippets.py:769
+#, python-format
+msgid "Could not overwrite file %s"
+msgstr "Nevarēja pārrakstīt failu %s"
+
+#: book_snippets.py:860
+#, python-format
+msgid "Running through filter `%s'"
+msgstr "Laiž caur filtru `%s'"
+
+#: book_snippets.py:885
+#, python-format
+msgid "`%s' failed (%d)"
+msgstr "`%s' neizdevās (%d)"
+
+#: book_snippets.py:886
+msgid "The ly.error log is as follows:"
+msgstr "ly.error žurnāls ir šāds:"
+
+#: book_snippets.py:1032
+#, python-format
+msgid "Converting MusicXML file `%s'..."
+msgstr "Pārveido MusicXML failu `%s'..."
+
+#: book_snippets.py:1061
+#, python-format
+msgid ""
+"%s: duplicate filename but different contents of original file,\n"
+"printing diff against existing file."
+msgstr ""
+"%s: dublēts faila nosaukums, bet atšķirīgs sākotnējā faila saturs;\n"
+"izvada atšķirības pret esošo failu."
+
+#: book_snippets.py:1077
+#, python-format
+msgid ""
+"%s: duplicate filename but different contents of converted lilypond file,\n"
+"printing diff against existing file."
+msgstr ""
+"%s: dublēts faila nosaukums, bet atšķirīgs pārveidotā lilypond faila saturs;\n"
+"izvada atšķirības pret esošo failu."
+
+#: book_texinfo.py:234
+#, python-format
+msgid "Running texi2pdf on file %s to detect default page settings.\n"
+msgstr "Palaiž texi2pdf failam %s, lai noteiktu noklusējuma lapas iestatījumus.\n"
+
+#: convertrules.py:31
+#, python-format
+msgid "Not smart enough to convert %s."
+msgstr "Nav pietiekami gudrs, lai pārveidotu %s."
+
+#: convertrules.py:33
+msgid "Please refer to the manual for details, and update manually."
+msgstr "Lūdzu, sīkāk skatiet rokasgrāmatu un atjauniniet manuāli."
+
+#: convertrules.py:34
+#, python-format
+msgid "%s has been replaced by %s"
+msgstr "%s ir aizstāts ar %s"
+
+#: convertrules.py:46 lilylib.py:87 warn.cc:263
+#, c-format, python-format
+msgid "warning: %s"
+msgstr "brīdinājums: %s"
+
+#: convertrules.py:121
+msgid "new \\header format"
+msgstr "jauns \\header formāts"
+
+#: convertrules.py:148
+msgid "\\translator syntax"
+msgstr "\\translator sintakse"
+
+#: convertrules.py:329
+msgid "new \\notenames format"
+msgstr "jauns \\notenames formāts"
+
+#: convertrules.py:345
+msgid "new tremolo format"
+msgstr "jauns tremolo formāts"
+
+#: convertrules.py:480
+msgid "new \\textscript markup text"
+msgstr "jauns \\textscript marķējuma teksts"
+
+#: convertrules.py:770
+msgid "automaticMelismata is turned on by default since 1.5.67."
+msgstr "automaticMelismata kopš 1.5.67 ir ieslēgts pēc noklusējuma."
+
+#: convertrules.py:1059
+msgid "cluster syntax"
+msgstr "klasteru sintakse"
+
+#: convertrules.py:1407
+msgid "attempting automatic \\figures conversion.  Check results!"
+msgstr "mēģina automātiski pārveidot \\figures.  Pārbaudiet rezultātus!"
+
+#: convertrules.py:1453
+msgid "Use Scheme code to construct arbitrary note events."
+msgstr "Lai izveidotu patvaļīgus nošu notikumus, lietojiet Scheme kodu."
+
+#: convertrules.py:1484
+#, python-format
+msgid ""
+"\\outputproperty found,\n"
+"Please hand-edit, using\n"
+"\n"
+"  \\applyoutput #(outputproperty-compatibility %s '%s <GROB PROPERTY VALUE>)\n"
+"\n"
+"as a substitution text"
+msgstr ""
+"atrasts \\outputproperty,\n"
+"lūdzu, rediģējiet manuāli, izmantojot\n"
+"\n"
+"  \\applyoutput #(outputproperty-compatibility %s '%s <GROB PROPERTY VALUE>)\n"
+"\n"
+"kā aizstāšanas tekstu"
+
+#: convertrules.py:1496
+msgid ""
+"The alteration field of Scheme pitches was multiplied by 2\n"
+"to support quarter tone accidentals.  You must update the following constructs manually:\n"
+"\n"
+"* calls of ly:make-pitch and ly:pitch-alteration\n"
+"* keySignature settings made with \\property\n"
+msgstr ""
+"Scheme augstumu alterācijas lauks tika reizināts ar 2,\n"
+"lai atbalstītu ceturtdaļtoņu alterācijas zīmes.  Šīs konstrukcijas jāatjaunina manuāli:\n"
+"\n"
+"* ly:make-pitch un ly:pitch-alteration izsaukumi\n"
+"* keySignature iestatījumi, kas veikti ar \\property\n"
+
+#: convertrules.py:1675
+msgid "Drums found. Enclose drum notes in \\drummode"
+msgstr "Atrastas bungas. Ievietojiet bungu notis \\drummode"
+
+#: convertrules.py:1685 convertrules.py:1693 convertrules.py:1703
+#, python-format
+msgid ""
+"\n"
+"%s found. Check file manually!\n"
+msgstr ""
+"\n"
+"atrasts %s. Pārbaudiet failu manuāli!\n"
+
+#: convertrules.py:1686
+msgid "Drum notation"
+msgstr "Bungu notācija"
+
+#: convertrules.py:1818 convertrules.py:2207 convertrules.py:2212
+#: convertrules.py:2799
+#, python-format
+msgid "Use %s\n"
+msgstr "Lietojiet %s\n"
+
+#: convertrules.py:1959
+msgid ""
+"Page layout has been changed, using paper size and margins.\n"
+"textheight is no longer used.\n"
+msgstr ""
+"Lapas izkārtojums ir mainīts; tiek izmantots papīra izmērs un malas.\n"
+"textheight vairs netiek izmantots.\n"
+
+#: convertrules.py:2084
+msgid ""
+"staff size should be changed at top-level\n"
+"with\n"
+"\n"
+"  #(set-global-staff-size <STAFF-HEIGHT-IN-POINT>)\n"
+"\n"
+msgstr ""
+"nošu līnijas izmērs jāmaina augšējā līmenī\n"
+"ar\n"
+"\n"
+"  #(set-global-staff-size <STAFF-HEIGHT-IN-POINT>)\n"
+"\n"
+
+#: convertrules.py:2184
+msgid "LilyPond source must be UTF-8"
+msgstr "LilyPond pirmkodam jābūt UTF-8"
+
+#: convertrules.py:2187
+msgid "Try the texstrings backend"
+msgstr "Izmēģiniet texstrings aizmuguri"
+
+#: convertrules.py:2190
+#, python-format
+msgid "Do something like: %s"
+msgstr "Rīkojieties, piemēram, šādi: %s"
+
+#: convertrules.py:2193
+msgid "Or save as UTF-8 in your editor"
+msgstr "Vai saglabājiet redaktorā kā UTF-8"
+
+#: convertrules.py:2228
+msgid "auto beam settings"
+msgstr "automātiskās vīķēšanas iestatījumi"
+
+#: convertrules.py:2229
+msgid ""
+"\n"
+"Auto beam settings must now specify each interesting moment in a measure\n"
+"explicitly; 1/4 is no longer multiplied to cover moments 1/2 and 3/4 too.\n"
+msgstr ""
+"\n"
+"Automātiskās vīķēšanas iestatījumos tagad katrs svarīgais takts moments jānorāda\n"
+"eksplicīti; 1/4 vairs netiek reizināts, lai aptvertu arī momentus 1/2 un 3/4.\n"
+
+#: convertrules.py:2340
+msgid "verticalAlignmentChildCallback has been deprecated"
+msgstr "verticalAlignmentChildCallback ir novecojis"
+
+#: convertrules.py:2677
+msgid "edge-text settings for TextSpanner"
+msgstr "TextSpanner edge-text iestatījumi"
+
+#: convertrules.py:2678
+#, python-format
+msgid ""
+"Use\n"
+"\n"
+"%s"
+msgstr ""
+"Lietojiet\n"
+"\n"
+"%s"
+
+#: convertrules.py:2711
+msgid "Use the `alignment-offsets' sub-property of\n"
+msgstr "Lietojiet apakšīpašību `alignment-offsets' no\n"
+
+#: convertrules.py:2712
+msgid "NonMusicalPaperColumn #'line-break-system-details\n"
+msgstr "NonMusicalPaperColumn #'line-break-system-details\n"
+
+#: convertrules.py:2713
+msgid "to set fixed distances between staves.\n"
+msgstr "lai iestatītu fiksētus attālumus starp nošu līnijām.\n"
+
+#: convertrules.py:2731
+msgid "all settings related to dashed lines"
+msgstr "visi ar raustītām līnijām saistītie iestatījumi"
+
+#: convertrules.py:2733
+msgid "Use \\override ... #'style = #'line for solid lines and\n"
+msgstr "Lietojiet \\override ... #'style = #'line nepārtrauktām līnijām un\n"
+
+#: convertrules.py:2735
+msgid "\t\\override ... #'style = #'dashed-line for dashed lines."
+msgstr "\t\\override ... #'style = #'dashed-line raustītām līnijām."
+
+#: convertrules.py:2778
+msgid "metronomeMarkFormatter got an additional text argument.\n"
+msgstr "metronomeMarkFormatter ieguva papildu teksta argumentu.\n"
+
+#: convertrules.py:2779
+#, python-format
+msgid ""
+"The function assigned to Score.metronomeMarkFunction now uses the signature\n"
+"%s"
+msgstr ""
+"Score.metronomeMarkFunction piešķirtā funkcija tagad izmanto signatūru\n"
+"%s"
+
+#: convertrules.py:2798
+#, python-format
+msgid "%s in fret-diagram properties"
+msgstr "%s fret-diagram īpašībās"
+
+#: convertrules.py:2848
+msgid "\\put-adjacent argument order"
+msgstr "\\put-adjacent argumentu secība"
+
+#: convertrules.py:2849
+msgid "Axis and direction now come before markups:\n"
+msgstr "Ass un virziens tagad ir pirms marķējumiem:\n"
+
+#: convertrules.py:2850
+msgid "\\put-adjacent axis dir markup markup."
+msgstr "\\put-adjacent axis dir markup markup."
+
+#: convertrules.py:2888
+msgid "re-definition of InnerStaffGroup"
+msgstr "InnerStaffGroup atkārtota definīcija"
+
+#: convertrules.py:2893
+msgid "re-definition of InnerChoirStaff"
+msgstr "InnerChoirStaff atkārtota definīcija"
+
+#: convertrules.py:2908
+msgid "stringTuning must be added to addChordShape call.\n"
+msgstr "addChordShape izsaukumam jāpievieno stringTuning.\n"
+
+#: convertrules.py:2913
+msgid "stringTuning must be added to chord-shape call.\n"
+msgstr "chord-shape izsaukumam jāpievieno stringTuning.\n"
+
+#: convertrules.py:2923
+msgid ""
+"oldaddlyrics is no longer supported. \n"
+"         Use addlyrics or lyricsto instead.\n"
+msgstr ""
+"oldaddlyrics vairs netiek atbalstīts. \n"
+"         Tā vietā lietojiet addlyrics vai lyricsto.\n"
+
+#: convertrules.py:2935
+msgid "The alist for Staff.keySignature is no longer in reversed order.\n"
+msgstr "Staff.keySignature asociāciju saraksts vairs nav apgrieztā secībā.\n"
+
+#: convertrules.py:2947
+msgid "\\bar \".\" now produces a thick barline.\n"
+msgstr "\\bar \".\" tagad veido treknu taktsvītru.\n"
+
+#: convertrules.py:2955
+msgid "Dash parameters for slurs and ties are now in 'dash-definition.\n"
+msgstr "Līgu un saišu raustījuma parametri tagad ir 'dash-definition.\n"
+
+#: convertrules.py:2974
+msgid "    Autobeam settings are now overriden with \\overrideBeamSettings.\n"
+msgstr "    Automātiskās vīķēšanas iestatījumi tagad tiek pārrakstīti ar \\overrideBeamSettings.\n"
+
+#: convertrules.py:2979
+msgid "    Autobeam settings are now reverted with \\revertBeamSettings.\n"
+msgstr "    Automātiskās vīķēšanas iestatījumi tagad tiek atjaunoti ar \\revertBeamSettings.\n"
+
+#: convertrules.py:2985
+msgid ""
+"    beatGrouping with a specified context must now be accomplished with\n"
+"   \\overrideBeamSettings.\n"
+msgstr ""
+"    beatGrouping ar norādītu kontekstu tagad jāveic ar\n"
+"   \\overrideBeamSettings.\n"
+
+#: convertrules.py:2991
+msgid "alignment-offsets has been changed to alignment-distances: you must now specify the distances between staves rather than the offset of staves.\n"
+msgstr "alignment-offsets ir mainīts uz alignment-distances: tagad jānorāda attālumi starp nošu līnijām, nevis nošu līniju nobīde.\n"
+
+#: convertrules.py:3034
+msgid "Vertical spacing no longer depends on the Y-extent of a VerticalAxisGroup.\n"
+msgstr "Vertikālās atstarpes vairs nav atkarīgas no VerticalAxisGroup Y apjoma.\n"
+
+#: convertrules.py:3088
+msgid "Use \\set beamExceptions or \\overrideTimeSignatureSettings.\n"
+msgstr "Lietojiet \\set beamExceptions vai \\overrideTimeSignatureSettings.\n"
+
+#: convertrules.py:3093
+msgid "Use \\set beamExceptions or \\revertTimeSignatureSettings.\n"
+msgstr "Lietojiet \\set beamExceptions vai \\revertTimeSignatureSettings.\n"
+
+#: convertrules.py:3097
+msgid "Use baseMoment, beatStructure, and beamExceptions.\n"
+msgstr "Lietojiet baseMoment, beatStructure un beamExceptions.\n"
+
+#: convertrules.py:3101 convertrules.py:3105
+msgid "Use baseMoment and beatStructure.\n"
+msgstr "Lietojiet baseMoment un beatStructure.\n"
+
+#: convertrules.py:3117
+msgid "Move size, thickness, and graphic to properties.  Argument should be just the key list.\n"
+msgstr "Pārvietojiet size, thickness un graphic uz īpašībām.  Argumentam jābūt tikai taustiņu sarakstam.\n"
+
+#: convertrules.py:3169
+msgid "Adjust settings for top-system-spacing instead.\n"
+msgstr "Tā vietā pielāgojiet top-system-spacing iestatījumus.\n"
+
+#: convertrules.py:3173
+msgid "Adjust settings for last-bottom-spacing instead.\n"
+msgstr "Tā vietā pielāgojiet last-bottom-spacing iestatījumus.\n"
+
+#: convertrules.py:3188
+msgid "HarmonicParenthesesItem has been eliminated.\n"
+msgstr "HarmonicParenthesesItem ir likvidēts.\n"
+
+#: convertrules.py:3190
+msgid "Harmonic parentheses are part of the TabNoteHead grob.\n"
+msgstr "Flažoleta iekavas ir TabNoteHead grob daļa.\n"
+
+#: convertrules.py:3247
+msgid "Vertical spacing changes might affect user-defined contexts."
+msgstr "Vertikālo atstarpju izmaiņas var ietekmēt lietotāja definētus kontekstus."
+
+#: convertrules.py:3269
+msgid "Clarinet fingering changed to reflect actual anatomy of instrument.\n"
+msgstr "Klarnetes aplikatūra mainīta, lai atspoguļotu instrumenta faktisko anatomiju.\n"
+
+#: convertrules.py:3284
+msgid "If you are using non-automatic footnotes, make sure to set footnote-auto-numbering = ##f in the paper block.\n"
+msgstr "Ja izmantojat neautomātiskas zemsvītras piezīmes, pārliecinieties, ka paper blokā ir iestatīts footnote-auto-numbering = ##f.\n"
+
+#: convertrules.py:3294
+msgid "This internal property has been replaced by round-up-to-longer-rest, round-up-exceptions and usable-duration-logs.\n"
+msgstr "Šī iekšējā īpašība ir aizstāta ar round-up-to-longer-rest, round-up-exceptions un usable-duration-logs.\n"
+
+#: convertrules.py:3342
+msgid "consistent-broken-slope is now handled through the positions callback.\n"
+msgstr "consistent-broken-slope tagad tiek apstrādāts ar positions atzvanes funkciju.\n"
+
+#: convertrules.py:3344
+msgid "input/regression/beam-broken-classic.ly shows how broken beams are now handled.\n"
+msgstr "input/regression/beam-broken-classic.ly parāda, kā tagad tiek apstrādātas pārtrauktās vīķes.\n"
+
+#: convertrules.py:3514
+msgid "beamExceptions controls whole-measure beaming."
+msgstr "beamExceptions vada visa takta vīķēšanu."
+
+#: convertrules.py:3860
+msgid ""
+"\n"
+"staff-padding now controls the distance to the baseline, not the nearest point.\n"
+msgstr ""
+"\n"
+"staff-padding tagad vada attālumu līdz pamatlīnijai, nevis tuvākajam punktam.\n"
+
+#: convertrules.py:4154
+msgid ""
+"\n"
+"Previously the \"id\" grob property (string) was used for SVG output.\n"
+"Now \"output-attributes\" (association list) is used instead.\n"
+msgstr ""
+"\n"
+"Iepriekš SVG izvadei tika izmantota grob īpašība \"id\" (virkne).\n"
+"Tagad tās vietā tiek izmantota \"output-attributes\" (asociāciju saraksts).\n"
+
+#: convertrules.py:4261
+msgid "alternative chord naming functions"
+msgstr "alternatīvas akordu nosaukumu funkcijas"
+
+#: convertrules.py:4277
+msgid ""
+"\n"
+"Instead of (for example)\n"
+"  \\markup \\override #'(multi-measure-rest . #t) \\rest-by-number #0 #0\n"
+"use\n"
+"  \\markup \\multi-measure-rest-by-number #1\n"
+"\n"
+"The argument of \\multi-measure-rest-by-number is the number of measures\n"
+"the multi-measure rest lasts.\n"
+msgstr ""
+"\n"
+"(Piemēram) tā vietā, lai rakstītu\n"
+"  \\markup \\override #'(multi-measure-rest . #t) \\rest-by-number #0 #0\n"
+"lietojiet\n"
+"  \\markup \\multi-measure-rest-by-number #1\n"
+"\n"
+"\\multi-measure-rest-by-number arguments ir taktu skaits,\n"
+"ko ilgst vairāku taktu pauze.\n"
+
+#: convertrules.py:4313
+msgid ""
+"\n"
+"If you had\n"
+"\n"
+"  \\override Stem.neutral-direction = #DOWN\n"
+"\n"
+"and\n"
+"\n"
+"  \\override Stem.neutral-direction #'()\n"
+"\n"
+"to turn the use of the Melody_engraver off\n"
+"and on, respectively, you should instead use\n"
+"\n"
+"  \\set suspendMelodyDecisions = ##t\n"
+"\n"
+"and\n"
+"\n"
+"  \\set suspendMelodyDecisions = ##f\n"
+"\n"
+msgstr ""
+"\n"
+"Ja jums bija\n"
+"\n"
+"  \\override Stem.neutral-direction = #DOWN\n"
+"\n"
+"un\n"
+"\n"
+"  \\override Stem.neutral-direction #'()\n"
+"\n"
+"attiecīgi Melody_engraver izslēgšanai\n"
+"un ieslēgšanai, tā vietā lietojiet\n"
+"\n"
+"  \\set suspendMelodyDecisions = ##t\n"
+"\n"
+"un\n"
+"\n"
+"  \\set suspendMelodyDecisions = ##f\n"
+"\n"
+
+#: convertrules.py:4359
+msgid "Stem.neutral-direction with Melody_engraver"
+msgstr "Stem.neutral-direction ar Melody_engraver"
+
+#: convertrules.py:4368
+msgid ""
+"\n"
+"ly:round-filled-polygon was renamed to ly:round-polygon and now takes\n"
+"an additional optional parameter specifying whether the polygon is filled.\n"
+"The default value of the extroversion optional parameter was changed from\n"
+"-1 to 0.\n"
+msgstr ""
+"\n"
+"ly:round-filled-polygon ir pārdēvēts par ly:round-polygon, un tagad tas pieņem\n"
+"papildu neobligātu parametru, kas norāda, vai daudzstūris ir aizpildīts.\n"
+"Neobligātā parametra extroversion noklusējuma vērtība mainīta no\n"
+"-1 uz 0.\n"
+
+#: convertrules.py:4445
+msgid ""
+"\n"
+"If independent mark sequences are desired, use multiple Mark_tracking_translators.\n"
+msgstr ""
+"\n"
+"Ja vēlaties neatkarīgas atzīmju secības, lietojiet vairākus Mark_tracking_translators.\n"
+
+#: convertrules.py:4462
+msgid ""
+"\n"
+"The signature of the markup->string Scheme function changed.  Calls with\n"
+"just one argument are not affected.  Calls using the second optional\n"
+"argument, the list of header modules, should be changed from\n"
+"\n"
+"  (markup->string <markup> <header list>)\n"
+"\n"
+"to\n"
+"\n"
+"  (markup->string <markup> #:props (headers-property-alist-chain <header list>))\n"
+"\n"
+msgstr ""
+"\n"
+"Scheme funkcijas markup->string signatūra ir mainīta.  Izsaukumus\n"
+"tikai ar vienu argumentu tas neietekmē.  Izsaukumi, kas izmanto otro neobligāto\n"
+"argumentu — galveņu moduļu sarakstu —, jāmaina no\n"
+"\n"
+"  (markup->string <markup> <header list>)\n"
+"\n"
+"uz\n"
+"\n"
+"  (markup->string <markup> #:props (headers-property-alist-chain <header list>))\n"
+"\n"
+
+#: convertrules.py:4519
+msgid ""
+"\n"
+"Warning:\n"
+"\n"
+"Your score contains a setting of barNumberVisibility to\n"
+"#all-bar-numbers-visible and a setting of BarNumber.break-visibility,\n"
+"but not \\bar \"\" command.  This likely means that you have\n"
+"been using\n"
+"\n"
+"  \\set Score.barNumberVisibility = #all-bar-numbers-visible\n"
+"  \\override Score.BarNumber.break-visibility = #end-of-line-invisible\n"
+"\n"
+"in order to print bar numbers in the middle of systems\n"
+"in addition to bar numbers at the beginning of systems.\n"
+"In 2.23.7 and later, this will print the first bar number\n"
+"too, which has always been the intended effect of\n"
+"#all-bar-numbers-visible, but did not work without \\bar \"\"\n"
+"for technical reasons.  If you do not want the first\n"
+"bar number, remove the command\n"
+"\n"
+"  \\set Score.barNumberVisibility = #all-bar-numbers-visible\n"
+msgstr ""
+"\n"
+"Brīdinājums:\n"
+"\n"
+"Jūsu partitūrā ir barNumberVisibility iestatījums uz\n"
+"#all-bar-numbers-visible un BarNumber.break-visibility iestatījums,\n"
+"bet nav komandas \\bar \"\".  Visticamāk, tas nozīmē, ka esat\n"
+"lietojis\n"
+"\n"
+"  \\set Score.barNumberVisibility = #all-bar-numbers-visible\n"
+"  \\override Score.BarNumber.break-visibility = #end-of-line-invisible\n"
+"\n"
+"lai izvadītu taktu numurus sistēmu vidū\n"
+"papildus taktu numuriem sistēmu sākumā.\n"
+"2.23.7 un jaunākās versijās tas izvadīs arī pirmā takta numuru,\n"
+"kas vienmēr bija #all-bar-numbers-visible paredzētais efekts,\n"
+"bet tehnisku iemeslu dēļ nedarbojās bez \\bar \"\".\n"
+"Ja pirmā takta numuru nevēlaties, noņemiet komandu\n"
+"\n"
+"  \\set Score.barNumberVisibility = #all-bar-numbers-visible\n"
+
+#: convertrules.py:4577
+msgid ""
+"\n"
+"The X-offset property of PercentRepeat is no longer relative to the\n"
+"default position (centered), but to the left of the span within\n"
+"which the object is centered.  Overrides/tweaks to PercentRepeat.X-offset\n"
+"should be updated.\n"
+msgstr ""
+"\n"
+"PercentRepeat īpašība X-offset vairs nav relatīva pret\n"
+"noklusējuma pozīciju (centrēto), bet pret tā posma kreiso malu,\n"
+"kurā objekts ir centrēts.  PercentRepeat.X-offset pārrakstījumi/pielāgojumi\n"
+"jāatjaunina.\n"
+
+#: convertrules.py:4596
+msgid ""
+"\n"
+"The automaticBars property has been removed.  Instead, set\n"
+"measureBarType to #'() or a valid bar type.\n"
+msgstr ""
+"\n"
+"Īpašība automaticBars ir izņemta.  Tā vietā iestatiet\n"
+"measureBarType uz #'() vai derīgu taktsvītras tipu.\n"
+
+#: convertrules.py:4614
+msgid "advanced use of automaticBars"
+msgstr "automaticBars paplašināta lietošana"
+
+#: convertrules.py:4660
+msgid ""
+"\n"
+"Warning: \\fine no longer enforces the end of the music.  If your piece\n"
+"has music following \\fine that you want to exclude when it is\n"
+"unfolded, use \\volta to exclude it.\n"
+msgstr ""
+"\n"
+"Brīdinājums: \\fine vairs neuzspiež mūzikas beigas.  Ja jūsu skaņdarbā\n"
+"aiz \\fine ir mūzika, ko vēlaties izslēgt,\n"
+"to izvēršot, lietojiet \\volta, lai to izslēgtu.\n"
+
+#: convertrules.py:4666
+msgid ""
+"\n"
+"MensuralStaff and VaticanaStaff now use Divisio_engraver to engrave\n"
+"divisiones as Divisio grobs.\n"
+"\n"
+"Previously, the respective Voice-aliased contexts used\n"
+"Breathing_sign_engraver to engrave divisiones as BreathingSign grobs.\n"
+"Because of the new names and the move from Voice to Staff, layout\n"
+"adjustments for the old scheme are not effective for the new.\n"
+"\n"
+"If you are not content with the new default layout, deal with Divisio\n"
+"and Divisio_engraver in the appropriate Staff-aliased context.\n"
+msgstr ""
+"\n"
+"MensuralStaff un VaticanaStaff tagad izmanto Divisio_engraver,\n"
+"lai gravētu divisiones kā Divisio grob.\n"
+"\n"
+"Iepriekš attiecīgie ar Voice aizstājvārdu saistītie konteksti izmantoja\n"
+"Breathing_sign_engraver, lai gravētu divisiones kā BreathingSign grob.\n"
+"Jauno nosaukumu un pārejas no Voice uz Staff dēļ vecās shēmas\n"
+"izkārtojuma pielāgojumi jaunajai nav efektīvi.\n"
+"\n"
+"Ja neesat apmierināts ar jauno noklusējuma izkārtojumu, strādājiet ar Divisio\n"
+"un Divisio_engraver atbilstošajā ar Staff aizstājvārdu saistītajā kontekstā.\n"
+
+#: convertrules.py:4679
+msgid ""
+"\n"
+"GregorianTranscriptionStaff now engraves \\divisioMinima,\n"
+"\\divisioMaior, and \\divisioMaxima as BarLine grobs using Bar_engraver,\n"
+"and engraves \\caesura and \\virgula as Divisio grobs using\n"
+"Divisio_engraver.\n"
+"\n"
+"Previously, GregorianTranscriptionVoice used Breathing_sign_engraver\n"
+"to engrave these as BreathingSign grobs.  Because of the new names and\n"
+"the move from Voice to Staff, layout adjustments for the old scheme\n"
+"are not effective for the new.\n"
+"\n"
+"If you are not content with the new default layout, deal with BarLine,\n"
+"Bar_engraver, Divisio, and Divisio_engraver in\n"
+"GregorianTranscriptionStaff context.  \\EnableGregorianDivisiones may\n"
+"also be used to switch to engraving Divisio grobs instead of BarLine\n"
+"grobs.\n"
+msgstr ""
+"\n"
+"GregorianTranscriptionStaff tagad gravē \\divisioMinima,\n"
+"\\divisioMaior un \\divisioMaxima kā BarLine grob, izmantojot Bar_engraver,\n"
+"un gravē \\caesura un \\virgula kā Divisio grob, izmantojot\n"
+"Divisio_engraver.\n"
+"\n"
+"Iepriekš GregorianTranscriptionVoice izmantoja Breathing_sign_engraver,\n"
+"lai gravētu tos kā BreathingSign grob.  Jauno nosaukumu un\n"
+"pārejas no Voice uz Staff dēļ vecās shēmas izkārtojuma pielāgojumi\n"
+"jaunajai nav efektīvi.\n"
+"\n"
+"Ja neesat apmierināts ar jauno noklusējuma izkārtojumu, strādājiet ar BarLine,\n"
+"Bar_engraver, Divisio un Divisio_engraver\n"
+"GregorianTranscriptionStaff kontekstā.  Var izmantot arī\n"
+"\\EnableGregorianDivisiones, lai pārslēgtos uz Divisio grob gravēšanu BarLine\n"
+"grob vietā.\n"
+
+#: convertrules.py:4707
+msgid "music following \\fine"
+msgstr "mūzika aiz \\fine"
+
+#: convertrules.py:4712
+msgid "BreathingSign to BarLine or Divisio"
+msgstr "BreathingSign uz BarLine vai Divisio"
+
+#: convertrules.py:4717
+msgid "BreathingSign to Divisio"
+msgstr "BreathingSign uz Divisio"
+
+#: convertrules.py:4723
+msgid ""
+"\n"
+"The barAlways property has been removed.  Instead, use\n"
+"forbidBreakBetweenBarLines.\n"
+msgstr ""
+"\n"
+"Īpašība barAlways ir izņemta.  Tā vietā lietojiet\n"
+"forbidBreakBetweenBarLines.\n"
+
+#: convertrules.py:4735
+msgid "advanced use of barAlways"
+msgstr "barAlways paplašināta lietošana"
+
+#: convertrules.py:4741
+msgid ""
+"\n"
+"The second argument to ly:skylines-for-stencil is now the 'horizon axis',\n"
+"which is the opposite of the convention used previously.\n"
+msgstr ""
+"\n"
+"ly:skylines-for-stencil otrais arguments tagad ir 'horizon axis',\n"
+"kas ir pretējs iepriekš lietotajai konvencijai.\n"
+
+#: convertrules.py:4751
+msgid "ly:skylines-for-stencil second argument"
+msgstr "ly:skylines-for-stencil otrais arguments"
+
+#: convertrules.py:4773
+msgid ""
+"\n"
+"The string-regexp-substitute function has been removed.  A call\n"
+"\n"
+"  (string-regexp-substitute pattern replacement str)\n"
+"\n"
+"should be replaced with\n"
+"\n"
+"  (ly:regex-replace (ly:make-regex pattern) str replacement)\n"
+msgstr ""
+"\n"
+"Funkcija string-regexp-substitute ir izņemta.  Izsaukums\n"
+"\n"
+"  (string-regexp-substitute pattern replacement str)\n"
+"\n"
+"jāaizstāj ar\n"
+"\n"
+"  (ly:regex-replace (ly:make-regex pattern) str replacement)\n"
+
+#: convertrules.py:4783
+msgid ""
+"\n"
+"uniqued-alist no longer needs to take '() as its second argument.\n"
+msgstr ""
+"\n"
+"uniqued-alist vairs nav jāpieņem '() kā otrais arguments.\n"
+
+#. This replacement is not 100% reliable, but should do a good job.
+#. If there is the #:factor (/ staff-height pt 20) parameter in the
+#. set-global-fonts call, the user had done what it took to heed any
+#. custom font size, so we're fine. If no #:factor was passed, we
+#. assume that the user was not changing the font size, as doing that
+#. without passing #:factor was resulting in bad output anyway.
+#. Other values result in a warning.
+#: convertrules.py:4871
+#, python-brace-format
+msgid ""
+"\n"
+"LilyPond now uses a different syntax for selecting fonts.  The\n"
+"set-global-fonts Scheme function has been removed.  convert-ly\n"
+"has mostly converted the call for you, but it was not able to\n"
+"convert the #:factor parameter.  Now, font selection is independent\n"
+"from setting the font size.  Please use set-global-staff-size\n"
+"or layout-set-staff-size to replace this parameter, which you\n"
+"set to:\n"
+"\n"
+"    {}\n"
+"\n"
+msgstr ""
+"\n"
+"LilyPond tagad fontu izvēlei izmanto citu sintaksi.  Scheme\n"
+"funkcija set-global-fonts ir izņemta.  convert-ly\n"
+"lielākoties ir pārveidojis izsaukumu jūsu vietā, bet tas nespēja\n"
+"pārveidot parametru #:factor.  Tagad fontu izvēle ir neatkarīga\n"
+"no fonta izmēra iestatīšanas.  Lūdzu, lietojiet set-global-staff-size\n"
+"vai layout-set-staff-size, lai aizstātu šo parametru, ko\n"
+"esat iestatījis uz:\n"
+"\n"
+"    {}\n"
+"\n"
+
+#: convertrules.py:4884
+msgid ""
+"\n"
+"LilyPond now uses a different syntax for selecting fonts.  The #:brace\n"
+"argument to set-global-fonts does not have an equivalent in the new syntax;\n"
+"braces now use the normal music font family by default.  Your code contains\n"
+"a call to set-global-fonts where the #:music and #:brace parameters have\n"
+"different values.  If you wish to set braces in a different music font than\n"
+"other music glyphs, use code such as\n"
+"\n"
+"\\paper {\n"
+"  fonts.music-alt = \"your-music-font\"\n"
+"}\n"
+"\n"
+"\\layout {\n"
+"  \\context {\n"
+"    \\Score\n"
+"    \\override SystemStartBrace.font-family = #'music-alt\n"
+"  }\n"
+"}\n"
+msgstr ""
+"\n"
+"LilyPond tagad fontu izvēlei izmanto citu sintaksi.  Argumentam #:brace\n"
+"funkcijai set-global-fonts jaunajā sintaksē nav ekvivalenta;\n"
+"figūriekavas tagad pēc noklusējuma izmanto parasto mūzikas fontu saimi.  Jūsu kodā ir\n"
+"set-global-fonts izsaukums, kurā parametriem #:music un #:brace ir\n"
+"atšķirīgas vērtības.  Ja vēlaties figūriekavas iestatīt citā mūzikas fontā nekā\n"
+"pārējos mūzikas glifus, lietojiet, piemēram, šādu kodu\n"
+"\n"
+"\\paper {\n"
+"  fonts.music-alt = \"your-music-font\"\n"
+"}\n"
+"\n"
+"\\layout {\n"
+"  \\context {\n"
+"    \\Score\n"
+"    \\override SystemStartBrace.font-family = #'music-alt\n"
+"  }\n"
+"}\n"
+
+#: convertrules.py:4904
+msgid ""
+"\n"
+"LilyPond now uses a different syntax for selecting fonts. The code equivalent\n"
+"to the previous spelling\n"
+"\n"
+"\\paper {\n"
+"  #(define fonts\n"
+"     (set-global-fonts #:music \"music-font\"\n"
+"                       #:brace \"brace-font\"\n"
+"                       #:roman \"roman font\"\n"
+"                       #:sans \"sans font\"\n"
+"                       #:typewriter \"typewriter font\"))\n"
+"}\n"
+"\n"
+"is now\n"
+"\n"
+"\\paper {\n"
+"  fonts.music = \"music-font\"\n"
+"  fonts.roman = \"roman font\"\n"
+"  fonts.sans = \"sans font\"\n"
+"  fonts.typewriter = \"typewriter font\"\n"
+"}\n"
+"\n"
+"convert-ly found an advanced use of set-global-fonts that it was not able to\n"
+"convert automatically.  Please do the update manually.\n"
+msgstr ""
+"\n"
+"LilyPond tagad fontu izvēlei izmanto citu sintaksi. Iepriekšējam pierakstam\n"
+"ekvivalentais kods\n"
+"\n"
+"\\paper {\n"
+"  #(define fonts\n"
+"     (set-global-fonts #:music \"music-font\"\n"
+"                       #:brace \"brace-font\"\n"
+"                       #:roman \"roman font\"\n"
+"                       #:sans \"sans font\"\n"
+"                       #:typewriter \"typewriter font\"))\n"
+"}\n"
+"\n"
+"tagad ir\n"
+"\n"
+"\\paper {\n"
+"  fonts.music = \"music-font\"\n"
+"  fonts.roman = \"roman font\"\n"
+"  fonts.sans = \"sans font\"\n"
+"  fonts.typewriter = \"typewriter font\"\n"
+"}\n"
+"\n"
+"convert-ly atrada set-global-fonts paplašinātu lietošanu, ko tas nespēja\n"
+"pārveidot automātiski.  Lūdzu, atjauniniet manuāli.\n"
+
+#: convertrules.py:4949
+msgid "#:factor parameter to set-global-fonts"
+msgstr "set-global-fonts parametrs #:factor"
+
+#: convertrules.py:4954
+msgid "different music and brace fonts passed to set-global-fonts"
+msgstr "set-global-fonts nodoti atšķirīgi mūzikas un figūriekavu fonti"
+
+#: convertrules.py:4971
+msgid "advanced use of set-global-fonts"
+msgstr "set-global-fonts paplašināta lietošana"
+
+#. Similar logic here with the factor parameter here
+#: convertrules.py:4976
+#, python-brace-format
+msgid ""
+"\n"
+"LilyPond now uses a different syntax for selecting fonts.  The\n"
+"make-pango-font-tree Scheme function has been removed.  convert-ly\n"
+"has mostly converted the call for you, but it was not able to\n"
+"convert the #:factor parameter.  Now, font selection is independent\n"
+"from setting the font size.  Please use set-global-staff-size\n"
+"or layout-set-staff-size to replace this parameter, which you\n"
+"set to:\n"
+"\n"
+"    {}\n"
+"\n"
+msgstr ""
+"\n"
+"LilyPond tagad fontu izvēlei izmanto citu sintaksi.  Scheme\n"
+"funkcija make-pango-font-tree ir izņemta.  convert-ly\n"
+"lielākoties ir pārveidojis izsaukumu jūsu vietā, bet tas nespēja\n"
+"pārveidot parametru #:factor.  Tagad fontu izvēle ir neatkarīga\n"
+"no fonta izmēra iestatīšanas.  Lūdzu, lietojiet set-global-staff-size\n"
+"vai layout-set-staff-size, lai aizstātu šo parametru, ko\n"
+"esat iestatījis uz:\n"
+"\n"
+"    {}\n"
+"\n"
+
+#: convertrules.py:4989
+msgid ""
+"\n"
+"LilyPond now uses a different syntax for selecting fonts. The code equivalent\n"
+"to the previous spelling\n"
+"\n"
+"\\paper {\n"
+"  #(define fonts\n"
+"     (make-pango-font-tree\n"
+"       \"roman font\"\n"
+"       \"sans font\"\n"
+"       \"typewriter font\"\n"
+"       factor))\n"
+"}\n"
+"\n"
+"is now\n"
+"\n"
+"\\paper {\n"
+"  fonts.roman = \"roman font\"\n"
+"  fonts.sans = \"sans font\"\n"
+"  fonts.typewriter = \"typewriter font\"\n"
+"}\n"
+"\n"
+"convert-ly found an advanced use of make-pango-font-tree that it was not able\n"
+"to convert automatically.  Please do the update manually.\n"
+msgstr ""
+"\n"
+"LilyPond tagad fontu izvēlei izmanto citu sintaksi. Iepriekšējam pierakstam\n"
+"ekvivalentais kods\n"
+"\n"
+"\\paper {\n"
+"  #(define fonts\n"
+"     (make-pango-font-tree\n"
+"       \"roman font\"\n"
+"       \"sans font\"\n"
+"       \"typewriter font\"\n"
+"       factor))\n"
+"}\n"
+"\n"
+"tagad ir\n"
+"\n"
+"\\paper {\n"
+"  fonts.roman = \"roman font\"\n"
+"  fonts.sans = \"sans font\"\n"
+"  fonts.typewriter = \"typewriter font\"\n"
+"}\n"
+"\n"
+"convert-ly atrada make-pango-font-tree paplašinātu lietošanu, ko tas nespēja\n"
+"pārveidot automātiski.  Lūdzu, atjauniniet manuāli.\n"
+
+#: convertrules.py:5036
+msgid "factor parameter to make-pango-font-tree"
+msgstr "make-pango-font-tree parametrs factor"
+
+#: convertrules.py:5047
+msgid "advanced use of make-pango-font-tree"
+msgstr "make-pango-font-tree paplašināta lietošana"
+
+#: convertrules.py:5103
+msgid "markup in repeatCommands"
+msgstr "marķējums repeatCommands"
+
+#: convertrules.py:5104
+msgid ""
+"\n"
+"Markups inside repeatCommands are no longer automatically typeset in\n"
+"a music font. Use the \\volta-number command where needed. Example\n"
+"replacements:\n"
+"\n"
+"  \\set Score.repeatCommands = #'((volta \"ad lib.\"))\n"
+"  [does not need conversion]\n"
+"\n"
+"  \\set Score.repeatCommands = #'((volta \"1.2.\"))\n"
+"  -> \\set Score.repeatCommands = #`((volta ,#{ \\markup \\volta-number \"1.2.\" #}))\n"
+"\n"
+"  \\set Score.repeatCommands = #'((volta \"1.2. ad lib.\"))\n"
+"  -> \\set Score.repeatCommands = #`((volta ,#{ \\markup { \\volta-number \"1.2.\" ad lib. } #}))\n"
+msgstr ""
+"\n"
+"Marķējumi repeatCommands vairs netiek automātiski salikti\n"
+"mūzikas fontā. Kur nepieciešams, lietojiet komandu \\volta-number. Aizstāšanas\n"
+"piemēri:\n"
+"\n"
+"  \\set Score.repeatCommands = #'((volta \"ad lib.\"))\n"
+"  [nav jāpārveido]\n"
+"\n"
+"  \\set Score.repeatCommands = #'((volta \"1.2.\"))\n"
+"  -> \\set Score.repeatCommands = #`((volta ,#{ \\markup \\volta-number \"1.2.\" #}))\n"
+"\n"
+"  \\set Score.repeatCommands = #'((volta \"1.2. ad lib.\"))\n"
+"  -> \\set Score.repeatCommands = #`((volta ,#{ \\markup { \\volta-number \"1.2.\" ad lib. } #}))\n"
+
+#: convertrules.py:5138
+msgid "advanced use of (text-)font-defaults"
+msgstr "(text-)font-defaults paplašināta lietošana"
+
+#: convertrules.py:5139
+msgid ""
+"\n"
+"The text-font-defaults and font-defaults variables have\n"
+"been merged into a single property-defaults variable.\n"
+msgstr ""
+"\n"
+"Mainīgie text-font-defaults un font-defaults ir\n"
+"apvienoti vienā mainīgajā property-defaults.\n"
+
+#: convertrules.py:5145
+#, python-brace-format
+msgid ""
+"\n"
+"Identifiers formerly in file 'gregorian.ly' are now always defined.  The\n"
+"following variable or variables in your LilyPond input file have the same\n"
+"name as one of these identifiers:\n"
+"\n"
+"  {}\n"
+"\n"
+"It is recommended to rename them.\n"
+msgstr ""
+"\n"
+"Identifikatori, kas agrāk bija failā 'gregorian.ly', tagad vienmēr ir definēti.\n"
+"Šiem mainīgajiem jūsu LilyPond ievades failā ir tāds pats\n"
+"nosaukums kā kādam no šiem identifikatoriem:\n"
+"\n"
+"  {}\n"
+"\n"
+"Ieteicams tos pārdēvēt.\n"
+
+#: convertrules.py:5155
+msgid ""
+"\n"
+"The use of 'gregorian.ly' is deprecated.  Code like\n"
+"\n"
+"  \\input \"gregorian.ly\"\n"
+"\n"
+"  \\new VaticanaStaff { ... }\n"
+"\n"
+"should be replaced with\n"
+"\n"
+"  \\new VaticanaScore {\n"
+"    \\new VaticanaStaff { ... }\n"
+"  }\n"
+"\n"
+"  \\layout {\n"
+"    indent = 0\n"
+"    ragged-last = ##t\n"
+"  }\n"
+"\n"
+msgstr ""
+"\n"
+"'gregorian.ly' lietošana ir novecojusi.  Kods, piemēram,\n"
+"\n"
+"  \\input \"gregorian.ly\"\n"
+"\n"
+"  \\new VaticanaStaff { ... }\n"
+"\n"
+"jāaizstāj ar\n"
+"\n"
+"  \\new VaticanaScore {\n"
+"    \\new VaticanaStaff { ... }\n"
+"  }\n"
+"\n"
+"  \\layout {\n"
+"    indent = 0\n"
+"    ragged-last = ##t\n"
+"  }\n"
+"\n"
+
+#: convertrules.py:5216
+msgid "gregorian.ly to VaticanaScore"
+msgstr "gregorian.ly uz VaticanaScore"
+
+#: convertrules.py:5232
+msgid "possible use of \\roman markup command with #(markup ...) macro"
+msgstr "iespējama marķējuma komandas \\roman lietošana ar makrosu #(markup ...)"
+
+#: convertrules.py:5234
+msgid ""
+"\n"
+"convert-ly detected \"#:roman\" in the input file.  This may be\n"
+"related to using the \\roman markup command with the markup\n"
+"macro, e.g., #(markup #:roman ...).  If this is the case, convert\n"
+"#:roman to #:serif.\n"
+msgstr ""
+"\n"
+"convert-ly ievades failā atrada \"#:roman\".  Tas var būt\n"
+"saistīts ar marķējuma komandas \\roman lietošanu ar markup\n"
+"makrosu, piem., #(markup #:roman ...).  Ja tā ir, pārveidojiet\n"
+"#:roman uz #:serif.\n"
+
+#: convertrules.py:5278
+msgid "subdivideBeams"
+msgstr "subdivideBeams"
+
+#: convertrules.py:5279
+msgid ""
+"\n"
+"Context property 'subdivideBeams' used to rely on the value of\n"
+"'baseMoment' for the minimum subdivision interval.  Now, separate\n"
+"properties 'minimumBeamSubdivisionInterval',\n"
+"'maximumBeamSubdivisionInterval', and 'respectIncompleteBeams'\n"
+"specifically control beam subdivision intervals, whereas 'baseMoment' no\n"
+"longer has an effect.  The value of 'baseMoment' may implicitly change\n"
+"whenever a time signature changes or is first set, so preserving past\n"
+"behavior requires setting 'minimumBeamSubdivisionInterval' to the same\n"
+"value of 'baseMoment', even at each implicit setting of 'baseMoment',\n"
+"and setting 'respectIncompleteBeams' to true.\n"
+msgstr ""
+"\n"
+"Konteksta īpašība 'subdivideBeams' minimālajam apakšdalījuma intervālam agrāk\n"
+"paļāvās uz 'baseMoment' vērtību.  Tagad atsevišķas\n"
+"īpašības 'minimumBeamSubdivisionInterval',\n"
+"'maximumBeamSubdivisionInterval' un 'respectIncompleteBeams'\n"
+"īpaši vada vīķu apakšdalījuma intervālus, savukārt 'baseMoment'\n"
+"vairs neietekmē.  'baseMoment' vērtība var netieši mainīties\n"
+"ikreiz, kad mainās vai pirmo reizi tiek iestatīts taktsmērs, tāpēc iepriekšējās\n"
+"uzvedības saglabāšanai 'minimumBeamSubdivisionInterval' jāiestata uz to pašu\n"
+"'baseMoment' vērtību, pat katrā netiešā 'baseMoment' iestatīšanā,\n"
+"un 'respectIncompleteBeams' jāiestata uz true.\n"
+
+#: convertrules.py:5475
+msgid "Advanced use of partcombine music types."
+msgstr "partcombine mūzikas tipu paplašināta lietošana."
+
+#: convertrules.py:5476
+msgid ""
+"\n"
+"UnisonoEvent, SoloOneEvent, and SoloTwoEvent have been merged into\n"
+"PartCombineEvent, with different values for property 'part-combine-status:\n"
+"'unisono, 'solo1, 'solo2 respectively.\n"
+msgstr ""
+"\n"
+"UnisonoEvent, SoloOneEvent un SoloTwoEvent ir apvienoti\n"
+"PartCombineEvent ar atšķirīgām īpašības 'part-combine-status vērtībām:\n"
+"attiecīgi 'unisono, 'solo1, 'solo2.\n"
+
+#: convertrules.py:5483
+msgid "Advanced use of partcombine event classes."
+msgstr "partcombine notikumu klašu paplašināta lietošana."
+
+#: convertrules.py:5484
+msgid ""
+"\n"
+"unisono-event, solo-one-event, and solo-two-event have been removed. Instead,\n"
+"use part-combine-event with different values for property 'part-combine-status:\n"
+"'unisono, 'solo1, 'solo2 respectively.\n"
+msgstr ""
+"\n"
+"unisono-event, solo-one-event un solo-two-event ir izņemti. Tā vietā\n"
+"lietojiet part-combine-event ar atšķirīgām īpašības 'part-combine-status vērtībām:\n"
+"attiecīgi 'unisono, 'solo1, 'solo2.\n"
+
+#: convertrules.py:5491
+msgid ""
+"\n"
+"Advanced use of make-part-combine-marks or make-part-combine-context-changes.\n"
+msgstr ""
+"\n"
+"make-part-combine-marks vai make-part-combine-context-changes paplašināta lietošana.\n"
+
+#: convertrules.py:5494
+msgid ""
+"\n"
+"The format of values returned by all partcombine state machine tables was\n"
+"changed:\n"
+"\n"
+"  1. 'next-label' symbols moved from LAST to FIRST\n"
+"  2. Values are now always proper lists (changed from dotted pairs for\n"
+"     context-changes table)\n"
+"\n"
+"The order of arguments to make-part-combine-marks was reversed (but not for\n"
+"make-part-combine-context-changes). The state-machine argument is now optional,\n"
+"and expects a procedure rather than a state-machine table. For equivalent\n"
+"behavior, pass:\n"
+"        (traverse-state-machine <your-state-machine-table>)\n"
+"as the second argument.\n"
+"\n"
+"Refer to part-combiner.scm for more information.\n"
+msgstr ""
+"\n"
+"Visu partcombine stāvokļu mašīnas tabulu atgriezto vērtību formāts ir\n"
+"mainīts:\n"
+"\n"
+"  1. 'next-label' simboli pārvietoti no LAST uz FIRST\n"
+"  2. Vērtības tagad vienmēr ir pareizi saraksti (mainīts no punktētiem pāriem\n"
+"     context-changes tabulai)\n"
+"\n"
+"make-part-combine-marks argumentu secība ir apgriezta (bet ne\n"
+"make-part-combine-context-changes). Arguments state-machine tagad ir neobligāts,\n"
+"un tas gaida procedūru, nevis stāvokļu mašīnas tabulu. Līdzvērtīgai\n"
+"uzvedībai nododiet:\n"
+"        (traverse-state-machine <your-state-machine-table>)\n"
+"kā otro argumentu.\n"
+"\n"
+"Vairāk informācijas skatiet part-combiner.scm.\n"
+
+#: convertrules.py:5572
+msgid "toe and heel marks with direction modifiers"
+msgstr "pirkstgala un papēža zīmes ar virziena modifikatoriem"
+
+#: convertrules.py:5573
+msgid ""
+"\n"
+"\\rtoe, \\ltoe, \\rheel, and \\lheel now ignore them.  Three possible solutions:\n"
+"  - use the `toeHeelStyle` context property to style the pedal mark commands\n"
+"    instead of specifying explicit directions (preferred)\n"
+"  - use normal articulations \\toe, \\vartoe, \\heel, or \\varheel\n"
+"  - remove `Toe_heel_engraver`\n"
+msgstr ""
+"\n"
+"\\rtoe, \\ltoe, \\rheel un \\lheel tagad tos ignorē.  Trīs iespējamie risinājumi:\n"
+"  - lietojiet konteksta īpašību `toeHeelStyle`, lai stilizētu pedāļa zīmju komandas,\n"
+"    nevis norādītu eksplicītus virzienus (vēlams)\n"
+"  - lietojiet parastās artikulācijas \\toe, \\vartoe, \\heel vai \\varheel\n"
+"  - izņemiet `Toe_heel_engraver`\n"
+
+#: convertrules.py:5635
+msgid "assignment of \\%"
+msgstr "\\% piešķiršana"
+
+#: convertrules.py:5636
+msgid ""
+"\n"
+"\\% is now a built-in abbreviation for \\repeat percent.  If you have defined it\n"
+"differently, you may wish to change the name to avoid confusion.\n"
+msgstr ""
+"\n"
+"\\% tagad ir iebūvēts \\repeat percent saīsinājums.  Ja esat to definējis\n"
+"citādi, iespējams, vēlēsieties mainīt nosaukumu, lai izvairītos no neskaidrības.\n"
+
+#: convertrules.py:5643
+msgid "assignment of \\*"
+msgstr "\\* piešķiršana"
+
+#: convertrules.py:5644
+msgid ""
+"\n"
+"\\* is now a built-in abbreviation for \\repeat unfold.  If you have defined it\n"
+"differently, you may wish to change the name to avoid confusion.\n"
+msgstr ""
+"\n"
+"\\* tagad ir iebūvēts \\repeat unfold saīsinājums.  Ja esat to definējis\n"
+"citādi, iespējams, vēlēsieties mainīt nosaukumu, lai izvairītos no neskaidrības.\n"
+
+#: convertrules.py:5667
+msgid "chord names in combination with \\language"
+msgstr "akordu nosaukumi kopā ar \\language"
+
+#: convertrules.py:5668
+msgid ""
+"\n"
+"\\germanChords and its siblings no longer depend on the input note names\n"
+"as selected with \\language.  This might cause different note names in the\n"
+"shown chord names.\n"
+msgstr ""
+"\n"
+"\\germanChords un tā radinieki vairs nav atkarīgi no ievades nošu nosaukumiem,\n"
+"kas izvēlēti ar \\language.  Tas var radīt atšķirīgus nošu nosaukumus\n"
+"parādītajos akordu nosaukumos.\n"
+
+#: lilylib.py:50
+#, python-format
+msgid "Setting loglevel to %s"
+msgstr "Iestata žurnāla līmeni uz %s"
+
+#: lilylib.py:53
+#, python-format
+msgid "Unknown or invalid loglevel '%s'"
+msgstr "Nezināms vai nederīgs žurnāla līmenis '%s'"
+
+#: lilylib.py:83 warn.cc:250
+#, c-format, python-format
+msgid "error: %s"
+msgstr "kļūda: %s"
+
+#: lilylib.py:151
+#, python-format
+msgid "Usage: %s"
+msgstr "Lietošana: %s"
+
+#: musicexp.py:517 musicexp.py:525
+msgid "Language does not support microtones contained in the piece"
+msgstr "Valoda neatbalsta skaņdarbā esošos mikrotoņus"
+
+#: musicexp.py:1151
+#, python-format
+msgid "unable to set the music %(music)s for the repeat %(repeat)s"
+msgstr "nevar iestatīt mūziku %(music)s atkārtojumam %(repeat)s"
+
+#: musicexp.py:1177
+msgid "encountered tremolo repeat without body"
+msgstr "atrasts tremolo atkārtojums bez ķermeņa"
+
+#: musicexp.py:1184
+msgid "encountered volta repeat without body"
+msgstr "atrasts volta atkārtojums bez ķermeņa"
+
+#. No `self.elements`!
+#: musicexp.py:1796
+#, python-format
+msgid "Grace note with no following music: %s"
+msgstr "Priekšnots bez sekojošas mūzikas: %s"
+
+#: musicexp.py:2263
+msgid "Correct vertical positioning of trill pitch change accidental marks might fail and need manual fixing."
+msgstr "Trillera augstuma maiņas alterācijas zīmju pareiza vertikālā pozicionēšana var neizdoties, un var būt nepieciešama manuāla labošana."
+
+#: musicexp.py:2556
+#, python-format
+msgid "Invalid octave shift size found: %s. Using no shift."
+msgstr "Atrasts nederīgs oktāvas pārbīdes izmērs: %s. Pārbīde netiek lietota."
+
+#: musicexp.py:4185
+#, python-format
+msgid "Unable to convert alteration %s to a lilypond expression"
+msgstr "Nevar pārveidot alterāciju %s par lilypond izteiksmi"
+
+#: musicexp.py:4405
+msgid "Non-standard clef positions are not supported yet, using 'treble' instead"
+msgstr "Nestandarta atslēgu pozīcijas vēl netiek atbalstītas; tā vietā tiek lietota 'treble'"
+
+#: musicexp.py:4413
+#, python-format
+msgid "Unsupported clef '%s', using 'treble' instead"
+msgstr "Neatbalstīta atslēga '%s'; tā vietā tiek lietota 'treble'"
+
+#: musicexp.py:5044
+msgid "Only up to 4 voices per staff are supported; expect wrong stem directions and collisions"
+msgstr "Tiek atbalstītas tikai līdz 4 balsīm nošu līnijā; gaidiet nepareizus kātu virzienus un sadursmes"
+
+#: musicxml.py:178
+#, python-format
+msgid "more than one child of class %s, all but the first will be ignored"
+msgstr "vairāk nekā viens %s klases bērns; visi, izņemot pirmo, tiks ignorēti"
+
+#: musicxml.py:624
+msgid "Unable to interpret time signature! Falling back to 4/4."
+msgstr "Nevar interpretēt taktsmēru! Tiek lietots 4/4."
+
+#: musicxml.py:696
+#, python-format
+msgid "Key alteration octave given for a non-existing alteration nr. %s, available numbers: %s!"
+msgstr "Norādīta toņkārtas alterācijas oktāva neeksistējošai alterācijai nr. %s, pieejamie numuri: %s!"
+
+#: musicxml.py:973
+#, python-format
+msgid "Encountered note at %s without type and duration (=%s)"
+msgstr "Atrasta nots pie %s bez tipa un ilguma (=%s)"
+
+#: musicxml.py:1095
+msgid "cannot find suitable event"
+msgstr "nevar atrast piemērotu notikumu"
+
+#: musicxml.py:1160
+#, python-format
+msgid "Unable to find instrument for ID=%s\n"
+msgstr "Nevar atrast instrumentu ar ID=%s\n"
+
+#: musicxml.py:1536
+msgid "Ignoring cross-voice slur"
+msgstr "Ignorē līgu starp balsīm"
+
+#. Only for verbose operation.
+#: musicxml.py:1688 musicxml.py:1692
+msgid "Incomplete"
+msgstr "Nepilns"
+
+#: musicxml.py:1690
+msgid "Overfull"
+msgstr "Pārpildīts"
+
+#: musicxml.py:1694
+#, python-format
+msgid "%s measure? Expected: %s, difference: %s"
+msgstr "%s takts? Gaidīts: %s, atšķirība: %s"
+
+#: musicxml.py:2088
+#, python-format
+msgid "%s end seen without %s start"
+msgstr "Redzētas %s beigas bez %s sākuma"
+
+#: musicxml.py:2495
+msgid "Found overlapping <direction> elements"
+msgstr "Atrasti pārklājoši <direction> elementi"
+
+#: musicxml2ly_conversion.py:66
+#, python-format
+msgid "Encountered unprocessed marker %s\n"
+msgstr "Atrasts neapstrādāts marķieris %s\n"
+
+#: abc2ly.py:1631 convert-ly.py:88 lilypond-book.py:139 midi2ly.py:1160
+#, python-format
+msgid "%s [OPTION]... FILE"
+msgstr "%s [OPCIJA]... FAILS"
+
+#: abc2ly.py:1633
+#, python-format
+msgid ""
+"abc2ly converts ABC music files (see\n"
+"<%s>) to LilyPond input.\n"
+msgstr ""
+"abc2ly pārveido ABC mūzikas failus (skatiet\n"
+"<%s>) uz LilyPond ievadi.\n"
+
+#: abc2ly.py:1642 convert-ly.py:95 etf2ly.py:1231 lilypond-book.py:275
+#: midi2ly.py:1212 musicxml2ly.py:5197 main.cc:154
+msgid "show version number and exit"
+msgstr "parādīt versijas numuru un iziet"
+
+#. Bug in option parser: --output =foe is taken as an abbreviation
+#. for --output-format.
+#: abc2ly.py:1645 convert-ly.py:99 etf2ly.py:1227 lilypond-book.py:160
+#: midi2ly.py:1179 musicxml2ly.py:5177 main.cc:131
+msgid "show this help and exit"
+msgstr "parādīt šo palīdzību un iziet"
+
+#: abc2ly.py:1648 etf2ly.py:1232 midi2ly.py:1188
+msgid "write output to FILE"
+msgstr "rakstīt izvadi FAILĀ"
+
+#: abc2ly.py:1651
+msgid "be strict about success"
+msgstr "būt stingram attiecībā uz veiksmi"
+
+#: abc2ly.py:1654
+msgid "preserve ABC's notion of beams"
+msgstr "saglabāt ABC vīķu izpratni"
+
+#: abc2ly.py:1657
+msgid "suppress progress messages"
+msgstr "apspiest progresa ziņojumus"
+
+#: abc2ly.py:1660 convert-ly.py:167 etf2ly.py:1241 lilypond-book.py:320
+#: midi2ly.py:1224 musicxml2ly.py:5410
+#, python-format
+msgid "Report bugs via %s"
+msgstr "Ziņojiet par kļūdām: %s"
+
+#: convert-ly.py:48
+msgid ""
+"Update LilyPond input to newer version.  By default, update from the\n"
+"version taken from the \\version command, to the current LilyPond version."
+msgstr ""
+"Atjaunināt LilyPond ievadi uz jaunāku versiju.  Pēc noklusējuma atjaunina no\n"
+"versijas, kas ņemta no komandas \\version, uz pašreizējo LilyPond versiju."
+
+#: convert-ly.py:51
+msgid "If FILE is `-', read from standard input."
+msgstr "Ja FAILS ir `-', lasa no standarta ievades."
+
+#: convert-ly.py:53 lilypond-book.py:89
+msgid "Examples:"
+msgstr "Piemēri:"
+
+#: convert-ly.py:81 etf2ly.py:1213 lilypond-book.py:132 midi2ly.py:87
+#, python-format
+msgid "Copyright (c) %s by"
+msgstr "Autortiesības (c) %s:"
+
+#: convert-ly.py:83 etf2ly.py:1215 lilypond-book.py:134 midi2ly.py:89
+msgid "Distributed under terms of the GNU General Public License."
+msgstr "Izplatīts saskaņā ar GNU General Public License noteikumiem."
+
+#: convert-ly.py:84 etf2ly.py:1216 lilypond-book.py:135 midi2ly.py:90
+msgid "It comes with NO WARRANTY."
+msgstr "Tam NAV NEKĀDU GARANTIJU."
+
+#: convert-ly.py:103 convert-ly.py:145
+msgid "VERSION"
+msgstr "VERSIJA"
+
+#: convert-ly.py:106
+msgid "start from VERSION [default: \\version found in file]"
+msgstr "sākt no VERSIJAS [noklusējums: failā atrastā \\version]"
+
+#: convert-ly.py:109
+msgid "edit in place"
+msgstr "rediģēt uz vietas"
+
+#: convert-ly.py:113 musicxml2ly.py:5236
+msgid "Print log messages according to LOGLEVEL (NONE, ERROR, WARN, PROGRESS (default), DEBUG)"
+msgstr "Izvadīt žurnāla ziņojumus atbilstoši ŽURN_LĪMENIM (NONE, ERROR, WARN, PROGRESS (noklusējums), DEBUG)"
+
+#: convert-ly.py:115 lilypond-book.py:198 lilypond-book.py:214
+#: musicxml2ly.py:5238 main.cc:142
+msgid "LOGLEVEL"
+msgstr "ŽURN_LĪMENIS"
+
+#: convert-ly.py:121
+msgid "do not add \\version command if missing"
+msgstr "nepievienot komandu \\version, ja tās trūkst"
+
+#: convert-ly.py:127
+#, python-format
+msgid "force updating \\version number to %s"
+msgstr "piespiedu kārtā atjaunināt \\version numuru uz %s"
+
+#: convert-ly.py:133
+msgid "only update \\version number if file is modified"
+msgstr "atjaunināt \\version numuru tikai tad, ja fails ir modificēts"
+
+#: convert-ly.py:139
+#, python-format
+msgid "show rules [default: -f 0, -t %s]"
+msgstr "rādīt kārtulas [noklusējums: -f 0, -t %s]"
+
+#: convert-ly.py:144
+#, python-format
+msgid "convert to VERSION [default: %s]"
+msgstr "pārveidot uz VERSIJU [noklusējums: %s]"
+
+#: convert-ly.py:151
+msgid "make a numbered backup [default: filename.ext~]"
+msgstr "izveidot numurētu rezerves kopiju [noklusējums: faila_nosaukums.ext~]"
+
+#: convert-ly.py:157
+msgid "print rule descriptions during conversion"
+msgstr "pārveidošanas laikā izvadīt kārtulu aprakstus"
+
+#: convert-ly.py:162 etf2ly.py:1235 lilypond-book.py:279 midi2ly.py:1213
+#: main.cc:156
+msgid "show warranty and copyright"
+msgstr "rādīt garantiju un autortiesības"
+
+#: convert-ly.py:196
+msgid "Applying conversion: "
+msgstr "Piemēro pārveidošanu: "
+
+#: convert-ly.py:220
+msgid "Error while converting"
+msgstr "Kļūda pārveidošanas laikā"
+
+#: convert-ly.py:222
+msgid "Stopping at last successful rule"
+msgstr "Apstājas pie pēdējās veiksmīgās kārtulas"
+
+#: convert-ly.py:270
+#, python-format
+msgid "Processing `%s'... "
+msgstr "Apstrādā `%s'... "
+
+#: convert-ly.py:282
+msgid "Attempting conversion from `latin1'..."
+msgstr "Mēģina pārveidot no `latin1'..."
+
+#: convert-ly.py:392
+#, python-format
+msgid "%s: Unable to open file"
+msgstr "%s: nevar atvērt failu"
+
+#: convert-ly.py:398
+#, python-format
+msgid "%s: Unable to determine version.  Skipping"
+msgstr "%s: nevar noteikt versiju.  Izlaiž"
+
+#: convert-ly.py:401
+#, python-format
+msgid ""
+"%s: Invalid version string `%s' \n"
+"Valid version strings consist of three numbers, separated by dots, e.g. `2.8.12'"
+msgstr ""
+"%s: nederīga versijas virkne `%s' \n"
+"Derīgas versijas virknes sastāv no trim ar punktiem atdalītiem skaitļiem, piem., `2.8.12'"
+
+#: convert-ly.py:407
+#, python-format
+msgid "There was %d error."
+msgid_plural "There were %d errors."
+msgstr[0] "Bija %d kļūdu."
+msgstr[1] "Bija %d kļūda."
+msgstr[2] "Bija %d kļūdas."
+
+#: etf2ly.py:1220
+#, python-format
+msgid "%s [OPTION]... ETF-FILE"
+msgstr "%s [OPCIJA]... ETF_FAILS"
+
+#: etf2ly.py:1221
+msgid ""
+"Enigma Transport Format is a format used by Coda Music Technology's\n"
+"Finale product.  etf2ly converts a subset of ETF to a ready-to-use LilyPond file.\n"
+msgstr ""
+"Enigma Transport Format ir formāts, ko izmanto Coda Music Technology\n"
+"produkts Finale.  etf2ly pārveido ETF apakškopu par lietošanai gatavu LilyPond failu.\n"
+
+#: etf2ly.py:1233 lilypond-book.py:94 midi2ly.py:1184 midi2ly.py:1189
+#: musicxml2ly.py:5321 main.cc:136 main.cc:146
+msgid "FILE"
+msgstr "FAILS"
+
+#: lilypond-book.py:87
+msgid "Process LilyPond snippets in hybrid HTML, LaTeX, texinfo or DocBook document."
+msgstr "Apstrādāt LilyPond fragmentus jauktos HTML, LaTeX, texinfo vai DocBook dokumentos."
+
+#: lilypond-book.py:104
+#, python-format
+msgid "Exiting (%d)..."
+msgstr "Iziet (%d)..."
+
+#: lilypond-book.py:145
+msgid "pipe snippets through FILTER [default: `convert-ly -n -']"
+msgstr "laist fragmentus caur FILTRU [noklusējums: `convert-ly -n -']"
+
+#: lilypond-book.py:147
+msgid "FILTER"
+msgstr "FILTER"
+
+#: lilypond-book.py:153
+msgid "use output format FORMAT (texi [default], texi-html, latex, html, docbook)"
+msgstr "lietot izvades formātu FORMĀTS (texi [noklusējums], texi-html, latex, html, docbook)"
+
+#: lilypond-book.py:155
+msgid "FORMAT"
+msgstr "FORMĀTS"
+
+#: lilypond-book.py:170
+msgid "add DIR to include path"
+msgstr "pievienot DIR iekļaušanas ceļam"
+
+#: lilypond-book.py:171 lilypond-book.py:179 lilypond-book.py:206
+#: lilypond-book.py:221 lilypond-book.py:247 lilypond-book.py:255 main.cc:135
+msgid "DIR"
+msgstr "DIR"
+
+#: lilypond-book.py:177
+msgid "format Texinfo output so that Info will look for images of music in DIR"
+msgstr "formatēt Texinfo izvadi tā, lai Info meklētu mūzikas attēlus direktorijā DIR"
+
+#: lilypond-book.py:188
+#, python-format
+msgid "set minimum distance between left margin and staff to PAD (in mm) [default: %default]"
+msgstr "iestatīt minimālo attālumu starp kreiso malu un nošu līniju uz ATSTARPE (mm) [noklusējums: %default]"
+
+#: lilypond-book.py:190
+msgid "PAD"
+msgstr "ATSTARPE"
+
+#: lilypond-book.py:196
+#, python-format
+msgid "print lilypond log messages according to LOGLEVEL [default: %default]"
+msgstr "izvadīt lilypond žurnāla ziņojumus atbilstoši ŽURN_LĪMENIM [noklusējums: %default]"
+
+#: lilypond-book.py:204
+msgid "write lily-XXX files to DIR, link into --output dir"
+msgstr "rakstīt lily-XXX failus direktorijā DIR, saistīt --output direktorijā"
+
+#: lilypond-book.py:212
+msgid "print log messages according to LOGLEVEL (NONE, ERROR, WARN, PROGRESS [default], DEBUG)"
+msgstr "izvadīt žurnāla ziņojumus atbilstoši ŽURN_LĪMENIM (NONE, ERROR, WARN, PROGRESS [noklusējums], DEBUG)"
+
+#: lilypond-book.py:220
+msgid "write output to DIR"
+msgstr "rakstīt izvadi direktorijā DIR"
+
+#: lilypond-book.py:227
+msgid "process ly_files using COMMAND FILE..."
+msgstr "apstrādāt ly failus ar KOMANDA FAILS..."
+
+#: lilypond-book.py:228
+msgid "COMMAND"
+msgstr "KOMANDA"
+
+#: lilypond-book.py:234
+msgid "redirect lilypond output messages to log files"
+msgstr "novirzīt lilypond izvades ziņojumus uz žurnālfailiem"
+
+#: lilypond-book.py:240
+msgid "removed; using this option results in an error"
+msgstr "izņemts; šīs opcijas lietošana izraisa kļūdu"
+
+#: lilypond-book.py:246
+msgid "do not fail if no lilypond output is found"
+msgstr "neizgāzties, ja lilypond izvade nav atrasta"
+
+#: lilypond-book.py:253
+msgid "do not fail if no PNG images are found for EPS files"
+msgstr "neizgāzties, ja EPS failiem nav atrasti PNG attēli"
+
+#: lilypond-book.py:261
+msgid "write snippet output files with the same base name as their source file"
+msgstr "rakstīt fragmentu izvades failus ar tādu pašu bāzes nosaukumu kā to avota failam"
+
+#: lilypond-book.py:268 midi2ly.py:1207 musicxml2ly.py:5203
+msgid "be verbose"
+msgstr "būt detalizētam"
+
+#: lilypond-book.py:284
+msgid "create PDF files for use with pdftex"
+msgstr "veidot PDF failus lietošanai ar pdftex"
+
+#: lilypond-book.py:292
+#, python-format
+msgid "shift inline images vertically by VSHIFT (a factor of an image's height) [default: %default]"
+msgstr "pārbīdīt iekļautos attēlus vertikāli par VPĀRB (attēla augstuma reizinātājs) [noklusējums: %default]"
+
+#: lilypond-book.py:295
+msgid "VSHIFT"
+msgstr "VPĀRB"
+
+#: lilypond-book.py:300
+msgid "run executable PROG instead of latex or, in case --pdf option is set, instead of pdflatex"
+msgstr "palaist izpildāmo failu PROG latex vietā vai, ja iestatīta opcija --pdf, pdflatex vietā"
+
+#: lilypond-book.py:303 lilypond-book.py:312
+msgid "PROG"
+msgstr "PROG"
+
+#: lilypond-book.py:311
+msgid "run executable PROG instead of texi2pdf"
+msgstr "palaist izpildāmo failu PROG texi2pdf vietā"
+
+#: lilypond-book.py:359
+#, python-format
+msgid "Changing directory to '%s'"
+msgstr "Maina direktoriju uz '%s'"
+
+#: lilypond-book.py:361
+#, python-format
+msgid "Invoking `%s'"
+msgstr "Izsauc `%s'"
+
+#: lilypond-book.py:363
+#, python-format
+msgid "Processing %s.ly"
+msgstr "Apstrādā %s.ly"
+
+#: lilypond-book.py:366
+#, python-format
+msgid "Running %s..."
+msgstr "Palaiž %s..."
+
+#. Next call write_ly() for each snippet once.
+#: lilypond-book.py:493
+msgid "Writing snippets..."
+msgstr "Raksta fragmentus..."
+
+#: lilypond-book.py:497
+msgid "Processing..."
+msgstr "Apstrādā..."
+
+#: lilypond-book.py:502
+msgid "All snippets are up to date..."
+msgstr "Visi fragmenti ir aktuāli..."
+
+#: lilypond-book.py:505
+#, python-format
+msgid "Linking files from '%s/' to '%s/'..."
+msgstr "Saista failus no '%s/' uz '%s/'..."
+
+#: lilypond-book.py:521
+#, python-format
+msgid "cannot determine format for: %s"
+msgstr "nevar noteikt formātu: %s"
+
+#: lilypond-book.py:533
+#, python-format
+msgid "%s is up to date."
+msgstr "%s ir aktuāls."
+
+#: lilypond-book.py:543
+#, python-format
+msgid "Writing `%s'..."
+msgstr "Raksta `%s'..."
+
+#: lilypond-book.py:598
+msgid "Output would overwrite input file; use --output."
+msgstr "Izvade pārrakstītu ievades failu; lietojiet --output."
+
+#: lilypond-book.py:602
+#, python-format
+msgid "Reading `%s'"
+msgstr "Lasa `%s'"
+
+#: lilypond-book.py:608
+msgid "Dissecting..."
+msgstr "Sadala..."
+
+#: lilypond-book.py:619
+#, python-format
+msgid "Processing include `%s'"
+msgstr "Apstrādā iekļāvumu `%s'"
+
+#: lilypond-book.py:630
+#, python-format
+msgid "Removing `%s'"
+msgstr "Izņem `%s'"
+
+#: lilypond-book.py:747
+#, python-format
+msgid "Setting LilyPond's loglevel to %s"
+msgstr "Iestata LilyPond žurnāla līmeni uz %s"
+
+#: lilypond-book.py:752
+#, python-format
+msgid "Setting LilyPond's loglevel to %s (from environment variable LILYPOND_LOGLEVEL)"
+msgstr "Iestata LilyPond žurnāla līmeni uz %s (no vides mainīgā LILYPOND_LOGLEVEL)"
+
+#: lilypond-book.py:758
+msgid "Setting LilyPond's output to --verbose, implied by lilypond-book's setting"
+msgstr "Iestata LilyPond izvadi uz --verbose, ko nosaka lilypond-book iestatījums"
+
+#: lilypond-book.py:786
+#, python-format
+msgid "Compiling `%s'..."
+msgstr "Kompilē `%s'..."
+
+#: lilypond-invoke-editor.py:39
+msgid ""
+"Usage: lilypond-invoke-editor textedit://FILE:LINE:CHAR:COLUMN\n"
+"\n"
+"Visit a file and position the cursor.\n"
+"\n"
+"Options:\n"
+"  -h, --help          show this help\n"
+"  -v, --version       show version\n"
+msgstr ""
+"Lietošana: lilypond-invoke-editor textedit://FAILS:RINDA:RAKSTZ:KOLONNA\n"
+"\n"
+"Atvērt failu un pozicionēt kursoru.\n"
+"\n"
+"Opcijas:\n"
+"  -h, --help          rādīt šo palīdzību\n"
+"  -v, --version       rādīt versiju\n"
+
+#: lilypond-invoke-editor.py:133
+msgid "failed to invoke editor:"
+msgstr "neizdevās izsaukt redaktoru:"
+
+#: midi2ly.py:934
+msgid "found more than 5 voices on a staff, expect bad output"
+msgstr "nošu līnijā atrastas vairāk nekā 5 balsis, gaidiet sliktu izvadi"
+
+#: midi2ly.py:1150
+#, python-format
+msgid "%s output to `%s'..."
+msgstr "%s izvade uz `%s'..."
+
+#: midi2ly.py:1162
+#, python-format
+msgid "Convert %s to LilyPond input.\n"
+msgstr "Pārveidot %s uz LilyPond ievadi.\n"
+
+#: midi2ly.py:1167
+msgid "print absolute pitches"
+msgstr "izvadīt absolūtos augstumus"
+
+#: midi2ly.py:1169 midi2ly.py:1197
+msgid "DUR"
+msgstr "ILG"
+
+#: midi2ly.py:1170
+msgid "quantise note durations on DUR"
+msgstr "kvantizēt nošu ilgumus pēc ILG"
+
+#: midi2ly.py:1173
+msgid "debug printing"
+msgstr "atkļūdošanas izvade"
+
+#: midi2ly.py:1176
+msgid "print explicit durations"
+msgstr "izvadīt eksplicītus ilgumus"
+
+#: midi2ly.py:1181
+msgid "prepend FILE to output"
+msgstr "pievienot FAILU izvades sākumā"
+
+#: midi2ly.py:1185
+msgid "set key: ALT=+sharps|-flats; MINOR=1"
+msgstr "iestatīt toņkārtu: ALT=+diēzi|-bemoli; MINOR=1"
+
+#: midi2ly.py:1186
+msgid "ALT[:MINOR]"
+msgstr "ALT[:MINOR]"
+
+#: midi2ly.py:1191
+msgid "preview of first 4 bars"
+msgstr "pirmo 4 taktu priekšskatījums"
+
+#: midi2ly.py:1195
+msgid "suppress progress messages and warnings about excess voices"
+msgstr "apspiest progresa ziņojumus un brīdinājumus par liekām balsīm"
+
+#: midi2ly.py:1196
+msgid "quantise note starts on DUR"
+msgstr "kvantizēt nošu sākumus pēc ILG"
+
+#: midi2ly.py:1200
+msgid "use s instead of r for rests"
+msgstr "pauzēm lietot s, nevis r"
+
+#: midi2ly.py:1202
+msgid "DUR*NUM/DEN"
+msgstr "ILG*SKAIT/SAUC"
+
+#: midi2ly.py:1205
+msgid "allow tuplet durations DUR*NUM/DEN"
+msgstr "atļaut tuplešu ilgumus ILG*SKAIT/SAUC"
+
+#: midi2ly.py:1215
+msgid "treat every text as a lyric"
+msgstr "uzskatīt katru tekstu par dziesmas vārdiem"
+
+#: midi2ly.py:1218
+msgid "Examples"
+msgstr "Piemēri"
+
+#: midi2ly.py:1239
+msgid "error: "
+msgstr "kļūda: "
+
+#: midi2ly.py:1240
+msgid "no files specified on command line."
+msgstr "komandrindā nav norādīti faili."
+
+#: musicxml2ly.py:151
+#, python-format
+msgid "requested global staff size (%.2fmm=%.2fpt) is too %s, using %spt instead"
+msgstr "pieprasītais globālais nošu līnijas izmērs (%.2fmm=%.2fpt) ir pārāk %s, tā vietā tiek lietots %spt"
+
+#: musicxml2ly.py:354 musicxml2ly.py:2043
+#, python-format
+msgid "cannot use non-integer page number '%s'"
+msgstr "nevar lietot neveselu lapas numuru '%s'"
+
+#: musicxml2ly.py:498
+#, python-format
+msgid "Encountered file created by %s, containing wrong beaming information. All beaming information in the MusicXML file will be ignored"
+msgstr "Atrasts fails, ko izveidoja %s, ar nepareizu vīķēšanas informāciju. Visa vīķēšanas informācija MusicXML failā tiks ignorēta"
+
+#: musicxml2ly.py:527 musicxml2ly.py:530
+#, python-format
+msgid "Unprocessed PartGroupInfo %s encountered"
+msgstr "Atrasts neapstrādāts PartGroupInfo %s"
+
+#: musicxml2ly.py:1108 musicxml2ly.py:1149 musicxml2ly.py:1233
+#, python-format
+msgid "ignoring unexpected %s"
+msgstr "ignorē negaidītu %s"
+
+#: musicxml2ly.py:1298
+#, python-format
+msgid "unexpected %s"
+msgstr "negaidīts %s"
+
+#: musicxml2ly.py:1307
+#, python-format
+msgid "adding repeat barline to lone %s"
+msgstr "pievieno atkārtojuma taktsvītru vientuļam %s"
+
+#: musicxml2ly.py:1564
+msgid "Ignoring double-note tremolo without end"
+msgstr "Ignorē divu nošu tremolo bez beigām"
+
+#: musicxml2ly.py:1593
+msgid "Ignoring double-note tremolo without start"
+msgstr "Ignorē divu nošu tremolo bez sākuma"
+
+#: musicxml2ly.py:1611
+msgid "Strange tremolo note length encountered"
+msgstr "Atrasts dīvains tremolo nots garums"
+
+#: musicxml2ly.py:1811
+msgid "Unable to extract key signature!"
+msgstr "Nevar izgūt toņkārtas zīmes!"
+
+#: musicxml2ly.py:1846
+#, python-format
+msgid "unknown mode %s, expecting 'major' or 'minor' or a church mode!"
+msgstr "nezināms lads %s, gaidīts 'major' vai 'minor', vai baznīcas lads!"
+
+#: musicxml2ly.py:2125
+#, python-format
+msgid "unknown span event %s"
+msgstr "nezināms posma notikums %s"
+
+#: musicxml2ly.py:2139
+#, python-format
+msgid "unknown span type %s for %s"
+msgstr "nezināms posma tips %s objektam %s"
+
+#: musicxml2ly.py:2236
+#, python-format
+msgid "empty <tremolo> element, setting value to %s"
+msgstr "tukšs <tremolo> elements, vērtība tiek iestatīta uz %s"
+
+#: musicxml2ly.py:2891
+msgid "Empty metronome element"
+msgstr "Tukšs metronoma elements"
+
+#: musicxml2ly.py:2959
+msgid "Invalid bpm value in metronome mark"
+msgstr "Nederīga bpm vērtība metronoma atzīmē"
+
+#: musicxml2ly.py:2962
+msgid "Unknown metronome mark, ignoring"
+msgstr "Nezināma metronoma atzīme, ignorē"
+
+#. TODO: Implement the other (more complex) way for tempo marks.
+#: musicxml2ly.py:2974
+msgid "Metronome marks with complex relations (<metronome-note> in MusicXML) are not yet implemented."
+msgstr "Metronoma atzīmes ar sarežģītām attiecībām (<metronome-note> MusicXML) vēl nav realizētas."
+
+#: musicxml2ly.py:3319
+#, python-format
+msgid "Unable to convert chord type %s to lilypond."
+msgstr "Nevar pārveidot akorda tipu %s uz lilypond."
+
+#: musicxml2ly.py:3831
+#, python-format
+msgid "Negative skip %s (from position %s to %s)"
+msgstr "Negatīvs izlaidums %s (no pozīcijas %s līdz %s)"
+
+#: musicxml2ly.py:3871
+msgid "cannot apply <offset> because there are no notes or rests"
+msgstr "nevar piemērot <offset>, jo nav nošu vai pauzu"
+
+#: musicxml2ly.py:3894
+msgid "too large negative <offset> value; aligning to start of music instead"
+msgstr "pārāk liela negatīva <offset> vērtība; tā vietā līdzina pie mūzikas sākuma"
+
+#: musicxml2ly.py:3912
+msgid "too large <offset> value; aligning to almost the end of music instead"
+msgstr "pārāk liela <offset> vērtība; tā vietā līdzina gandrīz pie mūzikas beigām"
+
+#: musicxml2ly.py:4026
+msgid "rests with lyrics are not supported yet"
+msgstr "pauzes ar dziesmas vārdiem vēl netiek atbalstītas"
+
+#: musicxml2ly.py:4070
+msgid "cannot change vertical position of lyrics within a part"
+msgstr "daļas iekšienē nevar mainīt dziesmas vārdu vertikālo pozīciju"
+
+#: musicxml2ly.py:4474
+#, python-format
+msgid "unexpected %s; expected %s or %s or %s"
+msgstr "negaidīts %s; gaidīts %s vai %s, vai %s"
+
+#: musicxml2ly.py:4551
+msgid "Not enough rests for multi-measure rest count"
+msgstr "Nepietiek pauzu vairāku taktu pauzes skaitam"
+
+#: musicxml2ly.py:4757
+msgid "Encountered closing slur, but no slur is open"
+msgstr "Atrasta noslēdzošā līga, bet neviena līga nav atvērta"
+
+#: musicxml2ly.py:4865
+msgid "ignoring <accidental-mark> not attached to proper <ornaments> child"
+msgstr "ignorē <accidental-mark>, kas nav piesaistīts pareizam <ornaments> bērnam"
+
+#: musicxml2ly.py:5125
+#, python-format
+msgid "Converting part '%s' (voice %s) to LilyPond expressions..."
+msgstr "Pārveido daļu '%s' (balss %s) par LilyPond izteiksmēm..."
+
+#: musicxml2ly.py:5163
+msgid "musicxml2ly [OPTION]... FILE"
+msgstr "musicxml2ly [OPCIJA]... FAILS"
+
+#: musicxml2ly.py:5164
+msgid ""
+"Convert FILE with MusicXML data to a LilyPond input file.\n"
+"\n"
+"By default, the output file is called 'FILE.ly' for input file 'FILE.xml'.\n"
+"If FILE is '-', read from standard input (and write to standard output).\n"
+"\n"
+"If FILE cannot be found, 'FILE.xml', 'FILE.musicxml', and 'FILE.mxl' are\n"
+"also tried as input files.\n"
+msgstr ""
+"Pārveidot FAILU ar MusicXML datiem par LilyPond ievades failu.\n"
+"\n"
+"Pēc noklusējuma ievades failam 'FAILS.xml' izvades fails tiek saukts 'FAILS.ly'.\n"
+"Ja FAILS ir '-', lasa no standarta ievades (un raksta standarta izvadē).\n"
+"\n"
+"Ja FAILS nav atrasts, kā ievades faili tiek mēģināti arī 'FAILS.xml', 'FAILS.musicxml'\n"
+"un 'FAILS.mxl'.\n"
+
+#: musicxml2ly.py:5181
+#, python-format
+msgid ""
+"Copyright (c) 2005--2026 by\n"
+"    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
+"    Jan Nieuwenhuizen <janneke@gnu.org>,\n"
+"    Reinhold Kainhofer <reinhold@kainhofer.com>,\n"
+"    Patrick L. Schmidt <pls@philomelos.net>, and\n"
+"    Werner Lemberg <wl@gnu.org>\n"
+"\n"
+"This program is free software.  It is covered by the GNU General Public\n"
+"License and you are welcome to change it and/or distribute copies of it\n"
+"under certain conditions.  Invoke as `%s --warranty' for more\n"
+"information."
+msgstr ""
+"Autortiesības (c) 2005--2026:\n"
+"    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
+"    Jan Nieuwenhuizen <janneke@gnu.org>,\n"
+"    Reinhold Kainhofer <reinhold@kainhofer.com>,\n"
+"    Patrick L. Schmidt <pls@philomelos.net> un\n"
+"    Werner Lemberg <wl@gnu.org>\n"
+"\n"
+"Šī programma ir brīvā programmatūra.  Uz to attiecas GNU General Public\n"
+"License, un jūs varat to mainīt un/vai izplatīt tās kopijas\n"
+"noteiktos apstākļos.  Lai iegūtu vairāk informācijas, izsauciet\n"
+"`%s --warranty'."
+
+#: musicxml2ly.py:5208
+msgid "--lxml is obsolete, ignoring"
+msgstr "--lxml ir novecojis, ignorē"
+
+#: musicxml2ly.py:5209
+msgid "obsolete"
+msgstr "novecojis"
+
+#: musicxml2ly.py:5215
+msgid "input file is a compressed MusicXML file (by default, activate if file extension is .mxl)"
+msgstr "ievades fails ir saspiests MusicXML fails (pēc noklusējuma aktivizē, ja faila paplašinājums ir .mxl)"
+
+#: musicxml2ly.py:5222
+msgid "convert pitches in relative mode (default)"
+msgstr "pārveidot augstumus relatīvajā režīmā (noklusējums)"
+
+#: musicxml2ly.py:5227
+msgid "convert pitches in absolute mode"
+msgstr "pārveidot augstumus absolūtajā režīmā"
+
+#: musicxml2ly.py:5230
+msgid "LANG"
+msgstr "VALODA"
+
+#: musicxml2ly.py:5232
+msgid "use LANG for pitch names, e.g., 'deutsch' for note names in German"
+msgstr "lietot VALODU augstumu nosaukumiem, piem., 'deutsch' vācu nošu nosaukumiem"
+
+#: musicxml2ly.py:5244 musicxml2ly.py:5383
+msgid "t[rue]/f[alse]"
+msgstr "t[rue]/f[alse]"
+
+#: musicxml2ly.py:5247
+msgid "expect <octave-shift> end elements before the associated <note> (as in Finale). Default is f[alse]"
+msgstr "gaidīt <octave-shift> beigu elementus pirms saistītās <note> (kā Finale). Noklusējums ir f[alse]"
+
+#: musicxml2ly.py:5255
+msgid "do not convert directions (^, _ or -) for articulations, dynamics, etc."
+msgstr "nepārveidot virzienus (^, _ vai -) artikulācijām, dinamikai utt."
+
+#: musicxml2ly.py:5262
+msgid "do not convert exact vertical positions of rests"
+msgstr "nepārveidot pauzu precīzās vertikālās pozīcijas"
+
+#: musicxml2ly.py:5268
+msgid "ignore system breaks"
+msgstr "ignorēt sistēmu pārtraukumus"
+
+#: musicxml2ly.py:5274
+msgid "ignore page breaks"
+msgstr "ignorēt lapu pārtraukumus"
+
+#: musicxml2ly.py:5280
+msgid "ignore page margins"
+msgstr "ignorēt lapu malas"
+
+#: musicxml2ly.py:5286
+msgid "do not convert the exact page layout and breaks (shortcut for \"--nsb --npb --npm\" options)"
+msgstr "nepārveidot precīzu lapas izkārtojumu un pārtraukumus (saīsne opcijām \"--nsb --npb --npm\")"
+
+#: musicxml2ly.py:5293
+msgid "ignore stem directions from MusicXML, use lilypond's automatic stemming instead"
+msgstr "ignorēt kātu virzienus no MusicXML, tā vietā lietot lilypond automātiskos kātus"
+
+#: musicxml2ly.py:5297
+msgid "FACTOR"
+msgstr "FAKTORS"
+
+#: musicxml2ly.py:5302
+msgid "scale <dynamics> elements by a non-negative FACTOR; value 0 means to use lilypond's standard size for dynamics"
+msgstr "mērogot <dynamics> elementus ar nenegatīvu FAKTORU; vērtība 0 nozīmē lietot lilypond standarta dinamikas izmēru"
+
+#: musicxml2ly.py:5310
+msgid "use absolute font sizes in markup (default is to use font sizes based on score size)"
+msgstr "marķējumā lietot absolūtos fontu izmērus (noklusējums ir lietot fontu izmērus atkarībā no partitūras izmēra)"
+
+#: musicxml2ly.py:5317
+msgid "do not convert beaming information, use lilypond's automatic beaming instead"
+msgstr "nepārveidot vīķēšanas informāciju, tā vietā lietot lilypond automātisko vīķēšanu"
+
+#: musicxml2ly.py:5326
+msgid "set output filename to FILE, stdout if -"
+msgstr "iestatīt izvades faila nosaukumu uz FAILS, stdout, ja -"
+
+#: musicxml2ly.py:5332
+msgid "activate midi-block in .ly file"
+msgstr "aktivizēt midi bloku .ly failā"
+
+#: musicxml2ly.py:5335
+msgid "N"
+msgstr "N"
+
+#: musicxml2ly.py:5340
+msgid "use <credit> information from page N to fill the fields of the \\header block. Default is value 1"
+msgstr "lietot <credit> informāciju no N. lapas \\header bloka lauku aizpildīšanai. Noklusējums ir vērtība 1"
+
+#: musicxml2ly.py:5346
+msgid "TOPITCH"
+msgstr "UZ_AUGSTUMU"
+
+#: musicxml2ly.py:5349
+msgid "set pitch to transpose by the interval between pitch 'c' and TOPITCH"
+msgstr "iestatīt transponēšanas augstumu par intervālu starp augstumu 'c' un UZ_AUGSTUMU"
+
+#: musicxml2ly.py:5354
+msgid "VALUE"
+msgstr "VĒRTĪBA"
+
+#: musicxml2ly.py:5359
+msgid "shift durations and time signatures by VALUE; for example, value -1 doubles all durations, and value 1 halves them"
+msgstr "pārbīdīt ilgumus un taktsmērus par VĒRTĪBU; piemēram, vērtība -1 divkāršo visus ilgumus, un vērtība 1 tos uz pusi samazina"
+
+#: musicxml2ly.py:5364
+msgid "BEATS/BEATTYPE"
+msgstr "SITIENI/SITIENA_TIPS"
+
+#: musicxml2ly.py:5369
+msgid "`--shift-meter` is obsolete and ignored, use `--shift-duration` instead"
+msgstr "`--shift-meter` ir novecojis un tiek ignorēts, tā vietā lietojiet `--shift-duration`"
+
+#: musicxml2ly.py:5371
+msgid "ignored; use `--shift-duration` instead"
+msgstr "ignorēts; tā vietā lietojiet `--shift-duration`"
+
+#: musicxml2ly.py:5375
+msgid "TABCLEFNAME"
+msgstr "TAB_ATSLĒGAS_NOSAUK"
+
+#: musicxml2ly.py:5378
+msgid "switch between two versions of tab clefs (\"tab\" and \"moderntab\")"
+msgstr "pārslēgties starp divām tabulatūras atslēgu versijām (\"tab\" un \"moderntab\")"
+
+#: musicxml2ly.py:5386
+msgid "control output of string numbers; value f[alse] disables them. Default is t[rue]"
+msgstr "vadīt stīgu numuru izvadi; vērtība f[alse] tos atspējo. Noklusējums ir t[rue]"
+
+#: musicxml2ly.py:5394
+msgid "convert '<frame>' events to a separate FretBoards voice instead of markups"
+msgstr "pārveidot '<frame>' notikumus par atsevišķu FretBoards balsi, nevis marķējumiem"
+
+#: musicxml2ly.py:5400
+msgid "put top-level score into '\\book'"
+msgstr "ievietot augšējā līmeņa partitūru '\\book'"
+
+#: musicxml2ly.py:5406
+msgid "don't emit a LilyPond tagline"
+msgstr "neizvadīt LilyPond nobeiguma rindu"
+
+#: musicxml2ly.py:5526
+#, python-format
+msgid "unknown part in part-list: %s"
+msgstr "nezināma daļa daļu sarakstā: %s"
+
+#: musicxml2ly.py:5660
+msgid "Input is compressed, extracting raw MusicXML data from stdin"
+msgstr "Ievade ir saspiesta, izgūst neapstrādātus MusicXML datus no stdin"
+
+#: musicxml2ly.py:5676
+#, python-format
+msgid "Input file %s is compressed, extracting raw MusicXML data"
+msgstr "Ievades fails %s ir saspiests, izgūst neapstrādātus MusicXML datus"
+
+#: musicxml2ly.py:5708
+msgid "Reading MusicXML from Standard input ..."
+msgstr "Lasa MusicXML no standarta ievades ..."
+
+#: musicxml2ly.py:5710
+#, python-format
+msgid "Reading MusicXML from %s ..."
+msgstr "Lasa MusicXML no %s ..."
+
+#: musicxml2ly.py:5744
+#, python-format
+msgid "Output to `%s'"
+msgstr "Izvade uz `%s'"
+
+#: musicxml2ly.py:5818
+msgid "requested dynamics scale factor must be non-negative, setting to 0"
+msgstr "pieprasītajam dinamikas mērogošanas faktoram jābūt nenegatīvam, tiek iestatīts uz 0"
+
+#: musicxml2ly.py:5879
+#, python-format
+msgid "Unable to find input file %s"
+msgstr "Nevar atrast ievades failu %s"
+
+#: getopt-long.cc:142
+#, c-format
+msgid "option `%s' requires an argument"
+msgstr "opcijai `%s' nepieciešams arguments"
+
+#: getopt-long.cc:146
+#, c-format
+msgid "option `%s' does not allow an argument"
+msgstr "opcija `%s' neatļauj argumentu"
+
+#: getopt-long.cc:150
+#, c-format
+msgid "unrecognized option: `%s'"
+msgstr "neatpazīta opcija: `%s'"
+
+#: getopt-long.cc:158
+#, c-format
+msgid "invalid argument `%s' to option `%s'"
+msgstr "nederīgs arguments `%s' opcijai `%s'"
+
+#: time-tracer.cc:63 time-tracer.cc:118 time-tracer.cc:214
+msgid "failed to write to time-trace file"
+msgstr "neizdevās rakstīt laika trasējuma failā"
+
+#: warn.cc:60
+#, c-format
+msgid "Log level set to %d\n"
+msgstr "Žurnāla līmenis iestatīts uz %d\n"
+
+#: warn.cc:94
+#, c-format
+msgid "unknown log level `%s', using default (INFO)"
+msgstr "nezināms žurnāla līmenis `%s', tiek lietots noklusējums (INFO)"
+
+#. Some expected warning was not triggered, so print out a warning.
+#: warn.cc:118
+#, c-format
+msgid "%zu expected warning(s) not encountered: "
+msgstr "nav sastapti gaidītie brīdinājumi (%zu): "
+
+#: warn.cc:197
+#, c-format
+msgid "fatal error: %s"
+msgstr "fatāla kļūda: %s"
+
+#: warn.cc:229
+#, c-format
+msgid "suppressed programming error: %s"
+msgstr "apspiesta programmēšanas kļūda: %s"
+
+#: warn.cc:235
+#, c-format
+msgid "programming error: %s"
+msgstr "programmēšanas kļūda: %s"
+
+#: warn.cc:237
+msgid "continuing, cross fingers"
+msgstr "turpina, turiet īkšķus"
+
+#: warn.cc:246
+#, c-format
+msgid "suppressed error: %s"
+msgstr "apspiesta kļūda: %s"
+
+#: warn.cc:259
+#, c-format
+msgid "suppressed warning: %s"
+msgstr "apspiests brīdinājums: %s"
+
+#: accidental-engraver.cc:162
+#, c-format
+msgid "accidental typesetting list must begin with context-name: %s"
+msgstr "alterācijas zīmju salikšanas sarakstam jāsākas ar konteksta nosaukumu: %s"
+
+#: accidental-engraver.cc:190
+#, c-format
+msgid "procedure or context-name expected for accidental rule, found %s"
+msgstr "alterācijas zīmju kārtulai gaidīta procedūra vai konteksta nosaukums, atrasts %s"
+
+#: accidental.cc:129
+#, c-format
+msgid "cannot find glyph %s"
+msgstr "nevar atrast glifu %s"
+
+#: accidental.cc:140
+msgid "natural alteration glyph not found"
+msgstr "bekāra alterācijas glifs nav atrasts"
+
+#: all-font-metrics.cc:166
+#, c-format
+msgid "cannot find font '%s' (search path: %s)"
+msgstr "nevar atrast fontu '%s' (meklēšanas ceļš: %s)"
+
+#: all-font-metrics.cc:311 font-config.cc:97
+#, c-format
+msgid "failed adding font directory: %s"
+msgstr "neizdevās pievienot fontu direktoriju: %s"
+
+#: all-font-metrics.cc:313 font-config.cc:99
+#, c-format
+msgid "Adding font directory: %s"
+msgstr "Pievieno fontu direktoriju: %s"
+
+#: all-font-metrics.cc:324
+#, c-format
+msgid "failed adding font file: %s"
+msgstr "neizdevās pievienot fonta failu: %s"
+
+#: all-font-metrics.cc:326
+#, c-format
+msgid "Adding font file: %s"
+msgstr "Pievieno fonta failu: %s"
+
+#: alternative-sequence-iterator.cc:95
+msgid "missing volta specification on alternative element"
+msgstr "alternatīvajam elementam trūkst volta specifikācijas"
+
+#: apply-context-iterator.cc:43
+msgid "\\applycontext argument is not a procedure"
+msgstr "\\applycontext arguments nav procedūra"
+
+#: arpeggio.cc:139
+msgid "no heads for arpeggio found?"
+msgstr "arpedžo nav atrastas nošu galviņas?"
+
+#: axis-group-engraver.cc:153
+msgid "Axis_group_engraver: vertical group already has a parent"
+msgstr "Axis_group_engraver: vertikālajai grupai jau ir vecāks"
+
+#: axis-group-engraver.cc:154
+msgid "are there two Axis_group_engravers?"
+msgstr "vai ir divi Axis_group_engraver?"
+
+#: axis-group-engraver.cc:155
+msgid "removing this vertical group"
+msgstr "izņem šo vertikālo grupu"
+
+#: axis-group-interface.cc:689
+#, c-format
+msgid "\"%s\" is not a valid outside-staff-placement-directive"
+msgstr "\"%s\" nav derīga outside-staff-placement-directive"
+
+#: axis-group-interface.cc:758
+msgid "an outside-staff object should have a direction, defaulting to up"
+msgstr "ārpus nošu līnijas objektam jābūt virzienam, pēc noklusējuma uz augšu"
+
+#: axis-group-interface.cc:894
+msgid "Cannot set outside-staff-priority for element and elements' Y parent."
+msgstr "Nevar iestatīt outside-staff-priority elementam un elementa Y vecākam."
+
+#: beam-engraver.cc:127
+msgid "already have a beam"
+msgstr "vīķe jau ir"
+
+#: beam-engraver.cc:200
+msgid "unterminated beam"
+msgstr "nenoslēgta vīķe"
+
+#: beam-engraver.cc:246 chord-tremolo-engraver.cc:145
+msgid "stem must have Rhythmic structure"
+msgstr "kātam jābūt ritmiskai struktūrai"
+
+#: beam-engraver.cc:255
+msgid "stem does not fit in beam"
+msgstr "kāts neietilpst vīķē"
+
+#: beam-engraver.cc:256
+msgid "beam was started here"
+msgstr "vīķe sākās šeit"
+
+#. We are completely screwed.
+#: beam-quanting.cc:885
+msgid "no viable initial configuration found: may not find good beam slope"
+msgstr "nav atrasta dzīvotspējīga sākotnējā konfigurācija: var neatrast labu vīķes slīpumu"
+
+#: beam.cc:201
+msgid "removing beam with no stems"
+msgstr "izņem vīķi bez kātiem"
+
+#: breathing-sign.cc:61
+#, c-format
+msgid "do not know how to interpret breath type: %s"
+msgstr "nav zināms, kā interpretēt elpas tipu: %s"
+
+#: cairo.cc:133
+#, c-format
+msgid "Cairo context status '%s'"
+msgstr "Cairo konteksta statuss '%s'"
+
+#: cairo.cc:141
+#, c-format
+msgid "Cairo surface status '%s'"
+msgstr "Cairo virsmas statuss '%s'"
+
+#: cairo.cc:211
+#, c-format
+msgid "libpng error: '%s'"
+msgstr "libpng kļūda: '%s'"
+
+#: cairo.cc:213
+msgid "libpng error, no details given."
+msgstr "libpng kļūda, sīkāka informācija nav sniegta."
+
+#: cairo.cc:269
+#, c-format
+msgid "error writing %s"
+msgstr "kļūda, rakstot %s"
+
+#: cairo.cc:530 cairo.cc:543
+#, c-format
+msgid "unknown line-cap-style: %s"
+msgstr "nezināms line-cap-style: %s"
+
+#: cairo.cc:642
+#, c-format
+msgid "Layout output to `%s'...\n"
+msgstr "Izkārtojuma izvade uz `%s'...\n"
+
+#: cairo.cc:951
+msgid ""
+"embedding EPS only supported for PS/EPS output.\n"
+"Use Ghostscript to create other output formats."
+msgstr ""
+"EPS iegulšana tiek atbalstīta tikai PS/EPS izvadei.\n"
+"Citu izvades formātu veidošanai lietojiet Ghostscript."
+
+#: cairo.cc:1019
+msgid "embedded-ps only supported for PS/EPS. Use Ghostscript to create output in other formats"
+msgstr "embedded-ps tiek atbalstīts tikai PS/EPS. Izvades veidošanai citos formātos lietojiet Ghostscript"
+
+#: cairo.cc:1058
+#, c-format
+msgid "error while reading PNG image: %s"
+msgstr "kļūda, lasot PNG attēlu: %s"
+
+#: cairo.cc:1537
+#, c-format
+msgid "unknown output format %s"
+msgstr "nezināms izvades formāts %s"
+
+#: change-iterator.cc:96
+#, c-format
+msgid "cannot find context to change to: %s"
+msgstr "nevar atrast kontekstu, uz kuru pārslēgties: %s"
+
+#: change-iterator.cc:102
+#, c-format
+msgid "cannot find context to change from: %s"
+msgstr "nevar atrast kontekstu, no kura pārslēgties: %s"
+
+#: chord-tremolo-engraver.cc:85
+msgid "No tremolo to end"
+msgstr "Nav tremolo, ko beigt"
+
+#: chord-tremolo-engraver.cc:106
+msgid "unterminated chord tremolo"
+msgstr "nenoslēgts akorda tremolo"
+
+#: clef.cc:65
+#, c-format
+msgid "clef `%s' not found"
+msgstr "atslēga `%s' nav atrasta"
+
+#: cluster.cc:129
+#, c-format
+msgid "unknown cluster style `%s'"
+msgstr "nezināms klastera stils `%s'"
+
+#: cluster.cc:160
+msgid "junking empty cluster"
+msgstr "izmet tukšu klasteri"
+
+#: coherent-ligature-engraver.cc:114
+#, c-format
+msgid "Coherent_ligature_engraver: setting `spacing-increment=0.01': ptr=%p"
+msgstr "Coherent_ligature_engraver: iestata `spacing-increment=0.01': ptr=%p"
+
+#: constrained-breaking.cc:197 constrained-breaking.cc:218
+msgid "cannot find line breaking that satisfies constraints"
+msgstr "nevar atrast rindu pārnesumu, kas apmierina ierobežojumus"
+
+#: context-def.cc:289
+#, c-format
+msgid "cannot create default child context: %s"
+msgstr "nevar izveidot noklusējuma bērna kontekstu: %s"
+
+#: context-def.cc:296
+#, c-format
+msgid "default child context begins a cycle: %s"
+msgstr "noklusējuma bērna konteksts sāk ciklu: %s"
+
+#: context-specced-music-iterator.cc:60
+#, c-format
+msgid "cannot create context: %s"
+msgstr "nevar izveidot kontekstu: %s"
+
+#. TODO: Avoiding a null return means the caller does not detect this
+#. failure, so we have to log here if we want to log at all.  It would be
+#. more flexible to return null and let the caller decide whether to warn in
+#. its situation.  The caller might know a useful source location too.
+#: context-specced-music-iterator.cc:73 context.cc:546 quote-iterator.cc:140
+#, c-format
+msgid "cannot find or create context: %s"
+msgstr "nevar atrast vai izveidot kontekstu: %s"
+
+#. Though we called find_create_context (), UP mode just searches
+#. existing contexts.
+#: context-specced-music-iterator.cc:90 lyric-combine-music-iterator.cc:369
+#, c-format
+msgid "cannot find context: %s"
+msgstr "nevar atrast kontekstu: %s"
+
+#: deprecated-property.cc:46 deprecated-property.cc:74
+#, c-format
+msgid "the property '%s' is deprecated; use '%s'"
+msgstr "īpašība '%s' ir novecojusi; lietojiet '%s'"
+
+#: directional-element-interface.cc:33
+#, c-format
+msgid "direction of grob %s must be UP or DOWN; using UP"
+msgstr "grob %s virzienam jābūt UP vai DOWN; tiek lietots UP"
+
+#: dispatcher.cc:89
+msgid "Event class should be a list"
+msgstr "Notikuma klasei jābūt sarakstam"
+
+#: dispatcher.cc:278
+msgid "Attempting to remove nonexisting listener."
+msgstr "Mēģinājums izņemt neeksistējošu klausītāju."
+
+#: dispatcher.cc:304
+msgid "Already listening to dispatcher, ignoring request"
+msgstr "Jau klausās dispečeru, pieprasījums ignorēts"
+
+#: drum-note-engraver.cc:107
+#, c-format
+msgid "unrecognised percussion sign: \"%s\""
+msgstr "neatpazīta sitamo instrumentu zīme: \"%s\""
+
+#: dynamic-engraver.cc:144
+#, c-format
+msgid ""
+"unknown crescendo style: %s\n"
+"defaulting to hairpin."
+msgstr ""
+"nezināms crescendo stils: %s\n"
+"pēc noklusējuma dakšiņa."
+
+#: dynamic-engraver.cc:207 slur-engraver.cc:174
+#, c-format
+msgid "unterminated %s"
+msgstr "nenoslēgts %s"
+
+#: engraver.cc:169
+#, c-format
+msgid "meta.classes must be non-empty list, found %s"
+msgstr "meta.classes jābūt netukšam sarakstam, atrasts %s"
+
+#: engraver.cc:174
+msgid "must have only one element in meta.classes to create a grob without specifying the class"
+msgstr "lai izveidotu grob, nenorādot klasi, meta.classes jābūt tikai vienam elementam"
+
+#: engraver.cc:187
+#, c-format
+msgid "grob class should be 'Item, 'Spanner or 'Paper_column, found %s"
+msgstr "grob klasei jābūt 'Item, 'Spanner vai 'Paper_column, atrasts %s"
+
+#: engraver.cc:211
+#, c-format
+msgid "No grob definition found for `%s'."
+msgstr "`%s' grob definīcija nav atrasta."
+
+#: episema-engraver.cc:67
+msgid "already have an episema"
+msgstr "episema jau ir"
+
+#: episema-engraver.cc:68
+msgid "episema was started here"
+msgstr "episema sākās šeit"
+
+#: episema-engraver.cc:79
+msgid "cannot find start of episema"
+msgstr "nevar atrast episemas sākumu"
+
+#: episema-engraver.cc:129
+msgid "unterminated episema"
+msgstr "nenoslēgta episema"
+
+#: extender-engraver.cc:273
+msgid "unterminated extender"
+msgstr "nenoslēgts pagarinātājs"
+
+#: fingering-column-engraver.cc:66
+msgid "Cannot add a fingering without a direction."
+msgstr "Nevar pievienot aplikatūru bez virziena."
+
+#: flag.cc:138
+#, c-format
+msgid "flag `%s' not found"
+msgstr "karodziņš `%s' nav atrasts"
+
+#: flag.cc:158
+#, c-format
+msgid "flag stroke `%s' not found"
+msgstr "karodziņa svītra `%s' nav atrasta"
+
+#: font-config.cc:46
+#, c-format
+msgid "Creating %sfont configuration..."
+msgstr "Veido %sfontu konfigurāciju..."
+
+#: font-config.cc:71
+msgid "cannot find fontconfig default config, skipping."
+msgstr "nevar atrast fontconfig noklusējuma konfigurāciju, izlaiž."
+
+#: font-config.cc:86
+#, c-format
+msgid "failed to add fontconfig configuration file `%s'"
+msgstr "neizdevās pievienot fontconfig konfigurācijas failu `%s'"
+
+#: font-config.cc:90
+#, c-format
+msgid "Adding fontconfig configuration file: %s"
+msgstr "Pievieno fontconfig konfigurācijas failu: %s"
+
+#: font-config.cc:105
+#, c-format
+msgid "Font cache directory: %s\n"
+msgstr "Fontu kešatmiņas direktorija: %s\n"
+
+#: font-config.cc:108
+msgid "Building font database..."
+msgstr "Veido fontu datubāzi..."
+
+#: font-select.cc:92
+#, c-format
+msgid "font-encoding is invalid, should be 'fetaMusic, 'fetaBraces, 'fetaText or 'latin1: %s"
+msgstr "font-encoding nav derīgs, jābūt 'fetaMusic, 'fetaBraces, 'fetaText vai 'latin1: %s"
+
+#: font-select.cc:95
+msgid "falling back to latin1"
+msgstr "atkāpjas uz latin1"
+
+#: font-select.cc:145
+#, c-format
+msgid "no entry for font family %s in fonts alist"
+msgstr "fontu asociāciju sarakstā nav ieraksta fontu saimei %s"
+
+#: font-select.cc:151
+#, c-format
+msgid "expected string for value in fonts alist, found: %s"
+msgstr "fontu asociāciju sarakstā vērtībai gaidīta virkne, atrasts: %s"
+
+#: footnote-engraver.cc:53
+msgid "Must be footnote-event."
+msgstr "Jābūt footnote-event."
+
+#: freetype.cc:47
+msgid "cannot initialize FreeType"
+msgstr "nevar inicializēt FreeType"
+
+#: general-scheme.cc:73
+#, c-format
+msgid "cannot find file '%s'"
+msgstr "nevar atrast failu '%s'"
+
+#: general-scheme.cc:74
+#, c-format
+msgid "(load path: '%s', cwd: '%s')"
+msgstr "(ielādes ceļš: '%s', cwd: '%s')"
+
+#: general-scheme.cc:102 midi-stream.cc:67
+#, c-format
+msgid "cannot rename `%s' to `%s'"
+msgstr "nevar pārdēvēt `%s' par `%s'"
+
+#: general-scheme.cc:312
+msgid "failed redirecting stderr"
+msgstr "neizdevās novirzīt stderr"
+
+#: general-scheme.cc:331
+#, c-format
+msgid "failed redirecting stderr to `%s'"
+msgstr "neizdevās novirzīt stderr uz `%s'"
+
+#: general-scheme.cc:381
+msgid "Found infinity or nan in output.  Substituting 0.0"
+msgstr "Izvadē atrasta bezgalība vai nan.  Aizstāj ar 0.0"
+
+#: general-scheme.cc:504
+#, c-format
+msgid "g_spawn_sync failed (%d): %s: %s"
+msgstr "g_spawn_sync neizdevās (%d): %s: %s"
+
+#: general-scheme.cc:571
+msgid "Exiting current GhostScript instance...\n"
+msgstr "Iziet no pašreizējās GhostScript instances...\n"
+
+#: general-scheme.cc:612
+msgid "Mismatch of GhostScript arguments!\n"
+msgstr "GhostScript argumentu neatbilstība!\n"
+
+#: general-scheme.cc:619
+#, c-format
+msgid "Starting GhostScript instance with arguments: %s\n"
+msgstr "Palaiž GhostScript instanci ar argumentiem: %s\n"
+
+#: general-scheme.cc:643
+msgid "Could not start GhostScript instance!"
+msgstr "Nevarēja palaist GhostScript instanci!"
+
+#: general-scheme.cc:653
+#, c-format
+msgid "Running GhostScript command: %s\n"
+msgstr "Izpilda GhostScript komandu: %s\n"
+
+#: general-scheme.cc:662
+msgid "Error when running GhostScript command!"
+msgstr "Kļūda, izpildot GhostScript komandu!"
+
+#: global-context-scheme.cc:128
+msgid "Interpreting music..."
+msgstr "Interpretē mūziku..."
+
+#: global-context-scheme.cc:131
+msgid "skipping zero-duration score"
+msgstr "izlaiž nulles ilguma partitūru"
+
+#: global-context-scheme.cc:132
+msgid "to suppress this, consider adding a spacer rest"
+msgstr "lai to apspiestu, apsveriet atstarpes pauzes pievienošanu"
+
+#. The top-level music is LyricCombineMusic or something similar.
+#: global-context.cc:160
+msgid "cannot determine music length"
+msgstr "nevar noteikt mūzikas garumu"
+
+#: global-context.cc:211
+#, c-format
+msgid "elapsed time: %.2f seconds"
+msgstr "pagājušais laiks: %.2f sekundes"
+
+#: gregorian-ligature-engraver.cc:71
+#, c-format
+msgid "\\%s ignored"
+msgstr "\\%s ignorēts"
+
+#: gregorian-ligature-engraver.cc:76
+#, c-format
+msgid "implied \\%s added"
+msgstr "pievienots netiešs \\%s"
+
+#: gregorian-ligature-engraver.cc:215
+msgid "cannot apply `\\~' on first head of ligature"
+msgstr "`\\~' nevar piemērot ligatūras pirmajai galviņai"
+
+#: gregorian-ligature-engraver.cc:228
+msgid "cannot apply `\\~' on heads with identical pitch"
+msgstr "`\\~' nevar piemērot galviņām ar vienādu augstumu"
+
+#: grob-array.cc:78
+msgid "ly:grob-list->grob-array encountered a non-grob object"
+msgstr "ly:grob-list->grob-array sastapa objektu, kas nav grob"
+
+#: grob-array.cc:83
+msgid "ly:grob-list->grob-array expected a list"
+msgstr "ly:grob-list->grob-array gaidīja sarakstu"
+
+#: grob-property.cc:83
+msgid "To use grob debug callbacks, configure with --enable-checking"
+msgstr "Lai lietotu grob atkļūdošanas atzvanes, konfigurējiet ar --enable-checking"
+
+#: grob.cc:540
+#, c-format
+msgid "ignored infinite %s-offset"
+msgstr "ignorēta bezgalīga %s nobīde"
+
+#: guile-init.cc:97
+#, c-format
+msgid "(primitive-load-path lily): %.2f seconds"
+msgstr "(primitive-load-path lily): %.2f sekundes"
+
+#: hairpin.cc:62
+msgid "Asking for broken bound padding at a non-broken bound."
+msgstr "Pieprasa pārtrauktas robežas atstarpi nepārtrauktā robežā."
+
+#: hairpin.cc:177
+#, c-format
+msgid "hairpin: '%f' is not a valid direction for property 'endpoint-alignments', setting to '%d'"
+msgstr "hairpin: '%f' nav derīgs virziens īpašībai 'endpoint-alignments', tiek iestatīts uz '%d'"
+
+#: hairpin.cc:296
+msgid "decrescendo too small"
+msgstr "decrescendo pārāk mazs"
+
+#: horizontal-bracket-engraver.cc:61
+msgid "do not have that many brackets"
+msgstr "tik daudz kvadrātiekavu nav"
+
+#: horizontal-bracket-engraver.cc:70
+msgid "conflicting note group events"
+msgstr "konfliktējoši nošu grupas notikumi"
+
+#: hyphen-engraver.cc:189
+msgid "removing unterminated hyphen"
+msgstr "izņem nenoslēgtu defisi"
+
+#: hyphen-engraver.cc:203
+msgid "unterminated hyphen; removing"
+msgstr "nenoslēgta defise; izņem"
+
+#: includable-lexer.cc:62 lily-parser-scheme.cc:105
+#, c-format
+msgid "cannot find file: `%s'"
+msgstr "nevar atrast failu: `%s'"
+
+#: includable-lexer.cc:64 lily-parser-scheme.cc:98
+#, c-format
+msgid "(search path: `%s')"
+msgstr "(meklēšanas ceļš: `%s')"
+
+#: input.cc:131 source-file.cc:129 source-file.cc:144
+msgid "position unknown"
+msgstr "pozīcija nezināma"
+
+#: jump-engraver.cc:104 jump-engraver.cc:174 jump-engraver.cc:185
+msgid "jump text must be a markup object"
+msgstr "lēciena tekstam jābūt marķējuma objektam"
+
+#: keep-alive-together-engraver.cc:94
+#, c-format
+msgid "unknown remove-layer value `%s'"
+msgstr "nezināma remove-layer vērtība `%s'"
+
+#: key-engraver.cc:197
+msgid "Incomplete keyAlterationOrder for key signature"
+msgstr "Nepilnīgs keyAlterationOrder toņkārtas zīmēm"
+
+#: key-signature-interface.cc:76
+#, c-format
+msgid "No glyph found for alteration: %s"
+msgstr "Alterācijai nav atrasts glifs: %s"
+
+#: key-signature-interface.cc:86
+msgid "alteration not found"
+msgstr "alterācija nav atrasta"
+
+#: ligature-bracket-engraver.cc:61 ligature-engraver.cc:105
+msgid "cannot find start of ligature"
+msgstr "nevar atrast ligatūras sākumu"
+
+#: ligature-bracket-engraver.cc:72 ligature-engraver.cc:125
+msgid "already have a ligature"
+msgstr "ligatūra jau ir"
+
+#: ligature-bracket-engraver.cc:73 ligature-engraver.cc:126
+#: ligature-engraver.cc:207
+msgid "ligature was started here"
+msgstr "ligatūra sākās šeit"
+
+#: ligature-engraver.cc:110
+msgid "no right bound"
+msgstr "nav labās robežas"
+
+#: ligature-engraver.cc:134
+msgid "no left bound"
+msgstr "nav kreisās robežas"
+
+#: ligature-engraver.cc:178
+msgid "unterminated ligature"
+msgstr "nenoslēgta ligatūra"
+
+#: ligature-engraver.cc:206
+msgid "ignoring rest: ligature may not contain rest"
+msgstr "ignorē pauzi: ligatūra nedrīkst saturēt pauzi"
+
+#: lily-guile.cc:263
+#, c-format
+msgid "the property '%s' must be of type '%s', ignoring invalid value '%s'"
+msgstr "īpašībai '%s' jābūt tipa '%s', ignorē nederīgo vērtību '%s'"
+
+#: lily-guile.cc:322
+#, c-format
+msgid "the property '%s' does not exist (perhaps a typing error)"
+msgstr "īpašība '%s' neeksistē (varbūt drukas kļūda)"
+
+#: lily-lexer.cc:257
+#, c-format
+msgid "identifier name is a keyword: `%s'"
+msgstr "identifikatora nosaukums ir atslēgvārds: `%s'"
+
+#: lily-lexer.cc:280 lily-lexer.cc:293
+#, c-format
+msgid "%s:EOF"
+msgstr "%s:EOF"
+
+#: lily-modules.cc:97
+#, c-format
+msgid "Uninitialized variable `%s' in module (%s)"
+msgstr "Neinicializēts mainīgais `%s' modulī (%s)"
+
+#: lily-parser-scheme.cc:97
+#, c-format
+msgid "cannot find init file: `%s'"
+msgstr "nevar atrast inicializācijas failu: `%s'"
+
+#: lily-parser-scheme.cc:112
+#, c-format
+msgid "Processing `%s'"
+msgstr "Apstrādā `%s'"
+
+#: lily-parser-scheme.cc:116
+msgid "Parsing..."
+msgstr "Parsē..."
+
+#: lily-parser-scheme.cc:268
+msgid "ly:parser-parse-string is only valid with a new parser.  Use ly:parser-include-string instead."
+msgstr "ly:parser-parse-string ir derīgs tikai ar jaunu parsētāju.  Tā vietā lietojiet ly:parser-include-string."
+
+#: lily-parser-scheme.cc:300
+msgid "ly:parse-string-expression is only valid with a new parser.  Use ly:parser-include-string instead."
+msgstr "ly:parse-string-expression ir derīgs tikai ar jaunu parsētāju.  Tā vietā lietojiet ly:parser-include-string."
+
+#: lookup.cc:163
+#, c-format
+msgid "Not drawing a box with negative dimension, %.2f by %.2f."
+msgstr "Netiek zīmēts taisnstūris ar negatīvu izmēru, %.2f x %.2f."
+
+#: lyric-combine-music-iterator.cc:220
+msgid "argument of \\lyricsto should contain Lyrics context"
+msgstr "\\lyricsto argumentam jāsatur Lyrics konteksts"
+
+#: main.cc:84
+#, c-format
+msgid ""
+"This program is free software.  It is covered by the GNU General Public\n"
+"License and you are welcome to change it and/or distribute copies of it\n"
+"under certain conditions.  Invoke as `%s --warranty' for more\n"
+"information.\n"
+msgstr ""
+"Šī programma ir brīvā programmatūra.  Uz to attiecas GNU General Public\n"
+"License, un jūs varat to mainīt un/vai izplatīt tās kopijas\n"
+"noteiktos apstākļos.  Lai iegūtu vairāk informācijas, izsauciet\n"
+"`%s --warranty'.\n"
+
+#: main.cc:90
+msgid ""
+"    This program is free software; you can redistribute it and/or\n"
+"modify it under the terms of the GNU General Public License as\n"
+"published by the Free Software Foundation, either version 3 of\n"
+"the License, or (at your option) any later version.\n"
+"\n"
+"    This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
+"General Public License for more details.\n"
+"\n"
+"    You should have received a copy of the GNU General Public\n"
+"License along with this program.  If not, see\n"
+"https://www.gnu.org/licenses/.\n"
+msgstr ""
+"    Šī programma ir brīvā programmatūra; jūs varat to izplatīt un/vai\n"
+"modificēt saskaņā ar GNU General Public License noteikumiem, ko\n"
+"publicējis Free Software Foundation, licences 3. versijai vai\n"
+"(pēc jūsu izvēles) jebkurai jaunākai versijai.\n"
+"\n"
+"    Šī programma tiek izplatīta ar cerību, ka tā būs noderīga,\n"
+"taču BEZ JEBKĀDĀM GARANTIJĀM; pat bez netiešas garantijas par\n"
+"PIEMĒROTĪBU PĀRDOŠANAI vai KONKRĒTAM MĒRĶIM.  Sīkāk skatiet GNU\n"
+"General Public License.\n"
+"\n"
+"    Jums kopā ar šo programmu bija jāsaņem GNU General Public\n"
+"License kopija.  Ja tā nav, skatiet\n"
+"https://www.gnu.org/licenses/.\n"
+
+#: main.cc:112
+msgid "FORMATs"
+msgstr "FORMĀTI"
+
+#: main.cc:113
+msgid "dump FORMAT,...  Also as separate options:"
+msgstr "izmest FORMĀTS,...  Arī kā atsevišķas opcijas:"
+
+#: main.cc:114
+msgid "generate PDF files (default)"
+msgstr "ģenerēt PDF failus (noklusējums)"
+
+#: main.cc:115
+msgid "generate SVG files "
+msgstr "ģenerēt SVG failus "
+
+#: main.cc:116
+msgid "generate PNG files "
+msgstr "ģenerēt PNG failus "
+
+#: main.cc:117
+msgid "generate PostScript files"
+msgstr "ģenerēt PostScript failus"
+
+#: main.cc:118
+msgid "generate Encapsulated PostScript files"
+msgstr "ģenerēt Encapsulated PostScript failus"
+
+#: main.cc:119
+msgid "KEY"
+msgstr "ATSLĒGA"
+
+#: main.cc:120
+msgid ""
+"set ps/pdf optimization to KEY, which is\n"
+"either 'size' (default), 'TeX', or\n"
+"'TeX-GS'"
+msgstr ""
+"iestatīt ps/pdf optimizāciju uz ATSLĒGA, kas\n"
+"ir 'size' (noklusējums), 'TeX' vai\n"
+"'TeX-GS'"
+
+#: main.cc:123
+msgid "SYM[=VAL]"
+msgstr "SYM[=VAL]"
+
+#: main.cc:124
+msgid ""
+"set Scheme option SYM to VAL (default:\n"
+"'#t')"
+msgstr ""
+"iestatīt Scheme opciju SYM uz VAL (noklusējums:\n"
+"'#t')"
+
+#: main.cc:126
+msgid "no-SYM"
+msgstr "no-SYM"
+
+#: main.cc:126
+msgid "set Scheme option SYM to '#f'"
+msgstr "iestatīt Scheme opciju SYM uz '#f'"
+
+#: main.cc:127
+msgid "show help for Scheme options"
+msgstr "rādīt palīdzību par Scheme opcijām"
+
+#: main.cc:128
+msgid "EXPR"
+msgstr "IZT"
+
+#: main.cc:128
+msgid "evaluate scheme code"
+msgstr "novērtēt scheme kodu"
+
+#: main.cc:132
+msgid "FIELD"
+msgstr "LAUKS"
+
+#: main.cc:133
+msgid ""
+"dump \\header field FIELD to file named\n"
+"BASENAME.FIELD"
+msgstr ""
+"izmest \\header lauku LAUKS failā ar nosaukumu\n"
+"BĀZES_NOSAUK.LAUKS"
+
+#: main.cc:135
+msgid "append DIR to search path"
+msgstr "pievienot DIR meklēšanas ceļa beigās"
+
+#: main.cc:136
+msgid "use FILE as init file"
+msgstr "lietot FAILU kā inicializācijas failu"
+
+#: main.cc:138
+msgid "USER,GROUP,JAIL,DIR"
+msgstr "LIETOTĀJS,GRUPA,CIETUMS,DIR"
+
+#: main.cc:139
+msgid ""
+"chroot to JAIL, become USER:GROUP and cd\n"
+"into DIR"
+msgstr ""
+"veikt chroot uz CIETUMS, kļūt par LIETOTĀJS:GRUPA un\n"
+"pāriet uz DIR"
+
+#: main.cc:143
+msgid ""
+"print log messages according to LOGLEVEL,\n"
+"which is either NONE, ERROR, WARN,\n"
+"BASIC, PROGRESS, INFO (default), or DEBUG"
+msgstr ""
+"izvadīt žurnāla ziņojumus atbilstoši ŽURN_LĪMENIM,\n"
+"kas ir NONE, ERROR, WARN,\n"
+"BASIC, PROGRESS, INFO (noklusējums) vai DEBUG"
+
+#: main.cc:147
+msgid ""
+"write output to FILE (suffix will be added)\n"
+"or to FOLDER, in which case the file name\n"
+"will be taken from the input file."
+msgstr ""
+"rakstīt izvadi FAILĀ (tiks pievienots sufikss)\n"
+"vai MAPĒ, tādā gadījumā faila nosaukums\n"
+"tiks ņemts no ievades faila."
+
+#: main.cc:150
+msgid "(ignored)"
+msgstr "(ignorēts)"
+
+#: main.cc:152
+msgid ""
+"no progress, only error messages\n"
+"(equivalent to --loglevel=ERROR)"
+msgstr ""
+"bez progresa, tikai kļūdu ziņojumi\n"
+"(līdzvērtīgi --loglevel=ERROR)"
+
+#: main.cc:155
+msgid "be verbose (equivalent to --loglevel=DEBUG)"
+msgstr "būt detalizētam (līdzvērtīgi --loglevel=DEBUG)"
+
+#: main.cc:178
+#, c-format
+msgid ""
+"\n"
+"Top-level directory of LilyPond's data tree:\n"
+"  '%s'\n"
+"\n"
+msgstr ""
+"\n"
+"LilyPond datu koka augšējā līmeņa direktorija:\n"
+"  '%s'\n"
+"\n"
+
+#: main.cc:212
+#, c-format
+msgid "%s %s (running Guile %s)"
+msgstr "%s %s (darbojas ar Guile %s)"
+
+#: main.cc:222
+#, c-format
+msgid ""
+"Copyright (c) %s by\n"
+"%s  and others."
+msgstr ""
+"Autortiesības (c) %s:\n"
+"%s un citi."
+
+#. No version number or newline here.  It confuses help2man.
+#: main.cc:252
+#, c-format
+msgid "Usage: %s [OPTION]... FILE..."
+msgstr "Lietošana: %s [OPCIJA]... FAILS..."
+
+#: main.cc:254
+msgid "Typeset music and/or produce MIDI from FILE."
+msgstr "Salikt mūziku un/vai veidot MIDI no FAILA."
+
+#: main.cc:256
+msgid "LilyPond produces beautiful music notation."
+msgstr "LilyPond veido skaistu mūzikas notāciju."
+
+#: main.cc:258
+#, c-format
+msgid "For more information, see %s"
+msgstr "Vairāk informācijas skatiet %s"
+
+#: main.cc:260
+msgid "Options:"
+msgstr "Opcijas:"
+
+#. Translators, please translate this string as
+#. "Report bugs in English via %s",
+#. or if there is a LilyPond users list or forum in your language
+#. "Report bugs in English via %s or in YOUR_LANG via URI"
+#: main.cc:268
+#, c-format
+msgid "You found a bug? Please read %s"
+msgstr "Atradāt kļūdu? Lūdzu, izlasiet %s"
+
+#: main.cc:288
+msgid "linked against Ghostscript:"
+msgstr "saistīts ar Ghostscript:"
+
+#: main.cc:340
+#, c-format
+msgid "expected %d arguments with jail, found: %zu"
+msgstr "ar cietumu gaidīti %d argumenti, atrasti: %zu"
+
+#: main.cc:354
+#, c-format
+msgid "no such user: %s"
+msgstr "lietotājs %s neeksistē"
+
+#: main.cc:356
+#, c-format
+msgid "cannot get user id from user name: %s: %s"
+msgstr "nevar iegūt lietotāja ID no lietotājvārda: %s: %s"
+
+#: main.cc:370
+#, c-format
+msgid "no such group: %s"
+msgstr "nav šādas grupas: %s"
+
+#: main.cc:372
+#, c-format
+msgid "cannot get group id from group name: %s: %s"
+msgstr "nevar iegūt grupas ID no grupas nosaukuma: %s: %s"
+
+#: main.cc:380
+#, c-format
+msgid "cannot chroot to: %s: %s"
+msgstr "nevar izpildīt chroot uz: %s: %s"
+
+#: main.cc:386
+#, c-format
+msgid "cannot change group id to: %d: %s"
+msgstr "nevar mainīt grupas ID uz: %d: %s"
+
+#: main.cc:392
+#, c-format
+msgid "cannot change user id to: %d: %s"
+msgstr "nevar mainīt lietotāja ID uz: %d: %s"
+
+#: main.cc:398
+#, c-format
+msgid "cannot change working directory to: %s: %s"
+msgstr "nevar mainīt darba direktoriju uz: %s: %s"
+
+#: main.cc:537
+msgid "The --relocate option is no longer relevant."
+msgstr "Opcija --relocate vairs nav aktuāla."
+
+#: main.cc:751
+#, c-format
+msgid "Changing working directory to: `%s'"
+msgstr "Maina darba direktoriju uz: `%s'"
+
+#: main.cc:754
+#, c-format
+msgid "unable to change directory to: `%s'"
+msgstr "nevar mainīt direktoriju uz: `%s'"
+
+#: mark-engraver.cc:211
+msgid "mark label must be a markup object"
+msgstr "atzīmes etiķetei jābūt marķējuma objektam"
+
+#: mensural-ligature-engraver.cc:94
+msgid "ligature with less than 2 heads; skipping"
+msgstr "ligatūra ar mazāk nekā 2 galviņām; izlaiž"
+
+#: mensural-ligature-engraver.cc:120
+msgid "cannot determine pitch of ligature primitive; skipping"
+msgstr "nevar noteikt ligatūras primitīva augstumu; izlaiž"
+
+#. we can get here after invalid input
+#: mensural-ligature-engraver.cc:134
+msgid "single note ligature; skipping"
+msgstr "vienas nots ligatūra; izlaiž"
+
+#: mensural-ligature-engraver.cc:142
+msgid "prime interval within ligature; skipping"
+msgstr "prīmas intervāls ligatūrā; izlaiž"
+
+#: mensural-ligature-engraver.cc:152
+msgid "mensural ligature: duration none of maxima, longa, breve, or semibreve; skipping"
+msgstr "mensurālā ligatūra: ilgums nav ne maxima, longa, brevis, ne semibrevis; izlaiž"
+
+#: mensural-ligature-engraver.cc:200
+msgid "semibrevis must not be followed by a brevis; skipping"
+msgstr "aiz semibrevis nedrīkst sekot brevis; izlaiž"
+
+#: mensural-ligature-engraver.cc:231
+msgid ""
+"invalid ligature ending:\n"
+"when the last note is a descending brevis,\n"
+"the penultimate note must be another one,\n"
+"or the ligature must be longa-brevis or\n"
+"semibrevis-semibrevis-brevis"
+msgstr ""
+"nederīgas ligatūras beigas:\n"
+"ja pēdējā nots ir lejupejoša brevis,\n"
+"priekšpēdējai notij jābūt vēl vienai,\n"
+"vai ligatūrai jābūt longa-brevis vai\n"
+"semibrevis-semibrevis-brevis"
+
+#: mensural-ligature-engraver.cc:410
+msgid "unexpected case fall-through"
+msgstr "negaidīta gadījuma izkrišana"
+
+#: midi-cc-announcer.cc:99
+#, c-format
+msgid "ignoring out-of-range value change for MIDI property `%s'"
+msgstr "ignorē ārpus diapazona esošu vērtības maiņu MIDI īpašībai `%s'"
+
+#: midi-item.cc:95
+#, c-format
+msgid "no such MIDI instrument: `%s'"
+msgstr "nav šāda MIDI instrumenta: `%s'"
+
+#: midi-item.cc:184
+#, c-format
+msgid "Unsupported MIDI time signature: (%s)/(%s)"
+msgstr "Neatbalstīts MIDI taktsmērs: (%s)/(%s)"
+
+#: midi-item.cc:392
+#, c-format
+msgid "Unsupported MIDI tempo (wholes/minute): %s"
+msgstr "Neatbalstīts MIDI temps (veselās/minūtē): %s"
+
+#: midi-stream.cc:53
+#, c-format
+msgid "cannot create temp file: %s: %s"
+msgstr "nevar izveidot pagaidu failu: %s: %s"
+
+#: midi-stream.cc:62
+#, c-format
+msgid "error writing MIDI file: %s"
+msgstr "kļūda, rakstot MIDI failu: %s"
+
+#: midi-stream.cc:79
+#, c-format
+msgid "cannot write to file: `%s': %s"
+msgstr "nevar rakstīt failā: `%s': %s"
+
+#. LINE BREAKING
+#: minimal-page-breaking.cc:40 one-page-breaking.cc:72 paper-score.cc:115
+msgid "Calculating line breaks..."
+msgstr "Aprēķina rindu pārnesumus..."
+
+#: minimal-page-breaking.cc:44
+msgid "Calculating page breaks..."
+msgstr "Aprēķina lapu pārtraukumus..."
+
+#: moment-scheme.cc:136
+#, c-format
+msgid "the function '%s' is deprecated"
+msgstr "funkcija '%s' ir novecojusi"
+
+#: multi-measure-rest.cc:131
+msgid "usable-duration-logs must be a non-empty list.  Falling back to whole rests."
+msgstr "usable-duration-logs jābūt netukšam sarakstam.  Atkāpjas uz veselajām pauzēm."
+
+#: music.cc:149
+#, c-format
+msgid "octave check failed; expected \"%s\", found: \"%s\""
+msgstr "oktāvas pārbaude neizdevās; gaidīts \"%s\", atrasts: \"%s\""
+
+#: new-fingering-engraver.cc:108
+msgid "cannot add text scripts to individual note heads"
+msgstr "atsevišķām nošu galviņām nevar pievienot teksta skriptus"
+
+#: new-fingering-engraver.cc:263
+msgid "no placement found for fingerings"
+msgstr "aplikatūrai nav atrasts novietojums"
+
+#: new-fingering-engraver.cc:264
+msgid "placing below"
+msgstr "novieto apakšā"
+
+#: note-collision.cc:557
+msgid "this Voice needs a \\voiceXx or \\shiftXx setting"
+msgstr "šai Voice nepieciešams \\voiceXx vai \\shiftXx iestatījums"
+
+#: note-column.cc:153
+msgid "cannot have note heads and rests together on a stem"
+msgstr "uz viena kāta nevar būt gan nošu galviņas, gan pauzes"
+
+#: note-head.cc:88
+#, c-format
+msgid "none of note heads `%s' or `%s' found"
+msgstr "nav atrasta ne nošu galviņa `%s', ne `%s'"
+
+#: note-heads-engraver.cc:80
+msgid "NoteEvent without pitch"
+msgstr "NoteEvent bez augstuma"
+
+#. PAGE BREAKING
+#: one-page-breaking.cc:78 optimal-page-breaking.cc:132
+msgid "Fitting music on 1 page..."
+msgstr "Ietilpina mūziku 1 lapā..."
+
+#: open-type-font-scheme.cc:145 open-type-font-scheme.cc:192
+#: open-type-font-scheme.cc:238 open-type-font-scheme.cc:388 otf-scheme.cc:43
+#: ttf.cc:489 ttf.cc:538
+msgid "font index must be non-negative, using index 0"
+msgstr "fonta indeksam jābūt nenegatīvam, tiek lietots indekss 0"
+
+#: open-type-font-scheme.cc:159 open-type-font-scheme.cc:206
+#: open-type-font-scheme.cc:285 otf-scheme.cc:58 ttf.cc:456 ttf.cc:505
+#, c-format
+msgid "font index %d too large for font `%s', using index 0"
+msgstr "fonta indekss %d ir pārāk liels fontam `%s', tiek lietots indekss 0"
+
+#: open-type-font-scheme.cc:248
+#, c-format
+msgid "cannot open font filename `%s'"
+msgstr "nevar atvērt fonta failu `%s'"
+
+#: open-type-font-scheme.cc:258 open-type-font-scheme.cc:275
+#: open-type-font-scheme.cc:297 open-type-font-scheme.cc:315
+#: open-type-font-scheme.cc:331 open-type-font-scheme.cc:346
+#, c-format
+msgid "cannot read %s of `%s'"
+msgstr "nevar nolasīt %s no `%s'"
+
+#: open-type-font-scheme.cc:367
+#, c-format
+msgid "font `%s' index %d does not have `CFF' table"
+msgstr "fonta `%s' indeksam %d nav `CFF' tabulas"
+
+#: open-type-font-scheme.cc:398
+#, c-format
+msgid "font `%s': cannot open for reading"
+msgstr "fonts `%s': nevar atvērt lasīšanai"
+
+#: open-type-font-scheme.cc:408 open-type-font-scheme.cc:424
+#: open-type-font-scheme.cc:442
+#, c-format
+msgid "font `%s': cannot read field `%s'"
+msgstr "fonts `%s': nevar nolasīt lauku `%s'"
+
+#: open-type-font-scheme.cc:416
+#, c-format
+msgid "font `%s': not a font collection"
+msgstr "fonts `%s': nav fontu kolekcija"
+
+#: open-type-font-scheme.cc:434
+#, c-format
+msgid "font `%s': invalid TTC header version"
+msgstr "fonts `%s': nederīga TTC galvenes versija"
+
+#: open-type-font-scheme.cc:453
+#, c-format
+msgid "font `%s': index %d is too large, using index 0"
+msgstr "fonts `%s': indekss %d ir pārāk liels, tiek lietots indekss 0"
+
+#: open-type-font-scheme.cc:464
+#, c-format
+msgid "font `%s': cannot read offset of subfont %d"
+msgstr "fonts `%s': nevar nolasīt apakšfonta %d nobīdi"
+
+#: open-type-font-scheme.cc:480 open-type-font-scheme.cc:518
+#: open-type-font-scheme.cc:540
+#, c-format
+msgid "font `%s': cannot read field `%s' of subfont %d"
+msgstr "fonts `%s': nevar nolasīt lauku `%s' apakšfontā %d"
+
+#: open-type-font-scheme.cc:490
+#, c-format
+msgid "font `%s': invalid field `sfntVersion' in subfont %d"
+msgstr "fonts `%s': nederīgs lauks `sfntVersion' apakšfontā %d"
+
+#: open-type-font-scheme.cc:499
+#, c-format
+msgid "subfont `%s': cannot open for writing"
+msgstr "apakšfonts `%s': nevar atvērt rakstīšanai"
+
+#: open-type-font-scheme.cc:508 open-type-font-scheme.cc:530
+#: open-type-font-scheme.cc:550
+#, c-format
+msgid "subfont `%s': cannot write field `%s'"
+msgstr "apakšfonts `%s': nevar ierakstīt lauku `%s'"
+
+#: open-type-font-scheme.cc:577
+#, c-format
+msgid "font `%s': cannot read field `%s' for table %u of subfont %d"
+msgstr "fonts `%s': nevar nolasīt lauku `%s' tabulai %u apakšfontā %d"
+
+#: open-type-font-scheme.cc:592 open-type-font-scheme.cc:612
+#: open-type-font-scheme.cc:641 open-type-font-scheme.cc:665
+#, c-format
+msgid "subfont `%s': cannot write field `%s' for table `%s'"
+msgstr "apakšfonts `%s': nevar ierakstīt lauku `%s' tabulai `%s'"
+
+#: open-type-font-scheme.cc:602 open-type-font-scheme.cc:622
+#: open-type-font-scheme.cc:651
+#, c-format
+msgid "font `%s': cannot read field `%s' for table `%s' of subfont %d"
+msgstr "fonts `%s': nevar nolasīt lauku `%s' tabulai `%s' apakšfontā %d"
+
+#: open-type-font-scheme.cc:691
+#, c-format
+msgid "font `%s': cannot read table `%s' of subfont %d"
+msgstr "fonts `%s': nevar nolasīt tabulu `%s' apakšfontā %d"
+
+#: open-type-font-scheme.cc:700
+#, c-format
+msgid "subfont `%s': cannot write table `%s'"
+msgstr "apakšfonts `%s': nevar ierakstīt tabulu `%s'"
+
+#: open-type-font.cc:55
+#, c-format
+msgid "cannot allocate %lu bytes"
+msgstr "nevar iedalīt %lu baitus"
+
+#: open-type-font.cc:59
+#, c-format
+msgid "cannot load font table: %s"
+msgstr "nevar ielādēt fontu tabulu: %s"
+
+#: open-type-font.cc:67
+#, c-format
+msgid "FreeType error: %s"
+msgstr "FreeType kļūda: %s"
+
+#: open-type-font.cc:84
+msgid "cannot initialize zlib decompression"
+msgstr "nevar inicializēt zlib dekompresiju"
+
+#: open-type-font.cc:120
+#, c-format
+msgid "cannot uncompress font table: %s"
+msgstr "nevar atspiest fontu tabulu: %s"
+
+#: open-type-font.cc:141
+#, c-format
+msgid "unsupported font format: %s"
+msgstr "neatbalstīts fontu formāts: %s"
+
+#: open-type-font.cc:143
+#, c-format
+msgid "error reading font file %s: %s"
+msgstr "kļūda, lasot fonta failu %s: %s"
+
+#: open-type-font.cc:185
+msgid "cannot get postscript name"
+msgstr "nevar iegūt PostScript nosaukumu"
+
+#: open-type-font.cc:197
+#, c-format
+msgid "cannot get font %s format"
+msgstr "nevar iegūt fonta %s formātu"
+
+#: open-type-font.cc:214
+#, c-format
+msgid "cannot get CFF name from font %s"
+msgstr "nevar iegūt CFF nosaukumu no fonta %s"
+
+#: open-type-font.cc:219
+#, c-format
+msgid "Subsitute font name: %s => %s"
+msgstr "Aizstājējfonta nosaukums: %s => %s"
+
+#: open-type-font.cc:225
+#, c-format
+msgid "CFF name for font %s is the same."
+msgstr "Fonta %s CFF nosaukums ir tāds pats."
+
+#: open-type-font.cc:257
+#, c-format
+msgid "cannot read CFF: %s"
+msgstr "nevar nolasīt CFF: %s"
+
+#: open-type-font.cc:268
+msgid "cannot get CFF name"
+msgstr "nevar iegūt CFF nosaukumu"
+
+#: open-type-font.cc:363
+#, c-format
+msgid "no stem attachment found in font for glyph %s"
+msgstr "fontā glifam %s nav atrasts kāta piesaistes punkts"
+
+#: open-type-font.cc:385
+#, c-format
+msgid "FT_Get_Glyph_Name () Freetype error: %s"
+msgstr "FT_Get_Glyph_Name () Freetype kļūda: %s"
+
+#: open-type-font.cc:516
+#, c-format
+msgid "FT_Get_Glyph_Name () error: %s"
+msgstr "FT_Get_Glyph_Name () kļūda: %s"
+
+#: optimal-page-breaking.cc:65
+msgid "page-count must be positive"
+msgstr "page-count jābūt pozitīvam"
+
+#: optimal-page-breaking.cc:87
+msgid "could not satisfy systems-per-page and page-count at the same time, ignoring systems-per-page"
+msgstr "nevarēja vienlaikus apmierināt systems-per-page un page-count, systems-per-page tiek ignorēts"
+
+#. find out the ideal number of pages
+#: optimal-page-breaking.cc:109
+msgid "Finding the ideal number of pages..."
+msgstr "Meklē ideālo lapu skaitu..."
+
+#: optimal-page-breaking.cc:134
+#, c-format
+msgid "Fitting music on %zu pages..."
+msgstr "Ietilpina mūziku %zu lapās..."
+
+#: optimal-page-breaking.cc:137
+#, c-format
+msgid "Fitting music on %zu or %zu pages..."
+msgstr "Ietilpina mūziku %zu vai %zu lapās..."
+
+#: optimal-page-breaking.cc:147 optimal-page-breaking.cc:203
+#, c-format
+msgid "trying %zu systems"
+msgstr "mēģina %zu sistēmas"
+
+#: optimal-page-breaking.cc:166 optimal-page-breaking.cc:231
+#, c-format
+msgid "best score for this sys-count: %f"
+msgstr "labākais rezultāts šim sistēmu skaitam: %f"
+
+#: optimal-page-breaking.cc:250 page-turn-page-breaking.cc:276
+#: paper-score.cc:155
+msgid "Drawing systems..."
+msgstr "Zīmē sistēmas..."
+
+#: ottava-engraver.cc:106
+#, c-format
+msgid "Could not find ottavation markup for %d octaves up."
+msgstr "Nevarēja atrast oktavācijas marķējumu %d oktāvām augšup."
+
+#: output-def.cc:228
+msgid "margins do not fit with line-width, setting default values"
+msgstr "malas neatbilst line-width, tiek iestatītas noklusējuma vērtības"
+
+#: output-def.cc:235
+msgid "systems run off the page due to improper paper settings, setting default values"
+msgstr "nepareizu papīra iestatījumu dēļ sistēmas iziet ārpus lapas, tiek iestatītas noklusējuma vērtības"
+
+#: page-breaking.cc:299
+msgid "ignoring min-systems-per-page and max-systems-per-page because systems-per-page was set"
+msgstr "min-systems-per-page un max-systems-per-page tiek ignorēti, jo iestatīts systems-per-page"
+
+#: page-breaking.cc:305
+msgid "min-systems-per-page is larger than max-systems-per-page, ignoring both values"
+msgstr "min-systems-per-page ir lielāks par max-systems-per-page, abas vērtības tiek ignorētas"
+
+#: page-breaking.cc:579
+#, c-format
+msgid "page %d has been compressed"
+msgstr "lapa %d ir saspiesta"
+
+#: page-breaking.cc:1306
+#, c-format
+msgid "too few pages: %ld (should have at least %ld)"
+msgstr "pārāk maz lapu: %ld (jābūt vismaz %ld)"
+
+#: page-breaking.cc:1311
+#, c-format
+msgid "too many pages: %ld (should have at most %ld)"
+msgstr "pārāk daudz lapu: %ld (jābūt ne vairāk kā %ld)"
+
+#: page-layout-problem.cc:432
+msgid "A page layout problem has been initiated that cannot accommodate footnotes."
+msgstr "Ir uzsākta lapas izkārtojuma problēma, kas nevar ietvert zemsvītras piezīmes."
+
+#: page-layout-problem.cc:811
+msgid "ragged-bottom was specified, but page must be compressed"
+msgstr "norādīts ragged-bottom, bet lapa jāsaspiež"
+
+#: page-layout-problem.cc:815
+#, c-format
+msgid "compressing over-full page by %.1f staff-spaces"
+msgstr "saspiež pārpildītu lapu par %.1f nošu līniju atstarpēm"
+
+#: page-layout-problem.cc:1324
+msgid "staff-affinities should only decrease"
+msgstr "staff-affinities drīkst tikai samazināties"
+
+#: page-spacing.cc:197
+msgid "tried to space systems on a bad number of pages"
+msgstr "mēģināja izvietot sistēmas nepareizā lapu skaitā"
+
+#: page-turn-page-breaking.cc:190
+#, c-format
+msgid "page-turn-page-breaking: breaking from %zu to %zu"
+msgstr "page-turn-page-breaking: pārtrauc no %zu līdz %zu"
+
+#: page-turn-page-breaking.cc:245
+msgid "cannot fit the first page turn onto a single page.  Consider setting first-page-number to an even number."
+msgstr "pirmo lapas pāršķiršanu nevar ietilpināt vienā lapā.  Apsveriet first-page-number iestatīšanu uz pāra skaitli."
+
+#: page-turn-page-breaking.cc:259
+#, c-format
+msgid "Calculating page and line breaks (%zu possible page breaks)..."
+msgstr "Aprēķina lapu un rindu pārnesumus (%zu iespējami lapu pārtraukumi)..."
+
+#: page-turn-page-breaking.cc:330
+#, c-format
+msgid "break starting at page %d"
+msgstr "pārtraukums, sākot ar lapu %d"
+
+#: page-turn-page-breaking.cc:331
+#, c-format
+msgid "\tdemerits: %f"
+msgstr "\tsodapunkti: %f"
+
+#: page-turn-page-breaking.cc:332
+#, c-format
+msgid "\tsystem count: %zu"
+msgstr "\tsistēmu skaits: %zu"
+
+#: page-turn-page-breaking.cc:333
+#, c-format
+msgid "\tpage count: %zu"
+msgstr "\tlapu skaits: %zu"
+
+#: page-turn-page-breaking.cc:334
+#, c-format
+msgid "\tprevious break: %zu"
+msgstr "\tiepriekšējais pārtraukums: %zu"
+
+#: pango-font.cc:253
+#, c-format
+msgid "no glyph for character '%s' (U+%04X%s) in font `%s'"
+msgstr "nav glifa rakstzīmei '%s' (U+%04X%s) fontā `%s'"
+
+#: pango-font.cc:455
+#, c-format
+msgid "no PostScript font name for font `%s'"
+msgstr "fontam `%s' nav PostScript fonta nosaukuma"
+
+#: pango-font.cc:506
+msgid "FreeType face has no PostScript font name"
+msgstr "FreeType fontam nav PostScript fonta nosaukuma"
+
+#: pango-select.cc:42
+#, c-format
+msgid "unknown font-variant value %s; allowed values are normal and small-caps"
+msgstr "nezināma font-variant vērtība %s; atļautās vērtības ir normal un small-caps"
+
+#: pango-select.cc:61
+#, c-format
+msgid "unknown font-shape value %s; allowed values are italic, oblique and upright"
+msgstr "nezināma font-shape vērtība %s; atļautās vērtības ir italic, oblique un upright"
+
+#: pango-select.cc:105
+#, c-format
+msgid "unknown font-series value %s; allowed values are thin, ultralight (or extralight), light, semilight (or demilight), book, normal (or regular), medium, semibold (or demibold), bold, ultrabold (or extrabold), heavy (or black), and ultraheavy (or ultrablack or extrablack)"
+msgstr "nezināma font-series vērtība %s; atļautās vērtības ir thin, ultralight (vai extralight), light, semilight (vai demilight), book, normal (vai regular), medium, semibold (vai demibold), bold, ultrabold (vai extrabold), heavy (vai black) un ultraheavy (vai ultrablack, vai extrablack)"
+
+#: pango-select.cc:138
+#, c-format
+msgid "unknown font-stretch value %s; allowed values are ultra-condensed, extra-condensed, condensed, semi-condensed, normal, semi-expanded, extra-expanded and ultra-expanded"
+msgstr "nezināma font-stretch vērtība %s; atļautās vērtības ir ultra-condensed, extra-condensed, condensed, semi-condensed, normal, semi-expanded, extra-expanded un ultra-expanded"
+
+#: paper-book.cc:359
+#, c-format
+msgid "program option -dclip-systems/-dcrop/-dpreview not supported by backend `%s'"
+msgstr "programmas opcija -dclip-systems/-dcrop/-dpreview netiek atbalstīta aizmugurē `%s'"
+
+#: paper-book.cc:413
+#, c-format
+msgid "multi-page output not supported by backend `%s'"
+msgstr "vairāku lapu izvade netiek atbalstīta aizmugurē `%s'"
+
+#: paper-column.cc:451
+#, c-format
+msgid "refusing to create a grob sticking to Paper_column grob %s; paper columns should not be created from custom engravers."
+msgstr "atsakās veidot grob, kas pielīp Paper_column grob %s; papīra kolonnas nedrīkst veidot no pielāgotiem gravētājiem."
+
+#: paper-outputter.cc:129
+#, c-format
+msgid "Paper_outputter elapsed time: %.2f seconds"
+msgstr "Paper_outputter pagājušais laiks: %.2f sekundes"
+
+#: paper-score.cc:128
+#, c-format
+msgid "Element count %zu (spanners %zu) "
+msgstr "Elementu skaits %zu (posmu %zu) "
+
+#: paper-score.cc:131
+msgid "Preprocessing graphical objects..."
+msgstr "Pirmapstrādā grafiskos objektus..."
+
+#: parse-scm.cc:119 parse-scm.cc:156
+msgid "Guile signaled an error for the expression beginning here"
+msgstr "Guile ziņoja par kļūdu izteiksmē, kas sākas šeit"
+
+#: percent-repeat-engraver.cc:97
+msgid "percent repeat started while another already in progress"
+msgstr "procentu atkārtojums sākts, kamēr jau notiek cits"
+
+#: performance.cc:80
+msgid "Track..."
+msgstr "Celiņš..."
+
+#: performance.cc:139
+#, c-format
+msgid "cannot create a zero-track MIDI file; skipping `%s'"
+msgstr "nevar izveidot MIDI failu bez celiņiem; izlaiž `%s'"
+
+#: performance.cc:144
+#, c-format
+msgid "MIDI output to `%s'...\n"
+msgstr "MIDI izvade uz `%s'...\n"
+
+#: piano-pedal-engraver.cc:281
+#, c-format
+msgid "expect 3 strings for piano pedals, found: %ld"
+msgstr "klavieru pedāļiem gaidītas 3 virknes, atrastas: %ld"
+
+#: piano-pedal-engraver.cc:297 piano-pedal-engraver.cc:310
+#, c-format
+msgid "cannot find start of piano pedal: `%s'"
+msgstr "nevar atrast klavieru pedāļa sākumu: `%s'"
+
+#: piano-pedal-engraver.cc:345
+#, c-format
+msgid "cannot find start of piano pedal bracket: `%s'"
+msgstr "nevar atrast klavieru pedāļa kvadrātiekavas sākumu: `%s'"
+
+#: piano-pedal-performer.cc:87
+msgid "cannot find start of piano pedal"
+msgstr "nevar atrast klavieru pedāļa sākumu"
+
+#: program-option-scheme.cc:329
+#, c-format
+msgid "ignoring option -d%s=\"%s\": value has wrong type"
+msgstr "ignorē opciju -d%s=\"%s\": vērtībai ir nepareizs tips"
+
+#: program-option-scheme.cc:344
+#, c-format
+msgid ""
+"ignoring option -d%s=\"%s\":\n"
+"  invalid value; possible values are %s"
+msgstr ""
+"ignorē opciju -d%s=\"%s\":\n"
+"  nederīga vērtība; iespējamās vērtības ir %s"
+
+#: program-option-scheme.cc:377
+#, c-format
+msgid "option %s is accumulative; use ly:append-to-option instead of ly:set-option"
+msgstr "opcija %s ir uzkrājoša; ly:set-option vietā lietojiet ly:append-to-option"
+
+#: program-option-scheme.cc:384 program-option-scheme.cc:405
+#, c-format
+msgid "no such program option: %s"
+msgstr "nav šādas programmas opcijas: %s"
+
+#: program-option-scheme.cc:410
+#, c-format
+msgid "option %s is not accumulative; use ly:set-option instead of ly:add-to-option"
+msgstr "opcija %s nav uzkrājoša; ly:add-to-option vietā lietojiet ly:set-option"
+
+#: property-iterator.cc:67
+#, c-format
+msgid "not a grob name, `%s'"
+msgstr "nav grob nosaukums, `%s'"
+
+#: relative-octave-check.cc:49
+msgid "Failed octave check, got: "
+msgstr "Oktāvas pārbaude neizdevās, saņemts: "
+
+#: relocate.cc:62
+#, c-format
+msgid "%sSetting %s to '%s'\n"
+msgstr "%sIestata %s uz '%s'\n"
+
+#: relocate.cc:72
+#, c-format
+msgid "%s%s not overwritten\n"
+msgstr "%s%s nav pārrakstīts\n"
+
+#: relocate.cc:84
+#, c-format
+msgid "No such file '%s' for %s"
+msgstr "Nav faila '%s' mainīgajam %s"
+
+#: relocate.cc:94 relocate.cc:114
+#, c-format
+msgid "No such directory '%s' for %s"
+msgstr "Nav direktorijas '%s' mainīgajam %s"
+
+#: relocate.cc:103
+#, c-format
+msgid "  Prepending '%s' to %s\n"
+msgstr "  Pievieno '%s' %s sākumā\n"
+
+#: relocate.cc:129
+#, c-format
+msgid ""
+"  Found %s environment variable,\n"
+"    setting %s to '%s'\n"
+msgstr ""
+"  Atrasts vides mainīgais %s,\n"
+"    iestata %s uz '%s'\n"
+
+#: relocate.cc:144
+#, c-format
+msgid ""
+"  Using run-time value for %s,\n"
+"    setting it to '%s'\n"
+msgstr ""
+"  Lieto izpildlaika vērtību %s,\n"
+"    iestata to uz '%s'\n"
+
+#: relocate.cc:152
+#, c-format
+msgid ""
+"  Using compile-time value for %s,\n"
+"    setting it to '%s'\n"
+msgstr ""
+"  Lieto kompilēšanas laika vērtību %s,\n"
+"    iestata to uz '%s'\n"
+
+#: relocate.cc:163
+msgid ""
+"\n"
+"Relocation\n"
+msgstr ""
+"\n"
+"Relokācija\n"
+
+#: relocate.cc:171
+#, c-format
+msgid ""
+"  LilyPond binary has absolute file name:\n"
+"    %s\n"
+msgstr ""
+"  LilyPond binārajam failam ir absolūts faila nosaukums:\n"
+"    %s\n"
+
+#: relocate.cc:178
+#, c-format
+msgid ""
+"  LilyPond binary has relative file name:\n"
+"    %s\n"
+msgstr ""
+"  LilyPond binārajam failam ir relatīvs faila nosaukums:\n"
+"    %s\n"
+
+#: relocate.cc:199
+#, c-format
+msgid ""
+"  Absolute file name of LilyPond binary computed from PATH:\n"
+"    PATH=%s\n"
+"    argv0=%s\n"
+msgstr ""
+"  No PATH aprēķinātais LilyPond binārā faila absolūtais nosaukums:\n"
+"    PATH=%s\n"
+"    argv0=%s\n"
+
+#: relocate.cc:234
+msgid "LILYPONDPREFIX is obsolete, use LILYPOND_DATADIR"
+msgstr "LILYPONDPREFIX ir novecojis, lietojiet LILYPOND_DATADIR"
+
+#: relocate.cc:355
+#, c-format
+msgid "  Relocation file '%s'\n"
+msgstr "  Relokācijas fails '%s'\n"
+
+#: relocate.cc:359
+#, c-format
+msgid "cannot open file '%s', ignored"
+msgstr "nevar atvērt failu '%s', ignorēts"
+
+#: relocate.cc:391
+#, c-format
+msgid "Unknown relocation command '%s'"
+msgstr "Nezināma relokācijas komanda '%s'"
+
+#: relocate.cc:403
+#, c-format
+msgid ""
+"\n"
+"  Using relocation config directory '%s'\n"
+msgstr ""
+"\n"
+"  Lieto relokācijas konfigurācijas direktoriju '%s'\n"
+
+#: relocate.cc:414
+#, c-format
+msgid "No relocation config directory '%s'"
+msgstr "Nav relokācijas konfigurācijas direktorijas '%s'"
+
+#: rest-collision.cc:159
+msgid "cannot resolve rest collision: rest direction not set"
+msgstr "nevar atrisināt pauzu sadursmi: pauzes virziens nav iestatīts"
+
+#: rest-collision.cc:171 rest-collision.cc:288
+msgid "too many colliding rests"
+msgstr "pārāk daudz sadurošos pauzu"
+
+#: rest.cc:246
+#, c-format
+msgid "rest `%s' not found"
+msgstr "pauze `%s' nav atrasta"
+
+#: score.cc:166
+msgid "already have music in score"
+msgstr "partitūrā jau ir mūzika"
+
+#: score.cc:168
+msgid "this is the previous music"
+msgstr "šī ir iepriekšējā mūzika"
+
+#: score.cc:173
+msgid "errors found, ignoring music expression"
+msgstr "atrastas kļūdas, mūzikas izteiksme tiek ignorēta"
+
+#: script-engraver.cc:116
+#, c-format
+msgid "do not know how to interpret articulation: %s"
+msgstr "nav zināms, kā interpretēt artikulāciju: %s"
+
+#. Maybe a callback provided music inconsistent with the
+#. precomputed length.
+#. TODO: It might be nice to log the actual music that was
+#. iterated in a debug message.
+#: sequential-iterator.cc:140
+msgid "total length of sequential music elements is different than anticipated"
+msgstr "secīgo mūzikas elementu kopējais garums atšķiras no gaidītā"
+
+#. iter_ is !ok earlier than the length of its music predicts.
+#. Mitigate by waiting until the expected time so that the next
+#. element starts in sync.
+#: sequential-iterator.cc:173
+msgid "music is shorter than anticipated"
+msgstr "mūzika ir īsāka nekā gaidīts"
+
+#: side-position-interface.cc:494
+#, c-format
+msgid "no side-axis setting found for grob %s."
+msgstr "grob %s nav atrasts side-axis iestatījums."
+
+#: skyline.cc:561
+msgid "Cannot have negative horizon padding.  Junking."
+msgstr "Nevar būt negatīva horizonta atstarpe.  Izmet."
+
+#: slur-engraver.cc:115
+#, c-format
+msgid "direction of %s invalid: %d"
+msgstr "%s virziens nav derīgs: %d"
+
+#. We already have an old slur, so give a warning
+#. and completely ignore the new slur.
+#: slur-engraver.cc:228
+#, c-format
+msgid "already have %s"
+msgstr "%s jau ir"
+
+#: slur-engraver.cc:246
+#, c-format
+msgid "%s without a cause"
+msgstr "%s bez cēloņa"
+
+#: slur-engraver.cc:312
+#, c-format
+msgid "cannot end %s"
+msgstr "nevar beigt %s"
+
+#: slur-scoring.cc:365
+msgid "no viable slur configuration found"
+msgstr "nav atrasta dzīvotspējīga līgas konfigurācija"
+
+#: slur-scoring.cc:495
+msgid "slur trying to encompass an empty note column."
+msgstr "līga mēģina aptvert tukšu nošu kolonnu."
+
+#: slur.cc:404
+#, c-format
+msgid "Ignoring grob for slur: %s.  avoid-slur not set?"
+msgstr "Ignorē grob līgai: %s.  Vai avoid-slur nav iestatīts?"
+
+#: source-file.cc:62
+#, c-format
+msgid "cannot open file: `%s'"
+msgstr "nevar atvērt failu: `%s'"
+
+#: source-file.cc:70
+#, c-format
+msgid "failed to get file size: `%s'"
+msgstr "neizdevās iegūt faila izmēru: `%s'"
+
+#: source-file.cc:85
+#, c-format
+msgid "expected to read %zu characters, got %zu"
+msgstr "gaidīts nolasīt %zu rakstzīmes, saņemtas %zu"
+
+#: staff-performer.cc:296
+msgid "MIDI channel wrapped around"
+msgstr "MIDI kanāls apgriezās"
+
+#: staff-performer.cc:297
+msgid "remapping modulo 16"
+msgstr "pārkartē pēc moduļa 16"
+
+#: stem-engraver.cc:94
+msgid "tremolo duration is too long"
+msgstr "tremolo ilgums ir pārāk garš"
+
+#: stem-engraver.cc:147
+#, c-format
+msgid "adding note head to incompatible stem (type = %d/%d)"
+msgstr "pievieno nošu galviņu nesaderīgam kātam (tips = %d/%d)"
+
+#: stem-engraver.cc:149
+msgid "maybe input should specify polyphonic voices"
+msgstr "iespējams, ievadē jānorāda polifoniskas balsis"
+
+#: stem-tremolo.cc:305
+msgid "Whole-note tremolo may collide with simultaneous notes."
+msgstr "Veselās nots tremolo var sadurties ar vienlaicīgām notīm."
+
+#: stem-tremolo.cc:358
+msgid "stem tremolo has no note heads"
+msgstr "kāta tremolo nav nošu galviņu"
+
+#: stem.cc:133
+msgid "weird stem size, check for narrow beams"
+msgstr "dīvains kāta izmērs, pārbaudiet šauras vīķes"
+
+#: stencil-integral.cc:475
+msgid "Malformed path for path stencil."
+msgstr "Nepareizi veidots ceļš ceļa trafaretam."
+
+#: stream-event.cc:113
+#, c-format
+msgid "conflict with event: `%s'"
+msgstr "konflikts ar notikumu: `%s'"
+
+#: stream-event.cc:116
+#, c-format
+msgid "discarding event: `%s'"
+msgstr "atmet notikumu: `%s'"
+
+#: system.cc:191
+#, c-format
+msgid "Element count %zu"
+msgstr "Elementu skaits %zu"
+
+#: system.cc:536
+#, c-format
+msgid "Grob count %zu"
+msgstr "Grob skaits %zu"
+
+#: system.cc:1079
+msgid "refusing to create a grob sticking to a System grob; systems should not be created from custom engravers."
+msgstr "atsakās veidot grob, kas pielīp System grob; sistēmas nedrīkst veidot no pielāgotiem gravētājiem."
+
+#. TODO: Also print the arguments of the markup!
+#: text-interface.cc:303
+#, c-format
+msgid "Markup depth exceeds maximal value of %zu; Markup: %s"
+msgstr "Marķējuma dziļums pārsniedz maksimālo vērtību %zu; marķējums: %s"
+
+#: text-spanner-engraver.cc:63
+msgid "cannot find start of text spanner"
+msgstr "nevar atrast teksta posma sākumu"
+
+#: text-spanner-engraver.cc:76
+msgid "already have a text spanner"
+msgstr "teksta posms jau ir"
+
+#: text-spanner-engraver.cc:77
+msgid "text spanner was started here"
+msgstr "teksta posms sākās šeit"
+
+#: text-spanner-engraver.cc:126
+msgid "unterminated text spanner"
+msgstr "nenoslēgts teksta posms"
+
+#: tie-engraver.cc:111
+msgid "unterminated tie"
+msgstr "nenoslēgta saite"
+
+#: tie-engraver.cc:358
+msgid "lonely tie"
+msgstr "vientuļa saite"
+
+#: time-signature-engraver.cc:135
+msgid "mid-measure time signature without \\partial"
+msgstr "taktsmērs takta vidū bez \\partial"
+
+#: time-signature-performer.cc:128
+msgid "bad beatBase/beatStructure for MIDI time signature"
+msgstr "slikts beatBase/beatStructure MIDI taktsmēram"
+
+#: time-tracer-scheme.cc:60
+#, c-format
+msgid "failed redirecting time-trace output to `%s'"
+msgstr "neizdevās novirzīt laika trasējuma izvadi uz `%s'"
+
+#: timing-translator.cc:138
+msgid "cannot calculate a finite measurePosition from an infinite measureLength"
+msgstr "no bezgalīga measureLength nevar aprēķināt galīgu measurePosition"
+
+#: timing-translator.cc:194
+#, c-format
+msgid "conflicting measure length: %s"
+msgstr "konfliktējošs takta garums: %s"
+
+#: timing-translator.cc:196
+#, c-format
+msgid "measure length in Timing context: %s"
+msgstr "takta garums Timing kontekstā: %s"
+
+#: timing-translator.cc:238
+#, c-format
+msgid "bar check failed at: %s"
+msgstr "takta pārbaude neizdevās pie: %s"
+
+#: timing-translator.cc:462
+msgid "found music after \\fine"
+msgstr "atrasta mūzika aiz \\fine"
+
+#: translator-ctors.cc:125
+#, c-format
+msgid "unknown translator: `%s'"
+msgstr "nezināms tulkotājs: `%s'"
+
+#: translator-group-ctors.cc:40
+#, c-format
+msgid "Couldn't find translator type %s (should be Engraver_group, Performer_group, Score_engraver or Score_performer)"
+msgstr "Nevarēja atrast tulkotāja tipu %s (jābūt Engraver_group, Performer_group, Score_engraver vai Score_performer)"
+
+#: translator-group.cc:157
+#, c-format
+msgid "cannot find: `%s'"
+msgstr "nevar atrast: `%s'"
+
+#: tuplet-engraver.cc:90
+msgid "No tuplet to end"
+msgstr "Nav tupleta, ko beigt"
+
+#: vaticana-ligature-engraver.cc:378
+#, c-format
+msgid "ignored prefix(es) `%s' of this head according to restrictions of the selected ligature style"
+msgstr "šīs galviņas priedēklis(-ļi) `%s' ignorēts atbilstoši izvēlētā ligatūras stila ierobežojumiem"
+
+#: vaticana-ligature-engraver.cc:441
+msgid "Ambiguous use of dots in ligature: there are multiple dotted notes with the same pitch.  The ligature should be split."
+msgstr "Neviennozīmīga punktu lietošana ligatūrā: ir vairākas punktotas notis ar vienādu augstumu.  Ligatūra jāsadala."
+
+#: vaticana-ligature-engraver.cc:499
+msgid "This ligature has a dotted head followed by a non-dotted head.  The ligature should be split after the last dotted head before this head."
+msgstr "Šajā ligatūrā aiz punktotas galviņas seko nepunktota galviņa.  Ligatūra jāsadala aiz pēdējās punktotās galviņas pirms šīs galviņas."
+
+#: vaticana-ligature.cc:89
+msgid "flexa-height undefined; assuming 0"
+msgstr "flexa-height nav definēts; tiek pieņemts 0"
+
+#: vaticana-ligature.cc:94
+msgid "ascending vaticana style flexa"
+msgstr "augšupejoša vaticana stila flexa"
+
+#: vertical-align-engraver.cc:111
+msgid "Ignoring Vertical_align_engraver in VerticalAxisGroup"
+msgstr "Ignorē Vertical_align_engraver VerticalAxisGroup"
+
+#: vertical-align-engraver.cc:165
+#, c-format
+msgid "alignAboveContext not found: %s"
+msgstr "alignAboveContext nav atrasts: %s"
+
+#: vertical-align-engraver.cc:170
+#, c-format
+msgid "alignBelowContext not found: %s"
+msgstr "alignBelowContext nav atrasts: %s"
+
+#: volta-engraver.cc:177
+#, c-format
+msgid "discarding conflicting volta numbers: %s"
+msgstr "atmet konfliktējošus volta numurus: %s"
+
+#: volta-engraver.cc:345
+msgid "already have a VoltaBracket; ending it prematurely"
+msgstr "VoltaBracket jau ir; to priekšlaicīgi beidz"
+
+#. FIXME: Be more verbose?
+#: volta-engraver.cc:359
+msgid "no VoltaBracket to end"
+msgstr "nav VoltaBracket, ko beigt"
+
+#: parser.yy:505 parser.yy:701 parser.yy:1101 parser.yy:1183 parser.yy:1420
+msgid "bad expression type"
+msgstr "slikts izteiksmes tips"
+
+#: parser.yy:541
+msgid "not found"
+msgstr "nav atrasts"
+
+#: parser.yy:759
+msgid "Not a markup function"
+msgstr "Nav marķējuma funkcija"
+
+#: parser.yy:1013 parser.yy:1619 parser.yy:1681
+msgid "not a context mod"
+msgstr "nav konteksta modifikācija"
+
+#: parser.yy:1095 parser.yy:1175 parser.yy:1329
+msgid "need \\paper for paper block"
+msgstr "papīra blokam nepieciešams \\paper"
+
+#: parser.yy:1209
+msgid "Missing music in \\score"
+msgstr "\\score trūkst mūzikas"
+
+#: parser.yy:1247
+msgid "\\paper cannot be used in \\score, use \\layout instead"
+msgstr "\\paper nevar lietot \\score, tā vietā lietojiet \\layout"
+
+#: parser.yy:1298
+msgid "Spurious expression in \\score"
+msgstr "Lieka izteiksme \\score"
+
+#: parser.yy:1501
+msgid "music expected"
+msgstr "gaidīta mūzika"
+
+#: parser.yy:1542
+msgid "Ignoring non-music expression"
+msgstr "Ignorē nemuzikālu izteiksmi"
+
+#: parser.yy:1862 parser.yy:1883
+msgid "not a key"
+msgstr "nav toņkārta"
+
+#: parser.yy:2780 parser.yy:2911 parser.yy:2927
+msgid "bad grob property path"
+msgstr "slikts grob īpašības ceļš"
+
+#: parser.yy:2882
+msgid "only \\consists and \\remove take non-string argument."
+msgstr "argumentu, kas nav virkne, pieņem tikai \\consists un \\remove."
+
+#: parser.yy:2947
+msgid "bad context property path"
+msgstr "slikts konteksta īpašības ceļš"
+
+#: parser.yy:3034
+msgid "markup expected"
+msgstr "gaidīts marķējums"
+
+#: parser.yy:3047
+msgid "simple string expected"
+msgstr "gaidīta vienkārša virkne"
+
+#: parser.yy:3060 parser.yy:3070
+msgid "symbol expected"
+msgstr "gaidīts simbols"
+
+#: parser.yy:3213
+msgid "not a rhythmic event"
+msgstr "nav ritmisks notikums"
+
+#: parser.yy:3250
+msgid "post-event expected"
+msgstr "gaidīts pēcnotikums"
+
+#: parser.yy:3261 parser.yy:3266
+msgid "have to be in Lyric mode for lyrics"
+msgstr "dziesmas vārdiem jābūt Lyric režīmā"
+
+#: parser.yy:3346
+msgid "expecting post-event as script definition"
+msgstr "kā skripta definīcija gaidīts pēcnotikums"
+
+#: parser.yy:3523 parser.yy:3590
+msgid "not a duration"
+msgstr "nav ilgums"
+
+#: parser.yy:3576
+msgid "not a multiplier"
+msgstr "nav reizinātājs"
+
+#: parser.yy:3612
+msgid "bass number expected"
+msgstr "gaidīts basa skaitlis"
+
+#: parser.yy:3642
+msgid "Dropping surplus alteration symbols for bass figure."
+msgstr "Atmet liekos alterācijas simbolus basa figūrai."
+
+#: parser.yy:3720
+msgid "have to be in Note mode for notes"
+msgstr "notīm jābūt Note režīmā"
+
+#: parser.yy:3729
+msgid "octave marks must precede duration"
+msgstr "oktāvas atzīmēm jābūt pirms ilguma"
+
+#: parser.yy:3731
+msgid "badly placed octave marks"
+msgstr "nepareizi novietotas oktāvas atzīmes"
+
+#: parser.yy:3779
+msgid "have to be in Chord mode for chords"
+msgstr "akordiem jābūt Chord režīmā"
+
+#: parser.yy:3822
+msgid "markup outside of text script or \\lyricmode"
+msgstr "marķējums ārpus teksta skripta vai \\lyricmode"
+
+#: parser.yy:3827
+#, c-format
+msgid "not a note name: %s"
+msgstr "nav nots nosaukums: %s"
+
+#: parser.yy:3832
+msgid "string outside of text script or \\lyricmode"
+msgstr "virkne ārpus teksta skripta vai \\lyricmode"
+
+#: parser.yy:3984 parser.yy:3994
+msgid "not an exact unsigned number"
+msgstr "nav precīzs skaitlis bez zīmes"
+
+#: parser.yy:4007 parser.yy:4016
+msgid "not an unsigned integer"
+msgstr "nav vesels skaitlis bez zīmes"
+
+#: parser.yy:4127
+msgid "not a markup"
+msgstr "nav marķējums"
+
+#: parser.yy:4849
+#, c-format
+msgid "Unattached %s"
+msgstr "Nepiesaistīts %s"
+
+#: parser.yy:4851
+#, c-format
+msgid "Dropping unattachable %s"
+msgstr "Atmet nepiesaistāmu %s"
+
+#: parser.yy:4914
+#, c-format
+msgid "deprecated: missing `.' in property path %s"
+msgstr "novecojis: īpašības ceļā %s trūkst `.'"
+
+#: lexer.ll:208
+msgid "stray UTF-8 BOM encountered"
+msgstr "atrasts nevietā esošs UTF-8 BOM"
+
+#: lexer.ll:211
+msgid "Skipping UTF-8 BOM"
+msgstr "Izlaiž UTF-8 BOM"
+
+#: lexer.ll:276
+#, c-format
+msgid "Renaming input to: `%s'"
+msgstr "Pārdēvē ievadi par: `%s'"
+
+#: lexer.ll:292
+msgid "quoted string expected after \\version"
+msgstr "aiz \\version gaidīta virkne pēdiņās"
+
+#: lexer.ll:296
+msgid "quoted string expected after \\sourcefilename"
+msgstr "aiz \\sourcefilename gaidīta virkne pēdiņās"
+
+#: lexer.ll:300
+msgid "integer expected after \\sourcefileline"
+msgstr "aiz \\sourcefileline gaidīts vesels skaitlis"
+
+#: lexer.ll:327
+msgid "\\maininput not allowed outside init files"
+msgstr "\\maininput nav atļauts ārpus inicializācijas failiem"
+
+#: lexer.ll:347
+#, c-format
+msgid "wrong or undefined identifier: `%s'"
+msgstr "nepareizs vai nedefinēts identifikators: `%s'"
+
+#: lexer.ll:368
+msgid "string expected after \\include"
+msgstr "aiz \\include gaidīta virkne"
+
+#: lexer.ll:378
+msgid "end quote missing"
+msgstr "trūkst beigu pēdiņas"
+
+#: lexer.ll:730
+msgid "EOF found inside a comment"
+msgstr "komentārā atrasts EOF"
+
+#: lexer.ll:735
+msgid "EOF found inside string"
+msgstr "virknē atrasts EOF"
+
+#: lexer.ll:750
+msgid "Unfinished main input"
+msgstr "Nepabeigta galvenā ievade"
+
+#: lexer.ll:829
+#, c-format
+msgid "invalid character: `%s'"
+msgstr "nederīga rakstzīme: `%s'"
+
+#: lexer.ll:966
+#, c-format
+msgid "unknown command: `\\%s'"
+msgstr "nezināma komanda: `\\%s'"
+
+#: lexer.ll:986
+#, c-format
+msgid "undefined character or shorthand: %s"
+msgstr "nedefinēta rakstzīme vai saīsinājums: %s"
+
+#: lexer.ll:1278
+msgid "non-UTF-8 input"
+msgstr "ievade nav UTF-8"
+
+#: auto-beam.scm:163
+msgid "Beam end fits no pattern"
+msgstr "Vīķes beigas neatbilst nevienam šablonam"
+
+#: backend-library.scm:28
+#, scheme-format
+msgid "Invoking `~a'..."
+msgstr "Izsauc `~a'..."
+
+#: backend-library.scm:32
+#, scheme-format
+msgid "`~a' failed (~a)\n"
+msgstr "`~a' neizdevās (~a)\n"
+
+#: backend-library.scm:52
+#, scheme-format
+msgid "Preparing Ghostscript command to `~a': ~a"
+msgstr "Sagatavo Ghostscript komandu `~a': ~a"
+
+#: backend-library.scm:149
+#, scheme-format
+msgid "Converting to `~a'...\n"
+msgstr "Pārveido uz `~a'...\n"
+
+#. Do not try to guess the name of the png file,
+#. GS produces PNG files like BASE-page%d.png.
+#: backend-library.scm:181
+#, scheme-format
+msgid "Converting to ~a..."
+msgstr "Pārveido uz ~a..."
+
+#: backend-library.scm:200
+#, scheme-format
+msgid "Copying to `~a'...\n"
+msgstr "Kopē uz `~a'...\n"
+
+#: backend-library.scm:312
+#, scheme-format
+msgid "can't create temp file in ~a after ~a times"
+msgstr "nevar izveidot pagaidu failu direktorijā ~a pēc ~a mēģinājumiem"
+
+#: backend-library.scm:348
+#, scheme-format
+msgid "Writing ~a..."
+msgstr "Raksta ~a..."
+
+#: backend-library.scm:393
+#, scheme-format
+msgid "Writing header field `~a' to `~a'..."
+msgstr "Raksta galvenes lauku `~a' failā `~a'..."
+
+#: bar-line.scm:97
+#, scheme-format
+msgid "Bar glyph ~a not known. Ignoring."
+msgstr "Taktsvītras glifs ~a nav zināms. Ignorē."
+
+#: bar-line.scm:124
+#, scheme-format
+msgid "Annotation '~a' is allowed in the first argument of a bar line definition only."
+msgstr "Anotācija '~a' ir atļauta tikai taktsvītras definīcijas pirmajā argumentā."
+
+#: bar-line.scm:132
+#, scheme-format
+msgid "Replacement '~a' is allowed in the last argument of a bar line definition only."
+msgstr "Aizstājums '~a' ir atļauts tikai taktsvītras definīcijas pēdējā argumentā."
+
+#: bar-line.scm:205
+#, scheme-format
+msgid "add-bar-glyph-print-procedure: glyph '~a' has to be a single ASCII character."
+msgstr "add-bar-glyph-print-procedure: glifam '~a' jābūt vienai ASCII rakstzīmei."
+
+#: bar-line.scm:1027
+#, scheme-format
+msgid "No span bar glyph defined for bar glyph '~a'; ignoring."
+msgstr "Taktsvītras glifam '~a' nav definēts posma taktsvītras glifs; ignorē."
+
+#: chord-entry.scm:54
+#, scheme-format
+msgid "Spurious garbage following chord: ~A"
+msgstr "Lieki dati aiz akorda: ~A"
+
+#: color.scm:804
+#, scheme-format
+msgid "Requested color '~a' is not defined!"
+msgstr "Pieprasītā krāsa '~a' nav definēta!"
+
+#: define-context-properties.scm:31 define-grob-properties.scm:21
+#: define-music-properties.scm:21 lily.scm:126
+#, scheme-format
+msgid "symbol ~S redefined"
+msgstr "simbols ~S pārdefinēts"
+
+#. barCheckSynchronize isn't properly documented or tested and we don't
+#. intend to maintain it or replace it.
+#: define-context-properties.scm:1008
+msgid "the property 'barCheckSynchronize' is deprecated"
+msgstr "īpašība 'barCheckSynchronize' ir novecojusi"
+
+#: define-context-properties.scm:1081
+msgid "'voltaSpannerDuration' is deprecated; use the grob property VoltaBracket.musical-length"
+msgstr "'voltaSpannerDuration' ir novecojis; lietojiet grob īpašību VoltaBracket.musical-length"
+
+#: define-context-properties.scm:1093
+msgid "'voltaSpannerDurationAsMoment' is deprecated; use the grob property VoltaBracket.musical-length"
+msgstr "'voltaSpannerDurationAsMoment' ir novecojis; lietojiet grob īpašību VoltaBracket.musical-length"
+
+#: define-event-classes.scm:105
+#, scheme-format
+msgid "unknown parent class `~a'"
+msgstr "nezināma vecākklase `~a'"
+
+#: define-event-classes.scm:139
+#, scheme-format
+msgid "Cannot redefine event class `~S'"
+msgstr "Nevar pārdefinēt notikumu klasi `~S'"
+
+#: define-event-classes.scm:141
+#, scheme-format
+msgid "Undefined parent event class `~S'"
+msgstr "Nedefinēta vecāka notikumu klase `~S'"
+
+#: define-markup-commands.scm:302
+msgid "Can't print a line - setting on/off to default"
+msgstr "Nevar izvadīt līniju — ieslēgšana/izslēgšana tiek iestatīta uz noklusējumu"
+
+#: define-markup-commands.scm:1764
+#, scheme-format
+msgid "unrecognized image file, should have .png or .eps extension: ~a"
+msgstr "neatpazīts attēla fails, tam jābūt ar paplašinājumu .png vai .eps: ~a"
+
+#: define-markup-commands.scm:1774
+#, scheme-format
+msgid "EPS image dimensions could not be determined; is '~a' a valid EPS file?"
+msgstr "EPS attēla izmērus nevarēja noteikt; vai '~a' ir derīgs EPS fails?"
+
+#: define-music-callbacks.scm:103
+#, scheme-format
+msgid "invalid tremolo repeat count: ~a"
+msgstr "nederīgs tremolo atkārtojumu skaits: ~a"
+
+#: define-music-callbacks.scm:279
+msgid "ignoring in Timing context"
+msgstr "ignorē Timing kontekstā"
+
+#: define-music-types.scm:1005
+#, scheme-format
+msgid "symbol expected: ~S"
+msgstr "gaidīts simbols: ~S"
+
+#: define-music-types.scm:1008
+#, scheme-format
+msgid "cannot find music object: ~S"
+msgstr "nevar atrast mūzikas objektu: ~S"
+
+#: define-music-types.scm:1028
+#, scheme-format
+msgid "bad make-music argument: ~S"
+msgstr "slikts make-music arguments: ~S"
+
+#: define-note-names.scm:1358
+msgid "Select note names language."
+msgstr "Izvēlēties nošu nosaukumu valodu."
+
+#: define-note-names.scm:1363
+#, scheme-format
+msgid "Using `~a' note names..."
+msgstr "Lieto `~a' nošu nosaukumus..."
+
+#: define-note-names.scm:1366
+#, scheme-format
+msgid "Could not find language `~a'.  Ignoring."
+msgstr "Nevarēja atrast valodu `~a'.  Ignorē."
+
+#: display-woodwind-diagrams.scm:1673
+msgid "woodwind markup error - invalid key or hole requested"
+msgstr "koka pūšaminstrumenta marķējuma kļūda — pieprasīts nederīgs vārstulis vai atvere"
+
+#: display-woodwind-diagrams.scm:1947
+#, scheme-format
+msgid "~a is not a valid woodwind instrument."
+msgstr "~a nav derīgs koka pūšaminstruments."
+
+#: document-backend.scm:270
+#, scheme-format
+msgid "cannot find interface for property: ~S"
+msgstr "nevar atrast saskarni īpašībai: ~S"
+
+#: document-backend.scm:280
+#, scheme-format
+msgid "unknown Grob interface: ~S"
+msgstr "nezināma Grob saskarne: ~S"
+
+#: document-context-mods.scm:79
+#, scheme-format
+msgid "context modification `~a' not documented."
+msgstr "konteksta modifikācija `~a' nav dokumentēta."
+
+#: document-identifiers.scm:55
+#, scheme-format
+msgid "music function `~a' not documented."
+msgstr "mūzikas funkcija `~a' nav dokumentēta."
+
+#: documentation-lib.scm:62
+#, scheme-format
+msgid "Processing ~S..."
+msgstr "Apstrādā ~S..."
+
+#: documentation-lib.scm:169
+#, scheme-format
+msgid "Writing ~S..."
+msgstr "Raksta ~S..."
+
+#: documentation-lib.scm:181
+#, scheme-format
+msgid "cannot find description for property `~S' (~S)"
+msgstr "nevar atrast aprakstu īpašībai `~S' (~S)"
+
+#: documentation-lib.scm:201
+#, scheme-format
+msgid "cannot find description for property ~S (~S)"
+msgstr "nevar atrast aprakstu īpašībai ~S (~S)"
+
+#: flag-styles.scm:199
+#, scheme-format
+msgid "flag stroke `~a' or `~a' not found"
+msgstr "karodziņa svītra `~a' vai `~a' nav atrasta"
+
+#: flag-styles.scm:217
+#, scheme-format
+msgid "flag ~a not found"
+msgstr "karodziņš ~a nav atrasts"
+
+#: framework-ps.scm:253
+#, scheme-format
+msgid "CFF font `~a' already embedded, skipping."
+msgstr "CFF fonts `~a' jau iegults, izlaiž."
+
+#: framework-ps.scm:256
+#, scheme-format
+msgid "Different CFF fonts which have the same name `~a' has been detected. The font cannot be embedded."
+msgstr "Atrasti dažādi CFF fonti ar vienādu nosaukumu `~a'. Fontu nevar iegult."
+
+#: framework-ps.scm:261
+#, scheme-format
+msgid "Embedding CFF font `~a'."
+msgstr "Iegulst CFF fontu `~a'."
+
+#: framework-ps.scm:266
+msgid "Initializing embedded CFF font list."
+msgstr "Inicializē iegulto CFF fontu sarakstu."
+
+#: framework-ps.scm:288
+#, scheme-format
+msgid "Preparing font ~a in PostScript resource directory for subfont ~a of file `~a'..."
+msgstr "Sagatavo fontu ~a PostScript resursu direktorijā apakšfontam ~a no faila `~a'..."
+
+#: framework-ps.scm:304 framework-ps.scm:317 framework-ps.scm:323
+#, scheme-format
+msgid "File `~a' already exists, skipping..."
+msgstr "Fails `~a' jau eksistē, izlaiž..."
+
+#. TrueType fonts (TTF) and TrueType Collection (TTC)
+#: framework-ps.scm:310
+#, scheme-format
+msgid "Font ~a is TrueType font, skipping..."
+msgstr "Fonts ~a ir TrueType fonts, izlaiž..."
+
+#: framework-ps.scm:325
+#, scheme-format
+msgid "Font ~S=~S cannot be used in PostScript resource directory because it uses the CFF2 format."
+msgstr "Fontu ~S=~S nevar lietot PostScript resursu direktorijā, jo tas izmanto CFF2 formātu."
+
+#: framework-ps.scm:328
+#, scheme-format
+msgid "Font ~S=~S cannot be used in PostScript resource directory because it has an unknown format."
+msgstr "Fontu ~S=~S nevar lietot PostScript resursu direktorijā, jo tam ir nezināms formāts."
+
+#: framework-ps.scm:367
+#, scheme-format
+msgid "Font ~a cannot be loaded via Ghostscript because its font-index (~a) is not zero."
+msgstr "Fontu ~a nevar ielādēt ar Ghostscript, jo tā font-index (~a) nav nulle."
+
+#: framework-ps.scm:374
+#, scheme-format
+msgid "Font ~a cannot be loaded via Ghostscript because it is an OpenType/CFF Collection (OTC) font."
+msgstr "Fontu ~a nevar ielādēt ar Ghostscript, jo tas ir OpenType/CFF kolekcijas (OTC) fonts."
+
+#: framework-ps.scm:381
+#, scheme-format
+msgid "Font ~a cannot be used via Ghostscript because it is a TrueType font that does not have glyph names."
+msgstr "Fontu ~a nevar lietot ar Ghostscript, jo tas ir TrueType fonts bez glifu nosaukumiem."
+
+#: framework-ps.scm:402
+#, scheme-format
+msgid "cannot embed ~S=~S"
+msgstr "nevar iegult ~S=~S"
+
+#: framework-ps.scm:417
+#, scheme-format
+msgid "cannot embed ~S=~S because PostScript doesn't support the CFF2 format"
+msgstr "nevar iegult ~S=~S, jo PostScript neatbalsta CFF2 formātu"
+
+#: framework-ps.scm:421
+#, scheme-format
+msgid "do not know how to embed ~S=~S"
+msgstr "nav zināms, kā iegult ~S=~S"
+
+#: framework-ps.scm:445
+#, scheme-format
+msgid "do not know how to embed font ~s ~s ~s"
+msgstr "nav zināms, kā iegult fontu ~s ~s ~s"
+
+#: framework-ps.scm:498
+#, scheme-format
+msgid "Font file `~a' already exists, skipping..."
+msgstr "Fonta fails `~a' jau eksistē, izlaiž..."
+
+#: framework-ps.scm:504
+#, scheme-format
+msgid "Exporting font file `~a'."
+msgstr "Eksportē fonta failu `~a'."
+
+#: framework-ps.scm:533
+#, scheme-format
+msgid "Making PostScript resource directory `~a'."
+msgstr "Veido PostScript resursu direktoriju `~a'."
+
+#: framework-ps.scm:536
+#, scheme-format
+msgid "PostScript resource directory `~a' already exists."
+msgstr "PostScript resursu direktorija `~a' jau eksistē."
+
+#: framework-ps.scm:538
+#, scheme-format
+msgid "Making CIDFont directory `~a'."
+msgstr "Veido CIDFont direktoriju `~a'."
+
+#: framework-ps.scm:541
+#, scheme-format
+msgid "CIDFont directory `~a' already exists."
+msgstr "CIDFont direktorija `~a' jau eksistē."
+
+#: framework-ps.scm:543
+#, scheme-format
+msgid "Making Font directory `~a'."
+msgstr "Veido Font direktoriju `~a'."
+
+#: framework-ps.scm:546
+#, scheme-format
+msgid "Font directory `~a' already exists."
+msgstr "Font direktorija `~a' jau eksistē."
+
+#: framework-ps.scm:550
+#, scheme-format
+msgid "Making font export directory `~a'."
+msgstr "Veido fontu eksporta direktoriju `~a'."
+
+#: framework-ps.scm:553
+#, scheme-format
+msgid "Font export directory `~a' already exists."
+msgstr "Fontu eksporta direktorija `~a' jau eksistē."
+
+#: framework-ps.scm:694
+#, scheme-format
+msgid "conflict between embedded source files '~a' and '~a', which both have the base file name '~a'; skipping the former one"
+msgstr "konflikts starp iegultajiem pirmkoda failiem '~a' un '~a', kuriem abiem ir bāzes faila nosaukums '~a'; pirmais tiek izlaists"
+
+#: framework-ps.scm:750
+msgid "PS backend does not support SVG format"
+msgstr "PS aizmugure neatbalsta SVG formātu"
+
+#: framework-ps.scm:833
+#, scheme-format
+msgid "Layout output to `~a'..."
+msgstr "Izkārtojuma izvade uz `~a'..."
+
+#: framework-svg.scm:84
+#, scheme-format
+msgid "ignoring unsupported formats ~a"
+msgstr "ignorē neatbalstītos formātus ~a"
+
+#: fret-diagrams.scm:33
+#, scheme-format
+msgid "Possible typo in fret-diagram '~a'"
+msgstr "Iespējama drukas kļūda fret-diagram '~a'"
+
+#: fret-diagrams.scm:980
+#, scheme-format
+msgid "String ~a out of range 1-~a, ignoring"
+msgstr "Stīga ~a ir ārpus diapazona 1-~a, ignorē"
+
+#: graphviz.scm:65
+#, scheme-format
+msgid "Writing graph to `~a'...\n"
+msgstr "Raksta grafu uz `~a'...\n"
+
+#: harp-pedals.scm:139
+#, scheme-format
+msgid "Unhandled entry in harp-pedal: ~a"
+msgstr "Neapstrādāts ieraksts harp-pedal: ~a"
+
+#: harp-pedals.scm:187
+#, scheme-format
+msgid "Harp pedal diagram contains ~a pedals rather than the usual 7."
+msgstr "Arfas pedāļu diagrammā ir ~a pedāļi, nevis parastie 7."
+
+#: harp-pedals.scm:190
+msgid "Harp pedal diagram does not contain a divider (usually after third pedal)."
+msgstr "Arfas pedāļu diagrammā nav atdalītāja (parasti pēc trešā pedāļa)."
+
+#: harp-pedals.scm:192
+#, scheme-format
+msgid "Harp pedal diagram contains dividers at positions ~a.  Normally, there is only one divider after the third pedal."
+msgstr "Arfas pedāļu diagrammā ir atdalītāji pozīcijās ~a.  Parasti ir tikai viens atdalītājs pēc trešā pedāļa."
+
+#: layout-beam.scm:40
+#, scheme-format
+msgid "Error in beam quanting.  Expected (~S,~S) found ~S."
+msgstr "Kļūda vīķu kvantēšanā.  Gaidīts (~S,~S), atrasts ~S."
+
+#: layout-beam.scm:54
+#, scheme-format
+msgid "Error in beam quanting.  Expected ~S 0, found ~S."
+msgstr "Kļūda vīķu kvantēšanā.  Gaidīts ~S 0, atrasts ~S."
+
+#: lily-library.scm:362
+msgid "Music unsuitable for context-mod"
+msgstr "Mūzika nav piemērota context-mod"
+
+#: lily-library.scm:370
+msgid "Cannot determine contexts to modify"
+msgstr "Nevar noteikt modificējamos kontekstus"
+
+#: lily-library.scm:421
+#, scheme-format
+msgid "Cannot find context-def \\~a"
+msgstr "Nevar atrast context-def \\~a"
+
+#: lily-library.scm:437
+msgid "Music unsuitable for output-def"
+msgstr "Mūzika nav piemērota output-def"
+
+#: lily-library.scm:1250
+msgid "version with third number omitted is only allowed for stable releases (when the second number is even)"
+msgstr "versija bez trešā skaitļa ir atļauta tikai stabilajiem laidieniem (kad otrais skaitlis ir pāra)"
+
+#: lily-library.scm:1263
+#, scheme-format
+msgid "Invalid version string \"~a\""
+msgstr "Nederīga versijas virkne \"~a\""
+
+#: lily-library.scm:1278
+#, scheme-format
+msgid "program too old: ~a (file requires: ~a)"
+msgstr "programma pārāk veca: ~a (failam nepieciešama: ~a)"
+
+#: lily-library.scm:1294
+#, scheme-format
+msgid ""
+"\n"
+"Note: compilation failed and \\version outdated, did you\n"
+"update input syntax with convert-ly?\n"
+"\n"
+"  https://lilypond.org/doc/v~a.~a/Documentation/usage/updating-files-with-convert_002dly\n"
+"\n"
+msgstr ""
+"\n"
+"Piezīme: kompilēšana neizdevās, un \\version ir novecojis; vai\n"
+"atjauninājāt ievades sintaksi ar convert-ly?\n"
+"\n"
+"  https://lilypond.org/doc/v~a.~a/Documentation/usage/updating-files-with-convert_002dly\n"
+"\n"
+
+#: lily-library.scm:1462
+msgid ""
+"Bisect between the integers @var{start} and @var{end}, both ends inclusive, to\n"
+"find an integer @var{i} such that @code{(getter i)} is close to\n"
+"@var{target-val}.  @var{getter} should be weakly increasing (in the mathematical\n"
+"sense), and @var{target-val} should be between @code{(getter start)} and\n"
+"@code{(getter end)} (included).  The optional keyword argument @code{mode}\n"
+"specifies how the result is determined exactly.  With\n"
+"@code{'last-less-than-or-equal}, which is the default, the result @var{i} is the\n"
+"last @var{i} such that @code{(getter i)} is less than or equal to\n"
+"@code{target-val}.  Alternatively, if @code{#:mode 'first-greater-than-or-equal}\n"
+"is passed, the result is the first @var{i} such that @code{(getter i)} is\n"
+"greater than or equal to @var{target-val}."
+msgstr ""
+"Bisekcija starp veselajiem skaitļiem @var{start} un @var{end}, abus galus ieskaitot, lai\n"
+"atrastu veselu skaitli @var{i}, kuram @code{(getter i)} ir tuvu\n"
+"@var{target-val}.  @var{getter} jābūt vāji augošai (matemātiskā\n"
+"nozīmē), un @var{target-val} jābūt starp @code{(getter start)} un\n"
+"@code{(getter end)} (ieskaitot).  Neobligātais atslēgvārda arguments @code{mode}\n"
+"norāda, kā tieši tiek noteikts rezultāts.  Ar\n"
+"@code{'last-less-than-or-equal}, kas ir noklusējums, rezultāts @var{i} ir\n"
+"pēdējais @var{i}, kuram @code{(getter i)} ir mazāks vai vienāds ar\n"
+"@code{target-val}.  Alternatīvi, ja nodod @code{#:mode 'first-greater-than-or-equal},\n"
+"rezultāts ir pirmais @var{i}, kuram @code{(getter i)} ir\n"
+"lielāks vai vienāds ar @var{target-val}."
+
+#: lily-library.scm:1715
+#, scheme-format
+msgid "no \\version statement found, please add~afor future compatibility"
+msgstr "nav atrasts \\version priekšraksts, lūdzu, pievienojiet~anākotnes saderībai"
+
+#: lily-library.scm:1748
+#, scheme-format
+msgid "conflict with event: `~a'"
+msgstr "konflikts ar notikumu: `~a'"
+
+#: lily-library.scm:1749
+#, scheme-format
+msgid "discarding event: `~a'"
+msgstr "atmet notikumu: `~a'"
+
+#: lily.scm:118
+msgid "call-after-session used after session start"
+msgstr "call-after-session lietots pēc sesijas sākuma"
+
+#: lily.scm:123
+msgid "define-session used after session start"
+msgstr "define-session lietots pēc sesijas sākuma"
+
+#. Since we read from a string port, remove port name, line number,
+#. and line column from the error message.
+#: lily.scm:536
+#, scheme-format
+msgid "Ignoring option -d~a=\"~a\" due to read error: ~a"
+msgstr "Ignorē opciju -d~a=\"~a\" lasīšanas kļūdas dēļ: ~a"
+
+#: lily.scm:540
+msgid "end of string"
+msgstr "virknes beigas"
+
+#: lily.scm:573
+#, scheme-format
+msgid "cannot find: ~A"
+msgstr "nevar atrast: ~A"
+
+#: lily.scm:648
+#, scheme-format
+msgid "note scale expected: ~S"
+msgstr "gaidīta nošu skala: ~S"
+
+#: lily.scm:1014
+msgid "Success: compilation successfully completed"
+msgstr "Veiksmīgi: kompilēšana sekmīgi pabeigta"
+
+#: lily.scm:1015
+msgid "Compilation completed with warnings or errors"
+msgstr "Kompilēšana pabeigta ar brīdinājumiem vai kļūdām"
+
+#: lily.scm:1129
+#, scheme-format
+msgid "job ~a terminated with signal: ~a"
+msgstr "darbs ~a izbeigts ar signālu: ~a"
+
+#: lily.scm:1132
+#, scheme-format
+msgid ""
+"logfile ~a (exit ~a):\n"
+"~a"
+msgstr ""
+"žurnālfails ~a (izeja ~a):\n"
+"~a"
+
+#: lily.scm:1136
+#, scheme-format
+msgid "Children ~a exited with errors."
+msgstr "Bērnprocesi ~a beidzās ar kļūdām."
+
+#: lily.scm:1152
+#, scheme-format
+msgid "failed files: ~S"
+msgstr "neizdevušies faili: ~S"
+
+#: lily.scm:1185
+#, scheme-format
+msgid "Processing `~a'\n"
+msgstr "Apstrādā `~a'\n"
+
+#: ly-syntax-constructors.scm:27
+#, scheme-format
+msgid "~a function cannot return ~a"
+msgstr "~a funkcija nevar atgriezt ~a"
+
+#: ly-syntax-constructors.scm:60
+#, scheme-format
+msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
+msgstr "nepareizs tips argumentam ~a.  Gaidīts ~a, atrasts ~s"
+
+#: ly-syntax-constructors.scm:114
+msgid "not an articulation"
+msgstr "nav artikulācija"
+
+#: ly-syntax-constructors.scm:156
+msgid "sequential music required"
+msgstr "nepieciešama secīga mūzika"
+
+#: markup-macros.scm:372
+#, scheme-format
+msgid "~A: Not a markup (list) function: ~S"
+msgstr "~A: nav marķējuma (saraksta) funkcija: ~S"
+
+#: markup-macros.scm:379
+#, scheme-format
+msgid "~A: Wrong number of arguments.  Expect: ~A, found ~A: ~S"
+msgstr "~A: nepareizs argumentu skaits.  Gaidīts: ~A, atrasts ~A: ~S"
+
+#: markup-macros.scm:383
+#, scheme-format
+msgid "~A: Invalid argument in position ~A.  Expect: ~A, found: ~S."
+msgstr "~A: nederīgs arguments pozīcijā ~A.  Gaidīts: ~A, atrasts: ~S."
+
+#: markup-macros.scm:419
+#, scheme-format
+msgid "Not a markup command: ~A"
+msgstr "Nav marķējuma komanda: ~A"
+
+#: modal-transforms.scm:37
+msgid "'from' pitch not in scale; ignoring"
+msgstr "'from' augstums nav skalā; ignorē"
+
+#: modal-transforms.scm:41 modal-transforms.scm:74
+msgid "'to' pitch not in scale; ignoring"
+msgstr "'to' augstums nav skalā; ignorē"
+
+#: modal-transforms.scm:45
+msgid "pitch to be transposed not in scale; ignoring"
+msgstr "transponējamais augstums nav skalā; ignorē"
+
+#: modal-transforms.scm:70
+msgid "'around' pitch not in scale; ignoring"
+msgstr "'around' augstums nav skalā; ignorē"
+
+#: modal-transforms.scm:78
+msgid "pitch to be inverted not in scale; ignoring"
+msgstr "invertējamais augstums nav skalā; ignorē"
+
+#: modal-transforms.scm:94
+msgid "negative replication count; ignoring"
+msgstr "negatīvs replikāciju skaits; ignorē"
+
+#: modal-transforms.scm:286
+msgid "Dangling tie in \\retrograde"
+msgstr "Karājoša saite \\retrograde"
+
+#: modal-transforms.scm:291
+msgid ""
+"If @var{music} is a single pitch, inverts it about @var{around}\n"
+"and transposes from @var{around} to @var{to}."
+msgstr ""
+"Ja @var{music} ir viens augstums, invertē to ap @var{around}\n"
+"un transponē no @var{around} uz @var{to}."
+
+#: modal-transforms.scm:301
+msgid "Applies pitch-invert to all pitches in @var{music}."
+msgstr "Piemēro pitch-invert visiem augstumiem iekš @var{music}."
+
+#: modal-transforms.scm:308
+msgid ""
+"Transpose a note (numbered as @var{n}) in @var{direction}.\n"
+"@var{n} is zero-based and can be negative to count from the end."
+msgstr ""
+"Transponēt noti (ar numuru @var{n}) virzienā @var{direction}.\n"
+"@var{n} sākas no nulles un var būt negatīvs, lai skaitītu no beigām."
+
+#: music-functions.scm:306
+#, scheme-format
+msgid "unknown repeat type `~S': must be volta, unfold, percent, or tremolo"
+msgstr "nezināms atkārtojuma tips `~S': jābūt volta, unfold, percent vai tremolo"
+
+#: music-functions.scm:319
+msgid "alternative music expected"
+msgstr "gaidīta alternatīvā mūzika"
+
+#: music-functions.scm:332
+msgid "More alternatives than repeats.  Junking excess alternatives"
+msgstr "Vairāk alternatīvu nekā atkārtojumu.  Liekās alternatīvas tiek izmestas"
+
+#: music-functions.scm:436
+#, scheme-format
+msgid "unknown repeat-type ~a, ignoring."
+msgstr "nezināms repeat-type ~a, ignorē."
+
+#: music-functions.scm:526
+#, scheme-format
+msgid "bad grob property path ~a"
+msgstr "slikts grob īpašības ceļš ~a"
+
+#: music-functions.scm:556
+#, scheme-format
+msgid "bad context property ~a"
+msgstr "slikta konteksta īpašība ~a"
+
+#: music-functions.scm:587
+#, scheme-format
+msgid "bad music property ~a"
+msgstr "slikta mūzikas īpašība ~a"
+
+#: music-functions.scm:941
+msgid "Bad chord repetition"
+msgstr "Slikts akorda atkārtojums"
+
+#: music-functions.scm:1056
+#, scheme-format
+msgid "Bad voice id: ~a"
+msgstr "Slikts balss ID: ~a"
+
+#: music-functions.scm:1067
+msgid "\\voices needs more ids"
+msgstr "\\voices nepieciešams vairāk ID"
+
+#: music-functions.scm:1086
+#, scheme-format
+msgid "music expected: ~S"
+msgstr "gaidīta mūzika: ~S"
+
+#: music-functions.scm:1462
+#, scheme-format
+msgid "cannot find quoted music: `~S'"
+msgstr "nevar atrast citēto mūziku: `~S'"
+
+#: music-functions.scm:1629
+msgid "Add @var{octave-shift} to the octave of @var{pitch}."
+msgstr "Pievienot @var{octave-shift} augstuma @var{pitch} oktāvai."
+
+#: music-functions.scm:1692
+#, scheme-format
+msgid "Unknown octaveness type: ~S "
+msgstr "Nezināms oktāvas veids: ~S "
+
+#: music-functions.scm:1693
+msgid "Defaulting to 'any-octave."
+msgstr "Pēc noklusējuma 'any-octave."
+
+#: music-functions.scm:2096
+#, scheme-format
+msgid "unknown accidental style: ~S"
+msgstr "nezināms alterācijas zīmju stils: ~S"
+
+#: music-functions.scm:2582
+msgid "giving up on cloned grob transform"
+msgstr "atsakās no klonēta grob transformācijas"
+
+#: music-functions.scm:2645
+#, scheme-format
+msgid "default '~a of ~a is ~a and can't be offset"
+msgstr "noklusējuma '~a no ~a ir ~a, un to nevar nobīdīt"
+
+#: music-functions.scm:2676
+#, scheme-format
+msgid "the property '~a of ~a cannot be offset"
+msgstr "īpašību '~a no ~a nevar nobīdīt"
+
+#: music-functions.scm:2901
+#, scheme-format
+msgid "not a symbol list: ~a"
+msgstr "nav simbolu saraksts: ~a"
+
+#: music-functions.scm:2904
+#, scheme-format
+msgid "conflicting tag group ~a"
+msgstr "konfliktējoša birku grupa ~a"
+
+#: music-functions.scm:2928
+#, scheme-format
+msgid "tag group ~a not found"
+msgstr "birku grupa ~a nav atrasta"
+
+#: output-lib.scm:681
+#, scheme-format
+msgid "dot glyph ~s not found"
+msgstr "punkta glifs ~s nav atrasts"
+
+#: output-lib.scm:1127
+#, scheme-format
+msgid "no glyph name for alteration ~a in alteration-glyph-name-alist; try defining one in alterationGlyphs"
+msgstr "alteration-glyph-name-alist nav glifa nosaukuma alterācijai ~a; mēģiniet to definēt alterationGlyphs"
+
+#: output-lib.scm:2068
+msgid "script needs an explicit direction specifier to disambiguate between different glyphs"
+msgstr "skriptam nepieciešams eksplicīts virziena specifikators, lai atšķirtu dažādus glifus"
+
+#: output-lib.scm:2087
+#, scheme-format
+msgid "script-stencil property must be pair: ~a"
+msgstr "script-stencil īpašībai jābūt pārim: ~a"
+
+#: output-lib.scm:2552
+#, scheme-format
+msgid "~a with two line-breaks is not yet supported"
+msgstr "~a ar diviem rindu pārnesumiem vēl netiek atbalstīts"
+
+#: output-lib.scm:2869
+#, scheme-format
+msgid "Factor ~a needs to be an integer value."
+msgstr "Faktoram ~a jābūt veselam skaitlim."
+
+#: output-lib.scm:3391
+msgid ""
+"Not enough space to print a nice arrow.\n"
+"Please consider to increase 'minimum-length or decrease 'arrow-length."
+msgstr ""
+"Nepietiek vietas glītas bultas izvadīšanai.\n"
+"Lūdzu, apsveriet 'minimum-length palielināšanu vai 'arrow-length samazināšanu."
+
+#: output-lib.scm:3407
+msgid "Please consider to increase 'minimum-length"
+msgstr "Lūdzu, apsveriet 'minimum-length palielināšanu"
+
+#: output-lib.scm:3729
+#, scheme-format
+msgid "no entry in measure-division-lines-alist for measure division ~a"
+msgstr "measure-division-lines-alist nav ieraksta takta dalījumam ~a"
+
+#: output-lib.scm:3753
+#, scheme-format
+msgid "no entry in measure-division-chord-placement-alist for measure division ~a"
+msgstr "measure-division-chord-placement-alist nav ieraksta takta dalījumam ~a"
+
+#: output-lib.scm:4281
+#, scheme-format
+msgid "custos `~a' not found"
+msgstr "kustoss `~a' nav atrasts"
+
+#: output-ps.scm:141
+msgid ""
+"transparency (no background color) for PNG images is not\n"
+"supported in the PostScript backend.  Use the Cairo backend instead."
+msgstr ""
+"caurspīdīgums (bez fona krāsas) PNG attēliem PostScript\n"
+"aizmugurē netiek atbalstīts.  Tā vietā lietojiet Cairo aizmuguri."
+
+#: output-ps.scm:349 output-svg.scm:541
+#, scheme-format
+msgid "unknown line-cap-style: ~S"
+msgstr "nezināms line-cap-style: ~S"
+
+#: output-ps.scm:354 output-svg.scm:547
+#, scheme-format
+msgid "unknown line-join-style: ~S"
+msgstr "nezināms line-join-style: ~S"
+
+#: output-svg.scm:159
+#, scheme-format
+msgid "cannot decypher Pango description: ~a"
+msgstr "nevar atšifrēt Pango aprakstu: ~a"
+
+#: output-svg.scm:239
+msgid "Glyph must have a unicode value"
+msgstr "Glifam jābūt unicode vērtībai"
+
+#: output-svg.scm:291 output-svg.scm:301
+#, scheme-format
+msgid "cannot find SVG font ~S"
+msgstr "nevar atrast SVG fontu ~S"
+
+#: paper.scm:114
+msgid "set-global-staff-size: not in toplevel scope"
+msgstr "set-global-staff-size: nav augšējā līmeņa tvērumā"
+
+#: paper.scm:152
+#, scheme-format
+msgid "Unknown unit '~a', using 'pt' instead"
+msgstr "Nezināma mērvienība '~a', tā vietā tiek lietots 'pt'"
+
+#. The documentation script currently expects units mm or in.
+#. Don't use decimals with millimeters.
+#. ISO 216 has a tolerance of +- 2mm
+#: paper.scm:160
+msgid "ISO 216, A series"
+msgstr "ISO 216, A sērija"
+
+#: paper.scm:172
+msgid "Two extended sizes as defined in DIN 476"
+msgstr "Divi paplašinātie izmēri, kā definēts DIN 476"
+
+#: paper.scm:175
+msgid "ISO 216, B series"
+msgstr "ISO 216, B sērija"
+
+#: paper.scm:187
+msgid "ISO 269, C series"
+msgstr "ISO 269, C sērija"
+
+#: paper.scm:199
+msgid "North American paper sizes"
+msgstr "Ziemeļamerikas papīra izmēri"
+
+#: paper.scm:209
+msgid "Sizes by IEEE Printer Working Group, for children's writing"
+msgstr "IEEE Printer Working Group izmēri bērnu rakstīšanai"
+
+#: paper.scm:213
+msgid "ANSI sizes"
+msgstr "ANSI izmēri"
+
+#: paper.scm:222
+msgid "North American architectural sizes"
+msgstr "Ziemeļamerikas arhitektūras izmēri"
+
+#: paper.scm:229
+msgid "Other sizes, including antique sizes still used in the United Kingdom"
+msgstr "Citi izmēri, ieskaitot senos izmērus, ko joprojām lieto Apvienotajā Karalistē"
+
+#: paper.scm:252
+msgid "PA4-based sizes"
+msgstr "Uz PA4 balstīti izmēri"
+
+#: paper.scm:264
+msgid "Additional format for use in Southeast Asia and Australia"
+msgstr "Papildu formāts lietošanai Dienvidaustrumāzijā un Austrālijā"
+
+#: paper.scm:359
+#, scheme-format
+msgid "This is not a \\layout {} object, ~S"
+msgstr "Šis nav \\layout {} objekts, ~S"
+
+#: paper.scm:367
+#, scheme-format
+msgid "Unknown paper size: ~a"
+msgstr "Nezināms papīra izmērs: ~a"
+
+#. TODO: should raise (generic) exception with throw, and catch
+#. that in parse-scm.cc
+#: paper.scm:415
+msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
+msgstr "#(set-paper-size .. ) jālieto iekš \\paper { ... }"
+
+#: parser-clef.scm:228
+#, scheme-format
+msgid "unknown clef type '~a'"
+msgstr "nezināms atslēgas tips '~a'"
+
+#: parser-clef.scm:229
+#, scheme-format
+msgid ""
+"supported clefs:\n"
+"~a"
+msgstr ""
+"atbalstītās atslēgas:\n"
+"~a"
+
+#: parser-ly-from-scheme.scm:75
+msgid "error in #{ ... #}"
+msgstr "kļūda #{ ... #}"
+
+#: part-combiner.scm:1081
+#, scheme-format
+msgid "quoted music `~a' is empty"
+msgstr "citētā mūzika `~a' ir tukša"
+
+#: ps-to-png.scm:63
+#, scheme-format
+msgid "Unknown pixmap format ~a"
+msgstr "Nezināms pikseļkartes formāts ~a"
+
+#: ps-to-png.scm:161
+msgid "`anti-alias-factor' must be a positive integer <= 8"
+msgstr "`anti-alias-factor' jābūt pozitīvam veselam skaitlim <= 8"
+
+#: qr-code.scm:243
+#, scheme-format
+msgid "too many bytes (~a) to fit in a QR code with correction level ~a (max ~a)"
+msgstr "pārāk daudz baitu (~a), lai ietilptu QR kodā ar korekcijas līmeni ~a (maks. ~a)"
+
+#: qr-code.scm:573
+#, scheme-format
+msgid "QR code error correction level must be 'low, 'medium, 'quarter or 'high; found ~s"
+msgstr "QR koda kļūdu korekcijas līmenim jābūt 'low, 'medium, 'quarter vai 'high; atrasts ~s"
+
+#: qr-code.scm:586
+#, scheme-format
+msgid "string ~s cannot be represented in a QR code due to special characters"
+msgstr "virkni ~s nevar attēlot QR kodā īpašo rakstzīmju dēļ"
+
+#: scheme-engravers.scm:228
+msgid "count not ended before another begun"
+msgstr "skaitīšana nav beigta, pirms sākta cita"
+
+#: scheme-engravers.scm:263
+msgid "measure count left unfinished"
+msgstr "taktu skaitīšana atstāta nepabeigta"
+
+#: scheme-engravers.scm:278
+msgid "cannot find start of measure spanner"
+msgstr "nevar atrast takta posma sākumu"
+
+#: scheme-engravers.scm:310
+msgid "unterminated measure spanner"
+msgstr "nenoslēgts takta posms"
+
+#: scheme-engravers.scm:723
+msgid "unterminated DurationLine"
+msgstr "nenoslēgta DurationLine"
+
+#: scheme-engravers.scm:866
+msgid ""
+"No notes found to start from,\n"
+"ignoring. If you want to bend an open string, consider to override/tweak the\n"
+"'bend-me property."
+msgstr ""
+"Nav atrastas notis, no kurām sākt,\n"
+"ignorē. Ja vēlaties saliekt vaļēju stīgu, apsveriet īpašības\n"
+"'bend-me pārrakstīšanu/pielāgošanu."
+
+#: scheme-engravers.scm:900
+msgid "Unbound BendSpanner, ignoring"
+msgstr "Nepiesaistīts BendSpanner, ignorē"
+
+#: scheme-engravers.scm:1187
+msgid "unterminated finger glide spanner"
+msgstr "nenoslēgts pirksta slīdēšanas posms"
+
+#: scheme-engravers.scm:1783
+msgid "unterminated measure for chord square"
+msgstr "nenoslēgts takts akordu kvadrātam"
+
+#: scheme-engravers.scm:1916
+msgid "no highlight to end"
+msgstr "nav izcēluma, ko beigt"
+
+#: scheme-engravers.scm:2532
+msgid "overwriting glissando"
+msgstr "pārraksta glissando"
+
+#: scheme-engravers.scm:2584
+msgid "unterminated Glissando"
+msgstr "nenoslēgts Glissando"
+
+#: stencil.scm:796
+msgid "Both angle-increments and radial-increments must be positive numbers."
+msgstr "Gan angle-increments, gan radial-increments jābūt pozitīviem skaitļiem."
+
+#: time-signature-settings.scm:989 time-signature-settings.scm:996
+#: time-signature-settings.scm:1003 time-signature-settings.scm:1010
+#: time-signature-settings.scm:1017
+#, scheme-format
+msgid "the function '~a' is deprecated; use '~a'"
+msgstr "funkcija '~a' ir novecojusi; lietojiet '~a'"
+
+#: time-signature.scm:23
+#, scheme-format
+msgid "the grob property '~a' is deprecated; use '~a'"
+msgstr "grob īpašība '~a' ir novecojusi; lietojiet '~a'"
+
+#: translation-functions.scm:406
+#, scheme-format
+msgid "no accidental glyph found for alteration ~a"
+msgstr "alterācijai ~a nav atrasts alterācijas zīmes glifs"
+
+#: translation-functions.scm:672
+#, scheme-format
+msgid "Negative fret for pitch ~a on string ~a"
+msgstr "Negatīvs grifa lauciņš augstumam ~a uz stīgas ~a"
+
+#: translation-functions.scm:677
+#, scheme-format
+msgid "Missing fret for pitch ~a on string ~a"
+msgstr "Trūkst grifa lauciņa augstumam ~a uz stīgas ~a"
+
+#: translation-functions.scm:682
+#, scheme-format
+msgid "Open fret on string ~a has finger of ~a"
+msgstr "Vaļējam lauciņam uz stīgas ~a ir pirksts ~a"
+
+#: translation-functions.scm:725
+#, scheme-format
+msgid "No open string for pitch ~a"
+msgstr "Augstumam ~a nav vaļējas stīgas"
+
+#: translation-functions.scm:748 translation-functions.scm:760
+#, scheme-format
+msgid "Requested string for pitch requires negative fret: string ~a pitch ~a"
+msgstr "Pieprasītajai stīgai augstumam nepieciešams negatīvs grifa lauciņš: stīga ~a, augstums ~a"
+
+#: translation-functions.scm:751
+msgid "Ignoring string request and recalculating."
+msgstr "Ignorē stīgas pieprasījumu un pārrēķina."
+
+#: translation-functions.scm:763
+msgid "Ignoring note in tablature."
+msgstr "Ignorē noti tabulatūrā."
+
+#: translation-functions.scm:788
+#, scheme-format
+msgid "No string for pitch ~a (given frets ~a)"
+msgstr "Augstumam ~a nav stīgas (norādītie lauciņi ~a)"
+
+#: translation-functions.scm:827
+msgid "additional bass strings are not supported by FretBoards"
+msgstr "FretBoards neatbalsta papildu basa stīgas"
+
+#: translation-functions.scm:911
+#, scheme-format
+msgid ""
+"No label for fret ~a (on string ~a);\n"
+"only ~a fret labels provided"
+msgstr ""
+"Grifa lauciņam ~a nav etiķetes (uz stīgas ~a);\n"
+"norādītas tikai ~a lauciņu etiķetes"
