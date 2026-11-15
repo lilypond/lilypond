@@ -800,13 +800,56 @@ determines the number of scale steps that make up an octave.  Usually the
     "define-grobs"
     "define-grob-interfaces"
     "define-stencil-commands"
-    "scheme-engravers"
-    "scheme-performers"
     "titling"
 
     "paper"
     "backend-library"
     "context"))
+;;  - Scheme translators, one file per translator.  They don't depend on
+;;    each other's load order, except that `translator-helpers` comes first
+;;    and `beat-engraver` wraps `beat-performer`.
+(define init-scheme-files-translators
+  '("translator-helpers"
+    "alteration-glyph-engraver"
+    "apply-output-engraver"
+    "beat-performer"                    ; The byte compiler is happier with this order
+    "beat-engraver"                     ; but it is only a warning otherwise
+    "bend-engraver"
+    "bend-spanner-engraver"
+    "breathing-sign-engraver"
+    "centered-bar-number-align-engraver"
+    "chord-name-engraver"
+    "chord-square-engraver"
+    "current-chord-text-engraver"
+    "custos-engraver"
+    "divisio-engraver"
+    "duration-line-engraver"
+    "finger-glide-engraver"
+    "glissando-engraver"
+    "grid-chord-name-engraver"
+    "horizontal-script-engraver"
+    "lyric-repeat-count-engraver"
+    "measure-counter-engraver"
+    "measure-grouping-engraver"
+    "measure-spanner-engraver"
+    "merge-mmrest-numbers-engraver"
+    "merge-rests-engraver"
+    "optional-material-bracket-engraver"
+    "show-control-points-engraver"
+    "signum-repetitionis-engraver"
+    "skip-typesetting-engraver"
+    "span-stem-engraver"
+    "spanner-tracking-engraver"
+    "staff-highlight-engraver"
+    "stanza-number-align-engraver"
+    "stanza-number-engraver"
+    "tab-tie-follow-engraver"
+    "tempo-align-engraver"
+    "tempo-mark-engraver"
+    "tempo-spanner-engraver"
+    "text-mark-engraver"
+    "toe-heel-engraver"
+    "trill-spanner-engraver"))
 
 ;;
 ;; Now construct the load list
@@ -814,7 +857,8 @@ determines the number of scale steps that make up an octave.  Usually the
 (define init-scheme-files
   (append init-scheme-files-lib
           init-scheme-files-used
-          init-scheme-files-body))
+          init-scheme-files-body
+          init-scheme-files-translators))
 
 (for-each ly:load init-scheme-files)
 

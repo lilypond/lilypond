@@ -106,19 +106,3 @@ This is done by adding corresponding @code{\\accent} and
 
 Off-beat manual use of @code{\\accent} or @code{\\marcato} causes
 auto-generation of the next on-beat accent to be skipped.")))
-
-(ly:register-translator
- (lambda (c) `((is-midi . #f) (is-layout . #t) ,@(Beat_performer c))) 'Beat_engraver
- '((events-accepted . (note-event articulation-event))
-   (properties-read . (timing
-                       measurePosition
-                       beatBase
-                       beatStructure
-                       timeSignature
-                       barExtraVelocity
-                       beatExtraVelocity))
-   (properties-written . ())
-   (description . "\
-This engraver is just a functionally identical copy of
-@ref{Beat_performer}, used for visualizing its effects.  You can also
-use it for showcasing the effects of the current @code{beatStructure}.")))
