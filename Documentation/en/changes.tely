@@ -571,6 +571,36 @@ until now.
 @itemize
 
 @item
+Setting a context's @code{keepAlive} property to @code{#t} keeps
+it from terminating when its input ends: it will stay available
+for picking up with @code{\context @dots{} = @dots{}} until the
+end of score or until the @code{keepAlive} property is reset
+again.  This is useful for allowing spanners to connect context
+instances created by the part combiner or @code{<< @dots{} \\
+@dots{} >>} or for keeping segments of lyrics or ossia staves
+within the same vertical space.
+
+@lilypond[verbatim,quote]
+\context Staff = "one" \relative c' {
+  c1 |
+  << { d1 }
+     \context Staff = "foo" \with {
+       alignAboveContext = "one"
+       keepAlive = ##t
+     }
+     { \once\omit Staff.BarLine
+       \once\omit Staff.TimeSignature
+       g4 a \stopStaff }
+  >> |
+  << { e1 }
+     \context Staff = "foo"
+     { \startStaff \clef "treble" a4 g
+       \set Staff.keepAlive = ##f }
+  >> |
+}
+@end lilypond
+
+@item
 This is of interest for Scheme programmers writing grob callbacks:
 the pure part of an unpure-pure container no longer needs to take the
 range of columns as the arguments @var{start} and @var{end} after the

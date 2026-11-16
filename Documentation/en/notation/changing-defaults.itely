@@ -754,6 +754,43 @@ words = \lyricmode { These words fol -- low the mel -- o -- dy }
 }
 @end lilypond
 
+A third way is to set the @code{keepAlive} property on a context.
+As long as this property is set, the context stays alive to the
+end of score.  Unset the property again to let the context
+terminate earlier.
+
+@lilypond[quote,verbatim]
+melody = \relative { a'4 a a a }
+accompaniment = \relative { d'4 d d d }
+words = \lyricmode { These words fol -- low the mel -- o -- dy }
+
+\score {
+  <<
+    \new Staff = "music" {
+      <<
+        {
+          \new Voice = "accompaniment" {
+            \voiceTwo \accompaniment
+          }
+          <<
+            \context Voice = "melody" \with { keepAlive = ##t }
+            { \melody }
+            \context Voice = "accompaniment" { \accompaniment }
+          >>
+          \context Voice = "accompaniment" { \accompaniment }
+          <<
+            \context Voice = "melody" { \melody }
+            \context Voice = "accompaniment" { \accompaniment }
+          >>
+        }
+      >>
+    }
+    \new Lyrics \with { alignAboveContext = "music" }
+    \lyricsto "melody" { \words }
+  >>
+}
+@end lilypond
+
 
 @node Modifying context plug-ins
 @section Modifying context plug-ins

@@ -481,6 +481,13 @@ This property is used for internal timekeeping, among others by the
 @code{Accidental_engraver}.")
 
 
+     (keepAlive ,boolean? "If set, the context does not die when its input
+ends but may be reentered later using @code{\\context @dots{} = \"@dots{}\"}.
+While this property is visible in child contexts without a setting of their
+own, it only has an effect on the contexts where it is set explicitly.  When
+keeping idle contexts alive for longer, you may also want to use
+@code{\\RemoveEmptyStaves}.  Parent contexts will stay alive while the child
+context persists.")
      (keepAliveInterfaces ,list? "A list of symbols, signifying grob
 interfaces that are worth keeping a staff with @code{remove-empty} set
 around for.")

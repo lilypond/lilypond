@@ -40,7 +40,9 @@ bool
 Context::is_removable () const
 {
   return scm_is_null (context_list_) && !client_count_
-         && !dynamic_cast<Global_context const *> (parent_);
+         && !dynamic_cast<Global_context const *> (parent_)
+         && !from_scm<bool> (here_defined (this, ly_symbol2scm ("keepAlive"))
+                               .value_or (SCM_BOOL_F));
 }
 
 void
