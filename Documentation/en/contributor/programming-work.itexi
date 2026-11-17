@@ -2180,18 +2180,22 @@ also for pure lookups; such a callback never sees a pure context.  A
 callback that is to behave in a pure way has to be given as both the
 unpure and the pure part (in Scheme, @code{pure-callback}).
 
-The range is set up by @code{Pure_context::apply}, which is used
-by @code{call_pure_function} and by @code{ly:pure-call}, and which
-restores the previous state when leaving the callback, also if
+The range is set up by @code{Pure_context::apply}, which is used by
+@code{call_pure_function}, @code{ly:pure-call} and @code{ly:pure-apply},
+and which restores the previous state when leaving the callback, also if
 this is caused by an error.  Unpure callbacks are called with
-@code{Pure_context::apply_unpure}, so a pure calculation that
-happens to trigger one does not leak its context into it.
-Callbacks do not need to care about this.  Calling another pure
-callback for a different range is done with the usual functions
-like @code{ly:grob-pure-height}, or with @code{ly:pure-call} if
-the function to be called is not accessed through a property.  To
-forward the arguments of a pure callback to another callback for
-the same range, use @code{pure-call}.
+@code{Pure_context::apply_unpure}, so a pure calculation that happens to
+trigger one does not leak its context into it.  Callbacks do not need to
+care about this.  Calling another pure callback for a different range is
+done with the usual functions like @code{ly:grob-pure-height}, or with
+@code{ly:pure-apply} if the function to be called is not accessed
+through a property.  To forward the arguments of a pure callback to
+another callback for the same range, use @code{pure-call}.
+
+Like @code{call_pure_function}, @code{ly:pure-call} (and thus
+@code{pure-call}) does not evaluate a procedure that is stored directly
+rather than in an unpure-pure container, but yields @code{#f}.  Use
+@code{ly:pure-apply} to call a procedure in a pure context.
 
 Before the introduction of these implicit arguments, pure functions
 had to take @var{start} and @var{end} as two additional arguments after

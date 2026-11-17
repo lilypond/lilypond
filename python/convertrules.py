@@ -5755,17 +5755,17 @@ pure_callbacks_without_range = [
 ]
 
 @rule((2, 27, 6), r"""
-(ly:stem::pure-height grob start end) -> (ly:pure-call ly:stem::pure-height grob start end)
+(ly:stem::pure-height grob start end) -> (ly:pure-apply ly:stem::pure-height grob start end)
 """)
 def conv(s):
     # Pure callbacks no longer take start and end arguments.  Calls with
-    # explicit range now go through ly:pure-call.  Definitions with the same
+    # explicit range now go through ly:pure-apply.  Definitions with the same
     # name and uses as plain values are left alone.
     def pure_call(m):
         before = m.string[max(0, m.start() - 40):m.start()]
         if re.search(r'\(define[-a-z*]*\s+$', before):
             return m.group(0)
-        return '(ly:pure-call ' + m.group(1)
+        return '(ly:pure-apply ' + m.group(1)
 
     s = re.sub(r'\(\s*(' + '|'.join(re.escape(n) for n
                                    in pure_callbacks_without_range) + r')(?=[\s)])',

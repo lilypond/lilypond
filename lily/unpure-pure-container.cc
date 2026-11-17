@@ -232,27 +232,43 @@ Unpure_pure_container::print_smob (SCM port, scm_print_state *) const
 LY_DEFINE (ly_pure_call, "ly:pure-call", 4, 0, 1,
            (SCM data, SCM grob, SCM start, SCM end, SCM rest),
            R"(
-Convert property @var{data} (unpure-pure container or procedure) to value in a
-pure context defined by @var{grob}, @var{start}, @var{end}, and possibly
-@var{rest} arguments.  The callback is called as @code{(@var{grob}
-. @var{rest})}; @var{start} and @var{end} are available to it as
-@code{(*start*)} and @code{(*end*)}.  A plain procedure is treated like the
-pure part of a container.
+Convert property @var{data} (unpure-pure container, procedure or plain value)
+to value in a pure context defined by @var{grob}, @var{start}, @var{end}, and
+possibly @var{rest} arguments, in the same way as it is done when a property is
+looked up in a pure calculation.  The pure part of a container is called as
+@code{(@var{grob} . @var{rest})}; @var{start} and @var{end} are available to it
+as @code{(*start*)} and @code{(*end*)}.  A procedure that is not part of a
+container is not evaluated in pure calculations and yields @code{#f}; use
+@code{ly:pure-apply} to call a procedure in a pure context.
            )")
 {
   if (Unpure_pure_container *upc = unsmob<Unpure_pure_container> (data))
     {
       data = upc->pure_part ();
+      if (!ly_is_procedure (data))
+        return data;
       // A single callback is evaluated like an unpure one.
       if (upc->is_unchanging ())
-        return ly_is_procedure (data)
-                 ? Pure_context::apply_unpure (data, scm_cons (grob, rest))
-                 : data;
+        return Pure_context::apply_unpure (data, scm_cons (grob, rest));
+      return Pure_context::apply (from_scm<vsize> (start), from_scm<vsize> (end),
+                                  data, scm_cons (grob, rest));
     }
-  if (ly_is_procedure (data))
-    return Pure_context::apply (from_scm<vsize> (start), from_scm<vsize> (end),
-                                data, scm_cons (grob, rest));
-  return data;
+  return ly_is_procedure (data) ? SCM_BOOL_F : data;
+}
+
+LY_DEFINE (ly_pure_apply, "ly:pure-apply", 4, 0, 1,
+           (SCM proc, SCM grob, SCM start, SCM end, SCM rest),
+           R"(
+Call procedure @var{proc} as @code{(@var{proc} @var{grob} . @var{rest})} in a
+pure context for the range of columns from @var{start} to @var{end}, which are
+available to it as @code{(*start*)} and @code{(*end*)}.  This is for calling a
+pure callback directly rather than through a property or an unpure-pure
+container (@code{ly:pure-call} would not evaluate a plain procedure).
+           )")
+{
+  LY_ASSERT_TYPE (ly_is_procedure, proc, 1);
+  return Pure_context::apply (from_scm<vsize> (start), from_scm<vsize> (end),
+                              proc, scm_cons (grob, rest));
 }
 
 LY_DEFINE (ly_unpure_call, "ly:unpure-call", 2, 0, 1,

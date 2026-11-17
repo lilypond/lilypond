@@ -2283,7 +2283,7 @@ other stems just because of that."
 (define-public (value-for-spanner-piece property args)
   "Associate a piece of broken spanner @var{grob} with an element
 of list @var{arg}."
-  (define ((worker caller) grob . rest)
+  (define ((worker caller) grob)
     (if (ly:spanner? grob)
         (let* ((orig (ly:grob-original grob))
                (siblings (if (eq? orig grob)
@@ -2295,7 +2295,7 @@ of list @var{arg}."
               '())
              ((eq? grob (car siblings))
               (let ((val (car args)))
-                (apply caller val grob rest)))
+                (caller val grob)))
              (else
               (loop (cdr args)
                     (cdr siblings))))))
@@ -2343,7 +2343,7 @@ list or if there is a type-mismatch, @var{arg} will be returned."
 pure or unpure values.  @var{func} is called with the respective grob
 as first argument and the default value (after resolving all callbacks)
 as the second."
-  (define (worker self caller grob . rest)
+  (define (worker self pure? grob)
     (let* ((immutable (ly:grob-basic-properties grob))
            ;; We need to search the basic-properties alist for our
            ;; property to obtain values to offset.  Our search is
@@ -2353,19 +2353,23 @@ as the second."
            ;; contains is named `self' so it can be easily recognized.
            ;; If `offset' is called as a tweak, the basic-property
            ;; alist is unaffected.
-           (target (find-value-to-offset grob property self immutable))
-           ;; if target is a procedure, we need to apply it to our
-           ;; grob to calculate values to offset.
-           (vals (apply caller target grob rest)))
-      (func grob vals)))
+           (target (find-value-to-offset grob property self immutable)))
+      (if pure?
+          ;; A procedure stored directly (not in an unpure-pure container)
+          ;; is not evaluated in pure calculations.
+          (and (not (procedure? target))
+               (func grob (pure-call target grob)))
+          ;; if target is a procedure, we need to apply it to our
+          ;; grob to calculate values to offset.
+          (func grob (ly:unpure-call target grob)))))
   ;; return the container named `self'.  The container self-reference
   ;; seems like chasing its own tail but gets dissolved by
   ;; define/lambda separating binding and referencing of "self".
   (define self (ly:make-unpure-pure-container
                 (lambda (grob)
-                  (worker self ly:unpure-call grob))
+                  (worker self #f grob))
                 (lambda (grob)
-                  (worker self pure-call grob))))
+                  (worker self #t grob))))
   self)
 
 (define-public (offsetter property offsets)

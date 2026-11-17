@@ -101,7 +101,8 @@ cannot access it with @code{(*pure?*)}, @code{(*start*)} and @code{(*end*)}."
 (define-public (pure-call data grob . rest)
   "Like @code{ly:pure-call}, but for the range of columns of the pure
 evaluation going on.  This is for use inside pure callbacks that forward their
-arguments to other callbacks."
+arguments to other callbacks.  As with @code{ly:pure-call}, a procedure that is
+not part of a container yields @code{#f}."
   (apply ly:pure-call data grob (*start*) (*end*) rest))
 
 ;; See https://www.gnu.org/software/guile/manual/html_node/Gettext-Support.html

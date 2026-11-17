@@ -999,10 +999,10 @@ value is used for @code{extra-spacing-height} to push note columns right in
   (let* ((height (ly:grob-pure-height grob grob 0 INFINITY-INT))
          (from-neighbors (interval-union
                           height
-                          (ly:pure-call ly:axis-group-interface::pure-height
-                                        grob
-                                        0
-                                        INFINITY-INT))))
+                          (ly:pure-apply ly:axis-group-interface::pure-height
+                                         grob
+                                         0
+                                         INFINITY-INT))))
     (pair-map - from-neighbors height)))
 
 ;; If there are neighbors, we place the height at their midpoint
@@ -1014,10 +1014,10 @@ value is used for @code{extra-spacing-height} to push note columns right in
 ;; here and then in the extra-spacing-height function above. Can/should this
 ;; be rolled into one?
 (define-public (pure-from-neighbor-interface::pure-height grob)
-  (let* ((height (ly:pure-call ly:axis-group-interface::pure-height
-                               grob
-                               0
-                               INFINITY-INT))
+  (let* ((height (ly:pure-apply ly:axis-group-interface::pure-height
+                                grob
+                                0
+                                INFINITY-INT))
          (c (interval-center height)))
     (if (interval-empty? height) empty-interval (cons c c))))
 

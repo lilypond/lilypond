@@ -11,11 +11,13 @@ made from a single function evaluates it like an unpure one, also for pure
 lookups, so it does not see a pure context; a function that is to behave in a
 pure way has to be given as both parts.
 
-In each of the groups of two eighth
-notes with a pure function of its own (all but the first and the fourth),
-the second note should move to accommodate the flag, as in the first group of
-@file{unpure-pure-container.ly}.  Any warning is an error.
-"
+A function stored outside of a container is not evaluated in pure calculations
+(@code{ly:pure-call} yields @code{#f}), but can be called in a pure context
+with @code{ly:pure-apply}.
+
+In each of the groups of two eighth notes with a pure function of its own (all
+but the first and the fourth), the second note should move to accommodate the
+flag, as in the first group of @file{unpure-pure-container.ly}."
 }
 
 #(ly:set-option 'warning-as-error #t)
@@ -58,6 +60,19 @@ the second note should move to accommodate the flag, as in the first group of
      (ly:warning "legacy pure function got wrong range"))
    8)
 
+#(define (checked-range grob)
+   (unless (and (*pure?*) (eqv? (*start*) 3) (eqv? (*end*) 5))
+     (ly:warning "ly:pure-apply did not set the range"))
+   8)
+
+#(define (checked-forward grob)
+   (if (*pure?*)
+       (begin
+         (when (ly:pure-call checked-range grob 3 5)
+           (ly:warning "procedure outside of a container evaluated"))
+         (ly:pure-apply checked-range grob 3 5))
+       (ly:flag::calc-y-offset grob)))
+
 \relative {
   \stemUp \autoBeamOff
   d'8 eis'
@@ -72,5 +87,8 @@ the second note should move to accommodate the flag, as in the first group of
   d,8 eis'!
   \once \override Flag.Y-offset =
     #(pure-callback checked-both)
+  d,8 eis'!
+  \once \override Flag.Y-offset =
+    #(pure-callback checked-forward)
   d,8 eis'!
 }
