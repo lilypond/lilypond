@@ -2417,6 +2417,23 @@ Offsets are restricted to immutable properties and values of type @code{number},
             vals))))
   (grob-transformer property offset-fun))
 
+(define-public (apply-subproperty-overrides base overrides)
+  ;; OVERRIDES: list of (full-path . value), oldest first.
+  (define (apply-all grob resolved)
+    (if (list? resolved)
+        (fold (lambda (o acc) (ly:nested-acons (cdar o) (cdr o) acc))
+              resolved overrides)
+        (begin
+          (ly:grob-warning grob (caar overrides)
+                           (G_ "Cannot set subproperty; expected an alist, got ~a")
+                           resolved)
+          resolved)))
+  (ly:make-unpure-pure-container
+   (lambda (grob) (apply-all grob (ly:unpure-call base grob)))
+   (lambda (grob)
+     (and (not (procedure? base))  ; plain callbacks provide no pure value
+          (apply-all grob (pure-call base grob))))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; \magnifyMusic and \magnifyStaff
 

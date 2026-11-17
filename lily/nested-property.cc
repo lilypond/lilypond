@@ -20,6 +20,8 @@
 
 #include "context.hh"
 #include "grob.hh"
+#include "lily-imports.hh"
+#include "unpure-pure-container.hh"
 
 // scm_reverse_x without the checks
 SCM
@@ -122,6 +124,19 @@ nested_create_alist (SCM prop_path, SCM value)
                     nested_create_alist (scm_cdr (prop_path), value), SCM_EOL);
 }
 
+LY_DEFINE (ly_nested_acons, "ly:nested-acons", 3, 0, 0,
+           (SCM path, SCM value, SCM alist),
+           R"(
+Non-destructively set the subproperty indicated by the key @var{path} (a list)
+in the nested alist @var{alist} to @var{value}.  The result shares structure
+with @var{alist}.  An empty @var{path} yields @var{value} itself.
+           )")
+{
+  LY_ASSERT_TYPE (ly_is_list, path, 1);
+  LY_ASSERT_TYPE (ly_is_list, alist, 3);
+  return nested_property_alist (alist, path, value);
+}
+
 /*
   PROP_PATH should be big-to-small ordering
  */
@@ -178,14 +193,26 @@ nested_property (SCM alist, SCM prop_path, SCM fallback)
   return alist;
 }
 
+// A property value that is computed at call time, not stored data.
+
+static bool
+is_callback_value (SCM v)
+{
+  return ly_is_procedure (v) || unsmob<Unpure_pure_container> (v);
+}
+
 void
 set_nested_property (Grob *me, SCM big_to_small, SCM value)
 {
-  SCM alist = get_property (me, scm_car (big_to_small));
-
-  alist = nested_property_alist (alist, scm_cdr (big_to_small), value);
-
-  set_property (me, scm_car (big_to_small), alist);
+  SCM sym = scm_car (big_to_small);
+  SCM base = get_property_data (me, sym);
+  if (is_callback_value (base))
+    set_property (me, sym,
+                  Lily::apply_subproperty_overrides (
+                    base, ly_list (scm_cons (big_to_small, value))));
+  else
+    set_property (me, sym,
+                  nested_property_alist (base, scm_cdr (big_to_small), value));
 }
 
 // This converts an alist with nested overrides in it to a proper
@@ -236,10 +263,27 @@ nalist_to_alist (SCM nalist, int nested)
       if (scm_is_true (pair))
         {
           SCM value = scm_cdr (elt);
-          for (SCM pp = scm_cdr (pair); scm_is_pair (pp); pp = scm_cdr (pp))
-            value
-              = nested_property_alist (value, scm_cdaar (pp), scm_cdar (pp));
-          copied = scm_acons (key, value, copied);
+          if (is_callback_value (value))
+            {
+              // Keep the original entry behind the wrapper.  Transformers
+              // made by `grob-transformer` (e.g., from `\offset`) locate
+              // their own `(key . self)` pair in the property alist in
+              // order to find the value to transform; without it they
+              // would find the wrapper instead and recurse.
+              // `copied` is reversed at the end, so push the wrapper
+              // first.
+              SCM wrapper
+                = Lily::apply_subproperty_overrides (value, scm_cdr (pair));
+              copied = scm_cons (elt, scm_acons (key, wrapper, copied));
+            }
+          else
+            {
+              for (SCM pp = scm_cdr (pair); scm_is_pair (pp);
+                   pp = scm_cdr (pp))
+                value = nested_property_alist (value, scm_cdaar (pp),
+                                               scm_cdar (pp));
+              copied = scm_acons (key, value, copied);
+            }
         }
       else
         copied = scm_cons (elt, copied);
@@ -257,9 +301,15 @@ nalist_to_alist (SCM nalist, int nested)
       if (scm_is_true (elt))
         value = scm_cdr (elt);
 
-      for (SCM pp = scm_cdr (pair); scm_is_pair (pp); pp = scm_cdr (pp))
-        value = nested_property_alist (value, scm_cdaar (pp), scm_cdar (pp));
-
+      if (is_callback_value (value))
+        {
+          value = Lily::apply_subproperty_overrides (value, scm_cdr (pair));
+        }
+      else
+        {
+          for (SCM pp = scm_cdr (pair); scm_is_pair (pp); pp = scm_cdr (pp))
+            value = nested_property_alist (value, scm_cdaar (pp), scm_cdar (pp));
+        }
       copied = scm_acons (key, value, copied);
     }
   return fast_reverse_x (copied, nalist);

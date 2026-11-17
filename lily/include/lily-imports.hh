@@ -86,6 +86,7 @@ typedef Module_variable<module> Variable;
 
 extern Variable all_music_font_encodings;
 extern Variable alterations_in_key;
+extern Variable apply_subproperty_overrides;
 extern Variable backend_testing;
 extern Variable bar_glyph_alist;
 extern Variable bar_line_calc_glyph_name_for_direction;

@@ -76,6 +76,7 @@ Scm_module module ("lily");
 
 Variable all_music_font_encodings ("all-music-font-encodings");
 Variable alterations_in_key ("alterations-in-key");
+Variable apply_subproperty_overrides ("apply-subproperty-overrides");
 Variable bar_glyph_alist ("bar-glyph-alist");
 Variable bar_line_calc_glyph_name_for_direction (
   "bar-line::calc-glyph-name-for-direction");
