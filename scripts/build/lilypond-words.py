@@ -74,7 +74,9 @@ note_names += [n for n in re.findall(
 for name in ['ly/engraver-init.ly',
              'ly/performer-init.ly']:
     s = open(name, 'r', encoding='utf-8').read()
-    for pattern in [r"(?m)^\s*.consists\s+\"([a-zA-Z_]+)\"",
+    s = re.sub(r'(?s)%\{.*?%\}', '', s)   # block comments
+    s = re.sub(r'(?m)%.*$', '', s)        # line comments
+    for pattern in [r"(?m)^\s*.consists\s+\"?([a-zA-Z_]+)\"?",
                     r"[\\]name\s+[\"]?([a-zA-Z_]+)[\"]?",
                     r"\s+([a-zA-Z_]+)\s*\\(?:set|override)"]:
         reserved_words += [w for w in re.findall(pattern, s)]
