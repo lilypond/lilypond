@@ -19,6 +19,7 @@
 # along with LilyPond.  If not, see <http://www.gnu.org/licenses/>.
 
 
+import concurrent.futures
 import copy
 import hashlib
 import os
@@ -1092,6 +1093,41 @@ class LilyPondVersionString (Snippet):
 
     def replacement_text(self):
         return self.formatter.output_simple(self.type, self)
+
+
+def convert_musicxml_snippets(snippets, job_count=1):
+    """Run `musicxml2ly` for all MusicXML snippets in parallel.
+
+    `job_count` is the maximum number of concurrent conversions; values
+    below 2 keep the old serial behaviour.
+
+    `MusicXMLFileSnippet.ly()` caches its result in `converted_ly`, and
+    `get_checksum()` calls `ly()`.  Calling this function before checksums
+    are computed makes the (subprocess-bound, hence thread-friendly)
+    conversions run concurrently; later calls to `ly()` are cache hits.
+
+    The first failure is re-raised in the calling thread; this includes the
+    `SystemExit` raised by `filter_pipe()` (the executor stores any
+    `BaseException` raised in a worker and re-raises it in `result()`).
+    """
+    todo = [s for s in snippets
+            if isinstance(s, MusicXMLFileSnippet) and s.converted_ly is None]
+    if len(todo) < 2:
+        # Nothing to gain; keep the serial behaviour (and its order).
+        return
+    max_workers = min(job_count, len(todo))
+    if max_workers < 2:
+        return
+
+    executor = concurrent.futures.ThreadPoolExecutor(max_workers=max_workers)
+    try:
+        # Futures are examined in submission order for deterministic
+        # error reporting.
+        futures = [executor.submit(s.ly) for s in todo]
+        for f in futures:
+            f.result()
+    finally:
+        executor.shutdown(wait=True, cancel_futures=True)
 
 
 snippet_type_to_class = {

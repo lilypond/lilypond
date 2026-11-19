@@ -27,13 +27,12 @@ LILYPOND_BOOK = $(script-dir)/lilypond-book.py
 
 ## override from cmd line to speed up.
 ANTI_ALIAS_FACTOR=2
-LILYPOND_JOBS=$(if $(CPU_COUNT),-djob-count=$(CPU_COUNT),)
+LILYPOND_BOOK_JOBS=$(if $(CPU_COUNT),--job-count=$(CPU_COUNT),)
 LANG_TEXIDOC_FLAGS:=$(foreach lang,$(LANGS),--header=texidoc$(lang))
 LANG_DOCTITLE_FLAGS:=$(foreach lang,$(LANGS),--header=doctitle$(lang))
 
 LILYPOND_BOOK_LILYPOND_FLAGS=$(LOCAL_LILYPOND_FLAGS) \
 -dseparate-page-formats=ps,pdf \
-$(LILYPOND_JOBS) \
 -dinclude-eps-fonts \
 -dgs-load-fonts \
 --header=doctitle \
@@ -59,7 +58,8 @@ else
 endif
 
 LILYPOND_BOOK_INFO_IMAGES_DIR = $(if $(INFO_IMAGES_DIR),--info-images-dir=$(INFO_IMAGES_DIR),)
-LILYPOND_BOOK_FLAGS = $(LILYPOND_BOOK_WARN) $(LILYPOND_BOOK_INFO_IMAGES_DIR)
+LILYPOND_BOOK_FLAGS = $(LILYPOND_BOOK_WARN) $(LILYPOND_BOOK_INFO_IMAGES_DIR) \
+  $(LILYPOND_BOOK_JOBS)
 
 ifeq ($(out),)
 LILYPOND_BOOK_PROCESS = true

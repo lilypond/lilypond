@@ -1266,6 +1266,15 @@ for shortening the staff line.  This might lead to a tiny but
 probably surprising staff length change instead of changing the
 padding if @var{amount} is not an integer multiple of the bp unit.
 
+@item --job-count=@var{number}
+Run up to @var{number} jobs in parallel.  At the current point of
+time, this is used for running parallel instances of
+@command{musicxml2ly} within @command{lilypond-book} itself.  This
+option is also passed via @code{-djob-count=} to
+@command{lilypond} subprocessed unless this option is already
+provided in the @code{--process} command line.  The default is to
+not use parallel processing.
+
 @item -P @var{command}
 @itemx --process=@var{command}
 Process LilyPond snippets using @command{@var{command}}.  The default command is

@@ -181,6 +181,18 @@ def get_option_parser():
                  dest='info_images_dir',
                  default='')
 
+    p.add_option('--job-count',
+                 help=_("run up to N jobs in parallel.  Used for converting "
+                        "MusicXML via musicxml2ly, and for running lilypond "
+                        "(unless -djob-count is already present "
+                        "in the --process command line option) "
+                        "[default: no parallelism]"),
+                 metavar=_("N"),
+                 action='store',
+                 dest='job_count',
+                 type='int',
+                 default=None)
+
     # The given value is rounded up to be a multiple of the 'bp' unit on the
     # PS (and PDF) backend, see `framework-ps.scm`, function
     # `dump-stencil-as-EPS-with-bbox`.
@@ -463,6 +475,11 @@ def do_process_cmd(chunks, options):
     snippets = [c for c in chunks if isinstance(
         c, book_snippets.LilypondSnippet)]
 
+    # Convert MusicXML files in parallel (if requested); the checksum
+    # computation below needs the converted code and would otherwise run
+    # `musicxml2ly` serially, one file after the other.
+    book_snippets.convert_musicxml_snippets(snippets, options.job_count or 1)
+
     # calculate checksums eagerly
     for s in snippets:
         s.get_checksum()
@@ -666,6 +683,10 @@ use an external tool to run LilyPond in a sandbox.""")
     global_options.include_path.append('.')
     global_options.include_path.append(os.getcwd())
 
+    if global_options.job_count is not None and global_options.job_count < 1:
+        error(_("--job-count must be a positive integer"))
+        exit(2)
+
     if global_options.warranty:
         warranty()
         exit(0)
@@ -759,6 +780,12 @@ def main():
             global_options.process_cmd += " --verbose"
 
     global_options.process_cmd += " -dread-file-list -dno-strip-output-dir"
+
+    # Pass the job count on to LilyPond unless the `--process` command
+    # already specifies one.
+    if (global_options.job_count
+            and '-djob-count' not in global_options.process_cmd):
+        global_options.process_cmd += " -djob-count=%d" % global_options.job_count
 
     # Store the original argument to construct the dependency file below.
     relative_output_dir = global_options.output_dir

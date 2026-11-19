@@ -19,7 +19,7 @@ lysdoc-test:
 #       Removing it works around incomplete dependencies.
 	rm -f $(outdir)/collated-files.texi
 	$(MAKE) LILYPOND_BOOK_LILYPOND_FLAGS=" \
--dseparate-page-formats=ps $(LILYPOND_JOBS) -dseparate-log-files \
+-dseparate-page-formats=ps -dseparate-log-files \
 -ddeterministic \
 -dinclude-eps-fonts -dgs-load-fonts --header=texidoc \
 -dcheck-internal-types \
