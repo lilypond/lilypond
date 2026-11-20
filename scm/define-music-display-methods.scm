@@ -408,7 +408,7 @@ expression."
 
               ((and (= 1 (length other-elements))
                     (not (post-event? (car other-elements))))
-               (format #f (music->lily-string (car other-elements))))
+               (music->lily-string (car other-elements)))
               (else
                (format #f "< >~:{~:[-~;~]~a~^ ~}"
                        (map-in-order (lambda (music)

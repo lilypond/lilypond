@@ -131,11 +131,8 @@
          (names (append-map extract-names fonts)))
     (string-concatenate
      (map (lambda (f)
-            (format #f
-                    (if load-fonts?
-                        "%%DocumentSuppliedResources: font ~a\n"
-                        "%%DocumentNeededResources: font ~a\n")
-                    f))
+            (format #f "%%Document~aResources: font ~a\n"
+                    (if load-fonts? "Supplied" "Needed") f))
           (uniq-list (sort names string<?))))))
 
 (define (eps-header paper bbox load-fonts?)

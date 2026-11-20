@@ -37,14 +37,11 @@
 (use-modules
  (guile)
  (ice-9 regex)
- (ice-9 format)
+ ((ice-9 format) #:select ((format . ice9-format)))
  (ice-9 optargs)
  (lily)
  (srfi srfi-1)
  (srfi srfi-13))
-
-(define ice9-format format)
-(define format simple-format)
 
 (define lily-unit-length 1.7573)
 
@@ -119,7 +116,7 @@
   (* x x))
 
 (define (integer->entity integer)
-  (ice9-format "&#x~x;" integer))
+  (ice9-format #f "&#x~x;" integer))
 
 (define (char->entity char)
   (integer->entity (char->integer char)))
