@@ -259,6 +259,10 @@ def find_toplevel_snippets(input_string, formatter, global_options):
     snippets = []
     index = 0
     found = dict([(t, None) for t in types])
+    # Types for which a search over the entire rest of the input found
+    # nothing.  Later searches start further right, so they can't match
+    # either.
+    exhausted = set()
 
     line_starts = find_linestarts(input_string)
     line_start_idx = 0
@@ -272,11 +276,17 @@ def find_toplevel_snippets(input_string, formatter, global_options):
         first = None
         endex = 1 << 30
         for type in types:
+            if type in exhausted:
+                continue
             if not found[type] or found[type][0] < index:
                 found[type] = None
 
                 m = res[type].search(input_string, index, endex)
                 if not m:
+                    # `endex` still has its initial value: this search
+                    # covered the whole rest of the input.
+                    if endex >= len(input_string):
+                        exhausted.add(type)
                     continue
 
                 klass = formatter.snippet_class(type)
