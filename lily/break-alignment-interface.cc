@@ -332,7 +332,7 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
           if (scm_is_symbol (rsym))
             entry = scm_assq (rsym, alist);
 
-          bool entry_found = scm_is_pair (entry);
+          bool entry_found = scm_is_pair (entry) && scm_is_pair (scm_cdr (entry));
           if (!entry_found)
             {
               std::string sym_string;
