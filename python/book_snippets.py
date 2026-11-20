@@ -275,6 +275,10 @@ class CompileError(Exception):
     pass
 
 
+# `diff` exits with 1 if the files differ; only 2 or more means trouble.
+DIFF_OK_EXIT_CODES = (0, 1)
+
+
 ####################################################################
 # Snippet classes
 ####################################################################
@@ -718,7 +722,7 @@ printing diff against existing file." % filename)
                 encoded = self.full_ly().encode('utf-8')
                 cmd = 'diff -u %s -' % filename
                 sys.stderr.write(self.filter_pipe(
-                    encoded, cmd).decode('utf-8'))
+                    encoded, cmd, DIFF_OK_EXIT_CODES).decode('utf-8'))
         else:
             out = open(filename, 'w', encoding='utf-8')
             out.write(self.full_ly())
@@ -848,15 +852,20 @@ printing diff against existing file." % filename)
         found, missing = self.all_output_files(output_dir)
         return missing
 
-    def filter_pipe(self, input: bytes, cmd: str) -> bytes:
+    def filter_pipe(self, input: bytes, cmd: str,
+                    ok_exit_codes=(0,)) -> bytes:
         """Pass input through cmd, and return the result.
 
         Args:
           input: the input
           cmd: a shell command
+          ok_exit_codes: exit codes of cmd that do not indicate failure
 
         Returns:
           the filtered result
+
+        Raises:
+          CompileError: if cmd fails
         """
         ly.debug_output(_("Running through filter `%s'") % cmd, True)
 
@@ -866,27 +875,20 @@ printing diff against existing file." % filename)
 
         p = subprocess.Popen(cmd, shell=True, stdin=subprocess.PIPE,
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE, close_fds=closefds)
-        (stdin, stdout, stderr) = (p.stdin, p.stdout, p.stderr)
-        stdin.write(input)
-        status = stdin.close()
-
-        if not status:
-            status = 0
-            output = stdout.read()
-            status = stdout.close()
+        # `communicate` serves all three pipes at once; reading them one
+        # after the other can deadlock if a pipe buffer fills up.
+        output, err = p.communicate(input)
 
         # assume stderr always is text
-        err = stderr.read().decode('utf-8')
+        err = err.decode('utf-8')
 
-        if not status:
-            status = 0
-        signal = 0x0f & status
-        if status or (not output and err):
-            exit_status = status >> 8
-            ly.error(_("`%s' failed (%d)") % (cmd, exit_status))
+        # Keep the old heuristic (no output but messages on stderr) in
+        # addition to checking the exit code.
+        if p.returncode not in ok_exit_codes or (not output and err):
+            ly.error(_("`%s' failed (%d)") % (cmd, p.returncode))
             ly.error(_("The ly.error log is as follows:"))
             sys.stderr.write(err)
-            exit(status)
+            raise CompileError(cmd)
 
         ly.debug_output('\n')
 
@@ -1057,7 +1059,8 @@ class MusicXMLFileSnippet (LilypondFileSnippet):
         if os.path.exists(xmlfilename):
             cmd = 'diff -u %s - ' % xmlfilename
             diff_against_existing = self.filter_pipe(
-                self.get_contents(), cmd).decode('utf-8')
+                self.get_contents(), cmd,
+                DIFF_OK_EXIT_CODES).decode('utf-8')
             if diff_against_existing:
                 ly.warning(_("%s: duplicate filename but different contents of original file,\n\
 printing diff against existing file.") % xmlfilename)
@@ -1073,7 +1076,7 @@ printing diff against existing file.") % xmlfilename)
             encoded = self.full_ly().encode('utf-8')
             cmd = 'diff -u %s -' % filename
             diff_against_existing = self.filter_pipe(
-                encoded, cmd).decode('utf-8')
+                encoded, cmd, DIFF_OK_EXIT_CODES).decode('utf-8')
             if diff_against_existing:
                 ly.warning(_("%s: duplicate filename but different contents of converted lilypond file,\n\
 printing diff against existing file.") % filename)
