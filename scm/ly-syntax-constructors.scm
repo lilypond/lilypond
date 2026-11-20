@@ -57,8 +57,8 @@
 (define-public (argument-error n pred arg)
   (ly:parser-error
    (format #f
-           (G_ "wrong type for argument ~a.  Expecting ~a, found ~s")
-           n (type-name pred) (music->make-music arg))
+           (G_ "wrong type for argument ~a.  Expecting ~a, found ~a")
+           n (type-name pred) (value->lily-string arg))
    (*location*)))
 
 ;; Used for chaining several music functions together.  `final'
