@@ -25,6 +25,18 @@ $(outdir)/texinfo-filtered.texi: texinfo-filter.tely
 	sed 's/a.b.c/d4e4f4/' < $^ > $@.want
 	diff $@ $@.want
 
+# Give every test document its own directory for the `lily-XXXX` files.
+# `lilypond-book` holds a lock on that directory while it runs `lilypond`,
+# so with the shared `out/lybook-testdb` these otherwise independent
+# documents run their `lilypond` steps strictly one after the other, even
+# with `make -j`.
+$(outdir)/%: LILYPOND_BOOK_FLAGS += --lily-output-dir=$(outdir)/$(basename $(@F)).testdb
+
+# Instead of blocking Make parallelism, we stop lilypond-book from using
+# multiple jobs.  The files in this directory contain so few lilypond blocks
+# each that Make parallelism is by far more effective.
+LILYPOND_BOOK_JOBS =
+
 ############## HTML #########################
 
 $(outdir)/%.html: %.html
