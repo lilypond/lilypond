@@ -158,7 +158,7 @@ from @var{port} and return the corresponding Scheme music expression.
                                 (case (copy-char)
                                   ((#\{)
                                    (do ((c (copy-char) (copy-char)))
-                                       ((and (char=? c #\%) (peek-char port) #\})
+                                       ((and (char=? c #\%) (char=? (peek-char port) #\}))
                                         (copy-char))))
                                   ((#\nl) #f) ; empty comment
                                   (else
