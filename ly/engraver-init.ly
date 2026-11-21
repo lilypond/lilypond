@@ -884,6 +884,7 @@ run."
   timeSignature = 4/4
 
   beamHalfMeasure = ##t
+  strictBeatBeaming = #'on-beat
 
   autoBeaming = ##t
   autoBeamCheck = #default-auto-beam-check

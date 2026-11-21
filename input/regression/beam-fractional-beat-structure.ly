@@ -19,9 +19,6 @@ placed when the beat it points at is a fraction of @code{beatBase}."
   }
 }
 
-%% The middle stem carries more beams than either neighbour, so beamify()
-%% consults the beat structure to decide which way its beamlet points.
-
 %% A structure given to \time, with the fractional beat first.
 \score {
   \new Staff {

@@ -143,15 +143,19 @@ Beaming_pattern::beamify (Beaming_options const &options)
                 remaining_beats = scm_cdr (remaining_beats);
               }
 
-            bool point_right;
-            if (!options.strict_beat_beaming_ && left_count != right_count)
-              point_right = right_count > left_count;
-            else if ((infos_[i].start_moment_ == cur_beat)
-                     != (end_moment (i) == next_beat))
-              point_right = infos_[i].start_moment_ == cur_beat;
-            else
-              point_right = infos_[i].rhythmic_importance_
-                            < infos_[i + 1].rhythmic_importance_;
+            bool point_right = right_count > left_count;
+            if (options.is_strict_on_beat ()
+                && ((infos_[i].start_moment_ == cur_beat)
+                    != (end_moment (i) == next_beat)))
+              {
+                point_right = infos_[i].start_moment_ == cur_beat;
+              }
+            else if ((left_count == right_count)
+                     || options.is_strict_off_beat ())
+              {
+                point_right = infos_[i].rhythmic_importance_
+                              < infos_[i + 1].rhythmic_importance_;
+              }
 
             flag_directions[i] = point_right ? RIGHT : LEFT;
           }
@@ -571,12 +575,23 @@ Beaming_options::calc_period (Context const *context, SCM beat_structure,
   return period ? period : measure_length (context);
 }
 
+Beaming_options::Strictness
+Beaming_options::get_strictness (Context const *context)
+{
+  SCM s = get_property (context, "strictBeatBeaming");
+  if (scm_is_eq (s, ly_symbol2scm ("on-beat")))
+    return Strictness::ON_BEAT;
+  else if (from_scm<bool> (s))
+    return Strictness::STRICT;
+  else
+    return Strictness::LOOSE;
+}
+
 // N.B. Defaulted and derived values should be kept in sync with auto-beam.scm
 // where beam-end exceptions are handled.
 Beaming_options::Beaming_options (Context const *c)
   : subdivide_beams_ (from_scm<bool> (get_property (c, "subdivideBeams"))),
-    strict_beat_beaming_ (
-      from_scm<bool> (get_property (c, "strictBeatBeaming"))),
+    strictness_ (get_strictness (c)),
     respect_incomplete_beams_ (
       from_scm<bool> (get_property (c, "respectIncompleteBeams"))),
     beat_structure_ ([&] {

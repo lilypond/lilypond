@@ -162,6 +162,35 @@ None so far.
 @itemize
 
 @item
+@code{strictBeatBeaming} has a new default value, @code{on-beat}.
+Like @code{#t}, it creates fractional beams to avoid beaming
+across beats, but unlike @code{#t}, it does not create fractional
+beams based on sub-beat rhythmic importance.
+
+@lilypond[quote]
+exampleRhythm = {
+  \time 2/4
+  8.->[ 16 16-> 16 8]
+  \time 6/8
+  8.->[ 16 16 16] 4.->
+}
+
+<<
+  \new RhythmicStaff \with {
+    strictBeatBeaming = ##f
+    instrumentName = \markup \typewriter "#f"
+  } \exampleRhythm
+  \new RhythmicStaff \with {
+    instrumentName = \markup \typewriter "on-beat"
+  } \exampleRhythm
+  \new RhythmicStaff \with {
+    strictBeatBeaming = ##t
+    instrumentName = \markup \typewriter "#t"
+  } \exampleRhythm
+>>
+@end lilypond
+
+@item
 @code{\markup \rhythm} now supports bar lines.
 
 @lilypond[quote,verbatim]

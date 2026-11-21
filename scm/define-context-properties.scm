@@ -751,8 +751,20 @@ The default is @samp{S.|:}.")
 on the left side of the next note.  Overrides automatic beaming.  The
 value is only used once, and then it is erased.")
      (stemRightBeamCount ,integer? "See @code{stemLeftBeamCount}.")
-     (strictBeatBeaming ,boolean? "Should partial beams reflect the
-beat structure even if it causes flags to hang out?")
+     (strictBeatBeaming ,boolean-or-symbol? "Select the policy for fractional
+beams.  Supported values:
+
+@itemize
+@item
+@code{on-beat} creates fractional beams to avoid crossing the beats specified
+by the @code{beatStructure} property.
+@item
+@code{#t} acts as @code{on-beat} and also, within beats, beams toward the more
+rhythmically significant neighbor, even if that adds fractional beams.
+@item
+@code{#f} reduces the number of fractional beams by ignoring rhythmic
+structure.
+@end itemize")
      (stringNumberOrientations ,list? "See
 @code{fingeringOrientations}.")
      (stringOneTopmost ,boolean? "Whether the first string is

@@ -36,8 +36,16 @@
 struct Beaming_options
 {
 public:
+  enum class Strictness : unsigned char
+  {
+    LOOSE = 0,
+    ON_BEAT = 1,
+    STRICT = 2,
+  };
+
+public:
   bool subdivide_beams_ = false;
-  bool strict_beat_beaming_ = false;
+  Strictness strictness_ = Strictness::LOOSE;
   bool respect_incomplete_beams_ = false;
 
   SCM beat_structure_ = SCM_EOL;
@@ -63,9 +71,16 @@ public:
 
   void gc_mark () const;
 
+  bool is_strict_on_beat () const { return strictness_ != Strictness::LOOSE; }
+  bool is_strict_off_beat () const
+  {
+    return strictness_ == Strictness::STRICT;
+  }
+
 private:
   static Rational calc_period (Context const *, SCM beat_structure,
                                Rational beat_base);
+  static Strictness get_strictness (Context const *);
 };
 
 /*
