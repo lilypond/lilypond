@@ -25,6 +25,7 @@ placed when the beat it points at is a fraction of @code{beatBase}."
 %% A structure given to \time, with the fractional beat first.
 \score {
   \new Staff {
+    \tempo "½,1,1"
     \time #'(1/2 1 1) #'(5/2 . 4)
     c''16[ c'' c''8] c''16[ c'' c'' c''8]
   }
