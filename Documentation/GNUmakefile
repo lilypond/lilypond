@@ -280,14 +280,21 @@ update-info-directory-file-uninstall:
 	        --info-dir=$(DESTDIR)$(infodir) \
 	        $(f).info > /dev/null 2>&1 ; ) true )
 
+HEX_DIGITS = 0 1 2 3 4 5 6 7 8 9 a b c d e f
+IMAGE_BUCKETS = $(foreach a,$(HEX_DIGITS),$(foreach b,$(HEX_DIGITS),$(a)$(b)))
+
 ifeq ($(out),www)
-  UPDATE_IMAGE_SYMLINKS = \
-    mkdir -p $(outdir)/$(INFO_IMAGES_DIR) \
-      && cd $(outdir)/$(INFO_IMAGES_DIR) \
-      && find ../en -maxdepth 1 -name '[0-9a-f][0-9a-f]' \
-              -exec sh -c 'ln -sf "$$@" .' sh {} +
+  INFO_IMAGE_SYMLINKS_DEP = $(outdir)/info-image-symlinks.dep
+
+$(INFO_IMAGE_SYMLINKS_DEP):
+	$(call ly_progress,Making,$@,)
+	mkdir -p $(addprefix $(outdir)/en/,$(IMAGE_BUCKETS)) \
+	         $(outdir)/$(INFO_IMAGES_DIR)
+	cd $(outdir)/$(INFO_IMAGES_DIR) \
+	  && ln -sf $(addprefix ../en/,$(IMAGE_BUCKETS)) .
+	touch $@
 else
-  UPDATE_IMAGE_SYMLINKS = true
+  INFO_IMAGE_SYMLINKS_DEP =
 endif
 
 install-info-images: $(INFO_FILES)
@@ -298,6 +305,7 @@ ifeq ($(out),www)
 	    $(INSTALLPY) -d $(DESTDIR)$(infodir)/$(INFO_IMAGES_DIR)
 	    rsync \
 	      --copy-links \
+	      --prune-empty-dirs \
 	      --recursive \
 	      --include="*/" \
 	      --include="*.png" \
@@ -415,9 +423,9 @@ $(outdir)/weblinks.itexi: $(top-src-dir)/VERSION
 $(outdir)/lilypond-%.info: \
   $(outdir)/en/%.texi \
   $(outdir)/version.itexi \
-  $(outdir)/weblinks.itexi
+  $(outdir)/weblinks.itexi \
+  | $(INFO_IMAGE_SYMLINKS_DEP)
 	$(call ly_progress,Making,$@,< texi)
-	$(UPDATE_IMAGE_SYMLINKS)
 	$(buildscript-dir)/run-and-check.sh \
 \
 "$(TEXI2ANY) --info \
@@ -430,9 +438,9 @@ $(outdir)/lilypond-%.info: \
 $(outdir)/music-glossary.info: \
   $(outdir)/en/music-glossary.texi \
   $(outdir)/version.itexi \
-  $(outdir)/weblinks.itexi
+  $(outdir)/weblinks.itexi \
+  | $(INFO_IMAGE_SYMLINKS_DEP)
 	$(call ly_progress,Making,$@,< texi)
-	$(UPDATE_IMAGE_SYMLINKS)
 	$(buildscript-dir)/run-and-check.sh \
 \
 "$(TEXI2ANY) --info \
