@@ -54,19 +54,25 @@ do
         if [ -f ${LNG}/${DOC}.pdf ]; then
             cp ${LNG}/${DOC}.pdf ${DEST}/${DOC}.${pdf_suffix}
         fi
-        find ${LNG}/${DOC}/ -type f -name '*.html' | while read fn
-        do
-            if grep --quiet "^<p>UNTRANSLATED NODE: IGNORE ME" $fn ; then
-                continue
-            fi
-            dst="${DEST}/${DOC}/$(basename $fn .html).${html_suffix}"
-
-            $PERL -p \
-              -e 's#(href|src)="([a-f0-9]*/lily-[a-f0-9]*)\.(ly|png)"#\1="../\2.\3"#g;' \
-              -e 's#(href|src)="(pictures|ly-examples|css)/#\1="../\2/#g;' \
-              < $fn \
-              > $dst
-        done
+        find ${LNG}/${DOC}/ -type f -name '*.html' \
+          | $PERL -e '
+              my ($dest, $suffix) = @ARGV;
+              while (my $fn = <STDIN>) {
+                  chomp $fn;
+                  my $s = do {
+                      open my $in, "<", $fn or die "$fn: $!";
+                      local $/;
+                      <$in>;
+                  };
+                  next if $s =~ /^<p>UNTRANSLATED NODE: IGNORE ME/m;
+                  $s =~ s#(href|src)="([a-f0-9]*/lily-[a-f0-9]*)\.(ly|png)"#$1="../$2.$3"#g;
+                  $s =~ s#(href|src)="(pictures|ly-examples|css)/#$1="../$2/#g;
+                  (my $b = $fn) =~ s{.*/}{};
+                  $b =~ s/\.html\z//;
+                  open my $out, ">", "$dest/$b.$suffix" or die "$dest/$b.$suffix: $!";
+                  print $out $s;
+                  close $out;
+              }' "${DEST}/${DOC}" "${html_suffix}"
     done &
 done
 wait
