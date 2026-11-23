@@ -586,6 +586,8 @@ Binärpakete herunterladen:
 
 @downloadDevelLinux
 
+@downloadDevelDarwinArm
+
 @downloadDevelDarwin
 
 @uref{https://ports.macports.org/port/lilypond-devel/summary,
