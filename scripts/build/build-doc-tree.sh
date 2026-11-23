@@ -36,6 +36,9 @@ do
         mkdir -p ${DEST}/${DOC}
 done
 
+# For collecting worker process ids
+pids=
+
 # Don't use the locale-specific variable name `LANG` for a local variable.
 for LNG in ${LANGS}
 do
@@ -74,8 +77,13 @@ do
                   close $out;
               }' "${DEST}/${DOC}" "${html_suffix}"
     done &
+    pids="$pids $!"
 done
-wait
+# A single wait does not convey failed execution exit states for the sake of set -e
+for pid in $pids
+do
+    wait "$pid"
+done
 
 rsync -a misc ${DEST}
 rsync -a pictures ${DEST}
