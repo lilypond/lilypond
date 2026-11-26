@@ -324,6 +324,32 @@ class Substring (Chunk):
             return self.source[self.start:self.end]
 
 
+def install_file(src, dst, content=None):
+    """Atomically make `dst` appear, as a link to `src` or with `content`.
+
+    Safe against concurrent lilypond-book processes installing the same
+    destination: the last one wins, and `dst` is never missing or partial.
+    """
+    tmp = '%s.tmp-%d' % (dst, os.getpid())
+    try:
+        if content is not None:
+            with open(tmp, 'wb') as f:
+                f.write(content)
+        else:
+            try:
+                os.link(src, tmp)
+            except (AttributeError, NotImplementedError):
+                shutil.copyfile(src, tmp)
+        os.replace(tmp, dst)
+    finally:
+        # If `tmp` and `dst` are hard links to the same inode, rename(2)
+        # succeeds but leaves `tmp` in place, so always clean up.
+        try:
+            os.unlink(tmp)
+        except FileNotFoundError:
+            pass
+
+
 class Snippet (Chunk):
     def __init__(self, type, match, formatter, line_number, global_options):
         self.type = type
@@ -748,30 +774,23 @@ printing diff against existing file." % filename)
                 final_name = self.final_basename() + base_suffix + ext
             else:
                 final_name = name
-            try:
-                os.unlink(os.path.join(destination, final_name))
-            except OSError:
-                pass
 
             src = os.path.join(output_dir, name)
             dst = os.path.join(destination, final_name)
-            dst_path = os.path.split(dst)[0]
-            os.makedirs(dst_path, exist_ok=True)
+            os.makedirs(os.path.dirname(dst), exist_ok=True)
             try:
                 if (self.global_options.use_source_file_names
                         and isinstance(self, LilypondFileSnippet)):
-                    content = open(src, 'rb').read()
-                    basename = self.basename().encode('utf-8')
-                    final_basename = self.final_basename().encode('utf-8')
-                    content = content.replace(basename, final_basename)
-                    open(dst, 'wb').write(content)
+                    with open(src, 'rb') as f:
+                        content = f.read()
+                    content = content.replace(
+                        self.basename().encode('utf-8'),
+                        self.final_basename().encode('utf-8'))
+                    install_file(src, dst, content)
                 else:
-                    try:
-                        os.link(src, dst)
-                    except AttributeError:
-                        shutil.copyfile(src, dst)
-            except (IOError, OSError):
-                ly.error(_('Could not overwrite file %s') % dst)
+                    install_file(src, dst)
+            except (IOError, OSError) as e:
+                ly.error(_('Could not overwrite file %s: %s') % (dst, e))
                 raise CompileError(self.basename())
 
     def additional_files_to_consider(self, base, full):
